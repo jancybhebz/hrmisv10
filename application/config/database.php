@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'hrmis2018',
+	'hostname' => '10.10.10.38',
+	'username' => 'hrmis_user',
+	'password' => 'web@dm!n',
+	'database' => 'hrmis',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
