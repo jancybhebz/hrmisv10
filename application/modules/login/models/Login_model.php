@@ -11,8 +11,9 @@ class Login_model extends CI_Model {
 	{
 		
 		$strPass = $this->db->escape_str($strPassword);
-		$strSQL = " SELECT tblEmpAccount.*,tblEmpPosition.* FROM tblEmpAccount
+		$strSQL = " SELECT tblEmpAccount.*,tblEmpPosition.*,tblEmpPersonal.surname,tblEmpPersonal.firstname FROM tblEmpAccount
 					LEFT JOIN tblEmpPosition ON tblEmpPosition.empNumber=tblEmpAccount.empNumber
+					LEFT JOIN tblEmpPersonal ON tblEmpPersonal.empNumber=tblEmpAccount.empNumber
 					WHERE 1=1 
 					AND userName='".$this->db->escape_str($strUsername)."'
 					AND userPassword='".md5($strPass)."'

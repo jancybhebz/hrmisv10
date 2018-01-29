@@ -12,10 +12,32 @@ class Login extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$this->load->model('login_model');
-			print_r($this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']));
+			$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
+			if(!empty($arrUser)):
+				//print_r($arrUser);
+				$this->set_session_login_data($arrUser[0]['empNumber'],$arrUser[0]['userLevel'],$arrUser[0]['userPermission'],$arrUser[0]['accessPermission'],$arrUser[0]['userName'],$arrUser[0]['userPassword'],$arrUser[0]['firstname'].' '.$arrUser[0]['surname'],$arrUser[0]['assignedGroup']);
+				redirect('home/index');
+			endif;
 			//print_r($arrPost);
 		else:
 			$this->load->view('login_view');
 		endif;
+	}
+
+	function set_session_login_data($strEmpno,$strLevel,$strUserPermission,$strAccessPermission,$strUsername,$strPassword,$strName,$strGroup)
+	{
+		$sessData = array(
+			 'sessEmpNo'			=> $strEmpno,
+			 'sessUserLevel'  		=> $strLevel,
+			 'sessUserPermission'  	=> $strUserPermission,
+			 'sessUserName'  		=> $strUsername,
+			 'sessUserPassword' 	=> $strPassword,
+			 'sessName'  			=> $strName,
+			 'sessAccessPermission'	=> $strAccessPermission,
+			 'sessAssignedGroup'	=> $strGroup,
+			 'sessBoolLoggedIn' 	=> TRUE,
+			);
+		
+		$this->session->set_userdata($sessData);
 	}
 }
