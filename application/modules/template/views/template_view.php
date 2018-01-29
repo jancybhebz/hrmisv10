@@ -185,7 +185,7 @@
                     window.history.back();
                 });
                 <?php if($this->session->flashdata('strMsg')!=''):?>
-                    toastr.info('<?=$this->session->flashdata('strMsg')?>')
+                    toastr.warning('<?=$this->session->flashdata('strMsg')?>')
                 <?php endif;?>
 
                 <?php if($this->session->flashdata('strErrorMsg')!=''):?>

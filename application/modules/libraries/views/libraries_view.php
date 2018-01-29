@@ -46,7 +46,7 @@
     <div class="col-md-9">
         <div class="tab-content">
             <div id="tab_courses" class="tab-pane active">
-                <?php include('courses_view.php');?>
+                <?php include('course/list_view.php');?>
             </div>
             <div id="tab_2-2" class="tab-pane">
                 <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.

@@ -61,8 +61,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Add</button>
-                                <a href="<?=base_url('libraries/course')?>"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
+                                <a href="<?=base_url('libraries/course')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>

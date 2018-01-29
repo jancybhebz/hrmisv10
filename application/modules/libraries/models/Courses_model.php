@@ -35,22 +35,23 @@ class Courses_model extends CI_Model {
 					WHERE 1=1 
 					$where
 					ORDER BY courseDesc
-					";				
+					";
+		//echo $strSQL;exit(1);				
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	
 	}			
 		
-	public function save($arrData, $intId)
+	public function save($arrData, $strCode)
 	{
-		$this->db->where('courseCode',$intId);
+		$this->db->where('courseCode',$strCode);
 		$this->db->update('tblCourse', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	public function delete($intId)
+	public function delete($strCode)
 	{
-		$this->db->where('courseCode', $intId);
+		$this->db->where('courseCode', $strCode);
 		$this->db->delete('tblCourse'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

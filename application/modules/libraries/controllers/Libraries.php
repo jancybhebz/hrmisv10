@@ -21,13 +21,15 @@ class Libraries extends MY_Controller {
 	{
 		$strView = $this->uri->segment(3);
 		$arrPost = $this->input->post();
+		$this->load->model(array('libraries/courses_model'));
+
 		if($strView=="add"):
 			if(!empty($arrPost)):
 				//print_r($arrPost);
 				$strCode=$arrPost['strCode'];
 				$strDescription=$arrPost['strDescription'];
 				if(!empty($strCode) && !empty($strDescription)):
-					$this->load->model('libraries/courses_model');
+					//$this->load->model('libraries/courses_model');
 					if( count($this->courses_model->checkExist($strCode))==0 ):
 						$arrData = array(
 							'courseCode'=>$strCode,
@@ -47,7 +49,42 @@ class Libraries extends MY_Controller {
 					endif;
 				endif;
 			else:	
-				$this->template->load('template/template_view','libraries/add_course_view',$this->arrData);
+				$this->template->load('template/template_view','libraries/course/add_view',$this->arrData);
+			endif;
+		elseif($strView=="edit"):
+			if(!empty($arrPost)):
+				$strCode = $arrPost['strCode'];
+				$strDescription=$arrPost['strDescription'];
+				if(!empty($strDescription)):
+					$arrData = array(
+						'courseDesc'=>$strDescription
+					);
+					$blnReturn=$this->courses_model->save($arrData,$strCode);
+					if(count($blnReturn)>0):
+						$this->session->set_flashdata('strMsg','Course saved successfully.');
+					endif;
+					redirect('libraries/course');
+				endif;
+			else:
+				$strCode = urldecode($this->uri->segment(4));
+				$this->arrData['arrData']=$this->courses_model->getData($strCode);
+				$this->template->load('template/template_view','libraries/course/edit_view',$this->arrData);
+			endif;
+		elseif($strView=="delete"):
+			//$strDescription=$arrPost['strDescription'];
+			$strCode = $this->uri->segment(4);
+			if(!empty($arrPost)):
+				$strCode = $arrPost['strCode'];
+				if(!empty($strCode)):
+					$blnReturn=$this->courses_model->delete($strCode);
+					if(count($blnReturn)>0):
+						$this->session->set_flashdata('strMsg','Course deleted successfully.');
+					endif;
+					redirect('libraries/course');
+				endif;
+			else:
+				$this->arrData['arrData']=$this->courses_model->getData($strCode);
+				$this->template->load('template/template_view','libraries/course/delete_view',$this->arrData);
 			endif;
 		else:
 			$this->index();
