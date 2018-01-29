@@ -1,0 +1,31 @@
+.login {
+    background-color: #2a4b75!important;
+}
+h1.hrmisLogo {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bolder;
+    position: absolute;
+    top: 5px;
+    color: #2a4b75;
+}
+div.small {
+    display: inline-table;
+    position: absolute;
+    top: 62px;
+    color: #2a4b75;
+    margin-left: 13px;
+    font-weight: 500;
+}
+p.small{
+	text-align: justify;
+    padding: 0 23px;
+    color: #eceef1;
+}
+ul.profile-info-employee li {
+    list-style: none !important;
+    margin-left: -41px !important;
+}
+.page-header.navbar.navbar-fixed-top {
+    background: #0f538a;
+}
