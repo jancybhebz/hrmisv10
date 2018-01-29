@@ -40,4 +40,9 @@ class Login extends MY_Controller {
 		
 		$this->session->set_userdata($sessData);
 	}
+
+	function timeoutkeepalive()
+	{
+		
+	}
 }

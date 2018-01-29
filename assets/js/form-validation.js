@@ -1,3 +1,6 @@
+jQuery.validator.addMethod("noSpace", function(value, element) { 
+  return value.indexOf(" ") < 0 && value != ""; 
+}, "No space please and don't leave it empty");
 var FormValidation = function () {
 
     // validation using icons
@@ -17,7 +20,8 @@ var FormValidation = function () {
                 rules: {
                     strCode: {
                         minlength: 2,
-                        required: true
+                        required: true,
+                        noSpace: true
                     },
                     strDescription: {
                         required: true,

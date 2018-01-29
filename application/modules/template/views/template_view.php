@@ -25,7 +25,7 @@
         <!--link href="../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" /-->
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="<?=base_url('assets/css/components.min.css')?>" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="<?=base_url('assets/css/components.css')?>" rel="stylesheet" id="style_components" type="text/css" />
         <link href="<?=base_url('assets/css/plugins.min.css')?>" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN PAGE LEVEL STYLES -->
@@ -161,6 +161,8 @@
         <script src="<?=base_url('assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js')?>" type="text/javascript"></script>
         <script src="<?=base_url('assets/plugins/jquery.blockui.min.js')?>" type="text/javascript"></script>
         <script src="<?=base_url('assets/plugins/uniform/jquery.uniform.min.js')?>" type="text/javascript"></script>
+        <script src="<?=base_url('assets/plugins/bootstrap-sessiontimeout/bootstrap-session-timeout.min.js')?>" type="text/javascript"></script>
+        <script src="<?=base_url('assets/js/ui-session-timeout.js')?>" type="text/javascript"></script>
         <!--script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script-->
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->

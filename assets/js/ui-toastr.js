@@ -27,14 +27,14 @@ var UIToastr = function () {
                 var shortCutFunction = $("#toastTypeGroup input:checked").val();
                 var msg = $('#message').val();
                 var title = $('#title').val() || '';
-                var $showDuration = $('#showDuration');
-                var $hideDuration = $('#hideDuration');
-                var $timeOut = $('#timeOut');
-                var $extendedTimeOut = $('#extendedTimeOut');
-                var $showEasing = $('#showEasing');
-                var $hideEasing = $('#hideEasing');
-                var $showMethod = $('#showMethod');
-                var $hideMethod = $('#hideMethod');
+                var $showDuration = 1000;
+                var $hideDuration = 1000;
+                var $timeOut = 5000;
+                var $extendedTimeOut = 1000;
+                var $showEasing = 'swing';
+                var $hideEasing = 'linear';
+                var $showMethod = 'fadeIn';
+                var $hideMethod = 'fadeOut';
                 var toastIndex = toastCount++;
 
                 toastr.options = {
@@ -50,42 +50,42 @@ var UIToastr = function () {
                     };
                 }
 
-                if ($showDuration.val().length) {
-                    toastr.options.showDuration = $showDuration.val();
+                if ($showDuration.length) {
+                    toastr.options.showDuration = $showDuration;
                 }
 
-                if ($hideDuration.val().length) {
-                    toastr.options.hideDuration = $hideDuration.val();
+                if ($hideDuration.length) {
+                    toastr.options.hideDuration = $hideDuration;
                 }
 
-                if ($timeOut.val().length) {
-                    toastr.options.timeOut = $timeOut.val();
+                if ($timeOut.length) {
+                    toastr.options.timeOut = $timeOut;
                 }
 
-                if ($extendedTimeOut.val().length) {
-                    toastr.options.extendedTimeOut = $extendedTimeOut.val();
+                if ($extendedTimeOut.length) {
+                    toastr.options.extendedTimeOut = $extendedTimeOut;
                 }
 
-                if ($showEasing.val().length) {
-                    toastr.options.showEasing = $showEasing.val();
+                if ($showEasing.length) {
+                    toastr.options.showEasing = $showEasing;
                 }
 
-                if ($hideEasing.val().length) {
-                    toastr.options.hideEasing = $hideEasing.val();
+                if ($hideEasing.length) {
+                    toastr.options.hideEasing = $hideEasing;
                 }
 
-                if ($showMethod.val().length) {
-                    toastr.options.showMethod = $showMethod.val();
+                if ($showMethod.length) {
+                    toastr.options.showMethod = $showMethod;
                 }
 
-                if ($hideMethod.val().length) {
-                    toastr.options.hideMethod = $hideMethod.val();
+                if ($hideMethod.length) {
+                    toastr.options.hideMethod = $hideMethod;
                 }
 
                 if (!msg) {
                     msg = getMessage();
                 }
-
+                /*
                 $("#toastrOptions").text("Command: toastr[" + shortCutFunction + "](\"" + msg + (title ? "\", \"" + title : '') + "\")\n\ntoastr.options = " + JSON.stringify(toastr.options, null, 2));
 
                 var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
@@ -105,6 +105,7 @@ var UIToastr = function () {
                 $('#clearlasttoast').click(function () {
                     toastr.clear($toastlast);
                 });
+                */
             //});
             $('#cleartoasts').click(function () {
                 toastr.clear();

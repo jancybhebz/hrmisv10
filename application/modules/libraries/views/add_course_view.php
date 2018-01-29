@@ -62,7 +62,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Add</button>
-                                <button class="btn btn-primary btn-cancel" type="button">Cancel</button>
+                                <a href="<?=base_url('libraries/course')?>"><button class="btn btn-primary" type="button">Cancel</button></a>
                             </div>
                         </div>
                     </div>

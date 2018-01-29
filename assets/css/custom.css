@@ -90,3 +90,6 @@ i.icon-magnifier, span.title {
     color: #ffffff;
 }
 .dataTables_filter{text-align: right !important;}
+.page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a {
+    border-top: 0 solid #ffffff !important;
+    color: #b4bcc8;}

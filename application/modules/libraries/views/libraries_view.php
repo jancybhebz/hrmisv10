@@ -26,20 +26,20 @@
         <ul class="ver-inline-menu tabbable margin-bottom-10">
             <li class="active">
                 <a data-toggle="tab" href="#tab_courses">
-                    <i class="fa fa-cog"></i> Courses </a>
+                    <i class="fa fa-graduation-cap"></i> Courses </a>
                 <span class="after"> </span>
             </li>
             <li>
                 <a data-toggle="tab" href="#tab_2-2">
-                    <i class="fa fa-picture-o"></i> Country </a>
+                    <i class="fa fa-flag"></i> Country </a>
             </li>
             <li>
                 <a data-toggle="tab" href="#tab_3-3">
-                    <i class="fa fa-lock"></i> Exam Type </a>
+                    <i class="fa fa-sticky-note"></i> Exam Type </a>
             </li>
             <li>
                 <a data-toggle="tab" href="#tab_4-4">
-                    <i class="fa fa-eye"></i> Leave Type </a>
+                    <i class="fa fa-tag"></i> Leave Type </a>
             </li>
         </ul>
     </div>
