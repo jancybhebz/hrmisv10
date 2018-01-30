@@ -36,6 +36,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--link href="../assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" /-->
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="<?=base_url('assets/plugins/bootstrap-toastr/toastr.min.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/css/components.min.css')?>" rel="stylesheet" id="style_components" type="text/css" />
         <link href="<?=base_url('assets/css/plugins.min.css')?>" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
@@ -108,6 +109,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <script src="<?=base_url('assets/plugins/jquery-validation/js/jquery.validate.min.js')?>" type="text/javascript"></script>
         <script src="<?=base_url('assets/plugins/jquery-validation/js/additional-methods.min.js')?>" type="text/javascript"></script>
+        <?php load_plugin(array('toaster'));?>
         <!--script src="../assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script-->
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
@@ -115,6 +117,15 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="<?=base_url('assets/js/login.min.js')?>" type="text/javascript"></script>
+        <script>
+            $(document).ready(function(){
+
+                <?php if($this->session->flashdata('strErrorMsg')!=''):?>
+                    toastr.error('<?=$this->session->flashdata('strErrorMsg')?>')
+                <?php endif;?>
+
+            });  
+        </script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <!-- END THEME LAYOUT SCRIPTS -->

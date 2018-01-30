@@ -17,6 +17,9 @@ class Login extends MY_Controller {
 				//print_r($arrUser);
 				$this->set_session_login_data($arrUser[0]['empNumber'],$arrUser[0]['userLevel'],$arrUser[0]['userPermission'],$arrUser[0]['accessPermission'],$arrUser[0]['userName'],$arrUser[0]['userPassword'],$arrUser[0]['firstname'].' '.$arrUser[0]['surname'],$arrUser[0]['assignedGroup']);
 				redirect('home/index');
+			else:
+				$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
+				$this->load->view('login_view');
 			endif;
 			//print_r($arrPost);
 		else:
