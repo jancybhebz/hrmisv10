@@ -23,7 +23,7 @@ class Country extends MY_Controller {
 		$this->arrData['arrCourses']=$this->courses_model->getData();
 		$this->template->load('template/template_view','libraries/country/country_view',$this->arrData);
 	}
-
+	
 	public function add()
 	{
 		if(!empty($arrPost)):

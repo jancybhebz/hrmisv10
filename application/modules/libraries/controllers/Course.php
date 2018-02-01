@@ -17,7 +17,7 @@ class Course extends MY_Controller {
 		$this->template->load('template/template_view','libraries/course/list_view',$this->arrData);
 		
 	}
-
+	
     public function add()
     {
     	$arrPost = $this->input->post();
@@ -34,6 +34,7 @@ class Course extends MY_Controller {
 						'courseDesc'=>$strDescription
 					);
 					$blnReturn=$this->courses_model->add($arrData);
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCourse','Added Course',implode(';',$arrData),'');
 					
 					if(count($blnReturn)>0)
 						$this->session->set_flashdata('strMsg','Course added successfully.');
