@@ -1,4 +1,5 @@
 <?php $active=$this->uri->segment(1)!=''?$this->uri->segment(1):'home';?>
+<?php $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';?>
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
@@ -73,7 +74,30 @@
                     <span class="title">Libraries</span>
                     <span class="arrow"></span>
                 </a>
-                
+                <ul class="sub-menu">
+                    <li class="nav-item start <?=$activesub=='course'?'active':''?>">
+                        <a href="<?=base_url('libraries/course')?>" class="nav-link ">
+                            <span class="title">Course</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start <?=$activesub=='country'?'active':''?>">
+                        <a href="<?=base_url('libraries/country')?>" class="nav-link ">
+                            <span class="title">Country</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="#" class="nav-link ">
+                            <span class="title">Exam Type</span>
+                            
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="#" class="nav-link ">
+                            <span class="title">Leave Type</span>
+                            
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">

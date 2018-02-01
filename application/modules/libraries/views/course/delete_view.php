@@ -73,5 +73,5 @@
         </div>
     </div>
 </div>
-<?php load_plugin(array('validation'));?>
-<script src="<?=base_url('assets/js/form-validation.js')?>" type="text/javascript"></script>
+<?php load_plugin('js',array('validation'));?>
+

@@ -1,8 +1,8 @@
-var TableDatatablesManaged = function () {
+var Datatables = function () {
 
-    var initCourses = function () {
+    var initCourses = function (id) {
 
-        var table = $('#libraries_course');
+        var table = $('#'+id);
 
         // begin first table
         table.dataTable({
@@ -81,19 +81,16 @@ var TableDatatablesManaged = function () {
 
     return {
         //main function to initiate the module
-        init: function () {
+        init: function (id) {
             if (!jQuery().dataTable) {
                 return;
             }
-            initCourses();
+            initCourses(id);
         }
 
     };
 
 }();
 
-if (App.isAngularJsApp() === false) { 
-    jQuery(document).ready(function() {
-        TableDatatablesManaged.init();
-    });
-}
+
+    

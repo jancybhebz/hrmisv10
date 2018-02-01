@@ -1,19 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Courses_model extends CI_Model {
 
-	public function __construct()
+	function __construct()
 	{
 		$this->load->database();
 		//$this->db->initialize();	
 	}
 	
-	public function add($arrData)
+	function add($arrData)
 	{
 		$this->db->insert('tblCourse', $arrData);
 		return $this->db->insert_id();		
 	}
 	
-	public function checkExist($strCode)
+	function checkExist($strCode)
 	{		
 		$strSQL = " SELECT courseCode FROM tblCourse					
 					WHERE 1=1 
@@ -25,7 +25,7 @@ class Courses_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	public function getData($strCode="")
+	function getData($strCode="")
 	{		
 		$where='';
 		if($strCode!="")
@@ -41,7 +41,7 @@ class Courses_model extends CI_Model {
 		return $objQuery->result_array();	
 	}			
 		
-	public function save($arrData, $strCode)
+	function save($arrData, $strCode)
 	{
 		$this->db->where('courseCode',$strCode);
 		$this->db->update('tblCourse', $arrData);
@@ -49,7 +49,7 @@ class Courses_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	public function delete($strCode)
+	function delete($strCode)
 	{
 		$this->db->where('courseCode', $strCode);
 		$this->db->delete('tblCourse'); 	

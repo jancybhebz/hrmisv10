@@ -1,3 +1,5 @@
+<?php load_plugin('css',array('','datepicker'));?>
+
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -50,3 +52,11 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
+<?php load_plugin('js',array('datatable'));?>
+
+
+<script>
+    $(document).ready(function() {
+        Datatables.init('libraries_course');
+  });
+</script>

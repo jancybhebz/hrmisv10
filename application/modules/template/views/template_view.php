@@ -13,30 +13,7 @@
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
-        <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="<?=base_url('assets/css/fonts.css')?>" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets/plugins/font-awesome/css/font-awesome.min.css')?>" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets/plugins/simple-line-icons/simple-line-icons.min.css')?>" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets/plugins/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets/plugins/uniform/css/uniform.default.css')?>" rel="stylesheet" type="text/css" />
-        <!--link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" /-->
-        <!-- END GLOBAL MANDATORY STYLES -->
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <!--link href="../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" /-->
-        <!-- END PAGE LEVEL PLUGINS -->
-        <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="<?=base_url('assets/css/components.css')?>" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="<?=base_url('assets/css/plugins.min.css')?>" rel="stylesheet" type="text/css" />
-        <!-- END THEME GLOBAL STYLES -->
-        <!-- BEGIN PAGE LEVEL STYLES -->
-        <link href="<?=base_url('assets/css/profile.min.css')?>" rel="stylesheet" type="text/css" />
-        <!-- END PAGE LEVEL STYLES -->
-        <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="<?=base_url('assets/css/layout.min.css')?>" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets/css/themes/darkblue.min.css')?>" rel="stylesheet" type="text/css" id="style_color" />
-        <link href="<?=base_url('assets/plugins/bootstrap-toastr/toastr.min.css')?>" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets/css/custom.css')?>" rel="stylesheet" type="text/css" />
-        <!-- END THEME LAYOUT STYLES -->
+        <?php load_plugin('css',array('global'));?>
         <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" />
         <script src="<?=base_url('assets/js/jquery.min.js')?>" type="text/javascript"></script>
         <script src="<?=base_url('assets/plugins/bootstrap/js/bootstrap.min.js')?>" type="text/javascript"></script>
@@ -186,39 +163,18 @@
         </div>
         <!-- END FOOTER -->
         <!--[if lt IE 9]>
-<script src="../assets/global/plugins/respond.min.js"></script>
-<script src="../assets/global/plugins/excanvas.min.js"></script> 
+<script src="../assets/plugins/respond.min.js"></script>
+<script src="../assets/plugins/excanvas.min.js"></script> 
 <![endif]-->
         <!-- BEGIN CORE PLUGINS -->
         
         <!--script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script-->
         <!--script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script-->
-        <script src="<?=base_url('assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js')?>" type="text/javascript"></script>
-        <script src="<?=base_url('assets/plugins/jquery.blockui.min.js')?>" type="text/javascript"></script>
-        <script src="<?=base_url('assets/plugins/uniform/jquery.uniform.min.js')?>" type="text/javascript"></script>
-        <script src="<?=base_url('assets/plugins/bootstrap-sessiontimeout/bootstrap-session-timeout.min.js')?>" type="text/javascript"></script>
-        <script src="<?=base_url('assets/js/ui-session-timeout.js')?>" type="text/javascript"></script>
-        <!--script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script-->
-        <!-- END CORE PLUGINS -->
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <!--script src="../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script-->
-        <!--script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script-->
-        <!--script src="../assets/global/plugins/gmaps/gmaps.min.js" type="text/javascript"></script-->
-        <!-- END PAGE LEVEL PLUGINS -->
-        <!-- BEGIN THEME GLOBAL SCRIPTS -->
-        <?php load_plugin(array('toaster'));?>
-        <!-- END THEME GLOBAL SCRIPTS -->
-        <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <script src="<?=base_url('assets/js/layout.min.js')?>" type="text/javascript"></script>
-        <!--script src="<?=base_url('assets/layouts/layout/scripts/demo.js')?>" type="text/javascript"></script-->
-        <script src="<?=base_url('assets/js/quick-sidebar.min.js')?>" type="text/javascript"></script>
+        <?php load_plugin('js',array('global'));?>
         <!-- END THEME LAYOUT SCRIPTS -->
         <script>
             $(document).ready(function(){
-                $('button.btn-cancel').on('click', function(e){
-                    e.preventDefault();
-                    window.history.back();
-                });
+                /* Set flash message */
                 <?php if($this->session->flashdata('strMsg')!=''):?>
                     toastr.warning('<?=$this->session->flashdata('strMsg')?>')
                 <?php endif;?>
@@ -226,7 +182,19 @@
                 <?php if($this->session->flashdata('strErrorMsg')!=''):?>
                     toastr.error('<?=$this->session->flashdata('strErrorMsg')?>')
                 <?php endif;?>
-
+                /* set session timeout */
+                $.sessionTimeout({
+                    title: 'Session Timeout Notification',
+                    message: 'Your session is about to expire.',
+                    keepAliveUrl: '<?=base_url('login/timeoutkeepalive')?>',
+                    redirUrl: '<?=base_url('logout')?>',
+                    logoutUrl: '<?=base_url('logout')?>',
+                    warnAfter: 600000, //warn after 5 seconds
+                    redirAfter: 700000, //redirect after 10 secons, (1500/second)
+                    ignoreUserActivity: true,
+                    countdownMessage: 'Redirecting in {timer} seconds.',
+                    countdownBar: true
+                });
             });  
         </script>
     </body>

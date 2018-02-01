@@ -26,9 +26,9 @@ ul.profile-info-employee li {
     list-style: none !important;
     margin-left: -41px !important;
 }
-.page-logo {
+/*.page-logo {
     width: 256px !important;
-}
+}*/
 .page-header.navbar.navbar-fixed-top {
     background-color: #2987c7;
 }
