@@ -9,7 +9,7 @@ class Country_model extends CI_Model {
 	
 	function add($arrData)
 	{
-		$this->db->insert('tblCourse', $arrData);
+		$this->db->insert('tblCountry', $arrData);
 		return $this->db->insert_id();		
 	}
 	

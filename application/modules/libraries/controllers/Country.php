@@ -7,7 +7,7 @@ class Country extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-
+        $this->load->model(array('libraries/country_model'));
     }
 
 	// public function index()
@@ -19,7 +19,7 @@ class Country extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->model(array('libraries/courses_model'));
+		
 		$this->arrData['arrCourses']=$this->courses_model->getData();
 		$this->template->load('template/template_view','libraries/country/country_view',$this->arrData);
 	}
