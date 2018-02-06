@@ -1,4 +1,4 @@
-<?php load_plugin('css',array('','datepicker'));?>
+<?php load_plugin('css',array('datepicker'));?>
 
 <div class="row">
     <div class="col-md-12">

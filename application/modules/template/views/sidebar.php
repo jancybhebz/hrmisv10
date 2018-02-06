@@ -1,5 +1,9 @@
-<?php $active=$this->uri->segment(1)!=''?$this->uri->segment(1):'home';?>
-<?php $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';?>
+<?php 
+//set active for menu highlight
+$active=$this->uri->segment(1)!=''?$this->uri->segment(1):'home';
+//set activesub for submenu highlight
+$activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
+?>
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
@@ -59,7 +63,6 @@
                     <span class="title">Attendance</span>
                     <span class="arrow"></span>
                 </a>
-                
             </li>
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
@@ -75,28 +78,17 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item start <?=$activesub=='course'?'active':''?>">
-                        <a href="<?=base_url('libraries/course')?>" class="nav-link ">
-                            <span class="title">Course</span>
+                    <?php 
+                        //get library menu item from menu_helper
+                        $arrMenu = get_libraries();
+                        foreach($arrMenu as $i=>$menuItem){
+                    ?>
+                    <li class="nav-item start <?=$activesub==$i?'active':''?>">
+                        <a href="<?=base_url('libraries/'.$i)?>" class="nav-link ">
+                            <span class="title"><?=$menuItem?></span>
                         </a>
                     </li>
-                    <li class="nav-item start <?=$activesub=='country'?'active':''?>">
-                        <a href="<?=base_url('libraries/country')?>" class="nav-link ">
-                            <span class="title">Country</span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">Exam Type</span>
-                            
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">Leave Type</span>
-                            
-                        </a>
-                    </li>
+                    <?php } ?>
                 </ul>
             </li>
             <li class="nav-item  ">
@@ -105,10 +97,7 @@
                     <span class="title">Compensation</span>
                     <span class="arrow"></span>
                 </a>
-                
             </li>
-            
-            
             <li class="heading">
                 <h3 class="uppercase">Quicklinks</h3>
             </li>

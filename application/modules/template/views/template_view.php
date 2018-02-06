@@ -38,87 +38,7 @@
                 <!-- END RESPONSIVE MENU TOGGLER -->
                 <!-- BEGIN TOP NAVIGATION MENU -->
                 <div class="top-menu">
-                    <ul class="nav navbar-nav pull-right">
-                        <!-- BEGIN NOTIFICATION DROPDOWN -->
-                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-default"> 7 </span>
-                            </a>
-                            <?php include("notifications.php");?>
-                        </li>
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-default"> 7 </span>
-                            </a>
-                            <?php include("notifications.php");?>
-                        </li>
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-default"> 7 </span>
-                            </a>
-                            <?php include("notifications.php");?>
-                        </li>
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-default"> 7 </span>
-                            </a>
-                            <?php include("notifications.php");?>
-                        </li>
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-default"> 7 </span>
-                            </a>
-                            <?php include("notifications.php");?>
-                        </li>
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-default"> 7 </span>
-                            </a>
-                            <?php include("notifications.php");?>
-                        </li>
-                        <!-- END NOTIFICATION DROPDOWN -->
-                        
-                        
-                        <!-- BEGIN CONTROL PANEL -->
-                        <li class="dropdown dropdown-user">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <img alt="" class="img-circle" src="<?=base_url('assets/images/logo.png')?>" />
-                                <span class="username username-hide-on-mobile"> <?=$this->session->userdata('sessName')?> </span>
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-default">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-user"></i> Employee Module </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-lock"></i> Change Password </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="<?=base_url('logout');?>">
-                                        <i class="icon-key"></i> Log Out </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- END CONTROL PANEL -->
-                        <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <!-- <li class="dropdown dropdown-quick-sidebar-toggler">
-                            <a href="javascript:;" class="dropdown-toggle">
-                                <i class="icon-logout"></i>
-                            </a>
-                        </li> -->
-                        <!-- END QUICK SIDEBAR TOGGLER -->
-                    </ul>
+                    <?php include("notifications.php");?>
                 </div>
                 <!-- END TOP NAVIGATION MENU -->
             </div>
@@ -136,23 +56,16 @@
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
-                    <!-- BEGIN PAGE HEADER-->
-                    <!-- BEGIN THEME PANEL -->
-                    
-                    <!-- END THEME PANEL -->
-                    
                     <!-- BEGIN PAGE CONTENT -->
                     <?=$contents?>
                     <!-- END PAGE CONTENT -->
-                    
                 </div>
                 <!-- END CONTENT BODY -->
             </div>
             <!-- END CONTENT -->
-            <!-- BEGIN QUICK SIDEBAR -->
-            
         </div>
         <!-- END CONTAINER -->
+
         <!-- BEGIN FOOTER -->
         <div class="page-footer">
             <div class="page-footer-inner"> 2018 &copy; DOST-HRMIS.
@@ -166,12 +79,14 @@
 <script src="../assets/plugins/respond.min.js"></script>
 <script src="../assets/plugins/excanvas.min.js"></script> 
 <![endif]-->
-        <!-- BEGIN CORE PLUGINS -->
+        
         
         <!--script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script-->
         <!--script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script-->
-        <?php load_plugin('js',array('global'));?>
-        <!-- END THEME LAYOUT SCRIPTS -->
+        <?php 
+        //include global js plugins
+        load_plugin('js',array('global'));?>
+        <!-- BEGIN TEMPLATE SCRIPTS -->
         <script>
             $(document).ready(function(){
                 /* Set flash message */
@@ -197,6 +112,6 @@
                 });
             });  
         </script>
+        <!-- END TEMPLATE SCRIPTS -->
     </body>
-
 </html>

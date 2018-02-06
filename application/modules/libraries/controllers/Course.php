@@ -89,6 +89,7 @@ class Course extends MY_Controller {
 		if(!empty($arrPost))
 		{
 			$strCode = $arrPost['strCode'];
+			//add condition for checking dependencies from other tables
 			if(!empty($strCode))
 			{
 				$blnReturn=$this->courses_model->delete($strCode);
