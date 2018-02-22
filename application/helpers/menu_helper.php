@@ -33,4 +33,15 @@ if ( ! function_exists('get_libraries'))
 			'zone'=>'Zone'
 		);
 	}
+
+}
+
+
+if ( ! function_exists('deduction_type'))
+{
+    function deduction_type()
+    {
+		return array('Regular', 'Contribution', 'Loan', 'Others');
+	}
+
 }

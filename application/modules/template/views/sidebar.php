@@ -98,6 +98,164 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                     <span class="arrow"></span>
                 </a>
             </li>
+             <li class="heading">
+                <h3 class="uppercase">Finance Module</h3>
+            </li>
+            <li class="nav-item ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-wallet"></i>
+                    <span class="title">Compensation</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Personnel Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Income</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Deduction Summary</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Premiums/Loans</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Remittances</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Tax Details</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">DTR</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Adjustments</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-layers"></i>
+                    <span class="title">Reports</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Monthly Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Employee Remittances</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Employee Loan balance</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item <?=$active=='Finance'?'active open':''?>">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-settings"></i>
+                    <span class="title">Libraries</span>
+                    <span class="arrow <?=$active=='Finance'?'open':''?>"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item <?=$activesub=='deductions'?'active open':''?>">
+                        <a href="<?=base_url('Finance/deductions')?>"">
+                            <span class="title">Deduction</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Income</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Payroll Process</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Project Code</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Payroll Group</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Signatory</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-bell"></i>
+                    <span class="title">Notification</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Included in Payroll ()</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Maturing Loans ()</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Increase in Longevity Factor ()</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-docs"></i>
+                    <span class="title">Update</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Process Payroll</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title">Update OR Remittances</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="heading">
                 <h3 class="uppercase">Quicklinks</h3>
             </li>
