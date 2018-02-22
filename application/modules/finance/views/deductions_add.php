@@ -53,7 +53,7 @@
                                     <span class="caption-subject bold uppercase"> <?=$checkbox ? 'Edit' : 'Add'?> Deduction</span>
                                 </div>
                             </div>
-                            <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>" width="500px"></center></div>
+                            <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
                                 <form action="<?=$checkbox ? base_url('Finance/deductions/edit/'.$this->uri->segment(4)) : ''?>" method="post">
                                     <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />

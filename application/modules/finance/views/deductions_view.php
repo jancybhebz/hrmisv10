@@ -69,7 +69,7 @@
 
                                     </div>
                                 </div>
-                                <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>" width="500px"></center></div>
+                                <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-deductions" style="display: none">
                                     <thead>
                                         <tr>
