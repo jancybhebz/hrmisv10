@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Finance_model extends CI_Model {
+class Deduction_model extends CI_Model {
 
 	function __construct()
 	{
@@ -12,10 +12,35 @@ class Finance_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function addAgency($arrData)
+	{
+		$this->db->insert('tbldeductiongroup', $arrData);
+		return $this->db->insert_id();
+	}
+
 	function edit($arrData, $code)
 	{
 		$this->db->where('deductionCode',$code);
 		$this->db->update('tbldeduction', $arrData);
+		return $this->db->affected_rows();
+	}
+
+	public function delete($tab, $code)
+	{
+		if($tab == 1):
+			$this->db->where('deductionCode', $code);
+			$this->db->delete('tbldeduction');	
+		else:
+			$this->db->where('deductionGroupCode', $code);
+			$this->db->delete('tbldeductiongroup');	
+		endif;
+		return $this->db->affected_rows(); 
+	}
+
+	function edit_agency($arrData, $code)
+	{
+		$this->db->where('deductionGroupCode',$code);
+		$this->db->update('tbldeductiongroup', $arrData);
 		return $this->db->affected_rows();
 	}
 
@@ -49,5 +74,5 @@ class Finance_model extends CI_Model {
 	}
 		
 }
-/* End of file Finance_model.php */
-/* Location: ./application/modules/finance/models/Finance_model.php */
+/* End of file Deduction.php */
+/* Location: ./application/modules/finance/models/Deduction.php */

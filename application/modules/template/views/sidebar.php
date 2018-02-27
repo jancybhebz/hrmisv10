@@ -181,8 +181,8 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                     <span class="arrow <?=$active=='Finance'?'open':''?>"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item <?=$activesub=='deductions'?'active open':''?>">
-                        <a href="<?=base_url('Finance/deductions')?>"">
+                    <li class="nav-item <?=strtolower($activesub)==strtolower('Deductions')?'active open':''?>">
+                        <a href="<?=base_url('Finance/Deductions')?>"">
                             <span class="title">Deduction</span>
                         </a>
                     </li>
