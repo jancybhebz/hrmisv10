@@ -1,0 +1,46 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+class Income_model extends CI_Model {
+
+	function __construct()
+	{
+		$this->load->database();
+	}
+	
+	function add($arrData)
+	{
+		$this->db->insert('tblIncome', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function edit($arrData, $code)
+	{
+		$this->db->where('incomeCode',$code);
+		$this->db->update('tblIncome', $arrData);
+		return $this->db->affected_rows();
+	}
+
+	public function delete($code)
+	{
+		$this->db->where('incomeCode', $code);
+		$this->db->delete('tblIncome');
+		return $this->db->affected_rows(); 
+	}
+
+	function getIncome($status)
+	{
+		if($status==''):
+			return $this->db->order_by('incomeCode','ASC')->get('tblIncome')->result_array();
+		else:
+			return $this->db->get_where('tblIncome', array('hidden' => $status))->result_array();
+		endif;
+	}
+
+	function getIncomeData($code)
+	{
+		return $this->db->get_where('tblIncome', array('incomeCode' => $code))->result_array();
+	}
+	
+		
+}
+/* End of file Income_model.php */
+/* Location: ./application/modules/finance/models/Income_model.php */

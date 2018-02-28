@@ -174,20 +174,20 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                     </li>
                 </ul>
             </li>
-            <li class="nav-item <?=$active=='Finance'?'active open':''?>">
+            <li class="nav-item <?=strtolower($active)=='finance'?'active open':''?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Libraries</span>
-                    <span class="arrow <?=$active=='Finance'?'open':''?>"></span>
+                    <span class="arrow <?=strtolower($active)=='finance'?'open':''?>"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item <?=strtolower($activesub)==strtolower('Deductions')?'active open':''?>">
-                        <a href="<?=base_url('Finance/Deductions')?>"">
+                    <li class="nav-item <?=strtolower($activesub)=='deductions' || strtolower($activesub)=='agency'?'active open':''?>">
+                        <a href="<?=base_url('finance/deductions')?>"">
                             <span class="title">Deduction</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activesub)=='income'?'active open':''?>">
+                        <a href="<?=base_url('finance/income')?>"">
                             <span class="title">Income</span>
                         </a>
                     </li>
