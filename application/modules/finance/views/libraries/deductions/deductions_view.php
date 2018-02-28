@@ -26,42 +26,43 @@
 </div>
 <div class="clearfix"></div>
 <div class="row profile-account">
-    <div class="col-md-3">
-        <ul class="ver-inline-menu tabbable margin-bottom-10">
-            <li class="<?=!isset($_GET['tab']) == 'agency' ? 'active' : '' ?>">
-                <a data-toggle="tab" href="#tab-deduction">
-                    <i class="fa fa-gear"></i> Deduction </a>
-                <span class="after"> </span>
-            </li>
-            <li class="<?=isset($_GET['tab']) == 'agency' ? 'active' : '' ?>">
-                <a data-toggle="tab" href="#tab-agency">
-                    <i class="fa fa-gear"></i> Agency </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-9">
-        <div class="tab-content">
-            <div id="tab-deduction" class="tab-pane <?=!isset($_GET['tab']) == 'agency' ? 'active' : '' ?>" v-cloak>
+    <div class="col-md-12">
+        <div class="tab-content portlet light bordered">
+            <div class="tabbable tabbable-tabdrop">
+                <ul class="nav nav-tabs">
+                    <li class="<?=isset($_GET['tab']) ? '' : 'active'?>">
+                        <a href="#tab-deduction" data-toggle="tab">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase"> Deductions</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="<?=isset($_GET['tab']) ? 'active' : ''?>">
+                        <a href="#tab-agency" data-toggle="tab">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase"> Agency </span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="tab-deduction" class="tab-pane <?=isset($_GET['tab']) ? '' : 'active'?>" v-cloak>
                 <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet light bordered">
-                            <div class="portlet-title">
-                                <div class="caption font-dark">
-                                    <i class="icon-settings font-dark"></i>
-                                    <span class="caption-subject bold uppercase"> Deductions</span>
-                                </div>
-                            </div>
+                        <div class="portlet">
                             <div class="portlet-body">
                                 <div class="table-toolbar">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a href="<?=base_url('Finance/Deductions/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                            <a href="<?=base_url('finance/deductions/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
                                             <div class="btn-group pull-right">
                                                 <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown"> <?=$status[0][0]?> <i class="fa fa-angle-down"></i> </button>
                                                 <ul class="dropdown-menu pull-right" role="menu">
-                                                    <li> <a href="<?=base_url('Deduction/deductions/'.$status[1][1])?>"> <?=$status[1][0]?></a> </li>
-                                                    <li> <a href="<?=base_url('Deduction/deductions/'.$status[2][1])?>"> <?=$status[2][0]?></a> </li>
+                                                    <li> <a href="<?=base_url('finance/deductions/'.$status[1][1])?>"> <?=$status[1][0]?></a> </li>
+                                                    <li> <a href="<?=base_url('finance/deductions/'.$status[2][1])?>"> <?=$status[2][0]?></a> </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -93,7 +94,7 @@
                                             <td><?=$data['deductionType']?> </td>
                                             <td><?=$data['hidden'] == 1 ? 'Inactive' : 'Active' ?> </td>
                                             <td align="center" nowrap>
-                                                <a href="<?=base_url('Finance/Deductions/edit/'.$data['deductionCode'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                                <a href="<?=base_url('finance/deductions/edit/'.$data['deductionCode'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="1" data-code="<?=$data['deductionCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>
@@ -110,25 +111,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet light bordered">
-                            <div class="portlet-title">
-                                <div class="caption font-dark">
-                                    <i class="icon-settings font-dark"></i>
-                                    <span class="caption-subject bold uppercase"> Agency</span>
-                                </div>
-                            </div>
+                        <div class="portlet">
                             <div class="portlet-body">
                                 <div class="table-toolbar">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a href="<?=base_url('Finance/Deductions/add_agency?tab=agency')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
-                                            <div class="btn-group pull-right">
-                                                <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown"> <?=$status[0][0]?> <i class="fa fa-angle-down"></i> </button>
-                                                <ul class="dropdown-menu pull-right" role="menu">
-                                                    <li> <a href="<?=base_url('Deduction/deductions/'.$status[1][1])?>"> <?=$status[1][0]?></a> </li>
-                                                    <li> <a href="<?=base_url('Deduction/deductions/'.$status[2][1])?>"> <?=$status[2][0]?></a> </li>
-                                                </ul>
-                                            </div>
+                                            <a href="<?=base_url('finance/agency/add?tab=agency')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
                                         </div>
 
                                     </div>
@@ -152,7 +140,7 @@
                                             <td><?=$data['deductionGroupDesc']?> </td>
                                             <td><?=$data['deductionGroupAccountCode']?> </td>
                                             <td align="center" nowrap>
-                                                <a href="<?=base_url('Finance/Deductions/edit_agency/'.$data['deductionGroupCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                                <a href="<?=base_url('finance/agency/edit/'.$data['deductionGroupCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="0" data-code="<?=$data['deductionGroupCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>
@@ -187,7 +175,6 @@
 </div>
 
 <?php load_plugin('js',array('datatable'));?>
-<script src="<?=base_url('assets/js/vuejs/vue.js')?>" type="text/javascript"></script>
 
 <script>
     $(document).ready(function() {
@@ -212,7 +199,7 @@
         });
 
         $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'Deductions/delete?tab='+tab+'&code='+code,
+            $.ajax ({type : 'GET', url: 'deductions/delete?tab='+tab+'&code='+code,
                 success: function(){
                     toastr.success('Deduction '+code+' successfully deleted.','Success');
                     $('#delete').modal('hide');

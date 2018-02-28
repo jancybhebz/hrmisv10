@@ -34,7 +34,7 @@ class Deductions extends MY_Controller {
 			);
 			$this->Deduction_Model->add($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Deduction added successfully.');
-			redirect('finance/Deductions');
+			redirect('finance/deductions');
 		else:
 			$this->arrData['checkbox'] = 0;
 			$this->arrData['agency'] = $this->Deduction_Model->getDeductionGroup('');
@@ -53,7 +53,7 @@ class Deductions extends MY_Controller {
 			);
 			$this->Deduction_Model->addAgency($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Agency added successfully.');
-			redirect('finance/Deductions?tab=agency');
+			redirect('finance/deductions?tab=agency');
 		else:
 			$this->arrData['edit'] = 0;
 			$this->template->load('template/template_view','finance/libraries/deductions/agency_add',$this->arrData);
@@ -73,7 +73,7 @@ class Deductions extends MY_Controller {
 			);
 			$this->Deduction_Model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Deduction updated successfully.');
-			redirect('finance/Deductions');
+			redirect('finance/deductions');
 		else:
 			$this->arrData['checkbox'] = 1;
 			$this->arrData['agency'] = $this->Deduction_Model->getDeductionGroup('');
@@ -91,18 +91,14 @@ class Deductions extends MY_Controller {
 			);
 			$this->Deduction_Model->edit_agency($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Agency updated successfully.');
-			redirect('finance/Deductions?tab=agency');
+			redirect('finance/deductions?tab=agency');
 		else:
 			$this->arrData['edit'] = 1;
 			$this->template->load('template/template_view','finance/libraries/deductions/agency_add',$this->arrData);
 		endif;
 	}
 
-	public function delete()
-	{
-		$this->Deduction_Model->delete($_GET['tab'], $_GET['code']);
-	}
-
+	public function delete() { $this->Deduction_Model->delete($_GET['tab'], $_GET['code']); }
 	public function fetchDeductionCodes() { echo json_encode($this->Deduction_Model->getDeductions('')); }
 	public function fetchDeduction($code) { echo json_encode($this->Deduction_Model->getDeductions($code)); }
 	public function fetchAgency() { echo json_encode($this->Deduction_Model->getDeductionGroup('')); }

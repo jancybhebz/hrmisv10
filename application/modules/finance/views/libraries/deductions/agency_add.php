@@ -14,7 +14,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Deduction</span>
+            <span><?=$edit ? 'Edit' : 'Add'?> Agency</span>
         </li>
     </ul>
 </div>
@@ -26,36 +26,43 @@
 </div>
 <div class="clearfix"></div>
 <div class="row profile-account">
-    <div class="col-md-3">
-        <ul class="ver-inline-menu tabbable margin-bottom-10">
-            <li>
-                <a href="<?=base_url('Finance/Deductions/index')?>">
-                    <i class="fa fa-gear"></i> Deduction </a>
-                <span class="after"> </span>
-            </li>
-            <li class="active">
-                <a data-toggle="tab" href="#tab-agency">
-                    <i class="fa fa-gear"></i> Agency </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-9">
-        <div class="tab-content">
-            <div id="tab-agency" class="tab-pane active">
+    <div class="col-md-12">
+        <div class="tab-content portlet light bordered">
+            <div class="tabbable tabbable-tabdrop">
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="<?=base_url('finance/deductions')?>">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase"> Deductions</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab-agency">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase"> Agency </span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="tab-agency" class="tab-pane active" v-cloak>
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet light bordered">
+                        <br>
+                        <div class="portlet">
                             <div class="portlet-title">
                                 <div class="caption font-dark">
-                                    <i class="icon-settings font-dark"></i>
                                     <span class="caption-subject bold uppercase"> <?=$edit ? 'Edit' : 'Add'?> Agency</span>
                                 </div>
                             </div>
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
-                                <form action="<?=$edit ? base_url('Finance/Deductions/edit_agency/'.$this->uri->segment(4)) : ''?>" method="post">
+                                <form action="<?=$edit ? base_url('finance/agency/edit/'.$this->uri->segment(4)) : ''?>" method="post">
                                     <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                     <div class="form-body">
                                         <div class="row">
@@ -88,7 +95,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <button class="btn btn-success" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error"><i class="fa fa-plus"></i> <?=$edit ? 'Edit' : 'Add'?> </button>
-                                                            <a href="<?=base_url('Finance/Deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                                            <a href="<?=base_url('finance/deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                                         </div>
                                                     </div>
                                                 </div>

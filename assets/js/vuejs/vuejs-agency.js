@@ -11,7 +11,7 @@ new Vue({
         if(this.code != ''){
             this.fetchDeductionData();
         }else{
-            this.fetchData('../Deductions/fetchAgency');
+            this.fetchData('../libraries/deductions/fetchAgency');
         }
     },
 
@@ -38,7 +38,7 @@ new Vue({
         fetchData: function(url) { axios.get(url).then(function (response) { this.codes = response.data; }.bind(this)); },
         checkError: function() { this.error = ([this.erragencydesc, this.erragencycode, this.erracctcode].includes(true) || [this.agencycode, this.agencydesc, this.acctcode].includes('')) ? true : false; },
         fetchDeductionData: function() {
-            axios.get('../../Deductions/fetchAgencyData/'+this.code).then(function (response) {
+            axios.get('../../libraries/deductions/fetchAgencyData/'+this.code).then(function (response) {
                 this.agencycode = response.data[0].deductionGroupCode;
                 this.agencydesc = response.data[0].deductionGroupDesc;
                 this.acctcode = response.data[0].deductionGroupAccountCode;

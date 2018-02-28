@@ -49,8 +49,7 @@ class Deduction_model extends CI_Model {
 		if($status==''):
 			return $this->db->get('tbldeduction')->result_array();
 		else:
-			$result = $this->db->get_where('tbldeduction', array('hidden' => $status))->result_array();
-			return $result[0];
+			return $this->db->get_where('tbldeduction', array('hidden' => $status))->result_array();
 		endif;
 	}
 
@@ -74,5 +73,5 @@ class Deduction_model extends CI_Model {
 	}
 		
 }
-/* End of file Deduction.php */
-/* Location: ./application/modules/finance/models/Deduction.php */
+/* End of file Deduction_model.php */
+/* Location: ./application/modules/finance/models/Deduction_model.php */
