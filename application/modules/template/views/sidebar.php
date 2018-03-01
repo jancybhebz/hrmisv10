@@ -182,27 +182,27 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item <?=strtolower($activesub)=='deductions' || strtolower($activesub)=='agency'?'active open':''?>">
-                        <a href="<?=base_url('finance/deductions')?>"">
+                        <a href="<?=base_url('finance/deductions')?>">
                             <span class="title">Deduction</span>
                         </a>
                     </li>
                     <li class="nav-item <?=strtolower($activesub)=='income'?'active open':''?>">
-                        <a href="<?=base_url('finance/income')?>"">
+                        <a href="<?=base_url('finance/income')?>">
                             <span class="title">Income</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activesub)=='payrollprocess'?'active open':''?>">
+                        <a href="<?=base_url('finance/payrollprocess')?>"">
                             <span class="title">Payroll Process</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activesub)=='projectcode'?'active open':''?>">
+                        <a href="<?=base_url('finance/projectcode')?>"">
                             <span class="title">Project Code</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activesub)=='payrollgroup'?'active open':''?>">
+                        <a href="<?=base_url('finance/payrollgroup')?>"">
                             <span class="title">Payroll Group</span>
                         </a>
                     </li>
