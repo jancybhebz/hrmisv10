@@ -112,7 +112,7 @@
         var code = '';
         $('#table-payrollgroup').on('click', 'tr > td > a#btnDelDeduction', function () {
             code = $(this).data('code');
-            $('.modal-title').html('Delete Project Code');
+            $('.modal-title').html('Delete Project Group');
             $('#delete').modal('show');
         });
 
