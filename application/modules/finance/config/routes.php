@@ -29,3 +29,8 @@ $route['finance/projectcode/edit/(:any)'] = 'finance/libraries/projectcode/edit/
 $route['finance/payrollgroup'] = 'finance/libraries/payrollgroup/index';
 $route['finance/payrollgroup/add'] = 'finance/libraries/payrollgroup/add';
 $route['finance/payrollgroup/edit/(:any)'] = 'finance/libraries/payrollgroup/edit/$1';
+
+// Libraries/Signatory
+$route['finance/signatory'] = 'finance/libraries/signatory/index';
+$route['finance/signatory/add'] = 'finance/libraries/signatory/add';
+$route['finance/signatory/edit/(:any)'] = 'finance/libraries/signatory/edit/$1';

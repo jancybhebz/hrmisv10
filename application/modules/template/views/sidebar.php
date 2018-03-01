@@ -206,8 +206,8 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                             <span class="title">Payroll Group</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activesub)=='signatory'?'active open':''?>">
+                        <a href="<?=base_url('finance/signatory')?>"">
                             <span class="title">Signatory</span>
                         </a>
                     </li>
