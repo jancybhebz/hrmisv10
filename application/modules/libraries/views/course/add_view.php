@@ -53,7 +53,7 @@
                                 <label class="control-label">Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <textarea class="form-control" name="strDescription"><?=!empty($this->session->userdata('strDescription'))?$this->session->userdata('strDescription'):''?></textarea>
+                                    <input type="text" class="form-control" name="strDescription" value="<?=!empty($this->session->userdata('strDescription'))?$this->session->userdata('strDescription'):''?>">
                                 </div>
                             </div>
                         </div>
