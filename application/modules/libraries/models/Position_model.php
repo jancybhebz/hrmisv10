@@ -21,7 +21,7 @@ class Position_model extends CI_Model {
 		if($intPositionId != "")
 			$strWhere .= " AND positionId = '".$intPositionId."'";
 		
-		$strSQL = " SELECT * FROM tblposition					
+		$strSQL = " SELECT * FROM tblPosition					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY positionDesc
@@ -34,13 +34,13 @@ class Position_model extends CI_Model {
 
 	function add($arrData)
 	{
-		$this->db->insert('tblposition', $arrData);
+		$this->db->insert('tblPosition', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strPositionCode = '', $strPositionDescription = '')
 	{		
-		$strSQL = " SELECT * FROM tblposition					
+		$strSQL = " SELECT * FROM tblPosition					
 					WHERE  
 					positionCode ='$strPositionCode' OR
 					positionDesc ='$strPositionDescription'					
@@ -55,7 +55,7 @@ class Position_model extends CI_Model {
 	function save($arrData, $intPositionId)
 	{
 		$this->db->where('positionId', $intPositionId);
-		$this->db->update('tblposition', $arrData);
+		$this->db->update('tblPosition', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -63,7 +63,7 @@ class Position_model extends CI_Model {
 	function delete($intPositionId)
 	{
 		$this->db->where('positionId', $intPositionId);
-		$this->db->delete('tblposition'); 	
+		$this->db->delete('tblPosition'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

@@ -21,7 +21,7 @@ class Educ_level_model extends CI_Model {
 		if($intEducLevelId != "")
 			$strWhere .= " AND levelId = '".$intEducLevelId."'";
 		
-		$strSQL = " SELECT * FROM tbleducationallevel					
+		$strSQL = " SELECT * FROM tblEducationalLevel					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY level DESC
@@ -34,13 +34,13 @@ class Educ_level_model extends CI_Model {
 
 	function add($arrData)
 	{
-		$this->db->insert('tbleducationallevel', $arrData);
+		$this->db->insert('tblEducationalLevel', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strEducLevelCode = '', $strEducLevelDesc = '')
 	{		
-		$strSQL = " SELECT * FROM tbleducationallevel					
+		$strSQL = " SELECT * FROM tblEducationalLevel					
 					WHERE  
 					levelCode ='$strEducLevelCode' OR
 					levelDesc ='$strEducLevelDesc'					
@@ -55,7 +55,7 @@ class Educ_level_model extends CI_Model {
 	function save($arrData, $intEducLevelId)
 	{
 		$this->db->where('levelId', $intEducLevelId);
-		$this->db->update('tbleducationallevel', $arrData);
+		$this->db->update('tblEducationalLevel', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -63,7 +63,7 @@ class Educ_level_model extends CI_Model {
 	function delete($intEducLevelId)
 	{
 		$this->db->where('levelId', $intEducLevelId);
-		$this->db->delete('tbleducationallevel'); 	
+		$this->db->delete('tblEducationalLevel'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

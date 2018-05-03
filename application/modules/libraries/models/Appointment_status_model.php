@@ -21,7 +21,7 @@ class Appointment_status_model extends CI_Model {
 		if($intAppointmentId != "")
 			$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
 		
-		$strSQL = " SELECT * FROM tblappointment					
+		$strSQL = " SELECT * FROM tblAppointment					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY appointmentDesc
@@ -34,13 +34,13 @@ class Appointment_status_model extends CI_Model {
 
 	function add($arrData)
 	{
-		$this->db->insert('tblappointment', $arrData);
+		$this->db->insert('tblAppointment', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strAppointmentCode = '', $strAppointmentDesc = '')
 	{		
-		$strSQL = " SELECT * FROM tblappointment					
+		$strSQL = " SELECT * FROM tblAppointment					
 					WHERE  
 					appointmentCode ='$strAppointmentCode' OR
 					appointmentDesc ='$strAppointmentDesc'					
@@ -55,7 +55,7 @@ class Appointment_status_model extends CI_Model {
 	function save($arrData, $intAppointmentId)
 	{
 		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->update('tblappointment', $arrData);
+		$this->db->update('tblAppointment', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -63,7 +63,7 @@ class Appointment_status_model extends CI_Model {
 	function delete($intAppointmentId)
 	{
 		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->delete('tblappointment'); 	
+		$this->db->delete('tblAppointment'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

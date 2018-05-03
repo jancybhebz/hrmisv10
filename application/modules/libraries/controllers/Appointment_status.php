@@ -53,7 +53,7 @@ class Appointment_status extends MY_Controller {
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblappointment','Added '.$strAppointmentDesc.' Appointment Status',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Added '.$strAppointmentDesc.' Appointment Status',implode(';',$arrData),'');
 					
 						$this->session->set_flashdata('strMsg','Appointment Status added successfully.');
 					}
@@ -103,7 +103,7 @@ class Appointment_status extends MY_Controller {
 				$blnReturn = $this->appointment_status_model->save($arrData, $intAppointmentId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblappointment','Edited '.$strAppointmentDesc.' Appointment status',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Edited '.$strAppointmentDesc.' Appointment status',implode(';',$arrData),'');
 					
 					$this->session->set_flashdata('strMsg','Appointment status saved successfully.');
 				}
@@ -133,7 +133,7 @@ class Appointment_status extends MY_Controller {
 				$blnReturn = $this->appointment_status_model->delete($intAppointmentId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblappointment','Deleted '.$strAppointmentDesc.' Appointment Status',implode(';',$arrAppointStatuses[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Deleted '.$strAppointmentDesc.' Appointment Status',implode(';',$arrAppointStatuses[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Appointment Status deleted successfully.');
 				}

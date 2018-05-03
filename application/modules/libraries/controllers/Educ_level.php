@@ -49,7 +49,7 @@ class Educ_level extends MY_Controller {
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbleducationallevel','Added '.$strEducLevelDesc.' Educational Level',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEducationalLevel','Added '.$strEducLevelDesc.' Educational Level',implode(';',$arrData),'');
 					
 						$this->session->set_flashdata('strMsg','Educational Level added successfully.');
 					}
@@ -92,7 +92,7 @@ class Educ_level extends MY_Controller {
 				$blnReturn = $this->educ_level_model->save($arrData, $intEducLevelId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbleducationallevel','Edited '.$strEducLevelDesc.' Level',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEducationalLevel','Edited '.$strEducLevelDesc.' Level',implode(';',$arrData),'');
 					
 					$this->session->set_flashdata('strMsg','Educational Level saved successfully.');
 				}
@@ -122,7 +122,7 @@ class Educ_level extends MY_Controller {
 				$blnReturn = $this->educ_level_model->delete($intEducLevelId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbleducationallevel','Deleted '.$strEducLevelDesc.' Level',implode(';',$arrEducLevels[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEducationalLevel','Deleted '.$strEducLevelDesc.' Level',implode(';',$arrEducLevels[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Educational Level deleted successfully.');
 				}
