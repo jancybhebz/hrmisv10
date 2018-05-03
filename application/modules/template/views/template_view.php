@@ -94,6 +94,10 @@
                     toastr.warning('<?=$this->session->flashdata('strMsg')?>')
                 <?php endif;?>
 
+                <?php if($this->session->flashdata('strSuccessMsg')!=''):?>
+                    toastr.success('<?=$this->session->flashdata('strSuccessMsg')?>', 'Success')
+                <?php endif;?>
+
                 <?php if($this->session->flashdata('strErrorMsg')!=''):?>
                     toastr.error('<?=$this->session->flashdata('strErrorMsg')?>')
                 <?php endif;?>
