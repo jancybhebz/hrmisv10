@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Add page for Project Code Library
+Purpose of file:    Edit page for Service Code Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Project Code</span>
+            <span>Edit Service Code</span>
         </li>
     </ul>
 </div>
@@ -35,22 +35,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Project Code</span>
+                    <i class="icon-pencil font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Edit Service Code</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/project_code/add')?>" method="post" id="frmProjectCode">
+                <form action="<?=base_url('libraries/service_code/edit/'.$this->uri->segment(4))?>" method="post" id="frmServiceCode">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Project Code <span class="required"> * </span></label>
+                                <label class="control-label">Service Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strProjectCode" value="<?=!empty($this->session->userdata('strProjectCode'))?$this->session->userdata('strProjectCode'):''?>">
+                                    <input type="text" class="form-control" name="strServiceCode" value="<?=isset($arrService[0]['serviceCode'])?$arrService[0]['serviceCode']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -58,30 +58,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Project Description <span class="required"> * </span></label>
+                                <label class="control-label">Service Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strProjectDescription" value="<?=!empty($this->session->userdata('strProjectDescription'))?$this->session->userdata('strProjectDescription'):''?>">
+                                    <input type="text" class="form-control" name="strServiceDescription" value="<?=!empty($arrService[0]['serviceDesc'])?$arrService[0]['serviceDesc']:''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Project Order <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="number" class="form-control" name="intProjectOrder" value="<?=!empty($this->session->userdata('intProjectOrder'))?$this->session->userdata('intProjectOrder'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/project_code')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <input type="hidden" name="intServiceId" value="<?=isset($arrService[0]['serviceId'])?$arrService[0]['serviceId']:''?>">
+                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/service_code')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -113,18 +104,15 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strProjectCode: {
+                    strServiceCode: {
                         minLength: 1,
                         required: true
                     },
-                    strProjectDescription: {
+                    strServiceDescription: {
                         minLength: 1,
                         required: true,
-                    },
-                    intProjectOrder: {
-                        minLength: 1,
-                        required: true
-                    },
+                    }
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              

@@ -75,9 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.10.38',
-	'username' => 'hrmis_user',
-	'password' => 'web@dm!n',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	// 'username' => 'hrmis_user',
+	// 'password' => 'web@dm!n',
 	'database' => 'hrmis',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

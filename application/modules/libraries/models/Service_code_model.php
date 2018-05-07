@@ -1,13 +1,13 @@
 <?php 
 /** 
-Purpose of file:    Model for Project Code Library
+Purpose of file:    Model for Service Code Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Project_code_model extends CI_Model {
+class Service_code_model extends CI_Model {
 
 	function __construct()
 	{
@@ -15,16 +15,16 @@ class Project_code_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
-	function getData($intProjectId = '')
+	function getData($intServiceId = '')
 	{		
 		$strWhere = '';
-		if($intProjectId != "")
-			$strWhere .= " AND projectId = '".$intProjectId."'";
+		if($intServiceId != "")
+			$strWhere .= " AND serviceId = '".$intServiceId."'";
 		
-		$strSQL = " SELECT * FROM tblproject					
+		$strSQL = " SELECT * FROM tblservicecode					
 					WHERE 1=1 
 					$strWhere
-					ORDER BY projectDesc
+					ORDER BY serviceDesc
 					";
 		//echo $strSQL;exit(1);				
 		$objQuery = $this->db->query($strSQL);
@@ -34,16 +34,16 @@ class Project_code_model extends CI_Model {
 
 	function add($arrData)
 	{
-		$this->db->insert('tblproject', $arrData);
+		$this->db->insert('tblservicecode', $arrData);
 		return $this->db->insert_id();		
 	}
 	
-	function checkExist($strProjectCode = '', $strProjectDescription = '')
+	function checkExist($strServiceCode = '', $strServiceDescription = '')
 	{		
-		$strSQL = " SELECT * FROM tblproject					
+		$strSQL = " SELECT * FROM tblservicecode					
 					WHERE  
-					projectCode ='$strProjectCode' OR
-					projectDesc ='$strProjectDescription'					
+					serviceCode ='$strServiceCode' OR
+					serviceDesc ='$strServiceDescription'					
 					";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
@@ -52,18 +52,18 @@ class Project_code_model extends CI_Model {
 
 				
 		
-	function save($arrData, $intProjectId)
+	function save($arrData, $intServiceId)
 	{
-		$this->db->where('projectId', $intProjectId);
-		$this->db->update('tblproject', $arrData);
+		$this->db->where('serviceId', $intServiceId);
+		$this->db->update('tblservicecode', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($intProjectId)
+	function delete($intServiceId)
 	{
-		$this->db->where('projectId', $intProjectId);
-		$this->db->delete('tblproject'); 	
+		$this->db->where('serviceId', $intServiceId);
+		$this->db->delete('tblservicecode'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

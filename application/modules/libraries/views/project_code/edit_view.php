@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intPositionId" value="<?=isset($arrProject[0]['positionId'])?$arrProject[0]['positionId']:''?>">
+                                <input type="hidden" name="intProjectId" value="<?=isset($arrProject[0]['projectId'])?$arrProject[0]['projectId']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/project_code')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>

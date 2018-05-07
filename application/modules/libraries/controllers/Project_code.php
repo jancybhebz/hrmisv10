@@ -73,31 +73,32 @@ class Project_code extends MY_Controller {
 	public function edit()
 	{
 		$arrPost = $this->input->post();
+		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			$intPositionId = urldecode($this->uri->segment(4));
-			$this->arrData['arrProject']=$this->project_code_model->getData($intPositionId);
+			$intProjectId = urldecode($this->uri->segment(4));
+			$this->arrData['arrProject']=$this->project_code_model->getData($intProjectId);
 			$this->template->load('template/template_view','libraries/project_code/edit_view', $this->arrData);
 		}
 		else
 		{
-			// $intPositionId = $arrPost['intPositionId'];
+			$intProjectId = $arrPost['intProjectId'];
 			$strProjectCode = $arrPost['strProjectCode'];
 			$strProjectDescription = $arrPost['strProjectDescription'];
-			$intProjectOder = $arrPost['intProjectOder'];
-			if(!empty($strProjectCode) AND !empty($strProjectDescription)) 
+			$intProjectOrder = $arrPost['intProjectOrder'];
+			if(!empty($strProjectCode) AND !empty($strProjectDescription) AND !empty($intProjectOrder)) 
 			{
 				$arrData = array(
 					'projectCode'=>$strProjectCode,
 					'projectDesc'=>$strProjectDescription,
-					'projectOrder'=>$intProjectOder
+					'projectOrder'=>$intProjectOrder
 				);
-				$blnReturn = $this->project_code_model->save($arrData, $intProjectOder);
+				$blnReturn = $this->project_code_model->save($arrData, $intProjectId);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblproject','Edited '.$strProjectDescription.' Project_code',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Project saved successfully.');
+					$this->session->set_flashdata('strMsg','Project code saved successfully.');
 				}
 				redirect('libraries/project_code');
 			}
@@ -108,21 +109,21 @@ class Project_code extends MY_Controller {
 	{
 		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$intProjectOder = $this->uri->segment(4);
+		$intProjectId = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->project_code_model->getData($intProjectOder);
+			$this->arrData['arrData'] = $this->project_code_model->getData($intProjectId);
 			$this->template->load('template/template_view','libraries/project_code/delete_view',$this->arrData);
 		}
 		else
 		{
-			$intProjectOder = $arrPost['intProjectOder'];
+			$intProjectId = $arrPost['intProjectId'];
 			//add condition for checking dependencies from other tables
-			if(!empty($intProjectOder))
+			if(!empty($intProjectId))
 			{
-				$arrProject = $this->project_code_model->getData($intProjectOder);
+				$arrProject = $this->project_code_model->getData($intProjectId);
 				$strProjectDescription = $arrProject[0]['projectDesc'];	
-				$blnReturn = $this->project_code_model->delete($intProjectOder);
+				$blnReturn = $this->project_code_model->delete($intProjectId);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblproject','Deleted '.$strProjectDescription.' Project_code',implode(';',$arrProject[0]),'');
