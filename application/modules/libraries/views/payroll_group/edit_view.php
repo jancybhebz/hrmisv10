@@ -50,7 +50,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Project <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strProject" value="<?=isset($arrPayrollGroup[0]['projectCode'])?$arrParyollGroup[0]['projectCode']:''?>">
+                                    <select type="text" class="form-control" name="strProject" value="<?=isset($arrPayrollGroup[0]['projectCode'])?$arrParyollGroup[0]['projectCode']:''?>">
+                                    <option value=""></option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

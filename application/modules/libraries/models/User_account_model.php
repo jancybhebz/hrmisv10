@@ -9,6 +9,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class User_account_model extends CI_Model {
 
+	var $table = 'tblEmpAccount';
+	var $tableid = 'empNumber';
+
 	function __construct()
 	{
 		$this->load->database();
@@ -17,33 +20,31 @@ class User_account_model extends CI_Model {
 	
 	function getData($intEmpNumber = '')
 	{		
-		$strWhere = '';
+
 		if($intEmpNumber != "")
-			$strWhere .= " AND empNumber = '".$intEmpNumber."'";
+		{
+			$this->db->where($this->tableid,$intEmpNumber);
+		}
 		
-		$strSQL = " SELECT * FROM tblempaccount					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY empNumber
-					";
-		//echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
-		return $objQuery->result_array();	
+		$objQuery = $this->db->get($this->table);
+		
+		return $objQuery->result_array();		
 	}
 
-	function getEmpDetails($empId = '')
+	function getEmpDetails($intEmpNumber = '')
 	{		
-		  $query = $this->db->query('SELECT empNumber,surname,firstname,middlename,middleInitial,nameExtension FROM tblemppersonal 
-            	LEFT JOIN tblemppersonal ON tblempaccount.EmpNumber = tblemppersonal.empID
-            	WHERE empID='.$empId);
-            	return $query->result_array();
+		  $this->db->select('empNumber,surname,firstname,middlename,middleInitial,nameExtension');
+		  $this->db->join('tblempaccount.empNumber = tblemppersonal.empID','left');
+		  $this->db->where('empNumber',$intEmpNumber);
+		  $objQuery = $this->db->get('tblEmpPersonal');
+          return $objQuery->result_array();
 	}
 
 	function add($arrData)
 	{
-		$this->db->insert('tblempaccount', $arrData);
-		return $this->db->insert_id();		
+				
+		$this->db->insert($this->table, $arrData);
+		return $this->db->insert_id();	
 	}
 	
 	function checkExist($strUsername = '', $strPassword = '')
@@ -58,20 +59,19 @@ class User_account_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-				
 		
 	function save($arrData, $intEmpNumber)
 	{
-		$this->db->where('empNumber', $intEmpNumber);
-		$this->db->update('tblempaccount', $arrData);
+		$this->db->where($this->tableid, $intEmpNumber);
+		$this->db->update($this->table, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
 	function delete($intEmpNumber)
 	{
-		$this->db->where('empNumber', $intEmpNumber);
-		$this->db->delete('tblempaccount'); 	
+		$this->db->where($this->tableid, $intEmpNumber);
+		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

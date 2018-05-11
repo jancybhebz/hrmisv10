@@ -50,7 +50,7 @@ class Payroll_group_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getDetails() 
+	function getProjectDetails() 
 	{ 
 
 		$sql = "SELECT * FROM tblpayrollgroup 

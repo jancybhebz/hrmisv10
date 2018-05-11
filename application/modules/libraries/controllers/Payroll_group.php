@@ -21,7 +21,8 @@ class Payroll_group extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrPayrollGroup'] = $this->payroll_group_model->getData();
-		$this->arrData['arrProject']=$this->project_code_model->getData(); 
+		$this->arrData['arrPayrollGroup'] = $this->payroll_group_model->getProjectDetails();
+		
 		// $this->arrTemplateData['arrPG']=$this->employeename_model->getDetails();
 		$this->template->load('template/template_view', 'libraries/payroll_group/list_view', $this->arrData);
 	}
@@ -31,7 +32,7 @@ class Payroll_group extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-
+			$this->arrData['arrProject']=$this->project_code_model->getData(); 
 			$this->template->load('template/template_view','libraries/payroll_group/add_view',$this->arrData);	
 		}
 		else

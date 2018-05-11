@@ -9,6 +9,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Project_code_model extends CI_Model {
 
+	var $table = 'tblProject';
+	var $tableid = 'projectId';
+
 	function __construct()
 	{
 		$this->load->database();
@@ -17,36 +20,43 @@ class Project_code_model extends CI_Model {
 	
 	function getData($intProjectId = '')
 	{		
-		$strWhere = '';
+		//$strWhere = '';
 		if($intProjectId != "")
-			$strWhere .= " AND projectId = '".$intProjectId."'";
+		{
+			$this->db->where($this->tableid,$intProjectId);
+			//$strWhere .= " AND projectId = '".$intProjectId."'";
+		}
 		
-		$strSQL = " SELECT * FROM tblproject					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY projectDesc
-					";
+		// $strSQL = " SELECT * FROM tblproject					
+		// 			WHERE 1=1 
+		// 			$strWhere
+		// 			ORDER BY projectDesc
+		// 			";
 		//echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
+		//$objQuery = $this->db->query($strSQL);
+		$objQuery = $this->db->get($this->table);
 		//print_r($objQuery->result_array());
 		return $objQuery->result_array();	
 	}
 
 	function add($arrData)
 	{
-		$this->db->insert('tblproject', $arrData);
+		$this->db->insert($this->table, $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strProjectCode = '', $strProjectDescription = '')
 	{		
-		$strSQL = " SELECT * FROM tblproject					
-					WHERE  
-					projectCode ='$strProjectCode' OR
-					projectDesc ='$strProjectDescription'					
-					";
+		// $strSQL = " SELECT * FROM tblproject					
+		// 			WHERE  
+		// 			projectCode ='$strProjectCode' OR
+		// 			projectDesc ='$strProjectDescription'					
+		// 			";
+		$this->db->where('projectCode',$strProjectCode);
+		$this->db->or_where('projectDesc', $strProjectDescription);			
 		//echo $strSQL;exit(1);
-		$objQuery = $this->db->query($strSQL);
+		//$objQuery = $this->db->query($strSQL);
+		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
@@ -54,16 +64,16 @@ class Project_code_model extends CI_Model {
 		
 	function save($arrData, $intProjectId)
 	{
-		$this->db->where('projectId', $intProjectId);
-		$this->db->update('tblproject', $arrData);
+		$this->db->where($this->tableid, $intProjectId);
+		$this->db->update($this->table, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
 	function delete($intProjectId)
 	{
-		$this->db->where('projectId', $intProjectId);
-		$this->db->delete('tblproject'); 	
+		$this->db->where($this->tableid, $intProjectId);
+		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

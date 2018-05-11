@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Add page for Payroll Group Library
+Purpose of file:    Edit page for Holiday Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Payroll Group</span>
+            <span>Edit Holiday</span>
         </li>
     </ul>
 </div>
@@ -35,40 +35,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Payroll Group</span>
+                    <i class="icon-pencil font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Edit Holiday</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/payroll_group/add')?>" method="post" id="frmPayrollGroup">
+                <form action="<?=base_url('libraries/project_code/edit/'.$this->uri->segment(4))?>" method="post" id="frmHoliday">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Project <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i><?php print_r($arrProject)?>
-                                    <select type="text" class="form-control" name="strProject" value="<?=!empty($this->session->userdata('strProject'))?$this->session->userdata('strProject'):''?>">
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrProject as $project)
-                                        {
-                                          echo '<option value="'.$project['projectId'].'">'.$project['projectDesc'].'</option>';
-                                        }?>
-                                  </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
+                                <label class="control-label">Holiday Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($this->session->userdata('strPayrollGroupCode'))?$this->session->userdata('strPayrollGroupCode'):''?>">
+                                    <input type="text" class="form-control" name="strHolidayCode" value="<?=isset($arrHoliday[0]['holidayCode'])?$arrHoliday[0]['holidayCode']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -76,41 +58,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
+                                <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($this->session->userdata('strPayrollGroupDesc'))?$this->session->userdata('strPayrollGroupDesc'):''?>">
+                                    <input type="text" class="form-control" name="strHolidayName" value="<?=!empty($arrHoliday[0]['holidayName'])?$arrHoliday[0]['holidayName']:''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
+                 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="number" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($this->session->userdata('intPayrollGroupOrder'))?$this->session->userdata('intPayrollGroupOrder'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Responsibility Center <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($this->session->userdata('strResponsibilityCntr'))?$this->session->userdata('strResponsibilityCntr'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/payroll_group')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <input type="hidden" name="strCode" value="<?=isset($arrHoliday[0]['holidayCode'])?$arrHoliday[0]['holidayCode']:''?>">
+                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/holiday')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -132,7 +94,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmPayrollGroup');
+            var form2 = $('#frmHoliday');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -142,26 +104,15 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strProject: {
+                    strHolidayCode: {
                         minLength: 1,
                         required: true
                     },
-                    strPayrollGroupCode: {
+                    strHolidayName: {
                         minLength: 1,
                         required: true,
-                    },
-                    strPayrollGroupDesc: {
-                        minLength: 1,
-                        required: true,
-                    },
-                    intPayrollGroupOrder: {
-                        minLength: 1,
-                        required: true,
-                    },
-                    strResponsibilityCntr: {
-                        minLength: 1,
-                        required: true,
-                    },
+                    }
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              

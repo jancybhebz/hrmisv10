@@ -30,6 +30,8 @@ class User_account extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
+			$this->load->model(array('employees/employees_model'));
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);	
 		}
 		else
@@ -55,13 +57,13 @@ class User_account extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Added '.$strUsername.' User_account',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Project code added successfully.');
+						$this->session->set_flashdata('strMsg','User Account added successfully.');
 					}
 					redirect('libraries/user_account');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Project code and/or Project description already exists.');
+					$this->session->set_flashdata('strErrorMsg','User Account already exists.');
 					$this->session->set_flashdata('strProjectCode',$strProjectCode);
 					$this->session->set_flashdata('strProjectDescription',$strProjectDescription);
 					$this->session->set_flashdata('intProjectOrder',$intProjectOrder);					//echo $this->session->flashdata('strErrorMsg');
