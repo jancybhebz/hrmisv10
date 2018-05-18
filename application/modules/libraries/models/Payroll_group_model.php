@@ -42,8 +42,8 @@ class Payroll_group_model extends CI_Model {
 	{		
 		$strSQL = " SELECT * FROM tblpayrollgroup					
 					WHERE  
-					projectCode ='$strProject' OR
-					payrollGroupCode ='$strPayrollGroupCode'					
+					payrollGroupCode ='$strPayrollGroupCode' OR
+					payrollGroupName ='$strPayrollGroupdesc'					
 					";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);

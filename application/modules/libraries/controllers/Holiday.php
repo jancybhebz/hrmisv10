@@ -20,7 +20,7 @@ class Holiday extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrProject'] = $this->holiday_model->getData();
+		$this->arrData['arrHoliday'] = $this->holiday_model->getData();
 		$this->template->load('template/template_view', 'libraries/holiday/list_view', $this->arrData);
 	}
 	
@@ -74,31 +74,30 @@ class Holiday extends MY_Controller {
 		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			$intProjectId = urldecode($this->uri->segment(4));
-			$this->arrData['arrHoliday']=$this->holiday_model->getData($intProjectId);
-			$this->template->load('template/template_view','libraries/project_code/edit_view', $this->arrData);
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrHoliday']=$this->holiday_model->getData($strCode);
+			$this->template->load('template/template_view','libraries/holiday/edit_view', $this->arrData);
 		}
 		else
 		{
-			$intProjectId = $arrPost['intProjectId'];
-			$strProjectCode = $arrPost['strProjectCode'];
-			$strProjectDescription = $arrPost['strProjectDescription'];
-			$intProjectOrder = $arrPost['intProjectOrder'];
-			if(!empty($strProjectCode) AND !empty($strProjectDescription) AND !empty($intProjectOrder)) 
+			$strCode = $arrPost['strCode'];
+			$strHolidayCode = $arrPost['strHolidayCode'];
+			$strHolidayName = $arrPost['strHolidayName'];
+			if(!empty($strHolidayCode) AND !empty($strHolidayName)) 
 			{
 				$arrData = array(
-					'projectCode'=>$strProjectCode,
-					'projectDesc'=>$strProjectDescription,
-					'projectOrder'=>$intProjectOrder
+					'holidayCode'=>$strHolidayCode,
+					'holidayName'=>$strHolidayName
+					
 				);
-				$blnReturn = $this->project_code_model->save($arrData, $intProjectId);
+				$blnReturn = $this->holiday_model->save($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblproject','Edited '.$strProjectDescription.' Project_code',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblholiday','Edited '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Project code saved successfully.');
+					$this->session->set_flashdata('strMsg','Holiday saved successfully.');
 				}
-				redirect('libraries/project_code');
+				redirect('libraries/holiday');
 			}
 		}
 		
@@ -107,28 +106,28 @@ class Holiday extends MY_Controller {
 	{
 		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$intProjectId = $this->uri->segment(4);
+		$strCode = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->project_code_model->getData($intProjectId);
-			$this->template->load('template/template_view','libraries/project_code/delete_view',$this->arrData);
+			$this->arrData['arrData'] = $this->holiday_model->getData($strCode);
+			$this->template->load('template/template_view','libraries/holiday/delete_view',$this->arrData);
 		}
 		else
 		{
-			$intProjectId = $arrPost['intProjectId'];
+			$strCode = $arrPost['strCode'];
 			//add condition for checking dependencies from other tables
-			if(!empty($intProjectId))
+			if(!empty($strCode))
 			{
-				$arrProject = $this->project_code_model->getData($intProjectId);
-				$strProjectDescription = $arrProject[0]['projectDesc'];	
-				$blnReturn = $this->project_code_model->delete($intProjectId);
+				$arrHoliday = $this->holiday_model->getData($strCode);
+				$strHolidayCode = $arrHoliday[0]['holidayCode'];	
+				$blnReturn = $this->holiday_model->delete($strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblproject','Deleted '.$strProjectDescription.' Project_code',implode(';',$arrProject[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblholiday','Deleted '.$strHolidayCode.' Holiday',implode(';',$arrHoliday[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Project code deleted successfully.');
+					$this->session->set_flashdata('strMsg','Holiday deleted successfully.');
 				}
-				redirect('libraries/project_code');
+				redirect('libraries/holiday');
 			}
 		}
 		

@@ -20,8 +20,10 @@ class User_account extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrUser'] = $this->user_account_model->getData();
+		// $this->load->model(array('employees/employees_model'));
+		// $this->arrData['arrEmployees'] = $this->employees_model->getEmpDetails();
 		
+		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->template->load('template/template_view', 'libraries/user_account/list_view', $this->arrData);
 	}
 	
@@ -63,7 +65,7 @@ class User_account extends MY_Controller {
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','User Account already exists.');
+					$this->session->set_flashdata('strErrorMsg','Username/password already exists.');
 					$this->session->set_flashdata('strProjectCode',$strProjectCode);
 					$this->session->set_flashdata('strProjectDescription',$strProjectDescription);
 					$this->session->set_flashdata('intProjectOrder',$intProjectOrder);					//echo $this->session->flashdata('strErrorMsg');

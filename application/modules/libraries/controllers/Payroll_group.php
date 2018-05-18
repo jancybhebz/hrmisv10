@@ -40,25 +40,25 @@ class Payroll_group extends MY_Controller {
 			$strProject = $arrPost['strProject'];
 			$strPayrollGroupCode = $arrPost['strPayrollGroupCode'];
 			$strPayrollGroupDesc = $arrPost['strPayrollGroupDesc'];
-			$strPayrollGroupOrder = $arrPost['strPayrollGroupOrder'];
+			$intPayrollGroupOrder = $arrPost['intPayrollGroupOrder'];
 			$strResponsibilityCntr = $arrPost['strResponsibilityCntr'];
-			if(!empty($strProject) && !empty($strPayrollGroupCode) && !empty($strPayrollGroupDesc) && !empty($strPayrollGroupOrder) && !empty($strResponsibilityCntr))
+			if(!empty($strProject) && !empty($strPayrollGroupCode) && !empty($strPayrollGroupDesc) && !empty($intPayrollGroupOrder) && !empty($strResponsibilityCntr))
 			{	
 				// check if exam code and/or exam desc already exist
-				if(count($this->payroll_group_model->checkExist($strProject, $strPayrollGroupCode))==0)
+				if(count($this->payroll_group_model->checkExist($strPayrollGroupCode, $strPayrollGroupDesc))==0)
 				{
 					$arrData = array(
 						'projectCode'=>$strProject,
 						'payrollGroupCode'=>$strPayrollGroupCode,
 						'payrollGroupName'=>$strPayrollGroupDesc,
-						'payrollGroupOrder'=>$strPayrollGroupOrder,
+						'payrollGroupOrder'=>$intPayrollGroupOrder,
 						'payrollGroupRC'=>$strResponsibilityCntr
 					);
 					$blnReturn  = $this->payroll_group_model->add($arrData);
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Added '.$strProject.' Payroll_Group',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Added '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrData),'');
 					
 						$this->session->set_flashdata('strMsg','Payroll group added successfully.');
 					}
@@ -66,11 +66,11 @@ class Payroll_group extends MY_Controller {
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Payroll group already exists.');
+					$this->session->set_flashdata('strErrorMsg','Payroll code/description already exists.');
 					$this->session->set_flashdata('strProject',$strProject);
 					$this->session->set_flashdata('strPayrollGroupCode',$strPayrollGroupCode);
 					$this->session->set_flashdata('strPayrollGroupDesc',$strPayrollGroupDesc);	
-					$this->session->set_flashdata('strPayrollGroupOrder',$strPayrollGroupOrder);
+					$this->session->set_flashdata('intPayrollGroupOrder',$intPayrollGroupOrder);
 					$this->session->set_flashdata('strResponsibilityCntr',$strResponsibilityCntr);				//echo $this->session->flashdata('strErrorMsg');
 					redirect('libraries/payroll_group/add');
 				}
@@ -96,7 +96,7 @@ class Payroll_group extends MY_Controller {
 			$strProject = $arrPost['strProject'];
 			$strPayrollGroupCode = $arrPost['strPayrollGroupCode'];
 			$strPayrollGroupDesc = $arrPost['strPayrollGroupDesc'];
-			$strPayrollGroupOrder = $arrPost['strPayrollGroupOrder'];
+			$intPayrollGroupOrder = $arrPost['intPayrollGroupOrder'];
 			$strResponsibilityCntr = $arrPost['strResponsibilityCntr'];
 			if(!empty($strProject) AND !empty($strPayrollGroupCode) AND !empty($strPayrollGroupDesc)) 
 			{
@@ -104,13 +104,13 @@ class Payroll_group extends MY_Controller {
 					'projectCode'=>$strProject,
 					'projectDesc'=>$strPayrollGroupCode,
 					'projectOrder'=>$strPayrollGroupDesc,
-					'projectOrder'=>$strPayrollGroupOrder,
+					'projectOrder'=>$intPayrollGroupOrder,
 					'projectOrder'=>$strResponsibilityCntr
 				);
 				$blnReturn = $this->payroll_group_model->save($arrData, $intPayrollGroupId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Edited '.$strProject.' Payroll_Group',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Edited '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrData),'');
 					
 					$this->session->set_flashdata('strMsg','Payroll group saved successfully.');
 				}
@@ -140,7 +140,7 @@ class Payroll_group extends MY_Controller {
 				$blnReturn = $this->payroll_group_model->delete($intPayrollGroupId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Deleted '.$strProject.' Payroll_Group',implode(';',$arrPayrollGroup[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Deleted '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrPayrollGroup[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Payroll group deleted successfully.');
 				}

@@ -49,7 +49,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Project <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa"></i><?php print_r($arrProject)?>
+                                    <i class="fa"></i><?php //print_r($arrProject)?>
                                     <select type="text" class="form-control" name="strProject" value="<?=!empty($this->session->userdata('strProject'))?$this->session->userdata('strProject'):''?>">
                                         
                                          <option value="">Select</option>

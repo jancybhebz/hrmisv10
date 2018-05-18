@@ -71,7 +71,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>">
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
+                                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

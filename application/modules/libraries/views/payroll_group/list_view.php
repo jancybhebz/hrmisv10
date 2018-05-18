@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrPayrollGroup as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$row['projectCode']?> </td>
+                            <td> <?=$row['projectDesc']?> </td>
                             <td> <?=$row['payrollGroupCode']?> </td>
                             <td> <?=$row['payrollGroupName']?> </td>
                             <td> <?=$row['payrollGroupOrder']?> </td>
