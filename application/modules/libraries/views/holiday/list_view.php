@@ -24,7 +24,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <a href="<?=base_url('libraries/holiday/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New
+                                <a href="<?=base_url('libraries/holiday/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add Holiday Name
+                                    
+                                </button></a>
+                                <br><br>
+                                <a href="<?=base_url('libraries/holiday/add_local')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add Local Holiday
                                     
                                 </button></a>
                             </div>

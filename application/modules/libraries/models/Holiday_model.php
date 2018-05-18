@@ -32,11 +32,35 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getLocalHoliday($strLocalCode = '')
+	{		
+		$strWhere = '';
+		if($strLocalCode != "")
+			$strWhere .= " AND holidayCode = '".$strLocalCode."'";
+		
+		$strSQL = " SELECT * FROM tbllocalholiday					
+					WHERE 1=1 
+					$strWhere
+					ORDER BY holidayName
+					";
+		//echo $strSQL;exit(1);				
+		$objQuery = $this->db->query($strSQL);
+		//print_r($objQuery->result_array());
+		return $objQuery->result_array();	
+	}
+
 	function add($arrData)
 	{
 		$this->db->insert('tblholiday', $arrData);
 		return $this->db->insert_id();		
 	}
+
+	function add_local($arrData)
+	{
+		$this->db->insert('tbllocalholiday', $arrData);
+		return $this->db->insert_id();		
+	}
+	
 	
 	function checkExist($strHolidayCode = '', $strHolidayName = '')
 	{		

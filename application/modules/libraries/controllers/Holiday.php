@@ -21,6 +21,7 @@ class Holiday extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+
 		$this->template->load('template/template_view', 'libraries/holiday/list_view', $this->arrData);
 	}
 	
@@ -61,6 +62,52 @@ class Holiday extends MY_Controller {
 					$this->session->set_flashdata('strHolidayCode',$strHolidayCode);
 					$this->session->set_flashdata('strHolidayName',$strHolidayName);
 					redirect('libraries/holiday/add');
+				}
+			}
+		}
+    	
+    	
+    }
+
+    //ADD LOCAL HOLIDAY
+    public function add_local()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
+			$this->template->load('template/template_view','libraries/holiday/add_local_view',$this->arrData);	
+		}
+		else
+		{	
+			$strHolidayCode = $arrPost['strHolidayCode'];
+			$strHolidayName = $arrPost['strHolidayName'];
+			if(!empty($strHolidayCode) && !empty($strHolidayName))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->holiday_model->checkExist($strHolidayCode, $strHolidayName))==0)
+				{
+					$arrData = array(
+						'holidayCode'=>$strHolidayCode,
+						'holidayName'=>$strHolidayName
+						
+					);
+					$blnReturn  = $this->holiday_model->add($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Added '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
+					
+						$this->session->set_flashdata('strMsg','Local Holiday added successfully.');
+					}
+					redirect('libraries/holiday');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Local Holiday name already exists.');
+					$this->session->set_flashdata('strHolidayCode',$strHolidayCode);
+					$this->session->set_flashdata('strHolidayName',$strHolidayName);
+					redirect('libraries/holiday/add_local');
 				}
 			}
 		}
