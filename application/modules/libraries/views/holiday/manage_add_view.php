@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Local Holiday</span>
+            <span>Holiday</span>
         </li>
     </ul>
 </div>
@@ -36,12 +36,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Add Local Holiday</span>
+                    <span class="caption-subject bold uppercase"> Holiday</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/holiday/add_local')?>" method="post" id="frmLocalHoliday">
+                <form action = "<?=base_url('libraries/holiday/manage_add')?>" method="post" id="frmManageHoliday">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -50,27 +50,24 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strLocalName" value="<?=!empty($this->session->userdata('strLocalName'))?$this->session->userdata('strLocalName'):''?>">
-                                     <option value="">Select</option>
-                                      <?php foreach($arrLocHoliday as $local)
-                                        {
-                                          echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
-                                        }?>
+                                    <select type="text" class="form-control" name="strHolidayName" value="<?=!empty($this->session->userdata('strHolidayName'))?$this->session->userdata('strHolidayName'):''?>">
+                                    <option value="">Select</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                    <label class="control-label ">Holiday Date <span class="required"> * </span></label>
-                                    <input id="dtmHolidate" name="dtmHolidate" type="text" class="form-control form-control-inline input-medium ">
+                                <label class="control-label">Holiday Date <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input id="dtmHolidayDate" name="dtmHolidayDate" type="text" class="form-control form-control-inline input-medium ">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
                     
                     <div class="row">
                         <div class="col-sm-12">
@@ -82,12 +79,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_holiday">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_manage_holiday">
                     <thead>
                         <tr>
                             <th> No. </th>
@@ -99,14 +95,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <tbody>
                     <?php 
                     $i=1;
-                    foreach($arrLocHoliday as $row):?>
+                    foreach($arrManageHoliday as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['holidayName']?> </td> 
                             <td> <?=$row['holidayDate']?> </td>                           
                             <td>
-                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/holiday/manage_edit/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/holiday/manage_delete/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>
@@ -115,6 +111,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     endforeach;?>
                     </tbody>
                 </table>
+
 
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
@@ -128,7 +125,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmLocalHoliday');
+            var form2 = $('#frmManageHoliday');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -138,11 +135,11 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strLocalName: {
+                    strHolidayName: {
                         minLength: 1,
                         required: true
                     },
-                    dtmHolidate: {
+                    dtmHolidayDate: {
                         minLength: 1,
                         required: true,
                     },
@@ -198,8 +195,7 @@ var FormValidation = function () {
 }();
 
 jQuery(document).ready(function() {
-//     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
-// $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
+   
     FormValidation.init();
     $('#dtmHolidate').datepicker({
         format:"yyyy-mm-dd"

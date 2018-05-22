@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Add page for Holiday Library
+Purpose of file:    Edit page for Holiday Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Local Holiday</span>
+            <span>Edit Local Holiday</span>
         </li>
     </ul>
 </div>
@@ -35,13 +35,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Add Local Holiday</span>
+                    <i class="icon-pencil font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Edit Local Holiday</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/holiday/add_local')?>" method="post" id="frmLocalHoliday">
+                <form action="<?=base_url('libraries/holiday/edit_local/'.$this->uri->segment(4))?>" method="post" id="frmLocalHoliday">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -50,72 +50,44 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strLocalName" value="<?=!empty($this->session->userdata('strLocalName'))?$this->session->userdata('strLocalName'):''?>">
-                                     <option value="">Select</option>
-                                      <?php foreach($arrLocHoliday as $local)
-                                        {
-                                          echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
+                                    <select type="text" class="form-control" name="strLocalName" value="<?=isset($arrLocHoliday[0]['holidayName'])?$arrLocHoliday[0]['holidayName']:''?>">
+                                    <option value="">Select</option>
+                                        <?php foreach($arrLocHoliday as $local)
+                                            {
+                                              echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
                                         }?>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                    <label class="control-label ">Holiday Date <span class="required"> * </span></label>
-                                    <input id="dtmHolidate" name="dtmHolidate" type="text" class="form-control form-control-inline input-medium ">
+                                <label class="control-label">Holiday Date <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input id="dtmHolidate" name="dtmHolidate" type="text"  class="form-control form-control-inline input-medium date-picker" data-provide="datepicker" value="<?=!empty($arrLocHoliday[0]['holidayDate'])?$arrLocHoliday[0]['holidayDate']:''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    
+                 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/holiday')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <input type="hidden" name="strLocCode" value="<?=isset($arrLocHoliday[0]['holidayCode'])?$arrLocHoliday[0]['holidayCode']:''?>">
+                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/holiday/add_local')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_holiday">
-                    <thead>
-                        <tr>
-                            <th> No. </th>
-                            <th> Holiday Name </th>
-                            <th> Date </th>
-                            <th> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                    $i=1;
-                    foreach($arrLocHoliday as $row):?>
-                        <tr class="odd gradeX">
-                            <td> <?=$i?> </td>
-                            <td> <?=$row['holidayName']?> </td> 
-                            <td> <?=$row['holidayDate']?> </td>                           
-                            <td>
-                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
-                               
-                            </td>
-                        </tr>
-                    <?php 
-                    $i++;
-                    endforeach;?>
-                    </tbody>
-                </table>
-
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
@@ -145,8 +117,8 @@ var FormValidation = function () {
                     dtmHolidate: {
                         minLength: 1,
                         required: true,
-                    },
-                   
+                    }
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -198,8 +170,6 @@ var FormValidation = function () {
 }();
 
 jQuery(document).ready(function() {
-//     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
-// $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
     FormValidation.init();
     $('#dtmHolidate').datepicker({
         format:"yyyy-mm-dd"
