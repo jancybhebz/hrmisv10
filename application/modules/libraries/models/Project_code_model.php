@@ -20,22 +20,12 @@ class Project_code_model extends CI_Model {
 	
 	function getData($intProjectId = '')
 	{		
-		//$strWhere = '';
 		if($intProjectId != "")
 		{
 			$this->db->where($this->tableid,$intProjectId);
-			//$strWhere .= " AND projectId = '".$intProjectId."'";
 		}
 		
-		// $strSQL = " SELECT * FROM tblproject					
-		// 			WHERE 1=1 
-		// 			$strWhere
-		// 			ORDER BY projectDesc
-		// 			";
-		//echo $strSQL;exit(1);				
-		//$objQuery = $this->db->query($strSQL);
 		$objQuery = $this->db->get($this->table);
-		//print_r($objQuery->result_array());
 		return $objQuery->result_array();	
 	}
 
@@ -47,21 +37,14 @@ class Project_code_model extends CI_Model {
 	
 	function checkExist($strProjectCode = '', $strProjectDescription = '')
 	{		
-		// $strSQL = " SELECT * FROM tblproject					
-		// 			WHERE  
-		// 			projectCode ='$strProjectCode' OR
-		// 			projectDesc ='$strProjectDescription'					
-		// 			";
+		
 		$this->db->where('projectCode',$strProjectCode);
 		$this->db->or_where('projectDesc', $strProjectDescription);			
-		//echo $strSQL;exit(1);
-		//$objQuery = $this->db->query($strSQL);
+		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
-				
-		
 	function save($arrData, $intProjectId)
 	{
 		$this->db->where($this->tableid, $intProjectId);

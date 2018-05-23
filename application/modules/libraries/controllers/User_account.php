@@ -15,15 +15,14 @@ class User_account extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/user_account_model'));
+        $this->load->model(array('libraries/user_account_model','employees/employees_model'));
     }
 
 	public function index()
 	{
-		// $this->load->model(array('employees/employees_model'));
-		// $this->arrData['arrEmployees'] = $this->employees_model->getEmpDetails();
-		
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
+		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
+		$this->arrData['arrEmployees'] = $this->employees_model->getData();
 		$this->template->load('template/template_view', 'libraries/user_account/list_view', $this->arrData);
 	}
 	
@@ -33,6 +32,7 @@ class User_account extends MY_Controller {
 		if(empty($arrPost))
 		{	
 			$this->load->model(array('employees/employees_model'));
+			// $this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 			$this->arrData['arrEmployees'] = $this->employees_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);	
 		}

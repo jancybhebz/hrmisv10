@@ -50,8 +50,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Project <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strProject" value="<?=isset($arrPayrollGroup[0]['projectCode'])?$arrParyollGroup[0]['projectCode']:''?>">
-                                    <option value=""></option>
+                                    <select type="text" class="form-control" name="strProject">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrProject as $project)
+                                        {
+                                          echo '<option value="'.$project['projectId'].'" '.($arrPayrollGroup[0]['projectCode']==$project['projectId']?'selected':'').'>'.$project['projectDesc'].'</option>';
+                                        }?>
                                     </select>
                                 </div>
                             </div>
@@ -139,23 +143,23 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strProject: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strPayrollGroupCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     strPayrollGroupDesc: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     intPayrollGroupOrder: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     strResponsibilityCntr: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                 },

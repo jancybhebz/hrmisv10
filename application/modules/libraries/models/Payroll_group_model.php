@@ -9,72 +9,54 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Payroll_group_model extends CI_Model {
 
+	var $table = 'tblpayrollgroup';
+	var $tableid = 'payrollGroupId';
+
 	function __construct()
 	{
 		$this->load->database();
 		//$this->db->initialize();	
 	}
-	
+
 	function getData($intPayrollGroupId = '')
 	{		
-		$strWhere = '';
 		if($intPayrollGroupId != "")
-			$strWhere .= " AND payrollGroupId = '".$intPayrollGroupId."'";
-		
-		$strSQL = " SELECT * FROM tblpayrollgroup					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY payrollGroupOrder
-					";
-		//echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
+		{
+			$this->db->where($this->tableid,$intPayrollGroupId);
+		}
+		$this->db->join('tblproject','tblproject.projectCode = '.$this->table.'.projectCode','left');
+		$this->db->order_by('tblpayrollgroup.'.$this->tableid,'ASC');
+		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
 	function add($arrData)
 	{
-		$this->db->insert('tblpayrollgroup', $arrData);
+		$this->db->insert($this->table, $arrData);
 		return $this->db->insert_id();		
 	}
-	
-	function checkExist($strProject = '', $strPayrollGroupCode = '')
+
+	function checkExist($strPayrollGroupCode = '', $strPayrollGroupdesc = '')
 	{		
-		$strSQL = " SELECT * FROM tblpayrollgroup					
-					WHERE  
-					payrollGroupCode ='$strPayrollGroupCode' OR
-					payrollGroupName ='$strPayrollGroupdesc'					
-					";
-		//echo $strSQL;exit(1);
-		$objQuery = $this->db->query($strSQL);
+		$this->db->where('payrollGroupCode',$strPayrollGroupCode);
+		$this->db->or_where('payrollGroupName', $strPayrollGroupdesc);			
+		
+		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
-	function getProjectDetails() 
-	{ 
-
-		$sql = "SELECT * FROM tblpayrollgroup 
-							LEFT JOIN tblproject ON tblpayrollgroup.payrollGroupId = tblproject.projectId
-							ORDER BY tblpayrollgroup.payrollGroupId ASC";	
-		// echo $sql;
-		$query = $this->db->query($sql);
-		return $query->result_array();
-	}	
-
-				
-		
 	function save($arrData, $intPayrollGroupId)
 	{
-		$this->db->where('payrollGroupId', $intPayrollGroupId);
-		$this->db->update('tblpayrollgroup', $arrData);
+		$this->db->where($this->tableid, $intPayrollGroupId);
+		$this->db->update($this->table, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
 	function delete($intPayrollGroupId)
 	{
-		$this->db->where('payrollGroupId', $intPayrollGroupId);
-		$this->db->delete('tblpayrollgroup'); 	
+		$this->db->where($this->tableid, $intPayrollGroupId);
+		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

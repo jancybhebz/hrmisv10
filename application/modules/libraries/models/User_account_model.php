@@ -20,46 +20,43 @@ class User_account_model extends CI_Model {
 	
 	function getData($intEmpNumber = '')
 	{		
-
 		if($intEmpNumber != "")
 		{
 			$this->db->where($this->tableid,$intEmpNumber);
 		}
-		
 		$objQuery = $this->db->get($this->table);
-		
 		return $objQuery->result_array();		
 	}
 
 	function getEmpDetails($intEmpNumber = '')
 	{		
-		  $this->db->select('empNumber,surname,firstname,middlename,middleInitial,nameExtension');
-		  $this->db->join('tblempaccount.empNumber = tblemppersonal.empID','left');
-		  $this->db->where('empNumber',$intEmpNumber);
-		  $objQuery = $this->db->get('tblEmpPersonal');
-          return $objQuery->result_array();
+		$this->db->select('tblemppersonal.*,tblemppersonal.firstname');   
+		$this->db->from('tblemppersonal');
+	    $this->db->join('tblemppersonal','tblemppersonal.empID = '.$this->table.'.empNumber','left');
+	    $this->db->where('empNumber',$intEmpNumber);
+
+	    $query = $this->db->get();
+        return $query->result();	
+	    // $objQuery = $this->db->get('tblEmpPersonal');
+     // 	return $objQuery->result_array();
 	}
 
 	function add($arrData)
-	{
-				
+	{			
 		$this->db->insert($this->table, $arrData);
 		return $this->db->insert_id();	
 	}
 	
 	function checkExist($strUsername = '', $strPassword = '')
 	{		
-		$strSQL = " SELECT * FROM tblempaccount					
-					WHERE  
-					userName ='$strUsername' OR
-					userPassword ='$strPassword'					
-					";
-		//echo $strSQL;exit(1);
-		$objQuery = $this->db->query($strSQL);
+
+		$this->db->where('userName',$strUsername);
+		$this->db->or_where('userPassword', $strPassword);			
+		
+		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
-		
 	function save($arrData, $intEmpNumber)
 	{
 		$this->db->where($this->tableid, $intEmpNumber);

@@ -21,7 +21,7 @@ class Payroll_group extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrPayrollGroup'] = $this->payroll_group_model->getData();
-		$this->arrData['arrPayrollGroup'] = $this->payroll_group_model->getProjectDetails();
+		//$this->arrData['arrPayrollGroup'] = $this->payroll_group_model->getProjectDetails();
 		
 		// $this->arrTemplateData['arrPG']=$this->employeename_model->getDetails();
 		$this->template->load('template/template_view', 'libraries/payroll_group/list_view', $this->arrData);
@@ -80,14 +80,16 @@ class Payroll_group extends MY_Controller {
     	
     }
 
-	public function edit()
+    public function edit()
 	{
 		$arrPost = $this->input->post();
 		//print_r($arrPost);
 		if(empty($arrPost))
 		{
 			$intPayrollGroupId = urldecode($this->uri->segment(4));
+			$this->arrData['arrProject']=$this->project_code_model->getData(); 
 			$this->arrData['arrPayrollGroup']=$this->payroll_group_model->getData($intPayrollGroupId);
+		
 			$this->template->load('template/template_view','libraries/payroll_group/edit_view', $this->arrData);
 		}
 		else
@@ -98,27 +100,29 @@ class Payroll_group extends MY_Controller {
 			$strPayrollGroupDesc = $arrPost['strPayrollGroupDesc'];
 			$intPayrollGroupOrder = $arrPost['intPayrollGroupOrder'];
 			$strResponsibilityCntr = $arrPost['strResponsibilityCntr'];
-			if(!empty($strProject) AND !empty($strPayrollGroupCode) AND !empty($strPayrollGroupDesc)) 
-			{
+			//print_r($arrPost);
+			if(!empty($strProject) AND !empty($strPayrollGroupCode) AND !empty($strPayrollGroupDesc) AND !empty($intPayrollGroupOrder) AND !empty($strResponsibilityCntr)) 
+			{ //print_r($arrPost);
 				$arrData = array(
 					'projectCode'=>$strProject,
-					'projectDesc'=>$strPayrollGroupCode,
-					'projectOrder'=>$strPayrollGroupDesc,
-					'projectOrder'=>$intPayrollGroupOrder,
-					'projectOrder'=>$strResponsibilityCntr
+					'payrollGroupCode'=>$strPayrollGroupCode,
+					'payrollGroupName'=>$strPayrollGroupDesc,
+					'payrollGroupOrder'=>$intPayrollGroupOrder,
+					'payrollGroupRC'=>$strResponsibilityCntr
 				);
 				$blnReturn = $this->payroll_group_model->save($arrData, $intPayrollGroupId);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Edited '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Payroll group saved successfully.');
+					$this->session->set_flashdata('strMsg','Payroll Group updated successfully.');
 				}
 				redirect('libraries/payroll_group');
 			}
 		}
 		
 	}
+
 	public function delete()
 	{
 		//$strDescription=$arrPost['strDescription'];

@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Project <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i><?php //print_r($arrProject)?>
-                                    <select type="text" class="form-control" name="strProject" value="<?=!empty($this->session->userdata('strProject'))?$this->session->userdata('strProject'):''?>">
+                                    <select type="text" class="form-control" name="strProject" value="<?=!empty($this->session->userdata('strProject'))?$this->session->userdata('strProject'):''?>" required>
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrProject as $project)
@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($this->session->userdata('strPayrollGroupCode'))?$this->session->userdata('strPayrollGroupCode'):''?>">
+                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($this->session->userdata('strPayrollGroupCode'))?$this->session->userdata('strPayrollGroupCode'):''?>" required>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($this->session->userdata('strPayrollGroupDesc'))?$this->session->userdata('strPayrollGroupDesc'):''?>">
+                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($this->session->userdata('strPayrollGroupDesc'))?$this->session->userdata('strPayrollGroupDesc'):''?>" required>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="number" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($this->session->userdata('intPayrollGroupOrder'))?$this->session->userdata('intPayrollGroupOrder'):''?>">
+                                    <input type="number" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($this->session->userdata('intPayrollGroupOrder'))?$this->session->userdata('intPayrollGroupOrder'):''?>" required>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Responsibility Center <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($this->session->userdata('strResponsibilityCntr'))?$this->session->userdata('strResponsibilityCntr'):''?>">
+                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($this->session->userdata('strResponsibilityCntr'))?$this->session->userdata('strResponsibilityCntr'):''?>" required>
                                 </div>
                             </div>
                         </div>
@@ -143,23 +143,23 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strProject: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strPayrollGroupCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     strPayrollGroupDesc: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     intPayrollGroupOrder: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     strResponsibilityCntr: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                 },
