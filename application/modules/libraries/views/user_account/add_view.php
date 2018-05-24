@@ -50,13 +50,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Access Level <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strAccessLevel" value="<?=!empty($this->session->userdata('strAccessLevel'))?$this->session->userdata('strAccessLevel'):''?>">
+                                    <select type="text" class="form-control" name="strAccessLevel" value="<?=!empty($this->session->userdata('strAccessLevel'))?$this->session->userdata('strAccessLevel'):''?>" required>
                                     <option value="">Select</option>
-                                    <option>HR Module</option>
-                                    <option>Finance Module</option>
-                                    <option>Officer Module</option>
-                                    <option>Execom Module</option>
-                                    <option>Employee Module</option>
+                                    <option value="1">HR Module</option>
+                                    <option value="2">Finance Module</option>
+                                    <option value="3">Officer Module</option>
+                                    <option value="4">Execom Module</option>
+                                    <option value="5">Employee Module</option>
                                     </select>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Employee Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>">
+                                    <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" required>
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -84,7 +84,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Username <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strUsername" value="<?=!empty($this->session->userdata('strUsername'))?$this->session->userdata('strUsername'):''?>">
+                                    <input type="text" class="form-control" name="strUsername" value="<?=!empty($this->session->userdata('strUsername'))?$this->session->userdata('strUsername'):''?>" required>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Password <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="password" class="form-control" name="strPassword" value="<?=!empty($this->session->userdata('strPassword'))?$this->session->userdata('strPassword'):''?>">
+                                    <input type="password" class="form-control" name="strPassword" value="<?=!empty($this->session->userdata('strPassword'))?$this->session->userdata('strPassword'):''?>" required>
                                 </div>
                             </div>
                         </div>
@@ -137,19 +137,19 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strAccessLevel: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strEmpName: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     strUsername: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strPassword: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                 },

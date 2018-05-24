@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['userLevel']?> </td>
-                            <td> <?=$row['surname']?> </td>
+                            <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middlename']?> </td>
                             <td> <?=$row['userName']?> </td>
                             <td> <?=$row['userPassword']?> </td>
                             <td>

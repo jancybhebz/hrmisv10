@@ -30,17 +30,18 @@ class User_account_model extends CI_Model {
 
 	function getEmpDetails($intEmpNumber = '')
 	{		
-		$this->db->select('tblemppersonal.*,tblemppersonal.firstname');   
-		$this->db->from('tblemppersonal');
-	    $this->db->join('tblemppersonal','tblemppersonal.empID = '.$this->table.'.empNumber','left');
-	    $this->db->where('empNumber',$intEmpNumber);
+	    if($intEmpNumber != "")
+		{
+			$this->db->where($this->tableid,$intEmpNumber);
+		}
+		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
 
-	    $query = $this->db->get();
-        return $query->result();	
-	    // $objQuery = $this->db->get('tblEmpPersonal');
-     // 	return $objQuery->result_array();
 	}
 
+	
 	function add($arrData)
 	{			
 		$this->db->insert($this->table, $arrData);

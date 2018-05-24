@@ -66,9 +66,10 @@ class User_account extends MY_Controller {
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Username/password already exists.');
-					$this->session->set_flashdata('strProjectCode',$strProjectCode);
-					$this->session->set_flashdata('strProjectDescription',$strProjectDescription);
-					$this->session->set_flashdata('intProjectOrder',$intProjectOrder);					//echo $this->session->flashdata('strErrorMsg');
+					$this->session->set_flashdata('strAccessLevel',$strAccessLevel);
+					$this->session->set_flashdata('strEmpName',$strEmpName);
+					$this->session->set_flashdata('strUsername',$strUsername);
+					$this->session->set_flashdata('strPassword',$strPassword);					//echo $this->session->flashdata('strErrorMsg');
 					redirect('libraries/user_account/add');
 				}
 			}
@@ -85,6 +86,7 @@ class User_account extends MY_Controller {
 		{
 			$intEmpNumber = urldecode($this->uri->segment(4));
 			$this->arrData['arrUser']=$this->user_account_model->getData($intEmpNumber);
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/edit_view', $this->arrData);
 		}
 		else
@@ -116,7 +118,6 @@ class User_account extends MY_Controller {
 	}
 	public function delete()
 	{
-		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
 		$intEmpNumber = $this->uri->segment(4);
 		if(empty($arrPost))

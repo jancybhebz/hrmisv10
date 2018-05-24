@@ -49,8 +49,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Access Level <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAccessLevel" value="<?=isset($arrUser[0]['userLevel'])?$arrUser[0]['userLevel']:''?>">
+                                <?php if(isset($_GET["strAccessLevel"])){
+                                    $draft= $_GET["strAccessLevel"];
+                                    }
+                                    else
+                                    {
+                                    $draft = '';
+                                    } ?>
+                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel">
+                                        <option value="">Select</option>
+                                        <option value="1">HR Module</option>
+                                        <option value="2">Finance Module</option>
+                                        <option value="3">Officer Module</option>
+                                        <option value="4">Execom Module</option>
+                                        <option value="5">Employee Module</option>
+                                    </select>  
+
                                 </div>
                             </div>
                         </div>
@@ -60,8 +74,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Employee Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strEmpName" value="<?=!empty($arrUser[0]['empNumber'])?$arrUser[0]['empNumber']:''?>">
+                                     <select type="text" class="form-control" name="strEmpName">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrUser[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
+                                    </select>
+        
                                 </div>
                             </div>
                         </div>
@@ -126,19 +147,19 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strAccessLevel: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strEmpName: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     }
                     strUsername: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     }
                     strPassword: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     }
                 },
