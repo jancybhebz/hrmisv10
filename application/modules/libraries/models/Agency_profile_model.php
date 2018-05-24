@@ -18,14 +18,24 @@ class Agency_profile_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
-	function getData($strAgencyName = '')
+	function getData($intAgencyName = '')
 	{		
-		
-		if($strAgencyName != "")
+		if($intAgencyName != "")
 		{
-			$this->db->where($this->tableid,$strAgencyName);
+			$this->db->where($this->tableid,$intAgencyName);
 		}
 		
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+
+	function getImage($ImageId = '')
+	{		
+		if($intAgencyName != "")
+		{
+			$this->db->where($this->tableid,$intAgencyName);
+		}
+		$this->db->join('tblagencyimages','tblagencyimages.id = '.$this->table.'.agencyName','left');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
@@ -36,27 +46,35 @@ class Agency_profile_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function checkExist($strServiceCode = '', $strServiceDescription = '')
+	function checkExist($strAgencyName = '', $strAgencyCode = '')
 	{		
 		
-		$this->db->where('serviceCode',$strServiceCode);
-		$this->db->or_where('serviceDesc', $strServiceDescription);			
+		$this->db->where('agencyName',$strAgencyName);
+		$this->db->or_where('agencyCode', $strAgencyCode);			
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 	
-	function save($arrData, $intServiceId)
+	function save($arrData, $strAgencyName)
 	{
-		$this->db->where($this->tableid, $intServiceId);
+		$this->db->where($this->tableid, $strAgencyName);
 		$this->db->update($this->table, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
-	function delete($intServiceId)
+
+	function saveImage($arrData, $ImageId)
 	{
-		$this->db->where($this->tableid, $intServiceId);
+		$this->db->where('id', $ImageId);
+		$this->db->update('tblagencyimages', $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+		
+	function delete($strAgencyName)
+	{
+		$this->db->where($this->tableid, $strAgencyName);
 		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;

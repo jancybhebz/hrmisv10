@@ -1,7 +1,7 @@
 <?php 
 /** 
-Purpose of file:    Delete page for Appointment Status Library
-Author:             Edgardo P. Catorce Jr.
+Purpose of file:    Delete page for Agency Profile Library
+Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Delete Appointment Status</span>
+            <span>Delete Agency Profile </span>
         </li>
     </ul>
 </div>
@@ -36,12 +36,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-trash font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Delete Appointment Status</span>
+                    <span class="caption-subject bold uppercase"> Delete Agency Profile </span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/appointment_status/delete/'.$this->uri->segment(4))?>" method="post" id="frmAppointmentStatus">
+                <form action="<?=base_url('libraries/agency_profile/delete/'.$this->uri->segment(4))?>" method="post" id="frmAgencyProfile">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">

@@ -33,33 +33,83 @@ class Agency_profile extends MY_Controller {
 		}
 		else
 		{	
-			$strServiceCode = $arrPost['strServiceCode'];
-			$strServiceDescription = $arrPost['strServiceDescription'];
-			if(!empty($strServiceCode) && !empty($strServiceDescription) && !empty($strServiceDescription))
+			$strAgencyName = $arrPost['strAgencyName'];
+			$strAgencyCode = $arrPost['strAgencyCode'];
+			$strRegion = $arrPost['strRegion'];
+			$intTinNum = $arrPost['intTinNum'];
+			$strAddress = $arrPost['strAddress'];
+			$intZipCode = $arrPost['intZipCode'];
+			$intTelephone = $arrPost['intTelephone'];
+			$intFax = $arrPost['intFax'];
+			$strEmail = $arrPost['strEmail'];
+			$strWebsite = $arrPost['strWebsite'];
+			$strSalarySched = $arrPost['strSalarySched'];
+			$intGSISNum = $arrPost['intGSISNum'];
+			$intGSISEmpShare = $arrPost['intGSISEmpShare'];
+			$intGSISEmprShare = $arrPost['intGSISEmprShare'];
+			$intPagibigNum = $arrPost['intPagibigNum'];
+			$intPagibigEmpShare = $arrPost['intPagibigEmpShare'];
+			$intPagibigEmprShare = $arrPost['intPagibigEmprShare'];
+			$intProvidentEmpShare = $arrPost['intProvidentEmpShare'];
+			$intProvidentEmprShare = $arrPost['intProvidentEmprShare'];
+			$intPhilhealthEmpShare = $arrPost['intPhilhealthEmpShare'];
+			$intPhilhealthEmprShare = $arrPost['intPhilhealthEmprShare'];
+			$intPhilhealthPercentage = $arrPost['intPhilhealthPercentage'];
+			$intPhilhealthNum = $arrPost['intPhilhealthNum'];
+			$strMission = $arrPost['strMission'];
+			$strVision = $arrPost['strVision'];
+			$strMandate = $arrPost['strMandate'];
+			$strAccountNum = $arrPost['strAccountNum'];
+			if(!empty($strAgencyName) && !empty($strAgencyCode) && !empty($strRegion))
 			{	
 				// check if exam code and/or exam desc already exist
-				if(count($this->agency_profile_model->checkExist($strServiceCode, $strServiceDescription))==0)
+				if(count($this->agency_profile_model->checkExist($strAgencyName, $strAgencyCode))==0)
 				{
 					$arrData = array(
-						'serviceCode'=>$strServiceCode,
-						'serviceDesc'=>$strServiceDescription,
+						'agencyName'=>$strAgencyName,
+						'abbreviation'=>$strAgencyCode,
+						'region'=>$strRegion,
+						'agencyTin'=>$intTinNum,
+						'address'=>$strAddress,
+						'zipCode'=>$intZipCode,
+						'telephone'=>$intTelephone,
+						'facsimile'=>$intFax,
+						'email'=>$strEmail,
+						'website'=>$strWebsite,
+						'salarySchedule'=>$strSalarySched,
+						'gsisId'=>$intGSISNum,
+						'gsisEmpShare'=>$intGSISEmpShare,
+						'gsisEmprShare'=>$intGSISEmprShare,
+						'pagibigId'=>$intPagibigNum,
+						'pagibigEmpShare'=>$intPagibigEmpShare,
+						'pagibigEmprShare'=>$intPagibigEmprShare,
+						'providentEmpShare'=>$intProvidentEmpShare,
+						'providentEmprShare'=>$intProvidentEmprShare,
+						'philhealthEmpShare'=>$intPhilhealthEmpShare,
+						'philhealthEmprShare'=>$intPhilhealthEmprShare,
+						'philhealthPercentage'=>$intPhilhealthPercentage,
+						'PhilhealthNum'=>$intPhilhealthNum,
+						'Mission'=>$strMission,
+						'Vision'=>$strMandate,
+						'Mandate'=>$strVision,
+						'AccountNum'=>$strAccountNum,
 						
 					);
 					$blnReturn  = $this->agency_profile_model->add($arrData);
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblservicecode','Added '.$strServiceDescription.' Service_code',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagency','Added '.$strAgencyName.' Agency_profile',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Service code added successfully.');
+						$this->session->set_flashdata('strMsg','Agency name added successfully.');
 					}
 					redirect('libraries/agency_profile');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Service code and/or Service description already exists.');
-					$this->session->set_flashdata('strServiceCode',$strServiceCode);
-					$this->session->set_flashdata('strServiceDescription',$strServiceDescription);
+					$this->session->set_flashdata('strErrorMsg','Agency already exists.');
+					$this->session->set_flashdata('strAgencyName',$strAgencyName);
+					$this->session->set_flashdata('strAgencyCode',$strAgencyCode);
 					redirect('libraries/agency_profile/add');
 				}
 			}
@@ -73,58 +123,169 @@ class Agency_profile extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{
-			$intServiceId = urldecode($this->uri->segment(4));
-			$this->arrData['arrService']=$this->agency_profile_model->getData($intServiceId);
+			$intAgencyName = urldecode($this->uri->segment(4));
+			$this->arrData['arrAgency']=$this->agency_profile_model->getData($intAgencyName);
 			$this->template->load('template/template_view','libraries/agency_profile/edit_view', $this->arrData);
 		}
 		else
 		{
-			$intServiceId = $arrPost['intServiceId'];
-			$strServiceCode = $arrPost['strServiceCode'];
-			$strServiceDescription = $arrPost['strServiceDescription'];
-			if(!empty($strServiceCode) AND !empty($strServiceDescription)) 
+			$intAgencyName = $arrPost['intAgencyName'];
+			$strAgencyName = $arrPost['strAgencyName'];
+			$strAgencyCode = $arrPost['strAgencyCode'];
+			$strRegion = $arrPost['strRegion'];
+			$intTinNum = $arrPost['intTinNum'];
+			$strAddress = $arrPost['strAddress'];
+			$intZipCode = $arrPost['intZipCode'];
+			$intTelephone = $arrPost['intTelephone'];
+			$intFax = $arrPost['intFax'];
+			$strEmail = $arrPost['strEmail'];
+			$strWebsite = $arrPost['strWebsite'];
+			$strSalarySched = $arrPost['strSalarySched'];
+			$intGSISNum = $arrPost['intGSISNum'];
+			$intGSISEmpShare = $arrPost['intGSISEmpShare'];
+			$intGSISEmprShare = $arrPost['intGSISEmprShare'];
+			$intPagibigNum = $arrPost['intPagibigNum'];
+			$intPagibigEmpShare = $arrPost['intPagibigEmpShare'];
+			$intPagibigEmprShare = $arrPost['intPagibigEmprShare'];
+			$intProvidentEmpShare = $arrPost['intProvidentEmpShare'];
+			$intProvidentEmprShare = $arrPost['intProvidentEmprShare'];
+			$intPhilhealthEmpShare = $arrPost['intPhilhealthEmpShare'];
+			$intPhilhealthEmprShare = $arrPost['intPhilhealthEmprShare'];
+			$intPhilhealthPercentage = $arrPost['intPhilhealthPercentage'];
+			$intPhilhealthNum = $arrPost['intPhilhealthNum'];
+			$strMission = $arrPost['strMission'];
+			$strVision = $arrPost['strVision'];
+			$strMandate = $arrPost['strMandate'];
+			$strAccountNum = $arrPost['strAccountNum'];
+			if(!empty($strAgencyName) AND !empty($strAgencyCode)) 
 			{
 				$arrData = array(
-					'serviceCode'=>$strServiceCode,
-					'serviceDesc'=>$strServiceDescription,
+						'agencyName'=>$strAgencyName,
+						'abbreviation'=>$strAgencyCode,
+						'region'=>$strRegion,
+						'agencyTin'=>$intTinNum,
+						'address'=>$strAddress,
+						'zipCode'=>$intZipCode,
+						'telephone'=>$intTelephone,
+						'facsimile'=>$intFax,
+						'email'=>$strEmail,
+						'website'=>$strWebsite,
+						'salarySchedule'=>$strSalarySched,
+						'gsisId'=>$intGSISNum,
+						'gsisEmpShare'=>$intGSISEmpShare,
+						'gsisEmprShare'=>$intGSISEmprShare,
+						'pagibigId'=>$intPagibigNum,
+						'pagibigEmpShare'=>$intPagibigEmpShare,
+						'pagibigEmprShare'=>$intPagibigEmprShare,
+						'providentEmpShare'=>$intProvidentEmpShare,
+						'providentEmprShare'=>$intProvidentEmprShare,
+						'philhealthEmpShare'=>$intPhilhealthEmpShare,
+						'philhealthEmprShare'=>$intPhilhealthEmprShare,
+						'philhealthPercentage'=>$intPhilhealthPercentage,
+						'PhilhealthNum'=>$intPhilhealthNum,
+						'Mission'=>$strMission,
+						'Vision'=>$strMandate,
+						'Mandate'=>$strVision,
+						'AccountNum'=>$strAccountNum,
 					
 				);
-				$blnReturn = $this->agency_profile_model->save($arrData, $intServiceId);
+				$blnReturn = $this->agency_profile_model->save($arrData, $intAgencyName);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblservicecode','Edited '.$strServiceDescription.' Service_code',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagency','Edited '.$strAgencyName.' Agency_profile',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Service code saved successfully.');
+					$this->session->set_flashdata('strMsg','Agency profile saved successfully.');
 				}
 				redirect('libraries/agency_profile');
 			}
 		}
-		
 	}
-	public function delete()
+
+	public function edit_logo()
 	{
-		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$intServiceId = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->agency_profile_model->getData($intServiceId);
+			$ImageId = urldecode($this->uri->segment(4));
+			$this->arrData['arrAgency']=$this->agency_profile_model->getData($ImageId);
+			$this->template->load('template/template_view','libraries/agency_profile/edit_logo_view', $this->arrData);
+		}
+		else
+		{
+			$ImageId = $arrPost['ImageId'];
+			$strAgencyLogo = $arrPost['strAgencyLogo'];
+		
+			if(!empty($strAgencyLogo)) 
+			{
+				$arrData = array(
+						'agencyLogo'=>$strAgencyLogo,
+					
+				);
+				$blnReturn = $this->agency_profile_model->saveImage($arrData, $ImageId);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagencyimages','Edited '.$ImageId.' Agency_profile',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Agency profile saved successfully.');
+				}
+				redirect('libraries/agency_profile');
+			}
+		}
+	}
+
+	public function upload()
+	{
+		$arrPost = $this->input->post();
+
+		$config['upload_path']          = 'uploads/';
+        $config['allowed_types']        = 'pdf';
+		
+		 $this->load->library('upload', $config);
+		
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+			$this->session->set_flashdata('error','Please try again!');
+		}
+		else
+		{
+			$data = $this->upload->data();
+			//print_r($data);exit;
+				$arrLogo = array(
+					'agencyLogo' => $data['file_name']	
+				);
+
+			$this->agency_profile_model->edit_logo($arrLogo, $arrPost['id']);
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			
+		}
+		redirect('libraries/agency_profile/edit_logo/='.$arrPost['id']);
+		
+	}
+
+	public function delete()
+	{
+		$arrPost = $this->input->post();
+		$intAgencyName = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrData'] = $this->agency_profile_model->getData($intAgencyName);
 			$this->template->load('template/template_view','libraries/agency_profile/delete_view',$this->arrData);
 		}
 		else
 		{
-			$intServiceId = $arrPost['intServiceId'];
+			$intAgencyName = $arrPost['intAgencyName'];
 			//add condition for checking dependencies from other tables
-			if(!empty($intServiceId))
+			if(!empty($intAgencyName))
 			{
-				$arrService = $this->agency_profile_model->getData($intServiceId);
-				$strServiceDescription = $arrService[0]['serviceDesc'];	
-				$blnReturn = $this->agency_profile_model->delete($intServiceId);
+				$arrAgency = $this->agency_profile_model->getData($intAgencyName);
+				$strAgencyCode = $arrAgency[0]['abbreviation'];	
+				$blnReturn = $this->agency_profile_model->delete($intAgencyName);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblservicecode','Deleted '.$strServiceDescription.' Service_code',implode(';',$arrService[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagency','Deleted '.$strAgencyName.' Agency_profile',implode(';',$arrAgency[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Service code deleted successfully.');
+					$this->session->set_flashdata('strMsg','Agency profile deleted successfully.');
 				}
 				redirect('libraries/agency_profile');
 			}
