@@ -25,15 +25,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-md-6">
                             <div class="btn-group">
                                 <a href="<?=base_url('libraries/org_structure/add_exec')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Executive Office </button></a>
-                                <br><br>
 
                                 <a href="<?=base_url('libraries/org_structure/add_service')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Service 
                                 </button></a>
 
-                                <a href="<?=base_url('libraries/org_structure/add_div')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Division 
+                                <a href="<?=base_url('libraries/org_structure/add_division')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Division 
                                 </button></a>
 
-                                <a href="<?=base_url('libraries/org_structure/add_sec')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Section 
+                                <a href="<?=base_url('libraries/org_structure/add_section')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Section 
                                 </button></a>
                             </div>
                         </div>

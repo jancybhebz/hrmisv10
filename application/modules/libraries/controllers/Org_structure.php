@@ -270,5 +270,136 @@ class Org_structure extends MY_Controller {
 			}
 		}	
 	}
+	//ADD DIVISION NAME
+	public function add_division()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->template->load('template/template_view','libraries/org_structure/add_division_view',$this->arrData);	
+		}
+		else
+		{	
+			$strCode = $arrPost['strCode'];
+			$strExecDivision = $arrPost['strExecDivision'];
+			$strSerDivision = $arrPost['strSerDivision'];
+			$strDivCode = $arrPost['strDivCode'];
+			$strDivName = $arrPost['strDivName'];
+			$strDivHead = $arrPost['strDivHead'];
+			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
+			$strDivSecretary = $arrPost['strDivSecretary'];
+			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkService($strDivCode, $strDivName))==0)
+				{
+					$arrData = array(
+						'group1Code'=>$strExecDivision,
+						'group2Code'=>$strSerDivision,
+						'group3Code'=>$strDivCode,
+						'group3Name'=>$strDivName,
+						'empNumber'=>$strDivHead,	
+						'group3HeadTitle'=>$strDivHeadTitle,	
+						'group3Secretary'=>$strDivSecretary
+					);
+					$blnReturn  = $this->org_structure_model->add_division($arrData);
 
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Added '.$strDivCode.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Division Name added successfully.');
+					}
+					redirect('libraries/org_structure/add_division');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Division Name already exists.');
+					$this->session->set_flashdata('strDivCode',$strDivCode);
+					$this->session->set_flashdata('strDivName',$strDivName);
+					redirect('libraries/org_structure/add_division');
+				}
+			}
+		}    	
+    }
+    //EDIT DIVISION NAME
+	public function edit_division()
+	{
+		$arrPost = $this->input->post();
+		//print_r($arrPost);
+		if(empty($arrPost))
+		{
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData($strCode);
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->template->load('template/template_view','libraries/org_structure/edit_division_view', $this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			$strExecDivision = $arrPost['strExecDivision'];
+			$strSerDivision = $arrPost['strSerDivision'];
+			$strDivCode = $arrPost['strDivCode'];
+			$strDivName = $arrPost['strDivName'];
+			$strDivHead = $arrPost['strDivHead'];
+			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
+			$strDivSecretary = $arrPost['strDivSecretary'];
+			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
+			{
+				$arrData = array(
+					'group1Code'=>$strExecDivision,
+					'group2Code'=>$strSerDivision,
+					'group3Code'=>$strDivCode,
+					'group3Name'=>$strDivName,
+					'empNumber'=>$strDivHead,	
+					'group3HeadTitle'=>$strDivHeadTitle,	
+					'group3Secretary'=>$strDivSecretary
+					
+				);
+				$blnReturn = $this->org_structure_model->save_division($arrData, $strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Edited '.$strDivCode.' Org_structure',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Division name saved successfully.');
+				}
+				redirect('libraries/org_structure/add_division');
+			}
+		}	
+	}
+	//DELETE DIVISION NAME
+	public function delete_division()
+	{
+		//$strDescription=$arrPost['strDescription'];
+		$arrPost = $this->input->post();
+		$strCode = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData($strCode);
+			$this->template->load('template/template_view','libraries/org_structure/delete_division_view',$this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strCode))
+			{
+				$arrDivision = $this->org_structure_model->getData($strCode);
+				$strDivName = $arrDivision[0]['group3Name'];	
+				$blnReturn = $this->org_structure_model->delete_division($strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Deleted '.$strDivCode.' Org_structure',implode(';',$arrDivision[0]),'');
+	
+					$this->session->set_flashdata('strMsg','Division name deleted successfully.');
+				}
+				redirect('libraries/org_structure/add_division');
+			}
+		}	
+	}
 }
