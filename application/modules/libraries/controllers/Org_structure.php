@@ -543,4 +543,162 @@ class Org_structure extends MY_Controller {
 			}
 		}	
 	}
+	//ADD EXEC-CUSTODIAN NAME
+	public function add_exec_custodian()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->template->load('template/template_view','libraries/org_structure/add_exec_custodian_view',$this->arrData);	
+		}
+		else
+		{	
+			$strEmployee = $arrPost['strEmployee'];
+			if(!empty($strEmployee))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkExist($strEmployee))==0)
+				{
+					$arrData = array(
+						'group1Custodian'=>$strEmployee,
+						
+					);
+					$blnReturn  = $this->org_structure_model->add_exec($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Added '.$strEmployee.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Custodian added successfully.');
+					}
+					redirect('libraries/org_structure');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Custodian already exists.');
+					$this->session->set_flashdata('strEmployee',$strEmployee);
+					redirect('libraries/org_structure');
+				}
+			}
+		}    	
+    }
+    public function add_ser_custodian()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->template->load('template/template_view','libraries/org_structure/add_ser_custodian_view',$this->arrData);	
+		}
+		else
+		{	
+			$strEmployee = $arrPost['strEmployee'];
+			if(!empty($strEmployee))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkCust2($strEmployee))==0)
+				{
+					$arrData = array(
+						'group2Custodian'=>$strEmployee,
+						
+					);
+					$blnReturn  = $this->org_structure_model->add_service($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Added '.$strEmployee.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Custodian added successfully.');
+					}
+					redirect('libraries/org_structure');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Custodian already exists.');
+					$this->session->set_flashdata('strEmployee',$strEmployee);
+					redirect('libraries/org_structure');
+				}
+			}
+		}    	
+    }
+    public function add_div_custodian()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->template->load('template/template_view','libraries/org_structure/add_div_custodian_view',$this->arrData);	
+		}
+		else
+		{	
+			$strEmployee = $arrPost['strEmployee'];
+			if(!empty($strEmployee))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkCust3($strEmployee))==0)
+				{
+					$arrData = array(
+						'group3Custodian'=>$strEmployee,
+						
+					);
+					$blnReturn  = $this->org_structure_model->add_division($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Added '.$strEmployee.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Custodian added successfully.');
+					}
+					redirect('libraries/org_structure');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Custodian already exists.');
+					$this->session->set_flashdata('strEmployee',$strEmployee);
+					redirect('libraries/org_structure');
+				}
+			}
+		}    	
+    }
+     public function add_sec_custodian()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
+			$this->template->load('template/template_view','libraries/org_structure/add_sec_custodian_view',$this->arrData);	
+		}
+		else
+		{	
+			$strEmployee = $arrPost['strEmployee'];
+			if(!empty($strEmployee))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkCust4($strEmployee))==0)
+				{
+					$arrData = array(
+						'group3Custodian'=>$strEmployee,
+						
+					);
+					$blnReturn  = $this->org_structure_model->add_section($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Added '.$strEmployee.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Custodian added successfully.');
+					}
+					redirect('libraries/org_structure');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Custodian already exists.');
+					$this->session->set_flashdata('strEmployee',$strEmployee);
+					redirect('libraries/org_structure');
+				}
+			}
+		}    	
+    }
+
 }

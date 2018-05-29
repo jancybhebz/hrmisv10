@@ -63,7 +63,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td>
                                 <a href="<?=base_url('libraries/org_structure/edit_exec/'.$org['group1Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/org_structure/delete_exec/'.$org['group1Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
-                                <a href="<?=base_url('libraries/org_structure/custodian/'.$org['group1Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Custodian"></span> Custodian</button></a>
+                                <a href="<?=base_url('libraries/org_structure/add_exec_custodian/'.$org['group1Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Custodian"></span> Custodian</button></a>
                             </td>
 
                         </tr>

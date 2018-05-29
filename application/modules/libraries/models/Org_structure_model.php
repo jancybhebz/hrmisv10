@@ -108,7 +108,6 @@ class Org_structure_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-
 	function checkExist($strExecOffice = '', $strExecName = '')
 	{		
 		$this->db->where('group1Code',$strExecOffice);
@@ -140,6 +139,30 @@ class Org_structure_model extends CI_Model {
 		$this->db->where('group4Code',$strSecCode);
 		$this->db->or_where('group4Name', $strSecName);			
 		
+		$objQuery = $this->db->get($this->table4);
+		return $objQuery->result_array();	
+	}
+	function checkCust1($strEmployee = '')
+	{		
+		$this->db->where('group1Custodian',$strEmployee);
+		$objQuery = $this->db->get($this->table1);
+		return $objQuery->result_array();	
+	}
+	function checkCust2($strEmployee = '')
+	{		
+		$this->db->where('group2Custodian',$strEmployee);
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}
+	function checkCust3($strEmployee = '')
+	{		
+		$this->db->where('group3Custodian',$strEmployee);
+		$objQuery = $this->db->get($this->table3);
+		return $objQuery->result_array();	
+	}
+	function checkCust4($strEmployee = '')
+	{		
+		$this->db->where('group4Custodian',$strEmployee);
 		$objQuery = $this->db->get($this->table4);
 		return $objQuery->result_array();	
 	}
