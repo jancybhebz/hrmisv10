@@ -295,7 +295,7 @@ class Org_structure extends MY_Controller {
 			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
-				if(count($this->org_structure_model->checkService($strDivCode, $strDivName))==0)
+				if(count($this->org_structure_model->checkDivision($strDivCode, $strDivName))==0)
 				{
 					$arrData = array(
 						'group1Code'=>$strExecDivision,
@@ -399,6 +399,147 @@ class Org_structure extends MY_Controller {
 					$this->session->set_flashdata('strMsg','Division name deleted successfully.');
 				}
 				redirect('libraries/org_structure/add_division');
+			}
+		}	
+	}
+	//ADD SECTION NAME
+	public function add_section()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->template->load('template/template_view','libraries/org_structure/add_section_view',$this->arrData);	
+		}
+		else
+		{	
+			$strExec = $arrPost['strExec'];
+			$strService = $arrPost['strService'];
+			$strDivision = $arrPost['strDivision'];
+			$strSecCode = $arrPost['strSecCode'];
+			$strSecName = $arrPost['strSecName'];
+			$strSecHead = $arrPost['strSecHead'];
+			$strSecHeadTitle = $arrPost['strSecHeadTitle'];
+			$strSecSecretary = $arrPost['strSecSecretary'];
+			if(!empty($strExec) && !empty($strService) && !empty($strDivision) && !empty($strSecCode) && !empty($strSecName) && !empty($strSecHead) && !empty($strSecSecretary))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkSection($strSecCode, $strSecName))==0)
+				{
+					$arrData = array(
+						'group1Code'=>$strExec,
+						'group2Code'=>$strService,
+						'group3Code'=>$strDivision,
+						'group4Code'=>$strSecCode,
+						'group4Name'=>$strSecName,	
+						'empNumber'=>$strSecHead,
+						'group4HeadTitle'=>$strSecHeadTitle,
+						'group4Secretary'=>$strSecSecretary,	
+					);
+					$blnReturn  = $this->org_structure_model->add_section($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Added '.$strSecCode.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Section Name added successfully.');
+					}
+					redirect('libraries/org_structure/add_section');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Section Name already exists.');
+					$this->session->set_flashdata('strSecCode',$strSecCode);
+					$this->session->set_flashdata('strSecName',$strSecName);
+					redirect('libraries/org_structure/add_section');
+				}
+			}
+		}    	
+    }
+    //EDIT SECTION NAME
+    public function edit_section()
+	{
+		$arrPost = $this->input->post();
+		//print_r($arrPost);
+		if(empty($arrPost))
+		{
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData($strCode);
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->template->load('template/template_view','libraries/org_structure/edit_section_view', $this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			$strExec = $arrPost['strExec'];
+			$strService = $arrPost['strService'];
+			$strDivision = $arrPost['strDivision'];
+			$strSecCode = $arrPost['strSecCode'];
+			$strSecName= $arrPost['strSecName'];
+			$strSecHead= $arrPost['strSecHead'];
+			$strSecHeadTitle= $arrPost['strSecHeadTitle'];
+			$strSecSecretary= $arrPost['strSecSecretary'];
+			if(!empty($strExec) AND !empty($strService) AND !empty($strDivision) AND !empty($strSecCode) AND !empty($strSecName) AND !empty($strSecHead) AND !empty($strSecHeadTitle)  AND !empty($strSecSecretary)) 
+			{
+				$arrData = array(
+					'group1Code'=>$strExec,
+					'group2Code'=>$strService,
+					'group3Code'=>$strDivision,
+					'group4Code'=>$strSecCode,
+					'group4Name'=>$strSecName,	
+					'empNumber'=>$strSecHead,
+					'group4HeadTitle'=>$strSecHeadTitle,
+					'group4Secretary'=>$strSecSecretary,
+					
+				);
+				$blnReturn = $this->org_structure_model->save_section($arrData, $strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Edited '.$strExecOffice.' Org_structure',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Section name saved successfully.');
+				}
+				redirect('libraries/org_structure/add_section');
+			}
+		}	
+	}
+	//DELETE SECTION NAME
+	public function delete_section()
+	{
+		//$strDescription=$arrPost['strDescription'];
+		$arrPost = $this->input->post();
+		$strCode = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData($strCode);
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->template->load('template/template_view','libraries/org_structure/delete_section_view',$this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strCode))
+			{
+				$arrSection = $this->org_structure_model->getData($strCode);
+				$strSecName = $arrSection[0]['group4Name'];	
+				$blnReturn = $this->org_structure_model->delete_section($strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strSecName.' Org_structure',implode(';',$arrSection[0]),'');
+	
+					$this->session->set_flashdata('strMsg','Section name deleted successfully.');
+				}
+				redirect('libraries/org_structure/add_section');
 			}
 		}	
 	}

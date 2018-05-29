@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Add page for Org Structure Library
+Purpose of file:    Edit page for Section Name Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Division Name</span>
+            <span>Edit Section Name</span>
         </li>
     </ul>
 </div>
@@ -35,29 +35,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Division Name</span>
+                    <i class="icon-pencil font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Edit Section Name</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/org_structure/add_division')?>" method="post" id="frmOrgStructure">
+                <form action="<?=base_url('libraries/org_structure/edit_section/'.$this->uri->segment(4))?>" method="post" id="frmOrgStructure">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office <span class="required"> * </span></label>
+                                    <i class="fa"></i>
+                                    <label class="control-label">Executive Office  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="strExecDivision" value="<?=!empty($this->session->userdata('strExecDivision'))?$this->session->userdata('strExecDivision'):''?>" required>
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrOrganization as $org)
+                                    <select type="text" class="form-control" name="strExec">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrOrganization as $org)
                                         {
-                                          echo '<option value="'.$org['group1Code'].'">'.$org['group1Name'].'</option>';
+                                          echo '<option value="'.$org['group1Name'].'" '.($arrSection[0]['group1Code']==$org['group1Code']?'selected':'').'>'.$org['group1Name'].'</option>';
                                         }?>
-                                  </select>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -65,15 +65,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service<span class="required"> * </span></label>
+                                <label class="control-label">Service <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strSerDivision" value="<?=!empty($this->session->userdata('strSerDivision'))?$this->session->userdata('strSerDivision'):''?>" required>
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrService as $service)
+                                    <select type="text" class="form-control" name="strService">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrService as $service)
                                         {
-                                          echo '<option value="'.$service['group2Code'].'">'.$service['group2Name'].'</option>';
+                                          echo '<option value="'.$service['group2Name'].'" '.($arrSection[0]['group2Code']==$service['group2Code']?'selected':'').'>'.$service['group2Name'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -83,36 +82,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Code <span class="required"> * </span></label>
+                                <label class="control-label">Division <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strDivCode" value="<?=!empty($this->session->userdata('strDivCode'))?$this->session->userdata('strDivCode'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Division Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strDivName" value="<?=!empty($this->session->userdata('strDivName'))?$this->session->userdata('strDivName'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Division Head<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                      <select type="text" class="form-control" name="strDivHead" value="<?=!empty($this->session->userdata('strDivHead'))?$this->session->userdata('strDivHead'):''?>" required>
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
-                                        <?php endforeach; ?>
+                                    <select type="text" class="form-control" name="strDivision">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrDivision as $div)
+                                        {
+                                          echo '<option value="'.$div['group3Name'].'" '.($arrSection[0]['group3Code']==$div['group3Code']?'selected':'').'>'.$div['group3Name'].'</option>';
+                                        }?>
                                     </select>
                                 </div>
                             </div>
@@ -121,10 +99,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Head Title<span class="required"> * </span></label>
+                                <label class="control-label">Section Code  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strDivHeadTitle" value="<?=!empty($this->session->userdata('strDivHeadTitle'))?$this->session->userdata('strDivHeadTitle'):''?>">
+                                    <input type="text" class="form-control" name="strSecCode" value="<?=!empty($arrSection[0]['group4Code'])?$arrSection[0]['group4Code']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Section Name<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strSecName" value="<?=!empty($arrSection[0]['group4Name'])?$arrSection[0]['group4Name']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -132,25 +121,57 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Secretary<span class="required"> * </span></label>
+                                <label class="control-label">Section Head<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="strDivSecretary" value="<?=!empty($this->session->userdata('strDivSecretary'))?$this->session->userdata('strDivSecretary'):''?>" required>
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
-                                        <?php endforeach; ?>
+                                     <select type="text" class="form-control" name="strSecHead">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrSection[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/org_structure')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <label class="control-label">Section Head Title <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <input type="text" class="form-control" name="strSecHeadTitle" value="<?=!empty($arrSection[0]['group4HeadTitle'])?$arrSection[0]['group4HeadTitle']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Section Secretary<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <select type="text" class="form-control" name="strSecSecretary">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrSection[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" name="strCode" value="<?=isset($arrSection[0]['group4Code'])?$arrSection[0]['group4Code']:''?>">
+                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/org_structure/add_section')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -160,44 +181,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_org_structure">
-                    <thead>
-                        <tr>
-                            <th> No. </th>
-                            <th> Level 1 </th>
-                            <th> Level 2 </th>
-                            <th> Division Code </th>
-                            <th> Division Name </th>
-                            <th> Division Head Title</th>
-                            <th> Division Head </th>
-                            <th> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                    $i=1;
-                    foreach($arrDivision as $div):?>
-                        <tr class="odd gradeX">
-                            <td> <?=$i?> </td>
-                            <td> <?=$div['group1Code']?> </td>
-                            <td> <?=$div['group2Code']?> </td>   
-                            <td> <?=$div['group3Code']?> </td>   
-                            <td> <?=$div['group3Name']?> </td>   
-                            <td> <?=$div['group3HeadTitle']?> </td>   
-                            <td> <?=$div['surname'].' '.$div['firstname']?> </td>                            
-                            <td>
-                                <a href="<?=base_url('libraries/org_structure/edit_division/'.$div['group3Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/org_structure/delete_division/'.$div['group3Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
-                                <a href="<?=base_url('libraries/org_structure/custodian_division/'.$div['group3Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Custodian"></span> Custodian</button></a>
-                            </td>
-
-                        </tr>
-                    <?php 
-                    $i++;
-                    endforeach;?>
-                    </tbody>
-            </table>
-
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
@@ -248,6 +231,7 @@ var FormValidation = function () {
                         minlength: 1,
                         required: true,
                     },
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
