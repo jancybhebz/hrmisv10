@@ -24,7 +24,7 @@ class Org_structure extends MY_Controller {
 		$this->template->load('template/template_view', 'libraries/org_structure/list_view', $this->arrData);
 	}
 	
-	//ADD HOLIDAY NAME
+	//ADD EXECUTIVE NAME
 	public function add_exec()
     {
     	$arrPost = $this->input->post();
@@ -71,7 +71,7 @@ class Org_structure extends MY_Controller {
 			}
 		}    	
     }
-
+    //EDIT EXECUTIVE NAME
 	public function edit_exec()
 	{
 		$arrPost = $this->input->post();
@@ -112,8 +112,7 @@ class Org_structure extends MY_Controller {
 			}
 		}	
 	}
-
-	
+	//DELETE EXECUTIVE NAME
 	public function delete_exec()
 	{
 		//$strDescription=$arrPost['strDescription'];
@@ -141,9 +140,135 @@ class Org_structure extends MY_Controller {
 				}
 				redirect('libraries/org_structure');
 			}
-		}
-		
+		}	
 	}
 
+	//ADD SERVICE NAME
+	public function add_service()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->template->load('template/template_view','libraries/org_structure/add_service_view',$this->arrData);	
+		}
+		else
+		{	
+			$strExecutive = $arrPost['strExecutive'];
+			$strServiceCode = $arrPost['strServiceCode'];
+			$strServiceName = $arrPost['strServiceName'];
+			$strServiceHead = $arrPost['strServiceHead'];
+			$strServiceTitle = $arrPost['strServiceTitle'];
+			$strServiceSecretary = $arrPost['strServiceSecretary'];
+			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkService($strExecutive, $strServiceCode))==0)
+				{
+					$arrData = array(
+						'group1Code'=>$strExecutive,
+						'group2Code'=>$strServiceCode,
+						'group2Name'=>$strServiceName,
+						'empNumber'=>$strServiceHead,
+						'group2HeadTitle'=>$strServiceTitle,	
+						'empNumber'=>$strServiceSecretary,	
+					);
+					$blnReturn  = $this->org_structure_model->add_service($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Added '.$strExecutive.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Service Name added successfully.');
+					}
+					redirect('libraries/org_structure');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Service Name already exists.');
+					$this->session->set_flashdata('strExecutive',$strExecutive);
+					$this->session->set_flashdata('strServiceCode',$strServiceCode);
+					redirect('libraries/org_structure/add_service');
+				}
+			}
+		}    	
+    }
+	//EDIT SERVICE NAME
+	public function edit_service()
+	{
+		$arrPost = $this->input->post();
+		//print_r($arrPost);
+		if(empty($arrPost))
+		{
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData($strCode);
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->template->load('template/template_view','libraries/org_structure/edit_service_view', $this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			$strExecutive = $arrPost['strExecutive'];
+			$strServiceCode = $arrPost['strServiceCode'];
+			$strServiceName = $arrPost['strServiceName'];
+			$strServiceHead = $arrPost['strServiceHead'];
+			$strServiceTitle = $arrPost['strServiceTitle'];
+			$strServiceSecretary = $arrPost['strServiceSecretary'];
+			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
+			{	
+				$arrData = array(
+					'group1Code'=>$strExecutive,
+					'group2Code'=>$strServiceCode,
+					'group2Name'=>$strServiceName,
+					'empNumber'=>$strServiceHead,
+					'group2HeadTitle'=>$strServiceTitle,	
+					'empNumber'=>$strServiceSecretary,
+					
+				);
+				$blnReturn = $this->org_structure_model->save_service($arrData, $strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Edited '.$strExecutive.' Org_structure',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Service Name saved successfully.');
+				}
+				redirect('libraries/org_structure/add_service');
+			}
+		}	
+	}
+	//DELETE SERVICE NAME
+	public function delete_service()
+	{
+		//$strDescription=$arrPost['strDescription'];
+		$arrPost = $this->input->post();
+		$strCode = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData($strCode);
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->template->load('template/template_view','libraries/org_structure/delete_service_view',$this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strCode))
+			{
+				$arrService = $this->org_structure_model->getData($strCode);
+				$strServiceName = $arrService[0]['group2Name'];	
+				$blnReturn = $this->org_structure_model->delete_service($strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Deleted '.$strServiceCode.' Org_structure',implode(';',$arrService[0]),'');
 	
+					$this->session->set_flashdata('strMsg','Service Name deleted successfully.');
+				}
+				redirect('libraries/org_structure/add_service');
+			}
+		}	
+	}
+
 }

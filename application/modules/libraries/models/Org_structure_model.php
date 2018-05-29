@@ -11,6 +11,8 @@ class Org_structure_model extends CI_Model {
 
 	var $table = 'tblgroup1';
 	var $tableid = 'group1Code';
+	var $table2 = 'tblgroup2';
+	var $tableid2 = 'group2Code';
 	
 
 	function __construct()
@@ -26,26 +28,46 @@ class Org_structure_model extends CI_Model {
 			$this->db->where($this->tableid,$strExecOffice);
 		}
 		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+
 		// // $this->db->order_by('tblleave.'.$this->tableid,'ASC');
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
-	// function getSpecialLeave($strSpecialCode = '')
-	// {		
-	// 	if($strSpecialCode != "")
-	// 	{
-	// 		$this->db->where('leaveCode',$strSpecialCode);
-	// 	}
+	function getServiceData($strExecutive = '')
+	{		
+		if($strExecutive != "")
+		{
+			$this->db->where($this->tableid2,$strExecutive);
+		}
+		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
+		// $this->db->join('tblgroup1','tblgroup1.group1Code = '.$this->table2.'.group1Code','left');
 		
-	// 	$objQuery = $this->db->get($this->table2);
-	// 	return $objQuery->result_array();	
-	// }
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}
+
+	function getExecData($strExecutive = '')
+	{		
+		if($strExecutive != "")
+		{
+			$this->db->where($this->tableid2,$strExecutive);
+		}
+		$this->db->join('tblgroup1','tblgroup1.group1Code = '.$this->table2.'.group1Code','left');
+		
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}
 
 	function add_exec($arrData)
 	{
 		$this->db->insert($this->table, $arrData);
+		return $this->db->insert_id();		
+	}
+	function add_service($arrData)
+	{
+		$this->db->insert($this->table2, $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -61,6 +83,14 @@ class Org_structure_model extends CI_Model {
 		$this->db->or_where('group1Name', $strExecName);			
 		
 		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+	function checkService($strExecutive = '', $strServiceCode = '')
+	{		
+		$this->db->where('group2Code',$strExecutive);
+		$this->db->or_where('group2Name', $strServiceCode);			
+		
+		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
 
@@ -79,18 +109,25 @@ class Org_structure_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-	// function save_special($arrData, $strSpecialLeaveCode)
-	// {
-	// 	$this->db->where('leaveCode', $strSpecialLeaveCode);
-	// 	$this->db->update($this->table2, $arrData);
-	// 	//echo $this->db->affected_rows();
-	// 	return $this->db->affected_rows()>0?TRUE:FALSE;
-	// }
+	function save_service($arrData, $strExecutive)
+	{
+		$this->db->where($this->tableid2, $strExecutive);
+		$this->db->update($this->table2, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
 		
 	function delete_exec($strExecOffice)
 	{
 		$this->db->where($this->tableid, $strExecOffice);
 		$this->db->delete($this->table); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	function delete_service($strServiceCode)
+	{
+		$this->db->where($this->tableid2, $strServiceCode);
+		$this->db->delete($this->table2); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
