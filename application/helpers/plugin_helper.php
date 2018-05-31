@@ -28,16 +28,20 @@ if ( ! function_exists('load_plugin'))
 							<link href="'.base_url('assets/plugins/bootstrap-toastr/toastr.min.css').'" rel="stylesheet" type="text/css" />
 							<link href="'.base_url('assets/css/custom.css').'" rel="stylesheet" type="text/css" />
 							';
+					break;
 					case 'select2': $str.='
 							 <link href="'.base_url('assets/plugins/select2/css/select2.min.css').'" rel="stylesheet" type="text/css" />
 							<link href="'.base_url('assets/plugins/select2/css/select2-bootstrap.min.css').'" rel="stylesheet" type="text/css" />
 							';
+					break;
 					case 'datepicker': $str .= '
 							<link href="'.base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css').'" rel="stylesheet" type="text/css" />
 							';
+					break;
 
 				}
 			endforeach;
+			echo $str;
 		}
 		if($type=="js")
 		{
@@ -65,21 +69,24 @@ if ( ! function_exists('load_plugin'))
 					        <!--script src="'.base_url('assets/layouts/layout/scripts/demo.js').'" type="text/javascript"></script-->
 					        <script src="'.base_url('assets/js/quick-sidebar.min.js').'" type="text/javascript"></script>
 						';
+					break;
 					case 'datatable': $str.='
 							<script src="'.base_url('assets/js/datatable.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/datatables/datatables.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/js/table-datatables-libraries.js').'" type="text/javascript"></script>';
+						break;
 					case 'validation': $str.='
 							<script src="'.base_url('assets/plugins/jquery-validation/js/jquery.validate.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/jquery-validation/js/additional-methods.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js').'" type="text/javascript"></script>
 							';
+						break;
 					
 
 				}
 			endforeach;
+			echo $str;
 		}
-		echo $str;
 	}
 }
