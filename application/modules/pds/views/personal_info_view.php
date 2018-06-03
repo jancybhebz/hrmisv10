@@ -85,6 +85,13 @@
                 </div>
             </div>
                 <!--end row-->
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <div class="form-group">
+                            <button class="btn btn-primary">EDIT</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="row profile-account">
                     <div class="col-md-3">
                         <ul class="ver-inline-menu tabbable margin-bottom-10">
@@ -141,18 +148,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Civil Status</label>
-                                        <div class="input-group">
-                                            <div class="icheck-inline">
-                                                <?php 
-                                                    foreach(json_decode(CIVIL_STATUS) as $row):?>
-                                                    <label><div class="iradio_minimal_grey"><input type="radio" class="icheck" name="strCivilStatus" value="<?=$row?>" /> <?=$row?></div></label>
-                                                <?php endforeach;?>                                             
-                                            </div>
-                                        </div>
+                                        <select class="form-control" name="strCivilStatus">
+                                            <?php 
+                                                foreach(json_decode(CIVIL_STATUS) as $row):?>
+                                                    <option value="<?=$row?>"><?=$row?></option>
+                                            <?php endforeach;?>                                    
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Date of Birth</label>
-                                        <input type="text" name="strBirthday" value="<?=$arrData['birthday']?>" class="form-control" />
+                                        <?php 
+                                            $objDate = DateTime::createFromFormat('Y-m-d', $arrData['birthday']);
+                                        ?>
+                                        <input type="text" name="strBirthday" value="<?=$objDate->format('m/d/Y')?>" class="form-control date-picker" />
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Place of Birth</label>
@@ -259,3 +267,10 @@
     </div>
 </div>
 <!-- END CONTENT BODY -->
+<?php load_plugin('css',array('datepicker'));?>
+<?php load_plugin('js',array('datepicker'));?>
+<script>
+    $(document).ready(function(){
+        $('input[name="strBirthday"]').datepicker();
+    });
+</script>

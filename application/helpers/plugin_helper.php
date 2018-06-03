@@ -83,6 +83,7 @@ if ( ! function_exists('load_plugin'))
 							<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js').'" type="text/javascript"></script>
 							';
 						break;
+					case 'datepicker': $str .= '<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js').'" type="text/javascript"></script>';
 					case 'highcharts': $str .= '<script src="'.base_url('assets/plugins/highcharts/js/highcharts.js').'" type="text/javascript"></script>';
 
 				}
