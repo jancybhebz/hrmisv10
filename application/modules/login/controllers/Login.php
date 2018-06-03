@@ -13,8 +13,9 @@ class Login extends MY_Controller {
 		if(!empty($arrPost)):
 			$this->load->model('login_model');
 			$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
+			//print_r($arrUser);exit(1);
 			if(!empty($arrUser)):
-				//print_r($arrUser);
+				
 				$this->set_session_login_data($arrUser[0]['empNumber'],$arrUser[0]['userLevel'],$arrUser[0]['userPermission'],$arrUser[0]['accessPermission'],$arrUser[0]['userName'],$arrUser[0]['userPassword'],$arrUser[0]['firstname'].' '.$arrUser[0]['surname'],$arrUser[0]['assignedGroup']);
 				redirect('home/index');
 			else:

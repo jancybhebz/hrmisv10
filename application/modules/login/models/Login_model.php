@@ -18,7 +18,7 @@ class Login_model extends CI_Model {
 					AND userName='".$this->db->escape_str($strUsername)."'
 					AND userPassword='".md5($strPass)."'
 					";
-		//echo $strSQL;//exit(1);			
+		//echo $strSQL;exit(1);			
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();
 	}		

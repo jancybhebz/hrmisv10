@@ -22,8 +22,11 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                 <div class="sidebar-toggler"> </div>
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>
+            <!-- <li class="heading"><h3 class="uppercase"><?=$this->session->userdata('sessUserPermission')?></h3></li> -->
             <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
             <li class="sidebar-search-wrapper">
+                <!-- DISPLAY MODULE -->
+                
                 <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
                 <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                 <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
@@ -50,7 +53,7 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                 </a>                            
             </li>                            
             <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
+                <a href="<?=base_url('pds')?>" class="nav-link nav-toggle">
                     <i class="icon-user"></i>
                     <span class="title">201</span>
                     <span class="arrow"></span>
