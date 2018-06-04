@@ -44,24 +44,24 @@
                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                     <label class="control-label">Income Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" <?=isset($err) ? 'data-original-title="'.$err.'"' : 'style="display: none;"'?>></i>
-                                        <input type="text" class="form-control" name="txtinccode" id="txtinccode" <?=$action == 'edit' ? 'disabled' : ''?>
+                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                        <input type="text" class="form-control form-required" name="txtinccode" id="txtinccode" <?=$action == 'edit' ? 'disabled' : ''?>
                                             value="<?=isset($arrData) ? $arrData['incomeCode'] : set_value('txtinccode')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Income Description <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtincdesc" id="txtincdesc"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtincdesc" id="txtincdesc"
                                             value="<?=isset($arrData) ? $arrData['incomeDesc'] : set_value('txtinccode')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Income Type <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <select class="bs-select form-control" name="selinctype" id="selinctype">
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <select class="bs-select form-control form-required" name="selinctype" id="selinctype">
                                             <option value=""></option>
                                             <?php foreach(income_type() as $type): ?>
                                                 <option value="<?=$type?>" <?=isset($arrData) ? $type == $arrData['incomeType'] ? 'selected' : '' : $type == set_value('selinctype') ? 'selected' : ''?>>

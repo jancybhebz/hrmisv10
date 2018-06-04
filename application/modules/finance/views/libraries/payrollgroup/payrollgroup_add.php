@@ -44,8 +44,8 @@
                                 <div class="form-group">
                                     <label class="control-label">Project <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <select class="bs-select form-control" name="selprojdesc">
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <select class="bs-select form-control form-required" name="selprojdesc">
                                             <option value=""></option>
                                             <?php foreach($projectcode as $code): ?>
                                                 <option value="<?=$code['projectCode']?>"
@@ -58,32 +58,32 @@
                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                     <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" <?=isset($err) ? 'data-original-title="'.$err.'"' : 'style="display: none;"'?>></i>
-                                        <input type="text" class="form-control" name="txtcode"
+                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                        <input type="text" class="form-control form-required" name="txtcode"
                                             value="<?=isset($data) ? $data['payrollGroupCode'] : set_value('txtcode')?>" <?=$action == 'edit' ? 'disabled' : ''?>>
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtdesc"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtdesc"
                                             value="<?=isset($data) ? $data['payrollGroupName'] : set_value('txtdesc')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtorder"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtorder"
                                             value="<?=isset($data) ? $data['payrollGroupOrder'] : set_value('txtorder')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Resposibility Center <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtrc"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtrc"
                                             value="<?=isset($data) ? $data['payrollGroupRC'] : set_value('txtrc')?>">
                                     </div>
                                 </div>

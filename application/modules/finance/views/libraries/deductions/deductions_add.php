@@ -68,8 +68,8 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Agency <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                                        <select class="bs-select form-control" name="selAgency" id="selAgency">
+                                                        <i class="fa fa-warning tooltips i-required"></i>
+                                                        <select class="bs-select form-control form-required" name="selAgency" id="selAgency">
                                                             <option value=""></option>
                                                             <?php foreach($agency as $agency): ?>
                                                                 <option value="<?=$agency['deductionGroupCode']?>"
@@ -82,29 +82,29 @@
                                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                                     <label class="control-label">Deduction Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" <?=isset($err) ? 'data-original-title="'.$err.'"' : 'style="display: none;"'?>></i>
-                                                        <input type="text" class="form-control" name="txtddcode" id="txtddcode" value="<?=isset($data) ? $data['deductionCode'] : set_value('txtddcode')?>" <?=$action == 'edit' ? 'disabled' : ''?>>
+                                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                                        <input type="text" class="form-control form-required" name="txtddcode" id="txtddcode" value="<?=isset($data) ? $data['deductionCode'] : set_value('txtddcode')?>" <?=$action == 'edit' ? 'disabled' : ''?>>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Deduction Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                                        <input type="text" class="form-control" name="txtdesc" id="txtdesc" value="<?=isset($data) ? $data['deductionDesc'] : set_value('txtdesc')?>">
+                                                        <i class="fa fa-warning tooltips i-required"></i>
+                                                        <input type="text" class="form-control form-required" name="txtdesc" id="txtdesc" value="<?=isset($data) ? $data['deductionDesc'] : set_value('txtdesc')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                                        <input type="text" class="form-control" name="txtacctcode" id="txtacctcode" value="<?=isset($data) ? $data['deductionAccountCode'] : set_value('txtacctcode')?>">
+                                                        <i class="fa fa-warning tooltips i-required"></i>
+                                                        <input type="text" class="form-control form-required" name="txtacctcode" id="txtacctcode" value="<?=isset($data) ? $data['deductionAccountCode'] : set_value('txtacctcode')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Type <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                                        <select class="bs-select form-control" name="seltype" id="seltype">
+                                                        <i class="fa fa-warning tooltips i-required"></i>
+                                                        <select class="bs-select form-control form-required" name="seltype" id="seltype">
                                                             <option value=""></option>
                                                             <?php foreach(deduction_type() as $type): ?>
                                                                 <option value="<?=$type?>" <?=isset($data) ? $type == $data['deductionType'] ? 'selected' : '' : $type == set_value('seltype') ? 'selected' : ''?>>

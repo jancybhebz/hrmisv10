@@ -44,8 +44,8 @@
                                 <div class="form-group">
                                     <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <select class="bs-select form-control" name="txtpgcode">
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <select class="bs-select form-control form-required" name="txtpgcode">
                                             <option value=""></option>
                                             <?php foreach($paryollGroup as $code): ?>
                                                 <option value="<?=$code['payrollGroupCode']?>"
@@ -57,16 +57,16 @@
                                 <div class="form-group ">
                                     <label class="control-label">Signatory <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtsignatory"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtsignatory"
                                             value="<?=isset($data) ? $data['signatory'] : set_value('txtsignatory')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Position <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtposition"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtposition"
                                             value="<?=isset($data) ? $data['signatoryPosition'] : set_value('txtposition')?>">
                                     </div>
                                 </div>

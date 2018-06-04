@@ -67,24 +67,24 @@
                                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                                     <label class="control-label">Agency Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" <?=isset($err) ? 'data-original-title="'.$err.'"' : 'style="display: none;"'?>></i>
-                                                        <input type="text" class="form-control" name="agency-code" id="agency-code" <?=$action == 'edit' ? 'disabled' : ''?>
+                                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                                        <input type="text" class="form-control form-required" name="agency-code" id="agency-code" <?=$action == 'edit' ? 'disabled' : ''?>
                                                             value="<?=isset($arrData) ? $arrData['deductionGroupCode'] : set_value('agency-code')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Agency Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                                        <input type="text" class="form-control" name="agency-desc" id="agency-desc"
+                                                        <i class="fa fa-warning tooltips i-required"></i>
+                                                        <input type="text" class="form-control form-required" name="agency-desc" id="agency-desc"
                                                             value="<?=isset($arrData) ? $arrData['deductionGroupDesc'] : set_value('agency-desc')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                                        <input type="text" class="form-control" name="acct-code" id="acct-code"
+                                                        <i class="fa fa-warning tooltips i-required"></i>
+                                                        <input type="text" class="form-control form-required" name="acct-code" id="acct-code"
                                                             value="<?=isset($arrData) ? $arrData['deductionGroupAccountCode'] : set_value('acct-code')?>">    
                                                     </div>
                                                 </div>
