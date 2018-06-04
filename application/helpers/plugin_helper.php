@@ -75,14 +75,20 @@ if ( ! function_exists('load_plugin'))
 							<script src="'.base_url('assets/plugins/datatables/datatables.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/js/table-datatables-libraries.js').'" type="text/javascript"></script>';
-						break;
+					break;
 					case 'validation': $str.='
 							<script src="'.base_url('assets/plugins/jquery-validation/js/jquery.validate.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/jquery-validation/js/additional-methods.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js').'" type="text/javascript"></script>
 							';
-						break;
-					
+					break;
+					case 'form_validation': $str.='
+							<script src="'.base_url('assets/js/js-validation/custom-form-validation.js').'" type="text/javascript"></script>
+							';
+					break;
+					case 'val_libraries':
+                        $str.= '<script src="'.base_url('assets/js/js-validation/libraries-validation.js').'" type="text/javascript"></script>';
+                    break;
 
 				}
 			endforeach;

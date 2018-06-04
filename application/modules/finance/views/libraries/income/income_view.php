@@ -1,3 +1,4 @@
+<?php load_plugin('css',array('datatable'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">

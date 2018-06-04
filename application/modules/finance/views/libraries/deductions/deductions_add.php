@@ -14,11 +14,10 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$checkbox ? 'Edit' : 'Add'?> Deduction</span>
+            <span><?=$action?> Deduction</span>
         </li>
     </ul>
 </div>
-<!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
 	   &nbsp;
@@ -52,74 +51,77 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <br>
                         <div class="portlet">
                             <div class="portlet-title">
                                 <div class="caption font-dark">
-                                    <span class="caption-subject bold uppercase"> <?=$checkbox ? 'Edit' : 'Add'?> Deduction</span>
+                                    <span class="caption-subject bold uppercase"> <?=$action?> Deduction</span>
                                 </div>
                             </div>
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
-                                <form action="<?=$checkbox ? base_url('finance/deductions/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                                <form action="<?=$action == 'edit' ? base_url('finance/deductions/edit/'.$this->uri->segment(4)) : ''?>" method="post">
                                     <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <div class="form-group" v-bind:class="[erragency ? 'has-error' : '']">
+                                                <div class="form-group">
                                                     <label class="control-label">Agency <span class="required"> * </span></label>
-                                                    <select class="bs-select form-control" name="deduct-agency" v-model="agency">
-                                                        <option value=""></option>
-                                                        <?php foreach($agency as $agency): ?>
-                                                            <option value="<?=$agency['deductionGroupCode']?>"><?=$agency['deductionGroupDesc']?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <span class="help-block" v-if="erragency">This field is required. </span>
+                                                    <div class="input-icon right">
+                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                                        <select class="bs-select form-control" name="selAgency" id="selAgency">
+                                                            <option value=""></option>
+                                                            <?php foreach($agency as $agency): ?>
+                                                                <option value="<?=$agency['deductionGroupCode']?>"
+                                                                    <?=isset($data) ? $agency['deductionGroupCode'] == $data['deductionGroupCode'] ? 'selected' : '' : $agency['deductionGroupCode'] == set_value('selAgency') ? 'selected' : ''?>>
+                                                                    <?=$agency['deductionGroupDesc']?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group " v-bind:class="[errdeductcode ? 'has-error' : '']">
+                                                <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                                     <label class="control-label">Deduction Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa"></i>
-                                                        <input type="text" class="form-control" name="deduct-code" v-model="deductcode" <?=$checkbox ? 'disabled' : ''?>>
-                                                        <span class="help-block" id="errdeductcode" v-if="errdeductcode"> {{ msgdeductcode }} </span>
+                                                        <i class="fa fa-warning tooltips" <?=isset($err) ? 'data-original-title="'.$err.'"' : 'style="display: none;"'?>></i>
+                                                        <input type="text" class="form-control" name="txtddcode" id="txtddcode" value="<?=isset($data) ? $data['deductionCode'] : set_value('txtddcode')?>" <?=$action == 'edit' ? 'disabled' : ''?>>
                                                     </div>
                                                 </div>
-                                                <div class="form-group" v-bind:class="[errdesc ? 'has-error' : '']">
+                                                <div class="form-group">
                                                     <label class="control-label">Deduction Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa"></i>
-                                                        <input type="text" class="form-control" name="deduct-desc" v-model="desc">
-                                                        <span class="help-block" v-if="errdesc">This field is required. </span>
+                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                                        <input type="text" class="form-control" name="txtdesc" id="txtdesc" value="<?=isset($data) ? $data['deductionDesc'] : set_value('txtdesc')?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group" v-bind:class="[erracctcode ? 'has-error' : '']">
+                                                <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa"></i>
-                                                        <input type="text" class="form-control" name="acct-code" v-model="acctcode">
-                                                        <span class="help-block" v-if="erracctcode">This field is required. </span>
+                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                                        <input type="text" class="form-control" name="txtacctcode" id="txtacctcode" value="<?=isset($data) ? $data['deductionAccountCode'] : set_value('txtacctcode')?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group" v-bind:class="[errtype ? 'has-error' : '']">
-                                                    <label class="control-label">Type <span class="required"> * </span></label>
-                                                    <select class="bs-select form-control" name="deduct-type" v-model="type">
-                                                        <option value=""></option>
-                                                        <?php foreach(deduction_type() as $type): ?>
-                                                        <option value="<?=$type?>"><?=$type?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <span class="help-block" v-if="errtype">This field is required. </span>
-                                                </div>
-                                                <?php if($checkbox): ?>
                                                 <div class="form-group">
-                                                    <input type="checkbox" name="deduct-isactive" <?=$_GET['stat'] == 1 ? 'checked' : ''?>>Inactive
+                                                    <label class="control-label">Type <span class="required"> * </span></label>
+                                                    <div class="input-icon right">
+                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                                        <select class="bs-select form-control" name="seltype" id="seltype">
+                                                            <option value=""></option>
+                                                            <?php foreach(deduction_type() as $type): ?>
+                                                                <option value="<?=$type?>" <?=isset($data) ? $type == $data['deductionType'] ? 'selected' : '' : $type == set_value('seltype') ? 'selected' : ''?>>
+                                                                    <?=$type?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <?php if($action == 'edit'): ?>
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" name="chkisactive" <?=isset($data) ? $data['hidden'] == 1 ? 'checked' : '' : ''?>>Inactive</label>
                                                 </div>
                                                 <?php endif; ?>
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <button class="btn btn-success" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error"><i class="fa fa-plus"></i> <?=$checkbox ? 'Edit' : 'Add'?> </button>
+                                                            <button class="btn btn-success" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> <?=$action?> </button>
                                                             <a href="<?=base_url('finance/deductions')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                                         </div>
                                                     </div>
@@ -135,14 +137,5 @@
             </div>
         </div>
     </div>
-    <!--end col-md-9-->
 </div>
-<script src="<?=base_url('assets/js/axios/axios.min.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('assets/js/vuejs/vue.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('assets/js/vuejs/vuejs-deductions.js')?>" type="text/javascript"></script>
-<script>
-    $(document).ready(function() {
-        $('.loading-image').hide();
-        $('.portlet-body').show();
-    });
-</script>
+<?php load_plugin('js',array('form_validation'));?>

@@ -24,39 +24,45 @@ class Income extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-				'incomeCode' => $arrPost['income-code'],
-				'incomeDesc' => $arrPost['income-desc'],
-				'incomeType' => $arrPost['income-type'],
+				'incomeCode' => $arrPost['txtinccode'],
+				'incomeDesc' => $arrPost['txtincdesc'],
+				'incomeType' => $arrPost['selinctype'],
 				'hidden' => 0
 			);
-			$this->Income_Model->add($arrData);
-			$this->session->set_flashdata('strSuccessMsg','Income added successfully.');
-			redirect('finance/income');
-		else:
-			$this->arrData['checkbox'] = 0;
-			$this->template->load('template/template_view','finance/libraries/income/income_add',$this->arrData);
+			if(!$this->Income_Model->isCodeExists($arrPost['txtinccode'],'add')):
+				$this->Income_Model->add($arrData);
+				$this->session->set_flashdata('strSuccessMsg','Income added successfully.');
+				redirect('finance/income');
+			else:
+				$this->arrData['err'] = 'Code already exists';
+			endif;
 		endif;
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','finance/libraries/income/income_add',$this->arrData);
 	}
 
 	public function edit($code)
 	{
+		$code = str_replace('%20', ' ', $code);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-				'incomeDesc' => $arrPost['income-desc'],
-				'incomeType' => $arrPost['income-type'],
-				'hidden' => $arrPost['income-isactive'] == 'on' ? 1 : 0
+				'incomeDesc' => $arrPost['txtincdesc'],
+				'incomeType' => $arrPost['selinctype'],
+				'hidden' => $arrPost['chkisactive'] == 'on' ? 1 : 0
 			);
 			$this->Income_Model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Income updated successfully.');
 			redirect('finance/income');
 		else:
-			$this->arrData['checkbox'] = 1;
+			$this->arrData['action'] = 'edit';
+			$this->arrData['arrData'] = $this->Income_Model->getIncomeData($code);
 			$this->template->load('template/template_view','finance/libraries/income/income_add',$this->arrData);
 		endif;
 	}
 
-	public function delete() { $this->Income_Model->delete($_GET['code']); }
-	public function fetchIncome() { echo json_encode($this->Income_Model->getIncome('')); }
-	public function fetchIncomeData($code) { echo json_encode($this->Income_Model->getIncomeData($code)); }
+	public function delete() {
+		$this->Income_Model->delete($_GET['code']);
+	}
+	
 }

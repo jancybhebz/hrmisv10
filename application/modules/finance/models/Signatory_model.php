@@ -31,7 +31,8 @@ class Signatory_model extends CI_Model {
 		if($id==''):
 			return $this->db->join('tblPayrollGroup', 'tblPayrollGroup.payrollGroupCode = tblSignatory.payrollGroupCode', 'left')->order_by('signatory','ASC')->get('tblSignatory')->result_array();
 		else:
-			return $this->db->get_where('tblSignatory', array('signatoryId' => $id))->result_array();
+			$result = $this->db->get_where('tblSignatory', array('signatoryId' => $id))->result_array();
+			return $result[0];
 		endif;
 	}	
 		

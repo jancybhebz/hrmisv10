@@ -1,4 +1,3 @@
-<!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -14,11 +13,10 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$edit ? 'Edit' : 'Add'?> Agency</span>
+            <span><?=$action?> Agency</span>
         </li>
     </ul>
 </div>
-<!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
 	   &nbsp;
@@ -52,49 +50,48 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <br>
                         <div class="portlet">
                             <div class="portlet-title">
                                 <div class="caption font-dark">
-                                    <span class="caption-subject bold uppercase"> <?=$edit ? 'Edit' : 'Add'?> Agency</span>
+                                    <span class="caption-subject bold uppercase"> <?=$action?> Agency</span>
                                 </div>
                             </div>
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
-                                <form action="<?=$edit ? base_url('finance/agency/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                                <form action="<?=$action == 'edit' ? base_url('finance/agency/edit/'.$this->uri->segment(4)) : base_url('finance/agency/add')?>" method="post">
                                     <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <div class="form-group " v-bind:class="[erragencycode ? 'has-error' : '']">
+                                                <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                                     <label class="control-label">Agency Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa"></i>
-                                                        <input type="text" class="form-control" name="agency-code" v-model="agencycode" <?=$edit ? 'disabled' : ''?>>
-                                                        <span class="help-block" id="erragencycode" v-if="erragencycode"> {{ msgagencycode }} </span>
+                                                        <i class="fa fa-warning tooltips" <?=isset($err) ? 'data-original-title="'.$err.'"' : 'style="display: none;"'?>></i>
+                                                        <input type="text" class="form-control" name="agency-code" id="agency-code" <?=$action == 'edit' ? 'disabled' : ''?>
+                                                            value="<?=isset($arrData) ? $arrData['deductionGroupCode'] : set_value('agency-code')?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group" v-bind:class="[erragencydesc ? 'has-error' : '']">
+                                                <div class="form-group">
                                                     <label class="control-label">Agency Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa"></i>
-                                                        <input type="text" class="form-control" name="agency-desc" v-model="agencydesc">
-                                                        <span class="help-block" v-if="erragencydesc">This field is required. </span>
+                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                                        <input type="text" class="form-control" name="agency-desc" id="agency-desc"
+                                                            value="<?=isset($arrData) ? $arrData['deductionGroupDesc'] : set_value('agency-desc')?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group" v-bind:class="[erracctcode ? 'has-error' : '']">
+                                                <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa"></i>
-                                                        <input type="text" class="form-control" name="acct-code" v-model="acctcode">
-                                                        <span class="help-block" v-if="erracctcode">This field is required. </span>
+                                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                                        <input type="text" class="form-control" name="acct-code" id="acct-code"
+                                                            value="<?=isset($arrData) ? $arrData['deductionGroupAccountCode'] : set_value('acct-code')?>">    
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <button class="btn btn-success" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error"><i class="fa fa-plus"></i> <?=$edit ? 'Edit' : 'Add'?> </button>
+                                                            <button class="btn btn-success" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
                                                             <a href="<?=base_url('finance/deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                                         </div>
                                                     </div>
@@ -110,14 +107,5 @@
             </div>
         </div>
     </div>
-    <!--end col-md-9-->
 </div>
-<script src="<?=base_url('assets/js/axios/axios.min.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('assets/js/vuejs/vue.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('assets/js/vuejs/vuejs-agency.js')?>" type="text/javascript"></script>
-<script>
-    $(document).ready(function() {
-        $('.loading-image').hide();
-        $('.portlet-body').show();
-    });
-</script>
+<?php load_plugin('js',array('form_validation'));?>

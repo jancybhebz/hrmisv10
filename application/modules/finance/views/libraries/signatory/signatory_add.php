@@ -14,7 +14,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$checkbox ? 'Edit' : 'Add'?> Signatory</span>
+            <span><?=$action?> Signatory</span>
         </li>
     </ul>
 </div>
@@ -33,44 +33,47 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-settings font-dark"></i>
-                            <span class="caption-subject bold uppercase"> <?=$checkbox ? 'Edit' : 'Add'?> Signatory</span>
+                            <span class="caption-subject bold uppercase"> <?=$action?> Signatory</span>
                         </div>
                     </div>
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="signatory" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <form action="<?=$checkbox ? base_url('finance/signatory/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                            <form action="<?=$action == 'edit' ? base_url('finance/signatory/edit/'.$this->uri->segment(4)) : ''?>" method="post">
                                 <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
-                                <div class="form-group" v-bind:class="[errsigpgcode ? 'has-error' : '']">
+                                <div class="form-group">
                                     <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
-                                    <select class="bs-select form-control" name="sig-pgcode" v-model="sigpgcode">
-                                        <option value=""></option>
-                                        <?php foreach($paryollGroup as $code): ?>
-                                            <option value="<?=$code['payrollGroupCode']?>"><?=$code['payrollGroupName']?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <span class="help-block" id="errsigpgcode" v-if="errsigpgcode"> This field is required. </span>
-                                </div>
-                                <div class="form-group " v-bind:class="[errsigsignatory ? 'has-error' : '']">
-                                    <label class="control-label">Signatory <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <input type="text" class="form-control" name="sig-sign" v-model="sigsignatory">
-                                        <span class="help-block" id="errsigsignatory" v-if="errsigsignatory"> This field is required. </span>
+                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                        <select class="bs-select form-control" name="txtpgcode">
+                                            <option value=""></option>
+                                            <?php foreach($paryollGroup as $code): ?>
+                                                <option value="<?=$code['payrollGroupCode']?>"
+                                                    <?=isset($data) ? $code['payrollGroupCode'] == $data['payrollGroupCode'] ? 'selected' : '' : ''?>><?=$code['payrollGroupName']?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="form-group " v-bind:class="[errsigposition ? 'has-error' : '']">
+                                <div class="form-group ">
+                                    <label class="control-label">Signatory <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                        <input type="text" class="form-control" name="txtsignatory"
+                                            value="<?=isset($data) ? $data['signatory'] : set_value('txtsignatory')?>">
+                                    </div>
+                                </div>
+                                <div class="form-group ">
                                     <label class="control-label">Position <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <input type="text" class="form-control" name="sig-pos" v-model="sigposition">
-                                        <span class="help-block" id="errsigposition" v-if="errsigposition"> This field is required. </span>
+                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
+                                        <input type="text" class="form-control" name="txtposition"
+                                            value="<?=isset($data) ? $data['signatoryPosition'] : set_value('txtposition')?>">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn btn-success" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error"><i class="fa fa-plus"></i> <?=$checkbox ? 'Edit' : 'Add'?> </button>
+                                            <button class="btn btn-success" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error"><i class="fa fa-plus"></i> <?=$action?> </button>
                                             <a href="<?=base_url('finance/signatory')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                         </div>
                                     </div>
@@ -83,13 +86,4 @@
         </div>
     </div>
 </div>
-
-<script src="<?=base_url('assets/js/axios/axios.min.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('assets/js/vuejs/vue.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('assets/js/vuejs/vuejs-signatory.js')?>" type="text/javascript"></script>
-<script>
-    $(document).ready(function() {
-        $('.loading-image').hide();
-        $('.portlet-body').show();
-    });
-</script>
+<?php load_plugin('js',array('form_validation'));?>

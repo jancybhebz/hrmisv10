@@ -26,12 +26,13 @@ class PayrollGroup_model extends CI_Model {
 		return $this->db->affected_rows(); 
 	}
 
-	function getPayrollGroup($code)
+	function getData($code)
 	{
 		if($code==''):
 			return $this->db->join('tblProject', 'tblProject.projectCode = tblPayrollGroup.projectCode', 'left')->order_by('payrollGroupCode','ASC')->get('tblPayrollGroup')->result_array();
 		else:
-			return $this->db->get_where('tblPayrollGroup', array('payrollGroupCode' => $code))->result_array();
+			$result = $this->db->get_where('tblPayrollGroup', array('payrollGroupCode' => $code))->result_array();
+			return $result[0];
 		endif;
 	}
 
@@ -40,6 +41,20 @@ class PayrollGroup_model extends CI_Model {
 		return $this->db->select('payrollGroupCode')->from('tblPayrollGroup')->get()->result_array();
 	}
 	
+	function isCodeExists($code, $action)
+	{
+		$result = $this->db->get_where('tblPayrollGroup', array('payrollGroupCode' => $code))->result_array();
+		if($action == 'add'):
+			if(count($result) > 0):
+				return true;
+			endif;
+		else:
+			if(count($result) > 1):
+				return true;
+			endif;
+		endif;
+		return false;
+	}
 		
 }
 /* End of file ProjectCode_model.php */
