@@ -32,9 +32,6 @@ class Org_structure_model extends CI_Model {
 			$this->db->where($this->tableid,$strExecOffice);
 		}
 		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
-
-		// // $this->db->order_by('tblleave.'.$this->tableid,'ASC');
-		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
@@ -46,7 +43,6 @@ class Org_structure_model extends CI_Model {
 			$this->db->where($this->tableid2,$strExecutive);
 		}
 		$this->db->join('tblgroup1','tblgroup1.group1Code = '.$this->table2.'.group1Code','left');
-		
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
@@ -58,7 +54,6 @@ class Org_structure_model extends CI_Model {
 			$this->db->where($this->tableid2,$strServiceCode);
 		}
 		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
-		
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
@@ -70,7 +65,6 @@ class Org_structure_model extends CI_Model {
 			$this->db->where($this->tableid3,$strDivCode);
 		}
 		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table3.'.empNumber','left');
-		
 		$objQuery = $this->db->get($this->table3);
 		return $objQuery->result_array();	
 	}
@@ -82,8 +76,18 @@ class Org_structure_model extends CI_Model {
 			$this->db->where($this->tableid4,$strSecCode);
 		}
 		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table4.'.empNumber','left');
-		
 		$objQuery = $this->db->get($this->table4);
+		return $objQuery->result_array();	
+	}
+	function getCust1($strEmployee = '')
+	{		
+		if($strEmployee != "")
+		{
+			$this->db->where('group1Custodian',$strEmployee);
+		}
+		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.group1Custodian','left');
+		
+		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
@@ -221,6 +225,34 @@ class Org_structure_model extends CI_Model {
 	{
 		$this->db->where($this->tableid4, $strSecCode);
 		$this->db->delete($this->table4); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	function delete_exec_custodian($strEmployee)
+	{
+		$this->db->where('group1Custodian', $strEmployee);
+		$this->db->delete($this->table); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	function delete_div_custodian($strEmployee)
+	{
+		$this->db->where('group2Custodian', $strEmployee);
+		$this->db->delete($this->table); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	function delete_ser_custodian($strEmployee)
+	{
+		$this->db->where('group3Custodian', $strEmployee);
+		$this->db->delete($this->table); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	function delete_sec_custodian($strEmployee)
+	{
+		$this->db->where('group4Custodian', $strEmployee);
+		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

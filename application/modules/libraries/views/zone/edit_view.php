@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Edit page for Holiday Library
+Purpose of file:    Edit page for Zone Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Local Holiday</span>
+            <span>Edit Zone</span>
         </li>
     </ul>
 </div>
@@ -36,84 +36,87 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Local Holiday</span>
+                    <span class="caption-subject bold uppercase"> Edit Zone</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/holiday/edit_local/'.$this->uri->segment(4))?>" method="post" id="frmLocalHoliday">
+                <form action="<?=base_url('libraries/zone/edit/'.$this->uri->segment(4))?>" method="post" id="frmZone">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Name <span class="required"> * </span></label>
+                                <label class="control-label">Zone Code<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strLocalName" value="<?=isset($arrLocHoliday[0]['holidayName'])?$arrLocHoliday[0]['holidayName']:''?>">
-                                    <option value="">Select</option>
-                                        <?php foreach($arrLocHoliday as $local)
-                                            {
-                                              echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
-                                        }?>
-                                    </select>
+                                    <input type="text" class="form-control" name="strZoneCode" value="<?=isset($arrZone[0]['zonecode'])?$arrZone[0]['zonecode']:''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Year <span class="required"> * </span></label>
+                                <label class="control-label">Zone Description<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select id="dtmYear" name="dtmYear" type="text" value="<?=!empty($arrLocHoliday[0]['holidayYear'])?$arrLocHoliday[0]['holidayYear']:''?>">
-                                    <option value="">Select</option>
-                                    <?php 
-                                        $initialYear = 2000;
-                                        $currentYear = date('Y');
-                                        for ($i=$initialYear;$i <= $currentYear ;$i++)
-                                        {
-                                            $checked = ($i == $currentYear ? "selected" : "");
-                                            echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
-                                        }
-                                    ?>
-                                    </select>&nbsp&nbsp
-                                <label class="control-label">Month <span class="required"> * </span></label>
-                                    <i class="fa"></i>
-                                    <select id="dtmMonth" name="dtmMonth">
-                                        <option selected value="January">Jan</option>
-                                        <option value="February">Feb</option>
-                                        <option value="March">Mar</option>
-                                        <option value="April">Apr</option>
-                                        <option value="May">May</option>
-                                        <option value="June">June</option>
-                                        <option value="July">July</option>
-                                        <option value="August">Aug</option>
-                                        <option value="September">Sept</option>
-                                        <option value="October">Oct</option>
-                                        <option value="November">Nov</option>
-                                        <option value="December">Dec</option>
-                                    </select>&nbsp&nbsp
-                                <label class="control-label">Day <span class="required"> * </span></label>
-                                    <?php
-                                        
-                                        echo '<select name="dtmDay" id="dtmDay">' . PHP_EOL;
-                                        for ($d=1; $d<=31; $d++) {
-                                            echo '  <option value="' . $d . '" ' .($arrLocHoliday[0]['holidayDay']==$arrLocHoliday[0]['holidayDay']?'selected':'').'>'. $d . '</option>' . PHP_EOL;
-                                        }
-                                        echo '</select>' . PHP_EOL;
-                                        ?>                                
+                                    <input type="text" class="form-control" name="strZoneDesc" value="<?=isset($arrZone[0]['zonedesc'])?$arrZone[0]['zonedesc']:''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
-                 
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Server Name<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strSerName" value="<?=isset($arrZone[0]['serverName'])?$arrZone[0]['serverName']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Username<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strUsername" value="<?=isset($arrZone[0]['username'])?$arrZone[0]['username']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Password<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="password" class="form-control" name="strPassword" value="<?=isset($arrZone[0]['password'])?$arrZone[0]['password']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Database Name<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strDbaseName" value="<?=isset($arrZone[0]['databaseName'])?$arrZone[0]['databaseName']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strLocCode" value="<?=isset($arrLocHoliday[0]['holidayCode'])?$arrLocHoliday[0]['holidayCode']:''?>">
+                                <input type="hidden" name="strCode" value="<?=isset($arrZone[0]['zonecode'])?$arrZone[0]['zonecode']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/holiday/add_local')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/zone')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -135,7 +138,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmLocalHoliday');
+            var form2 = $('#frmZone');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -145,15 +148,31 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strLocalName: {
-                        minLength: 1,
+                    strZoneCode: {
+                        minlength: 1,
                         required: true
                     },
-                    dtmHolidate: {
-                        minLength: 1,
-                        required: true,
-                    }
-                    
+                    strZoneDesc: {
+                        minlength: 1,
+                        required: true
+                    },
+                    strserName: {
+                        minlength: 1,
+                        required: true
+                    },
+                    strUsername: {
+                        minlength: 1,
+                        required: true
+                    },
+                    strPassword: {
+                        minlength: 1,
+                        required: true
+                    },
+                    strDbaseName: {
+                        minlength: 1,
+                        required: true
+                    },
+                  
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -206,9 +225,5 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
     FormValidation.init();
-    $('#dtmHolidate').datepicker({
-        format:"yyyy-mm-dd"
-    });
-
 });
 </script>

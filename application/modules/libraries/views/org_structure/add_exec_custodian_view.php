@@ -86,12 +86,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <tbody>
                     <?php 
                     $i=1;
-                    foreach($arrOrganization as $org):?>
+                    foreach($arrCust1 as $cust1):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$org['group1Custodian']?> </td>                           
+                            <td> <?=$cust1['surname'].' '.$cust1['firstname']?> </td>                           
                             <td>
-                                <a href="<?=base_url('libraries/org_structure/delete_exec_custodian/'.$org['group1Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/org_structure/delete_exec_custodian/'.$cust1['group1Custodian'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                             </td>
 
                         </tr>

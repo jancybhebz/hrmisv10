@@ -547,14 +547,16 @@ class Org_structure extends MY_Controller {
 	public function add_exec_custodian()
     {
     	$arrPost = $this->input->post();
+    	$strCode = $this->uri->segment(4);
 		if(empty($arrPost))
 		{	
 			$this->arrData['arrEmployees'] = $this->employees_model->getData();
-			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrCust1']=$this->org_structure_model->getCust1();
 			$this->template->load('template/template_view','libraries/org_structure/add_exec_custodian_view',$this->arrData);	
 		}
 		else
 		{	
+			$strCode = $arrPost['strCode'];
 			$strEmployee = $arrPost['strEmployee'];
 			if(!empty($strEmployee))
 			{	
@@ -565,7 +567,7 @@ class Org_structure extends MY_Controller {
 						'group1Custodian'=>$strEmployee,
 						
 					);
-					$blnReturn  = $this->org_structure_model->add_exec($arrData);
+					$blnReturn  = $this->org_structure_model->add_exec($strCode);
 
 					if(count($blnReturn)>0)
 					{	
@@ -700,5 +702,36 @@ class Org_structure extends MY_Controller {
 			}
 		}    	
     }
+    //DELETE EXEC-CUST1 NAME
+	public function delete_exec_custodian()
+	{
+		//$strDescription=$arrPost['strDescription'];
+		$arrPost = $this->input->post();
+		$strCode = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrOrganization'] = $this->org_structure_model->getData();
+			$this->arrData['arrCust1'] = $this->org_structure_model->getCust1();
+			$this->template->load('template/template_view','libraries/org_structure/delete_exec_custodian_view',$this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strCode))
+			{
+				$arrOrganization = $this->org_structure_model->getData($strCode);
+				$strEmployee = $arrOrganization[0]['group1Custodian'];	
+				$blnReturn = $this->org_structure_model->delete_exec_custodian($strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strEmployee.' Org_structure',implode(';',$arrOrganization[0]),'');
+	
+					$this->session->set_flashdata('strMsg','Custodian deleted successfully.');
+				}
+				redirect('libraries/org_structure/add_exec');
+			}
+		}	
+	}
 
 }
