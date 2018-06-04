@@ -37,6 +37,7 @@ if ( ! function_exists('load_plugin'))
 					case 'datepicker': $str .= '
 							<link href="'.base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css').'" rel="stylesheet" type="text/css" />
 							';
+
 					break;
 
 				}
@@ -89,6 +90,8 @@ if ( ! function_exists('load_plugin'))
 					case 'val_libraries':
                         $str.= '<script src="'.base_url('assets/js/js-validation/libraries-validation.js').'" type="text/javascript"></script>';
                     break;
+					case 'datepicker': $str .= '<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js').'" type="text/javascript"></script>'; break;
+					case 'highcharts': $str .= '<script src="'.base_url('assets/plugins/highcharts/js/highcharts.js').'" type="text/javascript"></script>'; break;
 
 				}
 			endforeach;
