@@ -12,7 +12,7 @@ class ProjectCode extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['projectcodes'] = $this->ProjectCode_model->getProjectCodes('');
+		$this->arrData['projectcodes'] = $this->ProjectCode_model->getData('');
 		$this->template->load('template/template_view','finance/libraries/projectcode/projectcode_view',$this->arrData);
 	}
 
@@ -21,37 +21,45 @@ class ProjectCode extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-				'projectCode' => $arrPost['project-code'],
-				'projectDesc' => $arrPost['project-desc'],
-				'projectOrder' => $arrPost['project-order']
+				'projectCode' => $arrPost['txtcode'],
+				'projectDesc' => $arrPost['txtdesc'],
+				'projectOrder' => $arrPost['txtorder']
 			);
-			$this->ProjectCode_model->add($arrData);
-			$this->session->set_flashdata('strSuccessMsg','Project Code added successfully.');
-			redirect('finance/projectcode');
-		else:
-			$this->arrData['checkbox'] = 0;
-			$this->template->load('template/template_view','finance/libraries/projectcode/projectcode_add',$this->arrData);
+			if(!$this->ProjectCode_model->isCodeExists($arrPost['txtcode'],'add')):
+				$this->ProjectCode_model->add($arrData);
+				$this->session->set_flashdata('strSuccessMsg','Project Code added successfully.');
+				redirect('finance/projectcode');
+			else:
+				$this->arrData['err'] = 'Code already exists';
+			endif;
 		endif;
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','finance/libraries/projectcode/projectcode_add',$this->arrData);
 	}
 
 	public function edit($code)
 	{
+		$code = str_replace('%20', ' ', $code);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-				'projectDesc' => $arrPost['project-desc'],
-				'projectOrder' => $arrPost['project-order']
+				'projectDesc' => $arrPost['txtdesc'],
+				'projectOrder' => $arrPost['txtorder']
 			);
 			$this->ProjectCode_model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Project Code updated successfully.');
 			redirect('finance/projectcode');
 		else:
-			$this->arrData['checkbox'] = 1;
+			$this->arrData['action'] = 'edit';
+			$this->arrData['data'] = $this->ProjectCode_model->getData($code);
 			$this->template->load('template/template_view','finance/libraries/projectcode/projectcode_add',$this->arrData);
 		endif;
 	}
 
-	public function delete() { $this->ProjectCode_model->delete($_GET['code']); }
-	public function fetchCodes() { echo json_encode($this->ProjectCode_model->getProjectCodes('')); }
-	public function fetchProjectCodeData($code) { echo json_encode($this->ProjectCode_model->getProjectCodes($code)); }
+	public function delete()
+	{
+		$this->ProjectCode_model->delete($_GET['code']);
+	}
+
+
 }

@@ -58,7 +58,8 @@ class Deduction_model extends CI_Model {
 		if($groupCode==''):
 			return $this->db->order_by('deductionGroupCode','ASC')->get('tbldeductiongroup')->result_array();
 		else:
-			return $this->db->get_where('tbldeductiongroup', array('deductionGroupCode' => $groupCode))->result_array();
+			$result = $this->db->get_where('tbldeductiongroup', array('deductionGroupCode' => $groupCode))->result_array();
+			return $result[0];
 		endif;
 	}
 
@@ -71,7 +72,37 @@ class Deduction_model extends CI_Model {
 			return $result[0];
 		endif;
 	}
-		
+	
+	function isDeductionCodeExists($code, $action)
+	{
+		$result = $this->db->get_where('tbldeduction', array('deductionCode' => $code))->result_array();
+		if($action == 'add'):
+			if(count($result) > 0):
+				return true;
+			endif;
+		else:
+			if(count($result) > 1):
+				return true;
+			endif;
+		endif;
+		return false;
+	}
+
+	function isDeductionGroupExists($code, $action)
+	{
+		$result = $this->db->get_where('tbldeductiongroup', array('deductionGroupCode' => $code))->result_array();
+		if($action == 'add'):
+			if(count($result) > 0):
+				return true;
+			endif;
+		else:
+			if(count($result) > 1):
+				return true;
+			endif;
+		endif;
+		return false;
+	}
+
 }
 /* End of file Deduction_model.php */
 /* Location: ./application/modules/finance/models/Deduction_model.php */

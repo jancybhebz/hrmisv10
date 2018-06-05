@@ -26,15 +26,30 @@ class ProjectCode_model extends CI_Model {
 		return $this->db->affected_rows(); 
 	}
 
-	function getProjectCodes($code)
+	function getData($code)
 	{
 		if($code==''):
 			return $this->db->order_by('projectOrder','ASC')->get('tblProject')->result_array();
 		else:
-			return $this->db->get_where('tblProject', array('projectCode' => $code))->result_array();
+			$result = $this->db->get_where('tblProject', array('projectCode' => $code))->result_array();
+			return $result[0];
 		endif;
 	}
 	
+	function isCodeExists($code, $action)
+	{
+		$result = $this->db->get_where('tblProject', array('projectCode' => $code))->result_array();
+		if($action == 'add'):
+			if(count($result) > 0):
+				return true;
+			endif;
+		else:
+			if(count($result) > 1):
+				return true;
+			endif;
+		endif;
+		return false;
+	}
 		
 }
 /* End of file ProjectCode_model.php */

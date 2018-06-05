@@ -5,6 +5,7 @@ class Employees extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
+        $this->load->model(array('employees/employees_model'));
     }
 
 	public function index()
@@ -16,10 +17,17 @@ class Employees extends MY_Controller {
 	{
 		$arrPost = $this->input->post();
 		if(isset($arrPost)):
-			$this->load->model(array('employees/employees_model'));
 			$strSearch = $arrPost['strSearch'];
 			$this->arrData['arrData'] = $this->employees_model->getData('',$strSearch);
 		endif;
 		$this->template->load('template/template_view','employees/search_view', $this->arrData);
+	}
+
+	public function profile()
+	{
+		$strEmpNo = $this->uri->segment(3);
+		$this->arrData['arrData'] = $this->employees_model->getData($strEmpNo);
+		if(count($this->arrData['arrData'])==0) redirect('pds');
+		$this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
 	}
 }

@@ -21,18 +21,17 @@ class Signatory extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-				'payrollGroupCode' => $arrPost['sig-pgcode'],
-				'signatory' => $arrPost['sig-sign'],
-				'signatoryPosition' => $arrPost['sig-pos']
+				'payrollGroupCode' => $arrPost['txtpgcode'],
+				'signatory' => $arrPost['txtsignatory'],
+				'signatoryPosition' => $arrPost['txtposition']
 			);
 			$this->Signatory_model->add($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Signatory added successfully.');
 			redirect('finance/signatory');
-		else:
-			$this->arrData['checkbox'] = 0;
-			$this->arrData['paryollGroup'] = $this->PayrollGroup_model->getPayrollGroup('');
-			$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 		endif;
+		$this->arrData['action'] = 'add';
+		$this->arrData['paryollGroup'] = $this->PayrollGroup_model->getData('');
+		$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 	}
 
 	public function edit($code)
@@ -40,18 +39,18 @@ class Signatory extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-				'payrollGroupCode' => $arrPost['sig-pgcode'],
-				'signatory' => $arrPost['sig-sign'],
-				'signatoryPosition' => $arrPost['sig-pos']
+				'payrollGroupCode' => $arrPost['txtpgcode'],
+				'signatory' => $arrPost['txtsignatory'],
+				'signatoryPosition' => $arrPost['txtposition']
 			);
 			$this->Signatory_model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Signatory updated successfully.');
 			redirect('finance/signatory');
-		else:
-			$this->arrData['checkbox'] = 1;
-			$this->arrData['paryollGroup'] = $this->PayrollGroup_model->getPayrollGroup('');
-			$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 		endif;
+		$this->arrData['action'] = 'edit';
+		$this->arrData['data'] = $this->Signatory_model->getSignatories($code);
+		$this->arrData['paryollGroup'] = $this->PayrollGroup_model->getData('');
+		$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 	}
 
 	public function delete() { $this->Signatory_model->delete($_GET['code']); }

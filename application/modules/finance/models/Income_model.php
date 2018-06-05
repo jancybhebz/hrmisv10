@@ -37,9 +37,24 @@ class Income_model extends CI_Model {
 
 	function getIncomeData($code)
 	{
-		return $this->db->get_where('tblIncome', array('incomeCode' => $code))->result_array();
+		$result = $this->db->get_where('tblIncome', array('incomeCode' => $code))->result_array();
+		return $result[0];
 	}
 	
+	function isCodeExists($code, $action)
+	{
+		$result = $this->db->get_where('tblIncome', array('incomeCode' => $code))->result_array();
+		if($action == 'add'):
+			if(count($result) > 0):
+				return true;
+			endif;
+		else:
+			if(count($result) > 1):
+				return true;
+			endif;
+		endif;
+		return false;
+	}
 		
 }
 /* End of file Income_model.php */
