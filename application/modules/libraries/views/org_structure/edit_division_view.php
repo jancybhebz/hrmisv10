@@ -68,7 +68,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Service <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strSerDivision" value="<?=isset($arrDivision[0]['group2Code'])?$arrDivision[0]['group2Code']:''?>">
+                                   <select type="text" class="form-control" name="strSerDivision">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrService as $service)
+                                        {
+                                          echo '<option value="'.$service['group2Name'].'" '.($arrDivision[0]['group2Code']==$service['group2Code']?'selected':'').'>'.$service['group2Name'].'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +109,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strDivHead">
                                      <option value="">Select</option>
-
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
                                           echo '<option value="'.$data['empNumber'].'" '.($arrDivision[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
@@ -135,7 +140,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrDivision[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrDivision[0]['group3Secretary']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Division Secretary</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <select type="text" class="form-control" name="strCustodian3">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrDivision[0]['group3Custodian']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
                                         }?>
                                     </select>
                                 </div>

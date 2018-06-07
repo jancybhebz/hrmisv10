@@ -35,18 +35,6 @@ class Org_structure_model extends CI_Model {
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
-
-	function getExecData($strExecutive = '')
-	{		
-		if($strExecutive != "")
-		{
-			$this->db->where($this->tableid2,$strExecutive);
-		}
-		$this->db->join('tblgroup1','tblgroup1.group1Code = '.$this->table2.'.group1Code','left');
-		$objQuery = $this->db->get($this->table2);
-		return $objQuery->result_array();	
-	}
-
 	function getServiceData($strServiceCode = '')
 	{		
 		if($strServiceCode != "")
@@ -57,7 +45,6 @@ class Org_structure_model extends CI_Model {
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
-
 	function getDivisionData($strDivCode = '')
 	{		
 		if($strDivCode != "")
@@ -68,7 +55,6 @@ class Org_structure_model extends CI_Model {
 		$objQuery = $this->db->get($this->table3);
 		return $objQuery->result_array();	
 	}
-
 	function getSectionData($strSecCode = '')
 	{		
 		if($strSecCode != "")
@@ -79,18 +65,8 @@ class Org_structure_model extends CI_Model {
 		$objQuery = $this->db->get($this->table4);
 		return $objQuery->result_array();	
 	}
-	function getCust1($strEmployee = '')
-	{		
-		if($strEmployee != "")
-		{
-			$this->db->where('group1Custodian',$strEmployee);
-		}
-		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.group1Custodian','left');
-		
-		$objQuery = $this->db->get($this->table);
-		return $objQuery->result_array();	
-	}
 
+	//adding details of exec, service, div and section
 	function add_exec($arrData)
 	{
 		$this->db->insert($this->table, $arrData);
@@ -112,6 +88,7 @@ class Org_structure_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
+	//checking duplications
 	function checkExist($strExecOffice = '', $strExecName = '')
 	{		
 		$this->db->where('group1Code',$strExecOffice);
@@ -146,31 +123,8 @@ class Org_structure_model extends CI_Model {
 		$objQuery = $this->db->get($this->table4);
 		return $objQuery->result_array();	
 	}
-	function checkCust1($strEmployee = '')
-	{		
-		$this->db->where('group1Custodian',$strEmployee);
-		$objQuery = $this->db->get($this->table1);
-		return $objQuery->result_array();	
-	}
-	function checkCust2($strEmployee = '')
-	{		
-		$this->db->where('group2Custodian',$strEmployee);
-		$objQuery = $this->db->get($this->table2);
-		return $objQuery->result_array();	
-	}
-	function checkCust3($strEmployee = '')
-	{		
-		$this->db->where('group3Custodian',$strEmployee);
-		$objQuery = $this->db->get($this->table3);
-		return $objQuery->result_array();	
-	}
-	function checkCust4($strEmployee = '')
-	{		
-		$this->db->where('group4Custodian',$strEmployee);
-		$objQuery = $this->db->get($this->table4);
-		return $objQuery->result_array();	
-	}
-
+	
+	//saving edited details of exec, service, div and section
 	function save_exec($arrData, $strExecOffice)
 	{
 		$this->db->where($this->tableid, $strExecOffice);
@@ -178,9 +132,9 @@ class Org_structure_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-	function save_service($arrData, $strExecutive)
+	function save_service($arrData, $strServiceCode)
 	{
-		$this->db->where($this->tableid2, $strExecutive);
+		$this->db->where($this->tableid2, $strServiceCode);
 		$this->db->update($this->table2, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
@@ -199,7 +153,8 @@ class Org_structure_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
+	
+	//deleting details of exec, service, div and section
 	function delete_exec($strExecOffice)
 	{
 		$this->db->where($this->tableid, $strExecOffice);
@@ -228,33 +183,6 @@ class Org_structure_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-	function delete_exec_custodian($strEmployee)
-	{
-		$this->db->where('group1Custodian', $strEmployee);
-		$this->db->delete($this->table); 	
-		//echo $this->db->affected_rows();
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-	function delete_div_custodian($strEmployee)
-	{
-		$this->db->where('group2Custodian', $strEmployee);
-		$this->db->delete($this->table); 	
-		//echo $this->db->affected_rows();
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-	function delete_ser_custodian($strEmployee)
-	{
-		$this->db->where('group3Custodian', $strEmployee);
-		$this->db->delete($this->table); 	
-		//echo $this->db->affected_rows();
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-	function delete_sec_custodian($strEmployee)
-	{
-		$this->db->where('group4Custodian', $strEmployee);
-		$this->db->delete($this->table); 	
-		//echo $this->db->affected_rows();
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
+	
 		
 }

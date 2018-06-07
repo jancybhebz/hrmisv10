@@ -92,7 +92,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-3">
                         <div class="input-icon">
                             <i class="fa fa-clock-o" ></i>
-                            <input type="text" class="form-control timepicker timepicker-default"> </div>
+                            <input type="text" name="dtmTimeIn" class="form-control timepicker timepicker-default"> </div>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-3">
                         <div class="input-icon">
                             <i class="fa fa-clock-o" ></i>
-                            <input type="text" class="form-control timepicker timepicker-default"> </div>
+                            <input type="text" name="dtmTimeOutFrom" class="form-control timepicker timepicker-default"> </div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-3">
                         <div class="input-icon">
                             <i class="fa fa-clock-o" ></i>
-                            <input type="text" class="form-control timepicker timepicker-default"> </div>
+                            <input type="text" name="dtmTimeOutTo" class="form-control timepicker timepicker-default"> </div>
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-3">
                         <div class="input-icon">
                             <i class="fa fa-clock-o" ></i>
-                            <input type="text" class="form-control timepicker timepicker-default"> </div>
+                            <input type="text" name="dtmTimeInFrom" class="form-control timepicker timepicker-default"> </div>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-3">
                         <div class="input-icon">
                             <i class="fa fa-clock-o" ></i>
-                            <input type="text" class="form-control timepicker timepicker-default"> </div>
+                            <input type="text" name="dtmTimeOutTo" class="form-control timepicker timepicker-default"> </div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-3">
                         <div class="input-icon">
                             <i class="fa fa-clock-o" ></i>
-                            <input type="text" class="form-control timepicker timepicker-default"> </div>
+                            <input type="text" name="dtmTimeOut" class="form-control timepicker timepicker-default"> </div>
                         </div>
                     </div>
                 </div>
@@ -262,10 +262,16 @@ var FormValidation = function () {
 
 }();
 
+
 jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
 
 <script type="text/javascript" src="<?=base_url('assets/js/validation.js')?>">
+
+$(document).ready(function(){
+    $('.timepicker').timepicker({ timeFormat: 'h:mm:ss p' });
+}); 
+
 </script>

@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Executive Office Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
+                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -103,10 +103,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strSecretary">
                                      <option value="">Select</option>
-
+                                         <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrOrganization[0]['group1Secretary']==$data['empNumber']?'selected':'').'>'.($data['surname']).', '.($data['firstname']).'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian </label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="strCustodian1">
+                                     <option value="">Select</option>
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrOrganization[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrOrganization[0]['group1Custodian']==$data['empNumber']?'selected':'').'>'.($data['surname']).', '.($data['firstname']).'</option>';
                                         }?>
                                     </select>
                                 </div>

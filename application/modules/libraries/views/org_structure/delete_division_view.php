@@ -113,10 +113,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Head Title <span class="required"> * </span></label>
+                                <label class="control-label">Division Secretary <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrDivision[0]['empNumber'])?$arrDivision[0]['surname'].', '.$arrDivision[0]['firstname']:''?>" disabled>
+                                    <input type="text" class="form-control" value="<?=isset($arrDivision[0]['group3Secretary'])?$arrDivision[0]['group3Secretary']:''?>" disabled> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian </label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" value="<?=isset($arrDivision[0]['group3Custodian'])?$arrDivision[0]['group3Custodian']:''?>" disabled> 
                                 </div>
                             </div>
                         </div>
