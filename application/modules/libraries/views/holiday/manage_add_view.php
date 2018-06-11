@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Holiday</span>
+            <span>Manage Holiday</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Holiday</span>
+                    <span class="caption-subject bold uppercase">Manage Holiday</span>
                 </div>
                 
             </div>
@@ -125,8 +125,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <thead>
                         <tr>
                             <th> No. </th>
-                            <th> Holiday Name </th>
-                            <th> Date </th>
+                            <th> Holiday Code </th>
+                            <!-- <th> Holiday Name </th> -->
+                            <th> Holiday Date </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -136,7 +137,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrManageHoliday as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$row['holidayName']?> </td> 
+                            <td> <?=$row['holidayCode']?> </td> 
+                           <!--  <td> <?=$row['holidayName']?> </td>  -->
                             <td> <?=$row['holidayDate']?> </td>                           
                             <td>
                                 <a href="<?=base_url('libraries/holiday/manage_edit/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>

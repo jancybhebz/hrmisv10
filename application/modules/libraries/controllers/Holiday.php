@@ -51,7 +51,6 @@ class Holiday extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblholiday','Added '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
-					
 						$this->session->set_flashdata('strMsg','Holiday added successfully.');
 					}
 					redirect('libraries/holiday');
@@ -93,15 +92,12 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblholiday','Edited '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
-					
 					$this->session->set_flashdata('strMsg','Holiday saved successfully.');
 				}
 				redirect('libraries/holiday');
 			}
-		}
-		
+		}		
 	}
-
 
 	public function delete()
 	{
@@ -125,7 +121,6 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblholiday','Deleted '.$strHolidayCode.' Holiday',implode(';',$arrHoliday[0]),'');
-	
 					$this->session->set_flashdata('strMsg','Holiday deleted successfully.');
 				}
 				redirect('libraries/holiday');
@@ -140,7 +135,6 @@ class Holiday extends MY_Controller {
 		if(empty($arrPost))
 		{	
 			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
-			// $this->arrData['arrLocHoliday'] = $this->holiday_model->getLastHolidayCode();
 			$this->template->load('template/template_view','libraries/holiday/add_local_view',$this->arrData);	
 		}
 		else
@@ -161,7 +155,7 @@ class Holiday extends MY_Controller {
 						'holidayDay'=>$dtmDay
 					);
 					$blnReturn  = $this->holiday_model->add_local($arrData);
-
+					print_r($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Added '.$strLocalName.' Holiday',implode(';',$arrData),'');
@@ -218,7 +212,6 @@ class Holiday extends MY_Controller {
 				redirect('libraries/holiday');
 			}
 		}
-		
 	}
 
 	public function delete_local()
@@ -249,7 +242,6 @@ class Holiday extends MY_Controller {
 				redirect('libraries/holiday');
 			}
 		}
-		
 	}
 
     //MANAGE HOLIDAY 

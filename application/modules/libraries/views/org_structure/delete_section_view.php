@@ -127,7 +127,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Section Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" value="<?=isset($arrSection[0]['group4Secretary'])?$arrSection[0]['group4Secretary']:''?>" disabled>
+                                    <?php foreach($arrSection as $section):?>
+                                    <input  type="text" class="form-control"  value="<?php $arrCust=employee_details($section['group4Secretary']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?>" disabled>      
+                                    <?php endforeach;?> 
                                 </div>
                             </div>
                         </div>
@@ -138,7 +140,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Custodian</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrSection[0]['group4Custodian'])?$arrSection[0]['group4Custodian']:''?>" disabled>
+                                    <?php foreach($arrSection as $section):?>
+                                    <input  type="text" class="form-control"  value="<?php $arrCust=employee_details($section['group4Custodian']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?>" disabled>      
+                                    <?php endforeach;?> 
                                 </div>
                             </div>
                         </div>

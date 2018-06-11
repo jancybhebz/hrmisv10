@@ -105,7 +105,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Service Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control" value="<?=isset($arrService[0]['group2Secretary'])?$arrService[0]['surname'].', '.$arrService[0]['firstname']:''?>" disabled>
+                                  <?php foreach($arrService as $service):?>
+                                    <input  type="text" class="form-control"  value="<?php $arrCust=employee_details($service['group2Secretary']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?>" disabled>      
+                                    <?php endforeach;?>  
                                 </div>
                             </div>
                         </div>
@@ -116,7 +118,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Custodian</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrService[0]['group2Custodian'])?$arrService[0]['group2Custodian']:''?>" disabled>
+                                    <?php foreach($arrService as $service):?>
+                                    <input  type="text" class="form-control"  value="<?php $arrCust=employee_details($service['group2Custodian']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?>" disabled>      
+                                    <?php endforeach;?>                      
                                 </div>
                             </div>
                         </div>

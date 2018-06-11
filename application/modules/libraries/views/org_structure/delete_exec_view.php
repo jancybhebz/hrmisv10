@@ -72,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Executive Office Head <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['empNumber'])?$arrOrganization[0]['empNumber']:''?>" disabled>
+                                     <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['empNumber'])?$arrOrganization[0]['surname'].', '.$arrOrganization[0]['firstname']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Executive Office Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['group1Secretary'])?$arrOrganization[0]['group1Secretary']:''?>" disabled>
+                                   <?php foreach($arrOrganization as $org):?>
+                                    <input  type="text" class="form-control"  value="<?php $arrCust=employee_details($org['group1Secretary']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?>" disabled>      
+                                    <?php endforeach;?> 
                                 </div>
                             </div>
                         </div>
@@ -105,7 +107,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Custodian<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['group1Custodian'])?$arrOrganization[0]['group1Custodian']:''?>" disabled>
+                                    <?php foreach($arrOrganization as $org):?>
+                                    <input  type="text" class="form-control"  value="<?php $arrCust=employee_details($org['group1Custodian']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?>" disabled>      
+                                    <?php endforeach;?> 
                                 </div>
                             </div>
                         </div>

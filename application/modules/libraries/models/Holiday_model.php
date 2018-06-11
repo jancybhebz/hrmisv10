@@ -38,7 +38,7 @@ class Holiday_model extends CI_Model {
 		if($strCode != "")
 			$strWhere .= " AND holidayCode = '".$strCode."'";
 		
-		$strSQL = " SELECT * FROM tblholidayyear					
+		$strSQL = " SELECT * FROM tblholidayyear
 					WHERE 1=1 
 					$strWhere
 					ORDER BY holidayCode
@@ -53,7 +53,7 @@ class Holiday_model extends CI_Model {
 	{		
 		$strWhere = '';
 		if($strLocCode != "")
-			$strWhere .= " AND holidayCode = '".$strLocCode."'";
+			$strWhere .= " AND holidayName = '".$strLocCode."'";
 		
 		$strSQL = " SELECT * FROM tbllocalholiday					
 					WHERE 1=1 
@@ -62,7 +62,6 @@ class Holiday_model extends CI_Model {
 					";
 		//echo $strSQL;exit(1);				
 		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
 		return $objQuery->result_array();	
 	}
 
@@ -112,29 +111,29 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getLastHolidayCode()
-	{		
-		$lenHM =5; 
-		$SQL ="SELECT SUBSTRING(holidayCode,$lenHM) AS codeNum FROM tblLocalHoliday ORDER BY codeNum DESC"; //WHERE holidayCode LIKE '$t_strHolidayName%' 
-		  $rs= $this->db->query($SQL);
-		  if( $rs->num_rows()==0)
-			{
-			$strCode="0001";	     
-			}
-		  	else
-			  {
-				$row = mysql_fetch_row($rs);
-			  	$strCode=substr($rs[0]['codeNum'],-4,4);
-			  	$strCode=intval($strCode)+1;
-			  	$strCode ="LOC-".$holidayCode;
-			  }
+	// function getLastHolidayCode()
+	// {		
+	// 	$lenHM =5; 
+	// 	$SQL ="SELECT SUBSTRING(holidayCode,$lenHM) AS codeNum FROM tblLocalHoliday ORDER BY codeNum DESC"; //WHERE holidayCode LIKE '$t_strHolidayName%' 
+	// 	  $rs= $this->db->query($SQL);
+	// 	  if( $rs->num_rows()==0)
+	// 		{
+	// 		$strCode="0001";	     
+	// 		}
+	// 	  	else
+	// 		  {
+	// 			$row = mysql_fetch_row($rs);
+	// 		  	$strCode=substr($rs[0]['codeNum'],-4,4);
+	// 		  	$strCode=intval($strCode)+1;
+	// 		  	$strCode ="LOC-".$holidayCode;
+	// 		  }
 		  
-		  $SQL=
-		  $row=mysql_fetch_array(mysql_query("SELECT * FROM `tblHoliday` WHERE holidayCode='$t_strHolidayName'"));
+	// 	  $SQL=
+	// 	  $row=mysql_fetch_array(mysql_query("SELECT * FROM `tblHoliday` WHERE holidayCode='$t_strHolidayName'"));
 
-		  $results = "INSERT INTO tblLocalHoliday (holidayCode, holidayName, holidayDate) VALUES ('$holidayCode', '".$row["holidayName"]."', '$t_strHolidayDate')";
-		 mysql_query($results) or die (mysql_error());	
-	}
+	// 	  $results = "INSERT INTO tblLocalHoliday (holidayCode, holidayName, holidayDate) VALUES ('$holidayCode', '".$row["holidayName"]."', '$t_strHolidayDate')";
+	// 	 mysql_query($results) or die (mysql_error());	
+	// }
 
 	
 	//SAVE
@@ -148,7 +147,7 @@ class Holiday_model extends CI_Model {
 
 	function save_local($arrData, $strLocCode)
 	{
-		$this->db->where('holidayCode', $strLocCode);
+		$this->db->where('holidayName', $strLocCode);
 		$this->db->update('tbllocalholiday', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
@@ -172,7 +171,7 @@ class Holiday_model extends CI_Model {
 
 	function delete_local($strLocCode)
 	{
-		$this->db->where('holidayCode', $strLocCode);
+		$this->db->where('holidayName', $strLocCode);
 		$this->db->delete('tbllocalholiday'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;

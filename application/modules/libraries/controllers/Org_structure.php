@@ -255,7 +255,7 @@ class Org_structure extends MY_Controller {
 		{
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData($strCode);
 			$this->arrData['arrOrganization'] = $this->org_structure_model->getData();
-			//$this->arrData['arrEmployees'] = $this->employees_model->getData(); 
+			$this->arrData['arrEmployees'] = $this->employees_model->getData(); 
 			$this->template->load('template/template_view','libraries/org_structure/delete_service_view',$this->arrData);
 		}
 		else
@@ -267,9 +267,9 @@ class Org_structure extends MY_Controller {
 				$arrService = $this->org_structure_model->getData($strCode);
 				$strServiceName = $arrService[0]['group2Name'];	
 				$blnReturn = $this->org_structure_model->delete_service($strCode);
-				if(count($blnReturn)>0)
+				if(count($blnReturn)>0) //implode(';',$arrService[0]),'');
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Deleted '.$strServiceCode.' Org_structure',implode(';',$arrService[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Deleted '.$strServiceCode.' Org_structure',implode(';',$arrService),'');
 					$this->session->set_flashdata('strMsg','Service name deleted successfully.');
 				}
 				redirect('libraries/org_structure');
@@ -404,11 +404,11 @@ class Org_structure extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Deleted '.$strDivCode.' Org_structure',implode(';',$arrDivision[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Deleted '.$strCode.' Org_structure',implode(';',$arrDivision),'');
 
 					$this->session->set_flashdata('strMsg','Division name deleted successfully.');
 				}
-				redirect('libraries/org_structure/add_division');
+				redirect('libraries/org_structure/');
 			}
 		}	
 	}
@@ -449,7 +449,8 @@ class Org_structure extends MY_Controller {
 						'group4Name'=>$strSecName,	
 						'empNumber'=>$strSecHead,
 						'group4HeadTitle'=>$strSecHeadTitle,
-						'group4Custodian'=>$strCustodian4,	
+						'group4Secretary'=>$strSecSecretary,
+						'group4Custodian'=>$strCustodian4
 					);
 					$blnReturn  = $this->org_structure_model->add_section($arrData);
 
@@ -458,7 +459,7 @@ class Org_structure extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Added '.$strSecCode.' Org_structure',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Section Name added successfully.');
 					}
-					redirect('libraries/org_structure/add_section');
+					redirect('libraries/org_structure/');
 				}
 				else
 				{	
@@ -547,7 +548,7 @@ class Org_structure extends MY_Controller {
 				$blnReturn = $this->org_structure_model->delete_section($strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strSecCode.' Org_structure',implode(';',$arrSection[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strSecCode.' Org_structure',implode(';',$arrSection),'');
 	
 					$this->session->set_flashdata('strMsg','Section name deleted successfully.');
 				}
