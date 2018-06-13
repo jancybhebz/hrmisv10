@@ -146,7 +146,7 @@ class Holiday extends MY_Controller {
 			if(!empty($strLocalName) && !empty($dtmYear) && !empty($dtmMonth) && !empty($dtmDay))
 			{	
 				// check if holiday name/date desc already exist
-				if(count($this->holiday_model->checkLocExist($strLocalName, $dtmYear, $dtmMonth, $dtmDay))==0)
+				if(count($this->holiday_model->checkLocExist($dtmYear, $dtmMonth, $dtmDay))==0)
 				{ //print_r($arrLocHoliday);
 					$arrData = array(
 						'holidayName'=>$strLocalName,
@@ -155,7 +155,7 @@ class Holiday extends MY_Controller {
 						'holidayDay'=>$dtmDay
 					);
 					$blnReturn  = $this->holiday_model->add_local($arrData);
-					print_r($arrData);
+					//print_r($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Added '.$strLocalName.' Holiday',implode(';',$arrData),'');
@@ -165,8 +165,8 @@ class Holiday extends MY_Controller {
 				}
 				else
 				{	
+					//print_r($arrData);
 					$this->session->set_flashdata('strErrorMsg','Local Holiday already exists.');
-					$this->session->set_flashdata('strLocalName',$strLocalName);
 					$this->session->set_flashdata('dtmYear',$dtmYear);
 					$this->session->set_flashdata('dtmMonth',$dtmMonth);
 					$this->session->set_flashdata('dtmDay',$dtmDay);
@@ -194,8 +194,8 @@ class Holiday extends MY_Controller {
 			$dtmYear = $arrPost['dtmYear'];
 			$dtmMonth = $arrPost['dtmMonth'];
 			$dtmDay = $arrPost['dtmDay'];
-			if(!empty($strLocalName) AND !empty($dtmHolidate)) 
-			{
+			if(!empty($strLocalName) && !empty($dtmYear) && !empty($dtmMonth) && !empty($dtmDay))
+			{	
 				$arrData = array(
 						'holidayName'=>$strLocalName,
 						'holidayYear'=>$dtmYear,

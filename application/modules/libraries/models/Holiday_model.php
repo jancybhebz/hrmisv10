@@ -97,11 +97,10 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function checkLocExist($strLocalName = '', $dtmYear = '', $dtmMonth = '', $dtmDay = '')
+	function checkLocExist($dtmYear = '', $dtmMonth = '', $dtmDay = '')
 	{		
 		$strSQL = " SELECT * FROM tbllocalholiday					
 					WHERE  
-					holidayName ='$strLocalName' OR
 					holidayYear ='$dtmYear' OR
 					holidayMonth ='$dtmMonth' OR
 					holidayDay ='$dtmDay'					
