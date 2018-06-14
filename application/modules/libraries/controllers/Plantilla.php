@@ -128,7 +128,6 @@ class Plantilla extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantilla','Edited '.$strItemNumber.' Plantilla',implode(';',$arrData),'');
-					
 					$this->session->set_flashdata('strMsg','Plantilla updated successfully.');
 				}
 				redirect('libraries/plantilla');

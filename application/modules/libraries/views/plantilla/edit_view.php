@@ -63,9 +63,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strPosition">
                                     <option value="">Select</option>
-                                    <?php foreach($arrPosition as $pos)
+                                        <?php foreach($arrPosition as $pos)
                                         {
-                                          echo '<option value="'.$pos['positionCode'].'" '.($arrPlantilla[0]['positionDesc']==$pos['positionId']?'selected':'').'>'.$pos['positionCode'].' - '.$pos['positionDesc'].'</option>';
+                                           echo '<option value="'.$pos['positionId'].'" '.($arrPlantilla[0]['positionCode']==$pos['positionId']?'selected':'').'>'.$pos['positionCode'].' - '.$pos['positionDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -78,7 +78,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Salary Grade <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strPosition">
+                                    <select type="text" class="form-control" name="strSG">
                                     <option value="">Select</option>
                                       <option value="">Select</option>
                                          <option>1</option>
@@ -125,7 +125,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAreaCode" value="<?=!empty($arrPlantilla[0]['areaCode'])?$arrPlantilla[0]['areaCode']:''?>">
+                                    <input type="text" class="form-control" name="intAreaCode" value="<?=!empty($arrPlantilla[0]['areaCode'])?$arrPlantilla[0]['areaCode']:''?>">
                                 </div>
                             </div>
                         </div>
