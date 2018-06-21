@@ -97,13 +97,14 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function checkLocExist($dtmYear = '', $dtmMonth = '', $dtmDay = '')
+	function checkLocExist($dtmHolidate = '')
 	{		
 		$strSQL = " SELECT * FROM tbllocalholiday					
 					WHERE  
-					holidayYear ='$dtmYear' OR
-					holidayMonth ='$dtmMonth' OR
-					holidayDay ='$dtmDay'					
+					holidayDate ='$dtmHolidate'
+					-- holidayYear ='$dtmYear' OR
+					-- holidayMonth ='$dtmMonth' OR
+					-- holidayDay ='$dtmDay'					
 					";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);

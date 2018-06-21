@@ -140,19 +140,21 @@ class Holiday extends MY_Controller {
 		else
 		{	
 			$strLocalName = $arrPost['strLocalName'];
-			$dtmYear = $arrPost['dtmYear'];
-			$dtmMonth = $arrPost['dtmMonth'];
-			$dtmDay = $arrPost['dtmDay'];
-			if(!empty($strLocalName) && !empty($dtmYear) && !empty($dtmMonth) && !empty($dtmDay))
+			$dtmHolidate = $arrPost['dtmHolidate'];
+			// $dtmYear = $arrPost['dtmYear'];
+			// $dtmMonth = $arrPost['dtmMonth'];
+			// $dtmDay = $arrPost['dtmDay'];
+			if(!empty($strLocalName) && !empty($dtmHolidate))
 			{	
 				// check if holiday name/date desc already exist
-				if(count($this->holiday_model->checkLocExist($dtmYear, $dtmMonth, $dtmDay))==0)
+				if(count($this->holiday_model->checkLocExist($dtmHolidate))==0)
 				{ //print_r($arrLocHoliday);
 					$arrData = array(
 						'holidayName'=>$strLocalName,
-						'holidayYear'=>$dtmYear,
-						'holidayMonth'=>$dtmMonth,
-						'holidayDay'=>$dtmDay
+						'holidayDate'=>$dtmHolidate,
+						// 'holidayYear'=>$dtmYear,
+						// 'holidayMonth'=>$dtmMonth,
+						// 'holidayDay'=>$dtmDay
 					);
 					$blnReturn  = $this->holiday_model->add_local($arrData);
 					//print_r($arrData);
@@ -167,9 +169,10 @@ class Holiday extends MY_Controller {
 				{	
 					//print_r($arrData);
 					$this->session->set_flashdata('strErrorMsg','Local Holiday already exists.');
-					$this->session->set_flashdata('dtmYear',$dtmYear);
-					$this->session->set_flashdata('dtmMonth',$dtmMonth);
-					$this->session->set_flashdata('dtmDay',$dtmDay);
+					$this->session->set_flashdata('dtmHolidate',$dtmHolidate);
+					// $this->session->set_flashdata('dtmYear',$dtmYear);
+					// $this->session->set_flashdata('dtmMonth',$dtmMonth);
+					// $this->session->set_flashdata('dtmDay',$dtmDay);
 					redirect('libraries/holiday/add_local');
 				}
 			}
