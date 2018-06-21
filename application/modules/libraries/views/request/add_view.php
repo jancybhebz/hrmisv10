@@ -78,6 +78,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <select type="text" class="form-control" name="strGenApplicant" value="<?=!empty($this->session->userdata('strGenApplicant'))?$this->session->userdata('strGenApplicant'):''?>" required>
                                         
                                          <option value="">Select</option>
+                                         <!-- <option value="ALLEMP">All Employees</option> -->
                                         <?php foreach($arrApplicant as $applicant)
                                         {
                                           echo '<option value="'.$applicant['AppliCode'].'">'.$applicant['Applicant'].'</option>';
@@ -198,7 +199,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Action </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str2ndSigAction" value="<?=!empty($this->session->userdata('str2ndSigAction'))?$this->session->userdata('str2ndSigAction'):''?>" required>
+                                    <select type="text" class="form-control" name="str2ndSigAction" value="<?=!empty($this->session->userdata('str2ndSigAction'))?$this->session->userdata('str2ndSigAction'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrAction as $action)
@@ -217,7 +218,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Signatory</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str2ndSignatory" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>" required>
+                                  <select type="text" class="form-control" name="str2ndSignatory" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrSignatory as $signatory)
@@ -236,7 +237,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str2ndOfficer" value="<?=!empty($this->session->userdata('str2ndOfficer'))?$this->session->userdata('str2ndOfficer'):''?>" required>
+                                   <select type="text" class="form-control" name="str2ndOfficer" value="<?=!empty($this->session->userdata('str2ndOfficer'))?$this->session->userdata('str2ndOfficer'):''?>" >
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
@@ -259,7 +260,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Action </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str3rdSigAction" value="<?=!empty($this->session->userdata('str3rdSigAction'))?$this->session->userdata('str3rdSigAction'):''?>" required>
+                                    <select type="text" class="form-control" name="str3rdSigAction" value="<?=!empty($this->session->userdata('str3rdSigAction'))?$this->session->userdata('str3rdSigAction'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrAction as $action)
@@ -278,7 +279,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Signatory </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str3rdSignatory" value="<?=!empty($this->session->userdata('str3rdSignatory'))?$this->session->userdata('str3rdSignatory'):''?>" required>
+                                  <select type="text" class="form-control" name="str3rdSignatory" value="<?=!empty($this->session->userdata('str3rdSignatory'))?$this->session->userdata('str3rdSignatory'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrSignatory as $signatory)
@@ -297,7 +298,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str3rdOfficer" value="<?=!empty($this->session->userdata('str3rdOfficer'))?$this->session->userdata('str3rdOfficer'):''?>" required>
+                                   <select type="text" class="form-control" name="str3rdOfficer" value="<?=!empty($this->session->userdata('str3rdOfficer'))?$this->session->userdata('str3rdOfficer'):''?>" >
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
@@ -431,7 +432,7 @@ var FormValidation = function () {
                     str1stOfficer: {
                         minlength: 1,
                         required: true,
-                    },
+                    // },
                     // str2ndSigAction: {
                     //     minlength: 1,
                     //     required: true,

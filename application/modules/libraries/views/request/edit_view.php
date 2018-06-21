@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Edit page for Payroll Group Library
+Purpose of file:    Edit page for Request Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Payroll Group</span>
+            <span>Edit Request Signatory</span>
         </li>
     </ul>
 </div>
@@ -36,25 +36,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Payroll Group</span>
+                    <span class="caption-subject bold uppercase"> Edit Request Signatory</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/payroll_group/edit/'.$this->uri->segment(4))?>" method="post" id="frmPayrollGroup">
+                <form action="<?=base_url('libraries/request/edit/'.$this->uri->segment(4))?>" method="post" id="frmRequest">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Project <span class="required"> * </span></label>
+                                <label class="control-label">Type of Request <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strProject">
+                                    <select type="text" class="form-control" name="strReqType">
                                     <option value="">Select</option>
-                                    <?php foreach($arrProject as $project)
+                                    <?php foreach($arrRequestType as $type)
                                         {
-                                          echo '<option value="'.$project['projectId'].'" '.($arrPayrollGroup[0]['projectCode']==$project['projectId']?'selected':'').'>'.$project['projectDesc'].'</option>';
+                                          echo '<option value="'.$type['requestCode'].'" '.($arrRequest[0]['requestCode']==$type['requestCode']?'selected':'').'>'.$type['requestDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -64,10 +64,61 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
+                                <label class="control-label"><strong>APPLICANT </strong><span class="required"> * </span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">General <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>">
+                                    <select type="text" class="form-control" name="strGenApplicant">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrApplicant as $applicant)
+                                        {
+                                          echo '<option value="'.$applicant['AppliCode'].'" '.($arrRequest[0]['AppliCode']==$applicant['AppliCode']?'selected':'').'>'.$applicant['Applicant'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Office Name <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="strOfficeName">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrOfficeName as $office)
+                                        {
+                                          echo '<option value="'.$office['group1Code'].'" '.($arrRequest[0]['group1Code']==$office['group1Code']?'selected':'').'>'.$office['group1Name'].'</option>';
+                                          echo '<option value="'.$office['group2Code'].'" '.($arrRequest[0]['group2Code']==$office['group2Code']?'selected':'').'>'.$office['group2Name'].'</option>';
+                                          echo '<option value="'.$office['group3Code'].'" '.($arrRequest[0]['group3Code']==$office['group3Code']?'selected':'').'>'.$office['group3Name'].'</option>';
+                                        }?>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Employee Name <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <select type="text" class="form-control" name="strName">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -75,10 +126,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
+                                <label class="control-label"><strong>1ST SIGNATORY </strong> <span class="required"> * </span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Action <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($arrPayrollGroup[0]['payrollGroupName'])?$arrPayrollGroup[0]['payrollGroupName']:''?>">
+                                    <select type="text" class="form-control" name="str1stSigAction">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrAction as $action)
+                                        {
+                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -86,10 +150,34 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
+                                <label class="control-label">Signatory <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($arrPayrollGroup[0]['payrollGroupOrder'])?$arrPayrollGroup[0]['payrollGroupOrder']:''?>">
+                                    <select type="text" class="form-control" name="str1stSignatory">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrSignatory as $signatory)
+                                        {
+                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Officer <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str1stOfficer">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -97,10 +185,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Responsibility Center  <span class="required"> * </span></label>
+                                <label class="control-label"><strong>2ND SIGNATORY </strong> <span class="required"> * </span></label>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Action</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($arrPayrollGroup[0]['payrollGroupRC'])?$arrPayrollGroup[0]['payrollGroupRC']:''?>">
+                                    <select type="text" class="form-control" name="str2ndSigAction">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrAction as $action)
+                                        {
+                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -108,9 +209,162 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intPayrollGroupId" value="<?=isset($arrPayrollGroup[0]['payrollGroupId'])?$arrPayrollGroup[0]['payrollGroupId']:''?>">
+                                <label class="control-label">Signatory </label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str2ndSignatory">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrSignatory as $signatory)
+                                        {
+                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Officer</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str2ndOfficer">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label"><strong>3RD SIGNATORY </strong> <span class="required"> * </span></label>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Action</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str3rdSigAction">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrAction as $action)
+                                        {
+                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Signatory </label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str3rdSignatory">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrSignatory as $signatory)
+                                        {
+                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Officer</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str3rdOfficer">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label"><strong>4TH SIGNATORY </strong> <span class="required"> * </span></label>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Action <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str4thSigAction">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrAction as $action)
+                                        {
+                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Signatory <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str4thSignatory">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrSignatory as $signatory)
+                                        {
+                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Officer <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="str4thOfficer">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" name="intReqId" value="<?=isset($arrRequest[0]['reqID'])?$arrRequest[0]['reqID']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/payroll_group')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/request')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -132,7 +386,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmPayrollGroup');
+            var form2 = $('#frmRequest');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -142,23 +396,67 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strProject: {
+                    strReqType: {
                         minlength: 1,
                         required: true
                     },
-                    strPayrollGroupCode: {
+                    strGenApplicant: {
                         minlength: 1,
                         required: true,
                     },
-                    strPayrollGroupDesc: {
+                    strOfficeName: {
                         minlength: 1,
                         required: true,
                     },
-                    intPayrollGroupOrder: {
+                    strName: {
                         minlength: 1,
                         required: true,
                     },
-                    strResponsibilityCntr: {
+                    str1stSigAction: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    str1stSignatory: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    str1stOfficer: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    // str2ndSigAction: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str2ndSignatory: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str2ndOfficer: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str3rdSigAction: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str3rdSignatory: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str3rdOfficer: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    str4thSigAction: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    str4thSignatory: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    str4thOfficer: {
                         minlength: 1,
                         required: true,
                     },

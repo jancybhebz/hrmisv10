@@ -90,7 +90,7 @@ class Request_model extends CI_Model {
 		$this->db->join('tblgroup2','tblgroup2.group1Code = '.$this->table5.'.group1Code','left');
 		$this->db->join('tblgroup3','tblgroup3.group1Code = '.$this->table5.'.group1Code','left');
 		$this->db->join('tblgroup4','tblgroup4.group1Code = '.$this->table5.'.group1Code','left');
-		//$this->db->order_by('tblgroup1.'.$this->tableid5,'ASC');
+		$this->db->order_by('tblgroup1.'.$this->tableid5,'DESC');
 		$objQuery = $this->db->get($this->table5);
 		return $objQuery->result_array();	
 	}
@@ -117,8 +117,6 @@ class Request_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	
-
 	function add($arrData)
 	{
 		$this->db->insert($this->table, $arrData);
@@ -128,7 +126,11 @@ class Request_model extends CI_Model {
 	function checkExist($strReqType = '', $strGenApplicant = '')
 	{		
 		$this->db->where('RequestType',$strReqType);
-		$this->db->or_where('Applicant', $strGenApplicant);			
+		$this->db->or_where('Applicant', $strGenApplicant);
+		$this->db->or_where('Signatory1', $str1stOfficer);	
+		$this->db->or_where('Signatory2', $str2ndOfficer);	
+		$this->db->or_where('Signatory3', $str3rdOfficer);	
+		$this->db->or_where('SignatoryFin', $str4thOfficer);			
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
