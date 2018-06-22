@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    List page for Request Library
+Purpose of file:    List page for Request Signatories Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division

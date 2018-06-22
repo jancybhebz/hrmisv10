@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Edit page for Request Library
+Purpose of file:    Edit page for Request Signatories Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -56,7 +56,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         {
                                           echo '<option value="'.$type['requestCode'].'" '.($arrRequest[0]['requestCode']==$type['requestCode']?'selected':'').'>'.$type['requestDesc'].'</option>';
                                         }?>
-                                    </select>
+                                    </select> 
                                 </div>
                             </div>
                         </div>
@@ -98,9 +98,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                           echo '<option value="'.$office['group1Code'].'" '.($arrRequest[0]['group1Code']==$office['group1Code']?'selected':'').'>'.$office['group1Name'].'</option>';
                                           echo '<option value="'.$office['group2Code'].'" '.($arrRequest[0]['group2Code']==$office['group2Code']?'selected':'').'>'.$office['group2Name'].'</option>';
                                           echo '<option value="'.$office['group3Code'].'" '.($arrRequest[0]['group3Code']==$office['group3Code']?'selected':'').'>'.$office['group3Name'].'</option>';
-                                        }?>
+                                        }?> 
                                     </select>
-
                                 </div>
                             </div>
                         </div>

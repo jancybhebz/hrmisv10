@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Controller for Request Library
+Purpose of file:    Controller for Request Signatories Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -22,7 +22,7 @@ class Request extends MY_Controller {
 	{
 		$this->arrData['arrRequest'] = $this->request_model->getData();
 		$this->arrData['arrEmployees'] = $this->employees_model->getData();
-		
+		//$this->arrData['arrEmp'] = $this->request_model->getEmpDetails();
 		$this->template->load('template/template_view', 'libraries/request/list_view', $this->arrData);
 	}
 	
@@ -37,6 +37,7 @@ class Request extends MY_Controller {
 			$this->arrData['arrEmployees'] = $this->employees_model->getData();
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
+
 			$this->template->load('template/template_view','libraries/request/add_view',$this->arrData);	
 		}
 		else
@@ -57,7 +58,7 @@ class Request extends MY_Controller {
 			$str4thSigAction = $arrPost['str4thSigAction'];
 			$str4thSignatory = $arrPost['str4thSignatory'];
 			$str4thOfficer = $arrPost['str4thOfficer'];
-			print_r($arrPost);
+			//print_r($arrPost);
 			if(!empty($strReqType) && !empty($strGenApplicant) && !empty($str1stOfficer) && !empty($str4thOfficer))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -67,20 +68,13 @@ class Request extends MY_Controller {
 					$arrData = array(
 						'RequestType'=>$strReqType,
 						'Applicant'=>$strGenApplicant,
-						// 'Applicant'=>$strOfficeName,
-						// 'Applicant'=>$strName,
-						// 'Signatory1'=>$str1stSigAction,
-						// 'Signatory1'=>$str1stSignatory,
-						'Signatory1'=>$str1stOfficer,
-						// 'Signatory2'=>$str2ndSigAction,
-						// 'Signatory2'=>$str2ndSignatory,
-						'Signatory2'=>$str2ndOfficer,
-						// 'Signatory3'=>$str3rdSigAction,
-						// 'Signatory3'=>$str3rdSignatory,
-						'Signatory3'=>$str3rdOfficer,
-						// 'Signatory4'=>$str4thSigAction,
-						// 'Signatory4'=>$str4thSignatory,
-						'Signatory4'=>$str4thOfficer
+						// 'Applicant'=>$strOfficeName, 
+						// 'Applicant'=>$strName, 
+						'Signatory1'=>$str1stSigAction.' : '.$str1stSignatory.' : '.$str1stOfficer,
+						'Signatory2'=>$str2ndSigAction.' : '.$str2ndSignatory.' : '.$str2ndOfficer,
+						'Signatory3'=>$str3rdSigAction.' : '.$str3rdSignatory.' : '.$str3rdOfficer,
+						'SignatoryFin'=>$str4thSigAction.' : '.$str4thSignatory.' : '.$str4thOfficer,
+					
 					);
 					$blnReturn  = $this->request_model->add($arrData);
 
@@ -114,7 +108,7 @@ class Request extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$intReqId = urldecode($this->uri->segment(4));
-			$this->arrData['arrRequest']=$this->request_model->getData($intReqId); 
+			$this->arrData['arrRequest']= $this->request_model->getData($intReqId); 
 			$this->arrData['arrRequestType'] = $this->request_model->getRequestType();
 			$this->arrData['arrApplicant'] = $this->request_model->getApplicant();
 			$this->arrData['arrOfficeName'] = $this->request_model->getOfficeName();
@@ -143,31 +137,23 @@ class Request extends MY_Controller {
 			$str4thSignatory = $arrPost['str4thSignatory'];
 			$str4thOfficer = $arrPost['str4thOfficer'];
 			//print_r($arrPost);
+		
 			if(!empty($strReqType) && !empty($strGenApplicant) && !empty($str1stOfficer) && !empty($str4thOfficer))
 			{
 				$arrData = array(
 						'RequestType'=>$strReqType,
 						'Applicant'=>$strGenApplicant,
-						// 'Applicant'=>$strOfficeName,
-						// 'Applicant'=>$strName,
-						// 'Signatory1'=>$str1stSigAction,
-						// 'Signatory1'=>$str1stSignatory,
-						'Signatory1'=>$str1stOfficer,
-						// 'Signatory2'=>$str2ndSigAction,
-						// 'Signatory2'=>$str2ndSignatory,
-						'Signatory2'=>$str2ndOfficer,
-						// 'Signatory3'=>$str3rdSigAction,
-						// 'Signatory3'=>$str3rdSignatory,
-						'Signatory3'=>$str3rdOfficer,
-						// 'Signatory4'=>$str4thSigAction,
-						// 'Signatory4'=>$str4thSignatory,
-						'Signatory4'=>$str4thOfficer
+						// 'Applicant'=>$strOfficeName, 
+						// 'Applicant'=>$strName, 
+						'Signatory1'=>$str1stSigAction.' : '.$str1stSignatory.' : '.$str1stOfficer,
+						'Signatory2'=>$str2ndSigAction.' : '.$str2ndSignatory.' : '.$str2ndOfficer,
+						'Signatory3'=>$str3rdSigAction.' : '.$str3rdSignatory.' : '.$str3rdOfficer,
+						'SignatoryFin'=>$str4thSigAction.' : '.$str4thSignatory.' : '.$str4thOfficer,
 				);
 				$blnReturn = $this->request_model->save($arrData, $intReqId);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblrequestflow','Edited '.$strReqType.' Request',implode(';',$arrData),'');
-					
 					$this->session->set_flashdata('strMsg','Request signatory updated successfully.');
 				}
 				redirect('libraries/request');

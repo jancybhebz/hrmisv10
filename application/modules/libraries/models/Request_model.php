@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Model for Request Library
+Purpose of file:    Model for Request Signatories Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -30,7 +30,6 @@ class Request_model extends CI_Model {
 	var $table7 = 'tblrequestsignatory';
 	var $tableid7 = 'SignCode';
 	
-
 	function __construct()
 	{
 		$this->load->database();
@@ -49,17 +48,17 @@ class Request_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getEmpDetails($strEmpNumber = '')
-	{		
-		if($strEmpNumber != "")
-		{
-			$this->db->where($this->tableid2,$strEmpNumber);
-		}
-		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
+	// function getEmpDetails($strEmpNumber = '')
+	// {		
+	// 	if($strEmpNumber != "")
+	// 	{
+	// 		$this->db->where($this->tableid2,$strEmpNumber);
+	// 	}
+	// 	$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
 
-		$objQuery = $this->db->get($this->table2);
-		return $objQuery->result_array();	
-	}
+	// 	$objQuery = $this->db->get($this->table2);
+	// 	return $objQuery->result_array();	
+	// }
 
 	function getRequestType($strReqCode = '')
 	{		
@@ -90,7 +89,8 @@ class Request_model extends CI_Model {
 		$this->db->join('tblgroup2','tblgroup2.group1Code = '.$this->table5.'.group1Code','left');
 		$this->db->join('tblgroup3','tblgroup3.group1Code = '.$this->table5.'.group1Code','left');
 		$this->db->join('tblgroup4','tblgroup4.group1Code = '.$this->table5.'.group1Code','left');
-		$this->db->order_by('tblgroup1.'.$this->tableid5,'DESC');
+		//$this->db->order_by("group2Name", "asc");
+		//$this->db->order_by('tblgroup1.'.$this->tableid5,'DESC');
 		$objQuery = $this->db->get($this->table5);
 		return $objQuery->result_array();	
 	}
