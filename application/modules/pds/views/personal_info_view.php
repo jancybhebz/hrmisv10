@@ -113,6 +113,10 @@
                                 <a data-toggle="tab" href="#tab_exam">
                                     <i class="fa fa-eye"></i> Examination </a>
                             </li>
+                             <li>
+                                <a data-toggle="tab" href="#tab_exam">
+                                    <i class="fa fa-eye"></i> Work Experience </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -227,21 +231,21 @@
                                         <a href="javascript:;" class="btn green"> Edit </a>
                                         </div><br> 
                                     </ul>
-
                                         <b>CHILDREN INFORMATION:</b><br><br>
                                         <table>
                                         <tr>
                                             <th width="30%">Name of Children </th>
-                                            <td></td>
                                             <th width="30%">Date of Birth </th>
                                             <th width="30%">Action </th>
                                         </tr>
+                                        <?php foreach($arrChild as $row):?>
                                         <tr>
-                                            <td>Name of Children </td>
-                                            <td></td>
-                                            <td>Date of Birth </td>
-                                            <td><a href="javascript:;" class="btn green"> Edit </a></td>
+                                            <td><?=$row['childName']?></td>
+                                            <td><?=$row['childBirthDate']?></td>
+                                            <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                                         </tr>
+                                        <?php endforeach;?>
                                         <br>
                                         </table>
                             </form>
@@ -274,7 +278,39 @@
                             </div>
                             <div id="tab_education" class="tab-pane">
                                 <form action="#">
-                                    <div class="form-group">
+                                <b>EDUCATIONAL INFORMATION:</b><br><br>
+                                                               
+                                <table border="1">
+                                    <tr>
+                                        <th width="10%">Level Code</th>
+                                        <th width="10%">Name of School</th>
+                                        <th width="10%">Basic Educ./Degree/Course</th>
+                                        <th width="10%">Period of Attendance[From/To]</th>
+                                        <th width="10%">Highest Level/Units Earned</th>
+                                        <th width="10%">Year Graduated</th>
+                                        <th width="10%">Scholarship/Honors Received</th>
+                                        <th width="10%">Graduate</th>
+                                        <th width="2%">Licensed</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                    <?php foreach($arrEduc as $row):?>
+                                    <tr>
+                                        <td><?=$row['levelCode']?></td>
+                                        <td><?=$row['schoolName']?></td>
+                                        <td><?=$row['course']?></td>
+                                        <td><?=$row['schoolFromDate'].'-'.$row['schoolToDate']?></td>
+                                        <td><?=$row['units']?></td>
+                                        <td><?=$row['yearGraduated']?></td>
+                                        <td><?=$row['ScholarshipCode']?></td>
+                                        <td><?=$row['graduated']?></td>
+                                        <td><?=$row['licensed']?></td>
+                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                    
+                                </table>
+                                   <!--  <div class="form-group">
                                         <label class="control-label">Current Password</label>
                                         <input type="password" class="form-control" /> </div>
                                     <div class="form-group">
@@ -286,7 +322,9 @@
                                     <div class="margin-top-10">
                                         <a href="javascript:;" class="btn green"> Change Password </a>
                                         <a href="javascript:;" class="btn default"> Cancel </a>
-                                    </div>
+                                    </div> -->
+                                    <a href="<?=base_url('employees/profile/add')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Add</button></a>
+                                   
                                 </form>
                             </div>
                             <div id="tab_exam" class="tab-pane">

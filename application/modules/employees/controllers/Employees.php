@@ -28,6 +28,9 @@ class Employees extends MY_Controller {
 		$strEmpNo = $this->uri->segment(3);
 		$this->arrData['arrData'] = $this->employees_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
+
+		$this->arrData['arrChild'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
+		$this->arrData['arrEduc'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
 		$this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
 	}
 }

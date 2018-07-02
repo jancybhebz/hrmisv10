@@ -44,6 +44,8 @@ class Pds extends MY_Controller {
             $arrGender['intTotalMale'] += $arrGenderChart[$row]['M'][0]['total'];
             $arrGender['intTotalFemale'] += $arrGenderChart[$row]['F'][0]['total'];
         endforeach;
+
+        
 		//print_r($arrGenderChart);
 		// $arrGenderChart['jo'] = $this->chart_model->gender_appointment('JO');
 		// $arrGenderChart['gia'] = $this->chart_model->gender_appointment('GIA');

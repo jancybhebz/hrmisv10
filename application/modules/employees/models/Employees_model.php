@@ -106,6 +106,20 @@ class Employees_model extends CI_Model {
 		return $arrData;
 		//print_r($arrData);
 	}
+
+	function getEmployeeDetails($strEmpNo,$strSelect,$strTable,$strOrder="",$strJoinTable="",$strJoinString="",$strJoinType="")
+	{
+		if($strOrder!='')
+			$this->db->order_by($strOrder);
+		if($strJoinTable!='' && $strJoinString!='' && $strJoinType!='')
+			$this->db->join($strJoinTable,$strJoinString,$strJoinType);
+		if($strEmpNo!='')
+			$this->db->where('empNumber',$strEmpNo);
+		$this->db->select($strSelect);
+		$rs = $this->db->get($strTable);
+		return $rs->result_array();
+
+	}
 }
 /* End of file Employees_model.php */
 /* Location: ./application/modules/employees/models/Employees_model.php */
