@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="portlet-body">
                 <form action="<?=base_url('libraries/signatory/edit/'.$this->uri->segment(4))?>" method="post" id="frmSignatory">
-                <div class="form-body">
+                <!-- <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
@@ -54,14 +54,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Signatory <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSignatory" value="<?=!empty($arrSignatory[0]['signatory'])?$arrSignatory[0]['signaotry']:''?>">
+                                    <input type="text" class="form-control" name="strSignatory" value="<?=isset($arrSignatory[0]['signatory'])?$arrSignatory[0]['signatory']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intReqId" value="<?=isset($arrSignatory[0]['signatoryId'])?$arrSignatory[0]['signatoryId']:''?>">
+                                <input type="hidden" name="intSignatoryId" value="<?=isset($arrSignatory[0]['signatoryId'])?$arrSignatory[0]['signatoryId']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/signatory')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -114,10 +114,10 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strPayrollGroupCode: {
-                        minlength: 1,
-                        required: true
-                    },
+                    // strPayrollGroupCode: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
                     strSignatory: {
                         minlength: 1,
                         required: true,

@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <thead>
                         <tr>
                             <th> No. </th>
-                            <th> Payroll Group </th>
+                            <!-- <th> Payroll Group </th> -->
                             <th> Signatory </th>
                             <th> Position </th>
                             <th> Action </th>
@@ -48,7 +48,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrSignatory as $signatory):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$signatory['payrollGroupCode']?> </td>
+                        <!--     <td> <?=$signatory['payrollGroupCode']?> </td> -->
                             <td> <?=$signatory['signatory']?> </td>
                             <td> <?=$signatory['signatoryPosition']?> </td>
                             <td>

@@ -161,8 +161,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-         </form>
 
+                
+            </form>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -268,10 +269,30 @@ jQuery(document).ready(function() {
 });
 </script>
 
-<script type="text/javascript" src="<?=base_url('assets/js/validation.js')?>">
+<!-- <script type="text/javascript" src="<?=base_url('assets/js/validation.js')?>">
 
 $(document).ready(function(){
     $('.timepicker').timepicker({ timeFormat: 'h:mm:ss p' });
 }); 
 
+</script> -->
+
+<script type="text/javascript" src="<?=base_url('assets/js/validation.js')?>">
+
+  jQuery.noConflict();
+  (function($) {
+    $(function(){
+      $("#dtBox").timepicker({
+        mode: 'time',
+        timeFormat: "hh:mm AA",
+        isPopup: false, 
+        addEventHandlers: function(){
+          var oDTP = this;
+          oDTP.settings.minTime = oDTP.getDateTimeStringInFormat("Time", "hh:mm AA", new Date());
+          oDTP.settings.maxTime = "06:00 PM";
+        }
+      });
+    });
+  })(jQuery);
+  
 </script>

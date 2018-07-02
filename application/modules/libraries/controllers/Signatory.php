@@ -30,23 +30,21 @@ class Signatory extends MY_Controller {
 		if(empty($arrPost))
 		{	
 			$this->arrData['arrSignatory'] = $this->signatory_model->getData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
-			$this->arrData['arrPayrollGroup'] = $this->payroll_group_model->getData();
 			$this->template->load('template/template_view','libraries/signatory/add_view',$this->arrData);	
 		}
 		else
 		{	
-			$strPayrollGroupCode = $arrPost['strPayrollGroupCode'];
+			// $strPayrollGroupCode = $arrPost['strPayrollGroupCode'];
 			$strSignatory = $arrPost['strSignatory'];
 			$strPosition = $arrPost['strPosition'];
-			if(!empty($strPayrollGroupCode) && !empty($strSignatory) && !empty($strPosition))
+			if(!empty($strSignatory) && !empty($strPosition)) 
 			{	 
 				// check if exam code and/or exam desc already exist
-				if(count($this->signatory_model->checkExist($strPayrollGroupCode, $strSignatory, $strPosition))==0)
+				if(count($this->signatory_model->checkExist($strSignatory, $strPosition))==0)
 				{
 					$arrData = array(
-						'payrollGroupCode'=>$strPayrollGroupCode,
-						'empNumber'=>$strSignatory,
+						// 'payrollGroupCode'=>$strPayrollGroupCode,
+						'signatory'=>$strSignatory,
 						'signatoryPosition'=>$strPosition,
 						
 					);
@@ -62,15 +60,13 @@ class Signatory extends MY_Controller {
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Signatory already exists.');
-					$this->session->set_flashdata('strPayrollGroupCode',$strPayrollGroupCode);
+					// $this->session->set_flashdata('strPayrollGroupCode',$strPayrollGroupCode);
 					$this->session->set_flashdata('strSignatory',$strSignatory);
 					$this->session->set_flashdata('strPosition',$strPosition);
 					redirect('libraries/signatory/add');
 				}
 			}
 		}
-    	
-    	
     }
 
 	public function edit()
@@ -79,19 +75,19 @@ class Signatory extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$intSignatoryId = urldecode($this->uri->segment(4));
-			$this->arrData['arrService']=$this->signatory_model->getData($intSignatoryId);
+			$this->arrData['arrSignatory']=$this->signatory_model->getData($intSignatoryId);
 			$this->template->load('template/template_view','libraries/signatory/edit_view', $this->arrData);
 		}
 		else
 		{
 			$intSignatoryId = $arrPost['intSignatoryId'];
-			$strPayrollGroupCode = $arrPost['strPayrollGroupCode'];
+			// $strPayrollGroupCode = $arrPost['strPayrollGroupCode'];
 			$strSignatory = $arrPost['strSignatory'];
 			$strPosition = $arrPost['strPosition'];
-			if(!empty($strPayrollGroupCode) AND !empty($strSignatory) AND !empty($strPosition)) 
+			if(!empty($strSignatory) AND !empty($strPosition)) 
 			{
 				$arrData = array(
-					'payrollGroupCode'=>$strPayrollGroupCode,
+					// 'payrollGroupCode'=>$strPayrollGroupCode,
 					'signatory'=>$strSignatory,
 					'signatoryPosition'=>$strPosition
 					
@@ -121,7 +117,7 @@ class Signatory extends MY_Controller {
 		{
 			$intSignatoryId = $arrPost['intSignatoryId'];
 			//add condition for checking dependencies from other tables
-			if(!empty($intServiceId))
+			if(!empty($intSignatoryId))
 			{
 				$arrSignatory = $this->signatory_model->getData($intSignatoryId);
 				$strSignatory = $arrSignatory[0]['signatory'];	
@@ -129,7 +125,6 @@ class Signatory extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsignatory','Deleted '.$strSignatory.' Signatory',implode(';',$arrSignatory[0]),'');
-	
 					$this->session->set_flashdata('strMsg','Signatory deleted successfully.');
 				}
 				redirect('libraries/signatory');

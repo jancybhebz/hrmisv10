@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Local Holiday</span>
+            <span>Manage Local Holiday</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Add Local Holiday</span>
+                    <span class="caption-subject bold uppercase">Manage Local Holiday</span>
                 </div>
                 
             </div>
@@ -52,7 +52,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strLocalName" id="strLocalName" value="<?=!empty($this->session->userdata('strLocalName'))?$this->session->userdata('strLocalName'):''?>">
                                      <option value="">Select</option>
-                                      <?php foreach($arrLocHoliday as $local)
+                                      <?php foreach($arrHoliday as $local)
                                         {
                                           echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
                                         }?>
@@ -64,10 +64,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                    <label class="control-label">Local Holiday Date</label>
-                                    <div class="input-icon right">
+                                <label class="control-label">Local Holiday Date <span class="required"> * </span></label>
+                                <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input id="dtmHolidate" name="dtmHolidate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
+                                   <input id="dtmHolidayDate" name="dtmHolidayDate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         for ($i=$initialYear;$i <= $currentYear ;$i++)
                                         {
                                             $checked = ($i == $currentYear ? "selected" : "");
-                                            echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
+                                            //echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
                                         }
                                      ?>
                                     </select> &nbsp&nbsp
@@ -149,8 +149,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$row['holidayCode']?> </td> 
                             <td> <?=$row['holidayName']?> </td>                       
                             <td>
-                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>
@@ -186,7 +186,7 @@ var FormValidation = function () {
                         minlength: 1,
                         required: true
                     },
-                    dtmHolidate: {
+                    dtmHolidayDate: {
                         minlength: 1,
                         required: true,
                     }
@@ -256,7 +256,7 @@ jQuery(document).ready(function() {
 //     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
 // $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
     FormValidation.init();
-    $('#dtmHolidate').datepicker({
+    $('#dtmHolidayDate').datepicker({
         format:"yyyy-mm-dd"
     });
 

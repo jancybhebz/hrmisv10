@@ -44,35 +44,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <form action = "<?=base_url('libraries/signatory/add')?>" method="post" id="frmSignatory">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Payroll Group <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                      <select type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($this->session->userdata('strPayrollGroupCode'))?$this->session->userdata('strPayrollGroupCode'):''?>" required>
-                                         <option value="">Select</option>
-                                            <?php foreach($arrPayrollGroup as $payroll)
-                                            {
-                                              echo '<option value="'.$payroll['payrollGroupId'].'">'.$payroll['payrollGroupName'].'</option>';
-                                            }?>
-                                  </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Signatory <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strSignatory" value="<?=!empty($this->session->userdata('strSignatory'))?$this->session->userdata('strSignatory'):''?>" required>
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                   <input type="text" class="form-control" name="strSignatory" value="<?=!empty($this->session->userdata('strSignatory'))?$this->session->userdata('strSignatory'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -125,10 +104,10 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strPayrollGroupCode: {
-                        minlength: 1,
-                        required: true
-                    },
+                    // strPayrollGroupCode: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
                     strSignatory: {
                         minlength: 1,
                         required: true,
