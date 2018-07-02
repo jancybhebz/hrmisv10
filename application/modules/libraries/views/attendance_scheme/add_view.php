@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Type <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select name="schemetype" id="schemetype" class="form-control" onchange="showtextbox()">
+                                    <select name="strSchemeType" id="strSchemeType" class="form-control" onchange="showtextbox()">
                                         <option value="">Select Scheme </option>
                                         <option value="fixed">Fixed </option>
                                         <option value="sliding">Sliding </option>

@@ -88,10 +88,11 @@
                 <div class="row">
                     <div class="col-sm-12 text-right">
                         <div class="form-group">
-                            <button class="btn btn-primary">EDIT</button>
+                             <a href="<?=base_url('employees/profile/edit/')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span>EDIT
                         </div>
                     </div>
                 </div>
+              
                 <div class="row profile-account">
                     <div class="col-md-3">
                         <ul class="ver-inline-menu tabbable margin-bottom-10">
@@ -118,9 +119,42 @@
                         <div class="tab-content">
                             <div id="tab_personal_info" class="tab-pane active">
                                 <form role="form" action="#">
-                                    <div class="form-group">
+                                    <ul class="personal-info-employee">
+                                        <li>Date of Birth : <?=$arrData['birthday']?></li><br>
+                                        <li>Place of Birth : <?=$arrData['birthPlace']?></li><br>
+                                        <li>Sex : <?=$arrData['sex']?></li><br>
+                                        <li>Civil Status : <?=$arrData['civilStatus']?></li><br>
+                                        <li>Citizenship : <?=$arrData['citizenship']?></li><br>
+                                        <li>Height (m) : <?=$arrData['height']?></li><br>
+                                        <li>Weight (kg) : <?=$arrData['weight']?></li><br>
+                                        <li>Blood Type : <?=$arrData['bloodType']?></li><br>
+                                        <li>GSIS Policy No. : <?=$arrData['gsisNumber']?></li><br>
+                                        <li>Pag-ibig ID No. : <?=$arrData['pagibigNumber']?></li><br>
+                                        <li>PHILHEALTH ID No. : <?=$arrData['philHealthNumber']?></li><br>
+                                        <li>TIN No.: <?=$arrData['tin']?></li><br>
+                                        <li>Email Address: <?=$arrData['email']?></li><br><br>
+
+                                        <b>RESIDENTIAL ADDRESS:</b><br><br>
+                                        <li>House/Block/Lot No., Street: : <?=$arrData['lot1'].' '.$arrData['street1']?></li><br>
+                                        <li>Subdivision/Village, Barangay: : <?=$arrData['subdivision1'].' '.$arrData['barangay1']?></li><br>
+                                        <li>City/Municipality, Province: <?=$arrData['city1'].' '.$arrData['province1']?></li><br>
+                                        <li>Zip Code : <?=$arrData['zipCode1']?></li><br>
+                                        <li>Telephone No. : <?=$arrData['telephone1']?></li><br>
+                                        <b>PERMANENT ADDRESS:</b><br><br>
+                                        <li>House/Block/Lot No., Street: : <?=$arrData['lot2'].' '.$arrData['street2']?></li><br>
+                                        <li>Subdivision/Village, Barangay: : <?=$arrData['subdivision2'].' '.$arrData['barangay2']?></li><br>
+                                        <li>City/Municipality, Province: <?=$arrData['city2'].' '.$arrData['province2']?></li><br>
+                                        <li>Zip Code : <?=$arrData['zipCode2']?></li><br>
+                                        <li>Telephone No. : <?=$arrData['telephone2']?></li><br>
+                                    </ul>      
+                                     <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Edit </a>
+                                    </div><br>                        
+                                    
+
+                                    <!-- <div class="form-group">
                                         <label class="control-label">Salutation</label>
-                                        <input type="text" name="strSalutation" value="<?=$arrData['salutation']?>" class="form-control" /> </div>
+                                        <input type="text" name="strSalutation" value="<?=$arrData['salutation']?>" class="form-control" disabled/> </div>
                                     <div class="form-group">
                                         <label class="control-label">First Name</label>
                                         <input type="text" name="strFirstName" class="form-control" value="<?=$arrData['firstname']?>" /> </div>
@@ -135,8 +169,8 @@
                                         <input type="text" name="strMiddleInitial" class="form-control" value="<?=$arrData['middleInitial']?>" maxlength="2" /> </div>
                                     <div class="form-group">
                                         <label class="control-label">Name Extension</label>
-                                        <input type="text" name="strNameExtension" value="<?=$arrData['nameExtension']?>" class="form-control" /> </div>
-                                    <div class="form-group">
+                                        <input type="text" name="strNameExtension" value="<?=$arrData['nameExtension']?>" class="form-control" /> </div> -->
+                                   <!--  <div class="form-group">
                                         <label class="control-label">Sex</label>
                                         <div class="input-group">
                                             <div class="icheck-inline">                                                
@@ -154,8 +188,8 @@
                                                     <option value="<?=$row?>"><?=$row?></option>
                                             <?php endforeach;?>                                    
                                         </select>
-                                    </div>
-                                    <div class="form-group">
+                                    </div> -->
+                                   <!--  <div class="form-group">
                                         <label class="control-label">Date of Birth</label>
                                         <?php 
                                             $objDate = DateTime::createFromFormat('Y-m-d', $arrData['birthday']);
@@ -168,11 +202,50 @@
                                     <div class="margiv-top-10">
                                         <a href="javascript:;" class="btn green"> Save Changes </a>
                                         <a href="javascript:;" class="btn default"> Cancel </a>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                             <div id="tab_family" class="tab-pane">
-                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                             <form role="form" action="#">
+                                    <ul class="personal-info-employee">
+                                       <b>SPOUSE INFORMATION:</b><br><br>
+                                        <li>Name of Spouse : <?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></li><br>
+                                        <li>Occupation : <?=$arrData['spouseWork']?></li><br>
+                                        <li>Employer/Business Name : : <?=$arrData['spouseBusName']?></li><br>
+                                        <li>Business Address : <?=$arrData['spouseBusAddress']?></li><br>
+                                        <li>Telephone Number : <?=$arrData['spouseTelephone']?></li><br>
+                                        <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Edit </a>
+                                        </div><br> 
+                                    </ul>
+                                    <ul class="personal-info-employee">
+                                        <b>PARENT INFORMATION:</b><br><br>
+                                        <li>Name of Father : <?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></li><br>
+                                        <li>Name of Mother : <?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></li><br>
+                                        <li>Parents Address : : <?=$arrData['parentAddress']?></li><br>
+                                        <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Edit </a>
+                                        </div><br> 
+                                    </ul>
+
+                                        <b>CHILDREN INFORMATION:</b><br><br>
+                                        <table>
+                                        <tr>
+                                            <th width="30%">Name of Children </th>
+                                            <td></td>
+                                            <th width="30%">Date of Birth </th>
+                                            <th width="30%">Action </th>
+                                        </tr>
+                                        <tr>
+                                            <td>Name of Children </td>
+                                            <td></td>
+                                            <td>Date of Birth </td>
+                                            <td><a href="javascript:;" class="btn green"> Edit </a></td>
+                                        </tr>
+                                        <br>
+                                        </table>
+                            </form>
+                               <!--  <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
                                     </p>
                                 <form action="#" role="form">
                                     <div class="form-group">
@@ -196,7 +269,7 @@
                                     <div class="margin-top-10">
                                         <a href="javascript:;" class="btn green"> Submit </a>
                                         <a href="javascript:;" class="btn default"> Cancel </a>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                             <div id="tab_education" class="tab-pane">
