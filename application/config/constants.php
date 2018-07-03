@@ -99,3 +99,4 @@ define('TABLE_EDUC','tblEmpSchool');
 define('TABLE_EXAM','tblempexam'); 
 define('TABLE_SERVICE','tblservicerecord');
 define('TABLE_VOLWORK','tblempvoluntarywork');
+define('TABLE_TRAINING','tblemptraining');
