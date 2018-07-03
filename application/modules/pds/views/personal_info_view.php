@@ -133,40 +133,95 @@
                                 <a data-toggle="tab" href="#tab_position">
                                     <i class="fa fa-eye"></i> Position Details </a>
                             </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_duties">
+                                    <i class="fa fa-eye"></i> Duties and Responsibilities </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content">
                             <div id="tab_personal_info" class="tab-pane active">
                                 <form role="form" action="#">
-                                    <ul class="personal-info-employee">
-                                        <li>Date of Birth : <?=$arrData['birthday']?></li><br>
-                                        <li>Place of Birth : <?=$arrData['birthPlace']?></li><br>
-                                        <li>Sex : <?=$arrData['sex']?></li><br>
-                                        <li>Civil Status : <?=$arrData['civilStatus']?></li><br>
-                                        <li>Citizenship : <?=$arrData['citizenship']?></li><br>
-                                        <li>Height (m) : <?=$arrData['height']?></li><br>
-                                        <li>Weight (kg) : <?=$arrData['weight']?></li><br>
-                                        <li>Blood Type : <?=$arrData['bloodType']?></li><br>
-                                        <li>GSIS Policy No. : <?=$arrData['gsisNumber']?></li><br>
-                                        <li>Pag-ibig ID No. : <?=$arrData['pagibigNumber']?></li><br>
-                                        <li>PHILHEALTH ID No. : <?=$arrData['philHealthNumber']?></li><br>
-                                        <li>TIN No.: <?=$arrData['tin']?></li><br>
-                                        <li>Email Address: <?=$arrData['email']?></li><br><br>
-
-                                        <b>RESIDENTIAL ADDRESS:</b><br><br>
-                                        <li>House/Block/Lot No., Street: : <?=$arrData['lot1'].' '.$arrData['street1']?></li><br>
-                                        <li>Subdivision/Village, Barangay: : <?=$arrData['subdivision1'].' '.$arrData['barangay1']?></li><br>
-                                        <li>City/Municipality, Province: <?=$arrData['city1'].' '.$arrData['province1']?></li><br>
-                                        <li>Zip Code : <?=$arrData['zipCode1']?></li><br>
-                                        <li>Telephone No. : <?=$arrData['telephone1']?></li><br>
-                                        <b>PERMANENT ADDRESS:</b><br><br>
-                                        <li>House/Block/Lot No., Street: : <?=$arrData['lot2'].' '.$arrData['street2']?></li><br>
-                                        <li>Subdivision/Village, Barangay: : <?=$arrData['subdivision2'].' '.$arrData['barangay2']?></li><br>
-                                        <li>City/Municipality, Province: <?=$arrData['city2'].' '.$arrData['province2']?></li><br>
-                                        <li>Zip Code : <?=$arrData['zipCode2']?></li><br>
-                                        <li>Telephone No. : <?=$arrData['telephone2']?></li><br>
-                                    </ul>      
+                                    <table class="table table-bordered table-striped" class="table-responsive">
+                                        <tr>
+                                            <td>Date of Birth :</td>
+                                            <td><?=$arrData['birthday']?></td>
+                                            <td colspan="2">RESIDENTIAL ADDRESS:</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>Place of Birth :</td>
+                                            <td><?=$arrData['birthPlace']?></td>
+                                            <td>House/Block/Lot No., Street:</td>
+                                            <td><?=$arrData['lot1'].' '.$arrData['street1']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sex :</td>
+                                            <td><?=$arrData['sex']?></td>
+                                            <td>Subdivision/Village, Barangay :</td>
+                                            <td><?=$arrData['subdivision1'].' '.$arrData['barangay1']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Civil Status :</td>
+                                            <td><?=$arrData['civilStatus']?></td>
+                                            <td>City/Municipality, Province :</td>
+                                            <td><?=$arrData['city1'].' '.$arrData['province1']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Citizenship :</td>
+                                            <td><?=$arrData['citizenship']?></td>
+                                            <td>Zip Code :</td>
+                                            <td><?=$arrData['zipCode1']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Height (m) :</td>
+                                            <td><?=$arrData['height']?></td>
+                                            <td>Telephone No. :</td>
+                                            <td><?=$arrData['telephone1']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Weight (kg) :</td>
+                                            <td><?=$arrData['weight']?></td>
+                                            <td colspan="2">PERMANENT ADDRESS:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Blood Type :</td>
+                                            <td><?=$arrData['bloodType']?></td>
+                                            <td>House/Block/Lot No., Street:</td>
+                                            <td><?=$arrData['lot2'].' '.$arrData['street2']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>GSIS Policy No. :</td>
+                                            <td><?=$arrData['gsisNumber']?></td>
+                                            <td>Subdivision/Village, Barangay :</td>
+                                            <td> <?=$arrData['subdivision2'].' '.$arrData['barangay2']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pag-ibig ID No. :</td>
+                                            <td><?=$arrData['pagibigNumber']?></td>
+                                            <td>City/Municipality, Province :</td>
+                                            <td><?=$arrData['city2'].' '.$arrData['province2']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PHILHEALTH ID No. :</td>
+                                            <td><?=$arrData['pagibigNumber']?></td>
+                                            <td>Zip Code :</td>
+                                            <td><?=$arrData['zipCode2']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TIN No. :</td>
+                                            <td><?=$arrData['tin']?></td>
+                                            <td>Telephone No. :</td>
+                                            <td><?=$arrData['telephone2']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email Address :</td>
+                                            <td><?=$arrData['email']?></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>      
                                      <div class="margin-top-10">
                                         <a href="javascript:;" class="btn green"> Edit </a>
                                     </div><br>                        
@@ -338,31 +393,31 @@
                             </div>
                             <div id="tab_training" class="tab-pane">
                                 <form action="#">
-                                <b>TRAININGS :</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br></br>
-                                    <tr>
-                                        <th>Title of Learning & Dev./Training Programs</th>
-                                        <th>Inclusive Dates of Attendance [From-To]</th>
-                                        <th>Number of Hours</th>
-                                        <th>Type of Leadership</th>
-                                        <th>Conducted/Sponsored By</th>
-                                        <th>Training Venue</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    <?php foreach($arrTraining as $row):?>
-                                    <tr>
-                                        <td><?=$row['trainingTitle']?></td>
-                                        <td><?=$row['trainingStartDate'].'-'.$row['trainingEndDate']?></td>
-                                        <td><?=$row['trainingHours']?></td>
-                                        <td><?=$row['trainingTypeofLD']?></td>
-                                        <td><?=$row['trainingConductedBy']?></td>
-                                        <td><?=$row['trainingVenue']?></td>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                </table>
+                                    <b>TRAININGS :</b><br><br>                        
+                                    <table class="table table-bordered table-striped" class="table-responsive">
+                                        <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br></br>
+                                        <tr>
+                                            <th>Title of Learning & Dev./Training Programs</th>
+                                            <th>Inclusive Dates of Attendance [From-To]</th>
+                                            <th>Number of Hours</th>
+                                            <th>Type of Leadership</th>
+                                            <th>Conducted/Sponsored By</th>
+                                            <th>Training Venue</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <?php foreach($arrTraining as $row):?>
+                                        <tr>
+                                            <td><?=$row['trainingTitle']?></td>
+                                            <td><?=$row['trainingStartDate'].'-'.$row['trainingEndDate']?></td>
+                                            <td><?=$row['trainingHours']?></td>
+                                            <td><?=$row['trainingTypeofLD']?></td>
+                                            <td><?=$row['trainingConductedBy']?></td>
+                                            <td><?=$row['trainingVenue']?></td>
+                                            <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </table>
                                 </form>
                             </div>
                             <div id="tab_otherInfo" class="tab-pane">
@@ -434,7 +489,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        
                                         <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                         <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                                     </tr>
@@ -443,33 +497,191 @@
                             </div>
                             <div id="tab_position" class="tab-pane">
                                 <form action="#">
-                                <b>TRAININGS :</b><br><br>                        
+                                <b>POSITION DETAILS :</b><br><br>                        
                                 <table class="table table-bordered table-striped" class="table-responsive">
-                                    <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br></br>
+                                    <?php foreach($arrPosition as $row):?>
                                     <tr>
-                                        <th>Title of Learning & Dev./Training Programs</th>
-                                        <th>Inclusive Dates of Attendance [From-To]</th>
-                                        <th>Number of Hours</th>
-                                        <th>Type of Leadership</th>
-                                        <th>Conducted/Sponsored By</th>
-                                        <th>Training Venue</th>
-                                        <th>Action</th>
+                                    <td colspan="4"><b>Position Details</b></td>
                                     </tr>
-                                    <?php foreach($arrTraining as $row):?>
                                     <tr>
-                                        <td><?=$row['trainingTitle']?></td>
-                                        <td><?=$row['trainingStartDate'].'-'.$row['trainingEndDate']?></td>
-                                        <td><?=$row['trainingHours']?></td>
-                                        <td><?=$row['trainingTypeofLD']?></td>
-                                        <td><?=$row['trainingConductedBy']?></td>
-                                        <td><?=$row['trainingVenue']?></td>
+                                        <td width="25%">Service Code :</td>
+                                        <td width="25%"><?=$row['serviceCode']?></td>
+                                        <td width="25%"></td>
+                                        <td width="25%"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Day Government :</td>
+                                        <td><?=$row['firstDayGov']?></td>
+                                        <td>Salary Effectivity Date :</td>
+                                        <td><?=$row['effectiveDate']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Day Agency :</td>
+                                        <td><?=$row['firstDayAgency']?></td>
+                                        <td>Employment Basis :</td>
+                                        <td><?=$row['employmentBasis']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mode of Separation :</td>
+                                        <td><?=$row['statusOfAppointment']?></td>
+                                        <td>Category Service :</td>
+                                        <td><?=$row['categoryService']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Separation Date :</td>
+                                        <td><?=$row['contractEndDate']?></td>
+                                        <td>Tax Status :</td>
+                                        <td><?=$row['taxStatCode']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appointment Desc. :</td>
+                                        <td><?=$row['appointmentCode']?></td>
+                                        <td>No. Of Dependents :</td>
+                                        <td><?=$row['dependents']?></td>
+                                    </tr>
+                                    <td colspan="4"><b>Payroll</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payroll Group :</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Include in DTR? :</td>
+                                        <td><?=$row['dtrSwitch']?></td>
+                                        <td>Include in Payroll? :</td>
+                                        <td><?=$row['payrollSwitch']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Attendance Scheme :</td>
+                                        <td><?=$row['schemeCode']?></td>
+                                        <td>Hazard Pay Factor :</td>
+                                        <td><?=$row['hpFactor']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Include in PhilHealth? :</td>
+                                        <td><?=$row['philhealthSwitch']?></td>
+                                        <td>Include in PAGIBIG? :</td>
+                                        <td><?=$row['pagibigSwitch']?></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Include in Life & Retirement? :</td>
+                                        <td><?=$row['lifeRetSwitch']?></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <td colspan="4"><b>Plantilla Position</b></td>
+                                    <tr>
+                                        <td>ItemNumber :</td>
+                                        <td><?=$row['uniqueItemNumber']?></td>
+                                        <td>Head of the Agency :</td>
+                                        <td><?=$row['firstDayAgency']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Actual Salary :</td>
+                                        <td><?=$row['actualSalary']?></td>
+                                        <td>Salary Grade :</td>
+                                        <td><?=$row['firstDayAgency']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Authorize Salary :</td>
+                                        <td><?=$row['authorizeSalary']?></td>
+                                        <td>Step Number :</td>
+                                        <td><?=$row['stepNumber']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Position :</td>
+                                        <td><?=$row['positionCode']?></td>
+                                        <td>Date Increment :</td>
+                                        <td><?=$row['dateIncremented']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Position Date :</td>
+                                        <td><?=$row['positionDate']?></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
                                         <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                         <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                                     </tr>
-                                    <?php endforeach;?>
+                                   <?php endforeach; ?>
                                 </table>
                                 </form>
                             </div>
+                            <div id="tab_duties" class="tab-pane">
+                                <form action="#">
+                                <b>DUTIES AND RESPONSIBILITIES :</b><br><br>                        
+                                <table class="table table-bordered table-striped" class="table-responsive">
+                                    <tr>
+                                        <td colspan="4">EMPLOYEE DUTIES AND RESPONSIBILITIES</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">-- Duties & Responsibility of Position --</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Duties and Responsibilities</th>
+                                        <th>Percent of Working Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td colspan="2"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+
+                                </table><br><br>
+                                <table class="table table-bordered table-striped" class="table-responsive">
+                                    <tr>
+                                        <td colspan="4">-- Duties & Responsibility of Plantilla --</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Duties and Responsibilities</th>
+                                        <th>Percent of Working Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <?php foreach($arrDuties as $row): ?>
+                                    <tr>
+                                        <td></td>
+                                        <td><?=$row['percentWork']?></td>
+                                        <td colspan="2"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </table><br><br>
+                                <table class="table table-bordered table-striped" class="table-responsive">
+                                    <tr>
+                                        <td colspan="4">-- Actual Duties & Responsibilities --</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Duties and Responsibilities</th>
+                                        <th>Percent of Working Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <?php foreach($arrDuties as $row): ?>
+                                    <tr>
+                                        <td><?=$row['duties']?></td>
+                                        <td><?=$row['percentWork']?></td>
+                                        <td colspan="2"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </table><br><br>
+                                   
+                                
+                                <b>LEGAL INFORMATION :</b><br><br>                        
+                                <table class="table table-bordered table-striped" class="table-responsive">
+                                    <tr>
+                                        <td>
+                                        <label>Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of</label><br>
+                                        <label>bureau or office or to the person who has immediate supervision over you in the office, Bureau or Dapartment </label><br>
+                                        <label>where you will be appointed? </label><br>
+                                        <label>a. within the third degree? </label><br>
+                                        <label>b. within the fourth degree(for Local Government Unit-Career Employees) ? </label>
+                                        </td>
+                                    </tr>
                                     <!--end profile-settings-->
                                     <!-- <div class="margin-top-10">
                                         <a href="javascript:;" class="btn green"> Save Changes </a>

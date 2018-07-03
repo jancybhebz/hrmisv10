@@ -100,3 +100,7 @@ define('TABLE_EXAM','tblempexam');
 define('TABLE_SERVICE','tblservicerecord');
 define('TABLE_VOLWORK','tblempvoluntarywork');
 define('TABLE_TRAINING','tblemptraining');
+define('TABLE_POSITION','tblempposition');
+define('TABLE_DUTIES','tblempduties','tblplantilladuties'); 
+
+
