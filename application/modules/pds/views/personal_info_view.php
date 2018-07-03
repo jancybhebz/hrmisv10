@@ -113,9 +113,13 @@
                                 <a data-toggle="tab" href="#tab_exam">
                                     <i class="fa fa-eye"></i> Examination </a>
                             </li>
-                             <li>
-                                <a data-toggle="tab" href="#tab_exam">
+                            <li>
+                                <a data-toggle="tab" href="#tab_workExp">
                                     <i class="fa fa-eye"></i> Work Experience </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_volWork">
+                                    <i class="fa fa-eye"></i> Voluntary Work </a>
                             </li>
                         </ul>
                     </div>
@@ -154,7 +158,211 @@
                                      <div class="margin-top-10">
                                         <a href="javascript:;" class="btn green"> Edit </a>
                                     </div><br>                        
-                                    
+                                </form>
+                            </div>
+                            <div id="tab_family" class="tab-pane">
+                                <form role="form" action="#">
+                                    <ul class="personal-info-employee">
+                                       <b>SPOUSE INFORMATION:</b><br><br>
+                                        <li>Name of Spouse : <?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></li><br>
+                                        <li>Occupation : <?=$arrData['spouseWork']?></li><br>
+                                        <li>Employer/Business Name : : <?=$arrData['spouseBusName']?></li><br>
+                                        <li>Business Address : <?=$arrData['spouseBusAddress']?></li><br>
+                                        <li>Telephone Number : <?=$arrData['spouseTelephone']?></li><br>
+                                        <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Edit </a>
+                                        </div><br> 
+                                    </ul>
+                                    <ul class="personal-info-employee">
+                                        <b>PARENT INFORMATION:</b><br><br>
+                                        <li>Name of Father : <?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></li><br>
+                                        <li>Name of Mother : <?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></li><br>
+                                        <li>Parents Address : : <?=$arrData['parentAddress']?></li><br>
+                                        <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Edit </a>
+                                        </div><br> 
+                                    </ul>
+                                        <b>CHILDREN INFORMATION:</b><br><br>
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <th width="30%">Name of Children </th>
+                                            <th width="30%">Date of Birth </th>
+                                            <th width="30%">Action </th>
+                                        </tr>
+                                        <?php foreach($arrChild as $row):?>
+                                        <tr>
+                                            <td><?=$row['childName']?></td>
+                                            <td><?=$row['childBirthDate']?></td>
+                                            <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                        <br>
+                                    </table>
+                                </form>
+                            </div>
+                            <div id="tab_education" class="tab-pane" style="overflow-x:auto;">
+                                <form action="#">
+                                <b>EDUCATIONAL INFORMATION:</b><br><br>
+                                                               
+                                <table class="table table-bordered table-striped" class="table-responsive">
+                                    <tr>
+                                        <th width="10%">Level Code</th>
+                                        <th width="10%">Name of School</th>
+                                        <th width="10%">Basic Educ./ Degree/ Course</th>
+                                        <th width="10%">Period of Attendance [From/To]</th>
+                                        <th width="10%">Highest Level/ Units Earned</th>
+                                        <th width="10%">Year Graduated</th>
+                                        <th width="10%">Scholarship/ Honors Received</th>
+                                        <th width="10%">Graduate</th>
+                                        <th width="2%">Licensed</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                    <?php foreach($arrEduc as $row):?>
+                                    <tr>
+                                        <td><?=$row['levelCode']?></td>
+                                        <td><?=$row['schoolName']?></td>
+                                        <td><?=$row['course']?></td>
+                                        <td><?=$row['schoolFromDate'].'-'.$row['schoolToDate']?></td>
+                                        <td><?=$row['units']?></td>
+                                        <td><?=$row['yearGraduated']?></td>
+                                        <td><?=$row['ScholarshipCode']?></td>
+                                        <td><?=$row['graduated']?></td>
+                                        <td><?=$row['licensed']?></td>
+                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </table>
+                                 <a href="<?=base_url('employees/profile/add')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Add</button></a>
+                                </form>
+                            </div>
+                            <div id="tab_exam" class="tab-pane">
+                                <form action="#">
+                                    <b>EXAMINATIONS :</b><br><br>
+                                    <table class="table table-bordered table-striped" class="table-responsive">
+                                    <label>CAREER SERVICE / RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES/CSEE :</label><br></br>
+                                    <tr>
+                                        <th width="10%">Exam Description</th>
+                                        <th width="10%">Rating</th>
+                                        <th width="10%">Date of Examination/ Conferment</th>
+                                        <th width="10%">Place of Examination/ Conferment</th>
+                                        <th width="10%">License Number</th>
+                                        <th width="10%">Date of Validity</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                    <?php foreach($arrExam as $row):?>
+                                    <tr>
+                                        <td><?=$row['examCode']?></td>
+                                        <td><?=$row['examRating']?></td>
+                                        <td><?=$row['examDate']?></td>
+                                        <td><?=$row['examPlace']?></td>
+                                        <td><?=$row['licenseNumber']?></td>
+                                        <td><?=$row['dateRelease']?></td>
+                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </table>
+                                </form>
+                            </div>
+                                
+                            <div id="tab_workExp" class="tab-pane">
+                                <form action="#">
+                                <b>WORK EXPERIENCE:</b><br><br>                        
+                                <table class="table table-bordered table-striped" class="table-responsive">
+                                    <tr>
+                                        <th width="10%">Inclusive Date [From-To]</th>
+                                        <th width="10%">Position Title</th>
+                                        <th width="10%">Dept./ Agency/ Office/ Company</th>
+                                        <th width="10%">Monthly</th>
+                                        <th width="10%">Salary/  Job Pay Grade</th>
+                                        <th width="10%">Status of Appointment</th>
+                                        <th width="10%">Gov. Service (Yes/No)</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                    <?php foreach($arrService as $row):?>
+                                    <tr>
+                                        <td><?=$row['serviceFromDate'].'-'.$row['serviceToDate']?></td>
+                                        <td><?=$row['positionDesc']?></td>
+                                        <td><?=$row['stationAgency']?></td>
+                                        <td><?=$row['salary']?></td>
+                                        <td><?=$row['salaryGrade']?></td>
+                                        <td><?=$row['appointmentCode']?></td>
+                                        <td><?=$row['governService']?></td>
+                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </table>
+                                </form>
+                            </div>
+                            <div id="tab_volWork" class="tab-pane">
+                                <form action="#">
+                                <b>VOLUNTARY WORKS :</b><br><br>                        
+                                <table class="table table-bordered table-striped" class="table-responsive">
+                                    <label>Voluntary Work or Involvement in Civic/Non-Governement/People/Voluntary Organization:</label></br></br>
+                                    <tr>
+                                        <th width="10%">Name of Organization</th>
+                                        <th width="10%">Address of Organization</th>
+                                        <th width="10%">Inclusive Dates [From-To]</th>
+                                        <th width="10%">Number of Hours</th>
+                                        <th width="10%">Position/Nature of work</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                    <?php foreach($arrVol as $row):?>
+                                    <tr>
+                                        <td><?=$row['vwName']?></td>
+                                        <td><?=$row['vwAddress']?></td>
+                                        <td><?=$row['vwDateFrom'].'-'.$row['vwDateTo']?></td>
+                                        <td><?=$row['vwHours']?></td>
+                                        <td><?=$row['vwPosition']?></td>
+                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </table>
+                                </form>
+                            </div>
+                                    <!--end profile-settings-->
+                                    <!-- <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Save Changes </a>
+                                        <a href="javascript:;" class="btn default"> Cancel </a>
+                                    </div> -->
+
+                                    <!-- <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <td> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus.. </td>
+                                            <td>
+                                                <label class="uniform-inline">
+                                                    <input type="radio" name="optionsRadios1" value="option1" /> Yes </label>
+                                                <label class="uniform-inline">
+                                                    <input type="radio" name="optionsRadios1" value="option2" checked/> No </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
+                                            <td>
+                                                <label class="uniform-inline">
+                                                    <input type="checkbox" value="" /> Yes </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
+                                            <td>
+                                                <label class="uniform-inline">
+                                                    <input type="checkbox" value="" /> Yes </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
+                                            <td>
+                                                <label class="uniform-inline">
+                                                    <input type="checkbox" value="" /> Yes </label>
+                                            </td>
+                                        </tr>
+                                    </table> -->
+
 
                                     <!-- <div class="form-group">
                                         <label class="control-label">Salutation</label>
@@ -207,48 +415,7 @@
                                         <a href="javascript:;" class="btn green"> Save Changes </a>
                                         <a href="javascript:;" class="btn default"> Cancel </a>
                                     </div> -->
-                                </form>
-                            </div>
-                            <div id="tab_family" class="tab-pane">
-                             <form role="form" action="#">
-                                    <ul class="personal-info-employee">
-                                       <b>SPOUSE INFORMATION:</b><br><br>
-                                        <li>Name of Spouse : <?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></li><br>
-                                        <li>Occupation : <?=$arrData['spouseWork']?></li><br>
-                                        <li>Employer/Business Name : : <?=$arrData['spouseBusName']?></li><br>
-                                        <li>Business Address : <?=$arrData['spouseBusAddress']?></li><br>
-                                        <li>Telephone Number : <?=$arrData['spouseTelephone']?></li><br>
-                                        <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Edit </a>
-                                        </div><br> 
-                                    </ul>
-                                    <ul class="personal-info-employee">
-                                        <b>PARENT INFORMATION:</b><br><br>
-                                        <li>Name of Father : <?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></li><br>
-                                        <li>Name of Mother : <?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></li><br>
-                                        <li>Parents Address : : <?=$arrData['parentAddress']?></li><br>
-                                        <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Edit </a>
-                                        </div><br> 
-                                    </ul>
-                                        <b>CHILDREN INFORMATION:</b><br><br>
-                                        <table>
-                                        <tr>
-                                            <th width="30%">Name of Children </th>
-                                            <th width="30%">Date of Birth </th>
-                                            <th width="30%">Action </th>
-                                        </tr>
-                                        <?php foreach($arrChild as $row):?>
-                                        <tr>
-                                            <td><?=$row['childName']?></td>
-                                            <td><?=$row['childBirthDate']?></td>
-                                            <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                            <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                        <br>
-                                        </table>
-                            </form>
+                                
                                <!--  <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
                                     </p>
                                 <form action="#" role="form">
@@ -274,42 +441,7 @@
                                         <a href="javascript:;" class="btn green"> Submit </a>
                                         <a href="javascript:;" class="btn default"> Cancel </a>
                                     </div> -->
-                                </form>
-                            </div>
-                            <div id="tab_education" class="tab-pane">
-                                <form action="#">
-                                <b>EDUCATIONAL INFORMATION:</b><br><br>
-                                                               
-                                <table border="1">
-                                    <tr>
-                                        <th width="10%">Level Code</th>
-                                        <th width="10%">Name of School</th>
-                                        <th width="10%">Basic Educ./Degree/Course</th>
-                                        <th width="10%">Period of Attendance[From/To]</th>
-                                        <th width="10%">Highest Level/Units Earned</th>
-                                        <th width="10%">Year Graduated</th>
-                                        <th width="10%">Scholarship/Honors Received</th>
-                                        <th width="10%">Graduate</th>
-                                        <th width="2%">Licensed</th>
-                                        <th width="10%">Action</th>
-                                    </tr>
-                                    <?php foreach($arrEduc as $row):?>
-                                    <tr>
-                                        <td><?=$row['levelCode']?></td>
-                                        <td><?=$row['schoolName']?></td>
-                                        <td><?=$row['course']?></td>
-                                        <td><?=$row['schoolFromDate'].'-'.$row['schoolToDate']?></td>
-                                        <td><?=$row['units']?></td>
-                                        <td><?=$row['yearGraduated']?></td>
-                                        <td><?=$row['ScholarshipCode']?></td>
-                                        <td><?=$row['graduated']?></td>
-                                        <td><?=$row['licensed']?></td>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                    
-                                </table>
+                            
                                    <!--  <div class="form-group">
                                         <label class="control-label">Current Password</label>
                                         <input type="password" class="form-control" /> </div>
@@ -323,50 +455,6 @@
                                         <a href="javascript:;" class="btn green"> Change Password </a>
                                         <a href="javascript:;" class="btn default"> Cancel </a>
                                     </div> -->
-                                    <a href="<?=base_url('employees/profile/add')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Add</button></a>
-                                   
-                                </form>
-                            </div>
-                            <div id="tab_exam" class="tab-pane">
-                                <form action="#">
-                                    <table class="table table-bordered table-striped">
-                                        <tr>
-                                            <td> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus.. </td>
-                                            <td>
-                                                <label class="uniform-inline">
-                                                    <input type="radio" name="optionsRadios1" value="option1" /> Yes </label>
-                                                <label class="uniform-inline">
-                                                    <input type="radio" name="optionsRadios1" value="option2" checked/> No </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                            <td>
-                                                <label class="uniform-inline">
-                                                    <input type="checkbox" value="" /> Yes </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                            <td>
-                                                <label class="uniform-inline">
-                                                    <input type="checkbox" value="" /> Yes </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                            <td>
-                                                <label class="uniform-inline">
-                                                    <input type="checkbox" value="" /> Yes </label>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!--end profile-settings-->
-                                    <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Save Changes </a>
-                                        <a href="javascript:;" class="btn default"> Cancel </a>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>

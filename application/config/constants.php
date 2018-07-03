@@ -96,3 +96,6 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('CIVIL_STATUS',json_encode(array('Single','Married','Separated','Widowed','Annulled','Others')));
 define('TABLE_CHILD','tblEmpChild');
 define('TABLE_EDUC','tblEmpSchool');
+define('TABLE_EXAM','tblempexam'); 
+define('TABLE_SERVICE','tblservicerecord');
+define('TABLE_VOLWORK','tblempvoluntarywork');
