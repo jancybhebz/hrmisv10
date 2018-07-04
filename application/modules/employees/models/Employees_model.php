@@ -120,6 +120,15 @@ class Employees_model extends CI_Model {
 		return $rs->result_array();
 
 	}
+
+	function getPlantillaDuties($strEmpNo)
+	{
+		if($strEmpNo!='')
+			$this->db->where('empNumber',$strEmpNo);
+		$this->db->join('tblempposition','tblempposition.itemNumber = '.'tblplantilladuties.itemNumber','left');
+		$objQuery = $this->db->get('tblplantilladuties');
+		return $objQuery->result_array();	
+	}
 }
 /* End of file Employees_model.php */
 /* Location: ./application/modules/employees/models/Employees_model.php */

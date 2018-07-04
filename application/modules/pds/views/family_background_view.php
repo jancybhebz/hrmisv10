@@ -1,3 +1,4 @@
+<!-- VIEW -->
 <form role="form" action="#">
     <ul class="personal-info-employee">
        <b>SPOUSE INFORMATION:</b><br><br>
@@ -37,3 +38,7 @@
         <br>
     </table>
 </form>
+<!-- EDIT -->
+
+<!-- DELETE -->
+

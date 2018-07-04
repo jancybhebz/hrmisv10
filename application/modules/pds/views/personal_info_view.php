@@ -254,7 +254,7 @@
                                 <?php include('trainings_view.php');?>
                             </div>
                             <div id="tab_otherInfo" class="tab-pane">
-                                <?php include('trainings_view.php');?>
+                                <?php include('other_info_view.php');?>
                             </div>
                             <div id="tab_position" class="tab-pane">
                                 <?php include('position_details_view.php');?>
@@ -268,7 +268,7 @@
                             <div id="tab_modify" class="tab-pane">
                                 <?php include('modify_empnumber_view.php');?>
                             </div>
-                                   
+  
                                     <!--end profile-settings-->
                                     <!-- <div class="margin-top-10">
                                         <a href="javascript:;" class="btn green"> Save Changes </a>

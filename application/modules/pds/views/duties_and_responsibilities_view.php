@@ -30,9 +30,9 @@
                     <th>Percent of Working Time</th>
                     <th>Action</th>
                 </tr>
-                <?php foreach($arrDuties as $row): ?>
+                <?php foreach($arrPlantillaDuties as $row): ?>
                 <tr>
-                    <td></td><!--  itemDuties -->
+                    <td><?=$row['itemDuties']?></td>
                     <td><?=$row['percentWork']?></td>
                     <td colspan="2"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                     <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
