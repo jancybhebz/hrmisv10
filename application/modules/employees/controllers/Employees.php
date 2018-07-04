@@ -37,6 +37,7 @@ class Employees extends MY_Controller {
 		$this->arrData['arrTraining'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_TRAINING);
 		$this->arrData['arrPosition'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_POSITION);
 		$this->arrData['arrDuties'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_DUTIES);
+		// $this->arrData['arrDuties'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_DUTIES,'',TABLE_PLANTILLADUTIES,TABLE_DUTIES.'.='.TABLE_PLANTILLADUTIES.'.','left');
 		$this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
 	}
 }

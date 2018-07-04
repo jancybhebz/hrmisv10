@@ -101,6 +101,7 @@ define('TABLE_SERVICE','tblservicerecord');
 define('TABLE_VOLWORK','tblempvoluntarywork');
 define('TABLE_TRAINING','tblemptraining');
 define('TABLE_POSITION','tblempposition');
-define('TABLE_DUTIES','tblempduties','tblplantilladuties'); 
+define('TABLE_PLANTILLADUTIES','tblplantilladuties'); 
+define('TABLE_DUTIES','tblempduties',TABLE_PLANTILLADUTIES); 
 
 

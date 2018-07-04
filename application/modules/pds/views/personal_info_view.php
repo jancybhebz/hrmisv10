@@ -98,7 +98,7 @@
                         <ul class="ver-inline-menu tabbable margin-bottom-10">
                             <li class="active">
                                 <a data-toggle="tab" href="#tab_personal_info">
-                                    <i class="fa fa-cog"></i> Personal info </a>
+                                    <i class="fa fa-user"></i> Personal info </a>
                                 <span class="after"> </span>
                             </li>
                             <li>
@@ -107,35 +107,43 @@
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_education">
-                                    <i class="fa fa-lock"></i> Education </a>
+                                    <i class="fa fa-mortar-board"></i> Education </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_exam">
-                                    <i class="fa fa-eye"></i> Examination </a>
+                                    <i class="fa fa-certificate"></i> Examination </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_workExp">
-                                    <i class="fa fa-eye"></i> Work Experience </a>
+                                    <i class="fa fa-book"></i> Work Experience </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_volWork">
-                                    <i class="fa fa-eye"></i> Voluntary Work </a>
+                                    <i class="glyphicon glyphicon-tags"></i> Voluntary Work </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_training">
-                                    <i class="fa fa-eye"></i> Trainings </a>
+                                    <i class="fa fa-child"></i> Trainings </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_otherInfo">
-                                    <i class="fa fa-eye"></i> Other Information </a>
+                                    <i class="fa fa-envelope"></i> Other Information </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_position">
-                                    <i class="fa fa-eye"></i> Position Details </a>
+                                    <i class="glyphicon glyphicon-lock"></i> Position Details </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_duties">
-                                    <i class="fa fa-eye"></i> Duties and Responsibilities </a>
+                                    <i class="glyphicon glyphicon-paperclip"></i> Duties and Responsibilities </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_appointment">
+                                    <i class="fa fa-edit"></i> Appointment Issued </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_modify">
+                                    <i class="fa fa-edit"></i> Edit / Modify Employee Number </a>
                             </li>
                         </ul>
                     </div>
@@ -228,460 +236,39 @@
                                 </form>
                             </div>
                             <div id="tab_family" class="tab-pane">
-                                <form role="form" action="#">
-                                    <ul class="personal-info-employee">
-                                       <b>SPOUSE INFORMATION:</b><br><br>
-                                        <li>Name of Spouse : <?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></li><br>
-                                        <li>Occupation : <?=$arrData['spouseWork']?></li><br>
-                                        <li>Employer/Business Name : : <?=$arrData['spouseBusName']?></li><br>
-                                        <li>Business Address : <?=$arrData['spouseBusAddress']?></li><br>
-                                        <li>Telephone Number : <?=$arrData['spouseTelephone']?></li><br>
-                                        <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Edit </a>
-                                        </div><br> 
-                                    </ul>
-                                    <ul class="personal-info-employee">
-                                        <b>PARENT INFORMATION:</b><br><br>
-                                        <li>Name of Father : <?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></li><br>
-                                        <li>Name of Mother : <?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></li><br>
-                                        <li>Parents Address : : <?=$arrData['parentAddress']?></li><br>
-                                        <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Edit </a>
-                                        </div><br> 
-                                    </ul>
-                                        <b>CHILDREN INFORMATION:</b><br><br>
-                                    <table class="table table-bordered table-striped">
-                                        <tr>
-                                            <th width="30%">Name of Children </th>
-                                            <th width="30%">Date of Birth </th>
-                                            <th width="30%">Action </th>
-                                        </tr>
-                                        <?php foreach($arrChild as $row):?>
-                                        <tr>
-                                            <td><?=$row['childName']?></td>
-                                            <td><?=$row['childBirthDate']?></td>
-                                            <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                            <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                        <br>
-                                    </table>
-                                </form>
+                                <?php include('family_background_view.php');?>
                             </div>
-                            <div id="tab_education" class="tab-pane" style="overflow-x:auto;">
-                                <form action="#">
-                                <b>EDUCATIONAL INFORMATION:</b><br><br>
-                                                               
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <tr>
-                                        <th width="10%">Level Code</th>
-                                        <th width="10%">Name of School</th>
-                                        <th width="10%">Basic Educ./ Degree/ Course</th>
-                                        <th width="10%">Period of Attendance [From/To]</th>
-                                        <th width="10%">Highest Level/ Units Earned</th>
-                                        <th width="10%">Year Graduated</th>
-                                        <th width="10%">Scholarship/ Honors Received</th>
-                                        <th width="10%">Graduate</th>
-                                        <th width="2%">Licensed</th>
-                                        <th width="10%">Action</th>
-                                    </tr>
-                                    <?php foreach($arrEduc as $row):?>
-                                    <tr>
-                                        <td><?=$row['levelCode']?></td>
-                                        <td><?=$row['schoolName']?></td>
-                                        <td><?=$row['course']?></td>
-                                        <td><?=$row['schoolFromDate'].'-'.$row['schoolToDate']?></td>
-                                        <td><?=$row['units']?></td>
-                                        <td><?=$row['yearGraduated']?></td>
-                                        <td><?=$row['ScholarshipCode']?></td>
-                                        <td><?=$row['graduated']?></td>
-                                        <td><?=$row['licensed']?></td>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                </table>
-                                 <a href="<?=base_url('employees/profile/add')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Add</button></a>
-                                </form>
+                            <div id="tab_education" class="tab-pane">
+                                <?php include('education_view.php');?>
                             </div>
                             <div id="tab_exam" class="tab-pane">
-                                <form action="#">
-                                    <b>EXAMINATIONS :</b><br><br>
-                                    <table class="table table-bordered table-striped" class="table-responsive">
-                                    <label>CAREER SERVICE / RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES/CSEE :</label><br></br>
-                                    <tr>
-                                        <th width="10%">Exam Description</th>
-                                        <th width="10%">Rating</th>
-                                        <th width="10%">Date of Examination/ Conferment</th>
-                                        <th width="10%">Place of Examination/ Conferment</th>
-                                        <th width="10%">License Number</th>
-                                        <th width="10%">Date of Validity</th>
-                                        <th width="10%">Action</th>
-                                    </tr>
-                                    <?php foreach($arrExam as $row):?>
-                                    <tr>
-                                        <td><?=$row['examCode']?></td>
-                                        <td><?=$row['examRating']?></td>
-                                        <td><?=$row['examDate']?></td>
-                                        <td><?=$row['examPlace']?></td>
-                                        <td><?=$row['licenseNumber']?></td>
-                                        <td><?=$row['dateRelease']?></td>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                </table>
-                                </form>
+                                <?php include('examination_view.php');?>
                             </div>
-                                
                             <div id="tab_workExp" class="tab-pane">
-                                <form action="#">
-                                <b>WORK EXPERIENCE:</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <tr>
-                                        <th width="10%">Inclusive Date [From-To]</th>
-                                        <th width="10%">Position Title</th>
-                                        <th width="10%">Dept./ Agency/ Office/ Company</th>
-                                        <th width="10%">Monthly</th>
-                                        <th width="10%">Salary/  Job Pay Grade</th>
-                                        <th width="10%">Status of Appointment</th>
-                                        <th width="10%">Gov. Service (Yes/No)</th>
-                                        <th width="10%">Action</th>
-                                    </tr>
-                                    <?php foreach($arrService as $row):?>
-                                    <tr>
-                                        <td><?=$row['serviceFromDate'].'-'.$row['serviceToDate']?></td>
-                                        <td><?=$row['positionDesc']?></td>
-                                        <td><?=$row['stationAgency']?></td>
-                                        <td><?=$row['salary']?></td>
-                                        <td><?=$row['salaryGrade']?></td>
-                                        <td><?=$row['appointmentCode']?></td>
-                                        <td><?=$row['governService']?></td>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                </table>
-                                </form>
+                                <?php include('work_exp_view.php');?>
                             </div>
                             <div id="tab_volWork" class="tab-pane">
-                                <form action="#">
-                                <b>VOLUNTARY WORKS :</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <label>Voluntary Work or Involvement in Civic / Non-Governement / People / Voluntary Organization :</label></br></br>
-                                    <tr>
-                                        <th width="10%">Name of Organization</th>
-                                        <th width="10%">Address of Organization</th>
-                                        <th width="10%">Inclusive Dates [From-To]</th>
-                                        <th width="10%">Number of Hours</th>
-                                        <th width="10%">Position/Nature of work</th>
-                                        <th width="10%">Action</th>
-                                    </tr>
-                                    <?php foreach($arrVol as $row):?>
-                                    <tr>
-                                        <td><?=$row['vwName']?></td>
-                                        <td><?=$row['vwAddress']?></td>
-                                        <td><?=$row['vwDateFrom'].'-'.$row['vwDateTo']?></td>
-                                        <td><?=$row['vwHours']?></td>
-                                        <td><?=$row['vwPosition']?></td>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                </table>
-                                </form>
+                                <?php include('voluntary_works_view.php');?>
                             </div>
                             <div id="tab_training" class="tab-pane">
-                                <form action="#">
-                                    <b>TRAININGS :</b><br><br>                        
-                                    <table class="table table-bordered table-striped" class="table-responsive">
-                                        <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br></br>
-                                        <tr>
-                                            <th>Title of Learning & Dev./Training Programs</th>
-                                            <th>Inclusive Dates of Attendance [From-To]</th>
-                                            <th>Number of Hours</th>
-                                            <th>Type of Leadership</th>
-                                            <th>Conducted/Sponsored By</th>
-                                            <th>Training Venue</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        <?php foreach($arrTraining as $row):?>
-                                        <tr>
-                                            <td><?=$row['trainingTitle']?></td>
-                                            <td><?=$row['trainingStartDate'].'-'.$row['trainingEndDate']?></td>
-                                            <td><?=$row['trainingHours']?></td>
-                                            <td><?=$row['trainingTypeofLD']?></td>
-                                            <td><?=$row['trainingConductedBy']?></td>
-                                            <td><?=$row['trainingVenue']?></td>
-                                            <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                            <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                    </table>
-                                </form>
+                                <?php include('trainings_view.php');?>
                             </div>
                             <div id="tab_otherInfo" class="tab-pane">
-                                <form action="#">
-                                <b>OTHER INFORMATION :</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <label> SKILLS / RECOGNITIONS / ORGANIZATIONS : </label></br></br>
-                                    <tr>
-                                        <th>Special Skills / Hobbies</th>
-                                        <th>Non-Academic Distinctions / Recognition</th>
-                                        <th>Membership in Association / Organization</th>
-                                        <th>Action</th>
-                                    </tr>
-                                   
-                                    <tr>
-                                        <td><?=$arrData['skills']?></td>
-                                        <td><?=$arrData['nadr']?></td>
-                                        <td><?=$arrData['miao']?></td>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                </table>
-                                <b>LEGAL INFORMATION :</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <tr>
-                                        <td>
-                                        <label>Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of</label><br>
-                                        <label>bureau or office or to the person who has immediate supervision over you in the office, Bureau or Dapartment </label><br>
-                                        <label>where you will be appointed? </label><br>
-                                        <label>a. within the third degree? </label><br>
-                                        <label>b. within the fourth degree(for Local Government Unit-Career Employees) ? </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <label>Have you ever been found guilty of any administrative offense ? </label><br>
-                                        <label>Have you been criminally charged before any court? </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <label>Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulations by any court or tribunal? </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <label>Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped</label>
-                                        <label>from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <label>Have you ever been a candidate in a national or local election held within the last year (except Barangay election)?</label>
-                                        <label>Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <label>Have you acquired the status of an immigrant or permanent resident of another country? </label>
-                                        </td>
-                                    </tr>
-                                     <tr>
-                                        <td>
-                                        <label>Pursuant to (a) indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972)</label><br>
-                                        <label>*please answer the following items</label><br><br>
-                                        <label>a. Are you a member of any indigenous group?     If you answer is "YES", please specify</label><br>
-                                        <label>b. Are you differently abled?                    If you answer is "YES", please specify</label><br>
-                                        <label>c. Are you a solo parent?                        If you answer is "YES", please specify</label><br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                </table>
-                                </form>
+                                <?php include('trainings_view.php');?>
                             </div>
                             <div id="tab_position" class="tab-pane">
-                                <form action="#">
-                                <b>POSITION DETAILS :</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <?php foreach($arrPosition as $row):?>
-                                    <tr>
-                                    <td colspan="4"><b>Position Details</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="25%">Service Code :</td>
-                                        <td width="25%"><?=$row['serviceCode']?></td>
-                                        <td width="25%"></td>
-                                        <td width="25%"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>First Day Government :</td>
-                                        <td><?=$row['firstDayGov']?></td>
-                                        <td>Salary Effectivity Date :</td>
-                                        <td><?=$row['effectiveDate']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>First Day Agency :</td>
-                                        <td><?=$row['firstDayAgency']?></td>
-                                        <td>Employment Basis :</td>
-                                        <td><?=$row['employmentBasis']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mode of Separation :</td>
-                                        <td><?=$row['statusOfAppointment']?></td>
-                                        <td>Category Service :</td>
-                                        <td><?=$row['categoryService']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Separation Date :</td>
-                                        <td><?=$row['contractEndDate']?></td>
-                                        <td>Tax Status :</td>
-                                        <td><?=$row['taxStatCode']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Appointment Desc. :</td>
-                                        <td><?=$row['appointmentCode']?></td>
-                                        <td>No. Of Dependents :</td>
-                                        <td><?=$row['dependents']?></td>
-                                    </tr>
-                                    <td colspan="4"><b>Payroll</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Payroll Group :</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Include in DTR? :</td>
-                                        <td><?=$row['dtrSwitch']?></td>
-                                        <td>Include in Payroll? :</td>
-                                        <td><?=$row['payrollSwitch']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Attendance Scheme :</td>
-                                        <td><?=$row['schemeCode']?></td>
-                                        <td>Hazard Pay Factor :</td>
-                                        <td><?=$row['hpFactor']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Include in PhilHealth? :</td>
-                                        <td><?=$row['philhealthSwitch']?></td>
-                                        <td>Include in PAGIBIG? :</td>
-                                        <td><?=$row['pagibigSwitch']?></td>
-                                    </tr>
-                                     <tr>
-                                        <td>Include in Life & Retirement? :</td>
-                                        <td><?=$row['lifeRetSwitch']?></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <td colspan="4"><b>Plantilla Position</b></td>
-                                    <tr>
-                                        <td>ItemNumber :</td>
-                                        <td><?=$row['uniqueItemNumber']?></td>
-                                        <td>Head of the Agency :</td>
-                                        <td><?=$row['firstDayAgency']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Actual Salary :</td>
-                                        <td><?=$row['actualSalary']?></td>
-                                        <td>Salary Grade :</td>
-                                        <td><?=$row['firstDayAgency']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Authorize Salary :</td>
-                                        <td><?=$row['authorizeSalary']?></td>
-                                        <td>Step Number :</td>
-                                        <td><?=$row['stepNumber']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Position :</td>
-                                        <td><?=$row['positionCode']?></td>
-                                        <td>Date Increment :</td>
-                                        <td><?=$row['dateIncremented']?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Position Date :</td>
-                                        <td><?=$row['positionDate']?></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td> <a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                   <?php endforeach; ?>
-                                </table>
-                                </form>
+                                <?php include('position_details_view.php');?>
                             </div>
                             <div id="tab_duties" class="tab-pane">
-                                <form action="#">
-                                <b>DUTIES AND RESPONSIBILITIES :</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <tr>
-                                        <td colspan="4">EMPLOYEE DUTIES AND RESPONSIBILITIES</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4">-- Duties & Responsibility of Position --</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Duties and Responsibilities</th>
-                                        <th>Percent of Working Time</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td colspan="2"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-
-                                </table><br><br>
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <tr>
-                                        <td colspan="4">-- Duties & Responsibility of Plantilla --</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Duties and Responsibilities</th>
-                                        <th>Percent of Working Time</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    <?php foreach($arrDuties as $row): ?>
-                                    <tr>
-                                        <td></td>
-                                        <td><?=$row['percentWork']?></td>
-                                        <td colspan="2"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </table><br><br>
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <tr>
-                                        <td colspan="4">-- Actual Duties & Responsibilities --</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Duties and Responsibilities</th>
-                                        <th>Percent of Working Time</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    <?php foreach($arrDuties as $row): ?>
-                                    <tr>
-                                        <td><?=$row['duties']?></td>
-                                        <td><?=$row['percentWork']?></td>
-                                        <td colspan="2"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                        <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </table><br><br>
+                                <?php include('duties_and_responsibilities_view.php');?>
+                            </div>
+                            <div id="tab_appointment" class="tab-pane">
+                                <?php include('appointment_issued_view.php');?>
+                            </div>
+                            <div id="tab_modify" class="tab-pane">
+                                <?php include('modify_empnumber_view.php');?>
+                            </div>
                                    
-                                
-                                <b>LEGAL INFORMATION :</b><br><br>                        
-                                <table class="table table-bordered table-striped" class="table-responsive">
-                                    <tr>
-                                        <td>
-                                        <label>Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of</label><br>
-                                        <label>bureau or office or to the person who has immediate supervision over you in the office, Bureau or Dapartment </label><br>
-                                        <label>where you will be appointed? </label><br>
-                                        <label>a. within the third degree? </label><br>
-                                        <label>b. within the fourth degree(for Local Government Unit-Career Employees) ? </label>
-                                        </td>
-                                    </tr>
                                     <!--end profile-settings-->
                                     <!-- <div class="margin-top-10">
                                         <a href="javascript:;" class="btn green"> Save Changes </a>
