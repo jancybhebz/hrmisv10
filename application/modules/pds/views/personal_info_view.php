@@ -147,94 +147,11 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-9">
+                      <div class="col-md-9">
                         <div class="tab-content">
-                            <div id="tab_personal_info" class="tab-pane active">
-                                <form role="form" action="#">
-                                    <table class="table table-bordered table-striped" class="table-responsive">
-                                        <tr>
-                                            <td>Date of Birth :</td>
-                                            <td><?=$arrData['birthday']?></td>
-                                            <td colspan="2">RESIDENTIAL ADDRESS:</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td>Place of Birth :</td>
-                                            <td><?=$arrData['birthPlace']?></td>
-                                            <td>House/Block/Lot No., Street:</td>
-                                            <td><?=$arrData['lot1'].' '.$arrData['street1']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sex :</td>
-                                            <td><?=$arrData['sex']?></td>
-                                            <td>Subdivision/Village, Barangay :</td>
-                                            <td><?=$arrData['subdivision1'].' '.$arrData['barangay1']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Civil Status :</td>
-                                            <td><?=$arrData['civilStatus']?></td>
-                                            <td>City/Municipality, Province :</td>
-                                            <td><?=$arrData['city1'].' '.$arrData['province1']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Citizenship :</td>
-                                            <td><?=$arrData['citizenship']?></td>
-                                            <td>Zip Code :</td>
-                                            <td><?=$arrData['zipCode1']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Height (m) :</td>
-                                            <td><?=$arrData['height']?></td>
-                                            <td>Telephone No. :</td>
-                                            <td><?=$arrData['telephone1']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Weight (kg) :</td>
-                                            <td><?=$arrData['weight']?></td>
-                                            <td colspan="2">PERMANENT ADDRESS:</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Blood Type :</td>
-                                            <td><?=$arrData['bloodType']?></td>
-                                            <td>House/Block/Lot No., Street:</td>
-                                            <td><?=$arrData['lot2'].' '.$arrData['street2']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>GSIS Policy No. :</td>
-                                            <td><?=$arrData['gsisNumber']?></td>
-                                            <td>Subdivision/Village, Barangay :</td>
-                                            <td> <?=$arrData['subdivision2'].' '.$arrData['barangay2']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pag-ibig ID No. :</td>
-                                            <td><?=$arrData['pagibigNumber']?></td>
-                                            <td>City/Municipality, Province :</td>
-                                            <td><?=$arrData['city2'].' '.$arrData['province2']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>PHILHEALTH ID No. :</td>
-                                            <td><?=$arrData['pagibigNumber']?></td>
-                                            <td>Zip Code :</td>
-                                            <td><?=$arrData['zipCode2']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>TIN No. :</td>
-                                            <td><?=$arrData['tin']?></td>
-                                            <td>Telephone No. :</td>
-                                            <td><?=$arrData['telephone2']?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email Address :</td>
-                                            <td><?=$arrData['email']?></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </table>      
-                                     <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Edit </a>
-                                    </div><br>                        
-                                </form>
-                            </div>
+                           <div id="tab_personal_info" class="tab-pane active">
+                                <?php include('personal_view.php');?>
+                            </div> 
                             <div id="tab_family" class="tab-pane">
                                 <?php include('family_background_view.php');?>
                             </div>
