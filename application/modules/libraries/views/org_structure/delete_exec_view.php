@@ -94,7 +94,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Executive Office Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['empNumber'])?$arrOrganization[0]['empNumber']:''?>" disabled>
+                                    <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['group1Secretary'])?$arrOrganization[0]['group1Secretary']:''?>" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['group1Custodian'])?$arrOrganization[0]['group1Custodian']:''?>" disabled>
                                 </div>
                             </div>
                         </div>

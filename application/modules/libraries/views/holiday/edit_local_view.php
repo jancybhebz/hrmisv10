@@ -64,11 +64,46 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Date <span class="required"> * </span></label>
+                                <label class="control-label">Year <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input id="dtmHolidate" name="dtmHolidate" type="text"  class="form-control form-control-inline input-medium date-picker" data-provide="datepicker" value="<?=!empty($arrLocHoliday[0]['holidayDate'])?$arrLocHoliday[0]['holidayDate']:''?>">
-                                </div>
+                                    <select id="dtmYear" name="dtmYear" type="text" value="<?=!empty($arrLocHoliday[0]['holidayYear'])?$arrLocHoliday[0]['holidayYear']:''?>">
+                                    <option value="">Select</option>
+                                    <?php 
+                                        $initialYear = 2000;
+                                        $currentYear = date('Y');
+                                        for ($i=$initialYear;$i <= $currentYear ;$i++)
+                                        {
+                                            $checked = ($i == $currentYear ? "selected" : "");
+                                            echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
+                                        }
+                                    ?>
+                                    </select>&nbsp&nbsp
+                                <label class="control-label">Month <span class="required"> * </span></label>
+                                    <i class="fa"></i>
+                                    <select id="dtmMonth" name="dtmMonth">
+                                        <option selected value="January">Jan</option>
+                                        <option value="February">Feb</option>
+                                        <option value="March">Mar</option>
+                                        <option value="April">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">Aug</option>
+                                        <option value="September">Sept</option>
+                                        <option value="October">Oct</option>
+                                        <option value="November">Nov</option>
+                                        <option value="December">Dec</option>
+                                    </select>&nbsp&nbsp
+                                <label class="control-label">Day <span class="required"> * </span></label>
+                                    <?php
+                                        
+                                        echo '<select name="dtmDay" id="dtmDay">' . PHP_EOL;
+                                        for ($d=1; $d<=31; $d++) {
+                                            echo '  <option value="' . $d . '" ' .($arrLocHoliday[0]['holidayDay']==$arrLocHoliday[0]['holidayDay']?'selected':'').'>'. $d . '</option>' . PHP_EOL;
+                                        }
+                                        echo '</select>' . PHP_EOL;
+                                        ?>                                
                             </div>
                         </div>
                     </div>

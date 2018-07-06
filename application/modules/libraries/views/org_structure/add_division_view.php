@@ -145,12 +145,28 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                  <select type="text" class="form-control" name="strCustodian3" value="<?=!empty($this->session->userdata('strCustodian3'))?$this->session->userdata('strCustodian3'):''?>">
+                                        <option value="">Select</option>
+                                        <?php foreach($arrEmployees as $i=>$data): ?>
+                                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/org_structure')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/org_structure/  ')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -170,6 +186,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Division Name </th>
                             <th> Division Head Title</th>
                             <th> Division Head </th>
+                            <th> Custodian </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -185,10 +202,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$div['group3Name']?> </td>   
                             <td> <?=$div['group3HeadTitle']?> </td>   
                             <td> <?=$div['surname'].' '.$div['firstname']?> </td>                            
+                            <td> <?php $arrCust=employee_details($div['group3Custodian']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?> </td>   
                             <td>
                                 <a href="<?=base_url('libraries/org_structure/edit_division/'.$div['group3Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/org_structure/delete_division/'.$div['group3Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
-                                <a href="<?=base_url('libraries/org_structure/add_div_custodian/'.$div['group3Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Custodian"></span> Custodian</button></a>
+                            
                             </td>
 
                         </tr>

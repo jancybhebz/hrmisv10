@@ -163,6 +163,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                  <select type="text" class="form-control" name="strCustodian4" value="<?=!empty($this->session->userdata('strCustodian4'))?$this->session->userdata('strCustodian4'):''?>" >
+                                        <option value="">Select</option>
+                                        <?php foreach($arrEmployees as $i=>$data): ?>
+                                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="row">
                         <div class="col-sm-12">
@@ -189,6 +205,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Section Name </th>
                             <th> Section Head Title</th>
                             <th> Section Head </th>
+                            <th> Custodian </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -204,11 +221,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$section['group4Code']?> </td>   
                             <td> <?=$section['group4Name']?> </td>   
                             <td> <?=$section['group4HeadTitle']?> </td>   
-                            <td> <?=$section['surname'].' '.$section['firstname']?> </td>                            
+                            <td> <?=$section['surname'].' '.$section['firstname']?> </td>   
+                            <td> <?php $arrCust=employee_details($section['group4Custodian']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?> </td>                                        
                             <td>
                                 <a href="<?=base_url('libraries/org_structure/edit_section/'.$section['group4Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/org_structure/delete_section/'.$section['group4Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
-                                <a href="<?=base_url('libraries/org_structure/add_sec_custodian/'.$section['group4Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Custodian"></span> Custodian</button></a>
+                             
                             </td>
 
                         </tr>

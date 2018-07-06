@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Add page for Holiday Library
+Purpose of file:    Add page for Local Holiday Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -65,13 +65,48 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                    <label class="control-label ">Holiday Date <span class="required"> * </span></label>
-                                    <input id="dtmHolidate" name="dtmHolidate" type="text" class="form-control form-control-inline input-medium ">
+                                <label class="control-label ">Holiday Date :</span></label><br>
+                                <label class="control-label ">Year<span class="required"> * </span></label>
+                                   <select name="dtmYear" id="dtmYear">
+                                    <?php
+                                        $initialYear = 2000;
+                                        $currentYear = date('Y');
+                                        for ($i=$initialYear;$i <= $currentYear ;$i++)
+                                        {
+                                            $checked = ($i == $currentYear ? "selected" : "");
+                                            echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
+                                        }
+                                     ?>
+                                    </select> &nbsp&nbsp
+                                    <label class="control-label ">Month <span class="required"> * </span></label>
+                                    <select id="dtmMonth" name="dtmMonth">
+                                        <option selected value="January">Jan</option>
+                                        <option value="February">Feb</option>
+                                        <option value="March">Mar</option>
+                                        <option value="April">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">Aug</option>
+                                        <option value="September">Sept</option>
+                                        <option value="October">Oct</option>
+                                        <option value="November">Nov</option>
+                                        <option value="December">Dec</option>
+                                    </select>&nbsp&nbsp
+                                <label class="control-label ">Day<span class="required"> * </span></label>
+                                  <!--   <select  id="dtmDay" name="dtmDay" -->
+                                        <?php
+                                         echo '<select name="dtmDay" id="dtmDay">' . PHP_EOL;
+                                        for ($d=1; $d<=31; $d++) {
+                                            echo '  <option value="' . $d . '">' . $d . '</option>' . PHP_EOL;
+                                        }
+                                        echo '</select>' . PHP_EOL;
+                                        ?>
+                                   <!--  </select> -->
                             </div>
                         </div>
-                    </div>
-                    
-                    
+                    </div><br>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -103,7 +138,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['holidayName']?> </td> 
-                            <td> <?=$row['holidayDate']?> </td>                           
+                            <td> <?= date( "Y-m-d", strtotime($row['holidayYear'].'-'.$row['holidayMonth'].'-'.$row['holidayDay']))?> </td>                           
                             <td>
                                 <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
@@ -139,11 +174,19 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strLocalName: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
-                    dtmHolidate: {
-                        minLength: 1,
+                    dtmYear: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    dtmMonth: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    dtmDay: {
+                        minlength: 1,
                         required: true,
                     },
                    
@@ -183,7 +226,6 @@ var FormValidation = function () {
                 }
             });
 
-
     }
 
     return {
@@ -197,13 +239,13 @@ var FormValidation = function () {
 
 }();
 
-jQuery(document).ready(function() {
-//     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
-// $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
-    FormValidation.init();
-    $('#dtmHolidate').datepicker({
-        format:"yyyy-mm-dd"
-    });
+// jQuery(document).ready(function() {
+// //     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+// // $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
+//     FormValidation.init();
+//     $('#dtmHolidate').datepicker({
+//         format:"yyyy-mm-dd"
+//     });
 
 });
 </script>

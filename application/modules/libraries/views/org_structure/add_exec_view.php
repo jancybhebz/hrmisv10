@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Executive Office Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strExecOffice" value="<?=!empty($this->session->userdata('strExecOffice'))?$this->session->userdata('strExecOffice'):''?>">
+                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" value="<?=!empty($this->session->userdata('strExecOffice'))?$this->session->userdata('strExecOffice'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -100,6 +100,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strSecretary" value="<?=!empty($this->session->userdata('strSecretary'))?$this->session->userdata('strSecretary'):''?>" required>
+                                        <option value="">Select</option>
+                                        <?php foreach($arrEmployees as $i=>$data): ?>
+                                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian </label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="strCustodian1" value="<?=!empty($this->session->userdata('strCustodian1'))?$this->session->userdata('strCustodian1'):''?>" >
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -163,6 +179,10 @@ var FormValidation = function () {
                         required: true,
                     },
                     strSecretary: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    strCustodian1: {
                         minlength: 1,
                         required: true,
                     },

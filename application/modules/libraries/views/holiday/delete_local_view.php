@@ -50,28 +50,40 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['holidayName'])?$arrData[0]['holidayName']:''?>" disabled>
+                                    <input type="text" class="form-control" value="<?=isset($arrLocHoliday[0]['holidayName'])?$arrLocHoliday[0]['holidayName']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
                     </div>
+                 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Date<span class="required"> * </span></label>
+                                <label class="control-label">Year<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['holidayDate'])?$arrData[0]['holidayDate']:''?>" disabled>
+                                    <input type="text" class="form-control" value="<?=isset($arrLocHoliday[0]['holidayYear'])?$arrLocHoliday[0]['holidayYear']:''?>" disabled>
+                                </div>
+                                 <label class="control-label">Month<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" value="<?=isset($arrLocHoliday[0]['holidayMonth'])?$arrLocHoliday[0]['holidayMonth']:''?>" disabled>
+                                </div>
+                                 <label class="control-label">Day<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" value="<?=isset($arrLocHoliday[0]['holidayDay'])?$arrLocHoliday[0]['holidayDay']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     
+                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strLocCode" value="<?=isset($arrData[0]['holidayCode'])?$arrData[0]['holidayCode']:''?>">
+                                <input type="hidden" name="strLocCode" value="<?=isset($arrLocHoliday[0]['holidayCode'])?$arrLocHoliday[0]['holidayCode']:''?>">
                                 <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
                                 <a href="<?=base_url('libraries/holiday/add_local')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>

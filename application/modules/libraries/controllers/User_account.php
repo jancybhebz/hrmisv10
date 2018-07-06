@@ -45,7 +45,7 @@ class User_account extends MY_Controller {
 			if(!empty($strAccessLevel) && !empty($strEmpName) && !empty($strUsername) && !empty($strPassword))
 			{	
 				// check if exam code and/or exam desc already exist
-				if(count($this->user_account_model->checkExist($strUsername, $strPassword))==0)
+				if(count($this->user_account_model->checkExist($strAccessLevel, $strUsername))==0)
 				{
 					$arrData = array(
 						'userLevel'=>$strAccessLevel,
@@ -74,7 +74,6 @@ class User_account extends MY_Controller {
 				}
 			}
 		}
-    	
     	
     }
 
