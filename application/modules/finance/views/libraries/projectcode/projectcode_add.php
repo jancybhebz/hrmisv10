@@ -44,24 +44,24 @@
                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                     <label class="control-label">Project Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" <?=isset($err) ? 'data-original-title="'.$err.'"' : 'style="display: none;"'?>></i>
-                                        <input type="text" class="form-control" name="txtcode" <?=$action == 'edit' ? 'disabled' : ''?>
+                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                        <input type="text" class="form-control form-required" name="txtcode" <?=$action == 'edit' ? 'disabled' : ''?>
                                             value="<?=isset($data) ? $data['projectCode'] : set_value('txtcode')?>" <?=$action?>>
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Project Description <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtdesc"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtdesc"
                                             value="<?=isset($data) ? $data['projectDesc'] : set_value('txtdesc')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Project Order <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips" style="display: none;"></i>
-                                        <input type="text" class="form-control" name="txtorder"
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input type="text" class="form-control form-required" name="txtorder"
                                             value="<?=isset($data) ? $data['projectOrder'] : set_value('txtorder')?>">
                                     </div>
                                 </div>
