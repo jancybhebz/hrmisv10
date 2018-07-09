@@ -396,6 +396,62 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <div class="margin-top-10">
+    <a class="btn green" data-toggle="modal" href="#addChildren_modal"> Add </a>
+    </div>
+
+    <div class="modal fade bs-modal-lg"  id="addChildren_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title"><b>Children's Information</b></h4>
+                </div>
+                <div class="modal-body"> </div>
+
+                 <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 text-left">
+                        <div class="form-group">
+                            <label class="control-label">Full Name : <span class="required"> * </span></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-5" text-left>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strCFirstname" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 text-left">
+                        <div class="form-group">
+                            <label class="control-label">Date of Birth : <span class="required"> * </span></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-5" text-left>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strCBirthdate" value="<?=isset($arrData[0]['childBirthDate'])?$arrData[0]['childBirthDate']:''?>">
+                        </div>
+                    </div>
+                </div><br>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn green">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 </form>
 
 <!-- EDIT -->
