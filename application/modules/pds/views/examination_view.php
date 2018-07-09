@@ -24,8 +24,8 @@
                         <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                     </tr>
                     <?php endforeach;?>
-            </table>
-             <div class="modal fade bs-modal-lg"  id="exam_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    
+         <div class="modal fade bs-modal-lg"  id="exam_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -123,7 +123,8 @@
             <!-- /.modal-dialog -->
         </div>
 
-         <a class="btn green" data-toggle="modal" href="#addExam_modal"> Add </a>
+
+        <a class="btn green" data-toggle="modal" href="#addExam_modal"> Add </a>
          <div class="modal fade bs-modal-lg"  id="addExam_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -221,5 +222,6 @@
                 </div>
             <!-- /.modal-dialog -->
         </div>
+        </table> 
     </form>
 </div>

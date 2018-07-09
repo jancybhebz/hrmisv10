@@ -31,7 +31,6 @@
                     </td>
                 </tr>
                 <?php endforeach;?>
-            </table>
             <div class="modal fade bs-modal-lg"  id="educ_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -195,7 +194,8 @@
             <!-- /.modal-dialog -->
         </div>
 
-        <a class="btn green" data-toggle="modal" href="#addEduc_modal"> Add </a>
+
+            <a class="btn green" data-toggle="modal" href="#addEduc_modal"> Add </a>
             <div class="modal fade bs-modal-lg"  id="addEduc_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -355,7 +355,8 @@
                     </div>
                     <!-- /.modal-content -->
                 </div>
-            <!-- /.modal-dialog -->
-        </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </table>
     </form>
 </div>

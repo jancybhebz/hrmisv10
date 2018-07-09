@@ -333,7 +333,7 @@
         </tr>
         <?php endforeach;?>
         <br>
-    </table>
+    
      <div class="modal fade bs-modal-lg"  id="children_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -425,7 +425,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
@@ -452,6 +452,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    </table>
 </form>
 
 <!-- EDIT -->

@@ -219,8 +219,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-        </table>
-        
+
             <a class="btn green" data-toggle="modal" href="#addWorkExp_modal"> Add </a>
             <div class="modal fade bs-modal-lg"  id="addWorkExp_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -416,5 +415,8 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+        </table>
+
+           
     </form>
 </div>
