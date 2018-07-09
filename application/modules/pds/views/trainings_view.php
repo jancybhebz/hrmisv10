@@ -2,7 +2,7 @@
     <form action="#">
         <b>TRAININGS :</b><br><br>                        
             <table class="table table-bordered table-striped" class="table-responsive">
-                <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br></br>
+                <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br>
                 <tr>
                     <th>Title of Learning & Dev./Training Programs</th>
                     <th>Inclusive Dates of Attendance [From-To]</th>
