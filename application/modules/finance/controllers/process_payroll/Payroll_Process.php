@@ -8,7 +8,7 @@
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Deductions extends MY_Controller {
+class Payroll_process extends MY_Controller {
 
 	var $arrData;
 
@@ -43,7 +43,7 @@ class Deductions extends MY_Controller {
 			if(!$this->Deduction_Model->isDeductionCodeExists($arrPost['txtddcode'],'add')):
 				$this->Deduction_Model->add($arrData);
 				$this->session->set_flashdata('strSuccessMsg','Deduction added successfully.');
-				redirect('finance/libraries/deductions');
+				redirect('finance/deductions');
 			else:
 				$this->arrData['err'] = 'Code already exists';
 			endif;
@@ -66,7 +66,7 @@ class Deductions extends MY_Controller {
 			if(!$this->Deduction_Model->isDeductionGroupExists($arrPost['agency-code'],'add')):
 				$this->Deduction_Model->addAgency($arrData);
 				$this->session->set_flashdata('strSuccessMsg','Agency added successfully.');
-				redirect('finance/libraries/deductions?tab=agency');
+				redirect('finance/deductions?tab=agency');
 			else:
 				$this->arrData['err'] = 'Code already exists';
 			endif;		
@@ -89,7 +89,7 @@ class Deductions extends MY_Controller {
 			);
 			$this->Deduction_Model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Deduction updated successfully.');
-			redirect('finance/libraries/deductions');
+			redirect('finance/deductions');
 		else:
 			$this->arrData['action'] = 'edit';
 			$this->arrData['data'] = $this->Deduction_Model->getDeductions($code);
@@ -110,7 +110,7 @@ class Deductions extends MY_Controller {
 			if(!$this->Deduction_Model->isDeductionGroupExists($arrPost['agency-code'],'edit')):
 				$this->Deduction_Model->edit_agency($arrData, $code);
 				$this->session->set_flashdata('strSuccessMsg','Agency updated successfully.');
-				redirect('finance/libraries/deductions?tab=agency');
+				redirect('finance/deductions?tab=agency');
 			else:
 				$this->arrData['err'] = 'Code already exists';
 			endif;

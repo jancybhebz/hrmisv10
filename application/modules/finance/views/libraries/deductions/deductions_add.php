@@ -38,7 +38,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?=base_url('finance/deductions?tab=agency')?>">
+                        <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>">
                             <div class="caption font-dark">
                                 <i class="icon-settings font-dark"></i>
                                 <span class="caption-subject bold uppercase"> Agency </span>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
-                                <form action="<?=$action == 'edit' ? base_url('finance/deductions/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                                <form action="<?=$action == 'edit' ? base_url('finance/libraries/deductions/edit/'.$this->uri->segment(4)) : ''?>" method="post">
                                     <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                     <div class="form-body">
                                         <div class="row">
@@ -122,7 +122,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <button class="btn btn-success" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> <?=$action?> </button>
-                                                            <a href="<?=base_url('finance/deductions')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                                            <a href="<?=base_url('finance/libraries/deductions')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                                         </div>
                                                     </div>
                                                 </div>

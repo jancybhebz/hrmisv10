@@ -28,7 +28,7 @@ class Employees_model extends CI_Model {
 
 	public function getData($strEmpNo="",$strSearch="",$strAppStatus="")
 	{
-		$this->db->select('tblEmpPersonal.*,tblEmpPosition.statusOfAppointment,tblEmpPosition.appointmentCode,tblEmpPosition.positionCode,tblPosition.positionDesc,tblAppointment.appointmentDesc');
+		$this->db->select('tblEmpPersonal.*,tblEmpPosition.*,tblPosition.positionDesc,tblAppointment.appointmentDesc');
 		$where='';
 		if($strEmpNo!="")
 			$this->db->where('tblEmpPersonal.empNumber',$strEmpNo);
@@ -52,7 +52,7 @@ class Employees_model extends CI_Model {
 					$where
 					ORDER BY surname,firstname,middlename
 					";
-		//echo $strSQL;exit(1);				
+		// echo $strSQL;exit(1);				
 		//$objQuery = $this->db->query($strSQL);
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	

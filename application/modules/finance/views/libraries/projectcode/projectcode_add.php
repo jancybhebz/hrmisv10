@@ -39,7 +39,7 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="projectcode" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <form action="<?=$action == 'edit' ? base_url('finance/projectcode/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                            <form action="<?=$action == 'edit' ? base_url('finance/libraries/projectcode/edit/'.$this->uri->segment(4)) : ''?>" method="post">
                                 <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                     <label class="control-label">Project Code <span class="required"> * </span></label>
@@ -69,7 +69,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> <?=$action?> </button>
-                                            <a href="<?=base_url('finance/projectcode')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                            <a href="<?=base_url('finance/libraries/projectcode')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                         </div>
                                     </div>
                                 </div>

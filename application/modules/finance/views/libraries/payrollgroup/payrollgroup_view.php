@@ -41,7 +41,7 @@
                         <div class="table-toolbar">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="<?=base_url('finance/payrollgroup/add')?>"><button class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                    <a href="<?=base_url('finance/libraries/payrollgroup/add')?>"><button class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                         <td><?=$data['projectDesc']?></td>
                                         <td><?=$data['payrollGroupRC']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/payrollgroup/edit/'.$data['payrollGroupCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a href="<?=base_url('finance/libraries/payrollgroup/edit/'.$data['payrollGroupCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                             <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['payrollGroupCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
@@ -117,7 +117,7 @@
         });
 
         $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'libraries/payrollgroup/delete?code='+code,
+            $.ajax ({type : 'GET', url: 'payrollgroup/delete?code='+code,
                 success: function(){
                     toastr.success('Payroll Group Code '+code+' successfully deleted.','Success');
                     $('#delete').modal('hide');

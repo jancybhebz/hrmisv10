@@ -1,4 +1,7 @@
 [v-cloak] { display: none; }
+#table-employees > tbody {
+    cursor: pointer;
+}
 .login {
     background-color: #2a4b75!important;
 }

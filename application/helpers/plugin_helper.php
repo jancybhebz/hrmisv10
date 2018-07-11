@@ -37,7 +37,10 @@ if ( ! function_exists('load_plugin'))
 					case 'datepicker': $str .= '
 							<link href="'.base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css').'" rel="stylesheet" type="text/css" />
 							';
-
+					break;
+					case 'profile-2': $str .= '
+							<link href="'.base_url('assets/css/profile-2.min.css').'" rel="stylesheet" type="text/css" />
+							';
 					break;
 
 				}
