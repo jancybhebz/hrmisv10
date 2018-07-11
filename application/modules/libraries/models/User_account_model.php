@@ -48,11 +48,11 @@ class User_account_model extends CI_Model {
 		return $this->db->insert_id();	
 	}
 	
-	function checkExist($strUsername = '', $strPassword = '')
+	function checkExist($strAccessLevel = '', $strUsername = '')
 	{		
 
-		$this->db->where('userName',$strUsername);
-		$this->db->or_where('userPassword', $strPassword);			
+		$this->db->where('userLevel',$strAccessLevel);
+		$this->db->or_where('userName', $strUsername);			
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	

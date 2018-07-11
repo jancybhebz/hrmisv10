@@ -55,8 +55,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrOrganization as $org)
                                         {
-                                          echo '<option value="'.$org['group1Name'].'" '.($arrService[0]['group1Code']==$org['group1Code']?'selected':'').'>'.$org['group1Name'].'</option>';
+                                          echo '<option value="'.$org['group1Code'].'" '.($arrService[0]['group1Code']==$org['group1Code']?'selected':'').'>'.$org['group1Name'].'</option>';
                                         }?>
+                                      
                                     </select>
                                 </div>
                             </div>
@@ -68,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Service Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strServiceCode" value="<?=isset($arrService[0]['group2Code'])?$arrService[0]['group2Code']:''?>">
+                                    <input type="text" class="form-control" maxlength="10" name="strServiceCode" value="<?=isset($arrService[0]['group2Code'])?$arrService[0]['group2Code']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -92,7 +93,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strServiceHead">
                                      <option value="">Select</option>
-
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
                                           echo '<option value="'.$data['empNumber'].'" '.($arrService[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
@@ -124,7 +124,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrService[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrService[0]['group2Secretary']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="strCustodian2">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrService[0]['group2Custodian']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
                                         }?>
                                     </select>
                                 </div>

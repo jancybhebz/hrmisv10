@@ -127,6 +127,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian </label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="strCustodian2" value="<?=!empty($this->session->userdata('strCustodian2'))?$this->session->userdata('strCustodian2'):''?>" >
+                                        <option value="">Select</option>
+                                        <?php foreach($arrEmployees as $i=>$data): ?>
+                                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="row">
                         <div class="col-sm-12">
@@ -151,6 +167,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Service Name </th>
                             <th> Service Head Title </th>
                             <th> Service Head </th>
+                            <th> Custodian </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -164,11 +181,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$service['group2Code']?> </td>   
                             <td> <?=$service['group2Name']?> </td>   
                             <td> <?=$service['group2HeadTitle']?> </td>   
-                            <td> <?=$service['surname'].', '.$service['firstname']?> </td>                            
+                            <td> <?=$service['surname'].', '.$service['firstname']?> </td>   
+                            <td> <?php $arrCust=employee_details($service['group2Custodian']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?> </td>                             
                             <td>
                                 <a href="<?=base_url('libraries/org_structure/edit_service/'.$service['group2Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/org_structure/delete_service/'.$service['group2Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
-                                <a href="<?=base_url('libraries/org_structure/add_ser_custodian/'.$service['group2Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Custodian"></span> Custodian</button></a>
+                               
                             </td>
 
                         </tr>
@@ -221,6 +239,10 @@ var FormValidation = function () {
                         required: true,
                     },
                     strServiceSecretary: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    strCustodian2: {
                         minlength: 1,
                         required: true,
                     },

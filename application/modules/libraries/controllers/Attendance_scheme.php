@@ -36,6 +36,9 @@ class Attendance_scheme extends MY_Controller {
 			$strSchemeCode = $arrPost['strSchemeCode'];
 			$strSchemeName = $arrPost['strSchemeName'];
 			$strSchemeType = $arrPost['strSchemeType'];
+			$dtmTimeIn = $arrPost['dtmTimeIn'];
+			$strSchemeType = $arrPost['strSchemeType'];
+			$strSchemeType = $arrPost['strSchemeType'];
 			if(!empty($strSchemeCode) && !empty($strSchemeName) && !empty($strSchemeType))
 			{	
 				// check if exam code and/or exam desc already exist

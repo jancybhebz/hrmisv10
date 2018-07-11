@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <span class="caption-subject bold uppercase"> AGENCY INFORMATION</span>
                 </div>
             </div>
-              <div class="portlet-body">
+           <!--    <div class="portlet-body">
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-6">
@@ -30,7 +30,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                        </div> 
                     </div>
-                </div>
+                </div> -->
            
             <div class="portlet-body">
                 <form action = "<?=base_url('libraries/agency_profile/edit')?>" method="post" id="frmAgencyProfile">
@@ -137,7 +137,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['website'])?$arrAgency[0]['website']:''?>" disabled></strong>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
+                            <!-- <div class="col-sm-5 text-right"">
                                 <div class="form-group ">
                                     <label class="control-label">SALARY SCHEDULE :</label>
                                 </div>
@@ -267,7 +267,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="form-group ">
                                     <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['PhilhealthNum'])?$arrAgency[0]['PhilhealthNum']:''?>" disabled></strong>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-sm-5 text-right"">
                                 <div class="form-group ">
                                     <label class="control-label">MISSION :</label>
@@ -302,16 +302,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>" disabled></strong>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
+                           <!--  <div class="col-sm-5 text-right"">
                                 <div class="form-group ">
                                     <label class="control-label">BANK ACCOUNT # :</label>
                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
+                            </div> -->
+                            <!-- <div class="col-sm-7 text-left"">
                                 <div class="form-group ">
                                  <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['AccountNum'])?$arrAgency[0]['AccountNum']:''?>" disabled></strong>
                                 </div>
-                            </div>
+                            </div> -->
                         <div class="portlet-body">
                             <div class="table-toolbar">
                                 <div class="row">

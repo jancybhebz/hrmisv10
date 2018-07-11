@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Edit page for Executive Office Library
+Purpose of file:    Add page for Zone Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Executive Office</span>
+            <span>Add Zone</span>
         </li>
     </ul>
 </div>
@@ -35,22 +35,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Executive Office</span>
+                    <i class="icon-settings font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Add Zone</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/org_structure/edit_exec/'.$this->uri->segment(4))?>" method="post" id="frmOrgStructure">
+                <form action = "<?=base_url('libraries/zone/add')?>" method="post" id="frmZone">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Code <span class="required"> * </span></label>
+                                <label class="control-label">Zone Code<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
+                                    <input type="text" class="form-control" name="strZoneCode" value="<?=!empty($this->session->userdata('strZoneCode'))?$this->session->userdata('strZoneCode'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -58,28 +58,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Name <span class="required"> * </span></label>
+                                <label class="control-label">Zone Description<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strExecName" value="<?=!empty($arrOrganization[0]['group1Name'])?$arrOrganization[0]['group1Name']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Executive Office Head<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strExecHead">
-                                     <option value="">Select</option>
-
-                                     <?php foreach($arrEmployees as $i=>$data)
-                                        {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrOrganization[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
-                                        }?>
-                                    </select>
+                                    <input type="text" class="form-control" name="strZoneDesc" value="<?=!empty($this->session->userdata('strZoneDesc'))?$this->session->userdata('strZoneDesc'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -87,10 +69,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Head Title<span class="required"> * </span></label>
+                                <label class="control-label">Server Name<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strHeadTitle" value="<?=!empty($arrOrganization[0]['group1HeadTitle'])?$arrOrganization[0]['group1HeadTitle']:''?>">
+                                    <input type="text" class="form-control" name="strSerName" value="<?=!empty($this->session->userdata('strSerName'))?$this->session->userdata('strSerName'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -98,16 +80,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Secretary <span class="required"> * </span></label>
+                                <label class="control-label">Server Name<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strSecretary">
-                                     <option value="">Select</option>
-                                         <?php foreach($arrEmployees as $i=>$data)
-                                        {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrOrganization[0]['group1Secretary']==$data['empNumber']?'selected':'').'>'.($data['surname']).', '.($data['firstname']).'</option>';
-                                        }?>
-                                    </select>
+                                    <input type="text" class="form-control" name="strSerName" value="<?=!empty($this->session->userdata('strSerName'))?$this->session->userdata('strSerName'):''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Username<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strUsername" value="<?=!empty($this->session->userdata('strUsername'))?$this->session->userdata('strUsername'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -115,27 +102,31 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Custodian </label>
+                                <label class="control-label">Password<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strCustodian1">
-                                     <option value="">Select</option>
-                                     <?php foreach($arrEmployees as $i=>$data)
-                                        {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrOrganization[0]['group1Custodian']==$data['empNumber']?'selected':'').'>'.($data['surname']).', '.($data['firstname']).'</option>';
-                                        }?>
-                                    </select>
+                                    <input type="password" class="form-control" name="strPassword" value="<?=!empty($this->session->userdata('strPassword'))?$this->session->userdata('strPassword'):''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
-                 
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Database Name<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="password" class="form-control" name="strDbaseName" value="<?=!empty($this->session->userdata('strDbaseName'))?$this->session->userdata('strDbaseName'):''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strCode" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
-                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/org_structure')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
+                                <a href="<?=base_url('libraries/zone')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -157,7 +148,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmOrgStructure');
+            var form2 = $('#frmZone');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -167,27 +158,30 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strExecOffice: {
+                    strZoneCode: {
                         minlength: 1,
                         required: true
                     },
-                    strExecName: {
+                    strZoneDesc: {
                         minlength: 1,
-                        required: true,
-                    }
-                    strExecHead: {
+                        required: true
+                    },
+                    strSerName: {
                         minlength: 1,
-                        required: true,
-                    }
-                    strHeadTitle: {
+                        required: true
+                    },
+                    strUsername: {
                         minlength: 1,
-                        required: true,
-                    }
-                    strSecretary: {
+                        required: true
+                    },
+                    strPassword: {
                         minlength: 1,
-                        required: true,
-                    }
-                    
+                        required: true
+                    },
+                    strDbaseName: {
+                        minlength: 1,
+                        required: true
+                    },
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              

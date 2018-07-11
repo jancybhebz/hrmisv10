@@ -50,24 +50,62 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strHolidayName" value="<?=!empty($this->session->userdata('strHolidayName'))?$this->session->userdata('strHolidayName'):''?>">
-                                    <option value="">Select</option>
+                                   <select type="text" class="form-control" name="strHolidayName" value="<?=!empty($this->session->userdata('strHolidayName'))?$this->session->userdata('strHolidayName'):''?>">
+                                     <option value="">Select</option>
+                                      <?php foreach($arrHoliday as $holiday)
+                                        {
+                                          echo '<option value="'.$holiday['holidayCode'].'">'.$holiday['holidayName'].'</option>';
+                                        }?>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Date <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input id="dtmHolidayDate" name="dtmHolidayDate" type="text" class="form-control form-control-inline input-medium ">
-                                </div>
+                                <label class="control-label ">Holiday Date :</span></label><br>
+                                <label class="control-label ">Year<span class="required"> * </span></label>
+                                   <select name="dtmYear" id="dtmYear">
+                                    <?php
+                                        $initialYear = 2000;
+                                        $currentYear = date('Y');
+                                        for ($i=$initialYear;$i <= $currentYear ;$i++)
+                                        {
+                                            $checked = ($i == $currentYear ? "selected" : "");
+                                            echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
+                                        }
+                                     ?>
+                                    </select> &nbsp&nbsp
+                                    <label class="control-label ">Month <span class="required"> * </span></label>
+                                    <select id="dtmMonth" name="dtmMonth">
+                                        <option selected value="January">Jan</option>
+                                        <option value="February">Feb</option>
+                                        <option value="March">Mar</option>
+                                        <option value="April">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">Aug</option>
+                                        <option value="September">Sept</option>
+                                        <option value="October">Oct</option>
+                                        <option value="November">Nov</option>
+                                        <option value="December">Dec</option>
+                                    </select>&nbsp&nbsp
+                                <label class="control-label ">Day<span class="required"> * </span></label>
+                                  <!--   <select  id="dtmDay" name="dtmDay" -->
+                                        <?php
+                                         echo '<select name="dtmDay" id="dtmDay">' . PHP_EOL;
+                                        for ($d=1; $d<=31; $d++) {
+                                            echo '  <option value="' . $d . '">' . $d . '</option>' . PHP_EOL;
+                                        }
+                                        echo '</select>' . PHP_EOL;
+                                        ?>
+                                   <!--  </select> -->
                             </div>
                         </div>
-                    </div>
+                    </div><br>
+
                     
                     <div class="row">
                         <div class="col-sm-12">

@@ -158,14 +158,31 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrSection[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrSection[0]['group4Secretary']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
                                         }?>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                 
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <select type="text" class="form-control" name="strCustodian4">
+                                     <option value="">Select</option>
+
+                                     <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrSection[0]['group4Custodian']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">

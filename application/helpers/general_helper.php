@@ -5,7 +5,7 @@ if ( ! function_exists('employee_details'))
     function employee_details($strEmpNo)
     {
 		$CI =& get_instance();
-		return $CI->db->select('tblEmpPersonal.*')->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber')->get('tblEmpPersonal')->result_array();	
+		return $CI->db->select('tblEmpPersonal.*')->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber')->where('tblEmpPersonal.empNumber',$strEmpNo)->get('tblEmpPersonal')->result_array();	
 	}
 }
 

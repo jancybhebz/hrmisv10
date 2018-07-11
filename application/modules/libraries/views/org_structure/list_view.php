@@ -47,6 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Executive Office Name </th>
                             <th> Executive Office Head Title </th>
                             <th> Executive Office Head </th>
+                            <th> Custodian </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -59,11 +60,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$org['group1Code']?> </td>
                             <td> <?=$org['group1Name']?> </td>   
                             <td> <?=$org['group1HeadTitle']?> </td>   
-                            <td> <?=$org['surname'].', '.$org['firstname']?> </td>                            
+                            <td> <?=$org['surname'].', '.$org['firstname']?> </td>                 
+                            <td> <?php $arrCust=employee_details($org['group1Custodian']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?> </td>                             
                             <td>
                                 <a href="<?=base_url('libraries/org_structure/edit_exec/'.$org['group1Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/org_structure/delete_exec/'.$org['group1Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
-                                <a href="<?=base_url('libraries/org_structure/add_exec_custodian/'.$org['group1Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Custodian"></span> Custodian</button></a>
                             </td>
 
                         </tr>

@@ -105,7 +105,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Service Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrService[0]['empNumber'])?$arrService[0]['surname'].', '.$arrService[0]['firstname']:''?>" disabled>
+                                   <input type="text" class="form-control" value="<?=isset($arrService[0]['group2Secretary'])?$arrService[0]['surname'].', '.$arrService[0]['firstname']:''?>" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" value="<?=isset($arrService[0]['group2Custodian'])?$arrService[0]['group2Custodian']:''?>" disabled>
                                 </div>
                             </div>
                         </div>

@@ -127,7 +127,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Section Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrSection[0]['empNumber'])?$arrSection[0]['surname'].', '.$arrSection[0]['firstname']:''?>" disabled>
+                                     <input type="text" class="form-control" value="<?=isset($arrSection[0]['group4Secretary'])?$arrSection[0]['group4Secretary']:''?>" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Custodian</label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" value="<?=isset($arrSection[0]['group4Custodian'])?$arrSection[0]['group4Custodian']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
