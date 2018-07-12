@@ -20,11 +20,11 @@
                     <td><?=$row['trainingTypeofLD']?></td>
                     <td><?=$row['trainingConductedBy']?></td>
                     <td><?=$row['trainingVenue']?></td>
-                    <td>  <a class="btn green" data-toggle="modal" href="#trainings_modal"> Edit </a>
+                    <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal"> Edit </a>
                     <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                 </tr>
                 <?php endforeach;?>
-                <div class="modal fade bs-modal-lg"  id="trainings_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade bs-modal-lg"  id="editTrainings_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strTitle" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strTitle" value="<?=isset($arrTraining[0]['trainingTitle'])?$arrTraining[0]['trainingTitle']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strHours" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strHours" value="<?=isset($arrTraining[0]['trainingHours'])?$arrTraining[0]['trainingHours']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strVenue" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strVenue" value="<?=isset($arrTraining[0]['trainingVenue'])?$arrTraining[0]['trainingVenue']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strTypeofLD" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strTypeofLD" value="<?=isset($arrTraining[0]['trainingTypeofLD'])?$arrTraining[0]['trainingTypeofLD']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strConducted" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strConducted" value="<?=isset($arrTraining[0]['trainingConductedBy'])?$arrTraining[0]['trainingConductedBy']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strCost" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strCost" value="<?=isset($arrTraining[0]['trainingCost'])?$arrTraining[0]['trainingCost']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmStartDate" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmStartDate" value="<?=isset($arrTraining[0]['trainingStartDate'])?$arrTraining[0]['trainingStartDate']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmEndDate" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmEndDate" value="<?=isset($arrTraining[0]['trainingEndDate'])?$arrTraining[0]['trainingEndDate']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strTitle" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strTitle">
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strHours" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmHours">
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strVenue" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strVenue">
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strTypeofLD" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strTypeofLD">
                                     </div>
                                 </div>
                             </div>
@@ -256,7 +256,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strConducted" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strConducted">
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +272,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strCost" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intCost">
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +288,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmStartDate" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <select type="text" class="form-control" name="dtmStartDate"></select>
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +304,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmEndDate" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <select type="text" class="form-control" name="dtmEndDate"></select>
                                     </div>
                                 </div>
                             </div>

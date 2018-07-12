@@ -106,11 +106,11 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>  <a class="btn green" data-toggle="modal" href="#position_modal"> Edit </a>
+                    <td>  <a class="btn green" data-toggle="modal" href="#editPosition_modal"> Edit </a>
                     <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                 </tr>
                <?php endforeach; ?>
-               <div class="modal fade in" id="position_modal" tabindex="-1" role="full" aria-hidden="true">
+               <div class="modal fade in" id="editPosition_modal" tabindex="-1" role="full" aria-hidden="true">
                     <div class="modal-dialog modal-full">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strServiceCode" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strServiceCode" value="<?=isset($arrPosition[0]['serviceCode'])?$arrPosition[0]['serviceCode']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -168,8 +168,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strPayroll" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="strPayroll" value="<?=isset($arrPosition[0]['payrollGroupCode'])?$arrPosition[0]['payrollGroupCode']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -179,7 +178,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strItemNum" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strItemNum" value="<?=isset($arrPosition[0]['uniqueItemNumber'])?$arrPosition[0]['uniqueItemNumber']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -196,7 +195,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="dtmGovnDay" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmGovnDay" value="<?=isset($arrPosition[0]['firstDayGov'])?$arrPosition[0]['firstDayGov']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -207,7 +206,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strIncludeDTR" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strIncludeDTR" value="<?=isset($arrPosition[0]['dtrSwitch'])?$arrPosition[0]['dtrSwitch']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -217,8 +216,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strHead" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="strHead" value="<?=isset($arrPosition[0][''])?$arrPosition[0]['']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -234,8 +232,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="dtmAgencyDay" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                     <input type="text" class="form-control" name="dtmAgencyDay" value="<?=isset($arrPosition[0]['firstDayAgency'])?$arrPosition[0]['firstDayAgency']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -245,7 +242,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strIncludePayroll" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strIncludePayroll" value="<?=isset($arrPosition[0]['payrollSwitch'])?$arrPosition[0]['payrollSwitch']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -255,7 +252,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strActual" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strActual" value="<?=isset($arrPosition[0]['actualSalary'])?$arrPosition[0]['actualSalary']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -272,7 +269,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="intSalaryDate" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intSalaryDate" value="<?=isset($arrPosition[0]['effectiveDate'])?$arrPosition[0]['effectiveDate']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -283,7 +280,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strAttendance" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strAttendance" value="<?=isset($arrPosition[0]['schemeCode'])?$arrPosition[0]['schemeCode']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -293,8 +290,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strSG" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="strSG" value="<?=isset($arrPosition[0]['salaryGradeNumber'])?$arrPosition[0]['salaryGradeNumber']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -310,7 +306,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strEmpBasis" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strEmpBasis" value="<?=isset($arrPosition[0]['employmentBasis'])?$arrPosition[0]['employmentBasis']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -320,7 +316,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strHP" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strHP" value="<?=isset($arrPosition[0]['hpFactor'])?$arrPosition[0]['hpFactor']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -330,7 +326,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strAuthorize" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strAuthorize" value="<?=isset($arrPosition[0]['authorizeSalary'])?$arrPosition[0]['authorizeSalary']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -347,8 +343,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strEmpBasis" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="strModeofSep" value="<?=isset($arrPosition[0]['statusOfAppointment'])?$arrPosition[0]['statusOfAppointment']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -358,7 +353,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strIncPHealth" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strIncPHealth" value="<?=isset($arrPosition[0]['philhealthSwitch'])?$arrPosition[0]['philhealthSwitch']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -368,7 +363,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strStepNum" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strStepNum" value="<?=isset($arrPosition[0]['stepNumber'])?$arrPosition[0]['stepNumber']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -385,7 +380,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="dtmSepDate" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmSepDate" value="<?=isset($arrPosition[0]['contractEndDate'])?$arrPosition[0]['contractEndDate']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -396,7 +391,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strIncPagibig" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strIncPagibig" value="<?=isset($arrPosition[0]['pagibigSwitch'])?$arrPosition[0]['pagibigSwitch']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -406,8 +401,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strPosition" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="strPosition" value="<?=isset($arrPosition[0]['positionCode'])?$arrPosition[0]['positionCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -424,8 +418,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strCatService" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="strCatService" value="<?=isset($arrPosition[0]['categoryService'])?$arrPosition[0]['categoryService']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -435,7 +428,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strIncLife" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strIncLife" value="<?=isset($arrPosition[0]['lifeRetSwitch'])?$arrPosition[0]['lifeRetSwitch']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -445,8 +438,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="dtmDateInc" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="dtmDateInc" value="<?=isset($arrPosition[0]['dateIncremented'])?$arrPosition[0]['dateIncremented']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -462,7 +454,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strTaxStatus" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strTaxStatus" value="<?=isset($arrPosition[0]['taxStatCode'])?$arrPosition[0]['taxStatCode']:''?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3 text-left">
@@ -477,7 +469,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="dtmPosDate" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmPosDate" value="<?=isset($arrPosition[0]['positionDate'])?$arrPosition[0]['positionDate']:''?>">
                                         </select>
                                     </div>
                                 </div>
@@ -494,8 +486,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strAppointmentDesc" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                        </select>
+                                        <input type="text" class="form-control" name="strAppointmentDesc" value="<?=isset($arrPosition[0]['appointmentCode'])?$arrPosition[0]['appointmentCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -511,7 +502,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="intDependents" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="intDependents" value="<?=isset($arrPosition[0]['dependents'])?$arrPosition[0]['dependents']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -527,7 +518,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strExecOffice" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strExecOffice" value="<?=isset($arrPosition[0]['officeCode'])?$arrPosition[0]['officeCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -543,7 +534,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strPersonnel" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strPersonnel" value="<?=isset($arrPosition[0]['personnelAction'])?$arrPosition[0]['personnelAction']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -559,7 +550,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strService" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strPersonnel" value="<?=isset($arrPosition[0]['service'])?$arrPosition[0]['service']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -575,7 +566,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strDivision" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                       <input type="text" class="form-control" name="strDivision" value="<?=isset($arrPosition[0]['divisionCode'])?$arrPosition[0]['divisionCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -591,7 +582,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strSection" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strSection" value="<?=isset($arrPosition[0]['sectionCode'])?$arrPosition[0]['sectionCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -607,7 +598,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <select type="text" class="form-control" name="strAssignment" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>"></select>
+                                        <input type="text" class="form-control" name="strAssignment" value="<?=isset($arrPosition[0]['assignPlace'])?$arrPosition[0]['assignPlace']:''?>">
                                     </div>
                                 </div>
                             </div>

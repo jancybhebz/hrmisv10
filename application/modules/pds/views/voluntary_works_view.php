@@ -19,12 +19,12 @@
                         <td><?=$row['vwDateFrom'].'-'.$row['vwDateTo']?></td>
                         <td><?=$row['vwHours']?></td>
                         <td><?=$row['vwPosition']?></td>
-                        <td>  <a class="btn green" data-toggle="modal" href="#VolWorks_modal"> Edit </a>
+                        <td>  <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Edit </a>
                         <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                     </tr>
                     <?php endforeach;?>
 
-                    <div class="modal fade bs-modal-lg"  id="VolWorks_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade bs-modal-lg"  id="editVolWorks_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strOrgName" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strOrgName" value="<?=isset($arrVol[0]['vwName'])?$arrVol[0]['vwName']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strAddress" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strAddress" value="<?=isset($arrVol[0]['vwAddress'])?$arrVol[0]['vwAddress']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrVol[0]['vwDateFrom'])?$arrVol[0]['vwDateFrom']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=isset($arrVol[0]['vwDateTo'])?$arrVol[0]['vwDateTo']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmHours" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmHours" value="<?=isset($arrVol[0]['vwHours'])?$arrVol[0]['vwHours']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strNature" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strNature" value="<?=isset($arrVol[0]['vwPosition'])?$arrVol[0]['vwPosition']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strOrgName" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strOrgName">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strAddress" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strAddress">
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <select type="text" class="form-control" name="dtmDateFrom"></select>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <select type="text" class="form-control" name="dtmDateTo"></select>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +222,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmHours" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmHours">
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strNature" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strNature">
                                     </div>
                                 </div>
                             </div>

@@ -4,14 +4,14 @@
        <b>SPOUSE INFORMATION:</b><br><br>
             <li>Name of Spouse : <?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></li><br>
             <li>Occupation : <?=$arrData['spouseWork']?></li><br>
-            <li>Employer/Business Name : : <?=$arrData['spouseBusName']?></li><br>
+            <li>Employer/Business Name : <?=$arrData['spouseBusName']?></li><br>
             <li>Business Address : <?=$arrData['spouseBusAddress']?></li><br>
             <li>Telephone Number : <?=$arrData['spouseTelephone']?></li><br>
             <div class="margin-top-10">
-            <a class="btn green" data-toggle="modal" href="#spouse_modal"> Edit </a>
+            <a class="btn green" data-toggle="modal" href="#editSpouse_modal"> Edit </a>
             </div><br>
     </ul>
-    <div class="modal fade bs-modal-lg"  id="spouse_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-modal-lg"  id="editSpouse_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strSurname" value="<?=isset($arrData[0]['spouseSurname'])?$arrData[0]['spouseSurname']:''?>">
+                            <input type="text" class="form-control" name="strSurname" value="<?=isset($arrData['spouseSurname'])?$arrData['spouseSurname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strFirstname" value="<?=isset($arrData[0]['spouseFirstname'])?$arrData[0]['spouseFirstname']:''?>">
+                            <input type="text" class="form-control" name="strFirstname" value="<?=isset($arrData['spouseFirstname'])?$arrData['spouseFirstname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strMidllename" value="<?=isset($arrData[0]['spouseMiddlename'])?$arrData[0]['spouseMiddlename']:''?>">
+                            <input type="text" class="form-control" name="strMidllename" value="<?=isset($arrData['spouseMiddlename'])?$arrData['spouseMiddlename']:''?>">
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strExt" value="<?=isset($arrData[0]['spousenameExtension'])?$arrData[0]['spousenameExtension']:''?>">
+                            <input type="text" class="form-control" name="strExt" value="<?=isset($arrData['spousenameExtension'])?$arrData['spousenameExtension']:''?>">
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strOccupation" value="<?=isset($arrData[0]['spouseWork'])?$arrData[0]['spouseWork']:''?>">
+                            <input type="text" class="form-control" name="strOccupation" value="<?=isset($arrData['spouseWork'])?$arrData['spouseWork']:''?>">
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strEmployer" value="<?=isset($arrData[0]['spouseBusName'])?$arrData[0]['spouseBusName']:''?>">
+                            <input type="text" class="form-control" name="strEmployer" value="<?=isset($arrData['spouseBusName'])?$arrData['spouseBusName']:''?>">
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strBusAdd" value="<?=isset($arrData[0]['spouseBusAddress'])?$arrData[0]['spouseBusAddress']:''?>">
+                            <input type="text" class="form-control" name="strBusAdd" value="<?=isset($arrData['spouseBusAddress'])?$arrData['spouseBusAddress']:''?>">
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strTelephone" value="<?=isset($arrData[0]['spouseTelephone'])?$arrData[0]['spouseTelephone']:''?>">
+                            <input type="text" class="form-control" name="strTelephone" value="<?=isset($arrData['spouseTelephone'])?$arrData['spouseTelephone']:''?>">
                         </div>
                     </div>
                 </div><br>
@@ -161,12 +161,12 @@
         <b>PARENT INFORMATION:</b><br><br>
             <li>Name of Father : <?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></li><br>
             <li>Name of Mother : <?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></li><br>
-            <li>Parents Address : : <?=$arrData['parentAddress']?></li><br>
+            <li>Parents Address : <?=$arrData['parentAddress']?></li><br>
              <div class="margin-top-10">
-            <a class="btn green" data-toggle="modal" href="#parent_modal"> Edit </a>
+            <a class="btn green" data-toggle="modal" href="#editParent_modal"> Edit </a>
             </div><br>
     </ul>
-    <div class="modal fade bs-modal-lg"  id="parent_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-modal-lg"  id="editParent_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -197,7 +197,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strFSurname" value="<?=isset($arrData[0]['fatherSurname'])?$arrData[0]['fatherSurname']:''?>">
+                            <input type="text" class="form-control" name="strFSurname" value="<?=isset($arrData['fatherSurname'])?$arrData['fatherSurname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strFFirstname" value="<?=isset($arrData[0]['fatherFirstname'])?$arrData[0]['fatherFirstname']:''?>">
+                            <input type="text" class="form-control" name="strFFirstname" value="<?=isset($arrData['fatherFirstname'])?$arrData['fatherFirstname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -229,7 +229,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strFMidname" value="<?=isset($arrData[0]['fatherMiddlename'])?$arrData[0]['fatherMiddlename']:''?>">
+                            <input type="text" class="form-control" name="strFMidname" value="<?=isset($arrData['fatherMiddlename'])?$arrData['fatherMiddlename']:''?>">
                         </div>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strFExtension" value="<?=isset($arrData[0]['fathernameExtension'])?$arrData[0]['fathernameExtension']:''?>">
+                            <input type="text" class="form-control" name="strFExtension" value="<?=isset($arrData['fathernameExtension'])?$arrData['fathernameExtension']:''?>">
                         </div>
                     </div>
                 </div></br>
@@ -272,7 +272,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strMSurname" value="<?=isset($arrData[0]['motherSurname'])?$arrData[0]['motherSurname']:''?>">
+                            <input type="text" class="form-control" name="strMSurname" value="<?=isset($arrData['motherSurname'])?$arrData['motherSurname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strMFirstname" value="<?=isset($arrData[0]['motherFirstname'])?$arrData[0]['motherFirstname']:''?>">
+                            <input type="text" class="form-control" name="strMFirstname" value="<?=isset($arrData['motherFirstname'])?$arrData['motherFirstname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -304,7 +304,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strMMiddlename" value="<?=isset($arrData[0]['motherMiddlename'])?$arrData[0]['motherMiddlename']:''?>">
+                            <input type="text" class="form-control" name="strMMiddlename" value="<?=isset($arrData['motherMiddlename'])?$arrData['motherMiddlename']:''?>">
                         </div>
                     </div>
                 </div><br>
@@ -328,13 +328,13 @@
         <tr>
             <td><?=$row['childName']?></td>
             <td><?=$row['childBirthDate']?></td>
-            <td><a class="btn green" data-toggle="modal" href="#children_modal"> Edit </a>
+            <td><a class="btn green" data-toggle="modal" href="#editChildren_modal"> Edit </a>
             <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
         </tr>
         <?php endforeach;?>
         <br>
     
-     <div class="modal fade bs-modal-lg"  id="children_modal" tabindex="-1" role="dialog" aria-hidden="true">
+     <div class="modal fade bs-modal-lg"  id="editChildren_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -365,7 +365,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCFirstname" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                            <input type="text" class="form-control" name="strCFirstname" value="<?=isset($arrData['childName'])?$arrData['childName']:''?>">
                         </div>
                     </div>
                 </div>
@@ -382,7 +382,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCBirthdate" value="<?=isset($arrData[0]['childBirthDate'])?$arrData[0]['childBirthDate']:''?>">
+                            <input type="text" class="form-control" name="strCBirthdate" value="<?=isset($arrData['childBirthDate'])?$arrData['childBirthDate']:''?>">
                         </div>
                     </div>
                 </div><br>

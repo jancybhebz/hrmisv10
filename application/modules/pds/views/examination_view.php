@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strExamDesc" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strExamDesc" value="<?=isset($arrExam[0]['examCode'])?$arrExam[0]['examCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strRating" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strRating" value="<?=isset($arrExam[0]['examRating'])?$arrExam[0]['examRating']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strLicense" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strLicense" value="<?=isset($arrExam[0]['examPlace'])?$arrExam[0]['examPlace']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strLicense" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strLicense" value="<?=isset($arrExam[0]['licenseNumber'])?$arrExam[0]['licenseNumber']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strValidity" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strValidity" value="<?=isset($arrExam[0]['dateRelease'])?$arrExam[0]['dateRelease']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strExamDesc" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <select type="text" class="form-control" name="strExamDesc"></select>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strRating" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strRating">
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +177,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strLicense" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strLicense">
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strLicense" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strLicense">
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strValidity" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <select type="text" class="form-control" name="dtmValidity"></select>
                                     </div>
                                 </div>
                             </div>

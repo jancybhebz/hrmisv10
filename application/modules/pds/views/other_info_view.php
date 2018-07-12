@@ -14,10 +14,10 @@
                     <td><?=$arrData['skills']?></td>
                     <td><?=$arrData['nadr']?></td>
                     <td><?=$arrData['miao']?></td>
-                    <td> <a class="btn green" data-toggle="modal" href="#skills_modal"> Edit </a>
+                    <td> <a class="btn green" data-toggle="modal" href="#editSkills_modal"> Edit </a>
                     <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
                 </tr>
-                <div class="modal fade bs-modal-lg"  id="skills_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade bs-modal-lg"  id="editSkills_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSkill" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strSkill" value="<?=isset($arrData['skills'])?$arrData['skills']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strNonAcademic" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strNonAcademic" value="<?=isset($arrData['nadr'])?$arrData['nadr']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strMembership" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strMembership" value="<?=isset($arrData['miao'])?$arrData['miao']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSkill" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strSkill">
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strNonAcademic" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strNonAcademic">
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strMembership" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strMembership">
                                     </div>
                                 </div>
                             </div>
