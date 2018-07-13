@@ -318,7 +318,7 @@
      </div>
 
         <b>CHILDREN INFORMATION:</b><br><br>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" id="table-child">
         <tr>
             <th width="30%">Name of Children </th>
             <th width="30%">Date of Birth </th>
@@ -329,7 +329,8 @@
             <td><?=$row['childName']?></td>
             <td><?=$row['childBirthDate']?></td>
             <td><a class="btn green" data-toggle="modal" href="#editChildren_modal"> Edit </a>
-            <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+            <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteChild"> Delete </a>
+             
         </tr>
         <?php endforeach;?>
         <br>
@@ -455,7 +456,34 @@
     </table>
 </form>
 
-<!-- EDIT -->
+
 
 <!-- DELETE -->
+<div class="modal fade bs-modal-lg"  id="deleteChild" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><b>Children's Information</b></h4>
+            </div>
+        
+            <div class="modal-body"> Are you sure you want to delete this data? </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button type="button" class="btn green" id="btndelete">Yes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
+<script>
+
+    $('#btndelete').click(function() {
+    $.ajax ({type : 'GET', url: 'family_background_view/delete?tab='+tab+'&code='+code,
+        success: function(){
+            toastr.success('Name of Child '+code+' successfully deleted.','Success');
+            $('#delete').modal('hide');
+            $('[data-code="' + code + '"]').closest('tr').hide(); }});
+</script>

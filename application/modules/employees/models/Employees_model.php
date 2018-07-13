@@ -2,6 +2,34 @@
 class Employees_model extends CI_Model {
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
+
+	var $table2 = 'tblEmpChild';
+	var $tableid2 = 'childCode';
+
+	var $table3 = 'tblEmpSchool';
+	var $tableid3 = 'levelCode';
+
+	var $table4 = 'tblempexam';
+	var $tableid4 = 'examCode';
+
+	var $table5 = 'tblservicerecord';
+	var $tableid5 = 'serviceRecID';
+
+	var $table6 = 'tblempvoluntarywork';
+	var $tableid6 = 'vwName';
+
+	var $table7 = 'tblemptraining';
+	var $tableid7 = 'XtrainingCode';
+
+	var $table8 = 'tblempposition';
+	var $tableid8 = 'appointmentCode';
+
+	var $table9 = 'tblempduties';
+	var $tableid9 = 'duties';
+
+	var $table10 = 'tblplantilladuties';
+	var $tableid10 = 'itemDuties';
+
 	public function __construct()
 	{
 		$this->load->database();
@@ -58,7 +86,7 @@ class Employees_model extends CI_Model {
 		return $objQuery->result_array();	
 	}			
 		
-	public function save($arrData, $strEmpNo)
+	public function savePersonal($arrData, $strEmpNo)
 	{
 		$this->db->where($this->tableid,$strEmpNo);
 		$this->db->update($this->table, $arrData);

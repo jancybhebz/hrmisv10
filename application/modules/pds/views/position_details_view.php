@@ -107,7 +107,7 @@
                 </tr>
                 <tr>
                     <td>  <a class="btn green" data-toggle="modal" href="#editPosition_modal"> Edit </a>
-                    <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                   
                 </tr>
                <?php endforeach; ?>
                <div class="modal fade in" id="editPosition_modal" tabindex="-1" role="full" aria-hidden="true">

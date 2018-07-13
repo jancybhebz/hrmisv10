@@ -59,5 +59,107 @@ class Employees extends MY_Controller {
 		
 	// }
 
+	public function editPersonal()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+		 print_r($arrPost);
+		  die();
+			$strSalutation =$arrPost['strSalutation '];
+			$strSurname=$arrPost['strSurname'];
+			$strFirstname=$arrPost['strFirstname'];
+			$strMidInitial=$arrPost['strMidInitial'];
+			$strMidname=$arrPost['strMidname'];
+			$strNameExt=$arrPost['strNameExt'];
+			$strLot1=$arrPost['strLot1'];
+			$strLot2=$arrPost['strLot2'];
+			$strStreet1=$arrPost['strStreet1'];
+			$strStreet2=$arrPost['strStreet2'];
+			$strSubd1=$arrPost['strSubd1'];
+			$strSubd2=$arrPost['strSubd2'];
+			$strBrgy1=$arrPost['strBrgy1'];
+			$strBrgy2=$arrPost['strBrgy2'];
+			$strProvince1=$arrPost['strProvince1'];
+			$strProvince2=$arrPost['strProvince2'];
+			$strCity1=$arrPost['strCity1'];
+			$strCity2=$arrPost['strCity2'];
+			$strBday=$arrPost['strBday'];
+			$strBPlace=$arrPost['strBPlace'];
+			$strTel1=$arrPost['strTel1'];
+			$strTel2=$arrPost['strTel2'];
+			$strSex=$arrPost['strSex'];
+			$strCvlStatus=$arrPost['strCvlStatus'];
+			$strGSIS=$arrPost['strGSIS'];
+			$strMobile=$arrPost['strMobile'];
+			$strCitizenship=$arrPost['strCitizenship'];
+			$strPagibig=$arrPost['strPagibig'];
+			$strEmail=$arrPost['strEmail'];
+			$strHeight=$arrPost['strHeight'];
+			$strPHealth=$arrPost['strPHealth'];
+			$strAccountNum=$arrPost['strAccountNum'];
+			$strWeight=$arrPost['strWeight'];
+			$strTin=$arrPost['strTin'];
+			$strSSS=$arrPost['strSSS'];
+			$strBloodType=$arrPost['strBloodType'];
+			$empID = $this->uri->segment(4);
+
+			if(!empty($strSurname) && !empty($strFirstname) && !empty($strMidInitial) && !empty($strProvince1) && !empty($strProvince2) && !empty($strCity1) && !empty($strCity2))
+			{	
+				$arrPosition = array(
+					'salutation'=>$strSalutation,
+					'surname'=>$strSurname,
+					'firstname'=>$strFirstname,
+					'middlename'=>$strMidname,
+					'middleInitial'=>$strMidInitial,
+					'nameExtension'=>$strNameExt,
+					'lot1'=>$strLot1,
+					'lot2'=>$strLot2,
+					'street1'=>$strStreet1,
+					'street2'=>$strStreet2,
+					'subdivision1'=>$strSubd1,
+					'subdivision2'=>$strSubd2,
+					'barangay1'=>$strBrgy1,
+					'barangay2'=>$strBrgy2,
+					'city1'=>$strCity1,
+					'city2'=>$strCity2,
+					'province1'=>$strProvince1,
+					'province2'=>$strProvince2,
+					'birthday'=>$strBday,
+					'zipCode1'=>$strZip1,
+					'zipCode2'=>$strZip2,
+					'birthPlace'=>$strBPlace,
+					'telephone1'=>$strTel1,
+					'telephone2'=>$strTel2,
+					'sex'=>$strSex,
+					'civilStatus'=>$strCvlStatus,
+					'gsisNumber'=>$strGSIS,
+					'Mobile'=>$strMobile,
+					'citizenship'=>$strCitizenship,
+					'pagibigNumber'=>$strPagibig,
+					'email'=>$strEmail,
+					'height'=>$strHeight,
+					'philHealthNumber'=>$strPHealth,
+					'AccountNum'=>$strAccountNum,
+					'weight'=>$strWeight,
+					'tin'=>$strTin,
+					'sss'=>$strSSS,
+					'bloodType'=>$strBloodType
+					
+				);
+				$blnReturn=$this->employees_model->savePersonal($arrData, $empID);
+				logaction('Updated Personal Information',1);
+				$this->session->set_flashdata('saving_status','Personal Information updated successfully.');
+				redirect('libraries/personal_info');
+				
+			}
+		}else {
+			$strid = urldecode($this->uri->segment(4));	
+			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->template->load('template/main_layout', 'libraries/personal_info_view', $this->arrTemplateData);
+		}
+	    	
+    }
+
 	
 }

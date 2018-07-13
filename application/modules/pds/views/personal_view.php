@@ -79,7 +79,7 @@
             </tr>
         </table>      
          <div class="margin-top-10">
-            <a class="btn green" data-toggle="modal" href="#editPersonal_modal"> Edit </a>
+            <a class="btn green" data-toggle="modal" href="#editPersonal_modal" onclick="editPersonal(<?=$arrData['empID']?>)"> Edit </a>
         </div><br>                        
     </form>
     <div class="modal fade in" id="editPersonal_modal" tabindex="-1" role="full" aria-hidden="true">
@@ -526,7 +526,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strAccountNum" value="<?=isset($arrData['AccountNum'])?$arrData['AccountNum']:''?>">
+                            <input type="text" class="form-control" name="  " value="<?=isset($arrData['AccountNum'])?$arrData['AccountNum']:''?>">
                         </div>
                     </div>
                 </div>
@@ -578,7 +578,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strSalutation" value="<?=isset($arrData['bloodType'])?$arrData['bloodType']:''?>">
+                            <input type="text" class="form-control" name="strBloodType" value="<?=isset($arrData['bloodType'])?$arrData['bloodType']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-3">
@@ -593,7 +593,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save</button>
+                    <button type="submit" class="btn green">Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->

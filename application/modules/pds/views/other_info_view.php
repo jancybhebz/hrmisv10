@@ -15,7 +15,7 @@
                     <td><?=$arrData['nadr']?></td>
                     <td><?=$arrData['miao']?></td>
                     <td> <a class="btn green" data-toggle="modal" href="#editSkills_modal"> Edit </a>
-                    <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                   <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteSkills"> Delete </a></td>
                 </tr>
                 <div class="modal fade bs-modal-lg"  id="editSkills_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -150,6 +150,28 @@
                 <!-- /.modal-dialog -->
             </div><br>
             </table>
+
+            <!-- DELETE -->
+            <div class="modal fade bs-modal-lg"  id="deleteSkills" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"><b>Skills</b></h4>
+                        </div>
+                    
+                        <div class="modal-body"> Are you sure you want to delete this data? </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn green" id="btndelete">Yes</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
         <b>LEGAL INFORMATION :</b><br><br>                        
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
@@ -200,7 +222,7 @@
                 </tr>
                 <tr>
                     <td> <a class="btn green" data-toggle="modal" href="#Legal_modal"> Edit </a>
-                    <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                    
                 </tr>
 
                 <div class="modal fade in" id="Legal_modal" tabindex="-1" role="full" aria-hidden="true">
@@ -382,3 +404,16 @@
         </table>
     </form>
 </div>
+
+
+
+<script>
+
+    $('#btndelete').click(function() {
+    $.ajax ({type : 'GET', url: 'other_info_view/delete?tab='+tab+'&code='+code,
+        success: function(){
+            toastr.success('Skills'+code+' successfully deleted.','Success');
+            $('#delete').modal('hide');
+            $('[data-code="' + code + '"]').closest('tr').hide(); }});
+    
+</script>

@@ -67,7 +67,7 @@
                     <td></td>
                     <td></td>
                     <td colspan="2"> <a class="btn green" data-toggle="modal" href="#editDuties_position_modal"> Edit </a>
-                    <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteDutiesPosition"> Delete </a></td>
                 </tr>
                 <div class="modal fade bs-modal-lg"  id="editDuties_position_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -120,6 +120,25 @@
                 </div>
 
             </table><br><br>
+            <!-- DELETE -->
+            <div class="modal fade bs-modal-lg"  id="deleteDutiesPosition" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"><b>-- Duties & Responsibility of Position --</b></h4>
+                        </div>
+                    
+                        <div class="modal-body"> Are you sure you want to delete this data? </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn green" id="btndelete">Yes</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
                 
             <table class="table table-bordered table-striped" class="table-responsive">
             <a class="btn green" data-toggle="modal" href="#addDuties_plantilla_modal"> Add </a>                    
@@ -185,7 +204,7 @@
                     <td><?=$row['itemDuties']?></td>
                     <td><?=$row['percentWork']?></td>
                     <td colspan="2"> <a class="btn green" data-toggle="modal" href="#editDuties_plantilla_modal"> Edit </a>
-                    <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteDutiesPlantilla"> Delete </a></td>
                 </tr>
                 <?php endforeach; ?>
                 <div class="modal fade bs-modal-lg"  id="editDuties_plantilla_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -238,6 +257,26 @@
                 <!-- /.modal-dialog -->
                 </div>
             </table><br><br>
+            <!-- DELETE -->
+            <div class="modal fade bs-modal-lg"  id="deleteDutiesPlantilla" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"><b>-- Duties & Responsibility of Plantilla --</b></h4>
+                        </div>
+                    
+                        <div class="modal-body"> Are you sure you want to delete this data? </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn green" id="btndelete">Yes</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div> 
+
             <table class="table table-bordered table-striped" class="table-responsive">
             <a class="btn green" data-toggle="modal" href="#addActual_modal"> Add </a>                    
             <div class="modal fade bs-modal-lg"  id="addActual_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -302,7 +341,7 @@
                     <td><?=$row['duties']?></td>
                     <td><?=$row['percentWork']?></td>
                     <td colspan="2"><a class="btn green" data-toggle="modal" href="#editActual_modal"> Edit </a>  
-                    <a href="<?=base_url('employees/profile/delete')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a></td>
+                    <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteActualDuties"> Delete </a></td>
                 </tr>
                 <?php endforeach; ?>
                 <div class="modal fade bs-modal-lg"  id="editActual_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -355,5 +394,35 @@
                 <!-- /.modal-dialog -->
                 </div>
             </table><br><br>
+            <!-- DELETE -->
+            <div class="modal fade bs-modal-lg"  id="deleteActualDuties" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"><b>-- Actual Duties & Responsibilities --</b></h4>
+                        </div>
+                    
+                        <div class="modal-body"> Are you sure you want to delete this data? </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn green" id="btndelete">Yes</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
     </form>
 </div>
+
+<script>
+
+    $('#btndelete').click(function() {
+    $.ajax ({type : 'GET', url: 'duties_and_responsibilities_view/delete?tab='+tab+'&code='+code,
+        success: function(){
+            toastr.success('Duty'+code+' successfully deleted.','Success');
+            $('#delete').modal('hide');
+            $('[data-code="' + code + '"]').closest('tr').hide(); }});
+    
+</script>
