@@ -161,5 +161,47 @@ class Employees extends MY_Controller {
 	    	
     }
 
+    public function editParent()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+		 // print_r($arrPost);
+		 //  die();
+			$fatherSurname =$arrPost['fatherSurname '];
+			$fatherFirstname=$arrPost['fatherFirstname'];
+			$fathernameExtension=$arrPost['fathernameExtension'];
+			$motherFirstname=$arrPost['motherFirstname'];
+			$motherMiddlename=$arrPost['motherMiddlename'];
+			$parentAddress=$arrPost['motherSurname'];
+			$parentAddress=$arrPost['parentAddress'];
+			$empID = $this->uri->segment(4);
+
+			if(!empty($fatherSurname) && !empty($fatherFirstname) && !empty($motherFirstname) && !empty($motherSurname) && !empty($parentAddress))
+			{	
+				$arrData = array(
+					'fatherSurname'=>$fatherSurname,
+					'fatherFirstname'=>$fatherFirstname,
+					'fathernameExtension'=>$fathernameExtension,
+					'motherFirstname'=>$motherFirstname,
+					'motherMiddlename'=>$motherMiddlename,
+					'motherSurname'=>$motherSurname,
+					'parentAddress'=>$parentAddress,
+			
+					
+				);
+				$blnReturn=$this->employees_model->saveParents($arrData, $empID);
+				logaction('Updated Parents Information',1);
+				$this->session->set_flashdata('saving_status','Parents Information updated successfully.');
+				redirect('libraries/family_background_view');
+				
+			}
+		}else {
+			$strid = urldecode($this->uri->segment(4));	
+			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->template->load('template/main_layout', 'libraries/family_background_view', $this->arrTemplateData);
+		}
+	    	
+    }
 	
 }

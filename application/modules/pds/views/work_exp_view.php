@@ -22,7 +22,7 @@
                     <td><?=$row['appointmentCode']?></td>
                     <td><?=$row['governService']?></td>
                     <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Edit </a>
-                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteWorkExp"> Delete </a></a></td>></a></td>
+                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteWorkExp"> Delete </a></td>
                 </tr>
                 <?php endforeach;?>
                 <div class="modal fade bs-modal-lg"  id="workExp_modal" tabindex="-1" role="dialog" aria-hidden="true">
