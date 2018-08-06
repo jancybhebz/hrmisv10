@@ -48,7 +48,7 @@
                                         <a href="#tab-deduction" data-toggle="tab"> Deduction Summary </a>
                                     </li>
                                     <li>
-                                        <a href="#tab-loans" data-toggle="tab"> Premiums/Loans </a>
+                                        <a href="#tab-premiumLoans" data-toggle="tab"> Premiums/Loans </a>
                                     </li>
                                     <li>
                                         <a href="#tab-remittances" data-toggle="tab"> Remittances </a>
@@ -69,23 +69,23 @@
                                     </div>
 
                                     <div class="tab-pane fade" id="tab-income">
-                                        <p> Food truck fixie locavore,  </p>
+                                        <?php include('_income.php') ?>
                                     </div>
 
                                     <div class="tab-pane fade" id="tab-deduction">
-                                        <p> Food truck fixie locavore,  </p>
+                                        <?php include('_deduction_summary.php') ?>
                                     </div>
 
-                                    <div class="tab-pane fade" id="tab-loans">
-                                        <p> Food truck fixie locavore,  </p>
+                                    <div class="tab-pane fade" id="tab-premiumLoans">
+                                        <?php include('_premiumLoans.php') ?>
                                     </div>
 
                                     <div class="tab-pane fade" id="tab-remittances">
-                                        <p> Food truck fixie locavore,  </p>
+                                        <?php include('_remittances.php') ?>
                                     </div>
 
                                     <div class="tab-pane fade" id="tab-tax">
-                                        <p> Food truck fixie locavore,  </p>
+                                        <?php include('_tax_details.php') ?>
                                     </div>
 
                                     <div class="tab-pane fade" id="tab-dtr">
@@ -93,7 +93,7 @@
                                     </div>
 
                                     <div class="tab-pane fade" id="tab-adjustments">
-                                        <p> Food truck fixie locavore,  </p>
+                                        <?php include('_adjustments.php') ?>
                                     </div>
 
                                 </div>
@@ -106,3 +106,4 @@
         </div>
     </div>
 </div>
+<?php load_plugin('js',array('datatable'));?>

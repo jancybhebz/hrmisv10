@@ -16,27 +16,27 @@
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
-                                    <th width="25%">Appointment Status</th>
+                                    <td width="25%"><b>Appointment Status</b></td>
                                     <td width="25%"><?=$arrData['statusOfAppointment']?></td>
-                                    <th width="25%">TIN Number</th>
+                                    <td width="25%"><b>TIN Number</b></td>
                                     <td width="25%"><?=$arrData['tin']?></td>
                                 </tr>
                                 <tr>
-                                    <th>Salary</th>
+                                    <td><b>Salary</b></td>
                                     <td><?=number_format($arrData['actualSalary'], 2)?></td>
-                                    <th>GSIS Number</th>
+                                    <td><b>GSIS Number</b></td>
                                     <td><?=$arrData['gsisNumber']?></td>
                                 </tr>
                                 <tr>
-                                    <th>Group</th>
+                                    <td><b>Group</b></td>
                                     <td><?=office_name(employee_office($this->uri->segment(5)))?></td>
-                                    <th>PhilHealth Number</th>
+                                    <td><b>PhilHealth Number</b></td>
                                     <td><?=$arrData['philHealthNumber']?></td>
                                 </tr>
                                 <tr>
-                                    <th>Position</th>
+                                    <td><b>Position</b></td>
                                     <td><?=$arrData['positionDesc']?></td>
-                                    <th>PAGIBIG Number</th>
+                                    <td><b>PAGIBIG Number</b></td>
                                     <td><?=$arrData['pagibigNumber']?></td>
                                 </tr>
                             </tbody>
@@ -87,318 +87,133 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab-payrollsummary">
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-advance table-hover">
+                            <table class="table table-striped table-bordered table-advance">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <i class="fa fa-briefcase"></i> Company </th>
-                                        <th class="hidden-xs">
-                                            <i class="fa fa-question"></i> Descrition </th>
-                                        <th>
-                                            <i class="fa fa-bookmark"></i> Amount </th>
                                         <th> </th>
+                                        <td class="active bold right">PERIOD 1</td>
+                                        <td class="active bold right">PERIOD 2</td>
+                                        <td class="active bold right">TOTAL</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Pixel Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Server hardware purchase </td>
-                                        <td> 52560.10$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td> <b>Period Pay</b> </td>
+                                        <td class="right">asdf</td>
+                                        <td class="right"></td>
+                                        <td class="right"></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Smart House </a>
-                                        </td>
-                                        <td class="hidden-xs"> Office furniture purchase </td>
-                                        <td> 5760.00$
-                                            <span class="label label-warning label-sm"> Pending </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td> <b>Benefits</b> </td>
+                                        <td class="right"></td>
+                                        <td class="right"></td>
+                                        <td class="right"></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> FoodMaster Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-                                        <td> 12400.00$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td> <b>Deductions</b> </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> WaterPure Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Payment for Jan 2013 </td>
-                                        <td> 610.50$
-                                            <span class="label label-danger label-sm"> Overdue </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;"> Pixel Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Server hardware purchase </td>
-                                        <td> 52560.10$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;"> Smart House </a>
-                                        </td>
-                                        <td class="hidden-xs"> Office furniture purchase </td>
-                                        <td> 5760.00$
-                                            <span class="label label-warning label-sm"> Pending </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;"> FoodMaster Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-                                        <td> 12400.00$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td class="active"> <b>Net Pay</b> </th>
+                                        <td class="active"></td>
+                                        <td class="active"></td>
+                                        <td class="active"></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
-                    <div class="tab-pane active" id="tab-payrolldetails">
+                    <div class="tab-pane" id="tab-payrolldetails">
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-advance table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <i class="fa fa-briefcase"></i> Company </th>
-                                        <th class="hidden-xs">
-                                            <i class="fa fa-question"></i> Descrition </th>
-                                        <th>
-                                            <i class="fa fa-bookmark"></i> Amount </th>
-                                        <th> </th>
-                                    </tr>
-                                </thead>
+                            <table class="table table-striped table-bordered table-advance">
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Pixel Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Server hardware purchase </td>
-                                        <td> 52560.10$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Payroll Group</b> </td>
+                                        <td><?=$pg['payrollGroupName']?></td>
+                                        <td><b>Tax Status</b></td>
+                                        <td><?=$arrData['taxStatCode']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Smart House </a>
-                                        </td>
-                                        <td class="hidden-xs"> Office furniture purchase </td>
-                                        <td> 5760.00$
-                                            <span class="label label-warning label-sm"> Pending </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Included in Payroll </b></td>
+                                        <td><?=$arrData['payrollSwitch']?></td>
+                                        <td><b>No. of Dependents</b></td>
+                                        <td><?=$arrData['dependents']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> FoodMaster Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-                                        <td> 12400.00$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Attendance Scheme</b></td>
+                                        <td><?=$arrData['schemeCode']?></td>
+                                        <td><b>With Health Insurance Exemption?</b></td>
+                                        <td><?=$arrData['healthProvider']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> WaterPure Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Payment for Jan 2013 </td>
-                                        <td> 610.50$
-                                            <span class="label label-danger label-sm"> Overdue </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Account Number</b></td>
+                                        <td><?=$arrData['AccountNum']?></td>
+                                        <td><b>Tax Rate</b></td>
+                                        <td><?=$arrData['taxRate']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Pixel Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Server hardware purchase </td>
-                                        <td> 52560.10$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Self Employed Tax Status</b></td>
+                                        <td><?=$arrData['taxSwitch']?></td>
+                                        <td><b>(Authorize Salary *) Hazard Pay Factor</b></td>
+                                        <td><?=$arrData['hpFactor']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Smart House </a>
-                                        </td>
-                                        <td class="hidden-xs"> Office furniture purchase </td>
-                                        <td> 5760.00$
-                                            <span class="label label-warning label-sm"> Pending </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;"> FoodMaster Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-                                        <td> 12400.00$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>With Government Vehicle?</b></td>
+                                        <td><?=$arrData['RATAVehicle']?></td>
+                                        <td><b>RATA Code</b></td>
+                                        <td><?=isset($rata['RATACode']) ? $rata['RATACode'] : ''?> <?=isset($rata['RATAAmount']) ? '('.number_format($rata['RATAAmount'], 2).')' : ''?></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <button class="btn green" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
                         </div>
                     </div>
 
-                    <div class="tab-pane active" id="tab-positiondetails">
+                    <div class="tab-pane" id="tab-positiondetails">
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-advance table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <i class="fa fa-briefcase"></i> Company </th>
-                                        <th class="hidden-xs">
-                                            <i class="fa fa-question"></i> Descrition </th>
-                                        <th>
-                                            <i class="fa fa-bookmark"></i> Amount </th>
-                                        <th> </th>
-                                    </tr>
-                                </thead>
+                            <table class="table table-striped table-bordered table-advance">
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Pixel Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Server hardware purchase </td>
-                                        <td> 52560.10$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Appointment Desc </b></td>
+                                        <td><?=$arrData['appointmentDesc']?></td>
+                                        <td><b>Position Date</b></td>
+                                        <td><?=$arrData['positionDate']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Smart House </a>
-                                        </td>
-                                        <td class="hidden-xs"> Office furniture purchase </td>
-                                        <td> 5760.00$
-                                            <span class="label label-warning label-sm"> Pending </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Item Number</b></td>
+                                        <td><?=$arrData['uniqueItemNumber']?></td>
+                                        <td><b>Mode of Separation</b></td>
+                                        <td><?=$arrData['statusOfAppointment']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> FoodMaster Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-                                        <td> 12400.00$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Actual Salary</b></td>
+                                        <td><?=number_format($arrData['actualSalary'], 2)?></td>
+                                        <td><b>Salary Grade</b></td>
+                                        <td><?=$arrData['salaryGradeNumber']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> WaterPure Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Payment for Jan 2013 </td>
-                                        <td> 610.50$
-                                            <span class="label label-danger label-sm"> Overdue </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Authorize Salary</b></td>
+                                        <td><?=number_format($arrData['authorizeSalary'], 2)?></td>
+                                        <td><b>Step Number</b></td>
+                                        <td><?=$arrData['stepNumber']?></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a href="javascript:;"> Pixel Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Server hardware purchase </td>
-                                        <td> 52560.10$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;"> Smart House </a>
-                                        </td>
-                                        <td class="hidden-xs"> Office furniture purchase </td>
-                                        <td> 5760.00$
-                                            <span class="label label-warning label-sm"> Pending </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:;"> FoodMaster Ltd </a>
-                                        </td>
-                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-                                        <td> 12400.00$
-                                            <span class="label label-success label-sm"> Paid </span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-                                        </td>
+                                        <td><b>Position</b></td>
+                                        <td><?=$arrData['positionDesc']?></td>
+                                        <td><b>Date Increment</b></td>
+                                        <td><?=$arrData['dateIncremented']?></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <button class="btn green" data-toggle="modal" href="#positionDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
+<?php include('_modal.php'); ?>

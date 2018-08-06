@@ -47,16 +47,18 @@
                                     <th> Name </th>
                                     <th> Office </th>
                                     <th> Position </th>
+                                    <th> Action </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $no=1; foreach($arrEmployees as $row): ?>
-                                    <tr class="odd gradeX " data-id="<?=$row['empNumber']?>">
+                                    <tr class="odd gradeX ">
                                         <td><?=$no++?> </td>
                                         <td> <?=$row['empNumber']?></a> </td>
                                         <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
                                         <td> <?=employee_office($row['empNumber'])?> </td>
                                         <td> <?=$row['positionDesc']?></td>
+                                        <td> <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -77,8 +79,5 @@
                 $('.loading-image').hide();
                 $('#table-employees').show();
             }} );
-        $('#table-employees').on('click', 'tbody > tr', function () {
-            window.location.href = "<?=base_url('finance/compensation/personnel_profile/employee').'/'?>" + $(this).data('id');
-        });
     });
 </script>

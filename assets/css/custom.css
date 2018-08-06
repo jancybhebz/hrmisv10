@@ -1,3 +1,24 @@
+img.dost-logo {
+    width: 27px;
+    float: left;
+    left: 10px;
+    position: absolute;
+    top: 8px;
+}
+.menu-toggler.sidebar-toggler {
+    margin-right: -24px !important;
+}
+
+.border-bottom {
+    border-bottom: 2px solid #ccc !important;
+}
+.bold {
+    font-weight: bolder !important;
+}
+.right {
+    text-align: right;
+}
+
 [v-cloak] { display: none; }
 #table-employees > tbody {
     cursor: pointer;

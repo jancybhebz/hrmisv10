@@ -14,7 +14,7 @@ class Personnel_profile extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employees/employees_model'));
+        $this->load->model(array('employees/employees_model','PayrollGroup_model','Rata_model'));
     }
 
 	public function index()
@@ -27,10 +27,11 @@ class Personnel_profile extends MY_Controller {
 	{
 		$res = $this->employees_model->getData($empid);
 		$this->arrData['arrData'] = $res[0];
+		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
+		$this->arrData['rata'] = $this->Rata_model->getData($res[0]['RATACode']);
+		$this->arrData['pg'] = $this->PayrollGroup_model->getData($res[0]['payrollGroupCode']);
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
-
-
 
 }
 /* End of file Deductions.php

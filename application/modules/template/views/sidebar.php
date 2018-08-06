@@ -117,41 +117,6 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                             <span class="title">Personnel Profile</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Income</span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Deduction Summary</span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Premiums/Loans</span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Remittances</span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Tax Details</span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">DTR</span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Adjustments</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
             <li class="nav-item ">
