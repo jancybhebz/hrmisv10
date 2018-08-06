@@ -88,16 +88,17 @@
                 <div class="row">
                     <div class="col-sm-12 text-right">
                         <div class="form-group">
-                            <button class="btn btn-primary">EDIT</button>
+                             <a href="<?=base_url('employees/profile/edit/')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span>EDIT
                         </div>
                     </div>
                 </div>
+              
                 <div class="row profile-account">
                     <div class="col-md-3">
                         <ul class="ver-inline-menu tabbable margin-bottom-10">
                             <li class="active">
                                 <a data-toggle="tab" href="#tab_personal_info">
-                                    <i class="fa fa-cog"></i> Personal info </a>
+                                    <i class="fa fa-user"></i> Personal info </a>
                                 <span class="after"> </span>
                             </li>
                             <li>
@@ -106,119 +107,92 @@
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_education">
-                                    <i class="fa fa-lock"></i> Education </a>
+                                    <i class="fa fa-mortar-board"></i> Education </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_exam">
-                                    <i class="fa fa-eye"></i> Examination </a>
+                                    <i class="fa fa-certificate"></i> Examination </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_workExp">
+                                    <i class="fa fa-book"></i> Work Experience </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_volWork">
+                                    <i class="glyphicon glyphicon-tags"></i> Voluntary Work </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_training">
+                                    <i class="fa fa-child"></i> Trainings </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_otherInfo">
+                                    <i class="fa fa-envelope"></i> Other Information </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_position">
+                                    <i class="glyphicon glyphicon-lock"></i> Position Details </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_duties">
+                                    <i class="glyphicon glyphicon-paperclip"></i> Duties and Responsibilities </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_appointment">
+                                    <i class="fa fa-edit"></i> Appointment Issued </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_modify">
+                                    <i class="fa fa-edit"></i> Edit / Modify Employee Number </a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-9">
+                      <div class="col-md-9">
                         <div class="tab-content">
-                            <div id="tab_personal_info" class="tab-pane active">
-                                <form role="form" action="#">
-                                    <div class="form-group">
-                                        <label class="control-label">Salutation</label>
-                                        <input type="text" name="strSalutation" value="<?=$arrData['salutation']?>" class="form-control" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">First Name</label>
-                                        <input type="text" name="strFirstName" class="form-control" value="<?=$arrData['firstname']?>" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Last Name</label>
-                                        <input type="text" name="strLastName" class="form-control" value="<?=$arrData['surname']?>" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Middle Name</label>
-                                        <input type="text" name="strMiddleName" class="form-control" value="<?=$arrData['middlename']?>" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Middle Initial</label>
-                                        <input type="text" name="strMiddleInitial" class="form-control" value="<?=$arrData['middleInitial']?>" maxlength="2" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Name Extension</label>
-                                        <input type="text" name="strNameExtension" value="<?=$arrData['nameExtension']?>" class="form-control" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Sex</label>
-                                        <div class="input-group">
-                                            <div class="icheck-inline">                                                
-                                                <label>
-                                                    <div class="iradio_minimal_grey"><input type="radio" class="icheck" name="strSex" value="M" /> Male</div></label>
-                                                <label><div class="iradio_minimal_grey"><input type="radio" class="icheck" name="strSex" value="F" /> Female</div></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Civil Status</label>
-                                        <select class="form-control" name="strCivilStatus">
-                                            <?php 
-                                                foreach(json_decode(CIVIL_STATUS) as $row):?>
-                                                    <option value="<?=$row?>"><?=$row?></option>
-                                            <?php endforeach;?>                                    
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Date of Birth</label>
-                                        <?php 
-                                            $objDate = DateTime::createFromFormat('Y-m-d', $arrData['birthday']);
-                                        ?>
-                                        <input type="text" name="strBirthday" value="<?=$objDate->format('m/d/Y')?>" class="form-control date-picker" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Place of Birth</label>
-                                        <input type="text" name="strBirthPlace" value="<?=$arrData['birthPlace']?>" class="form-control" /> </div>
-                                    <div class="margiv-top-10">
-                                        <a href="javascript:;" class="btn green"> Save Changes </a>
-                                        <a href="javascript:;" class="btn default"> Cancel </a>
-                                    </div>
-                                </form>
-                            </div>
+                           <div id="tab_personal_info" class="tab-pane active">
+                                <?php include('personal_view.php');?>
+                            </div> 
                             <div id="tab_family" class="tab-pane">
-                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                    </p>
-                                <form action="#" role="form">
-                                    <div class="form-group">
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /> </div>
-                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-                                            <div>
-                                                <span class="btn default btn-file">
-                                                    <span class="fileinput-new"> Select image </span>
-                                                    <span class="fileinput-exists"> Change </span>
-                                                    <input type="file" name="..."> </span>
-                                                <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remove </a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix margin-top-10">
-                                            <span class="label label-danger"> NOTE! </span>
-                                            <span> Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
-                                        </div>
-                                    </div>
-                                    <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Submit </a>
-                                        <a href="javascript:;" class="btn default"> Cancel </a>
-                                    </div>
-                                </form>
+                                <?php include('family_background_view.php');?>
                             </div>
                             <div id="tab_education" class="tab-pane">
-                                <form action="#">
-                                    <div class="form-group">
-                                        <label class="control-label">Current Password</label>
-                                        <input type="password" class="form-control" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">New Password</label>
-                                        <input type="password" class="form-control" /> </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Re-type New Password</label>
-                                        <input type="password" class="form-control" /> </div>
-                                    <div class="margin-top-10">
-                                        <a href="javascript:;" class="btn green"> Change Password </a>
-                                        <a href="javascript:;" class="btn default"> Cancel </a>
-                                    </div>
-                                </form>
+                                <?php include('education_view.php');?>
                             </div>
                             <div id="tab_exam" class="tab-pane">
-                                <form action="#">
-                                    <table class="table table-bordered table-striped">
+                                <?php include('examination_view.php');?>
+                            </div>
+                            <div id="tab_workExp" class="tab-pane">
+                                <?php include('work_exp_view.php');?>
+                            </div>
+                            <div id="tab_volWork" class="tab-pane">
+                                <?php include('voluntary_works_view.php');?>
+                            </div>
+                            <div id="tab_training" class="tab-pane">
+                                <?php include('trainings_view.php');?>
+                            </div>
+                            <div id="tab_otherInfo" class="tab-pane">
+                                <?php include('other_info_view.php');?>
+                            </div>
+                            <div id="tab_position" class="tab-pane">
+                                <?php include('position_details_view.php');?>
+                            </div>
+                            <div id="tab_duties" class="tab-pane">
+                                <?php include('duties_and_responsibilities_view.php');?>
+                            </div>
+                            <div id="tab_appointment" class="tab-pane">
+                                <?php include('appointment_issued_view.php');?>
+                            </div>
+                            <div id="tab_modify" class="tab-pane">
+                                <?php include('modify_empnumber_view.php');?>
+                            </div>
+  
+                                    <!--end profile-settings-->
+                                    <!-- <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Save Changes </a>
+                                        <a href="javascript:;" class="btn default"> Cancel </a>
+                                    </div> -->
+
+                                    <!-- <table class="table table-bordered table-striped">
                                         <tr>
                                             <td> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus.. </td>
                                             <td>
@@ -249,13 +223,100 @@
                                                     <input type="checkbox" value="" /> Yes </label>
                                             </td>
                                         </tr>
-                                    </table>
-                                    <!--end profile-settings-->
-                                    <div class="margin-top-10">
+                                    </table> -->
+
+
+                                    <!-- <div class="form-group">
+                                        <label class="control-label">Salutation</label>
+                                        <input type="text" name="strSalutation" value="<?=$arrData['salutation']?>" class="form-control" disabled/> </div>
+                                    <div class="form-group">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" name="strFirstName" class="form-control" value="<?=$arrData['firstname']?>" /> </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" name="strLastName" class="form-control" value="<?=$arrData['surname']?>" /> </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Middle Name</label>
+                                        <input type="text" name="strMiddleName" class="form-control" value="<?=$arrData['middlename']?>" /> </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Middle Initial</label>
+                                        <input type="text" name="strMiddleInitial" class="form-control" value="<?=$arrData['middleInitial']?>" maxlength="2" /> </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Name Extension</label>
+                                        <input type="text" name="strNameExtension" value="<?=$arrData['nameExtension']?>" class="form-control" /> </div> -->
+                                   <!--  <div class="form-group">
+                                        <label class="control-label">Sex</label>
+                                        <div class="input-group">
+                                            <div class="icheck-inline">                                                
+                                                <label>
+                                                    <div class="iradio_minimal_grey"><input type="radio" class="icheck" name="strSex" value="M" /> Male</div></label>
+                                                <label><div class="iradio_minimal_grey"><input type="radio" class="icheck" name="strSex" value="F" /> Female</div></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Civil Status</label>
+                                        <select class="form-control" name="strCivilStatus">
+                                            <?php 
+                                                foreach(json_decode(CIVIL_STATUS) as $row):?>
+                                                    <option value="<?=$row?>"><?=$row?></option>
+                                            <?php endforeach;?>                                    
+                                        </select>
+                                    </div> -->
+                                   <!--  <div class="form-group">
+                                        <label class="control-label">Date of Birth</label>
+                                        <?php 
+                                            $objDate = DateTime::createFromFormat('Y-m-d', $arrData['birthday']);
+                                        ?>
+                                        <input type="text" name="strBirthday" value="<?=$objDate->format('m/d/Y')?>" class="form-control date-picker" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Place of Birth</label>
+                                        <input type="text" name="strBirthPlace" value="<?=$arrData['birthPlace']?>" class="form-control" /> </div>
+                                    <div class="margiv-top-10">
                                         <a href="javascript:;" class="btn green"> Save Changes </a>
                                         <a href="javascript:;" class="btn default"> Cancel </a>
+                                    </div> -->
+                                
+                               <!--  <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                    </p>
+                                <form action="#" role="form">
+                                    <div class="form-group">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /> </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                                            <div>
+                                                <span class="btn default btn-file">
+                                                    <span class="fileinput-new"> Select image </span>
+                                                    <span class="fileinput-exists"> Change </span>
+                                                    <input type="file" name="..."> </span>
+                                                <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix margin-top-10">
+                                            <span class="label label-danger"> NOTE! </span>
+                                            <span> Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
+                                        </div>
                                     </div>
-                                </form>
+                                    <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Submit </a>
+                                        <a href="javascript:;" class="btn default"> Cancel </a>
+                                    </div> -->
+                            
+                                   <!--  <div class="form-group">
+                                        <label class="control-label">Current Password</label>
+                                        <input type="password" class="form-control" /> </div>
+                                    <div class="form-group">
+                                        <label class="control-label">New Password</label>
+                                        <input type="password" class="form-control" /> </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Re-type New Password</label>
+                                        <input type="password" class="form-control" /> </div>
+                                    <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Change Password </a>
+                                        <a href="javascript:;" class="btn default"> Cancel </a>
+                                    </div> -->
                             </div>
                         </div>
                     </div>

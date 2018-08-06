@@ -2,6 +2,34 @@
 class Employees_model extends CI_Model {
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
+
+	var $table2 = 'tblEmpChild';
+	var $tableid2 = 'childCode';
+
+	var $table3 = 'tblEmpSchool';
+	var $tableid3 = 'levelCode';
+
+	var $table4 = 'tblempexam';
+	var $tableid4 = 'examCode';
+
+	var $table5 = 'tblservicerecord';
+	var $tableid5 = 'serviceRecID';
+
+	var $table6 = 'tblempvoluntarywork';
+	var $tableid6 = 'vwName';
+
+	var $table7 = 'tblemptraining';
+	var $tableid7 = 'XtrainingCode';
+
+	var $table8 = 'tblempposition';
+	var $tableid8 = 'appointmentCode';
+
+	var $table9 = 'tblempduties';
+	var $tableid9 = 'duties';
+
+	var $table10 = 'tblplantilladuties';
+	var $tableid10 = 'itemDuties';
+
 	public function __construct()
 	{
 		$this->load->database();
@@ -58,10 +86,18 @@ class Employees_model extends CI_Model {
 		return $objQuery->result_array();	
 	}			
 		
-	public function save($arrData, $strEmpNo)
+	public function savePersonal($arrData, $strEmpNo)
 	{
 		$this->db->where($this->tableid,$strEmpNo);
 		$this->db->update($this->table, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function saveParents($arrData, $strEmpNo)
+	{
+		$this->db->where($this->tableid2,$strEmpNo);
+		$this->db->update($this->table2, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -72,6 +108,79 @@ class Employees_model extends CI_Model {
 		$this->db->delete($this->table); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	// children
+	public function deleteChild($strEmpNo)
+	{
+		$this->db->where($this->tableid2, $strEmpNo);
+		$this->db->delete($this->table2); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	// education
+	public function deleteEduc($strEmpNo)
+	{
+		$this->db->where($this->tableid3, $strEmpNo);
+		$this->db->delete($this->table3); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	// examination
+	public function deleteExam($strEmpNo)
+	{
+		$this->db->where($this->tableid4, $strEmpNo);
+		$this->db->delete($this->table4); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	// work experience
+	public function deleteWorkExp($strEmpNo)
+	{
+		$this->db->where($this->tableid5, $strEmpNo);
+		$this->db->delete($this->table5); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	// voluntary works
+	public function deleteVolWorks($strEmpNo)
+	{
+		$this->db->where($this->tableid6, $strEmpNo);
+		$this->db->delete($this->table6); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	// trainings
+	public function deleteTraining($strEmpNo)
+	{
+		$this->db->where($this->tableid7, $strEmpNo);
+		$this->db->delete($this->table7); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	// appointment issued
+	public function deleteAppoint($strEmpNo)
+	{
+		$this->db->where($this->tableid8, $strEmpNo);
+		$this->db->delete($this->table8); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	} 
+
+	// duties
+	public function deleteDuties($strEmpNo)
+	{
+		$this->db->where($this->tableid9, $strEmpNo);
+		$this->db->delete($this->table9); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	// plantilla duties
+	public function deletePlantillaDuties($strEmpNo)
+	{
+		$this->db->where($this->tableid10, $strEmpNo);
+		$this->db->delete($this->table10); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+		
 		
 	public function appointment_status($complete=FALSE)
 	{
@@ -105,6 +214,29 @@ class Employees_model extends CI_Model {
 		//print_r($arrData);
 		return $arrData;
 		//print_r($arrData);
+	}
+
+	function getEmployeeDetails($strEmpNo,$strSelect,$strTable,$strOrder="",$strJoinTable="",$strJoinString="",$strJoinType="")
+	{
+		if($strOrder!='')
+			$this->db->order_by($strOrder);
+		if($strJoinTable!='' && $strJoinString!='' && $strJoinType!='')
+			$this->db->join($strJoinTable,$strJoinString,$strJoinType);
+		if($strEmpNo!='')
+			$this->db->where('empNumber',$strEmpNo);
+		$this->db->select($strSelect);
+		$rs = $this->db->get($strTable);
+		return $rs->result_array();
+
+	}
+
+	function getPlantillaDuties($strEmpNo)
+	{
+		if($strEmpNo!='')
+			$this->db->where('empNumber',$strEmpNo);
+		$this->db->join('tblempposition','tblempposition.itemNumber = '.'tblplantilladuties.itemNumber','left');
+		$objQuery = $this->db->get('tblplantilladuties');
+		return $objQuery->result_array();	
 	}
 }
 /* End of file Employees_model.php */

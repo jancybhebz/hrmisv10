@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Delete page for Attendance Scheme Library
+Purpose of file:    Delete page for Signatory Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Delete Attendance Scheme</span>
+            <span>Delete Signatory</span>
         </li>
     </ul>
 </div>
@@ -36,21 +36,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-trash font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Delete Attendance Scheme</span>
+                    <span class="caption-subject bold uppercase"> Delete Signatory</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/attendance_scheme/delete/'.$this->uri->segment(4))?>" method="post" id="frmAttendanceScheme">
+                <form action="<?=base_url('libraries/signatory/delete/'.$this->uri->segment(4))?>" method="post" id="frmSignatory">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Scheme Type <span class="required"> * </span></label>
+                                <label class="control-label">Signatory <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['schemeType'])?$arrData[0]['schemeType']:''?>" disabled>
+                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['signatory'])?$arrData[0]['signatory']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -58,32 +58,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Scheme Code <span class="required"> * </span></label>
+                                <label class="control-label">Position <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['schemeCode'])?$arrData[0]['schemeCode']:''?>" disabled>
+                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['signatoryPosition'])?$arrData[0]['signatoryPosition']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Scheme Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeName" value="<?=!empty($arrData[0]['schemeName'])?$arrData[0]['schemeName']:''?>" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strCode" value="<?=isset($arrData[0]['schemeCode'])?$arrData[0]['schemeCode']:''?>">
+                                <input type="hidden" name="intSignatoryId" value="<?=isset($arrData[0]['signatoryId'])?$arrData[0]['signatoryId']:''?>">
                                 <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
-                                <a href="<?=base_url('libraries/attendance_scheme')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/signatory')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Local Holiday</span>
+            <span>Manage Local Holiday</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Add Local Holiday</span>
+                    <span class="caption-subject bold uppercase">Manage Local Holiday</span>
                 </div>
                 
             </div>
@@ -47,12 +47,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Name <span class="required"> * </span></label>
+                                <label class="control-label">Local Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strLocalName" value="<?=!empty($this->session->userdata('strLocalName'))?$this->session->userdata('strLocalName'):''?>">
+                                    <select type="text" class="form-control" name="strLocalName" id="strLocalName" value="<?=!empty($this->session->userdata('strLocalName'))?$this->session->userdata('strLocalName'):''?>">
                                      <option value="">Select</option>
-                                      <?php foreach($arrLocHoliday as $local)
+                                      <?php foreach($arrHoliday as $local)
                                         {
                                           echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
                                         }?>
@@ -61,8 +61,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Local Holiday Date <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                   <input id="dtmHolidayDate" name="dtmHolidayDate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                  <!--   <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label ">Holiday Date :</span></label><br>
@@ -74,7 +85,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         for ($i=$initialYear;$i <= $currentYear ;$i++)
                                         {
                                             $checked = ($i == $currentYear ? "selected" : "");
-                                            echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
+                                            //echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
                                         }
                                      ?>
                                     </select> &nbsp&nbsp
@@ -96,16 +107,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label ">Day<span class="required"> * </span></label>
                                   <!--   <select  id="dtmDay" name="dtmDay" -->
                                         <?php
-                                         echo '<select name="dtmDay" id="dtmDay">' . PHP_EOL;
+                                        // echo '<select name="dtmDay" id="dtmDay">' . PHP_EOL;
                                         for ($d=1; $d<=31; $d++) {
-                                            echo '  <option value="' . $d . '">' . $d . '</option>' . PHP_EOL;
+                                        //    echo '  <option value="' . $d . '">' . $d . '</option>' . PHP_EOL;
                                         }
-                                        echo '</select>' . PHP_EOL;
+                                        //echo '</select>' . PHP_EOL;
                                         ?>
                                    <!--  </select> -->
-                            </div>
-                        </div>
-                    </div><br>
+                   
 
                     <div class="row">
                         <div class="col-sm-12">
@@ -126,8 +135,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <thead>
                         <tr>
                             <th> No. </th>
-                            <th> Holiday Name </th>
-                            <th> Date </th>
+                            <th> Local Holiday Code </th>
+                            <th> Local Holiday Name </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -137,11 +146,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrLocHoliday as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$row['holidayName']?> </td> 
-                            <td> <?= date( "Y-m-d", strtotime($row['holidayYear'].'-'.$row['holidayMonth'].'-'.$row['holidayDay']))?> </td>                           
+                            <td> <?=$row['holidayCode']?> </td> 
+                            <td> <?=$row['holidayName']?> </td>                       
                             <td>
-                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>
@@ -177,18 +186,22 @@ var FormValidation = function () {
                         minlength: 1,
                         required: true
                     },
-                    dtmYear: {
+                    dtmHolidayDate: {
                         minlength: 1,
                         required: true,
-                    },
-                    dtmMonth: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    dtmDay: {
-                        minlength: 1,
-                        required: true,
-                    },
+                    }
+                    // dtmYear: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // dtmMonth: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // dtmDay: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
                    
                 },
 
@@ -239,13 +252,14 @@ var FormValidation = function () {
 
 }();
 
-// jQuery(document).ready(function() {
-// //     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
-// // $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
-//     FormValidation.init();
-//     $('#dtmHolidate').datepicker({
-//         format:"yyyy-mm-dd"
-//     });
+jQuery(document).ready(function() {
+//     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+// $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
+    FormValidation.init();
+    $('#dtmHolidayDate').datepicker({
+        format:"yyyy-mm-dd"
+    });
 
 });
+
 </script>

@@ -111,24 +111,24 @@ class Attendance_scheme extends MY_Controller {
 	{
 		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$intSchemeCode = $this->uri->segment(4);
+		$strCode = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->attendance_scheme_model->getData($intSchemeCode);
-			$this->template->load('template/template_view','libraries/project_code/delete_view',$this->arrData);
+			$this->arrData['arrData'] = $this->attendance_scheme_model->getData($strCode);
+			$this->template->load('template/template_view','libraries/attendance_scheme/delete_view',$this->arrData);
 		}
 		else
 		{
-			$intSchemeCode = $arrPost['intSchemeCode'];
+			$strCode = $arrPost['strCode'];
 			//add condition for checking dependencies from other tables
-			if(!empty($intProjectId))
+			if(!empty($strCode))
 			{
-				$arrProject = $this->attendance_scheme_model->getData($intSchemeCode);
-				$strSchemeName = $arrAttendance[0]['schemeName'];	
-				$blnReturn = $this->attendance_scheme_model->delete($intSchemeCode);
+				$arrScheme = $this->attendance_scheme_model->getData($strCode);
+				$strSchemeName = $arrScheme[0]['schemeName'];	
+				$blnReturn = $this->attendance_scheme_model->delete($strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblattendancescheme','Deleted '.$strSchemeName.' Attendance_scheme',implode(';',$arrProject[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblattendancescheme','Deleted '.$strSchemeName.' Attendance_scheme',implode(';',$arrScheme[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Attendance Scheme deleted successfully.');
 				}
