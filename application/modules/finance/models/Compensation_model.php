@@ -12,12 +12,18 @@ class Compensation_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	// function edit($arrData, $code)
-	// {
-	// 	$this->db->where('payrollGroupCode',$code);
-	// 	$this->db->update('tblPayrollGroup', $arrData);
-	// 	return $this->db->affected_rows();
-	// }
+	function editEmpPosition($arrData, $empid, $acctNumber='')
+	{
+		$this->db->where('empNumber',$empid);
+		$this->db->update('tblEmpPosition', $arrData);
+
+		if($acctNumber != ''):
+			$this->db->where('empNumber',$empid);
+			$this->db->update('tblEmpPersonal', array('AccountNum' => $acctNumber));
+		endif;
+
+		return $this->db->affected_rows();
+	}
 
 	// public function delete($code)
 	// {

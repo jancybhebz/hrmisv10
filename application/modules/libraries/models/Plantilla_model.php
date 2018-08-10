@@ -32,6 +32,11 @@ class Plantilla_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getAllPlantilla()
+	{		
+		return $this->db->order_by('itemNumber','ASC')->get($this->table)->result_array();	
+	}
+
 	function add($arrData)
 	{
 		$this->db->insert($this->table, $arrData);

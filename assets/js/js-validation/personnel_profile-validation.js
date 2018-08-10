@@ -16,6 +16,10 @@
 **/
 function checkElement(e,obj='',value=0)
 {
+	console.log(value);
+	if(value == 'NULL'){
+		value = '';
+	}
 	var res = 1;
 	if(obj=='radio'){
 		if(value == 1){
@@ -23,11 +27,10 @@ function checkElement(e,obj='',value=0)
 			res = 0;
 		}else{
 			e.parent().addClass('has-error');
-			res = 1;
+			res = 0;
 		}
 	}else{
-		console.log(e.val());
-		if(e.val() == '' || e.val().toLowerCase() == 'null'){
+		if(e.val() == ''){
 			e.parent().parent().addClass('has-error');
 			e.prev("i").attr('data-original-title', "This field is required.");
 			e.prev("i").show();
@@ -55,44 +58,46 @@ function checkElement(e,obj='',value=0)
 }
 
 $(document).ready(function() {
-	$('.i-required').hide();
-	if($('.loading-image').length > 0){
-		$('.loading-image').hide();
-	    $('.portlet-body').show();
-	}
+	console.log(1);
+	// $('.i-required').hide();
+	// if($('.loading-image').length > 0){
+	// 	$('.loading-image').hide();
+	//     $('.portlet-body').show();
+	// }
 
-	$('form [type="text"].form-required').keyup(function(e) {
-		checkElement($(this), 'text');
-	});
+	// $('form [type="text"].form-required').keyup(function(e) {
+	// 	checkElement($(this), 'text');
+	// });
 
 	$('form select.form-required').change(function(e) {
 		checkElement($(this));
 	});
 
-	if($('form [type="radio"]').length > 0){
-		$('.radio-required').click(function() {
-			checkElement($(this), 'radio', $(this).find("input:radio:checked").length);
-		});
-	}
+	// if($('form [type="radio"]').length > 0){
+	// 	$('.radio-required').click(function() {
+	// 		checkElement($(this), 'radio', $(this).find("input:radio:checked").length);
+	// 	});
+	// }
 
 	$('form').submit(function(e) {
-		var resval = [];
-		$('[type="text"].form-required').each(function() {
-			resval.push(checkElement($(this), 'text'));
-		});
+		e.preventDefault();
+		// var resval = [];
+		// $('[type="text"].form-required').each(function() {
+		// 	resval.push(checkElement($(this), 'text'));
+		// });
 
-		$('select.form-required').each(function() {
-			resval.push(checkElement($(this)));
-		});
+		// $('select.form-required').each(function() {
+		// 	resval.push(checkElement($(this)));
+		// });
 
-		$('.radio-required').each(function() {	
-			resval.push(checkElement($(this), 'radio', $(this).find("input:radio:checked").length));
-		});
+		// $('.radio-required').each(function() {	
+		// 	resval.push(checkElement($(this), 'radio', $(this).find("input:radio:checked").length));
+		// });
 
 		// resval = resval.slice(1);
-		console.log(resval);
-		if(resval.includes(1)){
-			e.preventDefault();
-		}
+		// if(resval.includes(1)){
+		// 	console.log(resval);
+		// 	e.preventDefault();
+		// }
 	});
 });

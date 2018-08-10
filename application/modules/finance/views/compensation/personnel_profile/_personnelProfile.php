@@ -74,18 +74,18 @@
             
             <div class="tabbable-line tabbable-custom-profile">
                 <ul class="nav nav-tabs">
-                    <li class="active">
+                    <li class="<?=$this->uri->segment(6) == '' ? 'active' : ''?>">
                         <a href="#tab-payrollsummary" data-toggle="tab"> Payroll Summary </a>
                     </li>
-                    <li>
+                    <li class="<?=$this->uri->segment(6) == '1' ? 'active' : ''?>">
                         <a href="#tab-payrolldetails" data-toggle="tab"> Payroll Details </a>
                     </li>
-                    <li>
+                    <li class="<?=$this->uri->segment(6) == '2' ? 'active' : ''?>">
                         <a href="#tab-positiondetails" data-toggle="tab"> Position Details </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab-payrollsummary">
+                    <div class="tab-pane <?=$this->uri->segment(6) == '' ? 'active' : ''?>" id="tab-payrollsummary">
                         <div class="portlet-body">
                             <table class="table table-striped table-bordered table-advance">
                                 <thead>
@@ -126,7 +126,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="tab-payrolldetails">
+                    <div class="tab-pane <?=$this->uri->segment(6) == '1' ? 'active' : ''?>" id="tab-payrolldetails">
                         <div class="portlet-body">
                             <table class="table table-striped table-bordered table-advance">
                                 <tbody>
@@ -172,7 +172,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="tab-positiondetails">
+                    <div class="tab-pane <?=$this->uri->segment(6) == '2' ? 'active' : ''?>" id="tab-positiondetails">
                         <div class="portlet-body">
                             <table class="table table-striped table-bordered table-advance">
                                 <tbody>
@@ -216,4 +216,4 @@
         </div>
     </div>
 </div>
-<?php include('_modal.php'); ?>
+<?php include('modals/_modal_personnel_profile.php'); ?>

@@ -88,6 +88,10 @@ if ( ! function_exists('load_plugin'))
 							<script src="'.base_url('assets/js/js-validation/custom-form-validation.js').'" type="text/javascript"></script>
 							';
 						break;
+					case 'personnel-profile-val': $str.='
+							<script src="'.base_url('assets/js/js-validation/personnel_profile-validation.js').'" type="text/javascript"></script>
+							';
+						break;
 					case 'val_libraries':
                         $str.= '<script src="'.base_url('assets/js/js-validation/libraries-validation.js').'" type="text/javascript"></script>';
                     	break;
