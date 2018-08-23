@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strLicense" value="<?=isset($arrExam[0]['examPlace'])?$arrExam[0]['examPlace']:''?>">
+                                        <input type="text" class="form-control" name="strExamPlace" value="<?=isset($arrExam[0]['examPlace'])?$arrExam[0]['examPlace']:''?>">
                                     </div>
                                 </div>
                             </div>

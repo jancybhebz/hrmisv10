@@ -23,6 +23,8 @@ class Libraries extends MY_Controller {
 		$this->template->load('template/template_view','libraries/libraries_view',$this->arrData);
 	}
 
+	
+
 	// public function course()
 	// {
 	// 	//$this->load->module('libraries/course');

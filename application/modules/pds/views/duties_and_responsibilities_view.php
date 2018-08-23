@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strPosDuties" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strPosDuties" value="<?=isset($arrData[0]['duties'])?$arrData[0]['duties']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="intPosPercent" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intPosPercent" value="<?=isset($arrData[0]['percentWork'])?$arrData[0]['percentWork']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strPosDuties" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strPosDuties" value="<?=isset($arrData[0]['duties'])?$arrData[0]['duties']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="intPosPercent" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intPosPercent" value="<?=isset($arrData[0]['percentWork'])?$arrData[0]['percentWork']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strPlantillaDuties" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strPlantillaDuties" value="<?=isset($arrData[0]['itemDuties'])?$arrData[0]['itemDuties']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="intPlantillaPercent" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intPlantillaPercent" value="<?=isset($arrData[0]['percentWork'])?$arrData[0]['percentWork']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strPlantillaDuties" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strPlantillaDuties" value="<?=isset($arrData[0]['itemDuties'])?$arrData[0]['itemDuties']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +243,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="intPlantillaPercent" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intPlantillaPercent" value="<?=isset($arrData[0]['percentWork'])?$arrData[0]['percentWork']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strActualDuties" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strActualDuties" value="<?=isset($arrData[0]['duties'])?$arrData[0]['duties']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -315,7 +315,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="intActualPercent" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intActualPercent" value="<?=isset($arrData[0]['percentWork'])?$arrData[0]['percentWork']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -364,7 +364,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strActualDuties" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strActualDuties" value="<?=isset($arrData[0]['duties'])?$arrData[0]['duties']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -380,7 +380,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="intActualPercent" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="intActualPercent" value="<?=isset($arrData[0]['percentWork'])?$arrData[0]['percentWork']:''?>">
                                     </div>
                                 </div>
                             </div>

@@ -36,7 +36,7 @@ class Employees_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
-	public function add($arrData)
+	public function addPersonal($arrData)
 	{
 		$this->db->insert($this->table, $arrData);
 		return $this->db->insert_id();		
@@ -54,6 +54,7 @@ class Employees_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	//for QRCode
 	public function getData($strEmpNo="",$strSearch="",$strAppStatus="")
 	{
 		$this->db->select('tblEmpPersonal.*,tblEmpPosition.*,tblPosition.positionDesc,tblAppointment.appointmentDesc');
@@ -94,6 +95,14 @@ class Employees_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	public function saveSpouse($arrData, $strEmpNo)
+	{
+		$this->db->where($this->tableid2,$strEmpNo);
+		$this->db->update($this->table2, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	public function saveParents($arrData, $strEmpNo)
 	{
 		$this->db->where($this->tableid2,$strEmpNo);
@@ -101,7 +110,31 @@ class Employees_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
+
+	public function saveChild($arrData, $strChildCode)
+	{
+		$this->db->where($this->tableid2,$strChildCode);
+		$this->db->update($this->table2, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function saveEduc($arrData, $strLevelCode)
+	{
+		$this->db->where($this->tableid3,$strLevelCode);
+		$this->db->update($this->table3, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function saveExam($arrData, $strExamCode)
+	{
+		$this->db->where($this->tableid4,$strExamCode);
+		$this->db->update($this->table4, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	
 	public function delete($strEmpNo)
 	{
 		$this->db->where($this->tableid, $strEmpNo);
@@ -110,73 +143,73 @@ class Employees_model extends CI_Model {
 	}
 
 	// children
-	public function deleteChild($strEmpNo)
+	public function deleteChild($strChildCode)
 	{
-		$this->db->where($this->tableid2, $strEmpNo);
+		$this->db->where($this->tableid2, $strChildCode);
 		$this->db->delete($this->table2); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// education
-	public function deleteEduc($strEmpNo)
+	public function deleteEduc($strLevelCode)
 	{
-		$this->db->where($this->tableid3, $strEmpNo);
+		$this->db->where($this->tableid3, $strLevelCode);
 		$this->db->delete($this->table3); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// examination
-	public function deleteExam($strEmpNo)
+	public function deleteExam($strExamCode)
 	{
-		$this->db->where($this->tableid4, $strEmpNo);
+		$this->db->where($this->tableid4, $strExamCode);
 		$this->db->delete($this->table4); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// work experience
-	public function deleteWorkExp($strEmpNo)
+	public function deleteWorkExp($strServiceRecID)
 	{
-		$this->db->where($this->tableid5, $strEmpNo);
+		$this->db->where($this->tableid5, $strServiceRecID);
 		$this->db->delete($this->table5); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// voluntary works
-	public function deleteVolWorks($strEmpNo)
+	public function deleteVolWorks($strVwName)
 	{
-		$this->db->where($this->tableid6, $strEmpNo);
+		$this->db->where($this->tableid6, $strVwName);
 		$this->db->delete($this->table6); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// trainings
-	public function deleteTraining($strEmpNo)
+	public function deleteTraining($strXtrainingCode)
 	{
-		$this->db->where($this->tableid7, $strEmpNo);
+		$this->db->where($this->tableid7, $strXtrainingCode);
 		$this->db->delete($this->table7); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// appointment issued
-	public function deleteAppoint($strEmpNo)
+	public function deleteAppoint($strAppointmentCode)
 	{
-		$this->db->where($this->tableid8, $strEmpNo);
+		$this->db->where($this->tableid8, $strAppointmentCode);
 		$this->db->delete($this->table8); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	} 
 
 	// duties
-	public function deleteDuties($strEmpNo)
+	public function deleteDuties($strDuties)
 	{
-		$this->db->where($this->tableid9, $strEmpNo);
+		$this->db->where($this->tableid9, $strDuties);
 		$this->db->delete($this->table9); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// plantilla duties
-	public function deletePlantillaDuties($strEmpNo)
+	public function deletePlantillaDuties($strItemDuties)
 	{
-		$this->db->where($this->tableid10, $strEmpNo);
+		$this->db->where($this->tableid10, $strItemDuties);
 		$this->db->delete($this->table10); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -238,6 +271,34 @@ class Employees_model extends CI_Model {
 		$objQuery = $this->db->get('tblplantilladuties');
 		return $objQuery->result_array();	
 	}
+
+	
+	// public function getEmpNumber($intInviteeId="",$intSourceAgency="",$strSearch="",$isVIP="")
+	// {
+	// 	$strWhere = '';
+	// 	if($intInviteeId!='')
+	// 		$strWhere .= ' AND '.$this->tableid.'='.$intInviteeId;
+	// 	if($intSourceAgency!='')
+	// 		$strWhere .= ' AND prf_source_agency_id='.$intSourceAgency;
+	// 	if($strSearch!='')
+	// 		$strWhere .= " AND (firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%')";
+	// 	//echo 'isVIP='.$isVIP;
+	// 	if($isVIP!='')
+	// 	{
+	// 	if($isVIP==1)
+	// 		$strWhere .= " AND prf_is_vip='Y'";
+	// 	//if($isVIP==0)
+	// 		//$strWhere .= " AND prf_is_vip='N'";
+	// 	}
+	//   	$strSQL = "SELECT *  FROM  ".$this->table." 
+	// 			  LEFT JOIN `tblclassification` ON `tblinvitees`.`prf_sector_id`=`tblclassification`.`cls_class_id` 
+	// 			  LEFT JOIN `tblsourceagency` ON `tblinvitees`.`prf_source_agency_id`=`tblsourceagency`.`sa_agency_id` 
+	// 			  WHERE 1=1 ".$strWhere;
+	// 	//echo $isVIP;
+	// 	//echo $strSQL; exit(1);
+	//   $objQuery = $this->db->query( $strSQL );
+	//   return $objQuery->result_array();		
+	// }	
 }
 /* End of file Employees_model.php */
 /* Location: ./application/modules/employees/models/Employees_model.php */

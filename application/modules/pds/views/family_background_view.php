@@ -366,7 +366,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCFirstname" value="<?=isset($arrData['childName'])?$arrData['childName']:''?>">
+                            <input type="text" class="form-control" name="strCNname" value="<?=isset($arrData['childName'])?$arrData['childName']:''?>">
                         </div>
                     </div>
                 </div>
@@ -383,7 +383,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCBirthdate" value="<?=isset($arrData['childBirthDate'])?$arrData['childBirthDate']:''?>">
+                            <input type="text" class="form-control" name="dtmCBirthdate" value="<?=isset($arrData['childBirthDate'])?$arrData['childBirthDate']:''?>">
                         </div>
                     </div>
                 </div><br>

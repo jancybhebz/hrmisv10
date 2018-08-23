@@ -19,8 +19,8 @@
                         <td><?=$row['vwDateFrom'].'-'.$row['vwDateTo']?></td>
                         <td><?=$row['vwHours']?></td>
                         <td><?=$row['vwPosition']?></td>
-                        <td>  <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Edit </a>
-                        <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteVolWork"> Delete </a></a></td>></a></td>
+                        <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Edit </a>
+                        <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteVolWork"> Delete </a></td>
                     </tr>
                     <?php endforeach;?>
 

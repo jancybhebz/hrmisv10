@@ -550,7 +550,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strPersonnel" value="<?=isset($arrPosition[0]['service'])?$arrPosition[0]['service']:''?>">
+                                        <input type="text" class="form-control" name="strService" value="<?=isset($arrPosition[0]['service'])?$arrPosition[0]['service']:''?>">
                                     </div>
                                 </div>
                             </div>
