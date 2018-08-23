@@ -633,49 +633,6 @@ class Employees extends MY_Controller {
 		}	
     }
 
-    public function generateqrcode()
-	{
-		//$this->load->model('invitees_model');
-		$this->load->helper('url');
-		$this->load->library('ciqrcode');
-		$rs=$this->employees_model->getData();
-		foreach($rs as $row):
-			$intEmpId = $row['empNumber'];
-			//$strQRCode = $row['prf_qr_code'];
-			//generate QR Code		
-			$strData='';
-
-			if($intRegId!='' || $strQRCode=='')
-			{
-				//$strData = base_url('scan/validate').'/'.$intRegId;
-				$strData = 'http://10.10.10.54/hrmis/employees/scan'.'/'.$intEmpId;
-				$qr_image='qr_'.$intEmpId.'.png';
-				$params['data'] = $strData;
-				$params['level'] = 'H';
-				$params['size'] = 8;
-				//$params['savename'] =FCPATH."uploads/qr_image/".$qr_image;
-				//$params['savename'] ="/var/www/nstw/uploads/qr_image/".$qr_image;
-				$params['savename'] =FCPATH."uploads/qr/".$qr_image;
-
-				if(!@getimagesize($params['savename']))
-				{
-					if($this->ciqrcode->generate($params))
-					{
-						$img_url=$qr_image;
-						//echo $qr_image."<Br>";
-						//Set QR Code
-						//$arrData = array('prf_qr_code'=>$qr_image);
-						echo "<br>".$intRegId;
-						print_r($arrData);
-						//$this->invitees_model->update($arrData,$intRegId);
-						echo "generated QR Code for ".$row['surname'].', '.$row['firstname'].' ( '.$row['middlename'].' ) <br>';
-					}
-				}
-			}
-			////Set QR Code value in DB
-			//$arrData = array('prf_qr_code'=>$qr_image);
-			//$this->invitees_model->update($arrData,$intRegId);
-		endforeach;
-	}
+   
 	
 }
