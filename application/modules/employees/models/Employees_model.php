@@ -234,8 +234,8 @@ class Employees_model extends CI_Model {
 	{
 		if($strEmpNo!='')
 			$this->db->where('empNumber',$strEmpNo);
-		$this->db->join('tblempposition','tblempposition.itemNumber = '.'tblplantilladuties.itemNumber','left');
-		$objQuery = $this->db->get('tblplantilladuties');
+		$this->db->join('tblEmpPosition','tblEmpPosition.itemNumber = '.'tblPlantillaDuties.itemNumber','left');
+		$objQuery = $this->db->get('tblPlantillaDuties');
 		return $objQuery->result_array();	
 	}
 }

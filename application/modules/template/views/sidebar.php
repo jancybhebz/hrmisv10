@@ -24,6 +24,7 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
             </li>
             <!-- <li class="heading"><h3 class="uppercase"><?=$this->session->userdata('sessUserPermission')?></h3></li> -->
             <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+            <?php if($this->session->userdata('sessUserLevel')==1):?>
             <li class="sidebar-search-wrapper">
                 <!-- DISPLAY MODULE -->
                 
@@ -45,6 +46,9 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                 </form>
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
+        <?php endif;?>
+            <!-- HR MODULE -->
+            <?php if($this->session->userdata('sessUserLevel')==1):?>
             <li class="nav-item start <?=$active=='home'?'active open':''?>">
                 <a href="<?=base_url('home')?>" class="nav-link nav-toggle">
                     <i class="icon-home"></i>
@@ -101,6 +105,7 @@ $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
                     <span class="arrow"></span>
                 </a>
             </li>
+        <?php endif;?>
              <li class="heading">
                 <h3 class="uppercase">Finance Module</h3>
             </li>

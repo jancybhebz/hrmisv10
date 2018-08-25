@@ -30,7 +30,7 @@ if ( ! function_exists('get_libraries'))
 			'scholarship'=>'Scholarship',
 			'separation_mode'=>'Separation Mode',
 			'service_code'=>'Service Code',
-			'signatory'=>'Signatory',
+			'signatories'=>'Signatory',
 			'user_account'=>'User Account',
 			'zone'=>'Zone'
 		);
