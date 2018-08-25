@@ -59,7 +59,7 @@
                             </div>
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
-                                <form action="<?=$action == 'edit' ? base_url('finance/agency/edit/'.$this->uri->segment(4)) : base_url('finance/agency/add')?>" method="post">
+                                <form action="<?=$action == 'edit' ? base_url('finance/libraries/agency/edit/'.$this->uri->segment(4)) : base_url('finance/libraries/agency/add')?>" method="post">
                                     <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                     <div class="form-body">
                                         <div class="row">
@@ -92,7 +92,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <button class="btn btn-success" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
-                                                            <a href="<?=base_url('finance/deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                                            <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                                         </div>
                                                     </div>
                                                 </div>

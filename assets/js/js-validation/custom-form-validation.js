@@ -23,10 +23,11 @@ function checkElement(e,obj='',value=0)
 			res = 0;
 		}else{
 			e.parent().addClass('has-error');
-			res = 0;
+			res = 1;
 		}
 	}else{
-		if(e.val() == ''){
+		console.log(e.val());
+		if(e.val() == '' || e.val().toLowerCase() == 'null'){
 			e.parent().parent().addClass('has-error');
 			e.prev("i").attr('data-original-title', "This field is required.");
 			e.prev("i").show();
@@ -88,9 +89,9 @@ $(document).ready(function() {
 			resval.push(checkElement($(this), 'radio', $(this).find("input:radio:checked").length));
 		});
 
-		resval = resval.slice(1);
+		// resval = resval.slice(1);
+		console.log(resval);
 		if(resval.includes(1)){
-			console.log(resval);
 			e.preventDefault();
 		}
 	});

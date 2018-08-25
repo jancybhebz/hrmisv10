@@ -42,12 +42,12 @@
                         <div class="table-toolbar">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="<?=base_url('finance/income/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                    <a href="<?=base_url('finance/libraries/income/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
                                     <div class="btn-group pull-right">
                                         <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown"> <?=$status[0][0]?> <i class="fa fa-angle-down"></i> </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
-                                            <li> <a href="<?=base_url('finance/income/'.$status[1][1])?>"> <?=$status[1][0]?></a> </li>
-                                            <li> <a href="<?=base_url('finance/income/'.$status[2][1])?>"> <?=$status[2][0]?></a> </li>
+                                            <li> <a href="<?=base_url('finance/libraries/income/'.$status[1][1])?>"> <?=$status[1][0]?></a> </li>
+                                            <li> <a href="<?=base_url('finance/libraries/income/'.$status[2][1])?>"> <?=$status[2][0]?></a> </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -76,8 +76,8 @@
                                         <td><?=$data['incomeType']?> </td>
                                         <td><?=$data['hidden'] == 1 ? 'Inactive' : 'Active' ?> </td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/income/edit/'.$data['incomeCode'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                            <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['incomeCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
+                                            <a href="<?=base_url('finance/libraries/income/edit/'.$data['incomeCode'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a class="btn btn-sm btn-danger" id="btnDelIncome" data-code="<?=$data['incomeCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -117,14 +117,14 @@
             }} );
 
         var code = '';
-        $('#table-income').on('click', 'tr > td > a#btnDelDeduction', function () {
+        $('#table-income').on('click', 'tr > td > a#btnDelIncome', function () {
             code = $(this).data('code');
             $('.modal-title').html('Delete Income');
             $('#delete').modal('show');
         });
 
         $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'libraries/income/delete?code='+code,
+            $.ajax ({type : 'GET', url: 'income/delete?code='+code,
                 success: function(){
                     toastr.success('Income '+code+' successfully deleted.','Success');
                     $('#delete').modal('hide');

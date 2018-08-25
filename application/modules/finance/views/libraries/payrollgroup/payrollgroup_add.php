@@ -39,7 +39,7 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="payrollgroup" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <form action="<?=$action == 'edit' ? base_url('finance/payrollgroup/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                            <form action="<?=$action == 'edit' ? base_url('finance/libraries/payrollgroup/edit/'.$this->uri->segment(4)) : ''?>" method="post">
                                 <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                 <div class="form-group">
                                     <label class="control-label">Project <span class="required"> * </span></label>
@@ -91,7 +91,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <button class="btn btn-success" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error"><i class="fa fa-plus"></i> <?=$action?> </button>
-                                            <a href="<?=base_url('finance/payrollgroup')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                            <a href="<?=base_url('finance/libraries/payrollgroup')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                         </div>
                                     </div>
                                 </div>

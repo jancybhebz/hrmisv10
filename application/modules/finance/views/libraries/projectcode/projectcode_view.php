@@ -41,7 +41,7 @@
                         <div class="table-toolbar">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="<?=base_url('finance/projectcode/add')?>"><button class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                    <a href="<?=base_url('finance/libraries/projectcode/add')?>"><button class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
                                 </div>
                             </div>
                         </div>
@@ -50,10 +50,9 @@
                             <thead>
                                 <tr>
                                     <tr>
-                                        <th> No. </th>
+                                        <th> Order </th>
                                         <th> Project Code </th>
                                         <th> Project Description </th>
-                                        <th> Order </th>
                                         <th style="text-align: center;"> Actions </th>
                                     </tr>
                                 </tr>
@@ -61,12 +60,11 @@
                             <tbody>
                                 <?php $no=1; foreach($projectcodes as $data): ?>
                                     <tr class="odd gradeX">
-                                        <td><?=$no++?> </td>
+                                        <td><?=$data['projectOrder']?></td>
                                         <td><?=$data['projectCode']?></td>
                                         <td><?=$data['projectDesc']?></td>
-                                        <td><?=$data['projectOrder']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/projectcode/edit/'.$data['projectCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a href="<?=base_url('finance/libraries/projectcode/edit/'.$data['projectCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                             <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['projectCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
@@ -114,7 +112,7 @@
         });
 
         $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'libraries/projectcode/delete?code='+code,
+            $.ajax ({type : 'GET', url: 'projectcode/delete?code='+code,
                 success: function(){
                     toastr.success('Project Code '+code+' successfully deleted.','Success');
                     $('#delete').modal('hide');

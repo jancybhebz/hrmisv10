@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrService[0]['serviceFromDate'])?$arrService[0]['serviceFromDate']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=isset($arrService[0]['serviceToDate'])?$arrService[0]['serviceToDate']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                         <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrService[0]['positionDesc'])?$arrService[0]['positionDesc']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strDept" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strDept" value="<?=isset($arrService[0]['stationAgency'])?$arrService[0]['stationAgency']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSG" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                       <input type="text" class="form-control" name="strSG" value="<?=isset($arrService[0]['salaryGrade'])?$arrService[0]['salaryGrade']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strStatus" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strStatus" value="<?=isset($arrService[0]['appointmentCode'])?$arrService[0]['appointmentCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strGovernment" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strGovernment" value="<?=isset($arrService[0]['governService'])?$arrService[0]['governService']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strBranch" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strBranch" value="<?=isset($arrService[0]['branch'])?$arrService[0]['branch']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strMode" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strMode" value="<?=isset($arrService[0]['separationCause'])?$arrService[0]['separationCause']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -190,26 +190,11 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSalary" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strSalary" value="<?=isset($arrService[0]['separationDate'])?$arrService[0]['separationDate']:''?>">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 text-left">
-                                    <div class="form-group">
-                                        <label class="control-label">Separation Date :  <span class="required"> * </span></label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5" text-left>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="strSalary" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="modal-footer">
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn green">Save changes</button>
@@ -241,7 +226,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                      <input type="text" class="form-control" name="dtmDateFrom" value="<?=!empty($this->session->userdata('dtmDateFrom'))?$this->session->userdata('dtmDateFrom'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +242,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=!empty($this->session->userdata('dtmDateTo'))?$this->session->userdata('dtmDateTo'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +258,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strPositionTitle" value="<?=!empty($this->session->userdata('strPositionTitle'))?$this->session->userdata('strPositionTitle'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +274,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strDept" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strDept" value="<?=!empty($this->session->userdata('strDept'))?$this->session->userdata('strDept'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +290,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSG" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strSalary" value="<?=!empty($this->session->userdata('strSalary'))?$this->session->userdata('strSalary'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -321,7 +306,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strStatus" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +322,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strGovernment" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strGovernment" value="<?=!empty($this->session->userdata('strGovernment'))?$this->session->userdata('strGovernment'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -354,7 +339,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strBranch" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strBranch" value="<?=!empty($this->session->userdata('strBranch'))?$this->session->userdata('strBranch'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +355,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strMode" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strMode" value="<?=!empty($this->session->userdata('strMode'))?$this->session->userdata('strMode'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -386,26 +371,11 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSalary" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                                        <input type="text" class="form-control" name="strSepDate" value="<?=!empty($this->session->userdata('strSepDate'))?$this->session->userdata('strSepDate'):''?>">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 text-left">
-                                    <div class="form-group">
-                                        <label class="control-label">Separation Date :  <span class="required"> * </span></label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5" text-left>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="strSalary" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="modal-footer">
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn green">Save changes</button>

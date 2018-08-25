@@ -41,7 +41,7 @@
                         <div class="table-toolbar">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="<?=base_url('finance/signatory/add')?>"><button class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                    <a href="<?=base_url('finance/libraries/signatory/add')?>"><button class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                         <td><?=$data['signatory']?></td>
                                         <td><?=$data['signatoryPosition']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/signatory/edit/'.$data['signatoryId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a href="<?=base_url('finance/libraries/signatory/edit/'.$data['signatoryId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                             <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['signatoryId']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
@@ -113,7 +113,7 @@
         });
 
         $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'libraries/signatory/delete?code='+code,
+            $.ajax ({type : 'GET', url: 'signatory/delete?code='+code,
                 success: function(){
                     toastr.success('Signatory Code '+code+' successfully deleted.','Success');
                     $('#delete').modal('hide');
