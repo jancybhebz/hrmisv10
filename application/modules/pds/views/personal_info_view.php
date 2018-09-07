@@ -88,7 +88,7 @@
                 <div class="row">
                     <div class="col-sm-12 text-right">
                         <div class="form-group">
-                             <a href="<?=base_url('employees/profile/edit/')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span>EDIT
+                             <a href="<?=base_url('hr/profile/edit/')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span>EDIT
                         </div>
                     </div>
                 </div>

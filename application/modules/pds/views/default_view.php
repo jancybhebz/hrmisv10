@@ -64,12 +64,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrEmployees as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <a href="<?=base_url('employees/profile/').$row['empNumber']?>"><?=$row['empNumber']?></a> </td>
+                            <td> <a href="<?=base_url('hr/profile/').$row['empNumber']?>"><?=$row['empNumber']?></a> </td>
                             <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
                             <td> <?=employee_office($row['empNumber'])?> </td>
                             <td> <?=$row['positionDesc']?></td>
                             <td>     
-                                <a href="<?=base_url('pds/employee/delete/'.$row['empNumber'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('pds/hr/delete/'.$row['empNumber'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>

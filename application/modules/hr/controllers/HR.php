@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Employees extends MY_Controller {
+class HR extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employees/employees_model'));
+        $this->load->model(array('hr/hr_model'));
     }
 
 	public function index()
@@ -18,26 +18,26 @@ class Employees extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(isset($arrPost)):
 			$strSearch = $arrPost['strSearch'];
-			$this->arrData['arrData'] = $this->employees_model->getData('',$strSearch);
+			$this->arrData['arrData'] = $this->hr_model->getData('',$strSearch);
 		endif;
-		$this->template->load('template/template_view','employees/search_view', $this->arrData);
+		$this->template->load('template/template_view','hr/search_view', $this->arrData);
 	}
 
 	public function profile()
 	{
 		$strEmpNo = $this->uri->segment(3);
-		$this->arrData['arrData'] = $this->employees_model->getData($strEmpNo);
+		$this->arrData['arrData'] = $this->hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
-		$this->arrData['arrChild'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
-		$this->arrData['arrEduc'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
-		$this->arrData['arrExam'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_EXAM);
-		$this->arrData['arrVol'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_VOLWORK);
-		$this->arrData['arrService'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_SERVICE);
-		$this->arrData['arrTraining'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_TRAINING);
-		$this->arrData['arrPosition'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_POSITION);
-		$this->arrData['arrDuties'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_DUTIES);
-		$this->arrData['arrPlantillaDuties'] = $this->employees_model->getPlantillaDuties($strEmpNo,'*',TABLE_PLANTILLADUTIES);
+		$this->arrData['arrChild'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
+		$this->arrData['arrEduc'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
+		$this->arrData['arrExam'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EXAM);
+		$this->arrData['arrVol'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_VOLWORK);
+		$this->arrData['arrService'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_SERVICE);
+		$this->arrData['arrTraining'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_TRAINING);
+		$this->arrData['arrPosition'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_POSITION);
+		$this->arrData['arrDuties'] = $this->hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_DUTIES);
+		$this->arrData['arrPlantillaDuties'] = $this->hr_model->getPlantillaDuties($strEmpNo,'*',TABLE_PLANTILLADUTIES);
 		// $this->arrData['arrPlantillaDuties'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_PLANTILLADUTIES);
 
 		$this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
@@ -133,7 +133,7 @@ class Employees extends MY_Controller {
 						'sss'=>$strSSS,
 						'bloodType'=>$strBloodType
 					);
-					$blnReturn  = $this->employees_model->add($arrData);
+					$blnReturn  = $this->hr_model->add($arrData);
 
 					if(count($blnReturn)>0)
 					{	
@@ -159,8 +159,8 @@ class Employees extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
-		 print_r($arrPost);
-		  die();
+		 //print_r($arrPost);
+		  //die();
 			$strSalutation =$arrPost['strSalutation '];
 			$strSurname=$arrPost['strSurname'];
 			$strFirstname=$arrPost['strFirstname'];
@@ -242,7 +242,7 @@ class Employees extends MY_Controller {
 					'bloodType'=>$strBloodType
 					
 				);
-				$blnReturn=$this->employees_model->savePersonal($arrData, $empID);
+				$blnReturn=$this->hr_model->savePersonal($arrData, $empID);
 				logaction('Updated Personal Information',1);
 				$this->session->set_flashdata('saving_status','Personal Information updated successfully.');
 				redirect('libraries/personal_info');
@@ -250,7 +250,7 @@ class Employees extends MY_Controller {
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/personal_info_view', $this->arrTemplateData);
 		}
 	    	
@@ -285,7 +285,7 @@ class Employees extends MY_Controller {
 					'parentAddress'=>$strBusAdd,
 					'parentAddress'=>$strTelephone			
 				);
-				$blnReturn=$this->employees_model->saveSpouse($arrData, $empID);
+				$blnReturn=$this->hr_model->saveSpouse($arrData, $empID);
 				logaction('Updated Spouses Information',1);
 				$this->session->set_flashdata('saving_status','Spouses Information updated successfully.');
 				redirect('libraries/family_background_view');
@@ -293,7 +293,7 @@ class Employees extends MY_Controller {
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/family_background_view', $this->arrTemplateData);
 		}
 	    	
@@ -327,7 +327,7 @@ class Employees extends MY_Controller {
 			
 					
 				);
-				$blnReturn=$this->employees_model->saveParents($arrData, $empID);
+				$blnReturn=$this->hr_model->saveParents($arrData, $empID);
 				logaction('Updated Parents Information',1);
 				$this->session->set_flashdata('saving_status','Parents Information updated successfully.');
 				redirect('libraries/family_background_view');
@@ -335,7 +335,7 @@ class Employees extends MY_Controller {
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/family_background_view', $this->arrTemplateData);
 		}
 	    	
@@ -355,7 +355,7 @@ class Employees extends MY_Controller {
 					'childName'=>$strCName,
 					'childBirthDate'=>$dtmCBirthdate,			
 				);
-				$blnReturn=$this->employees_model->saveChild($arrData, $empID);
+				$blnReturn=$this->hr_model->saveChild($arrData, $empID);
 				logaction('Updated Childrens Information',1);
 				$this->session->set_flashdata('saving_status','Childrens Information updated successfully.');
 				redirect('libraries/family_background_view');
@@ -363,7 +363,7 @@ class Employees extends MY_Controller {
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/family_background_view', $this->arrTemplateData);
 		}   	
     }
@@ -396,14 +396,14 @@ class Employees extends MY_Controller {
 					'honors'=>$strHonors,
 					'licensed'=>$strLicense
 				);
-				$blnReturn=$this->employees_model->saveEduc($arrData, $levelCode);
+				$blnReturn=$this->hr_model->saveEduc($arrData, $levelCode);
 				logaction('Updated Educational Information',1);
 				$this->session->set_flashdata('saving_status','Educational Information updated successfully.');
 				redirect('libraries/education_view');
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/education_view', $this->arrTemplateData);
 		}
     }
@@ -428,14 +428,14 @@ class Employees extends MY_Controller {
 					'licenseNumber'=>$strLicense,
 					'dateRelease'=>$strValidity
 				);
-				$blnReturn=$this->employees_model->saveExam($arrData, $examCode);
+				$blnReturn=$this->hr_model->saveExam($arrData, $examCode);
 				logaction('Updated information',1);
 				$this->session->set_flashdata('saving_status','Information updated successfully.');
 				redirect('libraries/examination_view');
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/examination_view', $this->arrTemplateData);
 		}	
     }
@@ -466,14 +466,14 @@ class Employees extends MY_Controller {
 					'trainingStartDate'=>$dtmStartDate,
 					'trainingEndDate'=>$dtmEndDate
 				);
-				$blnReturn=$this->employees_model->saveEduc($arrData, $XtrainingCode);
+				$blnReturn=$this->hr_model->saveEduc($arrData, $XtrainingCode);
 				logaction('Training information',1);
 				$this->session->set_flashdata('saving_status','Training Information updated successfully.');
 				redirect('libraries/training_view');
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/training_view', $this->arrTemplateData);
 		}	
     }
@@ -500,14 +500,14 @@ class Employees extends MY_Controller {
 					'vwHours'=>$dtmHours,
 					'vwPosition'=>$strNature
 				);
-				$blnReturn=$this->employees_model->saveEduc($arrData, $XtrainingCode);
+				$blnReturn=$this->hr_model->saveEduc($arrData, $XtrainingCode);
 				logaction('Voluntary Work information',1);
 				$this->session->set_flashdata('saving_status','Voluntary Work Information updated successfully.');
 				redirect('libraries/voluntary_works_view');
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/voluntary_works_view', $this->arrTemplateData);
 		}	
     }
@@ -586,7 +586,7 @@ class Employees extends MY_Controller {
 					'service'=>$strService,
 					'divisionCode'=>$strDivision
 				);
-				$blnReturn=$this->employees_model->savePosition($arrData, $empID);
+				$blnReturn=$this->hr_model->savePosition($arrData, $empID);
 				logaction('Updated Position Information',1);
 				$this->session->set_flashdata('saving_status','Position Information updated successfully.');
 				redirect('libraries/family_background_view');
@@ -594,7 +594,7 @@ class Employees extends MY_Controller {
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/family_background_view', $this->arrTemplateData);
 		}   	
     }
@@ -621,14 +621,14 @@ class Employees extends MY_Controller {
 					'duties'=>$strActualDuties,
 					'percentWork'=>$intActualPercent
 				);
-				$blnReturn=$this->employees_model->saveEduc($arrData, $positionCode);
+				$blnReturn=$this->hr_model->saveEduc($arrData, $positionCode);
 				logaction('Duties information',1);
 				$this->session->set_flashdata('saving_status','Duties Information updated successfully.');
 				redirect('libraries/voluntary_works_view');
 			}
 		}else {
 			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->employees_model->getData($strid);
+			$this->arrTemplateData['arrData']=$this->hr_model->getData($strid);
 			$this->template->load('template/main_layout', 'libraries/duties_and_responsibilities_view', $this->arrTemplateData);
 		}	
     }

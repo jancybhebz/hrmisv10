@@ -15,7 +15,7 @@ class Org_structure extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/org_structure_model','employees/employees_model'));
+        $this->load->model(array('libraries/org_structure_model','hr/hr_model'));
     }
 
 	public function index()
@@ -30,7 +30,7 @@ class Org_structure extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/add_exec_view',$this->arrData);	
 		}
 		else
@@ -82,7 +82,7 @@ class Org_structure extends MY_Controller {
 		{
 			$strCode = urldecode($this->uri->segment(4));
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData($strCode);
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/edit_exec_view', $this->arrData);
 		}
 		else
@@ -154,7 +154,7 @@ class Org_structure extends MY_Controller {
 		if(empty($arrPost))
 		{	
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/add_service_view',$this->arrData);	
 		}
@@ -210,7 +210,7 @@ class Org_structure extends MY_Controller {
 			$strCode = urldecode($this->uri->segment(4));
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData($strCode);
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/edit_service_view', $this->arrData);
 		}
 		else
@@ -255,7 +255,7 @@ class Org_structure extends MY_Controller {
 		{
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData($strCode);
 			$this->arrData['arrOrganization'] = $this->org_structure_model->getData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData(); 
+			$this->arrData['arrEmployees'] = $this->hr_model->getData(); 
 			$this->template->load('template/template_view','libraries/org_structure/delete_service_view',$this->arrData);
 		}
 		else
@@ -284,7 +284,7 @@ class Org_structure extends MY_Controller {
 		{	
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
 			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/add_division_view',$this->arrData);	
 		}
@@ -343,7 +343,7 @@ class Org_structure extends MY_Controller {
 			$strCode = urldecode($this->uri->segment(4));
 			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData($strCode);
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/edit_division_view', $this->arrData);
 		}
@@ -420,7 +420,7 @@ class Org_structure extends MY_Controller {
 		{	
 			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
 			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
 			$this->template->load('template/template_view','libraries/org_structure/add_section_view',$this->arrData);	
@@ -481,7 +481,7 @@ class Org_structure extends MY_Controller {
 			$strCode = urldecode($this->uri->segment(4));
 			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData($strCode);
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
 			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
 			$this->template->load('template/template_view','libraries/org_structure/edit_section_view', $this->arrData);
@@ -532,7 +532,7 @@ class Org_structure extends MY_Controller {
 		{
 			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData($strCode);
 			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
 			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
 			$this->template->load('template/template_view','libraries/org_structure/delete_section_view',$this->arrData);

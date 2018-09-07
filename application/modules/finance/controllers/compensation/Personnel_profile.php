@@ -14,7 +14,7 @@ class Personnel_profile extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employees/employees_model',
+        $this->load->model(array('hr/hr_model',
         						'PayrollGroup_model',
         						'Rata_model',
         						'libraries/Attendance_scheme_model',
@@ -28,13 +28,13 @@ class Personnel_profile extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrEmployees'] = $this->employees_model->getData();
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_all',$this->arrData);
 	}
 
 	public function employee($empid)
 	{
-		$res = $this->employees_model->getData($empid);
+		$res = $this->hr_model->getData($empid);
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
 		$this->arrData['rata'] = $this->Rata_model->getData($res[0]['RATACode']);

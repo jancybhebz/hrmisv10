@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Employees_model extends CI_Model {
+class HR_model extends CI_Model {
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
 
@@ -300,5 +300,5 @@ class Employees_model extends CI_Model {
 	//   return $objQuery->result_array();		
 	// }	
 }
-/* End of file Employees_model.php */
+/* End of file HR_model.php */
 /* Location: ./application/modules/employees/models/Employees_model.php */
