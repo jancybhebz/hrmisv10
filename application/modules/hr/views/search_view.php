@@ -24,7 +24,7 @@
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
 <div class="search-page search-content-4">
-    <form class="sidebar-search  " action="<?=base_url('employees/search')?>" method="POST">
+    <form class="sidebar-search  " action="<?=base_url('hr/search')?>" method="POST">
     <div class="search-bar bordered">
         <div class="row">
             <div class="col-lg-8">

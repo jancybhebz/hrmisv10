@@ -37,7 +37,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <a href="<?=base_url('employees/add')?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>&nbsp
+                                <a href="<?=base_url('hr/add_employee')?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>&nbsp
                                 
                             </div>
                             <div class="btn-group">
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=employee_office($row['empNumber'])?> </td>
                             <td> <?=$row['positionDesc']?></td>
                             <td>     
-                                <a href="<?=base_url('pds/hr/delete/'.$row['empNumber'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('pds/hr/delete/'.$row['empNumber'])?>"><button class="btn btn-sm btn-danger" onclick="return confirmdelete()"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>
@@ -325,4 +325,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             }]
         });
   });//end document ready
+</script>
+
+<script>
+ function confirmdelete()
+  {
+    var answer=confirm('Are you sure you want to delete this item?');
+    if(!answer) return false;
+  }
+
 </script>

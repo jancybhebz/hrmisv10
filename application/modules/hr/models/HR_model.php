@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class HR_model extends CI_Model {
+	
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
 
@@ -36,7 +37,7 @@ class HR_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
-	public function addPersonal($arrData)
+	public function add_employee($arrData)
 	{
 		$this->db->insert($this->table, $arrData);
 		return $this->db->insert_id();		

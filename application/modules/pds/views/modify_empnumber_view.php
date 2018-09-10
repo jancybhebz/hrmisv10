@@ -8,7 +8,7 @@
                     <td><input type="text" name="strToNumber"></td>
                 </tr>
                 <tr>
-                    <td colspan="3"><a href="<?=base_url('employees/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Update</button></a></td>
+                    <td colspan="3"><a href="<?=base_url('hr/profile/edit')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Update</button></a></td>
                 </tr>
             </table>
     </form>

@@ -43,115 +43,121 @@ class HR extends MY_Controller {
 		$this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
 	}
 
-	public function addPersonal()
+	public function add_employee()
     {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->template->load('template/template_view','pds/personal_view',$this->arrData);	
+			$this->template->load('template/template_view','hr/add_employee_view',$this->arrData);	
 		}
 		else
 		{	
-			$strSalutation =$arrPost['strSalutation '];
+			$strEmpID =$arrPost['strEmpID'];
+			$strSalutation =$arrPost['strSalutation'];
 			$strSurname=$arrPost['strSurname'];
 			$strFirstname=$arrPost['strFirstname'];
+			$strMiddlename=$arrPost['strMiddlename'];
 			$strMidInitial=$arrPost['strMidInitial'];
-			$strMidname=$arrPost['strMidname'];
 			$strNameExt=$arrPost['strNameExt'];
-			$strLot1=$arrPost['strLot1'];
-			$strLot2=$arrPost['strLot2'];
-			$strStreet1=$arrPost['strStreet1'];
-			$strStreet2=$arrPost['strStreet2'];
-			$strSubd1=$arrPost['strSubd1'];
-			$strSubd2=$arrPost['strSubd2'];
-			$strBrgy1=$arrPost['strBrgy1'];
-			$strBrgy2=$arrPost['strBrgy2'];
-			$strProvince1=$arrPost['strProvince1'];
-			$strProvince2=$arrPost['strProvince2'];
-			$strCity1=$arrPost['strCity1'];
-			$strCity2=$arrPost['strCity2'];
-			$strBday=$arrPost['strBday'];
-			$strBPlace=$arrPost['strBPlace'];
-			$strTel1=$arrPost['strTel1'];
-			$strTel2=$arrPost['strTel2'];
-			$strSex=$arrPost['strSex'];
-			$strCvlStatus=$arrPost['strCvlStatus'];
-			$strGSIS=$arrPost['strGSIS'];
-			$strMobile=$arrPost['strMobile'];
-			$strCitizenship=$arrPost['strCitizenship'];
-			$strPagibig=$arrPost['strPagibig'];
-			$strEmail=$arrPost['strEmail'];
-			$strHeight=$arrPost['strHeight'];
-			$strPHealth=$arrPost['strPHealth'];
-			$strAccountNum=$arrPost['strAccountNum'];
-			$strWeight=$arrPost['strWeight'];
-			$strTin=$arrPost['strTin'];
-			$strSSS=$arrPost['strSSS'];
-			$strBloodType=$arrPost['strBloodType'];
-			if(!empty($strExamCode) && !empty($strExamDesc))
-			{	
-				// check if exam code and/or exam desc already exist
-				if(!empty($strSurname) && !empty($strFirstname) && !empty($strMidInitial) && !empty($strProvince1) && !empty($strProvince2) && !empty($strCity1) && !empty($strCity2))
+			// $dtmBday=$arrPost['dtmBday'];
+			// $strBirthPlace=$arrPost['strBirthPlace'];
+			// $strSex=$arrPost['strSex'];
+			// $strCvlStatus=$arrPost['strCvlStatus'];
+			// $strCitizenship=$arrPost['strCitizenship'];
+			// $strHeight=$arrPost['strHeight'];
+			// $strHeight=$arrPost['strWeight'];
+			// $strBloodType=$arrPost['strBloodType'];
+			// $strGSIS=$arrPost['strGSIS'];
+			// $strPagibig=$arrPost['strPagibig'];
+			// $strPHealth=$arrPost['strPHealth'];
+			// $strTin=$arrPost['strTin'];
+			// $strEmail=$arrPost['strEmail'];
+			// $strSSS=$arrPost['strSSS'];
+
+			// $strLot1=$arrPost['strLot1'];
+			// $strLot2=$arrPost['strLot2'];
+			// $strStreet1=$arrPost['strStreet1'];
+			// $strStreet2=$arrPost['strStreet2'];
+			// $strSubd1=$arrPost['strSubd1'];
+			// $strSubd2=$arrPost['strSubd2'];
+			// $strBrgy1=$arrPost['strBrgy1'];
+			// $strBrgy2=$arrPost['strBrgy2'];
+			// $strProvince1=$arrPost['strProvince1'];
+			// $strProvince2=$arrPost['strProvince2'];
+			// $strCity1=$arrPost['strCity1'];
+			// $strCity2=$arrPost['strCity2'];
+			// $intZipCode1=$arrPost['intZipCode1'];
+			// $intZipCode2=$arrPost['intZipCode2'];
+			// $intTel1=$arrPost['intTel1'];
+			// $intTel2=$arrPost['intTel2'];
+			// $intMobile=$arrPost['intMobile'];
+			// $intAccount=$arrPost['intAccount'];
+		
+		
+				if(!empty($strEmpID) && !empty($strSurname) && !empty($strFirstname) && !empty($strMiddlename))
 				{
 					$arrData = array(
 						'salutation'=>$strSalutation,
+						'empNumber'=>$strEmpID,
 						'surname'=>$strSurname,
 						'firstname'=>$strFirstname,
-						'middlename'=>$strMidname,
+						'middlename'=>$strMiddlename,
 						'middleInitial'=>$strMidInitial,
 						'nameExtension'=>$strNameExt,
-						'lot1'=>$strLot1,
-						'lot2'=>$strLot2,
-						'street1'=>$strStreet1,
-						'street2'=>$strStreet2,
-						'subdivision1'=>$strSubd1,
-						'subdivision2'=>$strSubd2,
-						'barangay1'=>$strBrgy1,
-						'barangay2'=>$strBrgy2,
-						'city1'=>$strCity1,
-						'city2'=>$strCity2,
-						'province1'=>$strProvince1,
-						'province2'=>$strProvince2,
-						'birthday'=>$strBday,
-						'zipCode1'=>$strZip1,
-						'zipCode2'=>$strZip2,
-						'birthPlace'=>$strBPlace,
-						'telephone1'=>$strTel1,
-						'telephone2'=>$strTel2,
-						'sex'=>$strSex,
-						'civilStatus'=>$strCvlStatus,
-						'gsisNumber'=>$strGSIS,
-						'Mobile'=>$strMobile,
-						'citizenship'=>$strCitizenship,
-						'pagibigNumber'=>$strPagibig,
-						'email'=>$strEmail,
-						'height'=>$strHeight,
-						'philHealthNumber'=>$strPHealth,
-						'AccountNum'=>$strAccountNum,
-						'weight'=>$strWeight,
-						'tin'=>$strTin,
-						'sss'=>$strSSS,
-						'bloodType'=>$strBloodType
+						// 'citizenship'=>$strCitizenship,
+						// 'birthday'=>$dtmBday,
+						// 'birthPlace'=>$strBirthPlace,
+						// 'sex'=>$strSex,
+						// 'civilStatus'=>$strCvlStatus,
+						// 'gsisNumber'=>$intGSIS,
+						// 'email'=>$strEmail,
+						// 'height'=>$strHeight,
+						// 'pagibigNumber'=>$intPagibig,
+						// 'philHealthNumber'=>$intPHealth,
+						// 'AccountNum'=>$intAccountNum,
+						// 'weight'=>$strWeight,
+						// 'tin'=>$intTin,
+						// 'sssNumber'=>$intSSS,
+						// 'bloodType'=>$strBloodType
+
+						// 'lot1'=>$strLot1,
+						// 'lot2'=>$strLot2,
+						// 'street1'=>$strStreet1,
+						// 'street2'=>$strStreet2,
+						// 'subdivision1'=>$strSubd1,
+						// 'subdivision2'=>$strSubd2,
+						// 'barangay1'=>$strBrgy1,
+						// 'barangay2'=>$strBrgy2,
+						// 'city1'=>$strCity1,
+						// 'city2'=>$strCity2,
+						// 'province1'=>$strProvince1,
+						// 'province2'=>$strProvince2,
+						// 'zipCode1'=>$intZip1,
+						// 'zipCode2'=>$intZip2,
+						// 'telephone1'=>$intTel1,
+						// 'telephone2'=>$intTel2,
+						// 'Mobile'=>$intMobile
+						
 					);
-					$blnReturn  = $this->hr_model->add($arrData);
+					$blnReturn  = $this->hr_model->add_employee($arrData);
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemppersonal','Added '.$strSurname.' Exam Type',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemppersonal','Added '.$strSurname.'',implode(';',$arrData),'');
 					
 						$this->session->set_flashdata('strMsg','Personal Information added successfully.');
 					}
-					redirect('libraries/exam_type');
+					redirect('hr/add_employee');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Personal Information already exists.');
 					$this->session->set_flashdata('strSurname',$strSurname);
 						//echo $this->session->flashdata('strErrorMsg');
-					redirect('pds/personal_view/add');
+					redirect('hr/add_employee');
 				}
 			}
-		}
+		
     }
 
 	public function editPersonal()

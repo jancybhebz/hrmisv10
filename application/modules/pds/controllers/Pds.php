@@ -1,9 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pds extends MY_Controller {
+class Pds extends MY_Controller 
+{
 	var $arrData;
-	function __construct() {
+	function __construct() 
+	{
         parent::__construct();
     }
 
@@ -45,17 +47,14 @@ class Pds extends MY_Controller {
             $arrGender['intTotalFemale'] += $arrGenderChart[$row]['F'][0]['total'];
         endforeach;
 
-        
-		//print_r($arrGenderChart);
-		// $arrGenderChart['jo'] = $this->chart_model->gender_appointment('JO');
-		// $arrGenderChart['gia'] = $this->chart_model->gender_appointment('GIA');
-		// $arrGenderChart['cont'] = $this->chart_model->gender_appointment('CONT');
-		// $arrGenderChart['p'] = $this->chart_model->gender_appointment('P');
 		$arrData['arrAS'] = $arrAS;
 		$arrData['arrASFull'] = $arrASFull;
 		$arrData['arrGender'] = $arrGender;
 		$arrData['arrGenderChart'] = $arrGenderChart;
 		$this->template->load('template/template_view','pds/default_view',$arrData);
 	}
+	
+	
+	
 
 }
