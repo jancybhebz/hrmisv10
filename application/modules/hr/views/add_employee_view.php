@@ -22,7 +22,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- END BREADCRUMB -->
 
-<form action="" method="post" onsubmit="return checkForBlank()" name="employeeform">
+<form action = "<?=base_url('hr/add_employee/add_employee')?>" method="post" onsubmit="return checkForBlank()" name="employeeform">
  <!-- <?php print_r($arrData) ?>  -->
  <br><br>
          <div class="row">
@@ -33,7 +33,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strEmpID" id="strEmpID" type="text" size="20" maxlength="20" class="form-control" required="" value="<?=isset($arrData[0]['empNumber'])?$arrData[0]['empNumber']:''?>">
+                    <input name="strEmpID" id="strEmpID" type="text" size="20" maxlength="20" class="form-control" required="" value="<?=!empty($this->session->userdata('strEmpID'))?$this->session->userdata('strEmpID'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -51,7 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strSalutation" id="strSalutation" type="text" size="20" maxlength="20" class="form-control" value="<?=isset($arrData[0]['salutation'])?$arrData[0]['salutation']:''?>">
+                    <input name="strSalutation" id="strSalutation" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strSalutation'))?$this->session->userdata('strSalutation'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strSurname" id="strSurname" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['surname'])?$arrData[0]['surname']:''?>">
+                    <input name="strSurname" id="strSurname" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strSurname'))?$this->session->userdata('strSurname'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -85,7 +85,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strFirstname" id="strFirstname" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['firstname'])?$arrData[0]['firstname']:''?>">
+                    <input name="strFirstname" id="strFirstname" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strFirstname'))?$this->session->userdata('strFirstname'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -102,8 +102,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strMiddlename" id="strMiddlename" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['middlename'])?$arrData[0]['middlename']:''?>">
+                    <input name="strMiddlename" id="strMiddlename" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strMiddlename'))?$this->session->userdata('strMiddlename'):''?>">
                 </div>
+         
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
@@ -119,7 +120,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strMidInitial" id="strMidInitial" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['middleInitial'])?$arrData[0]['middleInitial']:''?>">
+                    <input name="strMidInitial" id="strMidInitial" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strMidInitial'))?$this->session->userdata('strMidInitial'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -136,7 +137,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strNameExt" id="strNameExt" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['nameExtension'])?$arrData[0]['nameExtension']:''?>">
+                    <input name="strNameExt" id="strNameExt" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strNameExt'))?$this->session->userdata('strNameExt'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -153,7 +154,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
-                    <input type="date" id="dtmBday" name="dtmBday" class="form-control has-datepicker" value="<?=isset($arrData[0]['birthday'])?$arrData[0]['birthday']:''?>">
+                    <input type="date" id="dtmBday" name="dtmBday" class="form-control has-datepicker" value="<?=!empty($this->session->userdata('dtmBday'))?$this->session->userdata('dtmBday'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -170,7 +171,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBirthPlace" id="strBirthPlace" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['birthPlace'])?$arrData[0]['birthPlace']:''?>">
+                    <input name="strBirthPlace" id="strBirthPlace" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBirthPlace'))?$this->session->userdata('strBirthPlace'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -208,7 +209,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" value="<?=isset($arrData[0]['civilStatus'])?$arrData[0]['civilStatus']:''?>">
+                    <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" value="<?=!empty($this->session->userdata('strCvlStatus'))?$this->session->userdata('strCvlStatus'):''?>">
+                </div>
                         <option value="">Please Select</option>
                         <option>Single</option>
                         <option>Married</option>
@@ -248,8 +250,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strHeight" id="strHeight" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['height'])?$arrData[0]['height']:''?>">
+                    <input name="strHeight" id="strHeight" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strHeight'))?$this->session->userdata('strHeight'):''?>">
                 </div>
+        
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
@@ -265,7 +268,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strWeight" id="strWeight" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['height'])?$arrData[0]['height']:''?>">
+                    <input name="strWeight" id="strWeight" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strWeight'))?$this->session->userdata('strWeight'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -282,8 +285,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBloodType" id="strBloodType" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['bloodType'])?$arrData[0]['bloodType']:''?>">
-                </div>
+                    <input name="strBloodType" id="strBloodType" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBloodType'))?$this->session->userdata('strBloodType'):''?>">
+              </div>      
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
@@ -299,8 +302,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intGSIS" id="intGSIS" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['gsisNumber'])?$arrData[0]['gsisNumber']:''?>">
+                    <input name="intGSIS" id="intGSIS" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intGSIS'))?$this->session->userdata('intGSIS'):''?>">
                 </div>
+         
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
@@ -316,7 +320,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intPagibig" id="intPagibig" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['pagibigNumber'])?$arrData[0]['pagibigNumber']:''?>">
+                    <input name="intPagibig" id="intPagibig" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intPagibig'))?$this->session->userdata('intPagibig'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -333,7 +337,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intPhilhealth" id="intPhilhealth" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['philHealthNumber'])?$arrData[0]['philHealthNumber']:''?>">
+                    <input name="intPhilhealth" id="intPhilhealth" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intPhilhealth'))?$this->session->userdata('intPhilhealth'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -350,15 +354,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intTin" id="intTin" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['tin'])?$arrData[0]['tin']:''?>">
+                    <input name="intTin" id="intTin" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTin'))?$this->session->userdata('intTin'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
                      <font color='red'> <span id="tin"></span></font>
                 </div>
-            </div>
          </div>
+        </div>
           <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
@@ -367,7 +371,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strEmail" id="strEmail" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['email'])?$arrData[0]['email']:''?>">
+                    <input name="strEmail" id="strEmail" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strEmail'))?$this->session->userdata('strEmail'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -384,8 +388,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intSSS" id="intSSS" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['sssNumber'])?$arrData[0]['sssNumber']:''?>">
-                </div>
+                    <input name="intSSS" id="intSSS" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intSSS'))?$this->session->userdata('intSSS'):''?>">
+            </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
@@ -393,8 +397,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
          </div>
+
+        <div class="row">
+             <div class="col-sm-3 text-right">
+                <div class="form-group">
+                    <label class="control-label">Telephone Number : <span class="required"> * </span></label>
+                </div>
+            </div>
+             <div class="col-sm-3">
+                <div class="form-group">
+                    <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
+                </div>
+            </div>
+             <div class="col-sm-3">
+                <div class="form-group">
+                     <font color='red'> <span id="tel1"></span></font>
+                </div>
+            </div>
+         </div>
          <br><br>
-         <div class="row">
+          <div class="row">
              <div class="col-sm-5 text-right">
                 <div class="form-group">
                     <label class="control-label">TEMPORARY ADDRESS : </label>
@@ -409,7 +431,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strLot1" id="strLot1" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['lot1'])?$arrData[0]['lot1']:''?>">
+                    <input name="strLot1" id="strLot1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strLot1'))?$this->session->userdata('strLot1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -426,7 +448,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strStreet1" id="strStreet1" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['street1'])?$arrData[0]['street1']:''?>">
+                    <input name="strStreet1" id="strStreet1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strStreet1'))?$this->session->userdata('strStreet1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -443,7 +465,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strSubd1" id="strSubd1" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['subdivision1'])?$arrData[0]['subdivision1']:''?>">
+                    <input name="strSubd1" id="strSubd1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strSubd1'))?$this->session->userdata('strSubd1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -460,7 +482,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBrgy1" id="strBrgy1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['barangay1'])?$arrData[0]['barangay1']:''?>">
+                    <input name="strBrgy1" id="strBrgy1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBrgy1'))?$this->session->userdata('strBrgy1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -477,8 +499,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strCity1" id="strCity1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['city1'])?$arrData[0]['city1']:''?>">
+                    <input name="strCity1" id="strCity1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strCity1'))?$this->session->userdata('strCity1'):''?>">
                 </div>
+
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
@@ -494,7 +517,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strProv1" id="strProv1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['province1'])?$arrData[0]['province1']:''?>">
+                    <input name="strProv1" id="strProv1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strProv1'))?$this->session->userdata('strProv1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -511,7 +534,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intZipCode1" id="intZipCode1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['zipCode1'])?$arrData[0]['zipCode1']:''?>">
+                    <input name="intZipCode1" id="intZipCode1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intZipCode1'))?$this->session->userdata('intZipCode1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -528,7 +551,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['telephone1'])?$arrData[0]['telephone1']:''?>">
+                    <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -553,7 +576,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strLot2" id="strLot2" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['lot2'])?$arrData[0]['lot2']:''?>">
+                    <input name="strLot2" id="strLot2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strLot2'))?$this->session->userdata('strLot2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -570,7 +593,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strStreet2" id="strStreet2" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['street2'])?$arrData[0]['street2']:''?>">
+                    <input name="strStreet2" id="strStreet2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strStreet2'))?$this->session->userdata('strStreet2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -587,7 +610,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strSubd2" id="strSubd2" type="text" size="20" maxlength="255" class="form-control" value="<?=isset($arrData[0]['subdivision2'])?$arrData[0]['subdivision2']:''?>">
+                    <input name="strSubd2" id="strSubd2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strSubd2'))?$this->session->userdata('strSubd2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -604,7 +627,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBrgy2" id="strBrgy2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['barangay2'])?$arrData[0]['barangay2']:''?>">
+                    <input name="strBrgy2" id="strBrgy2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBrgy2'))?$this->session->userdata('strBrgy2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -621,7 +644,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strCity2" id="strCity2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['city2'])?$arrData[0]['city2']:''?>">
+                    <input name="strCity2" id="strCity2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strCity2'))?$this->session->userdata('strCity2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -638,7 +661,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strProv2" id="strProv2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['province2'])?$arrData[0]['province2']:''?>">
+                    <input name="strProv2" id="strProv2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strProv2'))?$this->session->userdata('strProv2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -655,7 +678,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intZipCode2" id="intZipCode2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['zipCode2'])?$arrData[0]['zipCode2']:''?>">
+                    <input name="intZipCode2" id="intZipCode2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intZipCode2'))?$this->session->userdata('intZipCode2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -672,7 +695,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intTel2" id="intTel2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['telephone2'])?$arrData[0]['telephone2']:''?>">
+                    <input name="intTel2" id="intTel2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTel2'))?$this->session->userdata('intTel2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -689,7 +712,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intMobile" id="intMobile" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['Mobile'])?$arrData[0]['Mobile']:''?>">
+                    <input name="intMobile" id="intMobile" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intMobile'))?$this->session->userdata('intMobile'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -706,7 +729,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intAccount" id="intAccount" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=isset($arrData[0]['AccountNum'])?$arrData[0]['AccountNum']:''?>">
+                    <input name="intAccount" id="intAccount" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intAccount'))?$this->session->userdata('intAccount'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
