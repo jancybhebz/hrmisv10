@@ -36,6 +36,21 @@ if ( ! function_exists('get_libraries'))
 		);
 	}
 
+	function get_request()
+    {
+		$CI =& get_instance();
+
+		return array(
+			'official_business'=>'Official Business',
+			'leave'=>'Leave',
+			'travel_order'=>'Travel Order',
+			'pds_update'=>'PDS Update',
+			'reports'=>'Reports',
+			'dtr_update'=>'DTR Update',
+			
+		);
+	}
+
 }
 
 

@@ -63,7 +63,6 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <span class="title">201</span>
                     <span class="arrow"></span>
                 </a>
-                
             </li>
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
@@ -105,6 +104,31 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <span class="title">Compensation</span>
                     <span class="arrow"></span>
                 </a>
+            </li>
+
+             <li class="heading">
+                <h3 class="uppercase">Employee Module</h3>
+            </li>
+           <!-- request -->
+           <li class="nav-item <?=$active=='employee'?'active open':''?>">
+                <a href="<?=base_url('employee')?>" class="nav-link nav-toggle">
+                    <i class="icon-settings"></i>
+                    <span class="title">Request</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <?php 
+                        //get library menu item from menu_helper
+                        $arrMenu = get_request();
+                        foreach($arrMenu as $i=>$menuItem){
+                    ?>
+                    <li class="nav-item start <?=$activesub==$i?'active':''?>">
+                        <a href="<?=base_url('employee/'.$i)?>" class="nav-link ">
+                            <span class="title"><?=$menuItem?></span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
             </li>
         <?php endif;?>
              <li class="heading">
