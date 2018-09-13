@@ -15,22 +15,22 @@ class Travel_order_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
-	function getData($intAppointmentId = '')
-	{		
-		$strWhere = '';
-		if($intAppointmentId != "")
-			$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
+	// function getData($intAppointmentId = '')
+	// {		
+	// 	$strWhere = '';
+	// 	if($intAppointmentId != "")
+	// 		$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
 		
-		$strSQL = " SELECT * FROM tblAppointment					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY appointmentDesc
-					";
-		//]echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
-		return $objQuery->result_array();	
-	}
+	// 	$strSQL = " SELECT * FROM tblAppointment					
+	// 				WHERE 1=1 
+	// 				$strWhere
+	// 				ORDER BY appointmentDesc
+	// 				";
+	// 	//]echo $strSQL;exit(1);				
+	// 	$objQuery = $this->db->query($strSQL);
+	// 	//print_r($objQuery->result_array());
+	// 	return $objQuery->result_array();	
+	// }
 
 	function add($arrData)
 	{

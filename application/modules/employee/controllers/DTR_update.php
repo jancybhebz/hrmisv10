@@ -20,9 +20,10 @@ class DTR_update extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrAppointStatuses'] = $this->appointment_status_model->getData();
-		$this->template->load('template/template_view', 'libraries/dtr_update/dtr_update_view', $this->arrData);
+		// $this->arrData['arrOB'] = $this->dtr_update_model->getData();
+		$this->template->load('template/template_view', 'employee/dtr_update/dtr_update_view', $this->arrData);
 	}
+	
 	
 	public function add()
     {

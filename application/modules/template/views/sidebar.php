@@ -118,7 +118,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                 </a>
                 <ul class="sub-menu">
                     <?php 
-                        //get library menu item from menu_helper
+                        //get request menu item from menu_helper
                         $arrMenu = get_request();
                         foreach($arrMenu as $i=>$menuItem){
                     ?>
@@ -129,6 +129,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     </li>
                     <?php } ?>
                 </ul>
+                
             </li>
         <?php endif;?>
              <li class="heading">

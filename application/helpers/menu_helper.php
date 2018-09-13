@@ -51,6 +51,22 @@ if ( ! function_exists('get_libraries'))
 		);
 	}
 
+	function get_leave()
+    {
+		$CI =& get_instance();
+
+		return array(
+			'special_leave'=>'Special Leave',
+			'sick_leave'=>'Sick Leave',
+			'vacation_leave'=>'Vacation Leave',
+			'study_leave'=>'Study Leave',
+			'maternity_leave'=>'Maternity Leave',
+			'paternity_leave'=>'Paternity Leave',
+			'forced_leave'=>'Forced Leave',
+			
+		);
+	}
+
 }
 
 

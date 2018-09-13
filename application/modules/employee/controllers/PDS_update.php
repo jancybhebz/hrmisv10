@@ -20,8 +20,8 @@ class PDS_update extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrAppointStatuses'] = $this->appointment_status_model->getData();
-		$this->template->load('template/template_view', 'libraries/pds_update/pds_update_view', $this->arrData);
+		// $this->arrData['arrAppointStatuses'] = $this->appointment_status_model->getData();
+		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
 	
 	public function add()

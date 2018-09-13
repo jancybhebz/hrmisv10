@@ -20,8 +20,8 @@ class Leave extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrAppointStatuses'] = $this->appointment_status_model->getData();
-		$this->template->load('template/template_view', 'libraries/leave/leave_view', $this->arrData);
+		// $this->arrData['arrOB'] = $this->official_business_model->getData();
+		$this->template->load('template/template_view', 'employee/leave/leave_view', $this->arrData);
 	}
 	
 	public function add()
