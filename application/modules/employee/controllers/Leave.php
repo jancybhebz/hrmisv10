@@ -15,13 +15,15 @@ class Leave extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employee/leave_model'));
+        $this->load->model(array('employee/leave_model', 'libraries/user_account_model','hr/hr_model'));
     }
 
 	public function index()
 	{
 		// $this->arrData['arrOB'] = $this->official_business_model->getData();
 		$this->template->load('template/template_view', 'employee/leave/leave_view', $this->arrData);
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
+		$this->arrData['arrUser'] = $this->user_account_model->getData();
 	}
 	
 	public function add()
@@ -29,6 +31,8 @@ class Leave extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
+			// $this->arrData['arrEmployees'] = $this->hr_model->getData();
+			// $this->arrData['arrUser'] = $this->user_account_model->getData();
 			$this->template->load('template/template_view','libraries/appointment_status/add_view',$this->arrData);	
 		}
 		else

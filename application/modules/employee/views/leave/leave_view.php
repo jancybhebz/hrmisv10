@@ -49,15 +49,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                      <div class="col-sm-3">
                         <div class="form-group">
-                            <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>">
+                            <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
                             <option value="">Please select</option>
-                            <option>Forced Leave</option>
-                            <option>Special Leave</option>
-                            <option>Sick Leave</option>
-                            <option>Vacation Leave</option>
-                            <option>Maternity Leave</option>
-                            <option>Paternity Leave</option>
-                            <option>Study Leave</option>
+                            <option value="forced">Forced Leave</option>
+                            <option value="special">Special Leave</option>
+                            <option value="sick">Sick Leave</option>
+                            <option value="vacation">Vacation Leave</option>
+                            <option value="maternity">Maternity Leave</option>
+                            <option value="paternity">Paternity Leave</option>
+                            <option value="study">Study Leave</option>
                             </select>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                  </div><br>
-                <div class="row">
+                <div class="row" id="wholeday_textbox">
                        <div class="col-sm-5 text-right">
                             <div class="form-group">
                                 <input type="radio" name="strDay"
@@ -82,7 +82,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div><br>
-                     <div class="row">
+                     <div class="row" id="leavefrom_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
                                 <label class="control-label">Leave From : <span class="required"> * </span></label>
@@ -99,7 +99,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row" id="leaveto_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
                                 <label class="control-label">Leave To : <span class="required"> * </span></label>
@@ -116,7 +116,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="daysapplied_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
                                 <label class="control-label"># of Days Applied : <span class="required"> * </span></label>
@@ -128,7 +128,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row" id="signatory1_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
                                 <label class="control-label">Authorized Official (1st Signatory) : <span class="required"> * </span></label>
@@ -137,11 +137,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-3">
                             <div class="form-group">
                                  <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
-                                 </select>
+                                    <option value="">Select</option>
+                                    <?php foreach($arrEmployees as $i=>$data): ?>
+                                    <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                        <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row" id="signatory2_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
                                 <label class="control-label">Authorized Official (2nd Signatory) : <span class="required"> * </span></label>
@@ -150,7 +154,24 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-3">
                             <div class="form-group">
                                  <select name="str2ndSignatory" id="str2ndSignatory" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>">
+                                 <option value="">Select</option>
+                                    <?php foreach($arrEmployees as $i=>$data): ?>
+                                    <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                        <?php endforeach; ?>
                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="reason_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Specify Reason/s : <span class="required"> * </span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <textarea name="strReason" id="strReason" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
+                                 </textarea>
                             </div>
                         </div>
                     </div>
@@ -169,3 +190,5 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
+
+<!-- <script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>"> -->

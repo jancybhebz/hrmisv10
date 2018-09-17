@@ -131,6 +131,13 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                 </ul>
                 
             </li>
+             <li class="nav-item <?=$active=='employee/notification'?'active open':''?>">
+                <a href="<?=base_url('employee/notification')?>" class="nav-link nav-toggle">
+                    <i class="icon-bell"></i>
+                    <span class="title">Notification</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
         <?php endif;?>
              <li class="heading">
                 <h3 class="uppercase">Finance Module</h3>
