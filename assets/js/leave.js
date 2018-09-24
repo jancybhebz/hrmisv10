@@ -14,65 +14,66 @@ function showtextbox()
 		$('#reason_textbox').hide();
 			// $('#print_button').show();
 	}
-	// else if(select_leavetype == 'special')
-	// {
-	// 	$('#agency_textbox').show();
-	// 	$('#year_textbox').show();
-	// 	$('#quarter_textbox').show();	
-	// 	$('#person_textbox').hide();
-	// 	$('#sponsor_textbox').hide();
-	// 	$('#print_button').show();
-	// }
-	
-	// else if(select_leavetype == 'sick')
-	// {
-	// 	$('#year_textbox').show();
-	// 	$('#quarter_textbox').show();
-	// 	$('#person_textbox').hide();
-	// 	$('#agency_textbox').hide();
-	// 	$('#sponsor_textbox').hide();
-	// 	$('#print_button').show();
-	
-	// }
-	// else if(select_leavetype == 'vacation')
-	// {
-	// 	$('#year_textbox').show();
-	// 	$('#quarter_textbox').show();
-	// 	$('#person_textbox').hide();
-	// 	$('#agency_textbox').hide();
-	// 	$('#sponsor_textbox').hide();
-	// 	$('#print_button').show();
-	
-	// }
-	// else if(select_leavetype == 'maternity')
-	// {
-	// 	$('#year_textbox').show();
-	// 	$('#quarter_textbox').show();
-	// 	$('#person_textbox').hide();
-	// 	$('#agency_textbox').hide();
-	// 	$('#sponsor_textbox').hide();
-	// 	$('#print_button').show();
-	
-	// }
-	// else if(select_leavetype == 'paternity')
-	// {
-	// 	$('#year_textbox').show();
-	// 	$('#quarter_textbox').show();
-	// 	$('#person_textbox').show();
-	// 	$('#agency_textbox').hide();
-	// 	$('#sponsor_textbox').hide();
-	// 	$('#print_button').show();
-	
-	// }
-	// else if(select_leavetype == 'study')
-	// {
-	// 	$('#year_textbox').show();
-	// 	$('#quarter_textbox').show();
-	// 	$('#person_textbox').hide();
-	// 	$('#agency_textbox').hide();
-	// 	$('#sponsor_textbox').hide();
-	// 	$('#print_button').show();
-	// }
+	else if(select_leavetype == 'special')
+	{
+	 	$('#wholeday_textbox').show();
+		$('#leavefrom_textbox').show();
+		$('#leaveto_textbox').show();	
+		$('#daysapplied_textbox').show();
+		$('#signatory1_textbox').show();
+		$('#signatory2_textbox').show();
+		$('#reason_textbox').show();
+	}
+	else if(select_leavetype == 'sick')
+	{
+	 	$('#wholeday_textbox').show();
+		$('#leavefrom_textbox').show();
+		$('#leaveto_textbox').show();	
+		$('#daysapplied_textbox').show();
+		$('#signatory1_textbox').show();
+		$('#signatory2_textbox').show();
+		$('#reason_textbox').show();
+	}
+	else if(select_leavetype == 'vacation')
+	{
+	 	$('#wholeday_textbox').show();
+		$('#leavefrom_textbox').show();
+		$('#leaveto_textbox').show();	
+		$('#daysapplied_textbox').show();
+		$('#signatory1_textbox').show();
+		$('#signatory2_textbox').show();
+		$('#reason_textbox').show();
+	}
+	 else if(select_leavetype == 'maternity')
+	{
+	 	$('#wholeday_textbox').show();
+		$('#leavefrom_textbox').show();
+		$('#leaveto_textbox').show();	
+		$('#daysapplied_textbox').show();
+		$('#signatory1_textbox').show();
+		$('#signatory2_textbox').show();
+		$('#reason_textbox').show();
+	}
+	else if(select_leavetype == 'paternity')
+	{
+	 	$('#wholeday_textbox').show();
+		$('#leavefrom_textbox').show();
+		$('#leaveto_textbox').show();	
+		$('#daysapplied_textbox').show();
+		$('#signatory1_textbox').show();
+		$('#signatory2_textbox').show();
+		$('#reason_textbox').show();
+	}
+	else if(select_leavetype == 'study')
+	{
+	 	$('#wholeday_textbox').show();
+		$('#leavefrom_textbox').show();
+		$('#leaveto_textbox').show();	
+		$('#daysapplied_textbox').show();
+		$('#signatory1_textbox').show();
+		$('#signatory2_textbox').show();
+		$('#reason_textbox').show();
+	}
 	
 	else 
 	{

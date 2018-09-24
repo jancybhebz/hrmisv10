@@ -72,7 +72,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                 </a>
             </li>
             <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
+                 <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Reports</span>
                     <span class="arrow"></span>

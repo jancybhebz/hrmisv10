@@ -14,27 +14,34 @@ class Notification_model extends CI_Model {
 		$this->load->database();
 		$this->db->initialize();	
 	}
-	
-	// function getData($intAppointmentId = '')
+
+	function getData($intrequestID = '')
+	{		
+		if($intrequestID != "")
+		{
+			$this->db->where('requestID',$intrequestID);
+		}
+		$this->db->join('tblempPersonal','tblempPersonal.empNumber = tblempRequest.empNumber','left');
+		$objQuery = $this->db->get('tblempRequest');
+		return $objQuery->result_array();	
+	}
+
+	// showing all notifications
+	// function getData($intrequestID = '')
 	// {		
-	// 	$strWhere = '';
-	// 	if($intAppointmentId != "")
-	// 		$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
-		
-	// 	$strSQL = " SELECT * FROM tblAppointment					
-	// 				WHERE 1=1 
-	// 				$strWhere
-	// 				ORDER BY appointmentDesc
-	// 				";
-	// 	//]echo $strSQL;exit(1);				
-	// 	$objQuery = $this->db->query($strSQL);
-	// 	//print_r($objQuery->result_array());
+	// 	if($intrequestID != "")
+	// 	{
+	// 		$this->db->where('requestID',$intrequestID);
+	// 	}
+	// 	$this->db->join('tblempPersonal','tblempPersonal.empNumber = tblempRequest.empNumber','left');
+	// 	$objQuery = $this->db->get('tblempRequest');
 	// 	return $objQuery->result_array();	
 	// }
 
+
 	function add($arrData)
 	{
-		$this->db->insert('tblAppointment', $arrData);
+		$this->db->insert('tblemprequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	

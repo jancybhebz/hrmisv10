@@ -191,4 +191,4 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 
-<!-- <script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>"> -->
+<script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>">

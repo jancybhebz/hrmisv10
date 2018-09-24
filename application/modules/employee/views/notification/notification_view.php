@@ -51,19 +51,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
-                   
-                   
-                        <tr class="odd gradeX"> 
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                    <?php 
+                     //foreach($arrRequest as $row):?>
+                        <tr> 
+                            <td></td> <!-- requestDate -->
+                            <td></td>  <!-- requestDetails -->
+                            <td></td> <!-- requestStatus -->
+                            <td></td> <!-- remarks -->
+                            <td></td> <!-- signatory -->
                             <td colspan="2"> </td>
                         </tr>
-         
-                
+
+                    <?php //endforeach;?>
                     </tbody>
+
                 </table>
 
                 </form>

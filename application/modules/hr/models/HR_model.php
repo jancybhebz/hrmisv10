@@ -1,3 +1,12 @@
+<?php 
+/** 
+Purpose of file:    Model for HR update
+Author:             Rose Anne L. Grefaldeo
+System Name:        Human Resource Management Information System Version 10
+Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
+**/
+?>
+
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class HR_model extends CI_Model {
 	

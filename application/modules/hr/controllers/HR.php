@@ -1,3 +1,11 @@
+<?php 
+/** 
+Purpose of file:    Controller for HR update
+Author:             Rose Anne L. Grefaldeo
+System Name:        Human Resource Management Information System Version 10
+Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
+**/
+?>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 

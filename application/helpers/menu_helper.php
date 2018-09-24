@@ -45,8 +45,8 @@ if ( ! function_exists('get_libraries'))
 			'leave'=>'Leave',
 			'travel_order'=>'Travel Order',
 			'pds_update'=>'PDS Update',
-			'reports'=>'Reports',
 			'dtr_update'=>'DTR Update',
+			'reports'=>'Reports',
 			
 		);
 	}
