@@ -12,6 +12,8 @@ function showtextbox()
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
 		$('#reason_textbox').hide();
+		$('#incaseSL_textbox').hide();
+		$('#incaseVL_textbox').hide();
 			// $('#print_button').show();
 	}
 	else if(select_leavetype == 'special')
@@ -23,6 +25,8 @@ function showtextbox()
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
 		$('#reason_textbox').show();
+		$('#incaseSL_textbox').hide();
+		$('#incaseVL_textbox').hide();
 	}
 	else if(select_leavetype == 'sick')
 	{
@@ -33,6 +37,8 @@ function showtextbox()
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
 		$('#reason_textbox').show();
+		$('#incaseSL_textbox').show();
+		$('#incaseVL_textbox').hide();
 	}
 	else if(select_leavetype == 'vacation')
 	{
@@ -43,6 +49,8 @@ function showtextbox()
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
 		$('#reason_textbox').show();
+		$('#incaseSL_textbox').hide();
+		$('#incaseVL_textbox').show();
 	}
 	 else if(select_leavetype == 'maternity')
 	{
@@ -53,6 +61,8 @@ function showtextbox()
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
 		$('#reason_textbox').show();
+		$('#incaseSL_textbox').hide();
+		$('#incaseVL_textbox').hide();
 	}
 	else if(select_leavetype == 'paternity')
 	{
@@ -63,6 +73,8 @@ function showtextbox()
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
 		$('#reason_textbox').show();
+		$('#incaseSL_textbox').hide();
+		$('#incaseVL_textbox').hide();
 	}
 	else if(select_leavetype == 'study')
 	{
@@ -73,6 +85,8 @@ function showtextbox()
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
 		$('#reason_textbox').show();
+		$('#incaseSL_textbox').hide();
+		$('#incaseVL_textbox').hide();
 	}
 	
 	else 
@@ -84,6 +98,8 @@ function showtextbox()
 		$('#signatory1_textbox').hide();
 		$('#signatory2_textbox').hide();
 		$('#reason_textbox').hide();
+		$('#incaseSL_textbox').hide();
+		$('#incaseVL_textbox').hide();
 	}
 	
 }
@@ -97,7 +113,8 @@ $(document).ready(function()
 	$('#signatory1_textbox').hide();
 	$('#signatory2_textbox').hide();
 	$('#reason_textbox').hide();
-
+	$('#incaseSL_textbox').hide();
+	$('#incaseVL_textbox').hide();
 
 	// $('#printreport').click(function(){
 	// 	var leave=$('#strLeavetype').val();

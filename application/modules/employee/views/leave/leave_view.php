@@ -51,6 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="form-group">
                             <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
                             <option value="">Please select</option>
+                            <option value=""></option>
                             <option value="forced">Forced Leave</option>
                             <option value="special">Special Leave</option>
                             <option value="sick">Sick Leave</option>
@@ -153,12 +154,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <select name="str2ndSignatory" id="str2ndSignatory" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>">
-                                 <option value="">Select</option>
+                               <select type="text" class="form-control" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" required>
+                                    <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
-                                        <?php endforeach; ?>
-                                 </select>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -172,6 +173,40 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                  <textarea name="strReason" id="strReason" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
                                  </textarea>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" id="incaseSL_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">In Case of Sick Leave : <span class="required"> * </span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
+                                 <option value="">Select</option>
+                                 <option value=""></option>
+                                 <option value="in patient">in patient</option>
+                                 <option value="out patient">out patient</option>
+                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="incaseVL_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">In Case of Vacation Leave : <span class="required"> * </span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
+                                 <option value="">Select</option>
+                                 <option value=""></option>
+                                 <option value="within the country">within the country</option>
+                                 <option value="abroad">abroad</option>
+                                 </select>
                             </div>
                         </div>
                     </div>

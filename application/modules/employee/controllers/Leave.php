@@ -20,10 +20,13 @@ class Leave extends MY_Controller {
 
 	public function index()
 	{
-		// $this->arrData['arrOB'] = $this->official_business_model->getData();
-		$this->template->load('template/template_view', 'employee/leave/leave_view', $this->arrData);
-		$this->arrData['arrEmployees'] = $this->hr_model->getData();
+		
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
+		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
+		$this->template->load('template/template_view', 'employee/leave/leave_view', $this->arrData);
+		// $this->arrData['arrEmployees'] = $this->hr_model->getData();
+		// $this->arrData['arrUser'] = $this->user_account_model->getData();
 	}
 	
 	public function add()
