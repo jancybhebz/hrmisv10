@@ -9,28 +9,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class PDS_update_model extends CI_Model {
 
+	var $table = 'tblEmpPersonal';
+	var $tableid = 'empNumber';
+
 	function __construct()
 	{
 		$this->load->database();
 		//$this->db->initialize();	
 	}
 	
-	// function getData($intAppointmentId = '')
-	// {		
-	// 	$strWhere = '';
-	// 	if($intAppointmentId != "")
-	// 		$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
+	function getData($strEmpNumber = '')
+	{		
+		if($strEmpNumber != "")
+		{
+			$this->db->where($this->tableid,$strEmpNumber);
+		}
 		
-	// 	$strSQL = " SELECT * FROM tblAppointment					
-	// 				WHERE 1=1 
-	// 				$strWhere
-	// 				ORDER BY appointmentDesc
-	// 				";
-	// 	//]echo $strSQL;exit(1);				
-	// 	$objQuery = $this->db->query($strSQL);
-	// 	//print_r($objQuery->result_array());
-	// 	return $objQuery->result_array();	
-	// }
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
 
 	function add($arrData)
 	{
