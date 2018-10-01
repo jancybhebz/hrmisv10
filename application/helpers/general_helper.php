@@ -50,7 +50,6 @@ if ( ! function_exists('employee_office'))
 			if($row['group1']!='') return $row['group1'];
 		endforeach;
     }
-<<<<<<< HEAD
 }
 
 if ( ! function_exists('office_name'))
@@ -101,6 +100,4 @@ if ( ! function_exists('getyear'))
     {
 		return 2015;
 	}
-=======
->>>>>>> master
 }
