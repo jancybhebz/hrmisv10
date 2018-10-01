@@ -31,7 +31,7 @@
                                     <td><?=number_format($deduction['period2'], 2)?></td>
                                     <td><?=getincome_status($deduction['status'])?></td>
                                     <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-regDeductions"
+                                        <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
                                                 data-deductioncode="<?=$deduction['deductionCode']?>" data-stat="deduction"
                                                 data-deductcode="<?=$deduction['deductCode']?>"
                                                 data-statusval="<?=$deduction['status']?>">
@@ -56,26 +56,35 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-loanList" >
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-loanList" data-title="Loan List">
                             <thead>
                                 <tr>
                                     <th> Deduction </th>
-                                    <th> Monthly </th>
+                                    <th style="width: 20px;"> Monthly </th>
                                     <th> Period 1 </th>
                                     <th> Period 2 </th>
                                     <th> Status </th>
-                                    <th style="text-align: center;"> Actions </th>
+                                    <th style="text-align: center;width: 10px;"> Actions </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <?php foreach($arrLoans as $loan): $isremove = isset($loan) ? $loan['status'] == '0' ? True : False : '';?>
+                                <tr class="odd gradeX <?=$isremove ? 'danger' : ''?>">
+                                    <td style="text-align: left; padding-left: 7px; word-wrap: break-word"><b><?=$loan['deductionDesc']?></b></td>
+                                    <td><?=number_format($loan['monthly'], 2)?></td>
+                                    <td><?=number_format($loan['period1'], 2)?></td>
+                                    <td><?=number_format($loan['period2'], 2)?></td>
+                                    <td><?=getincome_status($loan['status'])?></td>
+                                    <td align="center">
+                                        <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                                data-deductioncode="<?=$loan['deductionCode']?>" data-stat="loan"
+                                                data-deductcode="<?=$loan['deductCode']?>"
+                                                data-statusval="<?=$loan['status']?>">
+
+                                            <i class="fa fa-edit"></i> Edit</button>
+                                    </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -94,26 +103,35 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-contandDeduct" >
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-contandDeduct" data-title="Contribution and Other Deductions">
                             <thead>
                                 <tr>
                                     <th> Deduction </th>
-                                    <th> Monthly </th>
+                                    <th style="width: 20px;"> Monthly </th>
                                     <th> Period 1 </th>
                                     <th> Period 2 </th>
                                     <th> Status </th>
-                                    <th style="text-align: center;"> Actions </th>
+                                    <th style="text-align: center;width: 10px;"> Actions </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <?php foreach($arrContributions as $contri): $isremove = isset($contri) ? $contri['status'] == '0' ? True : False : '';?>
+                                <tr class="odd gradeX <?=$isremove ? 'danger' : ''?>">
+                                    <td style="text-align: left; padding-left: 7px; word-wrap: break-word"><b><?=$contri['deductionDesc']?></b></td>
+                                    <td><?=number_format($contri['monthly'], 2)?></td>
+                                    <td><?=number_format($contri['period1'], 2)?></td>
+                                    <td><?=number_format($contri['period2'], 2)?></td>
+                                    <td><?=getincome_status($contri['status'])?></td>
+                                    <td align="center">
+                                        <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                                data-deductioncode="<?=$contri['deductionCode']?>" data-stat="loan"
+                                                data-deductcode="<?=$contri['deductCode']?>"
+                                                data-statusval="<?=$contri['status']?>">
+
+                                            <i class="fa fa-edit"></i> Edit</button>
+                                    </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -125,9 +143,9 @@
 <?php include('modals/_modal_loans.php'); ?>
 <script>
     $(document).ready(function() {
-        $('#table-regDeductList').dataTable({"pageLength": 5});
+        $('#table-regDeductList, #table-loanList, #table-contandDeduct').dataTable({"pageLength": 5});
 
-        $('#table-regDeductList').on('click', 'tbody > tr #btn-modal-regDeductions', function () {
+        $('#table-regDeductList, #table-loanList, #table-contandDeduct').on('click', 'tbody > tr #btn-modal-premloans', function () {
             var el = $(this);
             $('#sub-title').html(el.closest('table').data('title'));
             $('#modal-title').html(el.parent().siblings(":first").text());
