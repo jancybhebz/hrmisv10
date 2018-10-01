@@ -86,6 +86,26 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane <?=$this->uri->segment(6) == '' ? 'active' : ''?>" id="tab-payrollsummary">
+                        <?=form_open('finance/compensation/personnel_profile/employee/'.$this->uri->segment(5), array('id' => 'frmpostdetails', 'class' => 'form-inline', 'method' => 'get'))?>
+                            <div class="form-group">
+                                <select class="bs-select form-control" name="mon">
+                                    <?php foreach (range(1, 12) as $m): ?>
+                                        <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                            <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="bs-select form-control" name="yr">
+                                    <?php foreach (range(getyear(), date('Y')) as $yr): ?>
+                                        <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+                                            <?=$yr?></option>
+                                    <?php endforeach; ?>
+                                </select>    
+                            </div>
+                            <button type="submit" class="btn green not-required">Submit</button>
+                        <?=form_close()?>
+                        <br>
                         <div class="portlet-body">
                             <table class="table table-striped table-bordered table-advance">
                                 <thead>
@@ -99,40 +119,62 @@
                                 <tbody>
                                     <tr>
                                         <td> <b>Period Pay</b> </td>
-                                        <td class="right">asdf</td>
-                                        <td class="right"></td>
-                                        <td class="right"></td>
+                                        <td class="right"><?=number_format(($empSalary/2), 2)?></td>
+                                        <td class="right"><?=number_format(($empSalary/2), 2)?></td>
+                                        <td class="right"><?=number_format($empSalary, 2)?></td>
                                     </tr>
                                     <tr>
                                         <td> <b>Benefits</b> </td>
-                                        <td class="right"></td>
-                                        <td class="right"></td>
-                                        <td class="right"></td>
+                                        <td class="right">
+                                            <?php $total_benefit1 = 0;
+                                                    if(count($arrEmpBenefits) > 0){ foreach($arrEmpBenefits as $benefit){$total_benefit1 = $total_benefit1 + $benefit['period1'];}}
+                                                    echo number_format($total_benefit1, 2);?>
+                                        </td>
+                                        <td class="right">
+                                            <?php $total_benefit2 = 0; foreach($arrEmpBenefits as $benefit){$total_benefit2 = $total_benefit2 + $benefit['period2'];} 
+                                                    echo number_format($total_benefit2, 2);?>
+                                        </td>
+                                        <td class="right"><?=number_format($total_benefit1+$total_benefit2, 2)?></td>
                                     </tr>
                                     <tr>
                                         <td> <b>Deductions</b> </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td class="right">
+                                            <?php $total_deduction1 = 0; foreach($arrEmpDeductions as $deductions){$total_deduction1 = $total_deduction1 + $deductions['period1'];} 
+                                                    echo number_format($total_deduction1, 2);?>
+                                        </td>
+                                        <td class="right">
+                                            <?php $total_deduction2 = 0; foreach($arrEmpDeductions as $deductions){$total_deduction2 = $total_deduction2 + $deductions['period2'];} 
+                                                    echo number_format($total_deduction2, 2);?>
+                                        </td>
+                                        <td class="right"><?=number_format($total_deduction1+$total_deduction2, 2)?></td>
                                     </tr>
                                     <tr>
                                         <td class="active"> <b>Net Pay</b> </th>
-                                        <td class="active"></td>
-                                        <td class="active"></td>
-                                        <td class="active"></td>
+                                        <td class="active right"><b>
+                                            <?php 
+                                                $netpay_period1 = ($empSalary/2) + ($total_benefit1 - $total_deduction1);
+                                                echo number_format($netpay_period1, 2);
+                                             ?>
+                                        </b></td>
+                                        <td class="active right"><b>
+                                            <?php 
+                                                $netpay_period2 = ($empSalary/2) + ($total_benefit2 - $total_deduction2);
+                                                echo number_format($netpay_period2, 2);
+                                             ?>
+                                        </b></td>
+                                        <td class="active right"><b><?=number_format($netpay_period1 + $netpay_period2, 2)?></b></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                     <div class="tab-pane <?=$this->uri->segment(6) == '1' ? 'active' : ''?>" id="tab-payrolldetails">
                         <div class="portlet-body">
                             <table class="table table-striped table-bordered table-advance">
                                 <tbody>
                                     <tr>
                                         <td><b>Payroll Group</b> </td>
-                                        <td><?=$pg['payrollGroupName']?></td>
+                                        <td><?=$arrData['payrollGroupCode'] == '' ? '' : $pg['payrollGroupName']?></td>
                                         <td><b>Tax Status</b></td>
                                         <td><?=$arrData['taxStatCode']?></td>
                                     </tr>
@@ -168,10 +210,10 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn green" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <button class="btn btn-primary" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
                         </div>
                     </div>
-
+                    
                     <div class="tab-pane <?=$this->uri->segment(6) == '2' ? 'active' : ''?>" id="tab-positiondetails">
                         <div class="portlet-body">
                             <table class="table table-striped table-bordered table-advance">
@@ -208,7 +250,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn green" data-toggle="modal" href="#positionDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <button class="btn btn-primary" data-toggle="modal" href="#positionDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
                         </div>
                     </div>
                 </div>

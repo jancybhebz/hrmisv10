@@ -26,7 +26,12 @@ class Income_model extends CI_Model {
 		return $this->db->affected_rows(); 
 	}
 
-	function getIncome($status)
+	function getDataByType($type='')
+	{
+		return $this->db->order_by('incomeDesc','ASC')->get_where('tblIncome', array('incomeType' => $type))->result_array();
+	}
+
+	function getIncome($status='')
 	{
 		if($status==''):
 			return $this->db->order_by('incomeCode','ASC')->get('tblIncome')->result_array();

@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
-                <button class="btn green" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                <button class="btn btn-primary" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
             </div>
             <div class="portlet-body">
                 <div class="row">
@@ -15,13 +15,13 @@
                                 </tr>
                                 <tr>
                                     <td><b> Name of Dependent</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['otherDependent']?></td>
                                     <td><b> Date of Birth</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['dBirthDate']?></td>
                                 </tr>
                                 <tr>
                                     <td><b> Relationship</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['dRelationship']?></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -31,15 +31,15 @@
                                 </tr>
                                 <tr>
                                     <td><b> TIN Number</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pTin']?></td>
                                     <td><b> Registered Address</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pAddress']?></td>
                                 </tr>
                                 <tr>
                                     <td><b> Employer's Name</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pEmployer']?></td>
                                     <td><b> Zip Code</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pZipCode']?></td>
                                 </tr>
 
                                 <tr>
@@ -47,15 +47,15 @@
                                 </tr>
                                 <tr>
                                     <td><b> TIN Number</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pTin1']?></td>
                                     <td><b> Registered Address</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pAddress1']?></td>
                                 </tr>
                                 <tr>
                                     <td><b> Employer's Name</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pEmployer1']?></td>
                                     <td><b> Zip Code</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pZipCode1']?></td>
                                 </tr>
 
                                 <tr>
@@ -63,15 +63,15 @@
                                 </tr>
                                 <tr>
                                     <td><b> TIN Number</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pTin2']?></td>
                                     <td><b> Registered Address</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pAddress2']?></td>
                                 </tr>
                                 <tr>
                                     <td><b> Employer's Name</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pEmployer2']?></td>
                                     <td><b> Zip Code</b></td>
-                                    <td></td>
+                                    <td><?=$arrTaxDetails['pZipCode2']?></td>
                                 </tr>
 
                                 <tr>
@@ -79,9 +79,9 @@
                                 </tr>
                                 <tr>
                                     <td><b> Taxable Compensation</b></td>
-                                    <td></td>
+                                    <td><?=number_format($arrTaxDetails['pTaxComp'], 2)?></td>
                                     <td><b> Amount of Taxes withheld    </b></td>
-                                    <td></td>
+                                    <td><?=number_format($arrTaxDetails['pTaxWheld'], 2)?></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Payroll Details</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/edit_payrollDetails/'.$this->uri->segment(5))?>
+            <?=form_open('finance/compensation/personnel_profile/edit_payrollDetails/'.$this->uri->segment(5), array('id' => 'frmpayrollDetails'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-6">
@@ -159,7 +159,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Payroll Details</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/edit_positionDetails/'.$this->uri->segment(5))?>
+            <?=form_open('finance/compensation/personnel_profile/edit_positionDetails/'.$this->uri->segment(5), array('id' => 'frmpostdetails'))?>
             <div class="modal-body">
                 <div class="row form-body">
                     <div class="col-md-6">
@@ -270,6 +270,6 @@
         }
     });
     $(document).ready(function() {
-        $('.date-picker').datepicker();
+        // $('.date-picker').datepicker();
     });
 </script>

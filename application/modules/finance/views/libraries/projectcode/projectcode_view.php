@@ -64,7 +64,7 @@
                                         <td><?=$data['projectCode']?></td>
                                         <td><?=$data['projectDesc']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/libraries/projectcode/edit/'.$data['projectCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                            <a href="<?=base_url('finance/libraries/projectcode/edit/'.$data['projectCode'])?>"><button class="btn btn-sm btn-primary"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                             <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['projectCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
@@ -88,7 +88,7 @@
             <div class="modal-body"> Are you sure you want to delete this data? </div>
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green" id="btndelete">Yes</button>
+                <button type="button" class="btn btn-primary" id="btndelete">Yes</button>
             </div>
         </div>
     </div>

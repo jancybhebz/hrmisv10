@@ -91,7 +91,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <button class="btn btn-success" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                                            <button class="btn btn-primary" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
                                                             <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                                         </div>
                                                     </div>

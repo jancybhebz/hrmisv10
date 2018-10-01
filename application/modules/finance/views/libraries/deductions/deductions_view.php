@@ -60,7 +60,7 @@
                                         <div class="col-md-12">
                                             <a href="<?=base_url('finance/libraries/deductions/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
                                             <div class="btn-group pull-right">
-                                                <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown"> <?=$status[0][0]?> <i class="fa fa-angle-down"></i> </button>
+                                                <button type="button" class="btn btn-primary btn-outline dropdown-toggle" data-toggle="dropdown"> <?=$status[0][0]?> <i class="fa fa-angle-down"></i> </button>
                                                 <ul class="dropdown-menu pull-right" role="menu">
                                                     <li> <a href="<?=base_url('finance/libraries/deductions/'.$status[1][1])?>"> <?=$status[1][0]?></a> </li>
                                                     <li> <a href="<?=base_url('finance/libraries/deductions/'.$status[2][1])?>"> <?=$status[2][0]?></a> </li>
@@ -95,7 +95,7 @@
                                             <td><?=$data['deductionType']?> </td>
                                             <td><?=$data['hidden'] == 1 ? 'Inactive' : 'Active' ?> </td>
                                             <td align="center" nowrap>
-                                                <a href="<?=base_url('finance/libraries/deductions/edit/'.$data['deductionCode'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                                <a href="<?=base_url('finance/libraries/deductions/edit/'.$data['deductionCode'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm btn-primary"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="1" data-code="<?=$data['deductionCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>
@@ -141,7 +141,7 @@
                                             <td><?=$data['deductionGroupDesc']?> </td>
                                             <td><?=$data['deductionGroupAccountCode']?> </td>
                                             <td align="center" nowrap>
-                                                <a href="<?=base_url('finance/libraries/agency/edit/'.$data['deductionGroupCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                                <a href="<?=base_url('finance/libraries/agency/edit/'.$data['deductionGroupCode'])?>"><button class="btn btn-sm btn-primary"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="0" data-code="<?=$data['deductionGroupCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>
@@ -169,7 +169,7 @@
             <div class="modal-body"> Are you sure you want to delete this data? </div>
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green" id="btndelete">Yes</button>
+                <button type="button" class="btn btn-primary" id="btndelete">Yes</button>
             </div>
         </div>
     </div>

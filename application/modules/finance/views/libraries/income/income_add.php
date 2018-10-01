@@ -78,7 +78,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn btn-success" type="submit" id="btn_add_income"><i class="fa fa-plus"></i> <?=$action?> </button>
+                                            <button class="btn btn-primary" type="submit" id="btn_add_income"><i class="fa fa-plus"></i> <?=$action?> </button>
                                             <a href="<?=base_url('finance/libraries/income')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                         </div>
                                     </div>

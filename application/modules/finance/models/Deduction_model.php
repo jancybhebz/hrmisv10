@@ -44,7 +44,7 @@ class Deduction_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	function getDeductionsByStatus($status)
+	function getDeductionsByStatus($status='')
 	{
 		if($status==''):
 			return $this->db->get('tbldeduction')->result_array();
@@ -53,7 +53,12 @@ class Deduction_model extends CI_Model {
 		endif;
 	}
 
-	function getDeductionGroup($groupCode)
+	function getDeductionsByType($type)
+	{
+		return $this->db->get_where('tbldeduction', array('deductionType' => $type))->result_array();
+	}
+
+	function getDeductionGroup($groupCode='')
 	{
 		if($groupCode==''):
 			return $this->db->order_by('deductionGroupCode','ASC')->get('tbldeductiongroup')->result_array();
@@ -63,7 +68,7 @@ class Deduction_model extends CI_Model {
 		endif;
 	}
 
-	function getDeductions($code)
+	function getDeductions($code='')
 	{
 		if($code==''):
 			return $this->db->select('deductionCode')->get('tbldeduction')->result_array();

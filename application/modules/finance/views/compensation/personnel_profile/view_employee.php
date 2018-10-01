@@ -11,11 +11,15 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Libraries</span>
+            <span>Compensation</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>List of Employees</span>
+            <span>Personnel Profile</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></span>
         </li>
     </ul>
 </div>
