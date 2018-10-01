@@ -15,13 +15,13 @@ class Request extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/request_model','employees/employees_model'));
+        $this->load->model(array('libraries/request_model','hr/hr_model'));
     }
 
 	public function index()
 	{
 		$this->arrData['arrRequest'] = $this->request_model->getData();
-		$this->arrData['arrEmployees'] = $this->employees_model->getData();
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 		//$this->arrData['arrEmp'] = $this->request_model->getEmpDetails();
 		$this->template->load('template/template_view', 'libraries/request/list_view', $this->arrData);
 	}
@@ -34,7 +34,7 @@ class Request extends MY_Controller {
 			$this->arrData['arrRequestType'] = $this->request_model->getRequestType();
 			$this->arrData['arrApplicant'] = $this->request_model->getApplicant();
 			$this->arrData['arrOfficeName'] = $this->request_model->getOfficeName();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
 
@@ -112,7 +112,7 @@ class Request extends MY_Controller {
 			$this->arrData['arrRequestType'] = $this->request_model->getRequestType();
 			$this->arrData['arrApplicant'] = $this->request_model->getApplicant();
 			$this->arrData['arrOfficeName'] = $this->request_model->getOfficeName();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
 			$this->template->load('template/template_view','libraries/request/edit_view', $this->arrData);

@@ -5,7 +5,7 @@ if ( ! function_exists('employee_details'))
     function employee_details($strEmpNo)
     {
 		$CI =& get_instance();
-		return $CI->db->select('tblEmpPersonal.*')->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber')->where('tblEmpPersonal.empNumber',$strEmpNo)->get('tblEmpPersonal')->result_array();	
+		return $CI->db->select('tblEmpPersonal.*')->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber')->get('tblEmpPersonal')->result_array();	
 	}
 }
 
@@ -50,6 +50,7 @@ if ( ! function_exists('employee_office'))
 			if($row['group1']!='') return $row['group1'];
 		endforeach;
     }
+<<<<<<< HEAD
 }
 
 if ( ! function_exists('office_name'))
@@ -100,4 +101,6 @@ if ( ! function_exists('getyear'))
     {
 		return 2015;
 	}
+=======
+>>>>>>> master
 }

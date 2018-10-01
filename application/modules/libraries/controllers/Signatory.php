@@ -15,7 +15,7 @@ class Signatory extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/signatory_model','libraries/payroll_group_model','employees/employees_model'));
+        $this->load->model(array('libraries/signatory_model','libraries/payroll_group_model','hr/hr_model'));
     }
 
 	public function index()

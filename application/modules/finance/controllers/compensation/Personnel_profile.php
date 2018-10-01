@@ -21,7 +21,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrEmployees'] = $this->employees_model->getData();
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_all',$this->arrData);
 	}
 

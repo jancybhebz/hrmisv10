@@ -25,13 +25,14 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
             </li>
             <!-- <li class="heading"><h3 class="uppercase"><?=$this->session->userdata('sessUserPermission')?></h3></li> -->
             <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+            <?php if($this->session->userdata('sessUserLevel')==1):?>
             <li class="sidebar-search-wrapper">
                 <!-- DISPLAY MODULE -->
                 
                 <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
                 <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                 <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-                <form class="sidebar-search  " action="<?=base_url('employees/search')?>" method="POST">
+                <form class="sidebar-search  " action="<?=base_url('hr/search')?>" method="POST">
                     <a href="javascript:;" class="remove">
                         <i class="icon-close"></i>
                     </a>
@@ -46,6 +47,9 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                 </form>
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
+        <?php endif;?>
+            <!-- HR MODULE -->
+            <?php if($this->session->userdata('sessUserLevel')==1):?>
             <li class="nav-item start <?=$active=='home'?'active open':''?>">
                 <a href="<?=base_url('home')?>" class="nav-link nav-toggle">
                     <i class="icon-home"></i>
@@ -59,7 +63,6 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <span class="title">201</span>
                     <span class="arrow"></span>
                 </a>
-                
             </li>
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
@@ -69,7 +72,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                 </a>
             </li>
             <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
+                 <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Reports</span>
                     <span class="arrow"></span>
@@ -102,6 +105,40 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <span class="arrow"></span>
                 </a>
             </li>
+
+             <li class="heading">
+                <h3 class="uppercase">Employee Module</h3>
+            </li>
+           <!-- request -->
+           <li class="nav-item <?=$active=='employee'?'active open':''?>">
+                <a href="<?=base_url('employee')?>" class="nav-link nav-toggle">
+                    <i class="icon-settings"></i>
+                    <span class="title">Request</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <?php 
+                        //get request menu item from menu_helper
+                        $arrMenu = get_request();
+                        foreach($arrMenu as $i=>$menuItem){
+                    ?>
+                    <li class="nav-item start <?=$activesub==$i?'active':''?>">
+                        <a href="<?=base_url('employee/'.$i)?>" class="nav-link ">
+                            <span class="title"><?=$menuItem?></span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+                
+            </li>
+             <li class="nav-item <?=$active=='employee/notification'?'active open':''?>">
+                <a href="<?=base_url('employee/notification')?>" class="nav-link nav-toggle">
+                    <i class="icon-bell"></i>
+                    <span class="title">Notification</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+        <?php endif;?>
              <li class="heading">
                 <h3 class="uppercase">Finance Module</h3>
             </li>

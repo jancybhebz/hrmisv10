@@ -1,16 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pds extends MY_Controller {
+class Pds extends MY_Controller 
+{
 	var $arrData;
-	function __construct() {
+	function __construct() 
+	{
         parent::__construct();
     }
 
 	public function index()
 	{
-		$this->load->model(array('employees/employees_model','employees/chart_model'));
-		$arrData['arrEmployees'] = $this->employees_model->getData();
+		$this->load->model(array('hr/hr_model','hr/chart_model'));
+		$arrData['arrEmployees'] = $this->hr_model->getData();
 		//plantilla chart
 		$arrPlantillaChart = $this->chart_model->plantilla_positions();
 		$intFilled=0;$intVacant=0;
@@ -23,8 +25,8 @@ class Pds extends MY_Controller {
 		$arrData['intFilled']=$intFilled;
 		$arrData['intVacant']=$intVacant;
 		//gender chart
-		$arrAS = $this->employees_model->appointment_status();
-		$arrASFull = $this->employees_model->appointment_status(TRUE);
+		$arrAS = $this->hr_model->appointment_status();
+		$arrASFull = $this->hr_model->appointment_status(TRUE);
 		//print_r($arrASFull);
 		foreach($arrASFull as $row):
 			//echo $row."<br>";
@@ -45,17 +47,14 @@ class Pds extends MY_Controller {
             $arrGender['intTotalFemale'] += $arrGenderChart[$row]['F'][0]['total'];
         endforeach;
 
-        
-		//print_r($arrGenderChart);
-		// $arrGenderChart['jo'] = $this->chart_model->gender_appointment('JO');
-		// $arrGenderChart['gia'] = $this->chart_model->gender_appointment('GIA');
-		// $arrGenderChart['cont'] = $this->chart_model->gender_appointment('CONT');
-		// $arrGenderChart['p'] = $this->chart_model->gender_appointment('P');
 		$arrData['arrAS'] = $arrAS;
 		$arrData['arrASFull'] = $arrASFull;
 		$arrData['arrGender'] = $arrGender;
 		$arrData['arrGenderChart'] = $arrGenderChart;
 		$this->template->load('template/template_view','pds/default_view',$arrData);
 	}
+	
+	
+	
 
 }

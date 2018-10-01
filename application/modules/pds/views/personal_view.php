@@ -1,3 +1,12 @@
+<?php 
+  $action = '';
+  if($this->uri->segment(4) == 'edit')
+  {
+    $action = base_url('hr/profile/editPersonal').$this->uri->segment(5);
+  }else{
+    $action = base_url('hr/profile/');
+  }
+?>
 <div id="tab_personal_info" class="tab-pane active">
     <form role="form" action="#">
         <table class="table table-bordered table-striped" class="table-responsive">
@@ -593,7 +602,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn green">Save</button>
+                    <button type="submit" name="btnSubmit" class="btn green">Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->

@@ -15,14 +15,14 @@ class User_account extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/user_account_model','employees/employees_model'));
+        $this->load->model(array('libraries/user_account_model','hr/hr_model'));
     }
 
 	public function index()
 	{
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
-		$this->arrData['arrEmployees'] = $this->employees_model->getData();
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 		$this->template->load('template/template_view', 'libraries/user_account/list_view', $this->arrData);
 	}
 	
@@ -31,9 +31,9 @@ class User_account extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->load->model(array('employees/employees_model'));
+			$this->load->model(array('hr/hr_model'));
 			// $this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);	
 		}
 		else
@@ -85,7 +85,7 @@ class User_account extends MY_Controller {
 		{
 			$intEmpNumber = urldecode($this->uri->segment(4));
 			$this->arrData['arrUser']=$this->user_account_model->getData($intEmpNumber);
-			$this->arrData['arrEmployees'] = $this->employees_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/edit_view', $this->arrData);
 		}
 		else

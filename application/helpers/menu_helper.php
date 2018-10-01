@@ -30,9 +30,40 @@ if ( ! function_exists('get_libraries'))
 			'scholarship'=>'Scholarship',
 			'separation_mode'=>'Separation Mode',
 			'service_code'=>'Service Code',
-			'signatory'=>'Signatory',
+			'signatories'=>'Signatory',
 			'user_account'=>'User Account',
 			'zone'=>'Zone'
+		);
+	}
+
+	function get_request()
+    {
+		$CI =& get_instance();
+
+		return array(
+			'official_business'=>'Official Business',
+			'leave'=>'Leave',
+			'travel_order'=>'Travel Order',
+			'pds_update'=>'PDS Update',
+			'dtr_update'=>'DTR Update',
+			'reports'=>'Reports',
+			
+		);
+	}
+
+	function get_leave()
+    {
+		$CI =& get_instance();
+
+		return array(
+			'special_leave'=>'Special Leave',
+			'sick_leave'=>'Sick Leave',
+			'vacation_leave'=>'Vacation Leave',
+			'study_leave'=>'Study Leave',
+			'maternity_leave'=>'Maternity Leave',
+			'paternity_leave'=>'Paternity Leave',
+			'forced_leave'=>'Forced Leave',
+			
 		);
 	}
 
