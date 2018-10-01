@@ -80,3 +80,24 @@ if ( ! function_exists('office_name'))
 		return join('', $arrRes);
     }
 }
+
+if ( ! function_exists('getincome_status'))
+{
+    function getincome_status($stat)
+    {
+    	if($stat != ''):
+			$status = array('Remove','On-going', 'Paused');
+			return $status[$stat];
+		else:
+			return $stat;
+		endif;
+	}
+}
+
+if ( ! function_exists('getyear'))
+{
+    function getyear()
+    {
+		return 2015;
+	}
+}
