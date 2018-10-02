@@ -37,7 +37,7 @@
                     </div>
                 </form><br>
             </div>
-            
+
             <div class="portlet-title"></div>
             <div class="portlet-body">
                 <div class="row">
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1; $totalRemittance = 0;
-                                if(count($arrRemittances) > 0): foreach($arrRemittances as $remit): $totalRemittance = $totalRemittance + $remit['deductAmount']; ?>
+                                if(isset($arrRemittances)): foreach($arrRemittances as $remit): $totalRemittance = $totalRemittance + $remit['deductAmount']; ?>
                                 <tr class="odd gradeX">
                                     <td><?=$no++?></td>
                                     <td><?=$remit['deductionDesc']?></td>
