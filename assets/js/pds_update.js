@@ -59,7 +59,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
-
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 
 			// $('#print_button').show();
 	}
@@ -120,6 +125,12 @@ function showtextbox()
 		$('#mfirstname_textbox').show();
 		$('#mmidname_textbox').show();
 		$('#paddress_textbox').show();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 
 	}
 	else if(select_pds == 'Educational')
@@ -179,6 +190,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').show();
+		$('#submit').show();
 	}
 
 	else if(select_pds == 'Trainings')
@@ -238,6 +255,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 	}
 	else if(select_pds == 'Examinations')
 	{
@@ -296,6 +319,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 
 	}
 	else if(select_pds == 'Children')
@@ -355,6 +384,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').show();
+		$('#childbdate_textbox').show();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 
 	}
 	else if(select_pds == 'Community')
@@ -414,6 +449,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 	}
 	else if(select_pds == 'References')
 	{
@@ -472,6 +513,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 
 	}
 	else if(select_pds == 'Voluntary')
@@ -531,6 +578,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();	
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 
 	}
 	else if(select_pds == 'WorkExp')
@@ -590,6 +643,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 	}
 	
 	else 
@@ -649,6 +708,12 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		// Children
+		$('#childname_textbox').hide();
+		$('#childbdate_textbox').hide();
+		//Educational
+		$('#tab_education').hide();
+		$('#submit').show();
 
 	}
 	
@@ -691,7 +756,6 @@ $(document).ready(function()
 	$('#tel2_textbox').hide();
 	$('#email_textbox').hide();
 	$('#cp_textbox').hide();
-
 	// Family
 	$('#spouse_textbox').hide();
 	$('#ssurname_textbox').hide();
@@ -712,8 +776,13 @@ $(document).ready(function()
 	$('#mfirstname_textbox').hide();
 	$('#mmidname_textbox').hide();
 	$('#paddress_textbox').hide();
-
-
+	// Children
+	$('#childname_textbox').hide();
+	$('#childbdate_textbox').hide();
+	//Educational
+	$('#tab_education').hide();
+	$('#submit').show();
+	
 
 	// $('#printreport').click(function(){
 	// 	var leave=$('#strLeavetype').val();
