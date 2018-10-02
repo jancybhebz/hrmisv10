@@ -264,6 +264,12 @@ class Personnel_profile extends MY_Controller {
 		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$this->load->model('Remittance_model');
+			$this->arrData['arrRemittances'] = $this->Remittance_model->getRemittance($empid, $arrPost['selpayrollGrp'], $arrPost['from'], $arrPost['to']);
+		endif;
+
 		$arrDeductions = $this->Deduction_model->getDeductionsByStatus(0);
 		array_push($arrDeductions, array('deductionCode' => 'ALLGSIS', 'deductionDesc' => 'ALL GSIS Deduction(exc. Life and Ret. Prem.)'));
 		$this->arrData['arrDeductions'] = $arrDeductions;
@@ -320,6 +326,7 @@ class Personnel_profile extends MY_Controller {
 		endif;
 		redirect('finance/compensation/personnel_profile/premium_loan/'.$empid);
 	}
+
 
 }
 /* End of file Deductions.php
