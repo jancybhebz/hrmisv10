@@ -38,6 +38,14 @@ if ( ! function_exists('load_plugin'))
 						$str.= '
 							<link href="'.base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css').'" rel="stylesheet" type="text/css" />';
 						break;
+					case 'timepicker':
+						$str.= '
+							<link href="'.base_url('assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css').'" rel="stylesheet" type="text/css" />';
+						break;
+					case 'datetimepicker':
+						$str.= '
+							<link href="'.base_url('assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css').'" rel="stylesheet" type="text/css" />';
+						break;
 					case 'profile-2': 
 						$str.= '<link href="'.base_url('assets/css/profile-2.min.css').'" rel="stylesheet" type="text/css" />';
 						break;
@@ -96,6 +104,10 @@ if ( ! function_exists('load_plugin'))
                         $str.= '<script src="'.base_url('assets/js/js-validation/libraries-validation.js').'" type="text/javascript"></script>';
                     	break;
 					case 'datepicker': $str.= '<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js').'" type="text/javascript"></script>';
+						break;
+					case 'timepicker': $str.= '<script src="'.base_url('assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js').'" type="text/javascript"></script>';
+						break;
+					case 'datetimepicker': $str.= '<script src="'.base_url('assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js').'" type="text/javascript"></script>';
 						break;
 					case 'highcharts': $str.= '<script src="'.base_url('assets/plugins/highcharts/js/highcharts.js').'" type="text/javascript"></script>';
 						break;
