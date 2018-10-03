@@ -228,7 +228,7 @@
             }
         });
         $('.date-picker').datepicker();
-
+        
         var totalamt = 0;
         $('#txtamount-bl').keyup(function() {
             totalamt = $(this).val().replace(/[^\d\.]/g, "");

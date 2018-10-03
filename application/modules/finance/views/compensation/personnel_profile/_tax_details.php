@@ -1,90 +1,243 @@
-<?=load_plugin('css', array('profile-2'))?>
+<?=load_plugin('css', array('profile-2', 'datepicker'))?>
 <div class="tab-pane active" id="tab_1_6">
     <div class="col-md-12">
         <div class="portlet light bordered">
-            <div class="portlet-title">
-                <button class="btn btn-primary" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+            <div class="portlet-title" <?=$action == 'view' ? '' : 'hidden'?>>
+                <a class="btn btn-primary" href="<?=base_url('finance/compensation/personnel_profile/edit_tax_details/'.$this->uri->segment(5))?>">
+                    <i class="fa fa-edit"></i> Edit</a>
             </div>
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-bordered table-striped">
-                            <tbody>
-                                <tr>
-                                    <th class="active bold" colspan=4> Other Dependent of the Family</th>
-                                </tr>
-                                <tr>
-                                    <td><b> Name of Dependent</b></td>
-                                    <td><?=$arrTaxDetails['otherDependent']?></td>
-                                    <td><b> Date of Birth</b></td>
-                                    <td><?=$arrTaxDetails['dBirthDate']?></td>
-                                </tr>
-                                <tr>
-                                    <td><b> Relationship</b></td>
-                                    <td><?=$arrTaxDetails['dRelationship']?></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <th class="active bold" colspan=4> Previous Employer Information (1)</th>
-                                </tr>
-                                <tr>
-                                    <td><b> TIN Number</b></td>
-                                    <td><?=$arrTaxDetails['pTin']?></td>
-                                    <td><b> Registered Address</b></td>
-                                    <td><?=$arrTaxDetails['pAddress']?></td>
-                                </tr>
-                                <tr>
-                                    <td><b> Employer's Name</b></td>
-                                    <td><?=$arrTaxDetails['pEmployer']?></td>
-                                    <td><b> Zip Code</b></td>
-                                    <td><?=$arrTaxDetails['pZipCode']?></td>
-                                </tr>
-
-                                <tr>
-                                    <th class="active bold" colspan=4> Previous Employer Information (2)</th>
-                                </tr>
-                                <tr>
-                                    <td><b> TIN Number</b></td>
-                                    <td><?=$arrTaxDetails['pTin1']?></td>
-                                    <td><b> Registered Address</b></td>
-                                    <td><?=$arrTaxDetails['pAddress1']?></td>
-                                </tr>
-                                <tr>
-                                    <td><b> Employer's Name</b></td>
-                                    <td><?=$arrTaxDetails['pEmployer1']?></td>
-                                    <td><b> Zip Code</b></td>
-                                    <td><?=$arrTaxDetails['pZipCode1']?></td>
-                                </tr>
-
-                                <tr>
-                                    <th class="active bold" colspan=4> Previous Employer Information (3)</th>
-                                </tr>
-                                <tr>
-                                    <td><b> TIN Number</b></td>
-                                    <td><?=$arrTaxDetails['pTin2']?></td>
-                                    <td><b> Registered Address</b></td>
-                                    <td><?=$arrTaxDetails['pAddress2']?></td>
-                                </tr>
-                                <tr>
-                                    <td><b> Employer's Name</b></td>
-                                    <td><?=$arrTaxDetails['pEmployer2']?></td>
-                                    <td><b> Zip Code</b></td>
-                                    <td><?=$arrTaxDetails['pZipCode2']?></td>
-                                </tr>
-
-                                <tr>
-                                    <th class="active bold" colspan=4> Summary from previous employer</th>
-                                </tr>
-                                <tr>
-                                    <td><b> Taxable Compensation</b></td>
-                                    <td><?=number_format($arrTaxDetails['pTaxComp'], 2)?></td>
-                                    <td><b> Amount of Taxes withheld    </b></td>
-                                    <td><?=number_format($arrTaxDetails['pTaxWheld'], 2)?></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <form role="form" method="post">
+                            <div class="portlet box default ">
+                                <div class="portlet-title">
+                                    <div class="caption" style="text-align: center; display: block; float: inherit; font-size: medium;">Other Dependent for the Head of the Family</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Name of Dependent</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtdependent_name" 
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['otherDependent'] : ''?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Date of Birth</label>
+                                        <div class="input-icon right">
+                                            <input class="form-control date-picker form-required" data-date="2012-03-01" data-date-format="yyyy-mm-dd"
+                                                    name="txtdependent_bday" type="text" value="<?=isset($arrTaxDetails) ? $arrTaxDetails['dBirthDate'] : ''?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Relationship</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtdependent_rel" 
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['dRelationship'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                            <br>
+                            <div class="portlet box default ">
+                                <div class="portlet-title">
+                                    <div class="caption" style="text-align: center; display: block; float: inherit; font-size: medium;">Previous Employer Information (1)</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">TIN Number</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp1_tin"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pTin'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Registered Address</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp1_reg"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pAddress'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Employer's Name</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp1_name"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pEmployer'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Zip Code</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp1_zip"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pZipCode'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="portlet box default ">
+                                <div class="portlet-title">
+                                    <div class="caption" style="text-align: center; display: block; float: inherit; font-size: medium;">Previous Employer Information (2)</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">TIN Number</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_tin"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pTin'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Registered Address</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_reg"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pAddress'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Employer's Name</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_name"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pEmployer'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Zip Code</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_zip"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pZipCode'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="portlet box default ">
+                                <div class="portlet-title">
+                                    <div class="caption" style="text-align: center; display: block; float: inherit; font-size: medium;">Previous Employer Information (3)</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">TIN Number</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_tin"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pTin'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Registered Address</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_reg"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pAddress'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Employer's Name</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_name"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pEmployer'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Zip Code</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_zip"
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pZipCode'] : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="portlet box default ">
+                                <div class="portlet-title">
+                                    <div class="caption" style="text-align: center; display: block; float: inherit; font-size: medium;">Summary from Previous Employer</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Taxable Compensation</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtcompen"
+                                                    value="<?=isset($arrTaxDetails) ? number_format($arrTaxDetails['pTaxComp'], 2) : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Amount of Taxes withheld</label>
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txttax"
+                                                    value="<?=isset($arrTaxDetails) ? number_format($arrTaxDetails['pTaxWheld'], 2) : ''?>">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <center <?=$action=='edit' ? '' : 'hidden'?>>
+                                <br><br>
+                                <div class="form-actions">
+                                    <button type="button" class="btn default">Cancel</button>
+                                    <button type="submit" class="btn green">Submit</button>
+                                </div>
+                            </center>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -93,3 +246,9 @@
 </div>
 
 <?php include('_modal.php'); ?>
+<?php load_plugin('js', array('datepicker')) ?>
+<script>
+    $(document).ready(function() {
+        $('.date-picker').datepicker();
+    });
+</script>

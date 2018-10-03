@@ -278,10 +278,56 @@ class Personnel_profile extends MY_Controller {
 
 	public function tax_details($empid)
 	{
+		$this->load->model('TaxDetails_model');
 		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
+		$this->arrData['action'] = 'view';
 
-		$this->arrData['arrTaxDetails'] = $this->Compensation_model->getTaxDetails($empid);
+		$this->arrData['arrTaxDetails'] = $this->TaxDetails_model->getTaxDetails($empid);
+		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
+	}
+
+	public function edit_tax_details($empid)
+	{
+		$this->load->model('TaxDetails_model');
+		$employeeData = $this->Hr_model->getData($empid);
+		$this->arrData['arrData'] = $employeeData[0];
+		$this->arrData['action'] = 'edit';
+		$arrTaxDetails = $this->TaxDetails_model->getTaxDetails($empid);
+		
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array('otherDependent' => $arrPost['txtdependent_name'],
+							 'dBirthDate' => $arrPost['txtdependent_bday'],
+							 'dRelationship' => $arrPost['txtdependent_rel'],
+							 'pTin1' => $arrPost['txtemp1_tin'],
+							 'pAddress1' => $arrPost['txtemp1_reg'],
+							 'pEmployer1' => $arrPost['txtemp1_name'],
+							 'pZipCode1' => $arrPost['txtemp1_zip'],
+							 'pTin2' => $arrPost['txtemp2_tin'],
+							 'pAddress2' => $arrPost['txtemp2_reg'],
+							 'pEmployer2' => $arrPost['txtemp2_name'],
+							 'pZipCode2' => $arrPost['txtemp2_zip'],
+							 'pTin' => $arrPost['txtemp3_tin'],
+							 'pAddress' => $arrPost['txtemp3_reg'],
+							 'pEmployer' => $arrPost['txtemp3_name'],
+							 'pZipCode' => $arrPost['txtemp3_zip'],
+							 'pTaxComp' => $arrPost['txtcompen'],
+							 'pTaxWheld' => $arrPost['txttax']
+							);
+			if($arrTaxDetails !=null):
+				$this->TaxDetails_model->editTaxDetails($arrData, $empid);
+				$this->session->set_flashdata('strSuccessMsg','Tax details updated successfully.');
+				redirect('finance/compensation/personnel_profile/tax_details/'.$empid);
+			else:
+				$arrData['empNumber'] = $empid;
+				$this->TaxDetails_model->add($arrData);
+				$this->session->set_flashdata('strSuccessMsg','Tax details added successfully.');
+				redirect('finance/compensation/personnel_profile/tax_details/'.$empid);
+			endif;
+		endif;
+
+		$this->arrData['arrTaxDetails'] = $arrTaxDetails;
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
 

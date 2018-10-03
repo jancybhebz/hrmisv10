@@ -58,7 +58,7 @@
                                     <li class="<?=$this_page == 'remittances' ? 'active' : ''?>">
                                         <a href="<?=base_url('finance/compensation/personnel_profile/remittances/').$this->uri->segment(5)?>"> Remittances </a>
                                     </li>
-                                    <li class="<?=$this_page == 'tax_details' ? 'active' : ''?>">
+                                    <li class="<?=($this_page == 'tax_details' or $this_page == 'edit_tax_details') ? 'active' : ''?>">
                                         <a href="<?=base_url('finance/compensation/personnel_profile/tax_details/').$this->uri->segment(5)?>"> Tax Details </a>
                                     </li>
                                     <li class="<?=$this_page == 'dtr' ? 'active' : ''?>">
@@ -76,7 +76,7 @@
                                             if($this_page == 'deduction_summary'): include('_deduction_summary.php'); endif;
                                             if($this_page == 'premium_loan'): include('_premiumLoans.php'); endif;
                                             if($this_page == 'remittances'): include('_remittances.php'); endif;
-                                            if($this_page == 'tax_details'): include('_tax_details.php'); endif;
+                                            if($this_page == 'tax_details' or $this_page == 'edit_tax_details'): include('_tax_details.php'); endif;
                                             if($this_page == 'dtr'): 'dtr'; endif;
                                             if($this_page == 'adjustments'): include('_adjustments.php'); endif;
                                         ?>

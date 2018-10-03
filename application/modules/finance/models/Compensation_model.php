@@ -216,12 +216,6 @@ class Compensation_model extends CI_Model {
 		return $this->db->query($sql)->result_array();
 	}
 
-	function getTaxDetails($empid)
-	{
-		$res = $this->db->get_where('tblTaxDetails', array('empNumber' => $empid))->result_array();
-		return $res[0];
-	}
-
 	function getPremiumDeduction($empid, $deductionType)
 	{
 		$sql = "SELECT tblDeduction.`deductionCode`, `amountGranted`,`annual`,`deductionDesc`, `monthly`,`period1`,`period2`,`period3`,`period4`, empNumber, tblDeduction.`deductionType`, `deductCode`,`status`, tblDeduction2.deductCode
