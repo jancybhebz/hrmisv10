@@ -689,16 +689,73 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                 </div>
 <!-- Educational Attainment -->
+<div id="tab_education" class="tab-pane" style="overflow-x:auto;">
+    <form action="#">
+        <b>EDUCATIONAL INFORMATION:</b><br><br>
+            <table class="table table-bordered table-striped" class="table-responsive">
+                <tr>
+                    <th width="10%">Level Code</th>
+                    <th width="10%">Name of School</th>
+                    <th width="10%">Basic Educ./ Degree/ Course</th>
+                    <th width="10%">Period of Attendance [From/To]</th>
+                    <th width="10%">Highest Level/ Units Earned</th>
+                    <th width="10%">Year Graduated</th>
+                    <th width="10%">Scholarship/ Honors Received</th>
+                    <th width="10%">Graduate</th>
+                    <th width="2%">Licensed</th>
+                    <th width="10%">Action</th>
+                </tr>
+                <?php //foreach($arrEduc as $row):?>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> 
+                    <a class="btn green" data-toggle="modal" href="#educ_modal"> Edit </a>
+                     <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteEduc"> Delete </a>
+                    </td>
+                </tr>
+
 <!-- Trainings -->
 <!-- Examinations -->
 <!-- Children -->
+                <div class="row" id="childname_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Name of Children :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strChildName" value="<?=isset($arrChild[0]['strChildName'])?$arrChild[0]['strChildName']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="childbdate_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Date of Birth :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="dtmChildBdate" value="<?=isset($arrChild[0]['dtmChildBdate'])?$arrChild[0]['dtmChildBdate']:''?>">
+                            </div>
+                        </div>
+                </div>
 <!-- Community Tax Certification -->
 <!-- References -->
 <!-- Voluntary Works -->
 <!-- Work Experience -->
-                    <div class="row">
+                    <div class="row" id="submit">
                         <div class="col-sm-12 text-center">
-                            <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                     </div>
