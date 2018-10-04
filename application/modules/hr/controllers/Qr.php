@@ -5,13 +5,13 @@ class Qr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employees/employees_model'));
+        $this->load->model(array('Hr_model'));
     }
 
 	public function generate()
 	{
 		$this->load->library('ciqrcode');
-		$rs = $this->employees_model->getData();
+		$rs = $this->Hr_model->getData();
 		//print_r($rs);
 		foreach($rs as $row):
 			$qr_image=$row['empNumber'].'.png';
@@ -41,7 +41,7 @@ class Qr extends MY_Controller {
 		$pdf->AddPage();
 		$this->fpdf = $pdf;
 		
-		$rs=$this->employees_model->getData();
+		$rs=$this->Hr_model->getData();
 		
 		$this->fpdf->SetFont('Arial','',10);
 		$x=8;$y=8;
@@ -102,7 +102,7 @@ class Qr extends MY_Controller {
 		$pdf->AddPage();
 		$this->fpdf = $pdf;
 		
-		$rs=$this->employees_model->getData();
+		$rs=$this->Hr_model->getData();
 		
 		$this->fpdf->SetFont('Arial','',10);
 		$x=8;$y=8;
