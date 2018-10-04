@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class HR extends MY_Controller {
+class Hr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
