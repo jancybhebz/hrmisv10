@@ -14,21 +14,21 @@ class Personnel_profile extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('hr/HR_model','Deduction_model',
+        $this->load->model(array('hr/Hr_model','Deduction_model',
         						 'Compensation_model', 'libraries/Appointment_status_model',
         						 'Benefit_model'));
     }
 
 	public function index()
 	{
-		$this->arrData['arrEmployees'] = $this->HR_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData();
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_all',$this->arrData);
 	}
 
 	public function employee($empid)
 	{
 		$this->load->model(array('PayrollGroup_model', 'Rata_model','libraries/Attendance_scheme_model', 'TaxExempt_model','libraries/Plantilla_model', 'libraries/Separation_mode_model'));
-		$res = $this->HR_model->getData($empid);
+		$res = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
 		$this->arrData['rata'] = $this->Rata_model->getData($res[0]['RATACode']);
@@ -114,7 +114,7 @@ class Personnel_profile extends MY_Controller {
 	public function income($empid)
 	{
 		$this->load->model('Income_model');
-		$res = $this->HR_model->getData($empid);
+		$res = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $res[0];
 
 		// BENEFIT LIST
@@ -216,10 +216,10 @@ class Personnel_profile extends MY_Controller {
 	public function deduction_summary($empid)
 	{
 		$this->load->model('libraries/Agency_profile_model');
-		$employeeData = $this->HR_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 
-		$res = $this->HR_model->getData($empid);
+		$res = $this->Hr_model->getData($empid);
 		$agencyData = $this->Agency_profile_model->getData();
 
 		// LIFE RETIREMENT
@@ -247,7 +247,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function premium_loan($empid)
 	{
-		$employeeData = $this->HR_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$this->arrData['arrDeductions'] = $this->Compensation_model->getPremiumDeduction($empid, 'Regular');
@@ -261,7 +261,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function remittances($empid)
 	{
-		$employeeData = $this->HR_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$arrPost = $this->input->post();
@@ -279,7 +279,7 @@ class Personnel_profile extends MY_Controller {
 	public function tax_details($empid)
 	{
 		$this->load->model('TaxDetails_model');
-		$employeeData = $this->HR_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 		$this->arrData['action'] = 'view';
 
@@ -290,7 +290,7 @@ class Personnel_profile extends MY_Controller {
 	public function edit_tax_details($empid)
 	{
 		$this->load->model('TaxDetails_model');
-		$employeeData = $this->HR_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 		$this->arrData['action'] = 'edit';
 		$arrTaxDetails = $this->TaxDetails_model->getTaxDetails($empid);
@@ -334,7 +334,7 @@ class Personnel_profile extends MY_Controller {
 	public function dtr($empid)
 	{
 		$this->load->model('Dtr_model');
-		$employeeData = $this->HR_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 
 		if(!isset($_GET['yr']) && !isset($_GET['mon'])):
@@ -367,7 +367,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function adjustments($empid)
 	{
-		$employeeData = $this->HR_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);

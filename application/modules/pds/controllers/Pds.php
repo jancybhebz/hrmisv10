@@ -11,8 +11,8 @@ class Pds extends MY_Controller
 
 	public function index()
 	{
-		$this->load->model(array('hr/hr_model','hr/chart_model'));
-		$arrData['arrEmployees'] = $this->hr_model->getData();
+		$this->load->model(array('hr/Hr_model','hr/chart_model'));
+		$arrData['arrEmployees'] = $this->Hr_model->getData();
 		//plantilla chart
 		$arrPlantillaChart = $this->chart_model->plantilla_positions();
 		$intFilled=0;$intVacant=0;
@@ -25,8 +25,8 @@ class Pds extends MY_Controller
 		$arrData['intFilled']=$intFilled;
 		$arrData['intVacant']=$intVacant;
 		//gender chart
-		$arrAS = $this->hr_model->appointment_status();
-		$arrASFull = $this->hr_model->appointment_status(TRUE);
+		$arrAS = $this->Hr_model->appointment_status();
+		$arrASFull = $this->Hr_model->appointment_status(TRUE);
 		//print_r($arrASFull);
 		foreach($arrASFull as $row):
 			//echo $row."<br>";
