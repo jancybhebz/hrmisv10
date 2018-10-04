@@ -13,6 +13,7 @@ class Qr extends MY_Controller {
 		$this->load->library('ciqrcode');
 		$rs = $this->Hr_model->getData();
 		//print_r($rs);
+		
 		foreach($rs as $row):
 			$qr_image=$row['empNumber'].'.png';
 			echo $qr_image."<br>";

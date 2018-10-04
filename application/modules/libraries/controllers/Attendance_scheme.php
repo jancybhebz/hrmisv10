@@ -33,21 +33,52 @@ class Attendance_scheme extends MY_Controller {
 		}
 		else
 		{	
+			$strSchemeType = $arrPost['strSchemeType'];
 			$strSchemeCode = $arrPost['strSchemeCode'];
 			$strSchemeName = $arrPost['strSchemeName'];
-			$strSchemeType = $arrPost['strSchemeType'];
-			$dtmTimeIn = $arrPost['dtmTimeIn'];
-			$strSchemeType = $arrPost['strSchemeType'];
-			$strSchemeType = $arrPost['strSchemeType'];
-			if(!empty($strSchemeCode) && !empty($strSchemeName) && !empty($strSchemeType))
+			// fixed
+			$dtmFtimeIn = $arrPost['dtmFtimeIn'];
+			$dtmFtimeOutFrom = $arrPost['dtmFtimeOutFrom'];
+			$dtmFtimeOutTo = $arrPost['dtmFtimeOutTo'];
+			$dtmFtimeInFrom = $arrPost['dtmFtimeInFrom'];
+			$dtmFtimeInTo = $arrPost['dtmFtimeInTo'];
+			$dtmFtimeOut = $arrPost['dtmFtimeOut'];
+			// sliding
+			$dtmStimeInFrom = $arrPost['dtmStimeInFrom'];
+			$dtmStimeInTo = $arrPost['dtmStimeInTo'];
+			$dtmStimeOutFromNN = $arrPost['dtmStimeOutFromNN'];
+			$dtmStimeOutToNN = $arrPost['dtmStimeOutToNN'];
+			$dtmStimeInFromNN = $arrPost['dtmStimeInFromNN'];
+			$dtmStimeInToNN = $arrPost['dtmStimeInToNN'];
+			$dtmStimeOutFrom = $arrPost['dtmStimeOutFrom'];
+			$dtmStimeOutTo = $arrPost['dtmStimeOutTo'];
+
+			if(!empty($strSchemeCode) && !empty($strSchemeName))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->attendance_scheme_model->checkExist($strSchemeCode, $strSchemeName))==0)
 				{
 					$arrData = array(
+						'schemeType'=>$strSchemeType,
 						'schemeCode'=>$strSchemeCode,
 						'schemeName'=>$strSchemeName,
-						'schemeType'=>$strSchemeType
+						// fixed
+					  'amTimeinFrom'=>$dtmFtimeIn,
+					 'nnTimeoutFrom'=>$dtmFtimeOutFrom, 
+					   'nnTimeoutTo'=>$dtmFtimeOutTo, 
+					  'nnTimeinFrom'=>$dtmFtimeInFrom,
+						'nnTimeinTo'=>$dtmFtimeInTo, 
+					   'pmTimeoutTo'=>$dtmFtimeOut, 
+					   // sliding
+					  'amTimeinFrom'=>$dtmStimeInFrom,
+						'amTimeinTo'=>$dtmStimeInTo,
+					 'nnTimeoutFrom'=>$dtmStimeOutFromNN,
+					   'nnTimeoutTo'=>$dtmStimeOutToNN, 
+					  'nnTimeinFrom'=>$dtmStimeInFromNN,
+						'nnTimeinTo'=>$dtmStimeInToNN, 
+					 'pmTimeoutFrom'=>$dtmStimeOutFrom,
+					   'pmTimeoutTo'=>$dtmStimeOutTo 
+						
 					);
 					$blnReturn  = $this->attendance_scheme_model->add($arrData);
 
@@ -84,11 +115,25 @@ class Attendance_scheme extends MY_Controller {
 		}
 		else
 		{
-			$intSchemeCode = $arrPost['intSchemeCode'];
 			$strSchemeCode = $arrPost['strSchemeCode'];
 			$strSchemeName = $arrPost['strSchemeName'];
-			$strSchemeType = $arrPost['strSchemeType'];
-			if(!empty($strSchemeCode) AND !empty($strSchemeName) AND !empty($strSchemeType)) 
+			// fixed
+			$dtmFtimeIn = $arrPost['dtmFtimeIn'];
+			$dtmFtimeOutFrom = $arrPost['dtmFtimeOutFrom'];
+			$dtmFtimeOutTo = $arrPost['dtmFtimeOutTo'];
+			$dtmFtimeInFrom = $arrPost['dtmFtimeInFrom'];
+			$dtmFtimeInTo = $arrPost['dtmFtimeInTo'];
+			$dtmFtimeOut = $arrPost['dtmFtimeOut'];
+			// sliding
+			$dtmStimeInFrom = $arrPost['dtmStimeInFrom'];
+			$dtmStimeInTo = $arrPost['dtmStimeInTo'];
+			$dtmStimeOutFromNN = $arrPost['dtmStimeOutFromNN'];
+			$dtmStimeOutToNN = $arrPost['dtmStimeOutToNN'];
+			$dtmStimeInFromNN = $arrPost['dtmStimeInFromNN'];
+			$dtmStimeInToNN = $arrPost['dtmStimeInToNN'];
+			$dtmStimeOutFrom = $arrPost['dtmStimeOutFrom'];
+			$dtmStimeOutTo = $arrPost['dtmStimeOutTo'];
+			if(!empty($strSchemeCode) AND !empty($strSchemeName)) 
 			{
 				$arrData = array(
 					'schemeCode'=>$strSchemeCode,
