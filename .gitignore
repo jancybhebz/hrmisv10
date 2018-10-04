@@ -26,3 +26,5 @@ composer.lock
 application/config/database.php
 uploads/*
 
+
+uploads/
