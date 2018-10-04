@@ -38,7 +38,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> No. </th>
                             <th> Code </th>
                             <th> Scheme Name </th>
-                            <th> Scheme </th>
+                            <th> Scheme Type </th>
                             <th> Action </th>
                         </tr>
                     </thead>
