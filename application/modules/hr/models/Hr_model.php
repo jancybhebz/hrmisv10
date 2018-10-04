@@ -8,7 +8,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 ?>
 
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class HR_model extends CI_Model {
+class Hr_model extends CI_Model {
 	
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
@@ -310,5 +310,5 @@ class HR_model extends CI_Model {
 	//   return $objQuery->result_array();		
 	// }	
 }
-/* End of file HR_model.php */
+/* End of file Hr_model.php */
 /* Location: ./application/modules/employees/models/Employees_model.php */
