@@ -13,7 +13,7 @@ class HR extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('hr/hr_model'));
+        $this->load->model(array('HR_model'));
     }
 
 	public function index()
