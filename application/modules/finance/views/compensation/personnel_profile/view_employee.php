@@ -1,4 +1,4 @@
-<?php load_plugin('css',array('datatable')); $this_page = $this->uri->segment(4);?>
+<?php $this_page = $this->uri->segment(4);?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -77,7 +77,7 @@
                                             if($this_page == 'premium_loan'): include('_premiumLoans.php'); endif;
                                             if($this_page == 'remittances'): include('_remittances.php'); endif;
                                             if($this_page == 'tax_details' or $this_page == 'edit_tax_details'): include('_tax_details.php'); endif;
-                                            if($this_page == 'dtr'): 'dtr'; endif;
+                                            if($this_page == 'dtr'): include('_dtr.php'); endif;
                                             if($this_page == 'adjustments'): include('_adjustments.php'); endif;
                                         ?>
                                     </div>
@@ -90,7 +90,6 @@
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('datatable'));?>
 
 <script>
     $(document).ready(function() {

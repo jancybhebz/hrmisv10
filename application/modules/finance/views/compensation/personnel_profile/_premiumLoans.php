@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('profile-2'))?>
+<?=load_plugin('css', array('profile-2','datatables'))?>
 <div class="tab-pane active" id="tab_1_2">
     <div class="col-md-6">
          <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
@@ -141,6 +141,7 @@
     </div>
 </div>
 <?php include('modals/_modal_loans.php'); ?>
+<?=load_plugin('js', array('datatables'))?>
 <script>
     $(document).ready(function() {
         $('#table-regDeductList, #table-loanList, #table-contandDeduct').dataTable({"pageLength": 5});

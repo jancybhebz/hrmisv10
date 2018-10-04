@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('profile-2','datepicker','select2'))?>
+<?=load_plugin('css', array('profile-2','datepicker','datatables','select2'))?>
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -80,7 +80,7 @@
     </div>
 </div>
 <?php include('_modal.php'); ?>
-<?=load_plugin('js', array('datepicker','select2'))?>
+<?=load_plugin('js', array('datepicker','datatables','select2'))?>
 <script>
     $(document).ready(function() {
         $('#table-hazards').dataTable();
