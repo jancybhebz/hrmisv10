@@ -24,5 +24,7 @@ composer.lock
 
 # database
 application/config/database.php
-uploads/
+uploads/*
 
+
+uploads/

@@ -50,11 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Type<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                    <i class="fa"></i>
-                                    <select name="strSchemeType" id="strSchemeType" class="form-control" onchange="showtextbox()">
-                                        <option value="">Select Scheme </option>
-                                        <option value="fixed">Fixed </option>
-                                        <option value="sliding">Sliding </option>
-                                    </select>
+                                      <input type="text" class="form-control" name="strSchemeType" value="<?=!empty($arrAttendance[0]['schemeType'])?$arrAttendance[0]['schemeType']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeCode" value="<?=!empty($arrScheme[0]['schemeType'])?$arrScheme[0]['schemeType']:''?>">
+                                    <input type="text" class="form-control" name="strSchemeCode" value="<?=!empty($arrAttendance[0]['schemeCode'])?$arrAttendance[0]['schemeCode']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -76,11 +72,167 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeName" value="<?=!empty($arrScheme[0]['schemeName'])?$arrScheme[0]['schemeName']:''?>">
+                                    <input type="text" class="form-control" name="strSchemeName" value="<?=!empty($arrAttendance[0]['schemeName'])?$arrAttendance[0]['schemeName']:''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="FtimeIn">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label" id="FtimeIn">Fixed Time In : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="<?=!empty($arrAttendance[0]['amTimeinFrom'])?$arrAttendance[0]['amTimeinFrom']:''?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row" id="FtimeOutFrom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-Out From (noon) :  <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOutFrom" id="dtmFtimeOutFrom" value="12:00:00 PM"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row" id="FtimeOutTo">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-Out To (noon) :  <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOutTo" id="dtmFtimeOutTo" value="12:00:00 PM"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="row" id="FtimeInFrom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-In From (noon) :   <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeInFrom" id="dtmFtimeInFrom" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="FtimeInTo">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-In To (noon) : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeInTo" id="dtmFtimeInTo" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="row" id="FtimeOut">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time Out : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOut" id="dtmFtimeOut" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div></br>
+                        <!-- Sliding -->
+                        <div class="row" id="StimeInFrom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Sliding Time In From :  <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFrom" id="dtmStimeInFrom" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row" id="StimeInTo">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time In To : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInTo" id="dtmStimeInTo" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="StimeOutFromNN">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-Out From (noon) : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFromNN" id="dtmStimeOutFromNN" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="StimeOutToNN">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-Out To (noon) :  <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutToNN" id="dtmStimeOutToNN" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row" id="StimeInFromNN">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-In From (noon) :  <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFromNN" id="dtmStimeInFromNN" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="StimeInToNN">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time-In To (noon) : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInToNN" id="dtmStimeInToNN" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="StimeOutFrom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time Out From : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFrom" id="dtmStimeOutFrom" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="row" id="StimeOutTo">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Time Out To : <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <i class="fa fa-clock-o"></i>
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutTo" id="dtmStimeOutTo" value="12:00:00 PM"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
