@@ -25,7 +25,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-md-6">
                             <div class="btn-group">
                                 <a href="<?=base_url('libraries/leave_type/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Leave Type</button></a>
-                                <br><br>
+                                
 
                                 <a href="<?=base_url('libraries/leave_type/add_special')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Special Leave                                    
                                 </button></a>
