@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('profile-2'))?>
+<?=load_plugin('css', array('datatables'))?>
 <div class="tab-pane active" id="tab_1_3">
     <div class="col-md-12">
         <div class="col-md-12">
@@ -131,6 +131,7 @@
     </div>
 </div>
 <?php include('_modal.php'); ?>
+<?=load_plugin('js', array('datatables'))?>
 <script>
     $(document).ready(function() {
         $('#table-loans, #table-contributions, #table-finishedLoans').dataTable({"pageLength": 5});

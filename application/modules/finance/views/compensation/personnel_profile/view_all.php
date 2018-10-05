@@ -1,4 +1,4 @@
-<?php load_plugin('css',array('datatable'));?>
+<?php load_plugin('css',array('datatables'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<?php load_plugin('js',array('datatable'));?>
+<?php load_plugin('js',array('datatables'));?>
 
 <script>
     $(document).ready(function() {

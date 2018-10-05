@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('profile-2'))?>
+<?=load_plugin('css', array('profile-2','datatables'))?>
 <div class="tab-pane active" id="tab_1_2">
     <div class="col-md-6">
         <div class="portlet light bordered" style="height: 514px;">
@@ -210,7 +210,7 @@
     </div>
 </div>
 <?php include('modals/_modal_income.php'); ?>
-
+<?php load_plugin('js',array('datatables'));?>
 <script>
     $(document).ready(function() {
         $('#table-benefitList, #table-bonusList, #table-longevityPay, #table-incomeList').dataTable({"pageLength": 5});
