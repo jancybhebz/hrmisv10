@@ -14,6 +14,14 @@ class Dtr_model extends CI_Model {
 		return $this->db->get_where("tblempdtr")->result_array();
 	}
 
+	function getHoliday($strday)
+	{
+		$this->db->join('tblholiday', 'tblholiday.holidayCode = tblholidayyear.holidayCode', 'left');
+		$this->db->where("tblholidayyear.holidayDate like '".$strday."'");
+		$res = $this->db->get_where('tblholidayyear')->result_array();
+		return count($res) > 0 ? $res[0] : null; 
+	}
+
 }
 /* End of file Dtr_model.php */
 /* Location: ./application/modules/finance/models/Dtr_model.php */

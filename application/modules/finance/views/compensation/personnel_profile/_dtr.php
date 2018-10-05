@@ -1,5 +1,4 @@
 <?=load_plugin('css', array('profile-2','datatables','select2'))?>
-<pre><?php print_r($arrDtr); ?></pre>
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -28,39 +27,43 @@
                 </form>
                 </center>
             </div>
-            <?php echo $totaldays; ?>
-            <table class="table table-striped table-bordered table-hover order-column" id="tbldtr">
+            <table class="table table-striped table-bordered order-column" id="tbldtr">
                 <thead>
                     <tr>
-                        <th>DATE</th>
-                        <th>IN</th>
-                        <th>OUT</th>
-                        <th>IN</th>
-                        <th>OUT</th>
-                        <th>IN</th>
-                        <th>OUT</th>
-                        <th>REMARKS</th>
-                        <th>LATE</th>
-                        <th>OT</th>
-                        <th>UT</th>
-                        <th>LOGS</th>
+                        <th class="no-sort">DATE</th>
+                        <th class="no-sort">IN</th>
+                        <th class="no-sort">OUT</th>
+                        <th class="no-sort">IN</th>
+                        <th class="no-sort">OUT</th>
+                        <th class="no-sort">IN</th>
+                        <th class="no-sort">OUT</th>
+                        <th class="no-sort">REMARKS</th>
+                        <th class="no-sort">LATE</th>
+                        <th class="no-sort">OT</th>
+                        <th class="no-sort">UT</th>
+                        <th class="no-sort">LOGS</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach (range(1, $totaldays) as $day): ?>
-                    <tr>
-                        <td align="center"><?=$day?></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                <?php foreach ($arrDtr as $dtr): ?>
+                    <tr class="<?=$dtr['wday'] != 'Saturday' && $dtr['wday'] != 'Sunday' ? '' : 'active'?>">
+                        <td align="center"><?=$dtr['mday']?></td>
+                        <?php if($dtr['data']!=null): ?>
+                            <td><?=$dtr['data']['inAM']?></td>
+                            <td><?=$dtr['data']['outAM']?></td>
+                            <td><?=$dtr['data']['inPM']?></td>
+                            <td><?=$dtr['data']['outPM']?></td>
+                            <td><?=$dtr['data']['inOT']?></td>
+                            <td><?=$dtr['data']['outOT']?></td>
+                            <td><?=$dtr['data']['remarks']?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        <?php else: ?>
+                            <td colspan=11 align="center" class="uppercase sbold center"><?=$dtr['wday'] != 'Saturday' && $dtr['wday'] != 'Sunday' ? $dtr['holiday'] : $dtr['wday']?></td>
+                            <?=str_repeat("<td class='hide'></td>",10)?>
+                        <?php endif ?>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -71,11 +74,13 @@
 <?=load_plugin('js', array('datatables','select2','datatables-scroller'))?>
 <script>
     $(document).ready(function() {
+        $('td.hide').hide();
         $('#tbldtr').dataTable({
-            "scrollY": "320px",
+            "scrollY": "350px",
             "scrollCollapse": true,
             "paging": false,
-            "scrollX": "100%",
+            // "scrollX": "100%",
+            "bSort": false
         });
         setTimeout(function () { $($.fn.dataTable.tables( true ) ).DataTable().columns.adjust().draw();},200);
     });
