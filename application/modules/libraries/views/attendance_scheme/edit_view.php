@@ -156,7 +156,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Sliding Time In From :  <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFrom" id="dtmStimeInFrom" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeInFrom" id="dtmStimeInFrom" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Time In To : <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInTo" id="dtmStimeInTo" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeInTo" id="dtmStimeInTo" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Time-Out From (noon) : <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFromNN" id="dtmStimeOutFromNN" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeOutFromNN" id="dtmStimeOutFromNN" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Time-Out To (noon) :  <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutToNN" id="dtmStimeOutToNN" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeOutToNN" id="dtmStimeOutToNN" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +200,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Time-In From (noon) :  <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFromNN" id="dtmStimeInFromNN" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeInFromNN" id="dtmStimeInFromNN" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +211,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Time-In To (noon) : <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInToNN" id="dtmStimeInToNN" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeInToNN" id="dtmStimeInToNN" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +222,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Time Out From : <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFrom" id="dtmStimeOutFrom" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeOutFrom" id="dtmStimeOutFrom" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Time Out To : <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutTo" id="dtmStimeOutTo" value="12:00:00 PM"> 
+                                        <input type="text" class="form-control timepicker timepicker-default" type="hidden" name="dtmStimeOutTo" id="dtmStimeOutTo" value="12:00:00 PM"> 
                                     </div>
                                 </div>
                             </div>

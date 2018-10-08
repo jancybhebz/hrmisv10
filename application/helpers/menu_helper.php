@@ -26,7 +26,7 @@ if ( ! function_exists('get_libraries'))
 			'position'=>'Position Code',
 			'project_code'=>'Project Code',
 			'request'=>'Request',
-			'salary_schedule'=>'Salary Schedule',
+			'salary_sched'=>'Salary Schedule',
 			'scholarship'=>'Scholarship',
 			'separation_mode'=>'Separation Mode',
 			'service_code'=>'Service Code',
