@@ -12,6 +12,9 @@ class Salary_sched_model extends CI_Model {
 	var $table = 'tblsalaryschedversion';
 	var $tableid = 'version';
 
+	var $table2 = 'tblsalarysched';
+	var $tableid2 = 'version';
+
 	function __construct()
 	{
 		$this->load->database();
@@ -24,8 +27,33 @@ class Salary_sched_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$intVersion);
 		}
-		$this->db->join('tblsalarysched','tblsalarysched.version = '.$this->table.'.version','left');
+		//$this->db->join('tblsalarysched','tblsalarysched.version = '.$this->table.'.version','left');
 		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}	
+
+	function getSchedHeader($field, $version)
+	{		
+		$this->db->select('distinct('.$field.')')
+		         ->from('tblsalarysched')
+		         ->order_by($field, 'ASC')
+		         ->where('version', $version);
+		$objQuery = $this->db->get();
+
+		return $objQuery->result_array();	
+	}
+
+	function getDataSched($strSalarySched = '')
+	{		
+		if($strSalarySched != "")
+		{
+			$this->db->where($this->tableid2,$strSalarySched);
+		}else{
+			$this->db->where($this->tableid2,1);
+		}
+
+		//$this->db->join('tblsalarysched','tblsalarysched.version = '.$this->table.'.version','left');
+		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}		
 
@@ -37,6 +65,15 @@ class Salary_sched_model extends CI_Model {
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
+
+	function checkExistSalary($strSalarySched = '')
+	{		
+		
+		$this->db->where('version',$strSalarySched);
+		
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}
 		
 	function add($arrData)
 	{
@@ -45,6 +82,12 @@ class Salary_sched_model extends CI_Model {
 	}
 
 	function add_new($arrData)
+	{
+		$this->db->insert('tblsalarysched', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function add_existing($arrData)
 	{
 		$this->db->insert('tblsalaryschedversion', $arrData);
 		return $this->db->insert_id();		

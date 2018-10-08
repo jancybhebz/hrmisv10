@@ -6,9 +6,10 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?php load_plugin('css',array('datepicker'));?>
+<?php load_plugin('css',array('datepicker','datatables'));?>
 
 <div class="row">
+
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
@@ -17,46 +18,91 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <i class="icon-settings font-dark"></i>
                     <span class="caption-subject bold uppercase"> SALARY SCHEDULE</span>
                 </div>
-                
             </div>
+
             <div class="portlet-body">
-                <div class="table-toolbar">
-                    <div class="row">
+                <form class="form-horizontal" method="get">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Other Version</label>
                         <div class="col-md-6">
-                            <div class="btn-group">
-                                <a href="<?=base_url('libraries/salary_sched/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Create New Salary Schedule Name
-                                </button></a>
-                                 <a href="<?=base_url('libraries/salary_sched/add_sched')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New Salary Schedule
-                                    
-                                </button></a>
+                            <select type="text" class="form-control" name="strversion">
+                                    <?php foreach($arrSalary as $sched): ?>
+                                            <option value="<?=$sched['version']?>" 
+                                                <?=isset($_GET['strversion']) ? $_GET['strversion'] == $sched['version'] ? 'selected' : '' : ''?>>
+                                                <?=$sched['title']?></option>
+                                    <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </div>
-                        
                     </div>
+                </form>
+                <br>
+
+                <div class="portlet-title">
+                    <div class="btn-group">
+                        <a href="<?=base_url('libraries/salary_sched/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Create New Salary Schedule Name
+                        </button></a>
+                        <a href="<?=base_url('libraries/salary_sched/add_existing')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Create New Salary Schedule from Existing
+                        </button></a>
+                        <a href="<?=base_url('libraries/salary_sched/add_sched')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New Salary Schedule
+                        </button></a>
+                    </div>
+                    <br><br>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_salary_sched">
-                    <thead>
-                        <tr>
-                            <th> No. </th>
-                            <th> SG </th>
-                            <th> Step 1 </th>
-                            <th> Step 2 </th>
-                            <th> Step 3 </th>
-                        </tr>
-                    </thead>
-                    <tbody> 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                   
-                    </tbody>
-                </table>
-            </div>
+                <div class="portlet-body">
+                    <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_salary_sched" style="visibility: hidden;">
+                        <thead>
+                            <tr>
+                                <th>SG</th>
+                                <?php foreach($stepNumber as $column): ?>
+                                    <th>STEP <?=$column['stepNumber']?></th>
+                                <?php endforeach; ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($sggradeNumber as $row): ?>
+                            <tr>
+                                <td><?=$row['salaryGradeNumber']?></td>
+                                <?php foreach($stepNumber as $column): ?>
+                                    <td><?php
+                                            $search = ["stepNumber" => $column['stepNumber'], "salaryGradeNumber" => $row['salaryGradeNumber']];
+                                            $keys = array_keys(
+                                                array_filter(
+                                                    $arrSalarysched,
+                                                    function ($v) use ($search) { return $v['stepNumber'] == $search['stepNumber'] && $v['salaryGradeNumber'] == $search['salaryGradeNumber']; }
+                                                )
+                                            );
+                                            $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
+                                            echo $actual_salary;
+                                        ?></td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>   
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-<?php load_plugin('js',array('datatable'));?>
+<?php load_plugin('js',array('datatables'));?>
+
+<script>
+    $(document).ready(function() {
+        $('#libraries_salary_sched').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#libraries_salary_sched').css('visibility', 'visible');
+            }} );
+    });
+</script>
 

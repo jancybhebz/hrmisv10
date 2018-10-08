@@ -7,6 +7,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?=load_plugin('css', array('datepicker'))?>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -18,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Salary Schedule</span>
+            <span>Create New Salary Schedule from Existing</span>
         </li>
     </ul>
 </div>
@@ -36,22 +37,54 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Salary Schedule</span>
+                    <span class="caption-subject bold uppercase"> Salary Schedule Name</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/salary_sched/add_sched')?>" method="post" id="frmSalarysched">
+                <form action = "<?=base_url('libraries/salary_sched/add_existing')?>" method="post" id="frmSalarySched">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
-                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Salary Schedule<span class="required"> * </span></label>
+                                <label class="control-label">Title :<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strSalarySched" value="<?=!empty($this->session->userdata('strSalarySched'))?$this->session->userdata('strSalarySched'):''?>" >
+                                    <input type="text" class="form-control" name="strTitle" value="<?=!empty($this->session->userdata('strTitle'))?$this->session->userdata('strTitle'):''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Description :<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strDesc" value="<?=!empty($this->session->userdata('strDesc'))?$this->session->userdata('strDesc'):''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Date of effectivity :<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                   <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" name="dtmEffectivity" value="" data-date-format="yyyy-mm-dd">
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Copy from :<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                   <select type="text" class="form-control" name="strVersion" value="<?=!empty($this->session->userdata('strVersion'))?$this->session->userdata('strVersion'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrSalary as $sched)
@@ -62,50 +95,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Salary Grade Number<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSG" maxlength="2" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSG'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Step Number<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intStepNum" maxlength="2" value="<?=!empty($this->session->userdata('intStepNum'))?$this->session->userdata('intStepNum'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>   
+                   
+                    <br></br>
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Actual Salary<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intActualSalary"  maxlength="10" value="<?=!empty($this->session->userdata('intActualSalary'))?$this->session->userdata('intActualSalary'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
                                 <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                  <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div>                  
                 </form>
             </div>
         </div>
@@ -192,4 +192,11 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
+</script>
+
+<?=load_plugin('js',array('validation','datepicker'));?>
+<script>
+    $(document).ready(function() {
+        $('.date-picker').datepicker();
+    });
 </script>
