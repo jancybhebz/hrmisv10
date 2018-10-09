@@ -1,12 +1,13 @@
 <?php 
 /** 
-Purpose of file:    Edit page for Leave type Library
+Purpose of file:    Add page for Salary Schedule Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?=load_plugin('css', array('datepicker'))?>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -18,15 +19,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Special Leave</span>
+            <span>Create New Salary Schedule from Existing</span>
         </li>
     </ul>
 </div>
 <!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-       &nbsp;
-    </div>
+	   &nbsp;
+	</div>
 </div>
 <div class="clearfix"></div>
 <div class="row">
@@ -35,22 +36,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Special Leave</span>
+                    <i class="icon-settings font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Salary Schedule Name</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/leave_type/edit_special/'.$this->uri->segment(4))?>" method="post" id="frmSpecialLeave">
+                <form action = "<?=base_url('libraries/salary_sched/add_existing')?>" method="post" id="frmSalarySched">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Leave Code <span class="required"> * </span></label>
+                                <label class="control-label">Title :<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strSpecialLeaveCode" value="<?=isset($arrSpecialLeave[0]['leaveCode'])?$arrSpecialLeave[0]['leaveCode']:''?>">
+                                    <input type="text" class="form-control" name="strTitle" value="<?=!empty($this->session->userdata('strTitle'))?$this->session->userdata('strTitle'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -58,25 +59,53 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Specific Leave <span class="required"> * </span></label>
+                                <label class="control-label">Description :<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSpecial" value="<?=!empty($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>">
+                                    <input type="text" class="form-control" name="strDesc" value="<?=!empty($this->session->userdata('strDesc'))?$this->session->userdata('strDesc'):''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
-                 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strSpecifyLeave" value="<?=isset($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>">
-                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/leave_type/add_special')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <label class="control-label">Date of effectivity :<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                   <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" name="dtmEffectivity" value="" data-date-format="yyyy-mm-dd">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div>   
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Copy from :<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                   <select type="text" class="form-control" name="strVersion" value="<?=!empty($this->session->userdata('strVersion'))?$this->session->userdata('strVersion'):''?>" >
+                                        
+                                         <option value="">Select</option>
+                                        <?php foreach($arrSalary as $sched)
+                                        {
+                                          echo '<option value="'.$sched['version'].'">'.$sched['title'].'</option>';
+                                        }?>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                   
+                    <br></br>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
+                                  <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                            </div>
+                        </div>
+                    </div>                  
                 </form>
             </div>
         </div>
@@ -94,7 +123,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmSpecialLeave');
+            var form2 = $('#frmSalarySched');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -104,15 +133,12 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strSpecialLeaveCode: {
-                        minlength: 1,
+                    strScholarship: {
+                        minLength: 1,
                         required: true
                     },
-                    strSpecial: {
-                        minlength: 1,
-                        required: true,
-                    }
-                    
+                   
+                   
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -168,3 +194,9 @@ jQuery(document).ready(function() {
 });
 </script>
 
+<?=load_plugin('js',array('validation','datepicker'));?>
+<script>
+    $(document).ready(function() {
+        $('.date-picker').datepicker();
+    });
+</script>

@@ -36,107 +36,120 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <form action = "<?=base_url('libraries/agency_profile/edit')?>" method="post" id="frmAgencyProfile">
                     <div class="form-body">
                     <?php //print_r($arrPost);?>
+
                         <div class="row">
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">AGENCY NAME :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">AGENCY CODE :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">REGION :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">TIN NUMBER :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">ADDRESS :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['address'])?$arrAgency[0]['address']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['address'])?$arrAgency[0]['address']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                         <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">ZIP CODE :</label>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['zipCode'])?$arrAgency[0]['zipCode']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['zipCode'])?$arrAgency[0]['zipCode']:''?>" disabled></strong>
-                                </div>
-                            </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                       <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">TELEPHONE :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                   <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['telephone'])?$arrAgency[0]['telephone']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['telephone'])?$arrAgency[0]['telephone']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                         <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">FACSIMILE :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['facsimile'])?$arrAgency[0]['facsimile']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['facsimile'])?$arrAgency[0]['facsimile']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">EMAIL :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['email'])?$arrAgency[0]['email']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['email'])?$arrAgency[0]['email']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">WEBSITE :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                    <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['website'])?$arrAgency[0]['website']:''?>" disabled></strong>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['website'])?$arrAgency[0]['website']:''?>" disabled>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+
+                          
+                           
                             <!-- <div class="col-sm-5 text-right"">
                                 <div class="form-group ">
                                     <label class="control-label">SALARY SCHEDULE :</label>
@@ -268,40 +281,44 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['PhilhealthNum'])?$arrAgency[0]['PhilhealthNum']:''?>" disabled></strong>
                                 </div>
                             </div> -->
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                            <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">MISSION :</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                   <strong><textarea type="text" class="form-control" disabled>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <strong><textarea type="text" class="form-control" disabled>
                                        <?php echo $arrAgency[0]['Mission']; ?>
                                     </textarea></strong>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                            </div>
+                            <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">VISION :</label>
-                                 </div>
-                            </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                   <strong><textarea type="text" class="form-control" disabled>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                         <strong><textarea type="text" class="form-control" disabled>
                                        <?php echo $arrAgency[0]['Vision']; ?>
-                                   </textarea></strong>
+                                        </textarea></strong>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 text-right"">
-                                <div class="form-group ">
+                            </div>
+                             <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label class="control-label">MANDATE :</label>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                          <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>" disabled></strong>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-7 text-left"">
-                                <div class="form-group ">
-                                   <strong><input type="text" class="form-control" value="<?=isset($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>" disabled></strong>
-                                </div>
                             </div>
+                          
                            <!--  <div class="col-sm-5 text-right"">
                                 <div class="form-group ">
                                     <label class="control-label">BANK ACCOUNT # :</label>

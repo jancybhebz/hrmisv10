@@ -25,21 +25,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-md-6">
                             <div class="btn-group">
                                 <a href="<?=base_url('libraries/user_account/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New
-                                    
                                 </button></a>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_user_account">
                     <thead>
                         <tr>
                             <th> No. </th>
-                            <th> Access Level </th>
+                            <th> Employee Number </th>
                             <th> Employee Name </th>
                             <th> Username </th>
-                            <th> Password </th>
+                            <th> Access Level </th>
+                            <th> User Permission </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -49,10 +48,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrUser as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$row['userLevel']?> </td>
+                            <td> <?=$row['empNumber']?> </td>
                             <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middlename']?> </td>
                             <td> <?=$row['userName']?> </td>
-                            <td> <?=$row['userPassword']?> </td>
+                            <td> <?=$row['userLevel']?> </td>
+                            <td> <?=$row['userPermission']?> </td>
                             <td>
                                 <a href="<?=base_url('libraries/user_account/edit/'.$row['empNumber'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/user_account/delete/'.$row['empNumber'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>

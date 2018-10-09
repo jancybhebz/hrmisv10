@@ -11,7 +11,9 @@ class Leave_type_model extends CI_Model {
 
 	var $table = 'tblleave';
 	var $tableid = 'leaveCode';
+
 	var $table2 = 'tblspecificleave';
+	var $tableid2 = 'specifyLeave';
 
 
 	function __construct()
@@ -26,18 +28,18 @@ class Leave_type_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strLeaveCode);
 		}
-		$this->db->join('tblspecificleave','tblspecificleave.leaveCode = '.$this->table.'.leaveCode','left');
+		//$this->db->join('tblspecificleave','tblspecificleave.leaveCode = '.$this->table.'.leaveCode','left');
 		// $this->db->order_by('tblleave.'.$this->tableid,'ASC');
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
-	function getSpecialLeave($strSpecialCode = '')
+	function getSpecialLeave($strSpecifyLeave = '')
 	{		
-		if($strSpecialCode != "")
+		if($strSpecifyLeave != "")
 		{
-			$this->db->where('leaveCode',$strSpecialCode);
+			$this->db->where($this->tableid2,$strSpecifyLeave);
 		}
 		
 		$objQuery = $this->db->get($this->table2);
@@ -80,17 +82,17 @@ class Leave_type_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-	function save_special($arrData, $strSpecialLeaveCode)
+	function save_special($arrData, $strSpecifyLeave)
 	{
-		$this->db->where('leaveCode', $strSpecialLeaveCode);
+		$this->db->where($this->tableid2, $strSpecifyLeave);
 		$this->db->update($this->table2, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete_special($strSpecialLeaveCode)
+	function delete_special($strSpecifyLeave)
 	{
-		$this->db->where('leaveCode', $strSpecialLeaveCode);
+		$this->db->where($this->tableid2, $strSpecifyLeave);
 		$this->db->delete($this->table2); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
