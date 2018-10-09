@@ -37,7 +37,6 @@ class Attendance_scheme_model extends CI_Model {
 	
 	function checkExist($strschemeCode = '', $strschemeName = '')
 	{		
-		
 		$this->db->where('schemeCode',$strschemeCode);
 		$this->db->or_where('schemeName', $strschemeName);			
 		
@@ -59,6 +58,14 @@ class Attendance_scheme_model extends CI_Model {
 		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function getAttendanceScheme($empid)
+	{
+		$res = $this->db->join('tblAttendanceScheme', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode', 'left')
+					->where('tblEmpPosition.empNumber',$empid)
+					->get('tblEmpPosition')->result_array();
+		return count($res) > 0 ? $res[0] : null;
 	}
 		
 }

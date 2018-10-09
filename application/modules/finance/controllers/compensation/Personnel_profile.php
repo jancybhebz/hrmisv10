@@ -333,7 +333,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function dtr($empid)
 	{
-		$this->load->model('Dtr_model');
+		$this->load->model(array('Dtr_model','libraries/Attendance_scheme_model'));
 		$employeeData = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $employeeData[0];
 
@@ -350,7 +350,7 @@ class Personnel_profile extends MY_Controller {
 		$arrDtr = array();
 
 		// echo $totaldays;
-		// echo '<pre>';
+		echo '<pre>';
 		// print_r($resDtr);
 		foreach (range(1, $totaldays) as $day):
 			$strsearch = $year.'-'.$month.'-'.str_pad($day, 2, '0', STR_PAD_LEFT);
@@ -362,8 +362,16 @@ class Personnel_profile extends MY_Controller {
 			// print_r($d_key == '' && $d_key !== 0 ? '' : $resDtr[$d_key]);
 			
 			$holiday = $this->Dtr_model->getHoliday($strsearch);
-			// print_r($holiday);
-			// echo $strsearch.' = '.$d_key.'<hr>';
+			$scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
+
+			print_r($this->Dtr_model->computeLate($scheme);
+
+
+			print_r(array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
+							  'wday' => date('l', strtotime($strsearch)),
+							  'holiday' => $holiday != null ? $holiday['holidayName'] : '',
+							  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]));
+			echo '<hr>';
 
 			$arrDtr[] = array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
 							  'wday' => date('l', strtotime($strsearch)),
@@ -371,7 +379,7 @@ class Personnel_profile extends MY_Controller {
 							  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]);
 		endforeach;
 		// print_r($arrDtr);
-		// die();
+		die();
 		$this->arrData['arrDtr'] = $arrDtr;
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}

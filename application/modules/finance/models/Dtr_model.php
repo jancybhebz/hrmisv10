@@ -22,6 +22,21 @@ class Dtr_model extends CI_Model {
 		return count($res) > 0 ? $res[0] : null; 
 	}
 
+	//covert time format to total minutes
+	function toMinutes($time)
+	{
+		$t_time = explode(":",$time);
+		return  ($t_time[0] * 60) + $t_time[1];
+	}
+
+	function computeLate($scheme)
+	{
+		if($scheme['gpLeaveCredits'] == 'Y'):
+			$am_timein = $this->Dtr_model->toMinutes($scheme['amTimeinTo']);
+		else:
+			$am_timein = $this->Dtr_model->toMinutes($scheme['amTimeinTo']) + $scheme['gracePeriod'];
+		endif;
+	}
 }
 /* End of file Dtr_model.php */
 /* Location: ./application/modules/finance/models/Dtr_model.php */
