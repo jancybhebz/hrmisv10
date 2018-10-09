@@ -10,7 +10,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Course</span>
+            <span>Delete Course</span>
         </li>
     </ul>
 </div>

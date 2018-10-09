@@ -53,9 +53,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <select type="text" class="form-control" name="strSpecialLeaveCode" value="<?=!empty($this->session->userdata('strSpecialLeaveCode'))?$this->session->userdata('strSpecialLeaveCode'):''?>" required>
                                         
                                          <option value="">Select</option>
-                                        <?php foreach($arrLeave as $leave)
+                                        <?php foreach($arrSpecialLeave as $leave)
                                         {
-                                          echo '<option value="'.$leave['leaveCode'].'">'.$leave['leaveCode'].'</option>';
+                                          echo '<option value="'.$leave['leaveCode'].'">'.$leave['specifyLeave'].'</option>';
                                         }?>
                                   </select>
                                 </div>
@@ -100,14 +100,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <tbody>
                     <?php 
                     $i=1;
-                    foreach($arrLeave as $leave):?>
+                    foreach($arrSpecialLeave as $leave):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$leave['leaveCode']?> </td>
                             <td> <?=$leave['specifyLeave']?> </td>                   
                             <td>
-                                <a href="<?=base_url('libraries/leave_type/edit_special/'.$leave['leaveCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                 <a href="<?=base_url('libraries/leave_type/delete_special/'.$leave['leaveCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Edit"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/leave_type/edit_special/'.$leave['specifyLeave'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                 <a href="<?=base_url('libraries/leave_type/delete_special/'.$leave['specifyLeave'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                             </td>
                         </tr>
                     <?php 
@@ -200,4 +200,10 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
+</script>
+
+<script>
+    $(document).ready(function() {
+        Datatables.init('libraries_leave_type');
+  });
 </script>

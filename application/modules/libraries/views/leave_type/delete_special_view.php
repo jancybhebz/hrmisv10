@@ -1,11 +1,3 @@
-<?php 
-/** 
-Purpose of file:    Delete page for Special Leave Library
-Author:             Rose Anne L. Grefaldeo
-System Name:        Human Resource Management Information System Version 10
-Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
-**/
-?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -18,15 +10,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Delete Special Leave</span>
+            <span>Delete Leave Type</span>
         </li>
     </ul>
 </div>
 <!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-	   &nbsp;
-	</div>
+       &nbsp;
+    </div>
 </div>
 <div class="clearfix"></div>
 <div class="row">
@@ -36,12 +28,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-trash font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Delete Special Leave</span>
+                    <span class="caption-subject bold uppercase"> Delete Leave Type</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/holiday/delete_special/'.$this->uri->segment(4))?>" method="post" id="frmSpecialLeave">
+                <form action="<?=base_url('libraries/leave_type/delete_special/'.$this->uri->segment(4))?>" method="post" id="frmCourse">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -50,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['leaveCode'])?$arrData[0]['leaveCode']:''?>" disabled>
+                                    <input type="text" class="form-control" name="strSpecialLeaveCode" value="<?=isset($arrSpecialLeave[0]['leaveCode'])?$arrSpecialLeave[0]['leaveCode']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -58,22 +50,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Specific Leave <span class="required"> * </span></label>
+                                <label class="control-label">Specific Leave :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['specifyLeave'])?$arrData[0]['specifyLeave']:''?>" disabled>
+                                    <textarea class="form-control" name="strSpecial" value="<?=isset($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>" disabled></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strSpecialCode" value="<?=isset($arrData[0]['leaveCode'])?$arrData[0]['leaveCode']:''?>">
+                                <input type="hidden" name="strSpecifyLeave" value="<?=isset($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>">
                                 <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
-                                <a href="<?=base_url('libraries/leave_type/add_special')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/leave_type')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>

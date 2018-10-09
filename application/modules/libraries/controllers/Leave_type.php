@@ -24,7 +24,6 @@ class Leave_type extends MY_Controller {
 		$this->template->load('template/template_view', 'libraries/leave_type/list_view', $this->arrData);
 	}
 	
-	//ADD HOLIDAY NAME
 	public function add()
     {
     	$arrPost = $this->input->post();
@@ -70,7 +69,6 @@ class Leave_type extends MY_Controller {
 	public function edit()
 	{
 		$arrPost = $this->input->post();
-		//print_r($arrPost);
 		if(empty($arrPost))
 		{
 			$strCode = urldecode($this->uri->segment(4));
@@ -89,18 +87,16 @@ class Leave_type extends MY_Controller {
 					'leaveCode'=>$strLeaveCode,
 					'leaveType'=>$strLeaveType,
 					'numOfDays'=>$intDays
-					
 				);
 				$blnReturn = $this->leave_type_model->save($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblleave','Edited '.$strLeaveCode.' Leave_type',implode(';',$arrData),'');
-					
-					$this->session->set_flashdata('strMsg','Leave type saved successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblleave','Edited '.$strLeaveCode.' Leave',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Leave saved successfully.');
 				}
 				redirect('libraries/leave_type');
 			}
-		}	
+		}		
 	}
 
 	public function add_special()
@@ -108,7 +104,7 @@ class Leave_type extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->arrData['arrLeave'] = $this->leave_type_model->getData();
+			$this->arrData['arrSpecialLeave'] = $this->leave_type_model->getSpecialLeave();
 			$this->template->load('template/template_view','libraries/leave_type/add_special_view',$this->arrData);	
 		}
 		else
@@ -147,67 +143,56 @@ class Leave_type extends MY_Controller {
 	public function edit_special()
 	{
 		$arrPost = $this->input->post();
-		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			$strSpecialCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecialCode);
+			$strSpecifyLeave = urldecode($this->uri->segment(4));
+			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyLeave);
 			$this->template->load('template/template_view','libraries/leave_type/edit_special_view', $this->arrData);
 		}
 		else
 		{
-			$strSpecialCode = $arrPost['strSpecialCode'];
-			$strSpecialLeaveCode = $arrPost['strSpecialLeaveCode'];
-			$strSpecial = $arrPost['strSpecial'];
-			
-			if(!empty($strSpecialLeaveCode) AND !empty($strSpecial)) 
+			$strSpecifyLeave = $arrPost['strSpecifyLeave'];
+			$strSpecialLeaveCode  = $arrPost['strSpecialLeaveCode'];
+	 		$strSpecial  = $arrPost['strSpecial'];
+			if(!empty($strSpecialLeaveCode)) 
 			{
 				$arrData = array(
 					'leaveCode'=>$strSpecialLeaveCode,
 					'specifyLeave'=>$strSpecial
-					
 				);
-				$blnReturn = $this->leave_type_model->save_special($arrData, $strSpecialCode);
+				$blnReturn = $this->leave_type_model->save_special($arrData, $strSpecifyLeave);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Edited '.$strSpecialLeaveCode.' Leave_type',implode(';',$arrData),'');
-					
-					$this->session->set_flashdata('strMsg','Special leave saved successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Edited '.$strSpecialLeaveCode.' Leave',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Leave saved successfully.');
 				}
-				redirect('libraries/leave_type/add_special');
+				redirect('libraries/leave_type');
 			}
-		}	
+		}
 	}
-	
+
 	public function delete_special()
 	{
 		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$strSpecialCode = $this->uri->segment(4);
-		if(empty($arrPost))
+		$strSpecifyLeave = $this->uri->segment(4);
+		if(!empty($arrPost))
 		{
-			$this->arrData['arrLeave']=$this->leave_type_model->getSpecialLeave($strSpecialCode);
-			$this->template->load('template/template_view','libraries/leave_type/delete_special_view',$this->arrData);
+			$strSpecifyLeave = $arrPost['strSpecifyLeave'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strSpecifyLeave))
+			{
+				$blnReturn=$this->leave_type_model->delete_special($strSpecifyLeave);
+				if(count($blnReturn)>0)
+					$this->session->set_flashdata('strMsg','Leave deleted successfully.');
+				redirect('libraries/leave_type');
+			}
 		}
 		else
 		{
-			$strCode = $arrPost['strCode'];
-			//add condition for checking dependencies from other tables
-			if(!empty($strCode))
-			{
-				$arrLeave = $this->leave_type_model->getData($strSpecialCode);
-				$strSpecial = $arrLeave[0]['specifyLeave'];	
-				$blnReturn = $this->leave_type_model->delete_special($strSpecialCode);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Deleted '.$strSpecialLeaveCode.' Holiday',implode(';',$arrHoliday[0]),'');
-	
-					$this->session->set_flashdata('strMsg','Special leave deleted successfully.');
-				}
-				redirect('libraries/holiday');
-			}
+			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyLeave);
+			$this->template->load('template/template_view','libraries/leave_type/delete_special_view',$this->arrData);
 		}
-		
 	}
 
 	
