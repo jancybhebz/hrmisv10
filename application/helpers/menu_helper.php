@@ -35,7 +35,10 @@ if ( ! function_exists('get_libraries'))
 			'zone'=>'Zone'
 		);
 	}
+}
 
+if ( ! function_exists('get_request'))
+{
 	function get_request()
     {
 		$CI =& get_instance();
@@ -47,9 +50,14 @@ if ( ! function_exists('get_libraries'))
 			'pds_update'=>'PDS Update',
 			'dtr_update'=>'DTR Update',
 			'reports'=>'Reports',
+			'compensatory_leave'=>'Compensatory Leave',
 			
 		);
 	}
+}
+
+if ( ! function_exists('get_leave'))
+{
 
 	function get_leave()
     {
