@@ -101,3 +101,22 @@ if ( ! function_exists('getyear'))
 		return 2015;
 	}
 }
+
+if ( ! function_exists('fixMondayDate'))
+{
+    function fixMondayDate()
+    {
+		return array('amTimeinTo' => '08:00:00',
+					 'nnTimeinTo' => '05:00:00',
+					 'fixMonDate' => '2017-09-01');
+	}
+}
+
+if ( ! function_exists('fixTime'))
+{
+    function fixTime($time, $med)
+    {
+		return date('G:i:s', strtotime($time.' '.$med));
+	}
+}
+

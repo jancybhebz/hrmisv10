@@ -27,6 +27,7 @@
                 </form>
                 </center>
             </div>
+            <!-- <pre><?php print_r($arrDtr); ?></pre> -->
             <table class="table table-striped table-bordered order-column" id="tbldtr">
                 <thead>
                     <tr>
@@ -47,16 +48,16 @@
                 <tbody>
                 <?php foreach ($arrDtr as $dtr): ?>
                     <tr class="<?=$dtr['wday'] != 'Saturday' && $dtr['wday'] != 'Sunday' ? '' : 'active'?>">
-                        <td align="center"><?=$dtr['mday']?></td>
+                        <td><?=$dtr['mday']?></td>
                         <?php if($dtr['data']!=null): ?>
-                            <td><?=$dtr['data']['inAM']?></td>
-                            <td><?=$dtr['data']['outAM']?></td>
-                            <td><?=$dtr['data']['inPM']?></td>
-                            <td><?=$dtr['data']['outPM']?></td>
-                            <td><?=$dtr['data']['inOT']?></td>
-                            <td><?=$dtr['data']['outOT']?></td>
-                            <td><?=$dtr['data']['remarks']?></td>
-                            <td></td>
+                            <td><?=date('H:i', strtotime($dtr['data']['inAM']))?></td>
+                            <td><?=date('H:i', strtotime($dtr['data']['outAM']))?></td>
+                            <td><?=date('H:i', strtotime($dtr['data']['inPM']))?></td>
+                            <td><?=date('H:i', strtotime($dtr['data']['outPM']))?></td>
+                            <td><?=date('H:i', strtotime($dtr['data']['inOT']))?></td>
+                            <td><?=date('H:i', strtotime($dtr['data']['outOT']))?></td>
+                            <td><?=date('H:i', strtotime($dtr['data']['remarks']))?></td>
+                            <td><?=$dtr['late']?></td>
                             <td></td>
                             <td></td>
                             <td></td>
