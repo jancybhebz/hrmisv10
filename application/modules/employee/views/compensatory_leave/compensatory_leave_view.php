@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -242,16 +242,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     {
         $('.date-picker').datepicker();
     });
-    //  $(document).ready(function() 
-    // {
-    //     $('.timepicker').timepicker({
-    //             timeFormat: 'HH:mm:ss A',
-    //             disableFocus: true,
-    //             showInputs: false,
-    //             showSeconds: true,
-    //             showMeridian: true,
-    //             // defaultValue: '12:00:00 a'
-    // });
+ 
 </script>
 
 <?=load_plugin('js',array('timepicker'));?>

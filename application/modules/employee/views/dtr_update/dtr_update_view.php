@@ -7,6 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?=load_plugin('css', array('datepicker','timepicker'))?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -49,7 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input name="dtmDTRupdate" id="dtmDTRupdate" type="date" class="form-control has-datepicker" value="<?=!empty($this->session->userdata('dtmDTRupdate'))?$this->session->userdata('dtmDTRupdate'):''?>">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -131,6 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div><br>
 
+                    <!-- New TIME -->
                     <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -139,7 +142,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                           <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="time" id="dtmMorningIn" name="dtmMorningIn" min="9:00" max="18:00" value="<?=!empty($this->session->userdata('dtmMorningIn'))?$this->session->userdata('dtmMorningIn'):''?>">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00 AM">
                             </div>
                         </div>
                     </div>
@@ -151,7 +154,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                          <div class="col-sm-3">
                             <div class="form-group">
-                                 <input type="time" id="dtmMorningOut" name="dtmMorningOut" min="9:00" max="18:00" value="<?=!empty($this->session->userdata('dtmMorningOut'))?$this->session->userdata('dtmMorningOut'):''?>">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00 PM">
                             </div>
                         </div>
                     </div>
@@ -163,7 +166,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="time" id="dtmAfternoonIn" name="dtmAfternoonIn" min="9:00" max="18:00" value="<?=!empty($this->session->userdata('dtmAfternoonIn'))?$this->session->userdata('dtmAfternoonIn'):''?>">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM">
                             </div>
                         </div>
                     </div>
@@ -175,7 +178,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="time" id="dtmAfternoonOut" name="dtmAfternoonOut" min="9:00" max="18:00" value="<?=!empty($this->session->userdata('dtmAfternoonOut'))?$this->session->userdata('dtmAfternoonOut'):''?>">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM">
                             </div>
                         </div>
                     </div>
@@ -187,7 +190,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                          <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="time" id="dtmOvertimeIn" name="dtmOvertimeIn" min="9:00" max="18:00" value="<?=!empty($this->session->userdata('dtmOvertimeIn'))?$this->session->userdata('dtmOvertimeIn'):''?>">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" value="12:00:00 PM">
                             </div>
                         </div>
                     </div>
@@ -199,7 +202,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                          <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="time" id="dtmOvertimeOut" name="dtmOvertimeOut" min="9:00" max="18:00" value="<?=!empty($this->session->userdata('dtmOvertimeOut'))?$this->session->userdata('dtmOvertimeOut'):''?>">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" value="12:00:00 PM">
                             </div>
                         </div>
                     </div>
@@ -235,3 +238,27 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
+
+<?=load_plugin('js',array('validation','datepicker'));?>
+<script>
+    $(document).ready(function() 
+    {
+        $('.date-picker').datepicker();
+    });
+ 
+</script>
+
+<?=load_plugin('js',array('timepicker'));?>
+<script>
+    $(document).ready(function() {
+        $('.timepicker').timepicker({
+                timeFormat: 'HH:mm:ss A',
+                disableFocus: true,
+                showInputs: false,
+                showSeconds: true,
+                showMeridian: true,
+                // defaultValue: '12:00:00 a'
+            });
+    });
+</script>
+   

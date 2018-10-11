@@ -12,6 +12,26 @@ class PDS_update_model extends CI_Model {
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
 
+	var $tableSchool = 'tblempschool';
+	var $tableSchoolid = 'levelCode';
+
+	var $tableEduc = 'tbleducationallevel';
+	var $tableEducid = 'levelIl';
+
+	var $tableCourse = 'tblcourse';
+	var $tableCourseid = 'courseCode';
+
+	var $tableScholarship = 'tblscholarship';
+	var $tableScholarshipid = 'id';
+
+	var $tableTraining = 'tblemptraining';
+	var $tableTrainingid = 'XtrainingCode';
+
+	var $tableExam = 'tblexamtype';
+	var $tableExamid = 'examId';
+
+	
+
 	function __construct()
 	{
 		$this->load->database();
@@ -26,6 +46,73 @@ class PDS_update_model extends CI_Model {
 		}
 		
 		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+
+	function getEducData($intLevelId = '')
+	{		
+		if($intLevelId != "")
+		{
+			$this->db->where($this->tableEducid,$intLevelId);
+		}
+		
+		$objQuery = $this->db->get($this->tableEduc);
+		return $objQuery->result_array();	
+	}
+
+	function getCourseData($strCourseCode = '')
+	{		
+		if($strCourseCode != "")
+		{
+			$this->db->where($this->tableCourseid,$strCourseCode);
+		}
+		
+		$objQuery = $this->db->get($this->tableCourse);
+		return $objQuery->result_array();	
+	}
+
+	function getScholarshipData($intScholarId = '')
+	{		
+		if($intScholarId != "")
+		{
+			$this->db->where($this->tableScholarshipid,$intScholarId);
+		}
+		
+		$objQuery = $this->db->get($this->tableScholarship);
+		return $objQuery->result_array();	
+	}
+	function getSchoolData($intEmpNum = '')
+	{		
+		if($intEmpNum != "")
+		{
+			$this->db->where($this->tableSchoolid,$intEmpNum);
+		}
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
+		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
+		$objQuery = $this->db->get($this->tableSchool);
+		return $objQuery->result_array();	
+	}
+
+	function getTrainingData($strTableTraining = '')
+	{		
+		if($strTableTraining != "")
+		{
+			$this->db->where($this->tableTrainingid,$strTableTraining);
+		}
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
+		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
+		$objQuery = $this->db->get($this->tableTraining);
+		return $objQuery->result_array();	
+	}
+	function getExamData($intExamId = '')
+	{		
+		if($intExamId != "")
+		{
+			$this->db->where($this->tableExamid,$intExamId);
+		}
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
+		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
+		$objQuery = $this->db->get($this->tableExam);
 		return $objQuery->result_array();	
 	}
 

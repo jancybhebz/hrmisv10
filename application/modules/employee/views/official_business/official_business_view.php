@@ -7,6 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?=load_plugin('css', array('datepicker','timepicker'))?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -70,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input name="dtmOBrequestdate" id="dtmOBrequestdate" type="date" class="form-control has-datepicker" value="<?=!empty($this->session->userdata('dtmOBrequestdate'))?$this->session->userdata('dtmOBrequestdate'):''?>">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -87,7 +89,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input name="dtmOBdatefrom" id="dtmOBdatefrom" type="date" class="form-control has-datepicker" value="<?=!empty($this->session->userdata('dtmOBdatefrom'))?$this->session->userdata('dtmOBdatefrom'):''?>">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -104,7 +106,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input name="dtmOBdateto" id="dtmOBdateto" type="date" class="form-control has-datepicker" value="<?=!empty($this->session->userdata('dtmOBdateto'))?$this->session->userdata('dtmOBdateto'):''?>">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdateto" id="dtmOBdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -121,7 +123,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                  <input type="time" id="dtmTimeFrom" name="dtmTimeFrom" min="9:00" max="18:00" />                          
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeFrom" id="dtmTimeFrom" value="12:00:00 AM">      
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -138,7 +140,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                   <input type="time" id="dtmTimeTo" name="dtmTimeTo" min="9:00" max="18:00" />         
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeTo" id="dtmTimeTo" value="12:00:00 PM">      
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -225,3 +227,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 </script>
 
+<?=load_plugin('js',array('validation','datepicker'));?>
+<script>
+    $(document).ready(function() 
+    {
+        $('.date-picker').datepicker();
+    });
+ 
+</script>
+
+<?=load_plugin('js',array('timepicker'));?>
+<script>
+    $(document).ready(function() {
+        $('.timepicker').timepicker({
+                timeFormat: 'HH:mm:ss A',
+                disableFocus: true,
+                showInputs: false,
+                showSeconds: true,
+                showMeridian: true,
+                // defaultValue: '12:00:00 a'
+            });
+    });
+</script>

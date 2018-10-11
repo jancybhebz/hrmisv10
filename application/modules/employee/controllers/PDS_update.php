@@ -21,6 +21,12 @@ class PDS_update extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrData'] = $this->pds_update_model->getData();
+		$this->arrData['arrEduc'] = $this->pds_update_model->getEducData();
+		$this->arrData['arrCourse'] = $this->pds_update_model->getCourseData();
+		$this->arrData['arrScholarship'] = $this->pds_update_model->getScholarshipData();
+		$this->arrData['arrSchool'] = $this->pds_update_model->getSchoolData();
+		$this->arrData['arrTraining'] = $this->pds_update_model->getTrainingData();
+		$this->arrData['arrExamination'] = $this->pds_update_model->getExamData();
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
 	

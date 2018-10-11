@@ -39,6 +39,7 @@ function showtextbox()
 		$('#tel2_textbox').show();
 		$('#email_textbox').show();
 		$('#cp_textbox').show();
+		$('#submit').show();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -59,14 +60,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
-
-			// $('#print_button').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();			
 	}
 	else if(select_pds == 'Family')
 	{
@@ -105,6 +158,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').show();
 		$('#ssurname_textbox').show();
@@ -125,13 +179,66 @@ function showtextbox()
 		$('#mfirstname_textbox').show();
 		$('#mmidname_textbox').show();
 		$('#paddress_textbox').show();
+		$('#submitFam').show();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
-
+		$('#submitEduc').hide();
+				// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();		
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
 	}
 	else if(select_pds == 'Educational')
 	{
@@ -170,6 +277,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -190,12 +298,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').show();
+		$('#schoolname_textbox ').show();
+		$('#degree_textbox').show();
+		$('#frmyr_textbox').show();
+		$('#yrto_textbox').show();
+		$('#units_textbox').show();
+		$('#scholarship_textbox').show();
+		$('#honors_textbox').show();
+		$('#licensed_textbox').show();
+		$('#graduated_textbox').show();
+		$('#yrgraduated_textbox').show();
 		$('#tab_education').show();
-		$('#submit').show();
+		$('#submitEduc').show();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
 	}
 
 	else if(select_pds == 'Trainings')
@@ -235,6 +397,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -255,12 +418,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide()
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_exam').hide();
+		$('#tab_training').show();
+		$('#traintitle_textbox').show();
+		$('#startdate_textbox').show();
+		$('#enddate_textbox').show();
+		$('#number_textbox').show();
+		$('#typeLD_textbox').show();
+		$('#conduct_textbox').show();
+		$('#venue_textbox').show();
+		$('#cost_textbox').show();
+		$('#contract_textbox').show();
+		$('#submitTraining').show();
+		// Examination
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
 	}
 	else if(select_pds == 'Examinations')
 	{
@@ -299,6 +516,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -319,12 +537,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').show();
+		$('#examdesc_textbox').show();
+		$('#rating_textbox').show();
+		$('#examdate_textbox').show();
+		$('#examplace_textbox').show();
+		$('#licenseNo_textbox').show();
+		$('#release_textbox').show();
+		$('#submitExam').show();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
 
 	}
 	else if(select_pds == 'Children')
@@ -364,6 +636,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -384,12 +657,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').show();
 		$('#childbdate_textbox').show();
+		$('#submitChild').show();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
 
 	}
 	else if(select_pds == 'Community')
@@ -429,6 +756,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -449,12 +777,67 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').show();
+		$('#issuedAt_textbox').show();
+		$('#issuedOn_textbox').show();
+		$('#submitTax').show();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
+		
 	}
 	else if(select_pds == 'References')
 	{
@@ -493,6 +876,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -513,12 +897,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').show();
+		$('#refname_textbox').show();
+		$('#refadd_textbox').show();
+		$('#refcontact_textbox').show();
+		$('#submitRef').show();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
 
 	}
 	else if(select_pds == 'Voluntary')
@@ -558,6 +996,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -578,13 +1017,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();	
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
-
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').show();
+		$('#volname_textbox').show();
+		$('#voladd_textbox').show();
+		$('#voldatefrom_textbox').show();
+		$('#voldateto_textbox').show();
+		$('#volhours_textbox').show();
+		$('#worknature_textbox').show();
+		$('#submitVol').show();
 	}
 	else if(select_pds == 'WorkExp')
 	{
@@ -623,6 +1115,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -643,12 +1136,67 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		$('#tab_exam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
+
 	}
 	
 	else 
@@ -688,6 +1236,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -708,12 +1257,66 @@ function showtextbox()
 		$('#mfirstname_textbox').hide();
 		$('#mmidname_textbox').hide();
 		$('#paddress_textbox').hide();
+		$('#submitFam').hide();
 		// Children
 		$('#childname_textbox').hide();
 		$('#childbdate_textbox').hide();
+		$('#submitChild').hide();
 		//Educational
+		$('#educlevel_textbox ').hide();
+		$('#schoolname_textbox ').hide();
+		$('#degree_textbox').hide();
+		$('#frmyr_textbox').hide();
+		$('#yrto_textbox').hide();
+		$('#units_textbox').hide();
+		$('#scholarship_textbox').hide();
+		$('#honors_textbox').hide();
+		$('#licensed_textbox').hide();
+		$('#graduated_textbox').hide();
+		$('#yrgraduated_textbox').hide();
 		$('#tab_education').hide();
-		$('#submit').show();
+		$('#submitEduc').hide();
+		// Training
+		$('#tab_training').hide();
+		$('#traintitle_textbox').hide();
+		$('#startdate_textbox').hide();
+		$('#enddate_textbox').hide();
+		$('#number_textbox').hide();
+		$('#typeLD_textbox').hide();
+		$('#conduct_textbox').hide();
+		$('#venue_textbox').hide();
+		$('#cost_textbox').hide();
+		$('#contract_textbox').hide();
+		$('#submitTraining').hide();
+		// Examination
+		$('#tab_exam').hide();
+		$('#examdesc_textbox').hide();
+		$('#rating_textbox').hide();
+		$('#examdate_textbox').hide();
+		$('#examplace_textbox').hide();
+		$('#licenseNo_textbox').hide();
+		$('#release_textbox').hide();
+		$('#submitExam').hide();
+		// Community
+		$('#taxcert_textbox').hide();
+		$('#issuedAt_textbox').hide();
+		$('#issuedOn_textbox').hide();
+		$('#submitTax').hide();
+		// References
+		$('#tab_ref').hide();
+		$('#refname_textbox').hide();
+		$('#refadd_textbox').hide();
+		$('#refcontact_textbox').hide();
+		$('#submitRef').hide();
+		// Voluntary
+		$('#tab_volWork').hide();
+		$('#volname_textbox').hide();
+		$('#voladd_textbox').hide();
+		$('#voldatefrom_textbox').hide();
+		$('#voldateto_textbox').hide();
+		$('#volhours_textbox').hide();
+		$('#worknature_textbox').hide();
+		$('#submitVol').hide();
 
 	}
 	
@@ -756,6 +1359,7 @@ $(document).ready(function()
 	$('#tel2_textbox').hide();
 	$('#email_textbox').hide();
 	$('#cp_textbox').hide();
+	$('#submit').hide();
 	// Family
 	$('#spouse_textbox').hide();
 	$('#ssurname_textbox').hide();
@@ -776,13 +1380,66 @@ $(document).ready(function()
 	$('#mfirstname_textbox').hide();
 	$('#mmidname_textbox').hide();
 	$('#paddress_textbox').hide();
+	$('#submitFam').hide();
 	// Children
 	$('#childname_textbox').hide();
 	$('#childbdate_textbox').hide();
+	$('#submitChild').hide();
 	//Educational
+	$('#educlevel_textbox ').hide();
+	$('#schoolname_textbox ').hide();
+	$('#degree_textbox').hide();
+	$('#frmyr_textbox').hide();
+	$('#yrto_textbox').hide();
+	$('#units_textbox').hide();
+	$('#scholarship_textbox').hide();
+	$('#honors_textbox').hide();
+	$('#licensed_textbox').hide();
+	$('#graduated_textbox').hide();
+	$('#yrgraduated_textbox').hide();
 	$('#tab_education').hide();
-	$('#submit').show();
-	
+	$('#submitEduc').hide();
+	// Training
+	$('#tab_training').hide();
+	$('#traintitle_textbox').hide();
+	$('#startdate_textbox').hide();
+	$('#enddate_textbox').hide();
+	$('#number_textbox').hide();
+	$('#typeLD_textbox').hide();
+	$('#conduct_textbox').hide();
+	$('#venue_textbox').hide();
+	$('#cost_textbox').hide();
+	$('#contract_textbox').hide();
+	$('#submitTraining').hide();
+	// Examination
+	$('#tab_exam').hide();
+	$('#examdesc_textbox').hide();
+	$('#rating_textbox').hide();
+	$('#examdate_textbox').hide();
+	$('#examplace_textbox').hide();
+	$('#licenseNo_textbox').hide();
+	$('#release_textbox').hide();
+	$('#submitExam').hide();
+	// Community
+	$('#taxcert_textbox').hide();
+	$('#issuedAt_textbox').hide();
+	$('#issuedOn_textbox').hide();
+	$('#submitTax').hide();
+	// References
+	$('#tab_ref').hide();
+	$('#refname_textbox').hide();
+	$('#refadd_textbox').hide();
+	$('#refcontact_textbox').hide();
+	$('#submitRef').hide();
+	// Voluntary
+	$('#tab_volWork').hide();
+	$('#volname_textbox').hide();
+	$('#voladd_textbox').hide();
+	$('#voldatefrom_textbox').hide();
+	$('#voldateto_textbox').hide();
+	$('#volhours_textbox').hide();
+	$('#worknature_textbox').hide();
+	$('#submitVol').hide();
 
 	// $('#printreport').click(function(){
 	// 	var leave=$('#strLeavetype').val();
