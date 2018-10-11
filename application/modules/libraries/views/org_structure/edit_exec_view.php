@@ -112,23 +112,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Custodian </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strCustodian1">
-                                     <option value="">Select</option>
-                                     <?php foreach($arrEmployees as $i=>$data)
-                                        {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrOrganization[0]['group1Custodian']==$data['empNumber']?'selected':'').'>'.($data['surname']).', '.($data['firstname']).'</option>';
-                                        }?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                  
                     <div class="row">
                         <div class="col-sm-12">

@@ -110,8 +110,8 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                 <h3 class="uppercase">Employee Module</h3>
             </li>
            <!-- request -->
-           <li class="nav-item <?=$active=='employee'?'active open':''?>">
-                <a href="<?=base_url('employee')?>" class="nav-link nav-toggle">
+           <li class="nav-item <?=$active=='request'?'active open':''?>">
+                <a href="<?=base_url('request')?>" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Request</span>
                     <span class="arrow"></span>
