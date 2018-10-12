@@ -120,6 +120,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();			
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 	else if(select_pds == 'Family')
 	{
@@ -239,6 +256,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 	else if(select_pds == 'Educational')
 	{
@@ -358,6 +392,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 
 	else if(select_pds == 'Trainings')
@@ -478,6 +529,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 	else if(select_pds == 'Examinations')
 	{
@@ -597,7 +665,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
-
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 	else if(select_pds == 'Children')
 	{
@@ -717,7 +801,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
-
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 	else if(select_pds == 'Community')
 	{
@@ -837,6 +937,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 		
 	}
 	else if(select_pds == 'References')
@@ -957,7 +1074,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
-
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 	else if(select_pds == 'Voluntary')
 	{
@@ -1077,6 +1210,23 @@ function showtextbox()
 		$('#volhours_textbox').show();
 		$('#worknature_textbox').show();
 		$('#submitVol').show();
+		// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 	}
 	else if(select_pds == 'WorkExp')
 	{
@@ -1196,6 +1346,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
+			// Work Experience
+		$('#tab_workExp').show();
+		$('#expdatefrom_textbox').show();
+		$('#expdateto_textbox').show();
+		$('#exptitle_textbox').show();
+		$('#expdept_textbox').show();
+		$('#expsalary_textbox').show();
+		$('#expper_textbox').show();
+		$('#expcurrency_textbox').show();
+		$('#expsg_textbox').show();
+		$('#expstatus_textbox').show();
+		$('#expgov_textbox').show();
+		$('#expbranch_textbox').show();
+		$('#expsepcause_textbox').show();
+		$('#expsepdate_textbox').show();
+		$('#expleave_textbox').show();
+		$('#submitWorkExp').show();
 
 	}
 	
@@ -1317,6 +1484,23 @@ function showtextbox()
 		$('#volhours_textbox').hide();
 		$('#worknature_textbox').hide();
 		$('#submitVol').hide();
+			// Work Experience
+		$('#tab_workExp').hide();
+		$('#expdatefrom_textbox').hide();
+		$('#expdateto_textbox').hide();
+		$('#exptitle_textbox').hide();
+		$('#expdept_textbox').hide();
+		$('#expsalary_textbox').hide();
+		$('#expper_textbox').hide();
+		$('#expcurrency_textbox').hide();
+		$('#expsg_textbox').hide();
+		$('#expstatus_textbox').hide();
+		$('#expgov_textbox').hide();
+		$('#expbranch_textbox').hide();
+		$('#expsepcause_textbox').hide();
+		$('#expsepdate_textbox').hide();
+		$('#expleave_textbox').hide();
+		$('#submitWorkExp').hide();
 
 	}
 	
@@ -1440,6 +1624,23 @@ $(document).ready(function()
 	$('#volhours_textbox').hide();
 	$('#worknature_textbox').hide();
 	$('#submitVol').hide();
+	// Work Experience
+	$('#tab_workExp').hide();
+	$('#expdatefrom_textbox').hide();
+	$('#expdateto_textbox').hide();
+	$('#exptitle_textbox').hide();
+	$('#expdept_textbox').hide();
+	$('#expsalary_textbox').hide();
+	$('#expper_textbox').hide();
+	$('#expcurrency_textbox').hide();
+	$('#expsg_textbox').hide();
+	$('#expstatus_textbox').hide();
+	$('#expgov_textbox').hide();
+	$('#expbranch_textbox').hide();
+	$('#expsepcause_textbox').hide();
+	$('#expsepdate_textbox').hide();
+	$('#expleave_textbox').hide();
+	$('#submitWorkExp').hide();
 
 	// $('#printreport').click(function(){
 	// 	var leave=$('#strLeavetype').val();

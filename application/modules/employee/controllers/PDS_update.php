@@ -27,6 +27,10 @@ class PDS_update extends MY_Controller {
 		$this->arrData['arrSchool'] = $this->pds_update_model->getSchoolData();
 		$this->arrData['arrTraining'] = $this->pds_update_model->getTrainingData();
 		$this->arrData['arrExamination'] = $this->pds_update_model->getExamData();
+		$this->arrData['arrExperience'] = $this->pds_update_model->getExpData();
+		$this->arrData['arrAppointment'] = $this->pds_update_model->getAppointData();
+		$this->arrData['arrSeparation'] = $this->pds_update_model->getSepCauseData();
+		$this->arrData['arrDetails'] = $this->pds_update_model->getDetails();
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
 	

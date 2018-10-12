@@ -1434,11 +1434,205 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <td></td><!-- salaryGrade -->
                     <td></td><!-- appointmentCode -->
                     <td></td><!-- governService -->
-                    <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Edit </a>
-                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteWorkExp"> Delete </a></td>
+                    <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Edit </a></td>
                 </tr>
                 <?php //endforeach;?>
             </table>
+            
+             <div class="row" id="expdatefrom_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Inclusive Date From : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateFrom" id="dtmExpDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                        </div>
+                    </div>
+            </div>
+             <div class="row" id="expdateto_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Inclusive Date To : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateTo" id="dtmExpDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                        </div>
+                    </div>
+            </div>
+             <div class="row" id="exptitle_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Position Title : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strPosTitle" value="<?=isset($arrExperience[0]['strPosTitle'])?$arrExperience[0]['strPosTitle']:''?>">
+                        </div>
+                    </div>
+            </div>
+            <div class="row" id="expdept_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Department/Agency/Office : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strExpDept" value="<?=isset($arrExperience[0]['strExpDept'])?$arrExperience[0]['strExpDept']:''?>">
+                        </div>
+                    </div>
+            </div>
+            <div class="row" id="expsalary_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Salary : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strSalary" value="<?=isset($arrExperience[0]['strSalary'])?$arrExperience[0]['strSalary']:''?>">
+                        </div>
+                    </div>
+            </div>       
+            <div class="row" id="expper_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Per : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strExpPer" value="<?=isset($arrExperience[0]['strExpPer'])?$arrExperience[0]['strExpPer']:''?>">
+                            <option value="">Select</option>
+                            <option value="Hour">Hour</option>
+                            <option value="Day">Day</option>
+                            <option value="Month">Month</option>
+                            <option value="Quarter">Quarter</option>
+                            <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>        
+            <div class="row" id="expcurrency_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Currency : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strCurrency" value="<?=isset($arrExperience[0]['strCurrency'])?$arrExperience[0]['strCurrency']:''?>">
+                            <label>(leave blank if PHP) /   (ex. USD for US dollars)</label>
+                        </div>
+                    </div>
+            </div>        
+            <div class="row" id="expsg_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Salary Grade & Step Incremet (Format "00-0") : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strExpSG" value="<?=isset($arrExperience[0]['strExpSG'])?$arrExperience[0]['strExpSG']:''?>">
+                        </div>
+                    </div>
+            </div>    
+             <div class="row" id="expstatus_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Status of Appointment :  </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
+                                <option value="">Select</option>
+                                <?php foreach($arrAppointment as $appoint)
+                                {
+                                echo '<option value="'.$appoint['appointmentId'].'">'.$appoint['appointmentDesc'].'</option>';
+                                }?>
+                            </select>
+                        </div>
+                    </div>
+            </div>   
+            <div class="row" id="expgov_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Government Service : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strGovn" value="<?=isset($arrExperience[0]['strGovn'])?$arrExperience[0]['strGovn']:''?>">
+                        </div>
+                    </div>
+            </div>    
+             <div class="row" id="expbranch_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Branch : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strBranch" value="<?=!empty($this->session->userdata('strBranch'))?$this->session->userdata('strBranch'):''?>" required>
+                            <option value="">Select</option>
+                            <option value="Government Corp">Government Corp.</option>
+                            <option value="National">National</option>
+                            <option value="FGI">FGI</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>       
+             <div class="row" id="expsepcause_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Separation Cause : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strSepCause" value="<?=!empty($this->session->userdata('strSepCause'))?$this->session->userdata('strSepCause'):''?>" required>
+                                <option value="">Select</option>
+                                <?php foreach($arrSeparation as $separation)
+                                {
+                                echo '<option value="'.$separation['serviceRecID'].'">'.$separation['separationCause'].'</option>';
+                                }?>
+                            </select>
+                        </div>
+                    </div>
+            </div>   
+             <div class="row" id="expsepdate_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Separation Date :  </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input class="form-control form-control-inline input-medium date-picker" name="strSepDate" id="strSepDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                        </div>
+                    </div>
+            </div>  
+             <div class="row" id="expleave_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">L/V ABS W/O PAY : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strLV" value="<?=isset($arrExperience[0]['strLV'])?$arrExperience[0]['strLV']:''?>">
+                        </div>
+                    </div>
+            </div>     
+
                 <div class="row" id="submitWorkExp">
                     <div class="col-sm-12 text-center">
                         <button type="submit" name="submitWorkExp" id="submitWorkExp" class="btn btn-primary">Submit</button>

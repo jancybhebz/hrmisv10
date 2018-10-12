@@ -23,6 +23,7 @@ class Qr extends MY_Controller {
 			$params['level'] = 'H';
 			$params['size'] = 8;
 			$params['savename'] =FCPATH."uploads/qr/".$qr_image;
+			print_r($params);
 			if($this->ciqrcode->generate($params))
 			{
 				//$this->arrTemplateData['img_url']=$qr_image;

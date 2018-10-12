@@ -30,7 +30,14 @@ class PDS_update_model extends CI_Model {
 	var $tableExam = 'tblexamtype';
 	var $tableExamid = 'examId';
 
+	var $tableWorkExp = 'tblservicerecord';
+	var $tableWorkExpid = 'serviceRecID';
 	
+	var $tableAppoint = 'tblappointment';
+	var $tableAppointid = 'appointmentId';
+
+	var $tableSepCause = 'tblseparationcause';
+	var $tableSepCauseid = 'separationCause';
 
 	function __construct()
 	{
@@ -38,6 +45,38 @@ class PDS_update_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
+	public function getDetails($strEmpNo="",$strSearch="",$strAppStatus="")
+	{
+		$this->db->select('tblEmpPersonal.*,tblEmpPosition.*,tblPosition.positionDesc,tblAppointment.appointmentDesc');
+		$where='';
+		if($strEmpNo!="")
+			$this->db->where('tblEmpPersonal.empNumber',$strEmpNo);
+			//$where .= " AND tblEmpPersonal.empNumber='".$strEmpNo."'";
+		if($strSearch!="")
+			$this->db->where("(tblEmpPersonal.empNumber LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%' OR firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%')",NULL,FALSE);
+			//$where .= " AND (tblEmpPersonal.empNumber LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%' OR firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%')";
+		if($strAppStatus!="")
+			$this->db->where('tblEmpPosition.statusOfAppointment',$strAppStatus);
+		else
+			$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
+			//$where .= " AND tblEmpPosition.statusOfAppointment='".$strAppStatus."'";
+		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber','left')
+		->join('tblPosition','tblPosition.positionCode=tblEmpPosition.positionCode','left')
+		->join('tblAppointment','tblAppointment.appointmentCode=tblEmpPosition.appointmentCode','left')
+		->order_by('surname,firstname,middlename','asc');
+		$strSQL = " SELECT tblEmpPersonal.*,tblEmpPosition.statusOfAppointment,tblEmpPosition.appointmentCode,tblEmpPosition.positionCode,tblPosition.positionDesc FROM tblEmpPersonal						
+					LEFT JOIN tblEmpPosition ON tblEmpPosition.empNumber=tblEmpPersonal.empNumber
+					LEFT JOIN tblPosition ON tblPosition.positionCode=tblEmpPosition.positionCode
+					WHERE 1=1 
+					$where
+					ORDER BY surname,firstname,middlename
+					";
+		// echo $strSQL;exit(1);				
+		//$objQuery = $this->db->query($strSQL);
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}	
+
 	function getData($strEmpNumber = '')
 	{		
 		if($strEmpNumber != "")
@@ -104,6 +143,7 @@ class PDS_update_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableTraining);
 		return $objQuery->result_array();	
 	}
+
 	function getExamData($intExamId = '')
 	{		
 		if($intExamId != "")
@@ -116,6 +156,42 @@ class PDS_update_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getExpData($intSerId = '')
+	{		
+		if($intSerId != "")
+		{
+			$this->db->where($this->tableWorkExpid,$intSerId);
+		}
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
+		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
+		$objQuery = $this->db->get($this->tableWorkExp);
+		return $objQuery->result_array();	
+	}
+
+	function getAppointData($intAppointmentId = '')
+	{		
+		if($intAppointmentId != "")
+		{
+			$this->db->where($this->tableAppointid,$intAppointmentId);
+		}
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
+		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
+		$objQuery = $this->db->get($this->tableAppoint);
+		return $objQuery->result_array();	
+	}
+
+	function getSepCauseData($strSepCause = '')
+	{		
+		if($strSepCause != "")
+		{
+			$this->db->where($this->tableSepCauseid,$strSepCause);
+		}
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
+		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
+		$objQuery = $this->db->get($this->tableSepCause);
+		return $objQuery->result_array();	
+	}
+	
 	function add($arrData)
 	{
 		$this->db->insert('tblAppointment', $arrData);
