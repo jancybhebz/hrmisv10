@@ -102,6 +102,14 @@ if ( ! function_exists('getyear'))
 	}
 }
 
+if ( ! function_exists('constWorkHrs'))
+{
+    function constWorkHrs()
+    {
+		return '09:00';
+	}
+}
+
 if ( ! function_exists('fixMondayDate'))
 {
     function fixMondayDate()
@@ -112,6 +120,14 @@ if ( ! function_exists('fixMondayDate'))
 	}
 }
 
+if ( ! function_exists('setHrSec'))
+{
+    function setHrSec($time)
+    {
+		return date('H:i', strtotime($time));
+	}
+}
+
 if ( ! function_exists('fixTime'))
 {
     function fixTime($time, $med)
@@ -119,4 +135,3 @@ if ( ! function_exists('fixTime'))
 		return date('G:i:s', strtotime($time.' '.$med));
 	}
 }
-

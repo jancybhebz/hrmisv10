@@ -56,10 +56,10 @@
                             <td><?=date('H:i', strtotime($dtr['data']['outPM']))?></td>
                             <td><?=date('H:i', strtotime($dtr['data']['inOT']))?></td>
                             <td><?=date('H:i', strtotime($dtr['data']['outOT']))?></td>
-                            <td><?=date('H:i', strtotime($dtr['data']['remarks']))?></td>
+                            <td><?=$dtr['data']['outAM'] == '00:00:00' || $dtr['data']['inPM'] == '00:00:00' ? 'WORKING LUNCH' : $dtr['data']['remarks']?></td>
                             <td><?=$dtr['late']?></td>
                             <td></td>
-                            <td></td>
+                            <td><?=$dtr['undertime']?></td>
                             <td></td>
                         <?php else: ?>
                             <td colspan=11 align="center" class="uppercase sbold center"><?=$dtr['wday'] != 'Saturday' && $dtr['wday'] != 'Sunday' ? $dtr['holiday'] : $dtr['wday']?></td>
