@@ -15,22 +15,34 @@ class PDS_update extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employee/pds_update_model'));
+        $this->load->model(array('employee/pds_update_model','hr/Hr_model'));
     }
 
 	public function index()
 	{
+
+		$strEmpNo =$_SESSION['sessEmpNo'];
+		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
+		if(count($this->arrData['arrData'])==0) redirect('pds');
+
 		$this->arrData['arrData'] = $this->pds_update_model->getData();
-		$this->arrData['arrEduc'] = $this->pds_update_model->getEducData();
+		$this->arrData['arrEduc_CMB'] = $this->pds_update_model->getEducData();	
+		$this->arrData['arrEduc'] = $this->pds_update_model->getEduc($strEmpNo);		
 		$this->arrData['arrCourse'] = $this->pds_update_model->getCourseData();
 		$this->arrData['arrScholarship'] = $this->pds_update_model->getScholarshipData();
 		$this->arrData['arrSchool'] = $this->pds_update_model->getSchoolData();
-		$this->arrData['arrTraining'] = $this->pds_update_model->getTrainingData();
-		$this->arrData['arrExamination'] = $this->pds_update_model->getExamData();
-		$this->arrData['arrExperience'] = $this->pds_update_model->getExpData();
+		$this->arrData['arrTraining_CMB'] = $this->pds_update_model->getTrainingData();
+		$this->arrData['arrTraining'] = $this->pds_update_model->getTraining($strEmpNo);
+		$this->arrData['arrExamination_CMB'] = $this->pds_update_model->getExamData();
+		$this->arrData['arrExamination'] = $this->pds_update_model->getExamination($strEmpNo);
+		$this->arrData['arrReference'] = $this->pds_update_model->getRefData($strEmpNo);
+		$this->arrData['arrVoluntary'] = $this->pds_update_model->getVoluntary($strEmpNo);
+		$this->arrData['arrExperience_CMB'] = $this->pds_update_model->getExpData();
+		$this->arrData['arrExperience'] = $this->pds_update_model->getExperience($strEmpNo);
 		$this->arrData['arrAppointment'] = $this->pds_update_model->getAppointData();
 		$this->arrData['arrSeparation'] = $this->pds_update_model->getSepCauseData();
 		$this->arrData['arrDetails'] = $this->pds_update_model->getDetails();
+		
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
 	

@@ -16,7 +16,7 @@ class PDS_update_model extends CI_Model {
 	var $tableSchoolid = 'levelCode';
 
 	var $tableEduc = 'tbleducationallevel';
-	var $tableEducid = 'levelIl';
+	var $tableEducid = 'levelId';
 
 	var $tableCourse = 'tblcourse';
 	var $tableCourseid = 'courseCode';
@@ -38,6 +38,9 @@ class PDS_update_model extends CI_Model {
 
 	var $tableSepCause = 'tblseparationcause';
 	var $tableSepCauseid = 'separationCause';
+
+	var $tableRef = 'tblempreference';
+	var $tableRefid = 'refName';
 
 	function __construct()
 	{
@@ -88,14 +91,34 @@ class PDS_update_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getEmployeeDetails($strEmpNo,$strSelect,$strTable,$strOrder="",$strJoinTable="",$strJoinString="",$strJoinType="")
+	{
+		if($strOrder!='')
+			$this->db->order_by($strOrder);
+		if($strJoinTable!='' && $strJoinString!='' && $strJoinType!='')
+			$this->db->join($strJoinTable,$strJoinString,$strJoinType);
+		if($strEmpNo!='')
+			$this->db->where('empNumber',$strEmpNo);
+		$this->db->select($strSelect);
+		$rs = $this->db->get($strTable);
+		return $rs->result_array();
+
+	}
+
 	function getEducData($intLevelId = '')
 	{		
 		if($intLevelId != "")
 		{
 			$this->db->where($this->tableEducid,$intLevelId);
 		}
-		
 		$objQuery = $this->db->get($this->tableEduc);
+		return $objQuery->result_array();	
+	}
+	function getEduc($strEmpNumber)
+	{		
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_EDUC.'.empNumber','left');
+		$this->db->where(TABLE_EDUC.'.empNumber',$strEmpNumber);
+		$objQuery = $this->db->get(TABLE_EDUC);
 		return $objQuery->result_array();	
 	}
 
@@ -138,9 +161,15 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableTrainingid,$strTableTraining);
 		}
-		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
-		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
 		$objQuery = $this->db->get($this->tableTraining);
+		return $objQuery->result_array();	
+	}
+	function getTraining($strEmpNumber)
+	{		
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_TRAINING.'.empNumber','left');
+		$this->db->where(TABLE_TRAINING.'.empNumber',$strEmpNumber);
+		$this->db->order_by('tblemptraining.'.$this->tableTrainingid,'ASC');
+		$objQuery = $this->db->get(TABLE_TRAINING);
 		return $objQuery->result_array();	
 	}
 
@@ -149,10 +178,33 @@ class PDS_update_model extends CI_Model {
 		if($intExamId != "")
 		{
 			$this->db->where($this->tableExamid,$intExamId);
+			$this->db->order_by('tableExam'.$this->tableExamid,'ASC');
 		}
-		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
-		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
 		$objQuery = $this->db->get($this->tableExam);
+		return $objQuery->result_array();	
+	}
+	function getExamination($strEmpNumber)
+	{		
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_EXAM.'.empNumber','left');
+		$this->db->where(TABLE_EXAM.'.empNumber',$strEmpNumber);
+		$objQuery = $this->db->get(TABLE_EXAM);
+		return $objQuery->result_array();	
+	}
+
+	function getRefData($strEmpNumber)
+	{		
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_REFERENCE.'.empNumber','left');
+		$this->db->where(TABLE_REFERENCE.'.empNumber',$strEmpNumber);
+		$objQuery = $this->db->get(TABLE_REFERENCE);
+		//echo $this->db->last_query();
+		return $objQuery->result_array();	
+	}
+
+	function getVoluntary($strEmpNumber)
+	{		
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_VOLUNTARY.'.empNumber','left');
+		$this->db->where(TABLE_VOLUNTARY.'.empNumber',$strEmpNumber);
+		$objQuery = $this->db->get(TABLE_VOLUNTARY);
 		return $objQuery->result_array();	
 	}
 
@@ -162,9 +214,15 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableWorkExpid,$intSerId);
 		}
-		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
-		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
 		$objQuery = $this->db->get($this->tableWorkExp);
+		return $objQuery->result_array();	
+	}
+
+	function getExperience($strEmpNumber)
+	{		
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_SERVICE.'.empNumber','left');
+		$this->db->where(TABLE_SERVICE.'.empNumber',$strEmpNumber);
+		$objQuery = $this->db->get(TABLE_SERVICE);
 		return $objQuery->result_array();	
 	}
 
