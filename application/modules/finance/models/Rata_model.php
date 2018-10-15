@@ -9,9 +9,9 @@ class Rata_model extends CI_Model {
 	function getData($code='')
 	{
 		if($code==''):
-			return $this->db->order_by('RATAAmount','DESC')->get('tblrata')->result_array();
+			return $this->db->order_by('RATAAmount','DESC')->get('tblRATA')->result_array();
 		else:
-			return $this->db->get_where('tblrata', array('RATACode' => $code))->result_array();
+			return $this->db->get_where('tblRATA', array('RATACode' => $code))->result_array();
 		endif;
 	}
 

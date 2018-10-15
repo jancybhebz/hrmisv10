@@ -50,7 +50,7 @@ class Separation_mode extends MY_Controller
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblseparationcause','Added '.$strSeparationMode.' Separation_mode',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Added '.$strSeparationMode.' Separation_mode',implode(';',$arrData),'');
 					
 						$this->session->set_flashdata('strMsg','Separation mode added successfully.');
 					}

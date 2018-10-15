@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Plantilla_model extends CI_Model {
 
-	var $table = 'tblplantilla';
+	var $table = 'tblPlantilla';
 	var $tableid = 'plantillaID';
 
 	function __construct()
@@ -27,7 +27,7 @@ class Plantilla_model extends CI_Model {
 		 $this->db->join('tblposition','tblposition.positionId = '.$this->table.'.plantillaID','left');
 		 $this->db->join('tblplantillagroup','tblplantillagroup.plantillaGroupCode = '.$this->table.'.plantillaGroupCode','left');
 		 $this->db->join('tblexamtype','tblexamtype.examCode = '.$this->table.'.examCode','left');
-		 $this->db->order_by('tblplantilla.'.$this->tableid,'ASC');
+		 $this->db->order_by('tblPlantilla.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}

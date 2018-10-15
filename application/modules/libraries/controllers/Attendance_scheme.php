@@ -84,7 +84,7 @@ class Attendance_scheme extends MY_Controller {
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblattendancescheme','Added '.$strSchemeCode.' Attendance_scheme',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Added '.$strSchemeCode.' Attendance_scheme',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Attendance scheme added successfully.');
 					}
 					redirect('libraries/attendance_scheme');
@@ -159,7 +159,7 @@ class Attendance_scheme extends MY_Controller {
 				$blnReturn = $this->attendance_scheme_model->save($arrData, $strSchemeCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblattendancescheme','Edited '.$strSchemeName.' Attendance_scheme',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Edited '.$strSchemeName.' Attendance_scheme',implode(';',$arrData),'');
 					
 					$this->session->set_flashdata('strMsg','Attendance Scheme saved successfully.');
 				}
@@ -189,7 +189,7 @@ class Attendance_scheme extends MY_Controller {
 				$blnReturn = $this->attendance_scheme_model->delete($strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblattendancescheme','Deleted '.$strSchemeName.' Attendance_scheme',implode(';',$arrScheme[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Deleted '.$strSchemeName.' Attendance_scheme',implode(';',$arrScheme[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Attendance Scheme deleted successfully.');
 				}

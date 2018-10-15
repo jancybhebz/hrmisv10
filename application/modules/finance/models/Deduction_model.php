@@ -8,7 +8,7 @@ class Deduction_model extends CI_Model {
 	
 	function add($arrData)
 	{
-		$this->db->insert('tbldeduction', $arrData);
+		$this->db->insert('tblDeduction', $arrData);
 		return $this->db->insert_id();
 	}
 
@@ -21,7 +21,7 @@ class Deduction_model extends CI_Model {
 	function edit($arrData, $code)
 	{
 		$this->db->where('deductionCode',$code);
-		$this->db->update('tbldeduction', $arrData);
+		$this->db->update('tblDeduction', $arrData);
 		return $this->db->affected_rows();
 	}
 
@@ -29,7 +29,7 @@ class Deduction_model extends CI_Model {
 	{
 		if($tab == 1):
 			$this->db->where('deductionCode', $code);
-			$this->db->delete('tbldeduction');	
+			$this->db->delete('tblDeduction');	
 		else:
 			$this->db->where('deductionGroupCode', $code);
 			$this->db->delete('tbldeductiongroup');	
@@ -47,15 +47,15 @@ class Deduction_model extends CI_Model {
 	function getDeductionsByStatus($status='')
 	{
 		if($status==''):
-			return $this->db->get('tbldeduction')->result_array();
+			return $this->db->get('tblDeduction')->result_array();
 		else:
-			return $this->db->get_where('tbldeduction', array('hidden' => $status))->result_array();
+			return $this->db->get_where('tblDeduction', array('hidden' => $status))->result_array();
 		endif;
 	}
 
 	function getDeductionsByType($type)
 	{
-		return $this->db->get_where('tbldeduction', array('deductionType' => $type))->result_array();
+		return $this->db->get_where('tblDeduction', array('deductionType' => $type))->result_array();
 	}
 
 	function getDeductionGroup($groupCode='')
@@ -71,16 +71,16 @@ class Deduction_model extends CI_Model {
 	function getDeductions($code='')
 	{
 		if($code==''):
-			return $this->db->select('deductionCode')->get('tbldeduction')->result_array();
+			return $this->db->select('deductionCode')->get('tblDeduction')->result_array();
 		else:
-			$result = $this->db->get_where('tbldeduction', array('deductionCode' => $code))->result_array();
+			$result = $this->db->get_where('tblDeduction', array('deductionCode' => $code))->result_array();
 			return $result[0];
 		endif;
 	}
 	
 	function isDeductionCodeExists($code, $action)
 	{
-		$result = $this->db->get_where('tbldeduction', array('deductionCode' => $code))->result_array();
+		$result = $this->db->get_where('tblDeduction', array('deductionCode' => $code))->result_array();
 		if($action == 'add'):
 			if(count($result) > 0):
 				return true;

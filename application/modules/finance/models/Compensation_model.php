@@ -66,7 +66,7 @@ class Compensation_model extends CI_Model {
 	function getEmployeeDeduction($empid, $yr, $mon)
 	{
 		return $this->db->join('tblDeduction', 'tblEmpDeductionRemit.deductionCode = tblDeduction.deductionCode', 'left')
-					->group_by('tbldeduction.deductionCode')
+					->group_by('tblDeduction.deductionCode')
 					->where('empNumber',$empid)
 					->where('hidden',0)
 					->where('deductYear',$yr)
@@ -192,9 +192,9 @@ class Compensation_model extends CI_Model {
 
 	function getContributions($empid)
 	{
-		$sql = "SELECT tbldeduction.deductionDesc, tblEmpDeductions.deductionCode, deductCode AS contriCode, period1+period2+period3+period4 AS deductAmount
+		$sql = "SELECT tblDeduction.deductionDesc, tblEmpDeductions.deductionCode, deductCode AS contriCode, period1+period2+period3+period4 AS deductAmount
 					FROM tblEmpDeductions
-                    LEFT JOIN tbldeduction on tbldeduction.deductionCode = tblEmpDeductions.deductionCode
+                    LEFT JOIN tbldeduction on tblDeduction.deductionCode = tblEmpDeductions.deductionCode
 					WHERE empNumber='$empid'
 					AND status=1 AND tblEmpDeductions.deductionCode IN (
 						SELECT tblDeduction.deductionCode FROM tblDeduction 
@@ -206,12 +206,12 @@ class Compensation_model extends CI_Model {
 
 	function getFinishedLoans($empid)
 	{
-		$sql = "SELECT tbldeduction.deductionDesc, deductCode, tbldeduction.deductionCode, deductCode as loanCode, amountGranted, period1+period2+period3+period4 AS deductAmount
+		$sql = "SELECT tblDeduction.deductionDesc, deductCode, tblDeduction.deductionCode, deductCode as loanCode, amountGranted, period1+period2+period3+period4 AS deductAmount
 					FROM tblEmpDeductions
-					LEFT JOIN tbldeduction on tbldeduction.deductionCode = tblEmpDeductions.deductionCode
-					WHERE empNumber='$empid' AND tbldeduction.deductionCode IN (
+					LEFT JOIN tbldeduction on tblDeduction.deductionCode = tblEmpDeductions.deductionCode
+					WHERE empNumber='$empid' AND tblDeduction.deductionCode IN (
 						SELECT tblDeduction.deductionCode FROM tblDeduction WHERE deductionType='Loan')
-					AND status=0 ORDER BY tbldeduction.deductionCode";
+					AND status=0 ORDER BY tblDeduction.deductionCode";
 
 		return $this->db->query($sql)->result_array();
 	}

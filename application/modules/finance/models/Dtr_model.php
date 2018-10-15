@@ -32,40 +32,43 @@ class Dtr_model extends CI_Model {
 		$arrDtr = array();
 
 		// echo $totaldays;
-		// echo '<pre>';
-		
+		echo '<pre>';
+		// 
 		foreach (range(1, $totaldays) as $day):
 			$strsearch = $year.'-'.$month.'-'.str_pad($day, 2, '0', STR_PAD_LEFT);
 			$d_key = array_search($strsearch, array_column($resDtr, 'dtrDate'));
-			// echo date('D', strtotime($strsearch)).'<br>';
-			// if($d_key == '' && $d_key !== 0){
-			// 	echo 'null';
-			// }
-			// print_r($d_key == '' && $d_key !== 0 ? '' : $resDtr[$d_key]);
-			
+
 			$holiday = $this->Dtr_model->getHoliday($strsearch);
 			$scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
 			if($d_key == '' && $d_key !== 0):
 				$total_late = '';
+				$total_undertime = '';
+				$tota_overtime = '';
 			else:
 				$total_late = $this->Dtr_model->computeLate($scheme, $resDtr[$d_key]);
+				$total_undertime = $this->Dtr_model->computeUndertime($scheme, $resDtr[$d_key], $total_late);
+				$tota_overtime = $this->Dtr_model->computeOvertime($scheme, $resDtr[$d_key], $total_late);
 			endif;
+
 
 
 			// print_r(array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
 			// 				  'wday' => date('l', strtotime($strsearch)),
 			// 				  'holiday' => $holiday != null ? $holiday['holidayName'] : '',
-			// 				  'late' => $total_late,
+			// 				  'late' => $total_late == '00:00' ? '' : $total_late,
+			// 				  'undertime' => $total_undertime == '00:00' ? '' : $total_undertime,
 			// 				  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]));
-			// echo '<hr>';
+			echo '<hr>';
 
 			$arrDtr[] = array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
 							  'wday' => date('l', strtotime($strsearch)),
 							  'holiday' => $holiday != null ? $holiday['holidayName'] : '',
-							  'late' => $total_late,
+							  'late' => $total_late == '00:00' ? '' : $total_late,
+							  'undertime' => $total_undertime == '00:00' ? '' : $total_undertime,
+							  'overtime' => $tota_overtime == '00:00' ? '' : $tota_overtime,
 							  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]);
 		endforeach;
-		// die();
+		die();
 		// print_r($arrDtr);
 
 		return $arrDtr;
@@ -80,20 +83,22 @@ class Dtr_model extends CI_Model {
 
 	function computeLate($scheme, $dtrData)
 	{
+		$total_late = '00:00';
+
 		# Morning
 		$fixmondays = fixMondayDate();
 		if( (strtotime($dtrData['dtrDate']) >= $fixmondays['fixMonDate']) && (date('l', strtotime($dtrData['dtrDate'])) == 'Monday') ):
-			$am_systimein = $fixmondays['amTimeinTo'];
+			$am_systimein = setHrSec($fixmondays['amTimeinTo']);
 		else:
-			$am_systimein = $scheme['amTimeinTo'];
+			$am_systimein = setHrSec($scheme['amTimeinTo']);
 		endif;
 
-		$am_timein = $dtrData['inAM'];
+		$am_timein = setHrSec($dtrData['inAM']);
 		$am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
 
 		# Afternoon
-		$pm_timein = $dtrData['inPM'];
-		$pm_systimein = $scheme['nnTimeinTo'];
+		$pm_timein = setHrSec($dtrData['inPM']);
+		$pm_systimein = setHrSec($scheme['nnTimeinTo']);
 		$pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
 
 		$total_late = $this->time_add($am_late, $pm_late);
@@ -101,15 +106,77 @@ class Dtr_model extends CI_Model {
 		return $total_late;
 	}
 
-	function time_subtract($systime, $timein, $gp='N', $gpmins=0)
+	function computeUndertime($scheme, $dtrData, $total_late)
 	{
-		$timein = strtotime($timein);
-		$systime = $gp == 'N' ? strtotime($systime) : strtotime($systime) + ($gpmins * 60);
-		if($systime > $timein):
+		$total_undertime = '00:00';
+
+		# check if employee am time in and pm time out
+		if($dtrData['inAM'] != '00:00:00' && $dtrData['outPM'] != '00:00:00'):
+
+			# Check if working lunch
+			if($dtrData['outAM'] != '00:00:00' && $dtrData['inPM'] != '00:00:00'):
+				# Get Morning Undertime
+				$am_undertime = '00:00';
+				$am_systimeout = setHrSec($scheme['nnTimeoutFrom']);
+				$am_timeout = setHrSec($dtrData['outAM']);
+
+				if($am_timeout < $am_systimeout):
+					$am_undertime = $this->time_subtract($am_timeout, $am_systimeout);
+				else:	
+					$am_undertime = '00:00';
+				endif;
+
+				# Morning
+				$am_timein = setHrSec(fixTime($dtrData['inAM'],'am'));
+				$pm_timeout = setHrSec(fixTime($dtrData['outPM'],'pm'));
+				# expected timeout
+				$exp_pmtimeout = $this->time_add($am_timein, constWorkHrs());
+				$exp_pmtimeout = ($exp_pmtimeout > fixTime($scheme['pmTimeoutTo'], 'pm')) ? setHrSec(fixTime($scheme['pmTimeoutTo'], 'pm')) : $exp_pmtimeout;
+
+				$pm_undertime = $this->time_subtract($pm_timeout, $exp_pmtimeout);
+				$total_undertime = $this->time_add($am_undertime, $pm_undertime);
+			endif;
+
+		endif;
+
+		return $total_undertime;
+
+	}
+
+	function computeOvertime($scheme, $dtrData, $total_late)
+	{
+		$total_overtime = '00:00';
+		if($total_late != '00:00'):
+			$total_overtime = '00:00';
+		else:
+			# check if employee am time in and pm time out
+			if($dtrData['inAM'] != '00:00:00' && $dtrData['outPM'] != '00:00:00'):
+				$am_timein = setHrSec(fixTime($dtrData['inAM'],'am'));
+				$pm_timeout = setHrSec(fixTime($dtrData['outPM'],'pm'));
+				# expected timeout
+				$exp_pmtimeout = $this->time_add($am_timein, constWorkHrs());
+				$exp_pmtimeout = ($exp_pmtimeout > fixTime($scheme['pmTimeoutTo'], 'pm')) ? setHrSec(fixTime($scheme['pmTimeoutTo'], 'pm')) : $exp_pmtimeout;
+				echo '<br>am_timein '.$am_timein;
+				echo '<br>pm_timeout '.$pm_timeout;
+				echo '<br>exp_pmtimeout '.$exp_pmtimeout;
+			endif;
+		endif;
+
+		return $total_overtime;
+
+	}
+
+	function time_subtract($timestart, $timeend, $gp='N', $gpmins=0)
+	{
+		$timeend = strtotime($timeend);
+		$timestart = $gp == 'N' ? strtotime($timestart) : strtotime($timestart) + ($gpmins * 60);
+
+		if($timestart > $timeend):
 			return '00:00';
 		else:
-			$hours = ($timein - $systime) / 3600;
-			return sprintf('%02d', floor($hours)) . ':' . (int)( ($hours-floor($hours)) * 60 );
+			$hours = ($timeend - $timestart) / 3600;
+			$mins = (int)(($hours-floor($hours)) * 60 );
+			return sprintf('%02d', floor($hours)) . ':' . sprintf('%02d', $mins);
 		endif;
 	}
 

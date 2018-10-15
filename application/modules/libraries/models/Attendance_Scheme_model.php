@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Attendance_scheme_model extends CI_Model {
 
-	var $table = 'tblattendancescheme';
+	var $table = 'tblAttendanceScheme';
 	var $tableid = 'schemeCode';
 
 	function __construct()
