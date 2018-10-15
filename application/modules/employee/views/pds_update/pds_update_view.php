@@ -7,6 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?=load_plugin('css', array('datepicker','timepicker'))?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -688,10 +690,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                 </div>
+                  <div class="row" id="submitFam">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitFam" id="submitFam" class="btn btn-primary">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                </div>
 <!-- Educational Attainment -->
 <div id="tab_education" class="tab-pane" style="overflow-x:auto;">
     <form action="#">
-        <b>EDUCATIONAL INFORMATION:</b><br><br>
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Level Code</th>
@@ -705,7 +712,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <th width="2%">Licensed</th>
                     <th width="10%">Action</th>
                 </tr>
-                <?php //foreach($arrEduc as $row):?>
+                <?php //foreach($arrSchool as $row):?>
                 <tr>
                     <td></td>
                     <td></td>
@@ -718,12 +725,452 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <td></td>
                     <td> 
                     <a class="btn green" data-toggle="modal" href="#educ_modal"> Edit </a>
-                     <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteEduc"> Delete </a>
+                     
                     </td>
                 </tr>
+                <?php //endforeach;?>
+            </table>
+                <div class="row" id="educlevel_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Level Description :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select type="text" class="form-control" name="strLevelDesc" value="<?=!empty($this->session->userdata('strLevelDesc'))?$this->session->userdata('strLevelDesc'):''?>" required>
+                                         <option value="">Select</option>
+                                        <?php foreach($arrEduc as $educ)
+                                        {
+                                          echo '<option value="'.$educ['levelId'].'">'.$educ['levelDesc'].'</option>';
+                                        }?>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="schoolname_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">School Name :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strSchName" value="<?=isset($arrEduc[0]['strSchName'])?$arrEduc[0]['strSchName']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="degree_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Basic Education/Degree/Course :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select type="text" class="form-control" name="strDegree" value="<?=!empty($this->session->userdata('strDegree'))?$this->session->userdata('strDegree'):''?>" required>
+                                         <option value="">Select</option>
+                                        <?php foreach($arrCourse as $course)
+                                        {
+                                          echo '<option value="'.$course['courseCode'].'">'.$course['courseDesc'].'</option>';
+                                        }?>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="frmyr_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">From Year :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                               <?php
+                                $already_selected_value = date("Y");
+                                $earliest_year = 1970;
+
+                                print '<select name="dtmFrmYr" id="dtmFrmYr" class="form-control">';
+                                foreach (range(date('Y'), $earliest_year) as $x) {
+                                    print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
+                                }
+                                print '</select>'; ?>
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="yrto_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">To :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                             <?php
+                                $already_selected_value = date("Y");
+                                $earliest_year = 1970;
+
+                                print '<select name="dtmTo" id="dtmTo" class="form-control">';
+                                foreach (range(date('Y'), $earliest_year) as $x) {
+                                    print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
+                                }
+                                print '</select>'; ?>
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="units_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Units Earned :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="intUnits" value="<?=isset($arrEduc[0]['intUnits'])?$arrEduc[0]['intUnits']:''?>"><label>* (write - if not-applicable)</label>
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="scholarship_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Scholarship :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                  <select type="text" class="form-control" name="strScholarship" value="<?=!empty($this->session->userdata('strScholarship'))?$this->session->userdata('strScholarship'):''?>" required>
+                                         <option value="">Select</option>
+                                        <?php foreach($arrScholarship as $scholar)
+                                        {
+                                          echo '<option value="'.$scholar['id'].'">'.$scholar['description'].'</option>';
+                                        }?>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="honors_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Honors :   </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strHonors" value="<?=isset($arrEduc[0]['strHonors'])?$arrEduc[0]['strHonors']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="licensed_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Licensed :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select type="text" class="form-control" name="strLicensed" value="<?=!empty($this->session->userdata('strLicensed'))?$this->session->userdata('strLicensed'):''?>" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                </select>    
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="graduated_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Graudated :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select type="text" class="form-control" name="strGraduated" value="<?=!empty($this->session->userdata('strGraduated'))?$this->session->userdata('strGraduated'):''?>" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                </select>       
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="yrgraduated_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Year Graduated :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="number" class="form-control" name="strYrGraduated" maxlength="4" value="<?=isset($arrEduc[0]['strYrGraduated'])?$arrEduc[0]['strYrGraduated']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="submitEduc">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitEduc" id="submitEduc" class="btn btn-primary">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                </div>
+    </form>
+</div>
 
 <!-- Trainings -->
+<div id="tab_training" class="tab-pane">
+    <form action="#">    
+            <table class="table table-bordered table-striped" class="table-responsive">
+                <tr>
+                    <th>Title of Learning & Dev./Training Programs</th>
+                    <th>Inclusive Dates of Attendance [From-To]</th>
+                    <th>Number of Hours</th>
+                    <th>Type of Leadership</th>
+                    <th>Conducted/Sponsored By</th>
+                    <th>Training Venue</th>
+                    <th>Action</th>
+                </tr>
+                <?php //foreach($arrTraining as $row):?>
+                <tr>
+                    <td></td><!-- trainingTitle -->
+                    <td></td><!-- trainingStartDate trainingEndDate -->
+                    <td></td><!-- trainingHours -->
+                    <td></td><!-- trainingTypeofLD -->
+                    <td></td><!-- trainingConductedBy -->
+                    <td></td><!-- trainingVenue -->
+                    <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal"> Edit </a>
+                      
+                </tr>
+            <?php //endforeach; ?>
+            </table>
+            <div class="row" id="traintitle_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Training Title : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strTrainTitle" value="<?=isset($arrTraining[0]['strTrainTitle'])?$arrTraining[0]['strTrainTitle']:''?>">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="startdate_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Start Date : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input class="form-control form-control-inline input-medium date-picker" name="dtmStartDate" id="dtmStartDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="enddate_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">End Date : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmEndDate" id="dtmEndDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="number_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Number of Hours: </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="number" class="form-control" name="dtmHours" value="<?=isset($arrTraining[0]['dtmHours'])?$arrTraining[0]['dtmHours']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="typeLD_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Type of LD : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <select type="text" class="form-control" name="strTypeLD" value="<?=isset($arrTraining[0]['strTypeLD'])?$arrTraining[0]['strTypeLD']:''?>">
+                                 <option value="">Select</option>
+                                 <option value="">Managerial</option>
+                                 <option value="">Supervisory</option>
+                                 <option value="">Technical</option>
+                                 </select>
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="conduct_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Conducted By :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strConduct" value="<?=isset($arrTraining[0]['strConduct'])?$arrTraining[0]['strConduct']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="venue_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Venue : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strVenue" value="<?=isset($arrTraining[0]['strVenue'])?$arrTraining[0]['strVenue']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="cost_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Cost :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="intCost" value="<?=isset($arrTraining[0]['intCost'])?$arrTraining[0]['intCost']:''?>">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="contract_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Contract Dates :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmContract" id="dtmContract" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="submitTraining">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitTraining" id="submitTraining" class="btn btn-primary">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                </div>
+        </form>
+    </div>
 <!-- Examinations -->
+<div id="tab_exam" class="tab-pane">
+    <form action="#">
+            <table class="table table-bordered table-striped" class="table-responsive">
+                    <tr>
+                        <th width="10%">Exam Description</th>
+                        <th width="10%">Rating</th>
+                        <th width="10%">Date of Examination/ Conferment</th>
+                        <th width="10%">Place of Examination/ Conferment</th>
+                        <th width="10%">License Number</th>
+                        <th width="10%">Date of Validity</th>
+                        <th width="10%">Action</th>
+                    </tr>
+                    <?php //foreach($arrExam as $row):?>
+                    <tr>
+                        <td></td><!-- examCode -->
+                        <td></td><!-- examRating -->
+                        <td></td><!-- examDate -->
+                        <td></td><!-- examPlace -->
+                        <td></td><!-- licenseNumber -->
+                        <td></td><!-- dateRelease -->
+                        <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Edit </a>
+                    </tr>
+                    <?php //endforeach;?>
+                </table>
+                <div class="row" id="examdesc_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Exam Description :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select type="text" class="form-control" name="strExamDesc" value="<?=!empty($this->session->userdata('strExamDesc'))?$this->session->userdata('strExamDesc'):''?>" required>
+                                         <option value="">Select</option>
+                                        <?php foreach($arrExamination as $exam)
+                                        {
+                                          echo '<option value="'.$exam['examId'].'">'.$exam['examDesc'].'</option>';
+                                        }?>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="rating_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Rating (%):  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strChildName" value="<?=isset($arrExam[0]['strChildName'])?$arrExam[0]['strChildName']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="examdate_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Date of Exam/Conferment :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmExamDate" id="dtmExamDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="examplace_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Place of Exam/Conferment :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strPlaceExam" value="<?=isset($arrExam[0]['strPlaceExam'])?$arrExam[0]['strPlaceExam']:''?>">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="licenseNo_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">License No. (if applicable) : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="intLicenseNo" value="<?=isset($arrExam[0]['intLicenseNo'])?$arrExam[0]['intLicenseNo']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="release_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Date of Release : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmRelease" id="dtmRelease" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="submitExam">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitExam" id="submitExam" class="btn btn-primary">Submit</button>
+                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                </div>
+        </form>
+</div>
 <!-- Children -->
                 <div class="row" id="childname_textbox">
                         <div class="col-sm-3 text-right">
@@ -745,14 +1192,456 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <input type="text" class="form-control" name="dtmChildBdate" value="<?=isset($arrChild[0]['dtmChildBdate'])?$arrChild[0]['dtmChildBdate']:''?>">
+                              <input class="form-control form-control-inline input-medium date-picker" name="dtmChildBdate" id="dtmChildBdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                 </div>
+                 <div class="row" id="submitChild">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitChild" id="submitChild" class="btn btn-primary">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                    </div>
 <!-- Community Tax Certification -->
+                <div class="row" id="taxcert_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Tax Certificate Number :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="intTaxCert" value="<?=isset($arrCommunity[0]['intTaxCert'])?$arrCommunity[0]['intTaxCert']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="issuedAt_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Issued At :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="strIssuedAt" value="<?=isset($arrCommunity[0]['strIssuedAt'])?$arrCommunity[0]['strIssuedAt']:''?>">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="issuedOn_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Issued On :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmIssuedOn" id="dtmIssuedOn" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="submitTax">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitTax" id="submitTax" class="btn btn-primary">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                </div>
 <!-- References -->
+<div id="tab_ref" class="tab-pane">
+    <form action="#">
+            <table class="table table-bordered table-striped" class="table-responsive">
+                    <tr>
+                        <th>Name of Reference</th>
+                        <th>Address</th>
+                        <th>Telephone</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php //foreach($arrExam as $row):?>
+                    <tr>
+                        <td></td><!-- examCode -->
+                        <td></td><!-- examRating -->
+                        <td></td><!-- examDate -->
+                        <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Edit </a>
+                    </tr>
+                    <?php //endforeach;?>
+                </table>
+                <div class="row" id="refname_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Name :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="strRefName" value="<?=isset($arrRef[0]['strRefName'])?$arrRef[0]['strRefName']:''?>">
+                            </div>
+                        </div>
+                </div>
+                  <div class="row" id="refadd_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Address : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="strRefAdd" value="<?=isset($arrRef[0]['strRefAdd'])?$arrRef[0]['strRefAdd']:''?>">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="refcontact_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Contract Number : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="intRefContact" value="<?=isset($arrRef[0]['intRefContact'])?$arrRef[0]['intRefContact']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="submitRef">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitRef" id="submitRef" class="btn btn-primary">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                </div>
+        </form>
+</div>
 <!-- Voluntary Works -->
+<div id="tab_volWork" class="tab-pane">
+    <form action="#">                     
+            <table class="table table-bordered table-striped" class="table-responsive">
+                    <tr>
+                        <th width="10%">Name of Organization</th>
+                        <th width="10%">Address of Organization</th>
+                        <th width="10%">Inclusive Dates [From-To]</th>
+                        <th width="10%">Number of Hours</th>
+                        <th width="10%">Position/Nature of work</th>
+                        <th width="10%">Action</th>
+                    </tr>
+                    <?php //foreach($arrVol as $row):?>
+                    <tr>
+                        <td></td><!-- vwName -->
+                        <td></td><!-- vwAddress -->
+                        <td></td><!-- vwDateFrom vwDateTo -->
+                        <td></td><!-- vwHours -->
+                        <td></td><!-- vwPosition -->
+                        <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Edit </a></td>
+                    </tr>
+                    <?php //endforeach;?>
+                </table>
+                 <div class="row" id="volname_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Name of Organization : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="strVolName" value="<?=isset($arrRef[0]['strVolName'])?$arrRef[0]['strVolName']:''?>">
+                            </div>
+                        </div>
+                </div>
+                 <div class="row" id="voladd_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Address : </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="strVolAdd" value="<?=isset($arrRef[0]['strVolAdd'])?$arrRef[0]['strVolAdd']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="voldatefrom_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Inclusive Date From :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateFrom" id="dtmVolDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="voldateto_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Inclusive Date To :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateTo" id="dtmVolDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="volhours_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Number of Hours :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="intVolHours" value="<?=isset($arrVoluntary[0]['intVolHours'])?$arrVoluntary[0]['intVolHours']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="worknature_textbox">
+                        <div class="col-sm-3 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Position / Nature of Work :  </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="strNature" value="<?=isset($arrVoluntary[0]['strNature'])?$arrVoluntary[0]['strNature']:''?>">
+                            </div>
+                        </div>
+                </div>
+                <div class="row" id="submitVol">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" name="submitVol" id="submitVol" class="btn btn-primary">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        </div>
+                </div>
+        </form>
+</div>
 <!-- Work Experience -->
+<div id="tab_workExp" class="tab-pane">
+    <form action="#">             
+            <table class="table table-bordered table-striped" class="table-responsive">
+                <tr>
+                    <th width="10%">Inclusive Date [From-To]</th>
+                    <th width="10%">Position Title</th>
+                    <th width="10%">Dept./ Agency/ Office/ Company</th>
+                    <th width="10%">Monthly</th>
+                    <th width="10%">Salary/  Job Pay Grade</th>
+                    <th width="10%">Status of Appointment</th>
+                    <th width="10%">Gov. Service (Yes/No)</th>
+                    <th width="10%">Action</th>
+                </tr>
+                <?php //foreach($arrService as $row):?>
+                <tr>
+                    <td></td><!-- serviceFromDate serviceToDate -->
+                    <td></td><!-- positionDesc -->
+                    <td></td><!-- stationAgency -->
+                    <td></td><!-- salary -->
+                    <td></td><!-- salaryGrade -->
+                    <td></td><!-- appointmentCode -->
+                    <td></td><!-- governService -->
+                    <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Edit </a></td>
+                </tr>
+                <?php //endforeach;?>
+            </table>
+            
+             <div class="row" id="expdatefrom_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Inclusive Date From : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateFrom" id="dtmExpDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                        </div>
+                    </div>
+            </div>
+             <div class="row" id="expdateto_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Inclusive Date To : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateTo" id="dtmExpDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                        </div>
+                    </div>
+            </div>
+             <div class="row" id="exptitle_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Position Title : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strPosTitle" value="<?=isset($arrExperience[0]['strPosTitle'])?$arrExperience[0]['strPosTitle']:''?>">
+                        </div>
+                    </div>
+            </div>
+            <div class="row" id="expdept_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Department/Agency/Office : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strExpDept" value="<?=isset($arrExperience[0]['strExpDept'])?$arrExperience[0]['strExpDept']:''?>">
+                        </div>
+                    </div>
+            </div>
+            <div class="row" id="expsalary_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Salary : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strSalary" value="<?=isset($arrExperience[0]['strSalary'])?$arrExperience[0]['strSalary']:''?>">
+                        </div>
+                    </div>
+            </div>       
+            <div class="row" id="expper_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Per : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strExpPer" value="<?=isset($arrExperience[0]['strExpPer'])?$arrExperience[0]['strExpPer']:''?>">
+                            <option value="">Select</option>
+                            <option value="Hour">Hour</option>
+                            <option value="Day">Day</option>
+                            <option value="Month">Month</option>
+                            <option value="Quarter">Quarter</option>
+                            <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>        
+            <div class="row" id="expcurrency_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Currency : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strCurrency" value="<?=isset($arrExperience[0]['strCurrency'])?$arrExperience[0]['strCurrency']:''?>">
+                            <label>(leave blank if PHP) /   (ex. USD for US dollars)</label>
+                        </div>
+                    </div>
+            </div>        
+            <div class="row" id="expsg_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Salary Grade & Step Incremet (Format "00-0") : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strExpSG" value="<?=isset($arrExperience[0]['strExpSG'])?$arrExperience[0]['strExpSG']:''?>">
+                        </div>
+                    </div>
+            </div>    
+             <div class="row" id="expstatus_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Status of Appointment :  </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
+                                <option value="">Select</option>
+                                <?php foreach($arrAppointment as $appoint)
+                                {
+                                echo '<option value="'.$appoint['appointmentId'].'">'.$appoint['appointmentDesc'].'</option>';
+                                }?>
+                            </select>
+                        </div>
+                    </div>
+            </div>   
+            <div class="row" id="expgov_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Government Service : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strGovn" value="<?=isset($arrExperience[0]['strGovn'])?$arrExperience[0]['strGovn']:''?>">
+                        </div>
+                    </div>
+            </div>    
+             <div class="row" id="expbranch_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Branch : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strBranch" value="<?=!empty($this->session->userdata('strBranch'))?$this->session->userdata('strBranch'):''?>" required>
+                            <option value="">Select</option>
+                            <option value="Government Corp">Government Corp.</option>
+                            <option value="National">National</option>
+                            <option value="FGI">FGI</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>       
+             <div class="row" id="expsepcause_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Separation Cause : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="strSepCause" value="<?=!empty($this->session->userdata('strSepCause'))?$this->session->userdata('strSepCause'):''?>" required>
+                                <option value="">Select</option>
+                                <?php foreach($arrSeparation as $separation)
+                                {
+                                echo '<option value="'.$separation['serviceRecID'].'">'.$separation['separationCause'].'</option>';
+                                }?>
+                            </select>
+                        </div>
+                    </div>
+            </div>   
+             <div class="row" id="expsepdate_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">Separation Date :  </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input class="form-control form-control-inline input-medium date-picker" name="strSepDate" id="strSepDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                        </div>
+                    </div>
+            </div>  
+             <div class="row" id="expleave_textbox">
+                    <div class="col-sm-3 text-right">
+                        <div class="form-group">
+                            <label class="control-label">L/V ABS W/O PAY : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strLV" value="<?=isset($arrExperience[0]['strLV'])?$arrExperience[0]['strLV']:''?>">
+                        </div>
+                    </div>
+            </div>     
+
+                <div class="row" id="submitWorkExp">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" name="submitWorkExp" id="submitWorkExp" class="btn btn-primary">Submit</button>
+                        <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                    </div>
+                </div>
+    </form>
+</div>
+<!-- closing -->
                     <div class="row" id="submit">
                         <div class="col-sm-12 text-center">
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -766,6 +1655,27 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 
 
-
-
 <script type="text/javascript" src="<?=base_url('assets/js/pds_update.js')?>">
+
+<?=load_plugin('js',array('validation','datepicker'));?>
+<script>
+    $(document).ready(function() 
+    {
+        $('.date-picker').datepicker();
+    });
+ 
+</script>
+
+<?=load_plugin('js',array('timepicker'));?>
+<script>
+    $(document).ready(function() {
+        $('.timepicker').timepicker({
+                timeFormat: 'HH:mm:ss A',
+                disableFocus: true,
+                showInputs: false,
+                showSeconds: true,
+                showMeridian: true,
+                // defaultValue: '12:00:00 a'
+            });
+    });
+</script>
