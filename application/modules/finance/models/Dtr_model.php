@@ -32,7 +32,7 @@ class Dtr_model extends CI_Model {
 		$arrDtr = array();
 
 		// echo $totaldays;
-		echo '<pre>';
+		// echo '<pre>';
 		// 
 		foreach (range(1, $totaldays) as $day):
 			$strsearch = $year.'-'.$month.'-'.str_pad($day, 2, '0', STR_PAD_LEFT);
@@ -47,7 +47,7 @@ class Dtr_model extends CI_Model {
 			else:
 				$total_late = $this->Dtr_model->computeLate($scheme, $resDtr[$d_key]);
 				$total_undertime = $this->Dtr_model->computeUndertime($scheme, $resDtr[$d_key], $total_late);
-				$tota_overtime = $this->Dtr_model->computeOvertime($scheme, $resDtr[$d_key], $total_late);
+				$tota_overtime = $this->Dtr_model->computeOvertime($scheme, $resDtr[$d_key], $total_late, $scheme['nnTimeoutFrom']);
 			endif;
 
 
@@ -58,7 +58,7 @@ class Dtr_model extends CI_Model {
 			// 				  'late' => $total_late == '00:00' ? '' : $total_late,
 			// 				  'undertime' => $total_undertime == '00:00' ? '' : $total_undertime,
 			// 				  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]));
-			echo '<hr>';
+			// echo '<hr>';
 
 			$arrDtr[] = array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
 							  'wday' => date('l', strtotime($strsearch)),
@@ -68,7 +68,7 @@ class Dtr_model extends CI_Model {
 							  'overtime' => $tota_overtime == '00:00' ? '' : $tota_overtime,
 							  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]);
 		endforeach;
-		die();
+		// die();
 		// print_r($arrDtr);
 
 		return $arrDtr;
@@ -117,16 +117,15 @@ class Dtr_model extends CI_Model {
 			if($dtrData['outAM'] != '00:00:00' && $dtrData['inPM'] != '00:00:00'):
 				# Get Morning Undertime
 				$am_undertime = '00:00';
-				$am_systimeout = setHrSec($scheme['nnTimeoutFrom']);
+				$pm_systimeout = setHrSec($scheme['nnTimeoutFrom']);
 				$am_timeout = setHrSec($dtrData['outAM']);
 
-				if($am_timeout < $am_systimeout):
-					$am_undertime = $this->time_subtract($am_timeout, $am_systimeout);
+				if($am_timeout < $pm_systimeout):
+					$am_undertime = $this->time_subtract($am_timeout, $pm_systimeout);
 				else:	
 					$am_undertime = '00:00';
 				endif;
 
-				# Morning
 				$am_timein = setHrSec(fixTime($dtrData['inAM'],'am'));
 				$pm_timeout = setHrSec(fixTime($dtrData['outPM'],'pm'));
 				# expected timeout
@@ -143,8 +142,9 @@ class Dtr_model extends CI_Model {
 
 	}
 
-	function computeOvertime($scheme, $dtrData, $total_late)
+	function computeOvertime($scheme, $dtrData, $total_late, $systimeout)
 	{
+		$systimeout = setHrSec(fixTime($systimeout,'pm'));
 		$total_overtime = '00:00';
 		if($total_late != '00:00'):
 			$total_overtime = '00:00';
@@ -156,9 +156,13 @@ class Dtr_model extends CI_Model {
 				# expected timeout
 				$exp_pmtimeout = $this->time_add($am_timein, constWorkHrs());
 				$exp_pmtimeout = ($exp_pmtimeout > fixTime($scheme['pmTimeoutTo'], 'pm')) ? setHrSec(fixTime($scheme['pmTimeoutTo'], 'pm')) : $exp_pmtimeout;
-				echo '<br>am_timein '.$am_timein;
-				echo '<br>pm_timeout '.$pm_timeout;
-				echo '<br>exp_pmtimeout '.$exp_pmtimeout;
+				
+				# get ot start time
+				$otstarttime = $this->time_add($exp_pmtimeout, hrintbeforeOT());
+				if($pm_timeout > $otstarttime):
+					$total_overtime = $this->time_subtract($otstarttime, $pm_timeout);
+				endif;
+				
 			endif;
 		endif;
 

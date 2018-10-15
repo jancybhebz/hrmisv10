@@ -120,6 +120,14 @@ if ( ! function_exists('fixMondayDate'))
 	}
 }
 
+if ( ! function_exists('hrintbeforeOT'))
+{
+    function hrintbeforeOT()
+    {
+    	return '01:00';
+	}
+}
+
 if ( ! function_exists('setHrSec'))
 {
     function setHrSec($time)

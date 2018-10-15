@@ -58,7 +58,7 @@
                             <td><?=date('H:i', strtotime($dtr['data']['outOT']))?></td>
                             <td><?=$dtr['data']['outAM'] == '00:00:00' || $dtr['data']['inPM'] == '00:00:00' ? 'WORKING LUNCH' : $dtr['data']['remarks']?></td>
                             <td><?=$dtr['late']?></td>
-                            <td></td>
+                            <td><?=$dtr['overtime']?></td>
                             <td><?=$dtr['undertime']?></td>
                             <td></td>
                         <?php else: ?>
