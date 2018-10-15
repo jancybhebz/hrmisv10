@@ -27,7 +27,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function employee($empid)
 	{
-		$this->load->model(array('PayrollGroup_model', 'Rata_model','libraries/Attendance_scheme_model', 'TaxExempt_model','libraries/Plantilla_model', 'libraries/Separation_mode_model'));
+		$this->load->model(array('PayrollGroup_model', 'Rata_model','libraries/Attendance_Scheme_model', 'TaxExempt_model','libraries/Plantilla_model', 'libraries/Separation_mode_model'));
 		$res = $this->Hr_model->getData($empid);
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
@@ -35,7 +35,7 @@ class Personnel_profile extends MY_Controller {
 		$this->arrData['pg'] = $this->PayrollGroup_model->getData($res[0]['payrollGroupCode']);
 
 		$arrAs = array();
-		$arrAttSchemes = $this->Attendance_scheme_model->getData();
+		$arrAttSchemes = $this->Attendance_Scheme_model->getData();
 		foreach($arrAttSchemes as $as):
 			if($as['schemeType'] == 'Sliding'):
 				$varas['code'] = $as['schemeCode'];
