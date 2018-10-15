@@ -712,23 +712,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <th width="2%">Licensed</th>
                     <th width="10%">Action</th>
                 </tr>
-                <?php //foreach($arrSchool as $row):?>
+                <?php foreach($arrEduc as $row):?>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?=$row['levelCode']?></td><!-- levelCode -->
+                    <td><?=$row['schoolName']?></td><!-- schoolName -->
+                    <td><?=$row['course']?></td><!-- course -->
+                    <td><?=$row['schoolFromDate'].'-'.$row['schoolToDate']?></td><!-- schoolFromDate/schoolToDate -->
+                    <td><?=$row['units']?></td><!-- units -->
+                    <td><?=$row['schoolToDate']?></td><!-- yearGraduated -->
+                    <td><?=$row['honors']?></td><!-- honors -->
+                    <td><?=$row['graduated']?></td><!-- graduated -->
+                    <td><?=$row['licensed']?></td><!-- licensed -->
                     <td> 
                     <a class="btn green" data-toggle="modal" href="#educ_modal"> Edit </a>
                      
                     </td>
                 </tr>
-                <?php //endforeach;?>
+                <?php endforeach;?>
             </table>
                 <div class="row" id="educlevel_textbox">
                         <div class="col-sm-3 text-right">
@@ -740,7 +740,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <select type="text" class="form-control" name="strLevelDesc" value="<?=!empty($this->session->userdata('strLevelDesc'))?$this->session->userdata('strLevelDesc'):''?>" required>
                                          <option value="">Select</option>
-                                        <?php foreach($arrEduc as $educ)
+                                        <?php foreach($arrEduc_CMB as $educ)
                                         {
                                           echo '<option value="'.$educ['levelId'].'">'.$educ['levelDesc'].'</option>';
                                         }?>
@@ -926,18 +926,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <th>Training Venue</th>
                     <th>Action</th>
                 </tr>
-                <?php //foreach($arrTraining as $row):?>
+                <?php foreach($arrTraining as $row):?>
                 <tr>
-                    <td></td><!-- trainingTitle -->
-                    <td></td><!-- trainingStartDate trainingEndDate -->
-                    <td></td><!-- trainingHours -->
-                    <td></td><!-- trainingTypeofLD -->
-                    <td></td><!-- trainingConductedBy -->
-                    <td></td><!-- trainingVenue -->
+                    <td><?=$row['trainingTitle']?></td><!-- trainingTitle -->
+                    <td><?=$row['trainingStartDate'].'/'.$row['trainingEndDate']?></td><!-- trainingStartDate trainingEndDate -->
+                    <td><?=$row['trainingHours']?></td><!-- trainingHours -->
+                    <td><?=$row['trainingTypeofLD']?></td><!-- trainingTypeofLD -->
+                    <td><?=$row['trainingConductedBy']?></td><!-- trainingConductedBy -->
+                    <td><?=$row['trainingVenue']?></td><!-- trainingVenue -->
                     <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal"> Edit </a>
                       
                 </tr>
-            <?php //endforeach; ?>
+            <?php endforeach; ?>
             </table>
             <div class="row" id="traintitle_textbox">
                         <div class="col-sm-3 text-right">
@@ -1073,17 +1073,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <th width="10%">Date of Validity</th>
                         <th width="10%">Action</th>
                     </tr>
-                    <?php //foreach($arrExam as $row):?>
+                    <?php foreach($arrExamination as $row):?>
                     <tr>
-                        <td></td><!-- examCode -->
-                        <td></td><!-- examRating -->
-                        <td></td><!-- examDate -->
-                        <td></td><!-- examPlace -->
-                        <td></td><!-- licenseNumber -->
-                        <td></td><!-- dateRelease -->
+                        <td><?=$row['examCode']?></td><!-- examCode -->
+                        <td><?=$row['examRating']?></td><!-- examRating -->
+                        <td><?=$row['examDate']?></td><!-- examDate -->
+                        <td><?=$row['examPlace']?></td><!-- examPlace -->
+                        <td><?=$row['licenseNumber']?></td><!-- licenseNumber -->
+                        <td><?=$row['dateRelease']?></td><!-- dateRelease -->
                         <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Edit </a>
                     </tr>
-                    <?php //endforeach;?>
+                    <?php endforeach;?>
                 </table>
                 <div class="row" id="examdesc_textbox">
                         <div class="col-sm-3 text-right">
@@ -1095,7 +1095,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <select type="text" class="form-control" name="strExamDesc" value="<?=!empty($this->session->userdata('strExamDesc'))?$this->session->userdata('strExamDesc'):''?>" required>
                                          <option value="">Select</option>
-                                        <?php foreach($arrExamination as $exam)
+                                        <?php foreach($arrExamination_CMB as $exam)
                                         {
                                           echo '<option value="'.$exam['examId'].'">'.$exam['examDesc'].'</option>';
                                         }?>
@@ -1255,14 +1255,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <th>Telephone</th>
                         <th>Action</th>
                     </tr>
-                    <?php //foreach($arrExam as $row):?>
+                    <?php foreach($arrReference as $row):?>
                     <tr>
-                        <td></td><!-- examCode -->
-                        <td></td><!-- examRating -->
-                        <td></td><!-- examDate -->
+                        <td><?=$row['refName']?></td><!-- examCode -->
+                        <td><?=$row['refAddress']?></td><!-- examRating -->
+                        <td><?=$row['refTelephone']?></td><!-- examDate -->
                         <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Edit </a>
                     </tr>
-                    <?php //endforeach;?>
+                    <?php endforeach;?>
                 </table>
                 <div class="row" id="refname_textbox">
                         <div class="col-sm-3 text-right">
@@ -1320,16 +1320,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <th width="10%">Position/Nature of work</th>
                         <th width="10%">Action</th>
                     </tr>
-                    <?php //foreach($arrVol as $row):?>
+                    <?php foreach($arrVoluntary as $row):?>
                     <tr>
-                        <td></td><!-- vwName -->
-                        <td></td><!-- vwAddress -->
-                        <td></td><!-- vwDateFrom vwDateTo -->
-                        <td></td><!-- vwHours -->
-                        <td></td><!-- vwPosition -->
+                        <td><?=$row['vwName']?></td><!-- vwName -->
+                        <td><?=$row['vwAddress']?></td><!-- vwAddress -->
+                        <td><?=$row['vwDateFrom'].'/'.$row['vwDateTo']?></td><!-- vwDateFrom vwDateTo -->
+                        <td><?=$row['vwHours']?></td><!-- vwHours -->
+                        <td><?=$row['vwPosition']?></td><!-- vwPosition -->
                         <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Edit </a></td>
                     </tr>
-                    <?php //endforeach;?>
+                    <?php endforeach;?>
                 </table>
                  <div class="row" id="volname_textbox">
                         <div class="col-sm-3 text-right">
@@ -1425,18 +1425,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <th width="10%">Gov. Service (Yes/No)</th>
                     <th width="10%">Action</th>
                 </tr>
-                <?php //foreach($arrService as $row):?>
+                <?php foreach($arrExperience as $row):?>
                 <tr>
-                    <td></td><!-- serviceFromDate serviceToDate -->
-                    <td></td><!-- positionDesc -->
-                    <td></td><!-- stationAgency -->
-                    <td></td><!-- salary -->
-                    <td></td><!-- salaryGrade -->
-                    <td></td><!-- appointmentCode -->
-                    <td></td><!-- governService -->
+                    <td><?=$row['serviceFromDate']?></td><!-- serviceFromDate serviceToDate -->
+                    <td><?=$row['positionDesc']?></td><!-- positionDesc -->
+                    <td><?=$row['stationAgency']?></td><!-- stationAgency -->
+                    <td><?=$row['salary']?></td><!-- salary -->
+                    <td><?=$row['salaryGrade']?></td><!-- salaryGrade -->
+                    <td><?=$row['appointmentCode']?></td><!-- appointmentCode -->
+                    <td><?=$row['governService']?></td><!-- governService -->
                     <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Edit </a></td>
                 </tr>
-                <?php //endforeach;?>
+                <?php endforeach;?>
             </table>
             
              <div class="row" id="expdatefrom_textbox">

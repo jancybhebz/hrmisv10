@@ -103,3 +103,6 @@ define('TABLE_TRAINING','tblEmpTraining');
 define('TABLE_POSITION','tblEmpPosition');
 define('TABLE_DUTIES','tblEmpDuties'); 
 define('TABLE_PLANTILLADUTIES','tblPlantillaDuties'); 
+define('TABLE_REFERENCE','tblEmpReference'); 
+define('TABLE_VOLUNTARY','tblempvoluntarywork'); 
+
