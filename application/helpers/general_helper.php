@@ -102,11 +102,13 @@ if ( ! function_exists('getyear'))
 	}
 }
 
+# Get the constant total working hours
 if ( ! function_exists('constWorkHrs'))
 {
-    function constWorkHrs()
+    function constWorkHrs($break='00:00')
     {
-		return '09:00';
+    	$hours = (strtotime('09:00') - strtotime($break)) / 3600;
+    	return sprintf('%02d', floor($hours)).':00';
 	}
 }
 
@@ -130,9 +132,13 @@ if ( ! function_exists('hrintbeforeOT'))
 
 if ( ! function_exists('setHrSec'))
 {
-    function setHrSec($time)
+    function setHrSec($time, $mer=0)
     {
-		return date('H:i', strtotime($time));
+    	if($mer==1):
+    		return date('H:i a', strtotime($time));
+    	else:
+			return date('H:i', strtotime($time));
+		endif;
 	}
 }
 

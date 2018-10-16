@@ -23,20 +23,55 @@ class Dtr_model extends CI_Model {
 		return count($res) > 0 ? $res[0] : null; 
 	}
 
+	function getLocalHoliday($strday)
+	{
+		$this->db->join('tblHoliday', 'tblHoliday.holidayCode = tblEmpLocalHoliday.holidayCode', 'left');
+		$this->db->where("tblEmpLocalHoliday.holidayDate like '".$strday."'");
+		$res = $this->db->get_where('tblEmpLocalHoliday')->result_array();
+		return count($res) > 0 ? $res[0] : null; 
+	}
+
+	function getEmpOB($empid, $year, $month)
+	{
+		$this->db->where("empNumber like '".$empid."'");
+		$this->db->where("(obDateFrom like '".$year."-".$month."%' OR obDateTo like '".$year."-".$month."%')");
+		$res = $this->db->get_where('tblEmpOB')->result_array();
+		return $res; 
+	}
+
 	// get dtr summary
 	function dtrSummary($empid, $year, $month)
 	{
-		$resDtr = $this->Dtr_model->getData($empid, $year, $month);
+		$resDtr = $this->getData($empid, $year, $month);
 		$totaldays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+		$empOB = $this->getEmpOB($empid, $year, $month);
+		$arrOB = array();
+		foreach($empOB as $ob):
+			$days = $this->breakDates($ob['obDateFrom'], $ob['obDateTo'], '('.setHrSec($ob['obTimeFrom'], 1).' - '.setHrSec($ob['obTimeTo'], 1).')');
+			foreach($days as $day):
+				array_push($arrOB, $day);
+			endforeach;
+		endforeach;
+
 
 		$arrDtr = array();
 
 		// echo $totaldays;
-		// echo '<pre>';
-		// 
+		
+		// print_r($empOB);
+
 		foreach (range(1, $totaldays) as $day):
 			$strsearch = $year.'-'.$month.'-'.str_pad($day, 2, '0', STR_PAD_LEFT);
-			$d_key = array_search($strsearch, array_column($resDtr, 'dtrDate'));
+
+			$ob_key = array_search($strsearch, array_column($arrOB, 'date')); # ob key
+			$ob = '';
+			if(!($ob_key == '' && $ob_key !== 0)):
+				$arrob = $arrOB[$ob_key];
+				$ob = $arrob['desc'];
+			endif;
+			
+			$d_key = array_search($strsearch, array_column($resDtr, 'dtrDate')); # data key
 
 			$holiday = $this->Dtr_model->getHoliday($strsearch);
 			$scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
@@ -47,18 +82,8 @@ class Dtr_model extends CI_Model {
 			else:
 				$total_late = $this->Dtr_model->computeLate($scheme, $resDtr[$d_key]);
 				$total_undertime = $this->Dtr_model->computeUndertime($scheme, $resDtr[$d_key], $total_late);
-				$tota_overtime = $this->Dtr_model->computeOvertime($scheme, $resDtr[$d_key], $total_late, $scheme['nnTimeoutFrom']);
+				$tota_overtime = $this->Dtr_model->computeOvertime($scheme, $resDtr[$d_key], $total_late, $scheme['nnTimeoutFrom'], $total_undertime);
 			endif;
-
-
-
-			// print_r(array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
-			// 				  'wday' => date('l', strtotime($strsearch)),
-			// 				  'holiday' => $holiday != null ? $holiday['holidayName'] : '',
-			// 				  'late' => $total_late == '00:00' ? '' : $total_late,
-			// 				  'undertime' => $total_undertime == '00:00' ? '' : $total_undertime,
-			// 				  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]));
-			// echo '<hr>';
 
 			$arrDtr[] = array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
 							  'wday' => date('l', strtotime($strsearch)),
@@ -66,7 +91,11 @@ class Dtr_model extends CI_Model {
 							  'late' => $total_late == '00:00' ? '' : $total_late,
 							  'undertime' => $total_undertime == '00:00' ? '' : $total_undertime,
 							  'overtime' => $tota_overtime == '00:00' ? '' : $tota_overtime,
+							  'ob' => $ob == '' ? '' : 'OB '.$ob,
 							  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]);
+			// print_r($arrDtr);
+			// echo '<hr>';
+
 		endforeach;
 		// die();
 		// print_r($arrDtr);
@@ -136,17 +165,42 @@ class Dtr_model extends CI_Model {
 				$total_undertime = $this->time_add($am_undertime, $pm_undertime);
 			endif;
 
+		else:
+			# check if halfday
+			# Morning
+			if($dtrData['inAM'] != '00:00:00'):
+				$timeout = (setHrSec($dtrData['outAM']) >= setHrSec($scheme['nnTimeoutFrom'])) ? setHrSec($scheme['nnTimeoutFrom']) : setHrSec($dtrData['outAM']);
+				$timein = (setHrSec($dtrData['inAM']) <= setHrSec($scheme['amTimeinFrom'])) ? setHrSec($scheme['amTimeinFrom']) : setHrSec($dtrData['inAM']);
+
+				# get total workhours
+				$total_wkhrs = $this->time_subtract($timein, $timeout);
+				# '01:00' for 1 hr Lunch break
+ 				$total_undertime = $this->time_subtract($total_wkhrs, constWorkHrs('01:00'));
+
+			elseif($dtrData['inPM'] != '00:00:00'):
+				# Afternoon
+				$timeout = (fixTime($dtrData['outPM'], 'pm') <= fixTime($scheme['pmTimeoutTo'], 'pm')) ? setHrSec(fixTime($dtrData['outPM'], 'pm')) : setHrSec(fixTime($scheme['pmTimeoutTo'], 'pm'));
+				$timein = (setHrSec(fixTime($dtrData['inPM'], 'pm')) <= setHrSec(fixTime($scheme['nnTimeoutTo'], 'pm'))) ? setHrSec(fixTime($scheme['nnTimeoutTo'], 'pm')) : setHrSec(fixTime($dtrData['inPM'], 'pm'));
+
+				# get total workhours
+				$total_wkhrs = $this->time_subtract($timein, $timeout);
+				# '01:00' for 1 hr Lunch break
+ 				$total_undertime = $this->time_subtract($total_wkhrs, constWorkHrs('01:00'));
+
+			else:
+				# ABSENT 
+			endif;
 		endif;
 
 		return $total_undertime;
 
 	}
 
-	function computeOvertime($scheme, $dtrData, $total_late, $systimeout)
+	function computeOvertime($scheme, $dtrData, $total_late, $systimeout, $total_undertime)
 	{
 		$systimeout = setHrSec(fixTime($systimeout,'pm'));
 		$total_overtime = '00:00';
-		if($total_late != '00:00'):
+		if($total_late != '00:00' || $total_undertime != '00:00'):
 			$total_overtime = '00:00';
 		else:
 			# check if employee am time in and pm time out
@@ -162,7 +216,7 @@ class Dtr_model extends CI_Model {
 				if($pm_timeout > $otstarttime):
 					$total_overtime = $this->time_subtract($otstarttime, $pm_timeout);
 				endif;
-				
+
 			endif;
 		endif;
 
@@ -196,6 +250,21 @@ class Dtr_model extends CI_Model {
 			return sprintf('%02d', floor($hrs)).':'.sprintf('%02d', floor($mins));
 		endif;
 	}
+
+	function breakDates($from, $to, $desc='')
+	{
+		$arrDays = array();
+		if($from <= $to):
+			while ($from <= $to) {
+				array_push($arrDays, array('date' => $from, 'desc' => $desc));
+				$from = date('Y-m-d', strtotime("+1 day", strtotime($from)));
+			}
+		else:
+			# invalid date
+		endif;
+		return $arrDays;
+	}
+
 
 }
 /* End of file Dtr_model.php */

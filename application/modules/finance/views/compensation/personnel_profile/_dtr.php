@@ -56,7 +56,8 @@
                             <td><?=date('H:i', strtotime($dtr['data']['outPM']))?></td>
                             <td><?=date('H:i', strtotime($dtr['data']['inOT']))?></td>
                             <td><?=date('H:i', strtotime($dtr['data']['outOT']))?></td>
-                            <td><?=$dtr['data']['outAM'] == '00:00:00' || $dtr['data']['inPM'] == '00:00:00' ? 'WORKING LUNCH' : $dtr['data']['remarks']?></td>
+                            <td><?=$dtr['data']['remarks']?>
+                                <?=$dtr['ob']?></td>
                             <td><?=$dtr['late']?></td>
                             <td><?=$dtr['overtime']?></td>
                             <td><?=$dtr['undertime']?></td>
