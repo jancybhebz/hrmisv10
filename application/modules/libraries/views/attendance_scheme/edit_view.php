@@ -7,6 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?=load_plugin('css', array('datetimepicker','timepicker'))?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -51,7 +53,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Type<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                    <i class="fa"></i>
-                                      <input type="text" class="form-control" name="strSchemeType" id="strSchemeType" onchange="showtextbox()" value="<?=!empty($arrAttendance[0]['schemeType'])?$arrAttendance[0]['schemeType']:''?>" disabled>
+                                     <?php if($arrAttendance['schemeType'])=='Fixed') ?>
+                                      <input name="strSchemeType" id="strSchemeType" type="hidden" class="form-control" value="<?=isset($arrAttendance['schemeType']) ? $arrAttendance['schemeType'] : ''?>">
+                                    <?php else ?>
+                                      <select name="strSchemeType" id="strSchemeType" class="form-control" onchange="showtextbox()">
+                                            <option value="">Select Scheme </option>
+                                            <option value=""></option>
+                                            <option value="Fixed">Fixed </option>
+                                            <option value="Sliding">Sliding </option>
+                                        </select>
+                                    <?php endif; ?>
+
                                 </div>
                             </div>
                         </div>
@@ -78,14 +90,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    
+                    <?=!empty($arrAttendance[0]['schemeType'])=='Fixed'?>
+
                     <div class="row" id="FtimeIn">
                         <div class="col-sm-12">
                             <div class="form-group fixed">
                                     <label class="control-label" id="FtimeIn">Fixed Time In : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="<?=!empty($arrAttendance[0]['amTimeinFrom'])?$arrAttendance[0]['amTimeinFrom']:''?>">
+                                        <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="<?=!empty($arrAttendance[0]['amTimeinFrom'])?$arrAttendance[0]['amTimeinFrom']:'12:00:00 PM'?>">
                                     </div>
                                 </div>
                             </div>
@@ -360,3 +373,18 @@ $(document).ready(function()
 }); 
 </script>
 
+<?=load_plugin('js',array('validation','datetimepicker','timepicker'));?>
+<script>
+    $(document).ready(function() {
+        $('.timepicker').timepicker({
+                timeFormat: 'HH:mm:ss A',
+                disableFocus: true,
+                showInputs: false,
+                showSeconds: true,
+                showMeridian: true,
+                // defaultValue: '12:00:00 a'
+            });
+    });
+</script>
+
+<script type="text/javascript" src="<?=base_url('assets/js/attendance.js')?>"></script>

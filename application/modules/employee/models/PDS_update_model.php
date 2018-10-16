@@ -86,7 +86,6 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strEmpNumber);
 		}
-		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
@@ -128,7 +127,6 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableCourseid,$strCourseCode);
 		}
-		
 		$objQuery = $this->db->get($this->tableCourse);
 		return $objQuery->result_array();	
 	}
@@ -139,7 +137,6 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableScholarshipid,$intScholarId);
 		}
-		
 		$objQuery = $this->db->get($this->tableScholarship);
 		return $objQuery->result_array();	
 	}
@@ -149,8 +146,6 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableSchoolid,$intEmpNum);
 		}
-		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
-		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
 		$objQuery = $this->db->get($this->tableSchool);
 		return $objQuery->result_array();	
 	}
@@ -232,8 +227,6 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableAppointid,$intAppointmentId);
 		}
-		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
-		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
 		$objQuery = $this->db->get($this->tableAppoint);
 		return $objQuery->result_array();	
 	}
@@ -244,8 +237,6 @@ class PDS_update_model extends CI_Model {
 		{
 			$this->db->where($this->tableSepCauseid,$strSepCause);
 		}
-		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->tableSchool.'.empNumber','left');
-		// $this->db->order_by('tblempschool.'.$this->tableSchoolid,'ASC');
 		$objQuery = $this->db->get($this->tableSepCause);
 		return $objQuery->result_array();	
 	}
@@ -254,21 +245,7 @@ class PDS_update_model extends CI_Model {
 	{
 		$this->db->insert('tblAppointment', $arrData);
 		return $this->db->insert_id();		
-	}
-	
-	// function checkExist($strAppointmentCode = '', $strAppointmentDesc = '')
-	// {		
-	// 	$strSQL = " SELECT * FROM tblAppointment					
-	// 				WHERE  
-	// 				appointmentCode ='$strAppointmentCode' OR
-	// 				appointmentDesc ='$strAppointmentDesc'					
-	// 				";
-	// 	//echo $strSQL;exit(1);
-	// 	$objQuery = $this->db->query($strSQL);
-	// 	return $objQuery->result_array();	
-	// }
-
-				
+	}				
 		
 	function save($arrData, $intAppointmentId)
 	{

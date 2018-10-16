@@ -79,6 +79,13 @@ class Holiday_model extends CI_Model {
 		$this->db->insert('tblholidayyear', $arrData);
 		return $this->db->insert_id();		
 	}
+
+	function add_worksuspension($arrData)
+	{
+		$this->db->insert('tblholidayyear', $arrData);
+		return $this->db->insert_id();		
+	}
+
 	
 	//CHECK IF EXIST	
 	function checkExist($strHolidayCode = '', $strHolidayName = '')
@@ -167,6 +174,13 @@ class Holiday_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+	function save_worksuspension($arrData, $strCode)
+	{
+		$this->db->where('holidayId', $strCode);
+		$this->db->update('tblholidayyear', $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
 	
 	//DELETE	
 	function delete($strCode)
@@ -186,6 +200,14 @@ class Holiday_model extends CI_Model {
 	}
 
 	function delete_manage_holiday($strCode)
+	{
+		$this->db->where('holidayId', $strCode);
+		$this->db->delete('tblholidayyear'); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_worksuspension($strCode)
 	{
 		$this->db->where('holidayId', $strCode);
 		$this->db->delete('tblholidayyear'); 	
