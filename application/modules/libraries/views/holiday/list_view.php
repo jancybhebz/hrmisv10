@@ -27,9 +27,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <a href="<?=base_url('libraries/holiday/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add Holiday Name</button></a>
                                 
                                 <a href="<?=base_url('libraries/holiday/manage_add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Manage Holiday</button></a>
-                                
-                                
+                                 
                                 <a href="<?=base_url('libraries/holiday/add_local')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Manage Local Holiday</button></a>
+
+                                <a href="<?=base_url('libraries/holiday/add_worksuspension')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Manage Work Suspension</button></a>
                                 <br><br>   
                                 
                             </div>

@@ -336,4 +336,123 @@ class Holiday extends MY_Controller {
 		}
 	}
 
+	 //ADD WORK SUSPENSION
+    public function add_worksuspension()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
+			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			$this->template->load('template/template_view','libraries/holiday/add_worksuspension_view',$this->arrData);	
+		}
+		else
+		{	
+			$strLocalName = $arrPost['strLocalName'];
+			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
+			if(!empty($strLocalName) && !empty($dtmHolidayDate))
+			{	
+				// check if holiday name/date desc already exist
+				if(count($this->holiday_model->checkLocExist($dtmHolidayDate))==0)
+				{   
+					$rs = $this->holiday_model->getData($strCode);
+					$strLocalName = count($rs)>0?$rs[0]['holidayName']:'';
+					$arrData = array(
+						'holidayCode'=>$strLocalCode, 
+						'holidayName'=>$strLocalName,
+						'holidayDate'=>$dtmHolidayDate
+				
+					);
+					$blnReturn  = $this->holiday_model->add_local($arrData);
+					//print_r($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Added '.$strLocalName.' Holiday',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Local Holiday added successfully.');
+					}
+					redirect('libraries/holiday');
+				}
+				else
+				{	
+					//print_r($arrData);
+					$this->session->set_flashdata('strErrorMsg','Local Holiday already exists.');
+					$this->session->set_flashdata('strLocalName',$strLocalName);
+					$this->session->set_flashdata('dtmHolidayDate',$dtmHolidayDate);
+					redirect('libraries/holiday/add_local');
+				}
+			}
+		}
+    }
+
+    public function edit_worksuspension()
+	{
+		$arrPost = $this->input->post();
+		//print_r($arrPost);
+		if(empty($arrPost))
+		{
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
+			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			$this->template->load('template/template_view','libraries/holiday/edit_worksuspension_view', $this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			$strLocalName = $arrPost['strLocalName'];
+			$dtmHolidate = $arrPost['dtmHolidate'];
+			// $dtmYear = $arrPost['dtmYear'];
+			// $dtmMonth = $arrPost['dtmMonth'];
+			// $dtmDay = $arrPost['dtmDay'];
+			if(!empty($strLocalName) && !empty($dtmHolidate))
+			{	
+				$arrData = array(
+						'holidayName'=>$strLocalName,
+						'holidayDate'=>$dtmHolidate
+						// 'holidayYear'=>$dtmYear,
+						// 'holidayMonth'=>$dtmMonth,
+						// 'holidayDay'=>$dtmDay
+					
+				);
+				$blnReturn = $this->holiday_model->save_local($arrData, $strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Edited '.$strLocalName.' Holiday',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Local Holiday saved successfully.');
+				}
+				redirect('libraries/holiday');
+			}
+		}
+	}
+
+	public function delete_worksuspension()
+	{
+		//$strDescription=$arrPost['strDescription'];
+		$arrPost = $this->input->post();
+		$strCode = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
+			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			$this->template->load('template/template_view','libraries/holiday/delete_worksuspension_view',$this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strCode))
+			{
+				$arrLocHoliday = $this->holiday_model->getData($strCode);
+				$strLocalName = $arrLocHoliday[0]['holidayName'];	
+				$blnReturn = $this->holiday_model->delete_local($strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Deleted '.$strLocalName.' Holiday',implode(';',$arrSignatory[0]),'');
+					$this->session->set_flashdata('strMsg','Local Holiday deleted successfully.');
+				}
+				redirect('libraries/holiday');
+			}
+		}
+		
+	}
+
 }

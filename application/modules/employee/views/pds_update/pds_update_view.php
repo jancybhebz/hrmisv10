@@ -1427,7 +1427,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </tr>
                 <?php foreach($arrExperience as $row):?>
                 <tr>
-                    <td><?=$row['serviceFromDate']?></td><!-- serviceFromDate serviceToDate -->
+                    <td><?=$row['serviceFromDate'].'/'.$row['serviceToDate']?></td><!-- serviceFromDate serviceToDate -->
                     <td><?=$row['positionDesc']?></td><!-- positionDesc -->
                     <td><?=$row['stationAgency']?></td><!-- stationAgency -->
                     <td><?=$row['salary']?></td><!-- salary -->
