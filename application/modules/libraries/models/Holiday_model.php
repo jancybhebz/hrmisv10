@@ -30,7 +30,7 @@ class Holiday_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strCode);
 		}
-		$this->db->join('tblholidayYear','tblholidayYear.holidayCode = '.$this->table.'.holidayCode','inner');
+		$this->db->join('tblholidayyear','tblholidayyear.holidayCode = '.$this->table.'.holidayCode','inner');
 		$this->db->order_by('holidayName');
 		$this->db->group_by($this->table.'.holidayCode');
 		$objQuery = $this->db->get($this->table);
@@ -115,7 +115,7 @@ class Holiday_model extends CI_Model {
 
 	function checkHolidayExist($dtmHolidayDate = '')
 	{		
-		$strSQL = " SELECT * FROM tblholidayYear					
+		$strSQL = " SELECT * FROM tblholidayyear					
 					WHERE  
 					holidayCode ='$strHolidayCode' OR
 					holidayDate ='$dtmHolidayDate' 								
@@ -125,32 +125,19 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function checkWorkSuspensionExist($dtmSuspensionDate = '')
+	{		
+		$strSQL = " SELECT * FROM tblholidayyear					
+					WHERE  
+					holidayDate ='$dtmSuspensionDate' OR
+					holidayTime ='$dtmSuspensionTime' 								
+					";
+		//echo $strSQL;exit(1);
+		$objQuery = $this->db->query($strSQL);
+		return $objQuery->result_array();	
+	}
 
-	// function getLastHolidayCode()
-	// {		
-	// 	$lenHM =5; 
-	// 	$SQL ="SELECT SUBSTRING(holidayCode,$lenHM) AS codeNum FROM tblLocalHoliday ORDER BY codeNum DESC"; //WHERE holidayCode LIKE '$t_strHolidayName%' 
-	// 	  $rs= $this->db->query($SQL);
-	// 	  if( $rs->num_rows()==0)
-	// 		{
-	// 		$strCode="0001";	     
-	// 		}
-	// 	  	else
-	// 		  {
-	// 			$row = mysql_fetch_row($rs);
-	// 		  	$strCode=substr($rs[0]['codeNum'],-4,4);
-	// 		  	$strCode=intval($strCode)+1;
-	// 		  	$strCode ="LOC-".$holidayCode;
-	// 		  }
-		  
-	// 	  $SQL=
-	// 	  $row=mysql_fetch_array(mysql_query("SELECT * FROM `tblHoliday` WHERE holidayCode='$t_strHolidayName'"));
 
-	// 	  $results = "INSERT INTO tblLocalHoliday (holidayCode, holidayName, holidayDate) VALUES ('$holidayCode', '".$row["holidayName"]."', '$t_strHolidayDate')";
-	// 	 mysql_query($results) or die (mysql_error());	
-	// }
-
-	
 	//SAVE
 	function save($arrData, $strCode)
 	{

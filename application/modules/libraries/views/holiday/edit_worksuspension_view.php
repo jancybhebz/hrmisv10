@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Add page for Work Suspension Library
+Purpose of file:    Edit page for Work Suspension
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -20,7 +20,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Manage Work Suspension</span>
+            <span>Edit Work Suspension</span>
         </li>
     </ul>
 </div>
@@ -37,19 +37,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Manage Work Suspension</span>
+                    <i class="icon-pencil font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Edit Work Suspension</span>
                 </div>
+                
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/holiday/add_worksuspension')?>" method="post" id="frmWorkSuspension">
+                <form action="<?=base_url('libraries/holiday/edit_worksuspension/'.$this->uri->segment(4))?>" method="post" id="frmWorkSuspension">
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Work Suspension Date <span class="required"> * </span></label>
-                                <div class="input-icon right">
+                                <label class="control-label">Work Suspension Date</label>
+                                    <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input class="form-control form-control-inline input-medium date-picker" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                                 </div>
@@ -59,20 +60,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label class="control-label">Work Suspension Time <span class="required"> * </span></label>
+                                <label class="control-label">Work Suspension Time</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" size="10"  id="dtmSuspensionTime" value="12:00:00 AM">     
-                                
+                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" id="dtmSuspensionTime" value="<?=!empty($arrHoliday[0]['amTimeinFrom'])?$arrHoliday[0]['amTimeinFrom']:'12:00:00 PM'?>">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>               
+                    </div>
+                 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/holiday')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <input type="hidden" name="strCode" value="<?=isset($arrHoliday[0]['holidayId'])?$arrHoliday[0]['holidayId']:''?>">
+                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/holiday/add_worksuspension')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -82,35 +85,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_holiday">
-                <thead>
-                    <tr>
-                        <th> No. </th>
-                        <th> Suspension Date </th>
-                        <th> Suspension Time </th>
-                        <th> Action </th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php 
-                $i=1;
-                foreach($arrHoliday as $row):?>
-                    <tr class="odd gradeX">
-                        <td> <?=$i?> </td>
-                        <td><?=$row['holidayDate']?></td> 
-                        <td><?=$row['holidayTime']?></td>                       
-                        <td>
-                            <a href="<?=base_url('libraries/holiday/edit_worksuspension/'.$row['holidayId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                            <a href="<?=base_url('libraries/holiday/delete_worksuspension/'.$row['holidayId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
-                           
-                        </td>
-                    </tr>
-                <?php 
-                $i++;
-                endforeach;?>
-                </tbody>
-            </table>
-
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
@@ -141,19 +115,7 @@ var FormValidation = function () {
                         minlength: 1,
                         required: true,
                     }
-                    // dtmYear: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // dtmMonth: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // dtmDay: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                   
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -190,18 +152,28 @@ var FormValidation = function () {
                 }
             });
 
+
     }
 
     return {
         //main function to initiate the module
         init: function () {
             handleValidation();
+
         }
+
     };
+
 }();
 
-</script>
+jQuery(document).ready(function() {
+    FormValidation.init();
+    $('#dtmHolidayDate').datepicker({
+        format:"yyyy-mm-dd"
+    });
 
+});
+</script>
 
 <?=load_plugin('js',array('validation','datepicker'));?>
 <script>
