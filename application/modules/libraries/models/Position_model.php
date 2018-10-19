@@ -24,12 +24,15 @@ class Position_model extends CI_Model {
 		$strSQL = " SELECT * FROM tblPosition					
 					WHERE 1=1 
 					$strWhere
-					ORDER BY positionDesc
-					";
-		//]echo $strSQL;exit(1);				
+					ORDER BY positionDesc";	
 		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
 		return $objQuery->result_array();	
+	}
+
+	function getDataByFields($fieldname, $value, $fields="*")
+	{
+		$this->db->select($fields);
+		return $this->db->get_where('tblEmpPosition', array($fieldname => $value))->result_array();
 	}
 
 	function add($arrData)
@@ -40,23 +43,16 @@ class Position_model extends CI_Model {
 	
 	function checkExist($strPositionCode = '', $strPositionDescription = '')
 	{		
-		$strSQL = " SELECT * FROM tblPosition					
-					WHERE  
-					positionCode ='$strPositionCode' OR
-					positionDesc ='$strPositionDescription'					
-					";
-		//echo $strSQL;exit(1);
+		$strSQL = " SELECT * FROM tblPosition
+					WHERE positionCode ='$strPositionCode' OR positionDesc ='$strPositionDescription'";
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	
 	}
 
-				
-		
 	function save($arrData, $intPositionId)
 	{
 		$this->db->where('positionId', $intPositionId);
 		$this->db->update('tblPosition', $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

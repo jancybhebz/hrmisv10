@@ -8,21 +8,21 @@ class Benefit_model extends CI_Model {
 	
 	function add($arrData)
 	{
-		$this->db->insert('tblempbenefits', $arrData);
+		$this->db->insert('tblEmpBenefits', $arrData);
 		return $this->db->insert_id();
 	}
 
 	function edit($arrData, $benefitcode)
 	{
 		$this->db->where('benefitCode',$benefitcode);
-		$this->db->update('tblempbenefits', $arrData);
+		$this->db->update('tblEmpBenefits', $arrData);
 		return $this->db->affected_rows();
 	}
 
 	function getBenefits($empid='', $incomeCode='')
 	{
 		$arrWhere = $incomeCode!='' ? array('incomeCode' => $incomeCode, 'empNumber' => $empid) : array('empNumber' => $empid);
-		return $this->db->get_where('tblempbenefits', $arrWhere)->result_array();
+		return $this->db->get_where('tblEmpBenefits', $arrWhere)->result_array();
 	}
 		
 }

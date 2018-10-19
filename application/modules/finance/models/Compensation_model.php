@@ -21,7 +21,6 @@ class Compensation_model extends CI_Model {
 			$this->db->where('empNumber',$empid);
 			$this->db->update('tblEmpPersonal', array('AccountNum' => $acctNumber));
 		endif;
-
 		return $this->db->affected_rows();
 	}
 
@@ -194,7 +193,7 @@ class Compensation_model extends CI_Model {
 	{
 		$sql = "SELECT tblDeduction.deductionDesc, tblEmpDeductions.deductionCode, deductCode AS contriCode, period1+period2+period3+period4 AS deductAmount
 					FROM tblEmpDeductions
-                    LEFT JOIN tbldeduction on tblDeduction.deductionCode = tblEmpDeductions.deductionCode
+                    LEFT JOIN tblDeduction on tblDeduction.deductionCode = tblEmpDeductions.deductionCode
 					WHERE empNumber='$empid'
 					AND status=1 AND tblEmpDeductions.deductionCode IN (
 						SELECT tblDeduction.deductionCode FROM tblDeduction 
@@ -208,7 +207,7 @@ class Compensation_model extends CI_Model {
 	{
 		$sql = "SELECT tblDeduction.deductionDesc, deductCode, tblDeduction.deductionCode, deductCode as loanCode, amountGranted, period1+period2+period3+period4 AS deductAmount
 					FROM tblEmpDeductions
-					LEFT JOIN tbldeduction on tblDeduction.deductionCode = tblEmpDeductions.deductionCode
+					LEFT JOIN tblDeduction on tblDeduction.deductionCode = tblEmpDeductions.deductionCode
 					WHERE empNumber='$empid' AND tblDeduction.deductionCode IN (
 						SELECT tblDeduction.deductionCode FROM tblDeduction WHERE deductionType='Loan')
 					AND status=0 ORDER BY tblDeduction.deductionCode";

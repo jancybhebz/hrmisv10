@@ -94,58 +94,10 @@ if ( ! function_exists('getincome_status'))
 	}
 }
 
-if ( ! function_exists('getyear'))
+if ( ! function_exists('strtofloat'))
 {
-    function getyear()
+    function strtofloat($float)
     {
-		return 2015;
-	}
-}
-
-# Get the constant total working hours
-if ( ! function_exists('constWorkHrs'))
-{
-    function constWorkHrs($break='00:00')
-    {
-    	$hours = (strtotime('09:00') - strtotime($break)) / 3600;
-    	return sprintf('%02d', floor($hours)).':00';
-	}
-}
-
-if ( ! function_exists('fixMondayDate'))
-{
-    function fixMondayDate()
-    {
-		return array('amTimeinTo' => '08:00:00',
-					 'nnTimeinTo' => '05:00:00',
-					 'fixMonDate' => '2017-09-01');
-	}
-}
-
-if ( ! function_exists('hrintbeforeOT'))
-{
-    function hrintbeforeOT()
-    {
-    	return '01:00';
-	}
-}
-
-if ( ! function_exists('setHrSec'))
-{
-    function setHrSec($time, $mer=0)
-    {
-    	if($mer==1):
-    		return date('H:i a', strtotime($time));
-    	else:
-			return date('H:i', strtotime($time));
-		endif;
-	}
-}
-
-if ( ! function_exists('fixTime'))
-{
-    function fixTime($time, $med)
-    {
-		return date('G:i:s', strtotime($time.' '.$med));
+    	return str_replace(',', '', $float);
 	}
 }

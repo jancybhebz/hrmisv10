@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnsubmit-payrollDetails" class="btn green pull-left" data-toggle="modal" href="#appointmentList">
+                    <button type="button" id="btnupdateallemployees" class="btn green pull-left">
                         <i class="icon-check"> </i> Update All Employee</button>
                     <button type="submit" id="btnsubmit-payrollDetails" class="btn green"><i class="icon-check"> </i> Save</button>
                     <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
@@ -132,6 +132,13 @@
             <?=form_open('finance/compensation/personnel_profile/updateAllEmployees/'.$this->uri->segment(5), array('id' => 'frmupdateEmployees'))?>
                 <div class="modal-body">
                     <div class="row form-body">
+                        <input type="hidden" name="txtbenefitType" id="txtallbenefittype">
+                        <input type="hidden" name="txtincomecode" id="txtallincomecode">
+                        <input type="hidden" name="txtamount" id="txtallamount">
+                        <input type="hidden" name="txttax" id="txtalltax">
+                        <input type="hidden" name="txtperiod1" id="txtallperiod1">
+                        <input type="hidden" name="txtperiod2" id="txtallperiod2">
+                        <input type="hidden" name="selstatus" id="selallstatus">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><input type="checkbox" id="chkall" value="all" name="chkappnt[]"> Check All</label>
@@ -237,18 +244,29 @@
         });
 
         $('#txtperiod1-bl').keyup(function() {
-            totalamt = $('#txtamount-bl').replace(/[^\d\.]/g, "");
+            totalamt = $('#txtamount-bl').val().replace(/[^\d\.]/g, "");
             period1 = $(this).val().replace(/[^\d\.]/g, "");
             totalamt = totalamt - period1;
             $('#txtperiod2-bl').val(numberformat(totalamt));
         })
 
         $('#txtperiod2-bl').keyup(function() {
-            totalamt = $('#txtamount-bl').replace(/[^\d\.]/g, "");
+            totalamt = $('#txtamount-bl').val().replace(/[^\d\.]/g, "");
             period2 = $(this).val().replace(/[^\d\.]/g, "");
             totalamt = totalamt - period2;
             $('#txtperiod1-bl').val(numberformat(totalamt));
         })
+
+        $('#btnupdateallemployees').click(function() {
+            $('#txtallincomecode').val($('#txtincomecode').val());
+            $('#txtallbenefittype').val($('#txtbenefitType').val());
+            $('#txtallamount').val($('#txtamount-bl').val());
+            $('#txtalltax').val($('#txttax').val());
+            $('#txtallperiod1').val($('#txtperiod1-bl').val());
+            $('#txtallperiod2').val($('#txtperiod2-bl').val());
+            $('#selallstatus').val($('#selstatus-bl').val());
+            $('#appointmentList').modal('show');
+        });
 
     });
 </script>

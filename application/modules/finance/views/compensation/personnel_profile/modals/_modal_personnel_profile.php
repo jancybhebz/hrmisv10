@@ -180,7 +180,7 @@
                             <label class="control-label">Item Number<span class="required"> * </span></label>
                             <div class="input-icon right">
                                 <i class="fa fa-warning tooltips i-required"></i>
-                                <select class="form-control select2 form-required" name="selitem" placeholder="">
+                                <select class="form-control select2" name="selitem" placeholder="">
                                     <option value="NULL">SELECT ITEM NUMBER</option>
                                     <?php foreach($arrPlantillaList as $plantilla): ?>
                                         <option value="<?=$plantilla['itemNumber']?>" <?=$plantilla['itemNumber'] == $arrData['itemNumber'] ? 'selected' : ''?>>
@@ -203,12 +203,19 @@
                                 <input type="text" class="form-control form-required" name="txtauth_salary" value="<?=isset($arrData) ? $arrData['authorizeSalary'] : ''?>">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label">Position<span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <i class="fa fa-warning tooltips i-required"></i>
+                                <input type="text" class="form-control" value="<?=isset($arrData) ? $arrData['positionDesc'] : ''?>" readonly>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Position Date</label>
-                            <input class="form-control date-picker" data-date="2012-03-01" data-date-format="yyyy-mm-dd" name="txtpositiondate"
-                                type="text" value="<?=isset($arrData) ? $arrData['positionDate'] == '0000-00-00' ? '' : $arrData['positionDate'] : ''?>">
+                            <input class="form-control date-picker" data-date="2012-03-01" data-date-format="yyyy-mm-dd" name="txtposdate"
+                                id="txtposdate" type="text" value="<?=isset($arrData) ? $arrData['positionDate'] == '0000-00-00' ? '' : $arrData['positionDate'] : ''?>">
                         </div>
                         <div class="form-group">
                             <label class="control-label">Mode of Separation<span class="required"> * </span></label>
@@ -236,7 +243,7 @@
                             <label class="control-label">Step Number<span class="required"> * </span></label>
                             <div class="input-icon right">
                                 <i class="fa fa-warning tooltips i-required"></i>
-                                <select class="form-control select2 form-required" name="selStep_number" placeholder="select step number">
+                                <select class="form-control select2" name="selStep_number" placeholder="select step number">
                                     <option value="NULL">SELECT STEP</option>
                                     <?php foreach (range(1, 8) as $step): ?>
                                         <option value="<?=$step?>" <?=$step == $arrData['stepNumber'] ? 'selected' : ''?>>
@@ -248,7 +255,7 @@
                         <div class="form-group">
                             <label class="control-label">Date Increment</label>
                             <input class="form-control date-picker" data-date="2012-03-01" data-date-format="yyyy-mm-dd" name="txtdateincrement"
-                                id="txtPositionDate" type="text" value="<?=isset($arrData) ? $arrData['dateIncremented'] == '0000-00-00' ? '' : $arrData['dateIncremented'] : ''?>">
+                                id="txtdateincrement" type="text" value="<?=isset($arrData) ? $arrData['dateIncremented'] == '0000-00-00' ? '' : $arrData['dateIncremented'] : ''?>">
                         </div>
                     </div>
                 </div>
@@ -269,7 +276,5 @@
             $(this).data('placeholder');
         }
     });
-    $(document).ready(function() {
-        // $('.date-picker').datepicker();
-    });
+    $('#txtposdate, #txtdateincrement').datepicker();
 </script>

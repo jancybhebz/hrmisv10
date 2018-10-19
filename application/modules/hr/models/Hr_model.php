@@ -75,10 +75,13 @@ class Hr_model extends CI_Model {
 		if($strSearch!="")
 			$this->db->where("(tblEmpPersonal.empNumber LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%' OR firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%')",NULL,FALSE);
 			//$where .= " AND (tblEmpPersonal.empNumber LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%' OR firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%')";
-		if($strAppStatus!="")
+		if($strAppStatus=="all"):
+			# fetch all services
+		elseif($strAppStatus!=""):
 			$this->db->where('tblEmpPosition.statusOfAppointment',$strAppStatus);
-		else
+		else:
 			$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
+		endif;
 			//$where .= " AND tblEmpPosition.statusOfAppointment='".$strAppStatus."'";
 		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber','left')
 		->join('tblPosition','tblPosition.positionCode=tblEmpPosition.positionCode','left')

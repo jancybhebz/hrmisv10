@@ -42,27 +42,24 @@ class Dtr_model extends CI_Model {
 	// get dtr summary
 	function dtrSummary($empid, $year, $month)
 	{
+		// echo '<pre>';
 		$resDtr = $this->getData($empid, $year, $month);
 		$totaldays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
 		$empOB = $this->getEmpOB($empid, $year, $month);
 		$arrOB = array();
 		foreach($empOB as $ob):
-			$days = $this->breakDates($ob['obDateFrom'], $ob['obDateTo'], '('.setHrSec($ob['obTimeFrom'], 1).' - '.setHrSec($ob['obTimeTo'], 1).')');
+			$days = $this->breakDates($ob['obDateFrom'], $ob['obDateTo'], '('.strdate($ob['obTimeFrom'], 1).' - '.strdate($ob['obTimeTo'], 1).')');
 			foreach($days as $day):
 				array_push($arrOB, $day);
 			endforeach;
 		endforeach;
 
-
 		$arrDtr = array();
-
-		// echo $totaldays;
-		
-		// print_r($empOB);
 
 		foreach (range(1, $totaldays) as $day):
 			$strsearch = $year.'-'.$month.'-'.str_pad($day, 2, '0', STR_PAD_LEFT);
+			$dayname = date('l', strtotime($strsearch));
 
 			$ob_key = array_search($strsearch, array_column($arrOB, 'date')); # ob key
 			$ob = '';
@@ -73,32 +70,36 @@ class Dtr_model extends CI_Model {
 			
 			$d_key = array_search($strsearch, array_column($resDtr, 'dtrDate')); # data key
 
-			$holiday = $this->Dtr_model->getHoliday($strsearch);
+			$holiday = $this->getHoliday($strsearch);
 			$scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
-			if($d_key == '' && $d_key !== 0):
-				$total_late = '';
-				$total_undertime = '';
-				$tota_overtime = '';
-			else:
-				$total_late = $this->Dtr_model->computeLate($scheme, $resDtr[$d_key]);
-				$total_undertime = $this->Dtr_model->computeUndertime($scheme, $resDtr[$d_key], $total_late);
-				$tota_overtime = $this->Dtr_model->computeOvertime($scheme, $resDtr[$d_key], $total_late, $scheme['nnTimeoutFrom'], $total_undertime);
+
+			$total_late = '00:00';
+			$total_undertime = '00:00';
+			$total_overtime = '00:00';
+
+			if(!($d_key == '' && $d_key !== 0)):
+				$total_late = $this->computeLate($scheme, $resDtr[$d_key]);
+				if(!(in_array($dayname, restdays() ))):
+					$total_late = $this->computeLate($scheme, $resDtr[$d_key]);
+					$total_undertime = $this->computeUndertime($scheme, $resDtr[$d_key], $total_late);
+					$total_overtime = $this->computeOvertime($scheme, $resDtr[$d_key], $total_late, $scheme['nnTimeoutFrom'], $total_undertime, 0);
+				else:
+					$total_overtime = $this->total_workhours($resDtr[$d_key], $scheme);
+				endif;
 			endif;
 
 			$arrDtr[] = array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
-							  'wday' => date('l', strtotime($strsearch)),
+							  'wday' => $dayname,
 							  'holiday' => $holiday != null ? $holiday['holidayName'] : '',
 							  'late' => $total_late == '00:00' ? '' : $total_late,
 							  'undertime' => $total_undertime == '00:00' ? '' : $total_undertime,
-							  'overtime' => $tota_overtime == '00:00' ? '' : $tota_overtime,
+							  'overtime' => $total_overtime == '00:00' ? '' : $total_overtime,
 							  'ob' => $ob == '' ? '' : 'OB '.$ob,
 							  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]);
-			// print_r($arrDtr);
 			// echo '<hr>';
 
 		endforeach;
 		// die();
-		// print_r($arrDtr);
 
 		return $arrDtr;
 	}
@@ -113,21 +114,21 @@ class Dtr_model extends CI_Model {
 	function computeLate($scheme, $dtrData)
 	{
 		$total_late = '00:00';
-
 		# Morning
 		$fixmondays = fixMondayDate();
+
 		if( (strtotime($dtrData['dtrDate']) >= $fixmondays['fixMonDate']) && (date('l', strtotime($dtrData['dtrDate'])) == 'Monday') ):
-			$am_systimein = setHrSec($fixmondays['amTimeinTo']);
+			$am_systimein = fixTime($fixmondays['amTimeinTo'],'am');
 		else:
-			$am_systimein = setHrSec($scheme['amTimeinTo']);
+			$am_systimein = fixTime($scheme['amTimeinTo'],'am');
 		endif;
 
-		$am_timein = setHrSec($dtrData['inAM']);
+		$am_timein = strdate($dtrData['inAM']);
 		$am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
 
 		# Afternoon
-		$pm_timein = setHrSec($dtrData['inPM']);
-		$pm_systimein = setHrSec($scheme['nnTimeinTo']);
+		$pm_timein = strdate($dtrData['inPM']);
+		$pm_systimein = strdate($scheme['nnTimeinTo']);
 		$pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
 
 		$total_late = $this->time_add($am_late, $pm_late);
@@ -146,8 +147,8 @@ class Dtr_model extends CI_Model {
 			if($dtrData['outAM'] != '00:00:00' && $dtrData['inPM'] != '00:00:00'):
 				# Get Morning Undertime
 				$am_undertime = '00:00';
-				$pm_systimeout = setHrSec($scheme['nnTimeoutFrom']);
-				$am_timeout = setHrSec($dtrData['outAM']);
+				$pm_systimeout = strdate($scheme['nnTimeoutFrom']);
+				$am_timeout = strdate($dtrData['outAM']);
 
 				if($am_timeout < $pm_systimeout):
 					$am_undertime = $this->time_subtract($am_timeout, $pm_systimeout);
@@ -155,11 +156,11 @@ class Dtr_model extends CI_Model {
 					$am_undertime = '00:00';
 				endif;
 
-				$am_timein = setHrSec(fixTime($dtrData['inAM'],'am'));
-				$pm_timeout = setHrSec(fixTime($dtrData['outPM'],'pm'));
+				$am_timein = strdate(fixTime($dtrData['inAM'],'am'));
+				$pm_timeout = strdate(fixTime($dtrData['outPM'],'pm'));
 				# expected timeout
 				$exp_pmtimeout = $this->time_add($am_timein, constWorkHrs());
-				$exp_pmtimeout = ($exp_pmtimeout > fixTime($scheme['pmTimeoutTo'], 'pm')) ? setHrSec(fixTime($scheme['pmTimeoutTo'], 'pm')) : $exp_pmtimeout;
+				$exp_pmtimeout = ($exp_pmtimeout > fixTime($scheme['pmTimeoutTo'], 'pm')) ? strdate(fixTime($scheme['pmTimeoutTo'], 'pm')) : $exp_pmtimeout;
 
 				$pm_undertime = $this->time_subtract($pm_timeout, $exp_pmtimeout);
 				$total_undertime = $this->time_add($am_undertime, $pm_undertime);
@@ -167,26 +168,17 @@ class Dtr_model extends CI_Model {
 
 		else:
 			# check if halfday
-			# Morning
 			if($dtrData['inAM'] != '00:00:00'):
-				$timeout = (setHrSec($dtrData['outAM']) >= setHrSec($scheme['nnTimeoutFrom'])) ? setHrSec($scheme['nnTimeoutFrom']) : setHrSec($dtrData['outAM']);
-				$timein = (setHrSec($dtrData['inAM']) <= setHrSec($scheme['amTimeinFrom'])) ? setHrSec($scheme['amTimeinFrom']) : setHrSec($dtrData['inAM']);
-
-				# get total workhours
-				$total_wkhrs = $this->time_subtract($timein, $timeout);
+				# Morning
+				$total_wkhrs = $this->total_workhours($dtrData, $scheme, 'am');
 				# '01:00' for 1 hr Lunch break
  				$total_undertime = $this->time_subtract($total_wkhrs, constWorkHrs('01:00'));
 
 			elseif($dtrData['inPM'] != '00:00:00'):
 				# Afternoon
-				$timeout = (fixTime($dtrData['outPM'], 'pm') <= fixTime($scheme['pmTimeoutTo'], 'pm')) ? setHrSec(fixTime($dtrData['outPM'], 'pm')) : setHrSec(fixTime($scheme['pmTimeoutTo'], 'pm'));
-				$timein = (setHrSec(fixTime($dtrData['inPM'], 'pm')) <= setHrSec(fixTime($scheme['nnTimeoutTo'], 'pm'))) ? setHrSec(fixTime($scheme['nnTimeoutTo'], 'pm')) : setHrSec(fixTime($dtrData['inPM'], 'pm'));
-
-				# get total workhours
-				$total_wkhrs = $this->time_subtract($timein, $timeout);
+				$total_wkhrs = $this->total_workhours($dtrData, $scheme, 'pm');
 				# '01:00' for 1 hr Lunch break
  				$total_undertime = $this->time_subtract($total_wkhrs, constWorkHrs('01:00'));
-
 			else:
 				# ABSENT 
 			endif;
@@ -196,28 +188,39 @@ class Dtr_model extends CI_Model {
 
 	}
 
-	function computeOvertime($scheme, $dtrData, $total_late, $systimeout, $total_undertime)
+	function computeOvertime($scheme, $dtrData, $total_late, $systimeout, $total_undertime, $exemp)
 	{
-		$systimeout = setHrSec(fixTime($systimeout,'pm'));
+		$systimeout = strdate(fixTime($systimeout,'pm'));
+		// echo '<br>exemp '.$exemp.'<br>';
+		// print_r($dtrData);
+		
+		// echo '<br>total_late '.$total_late;
+		// echo '<br>total_undertime '.$total_undertime;
+
+
 		$total_overtime = '00:00';
 		if($total_late != '00:00' || $total_undertime != '00:00'):
 			$total_overtime = '00:00';
 		else:
-			# check if employee am time in and pm time out
-			if($dtrData['inAM'] != '00:00:00' && $dtrData['outPM'] != '00:00:00'):
-				$am_timein = setHrSec(fixTime($dtrData['inAM'],'am'));
-				$pm_timeout = setHrSec(fixTime($dtrData['outPM'],'pm'));
-				# expected timeout
-				$exp_pmtimeout = $this->time_add($am_timein, constWorkHrs());
-				$exp_pmtimeout = ($exp_pmtimeout > fixTime($scheme['pmTimeoutTo'], 'pm')) ? setHrSec(fixTime($scheme['pmTimeoutTo'], 'pm')) : $exp_pmtimeout;
-				
-				# get ot start time
-				$otstarttime = $this->time_add($exp_pmtimeout, hrintbeforeOT());
-				if($pm_timeout > $otstarttime):
-					$total_overtime = $this->time_subtract($otstarttime, $pm_timeout);
+			if($exemp == 0):
+				# check if employee am time in and pm time out
+				if($dtrData['inAM'] != '00:00:00' && $dtrData['outPM'] != '00:00:00'):
+					$am_timein = strdate(fixTime($dtrData['inAM'],'am'));
+					$pm_timeout = strdate(fixTime($dtrData['outPM'],'pm'));
+					# expected timeout
+					$exp_pmtimeout = $this->time_add($am_timein, constWorkHrs());
+					$exp_pmtimeout = ($exp_pmtimeout > fixTime($scheme['pmTimeoutTo'], 'pm')) ? strdate(fixTime($scheme['pmTimeoutTo'], 'pm')) : $exp_pmtimeout;
+					
+					# get ot start time
+					$otstarttime = $this->time_add($exp_pmtimeout, hrintbeforeOT());
+					if($pm_timeout > $otstarttime):
+						$total_overtime = $this->time_subtract($otstarttime, $pm_timeout);
+					endif;
 				endif;
-
+			else:
+				# get tota workhours
 			endif;
+
 		endif;
 
 		return $total_overtime;
@@ -265,6 +268,39 @@ class Dtr_model extends CI_Model {
 		return $arrDays;
 	}
 
+	function total_workhours($dtrData, $scheme, $med='')
+	{
+		$am_wkhrs = '00:00';
+		$pm_wkhrs = '00:00';
+
+		if($med == '' || $med == 'am'):
+			if($dtrData['inAM'] != '00:00:00'):
+				$timeout = (strdate($dtrData['outAM']) >= strdate($scheme['nnTimeoutFrom'])) ? strdate($scheme['nnTimeoutFrom']) : strdate($dtrData['outAM']);
+				$timein = (strdate($dtrData['inAM']) <= strdate($scheme['amTimeinFrom'])) ? strdate($scheme['amTimeinFrom']) : strdate($dtrData['inAM']);
+				# get total workhours
+				$am_wkhrs = $this->time_subtract($timein, $timeout);
+			endif;
+		endif;
+
+		if($med == '' || $med == 'pm'):
+			if($dtrData['inPM'] != '00:00:00'):
+				# Afternoon
+				$timeout = (fixTime($dtrData['outPM'], 'pm') <= fixTime($scheme['pmTimeoutTo'], 'pm')) ? strdate(fixTime($dtrData['outPM'], 'pm')) : strdate(fixTime($scheme['pmTimeoutTo'], 'pm'));
+				$timein = (strdate(fixTime($dtrData['inPM'], 'pm')) <= strdate(fixTime($scheme['nnTimeoutTo'], 'pm'))) ? strdate(fixTime($scheme['nnTimeoutTo'], 'pm')) : strdate(fixTime($dtrData['inPM'], 'pm'));
+
+				# get total workhours
+				$pm_wkhrs = $this->time_subtract($timein, $timeout);
+			endif;
+		endif;
+
+		if($med == 'am'):
+			return $am_wkhrs;
+		elseif($med == 'pm'):
+			return $pm_wkhrs;
+		else:
+			return $this->time_subtract($am_wkhrs, $pm_wkhrs);
+		endif;
+	}
 
 }
 /* End of file Dtr_model.php */

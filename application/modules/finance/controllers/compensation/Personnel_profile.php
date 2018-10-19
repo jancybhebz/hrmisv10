@@ -21,14 +21,15 @@ class Personnel_profile extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrEmployees'] = $this->Hr_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData('','','all');
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_all',$this->arrData);
 	}
 
 	public function employee($empid)
 	{
 		$this->load->model(array('PayrollGroup_model', 'Rata_model','libraries/Attendance_scheme_model', 'TaxExempt_model','libraries/Plantilla_model', 'libraries/Separation_mode_model'));
-		$res = $this->Hr_model->getData($empid);
+
+		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
 		$this->arrData['rata'] = $this->Rata_model->getData($res[0]['RATACode']);
@@ -93,14 +94,13 @@ class Personnel_profile extends MY_Controller {
 	{
 		$arrPost = $this->input->post();
 		$empid = $this->uri->segment(5);
-		
 		if(!empty($arrPost)):
 			$arrData = array(
 					'appointmentCode'	=> $arrPost['selappointment'],
-					'itemNumber'		=> $arrPost['selitem'],
+					'uniqueItemNumber'	=> $arrPost['selitem'],
 					'actualSalary'		=> $arrPost['txtactual_salary'],
 					'authorizeSalary'	=> $arrPost['txtauth_salary'],
-					'positionDate'		=> $arrPost['txtpositiondate'],
+					'positionDate'		=> $arrPost['txtposdate'],
 					'statusOfAppointment' => $arrPost['selmodeofseparation'],
 					'salaryGradeNumber'	=> $arrPost['txtsalaryGrade'],
 					'stepNumber'		=> $arrPost['selStep_number'],
@@ -114,7 +114,7 @@ class Personnel_profile extends MY_Controller {
 	public function income($empid)
 	{
 		$this->load->model('Income_model');
-		$res = $this->Hr_model->getData($empid);
+		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
 		// BENEFIT LIST
@@ -178,48 +178,70 @@ class Personnel_profile extends MY_Controller {
 		redirect('finance/compensation/personnel_profile/income/'.$empid.'/2');
 	}
 
-	public function edit_benefits($empid)
+	public function edit_benefits($empid,$arrData=array(),$updateall=0)
 	{
-		$arrPost = $this->input->post();
+		if($updateall == 1):
+			$arrPost = $arrData;
+		else:
+			$arrPost = $this->input->post();
+			$empid = $this->uri->segment(5);
+		endif;
 
 		# check if exist in benefits
-		$checkexist = $this->Benefit_model->getBenefits($this->uri->segment(5), $arrPost['txtincomecode']);
+		$checkexist = $this->Benefit_model->getBenefits($empid, $arrPost['txtincomecode']);
 		if(count($checkexist) > 0):
-			$arrData = array('incomeAmount' => $arrPost['txtamount'],
-							 'ITW' => $arrPost['txttax'],
-							 'period1' => $arrPost['txtperiod1'],
-							 'period2' => $arrPost['txtperiod2'],
+			$arrPost['txtbenefitcode'] = isset($arrPost['txtbenefitcode']) ? $arrPost['txtbenefitcode'] : $checkexist[0]['benefitCode'];
+			$arrData = array('incomeAmount' => strtofloat($arrPost['txtamount']),
+							 'ITW' => strtofloat($arrPost['txttax']),
+							 'period1' => strtofloat($arrPost['txtperiod1']),
+							 'period2' => strtofloat($arrPost['txtperiod2']),
 							 'status' => $arrPost['selstatus']);
 			$this->Benefit_model->edit($arrData, $arrPost['txtbenefitcode']);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtbenefitType'].' updated successfully.');
 		else:
-			$arrData = array('empNumber' => $this->uri->segment(5),
+			$arrData = array('empNumber' => $empid,
 							 'incomeCode' => $arrPost['txtincomecode'],
-							 'incomeAmount' => $arrPost['txtamount'],
-							 'ITW' => $arrPost['txttax'],
-							 'period1' => $arrPost['txtperiod1'],
-							 'period2' => $arrPost['txtperiod2'],
+							 'incomeAmount' => strtofloat($arrPost['txtamount']),
+							 'ITW' =>strtofloat( $arrPost['txttax']),
+							 'period1' => strtofloat($arrPost['txtperiod1']),
+							 'period2' => strtofloat($arrPost['txtperiod2']),
 							 'status' => $arrPost['selstatus']);
 			$this->Benefit_model->add($arrData);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtbenefitType'].' added successfully.');
 		endif;
-		redirect('finance/compensation/personnel_profile/income/'.$this->uri->segment(5));
+
+		if($updateall == 0):
+			redirect('finance/compensation/personnel_profile/income/'.$this->uri->segment(5));
+		endif;
 	}
 
 	public function updateAllEmployees()
 	{
 		$arrPost = $this->input->post();
-		print_r($arrPost);
+
+		# get employees according to appointment given
+		$this->load->model('libraries/Position_model');	
+		foreach($arrPost['chkappnt'] as $apptcode):
+			$empnumbers = $this->Position_model->getDataByFields('appointmentCode', $apptcode, 'empNumber');
+			if(count($empnumbers) > 0):
+				# update or add benefits
+				foreach($empnumbers as $emp):
+					$edit = $this->edit_benefits($emp['empNumber'],$arrPost,1);
+				endforeach;
+			endif;
+		endforeach;
+		// die();
+		redirect('finance/compensation/personnel_profile/income/'.$this->uri->segment(5));
 	}
 	# End 2nd tab of personnel_profile = 'income' 
 
 	public function deduction_summary($empid)
 	{
 		$this->load->model('libraries/Agency_profile_model');
-		$employeeData = $this->Hr_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
-		$res = $this->Hr_model->getData($empid);
+		$res = $this->Hr_model->getData($empid,'','all');
 		$agencyData = $this->Agency_profile_model->getData();
 
 		// LIFE RETIREMENT
@@ -247,7 +269,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function premium_loan($empid)
 	{
-		$employeeData = $this->Hr_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$this->arrData['arrDeductions'] = $this->Compensation_model->getPremiumDeduction($empid, 'Regular');
@@ -261,7 +283,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function remittances($empid)
 	{
-		$employeeData = $this->Hr_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$arrPost = $this->input->post();
@@ -279,7 +301,7 @@ class Personnel_profile extends MY_Controller {
 	public function tax_details($empid)
 	{
 		$this->load->model('TaxDetails_model');
-		$employeeData = $this->Hr_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 		$this->arrData['action'] = 'view';
 
@@ -290,7 +312,7 @@ class Personnel_profile extends MY_Controller {
 	public function edit_tax_details($empid)
 	{
 		$this->load->model('TaxDetails_model');
-		$employeeData = $this->Hr_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 		$this->arrData['action'] = 'edit';
 		$arrTaxDetails = $this->TaxDetails_model->getTaxDetails($empid);
@@ -334,7 +356,7 @@ class Personnel_profile extends MY_Controller {
 	public function dtr($empid)
 	{
 		$this->load->model(array('Dtr_model','libraries/Attendance_scheme_model'));
-		$employeeData = $this->Hr_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
 		if(!isset($_GET['yr']) && !isset($_GET['mon'])):
@@ -351,7 +373,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function adjustments($empid)
 	{
-		$employeeData = $this->Hr_model->getData($empid);
+		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
