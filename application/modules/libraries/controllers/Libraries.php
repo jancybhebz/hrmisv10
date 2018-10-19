@@ -10,11 +10,11 @@ class Libraries extends MY_Controller {
 
     }
 
-    public function country()
-    {
-    	$this->load->module('libraries/country');
-		$this->country->index();
-    }
+  //   public function country()
+  //   {
+  //   	$this->load->module('libraries/country');
+		// $this->country->index();
+  //   }
 
 	public function index()
 	{

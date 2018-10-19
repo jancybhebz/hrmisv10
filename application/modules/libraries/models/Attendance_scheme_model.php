@@ -18,11 +18,11 @@ class Attendance_scheme_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
-	function getData($strschemeCode = '')
+	function getData($strCode = '')
 	{		
-		if($strschemeCode != "")
+		if($strCode != "")
 		{
-			$this->db->where($this->tableid,$strschemeCode);
+			$this->db->where($this->tableid,$strCode);
 		}
 		
 		$objQuery = $this->db->get($this->table);
@@ -44,17 +44,17 @@ class Attendance_scheme_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function save($arrData, $strschemeCode)
+	function save($arrData, $strCode)
 	{
-		$this->db->where($this->tableid, $strschemeCode);
+		$this->db->where($this->tableid, $strCode);
 		$this->db->update($this->table, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($strschemeCode)
+	function delete($strCode)
 	{
-		$this->db->where($this->tableid, $strschemeCode);
+		$this->db->where($this->tableid, $strCode);
 		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;

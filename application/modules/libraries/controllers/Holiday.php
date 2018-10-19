@@ -342,43 +342,38 @@ class Holiday extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
 			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
 			$this->template->load('template/template_view','libraries/holiday/add_worksuspension_view',$this->arrData);	
 		}
 		else
 		{	
-			$strLocalName = $arrPost['strLocalName'];
-			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
-			if(!empty($strLocalName) && !empty($dtmHolidayDate))
+			$dtmSuspensionDate = $arrPost['dtmSuspensionDate'];
+			$dtmSuspensionTime = $arrPost['dtmSuspensionTime'];
+			if(!empty($dtmSuspensionDate) && !empty($dtmSuspensionTime))
 			{	
-				// check if holiday name/date desc already exist
-				if(count($this->holiday_model->checkLocExist($dtmHolidayDate))==0)
-				{   
-					$rs = $this->holiday_model->getData($strCode);
-					$strLocalName = count($rs)>0?$rs[0]['holidayName']:'';
+				// check if exam code and/or exam desc already exist
+				if(count($this->holiday_model->checkWorkSuspensionExist($dtmSuspensionDate, $dtmSuspensionTime))==0)
+				{
 					$arrData = array(
-						'holidayCode'=>$strLocalCode, 
-						'holidayName'=>$strLocalName,
-						'holidayDate'=>$dtmHolidayDate
-				
+						'holidayDate'=>$dtmSuspensionDate,
+						'holidayTime'=>$dtmSuspensionTime,
+
 					);
-					$blnReturn  = $this->holiday_model->add_local($arrData);
-					//print_r($arrData);
+					$blnReturn  = $this->holiday_model->add_worksuspension($arrData);
+
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Added '.$strLocalName.' Holiday',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Local Holiday added successfully.');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblholidayyear','Added '.$dtmSuspensionDate.' Holiday',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Work Suspension added successfully.');
 					}
-					redirect('libraries/holiday');
+					redirect('libraries/holiday/');
 				}
 				else
 				{	
-					//print_r($arrData);
-					$this->session->set_flashdata('strErrorMsg','Local Holiday already exists.');
-					$this->session->set_flashdata('strLocalName',$strLocalName);
-					$this->session->set_flashdata('dtmHolidayDate',$dtmHolidayDate);
-					redirect('libraries/holiday/add_local');
+					$this->session->set_flashdata('strErrorMsg','Work Suspension already exists.');
+					$this->session->set_flashdata('dtmSuspensionDate',$dtmSuspensionDate);
+					$this->session->set_flashdata('dtmSuspensionTime',$dtmSuspensionTime);
+					redirect('libraries/holiday/add_worksuspension');
 				}
 			}
 		}
@@ -398,26 +393,20 @@ class Holiday extends MY_Controller {
 		else
 		{
 			$strCode = $arrPost['strCode'];
-			$strLocalName = $arrPost['strLocalName'];
-			$dtmHolidate = $arrPost['dtmHolidate'];
-			// $dtmYear = $arrPost['dtmYear'];
-			// $dtmMonth = $arrPost['dtmMonth'];
-			// $dtmDay = $arrPost['dtmDay'];
-			if(!empty($strLocalName) && !empty($dtmHolidate))
+			$dtmSuspensionDate = $arrPost['dtmSuspensionDate'];
+			$dtmSuspensionTime = $arrPost['dtmSuspensionTime'];
+			if(!empty($dtmSuspensionDate) && !empty($dtmSuspensionTime))
 			{	
 				$arrData = array(
-						'holidayName'=>$strLocalName,
-						'holidayDate'=>$dtmHolidate
-						// 'holidayYear'=>$dtmYear,
-						// 'holidayMonth'=>$dtmMonth,
-						// 'holidayDay'=>$dtmDay
+						'holidayDate'=>$dtmSuspensionDate,
+						'holidayTime'=>$dtmSuspensionTime
 					
 				);
-				$blnReturn = $this->holiday_model->save_local($arrData, $strCode);
+				$blnReturn = $this->holiday_model->save_worksuspension($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Edited '.$strLocalName.' Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Local Holiday saved successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblholidayyear','Edited '.$dtmSuspensionDate.' Holiday',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Work Suspension saved successfully.');
 				}
 				redirect('libraries/holiday');
 			}
@@ -443,11 +432,11 @@ class Holiday extends MY_Controller {
 			{
 				$arrLocHoliday = $this->holiday_model->getData($strCode);
 				$strLocalName = $arrLocHoliday[0]['holidayName'];	
-				$blnReturn = $this->holiday_model->delete_local($strCode);
+				$blnReturn = $this->holiday_model->delete_worksuspension($strCode);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Deleted '.$strLocalName.' Holiday',implode(';',$arrSignatory[0]),'');
-					$this->session->set_flashdata('strMsg','Local Holiday deleted successfully.');
+					$this->session->set_flashdata('strMsg','Work Suspension deleted successfully.');
 				}
 				redirect('libraries/holiday');
 			}
