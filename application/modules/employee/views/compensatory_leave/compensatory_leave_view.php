@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('employee/compensatory_leave/add')?>" method="post" id="frmCompensatoryLeave">
+                <form action="<?=base_url('employee/compensatory_leave/submit')?>" method="post" id="frmCompensatoryLeave">
                     <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -185,7 +185,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <select name="strRecommend" id="strRecommend" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strRecommend'))?$this->session->userdata('strRecommend'):''?>">
+                                <select name="strRecommend" id="strRecommend" type="text" class="form-control" value="<?=!empty($this->session->userdata('strRecommend'))?$this->session->userdata('strRecommend'):''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -207,7 +207,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <select name="strApproval" id="strApproval" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strApproval'))?$this->session->userdata('strApproval'):''?>">
+                                <select name="strApproval" id="strApproval" type="text" class="form-control" value="<?=!empty($this->session->userdata('strApproval'))?$this->session->userdata('strApproval'):''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>

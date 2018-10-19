@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('employee/dtr_update/add')?>" method="post" id="frmDTRupdate">
+                <form action="<?=base_url('employee/dtr_update/submit')?>" method="post" id="frmDTRupdate">
                     <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">

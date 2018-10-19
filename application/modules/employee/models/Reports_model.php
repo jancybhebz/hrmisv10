@@ -9,61 +9,61 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Reports_model extends CI_Model {
 
+	var $table = 'tblemprequest';
+	var $tableid = 'requestID';
+
 	function __construct()
 	{
 		$this->load->database();
-		//$this->db->initialize();	
+		$this->db->initialize();	
 	}
 	
-	// function getData($intAppointmentId = '')
-	// {		
-	// 	$strWhere = '';
-	// 	if($intAppointmentId != "")
-	// 		$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
+	function getData($intReqId = '')
+	{		
+		$strWhere = '';
+		if($intReqId != "")
+			$strWhere .= " AND requestID = '".$intReqId."'";
 		
-	// 	$strSQL = " SELECT * FROM tblAppointment					
-	// 				WHERE 1=1 
-	// 				$strWhere
-	// 				ORDER BY appointmentDesc
-	// 				";
-	// 	//]echo $strSQL;exit(1);				
-	// 	$objQuery = $this->db->query($strSQL);
-	// 	//print_r($objQuery->result_array());
-	// 	return $objQuery->result_array();	
-	// }
+		$strSQL = " SELECT * FROM tblemprequest					
+					WHERE 1=1 
+					$strWhere
+					ORDER BY requestDate
+					";
+			
+		$objQuery = $this->db->query($strSQL);
+		//print_r($objQuery->result_array());
+		return $objQuery->result_array();	
+	}
 
-	function add($arrData)
+	function submit($arrData)
 	{
-		$this->db->insert('tblAppointment', $arrData);
+		$this->db->insert('tblemprequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	
-	// function checkExist($strAppointmentCode = '', $strAppointmentDesc = '')
-	// {		
-	// 	$strSQL = " SELECT * FROM tblAppointment					
-	// 				WHERE  
-	// 				appointmentCode ='$strAppointmentCode' OR
-	// 				appointmentDesc ='$strAppointmentDesc'					
-	// 				";
-	// 	//echo $strSQL;exit(1);
-	// 	$objQuery = $this->db->query($strSQL);
-	// 	return $objQuery->result_array();	
-	// }
+	function checkExist($strReporttype = '')
+	{		
+		$strSQL = " SELECT * FROM tblemprequest					
+					WHERE  
+					requestDetails ='$strReporttype' 					
+					";
+		//echo $strSQL;exit(1);
+		$objQuery = $this->db->query($strSQL);
+		return $objQuery->result_array();	
+	}
 
-				
-		
-	function save($arrData, $intAppointmentId)
+	function save($arrData, $intReqId)
 	{
-		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->update('tblAppointment', $arrData);
+		$this->db->where('requestID', $intReqId);
+		$this->db->update('tblemprequest', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($intAppointmentId)
+	function delete($intReqId)
 	{
-		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->delete('tblAppointment'); 	
+		$this->db->where('requestID', $intReqId);
+		$this->db->delete('tblemprequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
