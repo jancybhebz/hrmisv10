@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('employee/official_business/add')?>" method="post" id="frmOB">
+                <form action="<?=base_url('employee/official_business/submit')?>" method="post" id="frmOB">
                     <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -205,6 +205,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <br><br>
                      <div class="row">
                       <div class="col-sm-12 text-center">
+                            <input type="hidden" name="Filed" id="Filed" />
                             <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                             <a href="<?=base_url('employee/official_business')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                             <button type="print" class="btn btn-primary">Print/Preview</button>

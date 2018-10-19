@@ -68,10 +68,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 <?php load_plugin('js',array('datatable'));?>
-
+<!-- 
 
 <script>
     $(document).ready(function() {
         Datatables.init('libraries_attendance_scheme');
   });
-</script>
+</script> -->

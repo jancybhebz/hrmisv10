@@ -98,9 +98,7 @@ class Attendance_scheme extends MY_Controller {
 					redirect('libraries/attendance_scheme/add');
 				}
 			}
-		}
-    	
-    	
+		}    	
     }
 
 	public function edit()
@@ -109,12 +107,14 @@ class Attendance_scheme extends MY_Controller {
 		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			$strschemeCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrAttendance']=$this->attendance_scheme_model->getData($strschemeCode);
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrAttendance']=$this->attendance_scheme_model->getData($strCode);
 			$this->template->load('template/template_view','libraries/attendance_scheme/edit_view', $this->arrData);
 		}
 		else
 		{
+			$strCode = $arrPost['strCode'];
+			$strSchemeType = $arrPost['strSchemeType'];
 			$strSchemeCode = $arrPost['strSchemeCode'];
 			$strSchemeName = $arrPost['strSchemeName'];
 			// fixed
@@ -156,7 +156,7 @@ class Attendance_scheme extends MY_Controller {
 				 'pmTimeoutFrom'=>$dtmStimeOutFrom,
 				   'pmTimeoutTo'=>$dtmStimeOutTo 
 				);
-				$blnReturn = $this->attendance_scheme_model->save($arrData, $strSchemeCode);
+				$blnReturn = $this->attendance_scheme_model->save($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Edited '.$strSchemeName.' Attendance_scheme',implode(';',$arrData),'');

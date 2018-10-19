@@ -24,57 +24,46 @@ class Official_business extends MY_Controller {
 		$this->template->load('template/template_view', 'employee/official_business/official_business_view', $this->arrData);
 	}
 	
-	
-	public function add()
+	public function submit()
     {
     	$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{	
-			$this->template->load('template/template_view','libraries/appointment_status/add_view',$this->arrData);	
-		}
-		else
-		{	
-			$strAppointmentCode = $arrPost['strAppointmentCode'];
-			$strAppointmentDesc = $arrPost['strAppointmentDesc'];
-			$chrLeaveEntitled = $arrPost['chrLeaveEntitled'];
-			$intIncludedPlantilla = $arrPost['intIncludedPlantilla'];
-			if(!empty($strAppointmentCode) && !empty($strAppointmentDesc))
+		if(!empty($arrPost))
+		{
+			$strOBtype=$arrPost['strOBtype'];
+			$dtmOBrequestdate=$arrPost['dtmOBrequestdate'];
+			$dtmOBdatefrom=$arrPost['dtmOBdatefrom'];
+			$dtmOBdateto=$arrPost['dtmOBdateto'];
+			$dtmTimeFrom=$arrPost['dtmTimeFrom'];
+			$dtmTimeTo=$arrPost['dtmTimeTo'];
+			$strDestination=$arrPost['strDestination'];
+			$strMeal=$arrPost['strMeal'];
+			$strPurpose=$arrPost['strPurpose'];
+			if(!empty($strOBtype) && !empty($dtmOBrequestdate))
 			{	
-				// check if appointment code or appointment desc already exist
-				if(count($this->appointment_status_model->checkExist($strAppointmentCode, $strAppointmentDesc))==0)
+				if( count($this->official_business_model->checkExist($strOBtype, $dtmOBrequestdate))==0 )
 				{
 					$arrData = array(
-						'appointmentCode'=>$strAppointmentCode,
-						'appointmentDesc'=>$strAppointmentDesc,
-						'leaveEntitled'=>$chrLeaveEntitled,
-						'incPlantilla'=>$intIncludedPlantilla,
-						'system'=>0
+						'requestDetails'=>$strOBtype.';'.$dtmOBdatefrom.';'.$dtmOBdateto.';'.$dtmTimeFrom.';'.$dtmTimeTo.';'.$strDestination.';'.$strMeal.';'.$strPurpose,
+						'requestDate'=>$dtmOBrequestdate,
+						// 'requestStatus'=>
 					);
-					$blnReturn  = $this->appointment_status_model->add($arrData);
+					$blnReturn  = $this->official_business_model->submit($arrData);
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Added '.$strAppointmentDesc.' Appointment Status',implode(';',$arrData),'');
-					
-						$this->session->set_flashdata('strMsg','Appointment Status added successfully.');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strOBtype.' Official Business',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('libraries/appointment_status');
+					redirect('employee/official_business');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Appointment code and/or Appointment  Description already exists.');
-					$this->session->set_flashdata('strAppointmentCode',$strAppointmentCode);
-					$this->session->set_flashdata('strAppointmentDesc',$strAppointmentDesc);
-					$this->session->set_flashdata('chrLeaveEntitled',$chrLeaveEntitled);
-					$this->session->set_flashdata('intIncludedPlantilla',$intIncludedPlantilla);
-					//echo $this->session->flashdata('strErrorMsg');
-					redirect('libraries/appointment_status/add');
+					$this->session->set_flashdata('strErrorMsg','Request already exists.');
+					//$this->session->set_flashdata('strOBtype',$strOBtype);
+					redirect('employee/official_business');
 				}
 			}
 		}
-    	
-    	
+    	$this->template->load('template/template_view','employee/official_business/official_business_view',$this->arrData);
     }
-
-	// 
 }
