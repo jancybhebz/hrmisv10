@@ -747,6 +747,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </tr>
                 <?php endforeach;?>
             </table>
+        <form action="<?=base_url('employee/pds_update/submitEduc')?>" method="post" id="frmPDSupdate">
                 <div class="row" id="educlevel_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -923,11 +924,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitEduc">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Educ">
+
                             <button type="submit" name="submitEduc" id="submitEduc" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-    </form>
+        </form>
 </div>
 
 <!-- Trainings -->
