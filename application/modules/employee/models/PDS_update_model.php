@@ -101,7 +101,6 @@ class PDS_update_model extends CI_Model {
 		$this->db->select($strSelect);
 		$rs = $this->db->get($strTable);
 		return $rs->result_array();
-
 	}
 
 	function getEducData($intLevelId = '')
@@ -241,24 +240,41 @@ class PDS_update_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 	
-	function add($arrData)
+	function submitProfile($arrData)
 	{
-		$this->db->insert('tblAppointment', $arrData);
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitFam($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
 		return $this->db->insert_id();		
 	}				
 		
-	function save($arrData, $intAppointmentId)
+	function checkExist($strSname = '', $strFname = '')
+	{		
+		$strSQL = " SELECT * FROM tblemprequest					
+					WHERE  
+					requestDetails ='$strSname' OR
+					requestDate ='$strFname'					
+					";
+		//echo $strSQL;exit(1);
+		$objQuery = $this->db->query($strSQL);
+		return $objQuery->result_array();	
+	}
+
+	function save($arrData, $intReqId)
 	{
-		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->update('tblAppointment', $arrData);
+		$this->db->where('requestID', $intReqId);
+		$this->db->update('tblemprequest', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($intAppointmentId)
+	function delete($intReqId)
 	{
-		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->delete('tblAppointment'); 	
+		$this->db->where('requestID', $intReqId);
+		$this->db->delete('tblemprequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

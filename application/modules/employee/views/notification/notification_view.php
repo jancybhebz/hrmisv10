@@ -52,17 +52,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </thead>
                     <tbody>
                     <?php 
-                     //foreach($arrRequest as $row):?>
+                     foreach($arrRequest as $row):?>
                         <tr> 
-                            <td></td> <!-- requestDate -->
-                            <td></td>  <!-- requestDetails -->
-                            <td></td> <!-- requestStatus -->
-                            <td></td> <!-- remarks -->
-                            <td></td> <!-- signatory -->
+                            <td><?=$row['requestDate']?></td> <!-- requestDate -->
+                            <td>Type of Request :
+                                <br> <br>
+                                Leave Date :
+                                <br>
+                                From :
+                                <br>
+                                To :
+                            </td>  <!-- requestDetails -->
+                            
+                            <td><?=$row['requestStatus']?></td> <!-- requestStatus -->
+                            <td><?=$row['remarks']?></td> <!-- remarks -->
+                            <td><?=$row['signatory']?></td> <!-- signatory -->
                             <td colspan="2"> </td>
                         </tr>
 
-                    <?php //endforeach;?>
+                    <?php endforeach;?>
                     </tbody>
 
                 </table>
