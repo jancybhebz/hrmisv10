@@ -39,7 +39,11 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($dtmLeavefrom))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strLeavetype
+						'requestDetails'=>$strLeavetype,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
 						// 'requestDate'=>$dtmLeavefrom,
 						// 'requestStatus'=>
 					);

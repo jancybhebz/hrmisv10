@@ -1405,6 +1405,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitVol">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="PDS">
+
                             <button type="submit" name="submitVol" id="submitVol" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>

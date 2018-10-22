@@ -132,6 +132,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                     <div class="row">
                       <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="TO">
+
                           <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                            <a href="<?=base_url('employee/travel_order')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                            <button type="print" class="btn btn-primary">Print/Preview</button>
