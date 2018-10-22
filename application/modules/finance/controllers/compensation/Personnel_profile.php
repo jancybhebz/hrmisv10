@@ -218,6 +218,7 @@ class Personnel_profile extends MY_Controller {
 	public function updateAllEmployees()
 	{
 		$arrPost = $this->input->post();
+		$module = $this->uri->segment(6);
 
 		# get employees according to appointment given
 		$this->load->model('libraries/Position_model');	
@@ -226,12 +227,20 @@ class Personnel_profile extends MY_Controller {
 			if(count($empnumbers) > 0):
 				# update or add benefits
 				foreach($empnumbers as $emp):
-					$edit = $this->edit_benefits($emp['empNumber'],$arrPost,1);
+					if($module == 'income'):
+						$this->edit_benefits($emp['empNumber'],$arrPost,1);
+					else:
+						$this->edit_deduction($emp['empNumber'],$arrPost,1);
+					endif;
 				endforeach;
 			endif;
 		endforeach;
-		// die();
-		redirect('finance/compensation/personnel_profile/income/'.$this->uri->segment(5));
+		
+		if($module == 'income'):
+			redirect('finance/compensation/personnel_profile/income/'.$this->uri->segment(5));
+		else:
+			redirect('finance/compensation/personnel_profile/premium_loan/'.$this->uri->segment(5));
+		endif;
 	}
 	# End 2nd tab of personnel_profile = 'income' 
 
@@ -275,7 +284,10 @@ class Personnel_profile extends MY_Controller {
 		$this->arrData['arrDeductions'] = $this->Compensation_model->getPremiumDeduction($empid, 'Regular');
 		$this->arrData['arrLoans'] = $this->Compensation_model->getPremiumDeduction($empid, 'Loan');
 		$this->arrData['arrContributions'] = $this->Compensation_model->getPremiumContribution($empid, 'Contribution');
-		
+
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrAppointments_by2'] = count($this->arrData['arrAppointments']) / 2;
+
 		$this->arrData['arrStatus'] = array('1' => 'On-going','2' => 'Paused','0' => 'Remove');
 		
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
@@ -379,12 +391,31 @@ class Personnel_profile extends MY_Controller {
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
 
-	public function edit_deduction()
+	public function edit_deduction($empid,$arrData=array(),$updateall=0)
 	{
-		$arrPost = $this->input->post();
-		$empid = $this->uri->segment(5);
+		if($updateall == 1):
+			$arrPost = $arrData;
+			$arrPost['txtdeductcode'] = '';
+		else:
+			$arrPost = $this->input->post();
+			$empid = $this->uri->segment(5);
+		endif;
 
-		if($arrPost['txtdeductcode'] != ''):
+		// echo 'empid '.$empid;
+		// echo '<br>';
+		// print_r($arrPost);
+		
+		# check if exist in benefits
+		$checkexist = $this->Compensation_model->getDeduction($empid, $arrPost['txtdeductioncode']);
+		// echo '<br>';echo '<br>';
+		// print_r($checkexist);
+		// print_r($checkexist[0]['deductCode']);
+		// echo '<br>';
+		if(count($checkexist) > 0):
+			// echo '<br>';
+			$arrPost['txtdeductcode'] = $arrPost['txtdeductcode'] != '' ? $arrPost['txtdeductcode'] : $checkexist[0]['deductCode'];
+			// echo $arrPost['txtdeductcode'];
+
 			$arrData = array('deductionCode' => $arrPost['txtdeductioncode'],
 							 'monthly' => str_replace(',', '', $arrPost['txtamount']),
 							 'period1' => str_replace(',', '', $arrPost['txtperiod1']),
@@ -392,6 +423,9 @@ class Personnel_profile extends MY_Controller {
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->editDeduction($arrData, $arrPost['txtdeductcode'], $empid);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' updated successfully.');
+			// echo '<br>';
+			// echo '<br>';
+			// print_r($arrData);
 		else:
 			$arrData = array('empNumber' => $empid,
 							 'deductionCode' => $arrPost['txtdeductioncode'],
@@ -401,8 +435,15 @@ class Personnel_profile extends MY_Controller {
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->addDeduction($arrData);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' added successfully.');
+			// echo '<br>';
+			// echo '<br>';
+			// print_r($arrData);
 		endif;
-		redirect('finance/compensation/personnel_profile/premium_loan/'.$empid);
+		// echo '<hr>';
+
+		if($updateall == 0):
+			redirect('finance/compensation/personnel_profile/premium_loan/'.$empid);
+		endif;
 	}
 
 

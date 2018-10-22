@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnsubmit-payrollDetails" class="btn green pull-left" data-toggle="modal" href="#appointmentList">
+                    <button type="button" id="btnupdateallemployee" class="btn green pull-left">
                         <i class="icon-check"> </i> Update All Employee</button>
                     <button type="submit" id="btnsubmit-payrollDetails" class="btn green"><i class="icon-check"> </i> Save</button>
                     <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
@@ -87,6 +87,59 @@
                 <div class="modal-footer">
                     <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+                </div>
+            <?=form_close()?>
+        </div>
+    </div>
+</div>
+
+<!-- begin appointment list -->
+<div id="appointmentList" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Select Employees to Update</h4>
+            </div>
+            <?=form_open('finance/compensation/personnel_profile/updateAllEmployees/'.$this->uri->segment(5).'/loan', array('id' => 'frmupdateEmployees'))?>
+                <div class="modal-body">
+                    <div class="row form-body">
+                        <input type="text" name="txtdeductcode" id="txtalldeductcode">
+                        <input type="text" name="txtdeductioncode" id="txtalldeductioncode">
+                        <input type="text" name="txtdeductionType" id="txtalldeductionType">
+                        <input type="text" name="txtamount" id="txtallamount">
+                        <input type="text" name="txtperiod1" id="txtallperiod1">
+                        <input type="text" name="txtperiod2" id="txtallperiod2">
+                        <input type="text" name="selstatus" id="selallstatus">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><input type="checkbox" id="chkall" value="all" name="chkappnt[]"> Check All</label>
+                                <div class="checkbox-list">
+                                    <?php foreach(array_slice($arrAppointments, 0, $arrAppointments_by2) as $chkappointment): ?>
+                                        <label alt="Double click to uncheck">
+                                            <input type="checkbox" class="check" id="chkappnt" value="<?=$chkappointment['appointmentCode']?>" name="chkappnt[]">
+                                            <?=$chkappointment['appointmentDesc']?> </label>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <div class="checkbox-list">
+                                    <?php foreach(array_slice($arrAppointments, $arrAppointments_by2, count($arrAppointments)) as $chkappointment): ?>
+                                        <label alt="Double click to uncheck">
+                                            <input type="checkbox" class="check" id="chkappnt" value="<?=$chkappointment['appointmentCode']?>" name="chkappnt[]">
+                                            <?=$chkappointment['appointmentDesc']?> </label>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnsubmit-payrollDetails" class="btn green"><i class="icon-check"> </i> Save</button>
+                    <button type="button" class="btn btn btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
         </div>
@@ -139,7 +192,7 @@
             totalamt = totalamt - period1;
             $('#txtperiod2-bl').val(numberformat(totalamt));
             console.log(totalamt);
-        })
+        });
 
         $('#txtperiod2-bl').keyup(function() {
             totalamt = $('#txtamount-bl').val().replace(/[^\d\.]/g, "");
@@ -147,7 +200,18 @@
             totalamt = totalamt - period2;
             $('#txtperiod1-bl').val(numberformat(totalamt));
             console.log(totalamt);
-        })
+        });
+
+        $('#btnupdateallemployee').click(function() {
+            $('#appointmentList').modal('show');
+            $('#txtalldeductcode').val($('#txtdeductcode').val());
+            $('#txtalldeductioncode').val($('#txtdeductioncode').val());
+            $('#txtalldeductionType').val($('#txtdeductionType').val());
+            $('#txtallamount').val($('#txtamount-bl').val());
+            $('#txtallperiod1').val($('#txtperiod1-bl').val());
+            $('#txtallperiod2').val($('#txtperiod2-bl').val());
+            $('#selallstatus').val($('#selstatus-bl').val());
+        });
 
     });
 </script>
