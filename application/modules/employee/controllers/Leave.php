@@ -20,133 +20,46 @@ class Leave extends MY_Controller {
 
 	public function index()
 	{
-		
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 		$this->template->load('template/template_view', 'employee/leave/leave_view', $this->arrData);
-		// $this->arrData['arrEmployees'] = $this->hr_model->getData();
-		// $this->arrData['arrUser'] = $this->user_account_model->getData();
 	}
 	
-	public function add()
+	public function submit()
     {
     	$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{	
-			// $this->arrData['arrEmployees'] = $this->hr_model->getData();
-			// $this->arrData['arrUser'] = $this->user_account_model->getData();
-			$this->template->load('template/template_view','libraries/appointment_status/add_view',$this->arrData);	
-		}
-		else
-		{	
-			$strAppointmentCode = $arrPost['strAppointmentCode'];
-			$strAppointmentDesc = $arrPost['strAppointmentDesc'];
-			$chrLeaveEntitled = $arrPost['chrLeaveEntitled'];
-			$intIncludedPlantilla = $arrPost['intIncludedPlantilla'];
-			if(!empty($strAppointmentCode) && !empty($strAppointmentDesc))
+		if(!empty($arrPost))
+		{
+			$strLeavetype=$arrPost['strLeavetype'];
+			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+
+			if(!empty($strLeavetype))
 			{	
-				// check if appointment code or appointment desc already exist
-				if(count($this->appointment_status_model->checkExist($strAppointmentCode, $strAppointmentDesc))==0)
+				if( count($this->leave_model->checkExist($dtmLeavefrom))==0 )
 				{
 					$arrData = array(
-						'appointmentCode'=>$strAppointmentCode,
-						'appointmentDesc'=>$strAppointmentDesc,
-						'leaveEntitled'=>$chrLeaveEntitled,
-						'incPlantilla'=>$intIncludedPlantilla,
-						'system'=>0
+						'requestDetails'=>$strLeavetype
+						// 'requestDate'=>$dtmLeavefrom,
+						// 'requestStatus'=>
 					);
-					$blnReturn  = $this->appointment_status_model->add($arrData);
+					$blnReturn  = $this->leave_model->submit($arrData);
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Added '.$strAppointmentDesc.' Appointment Status',implode(';',$arrData),'');
-					
-						$this->session->set_flashdata('strMsg','Appointment Status added successfully.');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strLeavetype.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('libraries/appointment_status');
+					redirect('employee/leave');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Appointment code and/or Appointment  Description already exists.');
-					$this->session->set_flashdata('strAppointmentCode',$strAppointmentCode);
-					$this->session->set_flashdata('strAppointmentDesc',$strAppointmentDesc);
-					$this->session->set_flashdata('chrLeaveEntitled',$chrLeaveEntitled);
-					$this->session->set_flashdata('intIncludedPlantilla',$intIncludedPlantilla);
-					//echo $this->session->flashdata('strErrorMsg');
-					redirect('libraries/appointment_status/add');
+					$this->session->set_flashdata('strErrorMsg','Request already exists.');
+					//$this->session->set_flashdata('strOBtype',$strOBtype);
+					redirect('employee/leave');
 				}
 			}
 		}
-    	
-    	
+    	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
     }
-
-	public function edit()
-	{
-		$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{
-			$intAppointmentId = urldecode($this->uri->segment(4));
-			$this->arrData['arrAppointStatuses']=$this->appointment_status_model->getData($intAppointmentId);
-			$this->template->load('template/template_view','libraries/appointment_status/edit_view', $this->arrData);
-		}
-		else
-		{
-			$intAppointmentId = $arrPost['intAppointmentId'];
-			$strAppointmentCode = $arrPost['strAppointmentCode'];
-			$strAppointmentDesc = $arrPost['strAppointmentDesc'];
-			$chrLeaveEntitled = $arrPost['chrLeaveEntitled'];
-			$intIncludedPlantilla = $arrPost['intIncludedPlantilla'];
-			if(!empty($strAppointmentCode) AND !empty($strAppointmentDesc)) 
-			{
-				$arrData = array(
-					'appointmentId'=>$intAppointmentId,
-					'appointmentCode'=>$strAppointmentCode,
-					'appointmentDesc'=>$strAppointmentDesc,
-					'leaveEntitled'=>$chrLeaveEntitled,
-					'incPlantilla'=>$intIncludedPlantilla
-				);
-				$blnReturn = $this->appointment_status_model->save($arrData, $intAppointmentId);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Edited '.$strAppointmentDesc.' Appointment status',implode(';',$arrData),'');
-					
-					$this->session->set_flashdata('strMsg','Appointment status saved successfully.');
-				}
-				redirect('libraries/appointment_status');
-			}
-		}
-		
-	}
-	public function delete()
-	{
-		//$strDescription=$arrPost['strDescription'];
-		$arrPost = $this->input->post();
-		$intAppointmentId = $this->uri->segment(4);
-		if(empty($arrPost))
-		{
-			$this->arrData['arrData'] = $this->appointment_status_model->getData($intAppointmentId);
-			$this->template->load('template/template_view','libraries/appointment_status/delete_view',$this->arrData);
-		}
-		else
-		{
-			$intAppointmentId = $arrPost['intAppointmentId'];
-			//add condition for checking dependencies from other tables
-			if(!empty($intAppointmentId))
-			{
-				$arrAppointStatuses = $this->appointment_status_model->getData($intAppointmentId);
-				$strAppointmentDesc = $arrAppointStatuses[0]['appointmentDesc'];	
-				$blnReturn = $this->appointment_status_model->delete($intAppointmentId);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Deleted '.$strAppointmentDesc.' Appointment Status',implode(';',$arrAppointStatuses[0]),'');
-	
-					$this->session->set_flashdata('strMsg','Appointment Status deleted successfully.');
-				}
-				redirect('libraries/appointment_status');
-			}
-		}
-		
-	}
 }

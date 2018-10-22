@@ -40,7 +40,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('employee/reports/add')?>" method="post" id="frmReports">
+                <form action="<?=base_url('employee/reports/submit')?>" method="post" id="frmReports">
                      <div class="row">
                             <div class="col-sm-3 text-right">
                                 <div class="form-group">
@@ -74,7 +74,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                          <div class="col-sm-3">
                             <div class="form-group">
-                                <select name="strRemittype" id="strRemittype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
+                                <select name="strRemittype" id="strRemittype" type="text" class="form-control"  value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
                                 <option value=""></option>
                                 <option>Conso Loan</option>
                                 <option>E-Cash</option>
@@ -123,7 +123,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 $already_selected_value = date("Y");
                                 $earliest_year = 2003;
 
-                                print '<select name="dtmDTRupdate" id="dtmDTRupdate">';
+                                print '<select name="date" id="date">';
                                 foreach (range(date('Y'), $earliest_year) as $x) {
                                     print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
                                 }

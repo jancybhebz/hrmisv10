@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
                     <div class="portlet-body">
-                        <form action="<?=base_url('employee/leave/add')?>" method="post" id="frmLeave">
+                        <form action="<?=base_url('employee/leave/submit')?>" method="post" id="frmLeave">
                     <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -126,7 +126,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
+                                 <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
+                                 <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -150,12 +150,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row" id="signatory2_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label">Authorized Official (2nd Signatory) : <span class="required"> * </span></label>
+                                <label class="control-label">Authorized Official (2nd Signatory) : </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                               <select type="text" class="form-control" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" required>
+                               <select type="text" class="form-control" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" >
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -167,12 +167,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row" id="reason_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label">Specify Reason/s : <span class="required"> * </span></label>
+                                <label class="control-label">Specify Reason/s :</label>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <textarea name="strReason" id="strReason" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
+                                 <textarea name="strReason" id="strReason" type="text" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
                                  </textarea>
                             </div>
                         </div>

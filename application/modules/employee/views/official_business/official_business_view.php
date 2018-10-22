@@ -205,7 +205,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <br><br>
                      <div class="row">
                       <div class="col-sm-12 text-center">
-                            <input type="hidden" name="Filed" id="Filed" />
+                            <input type="hidden" name="Filed" id="Filed" <?php echo'Filed Request' ?> />
                             <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                             <a href="<?=base_url('employee/official_business')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                             <button type="print" class="btn btn-primary">Print/Preview</button>
