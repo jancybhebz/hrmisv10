@@ -129,7 +129,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Select Employees to Update</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/updateAllEmployees/'.$this->uri->segment(5), array('id' => 'frmupdateEmployees'))?>
+            <?=form_open('finance/compensation/personnel_profile/updateAllEmployees/'.$this->uri->segment(5).'/income', array('id' => 'frmupdateEmployees'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <input type="hidden" name="txtbenefitType" id="txtallbenefittype">

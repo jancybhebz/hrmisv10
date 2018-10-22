@@ -29,8 +29,9 @@
                                     <div class="form-group">
                                         <label class="control-label">Date of Birth</label>
                                         <div class="input-icon right">
-                                            <input class="form-control date-picker form-required" data-date="2012-03-01" data-date-format="yyyy-mm-dd"
-                                                    name="txtdependent_bday" type="text" value="<?=isset($arrTaxDetails) ? $arrTaxDetails['dBirthDate'] : ''?>">
+                                            <input class="form-control date-picker form-required" data-date="2012-03-01" data-date-format="yyyy-mm-dd" 
+                                                    name="txtdependent_bday" type="text" value="<?=isset($arrTaxDetails) ? $arrTaxDetails['dBirthDate'] : ''?>"
+                                                    <?=$action=='view' ? 'disabled' : ''?>>
                                         </div>
                                     </div>
                                 </div>

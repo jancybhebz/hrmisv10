@@ -236,21 +236,21 @@ class Compensation_model extends CI_Model {
 
 	public function getDeduction($empid, $deductionCode)
 	{
-		return $this->db->get_where('tblempdeductions', array('empNumber' => $empid, 'deductionCode' => $deductionCode))->result_array();
+		return $this->db->get_where('tblEmpDeductions', array('empNumber' => $empid, 'deductionCode' => $deductionCode))->result_array();
 	}
 
 	function editDeduction($arrData, $id, $empid)
 	{
 		$this->db->where('deductCode',$id);
 		$this->db->where('empNumber',$empid);
-		$this->db->update('tblempdeductions', $arrData);
-
+		$this->db->update('tblEmpDeductions', $arrData);
+		$this->db->last_query();
 		return $this->db->affected_rows();
 	}
 
 	function addDeduction($arrData)
 	{
-		$this->db->insert('tblempdeductions', $arrData);
+		$this->db->insert('tblEmpDeductions', $arrData);
 		return $this->db->insert_id();
 	}
 
