@@ -48,6 +48,7 @@ class PDS_update_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
+	// getting data
 	public function getDetails($strEmpNo="",$strSearch="",$strAppStatus="")
 	{
 		$this->db->select('tblEmpPersonal.*,tblEmpPosition.*,tblPosition.positionDesc,tblAppointment.appointmentDesc');
@@ -239,7 +240,8 @@ class PDS_update_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableSepCause);
 		return $objQuery->result_array();	
 	}
-	
+
+	// submission of requests
 	function submitProfile($arrData)
 	{
 		$this->db->insert('tblemprequest', $arrData);
@@ -254,8 +256,30 @@ class PDS_update_model extends CI_Model {
 	{
 		$this->db->insert('tblemprequest', $arrData);
 		return $this->db->insert_id();		
+	}	
+	function submitTraining($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitExam($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitChild($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitTax($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
 	}				
+					
 		
+	// check existence
 	function checkExist($strSname = '', $strFname = '')
 	{		
 		$strSQL = " SELECT * FROM tblemprequest					
@@ -268,6 +292,7 @@ class PDS_update_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	// saving updates
 	function save($arrData, $intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
@@ -275,7 +300,8 @@ class PDS_update_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
+	
+	// deleting enties
 	function delete($intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
