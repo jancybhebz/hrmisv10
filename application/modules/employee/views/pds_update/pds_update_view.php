@@ -1286,7 +1286,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </form>
 <!-- References -->
 <div id="tab_ref" class="tab-pane">
-    <form action="#">
+<form action="<?=base_url('employee/pds_update/submitRef')?>" method="post" id="frmPDSupdate">
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th>Name of Reference</th>
@@ -1341,6 +1341,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitRef">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Ref">
+
                             <button type="submit" name="submitRef" id="submitRef" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
@@ -1349,7 +1352,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- Voluntary Works -->
 <div id="tab_volWork" class="tab-pane">
-    <form action="#">                     
+<form action="<?=base_url('employee/pds_update/submitVol')?>" method="post" id="frmPDSupdate">    
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th width="10%">Name of Organization</th>
@@ -1445,7 +1448,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="row" id="submitVol">
                         <div class="col-sm-12 text-center">
                             <input class="hidden" name="strStatus" value="Filed Request">
-                            <input class="hidden" name="strCode" value="PDS">
+                            <input class="hidden" name="strCode" value="201 Voluntary">
 
                             <button type="submit" name="submitVol" id="submitVol" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
