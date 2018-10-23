@@ -286,6 +286,11 @@ class PDS_update_model extends CI_Model {
 	{
 		$this->db->insert('tblemprequest', $arrData);
 		return $this->db->insert_id();		
+	}	
+	function submitWorkExp($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
 	}					
 					
 		

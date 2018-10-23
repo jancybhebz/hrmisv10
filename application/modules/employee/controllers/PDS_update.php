@@ -484,5 +484,57 @@ class PDS_update extends MY_Controller {
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
 
+    public function submitWorkExp()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+			$dtmExpDateFrom=$arrPost['dtmExpDateFrom'];
+			$dtmExpDateTo=$arrPost['dtmExpDateTo'];
+			$strPosTitle=$arrPost['strPosTitle'];
+			$strExpDept=$arrPost['strExpDept'];
+			$strSalary=$arrPost['strSalary'];
+			$strExpPer=$arrPost['strExpPer'];
+			$strCurrency=$arrPost['strCurrency'];
+			$strExpSG=$arrPost['strExpSG'];
+			$strAStatus=$arrPost['strAStatus'];
+			$strGovn=$arrPost['strGovn'];
+			$strBranch=$arrPost['strBranch'];
+			$strSepCause=$arrPost['strSepCause'];
+			$strSepDate=$arrPost['strSepDate'];
+			$strLV=$arrPost['strLV'];
+
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
+
+			if(!empty($dtmExpDateFrom))
+			{	
+				if( count($this->pds_update_model->checkExist($dtmExpDateFrom))==0 )
+				{
+					$arrData = array(
+						'requestDetails'=>$dtmExpDateFrom.';'.$dtmExpDateTo.';'.$strPosTitle.';'.$strExpDept.';'.$strSalary.';'.$strExpPer.';'.$strCurrency.';'.$strExpSG.';'.$strAStatus.';'.$strGovn.';'.$strBranch.';'.$strSepCause.';'.$strSepDate.';'.$strLV,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					);
+					$blnReturn  = $this->pds_update_model->submitWorkExp($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Request has been submitted.');
+					}
+					redirect('employee/pds_update');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Request already exists.');
+					redirect('employee/pds_update');
+				}
+			}
+		}
+    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+    }
+
 
 }

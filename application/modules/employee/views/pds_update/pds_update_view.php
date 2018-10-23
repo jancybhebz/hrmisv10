@@ -1458,7 +1458,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- Work Experience -->
 <div id="tab_workExp" class="tab-pane">
-    <form action="#">             
+   <form action="<?=base_url('employee/pds_update/submitWorkExp')?>" method="post" id="frmPDSupdate">    
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Inclusive Date [From-To]</th>
@@ -1596,7 +1596,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <select type="text" class="form-control" name="strStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
+                            <select type="text" class="form-control" name="strAStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
                                 <option value="">Select</option>
                                 <?php foreach($arrAppointment as $appoint)
                                 {
@@ -1680,20 +1680,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                 <div class="row" id="submitWorkExp">
                     <div class="col-sm-12 text-center">
+                        <input class="hidden" name="strStatus" value="Filed Request">
+                        <input class="hidden" name="strCode" value="201 WorkExp">
+
                         <button type="submit" name="submitWorkExp" id="submitWorkExp" class="btn btn-primary">Submit</button>
                         <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                     </div>
                 </div>
-    </form>
+        </form>
 </div>
 <!-- closing -->
-                    <div class="row" id="submit">
+                    <!-- <div class="row" id="submit">
                         <div class="col-sm-12 text-center">
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                     </div>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
