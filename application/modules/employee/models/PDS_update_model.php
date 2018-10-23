@@ -48,6 +48,7 @@ class PDS_update_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
+	// getting data
 	public function getDetails($strEmpNo="",$strSearch="",$strAppStatus="")
 	{
 		$this->db->select('tblEmpPersonal.*,tblEmpPosition.*,tblPosition.positionDesc,tblAppointment.appointmentDesc');
@@ -101,7 +102,6 @@ class PDS_update_model extends CI_Model {
 		$this->db->select($strSelect);
 		$rs = $this->db->get($strTable);
 		return $rs->result_array();
-
 	}
 
 	function getEducData($intLevelId = '')
@@ -240,25 +240,87 @@ class PDS_update_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableSepCause);
 		return $objQuery->result_array();	
 	}
-	
-	function add($arrData)
+
+	// submission of requests
+	function submitProfile($arrData)
 	{
-		$this->db->insert('tblAppointment', $arrData);
+		$this->db->insert('tblemprequest', $arrData);
 		return $this->db->insert_id();		
-	}				
-		
-	function save($arrData, $intAppointmentId)
+	}
+	function submitFam($arrData)
 	{
-		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->update('tblAppointment', $arrData);
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitEduc($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}	
+	function submitTraining($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitExam($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitChild($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitTax($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitRef($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitVol($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}	
+	function submitWorkExp($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}					
+					
+		
+	// check existence
+	function checkExist($strSname = '', $strFname = '')
+	{		
+		$strSQL = " SELECT * FROM tblemprequest					
+					WHERE  
+					requestDetails ='$strSname' OR
+					requestDate ='$strFname'					
+					";
+		//echo $strSQL;exit(1);
+		$objQuery = $this->db->query($strSQL);
+		return $objQuery->result_array();	
+	}
+
+	// saving updates
+	function save($arrData, $intReqId)
+	{
+		$this->db->where('requestID', $intReqId);
+		$this->db->update('tblemprequest', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
-	function delete($intAppointmentId)
+	
+	// deleting enties
+	function delete($intReqId)
 	{
-		$this->db->where('appointmentId', $intAppointmentId);
-		$this->db->delete('tblAppointment'); 	
+		$this->db->where('requestID', $intReqId);
+		$this->db->delete('tblemprequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

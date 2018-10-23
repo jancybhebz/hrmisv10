@@ -39,15 +39,20 @@ class Compensatory_leave extends MY_Controller {
 			$strPurpose=$arrPost['strPurpose'];
 			$strRecommend=$arrPost['strRecommend'];
 			$strApproval=$arrPost['strApproval'];
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
 			if(!empty($dtmComLeave))
 			{	
 				if( count($this->compensatory_leave_model->checkExist($dtmComLeave))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$dtmComLeave.';'.$dtmMorningIn.';'.$dtmMorningOut.';'.$dtmAfternoonIn.';'.$dtmAfternoonOut.';'.$strPurpose,
-						'signatory'=>$strRecommend.';'.$strApproval
-						// 'requestDate'=>$dtmOBrequestdate,
-						// 'requestStatus'=>
+						'signatory'=>$strRecommend.';'.$strApproval,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					
 					);
 					$blnReturn  = $this->compensatory_leave_model->submit($arrData);
 

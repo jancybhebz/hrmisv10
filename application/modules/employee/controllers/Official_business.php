@@ -38,13 +38,18 @@ class Official_business extends MY_Controller {
 			$strDestination=$arrPost['strDestination'];
 			$strMeal=$arrPost['strMeal'];
 			$strPurpose=$arrPost['strPurpose'];
-			if(!empty($strOBtype) && !empty($dtmOBrequestdate))
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
+			if(!empty($strOBtype))
 			{	
 				if( count($this->official_business_model->checkExist($strOBtype, $dtmOBrequestdate))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strOBtype.';'.$dtmOBdatefrom.';'.$dtmOBdateto.';'.$dtmTimeFrom.';'.$dtmTimeTo.';'.$strDestination.';'.$strMeal.';'.$strPurpose,
 						'requestDate'=>$dtmOBrequestdate,
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
 						// 'requestStatus'=>
 					);
 					$blnReturn  = $this->official_business_model->submit($arrData);
@@ -66,4 +71,32 @@ class Official_business extends MY_Controller {
 		}
     	$this->template->load('template/template_view','employee/official_business/official_business_view',$this->arrData);
     }
+
+    public function request_type()
+	{
+		$intReqId=$this->uri->segment(3);
+		// $arrGet=$this->input->get();
+		// $strCode=$arrGet['rpt'];
+		$strCode="official_business";
+		
+		switch($strCode)
+		{
+			case "official_business":
+	        	echo "OB";
+	        	break;
+			case "travel_order":
+	        	echo "TO";
+	        	break;
+	        case "leave":
+	        	echo "Leave";
+	        	break;
+	        case "PDS_update":
+	        	echo "PDS";
+	        	break;
+	        case "DTR_update":
+	        	echo "DTR";
+	        	break;
+			
+		}
+	}
 }

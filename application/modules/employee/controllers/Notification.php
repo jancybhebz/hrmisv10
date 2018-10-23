@@ -15,12 +15,15 @@ class Notification extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employee/notification_model'));
+        $this->load->model(array('employee/notification_model','hr/Hr_model'));
     }
 
 	public function index()
 	{
-		$this->arrData['arrRequest'] = $this->notification_model->getData();
+		$strEmpNo =$_SESSION['sessEmpNo'];
+		$this->arrData['arrRequest'] = $this->notification_model->getData($strEmpNo);
+		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
+
 		$this->template->load('template/template_view', 'employee/notification/notification_view', $this->arrData);
 		
 	}

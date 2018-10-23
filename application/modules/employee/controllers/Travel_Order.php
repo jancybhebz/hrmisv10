@@ -34,13 +34,18 @@ class Travel_order extends MY_Controller {
 			$dtmTOdateto=$arrPost['dtmTOdateto'];
 			$strPurpose=$arrPost['strPurpose'];
 			$strMeal=$arrPost['strMeal'];
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
 			if(!empty($strDestination) && !empty($dtmTOdatefrom))
 			{	
 				if( count($this->travel_order_model->checkExist($strDestination, $dtmTOdatefrom))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.$strMeal,
-						'requestDate'=>$dtmTOdatefrom,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
 						// 'requestStatus'=>
 					);
 					$blnReturn  = $this->travel_order_model->submit($arrData);

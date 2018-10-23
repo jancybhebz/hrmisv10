@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('employee/pds_update/add')?>" method="post" id="frmPDSupdate">
+                <form action="<?=base_url('employee/pds_update/')?>" method="post" id="frmPDSupdate">
                  <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -73,9 +73,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                  </div>
+            </form>
          <br><br>
 
 <!-- Profile -->
+            <form action="<?=base_url('employee/pds_update/submitProfile')?>" method="post" id="frmPDSupdate">
                 <div class="row" id="surname_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -474,8 +476,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                <input type="text" class="form-control" name="strCP" value="<?=isset($arrData[0]['strCP'])?$arrData[0]['strCP']:''?>">
                             </div>
                         </div>
+                        <div class="row" id="submitProfile">
+                            <div class="col-sm-12 text-center">
+                                <input class="hidden" name="strStatus" value="Filed Request">
+                                <input class="hidden" name="strCode" value="201 Profile">
+
+                                <button type="submit" name="submitProfile" id="submitProfile" class="btn btn-primary">Submit</button>
+                                <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                            </div>
+                        </div>
                 </div>
+            </form>
 <!-- Family Background -->
+            <form action="<?=base_url('employee/pds_update/submitFam')?>" method="post" id="frmPDSupdate">
                 <div class="row" id="spouse_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -650,7 +663,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <input type="text" class="form-control" name="strFSurname" value="<?=isset($arrFamily[0]['strFSurname'])?$arrFamily[0]['strFSurname']:''?>">
+                                 <input type="text" class="form-control" name="strMSurname" value="<?=isset($arrFamily[0]['strFSurname'])?$arrFamily[0]['strFSurname']:''?>">
                             </div>
                         </div>
                 </div>
@@ -692,13 +705,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                   <div class="row" id="submitFam">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Family">
+
                             <button type="submit" name="submitFam" id="submitFam" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
+            </form>
 <!-- Educational Attainment -->
 <div id="tab_education" class="tab-pane" style="overflow-x:auto;">
-    <form action="#">
+      <form action="<?=base_url('employee/pds_update/submitEduc')?>" method="post" id="frmPDSupdate">
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Level Code</th>
@@ -730,6 +747,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </tr>
                 <?php endforeach;?>
             </table>
+
+        <form action="<?=base_url('employee/pds_update/submitEduc')?>" method="post" id="frmPDSupdate">
                 <div class="row" id="educlevel_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -906,16 +925,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitEduc">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Educ">
+
                             <button type="submit" name="submitEduc" id="submitEduc" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-    </form>
+        </form>
 </div>
 
 <!-- Trainings -->
 <div id="tab_training" class="tab-pane">
-    <form action="#">    
+    <form action="<?=base_url('employee/pds_update/submitTraining')?>" method="post" id="frmPDSupdate">
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th>Title of Learning & Dev./Training Programs</th>
@@ -1054,6 +1076,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitTraining">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Training">
+
                             <button type="submit" name="submitTraining" id="submitTraining" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
@@ -1062,7 +1087,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 <!-- Examinations -->
 <div id="tab_exam" class="tab-pane">
-    <form action="#">
+    <form action="<?=base_url('employee/pds_update/submitExam')?>" method="post" id="frmPDSupdate">
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th width="10%">Exam Description</th>
@@ -1165,6 +1190,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitExam">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Exam">
+
                             <button type="submit" name="submitExam" id="submitExam" class="btn btn-primary">Submit</button>
                              <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
@@ -1172,6 +1200,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </form>
 </div>
 <!-- Children -->
+<form action="<?=base_url('employee/pds_update/submitChild')?>" method="post" id="frmPDSupdate">
                 <div class="row" id="childname_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -1198,11 +1227,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                  <div class="row" id="submitChild">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Child">
+
                             <button type="submit" name="submitChild" id="submitChild" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                     </div>
+            </form>
 <!-- Community Tax Certification -->
+<form action="<?=base_url('employee/pds_update/submitTax')?>" method="post" id="frmPDSupdate">
                 <div class="row" id="taxcert_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -1238,16 +1272,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <input class="form-control form-control-inline input-medium date-picker" name="dtmIssuedOn" id="dtmIssuedOn" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
+
                 </div>
                  <div class="row" id="submitTax">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Tax">
+
                             <button type="submit" name="submitTax" id="submitTax" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
+        </form>
 <!-- References -->
 <div id="tab_ref" class="tab-pane">
-    <form action="#">
+<form action="<?=base_url('employee/pds_update/submitRef')?>" method="post" id="frmPDSupdate">
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th>Name of Reference</th>
@@ -1302,6 +1341,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitRef">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Ref">
+
                             <button type="submit" name="submitRef" id="submitRef" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
@@ -1310,7 +1352,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- Voluntary Works -->
 <div id="tab_volWork" class="tab-pane">
-    <form action="#">                     
+<form action="<?=base_url('employee/pds_update/submitVol')?>" method="post" id="frmPDSupdate">    
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th width="10%">Name of Organization</th>
@@ -1405,6 +1447,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 <div class="row" id="submitVol">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="201 Voluntary">
+
                             <button type="submit" name="submitVol" id="submitVol" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
@@ -1413,7 +1458,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- Work Experience -->
 <div id="tab_workExp" class="tab-pane">
-    <form action="#">             
+   <form action="<?=base_url('employee/pds_update/submitWorkExp')?>" method="post" id="frmPDSupdate">    
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Inclusive Date [From-To]</th>
@@ -1551,7 +1596,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <select type="text" class="form-control" name="strStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
+                            <select type="text" class="form-control" name="strAStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
                                 <option value="">Select</option>
                                 <?php foreach($arrAppointment as $appoint)
                                 {
@@ -1635,20 +1680,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                 <div class="row" id="submitWorkExp">
                     <div class="col-sm-12 text-center">
+                        <input class="hidden" name="strStatus" value="Filed Request">
+                        <input class="hidden" name="strCode" value="201 WorkExp">
+
                         <button type="submit" name="submitWorkExp" id="submitWorkExp" class="btn btn-primary">Submit</button>
                         <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                     </div>
                 </div>
-    </form>
+        </form>
 </div>
 <!-- closing -->
-                    <div class="row" id="submit">
+                    <!-- <div class="row" id="submit">
                         <div class="col-sm-12 text-center">
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                     </div>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>

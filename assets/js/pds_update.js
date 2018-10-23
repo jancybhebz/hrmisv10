@@ -39,7 +39,8 @@ function showtextbox()
 		$('#tel2_textbox').show();
 		$('#email_textbox').show();
 		$('#cp_textbox').show();
-		$('#submit').show();
+		$('#submitProfile').show();
+		// $('#submit').show();
 		// Family
 		$('#spouse_textbox').hide();
 		$('#ssurname_textbox').hide();
@@ -175,6 +176,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').show();
@@ -311,6 +313,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -448,6 +451,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -584,6 +588,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -720,6 +725,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -856,6 +862,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -993,6 +1000,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -1129,6 +1137,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -1265,6 +1274,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -1403,6 +1413,7 @@ function showtextbox()
 		$('#tel2_textbox').hide();
 		$('#email_textbox').hide();
 		$('#cp_textbox').hide();
+		$('#submitProfile').hide();
 		$('#submit').hide();
 		// Family
 		$('#spouse_textbox').hide();
@@ -1543,6 +1554,7 @@ $(document).ready(function()
 	$('#tel2_textbox').hide();
 	$('#email_textbox').hide();
 	$('#cp_textbox').hide();
+	$('#submitProfile').hide();
 	$('#submit').hide();
 	// Family
 	$('#spouse_textbox').hide();

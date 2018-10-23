@@ -33,13 +33,19 @@ class Reports extends MY_Controller {
 			$strRemittype=$arrPost['strRemittype'];
 			$month=$arrPost['month'];
 			$date=$arrPost['date'];
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
 		
 			if(!empty($strReporttype))
 			{	
 				if( count($this->reports_model->checkExist($strReporttype))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strReporttype.';'.$strRemittype.';'.$month.';'.$date
+						'requestDetails'=>$strReporttype.';'.$strRemittype.';'.$month.';'.$date,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
 						/*'requestDate'=>$dtmOBrequestdate,*/
 						// 'requestStatus'=>
 					);

@@ -140,6 +140,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                      <div class="row">
                         <div class="col-sm-12 text-center">
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                            <input class="hidden" name="strCode" value="Reports">
+
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/reports')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>    
                         </div>            

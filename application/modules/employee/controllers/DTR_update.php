@@ -43,6 +43,10 @@ class DTR_update extends MY_Controller {
 				{
 					$arrData = array(
 						'requestDetails'=>$dtmDTRupdate.';'.$dtmMorningIn.';'.$dtmMorningOut.';'.$dtmAfternoonIn.';'.$dtmAfternoonOut.';'.$dtmOvertimeIn.';'.$dtmOvertimeOut.';'.$strReason,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
 						// 'requestDate'=>$dtmOBrequestdate,
 						// 'requestStatus'=>
 					);
