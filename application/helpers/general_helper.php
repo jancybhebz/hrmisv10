@@ -101,3 +101,27 @@ if ( ! function_exists('strtofloat'))
     	return str_replace(',', '', $float);
 	}
 }
+
+# Return Adjustment Type
+if ( ! function_exists('adjustmentType'))
+{
+    function adjustmentType($type='')
+    {
+    	$types = array(array('id' => '1', 'val' => 'Credit'),array('id' => '-1', 'val' => 'Debit'),array('id' => '2', 'val' => 'From Voucher'));
+    	if($type != ''):
+			$key = array_search($type, array_column($types, 'id'));
+			return $types[$key]['val'];
+		else:
+			return $types;
+		endif;
+	}
+}
+
+# Return Period
+if ( ! function_exists('periods'))
+{
+    function periods()
+    {
+    	return array(array('id' => 1, 'val' => 'Period 1'), array('id' => 2, 'val' => 'Period 2'));
+	}
+}

@@ -383,14 +383,6 @@ class Personnel_profile extends MY_Controller {
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
 
-	public function adjustments($empid)
-	{
-		$employeeData = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $employeeData[0];
-
-		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
-	}
-
 	public function edit_deduction($empid,$arrData=array(),$updateall=0)
 	{
 		if($updateall == 1):
@@ -400,22 +392,11 @@ class Personnel_profile extends MY_Controller {
 			$arrPost = $this->input->post();
 			$empid = $this->uri->segment(5);
 		endif;
-
-		// echo 'empid '.$empid;
-		// echo '<br>';
-		// print_r($arrPost);
 		
 		# check if exist in benefits
 		$checkexist = $this->Compensation_model->getDeduction($empid, $arrPost['txtdeductioncode']);
-		// echo '<br>';echo '<br>';
-		// print_r($checkexist);
-		// print_r($checkexist[0]['deductCode']);
-		// echo '<br>';
 		if(count($checkexist) > 0):
-			// echo '<br>';
 			$arrPost['txtdeductcode'] = $arrPost['txtdeductcode'] != '' ? $arrPost['txtdeductcode'] : $checkexist[0]['deductCode'];
-			// echo $arrPost['txtdeductcode'];
-
 			$arrData = array('deductionCode' => $arrPost['txtdeductioncode'],
 							 'monthly' => str_replace(',', '', $arrPost['txtamount']),
 							 'period1' => str_replace(',', '', $arrPost['txtperiod1']),
@@ -423,9 +404,6 @@ class Personnel_profile extends MY_Controller {
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->editDeduction($arrData, $arrPost['txtdeductcode'], $empid);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' updated successfully.');
-			// echo '<br>';
-			// echo '<br>';
-			// print_r($arrData);
 		else:
 			$arrData = array('empNumber' => $empid,
 							 'deductionCode' => $arrPost['txtdeductioncode'],
@@ -435,17 +413,124 @@ class Personnel_profile extends MY_Controller {
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->addDeduction($arrData);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' added successfully.');
-			// echo '<br>';
-			// echo '<br>';
-			// print_r($arrData);
 		endif;
-		// echo '<hr>';
 
 		if($updateall == 0):
 			redirect('finance/compensation/personnel_profile/premium_loan/'.$empid);
 		endif;
 	}
 
+	# BEGIN ADJUSTMENT
+	public function adjustments($empid)
+	{
+		$this->load->model(array('Income_model','Adjustments_model','Deduction_model'));
+		$employeeData = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $employeeData[0];
+
+		$mon = isset($_GET['mon']) ? $_GET['mon'] : 0;
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : 0;
+		$period = isset($_GET['period']) ? $_GET['period'] : "";
+
+		$this->arrData['arrDataDeduct'] = $this->Adjustments_model->getDeductions($empid,$mon,$yr,$period);
+		$this->arrData['arrDataIncome'] = $this->Adjustments_model->getIncome($empid,$mon,$yr,$period);
+
+		$this->arrData['arrIncomes'] = $this->Income_model->getDataByIncomeCode();
+		$this->arrData['arrDeductions'] = $this->Deduction_model->getDeductions('','*');
+
+		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
+	}
+
+	public function income_adjustment($empid)
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$this->load->model('Adjustments_model');
+			if($arrPost['txtaction'] == 'add'):
+				$arrData = array('empNumber' 	=> 	$empid,
+								 'incomeCode' 	=> 	$arrPost['selincome'],
+								 'incomeMonth' 	=> 	$arrPost['selinc_month'],
+								 'incomeYear' 	=> 	$arrPost['selinc_yr'],
+								 'incomeAmount' => 	$arrPost['txtinc_amt'],
+								 'type' 		=> 	$arrPost['selinc_type'],
+								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
+								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
+								 'adjustPeriod' => 	$arrPost['txtadjper']);
+				$this->Adjustments_model->addAdj_income($arrData);
+				$this->session->set_flashdata('strSuccessMsg', 'Adjustment income added successfully.');
+			endif;
+			if($arrPost['txtaction'] == 'edit'):
+				$arrData = array('incomeCode' 	=> 	$arrPost['selincome'],
+								 'incomeMonth' 	=> 	$arrPost['selinc_month'],
+								 'incomeYear' 	=> 	$arrPost['selinc_yr'],
+								 'incomeAmount' => 	$arrPost['txtinc_amt'],
+								 'type' 		=> 	$arrPost['selinc_type'],
+								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
+								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
+								 'adjustPeriod' => 	$arrPost['txtadjper']);
+				$this->Adjustments_model->editAdj_income($arrData, $arrPost['txtinc_id']);
+				$this->session->set_flashdata('strSuccessMsg', 'Adjustment income updated successfully.');
+			endif;
+			redirect('finance/compensation/personnel_profile/adjustments/'.$empid.'?mon='.$arrPost['txtadjmon'].'&yr='.$arrPost['txtadjyr'].'&period='.$arrPost['txtadjper']);
+		endif;
+	}
+
+	public function deduction_adjustment($empid)
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$this->load->model('Adjustments_model');
+			if($arrPost['txtded_action'] == 'add'):
+				$arrData = array('empNumber' 	=> 	$empid,
+								 'deductionCode'=> 	$arrPost['seldeduct'],
+								 'deductMonth' 	=> 	$arrPost['selded_month'],
+								 'deductYear' 	=> 	$arrPost['selded_yr'],
+								 'deductAmount' => 	$arrPost['txtded_amt'],
+								 'type' 		=> 	$arrPost['selded_type'],
+								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
+								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
+								 'adjustPeriod' => 	$arrPost['txtadjper']);
+				$this->Adjustments_model->addAdj_deduction($arrData);
+				$this->session->set_flashdata('strSuccessMsg', 'Adjustment deduction added successfully.');
+			endif;
+			if($arrPost['txtded_action'] == 'edit'):
+				$arrData = array('deductionCode'=> 	$arrPost['seldeduct'],
+								 'deductMonth' 	=> 	$arrPost['selded_month'],
+								 'deductYear' 	=> 	$arrPost['selded_yr'],
+								 'deductAmount' => 	$arrPost['txtded_amt'],
+								 'type' 		=> 	$arrPost['selded_type'],
+								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
+								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
+								 'adjustPeriod' => 	$arrPost['txtadjper']);
+				$this->Adjustments_model->editAdj_deduction($arrData, $arrPost['txtded_id']);
+				$this->session->set_flashdata('strSuccessMsg', 'Adjustment deduction updated successfully.');
+			endif;
+			redirect('finance/compensation/personnel_profile/adjustments/'.$empid.'?mon='.$arrPost['txtadjmon'].'&yr='.$arrPost['txtadjyr'].'&period='.$arrPost['txtadjper']);
+		endif;
+	}
+
+	public function delete_adjustment()
+	{
+		$arrPost = $this->input->post();
+		$empid = $this->uri->segment(5);
+
+		if(!empty($arrPost)):
+			$this->load->model('Adjustments_model');
+
+			if($arrPost['txtdel_action'] == 'income'):
+				$this->Adjustments_model->delAdj_income($arrPost['txtdel_id']);
+				$this->session->set_flashdata('strSuccessMsg', 'Adjustment income deleted successfully.');
+			endif;
+
+			if($arrPost['txtdel_action'] == 'deduction'):
+				$this->Adjustments_model->delAdj_deduction($arrPost['txtdel_id']);
+				$this->session->set_flashdata('strSuccessMsg', 'Adjustment deduction deleted successfully.');
+			endif;
+
+			redirect('finance/compensation/personnel_profile/adjustments/'.$empid.'?mon='.$_GET['mon'].'&yr='.$_GET['yr'].'&period='.$_GET['period']);
+		endif;
+		
+	}
+	# END ADJUSTMENT
 
 }
 /* End of file Deductions.php

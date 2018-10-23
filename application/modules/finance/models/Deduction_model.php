@@ -68,10 +68,10 @@ class Deduction_model extends CI_Model {
 		endif;
 	}
 
-	function getDeductions($code='')
+	function getDeductions($code='',$select='deductionCode')
 	{
 		if($code==''):
-			return $this->db->select('deductionCode')->get('tblDeduction')->result_array();
+			return $this->db->select($select)->order_by('deductionDesc')->get('tblDeduction')->result_array();
 		else:
 			$result = $this->db->get_where('tblDeduction', array('deductionCode' => $code))->result_array();
 			return $result[0];
