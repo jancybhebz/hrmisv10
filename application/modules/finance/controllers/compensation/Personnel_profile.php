@@ -27,7 +27,10 @@ class Personnel_profile extends MY_Controller {
 
 	public function employee($empid)
 	{
-		$this->load->model(array('PayrollGroup_model', 'Rata_model','libraries/Attendance_scheme_model', 'TaxExempt_model','libraries/Plantilla_model', 'libraries/Separation_mode_model'));
+		$this->load->model(array('PayrollGroup_model', 'Rata_model',
+								 'libraries/Attendance_scheme_model', 'TaxExempt_model',
+								 'libraries/Plantilla_model', 'libraries/Separation_mode_model',
+								 'Benefit_model'));
 
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
@@ -58,7 +61,7 @@ class Personnel_profile extends MY_Controller {
 		if(!isset($_GET['yr']) && !isset($_GET['mon'])):
 			$_GET['yr'] = date('Y'); $_GET['mon'] = date('n');
 		endif;
-		$arrEmpBenefits = $this->Compensation_model->getEmployeeBenefit($empid,$_GET['yr'],$_GET['mon']);
+		$arrEmpBenefits = $this->Benefit_model->getEmployeeBenefit($empid,$_GET['yr'],$_GET['mon']);
 		$this->arrData['arrEmpBenefits'] = $arrEmpBenefits;
 		$this->arrData['empSalary'] = $this->arrData['arrData']['actualSalary'];
 		$this->arrData['arrEmpDeductions'] = $this->Compensation_model->getEmployeeDeduction($empid,$_GET['yr'],$_GET['mon']);
@@ -113,27 +116,27 @@ class Personnel_profile extends MY_Controller {
 	# Begin 2nd tab of personnel_profile = 'income' 
 	public function income($empid)
 	{
-		$this->load->model('Income_model');
+		$this->load->model(array('Income_model','Longevity_model','Benefit_model'));
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
 		// BENEFIT LIST
 		$incomes = $this->Income_model->getDataByType('Benefit');
 		$benefits = $this->Benefit_model->getBenefits($empid);
-		$this->arrData['benefitList'] = $this->Compensation_model->getBenefitsfromArray($benefits, $incomes);
+		$this->arrData['benefitList'] = $this->Benefit_model->getBenefitsfromArray($benefits, $incomes);
 		$this->arrData['arrStatus'] = array('1' => 'On-going','2' => 'Paused','0' => 'Remove');
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrAppointments_by2'] = count($this->arrData['arrAppointments']) / 2;
 
 		// LONGEVITY PAY
-		$this->arrData['arrLongevity'] = $this->Compensation_model->getLongevity($empid);
+		$this->arrData['arrLongevity'] = $this->Longevity_model->getLongevity($empid);
 
 		// BONUS
 		$bonusList = $this->Income_model->getDataByType('Bonus');
-		$this->arrData['arrBonuslist'] = $this->Compensation_model->getBenefitsfromArray($benefits, $bonusList);
+		$this->arrData['arrBonuslist'] = $this->Benefit_model->getBenefitsfromArray($benefits, $bonusList);
 
 		$addtlIncome = $this->Income_model->getDataByType('Additional');
-		$this->arrData['arrAddtlIncome'] = $this->Compensation_model->getBenefitsfromArray($benefits, $addtlIncome);
+		$this->arrData['arrAddtlIncome'] = $this->Benefit_model->getBenefitsfromArray($benefits, $addtlIncome);
 
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
@@ -144,6 +147,7 @@ class Personnel_profile extends MY_Controller {
 		$empid = $this->uri->segment(5);
 
 		if(!empty($arrPost)):
+			$this->load->model('Longevity_model');
 			if(isset($arrPost['txtaction'])):
 				if($arrPost['txtaction'] == 'add'):
 					$arrData = array(
@@ -152,7 +156,7 @@ class Personnel_profile extends MY_Controller {
 							'longiAmount'	=> $arrPost['txtsalary'],
 							'longiPercent'	=> $arrPost['txtpercent'],
 							'longiPay'		=> $arrPost['txtsalary'] * ($arrPost['txtpercent'] / 100));
-					$this->Compensation_model->addLongevity($arrData);
+					$this->Longevity_model->addLongevity($arrData);
 					$this->session->set_flashdata('strSuccessMsg','Longevity pay added successfully.');
 				endif;
 
@@ -162,14 +166,14 @@ class Personnel_profile extends MY_Controller {
 							'longiAmount'	=> $arrPost['txtsalary'],
 							'longiPercent'	=> $arrPost['txtpercent'],
 							'longiPay'		=> $arrPost['txtsalary'] * ($arrPost['txtpercent'] / 100));
-					$this->Compensation_model->editLongevity($arrData, $empid, $arrPost['txtlongevityid']);
+					$this->Longevity_model->editLongevity($arrData, $empid, $arrPost['txtlongevityid']);
 					$this->session->set_flashdata('strSuccessMsg','Longevity pay updated successfully.');
 				endif;
 			endif;
 
 			if(isset($arrPost['txtdel_action'])):
 				if($arrPost['txtdel_action'] == 'del'):
-					$this->Compensation_model->delLongevity($empid, $arrPost['txtdel_longevityid']);
+					$this->Longevity_model->delLongevity($empid, $arrPost['txtdel_longevityid']);
 					$this->session->set_flashdata('strSuccessMsg','Longevity pay deleted successfully.');
 				endif;
 			endif;

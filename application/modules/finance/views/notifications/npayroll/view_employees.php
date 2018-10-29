@@ -11,11 +11,12 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Libraries</span>
+            <span>Notifications</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>List of Employees</span>
+            <span>Included in Payroll</span>
+            <i class="fa fa-circle"></i>
         </li>
     </ul>
 </div>
@@ -34,31 +35,32 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-settings font-dark"></i>
-                            <span class="caption-subject bold uppercase"> List of Employees</span>
+                            <span class="caption-subject bold uppercase"> Included in Payroll</span>
                         </div>
                     </div>
+                
                     <div class="portlet-body">
                         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-employees" style="display: none">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-npayroll" style="display: none">
                             <thead>
                                 <tr>
-                                    <th> No. </th>
-                                    <th> Employee Number </th>
-                                    <th> Name </th>
-                                    <th> Office </th>
-                                    <th> Position </th>
-                                    <th style="text-align: center;"> Action </th>
+                                    <tr>
+                                        <th style="text-align: center; width: 50px;"> No. </th>
+                                        <th> Employee Number </th>
+                                        <th> Name </th>
+                                        <th> Position </th>
+                                        <th style="text-align: center;"> Actions </th>
+                                    </tr>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no=1; foreach($arrEmployees as $row): ?>
-                                    <tr class="odd gradeX ">
-                                        <td><?=$no++?> </td>
-                                        <td> <?=$row['empNumber']?></a> </td>
-                                        <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
-                                        <td> <?=employee_office($row['empNumber'])?> </td>
-                                        <td> <?=$row['positionDesc']?></td>
-                                        <td style="text-align: center;"> <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
+                                <?php $no=1; foreach($arrEmployees as $employee): ?>
+                                    <tr>
+                                        <td><?=$no++?></td>
+                                        <td><?=$employee['empNumber']?></td>
+                                        <td><?=getfullname($employee['surname'], $employee['firstname'], $employee['middlename'], $employee['middleInitial'])?></td>
+                                        <td><?=$employee['positionDesc']?></td>
+                                        <td style="text-align: center;"> <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$employee['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -74,10 +76,10 @@
 
 <script>
     $(document).ready(function() {
-        $('#table-employees').dataTable( {
+        $('#table-npayroll').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
-                $('#table-employees').show();
+                $('#table-npayroll').show();
             }} );
     });
 </script>

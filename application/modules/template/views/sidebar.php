@@ -219,26 +219,26 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     </li>
                 </ul>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item <?=strtolower($activesub)=='notifications'?'active open':''?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-bell"></i>
-                    <span class="title">Notification</span>
-                    <span class="arrow"></span>
+                    <span class="title">Notifications</span>
+                    <span class="arrow <?=strtolower($activesub)=='notifications'?'open':''?>"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Included in Payroll ()</span>
+                    <li class="nav-item <?=strtolower($activetab)=='npayroll'?'active open':''?>">
+                        <a href="<?=base_url('finance/notifications/npayroll')?>"">
+                            <span class="title">Included in Payroll</span>
                         </a>
                     </li>
                     <li class="nav-item start ">
                         <a href="javascript:;" class="nav-link ">
-                            <span class="title">Maturing Loans ()</span>
+                            <span class="title">Maturing Loans</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Increase in Longevity Factor ()</span>
+                    <li class="nav-item <?=strtolower($activetab)=='nlongi'?'active open':''?>">
+                        <a href="<?=base_url('finance/notifications/nlongi')?>"">
+                            <span class="title">Increase in Longevity Factor</span>
                         </a>
                     </li>
                 </ul>

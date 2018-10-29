@@ -67,3 +67,12 @@ if ( ! function_exists('restdays'))
 		return array('Saturday', 'Sunday');
 	}
 }
+
+# restdays
+if ( ! function_exists('longeAppt'))
+{
+    function longeAppt()
+    {
+        return 'P';
+    }
+}
