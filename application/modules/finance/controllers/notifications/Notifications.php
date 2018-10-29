@@ -53,9 +53,38 @@ class Notifications extends MY_Controller {
 		$arrData = array('incomeAmount'		=> 	$_POST['txtlongefactor'],
 						 'period1'		 	=> 	'Y');
 		$this->Benefit_model->editByFields($arrData, array('empNumber' => $_POST['txtempnumber'], 'incomeCode' => 'LONGI'));
-		
+
 		$this->session->set_flashdata('strSuccessMsg', 'Employee factor updated successfully.');
 		redirect('finance/notifications/nlongi');
+	}
+
+	public function matureloans()
+	{
+		$this->load->model('Deduction_model');
+		$arrEmployees = array();
+		$this->arrData['arrEmployees'] = $this->Deduction_model->getMaturingLoans('10', '2019');
+		$this->template->load('template/template_view','finance/notifications/mloans/view_employees',$this->arrData);
+	}
+
+	public function updatematuringLoans()
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$this->load->model('Deduction_model');
+			$arrData = array('dateGranted'		=> $arrPost['txtdateGranted'],
+							 'actualStartYear'	=> $arrPost['txtsdate_yr'],
+							 'actualStartMonth'	=> $arrPost['selsdate_mon'],
+							 'actualEndYear'	=> $arrPost['txtedate_yr'],
+							 'actualEndMonth'	=> $arrPost['seledate_mon'],
+							 'amountGranted'	=> str_replace(',', '', $arrPost['txtamtGranted']),
+							 'monthly'			=> str_replace(',', '', $arrPost['txtmonthly']),
+							 'period1'			=> str_replace(',', '', $arrPost['txtperiod1']),
+							 'period2'			=> str_replace(',', '', $arrPost['txtperiod2']),
+							 'status'			=> $arrPost['selstatus']);
+			$this->Deduction_model->edit_empdeduction($arrData, $arrPost['txtid']);
+			$this->session->set_flashdata('strSuccessMsg','Loan updated successfully.');
+			redirect('finance/notifications/matureloans');
+		endif;
 	}
 
 }

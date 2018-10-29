@@ -231,8 +231,8 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                             <span class="title">Included in Payroll</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activetab)=='matureloans'?'active open':''?>">
+                        <a href="<?=base_url('finance/notifications/matureloans')?>"">
                             <span class="title">Maturing Loans</span>
                         </a>
                     </li>

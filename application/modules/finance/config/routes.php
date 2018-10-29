@@ -43,4 +43,4 @@ $route['finance/process_payroll'] = 'finance/process_payroll/Payroll_process/ind
 # NOTIFICATIONS
 $route['finance/notifications/npayroll'] = 'finance/notifications/notifications/npayroll';
 $route['finance/notifications/nlongi'] = 'finance/notifications/notifications/nlongi';
-// $route['finance/notifications/npayroll/(:any)/(:any)'] = 'finance/compensation/personnel_profile/$1/$2';
+$route['finance/notifications/matureloans'] = 'finance/notifications/notifications/matureloans';

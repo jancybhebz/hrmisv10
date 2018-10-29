@@ -18,6 +18,13 @@ class Deduction_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function edit_empdeduction($arrData, $code)
+	{
+		$this->db->where('deductCode',$code);
+		$this->db->update('tblEmpDeductions', $arrData);
+		return $this->db->affected_rows();
+	}
+
 	function edit($arrData, $code)
 	{
 		$this->db->where('deductionCode',$code);
@@ -106,6 +113,20 @@ class Deduction_model extends CI_Model {
 			endif;
 		endif;
 		return false;
+	}
+
+	function getMaturingLoans($month, $yr)
+	{
+		$strSQL = "SELECT *, IFNULL((SELECT SUM(deductAmount)
+						FROM tblEmpDeductionRemit
+						WHERE tblEmpDeductionRemit.code=tblEmpDeductions.deductCode),0)  AS total_remit
+							FROM tblEmpDeductions 
+							LEFT JOIN tblDeduction ON tblDeduction.deductionCode = tblEmpDeductions.deductionCode 
+							LEFT JOIN tblEmpPersonal on tblEmpDeductions.empNumber = tblEmpPersonal.empNumber 
+								WHERE actualEndMonth='$month' AND actualEndYear='$yr' AND status='1' AND deductionType='Loan'";
+
+		$objQuery = $this->db->query($strSQL);
+		return $objQuery->result_array();
 	}
 
 }

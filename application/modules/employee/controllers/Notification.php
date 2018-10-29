@@ -28,6 +28,4 @@ class Notification extends MY_Controller {
 		
 	}
 	
-		
-	
 }
