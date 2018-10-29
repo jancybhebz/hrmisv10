@@ -16,7 +16,6 @@
         </li>
         <li>
             <span>Included in Payroll</span>
-            <i class="fa fa-circle"></i>
         </li>
     </ul>
 </div>

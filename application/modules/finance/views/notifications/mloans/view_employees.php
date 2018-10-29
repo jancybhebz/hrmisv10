@@ -15,8 +15,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Included in Payroll</span>
-            <i class="fa fa-circle"></i>
+            <span>Maturing Loans</span>
         </li>
     </ul>
 </div>

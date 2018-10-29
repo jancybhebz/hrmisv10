@@ -15,8 +15,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Included in Payroll</span>
-            <i class="fa fa-circle"></i>
+            <span>Increase in Longevity factor</span>
         </li>
     </ul>
 </div>
@@ -35,7 +34,7 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-settings font-dark"></i>
-                            <span class="caption-subject bold uppercase"> Included in Payroll</span>
+                            <span class="caption-subject bold uppercase"> INCREASE IN LONGEVITY FACTOR</span>
                         </div>
                     </div>
                 
