@@ -246,7 +246,6 @@
     </div>
 </div>
 
-<?php include('_modal.php'); ?>
 <?php load_plugin('js', array('datepicker')) ?>
 <script>
     $(document).ready(function() {

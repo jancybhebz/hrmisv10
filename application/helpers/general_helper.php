@@ -125,3 +125,13 @@ if ( ! function_exists('periods'))
     	return array(array('id' => 1, 'val' => 'Period 1'), array('id' => 2, 'val' => 'Period 2'));
 	}
 }
+
+if ( ! function_exists('getfullname'))
+{
+    function getfullname($fname, $lname, $mname='', $mid='')
+    {
+    	$mid_ini = $mid!='' ? str_replace('.', '', $mid) : $mname[0];
+    	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
+    	return $lname.', '.$fname.' '.$mid_ini;
+	}
+}

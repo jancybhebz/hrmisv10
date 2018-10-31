@@ -39,3 +39,8 @@ $route['finance/libraries/agency/edit/(:any)'] = 'finance/libraries/deductions/e
 // Payroll Process
 
 $route['finance/process_payroll'] = 'finance/process_payroll/Payroll_process/index';
+
+# NOTIFICATIONS
+$route['finance/notifications/npayroll'] = 'finance/notifications/notifications/npayroll';
+$route['finance/notifications/nlongi'] = 'finance/notifications/notifications/nlongi';
+$route['finance/notifications/matureloans'] = 'finance/notifications/notifications/matureloans';

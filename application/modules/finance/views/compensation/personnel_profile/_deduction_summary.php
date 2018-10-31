@@ -130,7 +130,7 @@
         </div>
     </div>
 </div>
-<?php include('_modal.php'); ?>
+
 <?=load_plugin('js', array('datatables'))?>
 <script>
     $(document).ready(function() {

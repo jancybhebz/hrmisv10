@@ -40,6 +40,13 @@ class Position_model extends CI_Model {
 		$this->db->insert('tblPosition', $arrData);
 		return $this->db->insert_id();		
 	}
+
+	function editPosition($arrData, $arrwhere)
+	{
+		$this->db->where($arrwhere);
+		$this->db->update('tblEmpPosition', $arrData);
+		return $this->db->affected_rows();
+	}
 	
 	function checkExist($strPositionCode = '', $strPositionDescription = '')
 	{		

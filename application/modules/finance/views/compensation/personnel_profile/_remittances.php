@@ -79,7 +79,7 @@
         </div>
     </div>
 </div>
-<?php include('_modal.php'); ?>
+
 <?=load_plugin('js', array('datepicker','datatables','select2'))?>
 <script>
     $(document).ready(function() {
