@@ -741,7 +741,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <br><br>
        <div class="row">
           <div class="col-sm-12 text-center">
-              <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Add'?></button>
+              <button type="submit" name="add_employee" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Add'?></button>
               <a href="<?=base_url('hr/add_employee')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
           </div>
         </div>

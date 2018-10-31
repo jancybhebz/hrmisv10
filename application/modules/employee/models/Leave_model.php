@@ -35,17 +35,47 @@ class Leave_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function submit($arrData)
+	function submitFL($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitSPL($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitSL($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitVL($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitML($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitPL($arrData)
+	{
+		$this->db->insert('tblemprequest', $arrData);
+		return $this->db->insert_id();		
+	}
+	function submitSTL($arrData)
 	{
 		$this->db->insert('tblemprequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	
-	function checkExist($dtmLeavefrom = '')
+	function checkExist($strDay = '')
 	{		
 		$strSQL = " SELECT * FROM tblemprequest					
 					WHERE  
-					requestDetails ='$dtmLeavefrom' 				
+					requestDetails ='$strDay' 				
 					";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
@@ -66,5 +96,7 @@ class Leave_model extends CI_Model {
 		$this->db->delete('tblemprequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+		
 		
 }

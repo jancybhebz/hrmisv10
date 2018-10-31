@@ -2,9 +2,9 @@
   $action = '';
   if($this->uri->segment(4) == 'edit')
   {
-    $action = base_url('hr/profile/editPersonal').$this->uri->segment(5);
+    $action = base_url('pds/profile/edit_Personal').$this->uri->segment(5);
   }else{
-    $action = base_url('hr/profile/');
+    $action = base_url('pds/profile/');
   }
 ?>
 <div id="tab_personal_info" class="tab-pane active">
@@ -90,7 +90,8 @@
          <div class="margin-top-10">
             <a class="btn green" data-toggle="modal" href="#editPersonal_modal" onclick="editPersonal(<?=$arrData['empID']?>)"> Edit </a>
         </div><br>                        
-    </form>
+    <form action = "<?=base_url('pds/profile/edit_Personal')?>" method="post" onsubmit="return checkForBlank()" name="employeeform">
+
     <div class="modal fade in" id="editPersonal_modal" tabindex="-1" role="full" aria-hidden="true">
         <div class="modal-dialog modal-full">
             <div class="modal-content">
@@ -602,7 +603,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btnSubmit" class="btn green">Save</button>
+                    <button type="submit" name="editPersonal" class="btn green">Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->
