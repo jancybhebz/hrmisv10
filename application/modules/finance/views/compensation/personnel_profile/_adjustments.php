@@ -18,7 +18,7 @@
                             &nbsp;&nbsp;
                             <select class="bs-select form-control" name="yr">
                                 <option value="0">Year</option>
-                                <?php foreach (range(getyear(), date('Y')) as $yr): ?>
+                                <?php foreach (getYear() as $yr): ?>
                                     <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
                                         <?=$yr?></option>
                                 <?php endforeach; ?>

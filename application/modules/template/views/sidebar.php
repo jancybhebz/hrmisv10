@@ -156,25 +156,25 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     </li>
                 </ul>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item <?=strtolower($activesub)=='reports'?'active open':''?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-layers"></i>
                     <span class="title">Reports</span>
-                    <span class="arrow"></span>
+                    <span class="arrow <?=strtolower($activesub)=='reports'?'open':''?>"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activetab)=='monthly'?'active open':''?>">
+                        <a href="<?=base_url('finance/reports/monthly')?>">
                             <span class="title">Monthly Reports</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activetab)=='remittance'?'active open':''?>">
+                        <a href="<?=base_url('finance/reports/remittance')?>">
                             <span class="title">Employee Remittances</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item <?=strtolower($activetab)=='loanbalance'?'active open':''?>">
+                        <a href="<?=base_url('finance/reports/loanbalance')?>">
                             <span class="title">Employee Loan balance</span>
                         </a>
                     </li>
