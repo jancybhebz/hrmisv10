@@ -1,3 +1,9 @@
+.bootstrap-select.btn-group .dropdown-menu li a:hover {
+/*.dropdown-menu>li:hover>a {*/
+    background-color: #2987c7 !important;
+    color: #fff !important;
+}
+
 #tbldtr>tbody>tr>td {
     text-align: center;
 }

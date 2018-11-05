@@ -38,6 +38,9 @@ if ( ! function_exists('load_plugin'))
                                 '<link href="'.base_url('assets/css/components.min.css').'" rel="stylesheet" type="text/css" />'.
                                 '<link href="'.base_url('assets/css/plugins.min.css').'" rel="stylesheet" type="text/css" />';
                         break;
+                    case 'select':
+                        $str.=  '<link href="'.base_url('assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css').'" rel="stylesheet" type="text/css" />';
+                        break;
 					case 'datepicker':
 						$str.= '
 							<link href="'.base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css').'" rel="stylesheet" type="text/css" />';
@@ -123,6 +126,11 @@ if ( ! function_exists('load_plugin'))
                                     '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
                                     '<script src="'.base_url('assets/pages/scripts/components-select2.min.js').'" type="text/javascript"></script>';
                     	break;
+                   	case 'select':
+                   	    $str.=  '<script src="'.base_url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/pages/scripts/components-bootstrap-select.min.js').'" type="text/javascript"></script>';
+                   	    break;
 
 				}
 			endforeach;

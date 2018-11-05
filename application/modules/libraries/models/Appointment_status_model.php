@@ -50,8 +50,6 @@ class Appointment_status_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-				
-		
 	function save($arrData, $intAppointmentId)
 	{
 		$this->db->where('appointmentId', $intAppointmentId);
@@ -66,5 +64,14 @@ class Appointment_status_model extends CI_Model {
 		$this->db->delete('tblAppointment'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
+	
+	function getAppointmentJointPermanent()
+	{
+		$this->db->order_by('appointmentDesc');
+		return $this->db->where('appointmentCode', 'P')
+						->or_where('incPlantilla', '0')
+						->get('tblAppointment')->result_array();
+	}
+
+
 }

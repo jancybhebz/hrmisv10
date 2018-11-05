@@ -27,7 +27,7 @@
                                     <i class="fa fa-warning tooltips i-required"></i>
                                     <select class="form-control form-required" name="txtadjyr" id="txtadjyr" placeholder="">
                                         <option value="null">SELECT YEAR</option>
-                                        <?php foreach (range(getyear(), date('Y')) as $yr): ?>
+                                        <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
                                                 <?=$yr?></option>
                                         <?php endforeach; ?>
@@ -89,7 +89,7 @@
                                     <i class="fa fa-warning tooltips i-required"></i>
                                     <select class="form-control form-required" name="selinc_yr" id="selinc_yr" placeholder="">
                                         <option value="null">Year</option>
-                                        <?php foreach (range(getyear(), date('Y')) as $yr): ?>
+                                        <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>"><?=$yr?></option>
                                         <?php endforeach; ?>
                                     </select>
@@ -136,7 +136,7 @@
                                     <i class="fa fa-warning tooltips i-required"></i>
                                     <select class="form-control form-required" name="txtadjyr" id="txtadjyr" placeholder="">
                                         <option value="null">SELECT YEAR</option>
-                                        <?php foreach (range(getyear(), date('Y')) as $yr): ?>
+                                        <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
                                                 <?=$yr?></option>
                                         <?php endforeach; ?>
@@ -198,7 +198,7 @@
                                     <i class="fa fa-warning tooltips i-required"></i>
                                     <select class="form-control form-required" name="selded_yr" id="selded_yr" placeholder="">
                                         <option value="null">Year</option>
-                                        <?php foreach (range(getyear(), date('Y')) as $yr): ?>
+                                        <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>"><?=$yr?></option>
                                         <?php endforeach; ?>
                                     </select>

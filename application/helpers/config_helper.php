@@ -5,7 +5,11 @@ if ( ! function_exists('getyear'))
 {
     function getyear()
     {
-		return 2003;
+		$arrYears = array();
+        foreach(range(2003, date('Y') + 1) as $yr):
+            array_push($arrYears, $yr);
+        endforeach;
+        return $arrYears;
 	}
 }
 

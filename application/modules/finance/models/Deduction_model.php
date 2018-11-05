@@ -54,7 +54,7 @@ class Deduction_model extends CI_Model {
 	function getDeductionsByStatus($status='')
 	{
 		if($status==''):
-			return $this->db->get('tblDeduction')->result_array();
+			return $this->db->order_by('deductionGroupCode, deductionDesc')->get('tblDeduction')->result_array();
 		else:
 			return $this->db->get_where('tblDeduction', array('hidden' => $status))->result_array();
 		endif;
