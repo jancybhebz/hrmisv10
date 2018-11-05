@@ -14,6 +14,14 @@ function showtextbox()
 		$('#reason_textbox').hide();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
+		$('#submitFL').show();
+		$('#submitSPL').hide();
+		$('#submitSL').hide();
+		$('#submitVL').hide();
+		$('#submitML').hide();
+		$('#submitPL').hide();
+		$('#submitSTL').hide();
+		
 			// $('#print_button').show();
 	}
 	else if(select_leavetype == 'special')
@@ -27,6 +35,13 @@ function showtextbox()
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
+		$('#submitFL').hide();
+		$('#submitSPL').show();
+		$('#submitSL').hide();
+		$('#submitVL').hide();
+		$('#submitML').hide();
+		$('#submitPL').hide();
+		$('#submitSTL').hide();
 	}
 	else if(select_leavetype == 'sick')
 	{
@@ -39,6 +54,13 @@ function showtextbox()
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').show();
 		$('#incaseVL_textbox').hide();
+		$('#submitFL').hide();
+		$('#submitSPL').hide();
+		$('#submitSL').show();
+		$('#submitVL').hide();
+		$('#submitML').hide();
+		$('#submitPL').hide();
+		$('#submitSTL').hide();
 	}
 	else if(select_leavetype == 'vacation')
 	{
@@ -51,6 +73,13 @@ function showtextbox()
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').show();
+		$('#submitFL').hide();
+		$('#submitSPL').hide();
+		$('#submitSL').hide();
+		$('#submitVL').show();
+		$('#submitML').hide();
+		$('#submitPL').hide();
+		$('#submitSTL').hide();
 	}
 	 else if(select_leavetype == 'maternity')
 	{
@@ -63,6 +92,13 @@ function showtextbox()
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
+		$('#submitFL').hide();
+		$('#submitSPL').hide();
+		$('#submitSL').hide();
+		$('#submitVL').hide();
+		$('#submitML').show();
+		$('#submitPL').hide();
+		$('#submitSTL').hide();
 	}
 	else if(select_leavetype == 'paternity')
 	{
@@ -75,6 +111,13 @@ function showtextbox()
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
+		$('#submitFL').hide();
+		$('#submitSPL').hide();
+		$('#submitSL').hide();
+		$('#submitVL').hide();
+		$('#submitML').hide();
+		$('#submitPL').show();
+		$('#submitSTL').hide();
 	}
 	else if(select_leavetype == 'study')
 	{
@@ -87,6 +130,13 @@ function showtextbox()
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
+		$('#submitFL').hide();
+		$('#submitSPL').hide();
+		$('#submitSL').hide();
+		$('#submitVL').hide();
+		$('#submitML').hide();
+		$('#submitPL').hide();
+		$('#submitSTL').show();
 	}
 	
 	else 
@@ -100,6 +150,13 @@ function showtextbox()
 		$('#reason_textbox').hide();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
+		$('#submitFL').hide();
+		$('#submitSPL').hide();
+		$('#submitSL').hide();
+		$('#submitVL').hide();
+		$('#submitML').hide();
+		$('#submitPL').hide();
+		$('#submitSTL').hide();
 	}
 	
 }
@@ -115,6 +172,13 @@ $(document).ready(function()
 	$('#reason_textbox').hide();
 	$('#incaseSL_textbox').hide();
 	$('#incaseVL_textbox').hide();
+	$('#submitFL').hide();
+	$('#submitSPL').hide();
+	$('#submitSL').hide();
+	$('#submitVL').hide();
+	$('#submitML').hide();
+	$('#submitPL').hide();
+	$('#submitSTL').hide();
 
 	// $('#printreport').click(function(){
 	// 	var leave=$('#strLeavetype').val();

@@ -7,11 +7,11 @@ class Pds extends MY_Controller
 	function __construct() 
 	{
         parent::__construct();
+  		$this->load->model(array('hr/Hr_model','hr/chart_model','pds/pds_model'));
     }
 
 	public function index()
 	{
-		$this->load->model(array('hr/Hr_model','hr/chart_model'));
 		$arrData['arrEmployees'] = $this->Hr_model->getData();
 		//plantilla chart
 		$arrPlantillaChart = $this->chart_model->plantilla_positions();
@@ -53,14 +53,19 @@ class Pds extends MY_Controller
 		$arrData['arrGenderChart'] = $arrGenderChart;
 		$this->template->load('template/template_view','pds/default_view',$arrData);
 	}
-	
-	public function edit_Personal()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+
+    public function edit_personal()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
-		 // print_r($arrPost);
-		 //  die();
+			$strEmpNumber = urldecode($this->uri->segment(4));
+			$this->arrData['arrData']=$this->pds_model->getData($strEmpNumber);
+			$this->template->load('template/template_view','pds/personal_view', $this->arrData);
+		}
+		else
+		{
+			$strEmpNumber = $arrPost['strEmpNumber'];
 			$strSalutation =$arrPost['strSalutation'];
 			$strSurname=$arrPost['strSurname'];
 			$strFirstname=$arrPost['strFirstname'];
@@ -100,13 +105,11 @@ class Pds extends MY_Controller
 			$intTel2=$arrPost['intTel2'];
 			$intMobile=$arrPost['intMobile'];
 			$intAccount=$arrPost['intAccount'];
-	
-			$strEmpNumber = $this->uri->segment(4);
-			if(!empty($strSurname) && !empty($strFirstname) && !empty($strMidllename))
-			{	
+		
+			if(!empty($strSurname))
+			{
 				$arrData = array(
 					'salutation'=>$strSalutation,
-					'empNumber'=>$strEmpID,
 					'surname'=>$strSurname,
 					'firstname'=>$strFirstname,
 					'middlename'=>$strMiddlename,
@@ -144,134 +147,146 @@ class Pds extends MY_Controller
 					'telephone1'=>$intTel1,
 					'telephone2'=>$intTel2,
 					'Mobile'=>$intMobile,
-					'AccountNum'=>$intAccount
-							
+					'AccountNum'=>$intAccount	
 				);
-				$blnReturn=$this->pds_model->save_Personal($arrData, $strEmpNumber);
-				logaction('Updated Personal Information',1);
-				$this->session->set_flashdata('saving_status','Personal Information updated successfully.');
-				redirect('pds/profile');
-				
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_personal($arrData, $strEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strSurname.' Personal',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Personal information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strEmpNumber = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->pds_model->getData($strEmpNumber);
-			$this->template->load('template/main_layout', 'pds/profile_view', $this->arrTemplateData);
 		}
-	    	
-    }
+		
+	}
 
-    public function edit_Spouse()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+    public function edit_spouse()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
-		 // print_r($arrPost);
-		 //  die();
-			$strSurname=$arrPost['strSurname'];
-			$strFirstname=$arrPost['strFirstname'];
-			$strMidllename=$arrPost['strMidllename'];
-			$strExt=$arrPost['strExt'];
-			$strOccupation =$arrPost['strOccupation'];
-			$strEmployer=$arrPost['strEmployer'];
-			$strBusAdd=$arrPost['strBusAdd'];
-			$strTelephone=$arrPost['strTelephone'];
-	
-			$strEmpNumber = $this->uri->segment(4);
-			if(!empty($strSurname) && !empty($strFirstname) && !empty($strMidllename))
-			{	
+			$strEmpNumber = urldecode($this->uri->segment(4));
+			$this->arrData['arrSpouse']=$this->pds_model->getData($strEmpNumber);
+			$this->template->load('template/template_view','pds/family_background_view', $this->arrData);
+		}
+		else
+		{
+			$strEmpNumber = $arrPost['strEmpNumber'];
+			$strSSurname=$arrPost['strSSurname'];
+			$strSFirstname=$arrPost['strSFirstname'];
+			$strSMidllename=$arrPost['strSMidllename'];
+			$strSExt=$arrPost['strSExt'];
+			$strSOccupation=$arrPost['strSOccupation'];
+			$strSEmployer=$arrPost['strSEmployer'];
+			$strSBusAdd=$arrPost['strSBusAdd'];
+			$strSTelephone=$arrPost['strSTelephone'];
+		
+			if(!empty($strEmpNumber))
+			{
 				$arrData = array(
-					'fatherSurname'=>$strSurname,
-					'fatherFirstname'=>$strFirstname,
-					'fathernameExtension'=>$strMidllename,
-					'motherFirstname'=>$strExt,
-					'motherMiddlename'=>$strOccupation,
-					'motherSurname'=>$strEmployer,
-					'parentAddress'=>$strBusAdd,
-					'parentAddress'=>$strTelephone			
+					'spouseSurname'=>$strSSurname,
+					'spouseFirstname'=>$strSFirstname,
+					'spouseMiddlename'=>$strSMidllename,
+					'spousenameExtension'=>$strSExt,
+					'spouseWork'=>$strSOccupation,
+					'spouseBusName'=>$strSEmployer,
+					'spouseBusAddress'=>$strSBusAdd,
+					'spouseTelephone'=>$strSTelephone		
 				);
-				$blnReturn=$this->pds_model->save_Spouse($arrData, $strEmpNumber);
-				logaction('Updated Spouses Information',1);
-				$this->session->set_flashdata('saving_status','Spouses Information updated successfully.');
-				redirect('pds');
-				
+				$blnReturn = $this->pds_model->save_personal($arrData, $strEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strSSurname.' Personal',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Spouse information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strEmpNumber = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->pds_model->getData($strEmpNumber);
-			$this->template->load('template/main_layout', 'pds/family_background_view', $this->arrTemplateData);
-		}
-	    	
-    }
+		}	
+	}
 
-    public function edit_Parents()
+    public function edit_parents()
     {
     	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+		if(empty($arrPost))
 		{
-		 // print_r($arrPost);
-		 //  die();
-			$strFSurname =$arrPost['strFSurname '];
+			$strEmpNumber = urldecode($this->uri->segment(4));
+			$this->arrData['arrParents']=$this->pds_model->getData($strEmpNumber);
+			$this->template->load('template/template_view','pds/family_background_view', $this->arrData);
+		}
+		else
+		{
+			$strEmpNumber = $arrPost['strEmpNumber'];
+			$strFSurname =$arrPost['strFSurname'];
 			$strFFirstname=$arrPost['strFFirstname'];
-			$strFNnameExtension=$arrPost['strFNnameExtension'];
+			$strFMidname=$arrPost['strFMidname'];
+			$strFExtension=$arrPost['strFExtension'];
 			$strMFirstname=$arrPost['strMFirstname'];
 			$strMMiddlename=$arrPost['strMMiddlename'];
 			$strMSurname=$arrPost['strMSurname'];
-			$strparentAddress=$arrPost['strparentAddress'];
-			$empID = $this->uri->segment(4);
-			if(!empty($strFSurname) && !empty($strFFirstname) && !empty($strMFirstname) && !empty($strMSurname) && !empty($strparentAddress))
+			$strPAddress=$arrPost['strPAddress'];
+			if(!empty($strEmpNumber))
 			{	
 				$arrData = array(
 					'fatherSurname'=>$strFSurname,
 					'fatherFirstname'=>$strFFirstname,
-					'fathernameExtension'=>$strFNnameExtension,
+					'fatherMiddlename' =>$strFMidname,
+					'fathernameExtension'=>$strFExtension,
 					'motherFirstname'=>$strMFirstname,
 					'motherMiddlename'=>$strMMiddlename,
 					'motherSurname'=>$strMSurname,
-					'parentAddress'=>$strparentAddress,
-			
-					
+					'parentAddress'=>$strPAddress
 				);
-				$blnReturn=$this->Pds_model->save_Parents($arrData, $empID);
-				logaction('Updated Parents Information',1);
-				$this->session->set_flashdata('saving_status','Parents Information updated successfully.');
-				redirect('pds/family_background_view');
-				
+				$blnReturn = $this->pds_model->save_personal($arrData, $strEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strFSurname.' Personal',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Parents information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/family_background_view', $this->arrTemplateData);
-		}
-	    	
-    }
+		}	
+	}
 
-    public function edit_Child()
+    public function edit_child()
     {
     	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+		if(empty($arrPost))
 		{
-			$strCName  =$arrPost['strCName'];
-			$dtmCBirthdate-=$arrPost['dtmCBirthdate'];
-			$empID = $this->uri->segment(4);
-			if(!empty($strCName ) && !empty($dtmCBirthdate))
+			$strEmpNumber = urldecode($this->uri->segment(4));
+			$this->arrData['arrChild']=$this->pds_model->getChildData($strEmpNumber);
+			$this->template->load('template/template_view','pds/family_background_view', $this->arrData);
+		}
+		else
+		{
+			$strEmpNumber = $arrPost['strEmpNumber'];
+			$strCNname  =$arrPost['strCNname'];
+			$dtmCBirthdate=$arrPost['dtmCBirthdate'];
+		
+			if(!empty($strEmpNumber))
 			{	
 				$arrData = array(
-					'childName'=>$strCName,
-					'childBirthDate'=>$dtmCBirthdate,			
+					'childName'=>$strCNname,
+					'childBirthDate'=>$dtmCBirthdate			
 				);
-				$blnReturn=$this->Pds_model->save_Child($arrData, $empID);
-				logaction('Updated Childrens Information',1);
-				$this->session->set_flashdata('saving_status','Childrens Information updated successfully.');
-				redirect('pds/family_background_view');
-				
+				// echo '='.$strEmpNumber;
+				//  exit(1);
+				$blnReturn = $this->pds_model->save_child($arrData, $strEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempchild','Edited '.$strCName.' Personal',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Childs information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/family_background_view', $this->arrTemplateData);
-		}   	
-    }
+		}	
+	}
 
     public function edit_Education()
     {

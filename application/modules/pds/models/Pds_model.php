@@ -9,11 +9,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Pds_model extends CI_Model {
 
-	var $table = 'tblEmpPersonal';
+	var $table = 'tblemppersonal';
 	var $tableid = 'empNumber';
 
-	var $table2 = 'tblEmpChild';
-	var $tableid2 = 'childCode';
+	var $table2 = 'tblempchild';
+	var $tableid2 = 'empNumber';
 
 	var $table3 = 'tblEmpSchool';
 	var $tableid3 = 'levelCode';
@@ -56,6 +56,16 @@ class Pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getChildData($strCode = '')
+	{		
+		if($strCode != "")
+		{
+			$this->db->where($this->tableid2,$strCode);
+		}
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}
+
 	function getImage($ImageId = '')
 	{		
 		if($strEmpNumber != "")
@@ -83,18 +93,20 @@ class Pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 	
-	function save_Personal($arrData, $strEmpNumber)
+	function save_personal($arrData, $strEmpNumber)
 	{
 		$this->db->where($this->tableid, $strEmpNumber);
 		$this->db->update($this->table, $arrData);
+		//echo $this->db->last_query();exit(1);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_Child($arrData, $strEmpNumber)
+	function save_child($arrData, $strEmpNumber)
 	{
 		$this->db->where($this->tableid2, $strEmpNumber);
 		$this->db->update($this->table2, $arrData);
+		//echo $this->db->last_query();exit(1);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -146,8 +158,6 @@ class Pds_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-
-
 
 	function save($arrData, $strAgencyName)
 	{

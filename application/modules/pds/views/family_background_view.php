@@ -1,5 +1,8 @@
+
 <!-- VIEW -->
-<form role="form" action="#">
+<?=load_plugin('css', array('datepicker','timepicker'))?>
+
+ <form action="<?=base_url('pds/edit_spouse/'.$this->uri->segment(4))?>" method="post" id="frmSpouse">
     <ul class="personal-info-employee">
        <b>SPOUSE INFORMATION:</b><br><br>
             <li>Name of Spouse : <?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></li><br>
@@ -31,7 +34,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strSurname" value="<?=isset($arrData['spouseSurname'])?$arrData['spouseSurname']:''?>">
+                            <input type="text" class="form-control" name="strSSurname" value="<?=isset($arrData['spouseSurname'])?$arrData['spouseSurname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -47,7 +50,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strFirstname" value="<?=isset($arrData['spouseFirstname'])?$arrData['spouseFirstname']:''?>">
+                            <input type="text" class="form-control" name="strSFirstname" value="<?=isset($arrData['spouseFirstname'])?$arrData['spouseFirstname']:''?>">
                         </div>
                     </div>
                 </div>
@@ -63,7 +66,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strMidllename" value="<?=isset($arrData['spouseMiddlename'])?$arrData['spouseMiddlename']:''?>">
+                            <input type="text" class="form-control" name="strSMidllename" value="<?=isset($arrData['spouseMiddlename'])?$arrData['spouseMiddlename']:''?>">
                         </div>
                     </div>
                 </div>
@@ -79,7 +82,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strExt" value="<?=isset($arrData['spousenameExtension'])?$arrData['spousenameExtension']:''?>">
+                            <input type="text" class="form-control" name="strSExt" value="<?=isset($arrData['spousenameExtension'])?$arrData['spousenameExtension']:''?>">
                         </div>
                     </div>
                 </div>
@@ -95,7 +98,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strOccupation" value="<?=isset($arrData['spouseWork'])?$arrData['spouseWork']:''?>">
+                            <input type="text" class="form-control" name="strSOccupation" value="<?=isset($arrData['spouseWork'])?$arrData['spouseWork']:''?>">
                         </div>
                     </div>
                 </div>
@@ -111,7 +114,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strEmployer" value="<?=isset($arrData['spouseBusName'])?$arrData['spouseBusName']:''?>">
+                            <input type="text" class="form-control" name="strSEmployer" value="<?=isset($arrData['spouseBusName'])?$arrData['spouseBusName']:''?>">
                         </div>
                     </div>
                 </div>
@@ -127,7 +130,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strBusAdd" value="<?=isset($arrData['spouseBusAddress'])?$arrData['spouseBusAddress']:''?>">
+                            <input type="text" class="form-control" name="strSBusAdd" value="<?=isset($arrData['spouseBusAddress'])?$arrData['spouseBusAddress']:''?>">
                         </div>
                     </div>
                 </div>
@@ -143,19 +146,21 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strTelephone" value="<?=isset($arrData['spouseTelephone'])?$arrData['spouseTelephone']:''?>">
+                            <input type="text" class="form-control" name="strSTelephone" value="<?=isset($arrData['spouseTelephone'])?$arrData['spouseTelephone']:''?>">
                         </div>
                     </div>
                 </div><br>
                 <div class="modal-footer">
+                 <input type="hidden" name="strEmpNumber" value="<?=isset($arrData['empNumber'])?$arrData['empNumber']:''?>">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save</button>
+                    <button type="submit" class="btn green">Save</button>                                
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
+</form>
 
     <ul class="personal-info-employee">
         <b>PARENT INFORMATION:</b><br><br>
@@ -166,6 +171,7 @@
             <a class="btn green" data-toggle="modal" href="#editParent_modal"> Edit </a>
             </div><br>
     </ul>
+ <form action="<?=base_url('pds/edit_parents/'.$this->uri->segment(4))?>" method="post" id="frmParents">
     <div class="modal fade bs-modal-lg"  id="editParent_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -309,13 +315,32 @@
                     </div>
                 </div><br>
 
+                 <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 text-left">
+                        <div class="form-group">
+                            <label class="control-label">Parent's Address: <span class="required"> * </span></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-5" text-left>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="strPAddress" value="<?=isset($arrData['parentAddress'])?$arrData['parentAddress']:''?>">
+                        </div>
+                    </div>
+                </div><br>
+
                 <div class="modal-footer">
+                    <input type="hidden" name="strEmpNumber" value="<?=isset($arrData['empNumber'])?$arrData['empNumber']:''?>">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save changes</button>
+                    <button type="submit" name="btnParents" class="btn green">Save</button>
                 </div>
              </div>
          </div>
      </div>
+</form>
 
         <b>CHILDREN INFORMATION:</b><br><br>
     <table class="table table-bordered table-striped" id="table-child">
@@ -334,7 +359,7 @@
         </tr>
         <?php endforeach;?>
         <br>
-    
+ <form action="<?=base_url('pds/edit_child/'.$this->uri->segment(4))?>" method="post" id="frmChild">
      <div class="modal fade bs-modal-lg"  id="editChildren_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -383,20 +408,23 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="dtmCBirthdate" value="<?=isset($arrData['childBirthDate'])?$arrData['childBirthDate']:''?>">
+                            <i class="fa"></i>
+                            <input id="strCBirthdate" name="dtmCBirthdate" type="text" class="form-control form-control-inline input-medium date-picker" size="16" value="<?=isset($arrData['childBirthDate'])?$arrData['childBirthDate']:''?>">
                         </div>
                     </div>
                 </div><br>
 
                 <div class="modal-footer">
+                    <input type="hidden" name="strEmpNumber" value="<?=isset($arrData['empNumber'])?$arrData['empNumber']:''?>">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save changes</button>
+                    <button type="submit" name="btnParents" class="btn green">Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
+</form>
     <div class="margin-top-10">
     <a class="btn green" data-toggle="modal" href="#addChildren_modal"> Add </a>
     </div>
@@ -439,12 +467,14 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCBirthdate" value="<?=isset($arrData[0]['childBirthDate'])?$arrData[0]['childBirthDate']:''?>">
+                        <i class="fa"></i>
+                            <input id="strCBirthdate" name="strCBirthdate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
                         </div>
                     </div>
                 </div><br>
 
                 <div class="modal-footer">
+                  <input type="hidden" name="strEmpNumber" value="<?=isset($arrData['empNumber'])?$arrData['empNumber']:''?>">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
                     <button type="button" class="btn green">Save changes</button>
                 </div>
@@ -487,3 +517,14 @@
             $('#delete').modal('hide');
             $('[data-code="' + code + '"]').closest('tr').hide(); }});
 </script>
+
+
+<?=load_plugin('js',array('validation','datepicker'));?>
+<script>
+    $(document).ready(function() 
+    {
+        $('.date-picker').datepicker();
+    });
+ 
+</script>
+
