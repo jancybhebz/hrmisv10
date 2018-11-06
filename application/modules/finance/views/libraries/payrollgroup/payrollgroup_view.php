@@ -120,7 +120,7 @@
         });
 
         $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'payrollgroup/delete?code='+code,
+            $.ajax ({type : 'GET', url: 'PayrollGroup/delete?code='+code,
                 success: function(){
                     toastr.success('Payroll Group Code '+code+' successfully deleted.','Success');
                     $('#delete').modal('hide');
