@@ -34,7 +34,7 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-settings font-dark"></i>
-                            <span class="caption-subject bold uppercase"> Payroll Process</span>
+                            <span class="caption-subject bold uppercase"> Project Code</span>
                         </div>
                     </div>
                 
