@@ -92,7 +92,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <button class="btn green" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
-                                                            <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                                            <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>" class="btn blue"><i class="icon-ban"></i> Cancel</a>
                                                         </div>
                                                     </div>
                                                 </div>

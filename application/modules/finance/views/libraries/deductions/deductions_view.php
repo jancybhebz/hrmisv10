@@ -58,7 +58,7 @@
                                 <div class="table-toolbar">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a href="<?=base_url('finance/libraries/deductions/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                            <a href="<?=base_url('finance/libraries/deductions/add')?>" id="sample_editable_1_new" class="btn sbold blue"><i class="fa fa-plus"></i> Add New </a>
                                             <div class="btn-group pull-right">
                                                 <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown"> <?=$status[0][0]?> <i class="fa fa-angle-down"></i> </button>
                                                 <ul class="dropdown-menu pull-right" role="menu">
@@ -117,7 +117,7 @@
                                 <div class="table-toolbar">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a href="<?=base_url('finance/libraries/agency/add?tab=agency')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                            <a href="<?=base_url('finance/libraries/agency/add?tab=agency')?>" id="sample_editable_1_new" class="btn sbold blue"> <i class="fa fa-plus"></i> Add New </a>
                                         </div>
 
                                     </div>
@@ -160,7 +160,7 @@
 </div>
 
 <div class="modal fade" id="delete" tabindex="-1" role="basic" aria-hidden="true"> 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -168,8 +168,10 @@
             </div>
             <div class="modal-body"> Are you sure you want to delete this data? </div>
             <div class="modal-footer">
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btndelete">Yes</button>
+                <button type="submit" id="btndelete" class="btn btn-sm green">
+                    <i class="icon-check"> </i> Yes</button>
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    <i class="icon-ban"> </i> Cancel</button>
             </div>
         </div>
     </div>
