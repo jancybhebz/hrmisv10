@@ -14,7 +14,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$action?> Signatory</span>
+            <span><?=ucfirst($action)?> Signatory</span>
         </li>
     </ul>
 </div>
@@ -73,8 +73,10 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error"><i class="fa fa-plus"></i> <?=$action?> </button>
-                                            <a href="<?=base_url('finance/libraries/signatory')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                            <button class="btn green" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error">
+                                                <i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                            <a href="<?=base_url('finance/libraries/signatory')?>"><button class="btn blue" type="button">
+                                                <i class="icon-ban"></i> Cancel</button></a>
                                         </div>
                                     </div>
                                 </div>

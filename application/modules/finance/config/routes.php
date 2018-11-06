@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-# libraries
+# BEGIN libraries
 // Deductions
 $route['finance/libraries/deductions/(:num)'] = 'finance/libraries/deductions/index/$1';
 
@@ -22,6 +22,18 @@ $route['finance/libraries/payrollgroup/edit/(:any)'] = 'finance/libraries/Payrol
 $route['finance/libraries/projectcode'] = 'finance/libraries/ProjectCode/index';
 $route['finance/libraries/projectcode/add'] = 'finance/libraries/ProjectCode/add';
 $route['finance/libraries/projectcode/edit/(:any)'] = 'finance/libraries/ProjectCode/edit/$1';
+
+// Project Code
+$route['finance/libraries/projectcode'] = 'finance/libraries/ProjectCode/index';
+$route['finance/libraries/projectcode/add'] = 'finance/libraries/ProjectCode/add';
+$route['finance/libraries/projectcode/edit/(:any)'] = 'finance/libraries/ProjectCode/edit/$1';
+
+// Signatory
+$route['finance/libraries/signatory'] = 'finance/libraries/Signatory/index';
+$route['finance/libraries/signatory/add'] = 'finance/libraries/Signatory/add';
+$route['finance/libraries/signatory/edit/(:any)'] = 'finance/libraries/Signatory/edit/$1';
+
+# END libraries
 
 ## Update
 // Payroll Process
