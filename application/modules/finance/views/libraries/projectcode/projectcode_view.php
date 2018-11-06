@@ -118,7 +118,7 @@
         });
 
         $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'projectcode/delete?code='+code,
+            $.ajax ({type : 'GET', url: 'ProjectCode/delete?code='+code,
                 success: function(){
                     toastr.success('Project Code '+code+' successfully deleted.','Success');
                     $('#delete').modal('hide');
