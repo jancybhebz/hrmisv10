@@ -15,8 +15,8 @@ $route['finance/libraries/agency/edit/(:any)'] = 'finance/libraries/deductions/e
 
 // payroll group
 $route['finance/libraries/payrollgroup'] = 'finance/libraries/PayrollGroup/index';
-$route['finance/payrollgroup/add'] = 'finance/libraries/payrollgroup/add';
-$route['finance/payrollgroup/edit/(:any)'] = 'finance/libraries/payrollgroup/edit/$1';
+$route['finance/libraries/payrollgroup/add'] = 'finance/libraries/payrollgroup/add';
+$route['finance/libraries/payrollgroup/edit/(:any)'] = 'finance/libraries/payrollgroup/edit/$1';
 
 ## Update
 // Payroll Process
