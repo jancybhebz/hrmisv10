@@ -11,7 +11,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-regDeductList" data-title="Regular Deduction">
+                        <table class="table table-striped table-bordered table-checkable order-column" id="table-regDeductList" data-title="Regular Deduction">
                             <thead>
                                 <tr>
                                     <th> Deduction </th>
@@ -56,7 +56,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-loanList" data-title="Loan List">
+                        <table class="table table-striped table-bordered table-checkable order-column" id="table-loanList" data-title="Loan List">
                             <thead>
                                 <tr>
                                     <th> Deduction </th>
@@ -103,7 +103,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-contandDeduct" data-title="Contribution and Other Deductions">
+                        <table class="table table-striped table-bordered table-checkable order-column" id="table-contandDeduct" data-title="Contribution and Other Deductions">
                             <thead>
                                 <tr>
                                     <th> Deduction </th>
