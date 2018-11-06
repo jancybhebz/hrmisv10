@@ -7,7 +7,7 @@ class PayrollGroup extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Finance/PayrollGroup_model', 'Finance/ProjectCode_model'));
+        $this->load->model(array('PayrollGroup_model', 'ProjectCode_model'));
     }
 
 	public function index()

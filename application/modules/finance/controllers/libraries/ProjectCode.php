@@ -7,7 +7,7 @@ class ProjectCode extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Finance/ProjectCode_model'));
+        $this->load->model(array('ProjectCode_model'));
     }
 
 	public function index()

@@ -7,7 +7,7 @@ class Income extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Finance/Income_Model'));
+        $this->load->model(array('Income_Model'));
     }
 
 	public function index($status='')
