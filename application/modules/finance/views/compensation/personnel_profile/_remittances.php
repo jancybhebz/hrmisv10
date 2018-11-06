@@ -7,10 +7,11 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Select remittance</label>
                         <div class="col-md-9">
-                            <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="">
-                                <option value="null">SELECT REMITTANCE</option>
+                            <select class="form-control select2 form-required" name="selpayrollGrp">
+                                <option value="null">-- SELECT PAYROLL PROCESS --</option>
                                 <?php foreach($arrDeductions as $deduct): ?>
-                                    <option value="<?=$deduct['deductionCode']?>" <?=set_value('selpayrollGrp') == $deduct['deductionCode'] ? 'selected' : ''?>><?=$deduct['deductionDesc']?></option>
+                                    <option value="<?=$deduct['deductionCode']?>" <?=count($_POST) > 0 ? set_value('selpayrollGrp') == $deduct['deductionCode'] ? 'selected' : '' : '' ?>>
+                                        <?=$deduct['deductionDesc']?></option>
                                 <?php endforeach; ?>
                             </select>
                             <span class="help-block"></span>
@@ -31,7 +32,7 @@
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
                                 <button type="submit" class="btn btn-primary">Search</button>
-                                <button type="button" class="btn default">Cancel</button>
+                                <a href="<?=current_url()?>" class="btn default">Cancel</a>
                             </div>
                         </div>
                     </div>
