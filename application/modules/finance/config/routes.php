@@ -18,6 +18,11 @@ $route['finance/libraries/payrollgroup'] = 'finance/libraries/PayrollGroup/index
 $route['finance/libraries/payrollgroup/add'] = 'finance/libraries/PayrollGroup/add';
 $route['finance/libraries/payrollgroup/edit/(:any)'] = 'finance/libraries/PayrollGroup/edit/$1';
 
+// Project Code
+$route['finance/libraries/payrollgroup'] = 'finance/libraries/ProjectCode/index';
+$route['finance/libraries/payrollgroup/add'] = 'finance/libraries/ProjectCode/add';
+$route['finance/libraries/payrollgroup/edit/(:any)'] = 'finance/libraries/ProjectCode/edit/$1';
+
 ## Update
 // Payroll Process
 $route['finance/process_payroll'] = 'finance/process_payroll/Payroll_process/index';
