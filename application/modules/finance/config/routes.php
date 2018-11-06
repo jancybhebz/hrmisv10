@@ -13,8 +13,8 @@ $route['finance/libraries/income/(:num)'] = 'finance/libraries/income/index/$1';
 $route['finance/libraries/agency/add'] = 'finance/libraries/deductions/add_agency';
 $route['finance/libraries/agency/edit/(:any)'] = 'finance/libraries/deductions/edit_agency/$1';
 
-// project code
-$route['finance/libraries/projectcode'] = 'finance/libraries/projectcode/index';
+// payroll group
+$route['finance/libraries/payrollgroup'] = 'finance/libraries/PayrollGroup/index';
 
 ## Update
 // Payroll Process
