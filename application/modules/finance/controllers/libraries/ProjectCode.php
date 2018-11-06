@@ -28,7 +28,7 @@ class ProjectCode extends MY_Controller {
 			if(!$this->ProjectCode_model->isCodeExists($arrPost['txtcode'],'add')):
 				$this->ProjectCode_model->add($arrData);
 				$this->session->set_flashdata('strSuccessMsg','Project Code added successfully.');
-				redirect('finance/projectcode');
+				redirect('finance/libraries/projectcode');
 			else:
 				$this->arrData['err'] = 'Code already exists';
 			endif;
@@ -48,7 +48,7 @@ class ProjectCode extends MY_Controller {
 			);
 			$this->ProjectCode_model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Project Code updated successfully.');
-			redirect('finance/projectcode');
+			redirect('finance/libraries/projectcode');
 		else:
 			$this->arrData['action'] = 'edit';
 			$this->arrData['data'] = $this->ProjectCode_model->getData($code);

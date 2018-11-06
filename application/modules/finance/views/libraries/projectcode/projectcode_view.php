@@ -1,3 +1,4 @@
+<?=load_plugin('css',array('datatables'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -41,7 +42,8 @@
                         <div class="table-toolbar">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="<?=base_url('finance/libraries/projectcode/add')?>"><button class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New </button></a>
+                                    <a href="<?=base_url('finance/libraries/projectcode/add')?>" class="btn sbold blue">
+                                        <i class="fa fa-plus"></i> Add New </a>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +55,7 @@
                                         <th> Order </th>
                                         <th> Project Code </th>
                                         <th> Project Description </th>
-                                        <th style="text-align: center;"> Actions </th>
+                                        <th style="text-align: center;width:170px;"> Actions </th>
                                     </tr>
                                 </tr>
                             </thead>
@@ -64,8 +66,10 @@
                                         <td><?=$data['projectCode']?></td>
                                         <td><?=$data['projectDesc']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/libraries/projectcode/edit/'.$data['projectCode'])?>"><button class="btn btn-sm btn-primary"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                            <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['projectCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
+                                            <a href="<?=base_url('finance/libraries/projectcode/edit/'.$data['projectCode'])?>" class="btn btn-sm green">
+                                                <span class="fa fa-edit" title="Edit"></span> Edit</a>
+                                            <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['projectCode']?>">
+                                                <span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -79,7 +83,7 @@
 </div>
 
 <div class="modal fade" id="delete" tabindex="-1" role="basic" aria-hidden="true"> 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -87,14 +91,16 @@
             </div>
             <div class="modal-body"> Are you sure you want to delete this data? </div>
             <div class="modal-footer">
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btndelete">Yes</button>
+                <button type="submit" id="btndelete" class="btn btn-sm green">
+                    <i class="icon-check"> </i> Yes</button>
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    <i class="icon-ban"> </i> Cancel</button>
             </div>
         </div>
     </div>
 </div>
 
-<?php load_plugin('js',array('datatable'));?>
+<?=load_plugin('js',array('datatables'));?>
 
 <script>
     $(document).ready(function() {

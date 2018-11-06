@@ -64,7 +64,7 @@
                                         <th> Income Description </th>
                                         <th> Income Type </th>
                                         <th> Status </th>
-                                        <th style="text-align: center;"> Actions </th>
+                                        <th style="text-align: center;width:170px;"> Actions </th>
                                     </tr>
                                 </tr>
                             </thead>
