@@ -29,7 +29,7 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            <form class="login-form" action="<?=base_url('login')?>" method="post">
+            <?=form_open('login', array('method' => 'post'))?>
                 <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
                 <h1 class="hrmisLogo">HRMIS</h1>
                 <div class="small">Human Resource Management Information System</div>
@@ -54,7 +54,7 @@
                  <div class="create-account">
                     <p class="small"><b>The Human Resource Management Information System (HRMIS)</b> is a comprehensive and proactive human resources system designed to provide a single interface for government employees to perform the human resources management functions efficiently and effectively.</p>
                 </div> 
-            </form>
+            <?=form_close()?>
             <!-- END LOGIN FORM -->
             
             
