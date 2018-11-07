@@ -536,5 +536,4 @@ class PDS_update extends MY_Controller {
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
 
-
 }

@@ -26,44 +26,310 @@ class Leave extends MY_Controller {
 		$this->template->load('template/template_view', 'employee/leave/leave_view', $this->arrData);
 	}
 	
-	public function submit()
+	
+    public function submitFL()
     {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
-			$strLeavetype=$arrPost['strLeavetype'];
+			$strDay=$arrPost['strDay'];
 			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+			$dtmLeaveto=$arrPost['dtmLeaveto'];
+			$intDaysApplied=$arrPost['intDaysApplied'];
+			$str1stSignatory=$arrPost['str1stSignatory'];
+			$strEmpName2=$arrPost['strEmpName2'];
 
-			if(!empty($strLeavetype))
+			$strStatus=$arrPost['strStatus'];
+			$strCode1=$arrPost['strCode1'];
+			if(!empty($strDay))
 			{	
-				if( count($this->leave_model->checkExist($dtmLeavefrom))==0 )
+				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strLeavetype,
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
+						'requestCode'=>$strCode1,
 						'empNumber'=>$_SESSION['sessEmpNo']
-						// 'requestDate'=>$dtmLeavefrom,
-						// 'requestStatus'=>
 					);
-					$blnReturn  = $this->leave_model->submit($arrData);
-
+					$blnReturn  = $this->leave_model->submitFL($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strLeavetype.' Leave',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					//$this->session->set_flashdata('strOBtype',$strOBtype);
+					$this->session->set_flashdata('strErrorMsg','Leave already exists.');
 					redirect('employee/leave');
 				}
 			}
 		}
     	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
     }
+
+    public function submitSPL()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+			$strDay=$arrPost['strDay'];
+			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+			$dtmLeaveto=$arrPost['dtmLeaveto'];
+			$intDaysApplied=$arrPost['intDaysApplied'];
+			$str1stSignatory=$arrPost['str1stSignatory'];
+			$strEmpName2=$arrPost['strEmpName2'];
+			$strReason=$arrPost['strReason'];
+
+			$strStatus=$arrPost['strStatus'];
+			$strCodeSPL=$arrPost['strCodeSPL'];
+			if(!empty($strDay))
+			{	
+				if( count($this->leave_model->checkExist($strDay))==0 )
+				{
+					$arrData = array(
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCodeSPL,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					);
+					$blnReturn  = $this->leave_model->submitSPL($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Leave has been submitted.');
+					}
+					redirect('employee/leave');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Leave already exists.');
+					redirect('employee/leave');
+				}
+			}
+		}
+    	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
+    }
+
+    public function submitSL()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+			$strDay=$arrPost['strDay'];
+			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+			$dtmLeaveto=$arrPost['dtmLeaveto'];
+			$intDaysApplied=$arrPost['intDaysApplied'];
+			$str1stSignatory=$arrPost['str1stSignatory'];
+			$strEmpName2=$arrPost['strEmpName2'];
+			$strReason=$arrPost['strReason'];
+			$strIncaseSL=$arrPost['strIncaseSL'];
+
+			$strStatus=$arrPost['strStatus'];
+			$strCode3=$arrPost['strCode3'];
+			if(!empty($strDay))
+			{	
+				if( count($this->leave_model->checkExist($strDay))==0 )
+				{
+					$arrData = array(
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$strIncaseSL,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode3,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					);
+					$blnReturn  = $this->leave_model->submitSL($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Leave has been submitted.');
+					}
+					redirect('employee/leave');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Leave already exists.');
+					redirect('employee/leave');
+				}
+			}
+		}
+    	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
+    }
+    public function submitVL()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+			$strDay=$arrPost['strDay'];
+			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+			$dtmLeaveto=$arrPost['dtmLeaveto'];
+			$intDaysApplied=$arrPost['intDaysApplied'];
+			$str1stSignatory=$arrPost['str1stSignatory'];
+			$strEmpName2=$arrPost['strEmpName2'];
+			$strReason=$arrPost['strReason'];
+			$strIncaseVL=$arrPost['strIncaseVL'];
+
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
+			if(!empty($strDay))
+			{	
+				if( count($this->leave_model->checkExist($strDay))==0 )
+				{
+					$arrData = array(
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$strIncaseVL,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					);
+					$blnReturn  = $this->leave_model->submitVL($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Leave has been submitted.');
+					}
+					redirect('employee/leave');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Leave already exists.');
+					redirect('employee/leave');
+				}
+			}
+		}
+    	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
+    }
+    public function submitML()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+			$strDay=$arrPost['strDay'];
+			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+			$dtmLeaveto=$arrPost['dtmLeaveto'];
+			$intDaysApplied=$arrPost['intDaysApplied'];
+			$str1stSignatory=$arrPost['str1stSignatory'];
+			$strEmpName2=$arrPost['strEmpName2'];
+			$strReason=$arrPost['strReason'];
+
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
+			if(!empty($strDay))
+			{	
+				if( count($this->leave_model->checkExist($strDay))==0 )
+				{
+					$arrData = array(
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					);
+					$blnReturn  = $this->leave_model->submitML($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Leave has been submitted.');
+					}
+					redirect('employee/leave');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Leave already exists.');
+					redirect('employee/leave');
+				}
+			}
+		}
+    	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
+    }
+    public function submitPL()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+			$strDay=$arrPost['strDay'];
+			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+			$dtmLeaveto=$arrPost['dtmLeaveto'];
+			$intDaysApplied=$arrPost['intDaysApplied'];
+			$str1stSignatory=$arrPost['str1stSignatory'];
+			$strEmpName2=$arrPost['strEmpName2'];
+			$strReason=$arrPost['strReason'];
+
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
+			if(!empty($strDay))
+			{	
+				if( count($this->leave_model->checkExist($strDay))==0 )
+				{
+					$arrData = array(
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					);
+					$blnReturn  = $this->leave_model->submitPL($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Leave has been submitted.');
+					}
+					redirect('employee/leave');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Leave already exists.');
+					redirect('employee/leave');
+				}
+			}
+		}
+    	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
+    }
+    public function submitSTL()
+    {
+    	$arrPost = $this->input->post();
+		if(!empty($arrPost))
+		{
+			$strDay=$arrPost['strDay'];
+			$dtmLeavefrom=$arrPost['dtmLeavefrom'];
+			$dtmLeaveto=$arrPost['dtmLeaveto'];
+			$intDaysApplied=$arrPost['intDaysApplied'];
+			$str1stSignatory=$arrPost['str1stSignatory'];
+			$strEmpName2=$arrPost['strEmpName2'];
+			$strReason=$arrPost['strReason'];
+
+			$strStatus=$arrPost['strStatus'];
+			$strCode=$arrPost['strCode'];
+			if(!empty($strDay))
+			{	
+				if( count($this->leave_model->checkExist($strDay))==0 )
+				{
+					$arrData = array(
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason,
+						'requestDate'=>date('Y-m-d'),
+						'requestStatus'=>$strStatus,
+						'requestCode'=>$strCode,
+						'empNumber'=>$_SESSION['sessEmpNo']
+					);
+					$blnReturn  = $this->leave_model->submitSTL($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Leave has been submitted.');
+					}
+					redirect('employee/leave');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Leave already exists.');
+					redirect('employee/leave');
+				}
+			}
+		}
+    	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
+    }
+
 }

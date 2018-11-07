@@ -94,7 +94,7 @@ class Course extends MY_Controller {
 			{
 				$blnReturn=$this->courses_model->delete($strCode);
 				if(count($blnReturn)>0)
-					$this->session->set_flashdata('strMsg','Course deleted successfully.');
+					//$this->session->set_flashdata('strMsg','Course deleted successfully.');
 				redirect('libraries/course');
 			}
 		}

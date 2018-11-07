@@ -1,14 +1,6 @@
-<?php 
-  $action = '';
-  if($this->uri->segment(4) == 'edit')
-  {
-    $action = base_url('hr/profile/editPersonal').$this->uri->segment(5);
-  }else{
-    $action = base_url('hr/profile/');
-  }
-?>
+
 <div id="tab_personal_info" class="tab-pane active">
-    <form role="form" action="#">
+    <form action="" method="post" id="frmPersonal">
         <table class="table table-bordered table-striped" class="table-responsive">
             <tr>
                 <td>Date of Birth :</td>
@@ -88,9 +80,11 @@
             </tr>
         </table>      
          <div class="margin-top-10">
-            <a class="btn green" data-toggle="modal" href="#editPersonal_modal" onclick="editPersonal(<?=$arrData['empID']?>)"> Edit </a>
-        </div><br>                        
-    </form>
+            <a class="btn green" data-toggle="modal" href="#editPersonal_modal" > Edit </a>
+        </div><br>  
+    </form>                      
+    <form action = "<?=base_url('pds/edit_personal/'.$this->uri->segment(4))?>" method="post" onsubmit="return checkForBlank()" name="employeeform">
+
     <div class="modal fade in" id="editPersonal_modal" tabindex="-1" role="full" aria-hidden="true">
         <div class="modal-dialog modal-full">
             <div class="modal-content">
@@ -247,7 +241,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strMidname" value="<?=isset($arrData['middlename'])?$arrData['middlename']:''?>">
+                            <input type="text" class="form-control" name="strMiddlename" value="<?=isset($arrData['middlename'])?$arrData['middlename']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -329,7 +323,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strProvince1" value="<?=isset($arrData['province1'])?$arrData['province1']:''?>">
+                             <input type="text" class="form-control" name="strProv1" value="<?=isset($arrData['province1'])?$arrData['province1']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -339,7 +333,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strProvince2" value="<?=isset($arrData['province2'])?$arrData['province2']:''?>">
+                             <input type="text" class="form-control" name="strProv2" value="<?=isset($arrData['province2'])?$arrData['province2']:''?>">
                         </div>
                     </div>
                 </div>
@@ -355,7 +349,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strBday" value="<?=isset($arrData['birthday'])?$arrData['birthday']:''?>">
+                             <input type="text" class="form-control" name="dtmBday" value="<?=isset($arrData['birthday'])?$arrData['birthday']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -365,7 +359,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strZip1" value="<?=isset($arrData['zipCode1'])?$arrData['zipCode1']:''?>">
+                             <input type="text" class="form-control" name="intZipCode1" value="<?=isset($arrData['zipCode1'])?$arrData['zipCode1']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -375,7 +369,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strZip2" value="<?=isset($arrData['zipCode2'])?$arrData['zipCode2']:''?>">
+                            <input type="text" class="form-control" name="intZipCode2" value="<?=isset($arrData['zipCode2'])?$arrData['zipCode2']:''?>">
                         </div>
                     </div>
                 </div>
@@ -391,7 +385,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strBPlace" value="<?=isset($arrData['birthPlace'])?$arrData['birthPlace']:''?>">
+                             <input type="text" class="form-control" name="strBirthPlace" value="<?=isset($arrData['birthPlace'])?$arrData['birthPlace']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -401,7 +395,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strTel1" value="<?=isset($arrData['telephone1'])?$arrData['telephone1']:''?>">
+                            <input type="text" class="form-control" name="intTel1" value="<?=isset($arrData['telephone1'])?$arrData['telephone1']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -411,7 +405,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strTel2" value="<?=isset($arrData['telephone2'])?$arrData['telephone2']:''?>">
+                             <input type="text" class="form-control" name="intTel2" value="<?=isset($arrData['telephone2'])?$arrData['telephone2']:''?>">
                         </div>
                     </div>
                 </div>
@@ -453,7 +447,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strGSIS" value="<?=isset($arrData['gsisNumber'])?$arrData['gsisNumber']:''?>">
+                            <input type="text" class="form-control" name="intGSIS" value="<?=isset($arrData['gsisNumber'])?$arrData['gsisNumber']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -463,7 +457,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strMobile" value="<?=isset($arrData['Mobile'])?$arrData['Mobile']:''?>">
+                            <input type="text" class="form-control" name="intMobile" value="<?=isset($arrData['Mobile'])?$arrData['Mobile']:''?>">
                         </div>
                     </div>
                 </div>
@@ -489,7 +483,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strPagibig" value="<?=isset($arrData['pagibigNumber'])?$arrData['pagibigNumber']:''?>">
+                             <input type="text" class="form-control" name="intPagibig" value="<?=isset($arrData['pagibigNumber'])?$arrData['pagibigNumber']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -525,7 +519,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strPHealth" value="<?=isset($arrData['philHealthNumber'])?$arrData['philHealthNumber']:''?>">
+                             <input type="text" class="form-control" name="intPhilhealth" value="<?=isset($arrData['philHealthNumber'])?$arrData['philHealthNumber']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -535,7 +529,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="  " value="<?=isset($arrData['AccountNum'])?$arrData['AccountNum']:''?>">
+                            <input type="text" class="form-control" name="intAccount" value="<?=isset($arrData['AccountNum'])?$arrData['AccountNum']:''?>">
                         </div>
                     </div>
                 </div>
@@ -561,7 +555,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strTin" value="<?=isset($arrData['tin'])?$arrData['tin']:''?>">
+                             <input type="text" class="form-control" name="intTin" value="<?=isset($arrData['tin'])?$arrData['tin']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -571,7 +565,7 @@
                     </div>
                      <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strSSS" value="<?=isset($arrData['sss'])?$arrData['sss']:''?>">
+                            <input type="text" class="form-control" name="intSSS" value="<?=isset($arrData['sss'])?$arrData['sss']:''?>">
                         </div>
                     </div>
                 </div>
@@ -601,8 +595,9 @@
                 </div>
                 
                 <div class="modal-footer">
+                 <input type="hidden" name="strCode" value="<?=isset($arrData['childCode'])?$arrData['childCode']:''?>">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btnSubmit" class="btn green">Save</button>
+                    <button type="submit" name="btnPersonal" class="btn green">Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -610,3 +605,4 @@
         <!-- /.modal-dialog -->
     </div>
 </div>
+</form>

@@ -41,7 +41,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
                     <div class="portlet-body">
-                        <form action="<?=base_url('employee/leave/submit')?>" method="post" id="frmLeave">
+
+            <form action="<?=base_url('employee/leave/submitFL')?>" method="post" id="frmLeave">
                     <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -69,6 +70,24 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                  </div><br>
+             <?php  $strLeavetype = '';
+                    $action = '';
+            if($strLeavetype == 'forced'){  ?>
+                    <?php $action = base_url('employee/pds_update/submitFL'); ?>
+                <?php } else if($strLeavetype == 'special'){ ?>
+                    <?php $action = base_url('employee/pds_update/submitSPL'); ?>
+                <?php } else if($strLeavetype == 'sick'){ ?>
+                    <?php $action = base_url('employee/pds_update/submitSL'); ?>
+                <?php } else if($strLeavetype == 'vacation'){ ?>
+                    <?php $action = base_url('employee/pds_update/submitVL'); ?>
+                <?php } else if($strLeavetype == 'maternity'){ ?>
+                    <?php $action = base_url('employee/pds_update/submitML'); ?>
+                <?php } else if($strLeavetype == 'paternity'){ ?>
+                    <?php $action = base_url('employee/pds_update/submitPL'); ?>
+                <?php } else if($strLeavetype == 'study'){ ?>
+                    <?php $action = base_url('employee/pds_update/submitSTL'); ?>
+            <?php } ?>
+            
                 <div class="row" id="wholeday_textbox">
                        <div class="col-sm-5 text-right">
                             <div class="form-group">
@@ -121,7 +140,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row" id="daysapplied_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label"># of Days Applied : <span class="required"> * </span></label>
+                                <label class="control-label"># of Days Applied : </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -133,7 +152,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row" id="signatory1_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label">Authorized Official (1st Signatory) : <span class="required"> * </span></label>
+                                <label class="control-label">Authorized Official (1st Signatory) :</label>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -180,12 +199,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row" id="incaseSL_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label">In Case of Sick Leave : <span class="required"> * </span></label>
+                                <label class="control-label">In Case of Sick Leave : </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
+                                 <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
                                  <option value="">Select</option>
                                  <option value=""></option>
                                  <option value="in patient">in patient</option>
@@ -197,12 +216,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row" id="incaseVL_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label">In Case of Vacation Leave : <span class="required"> * </span></label>
+                                <label class="control-label">In Case of Vacation Leave : </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                 <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
+                                 <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
                                  <option value="">Select</option>
                                  <option value=""></option>
                                  <option value="within the country">within the country</option>
@@ -215,7 +234,31 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <br><br>
                     <div class="row">
                       <div class="col-sm-12 text-center">
-                            <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                            <input class="hidden" name="strStatus" value="Filed Request">
+                              
+                            <input class="hidden" name="strCode1" value="Forced Leave">
+                        
+                            <input class="hidden" name="strCodeSPL" value="Special Leave">
+                     
+                          <!--   <input class="hidden" name="strCode3" value="Sick Leave">
+                        
+                            <input class="hidden" name="strCode" value="Vacation Leave">
+                  
+                            <input class="hidden" name="strCode" value="Maternity Leave">
+                     
+                            <input class="hidden" name="strCode" value="Paternity Leave">
+                        
+                            <input class="hidden" name="strCode" value="Study Leave"> -->
+          
+         
+                            
+                            <button type="submit" id="submitFL" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submitSPL" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submitSL" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submitVL" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submitML" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submitPL" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submitSTL" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/leave')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                             <button type="print" class="btn btn-primary">Print/Preview</button>
                       </div>
