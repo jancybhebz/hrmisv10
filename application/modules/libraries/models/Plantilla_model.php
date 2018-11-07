@@ -25,8 +25,8 @@ class Plantilla_model extends CI_Model {
 			$this->db->where($this->tableid,$intPlantillaId);
 		}
 		 $this->db->join('tblPosition','tblPosition.positionId = '.$this->table.'.plantillaID','left');
-		 $this->db->join('tblplantillagroup','tblplantillagroup.plantillaGroupCode = '.$this->table.'.plantillaGroupCode','left');
-		 $this->db->join('tblexamtype','tblexamtype.examCode = '.$this->table.'.examCode','left');
+		 $this->db->join('tblPlantillaGroup','tblPlantillaGroup.plantillaGroupCode = '.$this->table.'.plantillaGroupCode','left');
+		 $this->db->join('tblExamType','tblExamType.examCode = '.$this->table.'.examCode','left');
 		 $this->db->order_by('tblPlantilla.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	

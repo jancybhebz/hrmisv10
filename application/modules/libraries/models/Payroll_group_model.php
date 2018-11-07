@@ -24,8 +24,8 @@ class Payroll_group_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$intPayrollGroupId);
 		}
-		$this->db->join('tblproject','tblproject.projectCode = '.$this->table.'.projectCode','left');
-		$this->db->order_by('tblpayrollgroup.'.$this->tableid,'ASC');
+		$this->db->join('tblProject','tblProject.projectCode = '.$this->table.'.projectCode','left');
+		$this->db->order_by('tblPayrollGroup.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
