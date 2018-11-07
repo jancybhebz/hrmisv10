@@ -15,14 +15,14 @@ class Process_model extends CI_Model {
 	function edit($arrData, $apptCode)
 	{
 		$this->db->where('appointmentCode', $apptCode);
-		$this->db->update('tblpayrollprocess', $arrData);
+		$this->db->update('tblPayrollProcess', $arrData);
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	public function delete($code)
 	{
 		$this->db->where('appointmentCode', $code);
-		$this->db->delete('tblpayrollprocess');
+		$this->db->delete('tblPayrollProcess');
 		return $this->db->affected_rows(); 
 	}
 
@@ -52,14 +52,14 @@ class Process_model extends CI_Model {
 							->select('tblPayrollProcess.appointmentCode,tblPayrollProcess.processWith,tblPayrollProcess.computation, tblAppointment.appointmentDesc')
 							->get('tblPayrollProcess')->result_array();
 		else:
-			$arrData = $this->db->get_where('tblpayrollprocess',array('appointmentCode' => $appointmentCode))->result_array();
+			$arrData = $this->db->get_where('tblPayrollProcess',array('appointmentCode' => $appointmentCode))->result_array();
 			return $arrData[0];
 		endif;
 	}
 
 	function isCodeExists($code, $action)
 	{
-		$result = $this->db->get_where('tblpayrollprocess', array('appointmentCode' => $code))->result_array();
+		$result = $this->db->get_where('tblPayrollProcess', array('appointmentCode' => $code))->result_array();
 		if($action == 'add'):
 			if(count($result) > 0):
 				return true;
