@@ -6,7 +6,7 @@ if ( ! function_exists('getyear'))
     function getyear()
     {
 		$arrYears = array();
-        foreach(range(2003, date('Y') + 1) as $yr):
+        foreach(range((date('Y') + 1), 2003, -1) as $yr):
             array_push($arrYears, $yr);
         endforeach;
         return $arrYears;
