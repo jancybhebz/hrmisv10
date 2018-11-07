@@ -2,42 +2,38 @@
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
-            <div class="portlet-title col-md-9">
-                <center>
-                    <form class="form-inline" role="form" method="get" action="" id="frmadjsearch">
-                        <div class="col-md-3"></div>
-                        <div class="form-group">
-                            <label class="label-control">Payroll Date &nbsp;</label>
-                            <select class="bs-select form-control" name="mon">
-                                <option value="0">Month</option>
-                                <?php foreach (range(1, 12) as $m): ?>
-                                    <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
-                                        <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            &nbsp;&nbsp;
-                            <select class="bs-select form-control" name="yr">
-                                <option value="0">Year</option>
-                                <?php foreach (getYear() as $yr): ?>
-                                    <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
-                                        <?=$yr?></option>
-                                <?php endforeach; ?>
-                            </select> 
-                            &nbsp;&nbsp;
-                            <select class="bs-select form-control" name="period">
-                                <option value="">Period</option>
-                                <?php foreach (periods() as $period): ?>
-                                    <option value="<?=$period['id']?>" <?=isset($_GET['period']) ? $_GET['period'] == $period['id'] ? 'selected' : '' : ''?>>
-                                        <?=$period['val']?></option>
-                                <?php endforeach; ?>
-                            </select> 
-                        </div>
-                        &nbsp;&nbsp;
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                </center>
-                <br>
-            </div>
+            <?=form_open('', array('class' => 'form-inline', 'method' => 'get', 'id' => 'frmadjsearch'))?>
+                <div class="col-md-3"></div>
+                <div class="form-group" style="display: inline-flex;">
+                    <label style="padding: 6px;white-space: nowrap;">Payroll Date</label>
+                    <select class="bs-select form-control" name="mon">
+                        <option value="0">Month</option>
+                        <?php foreach (range(1, 12) as $m): ?>
+                            <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group" style="display: inline-flex;">
+                    <select class="bs-select form-control" name="yr">
+                        <option value="0">Year</option>
+                        <?php foreach (getYear() as $yr): ?>
+                            <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+                                <?=$yr?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group" style="display: inline-flex;">
+                    <select class="bs-select form-control" name="period">
+                        <option value="">Period</option>
+                        <?php foreach (periods() as $period): ?>
+                            <option value="<?=$period['id']?>" <?=isset($_GET['period']) ? $_GET['period'] == $period['id'] ? 'selected' : '' : ''?>>
+                                <?=$period['val']?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
+            <?=form_close()?>
             <div class="portlet-body">
                 <div class="row">
                     <div class="col-md-6">

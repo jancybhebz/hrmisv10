@@ -2,32 +2,29 @@
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
-            <div class="col-md-9">
-                <center>
-                <form class="form-inline" role="form" method="get">
-                    <div class="form-group">
-                        <label class="control-label">Month</label>
-                        <select class="bs-select form-control" name="mon">
-                            <?php foreach (range(1, 12) as $m): ?>
-                                <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
-                                    <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        &nbsp;&nbsp;
-                        <label class="control-label">Year</label>
-                        <select class="bs-select form-control" name="yr">
-                            <?php foreach (getYear() as $yr): ?>
-                                <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
-                                    <?=$yr?></option>
-                            <?php endforeach; ?>
-                        </select> 
-                    </div>
-                    &nbsp;&nbsp;
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-                </center>
-            </div>
-            <!-- <pre><?php print_r($arrDtr); ?></pre> -->
+            <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                <div class="col-md-3"></div>
+                <div class="form-group" style="display: inline-flex;">
+                    <label style="padding: 6px;">Month</label>
+                    <select class="bs-select form-control" name="mon">
+                        <?php foreach (range(1, 12) as $m): ?>
+                            <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group" style="display: inline-flex;">
+                    <label style="padding: 6px;">Year</label>
+                    <select class="bs-select form-control" name="yr">
+                        <?php foreach (getYear() as $yr): ?>
+                            <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+                                <?=$yr?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
+            <?=form_close()?>
+            
             <table class="table table-striped table-bordered order-column" id="tbldtr">
                 <thead>
                     <tr>

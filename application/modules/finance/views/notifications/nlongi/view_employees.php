@@ -60,8 +60,8 @@
                                         <td><?=$no++?></td>
                                         <td><?=$employee['empNumber']?></td>
                                         <td><?=getfullname($employee['surname'], $employee['firstname'], $employee['middlename'], $employee['middleInitial'])?></td>
-                                        <td style="text-align: center;"><?=$employee['longiFactor']?></td>
-                                        <td style="text-align: center;"><?=$employee['difYear']?></td>
+                                        <td style="text-align: center;"><?=$employee['longiFactor']?>%</td>
+                                        <td style="text-align: center;"><?=$employee['difYear']?>%</td>
                                         <td style="text-align: center;"><?=$employee['dateofIncrease']?></td>
                                         <td style="text-align: center;">
                                             <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$employee['empNumber']?>" class="btn btn-sm blue">
