@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Request_model extends CI_Model {
 
-	var $table = 'tblrequestflow';
+	var $table = 'tblRequestFlow';
 	var $tableid = 'reqID';
 
 	var $table2 = 'tblemprequest';

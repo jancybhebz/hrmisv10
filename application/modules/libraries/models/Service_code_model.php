@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Service_code_model extends CI_Model {
 
-	var $table = 'tblservicecode';
+	var $table = 'tblServiceCode';
 	var $tableid = 'serviceId';
 
 	function __construct()
