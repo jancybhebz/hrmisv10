@@ -40,7 +40,7 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="div-body" style="display: none">
                         <div class="table-toolbar">
-                            <form action="<?=$action == 'edit' ? base_url('finance/libraries/payrollprocess/edit/'.$this->uri->segment(5)) : ''?>" method="post">
+                            <?=form_open($action == 'edit' ? 'finance/libraries/payrollprocess/edit/'.$this->uri->segment(5) : '', array('method' => 'post'))?>
                                 <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                 <div class="form-group <?=isset($err) ? 'has-error' : ''?>">
                                     <label class="control-label">Appointment Name <span class="required"> * </span></label>
@@ -60,10 +60,19 @@
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="form-control select2-multiple form-required" multiple placeholder="" id="selprocesswith" name="selprocesswith[]">
-                                            <?php foreach(explode(',', $arrData['processWith']) as $procwith): foreach($arrAppointments as $appointment): ?>
-                                                <option value="<?=$appointment['appointmentCode']?>" <?=isset($arrData) ? $appointment['appointmentCode'] == $procwith ? 'selected' : '' : in_array($appointment['appointmentCode'], set_value('selprocesswith')) ? 'selected' : ''?>>
-                                                    <?=$appointment['appointmentDesc']?></option>
-                                            <?php endforeach; endforeach; ?>
+                                            <?php 
+                                                if(isset($arrData)):
+                                                    foreach(explode(',', $arrData['processWith']) as $procwith):
+                                                        foreach($arrAppointments as $appointment): ?>
+                                                            <option value="<?=$appointment['appointmentCode']?>" <?=isset($arrData) ? $appointment['appointmentCode'] == $procwith ? 'selected' : '' : in_array($appointment['appointmentCode'], set_value('selprocesswith')) ? 'selected' : ''?>>
+                                                                <?=$appointment['appointmentDesc']?></option>
+                                            <?php       endforeach;
+                                                    endforeach;
+                                                else:
+                                                    foreach($arrAppointments as $appointment): ?>
+                                                        <option value="<?=$appointment['appointmentCode']?>" ><?=$appointment['appointmentDesc']?></option>
+                                            <?php   endforeach;
+                                                endif;?>
                                         </select>
                                     </div>
                                 </div>
@@ -89,7 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            <?=form_close()?>
                         </div>
                     </div>
                 </div>
