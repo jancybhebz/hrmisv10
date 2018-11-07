@@ -3,14 +3,14 @@
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="col-md-9">
-                <?=form_open('finance/compensation/personnel_profile/remittances/'.$this->uri->segment(5), array('method' => 'post', 'class' => 'form-horizontal'))?>
+                <?=form_open('finance/compensation/personnel_profile/remittances/'.$this->uri->segment(5), array('method' => 'get', 'class' => 'form-horizontal'))?>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Select remittance</label>
                         <div class="col-md-9">
                             <select class="form-control select2 form-required" name="selpayrollGrp">
                                 <option value="null">-- SELECT PAYROLL PROCESS --</option>
                                 <?php foreach($arrDeductions as $deduct): ?>
-                                    <option value="<?=$deduct['deductionCode']?>" <?=count($_POST) > 0 ? set_value('selpayrollGrp') == $deduct['deductionCode'] ? 'selected' : '' : '' ?>>
+                                    <option value="<?=$deduct['deductionCode']?>" <?=count($_GET) > 0 ? $_GET['selpayrollGrp'] == $deduct['deductionCode'] ? 'selected' : '' : '' ?>>
                                         <?=$deduct['deductionDesc']?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -21,9 +21,9 @@
                         <label class="col-md-3 control-label">Year</label>
                         <div class="col-md-9">
                             <div class="input-group input-large date-picker input-daterange" data-date="2003" data-date-format="yyyy" data-date-viewmode="years" id="dateRange">
-                                <input type="text" class="form-control" name="from" value="<?=set_value('from')?>">
+                                <input type="text" class="form-control" name="from" value="<?=count($_GET) > 0 ? $_GET['from'] : ''?>">
                                 <span class="input-group-addon"> to </span>
-                                <input type="text" class="form-control" name="to" value="<?=set_value('to')?>">
+                                <input type="text" class="form-control" name="to" value="<?=count($_GET) > 0 ? $_GET['to'] : ''?>">
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -39,7 +39,6 @@
                 <?=form_close()?>
                 <br>
             </div>
-
             <div class="portlet-title"></div>
             <div class="portlet-body">
                 <div class="row">
@@ -57,15 +56,17 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1; $totalRemittance = 0;
-                                if(isset($arrRemittances)): foreach($arrRemittances as $remit): $totalRemittance = $totalRemittance + $remit['deductAmount']; ?>
-                                <tr class="odd gradeX">
-                                    <td><?=$no++?></td>
-                                    <td><?=$remit['deductionDesc']?></td>
-                                    <td><?=$remit['orNumber']?></td>
-                                    <td><?=date('F', mktime(0, 0, 0, $remit['deductMonth'], 10));?></td>
-                                    <td><?=$remit['deductYear']?></td>
-                                    <td><?=$remit['deductAmount']?></td>
-                                </tr>
+                                if(isset($arrRemittances)):
+                                    foreach($arrRemittances as $remit):
+                                        $totalRemittance = $totalRemittance + ($remit['period1'] + $remit['period2'] + $remit['period3'] + $remit['period4']); ?>
+                                        <tr class="odd gradeX">
+                                            <td><?=$no++?></td>
+                                            <td><?=$remit['deductionDesc']?></td>
+                                            <td><?=$remit['orNumber']?></td>
+                                            <td><?=date('F', mktime(0, 0, 0, $remit['deductMonth'], 10));?></td>
+                                            <td><?=$remit['deductYear']?></td>
+                                            <td><?=number_format(($remit['period1'] + $remit['period2'] + $remit['period3'] + $remit['period4']), 2)?></td>
+                                        </tr>
                                 <?php endforeach; endif; ?>
                             </tbody>
                             <tfoot>

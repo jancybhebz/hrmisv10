@@ -302,7 +302,7 @@ class Personnel_profile extends MY_Controller {
 		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
-		$arrPost = $this->input->post();
+		$arrPost = $this->input->get();
 		if(!empty($arrPost)):
 			$this->load->model('Remittance_model');
 			$this->arrData['arrRemittances'] = $this->Remittance_model->getRemittance($empid, $arrPost['selpayrollGrp'], $arrPost['from'], $arrPost['to']);
