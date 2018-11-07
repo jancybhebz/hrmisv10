@@ -27,29 +27,45 @@ function checkElement(e,obj='',value=0)
 			res = 1;
 		}
 	}else{
-		if(e.val() == '' || e.val().toLowerCase() == 'null'){
-			e.parent().parent().addClass('has-error');
-			e.prev("i").attr('data-original-title', "This field is required.");
-			e.prev("i").show();
-			res = 1;
-		}else{
-			if(obj == 'text'){
-				if(!e.val().replace(/\s/g, '').length){
-					e.parent().parent().addClass('has-error');
-					e.prev("i").attr('data-original-title', "Invalid input.");
-					e.prev("i").show();
-					res = 1;
-				}else{
-					e.prev("i").hide();
-					e.parent().parent().removeClass('has-error');
-					res = 0;
-				}
+		if(obj == 'select2-multiple'){
+			if(e.val() == null){
+				e.parent().parent().addClass('has-error');
+				e.prev("i").attr('data-original-title', "This field is required.");
+				e.prev("i").show();
+				res = 1;	
 			}else{
 				e.prev("i").hide();
 				e.parent().parent().removeClass('has-error');
 				res = 0;
 			}
+		}else{
+
+			if(e.val() == '' || e.val() == null || e.val().toLowerCase() == 'null'){
+				e.parent().parent().addClass('has-error');
+				e.prev("i").attr('data-original-title', "This field is required.");
+				e.prev("i").show();
+				res = 1;
+			}else{
+				if(obj == 'text'){
+					if(!e.val().replace(/\s/g, '').length){
+						e.parent().parent().addClass('has-error');
+						e.prev("i").attr('data-original-title', "Invalid input.");
+						e.prev("i").show();
+						res = 1;
+					}else{
+						e.prev("i").hide();
+						e.parent().parent().removeClass('has-error');
+						res = 0;
+					}
+				}else{
+					e.prev("i").hide();
+					e.parent().parent().removeClass('has-error');
+					res = 0;
+				}
+			}
+
 		}
+
 	}
 	return res;
 }
@@ -65,8 +81,12 @@ $(document).ready(function() {
 		checkElement($(this), 'text');
 	});
 
-	$('form select.form-required').change(function(e) {
+	$('form select.form-required:not(select.select2-multiple)').change(function(e) {
 		checkElement($(this));
+	});
+
+	$('form select.select2-multiple.form-required').change(function(e) {
+		checkElement($(this),'select2-multiple');
 	});
 
 	if($('form [type="radio"]').length > 0){
@@ -88,9 +108,14 @@ $(document).ready(function() {
 			resval.push(checkElement($(this), 'text'));
 		});
 
-		$(frmname+' select.form-required').each(function() {
+		$(frmname+' select.form-required:not(select.select2-multiple)').each(function() {
 			console.log($(this));
 			resval.push(checkElement($(this)));
+		});
+
+		$(frmname+' select.select2-multiple.form-required').each(function() {
+			console.log($(this));
+			resval.push(checkElement($(this),'select2-multiple'));
 		});
 
 		$(frmname+' .radio-required').each(function() {	
