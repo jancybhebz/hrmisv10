@@ -34,6 +34,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
             <?=form_close()?>
+            <br><br>
             <div class="portlet-body">
                 <div class="row">
                     <div class="col-md-6">

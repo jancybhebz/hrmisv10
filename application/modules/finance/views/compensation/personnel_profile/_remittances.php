@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="col-md-9">
-                <form class="form-horizontal" action="<?=base_url('finance/compensation/personnel_profile/remittances/'.$this->uri->segment(5))?>" method="post">
+                <?=form_open('finance/compensation/personnel_profile/remittances/'.$this->uri->segment(5), array('method' => 'post', 'class' => 'form-horizontal'))?>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Select remittance</label>
                         <div class="col-md-9">
@@ -36,7 +36,8 @@
                             </div>
                         </div>
                     </div>
-                </form><br>
+                <?=form_close()?>
+                <br>
             </div>
 
             <div class="portlet-title"></div>
