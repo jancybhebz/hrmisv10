@@ -1,3 +1,4 @@
+<?=load_plugin('css',array('select'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -46,7 +47,7 @@
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="bs-select form-control form-required" name="selprojdesc">
-                                            <option value=""></option>
+                                            <option value="null">-- SELECT PROJECT --</option>
                                             <?php foreach($projectcode as $code): ?>
                                                 <option value="<?=$code['projectCode']?>"
                                                     <?=isset($data) ? $data['projectCode'] == $code['projectCode'] ? 'selected' : '' : set_value('selprojdesc') == $code['projectCode'] ? 'selected' : ''?>>
@@ -105,4 +106,4 @@
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('form_validation'));?>
+<?php load_plugin('js',array('select','form_validation'));?>

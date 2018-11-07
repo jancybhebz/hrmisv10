@@ -80,3 +80,12 @@ if ( ! function_exists('longeAppt'))
         return 'P';
     }
 }
+
+# salary periods
+if ( ! function_exists('salaryPeriod'))
+{
+    function salaryPeriod()
+    {
+        return array('Monthly','Semimonthly','Weekly','Daily');
+    }
+}

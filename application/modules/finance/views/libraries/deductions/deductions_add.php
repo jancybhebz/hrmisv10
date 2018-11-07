@@ -1,3 +1,4 @@
+<?php load_plugin('css',array('select'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -70,7 +71,7 @@
                                                     <div class="input-icon right">
                                                         <i class="fa fa-warning tooltips i-required"></i>
                                                         <select class="bs-select form-control form-required" name="selAgency" id="selAgency">
-                                                            <option value=""></option>
+                                                            <option value="null">-- SELECT AGENCY --</option>
                                                             <?php foreach($agency as $agency): ?>
                                                                 <option value="<?=$agency['deductionGroupCode']?>"
                                                                     <?=isset($data) ? $agency['deductionGroupCode'] == $data['deductionGroupCode'] ? 'selected' : '' : $agency['deductionGroupCode'] == set_value('selAgency') ? 'selected' : ''?>>
@@ -105,7 +106,7 @@
                                                     <div class="input-icon right">
                                                         <i class="fa fa-warning tooltips i-required"></i>
                                                         <select class="bs-select form-control form-required" name="seltype" id="seltype">
-                                                            <option value=""></option>
+                                                            <option value="null">-- SELECT TYPE --</option>
                                                             <?php foreach(deduction_type() as $type): ?>
                                                                 <option value="<?=$type?>" <?=isset($data) ? $type == $data['deductionType'] ? 'selected' : '' : $type == set_value('seltype') ? 'selected' : ''?>>
                                                                     <?=$type?></option>
@@ -138,4 +139,4 @@
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('form_validation'));?>
+<?php load_plugin('js',array('select','form_validation'));?>

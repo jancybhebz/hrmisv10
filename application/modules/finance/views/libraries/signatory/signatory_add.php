@@ -1,3 +1,4 @@
+<?php load_plugin('css',array('select2'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -45,8 +46,8 @@
                                     <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="bs-select form-control form-required" name="txtpgcode">
-                                            <option value=""></option>
+                                        <select class="select2 form-control form-required" name="txtpgcode">
+                                            <option value="null">-- SELECT PAYROLL GROUP CODE --</option>
                                             <?php foreach($paryollGroup as $code): ?>
                                                 <option value="<?=$code['payrollGroupCode']?>"
                                                     <?=isset($data) ? $code['payrollGroupCode'] == $data['payrollGroupCode'] ? 'selected' : '' : ''?>><?=$code['payrollGroupName']?></option>
@@ -88,4 +89,4 @@
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('form_validation'));?>
+<?php load_plugin('js',array('select2','form_validation'));?>

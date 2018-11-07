@@ -19,7 +19,7 @@ class Appointment_status_model extends CI_Model {
 	{		
 		$strWhere = '';
 		if($intAppointmentId != "")
-			$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
+			$strWhere .= " AND appointmentCode = '".$intAppointmentId."'";
 		
 		$strSQL = " SELECT * FROM tblAppointment					
 					WHERE 1=1 
@@ -65,12 +65,20 @@ class Appointment_status_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
-	function getAppointmentJointPermanent()
+	function getAppointmentJointPermanent($ispayroll=false)
 	{
 		$this->db->order_by('appointmentDesc');
-		return $this->db->where('appointmentCode', 'P')
+
+		if($ispayroll):
+			$this->db->join('tblAppointment','tblAppointment.appointmentCode = tblPayrollProcess.appointmentCode','left');
+			return $this->db->get('tblPayrollProcess')->result_array();
+
+			$query = "Select * from tblPayrollProcess LEFT JOIN tblAppointment ON tblAppointment.appointmentCode = tblPayrollProcess.appointmentCode ORDER BY appointmentDesc";
+		else:
+			return $this->db->where('appointmentCode', 'P')
 						->or_where('incPlantilla', '0')
 						->get('tblAppointment')->result_array();
+		endif;
 	}
 
 
