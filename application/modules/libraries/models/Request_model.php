@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Request_model extends CI_Model {
 
-	var $table = 'tblrequestflow';
+	var $table = 'tblRequestFlow';
 	var $tableid = 'reqID';
 
 	var $table2 = 'tblemprequest';
@@ -42,7 +42,7 @@ class Request_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$intReqId);
 		}
-		//$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
@@ -54,7 +54,7 @@ class Request_model extends CI_Model {
 	// 	{
 	// 		$this->db->where($this->tableid2,$strEmpNumber);
 	// 	}
-	// 	$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
+	// 	$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
 
 	// 	$objQuery = $this->db->get($this->table2);
 	// 	return $objQuery->result_array();	

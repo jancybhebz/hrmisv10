@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Payroll_group_model extends CI_Model {
 
-	var $table = 'tblpayrollgroup';
+	var $table = 'tblPayrollGroup';
 	var $tableid = 'payrollGroupId';
 
 	function __construct()

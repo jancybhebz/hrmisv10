@@ -253,13 +253,50 @@ class Pds extends MY_Controller
 		}	
 	}
 
+	// public function add_child()
+ //    {
+ //    	$arrPost = $this->input->post();
+	// 	if(empty($arrPost))
+	// 	{	
+	// 		$this->template->load('template/template_view','pds/family_background_view',$this->arrData);	
+	// 	}
+	// 	else
+	// 	{	
+	// 		$strCNname  =$arrPost['strCNname'];
+	// 		$dtmCBirthdate=$arrPost['dtmCBirthdate'];
+		
+	// 			if(!empty($strCNname))
+	// 			{
+	// 				$arrData = array(
+	// 					'childName'=>$strCNname,
+	// 					'childBirthDate'=>$dtmCBirthdate		
+						
+	// 				);
+	// 				$blnReturn  = $this->pds_model->add_child($arrData);
+	// 				if(count($blnReturn)>0)
+	// 				{	
+	// 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempchild','Added '.$strCNname.'',implode(';',$arrData),'');
+	// 					$this->session->set_flashdata('strMsg','Child Information added successfully.');
+	// 				}
+	// 				redirect('hr/profile');
+	// 			}
+	// 			else
+	// 			{	
+	// 				$this->session->set_flashdata('strErrorMsg','Personal Information already exists.');
+	// 				$this->session->set_flashdata('strCNname',$strCNname);
+	// 					//echo $this->session->flashdata('strErrorMsg');
+	// 				redirect('hr/profile');
+	// 			}
+	// 		}		
+ //    }
+
     public function edit_child()
     {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{
 			$strEmpNumber = urldecode($this->uri->segment(4));
-			$this->arrData['arrChild']=$this->pds_model->getChildData($strEmpNumber);
+			$this->arrData['arrChild']=$this->pds_model->getData($strEmpNumber);
 			$this->template->load('template/template_view','pds/family_background_view', $this->arrData);
 		}
 		else

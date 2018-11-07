@@ -518,7 +518,6 @@
             $('[data-code="' + code + '"]').closest('tr').hide(); }});
 </script>
 
-
 <?=load_plugin('js',array('validation','datepicker'));?>
 <script>
     $(document).ready(function() 
