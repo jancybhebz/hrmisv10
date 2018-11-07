@@ -51,8 +51,6 @@ class Hr_model extends CI_Model {
 		$this->db->insert($this->table, $arrData);
 		return $this->db->insert_id();		
 	}
-
-	
 	
 	public function checkExist($strEmpNo)
 	{		
@@ -102,7 +100,7 @@ class Hr_model extends CI_Model {
 		return $objQuery->result_array();	
 	}			
 		
-	public function save_Personal($arrData, $strEmpNo)
+	public function savePersonal($arrData, $strEmpNo)
 	{
 		$this->db->where($this->tableid,$strEmpNo);
 		$this->db->update($this->table, $arrData);
@@ -110,7 +108,7 @@ class Hr_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function save_Spouse($arrData, $strEmpNo)
+	public function saveSpouse($arrData, $strEmpNo)
 	{
 		$this->db->where($this->tableid2,$strEmpNo);
 		$this->db->update($this->table2, $arrData);
@@ -118,7 +116,7 @@ class Hr_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function save_Parents($arrData, $strEmpNo)
+	public function saveParents($arrData, $strEmpNo)
 	{
 		$this->db->where($this->tableid2,$strEmpNo);
 		$this->db->update($this->table2, $arrData);
@@ -126,7 +124,7 @@ class Hr_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function save_Child($arrData, $strChildCode)
+	public function saveChild($arrData, $strChildCode)
 	{
 		$this->db->where($this->tableid2,$strChildCode);
 		$this->db->update($this->table2, $arrData);
@@ -134,7 +132,7 @@ class Hr_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function save_Educ($arrData, $strLevelCode)
+	public function saveEduc($arrData, $strLevelCode)
 	{
 		$this->db->where($this->tableid3,$strLevelCode);
 		$this->db->update($this->table3, $arrData);
@@ -142,7 +140,7 @@ class Hr_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function save_Exam($arrData, $strExamCode)
+	public function saveExam($arrData, $strExamCode)
 	{
 		$this->db->where($this->tableid4,$strExamCode);
 		$this->db->update($this->table4, $arrData);
@@ -158,7 +156,7 @@ class Hr_model extends CI_Model {
 	}
 
 	// children
-	public function delete_Child($strChildCode)
+	public function deleteChild($strChildCode)
 	{
 		$this->db->where($this->tableid2, $strChildCode);
 		$this->db->delete($this->table2); 	
@@ -166,7 +164,7 @@ class Hr_model extends CI_Model {
 	}
 
 	// education
-	public function delete_Educ($strLevelCode)
+	public function deleteEduc($strLevelCode)
 	{
 		$this->db->where($this->tableid3, $strLevelCode);
 		$this->db->delete($this->table3); 	
@@ -174,7 +172,7 @@ class Hr_model extends CI_Model {
 	}
 
 	// examination
-	public function delete_Exam($strExamCode)
+	public function deleteExam($strExamCode)
 	{
 		$this->db->where($this->tableid4, $strExamCode);
 		$this->db->delete($this->table4); 	
@@ -182,7 +180,7 @@ class Hr_model extends CI_Model {
 	}
 
 	// work experience
-	public function delete_WorkExp($strServiceRecID)
+	public function deleteWorkExp($strServiceRecID)
 	{
 		$this->db->where($this->tableid5, $strServiceRecID);
 		$this->db->delete($this->table5); 	
@@ -190,7 +188,7 @@ class Hr_model extends CI_Model {
 	}
 
 	// voluntary works
-	public function delete_VolWorks($strVwName)
+	public function deleteVolWorks($strVwName)
 	{
 		$this->db->where($this->tableid6, $strVwName);
 		$this->db->delete($this->table6); 	
@@ -198,7 +196,7 @@ class Hr_model extends CI_Model {
 	}
 
 	// trainings
-	public function delete_Training($strXtrainingCode)
+	public function deleteTraining($strXtrainingCode)
 	{
 		$this->db->where($this->tableid7, $strXtrainingCode);
 		$this->db->delete($this->table7); 	
@@ -214,7 +212,7 @@ class Hr_model extends CI_Model {
 	} 
 
 	// duties
-	public function delete_Duties($strDuties)
+	public function deleteDuties($strDuties)
 	{
 		$this->db->where($this->tableid9, $strDuties);
 		$this->db->delete($this->table9); 	
@@ -222,7 +220,7 @@ class Hr_model extends CI_Model {
 	}
 
 	// plantilla duties
-	public function delete_PlantillaDuties($strItemDuties)
+	public function deletePlantillaDuties($strItemDuties)
 	{
 		$this->db->where($this->tableid10, $strItemDuties);
 		$this->db->delete($this->table10); 	

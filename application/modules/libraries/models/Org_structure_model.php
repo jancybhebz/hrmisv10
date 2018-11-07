@@ -31,7 +31,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strExecOffice);
 		}
-		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
@@ -41,7 +41,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid2,$strServiceCode);
 		}
-		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
@@ -51,7 +51,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid3,$strDivCode);
 		}
-		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table3.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table3.'.empNumber','left');
 		$objQuery = $this->db->get($this->table3);
 		return $objQuery->result_array();	
 	}
@@ -61,7 +61,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid4,$strSecCode);
 		}
-		$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table4.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table4.'.empNumber','left');
 		$objQuery = $this->db->get($this->table4);
 		return $objQuery->result_array();	
 	}

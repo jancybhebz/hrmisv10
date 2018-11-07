@@ -29,7 +29,7 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            <?=form_open('login', array('method' => 'post'))?>
+            <?=form_open(base_url('login'), array('method' => 'post'))?>
                 <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
                 <h1 class="hrmisLogo">HRMIS</h1>
                 <div class="small">Human Resource Management Information System</div>

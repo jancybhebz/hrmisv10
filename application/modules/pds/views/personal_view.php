@@ -595,7 +595,7 @@
                 </div>
                 
                 <div class="modal-footer">
-                 <input type="hidden" name="strCode" value="<?=isset($arrData['childCode'])?$arrData['childCode']:''?>">
+                 <input type="hidden" name="strEmpNumber" value="<?=isset($arrData['empNumber'])?$arrData['empNumber']:''?>">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
                     <button type="submit" name="btnPersonal" class="btn green">Save</button>
                 </div>

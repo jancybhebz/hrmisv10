@@ -43,7 +43,7 @@ class Holiday_model extends CI_Model {
 		{
 			$this->db->where($this->tableid2,$strCode);
 		}
-		//$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
@@ -55,7 +55,7 @@ class Holiday_model extends CI_Model {
 		{
 			$this->db->where($this->tableid3,$strCode);
 		}
-		//$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 
 		$objQuery = $this->db->get($this->table3);
 		return $objQuery->result_array();	

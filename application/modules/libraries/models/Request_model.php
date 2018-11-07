@@ -42,7 +42,7 @@ class Request_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$intReqId);
 		}
-		//$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
@@ -54,7 +54,7 @@ class Request_model extends CI_Model {
 	// 	{
 	// 		$this->db->where($this->tableid2,$strEmpNumber);
 	// 	}
-	// 	$this->db->join('tblemppersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
+	// 	$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
 
 	// 	$objQuery = $this->db->get($this->table2);
 	// 	return $objQuery->result_array();	

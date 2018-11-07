@@ -56,15 +56,15 @@ class Pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getChildData($strCode = '')
-	{		
-		if($strCode != "")
-		{
-			$this->db->where($this->tableid2,$strCode);
-		}
-		$objQuery = $this->db->get($this->table2);
-		return $objQuery->result_array();	
-	}
+	// function getChildData($strCode = '')
+	// {		
+	// 	if($strCode != "")
+	// 	{
+	// 		$this->db->where($this->tableid2,$strCode);
+	// 	}
+	// 	$objQuery = $this->db->get($this->table2);
+	// 	return $objQuery->result_array();	
+	// }
 
 	function getImage($ImageId = '')
 	{		
@@ -80,6 +80,12 @@ class Pds_model extends CI_Model {
 	function add($arrData)
 	{
 		$this->db->insert($this->table, $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function add_child($arrData)
+	{
+		$this->db->insert($this->table2, $arrData);
 		return $this->db->insert_id();		
 	}
 
