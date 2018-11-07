@@ -14,7 +14,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$action?> Project Code</span>
+            <span><?=ucfirst($action)?> Project Code</span>
         </li>
     </ul>
 </div>
@@ -68,8 +68,9 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> <?=$action?> </button>
-                                            <a href="<?=base_url('finance/libraries/projectcode')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                            <button class="btn green" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                            <a href="<?=base_url('finance/libraries/projectcode')?>" class="btn blue">
+                                                <i class="icon-ban"></i> Cancel</a>
                                         </div>
                                     </div>
                                 </div>

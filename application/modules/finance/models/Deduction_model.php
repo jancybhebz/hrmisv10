@@ -14,7 +14,7 @@ class Deduction_model extends CI_Model {
 
 	function addAgency($arrData)
 	{
-		$this->db->insert('tbldeductiongroup', $arrData);
+		$this->db->insert('tblDeductionGroup', $arrData);
 		return $this->db->insert_id();
 	}
 
@@ -39,7 +39,7 @@ class Deduction_model extends CI_Model {
 			$this->db->delete('tblDeduction');	
 		else:
 			$this->db->where('deductionGroupCode', $code);
-			$this->db->delete('tbldeductiongroup');	
+			$this->db->delete('tblDeductionGroup');	
 		endif;
 		return $this->db->affected_rows(); 
 	}
@@ -47,7 +47,7 @@ class Deduction_model extends CI_Model {
 	function edit_agency($arrData, $code)
 	{
 		$this->db->where('deductionGroupCode',$code);
-		$this->db->update('tbldeductiongroup', $arrData);
+		$this->db->update('tblDeductionGroup', $arrData);
 		return $this->db->affected_rows();
 	}
 
@@ -68,9 +68,9 @@ class Deduction_model extends CI_Model {
 	function getDeductionGroup($groupCode='')
 	{
 		if($groupCode==''):
-			return $this->db->order_by('deductionGroupCode','ASC')->get('tbldeductiongroup')->result_array();
+			return $this->db->order_by('deductionGroupCode','ASC')->get('tblDeductionGroup')->result_array();
 		else:
-			$result = $this->db->get_where('tbldeductiongroup', array('deductionGroupCode' => $groupCode))->result_array();
+			$result = $this->db->get_where('tblDeductionGroup', array('deductionGroupCode' => $groupCode))->result_array();
 			return $result[0];
 		endif;
 	}
@@ -102,7 +102,7 @@ class Deduction_model extends CI_Model {
 
 	function isDeductionGroupExists($code, $action)
 	{
-		$result = $this->db->get_where('tbldeductiongroup', array('deductionGroupCode' => $code))->result_array();
+		$result = $this->db->get_where('tblDeductionGroup', array('deductionGroupCode' => $code))->result_array();
 		if($action == 'add'):
 			if(count($result) > 0):
 				return true;

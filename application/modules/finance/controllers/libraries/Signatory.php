@@ -7,7 +7,7 @@ class Signatory extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Finance/Signatory_model', 'Finance/PayrollGroup_model'));
+        $this->load->model(array('Signatory_model', 'PayrollGroup_model'));
     }
 
 	public function index()
@@ -27,7 +27,7 @@ class Signatory extends MY_Controller {
 			);
 			$this->Signatory_model->add($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Signatory added successfully.');
-			redirect('finance/signatory');
+			redirect('finance/libraries/signatory');
 		endif;
 		$this->arrData['action'] = 'add';
 		$this->arrData['paryollGroup'] = $this->PayrollGroup_model->getData('');
@@ -45,7 +45,7 @@ class Signatory extends MY_Controller {
 			);
 			$this->Signatory_model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Signatory updated successfully.');
-			redirect('finance/signatory');
+			redirect('finance/libraries/signatory');
 		endif;
 		$this->arrData['action'] = 'edit';
 		$this->arrData['data'] = $this->Signatory_model->getSignatories($code);

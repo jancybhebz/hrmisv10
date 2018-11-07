@@ -7,7 +7,7 @@ class Income extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Finance/Income_Model'));
+        $this->load->model(array('Income_Model'));
     }
 
 	public function index($status='')
@@ -32,7 +32,7 @@ class Income extends MY_Controller {
 			if(!$this->Income_Model->isCodeExists($arrPost['txtinccode'],'add')):
 				$this->Income_Model->add($arrData);
 				$this->session->set_flashdata('strSuccessMsg','Income added successfully.');
-				redirect('finance/income');
+				redirect('finance/libraries/income');
 			else:
 				$this->arrData['err'] = 'Code already exists';
 			endif;
@@ -53,7 +53,7 @@ class Income extends MY_Controller {
 			);
 			$this->Income_Model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Income updated successfully.');
-			redirect('finance/income');
+			redirect('finance/libraries/income');
 		else:
 			$this->arrData['action'] = 'edit';
 			$this->arrData['arrData'] = $this->Income_Model->getIncomeData($code);

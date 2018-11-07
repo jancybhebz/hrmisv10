@@ -14,7 +14,7 @@ class Deductions extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Finance/Deduction_Model'));
+        $this->load->model(array('Deduction_Model'));
     }
 
 	public function index()

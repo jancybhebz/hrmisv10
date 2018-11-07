@@ -29,7 +29,7 @@
             <div class="tabbable tabbable-tabdrop">
                 <ul class="nav nav-tabs">
                     <li>
-                        <a href="<?=base_url('finance/deductions')?>">
+                        <a href="<?=base_url('finance/libraries/deductions')?>">
                             <div class="caption font-dark">
                                 <i class="icon-settings font-dark"></i>
                                 <span class="caption-subject bold uppercase"> Deductions</span>
@@ -91,8 +91,8 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <button class="btn btn-primary" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
-                                                            <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                                            <button class="btn green" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                                            <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>" class="btn blue"><i class="icon-ban"></i> Cancel</a>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -7,7 +7,7 @@ class PayrollGroup extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Finance/PayrollGroup_model', 'Finance/ProjectCode_model'));
+        $this->load->model(array('PayrollGroup_model', 'ProjectCode_model'));
     }
 
 	public function index()
@@ -30,7 +30,7 @@ class PayrollGroup extends MY_Controller {
 			if(!$this->PayrollGroup_model->isCodeExists($arrPost['txtcode'],'add')):
 				$this->PayrollGroup_model->add($arrData);
 				$this->session->set_flashdata('strSuccessMsg','Payroll group added successfully.');
-				redirect('finance/payrollgroup');
+				redirect('finance/libraries/payrollgroup');
 			else:
 				$this->arrData['err'] = 'Code already exists';
 			endif;
@@ -53,7 +53,7 @@ class PayrollGroup extends MY_Controller {
 			);
 			$this->PayrollGroup_model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Project Code updated successfully.');
-			redirect('finance/payrollgroup');
+			redirect('finance/libraries/payrollgroup');
 		endif;
 		$this->arrData['action'] = 'edit';
 		$this->arrData['data'] = $this->PayrollGroup_model->getData($code);
