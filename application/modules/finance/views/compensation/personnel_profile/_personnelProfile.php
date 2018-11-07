@@ -88,7 +88,7 @@
                     <div class="tab-pane <?=$this->uri->segment(6) == '' ? 'active' : ''?>" id="tab-payrollsummary">
                         <?=form_open('finance/compensation/personnel_profile/employee/'.$this->uri->segment(5), array('id' => 'frmpostdetails', 'class' => 'form-inline', 'method' => 'get'))?>
                             <div class="form-group">
-                                <select class="bs-select form-control" name="mon">
+                                <select class="form-control bs-select" name="mon">
                                     <?php foreach (range(1, 12) as $m): ?>
                                         <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
                                             <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
@@ -210,7 +210,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn btn-primary" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <button class="btn green" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
                         </div>
                     </div>
                     
@@ -250,7 +250,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn btn-primary" data-toggle="modal" href="#positionDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <button class="btn green" data-toggle="modal" href="#positionDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
                         </div>
                     </div>
                 </div>

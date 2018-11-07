@@ -1,3 +1,4 @@
+<?php load_plugin('css',array('select2'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -39,14 +40,14 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="signatory" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <form action="<?=$action == 'edit' ? base_url('finance/libraries/signatory/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                            <?=form_open($action == 'edit' ? 'finance/libraries/signatory/edit/'.$this->uri->segment(4) : '', array('method' => 'post'))?>
                                 <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                 <div class="form-group">
                                     <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="bs-select form-control form-required" name="txtpgcode">
-                                            <option value=""></option>
+                                        <select class="select2 form-control form-required" name="txtpgcode">
+                                            <option value="null">-- SELECT PAYROLL GROUP CODE --</option>
                                             <?php foreach($paryollGroup as $code): ?>
                                                 <option value="<?=$code['payrollGroupCode']?>"
                                                     <?=isset($data) ? $code['payrollGroupCode'] == $data['payrollGroupCode'] ? 'selected' : '' : ''?>><?=$code['payrollGroupName']?></option>
@@ -80,7 +81,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            <?=form_close()?>
                         </div>
                     </div>
                 </div>
@@ -88,4 +89,4 @@
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('form_validation'));?>
+<?php load_plugin('js',array('select2','form_validation'));?>

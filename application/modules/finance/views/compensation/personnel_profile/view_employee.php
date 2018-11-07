@@ -1,3 +1,4 @@
+<?php load_plugin('css',array('select'));?>
 <?php $this_page = $this->uri->segment(4);?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
@@ -91,6 +92,7 @@
     </div>
 </div>
 
+<?php load_plugin('js',array('select'));?>
 <script>
     $(document).ready(function() {
         $('.loading-image, #div_hide').hide();

@@ -1,3 +1,4 @@
+<?=load_plugin('css',array('select'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -39,14 +40,14 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="payrollgroup" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <form action="<?=$action == 'edit' ? base_url('finance/libraries/payrollgroup/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                            <?=form_open($action == 'edit' ? 'finance/libraries/payrollgroup/edit/'.$this->uri->segment(4) : '', array('method' => 'post'))?>
                                 <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                 <div class="form-group">
                                     <label class="control-label">Project <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="bs-select form-control form-required" name="selprojdesc">
-                                            <option value=""></option>
+                                            <option value="null">-- SELECT PROJECT --</option>
                                             <?php foreach($projectcode as $code): ?>
                                                 <option value="<?=$code['projectCode']?>"
                                                     <?=isset($data) ? $data['projectCode'] == $code['projectCode'] ? 'selected' : '' : set_value('selprojdesc') == $code['projectCode'] ? 'selected' : ''?>>
@@ -97,7 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            <?=form_close()?>
                         </div>
                     </div>
                 </div>
@@ -105,4 +106,4 @@
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('form_validation'));?>
+<?php load_plugin('js',array('select','form_validation'));?>

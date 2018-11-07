@@ -243,20 +243,20 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     </li>
                 </ul>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item <?=strtolower($activesub)=='payroll_update'?'active open':''?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-docs"></i>
                     <span class="title">Update</span>
-                    <span class="arrow"></span>
+                    <span class="arrow <?=strtolower($activesub)=='payroll_update'?'open':''?>"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item start <?=strtolower($activesub)=='process_payroll'?'active open':''?>">
-                        <a href="<?=base_url('finance/process_payroll')?>"">
+                    <li class="nav-item start <?=strtolower($activetab)=='process'?'active open':''?>">
+                        <a href="<?=base_url('finance/payroll_update/process')?>"">
                             <span class="title">Process Payroll</span>
                         </a>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="javascript:;" class="nav-link ">
+                    <li class="nav-item start <?=strtolower($activetab)=='update_or'?'active open':''?>">
+                        <a href="<?=base_url('finance/payroll_update/update_or')?>"">
                             <span class="title">Update OR Remittances</span>
                         </a>
                     </li>

@@ -1,3 +1,11 @@
+.btn-group.bootstrap-select.form-control.bs-select.form-required {
+    padding: 0 !important;
+}
+
+.has-error .bootstrap-select .btn {
+    border-color: #e73d4a !important;
+}
+
 .bootstrap-select.btn-group .dropdown-menu li a:hover {
 /*.dropdown-menu>li:hover>a {*/
     background-color: #2987c7 !important;
