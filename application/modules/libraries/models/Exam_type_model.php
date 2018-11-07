@@ -21,7 +21,7 @@ class Exam_type_model extends CI_Model {
 		if($intExamId != "")
 			$strWhere .= " AND examId = '".$intExamId."'";
 		
-		$strSQL = " SELECT * FROM tblexamtype					
+		$strSQL = " SELECT * FROM tblExamType					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY examDesc
@@ -34,13 +34,13 @@ class Exam_type_model extends CI_Model {
 
 	function add($arrData)
 	{
-		$this->db->insert('tblexamtype', $arrData);
+		$this->db->insert('tblExamType', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strExamCode = '', $strExamDesc = '')
 	{		
-		$strSQL = " SELECT * FROM tblexamtype					
+		$strSQL = " SELECT * FROM tblExamType					
 					WHERE  
 					examCode ='$strExamCode' OR
 					examDesc ='$strExamDesc'					

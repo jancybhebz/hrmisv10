@@ -10,7 +10,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 class Payroll_group_model extends CI_Model {
 
 	var $table = 'tblPayrollGroup';
-	var $tableid = 'payrollGroupId';
+	var $tableid = 'payrollGroupCode';
 
 	function __construct()
 	{
