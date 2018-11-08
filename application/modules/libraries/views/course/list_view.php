@@ -1,4 +1,4 @@
-<?php load_plugin('css',array('datepicker'));?>
+<?php load_plugin('css',array('datepicker','datatables'));?>
 
 <div class="row">
     <div class="col-md-12">
@@ -40,8 +40,8 @@
                             <td> <?=$row['courseCode']?> </td>
                             <td class="center"> <?=$row['courseDesc']?> </td>
                             <td>
-                                <a href="<?=base_url('libraries/course/edit/'.$row['courseCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/course/delete/'.$row['courseCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/course/edit/'.$row['courseId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/course/delete/'.$row['courseId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                             </td>
                         </tr>
                     <?php $i++;endforeach;?>
@@ -52,7 +52,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-<?php load_plugin('js',array('datatable'));?>
+<?php load_plugin('js',array('datatables'));?>
 
 
 <script>

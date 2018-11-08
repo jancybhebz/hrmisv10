@@ -1,3 +1,11 @@
+<?php 
+/** 
+Purpose of file:    Model for Course Library
+Author:             Rose Anne Grefaldeo
+System Name:        Human Resource Management Information System Version 10
+Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
+**/
+?>
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Courses_model extends CI_Model {
 
@@ -25,11 +33,12 @@ class Courses_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getData($strCode="")
+
+	function getData($intCourseId="")
 	{		
 		$where='';
-		if($strCode!="")
-			$where .= " AND courseCode='".$strCode."'";
+		if($intCourseId!="")
+			$where .= " AND courseId='".$intCourseId."'";
 		
 		$strSQL = " SELECT * FROM tblCourse					
 					WHERE 1=1 
@@ -41,17 +50,18 @@ class Courses_model extends CI_Model {
 		return $objQuery->result_array();	
 	}			
 		
-	function save($arrData, $strCode)
+	
+	function save($arrData, $intCourseId)
 	{
-		$this->db->where('courseCode',$strCode);
+		$this->db->where('courseId',$intCourseId);
 		$this->db->update('tblCourse', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($strCode)
+	function delete($intCourseId)
 	{
-		$this->db->where('courseCode', $strCode);
+		$this->db->where('courseId', $intCourseId);
 		$this->db->delete('tblCourse'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

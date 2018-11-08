@@ -114,15 +114,15 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strPositionCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
-                    strPositionAbbreviation: {
-                        minLength: 1,
+                    strPositionDescription: {
+                        minlength: 1,
                         required: true,
                     },
                      strPositionAbbreviation: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                 },

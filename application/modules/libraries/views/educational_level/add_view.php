@@ -103,11 +103,11 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strEducLevelCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strEducLevelDesc: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     }
                 },
