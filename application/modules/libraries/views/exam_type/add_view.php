@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/exam_type/add')?>" method="post" id="frmAppointmentStatus">
+            <?=form_open(base_url('libraries/exam_type/add'), array('method' => 'post', 'id' => 'frmExam'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -86,7 +86,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -103,7 +103,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmAppointmentStatus');
+            var form2 = $('#frmExam');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 

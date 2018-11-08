@@ -33,7 +33,7 @@
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/course/edit/'.$this->uri->segment(4))?>" method="post" id="frmCourse">
+            <?=form_open(base_url('libraries/course/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmCourse'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
