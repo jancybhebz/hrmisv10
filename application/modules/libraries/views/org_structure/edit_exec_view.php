@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/org_structure/edit_exec/'.$this->uri->segment(4))?>" method="post" id="frmOrgStructure">
+            <?=form_open(base_url('libraries/org_structure/edit_exec/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -124,7 +124,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
