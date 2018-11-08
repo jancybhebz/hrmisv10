@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Country Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strCountryName" value="<?=isset($arrCountries[0]['countryName'])?$arrCountry[0]['countryName']:''?>" >
+                                    <input type="text" class="form-control" name="strCountryName" value="<?=isset($arrCountries[0]['countryName'])?$arrCountries[0]['countryName']:''?>" >
                                 </div>
                             </div>
                         </div>

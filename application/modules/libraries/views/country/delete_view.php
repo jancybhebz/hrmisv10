@@ -76,7 +76,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                <<?=form_close()?>
+                <?=form_close()?>
             </div>
         </div>
     </div>

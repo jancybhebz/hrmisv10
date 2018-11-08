@@ -116,12 +116,12 @@ class Country extends MY_Controller {
 			//add condition for checking dependencies from other tables
 			if(!empty($intCountryId))
 			{
-				$arrCountry = $this->country_model->getData($intCountryId);
-				$strCountryName = $arrCountry[0]['countryName'];	
+				$arrCountries = $this->country_model->getData($intCountryId);
+				$strCountryName = $arrCountries[0]['countryName'];	
 				$blnReturn = $this->country_model->delete($intCountryId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Deleted '.$strCountryName.' Country',implode(';',$arrCountry[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Deleted '.$strCountryName.' Country',implode(';',$arrCountries[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Country deleted successfully.');
 				}
