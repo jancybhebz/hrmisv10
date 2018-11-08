@@ -42,12 +42,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="portlet-body">
             <?=form_open(base_url('libraries/appointment_status/add'), array('method' => 'post', 'id' => 'frmAppointmentStatus'))?>
+           
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Appointment Code <span class="required"> * </span></label>
+                                <label class="control-label">Appointment Code  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strAppointmentCode" value="<?=!empty($this->session->userdata('strAppointmentCode'))?$this->session->userdata('strAppointmentCode'):''?>">
@@ -69,7 +70,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Leave Entitled? <span class="required"> * </span></label>
+                                <label class="control-label">Leave Entitled?<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="chrLeaveEntitled" value="<?=!empty($this->session->userdata('chrLeaveEntitled'))?$this->session->userdata('chrLeaveEntitled'):''?>">
@@ -77,10 +78,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Included in Plantilla? <span class="required"> * </span></label>
+                                <label class="control-label">Included in Plantilla?  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="intIncludedPlantilla" value="<?=!empty($this->session->userdata('intIncludedPlantilla'))?$this->session->userdata('intIncludedPlantilla'):''?>">
@@ -88,6 +89,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -114,7 +116,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmAppointmentStatus');
+            var form2 = $('#frmCountry');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -124,12 +126,12 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strAppointmentCode: {
-                        minLength: 1,
+                    strCountryName: {
+                        minlength: 1,
                         required: true
                     },
-                    strAppointmentDesc: {
-                        minLength: 1,
+                    strCountryCode: {
+                        minlength: 1,
                         required: true,
                     }
                 },

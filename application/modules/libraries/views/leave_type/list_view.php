@@ -6,7 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?php load_plugin('css',array('datepicker'));?>
+<?php load_plugin('css',array('datepicker','datatables'));?>
 
 <div class="row">
     <div class="col-md-12">
@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 
 <!-- END EXAMPLE TABLE PORTLET-->
-<?php load_plugin('js',array('datatable'));?>
+<?php load_plugin('js',array('datatables'));?>
 
 
 <script>

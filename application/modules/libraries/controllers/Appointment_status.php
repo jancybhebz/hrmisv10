@@ -37,7 +37,7 @@ class Appointment_status extends MY_Controller {
 			$strAppointmentDesc = $arrPost['strAppointmentDesc'];
 			$chrLeaveEntitled = $arrPost['chrLeaveEntitled'];
 			$intIncludedPlantilla = $arrPost['intIncludedPlantilla'];
-			if(!empty($strAppointmentCode) && !empty($strAppointmentDesc))
+			if(!empty($strAppointmentCode) && !empty($strAppointmentDesc) && !empty($chrLeaveEntitled) && !empty($intIncludedPlantilla))
 			{	
 				// check if appointment code or appointment desc already exist
 				if(count($this->appointment_status_model->checkExist($strAppointmentCode, $strAppointmentDesc))==0)
