@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/educ_level/add')?>" method="post" id="frmCountry">
+            <?=form_open(base_url('libraries/educ_level/add'), array('method' => 'post', 'id' => 'frmEduc'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -75,7 +75,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -92,7 +92,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmCountry');
+            var form2 = $('#frmEduc');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -103,11 +103,11 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strEducLevelCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strEducLevelDesc: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     }
                 },

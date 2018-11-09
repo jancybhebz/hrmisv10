@@ -1,7 +1,7 @@
 <?php 
 /** 
 Purpose of file:    Add page for Country Library
-Author:             Edgardo P. Catorce Jr.
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/country/add')?>" method="post" id="frmCountry">
+            <?=form_open(base_url('libraries/country/add'), array('method' => 'post', 'id' => 'frmCountry'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -75,7 +75,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -103,11 +103,11 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strCountryName: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strCountryCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     }
                 },

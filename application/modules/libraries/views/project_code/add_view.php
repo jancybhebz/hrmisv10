@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/project_code/add')?>" method="post" id="frmProjectCode">
+             <?=form_open(base_url('libraries/project_code/add'), array('method' => 'post', 'id' => 'frmProjectCode'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Project Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strProjectCode" value="<?=!empty($this->session->userdata('strProjectCode'))?$this->session->userdata('strProjectCode'):''?>">
+                                    <input type="text" class="form-control" name="strProjectCode" required="" value="<?=!empty($this->session->userdata('strProjectCode'))?$this->session->userdata('strProjectCode'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Project Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strProjectDescription" value="<?=!empty($this->session->userdata('strProjectDescription'))?$this->session->userdata('strProjectDescription'):''?>">
+                                    <input type="text" class="form-control" name="strProjectDescription" required="" value="<?=!empty($this->session->userdata('strProjectDescription'))?$this->session->userdata('strProjectDescription'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Project Order <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="number" class="form-control" name="intProjectOrder" value="<?=!empty($this->session->userdata('intProjectOrder'))?$this->session->userdata('intProjectOrder'):''?>">
+                                    <input type="number" class="form-control" name="intProjectOrder" required=""  value="<?=!empty($this->session->userdata('intProjectOrder'))?$this->session->userdata('intProjectOrder'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -114,15 +114,15 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strProjectCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strProjectDescription: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true,
                     },
                     intProjectOrder: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                 },
@@ -157,6 +157,7 @@ var FormValidation = function () {
                 submitHandler: function (form) {
                     success2.show();
                     error2.hide();
+                    //return false;
                     form[0].submit(); // submit the form
                 }
             });

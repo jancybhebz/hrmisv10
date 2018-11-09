@@ -33,16 +33,16 @@
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/course/delete/'.$this->uri->segment(4))?>" method="post" id="frmCourse">
+            <?=form_open(base_url('libraries/course/delete/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmCourse'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['courseCode'])?$arrData[0]['courseCode']:''?>" disabled>
+                                    <input type="text" class="form-control" name="strCode" value="<?=!empty($arrData[0]['courseCode'])?$arrData[0]['courseCode']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <label class="control-label">Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <textarea class="form-control" name="strDescription" disabled=""><?=!empty($arrData[0]['courseDesc'])?$arrData[0]['courseDesc']:''?></textarea>
+                                    <input class="form-control" name="strDescription" value="<?=!empty($arrData[0]['courseDesc'])?$arrData[0]['courseDesc']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -61,14 +61,14 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strCode" value="<?=isset($arrData[0]['courseCode'])?$arrData[0]['courseCode']:''?>">
+                                <input type="hidden" name="intCourseId" value="<?=isset($arrData[0]['courseId'])?$arrData[0]['courseId']:''?>">
                                 <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
                                 <a href="<?=base_url('libraries/course')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>

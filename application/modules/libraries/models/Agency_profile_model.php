@@ -79,4 +79,15 @@ class Agency_profile_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	// upload logo
+	function edit_logo($arrLogo, $ImageId)
+	{
+		$this->db->where('id',$ImageId);
+		$this->db->update('tblagencyimages', $arrLogo);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+
 }

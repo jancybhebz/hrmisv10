@@ -21,8 +21,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </ul>
 </div>
 <!-- END BREADCRUMB -->
+<?=form_open(base_url('hr/add_employee/add_employee'), array('method' => 'post', 'name' => 'employeeform',  'onsubmit' => 'return checkForBlank()'))?>
 
-<form action = "<?=base_url('hr/add_employee/add_employee')?>" method="post" onsubmit="return checkForBlank()" name="employeeform">
  <!-- <?php print_r($arrData) ?>  -->
  <br><br>
          <div class="row">
@@ -746,8 +746,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           </div>
         </div>
     <br><br>
-</form>
-
+<?=form_close()?>
 <script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 <script>
 

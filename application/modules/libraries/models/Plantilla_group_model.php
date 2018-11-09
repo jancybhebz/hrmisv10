@@ -21,7 +21,7 @@ class Plantilla_group_model extends CI_Model {
 		if($intPlantillaGroupId != "")
 			$strWhere .= " AND plantillaGroupId = '".$intPlantillaGroupId."'";
 		
-		$strSQL = " SELECT * FROM tblplantillagroup					
+		$strSQL = " SELECT * FROM tblPlantillaGroup					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY plantillaGroupOrder
@@ -34,13 +34,13 @@ class Plantilla_group_model extends CI_Model {
 
 	function add($arrData)
 	{
-		$this->db->insert('tblplantillagroup', $arrData);
+		$this->db->insert('tblPlantillaGroup', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strPlantillaGroupCode = '', $strPlantillaGroupName = '')
 	{		
-		$strSQL = " SELECT * FROM tblplantillagroup					
+		$strSQL = " SELECT * FROM tblPlantillaGroup					
 					WHERE  
 					plantillaGroupCode ='$strPlantillaGroupCode' OR
 					plantillaGroupName ='$strPlantillaGroupName'					
@@ -55,7 +55,7 @@ class Plantilla_group_model extends CI_Model {
 	function save($arrData, $intPlantillaGroupId)
 	{
 		$this->db->where('plantillaGroupId', $intPlantillaGroupId);
-		$this->db->update('tblplantillagroup', $arrData);
+		$this->db->update('tblPlantillaGroup', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -63,7 +63,7 @@ class Plantilla_group_model extends CI_Model {
 	function delete($intPlantillaGroupId)
 	{
 		$this->db->where('plantillaGroupId', $intPlantillaGroupId);
-		$this->db->delete('tblplantillagroup'); 	
+		$this->db->delete('tblPlantillaGroup'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

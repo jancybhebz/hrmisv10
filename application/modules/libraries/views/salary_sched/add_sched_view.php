@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/salary_sched/add_sched')?>" method="post" id="frmSalarysched">
+            <?=form_open(base_url('libraries/salary_sched/add_sched'), array('method' => 'post', 'id' => 'frmSalarysched'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     
@@ -106,7 +106,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>

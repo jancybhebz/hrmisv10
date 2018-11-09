@@ -1,7 +1,7 @@
 <?php 
 /** 
-Purpose of file:    Add page for Appointment Status Library
-Author:             Edgardo P. Catorce Jr.
+Purpose of file:    Add page for Country Library
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -25,8 +25,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-	   &nbsp;
-	</div>
+       &nbsp;
+    </div>
 </div>
 <div class="clearfix"></div>
 <div class="row">
@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/appointment_status/add')?>" method="post" id="frmAppointmentStatus">
+            <?=form_open(base_url('libraries/appointment_status/add'), array('method' => 'post', 'id' => 'frmAppointment'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -66,13 +66,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Leave Entitled? <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="chrLeaveEntitled" value="<?=!empty($this->session->userdata('chrLeaveEntitled'))?$this->session->userdata('chrLeaveEntitled'):''?>">
+                                    <input type="text" class="form-control" name="strLeaveEntitled" value="<?=!empty($this->session->userdata('strLeaveEntitled'))?$this->session->userdata('strLeaveEntitled'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -88,6 +88,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                   
+                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -97,7 +99,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -114,7 +116,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmAppointmentStatus');
+            var form2 = $('#frmAppointment');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -125,13 +127,22 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strAppointmentCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                     strAppointmentDesc: {
-                        minLength: 1,
+                        minlength: 1,
+                        required: true,
+                    },
+                    strLeaveEntitled: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    intIncludedPlantilla: {
+                        minlength: 1,
                         required: true,
                     }
+                  
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -164,7 +175,8 @@ var FormValidation = function () {
                 submitHandler: function (form) {
                     success2.show();
                     error2.hide();
-                    form[0].submit(); // submit the form
+                    return false;
+                    //form[0].submit(); // submit the form
                 }
             });
 

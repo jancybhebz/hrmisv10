@@ -35,9 +35,9 @@ class Appointment_status extends MY_Controller {
 		{	
 			$strAppointmentCode = $arrPost['strAppointmentCode'];
 			$strAppointmentDesc = $arrPost['strAppointmentDesc'];
-			$chrLeaveEntitled = $arrPost['chrLeaveEntitled'];
+			$strLeaveEntitled = $arrPost['strLeaveEntitled'];
 			$intIncludedPlantilla = $arrPost['intIncludedPlantilla'];
-			if(!empty($strAppointmentCode) && !empty($strAppointmentDesc))
+			if(!empty($strAppointmentCode) && !empty($strAppointmentDesc) && !empty($strLeaveEntitled) && !empty($intIncludedPlantilla))
 			{	
 				// check if appointment code or appointment desc already exist
 				if(count($this->appointment_status_model->checkExist($strAppointmentCode, $strAppointmentDesc))==0)
@@ -45,7 +45,7 @@ class Appointment_status extends MY_Controller {
 					$arrData = array(
 						'appointmentCode'=>$strAppointmentCode,
 						'appointmentDesc'=>$strAppointmentDesc,
-						'leaveEntitled'=>$chrLeaveEntitled,
+						'leaveEntitled'=>$strLeaveEntitled,
 						'incPlantilla'=>$intIncludedPlantilla,
 						'system'=>0
 					);
@@ -64,7 +64,7 @@ class Appointment_status extends MY_Controller {
 					$this->session->set_flashdata('strErrorMsg','Appointment code and/or Appointment  Description already exists.');
 					$this->session->set_flashdata('strAppointmentCode',$strAppointmentCode);
 					$this->session->set_flashdata('strAppointmentDesc',$strAppointmentDesc);
-					$this->session->set_flashdata('chrLeaveEntitled',$chrLeaveEntitled);
+					$this->session->set_flashdata('strLeaveEntitled',$strLeaveEntitled);
 					$this->session->set_flashdata('intIncludedPlantilla',$intIncludedPlantilla);
 					//echo $this->session->flashdata('strErrorMsg');
 					redirect('libraries/appointment_status/add');
@@ -89,7 +89,7 @@ class Appointment_status extends MY_Controller {
 			$intAppointmentId = $arrPost['intAppointmentId'];
 			$strAppointmentCode = $arrPost['strAppointmentCode'];
 			$strAppointmentDesc = $arrPost['strAppointmentDesc'];
-			$chrLeaveEntitled = $arrPost['chrLeaveEntitled'];
+			$strLeaveEntitled = $arrPost['strLeaveEntitled'];
 			$intIncludedPlantilla = $arrPost['intIncludedPlantilla'];
 			if(!empty($strAppointmentCode) AND !empty($strAppointmentDesc)) 
 			{
@@ -97,7 +97,7 @@ class Appointment_status extends MY_Controller {
 					'appointmentId'=>$intAppointmentId,
 					'appointmentCode'=>$strAppointmentCode,
 					'appointmentDesc'=>$strAppointmentDesc,
-					'leaveEntitled'=>$chrLeaveEntitled,
+					'leaveEntitled'=>$strLeaveEntitled,
 					'incPlantilla'=>$intIncludedPlantilla
 				);
 				$blnReturn = $this->appointment_status_model->save($arrData, $intAppointmentId);

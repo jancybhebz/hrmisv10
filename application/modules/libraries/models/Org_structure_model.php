@@ -9,13 +9,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Org_structure_model extends CI_Model {
 
-	var $table = 'tblgroup1';
+	var $table = 'tblGroup1';
 	var $tableid = 'group1Code';
-	var $table2 = 'tblgroup2';
+	var $table2 = 'tblGroup2';
 	var $tableid2 = 'group2Code';
-	var $table3 = 'tblgroup3';
+	var $table3 = 'tblGroup3';
 	var $tableid3 = 'group3Code';
-	var $table4 = 'tblgroup4';
+	var $table4 = 'tblGroup4';
 	var $tableid4 = 'group4Code';
 	
 
@@ -31,7 +31,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strExecOffice);
 		}
-		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->table.'.empNumber','left');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
@@ -41,7 +41,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid2,$strServiceCode);
 		}
-		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->table2.'.empNumber','left');
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
@@ -51,7 +51,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid3,$strDivCode);
 		}
-		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table3.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->table3.'.empNumber','left');
 		$objQuery = $this->db->get($this->table3);
 		return $objQuery->result_array();	
 	}
@@ -61,7 +61,7 @@ class Org_structure_model extends CI_Model {
 		{
 			$this->db->where($this->tableid4,$strSecCode);
 		}
-		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table4.'.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->table4.'.empNumber','left');
 		$objQuery = $this->db->get($this->table4);
 		return $objQuery->result_array();	
 	}

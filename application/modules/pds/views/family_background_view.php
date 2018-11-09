@@ -3,17 +3,29 @@
 <?=load_plugin('css', array('datepicker','timepicker'))?>
 
  <form action="<?=base_url('pds/edit_spouse/'.$this->uri->segment(4))?>" method="post" id="frmSpouse">
-    <ul class="personal-info-employee">
-       <b>SPOUSE INFORMATION:</b><br><br>
-            <li>Name of Spouse : <?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></li><br>
-            <li>Occupation : <?=$arrData['spouseWork']?></li><br>
-            <li>Employer/Business Name : <?=$arrData['spouseBusName']?></li><br>
-            <li>Business Address : <?=$arrData['spouseBusAddress']?></li><br>
-            <li>Telephone Number : <?=$arrData['spouseTelephone']?></li><br>
-            <div class="margin-top-10">
-            <a class="btn green" data-toggle="modal" href="#editSpouse_modal"> Edit </a>
-            </div><br>
-    </ul>
+ <b>SPOUSE INFORMATION:</b>
+      <table class="table table-bordered table-striped" id="table-child">
+            <tr>
+                <th width="19%">Name of Spouse </th>
+                <th width="15%">Occupation </th>
+                <th width="15%">Employer/Business Name </th>
+                <th width="20%">Business Address </th>
+                <th width="5%">Telephone Number </th>
+                <th width="10%">Action </th>
+            </tr>
+
+            <?php //foreach($arrData as $row):?>
+            <tr>
+                <td><?=$arrData['spouseFirstname'].' '.$arrData['spouseMiddlename'].' '.$arrData['spouseSurname']?></td>
+                <td><?=$arrData['spouseWork']?></td>
+                <td><?=$arrData['spouseBusName']?></td>
+                <td><?=$arrData['spouseBusAddress']?></td>
+                <td><?=$arrData['spouseTelephone']?></td>
+                <td><a class="btn green" data-toggle="modal" href="#editSpouse_modal"> Edit </a>
+                 
+            </tr>
+            <?php //endforeach;?>
+    </table>
     <div class="modal fade bs-modal-lg"  id="editSpouse_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -161,16 +173,27 @@
         <!-- /.modal-dialog -->
     </div>
 </form>
+ <b>PARENT'S INFORMATION:</b>
+    <table class="table table-bordered table-striped" id="table-child">
+            <tr>
+                <th width="19%">Name of Father </th>
+                <th width="16%">Name of Mother </th>
+                <th width="30%">Parents Address </th>
+                <th width="20%">Action </th>
+            </tr>
 
-    <ul class="personal-info-employee">
-        <b>PARENT INFORMATION:</b><br><br>
-            <li>Name of Father : <?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></li><br>
-            <li>Name of Mother : <?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></li><br>
-            <li>Parents Address : <?=$arrData['parentAddress']?></li><br>
-             <div class="margin-top-10">
-            <a class="btn green" data-toggle="modal" href="#editParent_modal"> Edit </a>
-            </div><br>
-    </ul>
+            <?php //foreach($arrData as $row):?>
+            <tr>
+                <td><?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></td>
+                <td><?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></td>
+                <td><?=$arrData['parentAddress']?></td>
+                <td><a class="btn green" data-toggle="modal" href="#editParent_modal"> Edit </a>
+                 
+            </tr>
+            <?php //endforeach;?>
+    </table>
+
+   
  <form action="<?=base_url('pds/edit_parents/'.$this->uri->segment(4))?>" method="post" id="frmParents">
     <div class="modal fade bs-modal-lg"  id="editParent_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -358,7 +381,8 @@
              
         </tr>
         <?php endforeach;?>
-        <br>
+    </table>
+
  <form action="<?=base_url('pds/edit_child/'.$this->uri->segment(4))?>" method="post" id="frmChild">
      <div class="modal fade bs-modal-lg"  id="editChildren_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -426,7 +450,7 @@
     </div>
 </form>
     <div class="margin-top-10">
-    <a class="btn green" data-toggle="modal" href="#addChildren_modal"> Add </a>
+    <a class="btn green" data-toggle="modal" href="#addChildren_modal"> Add Child</a>
     </div>
 
     <div class="modal fade bs-modal-lg"  id="addChildren_modal" tabindex="-1" role="dialog" aria-hidden="true">

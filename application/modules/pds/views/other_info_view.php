@@ -179,45 +179,45 @@
                     <label>Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of</label><br>
                     <label>bureau or office or to the person who has immediate supervision over you in the office, Bureau or Dapartment </label><br>
                     <label>where you will be appointed? </label><br>
-                    <label>a. within the third degree? </label><br>
-                    <label>b. within the fourth degree(for Local Government Unit-Career Employees) ? </label>
+                    <label>a. within the third degree? </label>  <b><font color="red"><?=$arrData['relatedThird']?></b><br></font>
+                    <label>b. within the fourth degree(for Local Government Unit-Career Employees) ? </label>  <b><font color="red"><?=$arrData['relatedFourth']?></b></font>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <label>Have you ever been found guilty of any administrative offense ? </label><br>
-                    <label>Have you been criminally charged before any court? </label>
+                    <label>Have you ever been found guilty of any administrative offense ? </label> <b><font color="red"><?=$arrData['adminCase']?></b><br></font>
+                    <label>Have you been criminally charged before any court? </label> <b><font color="red"><?=$arrData['formallyCharged']?></b></font>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <label>Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulations by any court or tribunal? </label>
+                    <label>Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulations by any court or tribunal? </label> <b><font color="red"><?=$arrData['violateLaw']?></b></font>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <label>Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped</label>
-                    <label>from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</label>
+                    <label>Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped</label> <b><font color="red"><?=$arrData['forcedResign']?></b></font>
+                    <label>from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</label> <b><font color="red"><?=$arrData['forcedResign']?></b></font>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <label>Have you ever been a candidate in a national or local election held within the last year (except Barangay election)?</label>
-                    <label>Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?</label>
+                    <label>Have you ever been a candidate in a national or local election held within the last year (except Barangay election)?</label> <b><font color="red"><?=$arrData['candidate']?></b></font>
+                    <label>Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?</label> <b><font color="red"><?=$arrData['campaign']?></b></font>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <label>Have you acquired the status of an immigrant or permanent resident of another country? </label>
+                    <label>Have you acquired the status of an immigrant or permanent resident of another country? </label> <b><font color="red"><?=$arrData['immigrant']?></b></font>
                     </td>
                 </tr>
                  <tr>
                     <td>
-                    <label>Pursuant to (a) indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972)</label><br>
+                    <label>Pursuant to (a) indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972)</label><br> 
                     <label>*please answer the following items</label><br><br>
-                    <label>a. Are you a member of any indigenous group?     If you answer is "YES", please specify</label><br>
-                    <label>b. Are you differently abled?                    If you answer is "YES", please specify</label><br>
-                    <label>c. Are you a solo parent?                        If you answer is "YES", please specify</label><br>
+                    <label>a. Are you a member of any indigenous group?     If you answer is "YES", please specify</label> <b><font color="red"><?=$arrData['indigenous']?></b></font><br>
+                    <label>b. Are you differently abled?                    If you answer is "YES", please specify</label> <b><font color="red"><?=$arrData['disabled']?></b></font><br>
+                    <label>c. Are you a solo parent?                        If you answer is "YES", please specify</label> <b><font color="red"><?=$arrData['soloParent']?></b></font><br>
                     </td>
                 </tr>
                 <tr>

@@ -13,32 +13,32 @@ class Hr_model extends CI_Model {
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
 
-	var $table2 = 'tblEmpChild';
-	var $tableid2 = 'childCode';
+	var $tableChild = 'tblEmpChild';
+	var $tableChildid = 'childCode';
 
-	var $table3 = 'tblEmpSchool';
-	var $tableid3 = 'levelCode';
+	var $tableSchool = 'tblEmpSchool';
+	var $tableSchoolid = 'levelCode';
 
-	var $table4 = 'tblempexam';
-	var $tableid4 = 'examCode';
+	var $tableExam = 'tblempexam';
+	var $tableExamid = 'examCode';
 
-	var $table5 = 'tblservicerecord';
-	var $tableid5 = 'serviceRecID';
+	var $tableService = 'tblservicerecord';
+	var $tableServiceid = 'serviceRecID';
 
-	var $table6 = 'tblempvoluntarywork';
-	var $tableid6 = 'vwName';
+	var $tableVW = 'tblempvoluntarywork';
+	var $tableVWid = 'vwName';
 
-	var $table7 = 'tblemptraining';
-	var $tableid7 = 'XtrainingCode';
+	var $tabletraining = 'tblemptraining';
+	var $tabletrainingid = 'XtrainingCode';
 
-	var $table8 = 'tblempposition';
-	var $tableid8 = 'appointmentCode';
+	var $tablepos = 'tblempposition';
+	var $tableposid = 'appointmentCode';
 
-	var $table9 = 'tblempduties';
-	var $tableid9 = 'duties';
+	var $tableduties = 'tblempduties';
+	var $tabledutiesid = 'duties';
 
-	var $table10 = 'tblplantilladuties';
-	var $tableid10 = 'itemDuties';
+	var $tableplantilla = 'tblplantilladuties';
+	var $tableplantillaid = 'itemDuties';
 
 	public function __construct()
 	{
@@ -110,40 +110,40 @@ class Hr_model extends CI_Model {
 
 	public function saveSpouse($arrData, $strEmpNo)
 	{
-		$this->db->where($this->tableid2,$strEmpNo);
-		$this->db->update($this->table2, $arrData);
+		$this->db->where($this->tableChildid,$strEmpNo);
+		$this->db->update($this->tableChild, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	public function saveParents($arrData, $strEmpNo)
 	{
-		$this->db->where($this->tableid2,$strEmpNo);
-		$this->db->update($this->table2, $arrData);
+		$this->db->where($this->tableChildid,$strEmpNo);
+		$this->db->update($this->tableChild, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	public function saveChild($arrData, $strChildCode)
 	{
-		$this->db->where($this->tableid2,$strChildCode);
-		$this->db->update($this->table2, $arrData);
+		$this->db->where($this->tableChildid,$strChildCode);
+		$this->db->update($this->tableChild, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	public function saveEduc($arrData, $strLevelCode)
 	{
-		$this->db->where($this->tableid3,$strLevelCode);
-		$this->db->update($this->table3, $arrData);
+		$this->db->where($this->tableSchoolid,$strLevelCode);
+		$this->db->update($this->tableSchool, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	public function saveExam($arrData, $strExamCode)
 	{
-		$this->db->where($this->tableid4,$strExamCode);
-		$this->db->update($this->table4, $arrData);
+		$this->db->where($this->tableExamid,$strExamCode);
+		$this->db->update($this->tableExam, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -158,72 +158,72 @@ class Hr_model extends CI_Model {
 	// children
 	public function deleteChild($strChildCode)
 	{
-		$this->db->where($this->tableid2, $strChildCode);
-		$this->db->delete($this->table2); 	
+		$this->db->where($this->tableChildid, $strChildCode);
+		$this->db->delete($this->tableChild); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// education
 	public function deleteEduc($strLevelCode)
 	{
-		$this->db->where($this->tableid3, $strLevelCode);
-		$this->db->delete($this->table3); 	
+		$this->db->where($this->tableSchoolid, $strLevelCode);
+		$this->db->delete($this->tableSchool); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// examination
 	public function deleteExam($strExamCode)
 	{
-		$this->db->where($this->tableid4, $strExamCode);
-		$this->db->delete($this->table4); 	
+		$this->db->where($this->tableExamid, $strExamCode);
+		$this->db->delete($this->tableExam); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// work experience
 	public function deleteWorkExp($strServiceRecID)
 	{
-		$this->db->where($this->tableid5, $strServiceRecID);
-		$this->db->delete($this->table5); 	
+		$this->db->where($this->tableServiceid, $strServiceRecID);
+		$this->db->delete($this->tableService); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// voluntary works
 	public function deleteVolWorks($strVwName)
 	{
-		$this->db->where($this->tableid6, $strVwName);
-		$this->db->delete($this->table6); 	
+		$this->db->where($this->tableVWid, $strVwName);
+		$this->db->delete($this->tableVW); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// trainings
 	public function deleteTraining($strXtrainingCode)
 	{
-		$this->db->where($this->tableid7, $strXtrainingCode);
-		$this->db->delete($this->table7); 	
+		$this->db->where($this->tabletrainingid, $strXtrainingCode);
+		$this->db->delete($this->tabletraining); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// appointment issued
 	public function deleteAppoint($strAppointmentCode)
 	{
-		$this->db->where($this->tableid8, $strAppointmentCode);
-		$this->db->delete($this->table8); 	
+		$this->db->where($this->tableposid, $strAppointmentCode);
+		$this->db->delete($this->tablepos); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	} 
 
 	// duties
 	public function deleteDuties($strDuties)
 	{
-		$this->db->where($this->tableid9, $strDuties);
-		$this->db->delete($this->table9); 	
+		$this->db->where($this->tabledutiesid, $strDuties);
+		$this->db->delete($this->tableduties); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	// plantilla duties
 	public function deletePlantillaDuties($strItemDuties)
 	{
-		$this->db->where($this->tableid10, $strItemDuties);
-		$this->db->delete($this->table10); 	
+		$this->db->where($this->tableplantillaid, $strItemDuties);
+		$this->db->delete($this->tableplantilla); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

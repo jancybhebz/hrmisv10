@@ -1,7 +1,7 @@
 <?php 
 /** 
 Purpose of file:    Model for Exam Type Library
-Author:             Edgardo P. Catorce Jr.
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -21,7 +21,7 @@ class Exam_type_model extends CI_Model {
 		if($intExamId != "")
 			$strWhere .= " AND examId = '".$intExamId."'";
 		
-		$strSQL = " SELECT * FROM tblexamtype					
+		$strSQL = " SELECT * FROM tblExamType					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY examDesc
@@ -34,13 +34,13 @@ class Exam_type_model extends CI_Model {
 
 	function add($arrData)
 	{
-		$this->db->insert('tblexamtype', $arrData);
+		$this->db->insert('tblExamType', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strExamCode = '', $strExamDesc = '')
 	{		
-		$strSQL = " SELECT * FROM tblexamtype					
+		$strSQL = " SELECT * FROM tblExamType					
 					WHERE  
 					examCode ='$strExamCode' OR
 					examDesc ='$strExamDesc'					
@@ -55,7 +55,7 @@ class Exam_type_model extends CI_Model {
 	function save($arrData, $intExamId)
 	{
 		$this->db->where('examId', $intExamId);
-		$this->db->update('tblexamtype', $arrData);
+		$this->db->update('tblExamType', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -63,7 +63,7 @@ class Exam_type_model extends CI_Model {
 	function delete($intExamId)
 	{
 		$this->db->where('examId', $intExamId);
-		$this->db->delete('tblexamtype'); 	
+		$this->db->delete('tblExamType'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

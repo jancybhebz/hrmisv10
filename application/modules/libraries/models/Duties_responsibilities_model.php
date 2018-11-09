@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Duties_responsibilities_model extends CI_Model {
 
-	var $table = 'tblduties';
+	var $table = 'tblDuties';
 	var $tableid = 'duties';
 
 	function __construct()
@@ -25,7 +25,7 @@ class Duties_responsibilities_model extends CI_Model {
 			$this->db->where($this->tableid,$strDuties);
 		}
 		$this->db->join('tblPosition','tblPosition.positionId = '.$this->table.'.duties','left');
-		$this->db->order_by('tblduties.'.$this->tableid,'ASC');
+		$this->db->order_by('tblDuties.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}

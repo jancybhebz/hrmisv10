@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/position/add')?>" method="post" id="frmAppointmentStatus">
+            <?=form_open(base_url('libraries/position/add'), array('method' => 'post', 'id' => 'frmAppointmentStatus'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -86,7 +86,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -114,15 +114,15 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strPositionCode: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
-                    strPositionAbbreviation: {
-                        minLength: 1,
+                    strPositionDescription: {
+                        minlength: 1,
                         required: true,
                     },
                      strPositionAbbreviation: {
-                        minLength: 1,
+                        minlength: 1,
                         required: true
                     },
                 },

@@ -21,8 +21,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </ul>
 </div>
 <!-- END BREADCRUMB -->
-
-<form action = "<?=base_url('hr/reports/reports')?>" method="post" onsubmit="return checkForBlank()" name="reportform">
+<?=form_open(base_url('hr/reports/reports'), array('method' => 'post', 'id' => 'reportform' , 'onsubmit' => 'return checkForBlank()'))?>
  <!-- <?php print_r($arrData) ?>  -->
  <br><br><br><br>
          <div class="row">
@@ -121,4 +120,4 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           </div>
         </div>
     <br><br>
-</form>
+<?=form_close()?>

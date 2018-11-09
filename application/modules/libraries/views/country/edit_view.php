@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/country/edit/'.$this->uri->segment(4))?>" method="post" id="frmCountry">
+            <?=form_open(base_url('libraries/country/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmCountry'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Country Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strCountryName" value="<?=isset($arrCountries[0]['countryName'])?$arrCountry[0]['countryName']:''?>" >
+                                    <input type="text" class="form-control" name="strCountryName" value="<?=isset($arrCountries[0]['countryName'])?$arrCountries[0]['countryName']:''?>" >
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
