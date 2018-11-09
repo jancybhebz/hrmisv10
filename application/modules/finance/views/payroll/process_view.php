@@ -39,63 +39,107 @@
             <div class="portlet-body" id="div-body" style="display: none">
                 <div class="portlet light bordered">
                     <div class="portlet-title">
-                        <form>
-                        <div class="col-md-4">
-                            <label class="label-control">Employee</label>
-                            <select class="form-control bs-select" name="selpprocess">
-                                <option value="null">-- SELECT EMPLOYEE --</option>
-                                <?php   foreach ($arrAppointments as $appointment):
-                                            if($appointment['appointmentDesc'] != ''):
-                                                if($_SESSION['strUserPermission'] == "Cashier Assistant"):
-                                                    if($appointment['appointmentCode']=='GIA'): ?>
-                                                        <option value="<?=$appointment['appointmentCode']?>"><?=$appointment['appointmentDesc']?></option><?php
+                        <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                            <div class="col-md-2"></div>
+                            <div class="form-group">
+                                <label class="control-label">Employee</label>
+                                <select class="form-control bs-select" name="selemployment" id="selemployment">
+                                    <option value="null">-- SELECT EMPLOYEE --</option>
+                                    <?php   foreach ($arrAppointments as $appointment):
+                                                if($appointment['appointmentDesc'] != ''):
+                                                    if($_SESSION['strUserPermission'] == "Cashier Assistant"):
+                                                        if($appointment['appointmentCode']=='GIA'): ?>
+                                                            <option value="<?=$appointment['appointmentCode']?>"
+                                                                <?=isset($_GET) ? $appointment['appointmentCode'] == $_GET['selemployment'] ? 'selected': '' : ''?>>
+                                                                <?=$appointment['appointmentDesc']?></option><?php
+                                                        endif;
+                                                    else: ?>
+                                                        <option value="<?=$appointment['appointmentCode']?>"
+                                                            <?=isset($_GET) ? $appointment['appointmentCode'] == $_GET['selemployment'] ? 'selected': '' : ''?>>
+                                                            <?=$appointment['appointmentDesc']?></option><?php
                                                     endif;
-                                                else: ?>
-                                                    <option value="<?=$appointment['appointmentCode']?>"><?=$appointment['appointmentDesc']?></option><?php
                                                 endif;
-                                            endif;
-                                        endforeach; ?>
-                            </select>
-                        </div>
+                                            endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Month</label>
+                                <select class="form-control bs-select" name="mon" id="selmon">
+                                    <option value="null">-- SELECT MONTH --</option>
+                                    <?php foreach (range(1, 12) as $m): ?>
+                                        <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                            <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Year</label>
+                                <select class="form-control bs-select" name="yr" id="selyr">
+                                    <option value="null">-- SELECT YEAR --</option>
+                                    <?php foreach (getYear() as $yr): ?>
+                                        <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+                                            <?=$yr?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">PERIOD</label>
+                                <select class="form-control bs-select" name="period" id="selperiod">
+                                    <option value="null">-- SELECT PERIOD --</option>
+                                    <?php foreach (periods() as $per): ?>
+                                        <option value="<?=$per['val']?>" <?=isset($_GET['period']) ? $_GET['period'] == $per['val'] ? 'selected' : '' : ''?>>
+                                            <?=$per['val']?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <button class="btn blue" style="margin-top: 19px !important">Submit</button>
+                            </div>
 
-                        <div class="col-md-2">
-                            <label class="label-control">Month</label>
-                            <select class="form-control bs-select" name="mon">
-                                <option value="null">-- SELECT MONTH --</option>
-                                <?php foreach (range(1, 12) as $m): ?>
-                                    <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
-                                        <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="label-control">Year</label>
-                            <select class="form-control bs-select" name="yr">
-                                <option value="null">-- SELECT YEAR --</option>
-                                <?php foreach (getYear() as $yr): ?>
-                                    <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
-                                        <?=$yr?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="label-control">Period</label>
-                            <select class="form-control bs-select" name="period">
-                                <option value="null">-- SELECT PERIOD --</option>
-                                <?php foreach (periods() as $period): ?>
-                                    <option value="<?=$period['id']?>" <?=isset($_GET['period']) ? $_GET['period'] == $period['id'] ? 'selected' : '' : ''?>>
-                                        <?=$period['val']?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        </form>
-                        <br><br><br><br>
+                        <?=form_close()?>
+                        <br><br>
                     </div>
                     <div class="portlet-body">
-                        <div class="row">
+                        <!-- <div class="loading-img-portlet"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div> -->
+                        <!-- Monthly Benefits -->
+                        <div class="row" id="row-benefit" <?=count($arrBenefit) > 0 ? '' : 'hidden'?>>
+                            <div class="col-md-12" style="margin-left: 40px;">
+                                <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall"> Checkall </label>
+                                <div class="portlet-body" id="div-benefit">
+                                    <?php foreach($arrBenefit as $benefit): ?>
+                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-benefit" value="<?=$benefit['incomeCode']?>"> <?=$benefit['incomeDesc']?> </label></div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
                         </div>
+                        <hr id="row-benefit" />
+
+                        <!-- Bonus -->
+                        <div class="row" id="row-bonus" <?=count($arrBonus) > 0 ? '' : 'hidden'?>>
+                            <div class="col-md-12" style="margin-left: 40px;">
+                                <label class="checkbox chkall"><input type="checkbox" id="chkall-bonus" value="chkall"> Checkall </label>
+                                <div class="portlet-body" id="div-bonus">
+                                    <?php foreach($arrBonus as $bonus): ?>
+                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-bonus" value="<?=$bonus['incomeCode']?>"> <?=$bonus['incomeDesc']?> </label></div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr id="row-bonus" />
+
+                        <!-- Income -->
+                        <div class="row" id="row-income" <?=count($arrIncome) > 0 ? '' : 'hidden'?>>
+                            <div class="col-md-12" style="margin-left: 40px;">
+                                <label class="checkbox chkall"><input type="checkbox" id="chkall-income" value="chkall"> Checkall </label>
+                                <div class="portlet-body" id="div-income">
+                                    <?php foreach($arrIncome as $income): ?>
+                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-bonus" value="<?=$income['incomeCode']?>"> <?=$income['incomeDesc']?> </label></div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -104,6 +148,8 @@
 </div>
 
 <?=load_plugin('js', array('select','form_validation'))?>
+<script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script>
+
 <script>
     $(document).ready(function() {
         $('.loading-image').hide();

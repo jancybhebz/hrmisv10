@@ -14,7 +14,7 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        // $this->load->model(array('hr/Hr_model','Compensation_model'));
+        $this->load->model(array('Payrollupdate_model'));
         $this->arrData = array();
     }
 
@@ -22,9 +22,11 @@ class Payrollupdate extends MY_Controller {
 	{
 		$this->load->model('libraries/Appointment_status_model');
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
-		// echo '<pre>';
-		// print_r($this->arrData['arrAppointments']);
-		// die();
+		if(isset($_GET)):
+			$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Benefit');
+			$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Bonus');
+			$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Additional');
+		endif;
 		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
 	}
 
@@ -33,6 +35,14 @@ class Payrollupdate extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
 	}
 
+	public function fieldsinPayroll()
+	{
+		$arrPayrollFields['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['employment'], $_GET['month'], $_GET['year'], $_GET['period'], 'Benefit');
+		$arrPayrollFields['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['employment'], $_GET['month'], $_GET['year'], $_GET['period'], 'Bonus');
+		$arrPayrollFields['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['employment'], $_GET['month'], $_GET['year'], $_GET['period'], 'Additional');
+
+		echo json_encode($arrPayrollFields);
+	}
 	
 
 }
