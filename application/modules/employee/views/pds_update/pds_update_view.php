@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('employee/pds_update/')?>" method="post" id="frmPDSupdate">
+                <?=form_open(base_url('employee/pds_update/'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
                  <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -73,11 +73,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                  </div>
-            </form>
+            <?=form_close()?>
          <br><br>
 
 <!-- Profile -->
-            <form action="<?=base_url('employee/pds_update/submitProfile')?>" method="post" id="frmPDSupdate">
+        <?=form_open(base_url('employee/pds_update/submitProfile'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
                 <div class="row" id="surname_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -712,10 +712,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-            </form>
+            <?=form_close()?>
 <!-- Educational Attainment -->
 <div id="tab_education" class="tab-pane" style="overflow-x:auto;">
-      <form action="<?=base_url('employee/pds_update/submitEduc')?>" method="post" id="frmPDSupdate">
+    <?=form_open(base_url('employee/pds_update/submitEduc'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Level Code</th>
@@ -748,7 +748,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <?php endforeach;?>
             </table>
 
-        <form action="<?=base_url('employee/pds_update/submitEduc')?>" method="post" id="frmPDSupdate">
+        <?=form_open(base_url('employee/pds_update/submitEduc'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
                 <div class="row" id="educlevel_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -932,12 +932,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-        </form>
+        <?=form_close()?>
 </div>
 
 <!-- Trainings -->
 <div id="tab_training" class="tab-pane">
-    <form action="<?=base_url('employee/pds_update/submitTraining')?>" method="post" id="frmPDSupdate">
+<?=form_open(base_url('employee/pds_update/submitTraining'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th>Title of Learning & Dev./Training Programs</th>
@@ -1083,11 +1083,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-        </form>
+        <?=form_close()?>
     </div>
 <!-- Examinations -->
 <div id="tab_exam" class="tab-pane">
-    <form action="<?=base_url('employee/pds_update/submitExam')?>" method="post" id="frmPDSupdate">
+<?=form_open(base_url('employee/pds_update/submitExam'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th width="10%">Exam Description</th>
@@ -1197,10 +1197,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                              <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-        </form>
+        <?=form_close()?>
 </div>
 <!-- Children -->
-<form action="<?=base_url('employee/pds_update/submitChild')?>" method="post" id="frmPDSupdate">
+<?=form_open(base_url('employee/pds_update/submitChild'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
                 <div class="row" id="childname_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -1234,9 +1234,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                     </div>
-            </form>
+            <?=form_close()?>
 <!-- Community Tax Certification -->
-<form action="<?=base_url('employee/pds_update/submitTax')?>" method="post" id="frmPDSupdate">
+<?=form_open(base_url('employee/pds_update/submitTax'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
                 <div class="row" id="taxcert_textbox">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -1283,10 +1283,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-        </form>
+        <?=form_close()?>
 <!-- References -->
 <div id="tab_ref" class="tab-pane">
-<form action="<?=base_url('employee/pds_update/submitRef')?>" method="post" id="frmPDSupdate">
+<?=form_open(base_url('employee/pds_update/submitRef'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th>Name of Reference</th>
@@ -1348,11 +1348,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-        </form>
+        <?=form_close()?>
 </div>
 <!-- Voluntary Works -->
 <div id="tab_volWork" class="tab-pane">
-<form action="<?=base_url('employee/pds_update/submitVol')?>" method="post" id="frmPDSupdate">    
+<?=form_open(base_url('employee/pds_update/submitVol'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>  
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th width="10%">Name of Organization</th>
@@ -1454,11 +1454,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                         </div>
                 </div>
-        </form>
+        <?=form_close()?>
 </div>
 <!-- Work Experience -->
 <div id="tab_workExp" class="tab-pane">
-   <form action="<?=base_url('employee/pds_update/submitWorkExp')?>" method="post" id="frmPDSupdate">    
+<?=form_open(base_url('employee/pds_update/submitWorkExp'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>   
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Inclusive Date [From-To]</th>
@@ -1687,7 +1687,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
                     </div>
                 </div>
-        </form>
+        <?=form_close()?>
 </div>
 <!-- closing -->
                     <!-- <div class="row" id="submit">

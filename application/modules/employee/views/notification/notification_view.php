@@ -38,7 +38,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
                 <div class="portlet-body">
-                    <form action="<?=base_url('employee/notification')?>" method="post" id="frmNotification">
+                <?=form_open(base_url('employee/notification'), array('method' => 'post', 'id' => 'frmNotification'))?>
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_appointment_status">
                     <thead>
                         <tr>
@@ -72,10 +72,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                     <?php endforeach;?>
                     </tbody>
-
                 </table>
-
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>

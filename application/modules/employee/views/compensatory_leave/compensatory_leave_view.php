@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('employee/compensatory_leave/submit')?>" method="post" id="frmCompensatoryLeave">
+            <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave'))?>
                     <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
@@ -232,8 +232,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                            <button type="print" class="btn btn-primary">Print/Preview</button>
                       </div>
                     </div>
-
-                </form>
+                <?=form_close()?>
             </div>
         </div>
     </div>
