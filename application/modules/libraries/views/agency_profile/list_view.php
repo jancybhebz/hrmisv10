@@ -33,7 +33,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div> -->
            
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/agency_profile/edit')?>" method="post" id="frmAgencyProfile">
+            <?=form_open(base_url('libraries/agency_profile/edit'), array('method' => 'post', 'id' => 'frmAgencyProfile'))?>
                     <div class="form-body">
                     <?php //print_r($arrPost);?>
 
@@ -343,9 +343,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    <?=form_close()?>
                     
-                    <form action = "<?=base_url('libraries/agency_profile/edit_logo')?>" method="post" id="frmAgencyImage">
+                    
+                    <?=form_open(base_url('libraries/agency_profile/edit_logo'), array('method' => 'post', 'id' => 'frmAgencyImage'))?>
                         <div class="portlet-body">
                             <div class="table-toolbar">
                                 <div class="row">
@@ -360,8 +361,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-                    </form>
-
+                    <?=form_close()?>
                 </div>
             </div>
         </div>

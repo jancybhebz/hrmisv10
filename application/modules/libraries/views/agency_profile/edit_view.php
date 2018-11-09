@@ -44,7 +44,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('libraries/agency_profile/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmAgencyProfile'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -304,7 +304,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Mission <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strMission" value="<?=!empty($arrAgency[0]['Mission'])?$arrAgency[0]['Mission']:''?>">
+                                     <textarea type="text" name="strMission" class="form-control" >
+                                    <?=!empty($arrAgency[0]['Mission'])?$arrAgency[0]['Mission']:''?>
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -315,7 +317,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Vision <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strVision" value="<?=!empty($arrAgency[0]['Vision'])?$arrAgency[0]['Vision']:''?>">
+                                    <textarea type="text" name="strVision" class="form-control" >
+                                    <?=!empty($arrAgency[0]['Vision'])?$arrAgency[0]['Vision']:''?>
+                                    </textarea>
                                 </div>
                             </div>
                         </div>

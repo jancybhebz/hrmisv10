@@ -79,4 +79,6 @@ class Agency_profile_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	
 }

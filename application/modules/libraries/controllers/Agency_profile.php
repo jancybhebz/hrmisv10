@@ -184,8 +184,8 @@ class Agency_profile extends MY_Controller {
 						'philhealthPercentage'=>$intPhilhealthPercentage,
 						'PhilhealthNum'=>$intPhilhealthNum,
 						'Mission'=>$strMission,
-						'Vision'=>$strMandate,
-						'Mandate'=>$strVision,
+						'Vision'=>$strVision,
+						'Mandate'=>$strMandata,
 						'AccountNum'=>$strAccountNum,
 					
 				);
@@ -201,46 +201,43 @@ class Agency_profile extends MY_Controller {
 		}
 	}
 
-	public function edit_logo()
-	{
-		$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{
-			$ImageId = urldecode($this->uri->segment(4));
-			$this->arrData['arrAgency']=$this->agency_profile_model->getData($ImageId);
-			$this->template->load('template/template_view','libraries/agency_profile/edit_logo_view', $this->arrData);
-		}
-		else
-		{
-			$ImageId = $arrPost['ImageId'];
-			$strAgencyLogo = $arrPost['strAgencyLogo'];
-		
-			if(!empty($strAgencyLogo)) 
-			{
-				$arrData = array(
-						'agencyLogo'=>$strAgencyLogo,
-					
-				);
-				$blnReturn = $this->agency_profile_model->saveImage($arrData, $ImageId);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagencyimages','Edited '.$ImageId.' Agency_profile',implode(';',$arrData),'');
-					
-					$this->session->set_flashdata('strMsg','Agency profile saved successfully.');
-				}
-				redirect('libraries/agency_profile');
-			}
-		}
-	}
+	// public function edit_logo()
+	// {
+	// 	$arrPost = $this->input->post();
 
-	public function upload()
+	// 	$config['upload_path']          = 'uploads/';
+ //        $config['allowed_types']        = 'pdf';
+		
+	// 	 $this->load->library('upload', $config);
+		
+	// 	if ( ! $this->upload->do_upload('userfile'))
+	// 	{
+	// 		$error = array('error' => $this->upload->display_errors());
+	// 		$this->session->set_flashdata('error','Please try again!');
+	// 	}
+	// 	else
+	// 	{
+	// 		$data = $this->upload->data();
+	// 		//print_r($data);exit;
+	// 			$arrLogo = array(
+	// 				'agencyLogo' => $data['file_name']	
+	// 			);
+
+	// 		$this->agency_profile_model->edit_logo($arrLogo, $arrPost['id']);
+	// 		$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			
+	// 	}
+	// 	redirect('libraries/agency_profile/edit_logo/='.$arrPost['id']);
+	// }
+
+	public function edit_logo()
 	{
 		$arrPost = $this->input->post();
 
 		$config['upload_path']          = 'uploads/';
         $config['allowed_types']        = 'pdf';
 		
-		 $this->load->library('upload', $config);
+		 $this->template->load('template/template_view','libraries/agency_profile/edit_logo_view', $this->arrData);
 		
 		if ( ! $this->upload->do_upload('userfile'))
 		{
@@ -260,8 +257,37 @@ class Agency_profile extends MY_Controller {
 			
 		}
 		redirect('libraries/agency_profile/edit_logo/='.$arrPost['id']);
-		
 	}
+
+	// public function upload()
+	// {
+	// 	$arrPost = $this->input->post();
+
+	// 	$config['upload_path']          = 'uploads/';
+ //        $config['allowed_types']        = 'pdf';
+		
+	// 	 $this->template->load('template/template_view','libraries/agency_profile/edit_logo_view', $this->arrData);
+		
+	// 	if ( ! $this->upload->do_upload('userfile'))
+	// 	{
+	// 		$error = array('error' => $this->upload->display_errors());
+	// 		$this->session->set_flashdata('error','Please try again!');
+	// 	}
+	// 	else
+	// 	{
+	// 		$data = $this->upload->data();
+	// 		//print_r($data);exit;
+	// 			$arrLogo = array(
+	// 				'agencyLogo' => $data['file_name']	
+	// 			);
+
+	// 		$this->agency_profile_model->edit_logo($arrLogo, $arrPost['id']);
+	// 		$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			
+	// 	}
+	// 	redirect('libraries/agency_profile/edit_logo/='.$arrPost['id']);
+		
+	// }
 
 	public function delete()
 	{

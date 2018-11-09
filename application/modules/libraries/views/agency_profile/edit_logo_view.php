@@ -53,7 +53,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                     <div class="form-group">
                                         <label for="uploadimage">Please select File</label>
-                                        <input type="file" id="uploadimage">               
+                                        <input type="file" id="userfile">               
                                     </div>
                                 </div>
                             </div>
