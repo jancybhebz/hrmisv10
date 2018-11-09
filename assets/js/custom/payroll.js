@@ -1,5 +1,7 @@
 $(document).ready(function() {
-
+	$('.loading-image').hide();
+	$('#div-body').show();
+	
     // check boxes
     $('div.col-md-12 > div#div-benefit, div.col-md-12 > div#div-bonus, div.col-md-12 > div#div-income').on('click', 'div.col-md-3 > label.checkbox', function() {
     	var checker = $(this).find('div.checker > span');

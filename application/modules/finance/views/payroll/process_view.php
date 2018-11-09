@@ -149,10 +149,3 @@
 
 <?=load_plugin('js', array('select','form_validation'))?>
 <script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script>
-
-<script>
-    $(document).ready(function() {
-        $('.loading-image').hide();
-        $('#div-body').show();
-    });
-</script>
