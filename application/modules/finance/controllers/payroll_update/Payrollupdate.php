@@ -14,7 +14,7 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payrollupdate_model'));
+        $this->load->model(array('Payrollupdate_model','Deduction_model'));
         $this->arrData = array();
     }
 
@@ -26,6 +26,10 @@ class Payrollupdate extends MY_Controller {
 			$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Benefit');
 			$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Bonus');
 			$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Additional');
+
+			$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
+			$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
+			$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
 		endif;
 		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
 	}

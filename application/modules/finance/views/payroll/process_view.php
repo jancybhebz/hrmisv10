@@ -105,10 +105,10 @@
                         <!-- Monthly Benefits -->
                         <div class="row" id="row-benefit" <?=count($arrBenefit) > 0 ? '' : 'hidden'?>>
                             <div class="col-md-12" style="margin-left: 40px;">
-                                <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall"> Checkall </label>
+                                <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall"> Check All </label>
                                 <div class="portlet-body" id="div-benefit">
                                     <?php foreach($arrBenefit as $benefit): ?>
-                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-benefit" value="<?=$benefit['incomeCode']?>"> <?=$benefit['incomeDesc']?> </label></div>
+                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-benefit" value="<?=$benefit['incomeCode']?>"> <?=ucwords($benefit['incomeDesc'])?> </label></div>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -118,10 +118,10 @@
                         <!-- Bonus -->
                         <div class="row" id="row-bonus" <?=count($arrBonus) > 0 ? '' : 'hidden'?>>
                             <div class="col-md-12" style="margin-left: 40px;">
-                                <label class="checkbox chkall"><input type="checkbox" id="chkall-bonus" value="chkall"> Checkall </label>
+                                <label class="checkbox chkall"><input type="checkbox" id="chkall-bonus" value="chkall"> Check All </label>
                                 <div class="portlet-body" id="div-bonus">
                                     <?php foreach($arrBonus as $bonus): ?>
-                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-bonus" value="<?=$bonus['incomeCode']?>"> <?=$bonus['incomeDesc']?> </label></div>
+                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-bonus" value="<?=$bonus['incomeCode']?>"> <?=ucwords($bonus['incomeDesc'])?> </label></div>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -131,21 +131,25 @@
                         <!-- Income -->
                         <div class="row" id="row-income" <?=count($arrIncome) > 0 ? '' : 'hidden'?>>
                             <div class="col-md-12" style="margin-left: 40px;">
-                                <label class="checkbox chkall"><input type="checkbox" id="chkall-income" value="chkall"> Checkall </label>
+                                <label class="checkbox chkall"><input type="checkbox" id="chkall-income" value="chkall"> Check All </label>
                                 <div class="portlet-body" id="div-income">
                                     <?php foreach($arrIncome as $income): ?>
-                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-bonus" value="<?=$income['incomeCode']?>"> <?=$income['incomeDesc']?> </label></div>
+                                        <div class="col-md-3"><label class="checkbox"><input type="checkbox" id="chkall-bonus" value="<?=$income['incomeCode']?>"> <?=ucwords($income['incomeDesc'])?> </label></div>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+                <button class="btn red pull-right" data-target="#modal-process" data-backdrop="static" data-toggle="modal" data-keyboard="false">PROCESS</button>
+                <label class="pull-right" style="padding: 10px 10px;line-height: 10px;">
+                    <input type="checkbox" id="chkprocess" value="process"> Check employee with netpay below 5,000</label>
+                <br><br>
             </div>
         </div>
     </div>
 </div>
 
 <?=load_plugin('js', array('select','form_validation'))?>
+<?php $this->load->view('_modal'); ?>
 <script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script>
