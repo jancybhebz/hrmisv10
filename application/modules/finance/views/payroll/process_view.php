@@ -77,7 +77,7 @@
                                 <select class="form-control bs-select" name="yr" id="selyr">
                                     <option value="null">-- SELECT YEAR --</option>
                                     <?php foreach (getYear() as $yr): ?>
-                                        <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+                                        <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('Y') == $yr?>>
                                             <?=$yr?></option>
                                     <?php endforeach; ?>
                                 </select>

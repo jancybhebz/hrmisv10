@@ -22,15 +22,19 @@ class Payrollupdate extends MY_Controller {
 	{
 		$this->load->model('libraries/Appointment_status_model');
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
-		if(isset($_GET)):
-			$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Benefit');
-			$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Bonus');
-			$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Additional');
+		
+		$_GET['selemployment'] = isset($_GET['selemployment']) ? $_GET['selemployment'] : 'P';
+		$_GET['mon'] = isset($_GET['mon']) ? $_GET['mon'] : date('n');
+		$_GET['yr'] = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$_GET['period'] = isset($_GET['period']) ? $_GET['period'] : 'Period 1';
+		
+		$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Benefit');
+		$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Bonus');
+		$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Additional');
 
-			$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
-			$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
-			$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
-		endif;
+		$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
+		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
+		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
 		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
 	}
 
