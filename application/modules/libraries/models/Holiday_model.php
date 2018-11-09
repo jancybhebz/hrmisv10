@@ -9,13 +9,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Holiday_model extends CI_Model {
 
-	var $table = 'tblholiday';
+	var $table = 'tblHoliday';
 	var $tableid = 'holidayCode';
 
-	var $table2 = 'tbllocalholiday';
+	var $table2 = 'tblLocalHoliday';
 	var $tableid2 = 'holidayCode';
 
-	var $table3 = 'tblholidayyear';
+	var $table3 = 'tblHolidayYear';
 	var $tableid3 = 'holidayId';
 
 	function __construct()
@@ -30,7 +30,7 @@ class Holiday_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strCode);
 		}
-		$this->db->join('tblholidayyear','tblholidayyear.holidayCode = '.$this->table.'.holidayCode','inner');
+		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = '.$this->table.'.holidayCode','inner');
 		$this->db->order_by('holidayName');
 		$this->db->group_by($this->table.'.holidayCode');
 		$objQuery = $this->db->get($this->table);
@@ -64,25 +64,25 @@ class Holiday_model extends CI_Model {
 	//ADD
 	function add($arrData)
 	{
-		$this->db->insert('tblholiday', $arrData);
+		$this->db->insert('tblHoliday', $arrData);
 		return $this->db->insert_id();		
 	}
 
 	function add_local($arrData)
 	{
-		$this->db->insert('tbllocalholiday', $arrData);
+		$this->db->insert('tblLocalHoliday', $arrData);
 		return $this->db->insert_id();		
 	}
 
 	function manage_add($arrData)
 	{
-		$this->db->insert('tblholidayyear', $arrData);
+		$this->db->insert('tblHolidayYear', $arrData);
 		return $this->db->insert_id();		
 	}
 
 	function add_worksuspension($arrData)
 	{
-		$this->db->insert('tblholidayyear', $arrData);
+		$this->db->insert('tblHolidayYear', $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -90,7 +90,7 @@ class Holiday_model extends CI_Model {
 	//CHECK IF EXIST	
 	function checkExist($strHolidayCode = '', $strHolidayName = '')
 	{		
-		$strSQL = " SELECT * FROM tblholiday					
+		$strSQL = " SELECT * FROM tblHoliday					
 					WHERE  
 					holidayCode ='$strHolidayCode' OR
 					holidayName ='$strHolidayName'					
@@ -102,7 +102,7 @@ class Holiday_model extends CI_Model {
 
 	function checkLocExist($dtmHolidayDate = '')
 	{		
-		$strSQL = " SELECT * FROM tbllocalholiday					
+		$strSQL = " SELECT * FROM tblLocalHoliday					
 					WHERE  
 					holidayDate ='$dtmHolidayDate' 
 					-- holidayDate ='$dtmHolidayDate' OR
@@ -115,7 +115,7 @@ class Holiday_model extends CI_Model {
 
 	function checkHolidayExist($dtmHolidayDate = '')
 	{		
-		$strSQL = " SELECT * FROM tblholidayyear					
+		$strSQL = " SELECT * FROM tblHolidayYear					
 					WHERE  
 					holidayCode ='$strHolidayCode' OR
 					holidayDate ='$dtmHolidayDate' 								
@@ -127,7 +127,7 @@ class Holiday_model extends CI_Model {
 
 	function checkWorkSuspensionExist($dtmSuspensionDate = '')
 	{		
-		$strSQL = " SELECT * FROM tblholidayyear					
+		$strSQL = " SELECT * FROM tblHolidayYear					
 					WHERE  
 					holidayDate ='$dtmSuspensionDate' OR
 					holidayTime ='$dtmSuspensionTime' 								
@@ -142,7 +142,7 @@ class Holiday_model extends CI_Model {
 	function save($arrData, $strCode)
 	{
 		$this->db->where('holidayCode', $strCode);
-		$this->db->update('tblholiday', $arrData);
+		$this->db->update('tblHoliday', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -150,21 +150,21 @@ class Holiday_model extends CI_Model {
 	function save_local($arrData, $strCode)
 	{
 		$this->db->where('holidayName', $strCode);
-		$this->db->update('tbllocalholiday', $arrData);
+		$this->db->update('tblLocalHoliday', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	function save_manage($arrData, $strCode)
 	{
 		$this->db->where('holidayId', $strCode);
-		$this->db->update('tblholidayyear', $arrData);
+		$this->db->update('tblHolidayYear', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	function save_worksuspension($arrData, $strCode)
 	{
 		$this->db->where('holidayId', $strCode);
-		$this->db->update('tblholidayyear', $arrData);
+		$this->db->update('tblHolidayYear', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -173,7 +173,7 @@ class Holiday_model extends CI_Model {
 	function delete($strCode)
 	{
 		$this->db->where('holidayCode', $strCode);
-		$this->db->delete('tblholiday'); 	
+		$this->db->delete('tblHoliday'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -181,7 +181,7 @@ class Holiday_model extends CI_Model {
 	function delete_local($strCode)
 	{
 		$this->db->where('holidayName', $strCode);
-		$this->db->delete('tbllocalholiday'); 	
+		$this->db->delete('tblLocalHolidayYear'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -189,7 +189,7 @@ class Holiday_model extends CI_Model {
 	function delete_manage_holiday($strCode)
 	{
 		$this->db->where('holidayId', $strCode);
-		$this->db->delete('tblholidayyear'); 	
+		$this->db->delete('tblHolidayYear'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -197,7 +197,7 @@ class Holiday_model extends CI_Model {
 	function delete_worksuspension($strCode)
 	{
 		$this->db->where('holidayId', $strCode);
-		$this->db->delete('tblholidayyear'); 	
+		$this->db->delete('tblHolidayYear'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

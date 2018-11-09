@@ -9,10 +9,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Salary_sched_model extends CI_Model {
 
-	var $table = 'tblsalaryschedversion';
+	var $table = 'tblSalarySchedVersion';
 	var $tableid = 'version';
 
-	var $table2 = 'tblsalarysched';
+	var $table2 = 'tblSalarySched';
 	var $tableid2 = 'version';
 
 	function __construct()
@@ -35,7 +35,7 @@ class Salary_sched_model extends CI_Model {
 	function getSchedHeader($field, $version)
 	{		
 		$this->db->select('distinct('.$field.')')
-		         ->from('tblsalarysched')
+		         ->from('tblSalarySched')
 		         ->order_by($field, 'ASC')
 		         ->where('version', $version);
 		$objQuery = $this->db->get();
@@ -77,19 +77,19 @@ class Salary_sched_model extends CI_Model {
 		
 	function add($arrData)
 	{
-		$this->db->insert('tblsalaryschedversion', $arrData);
+		$this->db->insert('tblSalarySchedVersion', $arrData);
 		return $this->db->insert_id();		
 	}
 
 	function add_new($arrData)
 	{
-		$this->db->insert('tblsalarysched', $arrData);
+		$this->db->insert('tblSalarySched', $arrData);
 		return $this->db->insert_id();		
 	}
 
 	function add_existing($arrData)
 	{
-		$this->db->insert('tblsalaryschedversion', $arrData);
+		$this->db->insert('tblSalarySchedVersion', $arrData);
 		return $this->db->insert_id();		
 	}
 	
@@ -97,7 +97,7 @@ class Salary_sched_model extends CI_Model {
 	function save($arrData, $intVersion)
 	{
 		$this->db->where('version', $intVersion);
-		$this->db->update('tblsalaryschedversion', $arrData);
+		$this->db->update('tblSalarySchedVersion', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -105,7 +105,7 @@ class Salary_sched_model extends CI_Model {
 	function delete($intVersion)
 	{
 		$this->db->where('version', $intVersion);
-		$this->db->delete('tblsalaryschedversion'); 	
+		$this->db->delete('tblSalarySchedVersion'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

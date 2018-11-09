@@ -59,7 +59,7 @@ class Salary_sched extends MY_Controller {
 					$blnReturn  = $this->Salary_sched_model->add($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalaryschedversion','Added '.$strTitle.' Salary Schedule',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSalarySchedVersion','Added '.$strTitle.' Salary Schedule',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Salary schedule name added successfully.');
 					}
 					redirect('libraries/salary_sched/add');
@@ -149,7 +149,7 @@ class Salary_sched extends MY_Controller {
 					$blnReturn  = $this->Salary_sched_model->add_existing($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalaryschedversion','Added '.$strTitle.' Salary Schedule',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSalarySchedVersion','Added '.$strTitle.' Salary Schedule',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Salary schedule name added successfully.');
 					}
 					redirect('libraries/salary_sched/add');
