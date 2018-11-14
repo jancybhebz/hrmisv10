@@ -15,8 +15,10 @@
                                 <tr>
                                     <th style="width: 140px;"> Benefit </th>
                                     <th> Monthly </th>
-                                    <th> Period 1 </th>
-                                    <th> Period 2 </th>
+                                    <?php 
+                                        foreach(setPeriods($empPayrollProcess) as $period):
+                                            echo '<th> '.$period.' </th>';
+                                        endforeach; ?>
                                     <th> Status </th>
                                     <th style="text-align: center;"> Action </th>
                                 </tr>
@@ -27,14 +29,27 @@
                                     <td style="text-align: left; padding-left: 7px;"><b><?=$benefit['incomeDesc']?></b></td>
                                     <td><?=isset($benefit['arrbenefits']) ? 
                                             number_format($benefit['arrbenefits']['incomeAmount'], 2) : '0.00'?></td>
-                                    <td><?=isset($benefit['arrbenefits']) ? 
-                                            number_format($benefit['arrbenefits']['period1'], 2) : '0.00'?></td>
-                                    <td><?=isset($benefit['arrbenefits']) ? 
-                                            number_format($benefit['arrbenefits']['period2'], 2) : '0.00'?></td>
+                                    <?php 
+                                        if(isset($benefit['arrbenefits'])):
+                                            foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
+                                                echo '<td>'.number_format($benefit['arrbenefits']['period'.$p], 2).'</td>';
+                                            endforeach;
+                                        else:
+                                            foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
+                                                echo '<td>0.00</td>';
+                                            endforeach;
+                                        endif;
+                                        ?>
+
                                     <td><?=isset($benefit['arrbenefits']) ? 
                                             getincome_status($benefit['arrbenefits']['status']) : ''?></td>
                                     <td align="center">
                                         <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
+                                                data-period1="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period1'] == '' ? '0.00' : $benefit['arrbenefits']['period1'] : '0.00'?>"
+                                                data-period2="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period2'] == '' ? '0.00' : $benefit['arrbenefits']['period2'] : '0.00'?>"
+                                                data-period3="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period3'] == '' ? '0.00' : $benefit['arrbenefits']['period3'] : '0.00'?>"
+                                                data-period4="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period4'] == '' ? '0.00' : $benefit['arrbenefits']['period4'] : '0.00'?>"
+
                                                 data-incomecode="<?=$benefit['incomeCode']?>" data-stat="benefit"
                                                 data-benefitcode="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['benefitCode'] : ''?>"
                                                 data-tax="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['ITW'] : '0.00'?>"
@@ -118,9 +133,11 @@
                                 <tr>
                                     <th style="width:120px;"> Benefit </th>
                                     <th> Monthly </th>
+                                    <?php 
+                                        foreach(setPeriods($empPayrollProcess) as $period):
+                                            echo '<th> '.$period.' </th>';
+                                        endforeach; ?>
                                     <th> Tax </th>
-                                    <th> Period 1 </th>
-                                    <th> Period 2 </th>
                                     <th> Status </th>
                                     <th style="text-align: center;"> Actions </th>
                                 </tr>
@@ -131,16 +148,28 @@
                                     <td style="text-align: left; padding-left: 7px;"><b><?=$bonus['incomeDesc']?></b></td>
                                     <td><?=isset($bonus['arrbenefits']) ? 
                                             number_format($bonus['arrbenefits']['incomeAmount'], 2) : '0.00'?></td>
+                                    <?php 
+                                        if(isset($bonus['arrbenefits'])):
+                                            foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
+                                                echo '<td>'.number_format($bonus['arrbenefits']['period'.$p], 2).'</td>';
+                                            endforeach;
+                                        else:
+                                            foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
+                                                echo '<td>0.00</td>';
+                                            endforeach;
+                                        endif;
+                                        ?>
                                     <td><?=isset($bonus['arrbenefits']) ? 
                                             number_format($bonus['arrbenefits']['ITW'], 2) : '0.00'?></td>
-                                    <td><?=isset($bonus['arrbenefits']) ? 
-                                            number_format($bonus['arrbenefits']['period1'], 2) : '0.00'?></td>
-                                    <td><?=isset($bonus['arrbenefits']) ? 
-                                            number_format($bonus['arrbenefits']['period2'], 2) : '0.00'?></td>
                                     <td><?=isset($bonus['arrbenefits']) ? 
                                             getincome_status($bonus['arrbenefits']['status']) : ''?></td>
                                     <td align="center">
                                         <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
+                                                data-period1="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period1'] == '' ? '0.00' : $bonus['arrbenefits']['period1'] : '0.00'?>"
+                                                data-period2="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period2'] == '' ? '0.00' : $bonus['arrbenefits']['period2'] : '0.00'?>"
+                                                data-period3="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period3'] == '' ? '0.00' : $bonus['arrbenefits']['period3'] : '0.00'?>"
+                                                data-period4="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period4'] == '' ? '0.00' : $bonus['arrbenefits']['period4'] : '0.00'?>"
+
                                                 data-incomecode="<?=$bonus['incomeCode']?>" data-stat="bonus"
                                                 data-benefitcode="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['benefitCode'] : ''?>"
                                                 data-tax="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['ITW'] : '0.00'?>"
@@ -170,9 +199,11 @@
                                 <tr>
                                     <th style="width:120px;"> Benefit </th>
                                     <th> Monthly </th>
+                                    <?php 
+                                        foreach(setPeriods($empPayrollProcess) as $period):
+                                            echo '<th> '.$period.' </th>';
+                                        endforeach; ?>
                                     <th> Tax </th>
-                                    <th> Period 1 </th>
-                                    <th> Period 2 </th>
                                     <th> Status </th>
                                     <th style="text-align: center;"> Actions </th>
                                 </tr>
@@ -183,16 +214,28 @@
                                     <td style="text-align: left; padding-left: 7px;"><b><?=$addtl['incomeDesc']?></b></td>
                                     <td><?=isset($addtl['arrbenefits']) ? 
                                             number_format($addtl['arrbenefits']['incomeAmount'], 2) : '0.00'?></td>
+                                    <?php 
+                                        if(isset($addtl['arrbenefits'])):
+                                            foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
+                                                echo '<td>'.number_format($addtl['arrbenefits']['period'.$p], 2).'</td>';
+                                            endforeach;
+                                        else:
+                                            foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
+                                                echo '<td>0.00</td>';
+                                            endforeach;
+                                        endif;
+                                        ?>
                                     <td><?=isset($addtl['arrbenefits']) ? 
                                             number_format($addtl['arrbenefits']['ITW'], 2) : '0.00'?></td>
-                                    <td><?=isset($addtl['arrbenefits']) ? 
-                                            number_format($addtl['arrbenefits']['period1'], 2) : '0.00'?></td>
-                                    <td><?=isset($addtl['arrbenefits']) ? 
-                                            number_format($addtl['arrbenefits']['period2'], 2) : '0.00'?></td>
                                     <td><?=isset($addtl['arrbenefits']) ? 
                                             getincome_status($addtl['arrbenefits']['status']) : ''?></td>
                                     <td align="center">
                                         <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
+                                            data-period1="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period1'] == '' ? '0.00' : $addtl['arrbenefits']['period1'] : '0.00'?>"
+                                            data-period2="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period2'] == '' ? '0.00' : $addtl['arrbenefits']['period2'] : '0.00'?>"
+                                            data-period3="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period3'] == '' ? '0.00' : $addtl['arrbenefits']['period3'] : '0.00'?>"
+                                            data-period4="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period4'] == '' ? '0.00' : $addtl['arrbenefits']['period4'] : '0.00'?>"
+
                                             data-incomecode="<?=$addtl['incomeCode']?>" data-stat="addtl"
                                             data-benefitcode="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['benefitCode'] : ''?>"
                                             data-tax="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['ITW'] : '0.00'?>"
@@ -221,9 +264,13 @@
             $('#sub-title').html(el.closest('table').data('title'));
             $('#modal-title').html(el.parent().siblings(":first").text());
             $('#txtamount-bl').val(el.parent().siblings(":eq(1)").text());
-            $('#txtperiod1-bl').val(el.parent().siblings(":eq(2)").text());
-            $('#txtperiod2-bl').val(el.parent().siblings(":eq(3)").text());
+            $('#txtperiod1-bl').val(el.data('period1'));
+            $('#txtperiod2-bl').val(el.data('period2'));
+            $('#txtperiod3-bl').val(el.data('period3'));
+            $('#txtperiod4-bl').val(el.data('period4'));
             $('#selstatus-bl').val(el.data("statusval"));
+            $('#selstatus-bl').selectpicker('refresh');
+
             $('#txtincomecode').val(el.data("incomecode"));
             $('#txtbenefitcode').val(el.data("benefitcode"));
             $('#txttax-bl').val(el.data("tax"));

@@ -89,3 +89,24 @@ if ( ! function_exists('salaryPeriod'))
         return array('Monthly','Semimonthly','Weekly','Daily');
     }
 }
+
+# salary periods
+if ( ! function_exists('setPeriods'))
+{
+    function setPeriods($strPeriod)
+    {
+        if(strtolower($strPeriod) == 'monthly'):
+            return array('Period 1', 'Period 2');
+
+        elseif(strtolower($strPeriod) == 'semimonthly'):
+            return array('Period 1', 'Period 2');
+
+        elseif(strtolower($strPeriod) == 'weekly'):
+            return array('Period 1', 'Period 2','Period 3','Period 4');
+
+        elseif(strtolower($strPeriod) == 'daily'):
+            return array('Period 1', 'Period 2');
+        endif;
+
+    }
+}

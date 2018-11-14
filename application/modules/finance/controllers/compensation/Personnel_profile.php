@@ -116,7 +116,7 @@ class Personnel_profile extends MY_Controller {
 	# Begin 2nd tab of personnel_profile = 'income' 
 	public function income($empid)
 	{
-		$this->load->model(array('Income_model','Longevity_model','Benefit_model'));
+		$this->load->model(array('Income_model','Longevity_model','Benefit_model','libraries/Payroll_process_model'));
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
@@ -127,6 +127,10 @@ class Personnel_profile extends MY_Controller {
 		$this->arrData['arrStatus'] = array('1' => 'On-going','2' => 'Paused','0' => 'Remove');
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrAppointments_by2'] = count($this->arrData['arrAppointments']) / 2;
+
+		// PAYROLL PROCESS
+		$res_process = $this->Payroll_process_model->getData($res[0]['appointmentCode']);
+		$this->arrData['empPayrollProcess'] = $res_process[0]['computation'];
 
 		// LONGEVITY PAY
 		$this->arrData['arrLongevity'] = $this->Longevity_model->getLongevity($empid);
@@ -282,6 +286,7 @@ class Personnel_profile extends MY_Controller {
 
 	public function premium_loan($empid)
 	{
+		$this->load->model('libraries/Payroll_process_model');
 		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
@@ -291,6 +296,10 @@ class Personnel_profile extends MY_Controller {
 
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrAppointments_by2'] = count($this->arrData['arrAppointments']) / 2;
+
+		// PAYROLL PROCESS
+		$res_process = $this->Payroll_process_model->getData($employeeData[0]['appointmentCode']);
+		$this->arrData['empPayrollProcess'] = $res_process[0]['computation'];
 
 		$this->arrData['arrStatus'] = array('1' => 'On-going','2' => 'Paused','0' => 'Remove');
 		
@@ -403,8 +412,10 @@ class Personnel_profile extends MY_Controller {
 			$arrPost['txtdeductcode'] = $arrPost['txtdeductcode'] != '' ? $arrPost['txtdeductcode'] : $checkexist[0]['deductCode'];
 			$arrData = array('deductionCode' => $arrPost['txtdeductioncode'],
 							 'monthly' => str_replace(',', '', $arrPost['txtamount']),
-							 'period1' => str_replace(',', '', $arrPost['txtperiod1']),
-							 'period2' => str_replace(',', '', $arrPost['txtperiod2']),
+							 'period1' => isset($arrPost['txtperiod1']) ? str_replace(',', '', $arrPost['txtperiod1']) : '',
+							 'period2' => isset($arrPost['txtperiod2']) ? str_replace(',', '', $arrPost['txtperiod2']) : '',
+							 'period3' => isset($arrPost['txtperiod3']) ? str_replace(',', '', $arrPost['txtperiod3']) : '',
+							 'period4' => isset($arrPost['txtperiod4']) ? str_replace(',', '', $arrPost['txtperiod4']) : '',
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->editDeduction($arrData, $arrPost['txtdeductcode'], $empid);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' updated successfully.');
@@ -412,8 +423,10 @@ class Personnel_profile extends MY_Controller {
 			$arrData = array('empNumber' => $empid,
 							 'deductionCode' => $arrPost['txtdeductioncode'],
 							 'monthly' => $arrPost['txtamount'],
-							 'period1' => str_replace(',', '', $arrPost['txtperiod1']),
-							 'period2' => str_replace(',', '', $arrPost['txtperiod2']),
+							 'period1' => isset($arrPost['txtperiod1']) ? str_replace(',', '', $arrPost['txtperiod1']) : '',
+							 'period2' => isset($arrPost['txtperiod2']) ? str_replace(',', '', $arrPost['txtperiod2']) : '',
+							 'period3' => isset($arrPost['txtperiod3']) ? str_replace(',', '', $arrPost['txtperiod3']) : '',
+							 'period4' => isset($arrPost['txtperiod4']) ? str_replace(',', '', $arrPost['txtperiod4']) : '',
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->addDeduction($arrData);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' added successfully.');
@@ -427,13 +440,17 @@ class Personnel_profile extends MY_Controller {
 	# BEGIN ADJUSTMENT
 	public function adjustments($empid)
 	{
-		$this->load->model(array('Income_model','Adjustments_model','Deduction_model'));
+		$this->load->model(array('Income_model','Adjustments_model','Deduction_model','libraries/Payroll_process_model'));
 		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$mon = isset($_GET['mon']) ? $_GET['mon'] : 0;
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : 0;
 		$period = isset($_GET['period']) ? $_GET['period'] : "";
+
+		// PAYROLL PROCESS
+		$res_process = $this->Payroll_process_model->getData($employeeData[0]['appointmentCode']);
+		$this->arrData['empPayrollProcess'] = $res_process[0]['computation'];
 
 		$this->arrData['arrDataDeduct'] = $this->Adjustments_model->getDeductions($empid,$mon,$yr,$period);
 		$this->arrData['arrDataIncome'] = $this->Adjustments_model->getIncome($empid,$mon,$yr,$period);
