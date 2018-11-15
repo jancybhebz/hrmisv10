@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('select'))?>
+<?=load_plugin('css', array('select','datatables'))?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -96,12 +96,13 @@
                                 <label class="control-label">&nbsp;</label>
                                 <button class="btn blue" style="margin-top: 19px !important">Submit</button>
                             </div>
-
                         <?=form_close()?>
+                        <br><br>
+                        <button class="btn blue" data-target="#modal-computeBenefits-Monthly" data-backdrop="static" data-toggle="modal" data-keyboard="false"> Compute Benefits</button>
+                        <button class="btn green"> Deductions</button>
                         <br><br>
                     </div>
                     <div class="portlet-body">
-                        <!-- <div class="loading-img-portlet"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div> -->
                         <!-- Monthly Benefits -->
                         <div class="row" id="row-benefit" <?=count($arrBenefit) > 0 ? '' : 'hidden'?>>
                             <div class="col-md-12" style="margin-left: 40px;">
@@ -150,6 +151,6 @@
     </div>
 </div>
 
-<?=load_plugin('js', array('select','form_validation'))?>
+<?=load_plugin('js', array('select','datatables','datatables-editable','form_validation'))?>
 <?php $this->load->view('_modal'); ?>
 <script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script>

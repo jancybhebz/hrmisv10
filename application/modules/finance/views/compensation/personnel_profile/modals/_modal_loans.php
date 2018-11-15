@@ -13,9 +13,10 @@
             <?=form_open('finance/compensation/personnel_profile/edit_deduction/'.$this->uri->segment(5), array('id' => 'frmBenefit'))?>
                 <div class="modal-body">
                     <div class="row form-body">
-                        <input type="text" name="txtdeductcode" id="txtdeductcode">
-                        <input type="text" name="txtdeductioncode" id="txtdeductioncode">
-                        <input type="text" name="txtdeductionType" id="txtdeductionType">
+                        <input type="hidden" name="txtdeductcode" id="txtdeductcode">
+                        <input type="hidden" name="txtdeductioncode" id="txtdeductioncode">
+                        <input type="hidden" name="txtdeductionType" id="txtdeductionType">
+                        <input type="hidden" class="form-required" id="txtperiodcheck" value="1">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Monthly<span class="required"> * </span></label>
@@ -24,18 +25,32 @@
                                     <input type="text" class="form-control form-required" name="txtamount" id="txtamount-bl">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Period 1 (1-15)<span class="required"> * </span></label>
+                            <div class="form-group" <?=in_array('Period 1', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
+                                <label class="control-label">Period 1<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control form-required" name="txtperiod1" id="txtperiod1-bl">
+                                    <input type="text" class="form-control" name="txtperiod1" id="txtperiod1-bl">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Period 2 (16-30)<span class="required"> * </span></label>
+                            <div class="form-group" <?=in_array('Period 2', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
+                                <label class="control-label">Period 2<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control form-required" name="txtperiod2" id="txtperiod2-bl">
+                                    <input type="text" class="form-control" name="txtperiod2" id="txtperiod2-bl">
+                                </div>
+                            </div>
+                            <div class="form-group" <?=in_array('Period 3', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
+                                <label class="control-label">Period 3<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa fa-warning tooltips i-required"></i>
+                                    <input type="text" class="form-control" name="txtperiod3" id="txtperiod3-bl">
+                                </div>
+                            </div>
+                            <div class="form-group" <?=in_array('Period 4', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
+                                <label class="control-label">Period 4<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa fa-warning tooltips i-required"></i>
+                                    <input type="text" class="form-control" name="txtperiod4" id="txtperiod4-bl">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -57,7 +72,7 @@
                 <div class="modal-footer">
                     <button type="button" id="btnupdateallemployee" class="btn green pull-left">
                         <i class="icon-check"> </i> Update All Employee</button>
-                    <button type="submit" id="btnsubmit-payrollDetails" class="btn green"><i class="icon-check"> </i> Save</button>
+                    <button type="submit" id="btnsubmit-deductDetails" class="btn green"><i class="icon-check"> </i> Save</button>
                     <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
@@ -110,6 +125,8 @@
                         <input type="text" name="txtamount" id="txtallamount">
                         <input type="text" name="txtperiod1" id="txtallperiod1">
                         <input type="text" name="txtperiod2" id="txtallperiod2">
+                        <input type="text" name="txtperiod3" id="txtallperiod3">
+                        <input type="text" name="txtperiod4" id="txtallperiod4">
                         <input type="text" name="selstatus" id="selallstatus">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -156,6 +173,8 @@
         }
         return parts.join(".");
     }
+
+
     $(document).ready(function() {
         $("#chkall").click(function () {
             if($(this).is(":checked")){
@@ -178,29 +197,6 @@
         });
         $('.date-picker').datepicker();
 
-        var totalamt = 0;
-        $('#txtamount-bl').keyup(function() {
-            totalamt = $(this).val();
-            totalamt = totalamt.replace(/[^\d\.]/g, "");
-            $('#txtperiod1-bl').val(numberformat(totalamt));
-            console.log(totalamt);
-        });
-
-        $('#txtperiod1-bl').keyup(function() {
-            totalamt = $('#txtamount-bl').val().replace(/[^\d\.]/g, "");
-            period1 = $(this).val().replace(/[^\d\.]/g, "");
-            totalamt = totalamt - period1;
-            $('#txtperiod2-bl').val(numberformat(totalamt));
-            console.log(totalamt);
-        });
-
-        $('#txtperiod2-bl').keyup(function() {
-            totalamt = $('#txtamount-bl').val().replace(/[^\d\.]/g, "");
-            period2 = $(this).val().replace(/[^\d\.]/g, "");
-            totalamt = totalamt - period2;
-            $('#txtperiod1-bl').val(numberformat(totalamt));
-            console.log(totalamt);
-        });
 
         $('#btnupdateallemployee').click(function() {
             $('#appointmentList').modal('show');
@@ -210,7 +206,28 @@
             $('#txtallamount').val($('#txtamount-bl').val());
             $('#txtallperiod1').val($('#txtperiod1-bl').val());
             $('#txtallperiod2').val($('#txtperiod2-bl').val());
+            $('#txtallperiod3').val($('#txtperiod3-bl').val());
+            $('#txtallperiod4').val($('#txtperiod4-bl').val());
             $('#selallstatus').val($('#selstatus-bl').val());
+        });
+
+        $('#btnsubmit-deductDetails').click(function(e) {
+            totalamt = parseFloat($('#txtamount-bl').val().replace(/[^\d\.]/g, ""));
+            period1 = parseFloat($('#txtperiod1-bl').val().replace(/[^\d\.]/g, ""));
+            period2 = parseFloat($('#txtperiod2-bl').val().replace(/[^\d\.]/g, ""));
+            period3 = parseFloat($('#txtperiod3-bl').val().replace(/[^\d\.]/g, ""));
+            period4 = parseFloat($('#txtperiod4-bl').val().replace(/[^\d\.]/g, ""));
+
+            if(totalamt != (period1 + period2 + period3 + period4)){
+                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').parent().parent().addClass('has-error');
+                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").attr('data-original-title', "Total amount should be equal to the total of period amount.");
+                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").show();
+                e.preventDefault();
+            }else{
+                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").hide();
+                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').parent().parent().removeClass('has-error');
+            }
+
         });
 
     });

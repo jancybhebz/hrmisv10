@@ -9,7 +9,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <form role="form" method="post">
+                        <?=form_open('', array('method' => 'post', 'role' => 'form'))?>
                             <div class="portlet box default ">
                                 <div class="portlet-title">
                                     <div class="caption" style="text-align: center; display: block; float: inherit; font-size: medium;">Other Dependent for the Head of the Family</div>
@@ -238,7 +238,7 @@
                                     <button type="submit" class="btn green">Submit</button>
                                 </div>
                             </center>
-                        </form>
+                        <?=form_close();?>
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@
                                 <label class="control-label col-md-12" style="padding: 0 !important;">Payroll Date<span class="required"> * </span></label>
                                 <div class="input-icon right col-md-4" style="padding: 0 !important;">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control form-required" name="txtadjmon" id="txtadjmon" placeholder="">
+                                    <select class="form-control form-required bs-select" name="txtadjmon" id="txtadjmon" placeholder="">
                                         <option value="null">SELECT MONTH</option>
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="input-icon right col-md-4" style="padding: 0 !important;">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control form-required" name="txtadjyr" id="txtadjyr" placeholder="">
+                                    <select class="form-control form-required bs-select" name="txtadjyr" id="txtadjyr" placeholder="">
                                         <option value="null">SELECT YEAR</option>
                                         <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
@@ -35,11 +35,12 @@
                                 </div>
                                 <div class="input-icon right col-md-4" style="padding: 0 !important;">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control form-required" name="txtadjper" id="txtadjper" placeholder="">
+                                    <select class="form-control form-required bs-select" name="txtadjper" id="txtadjper" placeholder="">
                                         <option value="null">SELECT PERIOD</option>
-                                        <?php foreach (periods() as $period): ?>
-                                            <option value="<?=$period['id']?>" <?=isset($_GET['period']) ? $_GET['period'] == $period['id'] ? 'selected' : '' : ''?>>
-                                                <?=$period['val']?></option>
+                                        <?php $ctr = 1;
+                                                foreach(setPeriods($empPayrollProcess) as $period): ?>
+                                                <option value="<?=$ctr++?>" <?=isset($_GET['period']) ? $_GET['period'] == $ctr ? 'selected' : '' : ''?>>
+                                                <?=$period?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -78,7 +79,7 @@
                                 <label class="control-label col-md-12" style="padding: 0 !important;">Adjustment Date<span class="required"> * </span></label>
                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control form-required" name="selinc_month" id="selinc_month" placeholder="">
+                                    <select class="form-control form-required bs-select" name="selinc_month" id="selinc_month" placeholder="">
                                         <option value="null">Month</option>
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=$m?>"><?=date('F', mktime(0, 0, 0, $m, 10))?></option>
@@ -87,7 +88,7 @@
                                 </div>
                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control form-required" name="selinc_yr" id="selinc_yr" placeholder="">
+                                    <select class="form-control form-required bs-select" name="selinc_yr" id="selinc_yr" placeholder="">
                                         <option value="null">Year</option>
                                         <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>"><?=$yr?></option>

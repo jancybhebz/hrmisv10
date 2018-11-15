@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('datatables','select2'))?>
+<?=load_plugin('css', array('datatables','select2','select'))?>
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -26,9 +26,10 @@
                 <div class="form-group" style="display: inline-flex;">
                     <select class="bs-select form-control" name="period">
                         <option value="">Period</option>
-                        <?php foreach (periods() as $period): ?>
-                            <option value="<?=$period['id']?>" <?=isset($_GET['period']) ? $_GET['period'] == $period['id'] ? 'selected' : '' : ''?>>
-                                <?=$period['val']?></option>
+                        <?php $ctr = 1;
+                              foreach(setPeriods($empPayrollProcess) as $period): ?>
+                                <option value="<?=$ctr++?>" <?=isset($_GET['period']) ? $_GET['period'] == $ctr ? 'selected' : '' : ''?>>
+                                <?=$period?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -129,7 +130,7 @@
     </div>
 </div>
 <?php include('modals/_modal_adjustments.php'); ?>
-<?=load_plugin('js', array('datatables','form_validation','select2'))?>
+<?=load_plugin('js', array('datatables','form_validation','select2','select'))?>
 
 <script>
     $(document).ready(function() {
