@@ -9,29 +9,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Pds_model extends CI_Model {
 
-	var $table = 'tblemppersonal';
+	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
 
-	var $table2 = 'tblempchild';
-	var $tableid2 = 'empNumber';
+	var $tblChild = 'tblEmpChild';
+	var $tblChildId = 'childCode';
 
-	var $table3 = 'tblEmpSchool';
-	var $tableid3 = 'levelCode';
+	var $tblEduc = 'tblEmpSchool';
+	var $tblEducId = 'SchoolIndex';
 
-	var $table4 = 'tblempexam';
-	var $tableid4 = 'examCode';
+	var $tblExam = 'tblEmpExam';
+	var $tblExamId = 'ExamIndex';
 
-	var $table5 = 'tblservicerecord';
-	var $tableid5 = 'serviceRecID';
+	var $tblService = 'tblServiceRecord';
+	var $tblServiceId = 'serviceRecID';
 
-	var $table6 = 'tblempvoluntarywork';
-	var $tableid6 = 'vwName';
+	var $tblVol = 'tblEmpVoluntaryWork';
+	var $tblVolId = 'VoluntaryIndex';
 
-	var $table7 = 'tblemptraining';
-	var $tableid7 = 'XtrainingCode';
+	var $tblTraining = 'tblemptraining';
+	var $tblTrainingId = 'XtrainingCode';
 
-	var $table8 = 'tblempposition';
-	var $tableid8 = 'appointmentCode';
+	var $tblPosition = 'tblEmpPosition';
+	var $tblPositionId = 'empNumber';
 
 	var $table9 = 'tblempduties';
 	var $tableid9 = 'duties';
@@ -56,15 +56,55 @@ class Pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	// function getChildData($strCode = '')
-	// {		
-	// 	if($strCode != "")
-	// 	{
-	// 		$this->db->where($this->tableid2,$strCode);
-	// 	}
-	// 	$objQuery = $this->db->get($this->table2);
-	// 	return $objQuery->result_array();	
-	// }
+	function getChild($intChildCode = '')
+	{		
+		if($intChildCode != "")
+		{
+			$this->db->where($this->tblChildId,$intChildCode);
+		}
+		$objQuery = $this->db->get($this->tblChild);
+		return $objQuery->result_array();	
+	}
+
+	function getEduc($intSchoolIndex = '')
+	{		
+		if($intSchoolIndex != "")
+		{
+			$this->db->where($this->tblEducId,$intSchoolIndex);
+		}
+		$objQuery = $this->db->get($this->tblEduc);
+		return $objQuery->result_array();	
+	}
+
+	function getExam($intExamIndex = '')
+	{		
+		if($intExamIndex != "")
+		{
+			$this->db->where($this->tblExamId,$intExamIndex);
+		}
+		$objQuery = $this->db->get($this->tblExam);
+		return $objQuery->result_array();	
+	}
+
+	function getWorkExp($intServiceId = '')
+	{		
+		if($intServiceId != "")
+		{
+			$this->db->where($this->tblServiceId,$intServiceId);
+		}
+		$objQuery = $this->db->get($this->tblService);
+		return $objQuery->result_array();	
+	}
+
+	function getPosition($strEmpNumber = '')
+	{		
+		if($strEmpNumber != "")
+		{
+			$this->db->where($this->tblPositionId,$strEmpNumber);
+		}
+		$objQuery = $this->db->get($this->tblPosition);
+		return $objQuery->result_array();	
+	}
 
 	function getImage($ImageId = '')
 	{		
@@ -85,7 +125,7 @@ class Pds_model extends CI_Model {
 
 	function add_child($arrData)
 	{
-		$this->db->insert($this->table2, $arrData);
+		$this->db->insert($this->tblChild, $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -108,51 +148,67 @@ class Pds_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_child($arrData, $strEmpNumber)
+	function save_child($arrData, $intChildCode)
 	{
-		$this->db->where($this->tableid2, $strEmpNumber);
-		$this->db->update($this->table2, $arrData);
+		$this->db->where($this->tblChildId, $intChildCode);
+		$this->db->update($this->tblChild, $arrData);
 		//echo $this->db->last_query();exit(1);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_Educ($arrData, $strEmpNumber)
+	function save_educ($arrData, $intSchoolIndex)
 	{
-		$this->db->where($this->tableid3, $strEmpNumber);
-		$this->db->update($this->table3, $arrData);
+		$this->db->where($this->tblEducId, $intSchoolIndex);
+		$this->db->update($this->tblEduc, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_Exam($arrData, $strEmpNumber)
+	function save_exam($arrData, $intExamIndex)
 	{
-		$this->db->where($this->tableid4, $strEmpNumber);
-		$this->db->update($this->table4, $arrData);
+		$this->db->where($this->tblExamId, $intExamIndex);
+		$this->db->update($this->tblExam, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_Training($arrData, $strEmpNumber)
+	function save_workExp($arrData, $intServiceId)
 	{
-		$this->db->where($this->tableid7, $strEmpNumber);
-		$this->db->update($this->table7, $arrData);
+		$this->db->where($this->tblServiceId, $intServiceId);
+		$this->db->update($this->tblService, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_VolWorks($arrData, $strEmpNumber)
+	function save_training($arrData, $strEmpNumber)
 	{
-		$this->db->where($this->tableid6, $strEmpNumber);
-		$this->db->update($this->table6, $arrData);
+		$this->db->where($this->tblTrainingId, $strEmpNumber);
+		$this->db->update($this->tblTraining, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_Position($arrData, $strEmpNumber)
+	function save_volWorks($arrData, $strVolIndex)
 	{
-		$this->db->where($this->tableid8, $strEmpNumber);
-		$this->db->update($this->table8, $arrData);
+		$this->db->where($this->tblVolId, $strVolIndex);
+		$this->db->update($this->tblVol, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function save_skill($arrData, $strEmpNumber)
+	{
+		$this->db->where($this->tableid, $strEmpNumber);
+		$this->db->update($this->table, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function save_position($arrData, $strEmpNumber)
+	{
+		$this->db->where($this->tblPositionId, $strEmpNumber);
+		$this->db->update($this->tblPosition, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

@@ -1,5 +1,5 @@
 <div id="tab_otherInfo" class="tab-pane">
-    <form action="#">
+
         <b>OTHER INFORMATION :</b><br><br>                        
             <table class="table table-bordered table-striped" class="table-responsive">
                 <label> SKILLS / RECOGNITIONS / ORGANIZATIONS : </label></br>
@@ -17,6 +17,9 @@
                     <td> <a class="btn green" data-toggle="modal" href="#editSkills_modal"> Edit </a>
                    <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteSkills"> Delete </a></td>
                 </tr>
+            </table>
+
+    <?=form_open(base_url('pds/edit_skill/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmSkill'))?>
                 <div class="modal fade bs-modal-lg"  id="editSkills_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -37,7 +40,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSkill" value="<?=isset($arrData['skills'])?$arrData['skills']:''?>">
+                                        <input type="text" class="form-control" name="strSkill" id="strSkill" value="<?=isset($arrData['skills'])?$arrData['skills']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +56,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strNonAcademic" value="<?=isset($arrData['nadr'])?$arrData['nadr']:''?>">
+                                        <input type="text" class="form-control" name="strNonAcademic" id="strNonAcademic" value="<?=isset($arrData['nadr'])?$arrData['nadr']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -69,19 +72,21 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strMembership" value="<?=isset($arrData['miao'])?$arrData['miao']:''?>">
+                                        <input type="text" class="form-control" name="strMembership" id="strMembership" value="<?=isset($arrData['miao'])?$arrData['miao']:''?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
+                            <input type="hidden" name="strEmpNumber" id="strEmpNumber" value="<?=isset($arrData['empNumber'])?$arrData['empNumber']:''?>">
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
+                                <button type="submit" class="btn green">Save changes</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+            <?=form_close()?>
 
                 <a class="btn green" data-toggle="modal" href="#addSkills_modal"> Add </a>
                    <div class="modal fade bs-modal-lg"  id="addSkills_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -141,6 +146,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn green">Save changes</button>
                         </div>
@@ -149,7 +155,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div><br>
-            </table>
+            </form>
 
             <!-- DELETE -->
             <div class="modal fade bs-modal-lg"  id="deleteSkills" tabindex="-1" role="dialog" aria-hidden="true">
@@ -170,6 +176,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+
 
 
         <b>LEGAL INFORMATION :</b><br><br>                        
@@ -409,11 +416,16 @@
 
 <script>
 
+$(document).ready(function() 
+    {
+
     $('#btndelete').click(function() {
     $.ajax ({type : 'GET', url: 'other_info_view/delete?tab='+tab+'&code='+code,
         success: function(){
             toastr.success('Skills'+code+' successfully deleted.','Success');
             $('#delete').modal('hide');
             $('[data-code="' + code + '"]').closest('tr').hide(); }});
+     });
+
     
 </script>
