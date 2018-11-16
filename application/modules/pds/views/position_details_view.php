@@ -1,3 +1,4 @@
+<?=load_plugin('css', array('datepicker','timepicker'))?>
 <div id="tab_position" class="tab-pane">
     <form action="#">
         <b>POSITION DETAILS :</b><br><br>                        
@@ -107,7 +108,6 @@
                 </tr>
                 <tr>
                     <td>  <a class="btn green" data-toggle="modal" href="#editPosition_modal"> Edit </a></td>
-                   
                 </tr>
                <?php endforeach; ?>
             </tr>
@@ -199,8 +199,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmGovnDay" value="<?=isset($arrPosition[0]['firstDayGov'])?$arrPosition[0]['firstDayGov']:''?>">
-                                        </select>
+                                        <input class="form-control form-control-inline input-medium date-picker" name="dtmGovnDay" id="dtmGovnDay" size="16" type="text" value="<?=isset($arrPosition[0]['firstDayGov'])?$arrPosition[0]['firstDayGov']:''?>" data-date-format="yyyy-mm-dd">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -236,7 +235,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                     <input type="text" class="form-control" name="dtmAgencyDay" value="<?=isset($arrPosition[0]['firstDayAgency'])?$arrPosition[0]['firstDayAgency']:''?>">
+                                        <input class="form-control form-control-inline input-medium date-picker" name="dtmAgencyDay" id="dtmAgencyDay" size="16" type="text" value="<?=isset($arrPosition[0]['firstDayAgency'])?$arrPosition[0]['firstDayAgency']:''?>" data-date-format="yyyy-mm-dd">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -273,8 +272,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="intSalaryDate" value="<?=isset($arrPosition[0]['effectiveDate'])?$arrPosition[0]['effectiveDate']:''?>">
-                                        </select>
+                                        <input class="form-control form-control-inline input-medium date-picker" name="intSalaryDate" id="intSalaryDate" size="16" type="text" value="<?=isset($arrPosition[0]['effectiveDate'])?$arrPosition[0]['effectiveDate']:''?>" data-date-format="yyyy-mm-dd">
                                     </div>
                                 </div>
                                  <div class="col-sm-1 text-left">
@@ -384,8 +382,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmSepDate" value="<?=isset($arrPosition[0]['contractEndDate'])?$arrPosition[0]['contractEndDate']:''?>">
-                                        </select>
+                                       <input class="form-control form-control-inline input-medium date-picker" name="dtmSepDate" id="dtmSepDate" size="16" type="text" value="<?=isset($arrPosition[0]['contractEndDate'])?$arrPosition[0]['contractEndDate']:''?>" data-date-format="yyyy-mm-dd">
                                     </div>
                                 </div>
                                 <div class="col-sm-1 text-left">
@@ -442,7 +439,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateInc" value="<?=isset($arrPosition[0]['dateIncremented'])?$arrPosition[0]['dateIncremented']:''?>">
+                                        <input class="form-control form-control-inline input-medium date-picker" name="dtmDateInc" id="dtmDateInc" size="16" type="text" value="<?=isset($arrPosition[0]['dateIncremented'])?$arrPosition[0]['dateIncremented']:''?>" data-date-format="yyyy-mm-dd">
                                     </div>
                                 </div>
                             </div>
@@ -473,7 +470,7 @@
                                 </div>
                                 <div class="col-sm-2" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmPosDate" value="<?=isset($arrPosition[0]['positionDate'])?$arrPosition[0]['positionDate']:''?>">
+                                        <input class="form-control form-control-inline input-medium date-picker" name="dtmPosDate" id="dtmPosDate" size="16" type="text" value="<?=isset($arrPosition[0]['positionDate'])?$arrPosition[0]['positionDate']:''?>" data-date-format="yyyy-mm-dd">
                                         </select>
                                     </div>
                                 </div>
@@ -618,3 +615,26 @@
                 </div>
         <?=form_close()?>
 </div>
+
+<?=load_plugin('js',array('validation','datepicker'));?>
+<script>
+    $(document).ready(function() 
+    {
+        $('.date-picker').datepicker();
+    });
+ 
+</script>
+
+<?=load_plugin('js',array('timepicker'));?>
+<script>
+    $(document).ready(function() {
+        $('.timepicker').timepicker({
+                timeFormat: 'HH:mm:ss A',
+                disableFocus: true,
+                showInputs: false,
+                showSeconds: true,
+                showMeridian: true,
+                // defaultValue: '12:00:00 a'
+            });
+    });
+</script>
