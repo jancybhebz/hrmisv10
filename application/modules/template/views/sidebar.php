@@ -64,12 +64,24 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <span class="arrow"></span>
                 </a>
             </li>
-            <li class="nav-item  ">
+            <li class="nav-item <?=strtolower($activesub)=='attendance'?'active open':''?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Attendance</span>
-                    <span class="arrow"></span>
+                    <span class="arrow <?=strtolower($activesub)=='attendance'?'open':''?>"></span>
                 </a>
+                <ul class="sub-menu">
+                    <li class="nav-item <?=strtolower($activetab)=='conversion_table'?'active open':''?>">
+                        <a href="<?=base_url('hr/attendance/conversion_table')?>">
+                            <span class="title">Conversion Table</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?=strtolower($activetab)=='summary'?'active open':''?>">
+                        <a href="<?=base_url('hr/attendance/summary')?>">
+                            <span class="title">Attendance Summary</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item  ">
                  <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
