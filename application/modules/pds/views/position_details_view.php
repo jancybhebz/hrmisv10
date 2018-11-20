@@ -106,10 +106,14 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>  <a class="btn green" data-toggle="modal" href="#editPosition_modal"> Edit </a>
+                    <td>  <a class="btn green" data-toggle="modal" href="#editPosition_modal"> Edit </a></td>
                    
                 </tr>
                <?php endforeach; ?>
+            </tr>
+        </table>
+        </form>
+        <?=form_open(base_url('pds/edit_position/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmPosition'))?>
                <div class="modal fade in" id="editPosition_modal" tabindex="-1" role="full" aria-hidden="true">
                     <div class="modal-dialog modal-full">
                         <div class="modal-content">
@@ -603,15 +607,14 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+                            <input type="hidden" name="strEmpNumber" id="strEmpNumber" value="<?=isset($arrPosition['empNumber'])?$arrPosition['empNumber']:''?>">
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save</button>
+                                <button type="submit" class="btn green">Save</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
                     </div>
                     <!-- /.modal-dialog -->
                 </div>
-
-        </table>
-    </form>
+        <?=form_close()?>
 </div>

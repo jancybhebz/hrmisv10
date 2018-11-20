@@ -19,11 +19,13 @@
                         <td><?=$row['vwDateFrom'].'-'.$row['vwDateTo']?></td>
                         <td><?=$row['vwHours']?></td>
                         <td><?=$row['vwPosition']?></td>
-                        <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Edit </a>
+                        <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal" onclick="getWorks(<?=$row['VoluntaryIndex']?>,'<?=$row['vwName']?>','<?=$row['vwAddress']?>','<?=$row['vwPosition']?>')"> Edit </a>
                         <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteVolWork"> Delete </a></td>
                     </tr>
                     <?php endforeach;?>
-
+                </table>
+            </form>
+            <?=form_open(base_url('pds/edit_volWorks/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmVolWorks'))?>
                     <div class="modal fade bs-modal-lg"  id="editVolWorks_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -129,6 +131,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+                            <input type="hidden" name="intVolIndex" id="intVolIndex" value="<?=isset($arrVol['VoluntaryIndex'])?$arrVol['VoluntaryIndex']:''?>">
+                            <input type="hidden" name="strEmpNumber" id="strEmpNumber" value="<?=$this->uri->segment(3)?>">
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn green">Save changes</button>
                             </div>
@@ -137,6 +141,8 @@
                     </div>
                     <!-- /.modal-dialog -->
                 </div>
+            <?=form_close()?>
+
                    <a class="btn green" data-toggle="modal" href="#addVolWorks_modal"> Add </a>
                     <div class="modal fade bs-modal-lg"  id="addVolWorks_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -276,7 +282,8 @@
 </div>
 
 <script>
-
+$(document).ready(function() 
+    {
     $('#btndelete').click(function() {
     $.ajax ({type : 'GET', url: 'voluntary_works_view/delete?tab='+tab+'&code='+code,
         success: function(){
@@ -284,4 +291,13 @@
             $('#delete').modal('hide');
             $('[data-code="' + code + '"]').closest('tr').hide(); }});
     
+       });
+
+    function getWorks(intVolIndex,vwName,vwAddress,vwPosition){
+        $('#intServiceId').val(intServiceId);
+        $('#vwName').val(vwName);
+        $('#vwAddress').val(vwAddress);
+        $('#vwPosition').val(vwPosition);
+     
+    }
 </script>

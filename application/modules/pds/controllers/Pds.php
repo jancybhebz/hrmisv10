@@ -155,7 +155,6 @@ class Pds extends MY_Controller
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strSurname.' Personal',implode(';',$arrData),'');
-					
 					$this->session->set_flashdata('strMsg','Personal information updated successfully.');
 				}
 				redirect('hr/profile/'.$strEmpNumber);
@@ -252,71 +251,36 @@ class Pds extends MY_Controller
 			}
 		}	
 	}
-
-	// public function add_child()
- //    {
- //    	$arrPost = $this->input->post();
-	// 	if(empty($arrPost))
-	// 	{	
-	// 		$this->template->load('template/template_view','pds/family_background_view',$this->arrData);	
-	// 	}
-	// 	else
-	// 	{	
-	// 		$strCNname  =$arrPost['strCNname'];
-	// 		$dtmCBirthdate=$arrPost['dtmCBirthdate'];
-		
-	// 			if(!empty($strCNname))
-	// 			{
-	// 				$arrData = array(
-	// 					'childName'=>$strCNname,
-	// 					'childBirthDate'=>$dtmCBirthdate		
-						
-	// 				);
-	// 				$blnReturn  = $this->pds_model->add_child($arrData);
-	// 				if(count($blnReturn)>0)
-	// 				{	
-	// 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempchild','Added '.$strCNname.'',implode(';',$arrData),'');
-	// 					$this->session->set_flashdata('strMsg','Child Information added successfully.');
-	// 				}
-	// 				redirect('hr/profile');
-	// 			}
-	// 			else
-	// 			{	
-	// 				$this->session->set_flashdata('strErrorMsg','Personal Information already exists.');
-	// 				$this->session->set_flashdata('strCNname',$strCNname);
-	// 					//echo $this->session->flashdata('strErrorMsg');
-	// 				redirect('hr/profile');
-	// 			}
-	// 		}		
- //    }
+	
 
     public function edit_child()
     {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{
-			$strEmpNumber = urldecode($this->uri->segment(4));
-			$this->arrData['arrChild']=$this->pds_model->getData($strEmpNumber);
+			$intChildCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrChild']=$this->pds_model->getData($intChildCode);
 			$this->template->load('template/template_view','pds/family_background_view', $this->arrData);
 		}
 		else
 		{
+			$intChildCode = $arrPost['intChildCode'];
 			$strEmpNumber = $arrPost['strEmpNumber'];
-			$strCNname  =$arrPost['strCNname'];
+			$strCName  =$arrPost['strCName'];
 			$dtmCBirthdate=$arrPost['dtmCBirthdate'];
-		
-			if(!empty($strEmpNumber))
+
+			if(!empty($strCName))
 			{	
 				$arrData = array(
-					'childName'=>$strCNname,
+					'childName'=>$strCName,
 					'childBirthDate'=>$dtmCBirthdate			
 				);
 				// echo '='.$strEmpNumber;
 				//  exit(1);
-				$blnReturn = $this->pds_model->save_child($arrData, $strEmpNumber);
+				$blnReturn = $this->pds_model->save_child($arrData, $intChildCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempchild','Edited '.$strCName.' Personal',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpChild','Edited '.$strCName.' Personal',implode(';',$arrData),'');
 					
 					$this->session->set_flashdata('strMsg','Childs information updated successfully.');
 				}
@@ -325,11 +289,19 @@ class Pds extends MY_Controller
 		}	
 	}
 
-    public function edit_Education()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+	public function edit_educ()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
+			$intSchoolIndex = urldecode($this->uri->segment(4));
+			$this->arrData['arrEduc']=$this->pds_model->getData($intSchoolIndex);
+			$this->template->load('template/template_view','pds/education_view', $this->arrData);
+		}
+		else
+		{
+			$intSchoolIndex = $arrPost['intSchoolIndex'];
+			$strEmpNumber = $arrPost['strEmpNumber'];
 			$strLvlDesc=$arrPost['strLvlDesc'];
 			$strSchoolname=$arrPost['strSchoolname'];
 			$strDegree=$arrPost['strDegree'];
@@ -339,9 +311,9 @@ class Pds extends MY_Controller
 			$strScholarsip=$arrPost['strScholarsip'];
 			$strHonors=$arrPost['strHonors'];
 			$strLicense=$arrPost['strLicense'];
-			$levelCode = $this->uri->segment(4);
-			if(!empty($strLvlDesc) && !empty($strSchoolname) && !empty($strDegree) && !empty($dtmPeriod) && !empty($intUnits))
-			{	
+
+			if(!empty($strLvlDesc))
+			{
 				$arrData = array(
 					'levelCode'=>$strLvlDesc,
 					'schoolName'=>$strSchoolname,
@@ -351,33 +323,41 @@ class Pds extends MY_Controller
 					'yearGraduated'=>$dtmYearGrad,
 					'ScholarshipCode'=>$strScholarsip,
 					'honors'=>$strHonors,
-					'licensed'=>$strLicense
+					'licensed'=>$strLicense	
 				);
-				$blnReturn=$this->Pds_model->save_Educ($arrData, $levelCode);
-				logaction('Updated Educational Information',1);
-				$this->session->set_flashdata('saving_status','Educational Information updated successfully.');
-				redirect('pds/education_view');
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_educ($arrData, $intSchoolIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpSchool','Edited '.$strLvlDesc.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Education information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/education_view', $this->arrTemplateData);
-		}
-    }
+		}		
+	}
 
-    public function edit_Exam()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+	public function edit_exam()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
+			$intExamIndex = urldecode($this->uri->segment(4));
+			$this->arrData['arrExam']=$this->pds_model->getData($intExamIndex);
+			$this->template->load('template/template_view','pds/examination_view', $this->arrData);
+		}
+		else
+		{
+			$intExamIndex = $arrPost['intExamIndex'];
+			$strEmpNumber = $arrPost['strEmpNumber'];
 			$strExamDesc=$arrPost['strExamDesc'];
 			$strRating=$arrPost['strRating'];
 			$strExamPlace=$arrPost['strExamPlace'];
 			$strLicense=$arrPost['strLicense'];
 			$strValidity=$arrPost['strValidity'];
-			$examCode = $this->uri->segment(4);
-			if(!empty($strExamDesc) && !empty($strRating) && !empty($strExamPlace) && !empty($strLicense) && !empty($strValidity))
-			{	
+			if(!empty($strExamDesc))
+			{
 				$arrData = array(
 					'examCode'=>$strExamDesc,
 					'examRating'=>$strRating,
@@ -385,23 +365,125 @@ class Pds extends MY_Controller
 					'licenseNumber'=>$strLicense,
 					'dateRelease'=>$strValidity
 				);
-				$blnReturn=$this->Pds_model->save_Exam($arrData, $examCode);
-				logaction('Updated information',1);
-				$this->session->set_flashdata('saving_status','Information updated successfully.');
-				redirect('pds/examination_view');
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_exam($arrData, $intExamIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpExam','Edited '.$strExamDesc.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/examination_view', $this->arrTemplateData);
-		}	
-    }
+		}		
+	}
 
-    public function edit_Training()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+	public function edit_workExp()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
+			$intServiceId = urldecode($this->uri->segment(4));
+			$this->arrData['arrService']=$this->pds_model->getData($intServiceId);
+			$this->template->load('template/template_view','pds/work_exp_view', $this->arrData);
+		}
+		else
+		{
+			$intServiceId = $arrPost['intServiceId'];
+			$strEmpNumber = $arrPost['strEmpNumber'];
+			$dtmDateFrom=$arrPost['dtmDateFrom'];
+			$dtmDateTo=$arrPost['dtmDateTo'];
+			$strPosTitle=$arrPost['strPosTitle'];
+			$strDept=$arrPost['strDept'];
+			$strSG=$arrPost['strSG'];
+			$strStatus=$arrPost['strStatus'];
+			$strGovernment=$arrPost['strGovernment'];
+			$strBranch=$arrPost['strBranch'];
+			$strMode=$arrPost['strMode'];
+			$strSalary=$arrPost['strSalary'];
+			if(!empty($dtmDateFrom))
+			{
+				$arrData = array(
+					'serviceFromDate'=>$dtmDateFrom,
+					'serviceToDate'=>$dtmDateTo,
+					'positionDesc'=>$strPosTitle,
+					'stationAgency'=>$strDept,
+					'salaryGrade'=>$strSG,
+					'appointmentCode'=>$strStatus,
+					'governService'=>$strGovernment,
+					'branch'=>$strBranch,
+					'separationCause'=>$strMode,
+					'separationDate'=>$strSepDate
+				);
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_workExp($arrData, $intServiceId);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblServiceRecord','Edited '.$dtmDateFrom.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Service information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
+			}
+		}		
+	}
+
+	public function edit_volWorks()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$intVolIndex = urldecode($this->uri->segment(4));
+			$this->arrData['arrVolWork']=$this->pds_model->getData($intVolIndex);
+			$this->template->load('template/template_view','pds/voluntary_works_view', $this->arrData);
+		}
+		else
+		{
+			$intVolIndex=$arrPost['intVolIndex'];
+			$strEmpNumber=$arrPost['strEmpNumber'];
+			$strOrgName=$arrPost['strOrgName'];
+			$strAddress=$arrPost['strAddress'];
+			$dtmDateFrom=$arrPost['dtmDateFrom'];
+			$dtmDateTo=$arrPost['dtmDateTo'];
+			$dtmHours=$arrPost['dtmHours'];
+			$strNature=$arrPost['strNature'];
+			// $XtrainingCode = $this->uri->segment(4);
+			if(!empty($strExamDesc))
+			{
+				$arrData = array(
+					'vwName'=>$strOrgName,
+					'vwAddress'=>$strAddress,
+					'vwDateFrom'=>$dtmDateFrom,
+					'vwDateTo'=>$dtmDateTo,
+					'vwHours'=>$dtmHours,
+					'vwPosition'=>$strNature
+				);
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_volWorks($arrData, $intVolIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpVoluntaryWork','Edited '.$strOrgName.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
+			}
+		}		
+	}
+	
+	public function edit_training()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$intTrainingIndex = urldecode($this->uri->segment(4));
+			$this->arrData['arrTraining']=$this->pds_model->getData($intTrainingIndex);
+			$this->template->load('template/template_view','pds/trainings_view', $this->arrData);
+		}
+		else
+		{
+			$intTrainingIndex=$arrPost['intTrainingIndex'];
+			$strEmpNumber=$arrPost['strEmpNumber'];
 			$strTitle=$arrPost['strTitle'];
 			$strHours=$arrPost['strHours'];
 			$strVenue=$arrPost['strVenue'];
@@ -410,9 +492,9 @@ class Pds extends MY_Controller
 			$strCost=$arrPost['strCost'];
 			$dtmStartDate=$arrPost['dtmStartDate'];
 			$dtmEndDate=$arrPost['dtmEndDate'];
-			$XtrainingCode = $this->uri->segment(4);
-			if(!empty($strTitle) && !empty($strHours) && !empty($strVenue) && !empty($strTypeofLD) && !empty($strConducted))
-			{	
+			// $XtrainingCode = $this->uri->segment(4);
+			if(!empty($strTitle))
+			{
 				$arrData = array(
 					'trainingTitle'=>$strTitle,
 					'trainingHours'=>$strHours,
@@ -423,57 +505,65 @@ class Pds extends MY_Controller
 					'trainingStartDate'=>$dtmStartDate,
 					'trainingEndDate'=>$dtmEndDate
 				);
-				$blnReturn=$this->Pds_model->save_Training($arrData, $XtrainingCode);
-				logaction('Training information',1);
-				$this->session->set_flashdata('saving_status','Training Information updated successfully.');
-				redirect('pds/training_view');
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_training($arrData, $intTrainingIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpTraining','Edited '.$strTitle.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/training_view', $this->arrTemplateData);
-		}	
-    }
+		}		
+	}
 
-    public function edit_VolWorks()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+	public function edit_skill()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
-			$strOrgName=$arrPost['strOrgName'];
-			$strAddress=$arrPost['strAddress'];
-			$dtmDateFrom=$arrPost['dtmDateFrom'];
-			$dtmDateTo=$arrPost['dtmDateTo'];
-			$dtmHours=$arrPost['dtmHours'];
-			$strNature=$arrPost['strNature'];
-			$XtrainingCode = $this->uri->segment(4);
-			if(!empty($strOrgName) && !empty($strAddress) && !empty($dtmDateFrom) && !empty($dtmDateTo) && !empty($strNature))
-			{	
+			$strEmpNumber = urldecode($this->uri->segment(4));
+			$this->arrData['arrSkill']=$this->pds_model->getData($strEmpNumber);
+			$this->template->load('template/template_view','pds/other_info_view', $this->arrData);
+		}
+		else
+		{
+			$strEmpNumber = $arrPost['strEmpNumber'];
+			$strSkill=$arrPost['strSkill'];
+			$strNonAcademic=$arrPost['strNonAcademic'];
+			$strMembership=$arrPost['strMembership'];
+			
+			if(!empty($strSkill))
+			{
 				$arrData = array(
-					'vwName'=>$strOrgName,
-					'vwAddress'=>$strAddress,
-					'vwDateFrom'=>$dtmDateFrom,
-					'vwDateTo'=>$dtmDateTo,
-					'vwHours'=>$dtmHours,
-					'vwPosition'=>$strNature
+					'skills'=>$strSkill,
+					'nadr'=>$strNonAcademic,
+					'miao'=>$strMembership	
 				);
-				$blnReturn=$this->Pds_model->save_VolWorks($arrData, $XtrainingCode);
-				logaction('Voluntary Work information',1);
-				$this->session->set_flashdata('saving_status','Voluntary Work Information updated successfully.');
-				redirect('pds/voluntary_works_view');
+				$blnReturn = $this->pds_model->save_skill($arrData, $strEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strSkill.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Skill information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/voluntary_works_view', $this->arrTemplateData);
 		}	
-    }
+	}
 
-    public function edit_Position()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+	public function edit_position()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
+			$strEmpNumber = urldecode($this->uri->segment(4));
+			$this->arrData['arrPosition']=$this->pds_model->getData($strEmpNumber);
+			$this->template->load('template/template_view','pds/position_details_view', $this->arrData);
+		}
+		else
+		{
+			$strEmpNumber=$arrPost['strEmpNumber'];
 			$strServiceCode  =$arrPost['strServiceCode'];
 			$strPayroll-=$arrPost['strPayroll'];
 			$strItemNum-=$arrPost['strItemNum'];
@@ -505,10 +595,9 @@ class Pds extends MY_Controller
 			$strPersonnel-=$arrPost['strPersonnel'];
 			$strService-=$arrPost['strService'];
 			$strDivision-=$arrPost['strDivision'];
-
-			$empID = $this->uri->segment(4);
-			if(!empty($strServiceCode ) && !empty($strPayroll)  && !empty($strItemNum) && !empty($dtmGovnDay))
-			{	
+			// $XtrainingCode = $this->uri->segment(4);
+			if(!empty($strServiceCode))
+			{
 				$arrData = array(
 					'serviceCode'=>$strServiceCode,
 					'payrollGroupCode'=>$strPayroll,
@@ -543,33 +632,40 @@ class Pds extends MY_Controller
 					'service'=>$strService,
 					'divisionCode'=>$strDivision
 				);
-				$blnReturn=$this->Pds_model->save_Position($arrData, $empID);
-				logaction('Updated Position Information',1);
-				$this->session->set_flashdata('saving_status','Position Information updated successfully.');
-				redirect('pds/family_background_view');
-				
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_position($arrData, $strEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPosition','Edited '.$strServiceCode.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Position information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/family_background_view', $this->arrTemplateData);
-		}   	
-    }
+		}		
+	}
 
-    public function edit_Duties()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
+	public function edit_duties()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
 		{
+			$strEmpNumber = urldecode($this->uri->segment(4));
+			$this->arrData['arrDuties']=$this->pds_model->getData($strEmpNumber);
+			$this->template->load('template/template_view','pds/duties_and_responsibilities_view', $this->arrData);
+		}
+		else
+		{
+			$strEmpNumber=$arrPost['strEmpNumber'];
 			$strPosDuties=$arrPost['strPosDuties'];
 			$intPosPercent=$arrPost['intPosPercent'];
 			$strPlantillaDuties=$arrPost['strPlantillaDuties'];
 			$intPlantillaPercent=$arrPost['intPlantillaPercent'];
 			$strActualDuties=$arrPost['strActualDuties'];
 			$intActualPercent=$arrPost['intActualPercent'];
-			$positionCode = $this->uri->segment(4);
-			if(!empty($strPosDuties) && !empty($intPosPercent) && !empty($strPlantillaDuties) && !empty($intPlantillaPercent) && !empty($strActualDuties) && !empty($intActualPercent))
-			{	
+			// $positionCode = $this->uri->segment(4);
+			if(!empty($strPosDuties))
+			{
 				$arrData = array(
 					'duties'=>$strPosDuties,
 					'percentWork'=>$intPosPercent,
@@ -578,18 +674,53 @@ class Pds extends MY_Controller
 					'duties'=>$strActualDuties,
 					'percentWork'=>$intActualPercent
 				);
-				$blnReturn=$this->Pds_model->save_Duties($arrData, $positionCode);
-				logaction('Duties information',1);
-				$this->session->set_flashdata('saving_status','Duties Information updated successfully.');
-				redirect('pds/voluntary_works_view');
+				 // echo '='.$strEmpNumber;
+				 // exit(1);
+				$blnReturn = $this->pds_model->save_duties($arrData, $strEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPosition','Edited '.$strServiceCode.' Personal',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
+				}
+				redirect('hr/profile/'.$strEmpNumber);
 			}
-		}else {
-			$strid = urldecode($this->uri->segment(4));	
-			$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-			$this->template->load('template/main_layout', 'pds/duties_and_responsibilities_view', $this->arrTemplateData);
-		}	
-    }
+		}		
+	}
 
 
+  //   public function edit_VolWorks()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$strOrgName=$arrPost['strOrgName'];
+		// 	$strAddress=$arrPost['strAddress'];
+		// 	$dtmDateFrom=$arrPost['dtmDateFrom'];
+		// 	$dtmDateTo=$arrPost['dtmDateTo'];
+		// 	$dtmHours=$arrPost['dtmHours'];
+		// 	$strNature=$arrPost['strNature'];
+		// 	$XtrainingCode = $this->uri->segment(4);
+		// 	if(!empty($strOrgName) && !empty($strAddress) && !empty($dtmDateFrom) && !empty($dtmDateTo) && !empty($strNature))
+		// 	{	
+		// 		$arrData = array(
+		// 			'vwName'=>$strOrgName,
+		// 			'vwAddress'=>$strAddress,
+		// 			'vwDateFrom'=>$dtmDateFrom,
+		// 			'vwDateTo'=>$dtmDateTo,
+		// 			'vwHours'=>$dtmHours,
+		// 			'vwPosition'=>$strNature
+		// 		);
+		// 		$blnReturn=$this->Pds_model->save_VolWorks($arrData, $XtrainingCode);
+		// 		logaction('Voluntary Work information',1);
+		// 		$this->session->set_flashdata('saving_status','Voluntary Work Information updated successfully.');
+		// 		redirect('pds/voluntary_works_view');
+		// 	}
+		// }else {
+		// 	$strid = urldecode($this->uri->segment(4));	
+		// 	$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
+		// 	$this->template->load('template/main_layout', 'pds/voluntary_works_view', $this->arrTemplateData);
+		// }	
+  //   }
 
+   
 }

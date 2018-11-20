@@ -69,6 +69,8 @@
                     <td colspan="2"> <a class="btn green" data-toggle="modal" href="#editDuties_position_modal"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteDutiesPosition"> Delete </a></td>
                 </tr>
+             </table>
+        <?=form_open(base_url('pds/edit_duties/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmDuties'))?>
                 <div class="modal fade bs-modal-lg"  id="editDuties_position_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -119,7 +121,8 @@
                 <!-- /.modal-dialog -->
                 </div>
 
-            </table><br><br>
+           <br><br>
+            <?=form_close()?>
             <!-- DELETE -->
             <div class="modal fade bs-modal-lg"  id="deleteDutiesPosition" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">

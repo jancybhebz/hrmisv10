@@ -1,6 +1,7 @@
 
 <div id="tab_personal_info" class="tab-pane active">
-    <form action="" method="post" id="frmPersonal">
+<?=form_open(base_url(''), array('method' => 'post', 'id' => 'frmPersonal'))?>
+    
         <table class="table table-bordered table-striped" class="table-responsive">
             <tr>
                 <td>Date of Birth :</td>
@@ -82,8 +83,9 @@
          <div class="margin-top-10">
             <a class="btn green" data-toggle="modal" href="#editPersonal_modal" > Edit </a>
         </div><br>  
-    </form>                      
-    <form action = "<?=base_url('pds/edit_personal/'.$this->uri->segment(4))?>" method="post" onsubmit="return checkForBlank()" name="employeeform">
+    <?=form_close()?>                     
+    
+    <?=form_open(base_url('pds/edit_personal/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'employeeform' ,'onsubmit' => 'return checkForBlank()'))?>
 
     <div class="modal fade in" id="editPersonal_modal" tabindex="-1" role="full" aria-hidden="true">
         <div class="modal-dialog modal-full">
@@ -605,4 +607,4 @@
         <!-- /.modal-dialog -->
     </div>
 </div>
-</form>
+<?=form_close()?>

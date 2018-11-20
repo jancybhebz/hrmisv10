@@ -2,8 +2,7 @@
 <!-- VIEW -->
 <?=load_plugin('css', array('datepicker','timepicker'))?>
 
- <form action="<?=base_url('pds/edit_spouse/'.$this->uri->segment(4))?>" method="post" id="frmSpouse">
- <b>SPOUSE INFORMATION:</b>
+  <b>SPOUSE INFORMATION:</b>
       <table class="table table-bordered table-striped" id="table-child">
             <tr>
                 <th width="19%">Name of Spouse </th>
@@ -26,6 +25,8 @@
             </tr>
             <?php //endforeach;?>
     </table>
+    
+    <?=form_open(base_url('pds/edit_spouse/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmSpouse'))?>
     <div class="modal fade bs-modal-lg"  id="editSpouse_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -172,7 +173,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-</form>
+<?=form_close()?>
  <b>PARENT'S INFORMATION:</b>
     <table class="table table-bordered table-striped" id="table-child">
             <tr>
@@ -184,7 +185,7 @@
 
             <?php //foreach($arrData as $row):?>
             <tr>
-                <td><?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname']?></td>
+                <td><?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname'] .' '.$arrData['fathernameExtension']?></td>
                 <td><?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></td>
                 <td><?=$arrData['parentAddress']?></td>
                 <td><a class="btn green" data-toggle="modal" href="#editParent_modal"> Edit </a>
@@ -193,8 +194,7 @@
             <?php //endforeach;?>
     </table>
 
-   
- <form action="<?=base_url('pds/edit_parents/'.$this->uri->segment(4))?>" method="post" id="frmParents">
+<?=form_open(base_url('pds/edit_parents/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmParents'))?>
     <div class="modal fade bs-modal-lg"  id="editParent_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -363,7 +363,7 @@
              </div>
          </div>
      </div>
-</form>
+<?=form_close()?>
 
         <b>CHILDREN INFORMATION:</b><br><br>
     <table class="table table-bordered table-striped" id="table-child">
@@ -376,14 +376,14 @@
         <tr>
             <td><?=$row['childName']?></td>
             <td><?=$row['childBirthDate']?></td>
-            <td><a class="btn green" data-toggle="modal" href="#editChildren_modal"> Edit </a>
+            <td>
+            <a class="btn green" data-toggle="modal" href="#editChildren_modal" onclick="getChild(<?=$row['childCode']?>,'<?=$row['childName']?>','<?=$row['childBirthDate']?>')"> Edit </a>
             <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteChild"> Delete </a>
-             
         </tr>
         <?php endforeach;?>
     </table>
 
- <form action="<?=base_url('pds/edit_child/'.$this->uri->segment(4))?>" method="post" id="frmChild">
+<?=form_open(base_url('pds/edit_child/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmChild'))?>
      <div class="modal fade bs-modal-lg"  id="editChildren_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -415,11 +415,10 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCNname" value="<?=isset($arrData['childName'])?$arrData['childName']:''?>">
+                            <input type="text" class="form-control" name="strCName" id="strCName" value="<?=isset($arrChild[0]['childName'])?$arrChild[0]['childName']:''?>">
                         </div>
                     </div>
                 </div>
-               
                  <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
@@ -433,22 +432,25 @@
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
                             <i class="fa"></i>
-                            <input id="strCBirthdate" name="dtmCBirthdate" type="text" class="form-control form-control-inline input-medium date-picker" size="16" value="<?=isset($arrData['childBirthDate'])?$arrData['childBirthDate']:''?>">
+                            <input id="dtmCBirthdate" name="dtmCBirthdate" type="text" class="form-control form-control-inline input-medium date-picker" size="16" value="<?=isset($arrChild[0]['childBirthDate'])?$arrChild[0]['childBirthDate']:''?>">
                         </div>
                     </div>
                 </div><br>
 
                 <div class="modal-footer">
-                    <input type="hidden" name="strEmpNumber" value="<?=isset($arrData['empNumber'])?$arrData['empNumber']:''?>">
+                    <input type="hidden" name="intChildCode" id="intChildCode" value="<?=isset($arrChild['childCode'])?$arrChild['childCode']:''?>">
+                    <input type="hidden" name="strEmpNumber" id="strEmpNumber" value="<?=$this->uri->segment(3)?>">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btnParents" class="btn green">Save</button>
+                    <button type="submit" name="btnChild" class="btn green">Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
-</form>
+<?=form_close()?>
+
+<?=form_open(base_url('pds/add_child/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmChild'))?>
     <div class="margin-top-10">
     <a class="btn green" data-toggle="modal" href="#addChildren_modal"> Add Child</a>
     </div>
@@ -474,7 +476,7 @@
                     </div>
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCFirstname" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
+                            <input type="text" class="form-control" name="strCNname" value="<?=isset($arrData[0]['childName'])?$arrData[0]['childName']:''?>">
                         </div>
                     </div>
                 </div>
@@ -492,7 +494,7 @@
                     <div class="col-sm-5" text-left>
                         <div class="form-group">
                         <i class="fa"></i>
-                            <input id="strCBirthdate" name="strCBirthdate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
+                            <input id="strCBirthdate" name="dtmCBirthdate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
                         </div>
                     </div>
                 </div><br>
@@ -507,8 +509,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    </table>
-</form>
+<?=form_close()?>
 
 
 
@@ -548,6 +549,17 @@
     {
         $('.date-picker').datepicker();
     });
- 
+
+    function getChild(intChildCode,strChildName,dtmCBirthdate){
+        $('#intChildCode').val(intChildCode);
+        $('#strCName').val(strChildName);
+        $('#dtmCBirthdate').val(dtmCBirthdate);
+        // $.ajax ({type : 'GET', url: '<?=base_url("pds/pds/getchild")?>/'+intChildCode,
+        // success: function(val){
+        //     console.log(val);
+            
+        //     }});
+    }
+
 </script>
 

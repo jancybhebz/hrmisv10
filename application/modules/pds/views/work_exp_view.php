@@ -21,10 +21,13 @@
                     <td><?=$row['salaryGrade']?></td>
                     <td><?=$row['appointmentCode']?></td>
                     <td><?=$row['governService']?></td>
-                    <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Edit </a>
+                    <td> <a class="btn green" data-toggle="modal" href="#workExp_modal" onclick="getWork(<?=$row['serviceRecID']?>,'<?=$row['serviceFromDate']?>','<?=$row['serviceToDate']?>','<?=$row['positionDesc']?>')"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteWorkExp"> Delete </a></td>
                 </tr>
                 <?php endforeach;?>
+            </table>
+        </form>
+        <?=form_open(base_url('pds/edit_workExp/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmWorkExp'))?>
                 <div class="modal fade bs-modal-lg"  id="workExp_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -45,7 +48,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrService[0]['serviceFromDate'])?$arrService[0]['serviceFromDate']:''?>">
+                                        <input type="text" class="form-control" name="dtmDateFrom" id="dtmDateFrom"  value="<?=isset($arrService[0]['serviceFromDate'])?$arrService[0]['serviceFromDate']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +64,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="dtmDateTo" value="<?=isset($arrService[0]['serviceToDate'])?$arrService[0]['serviceToDate']:''?>">
+                                        <input type="text" class="form-control" name="dtmDateTo" id="dtmDateTo" value="<?=isset($arrService[0]['serviceToDate'])?$arrService[0]['serviceToDate']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +80,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                         <input type="text" class="form-control" name="dtmDateFrom" value="<?=isset($arrService[0]['positionDesc'])?$arrService[0]['positionDesc']:''?>">
+                                         <input type="text" class="form-control" name="strPosTitle" id="strPosTitle" value="<?=isset($arrService[0]['positionDesc'])?$arrService[0]['positionDesc']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +96,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strDept" value="<?=isset($arrService[0]['stationAgency'])?$arrService[0]['stationAgency']:''?>">
+                                        <input type="text" class="form-control" name="strDept" id="strDept" value="<?=isset($arrService[0]['stationAgency'])?$arrService[0]['stationAgency']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +112,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                       <input type="text" class="form-control" name="strSG" value="<?=isset($arrService[0]['salaryGrade'])?$arrService[0]['salaryGrade']:''?>">
+                                       <input type="text" class="form-control" name="strSG" id="strSG" value="<?=isset($arrService[0]['salaryGrade'])?$arrService[0]['salaryGrade']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +128,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strStatus" value="<?=isset($arrService[0]['appointmentCode'])?$arrService[0]['appointmentCode']:''?>">
+                                        <input type="text" class="form-control" name="strStatus" id="strStatus" value="<?=isset($arrService[0]['appointmentCode'])?$arrService[0]['appointmentCode']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +144,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strGovernment" value="<?=isset($arrService[0]['governService'])?$arrService[0]['governService']:''?>">
+                                        <input type="text" class="form-control" name="strGovernment" id="strGovernment" value="<?=isset($arrService[0]['governService'])?$arrService[0]['governService']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +161,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strBranch" value="<?=isset($arrService[0]['branch'])?$arrService[0]['branch']:''?>">
+                                        <input type="text" class="form-control" name="strBranch" id="strBranch" value="<?=isset($arrService[0]['branch'])?$arrService[0]['branch']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +177,7 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strMode" value="<?=isset($arrService[0]['separationCause'])?$arrService[0]['separationCause']:''?>">
+                                        <input type="text" class="form-control" name="strMode" id="strMode" value="<?=isset($arrService[0]['separationCause'])?$arrService[0]['separationCause']:''?>">
                                     </div>
                                 </div>
                             </div>
@@ -190,12 +193,13 @@
                                 </div>
                                 <div class="col-sm-5" text-left>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="strSalary" value="<?=isset($arrService[0]['separationDate'])?$arrService[0]['separationDate']:''?>">
+                                        <input type="text" class="form-control" name="strSepDate" id="strSepDate" value="<?=isset($arrService[0]['separationDate'])?$arrService[0]['separationDate']:''?>">
                                     </div>
                                 </div>
                             </div>
-                           
                             <div class="modal-footer">
+                            <input type="hidden" name="intServiceId" id="intServiceId" value="<?=isset($arrService['serviceRecID'])?$arrService['serviceRecID']:''?>">
+                            <input type="hidden" name="strEmpNumber" id="strEmpNumber" value="<?=$this->uri->segment(3)?>">
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn green">Save changes</button>
                         </div>
@@ -204,6 +208,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+            <?=form_close()?>
 
             <a class="btn green" data-toggle="modal" href="#addWorkExp_modal"> Add </a>
             <div class="modal fade bs-modal-lg"  id="addWorkExp_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -412,6 +417,8 @@
 </div>
 
 <script>
+$(document).ready(function() 
+    {
 
     $('#btndelete').click(function() {
     $.ajax ({type : 'GET', url: 'work_experience_view/delete?tab='+tab+'&code='+code,
@@ -419,5 +426,12 @@
             toastr.success('Work experience '+code+' successfully deleted.','Success');
             $('#delete').modal('hide');
             $('[data-code="' + code + '"]').closest('tr').hide(); }});
-    
+    });
+    function getWork(intServiceId,dtmDateFrom,dtmDateTo,strPosTitle){
+        $('#intServiceId').val(intServiceId);
+        $('#dtmDateFrom').val(dtmDateFrom);
+        $('#dtmDateTo').val(dtmDateTo);
+        $('#strPosTitle').val(strPosTitle);
+     
+    }
 </script>

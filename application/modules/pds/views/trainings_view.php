@@ -1,5 +1,5 @@
 <div id="tab_training" class="tab-pane">
-    <form action="#">
+    <?=form_open(base_url(''), array('method' => 'post', 'id' => 'frmTrainings'))?>
         <b>TRAININGS :</b><br><br>                        
             <table class="table table-bordered table-striped" class="table-responsive">
                 <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br>
@@ -20,10 +20,14 @@
                     <td><?=$row['trainingTypeofLD']?></td>
                     <td><?=$row['trainingConductedBy']?></td>
                     <td><?=$row['trainingVenue']?></td>
-                    <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal"> Edit </a>
+                    <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal" onclick="getTraining(<?=$row['TrainingIndex']?>,'<?=$row['trainingTitle']?>')"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteTraining"> Delete </a></td>
                 </tr>
                 <?php endforeach;?>
+           </table>
+    <?=form_close()?>   
+
+    <?=form_open(base_url('pds/edit_training/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmExam'))?>
                 <div class="modal fade bs-modal-lg"  id="editTrainings_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -162,14 +166,18 @@
                             </div>
 
                             <div class="modal-footer">
+                             <input type="hidden" name="intTrainingIndex" id="intTrainingIndex" value="<?=isset($arrTraining['TrainingIndex'])?$arrTraining['TrainingIndex']:''?>">
+                            <input type="hidden" name="strEmpNumber" id="strEmpNumber" value="<?=$this->uri->segment(3)?>">
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
+                                <button type="submit" name="btnTraining" class="btn green">Save Changes</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
-            </div><br>
+            </div>
+        <?=form_close()?>
+        <br>
 
             <a class="btn green" data-toggle="modal" href="#addTrainings_modal"> Add </a>
                 <div class="modal fade bs-modal-lg"  id="addTrainings_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -319,7 +327,7 @@
                 <!-- /.modal-dialog -->
             </div><br>
             </table>
-    </form>
+    <?=form_close()?>
 </div>
 
 
@@ -344,6 +352,8 @@
 </div>
 
 <script>
+$(document).ready(function() 
+    {
 
     $('#btndelete').click(function() {
     $.ajax ({type : 'GET', url: 'trainings_view/delete?tab='+tab+'&code='+code,
@@ -351,5 +361,13 @@
             toastr.success('Training details'+code+' successfully deleted.','Success');
             $('#delete').modal('hide');
             $('[data-code="' + code + '"]').closest('tr').hide(); }});
+    });
+
+    function getTraining(intTrainingIndex,strTitle){
+        $('#intTrainingIndex').val(intTrainingIndex);
+        $('#strTitle').val(strTitle);
+     
+    }
     
 </script>
+

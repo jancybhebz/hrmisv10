@@ -34,6 +34,8 @@ class Hr extends MY_Controller {
 	public function profile()
 	{
 		$strEmpNo = $this->uri->segment(3);
+		if ($strEmpNo == '')
+			redirect('pds');
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
