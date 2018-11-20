@@ -188,4 +188,24 @@ class Pds_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	function getDataByField($arrWhere,$appt)
+	{
+		if($appt == 'P'):
+			$compInstance = $this->db->get_where('tblComputationInstance',$arrWhere)->result_array();
+			if(count($compInstance) > 0):
+				$compInstance = $compInstance[0];
+				$compDetails = $this->db->join('tblEmpPersonal', 'tblEmpPersonal.empNumber = tblComputationDetails.empNumber', 'left')
+									->order_by('tblEmpPersonal.surname', 'ASC')
+									->order_by('tblEmpPersonal.firstname', 'ASC')
+									->where('fk_id',$compInstance['id'])
+									->where('(periodmonth='.$compInstance['month'].' AND periodyear='.$compInstance['year'].')')
+									->get('tblComputationDetails')->result_array();
+				return $compDetails;
+			endif;
+		else:
+		endif;
+	}
+
+
 }
