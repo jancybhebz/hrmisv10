@@ -31,9 +31,10 @@
                                     <td></td>
                                     <td></td>
                                     <td align="center">
-                                        <button class="btn btn-sm blue"><i class="fa fa-eye"></i> View</button>
-                                        <button class="btn btn-sm green"><i class="fa fa-edit"></i> Edit</button>
-                                        <button class="btn btn-sm red"><i class="fa fa-trash"></i> Delete</button>
+                                        <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-vl">
+                                            <i class="fa fa-eye"></i> View</button>
+                                        <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-edit-leave-balance" id="btn-vl-update">
+                                            <i class="fa fa-edit"></i> Edit</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -75,9 +76,10 @@
                                     <td></td>
                                     <td></td>
                                     <td align="center">
-                                        <button class="btn btn-sm blue"><i class="fa fa-eye"></i> View</button>
-                                        <button class="btn btn-sm green"><i class="fa fa-edit"></i> Edit</button>
-                                        <button class="btn btn-sm red"><i class="fa fa-trash"></i> Delete</button>
+                                        <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-sl">
+                                            <i class="fa fa-eye"></i> View</button>
+                                        <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-edit-leave-balance" id="btn-sl-update">
+                                            <i class="fa fa-edit"></i> Edit</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -91,6 +93,8 @@
     </div>
 
 </div>
+
+<?php $this->load->view('modals/_leave_balance_modal'); ?>
 
 <?php load_plugin('js',array('datatables'));?>
 <script>
