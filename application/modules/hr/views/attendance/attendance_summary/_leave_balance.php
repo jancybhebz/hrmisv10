@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('profile-2','datatables'))?>
+<?=load_plugin('css', array('profile-2'))?>
 <div class="tab-pane active" id="tab_1_2">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -95,10 +95,3 @@
 </div>
 
 <?php $this->load->view('modals/_leave_balance_modal'); ?>
-
-<?php load_plugin('js',array('datatables'));?>
-<script>
-    $(document).ready(function() {
-        $('#table-vl, #table-sl').dataTable();
-    });
-</script>
