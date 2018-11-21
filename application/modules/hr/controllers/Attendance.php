@@ -30,11 +30,92 @@ class Attendance extends MY_Controller {
 		$this->template->load('template/template_view','attendance/conversion_table/_view', $this->arrData);
 	}
 
-	public function summary()
+	public function view_all()
 	{
-		die('sumarry');
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData('','','all');
+		$this->template->load('template/template_view','attendance/attendance_summary/_viewall',$this->arrData);
+
 	}
 
+	public function attendance_summary()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function leave_balance()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function leave_balance_update()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function leave_monetization()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function filed_request()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function override()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function qr_code()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
 
 
    

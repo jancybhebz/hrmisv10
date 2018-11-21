@@ -64,11 +64,11 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <span class="arrow"></span>
                 </a>
             </li>
-            <li class="nav-item <?=strtolower($activesub)=='attendance'?'active open':''?>">
+            <li class="nav-item <?=strtolower($activesub)=='attendance' || strtolower($activesub)=='attendance_summary'?'active open':''?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Attendance</span>
-                    <span class="arrow <?=strtolower($activesub)=='attendance'?'open':''?>"></span>
+                    <span class="arrow <?=strtolower($activesub)=='attendance' || strtolower($activesub)=='attendance_summary'?'open':''?>"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item <?=strtolower($activetab)=='conversion_table'?'active open':''?>">
@@ -76,8 +76,8 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                             <span class="title">Conversion Table</span>
                         </a>
                     </li>
-                    <li class="nav-item <?=strtolower($activetab)=='summary'?'active open':''?>">
-                        <a href="<?=base_url('hr/attendance/summary')?>">
+                    <li class="nav-item <?=strtolower($activetab)=='view_all' || in_array(strtolower($activetab), array('index', 'leave_balance', 'leave_balance_update', 'leave_monetization', 'filed_request', 'dtr', 'qr_code'))?'active open':''?>">
+                        <a href="<?=base_url('hr/attendance/view_all')?>">
                             <span class="title">Attendance Summary</span>
                         </a>
                     </li>
