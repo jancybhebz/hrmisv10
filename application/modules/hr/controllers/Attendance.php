@@ -200,6 +200,44 @@ class Attendance extends MY_Controller {
 
 	}
 
+	public function dtr_add_leave()
+	{
+		$this->load->model('libraries/Leave_type_model');
+		$empid = $this->uri->segment(5);
+		
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+
+		$this->arrData['arrleaveTypes'] = $this->Leave_type_model->getData();
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_compensatory_leave()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_add_compensatory_leave()
+	{
+		$this->load->model('libraries/Leave_type_model');
+		$empid = $this->uri->segment(5);
+		
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+
+		$this->arrData['arrleaveTypes'] = $this->Leave_type_model->getData();
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
 	public function dtr_time()
 	{
 		$empid = $this->uri->segment(5);
@@ -210,11 +248,35 @@ class Attendance extends MY_Controller {
 
 	}
 
+	public function dtr_add_time()
+	{
+		$empid = $this->uri->segment(5);
+		
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
 	public function dtr_to()
 	{
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_add_to()
+	{
+		$empid = $this->uri->segment(5);
+		
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 

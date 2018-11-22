@@ -2,6 +2,45 @@
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-dark">
+                    <span class="caption-subject bold uppercase"> Daily Time Record</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <a class="btn green btn-lg bold" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
+                            style="font-size: 14px;padding: 5px 11px;"> Actions
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:;"> Edit Mode</a></li>
+                            <li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a></li>
+                            <li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber']?>">Local Holiday</a></li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>">OB</a></li>
+                            <li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>">Leave</a></li>
+                            <li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>">Compensatory Leave</a></li>
+                            <li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a></li>
+                            <li>
+                                <a href="#">Flag Ceremony</a></li>
+                            <li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a></li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="javascript:;">Preview / Print</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                 <center>
                     <a href="#" class="btn blue">Edit Mode</a>
@@ -81,7 +120,7 @@
                 <center>
                     <a href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>" class="btn blue">OB</a>
                     <a href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>" class="btn blue">Leave</a>
-                    <a href="#" class="btn blue">Compensatory Leave</a>
+                    <a href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>" class="btn blue">Compensatory Leave</a>
                     <a href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>" class="btn blue">Time</a>
                     <a href="#" class="btn blue">Flag Ceremony</a>
                     <a href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>" class="btn blue">Travel Order</a>

@@ -4,22 +4,39 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Local Holidays</span>
+                    <span class="caption-subject bold uppercase"> Leave</span>
                 </div>
             </div>
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="well">
+                                    <small>
+                                        <p><b>Certify Leave Credits as of November 2018</b></p>
+                                        <p><b>Vacation Leave Left:</b> 48.906</p>
+                                        <p><b>Sick Leave Left:</b> 78.250</p>
+                                        <p><b>Privilege Leave Left:</b> 0.000</p>
+                                        <p><b>Force Leave Left:</b> 2.000</p>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
                         <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber']?>" class="btn grey-cascade">
                             <i class="icon-calendar"></i> DTR </a>
-                        <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/local_holiday_add/').$arrData['empNumber']?>">
-                            <i class="fa fa-plus"></i> Add Local Holiday</a>
+                        <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/leave_add/').$arrData['empNumber']?>">
+                            <i class="fa fa-plus"></i> Add Leave</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-broken_scheds">
+                        <table class="table table-striped table-bordered table-hover" id="table-ob">
                             <thead>
                                 <th>No</th>
-                                <th>Local Holiday name</th>
-                                <th>Date</th>
+                                <th>Type of Leave</th>
+                                <th>Whole/Half Day</th>
+                                <th>Date From</th>
+                                <th>Date To</th>
+                                <th>Day(s) Applied</th>
+                                <th>Specify Reason</th>
                                 <td></td>
                             </thead>
                             <tbody>
@@ -27,8 +44,12 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
-                                        <button class="btn red btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteHoliday">
+                                        <button class="btn red btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteLeave">
                                             <i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -42,12 +63,12 @@
     </div>
 </div>
 
-<div id="modal-deleteHoliday" class="modal fade" aria-hidden="true">
+<div id="modal-deleteLeave" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete Holiday</h4>
+                <h4 class="modal-title">Delete Leave</h4>
             </div>
             <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
                 <div class="modal-body">
@@ -74,6 +95,6 @@
 
 <script>
     $(document).ready(function() {
-        $('#table-broken_scheds').dataTable();
+        $('#table-ob').dataTable();
     });
 </script>

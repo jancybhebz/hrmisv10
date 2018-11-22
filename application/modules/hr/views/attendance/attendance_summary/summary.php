@@ -72,29 +72,62 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in" id="tab-profile">
                                         <?php
-                                            if($this_page == 'index'): include('_index.php'); endif;
-                                            if($this_page == 'leave_balance'): include('_leave_balance.php'); endif;
-                                            if($this_page == 'leave_balance_update'): include('_leave_balance_update.php'); endif;
-                                            if($this_page == 'leave_monetization'): include('_leave_monetization.php'); endif;
-                                            if($this_page == 'filed_request'): include('_filed_request.php'); endif;
+                                            if($this_page == 'index'): $this->load->view('_index.php'); endif;
+                                            if($this_page == 'leave_balance'): $this->load->view('_leave_balance.php'); endif;
+                                            if($this_page == 'leave_balance_update'): $this->load->view('_leave_balance_update.php'); endif;
+                                            if($this_page == 'leave_monetization'): $this->load->view('_leave_monetization.php'); endif;
+                                            if($this_page == 'filed_request'): $this->load->view('_filed_request.php'); endif;
                                             if($this_page == 'dtr'):
-                                                if($tab == 'broken_sched'):
-                                                    include('_dtr/broken_sched_view.php');
-                                                elseif($tab == 'broken_sched_add'):
-                                                    include('_dtr/broken_sched_form.php');
-                                                elseif($tab == 'local_holiday'):
-                                                    include('_dtr/local_holiday_view.php');
-                                                elseif($tab == 'local_holiday_add'):
-                                                    include('_dtr/local_holiday_form.php');
-                                                elseif($tab == 'certify_offset'):
-                                                    include('_dtr/certify_offset_view.php');
-                                                elseif($tab == 'ob'):
-                                                    include('_dtr/ob_view.php');
-                                                elseif($tab == 'ob_add'):
-                                                    include('_dtr/ob_form.php');
-                                                else:
-                                                    include('_dtr.php');
-                                                endif;
+                                                switch ($tab):
+                                                    case 'broken_sched':
+                                                        $this->load->view('_dtr/broken_sched_view.php');
+                                                        break;
+                                                    case 'broken_sched_add':
+                                                        $this->load->view('_dtr/broken_sched_form.php');
+                                                        break;
+                                                    case 'local_holiday':
+                                                        $this->load->view('_dtr/local_holiday_view.php');
+                                                        break;
+                                                    case 'local_holiday_add':
+                                                        $this->load->view('_dtr/local_holiday_form.php');
+                                                        break;
+                                                    case 'certify_offset':
+                                                        $this->load->view('_dtr/certify_offset_view.php');
+                                                        break;
+                                                    case 'ob':
+                                                        $this->load->view('_dtr/ob_view.php');
+                                                        break;
+                                                    case 'ob_add':
+                                                        $this->load->view('_dtr/ob_form.php');
+                                                        break;
+                                                    case 'leave':
+                                                        $this->load->view('_dtr/leave_view.php');
+                                                        break;
+                                                    case 'leave_add':
+                                                        $this->load->view('_dtr/leave_form.php');
+                                                        break;
+                                                    case 'compensatory_leave':
+                                                        $this->load->view('_dtr/compensatory_leave_view.php');
+                                                        break;
+                                                    case 'compensatory_leave_add':
+                                                        $this->load->view('_dtr/compensatory_leave_form.php');
+                                                        break;
+                                                    case 'time':
+                                                        $this->load->view('_dtr/time_view.php');
+                                                        break;
+                                                    case 'time_add':
+                                                        $this->load->view('_dtr/time_form.php');
+                                                        break;
+                                                    case 'to':
+                                                        $this->load->view('_dtr/to_view.php');
+                                                        break;
+                                                    case 'to_add':
+                                                        $this->load->view('_dtr/to_form.php');
+                                                        break;
+                                                    default:
+                                                        $this->load->view('_dtr.php');
+                                                endswitch;
+
                                             endif;
                                             if($this_page == 'override'): include('_override.php'); endif;
                                             if($this_page == 'qr_code'): include('_qr_code.php'); endif;

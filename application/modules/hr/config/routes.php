@@ -22,8 +22,16 @@ $route['hr/attendance_summary/dtr/(:any)'] = 'hr/attendance/dtr/$1';
 		$route['hr/attendance_summary/dtr/ob_add/(:any)'] = 'hr/attendance/dtr_add_ob/$1';
 
 	$route['hr/attendance_summary/dtr/leave/(:any)'] = 'hr/attendance/dtr_leave/$1';
+		$route['hr/attendance_summary/dtr/leave_add/(:any)'] = 'hr/attendance/dtr_add_leave/$1';
+
+	$route['hr/attendance_summary/dtr/compensatory_leave/(:any)'] = 'hr/attendance/dtr_compensatory_leave/$1';
+		$route['hr/attendance_summary/dtr/compensatory_leave_add/(:any)'] = 'hr/attendance/dtr_add_compensatory_leave/$1';
+		
 	$route['hr/attendance_summary/dtr/time/(:any)'] = 'hr/attendance/dtr_time/$1';
+		$route['hr/attendance_summary/dtr/time_add/(:any)'] = 'hr/attendance/dtr_add_time/$1';
+
 	$route['hr/attendance_summary/dtr/to/(:any)'] = 'hr/attendance/dtr_to/$1';
+		$route['hr/attendance_summary/dtr/to_add/(:any)'] = 'hr/attendance/dtr_add_to/$1';
 	
 
 $route['hr/attendance_summary/override/(:any)'] = 'hr/attendance/override/$1';
