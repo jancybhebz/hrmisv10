@@ -97,6 +97,129 @@ class Attendance extends MY_Controller {
 
 	}
 
+	public function dtr_broken_sched()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_add_broken_sched()
+	{
+		$this->load->model('libraries/Attendance_scheme_model');
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+			
+		$arrtt_schemes = array();
+		$arrAttSchemes = $this->Attendance_scheme_model->getData();
+		foreach($arrAttSchemes as $as):
+			if($as['schemeType'] == 'Sliding'):
+				$varas['code'] = $as['schemeCode'];
+				$varas['label'] = $as['schemeName'].'-'.$as['schemeType'].' ('.substr($as['amTimeinFrom'],0,5).'-'.substr($as['amTimeinTo'],0,5).','.substr($as['pmTimeoutFrom'],0,5).'-'.substr($as['pmTimeoutTo'],0,5).')';
+			else:
+				$varas['code'] = $as['schemeCode'];
+				$varas['label'] = $as['schemeName'].'-'.$as['schemeType'].' ('.substr($as['amTimeinFrom'],0,5)."-".substr($as['pmTimeoutTo'],0,5).')';
+			endif;
+			$arrtt_schemes[] = $varas;
+		endforeach;
+		$this->arrData['arrAttSchemes'] = $arrtt_schemes;
+
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_local_holiday()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_add_local_holiday()
+	{
+		$this->load->model('libraries/Holiday_model');
+		$empid = $this->uri->segment(5);
+
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+		
+		$this->arrData['localHolidays'] = $this->Holiday_model->checkLocExist();
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_certify_offset()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_ob()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_add_ob()
+	{
+		$empid = $this->uri->segment(5);
+		
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+		
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_leave()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_time()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_to()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
 	public function override()
 	{
 		$empid = $this->uri->segment(4);

@@ -137,8 +137,8 @@
                                     <i class="fa fa-warning tooltips i-required"></i>
                                     <select class="form-control form-required" name="txtadjyr" id="txtadjyr" placeholder="">
                                         <option value="null">SELECT YEAR</option>
-                                        <?php foreach (getYear() as $yr): ?>
-                                            <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+                                        <?php foreach(range((date('Y')-3), (date('Y')+3), +1) as $yr): ?>
+                                            <option value="<?=$yr?>">
                                                 <?=$yr?></option>
                                         <?php endforeach; ?>
                                     </select>

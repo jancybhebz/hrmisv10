@@ -43,31 +43,30 @@
                         <div class="row">
                             <div class="tabbable-line tabbable-full-width col-md-12">
                                 <ul class="nav nav-tabs">
-                                    <?php $this_page = $this->uri->segment(3); ?>
-                                    <?php in_array(strtolower($this->uri->segment(2)), array('index', 'leave_balance', 'leave_balance_update', 'leave_monetization', 'filed_request', 'dtr', 'qr_code')); ?>
+                                    <?php $this_page = $this->uri->segment(3); $tab = $this->uri->segment(4); ?>
                                     <li class="<?=$this_page == 'index' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/index/').$this->uri->segment(4)?>"> Attendance Summary </a>
+                                        <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber']?>"> Attendance Summary </a>
                                     </li>
                                     <li class="<?=$this_page == 'leave_balance' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_balance/').$this->uri->segment(4)?>"> Leave Balance </a>
+                                        <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber']?>"> Leave Balance </a>
                                     </li>
                                     <li class="<?=$this_page == 'leave_balance_update' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$this->uri->segment(4)?>"> Update Leave Balance </a>
+                                        <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber']?>"> Update Leave Balance </a>
                                     </li>
                                     <li class="<?=$this_page == 'leave_monetization' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_monetization/').$this->uri->segment(4)?>"> Leave Monetization </a>
+                                        <a href="<?=base_url('hr/attendance_summary/leave_monetization/').$arrData['empNumber']?>"> Leave Monetization </a>
                                     </li>
                                     <li class="<?=$this_page == 'filed_request' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/filed_request/').$this->uri->segment(4)?>"> Filed Request </a>
+                                        <a href="<?=base_url('hr/attendance_summary/filed_request/').$arrData['empNumber']?>"> Filed Request </a>
                                     </li>
-                                    <li class="<?=($this_page == 'dtr' or $this_page == 'edit_tax_details') ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$this->uri->segment(4)?>"> Daily Time Record </a>
+                                    <li class="<?=($this_page == 'dtr') ? 'active' : ''?>">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber']?>"> Daily Time Record </a>
                                     </li>
                                     <li class="<?=$this_page == 'override' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/override/').$this->uri->segment(4)?>"> Override </a>
+                                        <a href="<?=base_url('hr/attendance_summary/override/').$arrData['empNumber']?>"> Override </a>
                                     </li>
                                     <li class="<?=$this_page == 'qr_code' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/qr_code/').$this->uri->segment(4)?>"> QR Code </a>
+                                        <a href="<?=base_url('hr/attendance_summary/qr_code/').$arrData['empNumber']?>"> QR Code </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
@@ -78,7 +77,25 @@
                                             if($this_page == 'leave_balance_update'): include('_leave_balance_update.php'); endif;
                                             if($this_page == 'leave_monetization'): include('_leave_monetization.php'); endif;
                                             if($this_page == 'filed_request'): include('_filed_request.php'); endif;
-                                            if($this_page == 'dtr'): include('_dtr.php'); endif;
+                                            if($this_page == 'dtr'):
+                                                if($tab == 'broken_sched'):
+                                                    include('_dtr/broken_sched_view.php');
+                                                elseif($tab == 'broken_sched_add'):
+                                                    include('_dtr/broken_sched_form.php');
+                                                elseif($tab == 'local_holiday'):
+                                                    include('_dtr/local_holiday_view.php');
+                                                elseif($tab == 'local_holiday_add'):
+                                                    include('_dtr/local_holiday_form.php');
+                                                elseif($tab == 'certify_offset'):
+                                                    include('_dtr/certify_offset_view.php');
+                                                elseif($tab == 'ob'):
+                                                    include('_dtr/ob_view.php');
+                                                elseif($tab == 'ob_add'):
+                                                    include('_dtr/ob_form.php');
+                                                else:
+                                                    include('_dtr.php');
+                                                endif;
+                                            endif;
                                             if($this_page == 'override'): include('_override.php'); endif;
                                             if($this_page == 'qr_code'): include('_qr_code.php'); endif;
                                         ?>
