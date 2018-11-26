@@ -307,10 +307,33 @@ class Attendance extends MY_Controller {
    	{
    		$this->load->helper('download');
    		$empNumber = $this->uri->segment(4);
-   		$data = file_get_contents("./images/qr/".$empNumber.".PNG");
+   		$data = file_get_contents("./uploads/qr/".$empNumber.".PNG");
    		$name = 'HRMISQR'.$empNumber.date('Ymd').'.jpg';
 
    		force_download($name, $data);
    	}
 	
+
+	public function generate_qrcode()
+	{
+		$this->load->library('ciqrcode');
+		$empNumber = $this->uri->segment(4);
+
+		$qr_image=$empNumber.'.png';
+		$strData = 'http://hrmis.dost.gov.ph/scanqr/index.php?empNo='.$empNumber;
+		$params['data'] = $strData;
+		$params['level'] = 'H';
+		$params['size'] = 8;
+		$params['savename'] =FCPATH.STORE_QR.$qr_image;
+		if($this->ciqrcode->generate($params)):
+			$this->session->set_flashdata('strSuccessMsg','QR Code successfully generated.');
+			redirect('hr/attendance_summary/qr_code/'.$empNumber);
+		else:
+			$this->session->set_flashdata('strErrorMsg','Failed to generate QR Code, please try again later or contact Administrator.');
+		endif;
+
+	}
+
+
+
 }

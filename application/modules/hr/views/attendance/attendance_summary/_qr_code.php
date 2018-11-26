@@ -2,12 +2,14 @@
 <div class="tab-pane active" id="tab_1_1">
     <div class="col-md-12">
         <?php 
-            $qrimg = file_exists('images/qr/'.$this->uri->segment(4).'.png');
+            $qrimg = file_exists(STORE_QR.$this->uri->segment(4).'.png');
             if($qrimg!='1'): ?>
-                <p>QR Code not exists <button class="btn btn-sm green">Generate New</button></p> <?php 
+                <form action="<?=base_url('hr/attendance/generate_qrcode/').$this->uri->segment(4)?>">
+                    <p>QR Code not exists <button type="submit" class="btn btn-sm green">Generate New</button></p>
+                </form> <?php 
             else: ?>
                 <form action="<?=base_url('hr/attendance/download_qrcode/').$this->uri->segment(4)?>">
-                    <img src="<?=base_url('images/qr/'.$this->uri->segment(4).'.png')?>" alt="">
+                    <img src="<?=base_url(STORE_QR.$this->uri->segment(4).'.png')?>" alt="">
                     <p style="margin-left: 15px;">
                         <button type="submit" class="btn btn-sm blue">Download</button></p>
                 </form>
