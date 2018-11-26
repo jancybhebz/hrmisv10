@@ -28,3 +28,6 @@ uploads/*
 
 
 uploads/
+
+# images
+images/qr/*.png

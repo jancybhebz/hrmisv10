@@ -303,6 +303,14 @@ class Attendance extends MY_Controller {
 	}
 
 
-   
+   	public function download_qrcode()
+   	{
+   		$this->load->helper('download');
+   		$empNumber = $this->uri->segment(4);
+   		$data = file_get_contents("./images/qr/".$empNumber.".PNG");
+   		$name = 'HRMISQR'.$empNumber.date('Ymd').'.jpg';
+
+   		force_download($name, $data);
+   	}
 	
 }
