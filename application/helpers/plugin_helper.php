@@ -59,7 +59,9 @@ if ( ! function_exists('load_plugin'))
 					case 'attendance-css': 
 						$str.= '<link href="'.base_url('assets/css/attendance-custom.css').'" rel="stylesheet" type="text/css" />';
 						break;
-
+					case 'multi-select': 
+						$str.= '<link href="'.base_url('assets/global/plugins/jquery-multi-select/css/multi-select.css').'" rel="stylesheet" type="text/css" />';
+						break;
 				}
 			endforeach;
 			echo $str;
@@ -133,6 +135,11 @@ if ( ! function_exists('load_plugin'))
                    	    $str.=  '<script src="'.base_url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js').'" type="text/javascript"></script>'.
                    	                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
                    	                    '<script src="'.base_url('assets/pages/scripts/components-bootstrap-select.min.js').'" type="text/javascript"></script>';
+                   	    break;
+                   	case 'multi-select':
+                   	    $str.=  '<script src="'.base_url('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/pages/scripts/components-multi-select.min.js').'" type="text/javascript"></script>';
                    	    break;
 
 				}

@@ -284,11 +284,11 @@ class Attendance extends MY_Controller {
 
 	public function override()
 	{
-		$empid = $this->uri->segment(4);
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
+		// $empid = $this->uri->segment(4);
+		// $res = $this->Hr_model->getData($empid,'','all');
+		// $this->arrData['arrData'] = $res[0];
 
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 
 	}
 
@@ -334,6 +334,46 @@ class Attendance extends MY_Controller {
 
 	}
 
+	public function override_ob()
+	{
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function override_ob_add()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function exclude_dtr()
+	{
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function override_exec_dtr_add()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function generate_dtr()
+	{
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function override_gen_dtr_add()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
 
 
 }
+
+

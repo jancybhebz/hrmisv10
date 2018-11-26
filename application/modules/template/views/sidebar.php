@@ -81,6 +81,11 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                             <span class="title">Attendance Summary</span>
                         </a>
                     </li>
+                    <li class="nav-item <?=strtolower($activetab)=='override'?'active open':''?>">
+                        <a href="<?=base_url('hr/attendance/override/ob')?>">
+                            <span class="title">Override</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item  ">
