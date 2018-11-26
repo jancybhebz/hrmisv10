@@ -24,10 +24,10 @@ composer.lock
 
 # database
 application/config/database.php
-uploads/*
+
+# upload
+
+uploads/qr/*.png
 
 
-uploads/
 
-# images
-images/qr/*.png
