@@ -94,11 +94,12 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">&nbsp;</label>
-                                <button class="btn blue" style="margin-top: 19px !important">Submit</button>
+                                <!-- <button class="btn blue" style="margin-top: 19px !important">Submit</button> -->
                             </div>
                         <?=form_close()?>
-                        <br><br>
-                        <button class="btn blue" data-target="#modal-computeBenefits-Monthly" data-backdrop="static" data-toggle="modal" data-keyboard="false"> Compute Benefits</button>
+                        <br>
+                        <div class="col-md-2"></div>
+                        <button class="btn blue" id="btn-computeBenefit" data-target="#modal-computeBenefits-Monthly" data-backdrop="static" data-toggle="modal" data-keyboard="false"> Compute Benefits</button>
                         <button class="btn green"> Deductions</button>
                         <br><br>
                     </div>
@@ -151,6 +152,6 @@
     </div>
 </div>
 
-<?=load_plugin('js', array('select','datatables','datatables-editable','form_validation'))?>
+<?=load_plugin('js', array('select','datatables','form_validation'))?>
 <?php $this->load->view('_modal'); ?>
 <script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script>

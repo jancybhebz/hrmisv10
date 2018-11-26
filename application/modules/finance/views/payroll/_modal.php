@@ -1,3 +1,7 @@
+<style>
+    th { white-space: nowrap; }
+</style>
+
 <div id="modal-process" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-full">
         <div class="modal-content">
@@ -93,22 +97,29 @@
                         <div class="col-md-12">
                             <!-- BEGIN EXAMPLE TABLE PORTLET-->
                             <div class="portlet light portlet-fit bordered">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="icon-settings font-red"></i>
-                                        <span class="caption-subject font-red sbold uppercase">Editable Table</span>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                            <label class="btn btn-transparent red btn-outline btn-circle btn-sm active">
-                                                <input type="radio" name="options" class="toggle" id="option1">Actions</label>
-                                            <label class="btn btn-transparent red btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle" id="option2">Settings</label>
-                                        </div>
+                                <div class="portlet-title" style="display: grid;">
+                                    <div class="well">
+                                        Use data from Month:&nbsp;
+                                        <select class="bs-select" id="pselmon">
+                                            <?php foreach (range(1, 12) as $m): ?>
+                                                <option value="<?=$m?>" <?=isset($_GET['pmon']) ? $_GET['pmon'] == $m ? 'selected' : '' : date('n') == $m ? 'selected' : ''?>>
+                                                    <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        &nbsp;Year:&nbsp;
+                                        <select class="bs-select" id="pselyr">
+                                            <?php foreach(range((date('Y')-3), (date('Y')+3), +1) as $yr): ?>
+                                                <option value="<?=$yr?>"><?=$yr?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        &nbsp;<button class="btn blue" id="btn-pprocess-compute">Compute</button>
+                                        <p><b>Total Working days :</b></p>
+                                        <p><b>Payroll Date</b>: November 2018 || <b>Total Working days</b>: 19 for Subsistence Allowance and RATA <b>For</b>
+                                            <u> <span id="spnappt"></span> Employees</u></p>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <table class="table table-striped table-hover table-bordered" id="tblProcessBenefit">
+                                    <table class="table table-striped table-hover table-bordered" id="tblPayrollProcess">
                                         <thead>
                                             <tr>
                                                 <th> Employee Name </th>
@@ -133,42 +144,9 @@
                                                 <th> TA % </th>
                                                 <th> TA </th>
                                                 <th> Total </th>
-                                                <th> Edit </th>
-                                                <th> Delete </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td> alex </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td class="center"> power user </td>
-                                                <td>
-                                                    <a class="edit" href="javascript:;"> Edit </a>
-                                                </td>
-                                                <td>
-                                                    <a class="delete" href="javascript:;"> Delete </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>

@@ -106,3 +106,4 @@ define('TABLE_PLANTILLADUTIES','tblPlantillaDuties');
 define('TABLE_REFERENCE','tblEmpReference'); 
 define('TABLE_VOLUNTARY','tblempvoluntarywork'); 
 
+define('STORE_QR','uploads/qr/'); 

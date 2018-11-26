@@ -56,6 +56,9 @@ if ( ! function_exists('load_plugin'))
 					case 'profile-2': 
 						$str.= '<link href="'.base_url('assets/css/profile-2.min.css').'" rel="stylesheet" type="text/css" />';
 						break;
+					case 'attendance-css': 
+						$str.= '<link href="'.base_url('assets/css/attendance-custom.css').'" rel="stylesheet" type="text/css" />';
+						break;
 
 				}
 			endforeach;

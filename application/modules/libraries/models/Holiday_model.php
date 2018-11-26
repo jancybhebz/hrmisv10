@@ -102,12 +102,17 @@ class Holiday_model extends CI_Model {
 
 	function checkLocExist($dtmHolidayDate = '')
 	{		
-		$strSQL = " SELECT * FROM tblLocalHoliday					
+		if($dtmHolidayDate!=''):
+			$strSQL = " SELECT * FROM tblLocalHoliday					
 					WHERE  
 					holidayDate ='$dtmHolidayDate' 
 					-- holidayDate ='$dtmHolidayDate' OR
 									
 					";
+		else:
+			$strSQL = "SELECT * FROM tblLocalHoliday";
+		endif;
+		
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	

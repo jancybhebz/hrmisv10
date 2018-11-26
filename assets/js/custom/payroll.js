@@ -1,3 +1,12 @@
+function numberformat(num) {
+    num = parseFloat(Math.round(num * 100) / 100).toFixed(2);
+    var parts = num.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if(parts.length == 1){
+        parts[1] = "00";
+    }
+    return parts.join(".");
+}
 $(document).ready(function() {
 	$('.loading-image').hide();
 	$('#div-body').show();
@@ -73,6 +82,68 @@ $(document).ready(function() {
     		return false;
     	}
     });
+
+    // button compute benefit
+    $('#btn-computeBenefit').click(function(e) {
+        $('#tblPayrollProcess').DataTable().destroy();
+        $('#tblPayrollProcess >tbody').hide();
+        $('#tblPayrollProcess > tbody').empty();
+        
+        $.ajax ({type : 'GET', url: "Payrollupdate/getListofEmployee",
+                data: {'selemployment': $('#selemployment').val(), 'selmon': $('#selmon').val(), 'selyr': $('#selyr').val()}, dataType: 'json',
+                success: function(res){
+                    $('#spnappt').html(res['appt']);
+                    var data = res['arrEmployees'];
+                    var table = $('#tblPayrollProcess').DataTable({"scrollX": true});
+                    if(data!='') {
+                        $.each(data, function(i, item) {
+                            console.log(item);
+                            mid = item['middleInitial'] != '' && item['middleInitial'] != null ? item['middleInitial'] : '';
+                            mid_ini = mid!='' || mid!=null ? mid.replace('.', '') : item['middlename'][0];
+                            mid_ini = mid_ini!='' ? mid_ini+'.' : '';
+                            fullname = item['surname']+', '+item['firstname']+' '+mid_ini;
+                            table.row.add([ fullname,
+                                            numberformat(item['salary']),
+                                            item['workingDays'],
+                                            item['nodaysPresent'],
+                                            item['nodaysAbsent'],
+                                            item['hazardCode'],
+                                            item['hpFactor'],
+                                            numberformat(item['hazard']),
+                                            item['ctr_8h'],
+                                            item['ctr_6h'],
+                                            item['ctr_5h'],
+                                            item['ctr_4h'],
+                                            numberformat(item['ctr_diem']),
+                                            item['subsisCode'],
+                                            numberformat(item['subsistence']),
+                                            item['laundryCode'],
+                                            item['ctr_laundry'],
+                                            numberformat(item['laundry']),
+                                            numberformat(item['longi']),
+                                            item['taPercent'],
+                                            numberformat(item['ta']),
+                                            numberformat(item['hazard']+item['subsistence']+item['laundry']+item['longi']+item['ra']+item['ta'])]);
+                        });
+                        table.draw();
+                        $('#tblPayrollProcess >tbody').show();
+                    }else{
+                        table.row.add(['No Data Available','','','','','','','','','','','','','','','','','','','','','']);
+                        table.draw();
+                        $('td:eq(0)').attr('colspan', 23).attr('align', 'center');
+                        for (i = 1; i < 23; i++) { $('td:eq('+i+')').hide();}
+                    }
+                }
+            });
+    });
+
+    // button compute
+    $('#btn-pprocess-compute').click(function(e) {
+        e.preventDefault();
+        console.log('yr' + $('#pselmon').val());
+        console.log('month' + $('#pselyr').val());
+    });
+
 
 
 });

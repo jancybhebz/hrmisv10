@@ -20,7 +20,7 @@ class Payrollupdate extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->model('libraries/Appointment_status_model');
+		$this->load->model(array('libraries/Appointment_status_model','pds/Pds_model'));
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
 		
 		$_GET['selemployment'] = isset($_GET['selemployment']) ? $_GET['selemployment'] : 'P';
@@ -35,6 +35,10 @@ class Payrollupdate extends MY_Controller {
 		$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
 		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
 		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
+
+		$arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['mon'], 'year' => $_GET['yr']);
+		$arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
+
 		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
 	}
 
@@ -52,6 +56,17 @@ class Payrollupdate extends MY_Controller {
 		echo json_encode($arrPayrollFields);
 	}
 	
+	public function getListofEmployee()
+	{
+		$this->load->model(array('libraries/Appointment_status_model','pds/Pds_model'));
+		$appt = $this->Appointment_status_model->getData($_GET['selemployment'],$_GET['selmon'],$_GET['selyr']);
+		$arrData['appt'] = $appt[0]['appointmentDesc'];
+		$arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['selmon'], 'year' => $_GET['selyr']);
+		$arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
+
+		echo json_encode($arrData);
+		
+	}
 
 }
 /* End of file Payrollupdate.php
