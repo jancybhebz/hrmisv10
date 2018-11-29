@@ -33,6 +33,14 @@ $route['hr/attendance_summary/dtr/(:any)'] = 'hr/attendance/dtr/$1';
 	$route['hr/attendance_summary/dtr/to/(:any)'] = 'hr/attendance/dtr_to/$1';
 		$route['hr/attendance_summary/dtr/to_add/(:any)'] = 'hr/attendance/dtr_add_to/$1';
 	
-
-$route['hr/attendance_summary/override/(:any)'] = 'hr/attendance/override/$1';
 $route['hr/attendance_summary/qr_code/(:any)'] = 'hr/attendance/qr_code/$1';
+
+$route['hr/attendance/override/override_ob'] = 'hr/attendance/override_ob';
+	$route['hr/attendance/override/ob_add'] = 'hr/attendance/override_ob_add';
+
+$route['hr/attendance/override/exclude_dtr'] = 'hr/attendance/exclude_dtr';
+	$route['hr/attendance/override/exclude_dtr_add'] = 'hr/attendance/override_exec_dtr_add';
+
+$route['hr/attendance/override/generate_dtr'] = 'hr/attendance/generate_dtr';
+	$route['hr/attendance/override/generate_dtr_add'] = 'hr/attendance/override_gen_dtr_add';
+

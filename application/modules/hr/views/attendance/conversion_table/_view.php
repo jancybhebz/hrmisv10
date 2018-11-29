@@ -38,8 +38,8 @@
                 <div class="portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption font-dark">
-                            <i class="icon-settings font-dark"></i>
-                            <span class="caption-subject bold uppercase"> List of Employees</span>
+                            <i class="glyphicon glyphicon-list-alt font-dark"></i>
+                            <span class="caption-subject bold uppercase"> Conversion Table</span>
                         </div>
                     </div>
                     <div class="portlet-body">

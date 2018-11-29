@@ -33,7 +33,7 @@
                 <div class="portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption font-dark">
-                            <i class="icon-settings font-dark"></i>
+                            <i class="icon-users font-dark"></i>
                             <span class="caption-subject bold uppercase"> List of Employees</span>
                         </div>
                     </div>

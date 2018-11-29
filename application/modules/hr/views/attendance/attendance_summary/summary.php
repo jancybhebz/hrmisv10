@@ -62,9 +62,6 @@
                                     <li class="<?=($this_page == 'dtr') ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber']?>"> Daily Time Record </a>
                                     </li>
-                                    <li class="<?=$this_page == 'override' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/override/').$arrData['empNumber']?>"> Override </a>
-                                    </li>
                                     <li class="<?=$this_page == 'qr_code' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/qr_code/').$arrData['empNumber']?>"> QR Code </a>
                                     </li>
@@ -129,7 +126,6 @@
                                                 endswitch;
 
                                             endif;
-                                            if($this_page == 'override'): include('_override.php'); endif;
                                             if($this_page == 'qr_code'): include('_qr_code.php'); endif;
                                         ?>
                                     </div>
