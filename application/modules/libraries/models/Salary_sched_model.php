@@ -66,7 +66,7 @@ class Salary_sched_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function checkExistSalary($strSalarySched = '')
+	function checkExistSalary($strSalarySched = '',$strSG = '',$intStepNum = '',$intActualSalary='')
 	{		
 		
 		$this->db->where('version',$strSalarySched);
@@ -81,7 +81,7 @@ class Salary_sched_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function add_new($arrData)
+	function add_sched($arrData)
 	{
 		$this->db->insert('tblSalarySched', $arrData);
 		return $this->db->insert_id();		

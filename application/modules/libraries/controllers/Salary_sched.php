@@ -89,10 +89,10 @@ class Salary_sched extends MY_Controller {
 			$strSG = $arrPost['strSG'];	
 			$intStepNum = $arrPost['intStepNum'];	
 			$intActualSalary = $arrPost['intActualSalary'];	
-			if(!empty($strSalarySched))
+			if(!empty($strSalarySched) && !empty($strSG) && !empty($intStepNum) && !empty($intActualSalary))
 			{	
 				// check if country name or country code already exist
-				if(count($this->Salary_sched_model->checkExistSalary($strSalarySched))==0)
+				if(count($this->Salary_sched_model->checkExistSalary($strSalarySched = '',$strSG = '',$intStepNum = '',$intActualSalary=''))==0)
 				{
 					$arrData = array(
 						'version'=>$strSalarySched,
@@ -101,7 +101,7 @@ class Salary_sched extends MY_Controller {
 						'actualSalary'=>$intActualSalary,
 						
 					);
-					$blnReturn  = $this->Salary_sched_model->add_new($arrData);
+					$blnReturn  = $this->Salary_sched_model->add_sched($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalarysched','Added '.$strSalarySched.' Salary Schedule',implode(';',$arrData),'');

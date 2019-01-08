@@ -104,7 +104,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmSalarySched');
+            var form2 = $('#frmSalarysched');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -114,11 +114,18 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strScholarship: {
-                        minLength: 1,
+                    strTitle: {
+                        minlength: 1,
                         required: true
                     },
-                   
+                    strDesc: {
+                        minlength: 1,
+                        required: true
+                    },
+                    dtmEffectivity: {
+                        minlength: 1,
+                        required: true
+                    },
                    
                 },
 

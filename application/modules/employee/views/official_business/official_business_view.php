@@ -51,9 +51,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="radio" name="strOBtype"
+                                <input type="radio" name="strOBtype" id="strOBtype"
                                     <?php if (isset($strOBtype) && $strOBtype=="Official") echo "checked";?> value="Official">Official
-                                <input type="radio" name="strOBtype"
+                                <input type="radio" name="strOBtype"  id="strOBtype"
                                     <?php if (isset($strOBtype) && $strOBtype=="Personal") echo "checked";?> value="Personal">Personal
                             </div>
                         </div>
@@ -210,7 +210,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             
                             <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                             <a href="<?=base_url('employee/official_business')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                            <button type="print" class="btn btn-primary">Print/Preview</button>
+                            <button type="button" id="printreport" value="reportOB" class="btn btn-primary">Print/Preview</button>
                       </div>
                     </div>
                 <?=form_close()?>
@@ -249,4 +249,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 // defaultValue: '12:00:00 a'
             });
     });
+    
+    // $('#printreport').click(function(){
+    //     if(request=='reportOB')
+    //         valid=true;
+    //     if(valid)
+    //         window.open("official_business/generate?request="+request,'_blank'); //ok
+    
+    
+    // });
 </script>

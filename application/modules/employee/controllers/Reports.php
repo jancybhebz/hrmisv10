@@ -13,7 +13,8 @@ class Reports extends MY_Controller {
 
 	var $arrData;
 
-	function __construct() {
+	function __construct() 
+	{
         parent::__construct();
         $this->load->model(array('employee/reports_model'));
     }
@@ -24,7 +25,7 @@ class Reports extends MY_Controller {
 		$this->template->load('template/template_view', 'employee/reports/reports_view', $this->arrData);
 	}
 	
-		public function submit()
+	public function submit()
     {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))

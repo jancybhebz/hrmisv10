@@ -37,7 +37,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Salary Schedule Name</span>
+                    <span class="caption-subject bold uppercase"> Salary Schedule from Existing</span>
                 </div>
                 
             </div>
@@ -133,11 +133,22 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strScholarship: {
+                    strTitle: {
                         minLength: 1,
                         required: true
                     },
-                   
+                    strDesc: {
+                        minLength: 1,
+                        required: true
+                    },
+                    dtmEffectivity: {
+                        minLength: 1,
+                        required: true
+                    },
+                    strVersion: {
+                        minLength: 1,
+                        required: true
+                    },
                    
                 },
 
