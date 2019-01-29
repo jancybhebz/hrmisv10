@@ -259,35 +259,35 @@ class Agency_profile extends MY_Controller {
 		redirect('libraries/agency_profile/edit_logo/='.$arrPost['id']);
 	}
 
-	// public function upload()
-	// {
-	// 	$arrPost = $this->input->post();
+	public function upload()
+	{
+		$arrPost = $this->input->post();
 
-	// 	$config['upload_path']          = 'uploads/';
- //        $config['allowed_types']        = 'pdf';
+		$config['upload_path']          = 'uploads/';
+        $config['allowed_types']        = 'pdf';
 		
-	// 	 $this->template->load('template/template_view','libraries/agency_profile/edit_logo_view', $this->arrData);
+	 	 $this->template->load('template/template_view','libraries/agency_profile/edit_logo_view', $this->arrData);
 		
-	// 	if ( ! $this->upload->do_upload('userfile'))
-	// 	{
-	// 		$error = array('error' => $this->upload->display_errors());
-	// 		$this->session->set_flashdata('error','Please try again!');
-	// 	}
-	// 	else
-	// 	{
-	// 		$data = $this->upload->data();
-	// 		//print_r($data);exit;
-	// 			$arrLogo = array(
-	// 				'agencyLogo' => $data['file_name']	
-	// 			);
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+			$this->session->set_flashdata('error','Please try again!');
+		}
+		else
+		{
+			$data = $this->upload->data();
+			//print_r($data);exit;
+				$arrLogo = array(
+					'agencyLogo' => $data['file_name']	
+				);
 
-	// 		$this->agency_profile_model->edit_logo($arrLogo, $arrPost['id']);
-	// 		$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			$this->agency_profile_model->edit_logo($arrLogo, $arrPost['id']);
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			
-	// 	}
-	// 	redirect('libraries/agency_profile/edit_logo/='.$arrPost['id']);
+		}
+		redirect('libraries/agency_profile/edit_logo/='.$arrPost['id']);
 		
-	// }
+	}
 
 	public function delete()
 	{
