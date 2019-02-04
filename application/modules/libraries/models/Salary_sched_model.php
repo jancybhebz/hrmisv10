@@ -21,7 +21,7 @@ class Salary_sched_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 
-	function getData($intVersion = '')
+	function getVersion($intVersion = '')
 	{		
 		if($intVersion != "")
 		{
@@ -32,12 +32,37 @@ class Salary_sched_model extends CI_Model {
 		return $objQuery->result_array();	
 	}	
 
+	function getSG($strSG = '')
+	{		
+		if($strSG != "")
+		{
+			$this->db->where('salaryGradeNumber',$strSG);
+		}
+		$this->db->select('distinct(salaryGradeNumber)')
+				 ->order_by('salaryGradeNumber', 'ASC');
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}	
+
+	function getStepNum($intStepNum = '')
+	{		
+		if($intStepNum != "")
+		{
+			$this->db->where('stepNumber',$intStepNum);
+		}
+		$this->db->select('distinct(stepNumber)')
+				 ->order_by('stepNumber', 'ASC');
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}	
+
+
 	function getSchedHeader($field, $version)
 	{		
 		$this->db->select('distinct('.$field.')')
 		         ->from('tblSalarySched')
-		         ->order_by($field, 'ASC')
-		         ->where('version', $version);
+		         ->order_by($field, 'ASC');
+		         // ->where('version', $version);
 		$objQuery = $this->db->get();
 
 		return $objQuery->result_array();	
@@ -66,10 +91,12 @@ class Salary_sched_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function checkExistSalary($strSalarySched = '',$strSG = '',$intStepNum = '',$intActualSalary='')
+	function checkExistSalary($strSalarySched = '',$strSG = '',$intStepNum = '')
 	{		
 		
 		$this->db->where('version',$strSalarySched);
+		$this->db->where('salaryGradeNumber',$strSG);
+		$this->db->where('stepNumber',$intStepNum);
 		
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	

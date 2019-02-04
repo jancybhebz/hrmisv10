@@ -69,7 +69,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Salary Grade Number<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSG" maxlength="2" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSG'):''?>">
+                                     <select type="text" class="form-control" name="strSG" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSalarySched'):''?>" >
+                                         <option value="">Select</option>
+                                        <?php foreach($arrSG as $sg)
+                                        {
+                                          echo '<option value="'.$sg['salaryGradeNumber'].'">'.$sg['salaryGradeNumber'].'</option>';
+                                        }?>
+                                  </select>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +86,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Step Number<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intStepNum" maxlength="2" value="<?=!empty($this->session->userdata('intStepNum'))?$this->session->userdata('intStepNum'):''?>">
+                                    <select type="text" class="form-control" name="intStepNum" value="<?=!empty($this->session->userdata('intStepNum'))?$this->session->userdata('intStepNum'):''?>" >
+                                         <option value="">Select</option>
+                                        <?php foreach($arrStep as $step)
+                                        {
+                                          echo '<option value="'.$step['stepNumber'].'">'.$step['stepNumber'].'</option>';
+                                        }?>
+                                  </select>
                                 </div>
                             </div>
                         </div>

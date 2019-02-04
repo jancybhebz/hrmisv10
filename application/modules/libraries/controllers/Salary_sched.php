@@ -20,7 +20,7 @@ class Salary_sched extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrSalary'] = $this->Salary_sched_model->getData();
+		$this->arrData['arrSalary'] = $this->Salary_sched_model->getVersion();
 		if(isset($_GET['strversion'])):
 			$version = $_GET['strversion'];
 		else:
@@ -80,7 +80,9 @@ class Salary_sched extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->arrData['arrSalary'] = $this->Salary_sched_model->getData();
+			$this->arrData['arrSalary'] = $this->Salary_sched_model->getVersion();
+			$this->arrData['arrSG'] = $this->Salary_sched_model->getSG();
+			$this->arrData['arrStep'] = $this->Salary_sched_model->getStepNum();
 			$this->template->load('template/template_view','libraries/salary_sched/add_sched_view',$this->arrData);	
 		}
 		else
@@ -92,7 +94,7 @@ class Salary_sched extends MY_Controller {
 			if(!empty($strSalarySched) && !empty($strSG) && !empty($intStepNum) && !empty($intActualSalary))
 			{	
 				// check if country name or country code already exist
-				if(count($this->Salary_sched_model->checkExistSalary($strSalarySched = '',$strSG = '',$intStepNum = '',$intActualSalary=''))==0)
+				if(count($this->Salary_sched_model->checkExistSalary($strSalarySched,$strSG,$intStepNum))==0)
 				{
 					$arrData = array(
 						'version'=>$strSalarySched,
