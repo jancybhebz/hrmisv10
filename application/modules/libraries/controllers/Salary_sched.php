@@ -127,7 +127,7 @@ class Salary_sched extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->arrData['arrSalary'] = $this->Salary_sched_model->getData();
+			$this->arrData['arrSalary'] = $this->Salary_sched_model->getVersion();
 			$this->template->load('template/template_view','libraries/salary_sched/add_existing_view',$this->arrData);	
 		}
 		else

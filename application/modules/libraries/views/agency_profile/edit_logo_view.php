@@ -42,18 +42,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/agency_profile/edit_logo/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
+            <?=form_open(base_url('libraries/agency_profile/upload/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Logo : </label>
-                                <div class="input-icon right">
+                                <label class="control-label">Please select file : </label>
+                                <br>
+                                <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <div class="form-group">
-                                        <label for="uploadimage">Please select File</label>
-                                        <input type="file" id="userfile">               
+                                    <div class="form-group left">
+                                        <input type="file" id="userfile" name="userfile">               
                                     </div>
                                 </div>
                             </div>
