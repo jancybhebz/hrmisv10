@@ -21,14 +21,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
 
             <div class="portlet-body">
-                <form class="form-horizontal" method="get">
+               <?=form_open(base_url('libraries/salary_sched'), array('method' => 'post', 'class' => 'form-horizontal'))?>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Other Version</label>
                         <div class="col-md-6">
                             <select type="text" class="form-control" name="strversion">
                                     <?php foreach($arrSalary as $sched): ?>
                                             <option value="<?=$sched['version']?>" 
-                                                <?=isset($_GET['strversion']) ? $_GET['strversion'] == $sched['version'] ? 'selected' : '' : ''?>>
+                                                <?=isset($intVersion) ? $intVersion == $sched['version'] ? 'selected' : '' : ''?>>
                                                 <?=$sched['title']?></option>
                                     <?php endforeach; ?>
                             </select>
@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                </form>
+                        <?=form_close()?>
                 <br>
 
                 <div class="portlet-title">
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                                 )
                                             );
                                             $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
-                                            echo $actual_salary;
+                                            echo '<a href="'.base_url('libraries/salary_sched/edit/'.$row['salaryGradeNumber'].'/'.$column['stepNumber'].'/'.$actual_salary.'/'.$intVersion).'">'.$actual_salary.'</a>';
                                         ?></td>
                                 <?php endforeach; ?>
                             </tr>

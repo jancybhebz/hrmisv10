@@ -21,14 +21,20 @@ class Salary_sched_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 
-	function getVersion($intVersion = '')
+	function getVersion($intVersion = '',$blnActive='')
 	{		
 		if($intVersion != "")
 		{
 			$this->db->where($this->tableid,$intVersion);
 		}
+		if($blnActive)
+		{
+			$this->db->where('active',1);
+		}
+		
 		//$this->db->join('tblsalarysched','tblsalarysched.version = '.$this->table.'.version','left');
 		$objQuery = $this->db->get($this->table);
+		// echo $this->db->last_query();
 		return $objQuery->result_array();	
 	}	
 
@@ -101,6 +107,19 @@ class Salary_sched_model extends CI_Model {
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
+
+	function getSalarySched($strSG = '',$intStepNum = '',$intSalary = '')
+	{		
+		
+		$this->db->where('salaryGradeNumber',$strSG);
+		$this->db->where('stepNumber',$intStepNum);
+		$this->db->where('actualSalary',$intSalary);
+		
+		$objQuery = $this->db->get($this->table2);
+		//echo $this->db->last_query();
+
+		return $objQuery->result_array();	
+	}
 		
 	function add($arrData)
 	{
@@ -114,17 +133,53 @@ class Salary_sched_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function add_existing($arrData)
+	function add_existing($arrData, $intFromVersion)
 	{
-		$this->db->insert('tblSalarySchedVersion', $arrData);
-		return $this->db->insert_id();		
+		$this->db->insert('tblSalarySchedVersion', $arrData);		
+		$intVersion= $this->db->insert_id();		
+		
+		$this->db->where('version',$intFromVersion);
+		$objQuery=$this->db->get($this->table2);
+		$result= $objQuery->result_array();	
+		
+		foreach ($result as $row)
+			{
+				$arrData = array(
+						'stepNumber'=>$row['stepNumber'],
+						'salaryGradeNumber'=>$row['salaryGradeNumber'],
+						'actualSalary'=>$row['actualSalary'],
+						'version'=>$intVersion			
+					);
+			  	$this->db->insert($this->table2, $arrData);
+			}	
+		
+			
 	}
 	
 	
-	function save($arrData, $intVersion)
+	// function updateSalary($intVersion){
+	// 	$result=mysql_query("SELECT * FROM tblSalarySched WHERE version='$intVersion'");
+	// 	while($row=mysql_fetch_array($result)){
+	// 		 $sn=$row["stepNumber"];
+	// 		 $sg=$row["salaryGradeNumber"];
+	// 		 $as = $row["actualSalary"];
+	// 		 $asy= $row["actualSalary"]*12;
+	// 	 	 mysql_query("UPDATE tblEmpPosition SET actualSalary='$as' WHERE stepNumber='$sn' AND salaryGradeNumber='$sg' AND statusOfAppointment='In-Service'");
+	// 		 if($sn=='1') {
+	// 		 mysql_query("UPDATE tblEmpPosition SET authorizeSalary='$as' WHERE stepNumber='$sn' AND salaryGradeNumber='$sg' AND statusOfAppointment='In-Service'");
+	// 		 mysql_query("UPDATE tblPlantilla SET authorizeSalary='$as',authorizeSalaryYear ='$asy' WHERE  salaryGrade='$sg'");
+	// 		 }
+	// 	}
+	// 	mysql_query("UPDATE tblSalarySchedVersion SET active = '0'");
+	// 	mysql_query("UPDATE tblSalarySchedVersion SET active = '1' WHERE version='$intVersion'");
+	// }
+
+	function save($arrData,$strSG,$intStepNum,$intVersion)
 	{
-		$this->db->where('version', $intVersion);
-		$this->db->update('tblSalarySchedVersion', $arrData);
+		$this->db->where('salaryGradeNumber',$strSG);
+		$this->db->where('stepNumber',$intStepNum);
+		$this->db->where('version',$intVersion);
+		$this->db->update('tblSalarySched', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

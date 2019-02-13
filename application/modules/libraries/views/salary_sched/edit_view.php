@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Scholarship</span>
+            <span>Edit Salary Schedule</span>
         </li>
     </ul>
 </div>
@@ -36,21 +36,75 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Scholarship</span>
+                    <span class="caption-subject bold uppercase"> Edit Salary Schedule</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/scholarship/edit/'.$this->uri->segment(4))?>" method="post" id="frmScholarship">
+            <?=form_open(base_url('libraries/salary_sched/edit'), array('method' => 'post', 'id' => 'frmSalary'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Scholarship<span class="required"> * </span></label>
+                                <label class="control-label">Version<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strScholarship" value="<?=isset($arrScholarship[0]['description'])?$arrScholarship[0]['description']:''?>">
+                                    
+                                     <select type="text" class="form-control" name="intVersion" value="<?=!empty($this->session->userdata('intVersion'))?$this->session->userdata('intVersion'):''?>" disabled>
+                                         <option value="">Select</option>
+
+                                        <?php foreach($arrVersion as $version)
+                                        {
+                                          echo '<option value="'.$version['version'].'" '.($version['version']==$arrSalarySched[0]['version']?'selected':'').'>'.$version['version'].'</option>';
+                                        }?>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Salary Grade Number<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <select type="text" class="form-control" name="strSG" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSG'):''?>" disabled>
+                                         <option value="">Select</option>
+                                         
+                                        <?php foreach($arrSG as $sg)
+                                        {
+                                          echo '<option value="'.$sg['salaryGradeNumber'].'" '.($sg['salaryGradeNumber']==$arrSalarySched[0]['salaryGradeNumber']?'selected':'').'>'.$sg['salaryGradeNumber'].'</option>';
+                                        }?>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Step Number<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <select type="text" class="form-control" name="intStepNum" value="<?=!empty($this->session->userdata('intStepNum'))?$this->session->userdata('intStepNum'):''?>" disabled>
+                                         <option value="">Select</option>
+                                        <?php foreach($arrStep as $step)
+                                        {
+                                          echo '<option value="'.$step['stepNumber'].'" '.($step['stepNumber']==$arrSalarySched[0]['stepNumber']?'selected':'').' >'.$step['stepNumber'].'</option>';
+                                        }?>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Actual Salary<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="intActualSalary"  maxlength="10" value="<?=$arrSalarySched[0]['actualSalary']?>">
                                 </div>
                             </div>
                         </div>
@@ -59,14 +113,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intScholarshipId" value="<?=isset($arrScholarship[0]['id'])?$arrScholarship[0]['id']:''?>">
+                                <input type="hidden" name="stepNum" value="<?=$arrSalarySched[0]['stepNumber']?>">
+                                <input type="hidden" name="SG" value="<?=$arrSalarySched[0]['salaryGradeNumber']?>">
+                                <input type="hidden" name="ver" value="<?=$arrSalarySched[0]['version']?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/scholarship')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                </form>
+                   <?=form_close()?>
             </div>
         </div>
     </div>
@@ -83,7 +139,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmScholarship');
+            var form2 = $('#frmSalary');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -93,7 +149,15 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strScholarship: {
+                    strSG: {
+                        minLength: 1,
+                        required: true
+                    },
+                    intStepNum: {
+                        minLength: 1,
+                        required: true
+                    },
+                    intActualSalary: {
                         minLength: 1,
                         required: true
                     },

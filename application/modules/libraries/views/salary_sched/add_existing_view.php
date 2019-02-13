@@ -84,7 +84,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Copy from :<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strVersion" value="<?=!empty($this->session->userdata('strVersion'))?$this->session->userdata('strVersion'):''?>" >
+                                    <select type="text" class="form-control" name="strVersion" value="<?=!empty($this->session->userdata('strVersion'))?$this->session->userdata('strVersion'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrSalary as $sched)

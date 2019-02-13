@@ -21,13 +21,21 @@ class Salary_sched extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrSalary'] = $this->Salary_sched_model->getVersion();
-		if(isset($_GET['strversion'])):
-			$version = $_GET['strversion'];
+		$arrPost = $this->input->post();
+		//print_r($arrPost);
+		if(isset($arrPost['strversion'])):
+			$version = $arrPost['strversion'];
 		else:
-			$version = 1; #default version
+			#default version
+			$arrVersion= $this->Salary_sched_model->getVersion("",1);
+			if(count($arrVersion)>0)
+			{
+				$version = $arrVersion[0]['version'];
+			}
 		endif;
+		// echo $version;
 		$this->arrData['arrSalarysched'] = $this->Salary_sched_model->getDataSched($version);
-
+		$this->arrData['intVersion'] = $version;
 		$this->arrData['stepNumber'] = $this->Salary_sched_model->getSchedHeader('stepNumber', $version); #column
 		$this->arrData['sggradeNumber'] = $this->Salary_sched_model->getSchedHeader('salaryGradeNumber', $version); #row
 		$this->template->load('template/template_view', 'libraries/salary_sched/list_view', $this->arrData);
@@ -135,7 +143,7 @@ class Salary_sched extends MY_Controller {
 			$strTitle = $arrPost['strTitle'];
 			$strDesc = $arrPost['strDesc'];
 			$dtmEffectivity = $arrPost['dtmEffectivity'];	
-			// $strVersion = $arrPost['strVersion'];	
+			$strVersion = $arrPost['strVersion'];	
 			if(!empty($strTitle))
 			{	
 				// check if country name or country code already exist
@@ -144,15 +152,16 @@ class Salary_sched extends MY_Controller {
 					$arrData = array(
 						'title'=>$strTitle,
 						'description'=>$strDesc,
-						'effectivity'=>$dtmEffectivity,
-						// 'version'=>$strVersion
-						
+						'effectivity'=>$dtmEffectivity						
+												
 					);
-					$blnReturn  = $this->Salary_sched_model->add_existing($arrData);
+					$blnReturn  = $this->Salary_sched_model->add_existing($arrData,$strVersion);
+
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSalarySchedVersion','Added '.$strTitle.' Salary Schedule',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Salary schedule name added successfully.');
+
 					}
 					redirect('libraries/salary_sched/add');
 				}
@@ -161,8 +170,47 @@ class Salary_sched extends MY_Controller {
 					$this->session->set_flashdata('strErrorMsg','Salary schedule name already exists.');
 					$this->session->set_flashdata('strTitle',$strTitle);
 					//echo $this->session->flashdata('strErrorMsg');
-					redirect('libraries/salary_sched/add');
+					redirect('libraries/salary_sched/');
 				}
+			}
+		}
+    }
+
+    public function edit()
+    {
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$strSG=$this->uri->segment(4);
+			$intStepNum=$this->uri->segment(5);
+			$intActualSalary=$this->uri->segment(6);
+			$intVersion=$this->uri->segment(7);
+			$this->arrData['arrSG'] = $this->Salary_sched_model->getSG();
+			$this->arrData['arrStep'] = $this->Salary_sched_model->getStepNum();
+			$this->arrData['arrVersion'] = $this->Salary_sched_model->getVersion();
+			$this->arrData['arrSalarySched'] = $this->Salary_sched_model->getSalarySched($strSG,$intStepNum,$intActualSalary,$intVersion); 
+			$this->template->load('template/template_view','libraries/salary_sched/edit_view', $this->arrData);
+		}
+		else
+		{
+			$strSG = $arrPost['SG'];
+			$intStepNum = $arrPost['stepNum'];
+			$intActualSalary = $arrPost['intActualSalary'];
+			$intVersion =$arrPost['ver'];
+			//print_r($arrPost);exit(1);
+			if(!empty($intActualSalary)) 
+			{
+				$arrData = array(
+					'actualSalary'=>$intActualSalary	
+				);
+				$blnReturn = $this->Salary_sched_model->save($arrData,$strSG,$intStepNum,$intVersion);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalarysched','Edited '.$strSG.' Salary Schedule',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Salary Schedule saved successfully.');
+				}
+				redirect('libraries/salary_sched');
 			}
 		}
     }
