@@ -11,6 +11,7 @@
                     <th>Conducted/Sponsored By</th>
                     <th>Training Venue</th>
                     <th>Action</th>
+                    <th>Attachments</th>
                 </tr>
                 <?php foreach($arrTraining as $row):?>
                 <tr>
@@ -22,6 +23,13 @@
                     <td><?=$row['trainingVenue']?></td>
                     <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal" onclick="getTraining(<?=$row['TrainingIndex']?>,'<?=$row['trainingTitle']?>')"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteTraining"> Delete </a></td>
+                    <td>
+                        <input type="file" name="userfile" id="userfile"> 
+                        <button type="submit" name="uploadTraining" class="btn blue start">
+                              <i class="fa fa-upload"></i>
+                              <span> Start upload </span>
+                        </button>   
+                    </td>
                 </tr>
                 <?php endforeach;?>
            </table>

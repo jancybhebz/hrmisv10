@@ -11,7 +11,8 @@
                     <th width="10%">Scholarship/ Honors Received</th>
                     <th width="10%">Graduate</th>
                     <th width="2%">Licensed</th>
-                    <th width="10%">Action</th>
+                    <th width="15%">Action</th>
+                    <th width="5%">Attachments</th>
                 </tr>
                 <?php foreach($arrEduc as $row):?>
                 <tr>
@@ -27,6 +28,13 @@
                     <td> 
                     <a class="btn green" data-toggle="modal" href="#educ_modal" onclick="getEduc(<?=$row['SchoolIndex']?>,'<?=$row['levelCode']?>','<?=$row['schoolName']?>','<?=$row['course']?>')"> Edit </a>
                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteEduc"> Delete </a>
+                    </td>
+                    <td>
+                        <input type="file" name="userfile" id="userfile"> 
+                        <button type="submit" name="uploadEduc" class="btn blue start">
+                              <i class="fa fa-upload"></i>
+                              <span> Start upload </span>
+                        </button>       
                     </td>
                 </tr>
                 <?php endforeach;?>

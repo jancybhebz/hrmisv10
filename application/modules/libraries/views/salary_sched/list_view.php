@@ -20,6 +20,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
 
+             <div class="portlet-title">
+                    <div class="btn-group">
+                        <a href="<?=base_url('libraries/salary_sched/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Create New Salary Schedule Name
+                        </button></a>
+                        <a href="<?=base_url('libraries/salary_sched/add_existing')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Create New Salary Schedule from Existing
+                        </button></a>
+                        <a href="<?=base_url('libraries/salary_sched/add_sched')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New Salary Schedule
+                        </button></a>
+                    </div>
+                    <br><br>
+                </div>
+
             <div class="portlet-body">
                <?=form_open(base_url('libraries/salary_sched'), array('method' => 'post', 'class' => 'form-horizontal'))?>
                     <div class="form-group">
@@ -38,23 +50,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
                                 <button type="submit" class="btn btn-primary">Search</button>
+                                <button type="button" id="updateSalary" class="btn btn-primary">Activate Salary Schedule</button>
                             </div>
                         </div>
                     </div>
-                        <?=form_close()?>
-                <br>
+                    <br>
+                    
+                <?=form_close()?>
+            <br>
 
-                <div class="portlet-title">
-                    <div class="btn-group">
-                        <a href="<?=base_url('libraries/salary_sched/add')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Create New Salary Schedule Name
-                        </button></a>
-                        <a href="<?=base_url('libraries/salary_sched/add_existing')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Create New Salary Schedule from Existing
-                        </button></a>
-                        <a href="<?=base_url('libraries/salary_sched/add_sched')?>"><button id="sample_editable_1_new" class="btn sbold btn-primary"> <i class="fa fa-plus"></i> Add New Salary Schedule
-                        </button></a>
-                    </div>
-                    <br><br>
-                </div>
+               
                 <div class="portlet-body">
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_salary_sched" style="visibility: hidden;">
@@ -103,6 +108,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 $('.loading-image').hide();
                 $('#libraries_salary_sched').css('visibility', 'visible');
             }} );
-    });
+        $("#updateSalary").click(function(){
+           
+            var x=confirm("Warning: This will update Plantilla library and salaries of employees. Do you want to continue?");
+            if (!x) return;
+            var vid=$("#version").val();
+            $("#updatediv").html("checking <img src='../images/indicator.gif'>  ");
+            $("#updatediv").load("salary_sched.php?strEmpNmbr=<? echo $strEmpNmbr;?>&mode=updatesalary&version="+vid);
+        
+            });
+
+});
+
 </script>
 
