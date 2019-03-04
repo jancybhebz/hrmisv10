@@ -29,15 +29,15 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
+            <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
+            <h1 class="hrmisLogo">HRMIS</h1>
+            <div class="small">Human Resource Management Information System</div>
+            <h3 class="form-title font-green">Sign In</h3>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span> Enter any username and password. </span>
+            </div>
             <?=form_open(base_url('login'), array('method' => 'post'))?>
-                <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
-                <h1 class="hrmisLogo">HRMIS</h1>
-                <div class="small">Human Resource Management Information System</div>
-                <h3 class="form-title font-green">Sign In</h3>
-                <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button>
-                    <span> Enter any username and password. </span>
-                </div>
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
@@ -56,8 +56,7 @@
                 </div> 
             <?=form_close()?>
             <!-- END LOGIN FORM -->
-            
-            
+
         </div>
         <div class="copyright"> 2018 © DOST ITD. </div>
         <!--[if lt IE 9]>
