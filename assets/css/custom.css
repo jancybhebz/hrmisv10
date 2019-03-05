@@ -21,6 +21,7 @@
 }
 span.select2.select2-container.select2-container--bootstrap {
     text-align: left;
+    width: 100% !important;
 }
 img.dost-logo {
     width: 27px;
