@@ -1,6 +1,7 @@
 <?=load_plugin('css', array('profile-2'))?>
 <div class="tab-pane active" id="tab_1_1">
     <div class="row">
+        <div class="col-md-12" style="border-top:1px solid #eef1f5;margin-bottom: 10px;"></div>
         <div class="col-md-2">
             <ul class="list-unstyled profile-nav">
                 <li>
@@ -30,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12 profile-info">
                     <div class="row">

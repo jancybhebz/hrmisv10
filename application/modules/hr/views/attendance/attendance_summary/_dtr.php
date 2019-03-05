@@ -39,16 +39,32 @@
                         </ul>
                     </div>
                 </div>
+                <br><br>
+                <p>
+                    <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                        <a href="#" class="btn blue">Edit Mode</a>&nbsp;
+                        <a class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a>&nbsp;
+                        <a class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber']?>">Local Holiday</a>&nbsp;
+                        <a class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>">OB</a>&nbsp;
+                        <a class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>">Leave</a>&nbsp;
+                        <a  class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>">Compensatory Leave</a>&nbsp;
+                        <a class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a>&nbsp;
+                        <a class="btn blue"
+                            href="#">Flag Ceremony</a>&nbsp;
+                        <a class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a>&nbsp;
+                        <a class="btn blue"
+                            href="#">Preview / Print</a>
+                    <?=form_close()?>
+                </p>
             </div>
 
-            <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
-                <center>
-                    <a href="#" class="btn blue">Edit Mode</a>
-                    <a href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>" class="btn blue">Broken Sched</a>
-                    <a href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber']?>" class="btn blue">Local Holiday</a>
-                </center>
-            <?=form_close()?>
-            
             <table class="table table-striped table-bordered order-column" id="tbldtr">
                 <thead>
                     <tr>
@@ -116,16 +132,6 @@
                     <b>Total Offset (Weekdays):</b> 00:00 <?=str_repeat('&nbsp;', 6)?>
                     <b>Total Offset (Weekends/Holiday):</b> 00:00</p>
                 </div>
-                <hr>
-                <center>
-                    <a href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>" class="btn blue">OB</a>
-                    <a href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>" class="btn blue">Leave</a>
-                    <a href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>" class="btn blue">Compensatory Leave</a>
-                    <a href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>" class="btn blue">Time</a>
-                    <a href="#" class="btn blue">Flag Ceremony</a>
-                    <a href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>" class="btn blue">Travel Order</a>
-                    <a href="#" class="btn blue">Preview / Print</a>
-                </center>
             </div>
         </div>
     </div>

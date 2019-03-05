@@ -67,6 +67,35 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
+                                    <div class="col-md-12" style="margin-bottom: 20px;">
+                                        <center>
+                                            <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                                                <div class="form-group" style="display: inline-flex;">
+                                                    <label style="padding: 6px;">Month</label>
+                                                    <select class="bs-select form-control" name="mon">
+                                                        <?php foreach (range(1, 12) as $m): ?>
+                                                            <option value="<?=$m?>"
+                                                                <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" style="display: inline-flex;margin-left: 10px;">
+                                                    <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : date('Y') == $yr ? 'selected' : '' : ''?>
+                                                    <label style="padding: 6px;">Year</label>
+                                                    <select class="bs-select form-control" name="yr">
+                                                        <?php foreach (getYear() as $yr): ?>
+                                                            <option value="<?=$yr?>"
+                                                                <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : date('Y') == $yr ? 'selected' : '' : ''?>>
+                                                                <?=$yr?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
+                                            <?=form_close()?>
+                                        </center>
+                                    </div>
+
                                     <div class="tab-pane fade active in" id="tab-profile">
                                         <?php
                                             if($this_page == 'index'): $this->load->view('_index.php'); endif;

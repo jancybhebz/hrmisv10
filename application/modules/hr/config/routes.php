@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['404_override'] = '';
 
+## Attendance Summary
 $route['hr/attendance_summary/index/(:any)'] = 'hr/attendance/attendance_summary/$1';
 $route['hr/attendance_summary/leave_balance/(:any)'] = 'hr/attendance/leave_balance/$1';
 $route['hr/attendance_summary/leave_balance_update/(:any)'] = 'hr/attendance/leave_balance_update/$1';
