@@ -28,6 +28,8 @@ application/config/database.php
 # upload
 
 uploads/qr/*.png
+vendor/
+.env
 
 
 

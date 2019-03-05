@@ -27,16 +27,61 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Select Employees <span class="required"> * </span></label>
+                                    <label class="control-label">Select Type <span class="required"> * </span></label>
                                     <select class="bs-select form-control">
-                                        <option>All Employees</option>
+                                        <option value="">&nbsp;</option>
+                                        <option value="All Employees">All Employees</option>
+                                        <?php
+                                            foreach(range(1, 5) as $grpno):
+                                                if($_ENV['Group'.$grpno]!=''):
+                                                    echo '<option value="'.$_ENV['Group'.$grpno].'">Per '.$_ENV['Group'.$grpno].'</option>';
+                                                endif;
+                                            endforeach;
+                                            ?>
+                                            
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 div-group">
+                                <div class="form-group div-<?=$_ENV['Group1']?>" <?=$_ENV['Group1']!=''? '' : 'hidden'?>>
+                                    <label class="control-label">Select <?=ucfirst($_ENV['Group1'])?> <span class="required"> * </span></label>
+                                    <select class="select2 form-control selper" name="selgroup[]">
+                                        <option value="">&nbsp;</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group div-<?=$_ENV['Group2']?>" <?=$_ENV['Group2']!=''? '' : 'hidden'?>>
+                                    <label class="control-label">Select <?=ucfirst($_ENV['Group2'])?> <span class="required"> * </span></label>
+                                    <select class="select2 form-control selper" name="selgroup[]">
+                                        <option value="">&nbsp;</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group div-<?=$_ENV['Group3']?>" <?=$_ENV['Group3']!=''? '' : 'hidden'?>>
+                                    <label class="control-label">Select <?=ucfirst($_ENV['Group3'])?> <span class="required"> * </span></label>
+                                    <select class="select2 form-control selper" name="selgroup[]">
+                                        <option value="">&nbsp;</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group div-<?=$_ENV['Group4']?>" <?=$_ENV['Group4']!=''? '' : 'hidden'?>>
+                                    <label class="control-label">Select <?=ucfirst($_ENV['Group4'])?> <span class="required"> * </span></label>
+                                    <select class="select2 form-control selper" name="selgroup[]">
+                                        <option value="">&nbsp;</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group div-<?=$_ENV['Group5']?>" <?=$_ENV['Group5']!=''? '' : 'hidden'?>>
+                                    <label class="control-label">Select <?=ucfirst($_ENV['Group5'])?> <span class="required"> * </span></label>
+                                    <select class="select2 form-control selper" name="selgroup[]">
+                                        <option value="">&nbsp;</option>
                                         <option></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Appointment Status <span class="required"> * </span></label>
                                     <select class="select2 form-control">
@@ -172,5 +217,9 @@
         });
         $('.date-picker').datepicker();
         $('#selemps').multiSelect({});
+        $('.selper').select2({
+            placeholder: "",
+            allowClear: true
+        });
     });
 </script>
