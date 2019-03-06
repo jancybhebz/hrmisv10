@@ -16,9 +16,9 @@
                             <div class="form-group">
                                 <label class="control-label">Date From <span class="required"> * </span></label>
                                 <div class="input-group input-large date-picker input-daterange" data-date="2003" data-date-format="yyyy-mm-dd" data-date-viewmode="years" id="dateRange">
-                                    <input type="text" class="form-control form-required" name="from">
+                                    <input type="text" class="form-control form-required txtdtpckr" name="from">
                                     <span class="input-group-addon"> to </span>
-                                    <input type="text" class="form-control form-required" name="to">
+                                    <input type="text" class="form-control form-required txtdtpckr" name="to">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,6 +52,7 @@
 </div>
 
 <?php load_plugin('js',array('datatables','datepicker'));?>
+<!-- <script src="<?=base_url('assets/js/js-validation/dtr_validation.js')?>"></script> -->
 
 <script>
     $(document).ready(function() {

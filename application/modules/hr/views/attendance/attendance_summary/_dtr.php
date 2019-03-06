@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <br><br>
-                <p>
-                    <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                <p><center>
+                    <div class="form-inline" style="line-height: 3;">
                         <a href="#" class="btn blue">Edit Mode</a>&nbsp;
                         <a class="btn blue"
                             href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a>&nbsp;
@@ -61,8 +61,8 @@
                             href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a>&nbsp;
                         <a class="btn blue"
                             href="#">Preview / Print</a>
-                    <?=form_close()?>
-                </p>
+                    </div>
+                </p></center>
             </div>
 
             <table class="table table-striped table-bordered order-column" id="tbldtr">
