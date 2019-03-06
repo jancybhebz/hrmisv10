@@ -111,6 +111,9 @@
                                                     case 'broken_sched_add':
                                                         $this->load->view('_dtr/broken_sched_form.php');
                                                         break;
+                                                    case 'broken_sched_edit':
+                                                        $this->load->view('_dtr/broken_sched_form.php');
+                                                        break;
                                                     case 'local_holiday':
                                                         $this->load->view('_dtr/local_holiday_view.php');
                                                         break;

@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model'));
+        $this->load->model(array('Hr_model','AttendanceSummary_model'));
     }
 
     public function conversion_table()
@@ -97,11 +97,13 @@ class Attendance extends MY_Controller {
 
 	}
 
+	// begin broken sched
 	public function dtr_broken_sched()
 	{
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+		$this->arrData['schedules'] = $this->AttendanceSummary_model->getAll($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
@@ -109,6 +111,18 @@ class Attendance extends MY_Controller {
 
 	public function dtr_add_broken_sched()
 	{
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			$arrData=array(
+				'empNumber'	=> $this->uri->segment(5),
+				'schemeCode'=> $arrpost['selscheme'],
+				'dateFrom'	=> $arrpost['from'],
+				'dateTo'	=> $arrpost['to']);
+			$this->AttendanceSummary_model->add_brokensched($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Schedule added successfully.');
+			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
+		endif;
+
 		$this->load->model('libraries/Attendance_scheme_model');
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
@@ -129,10 +143,54 @@ class Attendance extends MY_Controller {
 		endforeach;
 		$this->arrData['arrAttSchemes'] = $arrtt_schemes;
 
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_edit_broken_sched()
+	{
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			$arrData=array(
+				'schemeCode'=> $arrpost['selscheme'],
+				'dateFrom'	=> $arrpost['from'],
+				'dateTo'	=> $arrpost['to']);
+			$this->AttendanceSummary_model->edit_brokensched($arrData, $_GET['id']);
+			$this->session->set_flashdata('strSuccessMsg','Schedule updated successfully.');
+			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
+		endif;
+
+		$this->load->model('libraries/Attendance_scheme_model');
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'edit';
+			
+		$arrtt_schemes = array();
+		$arrAttSchemes = $this->Attendance_scheme_model->getData();
+		foreach($arrAttSchemes as $as):
+			if($as['schemeType'] == 'Sliding'):
+				$varas['code'] = $as['schemeCode'];
+				$varas['label'] = $as['schemeName'].'-'.$as['schemeType'].' ('.substr($as['amTimeinFrom'],0,5).'-'.substr($as['amTimeinTo'],0,5).','.substr($as['pmTimeoutFrom'],0,5).'-'.substr($as['pmTimeoutTo'],0,5).')';
+			else:
+				$varas['code'] = $as['schemeCode'];
+				$varas['label'] = $as['schemeName'].'-'.$as['schemeType'].' ('.substr($as['amTimeinFrom'],0,5)."-".substr($as['pmTimeoutTo'],0,5).')';
+			endif;
+			$arrtt_schemes[] = $varas;
+		endforeach;
+		$this->arrData['arrAttSchemes'] = $arrtt_schemes;
+		$sched = $this->AttendanceSummary_model->getSchedule($_GET['id']);
+		$this->arrData['arrshedule'] = $sched[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
+
+	public function dtr_delete_broken_sched()
+	{
+		$this->AttendanceSummary_model->delete_brokensched($_GET['txtdel_action']);
+		$this->session->set_flashdata('strSuccessMsg','Schedule deleted successfully.');
+		redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(4));
+	}
+	// end broken sched
 
 	public function dtr_local_holiday()
 	{

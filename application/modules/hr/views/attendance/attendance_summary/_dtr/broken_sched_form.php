@@ -11,24 +11,27 @@
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-6">
                         <?php
-                            $form = $action == 'add' ? '' : 'attendance_summary/dtr/broken_sched_edit/'.$this->uri->segment(5);
+                            $form = $action == 'add' ? '' : 'hr/attendance_summary/dtr/broken_sched_edit/'.$this->uri->segment(5).'?id='.$_GET['id'];
                             echo form_open($form, array('method' => 'post', 'id' => 'frmaddsched'))?>
                             <div class="form-group">
                                 <label class="control-label">Date From <span class="required"> * </span></label>
                                 <div class="input-group input-large date-picker input-daterange" data-date="2003" data-date-format="yyyy-mm-dd" data-date-viewmode="years" id="dateRange">
-                                    <input type="text" class="form-control form-required txtdtpckr" name="from">
+                                    <input type="text" class="form-control form-required txtdtpckr" name="from" 
+                                        value="<?=isset($arrshedule) ? $arrshedule['dateFrom'] : ''?>" readonly>
                                     <span class="input-group-addon"> to </span>
-                                    <input type="text" class="form-control form-required txtdtpckr" name="to">
+                                    <input type="text" class="form-control form-required txtdtpckr" name="to" 
+                                        value="<?=isset($arrshedule) ? $arrshedule['dateTo'] : ''?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Attendance Scheme <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="bs-select form-control form-required" name="selAgency" id="selAgency">
+                                    <select class="bs-select form-control form-required" name="selscheme" id="selscheme">
                                         <option value="null">-- SELECT ATTENDANCE SCHEME --</option>
                                         <?php foreach($arrAttSchemes as $scheme): ?>
-                                            <option value="<?=$scheme['code']?>"> <?=$scheme['label']?></option>
+                                            <option value="<?=$scheme['code']?>" <?=isset($arrshedule) ? $scheme['code']==$arrshedule['schemeCode'] ? 'selected' : '' : ''?>>
+                                                <?=$scheme['label']?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

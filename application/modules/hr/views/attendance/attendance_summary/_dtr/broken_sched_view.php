@@ -17,23 +17,26 @@
                         <br><br>
                         <table class="table table-striped table-bordered table-hover" id="table-broken_scheds">
                             <thead>
-                                <th>No</th>
+                                <th width="30px;">No</th>
                                 <th>Date From</th>
                                 <th>Date To</th>
                                 <th>Attendance Scheme</th>
-                                <th></th>
+                                <th width="150px;"></th>
                             </thead>
                             <tbody>
+                                <?php $no=1; foreach($schedules as $sched): ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn red btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteBrokenSched">
+                                    <td align="center"><?=$no++?></td>
+                                    <td><?=$sched['dateFrom']?></td>
+                                    <td><?=$sched['dateTo']?></td>
+                                    <td><?=$sched['schemeName']?></td>
+                                    <td align="center">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/broken_sched_edit/'.$this->uri->segment(5).'?id='.$sched['rec_ID'])?>" class="btn green btn-sm"> <i class="fa fa-pencil"></i> Edit</a>
+                                        <button class="btn red btn-sm btn-delete" data-id="<?=$sched['rec_ID']?>">
                                             <i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -51,7 +54,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete Broken Schedule</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
+            <?=form_open('hr/attendance/dtr_delete_broken_sched/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
@@ -77,5 +80,9 @@
 <script>
     $(document).ready(function() {
         $('#table-broken_scheds').dataTable();
+        $('#table-broken_scheds').on('click', 'button.btn-delete', function() {
+            $('#txtdel_action').val($(this).data('id'));
+            $('#modal-deleteBrokenSched').modal('show');
+        });
     });
 </script>
