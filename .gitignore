@@ -28,7 +28,7 @@ composer.lock
 # upload
 
 uploads/qr/*.png
-vendor/
+vendor/*
 
 .env
 
