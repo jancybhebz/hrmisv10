@@ -10,7 +10,9 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-6">
-                        <?=form_open('finance/libraries/deductions/edit/'.$this->uri->segment(4), array('method' => 'post', 'id' => 'frmaddsched'))?>
+                        <?php
+                            $form = $action == 'add' ? '' : 'attendance_summary/dtr/broken_sched_edit/'.$this->uri->segment(5);
+                            echo form_open($form, array('method' => 'post', 'id' => 'frmaddsched'))?>
                             <div class="form-group">
                                 <label class="control-label">Date From <span class="required"> * </span></label>
                                 <div class="input-group input-large date-picker input-daterange" data-date="2003" data-date-format="yyyy-mm-dd" data-date-viewmode="years" id="dateRange">
@@ -50,7 +52,6 @@
 </div>
 
 <?php load_plugin('js',array('datatables','datepicker'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
 
 <script>
     $(document).ready(function() {
