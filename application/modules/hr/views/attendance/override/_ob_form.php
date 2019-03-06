@@ -193,7 +193,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <?=form_close()?>
                     </div>
                 </div>
@@ -248,7 +247,7 @@
                 // end checking group
             }
             // end if select type is not empty
-            
         });
+        
     });
 </script>
