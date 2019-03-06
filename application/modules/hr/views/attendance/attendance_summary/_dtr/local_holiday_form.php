@@ -10,15 +10,18 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-6">
-                        <?=form_open('finance/libraries/deductions/edit/'.$this->uri->segment(4), array('method' => 'post', 'id' => 'frmaddsched'))?>
+                        <?php 
+                        $form = $action == 'add' ? '' : 'hr/attendance_summary/dtr/local_holiday_edit/'.$this->uri->segment(5).'?id='.$_GET['id'];
+                        echo form_open($form, array('method' => 'post', 'id' => 'frmlocalholiday'))?>
                             <div class="form-group">
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="select2 form-control form-required" name="selAgency" id="selAgency">
+                                    <select class="select2 form-control form-required" name="selholiday" id="selholiday">
                                         <option value="null">-- SELECT HOLIDAY --</option>
                                         <?php foreach($localHolidays as $holi): ?>
-                                            <option value="<?=$holi['holidayCode']?>"> <?=$holi['holidayName']?> - <?=date("F", mktime(0, 0, 0, $holi['holidayMonth'], 10))?> <?=$holi['holidayDay']?></option>
+                                            <option value="<?=$holi['holidayCode']?>" <?=isset($arrempholiday) ? $holi['holidayCode'] == $arrempholiday['holidayCode'] ? 'selected' : '' : ''?>>
+                                                <?=$holi['holidayName']?> - <?=date("F", mktime(0, 0, 0, $holi['holidayMonth'], 10))?> <?=$holi['holidayDay']?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

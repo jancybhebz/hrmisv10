@@ -120,6 +120,9 @@
                                                     case 'local_holiday_add':
                                                         $this->load->view('_dtr/local_holiday_form.php');
                                                         break;
+                                                    case 'local_holiday_edit':
+                                                        $this->load->view('_dtr/local_holiday_form.php');
+                                                        break;
                                                     case 'certify_offset':
                                                         $this->load->view('_dtr/certify_offset_view.php');
                                                         break;

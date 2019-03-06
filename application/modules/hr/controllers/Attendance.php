@@ -97,13 +97,13 @@ class Attendance extends MY_Controller {
 
 	}
 
-	// begin broken sched
+	# Begin Broken Schedule
 	public function dtr_broken_sched()
 	{
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		$this->arrData['schedules'] = $this->AttendanceSummary_model->getAll($empid);
+		$this->arrData['schedules'] = $this->AttendanceSummary_model->getBrokenschedules($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
@@ -186,24 +186,35 @@ class Attendance extends MY_Controller {
 
 	public function dtr_delete_broken_sched()
 	{
-		$this->AttendanceSummary_model->delete_brokensched($_GET['txtdel_action']);
+		$this->AttendanceSummary_model->delete_brokensched($_POST['txtdel_action']);
 		$this->session->set_flashdata('strSuccessMsg','Schedule deleted successfully.');
 		redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(4));
 	}
-	// end broken sched
+	# End Broken Schedule
 
+	# Begin Local Holiday
 	public function dtr_local_holiday()
 	{
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+		$this->arrData['arrHolidays'] = $this->AttendanceSummary_model->getLocalHolidays($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
 
 	public function dtr_add_local_holiday()
 	{
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			$arrData=array(
+				'empNumber'	  => $this->uri->segment(5),
+				'holidayCode' => $arrpost['selholiday']);
+			$this->AttendanceSummary_model->add_localholiday($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Local holiday added successfully.');
+			redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
+		endif;
+
 		$this->load->model('libraries/Holiday_model');
 		$empid = $this->uri->segment(5);
 
@@ -213,8 +224,41 @@ class Attendance extends MY_Controller {
 		
 		$this->arrData['localHolidays'] = $this->Holiday_model->checkLocExist();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
+
+	public function dtr_edit_local_holiday()
+	{
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			$arrData=array(
+				'holidayCode' => $arrpost['selholiday']);
+			$this->AttendanceSummary_model->edit_localholiday($arrData,$_GET['id']);
+			$this->session->set_flashdata('strSuccessMsg','Local holiday updated successfully.');
+			redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
+		endif;
+
+		$this->load->model('libraries/Holiday_model');
+		$empid = $this->uri->segment(5);
+
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'edit';
+
+		$empholiday = $this->AttendanceSummary_model->getHoliday($_GET['id']);
+		$this->arrData['arrempholiday'] = $empholiday[0];
+		
+		$this->arrData['localHolidays'] = $this->Holiday_model->checkLocExist();
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_delete_local_holiday()
+	{
+		$this->AttendanceSummary_model->delete_localholiday($_POST['txtdel_action']);
+		$this->session->set_flashdata('strSuccessMsg','Local holiday deleted successfully.');
+		redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
+	}
+	# End Local Holiday
+
 
 	public function dtr_certify_offset()
 	{
@@ -223,7 +267,6 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrData'] = $res[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
 
 	public function dtr_ob()
@@ -233,7 +276,6 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrData'] = $res[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
 
 	public function dtr_add_ob()

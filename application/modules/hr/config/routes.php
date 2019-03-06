@@ -18,6 +18,8 @@ $route['hr/attendance_summary/dtr/(:any)'] = 'hr/attendance/dtr/$1';
 
 	$route['hr/attendance_summary/dtr/local_holiday/(:any)'] = 'hr/attendance/dtr_local_holiday/$1';
 		$route['hr/attendance_summary/dtr/local_holiday_add/(:any)'] = 'hr/attendance/dtr_add_local_holiday/$1';
+		$route['hr/attendance_summary/dtr/local_holiday_edit/(:any)'] = 'hr/attendance/dtr_edit_local_holiday/$1';
+		$route['hr/attendance_summary/dtr/local_holiday_delete/(:any)'] = 'hr/attendance/dtr_delete_local_holiday/$1';
 
 	$route['hr/attendance_summary/dtr/certify_offset/(:any)'] = 'hr/attendance/dtr_certify_offset/$1';
 

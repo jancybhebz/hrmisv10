@@ -7,6 +7,7 @@
                     <span class="caption-subject bold uppercase"> Local Holidays</span>
                 </div>
             </div>
+            
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
@@ -15,23 +16,26 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/local_holiday_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add Local Holiday</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-broken_scheds">
+                        <table class="table table-striped table-bordered table-hover" id="table-local-holiday">
                             <thead>
-                                <th>No</th>
+                                <th width="30px;">No</th>
                                 <th>Local Holiday name</th>
                                 <th>Date</th>
-                                <td></td>
+                                <th width="150px;"></th>
                             </thead>
                             <tbody>
+                                <?php $no=1; foreach($arrHolidays as $holi): ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn red btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteHoliday">
+                                    <td align="center"><?=$no++?></td>
+                                    <td><?=$holi['holidayName']?></td>
+                                    <td><?=$holi['holidayMonth']?>-<?=$holi['holidayDay']?>-<?=$holi['holidayYear']?></td>
+                                    <td align="center">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/local_holiday_edit/'.$this->uri->segment(5).'?id='.$holi['id'])?>" class="btn green btn-sm"> <i class="fa fa-pencil"></i> Edit</a>
+                                        <button class="btn red btn-sm btn-delete" data-id="<?=$holi['id']?>">
                                             <i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -49,7 +53,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete Holiday</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
+            <?=form_open('hr/attendance_summary/dtr/local_holiday_delete/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
@@ -74,6 +78,10 @@
 
 <script>
     $(document).ready(function() {
-        $('#table-broken_scheds').dataTable();
+        $('#table-local-holiday').dataTable();
+        $('#table-local-holiday').on('click', 'button.btn-delete', function() {
+            $('#txtdel_action').val($(this).data('id'));
+            $('#modal-deleteHoliday').modal('show');
+        });
     });
 </script>
