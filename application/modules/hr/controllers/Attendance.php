@@ -259,6 +259,84 @@ class Attendance extends MY_Controller {
 	}
 	# End Local Holiday
 
+	# begin ob
+	public function dtr_ob()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['arrObs'] = $this->AttendanceSummary_model->getobs($empid);
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_add_ob()
+	{
+		$empid = $this->uri->segment(5);
+
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrData=array(
+				'dateFiled' 	 => date('Y-m-d'),
+				'empNumber'	  	 => $this->uri->segment(5),
+				'requestID' 	 => '',
+				'obDateFrom' 	 => $arrpost['txtob_dtfrom'],
+				'obDateTo' 		 => $arrpost['txtob_dtto'],
+				'obTimeFrom' 	 => $arrpost['txtob_tmin'],
+				'obTimeTo' 		 => $arrpost['txtob_tmout'],
+				'obPlace' 		 => $arrpost['txtob_place'],
+				'obMeal' 		 => $arrpost['radob_wmeal'] ? 'Y' : 'N',
+				'purpose' 		 => $arrpost['txtob_purpose'],
+				'official' 		 => $arrpost['radob'] ? 'Y' : 'N',
+				'approveRequest' => 'Y',
+				'approveChief' 	 => 'Y',
+				'approveHR' 	 => 'Y');
+			$this->AttendanceSummary_model->add_ob($arrData);
+			$this->session->set_flashdata('strSuccessMsg','OB added successfully.');
+			redirect('hr/attendance_summary/dtr/ob/'.$this->uri->segment(5));
+		endif;
+
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+		
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
+	public function dtr_edit_ob()
+	{
+		$empid = $this->uri->segment(5);
+
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrData=array(
+				'obDateFrom' 	 => $arrpost['txtob_dtfrom'],
+				'obDateTo' 		 => $arrpost['txtob_dtto'],
+				'obTimeFrom' 	 => $arrpost['txtob_tmin'],
+				'obTimeTo' 		 => $arrpost['txtob_tmout'],
+				'obPlace' 		 => $arrpost['txtob_place'],
+				'obMeal' 		 => $arrpost['radob_wmeal'] ? 'Y' : 'N',
+				'purpose' 		 => $arrpost['txtob_purpose'],
+				'official' 		 => $arrpost['radob'] ? 'Y' : 'N');
+			$this->AttendanceSummary_model->edit_ob($arrData,$_GET['id']);
+			$this->session->set_flashdata('strSuccessMsg','OB updated successfully.');
+			redirect('hr/attendance_summary/dtr/ob/'.$this->uri->segment(5));
+		endif;
+
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'edit';
+
+		$emp_ob = $this->AttendanceSummary_model->getOb($_GET['id']);
+		$this->arrData['arrem_ob'] = $emp_ob[0];
+		
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+	# end ob
 
 	public function dtr_certify_offset()
 	{
@@ -269,26 +347,6 @@ class Attendance extends MY_Controller {
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
-	public function dtr_ob()
-	{
-		$empid = $this->uri->segment(5);
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-	}
-
-	public function dtr_add_ob()
-	{
-		$empid = $this->uri->segment(5);
-		
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-		$this->arrData['action'] = 'add';
-		
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
-	}
 
 	public function dtr_leave()
 	{

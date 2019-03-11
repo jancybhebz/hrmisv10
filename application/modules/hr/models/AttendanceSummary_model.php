@@ -72,6 +72,38 @@ class AttendanceSummary_model extends CI_Model {
 	}
 	# End Broken Sched
 
+	# Begin OB
+	public function add_ob($arrData)
+	{
+		$this->db->insert('tblEmpOB', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function edit_ob($arrData, $id)
+	{
+		$this->db->where('obID', $id);
+		$this->db->update('tblEmpOB', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_ob($id)
+	{
+		$this->db->where('obID', $id);
+		$this->db->delete('tblEmpOB');
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function getobs($empid)
+	{
+		return $this->db->get_where('tblEmpOB', array('empNumber' => $empid))->result_array();
+	}
+
+	public function getOb($id)
+	{
+		return $this->db->get_where('tblEmpOB', array('obID' => $id))->result_array();
+	}
+	# End OB
+
 	
 
 }

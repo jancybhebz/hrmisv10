@@ -26,18 +26,21 @@
                                 <td></td>
                             </thead>
                             <tbody>
+                                <?php $no=1; foreach($arrObs as $ob): ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn red btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteOB">
+                                    <td align="center"><?=$no++?></td>
+                                    <td><?=$ob['dateFiled']?></td>
+                                    <td><?=$ob['obPlace']?></td>
+                                    <td><?=$ob['purpose']?></td>
+                                    <td><?=$ob['obDateFrom']?> <?=$ob['obTimeFrom']?></td>
+                                    <td><?=$ob['obDateTo']?> <?=$ob['obTimeTo']?></td>
+                                    <td align="center" nowrap>
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/ob_edit/'.$this->uri->segment(5).'?id='.$ob['obID'])?>" class="btn green btn-sm"> <i class="fa fa-pencil"></i> Edit</a>
+                                        <button class="btn red btn-sm btn-delete" data-id="<?=$ob['obID']?>">
                                             <i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

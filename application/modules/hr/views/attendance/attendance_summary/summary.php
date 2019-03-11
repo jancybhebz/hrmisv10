@@ -132,6 +132,9 @@
                                                     case 'ob_add':
                                                         $this->load->view('_dtr/ob_form.php');
                                                         break;
+                                                    case 'ob_edit':
+                                                        $this->load->view('_dtr/ob_form.php');
+                                                        break;
                                                     case 'leave':
                                                         $this->load->view('_dtr/leave_view.php');
                                                         break;
