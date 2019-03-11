@@ -104,7 +104,57 @@ class AttendanceSummary_model extends CI_Model {
 	}
 	# End OB
 
-	
+	# Begin Leave
+	public function add_leave($arrData)
+	{
+		$this->db->insert('tblEmpLeave', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function edit_leave($arrData, $id)
+	{
+		$this->db->where('leaveID', $id);
+		$this->db->update('tblEmpLeave', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_leave($id)
+	{
+		$this->db->where('leaveID', $id);
+		$this->db->delete('tblEmpLeave');
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function getleaves($empid)
+	{
+		$this->db->join('tblLeave', 'tblLeave.leaveCode = tblEmpLeave.leaveCode', 'left');
+		return $this->db->get_where('tblEmpLeave', array('empNumber' => $empid))->result_array();
+	}
+
+	public function getLeave($id)
+	{
+		$this->db->join('tblLeave', 'tblLeave.leaveCode = tblEmpLeave.leaveCode', 'left');
+		return $this->db->get_where('tblEmpLeave', array('leaveID' => $id))->result_array();
+	}
+
+	public function getSpecificLeave($type)
+	{
+		return $this->db->get_where('tblSpecificLeave', array('leaveCode' => $type))->result_array();
+	}
+
+	public function getTotalnoofdays($leavefrom,$leaveto)
+	{
+		$totaldays = 0;
+		while (strtotime($leavefrom) <= strtotime($leaveto)) {
+			$validday = date('D', strtotime($leavefrom)); # holiday no included
+			if($validday != 'Sat' && $validday != 'Sun'){
+				$totaldays++;
+			}
+			$leavefrom = date ("Y-m-d", strtotime("+1 day", strtotime($leavefrom)));
+		}
+		return $totaldays;
+	}
+	# End Leave
 
 }
 /* End of file Dtr_model.php */

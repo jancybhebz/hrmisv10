@@ -27,13 +27,13 @@ $route['hr/attendance_summary/dtr/(:any)'] = 'hr/attendance/dtr/$1';
 	$route['hr/attendance_summary/dtr/ob/(:any)'] = 'hr/attendance/dtr_ob/$1';
 		$route['hr/attendance_summary/dtr/ob_add/(:any)'] = 'hr/attendance/dtr_add_ob/$1';
 		$route['hr/attendance_summary/dtr/ob_edit/(:any)'] = 'hr/attendance/dtr_edit_ob/$1';
-		$route['hr/attendance_summary/dtr/ob_delete/(:any)'] = 'hr/attendance/dtr_delete_ob/$1';
 
-
-	$route['hr/attendance_summary/dtr/certify_offset/(:any)'] = 'hr/attendance/dtr_certify_offset/$1';
-
+	# Leave
 	$route['hr/attendance_summary/dtr/leave/(:any)'] = 'hr/attendance/dtr_leave/$1';
 		$route['hr/attendance_summary/dtr/leave_add/(:any)'] = 'hr/attendance/dtr_add_leave/$1';
+		$route['hr/attendance_summary/dtr/leave_edit/(:any)'] = 'hr/attendance/dtr_edit_leave/$1';
+
+	$route['hr/attendance_summary/dtr/certify_offset/(:any)'] = 'hr/attendance/dtr_certify_offset/$1';
 
 	$route['hr/attendance_summary/dtr/compensatory_leave/(:any)'] = 'hr/attendance/dtr_compensatory_leave/$1';
 		$route['hr/attendance_summary/dtr/compensatory_leave_add/(:any)'] = 'hr/attendance/dtr_add_compensatory_leave/$1';

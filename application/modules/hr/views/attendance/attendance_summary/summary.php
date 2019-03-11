@@ -138,6 +138,9 @@
                                                     case 'leave':
                                                         $this->load->view('_dtr/leave_view.php');
                                                         break;
+                                                    case 'leave_edit':
+                                                        $this->load->view('_dtr/leave_form.php');
+                                                        break;
                                                     case 'leave_add':
                                                         $this->load->view('_dtr/leave_form.php');
                                                         break;

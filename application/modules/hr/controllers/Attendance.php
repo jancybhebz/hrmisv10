@@ -334,9 +334,119 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrem_ob'] = $emp_ob[0];
 		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
 
+	public function dtr_delete_ob()
+	{
+		$this->AttendanceSummary_model->delete_ob($_POST['txtdel_action']);
+		$this->session->set_flashdata('strSuccessMsg','OB deleted successfully.');
+		redirect('hr/attendance_summary/dtr/ob/'.$this->uri->segment(4));
 	}
 	# end ob
+
+	# begin leave
+	public function dtr_leave()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->arrData['arrLeaves'] = $this->AttendanceSummary_model->getleaves($empid);
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_add_leave()
+	{
+		$empid = $this->uri->segment(5);
+
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrData=array(
+				'dateFiled' 	=> date('Y-m-d'),
+				'empNumber'	  	=> $this->uri->segment(5),
+				'leaveCode' 	=> $arrpost['sel_leavetype'],
+				'specificLeave' => $arrpost['sel_spe_leave'],
+				'reason'		=> $arrpost['txtleave_reason'],
+				'leaveFrom' 	=> $arrpost['txtleave_dtfrom'],
+				'leaveTo' 		=> $arrpost['txtleave_dtto'],
+				'certifyHR' 	=> 'Y',
+				'approveChief' 	=> 'Y',
+				'approveRequest'=> 'N');
+			$this->AttendanceSummary_model->add_leave($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Leave added successfully.');
+			redirect('hr/attendance_summary/dtr/leave/'.$this->uri->segment(5));
+		endif;
+
+		$this->load->model('libraries/Leave_type_model');
+		$empid = $this->uri->segment(5);
+		
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+
+		$this->arrData['arrleaveTypes'] = $this->Leave_type_model->getData();
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_edit_leave()
+	{
+		$empid = $this->uri->segment(5);
+
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrData=array(
+				'leaveCode' 	=> $arrpost['sel_leavetype'],
+				'specificLeave' => $arrpost['sel_spe_leave'],
+				'reason'		=> $arrpost['txtleave_reason'],
+				'leaveFrom' 	=> $arrpost['txtleave_dtfrom'],
+				'leaveTo' 		=> $arrpost['txtleave_dtto']);
+			$this->AttendanceSummary_model->edit_leave($arrData, $_GET['id']);
+			$this->session->set_flashdata('strSuccessMsg','Leave updated successfully.');
+			redirect('hr/attendance_summary/dtr/leave/'.$this->uri->segment(5));
+		endif;
+
+		$this->load->model('libraries/Leave_type_model');
+		$empid = $this->uri->segment(5);
+		
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'edit';
+
+		$emp_leave = $this->AttendanceSummary_model->getLeave($_GET['id']);
+		$this->arrData['arremp_leave'] = $emp_leave[0];
+		$this->arrData['noofdays'] = $this->AttendanceSummary_model->getTotalnoofdays($emp_leave[0]['leaveFrom'],$emp_leave[0]['leaveTo']);
+
+		$this->arrData['arrleaveTypes'] = $this->Leave_type_model->getData();
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_delete_leave()
+	{
+		$this->AttendanceSummary_model->delete_leave($_POST['txtdel_action']);
+		$this->session->set_flashdata('strSuccessMsg','Leave deleted successfully.');
+		redirect('hr/attendance_summary/dtr/leave/'.$this->uri->segment(4));
+	}
+
+	public function dtr_specific_leave()
+	{
+		$spe_leaves = $this->AttendanceSummary_model->getSpecificLeave($_GET['type']);
+		if(count($spe_leaves) > 0):
+			echo json_encode($spe_leaves);	
+		else:
+			echo 'empty';
+		endif;
+	}
+
+	public function dtr_no_ofdays()
+	{
+		$days = $this->AttendanceSummary_model->getTotalnoofdays($_GET['leavefrom'],$_GET['leaveto']);
+		echo $days;
+	}
+	# end leave
 
 	public function dtr_certify_offset()
 	{
@@ -347,30 +457,6 @@ class Attendance extends MY_Controller {
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
-
-	public function dtr_leave()
-	{
-		$empid = $this->uri->segment(5);
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
-	}
-
-	public function dtr_add_leave()
-	{
-		$this->load->model('libraries/Leave_type_model');
-		$empid = $this->uri->segment(5);
-		
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-		$this->arrData['action'] = 'add';
-
-		$this->arrData['arrleaveTypes'] = $this->Leave_type_model->getData();
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
-	}
 
 	public function dtr_compensatory_leave()
 	{

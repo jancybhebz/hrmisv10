@@ -44,5 +44,4 @@
     </div>
 </div>
 
-<?php load_plugin('js',array('select2'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
+<?php load_plugin('js',array('select2','form_validation'));?>

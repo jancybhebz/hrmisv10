@@ -58,7 +58,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete OB</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
+            <?=form_open('hr/attendance/dtr_delete_ob/'.$this->uri->segment(5), array('id' => 'frmdelete'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
@@ -79,10 +79,13 @@
 </div>
 
 <?php load_plugin('js',array('datatables'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
 
 <script>
     $(document).ready(function() {
         $('#table-ob').dataTable();
+        $('#table-ob').on('click', 'button.btn-delete', function() {
+            $('#txtdel_action').val($(this).data('id'));
+            $('#modal-deleteOB').modal('show');
+        });
     });
 </script>
