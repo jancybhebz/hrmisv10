@@ -1,3 +1,4 @@
+<?php load_plugin('css',array('datatables'));?>
 <div class="tab-pane active" id="tab_1_3">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -14,14 +15,14 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/time_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add Time</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-ob">
+                        <table class="table table-striped table-bordered table-hover" id="table-dtrtime">
                             <thead>
                                 <tr>
-                                    <th rowspan="2">No</th>
-                                    <th colspan="2">Morning</th>
-                                    <th colspan="2">Afternoon</th>
-                                    <th colspan="2">Overtime</th>
-                                    <th rowspan="2"></th>
+                                    <th rowspan="2" style="text-align: center;">No</th>
+                                    <th rowspan="2" style="text-align: center;">Date</th>
+                                    <th colspan="2" style="text-align: center;">Morning</th>
+                                    <th colspan="2" style="text-align: center;">Afternoon</th>
+                                    <th colspan="2" style="text-align: center;">Overtime</th>
                                 </tr>
                                 <tr>
                                     <th>Time in</th>
@@ -33,19 +34,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $no=1; foreach($arrdtrTime as $dtr): ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn red btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteTime">
-                                            <i class="fa fa-trash"></i> Delete</button>
-                                    </td>
+                                    <td align="center"><?=$no++?></td>
+                                    <td><?=$dtr['dtrDate']?></td>
+                                    <td><?=$dtr['inAM']?></td>
+                                    <td><?=$dtr['outAM']?></td>
+                                    <td><?=$dtr['inPM']?></td>
+                                    <td><?=$dtr['outPM']?></td>
+                                    <td><?=$dtr['inOT']?></td>
+                                    <td><?=$dtr['outOT']?></td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -83,4 +83,14 @@
     </div>
 </div>
 
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
+<?php load_plugin('js',array('datatables'));?>
+
+<script>
+    $(document).ready(function() {
+        $('#table-dtrtime').dataTable();
+        $('#table-dtrtime').on('click', 'button.btn-delete', function() {
+            $('#txtdel_action').val($(this).data('id'));
+            $('#modal-deleteHoliday').modal('show');
+        });
+    });
+</script>

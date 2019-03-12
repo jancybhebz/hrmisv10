@@ -135,3 +135,16 @@ if ( ! function_exists('getfullname'))
     	return $lname.', '.$fname.' '.$mid_ini;
 	}
 }
+
+if ( ! function_exists('breakdates'))
+{
+    function breakdates($from,$to)
+    {
+    	$arrdates = array();
+		while (strtotime($from) <= strtotime($to)) {
+			array_push($arrdates, $from);
+			$from = date ("Y-m-d", strtotime("+1 day", strtotime($from)));
+		}
+		return $arrdates;
+	}
+}

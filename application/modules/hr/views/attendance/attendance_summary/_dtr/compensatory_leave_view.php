@@ -15,25 +15,30 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add Compensatory Leave</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-ob">
+                        
+                        <table class="table table-striped table-bordered table-hover" id="table-comp_leaves">
                             <thead>
-                                <th>No</th>
+                                <th style="width: 50px;">No</th>
                                 <th>Date</th>
                                 <th>Morning Time</th>
                                 <th>Afternoon Time</th>
-                                <td></td>
+                                <!-- <td></td> -->
                             </thead>
                             <tbody>
+                                <?php $no=1; foreach($arrCompLeaves as $compleave): ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn red btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteLeave">
-                                            <i class="fa fa-trash"></i> Delete</button>
-                                    </td>
+                                    <td align="center"><?=$no++?></td>
+                                    <td><?=$compleave['dtrDate']?></td>
+                                    <td><?=$compleave['inAM']?> - <?=$compleave['outAM']?></td>
+                                    <td><?=$compleave['inPM']?> - <?=$compleave['outPM']?></td>
+                                    <!-- TODO:: Edit and Delete for confirmation; what if user decided to undo the compensatory leave? -->
+                                    <!-- <td align="center"> -->
+                                        <!-- <a href="<?=base_url('hr/attendance_summary/dtr/local_holiday_edit/'.$this->uri->segment(5).'?id='.$compleave['id'])?>" class="btn green btn-sm"> <i class="fa fa-pencil"></i> Edit</a>
+                                        <button class="btn red btn-sm btn-delete" data-id="<?=$compleave['id']?>">
+                                            <i class="fa fa-trash"></i> Delete</button> -->
+                                    <!-- </td> -->
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -44,7 +49,7 @@
     </div>
 </div>
 
-<div id="modal-deleteLeave" class="modal fade" aria-hidden="true">
+<!-- <div id="modal-deleteLeave" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -69,13 +74,12 @@
             <?=form_close()?>
         </div>
     </div>
-</div>
+</div> -->
 
 <?php load_plugin('js',array('datatables'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
 
 <script>
     $(document).ready(function() {
-        $('#table-ob').dataTable();
+        $('#table-comp_leaves').dataTable();
     });
 </script>

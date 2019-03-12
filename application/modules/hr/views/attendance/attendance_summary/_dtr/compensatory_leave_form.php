@@ -10,15 +10,17 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <?=form_open('finance/libraries/deductions/edit/'.$this->uri->segment(4), array('method' => 'post', 'id' => 'frmaddsched'))?>
+                        <?php 
+                        $form = $action == 'add' ? '' : 'hr/attendance_summary/dtr/dtr_add_compensatory_leave/'.$this->uri->segment(5).'?id='.$_GET['id'];
+                        echo form_open($form, array('method' => 'post', 'id' => 'frmcompenleave'))?>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Date <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-calendar"></i>
-                                        <input class="form-control date-picker form-required" data-date="2012-03-01" data-date-format="yyyy-mm-dd" 
-                                                name="txtdependent_bday" type="text">
+                                        <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" 
+                                                name="txtcompen_date" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -30,7 +32,7 @@
                                     <label class="control-label"><b>Morning</b><br>Time From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="08:00:00 AM">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timefrom" id="txtcl_am_timefrom" value="08:00:00 AM">
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +41,7 @@
                                     <label class="control-label"><br>Time in <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="05:00:00 PM">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timeto" id="txtcl_am_timeto" value="12:00:00 PM">
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +53,7 @@
                                     <label class="control-label"><b>Afternoon</b><br>Time From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="08:00:00 AM">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timefrom" id="txtcl_pm_timefrom" value="12:00:00 AM">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +62,7 @@
                                     <label class="control-label"><br>Time in <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="05:00:00 PM">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timeto" id="txtcl_pm_timeto" value="05:00:00 PM">
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +90,6 @@
 
 
 <?=load_plugin('js',array('datetimepicker','timepicker','datepicker'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
 
 <script>
     $(document).ready(function() {
@@ -100,5 +101,8 @@
             showMeridian: true,
         });
         $('.date-picker').datepicker();
+        $('.date-picker').on('changeDate', function(){
+            $(this).datepicker('hide');
+        });
     });
 </script>

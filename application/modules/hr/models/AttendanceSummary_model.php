@@ -156,6 +156,37 @@ class AttendanceSummary_model extends CI_Model {
 	}
 	# End Leave
 
+	# Begin Compensatory Leave
+	function edit_comp_leave($arrData, $empnumber, $dtrdate)
+	{
+		$this->db->where('empNumber', $empnumber);
+		$this->db->where('dtrDate', $dtrdate);
+		$this->db->update('tblEmpDTR', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function getcomp_leaves($empid)
+	{
+		return $this->db->get_where('tblEmpDTR', array('empNumber' => $empid, 'remarks' => 'CL'))->result_array();
+	}
+	# End Compensatory Leave
+
+	# Begin Time
+	function edit_dtrTime($arrData, $empnumber, $dtrdate)
+	{
+		$this->db->where('empNumber', $empnumber);
+		$this->db->where('dtrDate', $dtrdate);
+		$this->db->update('tblEmpDTR', $arrData);
+		echo $this->db->last_query();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function getdtrTimes($empid)
+	{
+		return $this->db->get_where('tblEmpDTR', array('empNumber' => $empid, 'remarks' => ''))->result_array();
+	}
+	# End Time
+
 }
 /* End of file Dtr_model.php */
 /* Location: ./application/modules/finance/models/Dtr_model.php */

@@ -365,7 +365,7 @@ class Attendance extends MY_Controller {
 			# HR Account
 			$arrData=array(
 				'dateFiled' 	=> date('Y-m-d'),
-				'empNumber'	  	=> $this->uri->segment(5),
+				'empNumber'	  	=> $empid,
 				'leaveCode' 	=> $arrpost['sel_leavetype'],
 				'specificLeave' => $arrpost['sel_spe_leave'],
 				'reason'		=> $arrpost['txtleave_reason'],
@@ -448,61 +448,98 @@ class Attendance extends MY_Controller {
 	}
 	# end leave
 
-	public function dtr_certify_offset()
-	{
-		$empid = $this->uri->segment(5);
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-	}
-
-
+	# begin Compensatory Leave
 	public function dtr_compensatory_leave()
 	{
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+		$this->arrData['arrCompLeaves'] = $this->AttendanceSummary_model->getcomp_leaves($empid);
 
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function dtr_add_compensatory_leave()
 	{
-		$this->load->model('libraries/Leave_type_model');
 		$empid = $this->uri->segment(5);
+
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrData=array(
+				'empNumber' => $empid,
+				'inAM' 		=> $arrpost['txtcl_am_timefrom'],
+				'outAM'		=> $arrpost['txtcl_am_timeto'],
+				'inPM' 		=> $arrpost['txtcl_pm_timefrom'],
+				'outPM' 	=> $arrpost['txtcl_pm_timeto'],
+				'remarks'	=> 'CL',
+				'name'		=> $_SESSION['sessName'],
+				'ip'		=> $this->input->ip_address());
+			$this->AttendanceSummary_model->edit_comp_leave($arrData, $empid, $arrpost['txtcompen_date']);
+			$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
+			redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
+		endif;
 		
+		$this->load->model('libraries/Leave_type_model');
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['action'] = 'add';
 
-		$this->arrData['arrleaveTypes'] = $this->Leave_type_model->getData();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
+	# End Compensatory Leave
 
+	# begin DTR Time
 	public function dtr_time()
 	{
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+		$this->arrData['arrdtrTime'] = $this->AttendanceSummary_model->getdtrTimes($empid);
 
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function dtr_add_time()
 	{
 		$empid = $this->uri->segment(5);
+
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrdates = breakdates($arrpost['txtdtr_dtfrom'],$arrpost['txtdtr_dtto']);
+			foreach($arrdates as $ddate):
+				$amtimein = explode(' ',$arrpost['txtdtr_amtimein']);
+				$amtimeout = explode(' ',$arrpost['txtdtr_amtimeout']);
+				$pmtimein = explode(' ',$arrpost['txtdtr_pmtimein']);
+				$pmtimeout = explode(' ',$arrpost['txtdtr_pmtimeout']);
+				$ottimein = explode(' ',$arrpost['txtdtr_ottimein']);
+				$ottimeout = explode(' ',$arrpost['txtdtr_ottimeout']);
+				$arrData=array(
+					'inAM' 		=> date('H:i:s', strtotime($amtimein[0])),
+					'outAM'		=> date('H:i:s', strtotime($amtimeout[0])),
+					'inPM' 		=> date('H:i:s', strtotime($pmtimein[0])),
+					'outPM' 	=> date('H:i:s', strtotime($pmtimeout[0])),
+					'inOT' 		=> date('H:i:s', strtotime($ottimein[0])),
+					'outOT' 	=> date('H:i:s', strtotime($ottimeout[0])),
+					'remarks'	=> '',
+					'name'		=> $_SESSION['sessName'],
+					'ip'		=> $this->input->ip_address());
+				$this->AttendanceSummary_model->edit_dtrTime($arrData, $empid, $ddate);
+			endforeach;
+			$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
+			redirect('hr/attendance_summary/dtr/time/'.$this->uri->segment(5));
+		endif;
 		
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['action'] = 'add';
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
+	# end DTR Time
 
 	public function dtr_to()
 	{
@@ -524,6 +561,15 @@ class Attendance extends MY_Controller {
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
+	}
+
+	public function dtr_certify_offset()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function override()
