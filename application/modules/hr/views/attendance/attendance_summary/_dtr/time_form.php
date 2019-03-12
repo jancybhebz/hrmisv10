@@ -16,9 +16,9 @@
                                 <div class="form-group">
                                     <label class="control-label">Date From <span class="required"> * </span></label>
                                     <div class="input-group input-daterange">
-                                        <input type="text" class="form-control form-required date-picker" date-picker data-date-format="yyyy-mm-dd" name="txtdtr_dtfrom">
+                                        <input type="text" class="form-control form-required date-picker" data-date-format="yyyy-mm-dd" name="txtdtr_dtfrom">
                                         <span class="input-group-addon"> to </span>
-                                        <input type="text" class="form-control form-required date-picker" date-picker data-date-format="yyyy-mm-dd" name="txtdtr_dtto">
+                                        <input type="text" class="form-control form-required date-picker" data-date-format="yyyy-mm-dd" name="txtdtr_dtto">
                                     </div>
                                 </div>
                             </div>

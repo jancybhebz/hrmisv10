@@ -541,27 +541,87 @@ class Attendance extends MY_Controller {
 	}
 	# end DTR Time
 
+	# begin Travel Order
 	public function dtr_to()
 	{
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+		$this->arrData['arrempTo'] = $this->AttendanceSummary_model->gettos($empid);
 
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function dtr_add_to()
 	{
 		$empid = $this->uri->segment(5);
 		
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrData=array(
+				'dateFiled' 	 => date('Y-m-d'),
+				'empNumber'	  	 => $empid,
+				'toDateFrom' 	 => $arrpost['dtfrom'],
+				'toDateTo' 		 => $arrpost['dtto'],
+				'destination' 	 => $arrpost['txtdestination'],
+				'purpose' 		 => $arrpost['txtpurpose'],
+				'fund' 		 	 => $arrpost['selfund'],
+				'transportation' => $arrpost['seltranspo'],
+				'perdiem' 		 => isset($arrpost['radperdiem']) ? $arrpost['radperdiem'] : 'N',
+				'wmeal' 		 => isset($arrpost['radwmeal']) ? $arrpost['radwmeal'] : 'N');
+			$this->AttendanceSummary_model->add_to($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Travel Order added successfully.');
+			redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(5));
+		endif;
+		
+
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['action'] = 'add';
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
 	}
+
+	public function dtr_edit_to()
+	{
+		$empid = $this->uri->segment(5);
+		
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			$arrData=array(
+				'toDateFrom' 	 => $arrpost['dtfrom'],
+				'toDateTo' 		 => $arrpost['dtto'],
+				'destination' 	 => $arrpost['txtdestination'],
+				'purpose' 		 => $arrpost['txtpurpose'],
+				'fund' 		 	 => $arrpost['selfund'],
+				'transportation' => $arrpost['seltranspo'],
+				'perdiem' 		 => isset($arrpost['radperdiem']) ? $arrpost['radperdiem'] : 'N',
+				'wmeal' 		 => isset($arrpost['radwmeal']) ? $arrpost['radwmeal'] : 'N');
+			$this->AttendanceSummary_model->edit_to($arrData, $_GET['id']);
+			$this->session->set_flashdata('strSuccessMsg','Travel Order updated successfully.');
+			redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(5));
+		endif;
+
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'edit';
+
+		$arrempto = $this->AttendanceSummary_model->getTo($_GET['id']);
+		$this->arrData['arrempto'] = $arrempto[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_delete_to()
+	{
+		$this->AttendanceSummary_model->delete_to($_POST['txtdel_action']);
+		$this->session->set_flashdata('strSuccessMsg','Travel order deleted successfully.');
+		redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(4));
+	}
+	# end Travel Order
 
 	public function dtr_certify_offset()
 	{

@@ -187,6 +187,39 @@ class AttendanceSummary_model extends CI_Model {
 	}
 	# End Time
 
+	# Begin Travel Order
+	public function add_to($arrData)
+	{
+		$this->db->insert('tblEmpTravelOrder', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function edit_to($arrData, $id)
+	{
+		$this->db->where('toID', $id);
+		$this->db->update('tblEmpTravelOrder', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_to($id)
+	{
+		$this->db->where('toID', $id);
+		$this->db->delete('tblEmpTravelOrder');
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function gettos($empid)
+	{
+		return $this->db->get_where('tblEmpTravelOrder', array('empNumber' => $empid))->result_array();
+	}
+
+	public function getTo($id)
+	{
+		return $this->db->get_where('tblEmpTravelOrder', array('toID' => $id))->result_array();
+	}
+	# End Travel Order
+
+
 }
 /* End of file Dtr_model.php */
 /* Location: ./application/modules/finance/models/Dtr_model.php */

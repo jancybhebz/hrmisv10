@@ -10,14 +10,17 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <?=form_open('finance/libraries/deductions/edit/'.$this->uri->segment(4), array('method' => 'post', 'id' => 'frmaddsched'))?>
+                        <?php 
+                        $form = $action == 'add' ? '' : 'hr/attendance_summary/dtr/to_edit/'.$this->uri->segment(5).'?id='.$_GET['id'];
+                        echo form_open($form, array('method' => 'post', 'id' => 'frmto'))?>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Destination <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input type="text" class="form-control form-required" name="">
+                                        <input type="text" class="form-control form-required" name="txtdestination"
+                                            value="<?=isset($arrempto) ? $arrempto['destination'] : ''?>">
                                     </div>
                                 </div>
                             </div>
@@ -27,10 +30,12 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Date <span class="required"> * </span></label>
-                                    <div class="input-group date-picker input-daterange" data-date="2003" data-date-format="yyyy-mm-dd" data-date-viewmode="years" id="dateRange">
-                                        <input type="text" class="form-control form-required" name="from">
+                                    <div class="input-group input-daterange">
+                                        <input type="text" class="form-control form-required date-picker" data-date-format="yyyy-mm-dd"
+                                             name="dtfrom" value="<?=isset($arrempto) ? $arrempto['toDateFrom'] : ''?>">
                                         <span class="input-group-addon"> to </span>
-                                        <input type="text" class="form-control form-required" name="to">
+                                        <input type="text" class="form-control form-required date-picker" data-date-format="yyyy-mm-dd"
+                                             name="dtto" value="<?=isset($arrempto) ? $arrempto['toDateTo'] : ''?>">
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +47,7 @@
                                     <label class="control-label">Purpose <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <textarea class="form-control form-required"></textarea>
+                                        <textarea class="form-control form-required" name="txtpurpose"><?=isset($arrempto) ? $arrempto['purpose'] : ''?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -54,10 +59,14 @@
                                     <label class="control-label">Source of Fund <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="bs-select form-control form-required" name="selAgency" id="selAgency">
+                                        <select class="bs-select form-control form-required" name="selfund" id="selfund">
                                             <option value="null">-- SELECT FUND SOURCE --</option>
-                                            <option value="Fund 101">Fund 101</option>
-                                            <option value="Fund 202">Fund 202</option>
+                                            <?php 
+                                                foreach(array('Fund 101', 'Fund 102') as $fund):
+                                                    $selected = isset($arrempto) ? $fund == $arrempto['fund'] ? 'selected' : '' : '';
+                                                    echo '<option value="'.$fund.'" '.$selected.'>'.$fund.'</option>';
+                                                endforeach;
+                                             ?>
                                         </select>
                                     </div>
                                 </div>
@@ -70,11 +79,14 @@
                                     <label class="control-label">Transportation <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="bs-select form-control form-required" name="selAgency" id="selAgency">
+                                        <select class="bs-select form-control form-required" name="seltranspo" id="seltranspo">
                                             <option value="null">-- SELECT TRANSPORTATION --</option>
-                                            <option value="Official Vehicle">Official Vehicle</option>
-                                            <option value="Non-agency">Non-agency</option>
-                                            <option value="Personal">Personal</option>
+                                            <?php 
+                                                foreach(array('Official Vehicle','Non-agency','Personal') as $transpo):
+                                                    $selected = isset($arrempto) ? $transpo == $arrempto['transportation'] ? 'selected' : '' : '';
+                                                    echo '<option value="'.$transpo.'" '.$selected.'>'.$transpo.'</option>';
+                                                endforeach;
+                                             ?>
                                         </select>
                                     </div>
                                 </div>
@@ -82,24 +94,30 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <label class="control-label col-md-3">Will Claim Perdiem <span class="required"> * </span></label>
-                                <div class="radio-list col-md-5">
-                                    <input type="radio" class="radio-inline" name="">Yes
-                                    &nbsp;&nbsp;&nbsp;
-                                    <input type="radio" class="radio-inline" name="">No
+                                <div class="radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="radperdiem" id="optionsRadios25" value="Y"
+                                            <?=isset($arrempto) ? $arrempto['perdiem'] == 'Y' ? 'checked' : '' : ''?>> Yes </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="radperdiem" id="optionsRadios26" value="N"
+                                            <?=isset($arrempto) ? $arrempto['perdiem'] == 'N' ? 'checked' : '' : ''?>> No </label>
                                 </div>
                             </div>
                             <br><br>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <label class="control-label col-md-3">With Meal <span class="required"> * </span></label>
-                                <div class="radio-list col-md-5">
-                                    <input type="radio" class="radio-inline" name="">Yes
-                                    &nbsp;&nbsp;&nbsp;
-                                    <input type="radio" class="radio-inline" name="">No
+                                <div class="radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="radwmeal" id="optionsRadios25" value="Y"
+                                            <?=isset($arrempto) ? $arrempto['wmeal'] == 'Y' ? 'checked' : '' : ''?>> Yes </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="radwmeal" id="optionsRadios26" value="N"
+                                            <?=isset($arrempto) ? $arrempto['wmeal'] == 'N' ? 'checked' : '' : ''?>> No </label>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +144,6 @@
 
 
 <?=load_plugin('js',array('datetimepicker','timepicker','datepicker'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
 
 <script>
     $(document).ready(function() {
@@ -138,5 +155,8 @@
             showMeridian: true,
         });
         $('.date-picker').datepicker();
+        $('.date-picker').on('changeDate', function(){
+            $(this).datepicker('hide');
+        });
     });
 </script>

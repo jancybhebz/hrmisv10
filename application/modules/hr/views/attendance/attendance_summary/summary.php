@@ -162,6 +162,9 @@
                                                     case 'to_add':
                                                         $this->load->view('_dtr/to_form.php');
                                                         break;
+                                                    case 'to_edit':
+                                                        $this->load->view('_dtr/to_form.php');
+                                                        break;
                                                     default:
                                                         $this->load->view('_dtr.php');
                                                 endswitch;
