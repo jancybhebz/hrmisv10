@@ -5,7 +5,74 @@ class AttendanceSummary_model extends CI_Model {
 	{
 		$this->load->database();
 	}
+	
+	public function getemp_dtr($empid, $month, $yr)
+	{
+		echo '<pre>';
+		# DTR Data
+		$this->db->order_by('dtrDate', 'asc');
+		$this->db->where('empNumber', $empid);
+		$this->db->like('dtrDate', $yr.'-'.$month, 'after');
+		$arrData = $this->db->get('tblEmpDTR')->result_array();
+
+		# Regular Holiday
+		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = tblHoliday.holidayCode','inner');
+		$this->db->like('holidayDate', $yr.'-'.$month, 'after');
+		$reg_holidays = $this->db->get('tblHoliday')->result_array();
+
+		# Local Holiday
+		// $this->db->join('tblHoliday','tblHoliday.holidayCode = tblEmpLocalHoliday.holidayCode','left');
+		// $this->db->where('empNumber', $empid);
+		// $local_holidays = $this->db->get('tblEmpLocalHoliday')->result_array();
+
+		# Attendance Scheme
+		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
+		$att_scheme = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
+		$att_scheme = $att_scheme[0];
+
+
+		print_r($att_scheme);
+
+		// print_r($local_holidays);
+
+		$arrdtrData = array();
+		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
+			$ddate = $yr.'-'.$month.'-'.sprintf('%02d', $day);
+			$dday = date('D', strtotime($ddate));
+
+			# Dtr data
+			$dtrkey = array_search($ddate, array_column($arrData, 'dtrDate'));
+			$dtrdata = is_numeric($dtrkey) ? $arrData[$dtrkey] : array();
+
+			# Holiday
+			$holikey = array_search($ddate, array_column($reg_holidays, 'holidayDate'));
+			$holiday = is_numeric($holikey) ? $reg_holidays[$holikey]['holidayName'] : '';
+
+			if($holiday == '' && count($dtrdata) > 0 && !in_array($dday, array('Sat','Sun'))):
+				print_r($dtrdata);
+				# AM Late
+				$scheme_am_timein_from = $att_scheme['amTimeinFrom'];
+				$scheme_am_timein_to   = $att_scheme['amTimeinTo'];
+
+				echo '<br>scheme_am_timein_from = '.$scheme_am_timein_from;
+				echo '<br>scheme_am_timein_to = '.$scheme_am_timein_to;
+
+			endif;
+
+			$arrdtrData[] = array('date' => $ddate,
+								  'day'  => $dday,
+								  'late' => '',
+								  'holiday' => $holiday,
+								  'dtrdata' => $dtrdata);
+			echo '<hr>';
+		endforeach;
+
 		
+		print_r($arrdtrData);
+		die();
+		return $arrdtrData;
+	}
+
 	# Begin Broken Sched
 	public function add_brokensched($arrData)
 	{
@@ -177,7 +244,6 @@ class AttendanceSummary_model extends CI_Model {
 		$this->db->where('empNumber', $empnumber);
 		$this->db->where('dtrDate', $dtrdate);
 		$this->db->update('tblEmpDTR', $arrData);
-		echo $this->db->last_query();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -218,6 +284,37 @@ class AttendanceSummary_model extends CI_Model {
 		return $this->db->get_where('tblEmpTravelOrder', array('toID' => $id))->result_array();
 	}
 	# End Travel Order
+
+	# Begin Flag Ceremony
+	public function add_flagcrmy($arrData)
+	{
+		$this->db->insert('tblEmpDTR', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function edit_flagcrmy($arrData, $empnumber, $dtrdate)
+	{
+		$this->db->where('empNumber', $empnumber);
+		$this->db->where('dtrDate', $dtrdate);
+		$this->db->update('tblEmpDTR', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function getflagcrmys($empid)
+	{
+		return $this->db->get_where('tblEmpDTR', array('empNumber' => $empid, 'remarks' => 'FC'))->result_array();
+	}
+
+	public function getFlagcrmy($id)
+	{
+		return $this->db->get_where('tblEmpDTR', array('id' => $id))->result_array();
+	}
+
+	public function checkEntry($empid, $dtrdate)
+	{
+		return $this->db->get_where('tblEmpDTR', array('empNumber' => $empid, 'dtrDate' => $dtrdate))->result_array();
+	}
+	# End Flag Ceremony
 
 
 }

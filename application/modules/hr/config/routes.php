@@ -47,6 +47,10 @@ $route['hr/attendance_summary/dtr/(:any)'] = 'hr/attendance/dtr/$1';
 		$route['hr/attendance_summary/dtr/to_add/(:any)'] = 'hr/attendance/dtr_add_to/$1';
 		$route['hr/attendance_summary/dtr/to_edit/(:any)'] = 'hr/attendance/dtr_edit_to/$1';
 
+	# Flag Ceremony
+	$route['hr/attendance_summary/dtr/flagcrmy/(:any)'] = 'hr/attendance/dtr_flagcrmy/$1';
+		$route['hr/attendance_summary/dtr/flagcrmy_add/(:any)'] = 'hr/attendance/dtr_add_flagcrmy/$1';
+
 	$route['hr/attendance_summary/dtr/certify_offset/(:any)'] = 'hr/attendance/dtr_certify_offset/$1';
 	
 $route['hr/attendance_summary/qr_code/(:any)'] = 'hr/attendance/qr_code/$1';

@@ -15,6 +15,7 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/time_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add Time</a>
                         <br><br>
+                        
                         <table class="table table-striped table-bordered table-hover" id="table-dtrtime">
                             <thead>
                                 <tr>
@@ -23,6 +24,8 @@
                                     <th colspan="2" style="text-align: center;">Morning</th>
                                     <th colspan="2" style="text-align: center;">Afternoon</th>
                                     <th colspan="2" style="text-align: center;">Overtime</th>
+                                    <th rowspan="2" style="text-align: center;">Last Updated<br>By</th>
+                                    <th rowspan="2" style="text-align: center;">Last Updated<br>Date</th>
                                 </tr>
                                 <tr>
                                     <th>Time in</th>
@@ -34,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no=1; foreach($arrdtrTime as $dtr): ?>
+                                <?php $no=1; foreach($arrdtrTime as $dtr): $editby = explode(';',$dtr['name']); $editdate = explode(';',$dtr['editdate']); ?>
                                 <tr>
                                     <td align="center"><?=$no++?></td>
                                     <td><?=$dtr['dtrDate']?></td>
@@ -44,6 +47,8 @@
                                     <td><?=$dtr['outPM']?></td>
                                     <td><?=$dtr['inOT']?></td>
                                     <td><?=$dtr['outOT']?></td>
+                                    <td><?=$editby[count($editby)-1]?></td>
+                                    <td><?=$editdate[count($editdate)-1]?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>

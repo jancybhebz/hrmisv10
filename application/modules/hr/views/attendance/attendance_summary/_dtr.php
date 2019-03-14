@@ -56,7 +56,7 @@
                         <a class="btn blue"
                             href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a>&nbsp;
                         <a class="btn blue"
-                            href="#">Flag Ceremony</a>&nbsp;
+                            href="<?=base_url('hr/attendance_summary/dtr/flagcrmy').'/'.$arrData['empNumber']?>">Flag Ceremony</a>&nbsp;
                         <a class="btn blue"
                             href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a>&nbsp;
                         <a class="btn blue"
@@ -64,7 +64,12 @@
                     </div>
                 </p></center>
             </div>
-
+            <div style="display: inline-flex;">
+                <div class="legend-def1">
+                    <div class="legend-dd1" style="background-color: #acd9f7;"></div> &nbsp;<small style="margin-left: 10px;">Weekend</small> &nbsp;&nbsp;</div>
+                <div class="legend-def1">
+                    <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Holiday</small> &nbsp;&nbsp;</div>
+            </div>
             <table class="table table-striped table-bordered order-column" id="tbldtr">
                 <thead>
                     <tr>
@@ -83,20 +88,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach(range(1, 31) as $t): ?>
-                    <tr class="odd">
-                        <td>03</td>
-                        <td>08:38</td>
-                        <td>12:19</td>
-                        <td>12:19</td>
-                        <td>05:40</td>
-                        <td>00:00</td>
-                        <td>00:00</td>
-                        <td></td>
-                        <td>00:38</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <?php foreach($arremp_dtr as $dtr): ?>
+                    <tr class="odd <?=$dtr['day']?> tooltips <?=$dtr['holiday']!='' ? 'holiday' : ''?>"
+                            data-original-title="<?=date('l', strtotime($dtr['date']))?>">
+                        
+                        <td><?=date('d', strtotime($dtr['date']))?></td>
+                        <?php if($dtr['holiday'] != '' && count($dtr['dtrdata']) < 1): ?>
+                            <td colspan="11"><?=$dtr['holiday']?></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                        <?php else: ?>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inAM'] : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outAM'] : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inPM'] : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outPM'] : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inOT'] : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? 'LATE' : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? 'OT' : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? 'UT' : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? 'LOGS' : ''?></td>
+                        <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

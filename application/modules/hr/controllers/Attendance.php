@@ -34,7 +34,6 @@ class Attendance extends MY_Controller {
 	{
 		$this->arrData['arrEmployees'] = $this->Hr_model->getData('','','all');
 		$this->template->load('template/template_view','attendance/attendance_summary/_viewall',$this->arrData);
-
 	}
 
 	public function attendance_summary()
@@ -44,7 +43,23 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrData'] = $res[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
 
+	public function dtr()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+
+		// echo '<pre>';
+		// print_r($this->arrData['arremp_dtr']);
+		// die();
+		
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function leave_balance()
@@ -78,16 +93,6 @@ class Attendance extends MY_Controller {
 	}
 
 	public function filed_request()
-	{
-		$empid = $this->uri->segment(4);
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
-	}
-
-	public function dtr()
 	{
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
@@ -467,6 +472,7 @@ class Attendance extends MY_Controller {
 		$arrpost = $this->input->post();
 		if(!empty($arrpost)):
 			# HR Account
+			$dtrEntry = $this->AttendanceSummary_model->checkEntry($empid, $arrpost['txtcompen_date']);
 			$arrData=array(
 				'empNumber' => $empid,
 				'inAM' 		=> $arrpost['txtcl_am_timefrom'],
@@ -474,8 +480,9 @@ class Attendance extends MY_Controller {
 				'inPM' 		=> $arrpost['txtcl_pm_timefrom'],
 				'outPM' 	=> $arrpost['txtcl_pm_timeto'],
 				'remarks'	=> 'CL',
-				'name'		=> $_SESSION['sessName'],
-				'ip'		=> $this->input->ip_address());
+				'name'		=> $dtrEntry[0]['name'].';'.$_SESSION['sessName'],
+				'ip'	    => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
+				'editdate'  => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
 			$this->AttendanceSummary_model->edit_comp_leave($arrData, $empid, $arrpost['txtcompen_date']);
 			$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
 			redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
@@ -511,6 +518,8 @@ class Attendance extends MY_Controller {
 			# HR Account
 			$arrdates = breakdates($arrpost['txtdtr_dtfrom'],$arrpost['txtdtr_dtto']);
 			foreach($arrdates as $ddate):
+				$dtrEntry = $this->AttendanceSummary_model->checkEntry($empid, $ddate);
+				
 				$amtimein = explode(' ',$arrpost['txtdtr_amtimein']);
 				$amtimeout = explode(' ',$arrpost['txtdtr_amtimeout']);
 				$pmtimein = explode(' ',$arrpost['txtdtr_pmtimein']);
@@ -525,8 +534,9 @@ class Attendance extends MY_Controller {
 					'inOT' 		=> date('H:i:s', strtotime($ottimein[0])),
 					'outOT' 	=> date('H:i:s', strtotime($ottimeout[0])),
 					'remarks'	=> '',
-					'name'		=> $_SESSION['sessName'],
-					'ip'		=> $this->input->ip_address());
+					'name'		=> $dtrEntry[0]['name'].';'.$_SESSION['sessName'],
+					'ip'	    => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
+					'editdate'  => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
 				$this->AttendanceSummary_model->edit_dtrTime($arrData, $empid, $ddate);
 			endforeach;
 			$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
@@ -622,6 +632,63 @@ class Attendance extends MY_Controller {
 		redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(4));
 	}
 	# end Travel Order
+
+	# begin Flag Ceremony
+	public function dtr_flagcrmy()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+
+		$this->arrData['arrflgcrmy'] = $this->AttendanceSummary_model->getflagcrmys($empid);
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_add_flagcrmy()
+	{
+		$empid = $this->uri->segment(5);
+		
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			# HR Account
+			# First check if dtr entry is exists
+			$dtrEntry = $this->AttendanceSummary_model->checkEntry($empid, $arrpost['txtdtr_fcdate']);
+			$fc_timein = explode(' ',$arrpost['txtdtr_amtimein']);
+			if(count($dtrEntry) > 0):
+				# Edit Entry
+				$arrData=array(
+						'inAM' 	   => date('H:i:s', strtotime($fc_timein[0])),
+						'dtrDate'  => $arrpost['txtdtr_fcdate'],
+						'remarks'  => 'FC',
+						'name'	   => $_SESSION['sessName'],
+						'ip'	   => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
+						'editdate' => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
+				$this->AttendanceSummary_model->edit_flagcrmy($arrData, $empid, $arrpost['txtdtr_fcdate']);
+			else:
+				# Add Entry
+				$arrData=array(
+						'empNumber'=> $empid,
+						'inAM' 	   => date('H:i:s', strtotime($fc_timein[0])),
+						'dtrDate'  => $arrpost['txtdtr_fcdate'],
+						'remarks'  => 'FC',
+						'name'	   => $_SESSION['sessName'],
+						'ip'	   => $this->input->ip_address(),
+						'editdate' => date('Y-m-d h:i:s A'));
+				$this->AttendanceSummary_model->add_flagcrmy($arrData);
+			endif;
+			$this->session->set_flashdata('strSuccessMsg','Flag ceremony entry added successfully.');
+			redirect('hr/attendance_summary/dtr/flagcrmy/'.$this->uri->segment(5));
+		endif;
+		
+
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['action'] = 'add';
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+	# end Flag Ceremony
 
 	public function dtr_certify_offset()
 	{

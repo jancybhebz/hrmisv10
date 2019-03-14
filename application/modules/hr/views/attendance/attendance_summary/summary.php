@@ -81,7 +81,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group" style="display: inline-flex;margin-left: 10px;">
-                                                    <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : date('Y') == $yr ? 'selected' : '' : ''?>
+                                                    <?php #isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : date('Y') == $yr ? 'selected' : '' : ''?>
                                                     <label style="padding: 6px;">Year</label>
                                                     <select class="bs-select form-control" name="yr">
                                                         <?php foreach (getYear() as $yr): ?>
@@ -164,6 +164,15 @@
                                                         break;
                                                     case 'to_edit':
                                                         $this->load->view('_dtr/to_form.php');
+                                                        break;
+                                                    case 'flagcrmy':
+                                                        $this->load->view('_dtr/flagcrmy_view.php');
+                                                        break;
+                                                    case 'flagcrmy_add':
+                                                        $this->load->view('_dtr/flagcrmy_form.php');
+                                                        break;
+                                                    case 'flagcrmy_edit':
+                                                        $this->load->view('_dtr/flagcrmy_form.php');
                                                         break;
                                                     default:
                                                         $this->load->view('_dtr.php');
