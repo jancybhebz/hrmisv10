@@ -37,6 +37,7 @@ class AttendanceSummary_model extends CI_Model {
 
 		$arrdtrData = array();
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
+			$late = 0;
 			$ddate = $yr.'-'.$month.'-'.sprintf('%02d', $day);
 			$dday = date('D', strtotime($ddate));
 
@@ -48,27 +49,57 @@ class AttendanceSummary_model extends CI_Model {
 			$holikey = array_search($ddate, array_column($reg_holidays, 'holidayDate'));
 			$holiday = is_numeric($holikey) ? $reg_holidays[$holikey]['holidayName'] : '';
 
+			// print_r($dtrdata);
+			//TODO:: add local holiday
 			if($holiday == '' && count($dtrdata) > 0 && !in_array($dday, array('Sat','Sun'))):
-				print_r($dtrdata);
 				# AM Late
 				$scheme_am_timein_from = $att_scheme['amTimeinFrom'];
 				$scheme_am_timein_to   = $att_scheme['amTimeinTo'];
 
-				echo '<br>scheme_am_timein_from = '.$scheme_am_timein_from;
-				echo '<br>scheme_am_timein_to = '.$scheme_am_timein_to;
+				// echo '<br>scheme_am_timein_from = '.$scheme_am_timein_from;
+				// echo '<br>scheme_am_timein_to = '.$scheme_am_timein_to;
+				// echo '<br>att_scheme fixMonday = '.$att_scheme['fixMonday'];
+				// echo '<br>dday = '.$dday;
+				// print_r($dtrdata);
+
+				# if Fix Monday and Monday
+				if($att_scheme['fixMonday'] == 'Y' && $dday == 'Mon'):
+					// echo 'MONDAY AND FIX';
+					// echo '<br>scheme_am_timein_from = '.$scheme_am_timein_from;
+					// echo '<br>scheme_am_timein_to = '.$scheme_am_timein_to;
+					// echo '<br>att_scheme fixMonday = '.$att_scheme['fixMonday'];
+					// echo '<br>dday = '.$dday;
+					// echo '<br>_ENV FLAGCRMNY = '.$_ENV['FLAGCRMNY'].' = '.toMinutes($_ENV['FLAGCRMNY']);
+					// echo '<br>timein = '.$dtrdata['inAM'].' = '.toMinutes($dtrdata['inAM']);
+
+					$late = toMinutes($dtrdata['inAM']) - toMinutes($_ENV['FLAGCRMNY']);
+					// echo '<br>late = '.$late;
+
+					// echo '<br>';
+					// print_r($dtrdata);
+				# if Not Fix Monday and Not Monday
+				else:
+					$late = toMinutes($dtrdata['inAM']) - toMinutes($scheme_am_timein_to);
+				endif;
 
 			endif;
 
+			print_r(array('date' => $ddate,
+								  'day'  => $dday,
+								  'late' => $late > 0 ? $late : 0,
+								  'holiday' => $holiday,
+								  'dtrdata' => $dtrdata));
+
 			$arrdtrData[] = array('date' => $ddate,
 								  'day'  => $dday,
-								  'late' => '',
+								  'late' => $late > 0 ? $late : 0,
 								  'holiday' => $holiday,
 								  'dtrdata' => $dtrdata);
 			echo '<hr>';
 		endforeach;
 
 		
-		print_r($arrdtrData);
+		// print_r($arrdtrData);
 		die();
 		return $arrdtrData;
 	}
