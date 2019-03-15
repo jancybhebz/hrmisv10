@@ -76,8 +76,8 @@
             <tr>
                 <td>Email Address :</td>
                 <td><?=$arrData['email']?></td>
-                <td></td>
-                <td></td>
+                <td>Business Partner No.</td>
+                <td><?=$arrData['businessPartnerNumber']?></td>
             </tr>
         </table>      
          <div class="margin-top-10">
