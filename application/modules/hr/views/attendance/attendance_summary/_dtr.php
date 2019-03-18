@@ -90,7 +90,7 @@
                 <tbody>
                     <?php foreach($arremp_dtr as $dtr): ?>
                     <tr class="odd <?=$dtr['day']?> tooltips <?=$dtr['holiday']!='' ? 'holiday' : ''?>"
-                            data-original-title="<?=date('l', strtotime($dtr['date']))?>">
+                            data-original-title="<?=date('l', strtotime($dtr['date']))?> <?=count($dtr['dtrdata']) > 0 ? $dtr['holiday']!='' ? ' - '.$dtr['holiday'] : '' : ''?>">
                         
                         <td><?=date('d', strtotime($dtr['date']))?></td>
                         <?php if($dtr['holiday'] != '' && count($dtr['dtrdata']) < 1): ?>
@@ -113,10 +113,10 @@
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inOT'] : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? 'LATE' : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? 'OT' : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? 'UT' : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? 'LOGS' : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['late'] != '00:00' ? $dtr['late'] : '' : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['overtime'] != '00:00' ? $dtr['overtime'] : '' : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['undertime'] != '00:00' ? $dtr['undertime'] : '' : ''?></td>
+                            <td></td>
                         <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
