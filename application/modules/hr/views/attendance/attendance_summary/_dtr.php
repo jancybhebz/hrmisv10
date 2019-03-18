@@ -116,7 +116,12 @@
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['late'] != '00:00' ? $dtr['late'] : '' : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['overtime'] != '00:00' ? $dtr['overtime'] : '' : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['undertime'] != '00:00' ? $dtr['undertime'] : '' : ''?></td>
-                            <td></td>
+                            <td><a id="btnlog" class="btn btn-xs blue"
+                                    data-empname    = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['name'] : ''?>"
+                                    data-ipadd      = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : ''?>"
+                                    data-datetime   = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : ''?>"
+                                    data-oldval     = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : ''?>">
+                                <i class="fa fa-info"></i></a></td>
                         <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
@@ -157,17 +162,67 @@
         </div>
     </div>
 </div>
+
+<!-- begin log modal -->
+<div id="log-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">DTR Log</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        <th>IP Address</th>
+                                        <th>Date and Time</th>
+                                        <th>Old Values</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td id="td-empname" align="center"></td>
+                                    <td id="td-ipadd" align="center"></td>
+                                    <td id="td-datetime" align="center"></td>
+                                    <td id="td-oldval" align="center"></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end log modal -->
+
 <?=load_plugin('js', array('datatables','select2','datatables-scroller'))?>
+
 <script>
     $(document).ready(function() {
         $('td.hide').hide();
         $('#tbldtr').dataTable({
-            "scrollY": "350px",
-            "scrollCollapse": true,
-            "paging": false,
-            "bInfo": false,
-            "bSort": false
+            // "scrollY": "350px",
+            // "scrollCollapse": true,
+            // "paging": false,
+            // "bInfo": false,
+            // "bSort": false
         });
-        setTimeout(function () { $($.fn.dataTable.tables( true ) ).DataTable().columns.adjust().draw();},200);
+        // setTimeout(function () { $($.fn.dataTable.tables( true ) ).DataTable().columns.adjust().draw();},200);
+
+        $('#tbldtr').on('click', 'tbody > tr > td #btnlog', function () {
+            $('#td-empname').text($(this).data('empname'));
+            $('#td-ipadd').text($(this).data('ipadd'));
+            $('#td-datetime').text($(this).data('datetime'));
+            $('#td-oldval').text($(this).data('oldval'));
+            $('#log-modal').modal('show');
+        });
     });
 </script>
