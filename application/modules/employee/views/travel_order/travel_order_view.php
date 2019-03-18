@@ -137,7 +137,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                           <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                            <a href="<?=base_url('employee/travel_order')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                           <button type="print" class="btn btn-primary">Print/Preview</button>
+                           <button type="print" value="reportTO" class="btn btn-primary">Print/Preview</button>
                       </div>
                     </div>
                 <?=form_close()?>

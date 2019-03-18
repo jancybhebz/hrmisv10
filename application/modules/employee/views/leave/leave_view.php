@@ -259,7 +259,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <button type="submit" id="submitPL" class="btn btn-primary">Submit</button>
                             <button type="submit" id="submitSTL" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/leave')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                            <button type="print" class="btn btn-primary">Print/Preview</button>
+                            <button type="print" value="reportLeave"  class="btn btn-primary">Print/Preview</button>
                       </div>
                     </div>
                 <?=form_close()?>

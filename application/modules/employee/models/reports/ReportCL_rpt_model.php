@@ -1,5 +1,5 @@
 <?php
-class ReportOB_rpt_model extends CI_Model {
+class ReportCL_rpt_model extends CI_Model {
 
 	var $widths;
 	var $aligns;
@@ -12,7 +12,7 @@ class ReportOB_rpt_model extends CI_Model {
 
 	function generate($arrData)
 	{
-		$this->fpdf->SetTitle('Official Business');
+		$this->fpdf->SetTitle('Compensatory Leave');
 		$this->fpdf->SetLeftMargin(20);
 		$this->fpdf->SetRightMargin(20);
 		$this->fpdf->SetTopMargin(20);
@@ -25,7 +25,7 @@ class ReportOB_rpt_model extends CI_Model {
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(0,6,'       DEPARTMENT OF SCIENCE AND TECHNOLOGY','',0,'L');
 		$this->fpdf->Ln(10);
-		$this->fpdf->Cell(0,6,'OFFICIAL BUSINESS','',0,'C');
+		$this->fpdf->Cell(0,6,'COMPENSATORY LEAVE','',0,'C');
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial','',10);
 			

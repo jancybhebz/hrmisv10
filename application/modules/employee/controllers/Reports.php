@@ -69,4 +69,48 @@ class Reports extends MY_Controller {
 		}
     	$this->template->load('template/template_view','employee/reports/reports_view',$this->arrData);
     }
+
+    public function generate()
+	{
+		
+		$this->load->library('fpdf_gen');
+		$rpt_id=$this->uri->segment(3);
+		$arrGet=$this->input->get();
+		$rpt=$arrGet['rpt'];
+		
+		// print_r($arrGet);
+		switch($rpt)
+		{
+			case 'reportOB': 
+				$this->load->model(array('reports/ReportOB_rpt_model'));				
+				// $arrData=array('intYear'=>$arrGet['year'],'strperson'=>$arrGet['person'],'intQuarter'=>$arrGet['quarter']);
+				$this->ReportOB_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportTO': 
+				$this->load->model(array('reports/ReportTO_rpt_model'));				
+				$this->ReportTO_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportLeave': 
+				$this->load->model(array('reports/ReportLeave_rpt_model'));				
+				$this->ReportLeave_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportDTRupdate': 
+				$this->load->model(array('reports/ReportDTRupdate_rpt_model'));				
+				$this->ReportDTRupdate_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportCL': 
+				$this->load->model(array('reports/ReportCL_rpt_model'));				
+				$this->ReportCL_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+
+		
+		}
+	}
+
+
 }
