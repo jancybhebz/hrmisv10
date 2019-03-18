@@ -30,11 +30,13 @@
                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteEduc"> Delete </a>
                     </td>
                     <td>
+                    <?=form_open(base_url('hr/pds/uploadEduc/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
                         <input type="file" name="userfile" id="userfile"> 
                         <button type="submit" name="uploadEduc" class="btn blue start">
                               <i class="fa fa-upload"></i>
                               <span> Start upload </span>
-                        </button>       
+                        </button> 
+                    <?=form_close()?>      
                     </td>
                 </tr>
                 <?php endforeach;?>

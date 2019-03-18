@@ -1,5 +1,4 @@
 <div id="tab_training" class="tab-pane">
-    <?=form_open(base_url(''), array('method' => 'post', 'id' => 'frmTrainings'))?>
         <b>TRAININGS :</b><br><br>                        
             <table class="table table-bordered table-striped" class="table-responsive">
                 <label>TRAINING PROGRAMS / STUDY / SCHOLARSHIP GRANTS : </label></br>
@@ -24,16 +23,17 @@
                     <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal" onclick="getTraining(<?=$row['TrainingIndex']?>,'<?=$row['trainingTitle']?>')"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteTraining"> Delete </a></td>
                     <td>
+                    <?=form_open(base_url('hr/pds/uploadTraining/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
                         <input type="file" name="userfile" id="userfile"> 
                         <button type="submit" name="uploadTraining" class="btn blue start">
                               <i class="fa fa-upload"></i>
                               <span> Start upload </span>
                         </button>   
+                    <?=form_close()?> 
                     </td>
                 </tr>
                 <?php endforeach;?>
            </table>
-    <?=form_close()?>   
 
     <?=form_open(base_url('pds/edit_training/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmExam'))?>
                 <div class="modal fade bs-modal-lg"  id="editTrainings_modal" tabindex="-1" role="dialog" aria-hidden="true">

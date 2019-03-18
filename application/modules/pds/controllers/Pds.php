@@ -687,40 +687,70 @@ class Pds extends MY_Controller
 		}		
 	}
 
+	public function uploadEduc()
+	{
+		$arrPost = $this->input->post();
 
-  //   public function edit_VolWorks()
-  //   {
-  //   	$arrPost = $this->input->post();
-		// if(!empty($arrPost))
-		// {
-		// 	$strOrgName=$arrPost['strOrgName'];
-		// 	$strAddress=$arrPost['strAddress'];
-		// 	$dtmDateFrom=$arrPost['dtmDateFrom'];
-		// 	$dtmDateTo=$arrPost['dtmDateTo'];
-		// 	$dtmHours=$arrPost['dtmHours'];
-		// 	$strNature=$arrPost['strNature'];
-		// 	$XtrainingCode = $this->uri->segment(4);
-		// 	if(!empty($strOrgName) && !empty($strAddress) && !empty($dtmDateFrom) && !empty($dtmDateTo) && !empty($strNature))
-		// 	{	
-		// 		$arrData = array(
-		// 			'vwName'=>$strOrgName,
-		// 			'vwAddress'=>$strAddress,
-		// 			'vwDateFrom'=>$dtmDateFrom,
-		// 			'vwDateTo'=>$dtmDateTo,
-		// 			'vwHours'=>$dtmHours,
-		// 			'vwPosition'=>$strNature
-		// 		);
-		// 		$blnReturn=$this->Pds_model->save_VolWorks($arrData, $XtrainingCode);
-		// 		logaction('Voluntary Work information',1);
-		// 		$this->session->set_flashdata('saving_status','Voluntary Work Information updated successfully.');
-		// 		redirect('pds/voluntary_works_view');
-		// 	}
-		// }else {
-		// 	$strid = urldecode($this->uri->segment(4));	
-		// 	$this->arrTemplateData['arrData']=$this->Pds_model->getData($strid);
-		// 	$this->template->load('template/main_layout', 'pds/voluntary_works_view', $this->arrTemplateData);
-		// }	
-  //   }
+		$config['upload_path']          = 'assets/images/';
+        $config['allowed_types']        = 'jpg|png';
+        
+		$config['file_name'] = 'logo.png';
+		$config['overwrite'] = TRUE;
+
+		$this->load->library('upload', $config);
+		
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			//echo $this->upload->display_errors();
+			$error = array('error' => $this->upload->display_errors());
+			$this->session->set_flashdata('error','Please try again!');
+		}
+		else
+		{
+			$data = $this->upload->data();
+			//print_r($data);
+				$arrLogo = array(
+					'agencyLogo' => $data['file_name']	
+				);
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			
+		}
+		redirect('hr/profile');
+		
+	}
+
+	public function uploadTraining()
+	{
+		$arrPost = $this->input->post();
+
+		$config['upload_path']          = 'assets/images/';
+        $config['allowed_types']        = 'jpg|png';
+        
+		$config['file_name'] = 'logo.png';
+		$config['overwrite'] = TRUE;
+
+		$this->load->library('upload', $config);
+		
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			//echo $this->upload->display_errors();
+			$error = array('error' => $this->upload->display_errors());
+			$this->session->set_flashdata('error','Please try again!');
+		}
+		else
+		{
+			$data = $this->upload->data();
+			//print_r($data);
+				$arrLogo = array(
+					'agencyLogo' => $data['file_name']	
+				);
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			
+		}
+		redirect('hr/profile');
+		
+	}
+ 
 
    
 }
