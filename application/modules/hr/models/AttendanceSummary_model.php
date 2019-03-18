@@ -8,7 +8,6 @@ class AttendanceSummary_model extends CI_Model {
 	
 	public function getemp_dtr($empid, $month, $yr)
 	{
-		echo '<pre>';
 		# DTR Data
 		$this->db->order_by('dtrDate', 'asc');
 		$this->db->where('empNumber', $empid);
@@ -30,14 +29,20 @@ class AttendanceSummary_model extends CI_Model {
 		$att_scheme = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
 		$att_scheme = $att_scheme[0];
 
-
-		print_r($att_scheme);
-
-		// print_r($local_holidays);
-
 		$arrdtrData = array();
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
 			$late = 0;
+			$late_am = 0;
+			$late_pm = 0;
+			$undertime = 0;
+			$undertime_am = 0;
+			$undertime_pm = 0;
+			$overtime = 0;
+
+			$mins_timein = 0;
+			$expected_timein = '';
+			$expected_timeout = '';
+
 			$ddate = $yr.'-'.$month.'-'.sprintf('%02d', $day);
 			$dday = date('D', strtotime($ddate));
 
@@ -49,58 +54,121 @@ class AttendanceSummary_model extends CI_Model {
 			$holikey = array_search($ddate, array_column($reg_holidays, 'holidayDate'));
 			$holiday = is_numeric($holikey) ? $reg_holidays[$holikey]['holidayName'] : '';
 
-			// print_r($dtrdata);
 			//TODO:: add local holiday
-			if($holiday == '' && count($dtrdata) > 0 && !in_array($dday, array('Sat','Sun'))):
-				# AM Late
-				$scheme_am_timein_from = $att_scheme['amTimeinFrom'];
-				$scheme_am_timein_to   = $att_scheme['amTimeinTo'];
 
-				// echo '<br>scheme_am_timein_from = '.$scheme_am_timein_from;
-				// echo '<br>scheme_am_timein_to = '.$scheme_am_timein_to;
-				// echo '<br>att_scheme fixMonday = '.$att_scheme['fixMonday'];
-				// echo '<br>dday = '.$dday;
-				// print_r($dtrdata);
+			if(count($dtrdata) > 0):
+				# Attendance Scheme
+				$am_timein_from = date('H:i:s', strtotime($att_scheme['amTimeinFrom'].' AM'));
+				$am_timein_to = date('H:i:s', strtotime($att_scheme['amTimeinTo'].' AM'));
+				$nn_timein_from = date('H:i:s', strtotime($att_scheme['nnTimeoutFrom'].' PM'));
+				$nn_timein_to = date('H:i:s', strtotime($att_scheme['nnTimeoutTo'].' PM'));
+				$pm_timeout_from = date('H:i:s', strtotime($att_scheme['pmTimeoutFrom'].' PM'));
+				$pm_timeout_to = date('H:i:s', strtotime($att_scheme['pmTimeoutTo'].' PM'));
 
-				# if Fix Monday and Monday
-				if($att_scheme['fixMonday'] == 'Y' && $dday == 'Mon'):
-					// echo 'MONDAY AND FIX';
-					// echo '<br>scheme_am_timein_from = '.$scheme_am_timein_from;
-					// echo '<br>scheme_am_timein_to = '.$scheme_am_timein_to;
-					// echo '<br>att_scheme fixMonday = '.$att_scheme['fixMonday'];
-					// echo '<br>dday = '.$dday;
-					// echo '<br>_ENV FLAGCRMNY = '.$_ENV['FLAGCRMNY'].' = '.toMinutes($_ENV['FLAGCRMNY']);
-					// echo '<br>timein = '.$dtrdata['inAM'].' = '.toMinutes($dtrdata['inAM']);
-
-					$late = toMinutes($dtrdata['inAM']) - toMinutes($_ENV['FLAGCRMNY']);
-					// echo '<br>late = '.$late;
-
-					// echo '<br>';
-					// print_r($dtrdata);
-				# if Not Fix Monday and Not Monday
+				# morning
+				$am_time_in = date('H:i:s', strtotime($dtrdata['inAM'].' AM'));
+				if($dtrdata['outAM'] >= '12:00:00'):
+					$am_time_out = date('H:i:s', strtotime($dtrdata['outAM'].' PM'));
 				else:
-					$late = toMinutes($dtrdata['inAM']) - toMinutes($scheme_am_timein_to);
+					$am_time_out = date('H:i:s', strtotime($dtrdata['outAM'].' AM'));
 				endif;
 
+				# afternoon
+				$pm_time_in = date('H:i:s', strtotime($dtrdata['inPM'].' PM'));
+				$pm_time_out = date('H:i:s', strtotime($dtrdata['outPM'].' PM'));
 			endif;
 
-			print_r(array('date' => $ddate,
-								  'day'  => $dday,
-								  'late' => $late > 0 ? $late : 0,
-								  'holiday' => $holiday,
-								  'dtrdata' => $dtrdata));
+			if($holiday == '' && count($dtrdata) > 0 && !in_array($dday, array('Sat','Sun'))):
+				# if Fix Monday and Monday
+				if($att_scheme['fixMonday'] == 'Y' && $dday == 'Mon'):
+					/* amTimeinTo in monday will change; then minutes from att-scheme-am-timein-to minus flag-cer-time will added to att-scheme-pm-timeout-from and become att-scheme-pm-timeout-to */
+					$fc_minutes = toMinutes($am_timein_to) - toMinutes(date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM')));
+					$am_timein_to = date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM'));
+					$pm_timeout_to = date("H:i:s", strtotime('+'.$fc_minutes.' minutes', strtotime($pm_timeout_from)));
+
+					$late_am = toMinutes($am_time_in) - toMinutes($_ENV['FLAGCRMNY']);
+					$late_pm = toMinutes($pm_time_in) - toMinutes($nn_timein_to);
+				# if Not Fix Monday and Not Monday
+				else:
+					$late_am = toMinutes($am_time_in) - toMinutes($am_timein_to);
+					$late_pm = toMinutes($pm_time_in) - toMinutes($nn_timein_to);
+				endif;
+
+				# Compute Total Late
+				/* if employee has no AM timein*/
+				if($am_time_in == '00:00:00'):
+					$late_am = toMinutes($nn_timein_from) - toMinutes($am_timein_to);
+				endif;
+				$late = $late_am > 0 ? $late_am : 0;
+				$late = $late + ($late_pm > 0 ? $late_pm : 0);
+
+				#  UnderTime
+				## Get employee's expected time out first to check if employee gets undertime
+				/* if employee has AM time in*/
+				if($am_time_in != '00:00:00'):
+					## AM UnderTime
+					if($am_time_out <= $nn_timein_from):
+						$undertime_am = toMinutes($nn_timein_from) - toMinutes($am_time_out);
+					endif;
+
+					## PM UnderTime
+					/* if employee's timein is earlier than att scheme amTimeinFrom, set the timein to the amTimeinFrom */
+					if($am_time_in < $am_timein_from):
+						$expected_timein = $am_timein_from;
+					else:
+						$expected_timein = $am_time_in;
+					endif;
+					/* if employee is late, the expected time out will be the pmTimeoutTo */
+					if($late_am > 0):
+						$expected_timeout = $pm_timeout_to;
+					else:
+						$mins_timein = toMinutes($expected_timein) - toMinutes($am_timein_from);
+						$expected_timeout = date("H:i:s", strtotime('+'.$mins_timein.' minutes', strtotime($pm_timeout_from)));
+					endif;
+				else:
+					# No AM Undertime
+					/* if employee has no AM time in; expected time out is pmTimeoutTo */
+					$expected_timeout = $pm_timeout_to;
+				endif;
+				## PM UnderTime
+				# check undertime using expected_timeout
+				/* Check if employee has PM timein */
+				if($pm_time_in != '00:00:00'):
+					if($expected_timeout > $pm_time_out):
+						$undertime_pm = toMinutes($expected_timeout) - toMinutes($pm_time_out);
+					endif;
+				else:
+					$undertime_pm = toMinutes($expected_timeout) - toMinutes($nn_timein_to);
+				endif;
+
+				# Compute Total UnderTime
+				$undertime = $undertime_am > 0 ? $undertime_am : 0;
+				$undertime = $undertime + ($undertime_pm > 0 ? $undertime_pm : 0);
+				
+				# Compute Overtime
+				if($undertime >= 0):
+					$lateunder = $late + $undertime_am;
+					$overtime = toMinutes($pm_time_out) - toMinutes($expected_timeout);
+					$overtime = $overtime > $lateunder ? ($overtime - $lateunder) : 0;
+				endif;
+
+			else:
+				if(count($dtrdata) > 0):
+					$overtime_am = toMinutes($nn_timein_from) - toMinutes($am_time_in);
+					$overtime_pm = toMinutes($pm_time_out) - toMinutes($nn_timein_to);
+					$overtime = $overtime_am + $overtime_pm;
+				endif;
+			endif;
 
 			$arrdtrData[] = array('date' => $ddate,
 								  'day'  => $dday,
-								  'late' => $late > 0 ? $late : 0,
-								  'holiday' => $holiday,
-								  'dtrdata' => $dtrdata);
-			echo '<hr>';
+								  'late' => date('H:i', mktime(0, $late)),
+								  'undertime'=> date('H:i', mktime(0, $undertime)),
+								  'overtime'=> date('H:i', mktime(0, $overtime)),
+								  'holiday'  => $holiday,
+								  'dtrdata'  => $dtrdata);
 		endforeach;
 
-		
-		// print_r($arrdtrData);
-		die();
 		return $arrdtrData;
 	}
 
