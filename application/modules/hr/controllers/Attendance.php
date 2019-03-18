@@ -54,10 +54,6 @@ class Attendance extends MY_Controller {
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
-
-		// echo '<pre>';
-		// print_r($this->arrData['arremp_dtr']);
-		// die();
 		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
