@@ -258,6 +258,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+    $('#printreport').click(function(){
+        var request=$('#request').val();
+        var comleave=$('#dtmComLeave').val();
+        var oldmorin=$('#dtmOldMorningIn').val();
+        var oldmorout=$('#dtmOldMorningOut').val();
+        var oldafin=$('#dtmOldAfternoonIn').val();
+        var oldafout=$('#dtmOldAfternoonOut').val();
+        var morningin=$('#dtmMorningIn').val();
+        var morningout=$('#dtmMorningOut').val();
+        var aftrnoonin=$('#dtmAfternoonIn').val();
+        var aftrnoonout=$('#dtmAfternoonOut').val();
+        var purpose=$('#strPurpose').val();
+        var reco=$('#strRecommend').val();
+        var approval=$('#strApproval').val();
+        
+        if(request=='reportCL')
+            valid=true;
+        if(valid)
+            window.open("travel_order/generate?request="+request+"&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval,'_blank'); //ok
+    
     });
 </script>
-   

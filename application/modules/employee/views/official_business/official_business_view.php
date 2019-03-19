@@ -248,14 +248,24 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+    
+    
+    $('#printreport').click(function(){
+        var request=$('#request').val();
+        var obtype=$('#strOBtype').val();
+        var reqdate=$('#dtmOBrequestdate').val();
+        var obdatefrom=$('#dtmOBdatefrom').val();
+        var obdateto=$('#dtmOBdateto').val();
+        var obtimefrom=$('#dtmTimeFrom').val();
+        var obtimeto=$('#dtmTimeTo').val();
+        var desti=$('#strDestination').val();
+        var meal=$('#strMeal').val();
+        var purpose=$('#strPurpose').val();
+
+        if(request=='reportOB')
+            valid=true;
+        if(valid)
+            window.open("official_business/generate?request="+request+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose,'_blank'); //ok
+    
     });
-    
-    // $('#printreport').click(function(){
-    //     if(request=='reportOB')
-    //         valid=true;
-    //     if(valid)
-    //         window.open("official_business/generate?request="+request,'_blank'); //ok
-    
-    
-    // });
 </script>

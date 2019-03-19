@@ -258,6 +258,30 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+    $('#printreport').click(function(){
+        var request=$('#request').val();
+        var dtrupdate=$('#dtmDTRupdate').val();
+        var oldmorin=$('#strOldMorningIn').val();
+        var oldmorout=$('#strOldMorningOut').val();
+        var oldafin=$('#strOldAfternoonIn').val();
+        var oldaftout=$('#strOldAfternoonOut').val();
+        var oldOTin=$('#strOldOvertimeIn').val();
+        var oldOTout=$('#strOldOvertimeOut').val();
+        var morningin=$('#dtmMorningIn').val();
+        var morningout=$('#dtmMorningOut').val();
+        var aftnoonin=$('#dtmAfternoonIn').val();
+        var aftnoonout=$('#dtmAfternoonOut').val();
+        var OTtimein=$('#dtmOvertimeIn').val();
+        var OTtimeout=$('#dtmOvertimeOut').val();
+        var reason=$('#strReason').val();
+
+        if(request=='reportDTRupdate')
+            valid=true;
+        if(valid)
+            window.open("travel_order/generate?request="+request+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal,'_blank'); //ok
+    
     });
 </script>
    
+  
