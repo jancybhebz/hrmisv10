@@ -120,7 +120,8 @@
                                     data-empname    = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['name'] : ''?>"
                                     data-ipadd      = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : ''?>"
                                     data-datetime   = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : ''?>"
-                                    data-oldval     = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : ''?>">
+                                    data-oldval     = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : ''?>"
+                                    data-bsremarks  = "<?=$dtr['bsremarks'] !='' ? $dtr['bsremarks'] : ''?>">
                                 <i class="fa fa-info"></i></a></td>
                         <?php endif; ?>
                     </tr>
@@ -191,6 +192,9 @@
                                     <td id="td-oldval" align="center"></td>
                                 </tbody>
                             </table>
+                            <div>
+                                <small id="span-bsremarks"></small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -222,6 +226,7 @@
             $('#td-ipadd').text($(this).data('ipadd'));
             $('#td-datetime').text($(this).data('datetime'));
             $('#td-oldval').text($(this).data('oldval'));
+            $('#span-bsremarks').html('<b>Broken Schedule:</b> '+$(this).data('bsremarks'));
             $('#log-modal').modal('show');
         });
     });

@@ -24,13 +24,56 @@ class AttendanceSummary_model extends CI_Model {
 		// $this->db->where('empNumber', $empid);
 		// $local_holidays = $this->db->get('tblEmpLocalHoliday')->result_array();
 
+		# Broken Sched
+		$arrbrokensched = array();
+		$brokensched = $this->getBrokenschedules($empid,$month,$yr);
+		foreach($brokensched as $bs):
+			$bsdate = $bs['dateFrom'];
+			$schedto = $bs['dateTo'];
+			while (strtotime($bsdate) <= strtotime($bs['dateTo']))
+			{
+				$bsdatekey = array_search($bsdate, array_column($arrbrokensched, 'date'));
+				// $dtrdata = is_numeric($dtrkey) ? $arrData[$dtrkey] : array();
+				$arrbsdata = array('recid' 		  => $bs['rec_ID'],
+															  'date' 		  => $bsdate,
+															  'schemeCode'    => $bs['schemeCode'],
+															  'schemeName'    => $bs['schemeName'],
+															  'schemeType'    => $bs['schemeType'],
+															  'amTimeinFrom'  => $bs['amTimeinFrom'],
+															  'amTimeinTo'    => $bs['amTimeinTo'],
+															  'pmTimeoutFrom' => $bs['pmTimeoutFrom'],
+															  'pmTimeoutTo'   => $bs['pmTimeoutTo'],
+															  'nnTimeoutFrom' => $bs['nnTimeoutFrom'],
+															  'nnTimeoutTo'   => $bs['nnTimeoutTo'],
+															  'nnTimeinFrom'  => $bs['nnTimeinFrom'],
+															  'nnTimeinTo' 	  => $bs['nnTimeinTo'],
+															  'overtimeStarts'=> $bs['overtimeStarts'],
+															  'overtimeEnds'  => $bs['overtimeEnds'],
+															  'gracePeriod'	  => $bs['gracePeriod'],
+															  'gpLeaveCredits'=> $bs['gpLeaveCredits'],
+															  'gpLate'	  	  => $bs['gpLate'],
+															  'wrkhrLeave'	  => $bs['wrkhrLeave'],
+															  'hlfLateUnd'	  => $bs['hlfLateUnd'],
+															  'fixMonday'	  => $bs['fixMonday']);
+				if(is_numeric($bsdatekey)):
+					$arrbrokensched[$bsdatekey] = $arrbsdata;
+				else:
+					$arrbrokensched[] = $arrbsdata;
+				endif;
+				
+				$bsdate = date('Y-m-d', strtotime($bsdate . ' +1 day'));
+			}
+		endforeach;
+		
 		# Attendance Scheme
 		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
 		$att_scheme = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
 		$att_scheme = $att_scheme[0];
-
+		// print_r($att_scheme);
+		// print_r($arrbrokensched);
 		$arrdtrData = array();
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
+			$bsremarks = '';
 			$late = 0;
 			$late_am = 0;
 			$late_pm = 0;
@@ -45,6 +88,17 @@ class AttendanceSummary_model extends CI_Model {
 
 			$ddate = $yr.'-'.$month.'-'.sprintf('%02d', $day);
 			$dday = date('D', strtotime($ddate));
+
+			# Attendance Scheme from broken sched
+			if(count($arrbrokensched) > 0):
+				$dtr_bskey = array_search($ddate, array_column($arrbrokensched, 'date'));
+				if(is_numeric($dtr_bskey)):
+					$att_scheme =  $arrbrokensched[$dtr_bskey];
+					$bsremarks = $arrbrokensched[$dtr_bskey]['schemeName'].'-'.$arrbrokensched[$dtr_bskey]['schemeType'].' ('.substr($arrbrokensched[$dtr_bskey]['amTimeinFrom'],0,5).'-'.substr($arrbrokensched[$dtr_bskey]['amTimeinTo'],0,5).', '.substr($arrbrokensched[$dtr_bskey]['pmTimeoutFrom'],0,5).' - '.substr($arrbrokensched[$dtr_bskey]['pmTimeoutTo'],0,5).')';
+				else:
+					$att_scheme =  $att_scheme;
+				endif;
+			endif;
 
 			# Dtr data
 			$dtrkey = array_search($ddate, array_column($arrData, 'dtrDate'));
@@ -166,9 +220,10 @@ class AttendanceSummary_model extends CI_Model {
 								  'undertime'=> date('H:i', mktime(0, $undertime)),
 								  'overtime'=> date('H:i', mktime(0, $overtime)),
 								  'holiday'  => $holiday,
+								  'bsremarks'=> $bsremarks,
 								  'dtrdata'  => $dtrdata);
 		endforeach;
-
+		
 		return $arrdtrData;
 	}
 
@@ -193,8 +248,12 @@ class AttendanceSummary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function getBrokenschedules($empid)
+	public function getBrokenschedules($empid,$month='',$yr='')
 	{
+		if($month !='' && $yr != ''):
+			$this->db->order_by('rec_ID', 'asc');
+			$this->db->like('dateFrom', $yr.'-'.$month, 'after');
+		endif;
 		$this->db->join('tblAttendanceScheme', 'tblAttendanceScheme.schemeCode = tblBrokenSched.schemeCode', 'left');
 		return $this->db->get_where('tblBrokenSched', array('empNumber' => $empid))->result_array();
 	}
