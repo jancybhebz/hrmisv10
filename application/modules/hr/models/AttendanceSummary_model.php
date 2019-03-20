@@ -8,6 +8,7 @@ class AttendanceSummary_model extends CI_Model {
 	
 	public function getemp_dtr($empid, $month, $yr)
 	{
+		# PRINTDIE
 		// echo '<pre>';
 		# DTR Data
 		$this->db->order_by('dtrDate', 'asc');
@@ -23,6 +24,43 @@ class AttendanceSummary_model extends CI_Model {
 		# Local Holiday
 		$emplocholiday = $this->getLocalHolidays($empid,$month,$yr);
 
+		# Local Holiday
+		$arremp_leaves = array();
+		$empleaves = $this->getleaves($empid);
+		foreach($empleaves as $leave):
+			$leavedate = $leave['leaveFrom'];
+			$leave_to = $leave['leaveTo'];
+			while (strtotime($leavedate) <= strtotime($leave_to))
+			{
+				$leavedatekey = array_search($leavedate, array_column($arremp_leaves, 'date'));
+				$arrleavedata = array('leaveID'		  => $leave['leaveID'],
+									  'dateFiled'	  => $leave['dateFiled'],
+									  'date'		  => $leavedate,
+									  'leaveCode'     => $leave['leaveCode'],
+									  'specificLeave' => $leave['specificLeave'],
+									  'reason'    	  => $leave['reason'],
+									  'leaveFrom'     => $leave['leaveFrom'],
+									  'leaveTo'		  => $leave['leaveTo'],
+									  'certifyHR'     => $leave['certifyHR'],
+									  'approveChief'  => $leave['approveChief'],
+									  'approveRequest'=> $leave['approveRequest'],
+									  'remarks'		  => $leave['remarks'],
+									  'inoutpatient'  => $leave['inoutpatient'],
+									  'vllocation'    => $leave['vllocation'],
+									  'commutation'   => $leave['commutation'],
+									  'leaveType'     => $leave['leaveType'],
+									  'numOfDays'     => $leave['numOfDays'],
+									  'system'    	  => $leave['system']);
+				if(is_numeric($leavedatekey)):
+					$arremp_leaves[$leavedatekey] = $arrleavedata;
+				else:
+					$arremp_leaves[] = $arrleavedata;
+				endif;
+				
+				$leavedate = date('Y-m-d', strtotime($leavedate . ' +1 day'));
+			}
+		endforeach;
+		
 		# Travel Order
 		$arremp_to = array();
 		$empto = $this->gettos($empid);
@@ -52,7 +90,7 @@ class AttendanceSummary_model extends CI_Model {
 				$todate = date('Y-m-d', strtotime($todate . ' +1 day'));
 			}
 		endforeach;
-		// print_r($arremp_to);
+		
 		# OB
 		$arremp_ob = array();
 		$empob = $this->getobs($empid);
@@ -135,6 +173,8 @@ class AttendanceSummary_model extends CI_Model {
 			$bsremarks = '';
 			$obremarks = '';
 			$toremarks = '';
+			$leaveremarks = '';
+
 			$late = 0;
 			$late_am = 0;
 			$late_pm = 0;
@@ -149,6 +189,18 @@ class AttendanceSummary_model extends CI_Model {
 
 			$ddate = $yr.'-'.$month.'-'.sprintf('%02d', $day);
 			$dday = date('D', strtotime($ddate));
+
+			# Dtr data
+			$dtrkey = array_search($ddate, array_column($arrData, 'dtrDate'));
+			$dtrdata = is_numeric($dtrkey) ? $arrData[$dtrkey] : array();
+
+			# Holiday
+			$holikey = array_search($ddate, array_column($reg_holidays, 'holidayDate'));
+			$holiday = is_numeric($holikey) ? $reg_holidays[$holikey]['holidayName'] : '';
+
+			# Local Holiday
+			$locholikey = array_search($day, array_column($emplocholiday, 'holidayDay'));
+			$localholi = is_numeric($locholikey) ? $emplocholiday[$locholikey]['holidayName'] : '';
 
 			# Attendance Scheme from broken sched
 			if(count($arrbrokensched) > 0):
@@ -168,6 +220,7 @@ class AttendanceSummary_model extends CI_Model {
 					// TODO:: IF REQUEST IS APPROVED
 					if($arremp_ob[$dtr_obkey]['approveRequest'] == 'Y'):
 						$obremarks = json_encode($arremp_ob[$dtr_obkey]);
+						$dtrdata['remarks'] = '';
 					endif;
 				endif;
 			endif;
@@ -178,20 +231,21 @@ class AttendanceSummary_model extends CI_Model {
 				if(is_numeric($dtr_tokey)):
 					// TODO:: IF TO HAS REQUEST AND IF IT IS APPROVED
 					$toremarks = json_encode($arremp_to[$dtr_tokey]);
+					$dtrdata['remarks'] = '';
 				endif;
 			endif;
 
-			# Dtr data
-			$dtrkey = array_search($ddate, array_column($arrData, 'dtrDate'));
-			$dtrdata = is_numeric($dtrkey) ? $arrData[$dtrkey] : array();
-
-			# Holiday
-			$holikey = array_search($ddate, array_column($reg_holidays, 'holidayDate'));
-			$holiday = is_numeric($holikey) ? $reg_holidays[$holikey]['holidayName'] : '';
-
-			# Local Holiday
-			$locholikey = array_search($day, array_column($emplocholiday, 'holidayDay'));
-			$localholi = is_numeric($locholikey) ? $emplocholiday[$locholikey]['holidayName'] : '';
+			# Remarks for Employee's Leave
+			if(count($arremp_leaves) > 0):
+				$dtr_leavekey = array_search($ddate, array_column($arremp_leaves, 'date'));
+				if(is_numeric($dtr_leavekey)):
+					// TODO:: IF REQUEST IS APPROVED : approveRequest or approveChief
+					if($arremp_leaves[$dtr_leavekey]['certifyHR'] == 'Y'):
+						$leaveremarks = json_encode($arremp_leaves[$dtr_leavekey]);
+						$dtrdata['remarks'] = '';
+					endif;
+				endif;
+			endif;
 
 			if(count($dtrdata) > 0):
 				# Attendance Scheme
@@ -306,8 +360,10 @@ class AttendanceSummary_model extends CI_Model {
 								  'bsremarks'=> $bsremarks,
 								  'obremarks'=> $obremarks,
 								  'toremarks'=> $toremarks,
+								  'leaveremarks' => $leaveremarks,
 								  'dtrdata'  => $dtrdata);
 		endforeach;
+		# PRINTDIE
 		// print_r($arrdtrData);
 		// die();
 		return $arrdtrData;

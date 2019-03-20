@@ -114,9 +114,7 @@
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : ''?></td>
                             <td>
                                 <?php 
-                                    $rem = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
-                                    echo (!in_array($rem, array('OB', 'TO'))) ? $rem : '';
-
+                                    echo count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
                                     if($dtr['obremarks']!=''):
                                         echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars($dtr['obremarks']).'">
                                                 OB</a>';
@@ -125,6 +123,11 @@
                                     if($dtr['toremarks']!=''):
                                         echo '<a id="btnto" class="btn btn-xs green-meadow" data-json="'.htmlspecialchars($dtr['toremarks']).'">
                                                 TO</a>';
+                                    endif;
+
+                                    if($dtr['leaveremarks']!=''):
+                                        echo '<a id="btnleave" class="btn btn-xs green-haze" data-json="'.htmlspecialchars($dtr['leaveremarks']).'">
+                                                Leave</a>';
                                     endif;
                                  ?>        
                             </td>
@@ -136,10 +139,11 @@
                                 $djson['ipadd']     = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : '';
                                 $djson['datetime']  = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : '';
                                 $djson['oldval']    = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : '';
-                                $djson['bsremarks'] = $dtr['bsremarks'] !='' ? $dtr['bsremarks'] : ''; ?>
-                                
-                                <a id="btnlog" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
-                                    <i class="fa fa-info"></i></a></td>
+                                $djson['bsremarks'] = $dtr['bsremarks'] !='' ? $dtr['bsremarks'] : '';
+                                if(count($dtr['dtrdata']) > 0): ?>
+                                    <a id="btnlog" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
+                                        <i class="fa fa-info"></i></a></td>
+                                <?php endif; ?>
                         <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
@@ -229,6 +233,15 @@
             $('#tblto-details tr:nth-child(6) > td').text(objsdata['transportation']);
             $('#tblto-details tr:nth-child(7) > td').text(objsdata['perdiem']);
             $('#to-modal').modal('show');
+        });
+
+        $('#tbldtr').on('click', 'tbody > tr > td #btnleave', function () {
+            var objsdata = $(this).data('json');
+            $('#tblleave-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
+            $('#tblleave-details tr:nth-child(2) > td').text(objsdata['leaveType']);
+            $('#tblleave-details tr:nth-child(3) > td').html('<b>From</b> '+objsdata['leaveFrom']+' <b>To</b> '+objsdata['leaveTo']);
+            $('#tblleave-details tr:nth-child(4) > td').text(objsdata['reason']);
+            $('#leave-modal').modal('show');
         });
 
     });

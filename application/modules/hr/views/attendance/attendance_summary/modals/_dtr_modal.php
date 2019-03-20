@@ -148,3 +148,46 @@
     </div>
 </div>
 <!-- end to modal -->
+
+
+<!-- begin leave modal -->
+<div id="leave-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Leave Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <table class="table table-bordered table-striped" id="tblleave-details">
+                                <tr>
+                                    <th width="30%">Date Filed</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Leave Type</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Reason</th>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end leave modal -->
