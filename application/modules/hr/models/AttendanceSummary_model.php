@@ -220,7 +220,9 @@ class AttendanceSummary_model extends CI_Model {
 					// TODO:: IF REQUEST IS APPROVED
 					if($arremp_ob[$dtr_obkey]['approveRequest'] == 'Y'):
 						$obremarks = json_encode($arremp_ob[$dtr_obkey]);
-						$dtrdata['remarks'] = '';
+						if(count($dtrdata) > 0):
+							$dtrdata['remarks'] = '';
+						endif;
 					endif;
 				endif;
 			endif;
@@ -231,7 +233,9 @@ class AttendanceSummary_model extends CI_Model {
 				if(is_numeric($dtr_tokey)):
 					// TODO:: IF TO HAS REQUEST AND IF IT IS APPROVED
 					$toremarks = json_encode($arremp_to[$dtr_tokey]);
-					$dtrdata['remarks'] = '';
+					if(count($dtrdata) > 0):
+						$dtrdata['remarks'] = '';
+					endif;
 				endif;
 			endif;
 
@@ -242,7 +246,9 @@ class AttendanceSummary_model extends CI_Model {
 					// TODO:: IF REQUEST IS APPROVED : approveRequest or approveChief
 					if($arremp_leaves[$dtr_leavekey]['certifyHR'] == 'Y'):
 						$leaveremarks = json_encode($arremp_leaves[$dtr_leavekey]);
-						$dtrdata['remarks'] = '';
+						if(count($dtrdata) > 0):
+							$dtrdata['remarks'] = '';
+						endif;
 					endif;
 				endif;
 			endif;
