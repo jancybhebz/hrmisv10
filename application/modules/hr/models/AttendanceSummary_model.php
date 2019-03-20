@@ -21,9 +21,7 @@ class AttendanceSummary_model extends CI_Model {
 		$reg_holidays = $this->db->get('tblHoliday')->result_array();
 
 		# Local Holiday
-		// $this->db->join('tblHoliday','tblHoliday.holidayCode = tblEmpLocalHoliday.holidayCode','left');
-		// $this->db->where('empNumber', $empid);
-		// $local_holidays = $this->db->get('tblEmpLocalHoliday')->result_array();
+		$emplocholiday = $this->getLocalHolidays($empid,$month,$yr);
 
 		# OB
 		$arremp_ob = array();
@@ -150,7 +148,9 @@ class AttendanceSummary_model extends CI_Model {
 			$holikey = array_search($ddate, array_column($reg_holidays, 'holidayDate'));
 			$holiday = is_numeric($holikey) ? $reg_holidays[$holikey]['holidayName'] : '';
 
-			//TODO:: add local holiday
+			# Local Holiday
+			$locholikey = array_search($day, array_column($emplocholiday, 'holidayDay'));
+			$localholi = is_numeric($locholikey) ? $emplocholiday[$locholikey]['holidayName'] : '';
 
 			if(count($dtrdata) > 0):
 				# Attendance Scheme
@@ -174,7 +174,7 @@ class AttendanceSummary_model extends CI_Model {
 				$pm_time_out = date('H:i:s', strtotime($dtrdata['outPM'].' PM'));
 			endif;
 
-			if($holiday == '' && count($dtrdata) > 0 && !in_array($dday, array('Sat','Sun'))):
+			if($holiday == '' && $localholi == '' && count($dtrdata) > 0 && !in_array($dday, array('Sat','Sun'))):
 				# if Fix Monday and Monday
 				if($att_scheme['fixMonday'] == 'Y' && $dday == 'Mon'):
 					/* amTimeinTo in monday will change; then minutes from att-scheme-am-timein-to minus flag-cer-time will added to att-scheme-pm-timeout-from and become att-scheme-pm-timeout-to */
@@ -260,8 +260,8 @@ class AttendanceSummary_model extends CI_Model {
 								  'day'  => $dday,
 								  'late' => date('H:i', mktime(0, $late)),
 								  'undertime'=> date('H:i', mktime(0, $undertime)),
-								  'overtime'=> date('H:i', mktime(0, $overtime)),
-								  'holiday'  => $holiday,
+								  'overtime' => date('H:i', mktime(0, $overtime)),
+								  'holiday'  => $holiday!='' ? $localholi!='' ? $holiday.' + '.$localholi : $holiday : '',
 								  'bsremarks'=> $bsremarks,
 								  'obremarks'=> $obremarks,
 								  'dtrdata'  => $dtrdata);
@@ -325,10 +325,15 @@ class AttendanceSummary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function getLocalHolidays($empid)
+	public function getLocalHolidays($empid,$month='',$yr='')
 	{
+		$arrcond = array('empNumber' => $empid);
+		if($month!='' && $yr!=''):
+			$arrcond['holidayYear'] = $yr;
+			$arrcond['holidayMonth'] = (int) $month;
+		endif;
 		$this->db->join('tblLocalHoliday', 'tblLocalHoliday.holidayCode = tblEmpLocalHoliday.holidayCode', 'left');
-		return $this->db->get_where('tblEmpLocalHoliday', array('empNumber' => $empid))->result_array();
+		return $this->db->get_where('tblEmpLocalHoliday', $arrcond)->result_array();
 	}
 
 	public function getHoliday($id)
