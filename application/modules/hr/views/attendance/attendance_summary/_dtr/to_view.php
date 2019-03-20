@@ -34,7 +34,7 @@
                                 <tr>
                                     <td align="center"><?=$no++?></td>
                                     <td><?=$to['destination']?></td>
-                                    <td><?=$to['toDateFrom']?> - <?=$to['toDateTo']?></td>
+                                    <td><?=$to['toDateFrom']?> &nbsp;<i>to</i>&nbsp; <?=$to['toDateTo']?></td>
                                     <td><?=$to['purpose']?></td>
                                     <td><?=$to['fund']?></td>
                                     <td><?=$to['transportation']?></td>

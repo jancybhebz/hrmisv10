@@ -23,9 +23,40 @@ class AttendanceSummary_model extends CI_Model {
 		# Local Holiday
 		$emplocholiday = $this->getLocalHolidays($empid,$month,$yr);
 
+		# Travel Order
+		$arremp_to = array();
+		$empto = $this->gettos($empid);
+		foreach($empto as $to):
+			$todate = $to['toDateFrom'];
+			$to_to = $to['toDateTo'];
+			while (strtotime($todate) <= strtotime($to_to))
+			{
+				$todatekey = array_search($todate, array_column($arremp_to, 'date'));
+				$arrtodata = array( 'toID'			=> $to['toID'],
+									'dateFiled'		=> $to['dateFiled'],
+									'date'			=> $todate,
+									'toDateFrom'    => $to['toDateFrom'],
+									'toDateTo'    	=> $to['toDateTo'],
+									'destination'   => $to['destination'],
+									'purpose'  		=> $to['purpose'],
+									'fund'    		=> $to['fund'],
+									'transportation'=> $to['transportation'],
+									'perdiem'		=> $to['perdiem'],
+									'wmeal'  		=> $to['wmeal']);
+				if(is_numeric($todatekey)):
+					$arremp_to[$todatekey] = $arrtodata;
+				else:
+					$arremp_to[] = $arrtodata;
+				endif;
+				
+				$todate = date('Y-m-d', strtotime($todate . ' +1 day'));
+			}
+		endforeach;
+		// print_r($arremp_to);
 		# OB
 		$arremp_ob = array();
 		$empob = $this->getobs($empid);
+
 		foreach($empob as $ob):
 			$obdate = $ob['obDateFrom'];
 			$schedto = $ob['obDateTo'];
@@ -103,6 +134,7 @@ class AttendanceSummary_model extends CI_Model {
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
 			$bsremarks = '';
 			$obremarks = '';
+			$toremarks = '';
 			$late = 0;
 			$late_am = 0;
 			$late_pm = 0;
@@ -129,7 +161,7 @@ class AttendanceSummary_model extends CI_Model {
 				endif;
 			endif;
 
-			# Remarks from Employee's OB
+			# Remarks for Employee's OB
 			if(count($arremp_ob) > 0):
 				$dtr_obkey = array_search($ddate, array_column($arremp_ob, 'date'));
 				if(is_numeric($dtr_obkey)):
@@ -137,6 +169,15 @@ class AttendanceSummary_model extends CI_Model {
 					if($arremp_ob[$dtr_obkey]['approveRequest'] == 'Y'):
 						$obremarks = json_encode($arremp_ob[$dtr_obkey]);
 					endif;
+				endif;
+			endif;
+
+			# Remarks for Employee's TO
+			if(count($arremp_to) > 0):
+				$dtr_tokey = array_search($ddate, array_column($arremp_to, 'date'));
+				if(is_numeric($dtr_tokey)):
+					// TODO:: IF TO HAS REQUEST AND IF IT IS APPROVED
+					$toremarks = json_encode($arremp_to[$dtr_tokey]);
 				endif;
 			endif;
 
@@ -264,6 +305,7 @@ class AttendanceSummary_model extends CI_Model {
 								  'holiday'  => $holiday!='' ? $localholi!='' ? $holiday.' + '.$localholi : $holiday : '',
 								  'bsremarks'=> $bsremarks,
 								  'obremarks'=> $obremarks,
+								  'toremarks'=> $toremarks,
 								  'dtrdata'  => $dtrdata);
 		endforeach;
 		// print_r($arrdtrData);

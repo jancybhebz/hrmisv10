@@ -114,10 +114,17 @@
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : ''?></td>
                             <td>
                                 <?php 
-                                    echo count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
+                                    $rem = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
+                                    echo (!in_array($rem, array('OB', 'TO'))) ? $rem : '';
+
                                     if($dtr['obremarks']!=''):
                                         echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars($dtr['obremarks']).'">
-                                                OB</a></td>';
+                                                OB</a>';
+                                    endif;
+
+                                    if($dtr['toremarks']!=''):
+                                        echo '<a id="btnto" class="btn btn-xs green-meadow" data-json="'.htmlspecialchars($dtr['toremarks']).'">
+                                                TO</a>';
                                     endif;
                                  ?>        
                             </td>
@@ -210,6 +217,18 @@
             $('#tblob-details tr:nth-child(6) > td').text(objsdata['obMeal']);
             $('#tblob-details tr:nth-child(7) > td').text(objsdata['purpose']);
             $('#ob-modal').modal('show');
+        });
+
+        $('#tbldtr').on('click', 'tbody > tr > td #btnto', function () {
+            var objsdata = $(this).data('json');
+            $('#tblto-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
+            $('#tblto-details tr:nth-child(2) > td').html('<b>From</b> '+objsdata['toDateFrom']+' <b>To</b> '+objsdata['toDateTo']);
+            $('#tblto-details tr:nth-child(3) > td').text(objsdata['purpose']);
+            $('#tblto-details tr:nth-child(4) > td').text(objsdata['destination']);
+            $('#tblto-details tr:nth-child(5) > td').text(objsdata['wmeal']);
+            $('#tblto-details tr:nth-child(6) > td').text(objsdata['transportation']);
+            $('#tblto-details tr:nth-child(7) > td').text(objsdata['perdiem']);
+            $('#to-modal').modal('show');
         });
 
     });
