@@ -6,6 +6,19 @@ class AttendanceSummary_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	function edit_dtr($arrData, $dtrid)
+	{
+		$this->db->where('id', $dtrid);
+		$this->db->update('tblEmpDTR', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	public function add_dtr($arrData)
+	{
+		$this->db->insert('tblEmpDTR', $arrData);
+		return $this->db->insert_id();		
+	}
+
 	public function getemp_dtr($empid, $month, $yr)
 	{
 		# PRINTDIE

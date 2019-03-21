@@ -12,6 +12,10 @@ $route['hr/attendance_summary/filed_request/(:any)'] = 'hr/attendance/filed_requ
 
 $route['hr/attendance_summary/dtr/(:any)'] = 'hr/attendance/dtr/$1';
 	# Broken Sched
+	$route['hr/attendance_summary/dtr/edit_mode/(:any)'] = 'hr/attendance/dtr_edit_mode/$1';
+	$route['hr/attendance_summary/dtr/dtr_edit'] = 'hr/attendance/dtr_edit';
+
+	# Broken Sched
 	$route['hr/attendance_summary/dtr/broken_sched/(:any)'] = 'hr/attendance/dtr_broken_sched/$1';
 		$route['hr/attendance_summary/dtr/broken_sched_add/(:any)'] = 'hr/attendance/dtr_add_broken_sched/$1';
 		$route['hr/attendance_summary/dtr/broken_sched_edit/(:any)'] = 'hr/attendance/dtr_edit_broken_sched/$1';

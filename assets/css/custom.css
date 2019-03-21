@@ -10,7 +10,7 @@ tr.holiday {
     background-color: #ffc0cb !important;
 }
 tr.Sun, tr.Sat {
-    background-color: #acd9f7 !important;
+    background-color: /*#acd9f7*/ #d7efff !important;
 }
 
 input.form-control.form-required.txtdtpckr {

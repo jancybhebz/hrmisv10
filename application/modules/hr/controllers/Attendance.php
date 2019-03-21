@@ -193,6 +193,57 @@ class Attendance extends MY_Controller {
 	}
 	# End Broken Schedule
 
+	# Begin Edit Mode
+	public function dtr_edit_mode()
+	{
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
+		
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function dtr_edit()
+	{
+		$arrpost = $this->input->post();
+		$dtr_json = json_decode($arrpost['txtjson'], true);
+		foreach($dtr_json as $dtr):
+			# check if row
+			if(count($dtr) > 0):
+				# check if body
+				if(count($dtr['tr']) > 6):
+					$dtrid = $dtr['tr'][1]['td'];
+					$arrData = array('empNumber'	=> $arrpost['empnum'],
+									 'dtrDate'		=> $arrpost['yr'].'-'.$arrpost['month'].'-'.$dtr['tr'][2]['td'],
+									 'inAM' 		=> $dtr['tr'][3]['td'],
+									 'outAM' 		=> $dtr['tr'][4]['td'],
+									 'inPM' 		=> $dtr['tr'][5]['td'],
+									 'outPM' 		=> $dtr['tr'][6]['td'],
+									 'inOT' 		=> $dtr['tr'][7]['td'],
+									 'outOT' 		=> $dtr['tr'][8]['td'],
+									 // TODO:: OT field
+									 // 'OT' => $arrpost['empnum'],
+									 'name' 		=> $dtr['tr'][11]['td'].';'.$_SESSION['sessName'],
+									 'ip'			=> $dtr['tr'][12]['td'].';'.$this->input->ip_address(),
+									 'editdate'		=> $dtr['tr'][13]['td'].';'.date('Y-m-d h:i:s A'),
+									 'oldValue' 	=> $dtr['tr'][14]['td']);
+					if($dtrid != ''):
+						$this->AttendanceSummary_model->edit_dtr($arrData, $dtrid);
+					else:
+						$this->AttendanceSummary_model->add_dtr($arrData);
+					endif;
+				endif;
+			endif;
+		endforeach;
+		$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
+		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrpost['empnum'].'?month='.$arrpost['month'].'&yr='.$arrpost['yr']);
+	}
+	# End Edit Mode
+
 	# Begin Local Holiday
 	public function dtr_local_holiday()
 	{

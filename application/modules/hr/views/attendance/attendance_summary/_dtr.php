@@ -1,4 +1,8 @@
 <?=load_plugin('css', array('profile-2','datatables','select2'))?>
+<?php 
+    $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+    $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+ ?>
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -14,7 +18,7 @@
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                <a href="javascript:;"> Edit Mode</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?yr='.$yr.'&month='.$month?>">Edit Mode</a></li>
                             <li>
                                 <a href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a></li>
                             <li>
@@ -42,7 +46,8 @@
                 <br><br>
                 <p><center>
                     <div class="form-inline" style="line-height: 3;">
-                        <a href="#" class="btn blue">Edit Mode</a>&nbsp;
+                        <a class="btn blue"
+                            href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?yr='.$yr.'&month='.$month?>">Edit Mode</a>&nbsp;
                         <a class="btn blue"
                             href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a>&nbsp;
                         <a class="btn blue"
@@ -188,6 +193,7 @@
 <?php include('modals/_dtr_modal.php') ?>
 
 <?=load_plugin('js', array('datatables','select2','datatables-scroller'))?>
+<script src="<?=base_url('assets/js/custom/dtr_view-js.js')?>"></script>
 
 <script>
     $(document).ready(function() {
@@ -200,49 +206,5 @@
             // "bSort": false
         });
         // setTimeout(function () { $($.fn.dataTable.tables( true ) ).DataTable().columns.adjust().draw();},200);
-
-        $('#tbldtr').on('click', 'tbody > tr > td #btnlog', function () {
-            var jsdata = $(this).data('json');
-            $('#td-empname').text(jsdata['empname']);
-            $('#td-ipadd').text(jsdata['ipadd']);
-            $('#td-datetime').text(jsdata['datetime']);
-            $('#td-oldval').text(jsdata['oldval'] == null ? '' : jsdata['oldval']);
-            $('#span-bsremarks').html('<b>Broken Schedule:</b> '+jsdata['bsremarks']);
-            $('#log-modal').modal('show');
-        });
-
-        $('#tbldtr').on('click', 'tbody > tr > td #btnob', function () {
-            var objsdata = $(this).data('json');
-            $('#tblob-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
-            $('#tblob-details tr:nth-child(2) > td').text(objsdata['official']);
-            $('#tblob-details tr:nth-child(3) > td').text(objsdata['date']);
-            $('#tblob-details tr:nth-child(4) > td').html('<b>From</b> '+objsdata['obTimeFrom']+' <b>To</b> '+objsdata['obTimeTo']);
-            $('#tblob-details tr:nth-child(5) > td').text(objsdata['obPlace']);
-            $('#tblob-details tr:nth-child(6) > td').text(objsdata['obMeal']);
-            $('#tblob-details tr:nth-child(7) > td').text(objsdata['purpose']);
-            $('#ob-modal').modal('show');
-        });
-
-        $('#tbldtr').on('click', 'tbody > tr > td #btnto', function () {
-            var objsdata = $(this).data('json');
-            $('#tblto-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
-            $('#tblto-details tr:nth-child(2) > td').html('<b>From</b> '+objsdata['toDateFrom']+' <b>To</b> '+objsdata['toDateTo']);
-            $('#tblto-details tr:nth-child(3) > td').text(objsdata['purpose']);
-            $('#tblto-details tr:nth-child(4) > td').text(objsdata['destination']);
-            $('#tblto-details tr:nth-child(5) > td').text(objsdata['wmeal']);
-            $('#tblto-details tr:nth-child(6) > td').text(objsdata['transportation']);
-            $('#tblto-details tr:nth-child(7) > td').text(objsdata['perdiem']);
-            $('#to-modal').modal('show');
-        });
-
-        $('#tbldtr').on('click', 'tbody > tr > td #btnleave', function () {
-            var objsdata = $(this).data('json');
-            $('#tblleave-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
-            $('#tblleave-details tr:nth-child(2) > td').text(objsdata['leaveType']);
-            $('#tblleave-details tr:nth-child(3) > td').html('<b>From</b> '+objsdata['leaveFrom']+' <b>To</b> '+objsdata['leaveTo']);
-            $('#tblleave-details tr:nth-child(4) > td').text(objsdata['reason']);
-            $('#leave-modal').modal('show');
-        });
-
     });
 </script>
