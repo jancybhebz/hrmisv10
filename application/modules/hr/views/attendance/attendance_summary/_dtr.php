@@ -112,16 +112,38 @@
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outPM'] : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inOT'] : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : ''?></td>
+                            <td>
+                                <?php 
+                                    echo count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
+                                    if($dtr['obremarks']!=''):
+                                        echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars($dtr['obremarks']).'">
+                                                OB</a>';
+                                    endif;
+
+                                    if($dtr['toremarks']!=''):
+                                        echo '<a id="btnto" class="btn btn-xs green-meadow" data-json="'.htmlspecialchars($dtr['toremarks']).'">
+                                                TO</a>';
+                                    endif;
+
+                                    if($dtr['leaveremarks']!=''):
+                                        echo '<a id="btnleave" class="btn btn-xs green-haze" data-json="'.htmlspecialchars($dtr['leaveremarks']).'">
+                                                Leave</a>';
+                                    endif;
+                                 ?>        
+                            </td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['late'] != '00:00' ? $dtr['late'] : '' : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['overtime'] != '00:00' ? $dtr['overtime'] : '' : ''?></td>
                             <td><?=count($dtr['dtrdata']) > 0 ? $dtr['undertime'] != '00:00' ? $dtr['undertime'] : '' : ''?></td>
-                            <td><a id="btnlog" class="btn btn-xs blue"
-                                    data-empname    = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['name'] : ''?>"
-                                    data-ipadd      = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : ''?>"
-                                    data-datetime   = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : ''?>"
-                                    data-oldval     = "<?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : ''?>">
-                                <i class="fa fa-info"></i></a></td>
+                            <td><?php 
+                                $djson['empname']   = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['name'] : '';
+                                $djson['ipadd']     = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : '';
+                                $djson['datetime']  = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : '';
+                                $djson['oldval']    = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : '';
+                                $djson['bsremarks'] = $dtr['bsremarks'] !='' ? $dtr['bsremarks'] : '';
+                                if(count($dtr['dtrdata']) > 0): ?>
+                                    <a id="btnlog" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
+                                        <i class="fa fa-info"></i></a></td>
+                                <?php endif; ?>
                         <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
@@ -163,45 +185,7 @@
     </div>
 </div>
 
-<!-- begin log modal -->
-<div id="log-modal" class="modal fade" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">DTR Log</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row form-body">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Employee Name</th>
-                                        <th>IP Address</th>
-                                        <th>Date and Time</th>
-                                        <th>Old Values</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td id="td-empname" align="center"></td>
-                                    <td id="td-ipadd" align="center"></td>
-                                    <td id="td-datetime" align="center"></td>
-                                    <td id="td-oldval" align="center"></td>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn dark btn-sm" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end log modal -->
+<?php include('modals/_dtr_modal.php') ?>
 
 <?=load_plugin('js', array('datatables','select2','datatables-scroller'))?>
 
@@ -218,11 +202,47 @@
         // setTimeout(function () { $($.fn.dataTable.tables( true ) ).DataTable().columns.adjust().draw();},200);
 
         $('#tbldtr').on('click', 'tbody > tr > td #btnlog', function () {
-            $('#td-empname').text($(this).data('empname'));
-            $('#td-ipadd').text($(this).data('ipadd'));
-            $('#td-datetime').text($(this).data('datetime'));
-            $('#td-oldval').text($(this).data('oldval'));
+            var jsdata = $(this).data('json');
+            $('#td-empname').text(jsdata['empname']);
+            $('#td-ipadd').text(jsdata['ipadd']);
+            $('#td-datetime').text(jsdata['datetime']);
+            $('#td-oldval').text(jsdata['oldval'] == null ? '' : jsdata['oldval']);
+            $('#span-bsremarks').html('<b>Broken Schedule:</b> '+jsdata['bsremarks']);
             $('#log-modal').modal('show');
         });
+
+        $('#tbldtr').on('click', 'tbody > tr > td #btnob', function () {
+            var objsdata = $(this).data('json');
+            $('#tblob-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
+            $('#tblob-details tr:nth-child(2) > td').text(objsdata['official']);
+            $('#tblob-details tr:nth-child(3) > td').text(objsdata['date']);
+            $('#tblob-details tr:nth-child(4) > td').html('<b>From</b> '+objsdata['obTimeFrom']+' <b>To</b> '+objsdata['obTimeTo']);
+            $('#tblob-details tr:nth-child(5) > td').text(objsdata['obPlace']);
+            $('#tblob-details tr:nth-child(6) > td').text(objsdata['obMeal']);
+            $('#tblob-details tr:nth-child(7) > td').text(objsdata['purpose']);
+            $('#ob-modal').modal('show');
+        });
+
+        $('#tbldtr').on('click', 'tbody > tr > td #btnto', function () {
+            var objsdata = $(this).data('json');
+            $('#tblto-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
+            $('#tblto-details tr:nth-child(2) > td').html('<b>From</b> '+objsdata['toDateFrom']+' <b>To</b> '+objsdata['toDateTo']);
+            $('#tblto-details tr:nth-child(3) > td').text(objsdata['purpose']);
+            $('#tblto-details tr:nth-child(4) > td').text(objsdata['destination']);
+            $('#tblto-details tr:nth-child(5) > td').text(objsdata['wmeal']);
+            $('#tblto-details tr:nth-child(6) > td').text(objsdata['transportation']);
+            $('#tblto-details tr:nth-child(7) > td').text(objsdata['perdiem']);
+            $('#to-modal').modal('show');
+        });
+
+        $('#tbldtr').on('click', 'tbody > tr > td #btnleave', function () {
+            var objsdata = $(this).data('json');
+            $('#tblleave-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
+            $('#tblleave-details tr:nth-child(2) > td').text(objsdata['leaveType']);
+            $('#tblleave-details tr:nth-child(3) > td').html('<b>From</b> '+objsdata['leaveFrom']+' <b>To</b> '+objsdata['leaveTo']);
+            $('#tblleave-details tr:nth-child(4) > td').text(objsdata['reason']);
+            $('#leave-modal').modal('show');
+        });
+
     });
 </script>

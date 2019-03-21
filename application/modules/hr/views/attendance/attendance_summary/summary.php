@@ -67,21 +67,20 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="col-md-12" style="margin-bottom: 20px;">
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' && preg_match('#[0-9]#',$tab) ? '' : 'hidden'?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Month</label>
-                                                    <select class="bs-select form-control" name="mon">
+                                                    <select class="bs-select form-control" name="month">
                                                         <?php foreach (range(1, 12) as $m): ?>
-                                                            <option value="<?=$m?>"
-                                                                <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                                            <option value="<?=sprintf('%02d', $m)?>"
+                                                                <?=isset($_GET['month']) ? $_GET['month'] == $m ? 'selected' : '' : date('n') == $m?>>
                                                                 <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group" style="display: inline-flex;margin-left: 10px;">
-                                                    <?php #isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : date('Y') == $yr ? 'selected' : '' : ''?>
                                                     <label style="padding: 6px;">Year</label>
                                                     <select class="bs-select form-control" name="yr">
                                                         <?php foreach (getYear() as $yr): ?>
