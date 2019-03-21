@@ -67,7 +67,7 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' && preg_match('#[0-9]#',$tab) ? '' : 'hidden'?>>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' && (preg_match('#[0-9]#',$tab) || $tab == 'edit_mode') ? '' : 'hidden'?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <div class="form-group" style="display: inline-flex;">
@@ -75,7 +75,13 @@
                                                     <select class="bs-select form-control" name="month">
                                                         <?php foreach (range(1, 12) as $m): ?>
                                                             <option value="<?=sprintf('%02d', $m)?>"
-                                                                <?=isset($_GET['month']) ? $_GET['month'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                                                <?php 
+                                                                    if(isset($_GET['month'])):
+                                                                        echo $_GET['month'] == $m ? 'selected' : '';
+                                                                    else:
+                                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                                    endif;
+                                                                 ?> >
                                                                 <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
                                                         <?php endforeach; ?>
                                                     </select>
@@ -85,8 +91,14 @@
                                                     <select class="bs-select form-control" name="yr">
                                                         <?php foreach (getYear() as $yr): ?>
                                                             <option value="<?=$yr?>"
-                                                                <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : date('Y') == $yr ? 'selected' : '' : ''?>>
-                                                                <?=$yr?></option>
+                                                                <?php 
+                                                                    if(isset($_GET['yr'])):
+                                                                        echo $_GET['yr'] == $yr ? 'selected' : '';
+                                                                    else:
+                                                                        echo $yr == date('Y') ? 'selected' : '';
+                                                                    endif;
+                                                                 ?> >  
+                                                            <?=$yr?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -104,6 +116,9 @@
                                             if($this_page == 'filed_request'): $this->load->view('_filed_request.php'); endif;
                                             if($this_page == 'dtr'):
                                                 switch ($tab):
+                                                    case 'edit_mode':
+                                                        $this->load->view('_dtr/edit_dtr_form.php');
+                                                        break;
                                                     case 'broken_sched':
                                                         $this->load->view('_dtr/broken_sched_view.php');
                                                         break;
