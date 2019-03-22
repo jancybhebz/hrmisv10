@@ -251,7 +251,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     
     
     $('#printreport').click(function(){
-        var request=$('#request').val();
         var obtype=$('#strOBtype').val();
         var reqdate=$('#dtmOBrequestdate').val();
         var obdatefrom=$('#dtmOBdatefrom').val();
@@ -261,11 +260,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var desti=$('#strDestination').val();
         var meal=$('#strMeal').val();
         var purpose=$('#strPurpose').val();
+       // var valid=false;
 
-        if(request=='reportOB')
-            valid=true;
-        if(valid)
-            window.open("official_business/generate?request="+request+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose,'_blank'); //ok
+        // if(request=='reportOB')
+        //     valid=true;
+        // if(valid)
+
+            window.open("reports/generate/?rpt=reportOB&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose,'_blank'); //ok
     
     });
+ });
 </script>

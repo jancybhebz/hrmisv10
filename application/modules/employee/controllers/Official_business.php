@@ -100,24 +100,7 @@ class Official_business extends MY_Controller {
 	// 	}
 	// }
 
-	public function generate()
-	{
-		$this->load->library('fpdf_gen');
-		// $rpt_id=$this->uri->segment(3);
-		// $arrGet=$this->input->get();
-		// $request=$arrGet['request'];
-		
-		// print_r($arrGet);
-		switch($request)
-		{
-			case 'reportOB': 
-				$this->load->model(array('reports/reportOB_rpt_model'));				
-				// $arrData=array('intYear'=>$arrGet['year'],'strperson'=>$arrGet['person'],'intQuarter'=>$arrGet['quarter']);
-				$this->reportOB_rpt_model->generate($arrData);
-				echo $this->fpdf->Output();	
-			break;
-		}
-	}
+	
 
 
 
