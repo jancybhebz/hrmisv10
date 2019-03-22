@@ -41,7 +41,11 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-
+		// echo '<pre>';
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
@@ -53,7 +57,8 @@ class Attendance extends MY_Controller {
 
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
 		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}

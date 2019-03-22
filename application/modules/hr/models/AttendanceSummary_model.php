@@ -21,8 +21,6 @@ class AttendanceSummary_model extends CI_Model {
 
 	public function getemp_dtr($empid, $month, $yr)
 	{
-		# PRINTDIE
-		// echo '<pre>';
 		# DTR Data
 		$this->db->order_by('dtrDate', 'asc');
 		$this->db->where('empNumber', $empid);
@@ -181,6 +179,12 @@ class AttendanceSummary_model extends CI_Model {
 		$att_scheme = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
 		$att_scheme = $att_scheme[0];
 
+		$date_absents = array();
+		$total_undertime = 0;
+		$total_late = 0;
+		$total_ot_wkdays = 0;
+		$total_ot_wkendsholi = 0;
+
 		$arrdtrData = array();
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
 			$bsremarks = '';
@@ -267,6 +271,8 @@ class AttendanceSummary_model extends CI_Model {
 			endif;
 
 			if(count($dtrdata) > 0):
+				$dtrin_out = array($dtrdata['inAM'], $dtrdata['outAM'], $dtrdata['inPM'], $dtrdata['outPM'], $dtrdata['inOT'], $dtrdata['outOT']);
+
 				# Attendance Scheme
 				$am_timein_from = date('H:i:s', strtotime($att_scheme['amTimeinFrom'].' AM'));
 				$am_timein_to = date('H:i:s', strtotime($att_scheme['amTimeinTo'].' AM'));
@@ -309,8 +315,12 @@ class AttendanceSummary_model extends CI_Model {
 				if($am_time_in == '00:00:00'):
 					$late_am = toMinutes($nn_timein_from) - toMinutes($am_timein_to);
 				endif;
-				$late = $late_am > 0 ? $late_am : 0;
-				$late = $late + ($late_pm > 0 ? $late_pm : 0);
+
+				# check if emp has dtr record
+				if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
+					$late = $late_am > 0 ? $late_am : 0;
+					$late = $late + ($late_pm > 0 ? $late_pm : 0);
+				endif;
 
 				#  UnderTime
 				## Get employee's expected time out first to check if employee gets undertime
@@ -352,25 +362,40 @@ class AttendanceSummary_model extends CI_Model {
 				endif;
 
 				# Compute Total UnderTime
-				$undertime = $undertime_am > 0 ? $undertime_am : 0;
-				$undertime = $undertime + ($undertime_pm > 0 ? $undertime_pm : 0);
+				# check if emp has dtr record
+				if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
+					$undertime = $undertime_am > 0 ? $undertime_am : 0;
+					$undertime = $undertime + ($undertime_pm > 0 ? $undertime_pm : 0);
+				endif;
 				
 				# Compute Overtime
-				if($undertime >= 0):
-					$lateunder = $late + $undertime_am;
-					$overtime = toMinutes($pm_time_out) - toMinutes($expected_timeout);
-					$overtime = $overtime > $lateunder ? ($overtime - $lateunder) : 0;
+				# check if emp has dtr record
+				if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
+					if($undertime >= 0):
+						$lateunder = $late + $undertime_am;
+						$overtime = toMinutes($pm_time_out) - toMinutes($expected_timeout);
+						$overtime = $overtime > $lateunder ? ($overtime - $lateunder) : 0;
+					endif;
 				endif;
+
+				# Overtime weekdays
+				$total_ot_wkdays = $total_ot_wkdays + $overtime;
 
 			else:
+				# if holiday or weekends
 				if(count($dtrdata) > 0):
-					$overtime_am = toMinutes($nn_timein_from) - toMinutes($am_time_in);
-					$overtime_pm = toMinutes($pm_time_out) - toMinutes($nn_timein_to);
-					$overtime = $overtime_am + $overtime_pm;
+					# check if emp has dtr record
+					if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
+						$overtime_am = toMinutes($nn_timein_from) - toMinutes($am_time_in);
+						$overtime_pm = toMinutes($pm_time_out) - toMinutes($nn_timein_to);
+						$overtime = $overtime_am + $overtime_pm;
+					endif;
 				endif;
+				# Overtime weekends, holidays
+				$total_ot_wkendsholi = $total_ot_wkendsholi + $overtime;
 			endif;
 
-			$arrdtrData[] = array('date' => $ddate,
+			$emp_dtrdata = array('date' => $ddate,
 								  'day'  => $dday,
 								  'late' => date('H:i', mktime(0, $late)),
 								  'undertime'=> date('H:i', mktime(0, $undertime)),
@@ -381,11 +406,44 @@ class AttendanceSummary_model extends CI_Model {
 								  'toremarks'=> $toremarks,
 								  'leaveremarks' => $leaveremarks,
 								  'dtrdata'  => $dtrdata);
+
+			$arrdtrData[] = $emp_dtrdata;
+
+			# Absent
+			if($holiday == '' && $localholi == '' && !in_array($dday, array('Sat','Sun'))):
+				# check if no remarks
+				if($bsremarks == '' && $obremarks == '' && $toremarks == '' && $leaveremarks == ''):
+					if(count($dtrdata) < 1):
+						array_push($date_absents, $ddate);
+					else:
+						if (count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
+							array_push($date_absents, $ddate);
+						endif;
+					endif;
+				endif;
+			endif;
+
+			# Total late
+			$total_late = $total_late + $late;
+			# Total undertime
+			$total_undertime = $total_undertime + $undertime;
+
+			// echo '<hr>';
 		endforeach;
+		
+		$arrdtrData = array('dtr' 			 	 => $arrdtrData,
+							'date_absents' 	 	 => $date_absents,
+							'total_late' 	 	 => $total_late,
+							'total_undertime'	 => $total_undertime,
+							'total_ot_wkdays'	 => $total_ot_wkdays,
+							'total_ot_wkendsholi'=> $total_ot_wkendsholi);
+		// print_r($arrdtrData);
+		return $arrdtrData;
+		// return array('dtr' => $arrdtrData, 'date_absents' => $date_absents);
+
 		# PRINTDIE
 		// print_r($arrdtrData);
 		// die();
-		return $arrdtrData;
 	}
 
 	# Begin Broken Sched
