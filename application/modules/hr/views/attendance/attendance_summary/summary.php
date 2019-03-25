@@ -43,31 +43,43 @@
                         <div class="row">
                             <div class="tabbable-line tabbable-full-width col-md-12">
                                 <ul class="nav nav-tabs">
-                                    <?php $this_page = $this->uri->segment(3); $tab = $this->uri->segment(4); ?>
+                                    <?php
+                                        $this_page = $this->uri->segment(3);
+                                        $tab = $this->uri->segment(4);
+                                        $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+                                        $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+                                    ?>
                                     <li class="<?=$this_page == 'index' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber']?>"> Attendance Summary </a>
+                                        <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            Attendance Summary </a>
                                     </li>
                                     <li class="<?=$this_page == 'leave_balance' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber']?>"> Leave Balance </a>
+                                        <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            Leave Balance </a>
                                     </li>
                                     <li class="<?=$this_page == 'leave_balance_update' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber']?>"> Update Leave Balance </a>
+                                        <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            Update Leave Balance </a>
                                     </li>
                                     <li class="<?=$this_page == 'leave_monetization' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_monetization/').$arrData['empNumber']?>"> Leave Monetization </a>
+                                        <a href="<?=base_url('hr/attendance_summary/leave_monetization/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            Leave Monetization </a>
                                     </li>
                                     <li class="<?=$this_page == 'filed_request' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/filed_request/').$arrData['empNumber']?>"> Filed Request </a>
+                                        <a href="<?=base_url('hr/attendance_summary/filed_request/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            Filed Request </a>
                                     </li>
                                     <li class="<?=($this_page == 'dtr') ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber']?>"> Daily Time Record </a>
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            Daily Time Record </a>
                                     </li>
                                     <li class="<?=$this_page == 'qr_code' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/qr_code/').$arrData['empNumber']?>"> QR Code </a>
+                                        <a href="<?=base_url('hr/attendance_summary/qr_code/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            QR Code </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' && (preg_match('#[0-9]#',$tab) || $tab == 'edit_mode') ? '' : 'hidden'?>>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' && !(preg_match('#[0-9]#',$tab)) ? 'hidden' : ''?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <div class="form-group" style="display: inline-flex;">

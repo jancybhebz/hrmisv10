@@ -4,7 +4,8 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Vacation Leave</span>
+                    <span class="caption-subject bold uppercase"> Vacation Leave</span>&nbsp;
+                    <a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-info"> <i class="icon-info"></i></a>
                 </div>
             </div>
             <div class="portlet-body">
@@ -49,7 +50,8 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Sick Leave</span>
+                    <span class="caption-subject bold uppercase"> Sick Leave</span>&nbsp;
+                    <a data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-info"> <i class="icon-info"></i></a>
                 </div>
             </div>
             <div class="portlet-body">
@@ -88,8 +90,6 @@
                 </div>
             </div>
         </div>
-        <br>
-        <small>"If the employee reach the compulsory retirement age of 65 but the service has been extended, the employee will NO LONGER EARN leave credits."</small>
     </div>
 
 </div>

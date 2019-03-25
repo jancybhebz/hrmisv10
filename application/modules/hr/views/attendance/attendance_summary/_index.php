@@ -18,13 +18,13 @@
                             <tbody>
                                 <tr>
                                     <td width="25%"><b>Employee Number</b></td>
-                                    <td width="25%"><?=$arrData['statusOfAppointment']?></td>
+                                    <td width="25%"><?=$arrData['empNumber']?></td>
                                     <td width="25%"><b>Pay Ending</b></td>
-                                    <td width="25%"><?=$arrData['tin']?></td>
+                                    <td width="25%"><?=isset($_GET['yr']) && isset($_GET['month']) ? date('F', mktime(0, 0, 0, $_GET['month'], 10)).' '.$_GET['yr'] : date('F Y')?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Office</b></td>
-                                    <td colspan="3"></td>
+                                    <td colspan="3"><?=office_name(employee_office($arrData['empNumber']))?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -40,7 +40,16 @@
                             <tbody>
                                 <tr>
                                     <td><b>Date(s) Absent</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;">
+                                        <?php
+                                            foreach($arremp_dtr['date_absents'] as $absent):
+                                                echo date('d', strtotime($absent)).' ';
+                                            endforeach;
+                                            if(count($arremp_dtr['date_absents']) > 0):
+                                                echo '&nbsp;<a class="btn btn-xs default" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#absents-modal"> ...</a>';
+                                            endif;
+                                        ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><b>Vacation Leave Left</b></td>
@@ -64,19 +73,19 @@
                                 </tr>
                                 <tr>
                                     <td><b>Total Undertime</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_late']))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Late</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_undertime']))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Overtime Weekdays</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_ot_wkdays']))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Overtime Weekends/Holidays</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_ot_wkendsholi']))?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -87,3 +96,5 @@
         </div>
     </div>
 </div>
+
+<?php $this->load->view('modals/_att_summary_modal'); ?>

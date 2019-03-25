@@ -278,4 +278,25 @@
     </div>
 </div>
 
+<div id="modal-view-info" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Note</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <label>If the employee reach the compulsory retirement age of 65 but the service has been extended, the employee will <b>NO LONGER EARN</b> leave credits.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn grey-cascade btn-sm" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php load_plugin('js', array('datepicker','form_validation')) ?>
