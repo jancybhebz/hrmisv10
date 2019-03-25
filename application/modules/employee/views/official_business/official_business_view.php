@@ -51,10 +51,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="radio" name="strOBtype" id="strOBtype"
-                                    <?php if (isset($strOBtype) && $strOBtype=="Official") echo "checked";?> value="Official">Official
-                                <input type="radio" name="strOBtype"  id="strOBtype"
-                                    <?php if (isset($strOBtype) && $strOBtype=="Personal") echo "checked";?> value="Personal">Personal
+                                <label class="mt-radio">
+                                    <input type="radio" name="strOBtype" id="strOBtype" value="Official" checked> Official
+                                </label>
+                                <label class="mt-radio">
+                                    <input type="radio" name="strOBtype" id="strOBtype" value="Personal"> Personal
+                                </label>
                             </div>
                         </div>
                         <div class="col-sm-3">

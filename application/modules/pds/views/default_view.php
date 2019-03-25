@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
                             <td> <?=employee_office($row['empNumber'])?> </td>
                             <td> <?=$row['positionDesc']?></td>
-                            <td style="text-align: center;"> <a href="<?=base_url('hr/profile/').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
+                            <td style="text-align: center;"> <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
                         
                                
                             </td>
