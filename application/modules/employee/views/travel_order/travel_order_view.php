@@ -113,15 +113,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                     <div class="row">
                         <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">With Meal : <span class="required"> * </span></label>
+                            <div class="form-group">                             
+                                <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
+                                    <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
+                                    <span></span>
+                                </label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="radio" name="strMeal"
-                                    <?php if (isset($strMeal) && $strMeal=="Meal") echo "checked";?> value="Meal">
-                            </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -169,17 +167,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             });
 
     $('#printreport').click(function(){
-        var request=$('#request').val();
         var desti=$('#strDestination').val();
         var todatefrom=$('#dtmTOdatefrom').val();
         var todateto=$('#dtmTOdateto').val();
         var purpose=$('#strPurpose').val();
         var meal=$('#strMeal').val();
 
-        if(request=='reportTO')
-            valid=true;
-        if(valid)
-            window.open("travel_order/generate?request="+request+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal,'_blank'); //ok
-    
+        // if(request=='reportTO')
+        //     valid=true;
+        // if(valid)
+            window.open("reports/generate/?rpt=reportTO&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal,'_blank'); //ok
+            
     });
+});
 </script>

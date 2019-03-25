@@ -169,13 +169,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label">With Meal : <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="radio" name="strMeal"
-                                    <?php if (isset($strMeal) && $strMeal=="Yes") echo "checked";?> value="Yes">
+                                 <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
+                                    <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
+                                    <span></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
