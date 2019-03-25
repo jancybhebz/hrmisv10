@@ -11,6 +11,7 @@
         </li>
         <li>
             <span>Personal Information</span>
+            <?php echo $this->session->userdata('upload_status'); ?>
         </li>
     </ul>
     
@@ -30,7 +31,9 @@
                 <ul class="list-unstyled profile-nav">
                     <li>
                         <img src="<?=base_url('assets/images/logo.png')?>" width="200" class="img-responsive pic-bordered" alt="" />
-                        <a href="javascript:;" class="profile-edit"> edit </a>
+                        <?=form_open(base_url('hr/edit_image'), array('method' => 'post', 'id' => 'frmEmpImage'))?>
+                            <a href="<?=base_url('hr/edit_image').'/'.$arrData['empNumber']?>" class="profile-edit"> edit </a>
+                        <?=form_close()?>
                     </li>
                 </ul>
             </div>
@@ -88,7 +91,7 @@
                 <div class="row">
                     <div class="col-sm-12 text-right">
                         <div class="form-group">
-                             <a href="<?=base_url('hr/profile/edit/')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span>EDIT
+                            <!--  <a href="<?=base_url('hr/profile/edit/')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span>EDIT -->
                         </div>
                     </div>
                 </div>

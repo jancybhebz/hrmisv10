@@ -21,7 +21,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </ul>
 </div>
 <!-- END BREADCRUMB -->
-<?=form_open(base_url('hr/add_employee/add_employee'), array('method' => 'post', 'name' => 'employeeform',  'onsubmit' => 'return checkForBlank()'))?>
+<?=form_open(base_url('hr/add_employee/add_employee'), array('method' => 'post', 'name' => 'employeeform',  'onsubmit' => 'return checkForBlank()', 'id' => 'frmAddEmp'))?>
 
  <!-- <?php print_r($arrData) ?>  -->
  <br><br>
@@ -33,7 +33,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strEmpID" id="strEmpID" type="text" size="20" maxlength="20" class="form-control" required="" value="<?=!empty($this->session->userdata('strEmpID'))?$this->session->userdata('strEmpID'):''?>">
+                    <input name="strEmpID" id="strEmpID" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strEmpID'))?$this->session->userdata('strEmpID'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strSurname" id="strSurname" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strSurname'))?$this->session->userdata('strSurname'):''?>">
+                    <input name="strSurname" id="strSurname" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strSurname'))?$this->session->userdata('strSurname'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -85,7 +85,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strFirstname" id="strFirstname" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strFirstname'))?$this->session->userdata('strFirstname'):''?>">
+                    <input name="strFirstname" id="strFirstname" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strFirstname'))?$this->session->userdata('strFirstname'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -102,7 +102,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strMiddlename" id="strMiddlename" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strMiddlename'))?$this->session->userdata('strMiddlename'):''?>">
+                    <input name="strMiddlename" id="strMiddlename" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strMiddlename'))?$this->session->userdata('strMiddlename'):''?>">
                 </div>
          
             </div>
@@ -154,7 +154,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
-                    <input type="date" id="dtmBday" name="dtmBday" class="form-control has-datepicker" value="<?=!empty($this->session->userdata('dtmBday'))?$this->session->userdata('dtmBday'):''?>">
+                    <input class="form-control form-control-inline input-medium date-picker" name="dtmBday" id="dtmBday" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -171,7 +171,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBirthPlace" id="strBirthPlace" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBirthPlace'))?$this->session->userdata('strBirthPlace'):''?>">
+                    <input name="strBirthPlace" id="strBirthPlace" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBirthPlace'))?$this->session->userdata('strBirthPlace'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -190,8 +190,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="form-group">
                     <select name="strSex" id="strSex" type="text" class="form-control">
                         <option value="">Please Select</option>
-                        <option>Female</option>
-                        <option>Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
                     </select>
                 </div>
             </div>
@@ -212,12 +212,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" value="<?=!empty($this->session->userdata('strCvlStatus'))?$this->session->userdata('strCvlStatus'):''?>">
                 </div>
                         <option value="">Please Select</option>
-                        <option>Single</option>
-                        <option>Married</option>
-                        <option>Separated</option>
-                        <option>Widowed</option>
-                        <option>Annulled</option>
-                        <option>Others</option>
+                        <option value="Sinlg">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Separated">Separated</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Annulled">Annulled</option>
+                        <option value="Others">Others</option>
                     </select>
                 </div>
             </div>
@@ -250,7 +250,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strHeight" id="strHeight" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strHeight'))?$this->session->userdata('strHeight'):''?>">
+                    <input name="strHeight" id="strHeight" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strHeight'))?$this->session->userdata('strHeight'):''?>">
                 </div>
         
             </div>
@@ -268,7 +268,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strWeight" id="strWeight" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strWeight'))?$this->session->userdata('strWeight'):''?>">
+                    <input name="strWeight" id="strWeight" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strWeight'))?$this->session->userdata('strWeight'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -285,7 +285,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBloodType" id="strBloodType" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBloodType'))?$this->session->userdata('strBloodType'):''?>">
+                    <input name="strBloodType" id="strBloodType" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBloodType'))?$this->session->userdata('strBloodType'):''?>">
               </div>      
             </div>
              <div class="col-sm-3">
@@ -297,12 +297,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">GSIS Policy No. :<span class="required"> * </span></label>
+                    <label class="control-label">GSIS Policy No. :</label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intGSIS" id="intGSIS" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intGSIS'))?$this->session->userdata('intGSIS'):''?>">
+                    <input name="intGSIS" id="intGSIS" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intGSIS'))?$this->session->userdata('intGSIS'):''?>">
                 </div>
          
             </div>
@@ -315,12 +315,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">PAG-IBIG ID No. :<span class="required"> * </span></label>
+                    <label class="control-label">PAG-IBIG ID No. :</label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intPagibig" id="intPagibig" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intPagibig'))?$this->session->userdata('intPagibig'):''?>">
+                    <input name="intPagibig" id="intPagibig" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intPagibig'))?$this->session->userdata('intPagibig'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -332,12 +332,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">PHILHEALTH No. :<span class="required"> * </span></label>
+                    <label class="control-label">PHILHEALTH No. :</label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intPhilhealth" id="intPhilhealth" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intPhilhealth'))?$this->session->userdata('intPhilhealth'):''?>">
+                    <input name="intPhilhealth" id="intPhilhealth" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intPhilhealth'))?$this->session->userdata('intPhilhealth'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -366,12 +366,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Email Address :<span class="required"> * </span></label>
+                    <label class="control-label">Email Address :</label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strEmail" id="strEmail" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strEmail'))?$this->session->userdata('strEmail'):''?>">
+                    <input name="strEmail" id="strEmail" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strEmail'))?$this->session->userdata('strEmail'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -383,12 +383,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">SSS Number :<span class="required"> * </span></label>
+                    <label class="control-label">SSS Number :</label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intSSS" id="intSSS" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intSSS'))?$this->session->userdata('intSSS'):''?>">
+                    <input name="intSSS" id="intSSS" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intSSS'))?$this->session->userdata('intSSS'):''?>">
             </div>
             </div>
              <div class="col-sm-3">
@@ -401,12 +401,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Telephone Number : <span class="required"> * </span></label>
+                    <label class="control-label">Telephone Number : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
+                    <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -477,12 +477,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Barangay : <span class="required"> * </span></label>
+                    <label class="control-label">Barangay : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBrgy1" id="strBrgy1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBrgy1'))?$this->session->userdata('strBrgy1'):''?>">
+                    <input name="strBrgy1" id="strBrgy1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBrgy1'))?$this->session->userdata('strBrgy1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -494,12 +494,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">City/Municipality : <span class="required"> * </span></label>
+                    <label class="control-label">City/Municipality : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strCity1" id="strCity1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strCity1'))?$this->session->userdata('strCity1'):''?>">
+                    <input name="strCity1" id="strCity1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strCity1'))?$this->session->userdata('strCity1'):''?>">
                 </div>
 
             </div>
@@ -512,12 +512,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Province : <span class="required"> * </span></label>
+                    <label class="control-label">Province : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strProv1" id="strProv1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strProv1'))?$this->session->userdata('strProv1'):''?>">
+                    <input name="strProv1" id="strProv1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strProv1'))?$this->session->userdata('strProv1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -529,12 +529,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Zip Code : <span class="required"> * </span></label>
+                    <label class="control-label">Zip Code : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intZipCode1" id="intZipCode1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intZipCode1'))?$this->session->userdata('intZipCode1'):''?>">
+                    <input name="intZipCode1" id="intZipCode1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intZipCode1'))?$this->session->userdata('intZipCode1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -546,12 +546,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Telephone Number : <span class="required"> * </span></label>
+                    <label class="control-label">Telephone Number : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
+                    <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -622,12 +622,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Barangay : <span class="required"> * </span></label>
+                    <label class="control-label">Barangay : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strBrgy2" id="strBrgy2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strBrgy2'))?$this->session->userdata('strBrgy2'):''?>">
+                    <input name="strBrgy2" id="strBrgy2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBrgy2'))?$this->session->userdata('strBrgy2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -639,12 +639,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">City/Municipality : <span class="required"> * </span></label>
+                    <label class="control-label">City/Municipality : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strCity2" id="strCity2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strCity2'))?$this->session->userdata('strCity2'):''?>">
+                    <input name="strCity2" id="strCity2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strCity2'))?$this->session->userdata('strCity2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -656,12 +656,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Province : <span class="required"> * </span></label>
+                    <label class="control-label">Province : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="strProv2" id="strProv2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('strProv2'))?$this->session->userdata('strProv2'):''?>">
+                    <input name="strProv2" id="strProv2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strProv2'))?$this->session->userdata('strProv2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -673,12 +673,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Zip Code : <span class="required"> * </span></label>
+                    <label class="control-label">Zip Code : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intZipCode2" id="intZipCode2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intZipCode2'))?$this->session->userdata('intZipCode2'):''?>">
+                    <input name="intZipCode2" id="intZipCode2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intZipCode2'))?$this->session->userdata('intZipCode2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -690,12 +690,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
           <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Telephone Number : <span class="required"> * </span></label>
+                    <label class="control-label">Telephone Number : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intTel2" id="intTel2" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTel2'))?$this->session->userdata('intTel2'):''?>">
+                    <input name="intTel2" id="intTel2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intTel2'))?$this->session->userdata('intTel2'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -707,12 +707,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
            <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Mobile Number : <span class="required"> * </span></label>
+                    <label class="control-label">Mobile Number : </label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intMobile" id="intMobile" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intMobile'))?$this->session->userdata('intMobile'):''?>">
+                    <input name="intMobile" id="intMobile" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intMobile'))?$this->session->userdata('intMobile'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -724,12 +724,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Account Number : <span class="required"> * </span></label>
+                    <label class="control-label">Account Number :</label>
                 </div>
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <input name="intAccount" id="intAccount" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intAccount'))?$this->session->userdata('intAccount'):''?>">
+                    <input name="intAccount" id="intAccount" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intAccount'))?$this->session->userdata('intAccount'):''?>">
                 </div>
             </div>
              <div class="col-sm-3">
@@ -750,11 +750,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 <script>
 
-    $('#dtmBday').datepicker({dateFormat: 'yyyy-mm-dd'});
+    $('#dtmBday').datepicker({dateFormat: 'dd-mm-yyyy'});
 
 function checkForBlank()
 {
-    var spaceCount = 0;
+   var spaceCount = 0;
  
   if((document.employeeform.strEmpID.value==0) && (document.employeeform.strSalutation.value==0) && (document.employeeform.strSurname.value==0) && (document.employeeform.strFirstname.value==0) && (document.employeeform.strMiddlename.value==0) && (document.employeeform.strMidInitial.value==0) && (document.employeeform.strNameExt.value==0) && (document.employeeform.dtmBday.value==0) && (document.employeeform.strBirthPlace.value==0) && (document.employeeform.strSex.value==0) && (document.employeeform.strHeight.value==0) && (document.employeeform.strWeight.value==0) && (document.employeeform.strBloodType.value==0) && (document.employeeform.intGSIS.value==0) && (document.employeeform.intPagibig.value==0) && (document.employeeform.strPhilhealth.value==0) && (document.employeeform.intTin.value==0) && (document.employeeform.strEmail.value==0) && (document.employeeform.intSSS.value==0) && (document.employeeform.intZipCode1.value==0) && (document.employeeform.intZipCode2.value==0) && (document.employeeform.intTelephone1.value==0)  && (document.employeeform.intTelephone2.value==0) && (document.employeeform.intMobile.value==0) && (document.employeeform.intAccount.value==0))
 
@@ -803,4 +803,146 @@ function checkForBlank()
       }
 }
 
+</script>
+
+<?php load_plugin('js',array('validation'));?>
+<script type="text/javascript">
+    jQuery.validator.addMethod("noSpace", function(value, element) { 
+  return value.indexOf(" ") < 0 && value != ""; 
+}, "No space please and don't leave it empty");
+var FormValidation = function () {
+
+    // validation using icons
+    var handleValidation = function() {
+        // for more info visit the official plugin documentation: 
+            // http://docs.jquery.com/Plugins/Validation
+
+            var form2 = $('#frmAddEmp');
+            var error2 = $('.alert-danger', form2);
+            var success2 = $('.alert-success', form2);
+
+            form2.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    strEmpID: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strSalutation: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strSurname: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strFirstname: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    dtmBday: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strBirthPlace: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strSex: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strCvlStatus: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strCitizenship: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strHeight: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strWeight: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    strBloodType: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    },
+                    intTin: {
+                        minlength: 2,
+                        required: true,
+                        noSpace: true
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success2.hide();
+                    error2.show();
+                    App.scrollTo(error2, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
+                },
+
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+                submitHandler: function (form) {
+                    success2.show();
+                    error2.hide();
+                    form[0].submit(); // submit the form
+                }
+            });
+
+
+    }
+
+    return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+jQuery(document).ready(function() {
+    FormValidation.init();
+});
 </script>

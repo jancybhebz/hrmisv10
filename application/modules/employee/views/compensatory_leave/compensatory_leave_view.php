@@ -229,7 +229,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                           <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                            <a href="<?=base_url('employee/compensatory_leave')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                           <button type="print" class="btn btn-primary">Print/Preview</button>
+                          <button type="button" id="printreport" value="reportCL" class="btn btn-primary">Print/Preview</button>
                       </div>
                     </div>
                 <?=form_close()?>
@@ -258,6 +258,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+  
+    $('#printreport').click(function(){
+        var comleave=$('#dtmComLeave').val();
+        var oldmorin=$('#dtmOldMorningIn').val();
+        var oldmorout=$('#dtmOldMorningOut').val();
+        var oldafin=$('#dtmOldAfternoonIn').val();
+        var oldafout=$('#dtmOldAfternoonOut').val();
+        var morningin=$('#dtmMorningIn').val();
+        var morningout=$('#dtmMorningOut').val();
+        var aftrnoonin=$('#dtmAfternoonIn').val();
+        var aftrnoonout=$('#dtmAfternoonOut').val();
+        var purpose=$('#strPurpose').val();
+        var reco=$('#strRecommend').val();
+        var approval=$('#strApproval').val();
+       // var valid=false;
+
+        // if(request=='reportCL')
+        //     valid=true;
+        // if(valid)
+
+            window.open("reports/generate/?rpt=reportCL&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval,'_blank'); //ok
+    
     });
+ });
 </script>
-   

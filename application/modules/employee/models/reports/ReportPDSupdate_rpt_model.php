@@ -1,5 +1,5 @@
 <?php
-class ReportOB_rpt_model extends CI_Model {
+class ReportPDSupdate_rpt_model extends CI_Model {
 
 	var $widths;
 	var $aligns;
@@ -12,7 +12,7 @@ class ReportOB_rpt_model extends CI_Model {
 
 	function generate($arrData)
 	{
-		$this->fpdf->SetTitle('Official Business');
+		$this->fpdf->SetTitle('Personal Data Sheet');
 		$this->fpdf->SetLeftMargin(20);
 		$this->fpdf->SetRightMargin(20);
 		$this->fpdf->SetTopMargin(20);
@@ -30,7 +30,7 @@ class ReportOB_rpt_model extends CI_Model {
 		$this->fpdf->Cell(0,6,'       Central Office','',0,'C');
 		$this->fpdf->Ln(10);
 		$this->fpdf->SetFont('Arial','B',11);
-		$this->fpdf->Cell(0,6,'PERSONNEL TRAVEL PASS','',0,'C');
+		$this->fpdf->Cell(0,6,'PDS','',0,'C');
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial','',10);
 			

@@ -51,10 +51,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="radio" name="strOBtype" id="strOBtype"
-                                    <?php if (isset($strOBtype) && $strOBtype=="Official") echo "checked";?> value="Official">Official
-                                <input type="radio" name="strOBtype"  id="strOBtype"
-                                    <?php if (isset($strOBtype) && $strOBtype=="Personal") echo "checked";?> value="Personal">Personal
+                                <label class="mt-radio">
+                                    <input type="radio" name="strOBtype" id="strOBtype" value="Official" checked> Official
+                                </label>
+                                <label class="mt-radio">
+                                    <input type="radio" name="strOBtype" id="strOBtype" value="Personal"> Personal
+                                </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -169,13 +171,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-3 text-right">
                             <div class="form-group">
-                                <label class="control-label">With Meal : <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="radio" name="strMeal"
-                                    <?php if (isset($strMeal) && $strMeal=="Yes") echo "checked";?> value="Yes">
+                                 <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
+                                    <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
+                                    <span></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -248,14 +247,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+    
+    
+    $('#printreport').click(function(){
+        var obtype=$('#strOBtype').val();
+        var reqdate=$('#dtmOBrequestdate').val();
+        var obdatefrom=$('#dtmOBdatefrom').val();
+        var obdateto=$('#dtmOBdateto').val();
+        var obtimefrom=$('#dtmTimeFrom').val();
+        var obtimeto=$('#dtmTimeTo').val();
+        var desti=$('#strDestination').val();
+        var meal=$('#strMeal').val();
+        var purpose=$('#strPurpose').val();
+       // var valid=false;
+
+        // if(request=='reportOB')
+        //     valid=true;
+        // if(valid)
+
+            window.open("reports/generate/?rpt=reportOB&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose,'_blank'); //ok
+    
     });
-    
-    // $('#printreport').click(function(){
-    //     if(request=='reportOB')
-    //         valid=true;
-    //     if(valid)
-    //         window.open("official_business/generate?request="+request,'_blank'); //ok
-    
-    
-    // });
+ });
 </script>

@@ -168,6 +168,56 @@ class Hr extends MY_Controller {
 			}		
     }
 
+    public function edit_image()
+	{
+	 	$arrPost = $this->input->post();
+		$this->template->load('template/template_view','hr/edit_image_view', $this->arrData);
+	
+	}
+
+	public function upload()
+	{
+		$arrPost = $this->input->post();
+		$strEmpNum = $arrPost['EmployeeId'];
+
+		$config['upload_path']          = 'uploads/employees/';
+        $config['allowed_types']        = 'jpg|png';
+        
+		$config['file_name'] = $strEmpNum.'.png';
+		$config['overwrite'] = TRUE;
+		//print_r($config);
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			//echo $this->upload->display_errors();
+			$error = array('error' => $this->upload->display_errors());
+			print_r($error);
+			exit(1);
+			$this->session->set_flashdata('upload_status','Please try again!');
+		}
+		else
+		{
+			$data = $this->upload->data();
+			//print_r($data);
+				$arrEmp = array(
+					
+				);
+			print_r($data);
+			exit(1);
+
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			
+		}
+		// print_r($error);
+		// print_r($data);
+		// exit(1);
+		redirect('hr/profile/'.$strEmpNum);
+		
+	}
+
 
    
 	

@@ -69,4 +69,56 @@ class Reports extends MY_Controller {
 		}
     	$this->template->load('template/template_view','employee/reports/reports_view',$this->arrData);
     }
+
+    public function generate()
+	{
+		
+		$this->load->library('fpdf_gen');
+		$arrGet=$this->input->get();
+		$rpt=$arrGet['rpt'];
+		
+		// print_r($arrGet);
+		switch($rpt)
+		{
+			case 'reportOB': 
+				$this->load->model(array('reports/ReportOB_rpt_model'));	
+				$arrData=array('strOBtype'=>$arrGet['obtype'],'dtmOBrequestdate'=>$arrGet['reqdate'],'dtmOBdatefrom'=>$arrGet['obdatefrom'],'dtmOBdateto'=>$arrGet['obdateto'],'dtmTimeFrom'=>$arrGet['obtimefrom'],'dtmTimeTo'=>$arrGet['obtimeto'],'strDestination'=>$arrGet['desti'],'strMeal'=>$arrGet['meal'],'strPurpose'=>$arrGet['purpose']);
+				$this->ReportOB_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportTO': 
+				$this->load->model(array('reports/ReportTO_rpt_model'));				
+				$arrData=array('strDestination'=>$arrGet['desti'],'dtmTOdatefrom'=>$arrGet['todatefrom'],'dtmTOdateto'=>$arrGet['todateto'],'strPurpose'=>$arrGet['purpose'],'strMeal'=>$arrGet['meal']);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportLeave': 
+				$this->load->model(array('reports/ReportLeave_rpt_model'));	
+				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'strEmpName2'=>$arrGet['empname'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL']);
+				$this->ReportLeave_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportDTRupdate': 
+				$this->load->model(array('reports/ReportDTRupdate_rpt_model'));				
+				$arrData=array('dtmDTRupdate'=>$arrGet['dtrupdate'],'strOldMorningIn'=>$arrGet['oldmorin'],'strOldMorningOut'=>$arrGet['oldmorout'],'strOldAfternoonIn'=>$arrGet['oldafin'],'strOldAfternoonOut'=>$arrGet['oldaftout'],'strOldOvertimeIn'=>$arrGet['oldOTin'],'strOldOvertimeOut'=>$arrGet['oldOTout'],'dtmMorningIn'=>$arrGet['morningin'],'dtmMorningOut'=>$arrGet['morningout'],'dtmAfternoonIn'=>$arrGet['aftnoonin'],'dtmAfternoonOut'=>$arrGet['aftnoonout'],'dtmOvertimeIn'=>$arrGet['OTtimein'],'dtmOvertimeOut'=>$arrGet['OTtimeout'],'strReason'=>$arrGet['reason']);
+				$this->ReportDTRupdate_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportCL': 
+				$this->load->model(array('reports/ReportCL_rpt_model'));
+				$arrData=array('dtmComLeave'=>$arrGet['comleave'],'dtmOldMorningIn'=>$arrGet['oldmorin'],'dtmOldMorningOut'=>$arrGet['oldmorout'],'dtmOldAfternoonIn'=>$arrGet['oldafin'],'dtmOldAfternoonOut'=>$arrGet['oldafout'],'dtmMorningIn'=>$arrGet['morningin'],'dtmMorningOut'=>$arrGet['morningout'],'dtmAfternoonIn'=>$arrGet['aftrnoonin'],'dtmAfternoonOut'=>$arrGet['aftrnoonout'],'strPurpose'=>$arrGet['purpose'],'strRecommend'=>$arrGet['reco'],'strApproval'=>$arrGet['approval']);			
+				$this->ReportCL_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+			case 'reportPDSupdate': 
+				$this->load->model(array('reports/ReportPDSupdate_rpt_model'));
+				$arrData=array('request'=>$arrGet['request'],'dtmComLeave'=>$arrGet['comleave='],'dtmOldMorningIn'=>$arrGet['oldmorin'],'dtmOldMorningOut'=>$arrGet['oldmorout'],'dtmOldAfternoonIn'=>$arrGet['oldafin'],'dtmOldAfternoonOut'=>$arrGet['oldafout'],'dtmMorningIn'=>$arrGet['morningin'],'dtmMorningOut'=>$arrGet['morningout'],'dtmAfternoonIn'=>$arrGet['aftrnoonin'],'dtmAfternoonOut'=>$arrGet['aftrnoonout'],'strPurpose'=>$arrGet['purpose'],'strRecommend'=>$arrGet['reco'],'strApproval'=>$arrGet['approval']);			
+				$this->ReportPDSupdate_rpt_model->generate($arrData);
+				echo $this->fpdf->Output();	
+			break;
+
+		
+		}
+	}
+
+
 }
