@@ -1,5 +1,5 @@
 <?php
-class ReportCL_rpt_model extends CI_Model {
+class ReportPDSupdate_rpt_model extends CI_Model {
 
 	var $widths;
 	var $aligns;
@@ -12,7 +12,7 @@ class ReportCL_rpt_model extends CI_Model {
 
 	function generate($arrData)
 	{
-		$this->fpdf->SetTitle('Compensatory Leave');
+		$this->fpdf->SetTitle('Personal Data Sheet');
 		$this->fpdf->SetLeftMargin(20);
 		$this->fpdf->SetRightMargin(20);
 		$this->fpdf->SetTopMargin(20);
@@ -21,11 +21,16 @@ class ReportCL_rpt_model extends CI_Model {
 		
 		// $this->fpdf->Image($image, 19, 20.5, 9);
 		$this->fpdf->SetFont('Arial','',11);
-		$this->fpdf->Cell(0,6,'       Republic of the Philippines','',0,'L');
+		$this->fpdf->Cell(0,6,'       Republic of the Philippines','',0,'C');
 		$this->fpdf->Ln(5);
-		$this->fpdf->Cell(0,6,'       DEPARTMENT OF SCIENCE AND TECHNOLOGY','',0,'L');
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(0,6,'       DEPARTMENT OF SCIENCE AND TECHNOLOGY','',0,'C');
+		$this->fpdf->Ln(5);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,'       Central Office','',0,'C');
 		$this->fpdf->Ln(10);
-		$this->fpdf->Cell(0,6,'COMPENSATORY LEAVE','',0,'C');
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(0,6,'PDS','',0,'C');
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial','',10);
 			
@@ -38,4 +43,5 @@ class ReportCL_rpt_model extends CI_Model {
 	
 }
 
+	
 	
