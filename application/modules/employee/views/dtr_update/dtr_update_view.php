@@ -229,7 +229,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                       <div class="col-sm-12 text-center">
                           <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                            <a href="<?=base_url('employee/dtr_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                           <button type="print" class="btn btn-primary">Print/Preview</button>
+                           <button type="button" id="printreport" value="reportDTRupdate" class="btn btn-primary">Print/Preview</button>
                       </div>
                     </div>
                 <?=form_close()?>
@@ -260,7 +260,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             });
 
     $('#printreport').click(function(){
-        var request=$('#request').val();
         var dtrupdate=$('#dtmDTRupdate').val();
         var oldmorin=$('#strOldMorningIn').val();
         var oldmorout=$('#strOldMorningOut').val();
@@ -276,12 +275,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var OTtimeout=$('#dtmOvertimeOut').val();
         var reason=$('#strReason').val();
 
-        if(request=='reportDTRupdate')
-            valid=true;
-        if(valid)
-            window.open("travel_order/generate?request="+request+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal,'_blank'); //ok
+        // if(request=='reportDTRupdate')
+        //     valid=true;
+        // if(valid)
+
+            window.open("reports/generate/?rpt=reportDTRupdate&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&reason="+reason,'_blank'); //ok
     
     });
+ });
 </script>
    
   
