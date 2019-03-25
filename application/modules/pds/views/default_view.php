@@ -38,17 +38,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <a href="<?=base_url('hr/add_employee')?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>&nbsp
+                                <a href="<?=base_url('hr/add_employee')?>" class="btn blue"><i class="fa fa-plus"></i> Add Employee</a>&nbsp;
                                 
                             </div>
                             <div class="btn-group">
-                                <a href="<?=base_url('pds/print')?>" class="btn btn-primary"><i class="fa fa-print"></i> Print PDS</a>
+                                <a href="<?=base_url('pds/print')?>" class="btn blue"><i class="fa fa-print"></i> Print PDS</a>
                             </div>
                         </div>  
                     </div>
 
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblemployees">
+                <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblemployees"  style="display: none">
                     <thead>
                         <tr>
                             <th> No. </th>
@@ -153,10 +154,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <?=load_plugin('js',array('datatables','highcharts'));?>
 
-
 <script>
     $(document).ready(function() {
-        Datatables.init('tblemployees');
+        $('#tblemployees').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#tblemployees').show();
+            }} );
 
         // Build the chart
         $('#chart_plantilla').highcharts({
