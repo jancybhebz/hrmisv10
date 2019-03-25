@@ -72,14 +72,6 @@
 
 <?=load_plugin('js',array('datatables'));?>
 
-
-<!-- 
-<script>
-$(document).ready(function(){
-  $('#table-employees').dataTable();
-});
-
-</script> -->
 <script>
     $(document).ready(function() {
         $('#table-employees').dataTable( {

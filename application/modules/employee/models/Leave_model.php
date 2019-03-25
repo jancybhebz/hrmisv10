@@ -97,6 +97,50 @@ class Leave_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	## Begin get Leaves
+	function getleave($empid, $month=0, $yr=0)
+	{
+		if($month == 0 || $yr == 0):
+			$arrcond = array('empNumber' => $empid);
+		else:
+			$arrcond = array('empNumber' => $empid, 'periodMonth' => $month, 'periodYear' => $yr);
+		endif;
+
+		return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
+	}
+
+	#Priveledge Leave
+	public function getspe_leave($empid, $yr=0)
+	{
+		$this->db->where("empNumber", $empid);
+		$this->db->like("dtrDate", $yr, "after");
+		$this->db->where("(remarks='PL' OR remarks='SPL')");
+		$dtrpl_sl = $this->db->get('tblEmpDTR')->result_array();
+		$dtrpl_sl_used = count($dtrpl_sl) > 0 ? count($dtrpl_sl) : 0;
 		
+		$numdays = $this->db->get_where('tblLeave', array('leaveCode' => 'PL'))->result_array();
+		$numdays = count($numdays) > 0 ? $numdays[0]['numOfDays'] : 0;
+		
+		$spe_leave = $numdays - $dtrpl_sl_used;
+		return $spe_leave;
+	}
+
+	#Forced Leave
+	public function getforce_leave($empid, $yr=0)
+	{
+		echo '<pre>';
+		$this->db->where("empNumber", $empid);
+		$this->db->like("dtrDate", $yr, "after");
+		$this->db->where("remarks", "FL");
+		$dtrfl = $this->db->get('tblEmpDTR')->result_array();
+		$dtrfl_used = count($dtrfl) > 0 ? count($dtrfl) : 0;
+		
+		// $numdays = $this->db->get_where('tblLeave', array('leaveCode' => 'PL'))->result_array();
+		// $numdays = count($numdays) > 0 ? $numdays[0]['numOfDays'] : 0;
+		
+		// $spe_leave = $numdays - $dtrpl_sl_used;
+		// return $spe_leave;
+		die();
+	}
 		
 }

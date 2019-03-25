@@ -53,13 +53,9 @@
                                         <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Attendance Summary </a>
                                     </li>
-                                    <li class="<?=$this_page == 'leave_balance' ? 'active' : ''?>">
+                                    <li class="<?=$this_page == 'leave_balance' || $this_page == 'leave_balance_update' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Leave Balance </a>
-                                    </li>
-                                    <li class="<?=$this_page == 'leave_balance_update' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
-                                            Update Leave Balance </a>
                                     </li>
                                     <li class="<?=$this_page == 'leave_monetization' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/leave_monetization/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">

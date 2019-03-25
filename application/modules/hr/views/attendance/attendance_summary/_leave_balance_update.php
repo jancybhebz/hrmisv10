@@ -1,3 +1,4 @@
+<?php $month = isset($_GET['month']) ? $_GET['month'] : date('m'); $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y'); ?>
 <div class="tab-pane active" id="tab_1_3">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -66,6 +67,8 @@
                                 <i class="fa fa-pencil"></i> &nbsp;Update Leave Balance</button>
                             <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-rollback" id="btn-rollback">
                                 <i class="fa fa-refresh"></i> &nbsp;Rollback</button>
+                            <a class="btn grey-mint" href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                <i class="icon-arrow-left"></i> &nbsp;Back</a>
                         </p>
                     </div>
                 </div>

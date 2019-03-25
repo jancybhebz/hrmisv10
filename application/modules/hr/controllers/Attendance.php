@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','AttendanceSummary_model'));
+        $this->load->model(array('Hr_model','AttendanceSummary_model','employee/Leave_model'));
     }
 
     public function conversion_table()
@@ -41,11 +41,19 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		// echo '<pre>';
+		
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
-		// die();
+
+		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
+		$this->arrData['arrspe_leave'] = $this->Leave_model->getspe_leave($empid, $yr);
+		// TODO:: GET FORCED LEAVE
+		// $this->arrData['arrforce_leave'] = $this->Leave_model->getforce_leave($empid, $yr);
+		// TODO:: GET OFFSET BALANCE
+		// $this->arrData['arroff_bal'] = $this->AttendanceSummary_model->getOffsetBalance($empid, $month, $yr);
+		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
@@ -57,9 +65,14 @@ class Attendance extends MY_Controller {
 
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		// echo '<pre>';
 		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
 		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
-		
+		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
+		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
+		$this->arrData['total_late'] = $arremp_dtr['total_late'];
+		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
+		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
@@ -836,6 +849,41 @@ class Attendance extends MY_Controller {
 	}
 
 	public function override_gen_dtr_add()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function officer_dtr()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function employees_present()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function employees_absent()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function employees_onleave()
+	{
+		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function employees_onottott()
 	{
 		$this->arrData['action'] = 'add';
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);

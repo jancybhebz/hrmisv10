@@ -184,6 +184,7 @@ class AttendanceSummary_model extends CI_Model {
 		$total_late = 0;
 		$total_ot_wkdays = 0;
 		$total_ot_wkendsholi = 0;
+		$total_workingdays = 0;
 
 		$arrdtrData = array();
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
@@ -380,7 +381,6 @@ class AttendanceSummary_model extends CI_Model {
 
 				# Overtime weekdays
 				$total_ot_wkdays = $total_ot_wkdays + $overtime;
-
 			else:
 				# if holiday or weekends
 				if(count($dtrdata) > 0):
@@ -421,6 +421,9 @@ class AttendanceSummary_model extends CI_Model {
 						endif;
 					endif;
 				endif;
+
+				# Total working days
+				$total_workingdays = $total_workingdays + 1;
 			endif;
 
 			# Total late
@@ -436,7 +439,8 @@ class AttendanceSummary_model extends CI_Model {
 							'total_late' 	 	 => $total_late,
 							'total_undertime'	 => $total_undertime,
 							'total_ot_wkdays'	 => $total_ot_wkdays,
-							'total_ot_wkendsholi'=> $total_ot_wkendsholi);
+							'total_ot_wkendsholi'=> $total_ot_wkendsholi,
+							'total_workingdays'	 => $total_workingdays);
 		// print_r($arrdtrData);
 		return $arrdtrData;
 		// return array('dtr' => $arrdtrData, 'date_absents' => $date_absents);
@@ -693,6 +697,17 @@ class AttendanceSummary_model extends CI_Model {
 		return $this->db->get_where('tblEmpDTR', array('empNumber' => $empid, 'dtrDate' => $dtrdate))->result_array();
 	}
 	# End Flag Ceremony
+
+	# begin offset balance
+	public function getOffsetBalance($empid, $month, $yr)
+	{
+		echo '<pre>';
+		$offbal = $this->db->get_where('tblEmpLeaveBalance', array('empNumber' => $empid, 'periodMonth' => $month, 'periodYear' => $yr))->result_array();
+		$offbal = count($offbal) > 0 ? $offbal[0]['off_bal'] : 0;
+		print_r($offbal);
+		die();
+	}
+	# end offset balance
 
 
 }

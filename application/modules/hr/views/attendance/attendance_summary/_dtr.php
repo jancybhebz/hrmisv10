@@ -158,16 +158,22 @@
             <div class="well">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Total Number of Working Days: 22</p>
-                        <p>Dates Absent: 02</p>
-                        <p>Total Undertime: 00:00</p>
-                        <p>Total Late: 00:00</p>
-                        <p>Late/Undertime:</p>
-                        <p>Total Days Late/Undertime: 0</p>
-                        <p>Total Days LWOP:</p>
+                        <p>Total Number of Working Days: <?=$emp_workingdays?></p>
+                        <p>Dates Absent: 
+                            <?php 
+                                foreach($date_absents as $absent):
+                                    echo date('d', strtotime($absent)).'; ';
+                                endforeach;
+                             ?>
+                        </p>
+                        <p>Total Undertime: <?=date('H:i', mktime(0, $total_undertime))?></p>
+                        <p>Total Late: <?=date('H:i', mktime(0, $total_late))?></p>
+                        <p>Late/Undertime: NULL</p>
+                        <p>Total Days Late/Undertime: NULL</p>
+                        <p>Total Days LWOP: NULL</p>
                     </div>
                     <div class="col-md-6">
-                        <p>Total Days Absent: 1</p>
+                        <p>Total Days Absent: <?=count($date_absents)?></p>
                         <p>VL: 44.156</p>
                         <p>SL: 78.500</p>
                         <p>Offset Balance:  00:00</p>

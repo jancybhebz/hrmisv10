@@ -31,7 +31,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12 profile-info">
                     <div class="row">
@@ -53,23 +52,23 @@
                                 </tr>
                                 <tr>
                                     <td><b>Vacation Leave Left</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves[0]['vlBalance'] : ''?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Sick Leave Left</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves[0]['slBalance'] : ''?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Special Leave Left</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"><?=$arrspe_leave?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Forced Leave Left</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"> <pre>// TODO::</pre></td>
                                 </tr>
                                 <tr>
                                     <td><b>Offset Balance</b></td>
-                                    <td style="width: 75%;"></td>
+                                    <td style="width: 75%;"> <pre>// TODO::</pre></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Undertime</b></td>
