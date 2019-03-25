@@ -93,7 +93,7 @@ class Reports extends MY_Controller {
 			break;
 			case 'reportLeave': 
 				$this->load->model(array('reports/ReportLeave_rpt_model'));	
-				$arrData=array('request'=>$arrGet['request'],'strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'strEmpName2'=>$arrGet['empname'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL']);
+				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'strEmpName2'=>$arrGet['empname'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL']);
 				$this->ReportLeave_rpt_model->generate($arrData);
 				echo $this->fpdf->Output();	
 			break;

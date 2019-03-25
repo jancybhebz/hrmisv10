@@ -90,10 +90,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="row" id="wholeday_textbox">
                        <div class="col-sm-5 text-right">
                             <div class="form-group">
-                                <input type="radio" name="strDay"
-                                    <?php if (isset($strDay) && $strDay=="Whole day") echo "checked";?> value="Whole day">Whole day
-                                <input type="radio" name="strDay"
-                                    <?php if (isset($strDay) && $strDay=="Half day") echo "checked";?> value="Half day">Half day
+                                <label class="mt-radio">
+                                    <input type="radio" name="strDay" id="strDay" value="Whole day" checked> Whole day
+                                </label>
+                                <label class="mt-radio">
+                                    <input type="radio" name="strDay" id="strDay" value="Half day"> Half day
+                                </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -259,7 +261,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <button type="submit" id="submitPL" class="btn btn-primary">Submit</button>
                             <button type="submit" id="submitSTL" class="btn btn-primary">Submit</button>
                             <a href="<?=base_url('employee/leave')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                            <button type="print" value="reportLeave"  class="btn btn-primary">Print/Preview</button>
+                            <button type="button" id="printreport" value="reportLeave" class="btn btn-primary">Print/Preview</button>
                       </div>
                     </div>
                 <?=form_close()?>
@@ -290,9 +292,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
-    
-    $('#printreport').click(function(){
-        var request=$('#request').val();
+
+     $('#printreport').click(function(){
         var leavetype=$('#strLeavetype').val();
         var day=$('#strDay').val();
         var leavefrom=$('#dtmLeavefrom').val();
@@ -303,12 +304,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var reason=$('#strReason').val();
         var incaseSL=$('#strIncaseSL').val();
         var incaseVL=$('#strIncaseVL').val();
-        
-        if(request=='reportLeave')
-            valid=true;
-        if(valid)
-            window.open("travel_order/generate?request="+request+"&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval,'_blank'); //ok
+       // var valid=false;
+
+        // if(request=='reportLeave')
+        //     valid=true;
+        // if(valid)
+
+            window.open("reports/generate/?rpt=reportLeave&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&empname="+empname+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL,'_blank'); //ok
     
     });
+ });
 </script>
 
