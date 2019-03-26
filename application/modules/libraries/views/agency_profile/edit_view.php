@@ -155,7 +155,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                   <!--  <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Salary Schedule <span class="required"> * </span></label>
@@ -297,7 +297,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">

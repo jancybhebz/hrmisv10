@@ -160,7 +160,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Salary Schedule <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSalarySched" value="<?=!empty($this->session->userdata('strSalarySched'))?$this->session->userdata('strSalarySched'):''?>">
+                                    <select type="text" class="form-control" name="strSalarySched" value="<?=!empty($this->session->userdata('strSalarySched'))?$this->session->userdata('strSalarySched'):''?>">
+                                        <option value="">Select</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Bi-Monthly">Bi-Monthly</option>
+                                        <option value="Monthly">Monthly</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
