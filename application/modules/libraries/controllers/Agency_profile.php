@@ -185,7 +185,7 @@ class Agency_profile extends MY_Controller {
 						'PhilhealthNum'=>$intPhilhealthNum,
 						'Mission'=>$strMission,
 						'Vision'=>$strVision,
-						'Mandate'=>$strMandata,
+						'Mandate'=>$strMandate,
 						'AccountNum'=>$strAccountNum,
 					
 				);
