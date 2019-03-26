@@ -53,7 +53,7 @@
                                         <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Attendance Summary </a>
                                     </li>
-                                    <li class="<?=$this_page == 'leave_balance' || $this_page == 'leave_balance_update' ? 'active' : ''?>">
+                                    <li class="<?=in_array($this_page, array('leave_balance','leave_balance_update','leave_balance_set')) ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Leave Balance </a>
                                     </li>
@@ -120,6 +120,7 @@
                                             if($this_page == 'index'): $this->load->view('_index.php'); endif;
                                             if($this_page == 'leave_balance'): $this->load->view('_leave_balance.php'); endif;
                                             if($this_page == 'leave_balance_update'): $this->load->view('_leave_balance_update.php'); endif;
+                                            if($this_page == 'leave_balance_set'): $this->load->view('_leave_balance_set.php'); endif;
                                             if($this_page == 'leave_monetization'): $this->load->view('_leave_monetization.php'); endif;
                                             if($this_page == 'filed_request'): $this->load->view('_filed_request.php'); endif;
                                             if($this_page == 'dtr'):

@@ -420,6 +420,10 @@ class AttendanceSummary_model extends CI_Model {
 							array_push($date_absents, $ddate);
 						endif;
 					endif;
+				else:
+					if (count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
+						array_push($date_absents, $ddate);
+					endif;
 				endif;
 
 				# Total working days
@@ -441,10 +445,9 @@ class AttendanceSummary_model extends CI_Model {
 							'total_ot_wkdays'	 => $total_ot_wkdays,
 							'total_ot_wkendsholi'=> $total_ot_wkendsholi,
 							'total_workingdays'	 => $total_workingdays);
-		// print_r($arrdtrData);
-		return $arrdtrData;
-		// return array('dtr' => $arrdtrData, 'date_absents' => $date_absents);
 
+		return $arrdtrData;
+		
 		# PRINTDIE
 		// print_r($arrdtrData);
 		// die();

@@ -96,6 +96,17 @@ class Attendance extends MY_Controller {
 
 	}
 
+	public function leave_balance_set()
+	{
+		$empid = $this->uri->segment(4);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['action'] = 'add';
+		$this->arrData['arrData'] = $res[0];
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+
+	}
+
 	public function leave_monetization()
 	{
 		$empid = $this->uri->segment(4);
