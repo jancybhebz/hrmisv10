@@ -1,7 +1,7 @@
 <?php 
 /** 
 Purpose of file:    Model for Educational level Library
-Author:             Edgardo P. Catorce Jr.
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -16,20 +16,13 @@ class Educ_level_model extends CI_Model {
 	}
 	
 	function getData($intEducLevelId = '')
-	{		
-		$strWhere = '';
-		if($intEducLevelId != "")
-			$strWhere .= " AND levelId = '".$intEducLevelId."'";
-		
-		$strSQL = " SELECT * FROM tblEducationalLevel					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY level DESC
-					";
-		//]echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
-		return $objQuery->result_array();	
+	{
+		$this->db->order_by('level', 'desc');
+		if($intEducLevelId != ""):
+			return $this->db->get_where('tblEducationalLevel', array('levelId' => $intEducLevelId))->result_array();
+		else:
+			return $this->db->get('tblEducationalLevel')->result_array();
+		endif;	
 	}
 
 	function add($arrData)
