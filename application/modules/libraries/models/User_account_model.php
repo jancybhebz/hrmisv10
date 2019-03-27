@@ -38,7 +38,17 @@ class User_account_model extends CI_Model {
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
+	}
 
+	function getUserLevel($strULevel = '')
+	{		
+		if($strULevel != "")
+		{
+			$this->db->where('userLevel',$strULevel);
+		}
+		$this->db->group_by('userLevel');
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();		
 	}
 
 	

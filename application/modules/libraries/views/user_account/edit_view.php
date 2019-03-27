@@ -50,21 +50,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Access Level <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                <?php if(isset($_GET["strAccessLevel"])){
-                                    $draft= $_GET["strAccessLevel"];
-                                    }
-                                    else
-                                    {
-                                    $draft = '';
-                                    } ?>
-                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel">
-                                        <option value="">Select</option>
-                                        <option value="1">HR Module</option>
-                                        <option value="2">Finance Module</option>
-                                        <option value="3">Officer Module</option>
-                                        <option value="4">Execom Module</option>
-                                        <option value="5">Employee Module</option>
-                                    </select>  
+                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=!empty($this->session->userdata('userLevel'))?$this->session->userdata('userLevel'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrUserLevel as $i=>$level)
+                                        {
+                                          echo '<option value="'.$level['empNumber'].'" '.($arrUserLevel[0]['empNumber']==$level['empNumber']?'selected':'').'>'.(strtoupper($level['userLevel'])).'</option>';
+                                        }?>
+                                    </select>
 
                                 </div>
                             </div>
