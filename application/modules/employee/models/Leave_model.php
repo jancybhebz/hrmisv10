@@ -120,7 +120,7 @@ class Leave_model extends CI_Model {
 	# Late undertime equivalent
 	function ltut_table_equiv($ltut)
 	{
-		$arrequiv = array("1"  => 0.002, "2"  => 0.004, "3"  => 0.006,"4"  => 0.008,"5"  => 0.010,
+		$arrequiv = array("0"  => 0.000, "1"  => 0.002, "2"  => 0.004, "3"  => 0.006,"4"  => 0.008,"5"  => 0.010,
 						  "6"  => 0.012, "7"  => 0.015, "8"  => 0.017,"9"  => 0.019,"10" => 0.021,
 						  "11" => 0.023, "12" => 0.025, "13" => 0.027,"14" => 0.029,"15" => 0.031,
 						  "16" => 0.033, "17" => 0.035, "18" => 0.037,"19" => 0.040,"20" => 0.042,
@@ -132,16 +132,18 @@ class Leave_model extends CI_Model {
 						  "46" => 0.096, "47" => 0.098, "48" => 0.100,"49" => 0.102,"50" => 0.104,
 						  "51" => 0.106, "52" => 0.108, "53" => 0.110,"54" => 0.112,"55" => 0.115,
 						  "56" => 0.117, "57" => 0.119, "58" => 0.121,"59" => 0.123,"60" => 0.125);
-		$hours = 0;
-		$minutes = 0;
-		if($ltut>=60){
-			$hours=(int)($ltut/60);
-			$minutes=($ltut%60);
-			$ltut = ($hours*0.125) + ($arrequiv[$minutes]);
-		}else{
-			$minutes=($ltut%60);
-			$ltut = $arrequiv[$minutes];
-		}
+		$hrs = 0;
+		$mins = 0;
+		if($ltut > 0):
+			if($ltut>=60){
+				$hrs=(int)($ltut/60);
+				$mins=($ltut%60);
+				$ltut = ($hrs*0.125) + ($arrequiv[$mins]);
+			}else{
+				$mins=($ltut%60);
+				$ltut = $arrequiv[$mins];
+			}
+		endif;
 		return $ltut;
 	}
 

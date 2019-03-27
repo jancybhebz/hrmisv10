@@ -72,8 +72,8 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 35%;">Leave Type</th>
-                                                <th>Previous Month Balance</th>
-                                                <th>Current Balance</th>
+                                                <th style="text-align: center;">Previous Month Balance</th>
+                                                <th style="text-align: center;">Current Balance</th>
                                             </tr>
                                         </thead>
                                         <tbody>
