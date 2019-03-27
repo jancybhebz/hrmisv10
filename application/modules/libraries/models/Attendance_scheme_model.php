@@ -22,7 +22,29 @@ class Attendance_scheme_model extends CI_Model {
 	{		
 		if($strCode != "")
 		{
-			$this->db->where($this->tableid,$strCode);
+			$this->db->where('schemeCode',$strCode);
+		}
+		
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+
+	function getType($strType = '')
+	{		
+		if($strType != "")
+		{
+			$this->db->where('schemeType',$strType);
+		}
+		
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+
+	function getName($strName = '')
+	{		
+		if($strName != "")
+		{
+			$this->db->where('schemeName',$strName);
 		}
 		
 		$objQuery = $this->db->get($this->table);
