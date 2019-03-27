@@ -10,18 +10,20 @@ class Libraries extends MY_Controller {
 
     }
 
-    public function country()
-    {
-    	$this->load->module('libraries/country');
-		$this->country->index();
-    }
+  //   public function country()
+  //   {
+  //   	$this->load->module('libraries/country');
+		// $this->country->index();
+  //   }
 
-	public function index()
-	{
-		$this->load->model(array('libraries/courses_model'));
-		$this->arrData['arrCourses']=$this->courses_model->getData();
-		$this->template->load('template/template_view','libraries/libraries_view',$this->arrData);
-	}
+	// public function index()
+	// {
+	// 	$this->load->model(array('libraries/courses_model'));
+	// 	$this->arrData['arrCourses']=$this->courses_model->getData();
+	// 	$this->template->load('template/template_view','libraries/libraries_view',$this->arrData);
+	// }
+
+	
 
 	// public function course()
 	// {

@@ -83,3 +83,27 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/*
+|--------------------------------------------------------------------------
+| Predefined Constants
+|--------------------------------------------------------------------------
+|
+| These variables shall be used in the system
+| 
+|
+*/
+define('CIVIL_STATUS',json_encode(array('Single','Married','Separated','Widowed','Annulled','Others')));
+define('TABLE_CHILD','tblEmpChild');
+define('TABLE_EDUC','tblEmpSchool');
+define('TABLE_EXAM','tblEmpExam'); 
+define('TABLE_SERVICE','tblServiceRecord');
+define('TABLE_VOLWORK','tblEmpVoluntaryWork');
+define('TABLE_TRAINING','tblEmpTraining');
+define('TABLE_POSITION','tblEmpPosition');
+define('TABLE_DUTIES','tblEmpDuties'); 
+define('TABLE_PLANTILLADUTIES','tblPlantillaDuties'); 
+define('TABLE_REFERENCE','tblEmpReference'); 
+define('TABLE_VOLUNTARY','tblempvoluntarywork'); 
+
+define('STORE_QR','uploads/qr/'); 

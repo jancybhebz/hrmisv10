@@ -1,3 +1,11 @@
+<?php 
+/** 
+Purpose of file:    Controller for Country Library
+Author:             Edgardo P. Catorce Jr.
+System Name:        Human Resource Management Information System Version 10
+Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
+**/
+?>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -7,91 +15,119 @@ class Country extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-
+        $this->load->model(array('libraries/country_model'));
     }
-
-	// public function index()
-	// {
-	// 	// $this->load->model(array('libraries/courses_model'));
-	// 	// $this->arrData['arrCourses']=$this->courses_model->getData();
-	// 	$this->template->load('template/template_view','libraries/country_view',$this->arrData);
-	// }
 
 	public function index()
 	{
-		$this->load->model(array('libraries/courses_model'));
-		$this->arrData['arrCourses']=$this->courses_model->getData();
-		$this->template->load('template/template_view','libraries/country/country_view',$this->arrData);
+		$this->arrData['arrCountries'] = $this->country_model->getData();
+		$this->template->load('template/template_view', 'libraries/country/list_view', $this->arrData);
 	}
 	
 	public function add()
-	{
-		if(!empty($arrPost)):
-			//print_r($arrPost);
-			$strCode=$arrPost['strCode'];
-			$strDescription=$arrPost['strDescription'];
-			if(!empty($strCode) && !empty($strDescription)):
-				//$this->load->model('libraries/courses_model');
-				if( count($this->courses_model->checkExist($strCode))==0 ):
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->template->load('template/template_view','libraries/country/add_view',$this->arrData);	
+		}
+		else
+		{	
+			$strCountryName = $arrPost['strCountryName'];
+			$strCountryCode = $arrPost['strCountryCode'];
+			if(!empty($strCountryName) && !empty($strCountryCode))
+			{	
+				// check if country name or country code already exist
+				if(count($this->country_model->checkExist($strCountryName, $strCountryCode))==0)
+				{
 					$arrData = array(
-						'courseCode'=>$strCode,
-						'courseDesc'=>$strDescription
+						'countryName'=>$strCountryName,
+						'countryCode'=>$strCountryCode
 					);
-					$blnReturn=$this->courses_model->add($arrData);
-					if(count($blnReturn)>0):
-						$this->session->set_flashdata('strMsg','Course added successfully.');
-					endif;
-					redirect('libraries/course');
-				else:
-					$this->session->set_flashdata('strErrorMsg','Course already exists.');
-					$this->session->set_flashdata('strCode',$strCode);
-					$this->session->set_flashdata('strDescription',$strDescription);
+					$blnReturn  = $this->country_model->add($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountrY','Added '.$strCountryName.' Country',implode(';',$arrData),'');
+					
+						$this->session->set_flashdata('strMsg','Country added successfully.');
+					}
+					redirect('libraries/country');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Country name and/or country code already exists.');
+					$this->session->set_flashdata('strCountryName',$strCountryName);
+					$this->session->set_flashdata('strCountryCode',$strCountryCode);
 					//echo $this->session->flashdata('strErrorMsg');
-					redirect('libraries/course/add');
-				endif;
-			endif;
-		else:	
-			$this->template->load('template/template_view','libraries/course/add_view',$this->arrData);
-		endif;
-	}
+					redirect('libraries/country/add');
+				}
+			}
+		}
+    	
+    	
+    }
+
 	public function edit()
 	{
-		if(!empty($arrPost)):
-			$strCode = $arrPost['strCode'];
-			$strDescription=$arrPost['strDescription'];
-			if(!empty($strDescription)):
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$intCountryId = urldecode($this->uri->segment(4));
+			$this->arrData['arrCountries']=$this->country_model->getData($intCountryId);
+			$this->template->load('template/template_view','libraries/country/edit_view', $this->arrData);
+		}
+		else
+		{
+			$intCountryId = $arrPost['intCountryId'];
+			$strCountryName = $arrPost['strCountryName'];
+			$strCountryCode = $arrPost['strCountryCode'];
+			if(!empty($strCountryName) AND !empty($strCountryCode)) 
+			{
 				$arrData = array(
-					'courseDesc'=>$strDescription
+					'countryName'=>$strCountryName,
+					'countryCode'=>$strCountryCode
 				);
-				$blnReturn=$this->courses_model->save($arrData,$strCode);
-				if(count($blnReturn)>0):
-					$this->session->set_flashdata('strMsg','Course saved successfully.');
-				endif;
-				redirect('libraries/course');
-			endif;
-		else:
-			$strCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrData']=$this->courses_model->getData($strCode);
-			$this->template->load('template/template_view','libraries/course/edit_view',$this->arrData);
-		endif;
+				$blnReturn = $this->country_model->save($arrData, $intCountryId);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Edited '.$strCountryName.' Country',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strMsg','Country saved successfully.');
+				}
+				redirect('libraries/country');
+			}
+		}
+		
 	}
-
 	public function delete()
 	{
 		//$strDescription=$arrPost['strDescription'];
-		$strCode = $this->uri->segment(4);
-		if(!empty($arrPost)):
-			$strCode = $arrPost['strCode'];
-			if(!empty($strCode)):
-				$blnReturn=$this->courses_model->delete($strCode);
-				if(count($blnReturn)>0):
-					$this->session->set_flashdata('strMsg','Course deleted successfully.');
-				endif;
-				redirect('libraries/course');
-			endif;
-		else:
-			$this->arrData['arrData']=$this->courses_model->getData($strCode);
-			$this->template->load('template/template_view','libraries/course/delete_view',$this->arrData);
-		endif;
+		$arrPost = $this->input->post();
+		$intCountryId = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrData'] = $this->country_model->getData($intCountryId);
+			$this->template->load('template/template_view','libraries/country/delete_view',$this->arrData);
+		}
+		else
+		{
+			$intCountryId = $arrPost['intCountryId'];
+			//add condition for checking dependencies from other tables
+			if(!empty($intCountryId))
+			{
+				$arrCountries = $this->country_model->getData($intCountryId);
+				$strCountryName = $arrCountries[0]['countryName'];	
+				$blnReturn = $this->country_model->delete($intCountryId);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Deleted '.$strCountryName.' Country',implode(';',$arrCountries[0]),'');
+	
+					$this->session->set_flashdata('strMsg','Country deleted successfully.');
+				}
+				redirect('libraries/country');
+			}
+		}
+		
 	}
 }

@@ -26,24 +26,51 @@ if ( ! function_exists('load_plugin'))
 							<link href="'.base_url('assets/css/layout.min.css').'" rel="stylesheet" type="text/css" />
 							<link href="'.base_url('assets/css/themes/darkblue.min.css').'" rel="stylesheet" type="text/css" id="style_color" />
 							<link href="'.base_url('assets/plugins/bootstrap-toastr/toastr.min.css').'" rel="stylesheet" type="text/css" />
-							<link href="'.base_url('assets/css/custom.css').'" rel="stylesheet" type="text/css" />
-							';
-					case 'select2': $str.='
-							 <link href="'.base_url('assets/plugins/select2/css/select2.min.css').'" rel="stylesheet" type="text/css" />
-							<link href="'.base_url('assets/plugins/select2/css/select2-bootstrap.min.css').'" rel="stylesheet" type="text/css" />
-							';
-					case 'datepicker': $str .= '
-							<link href="'.base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css').'" rel="stylesheet" type="text/css" />
-							';
-
+							<link href="'.base_url('assets/css/custom.css').'" rel="stylesheet" type="text/css" />';
+					break;
+					case 'datatables': $str.='
+							<link href="'.base_url('assets/global/plugins/datatables/datatables.min.css').'" rel="stylesheet" type="text/css" />
+        					<link href="'.base_url('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css').'" rel="stylesheet" type="text/css" />';
+						break;
+					case 'select2':
+                        $str.=  '<link href="'.base_url('assets/global/plugins/select2/css/select2.min.css').'" rel="stylesheet" type="text/css" />'.
+                        		'<link href="'.base_url('assets/global/plugins/select2/css/select2-bootstrap.min.css').'" rel="stylesheet" type="text/css" />'.
+                                '<link href="'.base_url('assets/css/components.min.css').'" rel="stylesheet" type="text/css" />'.
+                                '<link href="'.base_url('assets/css/plugins.min.css').'" rel="stylesheet" type="text/css" />';
+                        break;
+                    case 'select':
+                        $str.=  '<link href="'.base_url('assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css').'" rel="stylesheet" type="text/css" />';
+                        break;
+					case 'datepicker':
+						$str.= '
+							<link href="'.base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css').'" rel="stylesheet" type="text/css" />';
+						break;
+					case 'timepicker':
+						$str.= '
+							<link href="'.base_url('assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css').'" rel="stylesheet" type="text/css" />';
+						break;
+					case 'datetimepicker':
+						$str.= '
+							<link href="'.base_url('assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css').'" rel="stylesheet" type="text/css" />';
+						break;
+					case 'profile-2': 
+						$str.= '<link href="'.base_url('assets/css/profile-2.min.css').'" rel="stylesheet" type="text/css" />';
+						break;
+					case 'attendance-css': 
+						$str.= '<link href="'.base_url('assets/css/attendance-custom.css').'" rel="stylesheet" type="text/css" />';
+						break;
+					case 'multi-select': 
+						$str.= '<link href="'.base_url('assets/global/plugins/jquery-multi-select/css/multi-select.css').'" rel="stylesheet" type="text/css" />';
+						break;
 				}
 			endforeach;
+			echo $str;
 		}
 		if($type=="js")
 		{
 			foreach($arrData as $row):
 				switch($row){
-					case 'global': $str .= '
+					case 'global': $str.= '
 							<script src="'.base_url('assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js').'" type="text/javascript"></script>
 					        <script src="'.base_url('assets/plugins/jquery.blockui.min.js').'" type="text/javascript"></script>
 					        <script src="'.base_url('assets/plugins/uniform/jquery.uniform.min.js').'" type="text/javascript"></script>
@@ -63,23 +90,61 @@ if ( ! function_exists('load_plugin'))
 					        <!-- BEGIN THEME LAYOUT SCRIPTS -->
 					        <script src="'.base_url('assets/js/layout.min.js').'" type="text/javascript"></script>
 					        <!--script src="'.base_url('assets/layouts/layout/scripts/demo.js').'" type="text/javascript"></script-->
-					        <script src="'.base_url('assets/js/quick-sidebar.min.js').'" type="text/javascript"></script>
-						';
-					case 'datatable': $str.='
+					        <script src="'.base_url('assets/js/quick-sidebar.min.js').'" type="text/javascript"></script>';
+						break;
+					case 'datatables': $str.='
 							<script src="'.base_url('assets/js/datatable.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/datatables/datatables.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/js/table-datatables-libraries.js').'" type="text/javascript"></script>';
+						break;
+					case 'datatables-scroller': $str.='
+							<script src="'.base_url('assets/pages/scripts/table-datatables-scroller.min.js').'" type="text/javascript"></script>';
+						break;
 					case 'validation': $str.='
 							<script src="'.base_url('assets/plugins/jquery-validation/js/jquery.validate.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/jquery-validation/js/additional-methods.min.js').'" type="text/javascript"></script>
 							<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js').'" type="text/javascript"></script>
 							';
-					
+						break;
+					case 'form_validation': $str.='
+							<script src="'.base_url('assets/js/js-validation/custom-form-validation.js').'" type="text/javascript"></script>
+							';
+						break;
+					case 'personnel-profile-val': $str.='
+							<script src="'.base_url('assets/js/js-validation/personnel_profile-validation.js').'" type="text/javascript"></script>
+							';
+						break;
+					case 'val_libraries':
+                        $str.= '<script src="'.base_url('assets/js/js-validation/libraries-validation.js').'" type="text/javascript"></script>';
+                    	break;
+					case 'datepicker': $str.= '<script src="'.base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js').'" type="text/javascript"></script>';
+						break;
+					case 'timepicker': $str.= '<script src="'.base_url('assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js').'" type="text/javascript"></script>';
+						break;
+					case 'datetimepicker': $str.= '<script src="'.base_url('assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js').'" type="text/javascript"></script>';
+						break;
+					case 'highcharts': $str.= '<script src="'.base_url('assets/plugins/highcharts/js/highcharts.js').'" type="text/javascript"></script>';
+						break;
+					case 'select2':
+                    	$str.=  '<script src="'.base_url('assets/global/plugins/select2/js/select2.full.min.js').'" type="text/javascript"></script>'.
+                                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
+                                    '<script src="'.base_url('assets/pages/scripts/components-select2.min.js').'" type="text/javascript"></script>';
+                    	break;
+                   	case 'select':
+                   	    $str.=  '<script src="'.base_url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/pages/scripts/components-bootstrap-select.min.js').'" type="text/javascript"></script>';
+                   	    break;
+                   	case 'multi-select':
+                   	    $str.=  '<script src="'.base_url('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/pages/scripts/components-multi-select.min.js').'" type="text/javascript"></script>';
+                   	    break;
 
 				}
 			endforeach;
+			echo $str;
 		}
-		echo $str;
 	}
 }

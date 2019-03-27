@@ -1,3 +1,11 @@
+<?php 
+/** 
+Purpose of file:    Model for Country Library
+Author:             Edgardo P. Catorce Jr.
+System Name:        Human Resource Management Information System Version 10
+Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
+**/
+?>
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Country_model extends CI_Model {
 
@@ -6,56 +14,64 @@ class Country_model extends CI_Model {
 		$this->load->database();
 		//$this->db->initialize();	
 	}
-	
+
+	function getData($intCountryId = '')
+	{		
+		$strWhere='';
+		if($intCountryId != "")
+			$strWhere .= " AND countryId='".$intCountryId."'";
+		
+		$strSQL = " SELECT * FROM tblCountry					
+					WHERE 1=1 
+					$strWhere
+					ORDER BY countryName
+					";
+		//]echo $strSQL;exit(1);				
+		$objQuery = $this->db->query($strSQL);
+		//print_r($objQuery->result_array());
+		return $objQuery->result_array();	
+	}			
+		
 	function add($arrData)
 	{
-		$this->db->insert('tblCourse', $arrData);
+		$this->db->insert('tblCountry', $arrData);
 		return $this->db->insert_id();		
 	}
 	
-	function checkExist($strCode)
+	// check if country name or country code already exist
+	function checkExist($strCountryName = '', $strCountryCode = '')
 	{		
-		$strSQL = " SELECT courseCode FROM tblCourse					
-					WHERE 1=1 
-					AND courseCode='".$strCode."'
-					ORDER BY courseDesc
+		/*
+		$strWhere = '';
+		if($strCountryName!='')
+			$strWhere .= " OR countryName ='".$strCountryName."'";
+
+		if($strCountryCode!='')
+			$strWhere .= " OR countryCode ='".$strCountryCode."'";
+		*/
+		$strSQL = " SELECT * FROM tblCountry					
+					WHERE  
+					countryName ='$strCountryName' OR
+					countryCode ='$strCountryCode'					
 					";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	
 	}
-
-	function getData($strCode="")
-	{		
-		$where='';
-		if($strCode!="")
-			$where .= " AND courseCode='".$strCode."'";
-		
-		$strSQL = " SELECT * FROM tblCourse					
-					WHERE 1=1 
-					$where
-					ORDER BY courseDesc
-					";
-		//echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
-		return $objQuery->result_array();	
-	}			
-		
-	function save($arrData, $strCode)
+	
+	function save($arrData, $intCountryId)
 	{
-		$this->db->where('courseCode',$strCode);
-		$this->db->update('tblCourse', $arrData);
+		$this->db->where('countryId', $intCountryId);
+		$this->db->update('tblCountry', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($strCode)
+	function delete($intCountryId)
 	{
-		$this->db->where('courseCode', $strCode);
-		$this->db->delete('tblCourse'); 	
+		$this->db->where('countryId', $intCountryId);
+		$this->db->delete('tblCountry'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
 }
-/* End of file Courses_model.php */
-/* Location: ./application/modules/libraries/models/Courses_model.php */

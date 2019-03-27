@@ -33,7 +33,7 @@
                 
             </div>
             <div class="portlet-body">
-                <form action="<?=base_url('libraries/course/add')?>" method="post" id="frmCourse">
+            <?=form_open(base_url('libraries/course/add'), array('method' => 'post', 'id' => 'frmCourse'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -53,7 +53,7 @@
                                 <label class="control-label">Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <textarea class="form-control" name="strDescription"><?=!empty($this->session->userdata('strDescription'))?$this->session->userdata('strDescription'):''?></textarea>
+                                    <input type="text" class="form-control" name="strDescription" value="<?=!empty($this->session->userdata('strDescription'))?$this->session->userdata('strDescription'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                </form>
+               <?=form_close()?>
             </div>
         </div>
     </div>

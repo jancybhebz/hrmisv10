@@ -10,3 +10,4 @@
 <!-- BEGIN PAGE LEVEL STYLES -->
 <link href="<?=base_url('assets/css/login.min.css')?>" rel="stylesheet" type="text/css" />
 <link href="<?=base_url('assets/css/custom.css')?>" rel="stylesheet" type="text/css" />
+<link href="<?=base_url('assets/plugins/bootstrap-toastr/toastr.min.css')?>" rel="stylesheet" type="text/css" />

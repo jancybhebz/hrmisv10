@@ -1,3 +1,71 @@
+/*Legend*/
+div.legend-def1 {
+    display: inline-flex;position: relative;
+}
+div.legend-dd1 {
+    height: 10px;width: 10px;position: absolute;bottom: 6px;
+}
+
+tr.holiday {
+    background-color: #ffc0cb !important;
+}
+tr.Sun, tr.Sat {
+    background-color: /*#acd9f7*/ #d7efff !important;
+}
+
+input.form-control.form-required.txtdtpckr {
+    background-color: #fff !important;
+}
+.well {
+    line-height: 4px;
+    padding: 15px;
+}
+.btn-group.bootstrap-select.form-control.bs-select.form-required {
+    padding: 0 !important;
+}
+
+.has-error .bootstrap-select .btn {
+    border-color: #e73d4a !important;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a:hover {
+/*.dropdown-menu>li:hover>a {*/
+    background-color: #2987c7 !important;
+    color: #fff !important;
+}
+
+#tbldtr>tbody>tr>td {
+    text-align: center;
+}
+span.select2.select2-container.select2-container--bootstrap {
+    text-align: left;
+    width: 100% !important;
+}
+img.dost-logo {
+    width: 27px;
+    float: left;
+    left: 10px;
+    position: absolute;
+    top: 8px;
+}
+.menu-toggler.sidebar-toggler {
+    margin-right: -24px !important;
+}
+
+.border-bottom {
+    border-bottom: 2px solid #ccc !important;
+}
+.bold {
+    font-weight: bolder !important;
+}
+.right {
+    text-align: right;
+}
+
+[v-cloak] { display: none; }
+#table-employees > tbody {
+    cursor: pointer;
+}
 .login {
     background-color: #2a4b75!important;
 }
@@ -26,9 +94,18 @@ ul.profile-info-employee li {
     list-style: none !important;
     margin-left: -41px !important;
 }
+input.form-control.input-sm.input-small.input-inline {
+    margin-left: 7px;
+}
+div.dataTables_paginate {
+    float: right;
+}
 /*.page-logo {
     width: 256px !important;
 }*/
+tr.inactive {
+    color: #ca0010;
+}
 .page-header.navbar.navbar-fixed-top {
     background-color: #2987c7;
 }

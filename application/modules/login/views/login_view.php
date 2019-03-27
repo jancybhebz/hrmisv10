@@ -29,15 +29,15 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            <form class="login-form" action="<?=base_url('login')?>" method="post">
-                <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
-                <h1 class="hrmisLogo">HRMIS</h1>
-                <div class="small">Human Resource Management Information System</div>
-                <h3 class="form-title font-green">Sign In</h3>
-                <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button>
-                    <span> Enter any username and password. </span>
-                </div>
+            <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
+            <h1 class="hrmisLogo">HRMIS</h1>
+            <div class="small">Human Resource Management Information System</div>
+            <h3 class="form-title font-green">Sign In</h3>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span> Enter any username and password. </span>
+            </div>
+            <?=form_open(base_url('login'), array('method' => 'post'))?>
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
@@ -54,10 +54,9 @@
                  <div class="create-account">
                     <p class="small"><b>The Human Resource Management Information System (HRMIS)</b> is a comprehensive and proactive human resources system designed to provide a single interface for government employees to perform the human resources management functions efficiently and effectively.</p>
                 </div> 
-            </form>
+            <?=form_close()?>
             <!-- END LOGIN FORM -->
-            
-            
+
         </div>
         <div class="copyright"> 2018 © DOST ITD. </div>
         <!--[if lt IE 9]>

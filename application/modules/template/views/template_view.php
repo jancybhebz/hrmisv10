@@ -21,21 +21,33 @@
     </head>
     <!-- END HEAD -->
 
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-footer-fixed">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <a href="index.html">
+                    <img class="dost-logo" src="<?=base_url('assets/images/logo.png')?>">
+                    <a href="<?=base_url('home')?>" style="margin-left: 25px;">
                         <h3 class="logodost logo-default">DOST</h3>&nbsp;<h3 class="logohrmis logo-default">HRMIS</h3> </a>
                     <div class="menu-toggler sidebar-toggler"> </div>
                 </div>
                 <!-- END LOGO -->
                 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> <img src="<?=base_url('assets/images/logo.png')?>" width="30"></a>
+                
                 <!-- END RESPONSIVE MENU TOGGLER -->
+<!--                 <div class="hor-menu  hor-menu-light hidden-sm hidden-xs">
+                    <ul class="nav navbar-nav">
+                        <li class="classic-menu-dropdown">
+                            <a href="javascript:void(0)"> <?=strtoupper($this->session->userdata('sessUserPermission'))?>
+                                <span class="selected"> </span>
+                            </a>
+                        </li>  
+                    </ul>
+                </div> -->
+               
                 <!-- BEGIN TOP NAVIGATION MENU -->
                 <div class="top-menu">
                     <?php include("notifications.php");?>
@@ -94,22 +106,26 @@
                     toastr.warning('<?=$this->session->flashdata('strMsg')?>')
                 <?php endif;?>
 
+                <?php if($this->session->flashdata('strSuccessMsg')!=''):?>
+                    toastr.success('<?=$this->session->flashdata('strSuccessMsg')?>', 'Success')
+                <?php endif;?>
+
                 <?php if($this->session->flashdata('strErrorMsg')!=''):?>
                     toastr.error('<?=$this->session->flashdata('strErrorMsg')?>')
                 <?php endif;?>
                 /* set session timeout */
-                $.sessionTimeout({
-                    title: 'Session Timeout Notification',
-                    message: 'Your session is about to expire.',
-                    keepAliveUrl: '<?=base_url('login/timeoutkeepalive')?>',
-                    redirUrl: '<?=base_url('logout')?>',
-                    logoutUrl: '<?=base_url('logout')?>',
-                    warnAfter: 600000, //warn after 5 seconds
-                    redirAfter: 700000, //redirect after 10 secons, (1500/second)
-                    ignoreUserActivity: true,
-                    countdownMessage: 'Redirecting in {timer} seconds.',
-                    countdownBar: true
-                });
+                // $.sessionTimeout({
+                //     title: 'Session Timeout Notification',
+                //     message: 'Your session is about to expire.',
+                //     keepAliveUrl: '<?=base_url('login/timeoutkeepalive')?>',
+                //     redirUrl: '<?=base_url('logout')?>',
+                //     logoutUrl: '<?=base_url('logout')?>',
+                //     warnAfter: 600000, //warn after 5 seconds
+                //     redirAfter: 700000, //redirect after 10 secons, (1500/second)
+                //     ignoreUserActivity: true,
+                //     countdownMessage: 'Redirecting in {timer} seconds.',
+                //     countdownBar: true
+                // });
             });  
         </script>
         <!-- END TEMPLATE SCRIPTS -->

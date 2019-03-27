@@ -55,53 +55,121 @@ class Course extends MY_Controller {
     	$this->template->load('template/template_view','libraries/course/add_view',$this->arrData);
     }
 
-
-	public function edit()
+    public function edit()
 	{
 		$arrPost = $this->input->post();
-		if(!empty($arrPost))
+		if(empty($arrPost))
 		{
-			$strCode = $arrPost['strCode'];
+			$intCourseId = urldecode($this->uri->segment(4));
+			$this->arrData['arrCourse']=$this->courses_model->getData($intCourseId);
+			$this->template->load('template/template_view','libraries/course/edit_view', $this->arrData);
+		}
+		else
+		{
+			$intCourseId = $arrPost['intCourseId'];
+			$strCode=$arrPost['strCode'];
 			$strDescription=$arrPost['strDescription'];
-			if(!empty($strDescription))
+			if(!empty($strCode) AND !empty($strDescription)) 
 			{
 				$arrData = array(
+					'courseCode'=>$strCode,
 					'courseDesc'=>$strDescription
 				);
-				$blnReturn=$this->courses_model->save($arrData,$strCode);
+				$blnReturn = $this->courses_model->save($arrData, $intCourseId);
 				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCourse','Edited '.$strCode.' Course',implode(';',$arrData),'');
+					
 					$this->session->set_flashdata('strMsg','Course saved successfully.');
+				}
 				redirect('libraries/course');
 			}
 		}
-		else
-		{
-			$strCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrData']=$this->courses_model->getData($strCode);
-			$this->template->load('template/template_view','libraries/course/edit_view',$this->arrData);
-		}
+		
 	}
+
 	public function delete()
 	{
-		//$strDescription=$arrPost['strDescription'];
+	
 		$arrPost = $this->input->post();
-		$strCode = $this->uri->segment(4);
-		if(!empty($arrPost))
+		$intCourseId = $this->uri->segment(4);
+		if(empty($arrPost))
 		{
-			$strCode = $arrPost['strCode'];
-			//add condition for checking dependencies from other tables
-			if(!empty($strCode))
-			{
-				$blnReturn=$this->courses_model->delete($strCode);
-				if(count($blnReturn)>0)
-					$this->session->set_flashdata('strMsg','Course deleted successfully.');
-				redirect('libraries/course');
-			}
+			$this->arrData['arrData'] = $this->courses_model->getData($intCourseId);
+			$this->template->load('template/template_view','libraries/course/delete_view', $this->arrData);
+			
 		}
 		else
 		{
-			$this->arrData['arrData']=$this->courses_model->getData($strCode);
-			$this->template->load('template/template_view','libraries/course/delete_view',$this->arrData);
+			$intCourseId = $arrPost['intCourseId'];
+			//add condition for checking dependencies from other tables
+			if(!empty($intCourseId))
+			{
+				$arrCourse = $this->courses_model->getData($intCourseId);
+				$strCode = $arrCourse[0]['courseCode'];	
+				$blnReturn = $this->courses_model->delete($intCourseId);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCourse','Deleted '.$strCode.' Course',implode(';',$arrCourse[0]),'');
+					$this->session->set_flashdata('strMsg','Course deleted successfully.');
+				}
+				redirect('libraries/course');
+			}
 		}
+		
 	}
+	// public function edit()
+	// {
+	// 	$arrPost = $this->input->post();
+	// 	if(!empty($arrPost))
+	// 	{
+	// 		$intCourseId = $arrPost['intCourseId'];
+	// 		$strCode = $arrPost['strCode'];
+	// 		$strDescription=$arrPost['strDescription'];
+	// 		if(!empty($strDescription))
+	// 		{
+	// 			$arrData = array(
+	// 				'courseCode'=>$strCode,
+	// 				'courseDesc'=>$strDescription
+	// 			);
+	// 			$blnReturn=$this->courses_model->save($arrData,$intCourseId);
+	// 			if(count($blnReturn)>0)
+	// 				$this->session->set_flashdata('strMsg','Course saved successfully.');
+	// 			redirect('libraries/course');
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		$strCode = urldecode($this->uri->segment(4));
+	// 		$this->arrData['arrData']=$this->courses_model->getData($intCourseId);
+	// 		$this->template->load('template/template_view','libraries/course/edit_view',$this->arrData);
+	// 	}
+	// }
+
+
+	// public function delete()
+	// {
+	// 	//$strDescription=$arrPost['strDescription'];
+	// 	$arrPost = $this->input->post();
+	// 	$strCode = $this->uri->segment(4);
+	// 	if(!empty($arrPost))
+	// 	{
+	// 		$strCode = $arrPost['strCode'];
+	// 		//add condition for checking dependencies from other tables
+	// 		if(!empty($strCode))
+	// 		{
+	// 			$blnReturn=$this->courses_model->delete($strCode);
+	// 			if(count($blnReturn)>0)
+	// 				//$this->session->set_flashdata('strMsg','Course deleted successfully.');
+	// 			redirect('libraries/course');
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		$this->arrData['arrData']=$this->courses_model->getData($strCode);
+	// 		$this->template->load('template/template_view','libraries/course/delete_view',$this->arrData);
+	// 	}
+	// }
+
+	
 }
