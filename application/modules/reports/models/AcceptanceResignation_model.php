@@ -1,10 +1,11 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class AcceptanceResignation_model extends CI_Model {
 
 	public function __construct()
 	{
 		//parent::__construct();
-		$this->load->database();		
+		$this->load->database();
+		$this->load->helper('report_helper');		
 		//$this->load->model(array());
 	}
 	
@@ -22,7 +23,7 @@ class AcceptanceResignation_model extends CI_Model {
 	
 	function generate($arrData)
 	{
-		$this->load->model('employees/employees_model');
+		
 		$this->fpdf->SetLeftMargin(25);
 		$this->fpdf->SetRightMargin(25);
 		$this->fpdf->SetTopMargin(10);
@@ -58,11 +59,12 @@ class AcceptanceResignation_model extends CI_Model {
 			$this->fpdf->Cell(0, 5, $t_arrEmpInfo['positionDesc'], 0, 0, "L");
 			$this->fpdf->Ln();
 			//$this->Cell(0, 5, $objGen->getOfficeGroupDeptDiv($t_arrEmpInfo['empNumber']), 0, 0, "L");
-			$this->fpdf->Cell(0, 5, $t_arrEmpInfo['empNumber'].'=office', 0, 0, "L");
+			$this->fpdf->Cell(0, 5, office_name(employee_office($t_arrEmpInfo['empNumber'])), 0, 0, "L");
 			$this->fpdf->Ln(15);
 			
 			//$this->Cell(0, 5, "Sir/Madam:", 0, 0, "L");
-			$this->fpdf->Cell(0, 5, $t_arrEmpInfo['sex']."salutation:", 0, 0, "L");
+			
+			$this->fpdf->Cell(0, 5, getSalutation($t_arrEmpInfo['sex']).":", 0, 0, "L");
 			//$t_arrEmpInfo = 
 			// $this->Ln(20);
 			// $this->SetFont('Arial', "", 12);
@@ -95,6 +97,30 @@ class AcceptanceResignation_model extends CI_Model {
 			$this->fpdf->SetFont('Arial', "B", 12);
 			$this->fpdf->Write(5,$strPrgrph4);
 			$this->fpdf->SetFont('Arial', "", 12);
+
+			$this->fpdf->Ln(20);
+			$this->fpdf->Cell(0,10,"Very truly yours,",0,0,'L');
+				
+			//$obj = new signatoryName();
+			//$arrSig = $obj->createSignatory('AR');
+			$this->fpdf->Ln(20);
+			//$this->Cell(130);		
+			$this->fpdf->SetFont('Arial','',12);		
+			//$sig=explode('|',PD);
+			//$this->fpdf->Cell(0,10,$sig[1],0,0,'L');
+			$this->fpdf->Cell(0,10,'',0,0,'L');
+
+			$this->fpdf->Ln(5);
+			//$this->Cell(130);		
+			//$this->fpdf->Cell(0,10,$sig[2],0,0,'L');
+			$this->fpdf->Cell(0,10,'',0,0,'L');
+			
+			$this->fpdf->Ln(15);
+			$this->fpdf->SetFont('Arial','',11);		
+			$this->fpdf->Cell(0,10,"Copy furnished:",0,0,'L');
+			$this->fpdf->Ln(7);
+			$this->fpdf->Cell(0,10,"Civil Service Commision",0,0,'L');
+			
 		endforeach;
 		 
 		echo $this->fpdf->Output();

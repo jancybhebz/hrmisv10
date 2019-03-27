@@ -27,7 +27,7 @@ class Generate extends MY_Controller
     	$this->load->library('fpdf_gen');
 		$this->fpdf = new FPDF();
 		$this->fpdf->AliasNbPages();
-		//$this->fpdf->Open();
+		$this->fpdf->Open();
 
     	switch($rpt) 
     	{

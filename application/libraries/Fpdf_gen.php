@@ -24,8 +24,8 @@ class Fpdf_gen {
 		
 		require_once APPPATH.'third_party/fpdf/fpdf-1.7.php';
 		
-		$pdf = new FPDF('L','mm','Letter');
-		$pdf->AddPage();
+		$pdf = new FPDF();
+		//$pdf->AddPage();
 		
 		$CI =& get_instance();
 		$CI->fpdf = $pdf;
