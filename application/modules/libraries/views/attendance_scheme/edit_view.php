@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <?=form_open(base_url('libraries/attendance_scheme/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmAttendanceScheme'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
-                    <div class="row">
+                    <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Scheme Type <span class="required"> * </span></label>
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Scheme Code<span class="required"> * </span></label>
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Scheme Name <span class="required"> * </span></label>
@@ -81,7 +81,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                     <!-- fixed -->
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Fixed Time In :  <span class="required"> * </span></label>
@@ -92,7 +92,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out From (noon) :  <span class="required"> * </span></label>
@@ -103,7 +103,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out To (noon) :<span class="required"> * </span></label>
@@ -114,7 +114,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In From (noon) :     <span class="required"> * </span></label>
@@ -125,7 +125,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In To (noon) :   <span class="required"> * </span></label>
@@ -136,7 +136,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out : <span class="required"> * </span></label>
@@ -149,7 +149,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                    
                     <!-- sliding -->
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Sliding Time In From :  <span class="required"> * </span></label>
@@ -160,7 +160,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                      <div class="row">
+                      <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time In To :   <span class="required"> * </span></label>
@@ -171,7 +171,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out From (noon) :   <span class="required"> * </span></label>
@@ -182,7 +182,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out To (noon) :   <span class="required"> * </span></label>
@@ -193,7 +193,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In From (noon) :   <span class="required"> * </span></label>
@@ -204,7 +204,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In To (noon) : <span class="required"> * </span></label>
@@ -215,7 +215,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out From : <span class="required"> * </span></label>
@@ -226,7 +226,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out To : <span class="required"> * </span></label>
@@ -349,6 +349,14 @@ jQuery(document).ready(function() {
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+
+        <?php if($arrAttendance[0]['schemeType']=='Sliding'):?>
+            $('.sch-sliding').hide();
+        <?php endif;?>
+        <?php if($arrAttendance[0]['schemeType']=='Fixed'):?>
+            $('.sch-fixed').hide();
+        <?php endif;?>
     });
 </script>
 
