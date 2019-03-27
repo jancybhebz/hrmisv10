@@ -27,14 +27,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label"><strong>Type of Reports :  </strong><span class="required"> * </span></label>
+                    <label class="control-label">Type of Reports :  <span class="required"> * </span></label>
                 </div>
             </div>
-             <div class="col-sm-3">
+             <div class="col-sm-6">
                 <div class="form-group">
                    <select type="text" class="form-control" name="strReports" value="<?=!empty($this->session->userdata('strReports'))?$this->session->userdata('strReports'):''?>" required>
                          <option value="">Select</option>
-                         <option value=""></option>
                         <?php foreach($arrReports as $report)
                         {
                           echo '<option value="'.$report['reportCode'].'">'.$report['reportDesc'].'</option>';
@@ -49,7 +48,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
          </div>
          <br>
-         <div class="row">
+         <div class="row per-block">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
                     <label class="control-label">Select Name Per : <span class="required"> * </span></label>
@@ -59,9 +58,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="form-group">
                     <select name="strSelectPer" id="strSelectPer" type="text" class="form-control" value="<?=!empty($this->session->userdata('strSelectPer'))?$this->session->userdata('strSelectPer'):''?>">
                     <option value="">Select</option>
-                    <option value=""></option>
-                    <option value="All Employees">All Employees</option>
-                    <option value="Per Employee">Per Employee</option>
+                    <option value="0">All Employees</option>
+                    <option value="1">Per Employee</option>
                     </select>
                 </div>
             </div>
@@ -72,7 +70,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
          </div>   
          <br>
-         <div class="row">
+         <div class="row employee-block">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
                     <label class="control-label">Employees :</label>
@@ -94,6 +92,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
          </div>   
+         <!-- fields -->
+         <div class="row rpt-fields">
+             
+        </div>
+
          <br><br>
            <div class="row">
              <div class="col-sm-3 text-right">
@@ -116,8 +119,61 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <br><br>
        <div class="row">
           <div class="col-sm-12 text-center">
-              <button type="print" class="btn btn-primary">Print/Preview</button>
+              <button type="button" class="btn btn-primary" name="btnPrint">Print/Preview</button>
           </div>
         </div>
     <br><br>
 <?=form_close()?>
+
+<script>
+    $(function(){
+        $('.per-block, .employee-block').hide();
+
+        $('select[name="strReports"]').change(function(){
+            $rpt = $(this).val();
+            
+            if($rpt=='')
+                $('.per-block, .employee-block').hide();
+            else
+                $('.per-block').show();
+
+            $.ajax({
+              url: "<?=base_url('hr/reports/getfields')?>/"+$rpt,
+              async: false
+            }).done(function(data) {
+                //console.log(data);
+              $( '.rpt-fields' ).html(data);
+            });
+
+        });
+
+        $('select[name="strSelectPer"]').change(function(){
+            $per = $(this).val();
+
+            if($per=='All Employees')
+                $('.employee-block').hide();
+            else
+                $('.employee-block').show();
+        }); 
+
+        $('button[name="btnPrint"]').click(function(){
+            $rpt = $('select[name="strReports"]').val();
+            $empno = $('select[name="strEmpName"]').val();
+            $form = $('#reportform').serializeArray();
+            $.each($form, function(index,item){
+                //if(item.name == 'csrf_dostitd') item.value='<?=time()?>';
+                if(item.name == 'csrf_dostitd') delete $form[index];
+                //console.log(index+'/'+item.name);
+            });
+            $form = $.param($form);
+            //console.log($form);
+            //$form['']
+            //$form += '&csrf_dostitd=<?=time()?>';
+            //console.log($form);
+            //console.log($rpt+$empno);
+
+            if($rpt!='' && $empno!='')
+                window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
+        });
+    });
+</script>

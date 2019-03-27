@@ -12,7 +12,7 @@ class Backup_model extends CI_Model {
 	function __construct()
 	{
 		$this->load->database();
-		$this->table = 'tblbackup';
+		$this->table = 'tblBackup';
 	}
 	
 	function add($arrData)

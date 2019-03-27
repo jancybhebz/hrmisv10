@@ -30,6 +30,17 @@ class Payroll_group_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	// function getProject($intProjectId = '')
+	// {		
+	// 	if($intProjectId != "")
+	// 	{
+	// 		$this->db->where('projectId',$intProjectId);
+	// 	}
+		
+	// 	$objQuery = $this->db->get('tblproject');
+	// 	return $objQuery->result_array();	
+	// }
+
 	function add($arrData)
 	{
 		$this->db->insert($this->table, $arrData);

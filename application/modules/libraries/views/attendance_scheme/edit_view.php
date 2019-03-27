@@ -53,7 +53,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Type <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeType" id="strSchemeType" value="<?=isset($arrAttendance[0]['schemeType'])?$arrAttendance[0]['schemeType']:''?>">
+                                  <select type="text" class="form-control" name="strSchemeType" id="strSchemeType" value="<?=!empty($this->session->userdata('schemeType'))?$this->session->userdata('schemeType'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrType as $i=>$type)
+                                        {
+                                          echo '<option value="'.$type['schemeCode'].'" '.($arrType[0]['schemeCode']==$type['schemeCode']?'selected':'').'>'.(strtoupper($type['schemeType'])).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +70,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Code<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($arrAttendance[0]['schemeCode'])?$arrAttendance[0]['schemeCode']:''?>">
+                                   <select type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($this->session->userdata('schemeCode'))?$this->session->userdata('schemeCode'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrAttendance as $i=>$code)
+                                        {
+                                          echo '<option value="'.$code['schemeCode'].'" '.($arrAttendance[0]['schemeCode']==$code['schemeCode']?'selected':'').'>'.(strtoupper($code['schemeCode'])).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -75,13 +87,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeName" id="strSchemeName" value="<?=!empty($arrAttendance[0]['schemeName'])?$arrAttendance[0]['schemeName']:''?>">
+                                   <select type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($this->session->userdata('schemeName'))?$this->session->userdata('schemeName'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrName as $i=>$name)
+                                        {
+                                          echo '<option value="'.$name['schemeCode'].'" '.($arrName[0]['schemeCode']==$name['schemeCode']?'selected':'').'>'.(strtoupper($name['schemeCode'])).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- fixed -->
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Fixed Time In :  <span class="required"> * </span></label>
@@ -92,7 +110,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out From (noon) :  <span class="required"> * </span></label>
@@ -103,7 +121,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out To (noon) :<span class="required"> * </span></label>
@@ -114,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In From (noon) :     <span class="required"> * </span></label>
@@ -125,7 +143,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In To (noon) :   <span class="required"> * </span></label>
@@ -136,7 +154,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-fixed">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out : <span class="required"> * </span></label>
@@ -149,7 +167,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                    
                     <!-- sliding -->
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Sliding Time In From :  <span class="required"> * </span></label>
@@ -160,7 +178,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                      <div class="row">
+                      <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time In To :   <span class="required"> * </span></label>
@@ -171,7 +189,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out From (noon) :   <span class="required"> * </span></label>
@@ -182,7 +200,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-Out To (noon) :   <span class="required"> * </span></label>
@@ -193,7 +211,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In From (noon) :   <span class="required"> * </span></label>
@@ -204,7 +222,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time-In To (noon) : <span class="required"> * </span></label>
@@ -215,7 +233,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out From : <span class="required"> * </span></label>
@@ -226,7 +244,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out To : <span class="required"> * </span></label>
@@ -349,8 +367,15 @@ jQuery(document).ready(function() {
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+
+        <?php if($arrAttendance[0]['schemeType']=='Sliding'):?>
+            $('.sch-sliding').hide();
+        <?php endif;?>
+        <?php if($arrAttendance[0]['schemeType']=='Fixed'):?>
+            $('.sch-fixed').hide();
+        <?php endif;?>
     });
 </script>
-
 
 <script type="text/javascript" src="<?=base_url('assets/js/attendance.js')?>"></script>

@@ -77,14 +77,14 @@ class Leave_type extends MY_Controller {
 		}
 		else
 		{
-			$strCode = $arrPost['strCode'];
+			// $strCode = $arrPost['strCode'];
 			$strLeaveCode = $arrPost['strLeaveCode'];
 			$strLeaveType = $arrPost['strLeaveType'];
 			$intDays = $arrPost['intDays'];
 			if(!empty($strLeaveCode) AND !empty($strLeaveType)) 
 			{
 				$arrData = array(
-					'leaveCode'=>$strLeaveCode,
+					// 'leaveCode'=>$strLeaveCode,
 					'leaveType'=>$strLeaveType,
 					'numOfDays'=>$intDays
 				);
@@ -146,7 +146,7 @@ class Leave_type extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$strSpecifyLeave = urldecode($this->uri->segment(4));
-			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyLeave);
+			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave();
 			$this->template->load('template/template_view','libraries/leave_type/edit_special_view', $this->arrData);
 		}
 		else

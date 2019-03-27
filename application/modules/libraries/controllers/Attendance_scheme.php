@@ -108,7 +108,9 @@ class Attendance_scheme extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$strCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrAttendance']=$this->attendance_scheme_model->getData($strCode);
+			$this->arrData['arrAttendance']=$this->attendance_scheme_model->getData();
+			$this->arrData['arrType'] = $this->attendance_scheme_model->getType();
+			$this->arrData['arrName'] = $this->attendance_scheme_model->getName();
 			$this->template->load('template/template_view','libraries/attendance_scheme/edit_view', $this->arrData);
 		}
 		else

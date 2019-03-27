@@ -50,7 +50,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strSpecialLeaveCode" value="<?=isset($arrSpecialLeave[0]['leaveCode'])?$arrSpecialLeave[0]['leaveCode']:''?>">
+                                     <select type="text" class="form-control" name="strSpecialLeaveCode" id="strSpecialLeaveCode" value="<?=!empty($this->session->userdata('leaveCode'))?$this->session->userdata('leaveCode'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrSpecialLeave as $i=>$special)
+                                        {
+                                          echo '<option value="'.$special['leaveCode'].'" '.($arrSpecialLeave[0]['leaveCode']==$special['leaveCode']?'selected':'').'>'.(strtoupper($special['leaveCode'])).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>

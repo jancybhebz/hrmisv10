@@ -24,7 +24,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <a href="<?=base_url('backup/export_database')?>" id="btndbdownload" class="btn sbold green"> Download
+                                <a href="<?=base_url('libraries/backup/export_database')?>" id="btndbdownload" class="btn sbold green"> Download
                                     <i class="fa fa-download"></i>
                                     
                                 </button></a>

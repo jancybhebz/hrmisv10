@@ -43,18 +43,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('libraries/leave_type/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmLeavetype'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Leave Code <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strLeaveCode" value="<?=isset($arrLeave[0]['leaveCode'])?$arrLeave[0]['leaveCode']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
