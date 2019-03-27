@@ -52,7 +52,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Include in DTR? :</td>
+                    <td>Include in DTR ? :</td>
                     <td><?=$row['dtrSwitch']?></td>
                     <td>Include in Payroll? :</td>
                     <td><?=$row['payrollSwitch']?></td>
@@ -64,16 +64,16 @@
                     <td><?=$row['hpFactor']?></td>
                 </tr>
                 <tr>
-                    <td>Include in PhilHealth? :</td>
+                    <td>Include in PhilHealth ? :</td>
                     <td><?=$row['philhealthSwitch']?></td>
                     <td>Include in PAGIBIG? :</td>
                     <td><?=$row['pagibigSwitch']?></td>
                 </tr>
                  <tr>
-                    <td>Include in Life & Retirement? :</td>
+                    <td>Include in Life & Retirement ? :</td>
                     <td><?=$row['lifeRetSwitch']?></td>
-                    <td></td>
-                    <td></td>
+                    <td>Include Secondment? :</td>
+                    <td><?=$row['includeSecondment']?></td>
                 </tr>
                 <td colspan="4"><b>Plantilla Position</b></td>
                 <tr>
@@ -387,7 +387,7 @@
                                 </div>
                                 <div class="col-sm-1 text-left">
                                     <div class="form-group">
-                                        <label class="control-label">Include in PAGIBIG? :<span class="required"> * </span></label>
+                                        <label class="control-label">Include in PAGIBIG ? :<span class="required"> * </span></label>
                                     </div>
                                 </div>
                                 <div class="col-sm-2" text-left>
@@ -458,11 +458,17 @@
                                         <input type="text" class="form-control" name="strTaxStatus" value="<?=isset($arrPosition[0]['taxStatCode'])?$arrPosition[0]['taxStatCode']:''?>">
                                     </div>
                                 </div>
-                                <div class="col-sm-3 text-left">
+                                 <div class="col-sm-1 text-left">
                                     <div class="form-group">
-                                        <label class="control-label"></label>
+                                        <label class="control-label">Include Secondment? :<span class="required"> * </span></label>
                                     </div>
                                 </div>
+                                <div class="col-sm-2" text-left>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="strSecondment" value="<?=isset($arrPosition[0]['includeSecondment'])?$arrPosition[0]['includeSecondment']:''?>">
+                                    </div>
+                                </div>
+                              
                                 <div class="col-sm-1 text-left">
                                     <div class="form-group">
                                         <label class="control-label">Position Date :<span class="required"> * </span></label>

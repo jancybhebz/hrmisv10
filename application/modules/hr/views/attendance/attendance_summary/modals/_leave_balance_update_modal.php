@@ -41,29 +41,29 @@
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center">(<?=$sl_abs_wpay?>)</td>
                                             </tr>
                                             <tr>
                                                 <td><b><?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?> Balance </b></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or" align="center"><?=$month_bal?></td>
+                                                <td id="tdn-or" align="center"><b><?=$vl_month_bal?></b></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><b><?=$sl_month_bal?></b></td>
                                             </tr>
                                             <tr>
                                                 <td>Abs. Und. W/O Pay</td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=$vl_abs_un_wopay?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=$sl_abs_wopay?></td>
                                             </tr>
                                         </tbody>
                                     </table>

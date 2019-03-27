@@ -4,6 +4,9 @@ $active=$this->uri->segment(1)!=''?$this->uri->segment(1):'home';
 //set activesub for submenu highlight
 $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
 $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
+// echo '<br>active = '.$active;
+// echo '<br>activesub = '.$activesub;
+// echo '<br>activetab = '.$activetab;
 ?>
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
@@ -79,7 +82,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                                 <span class="title">Conversion Table</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='view_all' || in_array(strtolower($activetab), array('index', 'leave_balance', 'leave_balance_update', 'leave_monetization', 'filed_request', 'dtr', 'qr_code'))?'active open':''?>">
+                        <li class="nav-item <?=strtolower($active)=='hr' && strtolower($activesub)=='attendance_summary'?'active open':''?>">
                             <a href="<?=base_url('hr/attendance/view_all')?>">
                                 <span class="title">Attendance Summary</span>
                             </a>
@@ -98,7 +101,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                         <span class="arrow"></span>
                     </a>                            
                 </li>
-                <li class="nav-item <?=$active=='libraries'?'active open':''?>">
+                <li class="nav-item <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory') ?'active open':''?>">
                     <a href="<?=base_url('libraries')?>" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Libraries</span>
@@ -108,14 +111,22 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                         <?php 
                             //get library menu item from menu_helper
                             $arrMenu = get_libraries();
-                            foreach($arrMenu as $i=>$menuItem){
-                        ?>
-                        <li class="nav-item start <?=$activesub==$i?'active':''?>">
-                            <a href="<?=base_url('libraries/'.$i)?>" class="nav-link ">
-                                <span class="title"><?=$menuItem?></span>
-                            </a>
-                        </li>
-                        <?php } ?>
+                            foreach($arrMenu as $i=>$menuItem):
+                                $baseurl = ($i=="signatories") ? 'finance/libraries/signatory' : 'libraries/'.$i;
+                                if($i!="signatories"):?>
+                                    <li class="nav-item start <?=$activesub==$i?'active':''?>">
+                                        <a href="<?=base_url('libraries/'.$i)?>" class="nav-link ">
+                                            <span class="title"><?=$menuItem?></span>
+                                        </a>
+                                    </li><?php
+                                else: ?>
+                                    <li class="nav-item start active">
+                                        <a href="<?=base_url('finance/libraries/signatory')?>" class="nav-link ">
+                                            <span class="title"><?=$menuItem?></span>
+                                        </a>
+                                    </li><?php
+                                endif;
+                            endforeach; ?>
                     </ul>
                 </li>
                 <li class="nav-item <?=strtolower($activesub)=='compensation'?'active open':''?>">

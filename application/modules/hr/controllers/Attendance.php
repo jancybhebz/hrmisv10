@@ -130,7 +130,25 @@ class Attendance extends MY_Controller {
 		$fl 		 = $arremp_dtr['total_days_fl'];	# days
 		$vl_abs_un_wpay = $vl + ($late + $undertime + $abswo_leave) + $fl;
 		$this->arrData['vl_abs_un_wpay'] = $vl_abs_un_wpay;
+<<<<<<< HEAD
 		$this->arrData['month_bal'] = ($arrLatestBalance[0]['vlBalance'] + $_ENV['leave_earned']) - $vl_abs_un_wpay;
+=======
+		# previous month + earned month
+		$vl_month_bal = ($arrLatestBalance[0]['vlBalance'] + $_ENV['leave_earned']) - $vl_abs_un_wpay;
+		$this->arrData['vl_month_bal'] = $vl_month_bal <= 0 ? ($arrLatestBalance[0]['vlBalance'] + $_ENV['leave_earned']) : $vl_month_bal;
+		# Absent Undertime without pay
+		$this->arrData['vl_abs_un_wopay'] = $vl_month_bal <= 0 ? ($vl_month_bal * -1) : '';
+
+		# previous month + earned month
+		// TODO:: Halfday for sl
+		$sl 		 = $arremp_dtr['total_days_sl'];	# days
+		$this->arrData['sl_abs_wpay'] = $sl;
+		$sl_month_bal = ($arrLatestBalance[0]['slBalance'] + $_ENV['leave_earned']) - $sl;
+		$this->arrData['sl_month_bal'] = $sl_month_bal <= 0 ? ($arrLatestBalance[0]['slBalance'] + $_ENV['leave_earned']) : $sl_month_bal;
+		# Absent Undertime without pay
+		$this->arrData['sl_abs_wopay'] = $sl_month_bal <= 0 ? ($sl_month_bal * -1) : '';
+
+>>>>>>> master
 
 		// echo '<br>absent = '.$absent_woleave;
 		// echo '<br>vl = '.$vl;
