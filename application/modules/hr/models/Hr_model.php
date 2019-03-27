@@ -311,7 +311,14 @@ class Hr_model extends CI_Model {
 	// 	//echo $strSQL; exit(1);
 	//   $objQuery = $this->db->query( $strSQL );
 	//   return $objQuery->result_array();		
-	// }	
+	// }
+
+	public function getEmployeePersonal($empid)
+	{
+		$res = $this->db->get_where($this->table, array($this->tableid => $empid))->result_array();
+		return $res[0];
+	}
+
 }
 /* End of file Hr_model.php */
 /* Location: ./application/modules/employees/models/Employees_model.php */

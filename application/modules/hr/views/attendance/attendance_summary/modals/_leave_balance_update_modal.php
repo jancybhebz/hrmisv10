@@ -71,40 +71,54 @@
                                     <table class="table table-bordered tblmodal">
                                         <thead>
                                             <tr>
-                                                <th style="width: 35%;">Leave Type</th>
+                                                <th style="width: 35%;vertical-align: top;">Leave Type</th>
                                                 <th style="text-align: center;">Previous Month Balance</th>
+                                                <th style="text-align: center;">Filed this Month</th>
                                                 <th style="text-align: center;">Current Balance</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>Special Leave</td>
-                                                <td></td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=($arr_oth_daysleave['PL'] - $arrprocess_days['previous']['PL'])?></td>
+                                                <td align="center"><?=$arrprocess_days['current']['PL']?></td>
+                                                <td id="tdn-or" align="center"><?=$arr_oth_daysleave['PL'] - ($arrprocess_days['previous']['PL'] + $arrprocess_days['current']['PL'])?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Forced Leave</td>
-                                                <td></td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=($arr_oth_daysleave['FL'] - $arrprocess_days['previous']['FL'])?></td>
+                                                <td align="center"><?=$arrprocess_days['current']['FL']?></td>
+                                                <td id="tdn-or" align="center"><?=$arr_oth_daysleave['FL'] - ($arrprocess_days['previous']['FL'] + $arrprocess_days['current']['FL'])?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Study Leave</td>
-                                                <td></td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=($arr_oth_daysleave['STL'] - $arrprocess_days['previous']['STL'])?></td>
+                                                <td align="center"><?=$arrprocess_days['current']['STL']?></td>
+                                                <td id="tdn-or" align="center"><?=$arr_oth_daysleave['STL'] - ($arrprocess_days['previous']['STL'] + $arrprocess_days['current']['STL'])?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr <?=$employeedata['sex'] == 'F' ? '' : 'hidden';?>>
                                                 <td>Maternity Leave</td>
-                                                <td></td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=($arr_oth_daysleave['MTL'] - $arrprocess_days['previous']['MTL'])?></td>
+                                                <td align="center"><?=$arrprocess_days['current']['MTL']?></td>
+                                                <td id="tdn-or" align="center"><?=$arr_oth_daysleave['MTL'] - ($arrprocess_days['previous']['MTL'] + $arrprocess_days['current']['MTL'])?></td>
+                                                <td id="tdor">
+                                                    <input type="text" class="form-control input-sm" name="">
+                                                </td>
+                                            </tr>
+                                            <tr <?=$employeedata['sex'] != 'F' ? '' : 'hidden';?>>
+                                                <td>Paternity Leave</td>
+                                                <td id="tdn-or" align="center"><?=($arr_oth_daysleave['PTL'] - $arrprocess_days['previous']['PTL'])?></td>
+                                                <td align="center"><?=$arrprocess_days['current']['PTL']?></td>
+                                                <td id="tdn-or" align="center"><?=$arr_oth_daysleave['PTL'] - ($arrprocess_days['previous']['PTL'] + $arrprocess_days['current']['PTL'])?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
@@ -115,7 +129,7 @@
                                     <table class="table table-bordered tblmodal">
                                         <thead>
                                             <tr>
-                                                <th colspan="2">Attendance Summary</th>
+                                                <th colspan="2">Compensatory Overtime Credits (COC)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -160,35 +174,35 @@
                                         <tbody>
                                             <tr>
                                                 <td>No. of Days Undertime/Tardiness</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" style="width: 80px;"><?=$att_summary['days_ut_late']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Hrs/Min/Sec Undertime/Tardiness (Format: hh:mm)</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=date('H:i', mktime(0, $att_summary['mins_ut_late']))?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>No. of days AWOL</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=$att_summary['days_lwop']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>No. of days PRESENT</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=$att_summary['days_presents']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>No. of days ABSENT</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=$att_summary['date_absents']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>

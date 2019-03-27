@@ -180,5 +180,14 @@ class Leave_model extends CI_Model {
 		// return $spe_leave;
 		die();
 	}
+
+	public function getleave_data($code = '')
+	{
+		if($code!=''):
+			return $this->db->get_where('tblLeave', array('leaveCode' => $code))->result_array();
+		else:
+			return $this->db->get('tblLeave')->result_array();
+		endif;
+	}
 		
 }

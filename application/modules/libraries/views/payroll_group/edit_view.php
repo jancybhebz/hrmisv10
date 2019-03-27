@@ -50,11 +50,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Project <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strProject">
-                                    <option value="">Select</option>
-                                    <?php foreach($arrProject as $project)
+                                      <select type="text" class="form-control" name="strProject" id="strProject" value="<?=!empty($this->session->userdata('projectDesc'))?$this->session->userdata('projectDesc'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrProject as $i=>$project)
                                         {
-                                          echo '<option value="'.$project['projectId'].'" '.($arrPayrollGroup[0]['projectCode']==$project['projectId']?'selected':'').'>'.$project['projectDesc'].'</option>';
+                                          echo '<option value="'.$project['projectId'].'" '.($arrProject[0]['projectId']==$project['projectId']?'selected':'').'>'.(strtoupper($project['projectDesc'])).'</option>';
                                         }?>
                                     </select>
                                 </div>

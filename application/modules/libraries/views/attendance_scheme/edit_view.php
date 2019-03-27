@@ -47,35 +47,53 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <?=form_open(base_url('libraries/attendance_scheme/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmAttendanceScheme'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
-                    <div class="row sch-fixed">
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Scheme Type <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeType" id="strSchemeType" value="<?=isset($arrAttendance[0]['schemeType'])?$arrAttendance[0]['schemeType']:''?>">
+                                  <select type="text" class="form-control" name="strSchemeType" id="strSchemeType" value="<?=!empty($this->session->userdata('schemeType'))?$this->session->userdata('schemeType'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrType as $i=>$type)
+                                        {
+                                          echo '<option value="'.$type['schemeCode'].'" '.($arrType[0]['schemeCode']==$type['schemeCode']?'selected':'').'>'.(strtoupper($type['schemeType'])).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row sch-fixed">
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Scheme Code<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($arrAttendance[0]['schemeCode'])?$arrAttendance[0]['schemeCode']:''?>">
+                                   <select type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($this->session->userdata('schemeCode'))?$this->session->userdata('schemeCode'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrAttendance as $i=>$code)
+                                        {
+                                          echo '<option value="'.$code['schemeCode'].'" '.($arrAttendance[0]['schemeCode']==$code['schemeCode']?'selected':'').'>'.(strtoupper($code['schemeCode'])).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row sch-fixed">
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Scheme Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSchemeName" id="strSchemeName" value="<?=!empty($arrAttendance[0]['schemeName'])?$arrAttendance[0]['schemeName']:''?>">
+                                   <select type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($this->session->userdata('schemeName'))?$this->session->userdata('schemeName'):''?>" required>
+                                     <option value="">Select</option>
+                                     <?php foreach($arrName as $i=>$name)
+                                        {
+                                          echo '<option value="'.$name['schemeCode'].'" '.($arrName[0]['schemeCode']==$name['schemeCode']?'selected':'').'>'.(strtoupper($name['schemeCode'])).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -359,6 +377,5 @@ jQuery(document).ready(function() {
         <?php endif;?>
     });
 </script>
-
 
 <script type="text/javascript" src="<?=base_url('assets/js/attendance.js')?>"></script>

@@ -85,6 +85,7 @@ class User_account extends MY_Controller {
 		{
 			$intEmpNumber = urldecode($this->uri->segment(4));
 			$this->arrData['arrUser']=$this->user_account_model->getData($intEmpNumber);
+			$this->arrData['arrUserLevel']=$this->user_account_model->getUserLevel();
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/edit_view', $this->arrData);
 		}
@@ -103,6 +104,7 @@ class User_account extends MY_Controller {
 					'userName'=>$strUsername,
 					'userPassword'=>$strPassword
 				);
+
 				$blnReturn = $this->user_account_model->save($arrData, $intEmpNumber);
 				if(count($blnReturn)>0)
 				{
