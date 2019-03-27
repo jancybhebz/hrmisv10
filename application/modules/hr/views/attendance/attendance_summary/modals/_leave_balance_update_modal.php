@@ -129,7 +129,7 @@
                                     <table class="table table-bordered tblmodal">
                                         <thead>
                                             <tr>
-                                                <th colspan="2">Attendance Summary</th>
+                                                <th colspan="2">Compensatory Overtime Credits (COC)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -174,35 +174,35 @@
                                         <tbody>
                                             <tr>
                                                 <td>No. of Days Undertime/Tardiness</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" style="width: 80px;"><?=$att_summary['days_ut_late']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Hrs/Min/Sec Undertime/Tardiness (Format: hh:mm)</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=date('H:i', mktime(0, $att_summary['mins_ut_late']))?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>No. of days AWOL</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=$att_summary['days_lwop']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>No. of days PRESENT</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=$att_summary['days_presents']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>No. of days ABSENT</td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or"><?=$att_summary['date_absents']?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>

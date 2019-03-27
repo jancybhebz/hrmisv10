@@ -165,6 +165,20 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrprocess_days'] = $arrprocess_days;
 		$this->arrData['employeedata'] = $this->Hr_model->getEmployeePersonal($empid);
 
+		$att_summary = $this->AttendanceSummary_model->getemp_dtr($empid, $arrLatestBalance[0]['periodMonth']+1, $yr);
+		// echo '<pre>';
+		// $curr_month = date('Y M', strtotime($arrLatestBalance[0]['periodYear'].'-'.$arrLatestBalance[0]['periodMonth']));
+		// // $effectiveDate = date("F", strtotime($arrLatestBalance[0]['periodMonth'] . " +1 month"));
+		// echo '<br>current month = '.$curr_month;
+		// echo '<br>next month = '.date("Y M", strtotime("+1 month", $curr_month));
+		// // print_r($att_summary);
+		// die();
+		$this->arrData['att_summary'] = array('days_ut_late' => count($att_summary['total_days_late']) + count($att_summary['total_days_ut']),
+											  'mins_ut_late' => $att_summary['total_undertime'] + $att_summary['total_late'],
+											  'days_lwop'	 => $att_summary['total_days_lwop'],
+											  'days_presents'=> $att_summary['total_workingdays'] - count($att_summary['date_absents']),
+											  'date_absents' => count($att_summary['date_absents']));
+
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
