@@ -154,11 +154,11 @@ var FormValidation = function () {
                     strEmpName: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strUsername: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strPassword: {
                         minlength: 1,
                         required: true,

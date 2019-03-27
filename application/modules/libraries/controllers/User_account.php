@@ -103,6 +103,7 @@ class User_account extends MY_Controller {
 					'userName'=>$strUsername,
 					'userPassword'=>$strPassword
 				);
+
 				$blnReturn = $this->user_account_model->save($arrData, $intEmpNumber);
 				if(count($blnReturn)>0)
 				{
