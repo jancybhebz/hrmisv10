@@ -588,6 +588,7 @@ class Pds extends MY_Controller
 			$strIncLife-=$arrPost['strIncLife'];
 			$dtmDateInc-=$arrPost['dtmDateInc'];
 			$strTaxStatus-=$arrPost['strTaxStatus'];
+			$strSecondment-=$arrPost['strSecondment'];
 			$dtmPosDate-=$arrPost['dtmPosDate'];
 			$strAppointmentDesc-=$arrPost['strAppointmentDesc'];
 			$intDependents-=$arrPost['intDependents'];
@@ -624,6 +625,7 @@ class Pds extends MY_Controller
 					'lifeRetSwitch'=>$strIncLife,
 					'dateIncremented'=>$dtmDateInc,
 					'taxStatCode'=>$strTaxStatus,
+					'includeSecondment'=>$strSecondment,
 					'positionDate'=>$dtmPosDate,
 					'appointmentCode'=>$strAppointmentDesc,
 					'dependents'=>$intDependents,
