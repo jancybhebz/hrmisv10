@@ -33,14 +33,11 @@ class Generate extends MY_Controller
     	{
     		case 'AR': 
     			$this->load->model('AcceptanceResignation_model');
-    			//$this->load->model('hr/reports_model');
-    			//include('report/AcceptanceResignation_model');
-    			
-    			//print_r($arrGet);
-				$arrData=array(
-					'empno'=>$empno
-				);
 				$this->AcceptanceResignation_model->generate($arrGet);
+    		break;
+    		case 'ALC':
+    			$this->load->model('AccumulatedLeaveCredits_model');
+				$this->AccumulatedLeaveCredits_model->generate($arrGet);
     		break;
     	}
 

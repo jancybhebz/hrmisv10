@@ -58,27 +58,14 @@ class AcceptanceResignation_model extends CI_Model {
 			$this->fpdf->Cell(0, 5, $strName, 0, 1, "L");
 			$this->fpdf->Cell(0, 5, $t_arrEmpInfo['positionDesc'], 0, 0, "L");
 			$this->fpdf->Ln();
-			//$this->Cell(0, 5, $objGen->getOfficeGroupDeptDiv($t_arrEmpInfo['empNumber']), 0, 0, "L");
-			$this->fpdf->Cell(0, 5, office_name(employee_office($t_arrEmpInfo['empNumber'])), 0, 0, "L");
+			
+			$this->fpdf->Cell(0, 5, trim(office_name(employee_office($t_arrEmpInfo['empNumber']))), 0, 0, "L");
 			$this->fpdf->Ln(15);
 			
-			//$this->Cell(0, 5, "Sir/Madam:", 0, 0, "L");
+			
 			
 			$this->fpdf->Cell(0, 5, getSalutation($t_arrEmpInfo['sex']).":", 0, 0, "L");
-			//$t_arrEmpInfo = 
-			// $this->Ln(20);
-			// $this->SetFont('Arial', "", 12);
-			// $this->Cell(0, 5, $strName, 0, 1, "L");
-			// $this->Cell(0, 5, $t_arrEmpInfo['positionDesc'], 0, 0, "L");
-			// $this->Ln();
-			// $this->Cell(0, 5, $objGen->getOfficeGroupDeptDiv($t_arrEmpInfo['empNumber']), 0, 0, "L");
-			// $this->Ln(15);
 			
-			// //$this->Cell(0, 5, "Sir/Madam:", 0, 0, "L");
-			// $this->Cell(0, 5, $this->getSalutation($t_arrEmpInfo['sex']).":", 0, 0, "L");
-			
-		
-			// $this->Write(5,$strP2);
 
 			$strPrgrph1 = "In reply to your letter of ".$t_dtmLtrDate  
 						." which we received last ".$t_dtmRcvDate 
