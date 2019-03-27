@@ -26,13 +26,14 @@ class Reports_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 	
-	function getData($strReportCode = '')
+	function getData($strReportCode = '', $intModule = 1)
 	{		
 		if($strReportCode != "")
 		{
 			$this->db->where('reportCode',$strReportCode);
 		}
-	
+		$this->db->order_by('reportDesc');
+		$this->db->where('reportModule',$intModule);
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
