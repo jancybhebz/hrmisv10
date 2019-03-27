@@ -10,7 +10,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Reports_model extends CI_Model {
 	
-	var $table = 'tblreports';
+	var $table = 'tblReports';
 	var $tableid = 'reportCode';
 
 
@@ -33,13 +33,9 @@ class Reports_model extends CI_Model {
 			$this->db->where('reportCode',$strReportCode);
 		}
 	
-		$objQuery = $this->db->get('tblreports');
+		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
-
-	
-	
-	
 }
 /* End of file Reports_model.php */
 /* Location: ./application/modules/employees/models/Reports_model.php */
