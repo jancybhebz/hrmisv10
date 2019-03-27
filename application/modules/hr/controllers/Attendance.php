@@ -65,7 +65,7 @@ class Attendance extends MY_Controller {
 
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		// echo '<pre>';
+
 		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
 
 		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
@@ -76,7 +76,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
 		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
 		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
-		// die();
+
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
@@ -132,8 +132,6 @@ class Attendance extends MY_Controller {
 		# Absent Undertime without pay
 		$this->arrData['sl_abs_wopay'] = $sl_month_bal <= 0 ? ($sl_month_bal * -1) : '';
 
-		// echo '<pre>';
-		// print_r($employeedata);
 		# other leaves for yearly
 		$leaves = $this->Leave_model->getleave_data();
 		$arr_oth_daysleave = array();
@@ -141,9 +139,6 @@ class Attendance extends MY_Controller {
 			$key = array_search($eleave, array_column($leaves, 'leaveCode'));
 			$arr_oth_daysleave[$eleave] = $leaves[$key]['numOfDays'];
 		endforeach;
-		// echo 'days leave:<br>';
-		// print_r($arr_oth_daysleave);
-		// echo '<hr>';
 		# date always starts in january 1 of the year and end in the last day of the process month
 		$process_date = array(
 							array('state' => 'previous', 'from' => $yr.'-01-01', 'to' => join('-',array($yr,$arrLatestBalance[0]['periodMonth'],cal_days_in_month(CAL_GREGORIAN,$arrLatestBalance[0]['periodMonth'], $yr)))),
@@ -164,12 +159,7 @@ class Attendance extends MY_Controller {
 				$days_toless[$eleave] = $nodays;
 			endforeach;
 			$arrprocess_days[$procdate['state']] = $days_toless;
-			// echo $procdate['from'].' to '.$procdate['to'].'<br>';
 		endforeach;
-		// echo 'process dates:<br>';
-		// print_r($arrprocess_days);
-		// echo '<hr>';
-		// die();
 
 		$this->arrData['arr_oth_daysleave'] = $arr_oth_daysleave;
 		$this->arrData['arrprocess_days'] = $arrprocess_days;
