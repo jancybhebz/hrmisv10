@@ -605,10 +605,15 @@ class AttendanceSummary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function getleaves($empid)
+	public function getleaves($empid,$leavetype='')
 	{
+		if($leavetype == ''):
+			$arrcond = array('empNumber' => $empid);
+		else:
+			$arrcond = array('empNumber' => $empid, 'tblEmpLeave.leaveCode' => $leavetype);
+		endif;
 		$this->db->join('tblLeave', 'tblLeave.leaveCode = tblEmpLeave.leaveCode', 'left');
-		return $this->db->get_where('tblEmpLeave', array('empNumber' => $empid))->result_array();
+		return $this->db->get_where('tblEmpLeave', $arrcond)->result_array();
 	}
 
 	public function getLeave($id)

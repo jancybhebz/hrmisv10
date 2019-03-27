@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','AttendanceSummary_model','employee/Leave_model'));
+        $this->load->model(array('Hr_model','AttendanceSummary_model','employee/Leave_model','CalendarDates_model'));
     }
 
     public function conversion_table()
@@ -106,21 +106,6 @@ class Attendance extends MY_Controller {
 		# Leave Balance details in modal
 		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
 
-		/*
-		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
-		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
-		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
-		$this->arrData['total_late'] = $arremp_dtr['total_late'];
-		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
-		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
-		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
-		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
-		*/
-		// echo '<pre>';
-		// print_r($this->AttendanceSummary_model->getleaves($empid, $month, $yr));
-		// print_r($arremp_dtr);
-		// $absent_woleave = $arremp_dtr['date_absents'];
-		
 		# vl + (late + undertime + absent w/o leave) + fl
 		// TODO:: Halfday for vl
 		$vl 		 = $arremp_dtr['total_days_vl'];	# days
@@ -140,24 +125,57 @@ class Attendance extends MY_Controller {
 
 		# previous month + earned month
 		// TODO:: Halfday for sl
-		$sl 		 = $arremp_dtr['total_days_sl'];	# days
+		$sl = $arremp_dtr['total_days_sl'];	# days
 		$this->arrData['sl_abs_wpay'] = $sl;
 		$sl_month_bal = ($arrLatestBalance[0]['slBalance'] + $_ENV['leave_earned']) - $sl;
 		$this->arrData['sl_month_bal'] = $sl_month_bal <= 0 ? ($arrLatestBalance[0]['slBalance'] + $_ENV['leave_earned']) : $sl_month_bal;
 		# Absent Undertime without pay
 		$this->arrData['sl_abs_wopay'] = $sl_month_bal <= 0 ? ($sl_month_bal * -1) : '';
 
-		// echo '<br>absent = '.$absent_woleave;
-		// echo '<br>vl = '.$vl;
-		// echo '<br>late = '.$late;
-		// echo '<br>undertime = '.$undertime;
-		// echo '<br>abswo_leave = '.$abswo_leave;
-		// echo '<br>fl = '.$fl;
-		// echo '<br>abs_un_wpay = '.$abs_un_wpay;
-
+		// echo '<pre>';
+		// print_r($employeedata);
+		# other leaves for yearly
+		$leaves = $this->Leave_model->getleave_data();
+		$arr_oth_daysleave = array();
+		foreach(array('PL','FL','STL','MTL','PTL') as $eleave):
+			$key = array_search($eleave, array_column($leaves, 'leaveCode'));
+			$arr_oth_daysleave[$eleave] = $leaves[$key]['numOfDays'];
+		endforeach;
+		// echo 'days leave:<br>';
+		// print_r($arr_oth_daysleave);
+		// echo '<hr>';
+		# date always starts in january 1 of the year and end in the last day of the process month
+		$process_date = array(
+							array('state' => 'previous', 'from' => $yr.'-01-01', 'to' => join('-',array($yr,$arrLatestBalance[0]['periodMonth'],cal_days_in_month(CAL_GREGORIAN,$arrLatestBalance[0]['periodMonth'], $yr)))),
+							array('state' => 'current', 'from' => join('-',array($yr,$arrLatestBalance[0]['periodMonth']+1,'01')), 'to' => join('-',array($yr,$arrLatestBalance[0]['periodMonth']+1,cal_days_in_month(CAL_GREGORIAN, $arrLatestBalance[0]['periodMonth']+1, $yr)))));
+		$arrprocess_days = array();
+		foreach($process_date as $procdate):
+			$break_dates = $this->CalendarDates_model->dates_nw_nh($procdate['from'], $procdate['to'], $yr, $empid);
+			$days_toless = array();
+			foreach(array('PL','FL','STL','MTL','PTL') as $eleave):
+				$emp_fl = $this->AttendanceSummary_model->getleaves($empid, $eleave);
+				$arrfl_filedates = array();
+				foreach($emp_fl as $efl):
+					$fl_filedates = breakdates(date('Y-m-d', strtotime($efl['leaveFrom'])), date('Y-m-d', strtotime($efl['leaveTo'])));
+					$arrfl_filedates = array_merge($arrfl_filedates,$fl_filedates);
+				endforeach;
+				# check if filedates inside the process dates
+				$nodays = count(array_intersect($arrfl_filedates, $break_dates));
+				$days_toless[$eleave] = $nodays;
+			endforeach;
+			$arrprocess_days[$procdate['state']] = $days_toless;
+			// echo $procdate['from'].' to '.$procdate['to'].'<br>';
+		endforeach;
+		// echo 'process dates:<br>';
+		// print_r($arrprocess_days);
+		// echo '<hr>';
 		// die();
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
+		$this->arrData['arr_oth_daysleave'] = $arr_oth_daysleave;
+		$this->arrData['arrprocess_days'] = $arrprocess_days;
+		$this->arrData['employeedata'] = $this->Hr_model->getEmployeePersonal($empid);
+
+		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function leave_balance_set()
