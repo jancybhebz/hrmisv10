@@ -13,8 +13,10 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <a class="btn green" href="<?=base_url('hr/attendance_summary/leave_balance_set/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
-                            <i class="fa fa-pencil"></i> Set Leave Balance</a>&nbsp;&nbsp;
+                        <?php if(count($arrempleave) < 1): ?>
+                            <a class="btn green" href="<?=base_url('hr/attendance_summary/leave_balance_set/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                <i class="fa fa-pencil"></i> Set Leave Balance</a>&nbsp;&nbsp;
+                        <?php endif; ?>
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                             <i class="fa fa-pencil"></i> Update Leave Balance</a>
                         <br><br><br>

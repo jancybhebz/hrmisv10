@@ -67,11 +67,15 @@ class Attendance extends MY_Controller {
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		// echo '<pre>';
 		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+
 		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
 		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
 		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
 		$this->arrData['total_late'] = $arremp_dtr['total_late'];
 		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
+		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
+		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
+		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
 		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -81,6 +85,7 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+		$this->arrData['arrempleave'] = $this->Leave_model->getleave($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
@@ -90,15 +95,94 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 
+		$this->arrData['arrData'] = $res[0];
+		$this->arrData['arrLeaveBalance'] = $this->Leave_model->getleave($empid, $month, $yr);
+		$arrLatestBalance = $this->Leave_model->getleave($empid);
+		$this->arrData['arrLatestBalance'] = $arrLatestBalance[0];
+
+		# Leave Balance details in modal
+		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+
+		/*
+		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
+		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
+		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
+		$this->arrData['total_late'] = $arremp_dtr['total_late'];
+		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
+		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
+		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
+		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
+		*/
+		// echo '<pre>';
+		// print_r($this->AttendanceSummary_model->getleaves($empid, $month, $yr));
+		// print_r($arremp_dtr);
+		// $absent_woleave = $arremp_dtr['date_absents'];
+		
+		# vl + (late + undertime + absent w/o leave) + fl
+		// TODO:: Halfday for vl
+		$vl 		 = $arremp_dtr['total_days_vl'];	# days
+		$late 		 = $this->Leave_model->ltut_table_equiv($arremp_dtr['total_late']);		# minutes
+		$undertime 	 = $this->Leave_model->ltut_table_equiv($arremp_dtr['total_undertime']);	# minutes
+		$abswo_leave = $arremp_dtr['total_days_lwop'];	# days
+		$fl 		 = $arremp_dtr['total_days_fl'];	# days
+		$vl_abs_un_wpay = $vl + ($late + $undertime + $abswo_leave) + $fl;
+		$this->arrData['vl_abs_un_wpay'] = $vl_abs_un_wpay;
+		# previous month + earned month
+		$vl_month_bal = ($arrLatestBalance[0]['vlBalance'] + $_ENV['leave_earned']) - $vl_abs_un_wpay;
+		$this->arrData['vl_month_bal'] = $vl_month_bal <= 0 ? ($arrLatestBalance[0]['vlBalance'] + $_ENV['leave_earned']) : $vl_month_bal;
+		# Absent Undertime without pay
+		$this->arrData['vl_abs_un_wopay'] = $vl_month_bal <= 0 ? ($vl_month_bal * -1) : '';
+
+		# previous month + earned month
+		// TODO:: Halfday for sl
+		$sl 		 = $arremp_dtr['total_days_sl'];	# days
+		$this->arrData['sl_abs_wpay'] = $sl;
+		$sl_month_bal = ($arrLatestBalance[0]['slBalance'] + $_ENV['leave_earned']) - $sl;
+		$this->arrData['sl_month_bal'] = $sl_month_bal <= 0 ? ($arrLatestBalance[0]['slBalance'] + $_ENV['leave_earned']) : $sl_month_bal;
+		# Absent Undertime without pay
+		$this->arrData['sl_abs_wopay'] = $sl_month_bal <= 0 ? ($sl_month_bal * -1) : '';
+
+
+		// echo '<br>absent = '.$absent_woleave;
+		// echo '<br>vl = '.$vl;
+		// echo '<br>late = '.$late;
+		// echo '<br>undertime = '.$undertime;
+		// echo '<br>abswo_leave = '.$abswo_leave;
+		// echo '<br>fl = '.$fl;
+		// echo '<br>abs_un_wpay = '.$abs_un_wpay;
+
+		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}
 
 	public function leave_balance_set()
 	{
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$empid = $this->uri->segment(4);
+		$arrpost = $this->input->post();
+		if(!empty($arrpost)):
+			$arrData=array(
+				'empNumber'		=> $empid,
+				'periodMonth'	=> $month,
+				'periodYear'	=> $yr,
+				'vlBalance' 	=> $arrpost['vl_start'],
+				'vlAbsUndWPay' 	=> $arrpost['vl_ut_wpay'],
+				'vlAbsUndWoPay' => $arrpost['vl_ut_wopay'],
+				'slBalance' 	=> $arrpost['sl_start'],
+				'slAbsUndWPay' 	=> $arrpost['sl_ut_wpay'],
+				'slAbsUndWoPay' => $arrpost['sl_ut_wopay'],
+				'off_bal' 		=> $arrpost['off_bal'],
+				'flBalance' 	=> $arrpost['fl_bal'],
+				'plBalance' 	=> $arrpost['pl_bal']);
+			$this->Leave_model->addLeaveBalance($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Leave balance added successfully.');
+			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month='.$month.'&yr='.$yr);
+		endif;
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['action'] = 'add';
 		$this->arrData['arrData'] = $res[0];
@@ -772,6 +856,10 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 

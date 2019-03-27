@@ -3,6 +3,7 @@
     $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');
  ?>
+
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -159,6 +160,21 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p>Total Number of Working Days: <?=$emp_workingdays?></p>
+                        <p>Total Undertime: <?=date('H:i', mktime(0, $total_undertime))?></p>
+                        <p>Total Late: <?=date('H:i', mktime(0, $total_late))?></p>
+                        <p>Late/Undertime: =NULL</p>
+                        <p>Total Days Late/Undertime: <?=$total_days_ut + $total_days_late?></p>
+                        <p>Total Days LWOP: =NULL</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Total Days Absent: <?=count($date_absents)?></p>
+                        <p>VL: <?=count($arrleaves) > 0 ? $arrleaves[0]['vlBalance'] : ''?></p>
+                        <p>SL: <?=count($arrleaves) > 0 ? $arrleaves[0]['slBalance'] : ''?></p>
+                        <p>Offset Balance:  =00:00</p>
+                        <p>Offset for the Month:  =0</p>
+                        <p>Offset Used:  =00:00</p>
+                    </div>
+                    <div class="col-md-12">
                         <p>Dates Absent: 
                             <?php 
                                 foreach($date_absents as $absent):
@@ -166,26 +182,13 @@
                                 endforeach;
                              ?>
                         </p>
-                        <p>Total Undertime: <?=date('H:i', mktime(0, $total_undertime))?></p>
-                        <p>Total Late: <?=date('H:i', mktime(0, $total_late))?></p>
-                        <p>Late/Undertime: NULL</p>
-                        <p>Total Days Late/Undertime: NULL</p>
-                        <p>Total Days LWOP: NULL</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Total Days Absent: <?=count($date_absents)?></p>
-                        <p>VL: 44.156</p>
-                        <p>SL: 78.500</p>
-                        <p>Offset Balance:  00:00</p>
-                        <p>Offset for the Month:  0</p>
-                        <p>Offset Used:  00:00</p>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <a href="<?=base_url('hr/attendance_summary/dtr/certify_offset').'/'.$arrData['empNumber']?>" class="btn blue">Certify Offset</a>
+                    <a href="<?=base_url('hr/attendance_summary/dtr/certify_offset').'/'.$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>" class="btn blue">Certify Offset</a>
                     <small><i>Click here to include/exclude Offset from computation.</i></small>
                     <?=str_repeat('&nbsp;', 6)?>
                     <b>Total Offset (Weekdays):</b> 00:00 <?=str_repeat('&nbsp;', 6)?>

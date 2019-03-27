@@ -4,7 +4,8 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of [DECEMBER 2018]</span>
+                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of
+                        <?=date('F', mktime(0, 0, 0, $month, 10)).' '.$yr?></span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -29,14 +30,14 @@
                             </thead>
                             <tbody>
                                 <tr class="odd gradeX">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td align="center" style="width: 16%;">
+                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlEarned'] : ''?></td>
+                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlAbsUndWPay'] : ''?></td>
+                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlBalance'] : ''?></td>
+                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlAbsUndWoPay'] : ''?></td>
+                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['slAbsUndWPay'] : ''?></td>
+                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['slBalance'] : ''?></td>
+                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['slAbsUndWoPay'] : ''?></td>
+                                    <td align="center" style="width: 16%;" nowrap>
                                         <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal">
                                             <i class="fa fa-eye"></i> View</button>
                                         <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal-override">
@@ -53,14 +54,14 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of [JANUARY 2018]</span>
+                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of <?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?></span>
                 </div>
             </div>
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <small>"If the employee reach the compulsory retirement age of 65 but the service has been extended, the employee will NO LONGER EARN leave credits."</small><br>
-                        <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of January 2019. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
+                        <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of <?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?>. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
                         <br>
                         <p style="text-align: center;">
                             <button class="btn red" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-update-leavebal">

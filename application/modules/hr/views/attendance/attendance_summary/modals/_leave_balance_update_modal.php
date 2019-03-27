@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title bold">Leave Balance Preview</h4>
-                <small>Leave Balance Info for the Month of October 2018</small>
+                <small>Leave Balance Info for the Month of <?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?></small>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
@@ -17,53 +17,53 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 35%;">Details</th>
-                                                <th>Vacation Leave</th>
-                                                <th>Sick Leave</th>
+                                                <th style="text-align: center;">Vacation Leave</th>
+                                                <th style="text-align: center;">Sick Leave</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>Previous Month Balance  </td>
-                                                <td></td>
-                                                <td></td>
+                                                <td align="center"><?=$arrLatestBalance['vlBalance']?></td>
+                                                <td align="center"><?=$arrLatestBalance['slBalance']?></td>
                                             </tr>
                                             <tr>
-                                                <td>Earned for the month    </td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>Earned for the month</td>
+                                                <td align="center"><?=$_ENV['leave_earned']?></td>
+                                                <td align="center"><?=$_ENV['leave_earned']?></td>
                                             </tr>
                                             <tr>
-                                                <td>Abs. Und. W/ Pay    </td>
+                                                <td>Abs. Und. W/ Pay</td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center">(<?=$vl_abs_un_wpay?>)</td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center">(<?=$sl_abs_wpay?>)</td>
                                             </tr>
                                             <tr>
-                                                <td>Abs. Und. W/O Pay   </td>
+                                                <td><b><?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?> Balance </b></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><b><?=$vl_month_bal?></b></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><b><?=$sl_month_bal?></b></td>
                                             </tr>
                                             <tr>
-                                                <td><b>October 2018 Balance </b></td>
+                                                <td>Abs. Und. W/O Pay</td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=$vl_abs_un_wopay?></td>
                                                 <td id="tdor">
                                                     <input type="text" class="form-control input-sm" name="">
                                                 </td>
-                                                <td id="tdn-or"></td>
+                                                <td id="tdn-or" align="center"><?=$sl_abs_wopay?></td>
                                             </tr>
                                         </tbody>
                                     </table>
