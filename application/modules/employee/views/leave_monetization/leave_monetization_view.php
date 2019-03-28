@@ -95,7 +95,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
                             <?php $sum = 0;
-                          
                                     $sum += $arrData[0]['vlBalance']+ $arrData[0]['slBalance'];
                                     echo $sum; ?>
                             </div>
@@ -118,7 +117,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
                                 <?php echo $arrData[0]['vlBalance']; ?>
-                            </div>
+                                </div>
                         </div>
                     </div>
                      <div class="row">
@@ -196,7 +195,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="MonetizedVL" value="<?=!empty($arrData[0]['vlBalance'])?$arrData[0]['vlBalance']:''?>">
+                                 <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrData[0]['vlBalance'])?$arrData[0]['vlBalance']:''?>">
                             </div>
                         </div>
                     </div>
@@ -209,7 +208,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="MonetizedSL" value="<?=!empty($arrData[0]['slBalance'])?$arrData[0]['slBalance']:''?>">
+                                <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrData[0]['slBalance'])?$arrData[0]['slBalance']:''?>">
                             </div>
                         </div>
                     </div></br>
