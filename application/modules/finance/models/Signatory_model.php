@@ -35,6 +35,12 @@ class Signatory_model extends CI_Model {
 			return $result[0];
 		endif;
 	}	
+
+	function getSignatoriesByModule($module)
+	{
+		return $this->db->join('tblPayrollGroup', 'tblPayrollGroup.payrollGroupCode = tblSignatory.payrollGroupCode', 'left')
+						->order_by('signatory','ASC')->get_where('tblSignatory', array('sig_module' => $module))->result_array();
+	}	
 		
 }
 /* End of file Signatory_model.php */

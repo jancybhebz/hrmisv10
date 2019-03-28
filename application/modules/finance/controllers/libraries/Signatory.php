@@ -12,19 +12,21 @@ class Signatory extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['signatories'] = $this->Signatory_model->getSignatories('');
+		$sig_mod = $this->session->userdata('sessUserLevel')==1 ? 1 : 0;
+		$this->arrData['signatories'] = $this->Signatory_model->getSignatoriesByModule($sig_mod);
 		$this->template->load('template/template_view','finance/libraries/signatory/signatory_view',$this->arrData);
 	}
 
 	public function add()
 	{
 		$arrPost = $this->input->post();
+		$module = $this->session->userdata('sessUserLevel')==1 ? 1 : 0;
 		if(!empty($arrPost)):
 			$arrData = array(
-				'payrollGroupCode' => $arrPost['txtpgcode'],
-				'signatory' => $arrPost['txtsignatory'],
-				'signatoryPosition' => $arrPost['txtposition']
-			);
+				'payrollGroupCode'  => $arrPost['txtpgcode'],
+				'signatory' 		=> $arrPost['txtsignatory'],
+				'signatoryPosition' => $arrPost['txtposition'],
+				'sig_module' 		=> $module);
 			$this->Signatory_model->add($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Signatory added successfully.');
 			redirect('finance/libraries/signatory');

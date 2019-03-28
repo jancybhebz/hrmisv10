@@ -72,3 +72,7 @@ $route['hr/attendance/override/exclude_dtr'] = 'hr/attendance/exclude_dtr';
 $route['hr/attendance/override/generate_dtr'] = 'hr/attendance/generate_dtr';
 	$route['hr/attendance/override/generate_dtr_add'] = 'hr/attendance/override_gen_dtr_add';
 
+// Signatory
+$route['hr/libraries/signatory'] = 'finance/libraries/Signatory/index';
+$route['hr/libraries/signatory/add'] = 'finance/libraries/Signatory/add';
+$route['hr/libraries/signatory/edit/(:any)'] = 'finance/libraries/Signatory/edit/$1';
