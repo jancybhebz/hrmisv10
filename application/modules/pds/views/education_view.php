@@ -11,8 +11,10 @@
                     <th width="10%">Scholarship/ Honors Received</th>
                     <th width="10%">Graduate</th>
                     <th width="2%">Licensed</th>
+                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                     <th width="15%">Action</th>
                     <th width="5%">Attachments</th>
+                    <?php endif; ?>
                 </tr>
                 <?php foreach($arrEduc as $row):?>
                 <tr>
@@ -25,6 +27,7 @@
                     <td><?=$row['ScholarshipCode']?></td>
                     <td><?=$row['graduated']?></td>
                     <td><?=$row['licensed']?></td>
+                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                     <td> 
                     <a class="btn green" data-toggle="modal" href="#educ_modal" onclick="getEduc(<?=$row['SchoolIndex']?>,'<?=$row['levelCode']?>','<?=$row['schoolName']?>','<?=$row['course']?>')"> Edit </a>
                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteEduc"> Delete </a>
@@ -38,6 +41,7 @@
                         </button> 
                     <?=form_close()?>      
                     </td>
+                    <?php endif; ?>
                 </tr>
                 <?php endforeach;?>
             </table>
@@ -207,8 +211,9 @@
             <!-- /.modal-dialog -->
         </div>
         <?=form_close()?>
-
+        <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
             <a class="btn green" data-toggle="modal" href="#addEduc_modal"> Add </a>
+        <?php endif;?>
             <div class="modal fade bs-modal-lg"  id="addEduc_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
