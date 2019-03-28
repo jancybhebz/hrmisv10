@@ -21,6 +21,7 @@ class Leave_Monetization extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrData'] = $this->leave_monetization_model->getData();
+		
 		$this->template->load('template/template_view', 'employee/leave_monetization/leave_monetization_view', $this->arrData);
 	}
 	
