@@ -5,7 +5,8 @@ class AcceptanceResignation_model extends CI_Model {
 	{
 		//parent::__construct();
 		$this->load->database();
-		$this->load->helper('report_helper');		
+		$this->load->helper('report_helper');	
+		//ini_set('display_errors','On');
 		//$this->load->model(array());
 	}
 	
@@ -94,12 +95,23 @@ class AcceptanceResignation_model extends CI_Model {
 			//$this->Cell(130);		
 			$this->fpdf->SetFont('Arial','',12);		
 			//$sig=explode('|',PD);
+			$sig=getSignatories($arrGet['intSignatory']);
+			if(count($sig)>0)
+			{
+				$sigName = $sig[0]['signatory'];
+				$sigPos = $sig[0]['signatoryPosition'];
+			}
+			else
+			{
+				$sigName='';
+				$sigPos='';
+			}
 			//$this->fpdf->Cell(0,10,$sig[1],0,0,'L');
-			$this->fpdf->Cell(0,10,'',0,0,'L');
+			$this->fpdf->Cell(0,10,$sigName,0,0,'L');
 
 			$this->fpdf->Ln(5);
 			//$this->Cell(130);		
-			//$this->fpdf->Cell(0,10,$sig[2],0,0,'L');
+			$this->fpdf->Cell(0,10,$sigPos,0,0,'L');
 			$this->fpdf->Cell(0,10,'',0,0,'L');
 			
 			$this->fpdf->Ln(15);
@@ -118,24 +130,6 @@ class AcceptanceResignation_model extends CI_Model {
 	
 		if($t_strEmpNmbr!='')
 			$this->db->where('tblEmpPersonal.empNumber',$t_strEmpNmbr);
-
-
-		// $sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, 
-		// 	tblEmpPersonal.firstname, tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension, tblEmpPersonal.sex, 
-		// 	tblPosition.positionDesc, 
-		// 	tblEmpPersonal.comTaxNumber, tblEmpPersonal.issuedAt, 
-		// 	tblEmpPersonal.issuedOn, tblEmpPosition.positionDate,tblAppointment.appointmentDesc,
-		// 	tblEmpPosition.firstDayAgency 
-		// FROM tblEmpPersonal
-		// LEFT JOIN tblEmpPosition
-		// 	ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
-		// 	LEFT JOIN tblPosition
-		// 		ON tblEmpPosition.positionCode = tblPosition.positionCode
-		// 			LEFT JOIN tblAppointment
-		// 				ON tblAppointment.appointmentCode=tblEmpPosition.appointmentCode 
-		// $where
-		// ORDER BY tblEmpPersonal.surname, tblEmpPersonal.firstname";	
-		//$rs = mysql_query($sql);	
 		$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname, 
 			tblEmpPersonal.firstname, tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension, tblEmpPersonal.sex, 
 			tblPosition.positionDesc, 
@@ -150,43 +144,8 @@ class AcceptanceResignation_model extends CI_Model {
 			'tblAppointment.appointmentCode=tblEmpPosition.appointmentCode ','left');
 		$this->db->order_by('tblEmpPersonal.surname, tblEmpPersonal.firstname');
 		$objQuery = $this->db->get('tblEmpPersonal');
-		//$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();
 	
-	}
-
-	function getFoundationsActiveCertification()
-	{
-		// $strSQL = "SELECT DISTINCT tblcertifications.*,tblfoundations.* FROM tblcertifications
-		// 			INNER JOIN tblfoundations ON tblfoundations.fdn_id=tblcertifications.cert_fdn_id
-		// 			INNER JOIN tblstatus ON tblstatus.status_id=tblfoundations.fdn_status_id
-		// 			WHERE tblcertifications.cert_date_expiration>='".date('Y-m-d')."'
-		// 			AND tblstatus.status_desc='Active Certification'
-		// 			GROUP BY tblfoundations.fdn_id,tblcertifications.cert_id
-		// 			ORDER BY tblfoundations.fdn_name
-		// 			";
-		// $objQuery = $this->db->query($strSQL);
-		// return $objQuery->result_array();
-	}
-
-	function getLatestCertification($fdnid)
-	{
-		// $strSQL = "SELECT cert_number,cert_date_effectivity,cert_date_expiration,cert_due_renewal FROM tblcertifications
-		// 			WHERE cert_fdn_id='".$fdnid."'
-		// 			ORDER BY cert_date_expiration DESC 
-		// 			";
-		// $objQuery = $this->db->query($strSQL);
-		// return $objQuery->result_array();
-	}
-
-	function getTotalCertification($fdnid)
-	{
-		// $strSQL = "SELECT count(cert_id) as total FROM tblcertifications
-		// 			WHERE cert_fdn_id='".$fdnid."'
-		// 			";
-		// $objQuery = $this->db->query($strSQL);
-		// $rs = $objQuery->result_array();
-		// return count($rs)>0?$rs[0]['total']:0;
 	}
 	
 }

@@ -34,6 +34,7 @@ class Reports_model extends CI_Model {
 		}
 		$this->db->order_by('reportDesc');
 		$this->db->where('reportModule',$intModule);
+		$this->db->where('reportStatus',1);
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}

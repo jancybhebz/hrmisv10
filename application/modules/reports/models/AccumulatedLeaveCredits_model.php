@@ -27,15 +27,6 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		if($t_strEmpNmbr!='')
 			$this->db->where('tblEmpPersonal.empNumber',$t_strEmpNmbr);
 
-
-		// 		$where=$_GET['empNumber']!="" && $_GET['empNumber']!="undefined" ? " AND tblEmpPersonal.empNumber='".$_GET['empNumber']."'":"";
-		// 	$sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname,tblEmpPersonal.firstname,
-		// tblEmpPersonal.middlename,tblEmpPersonal.sex, tblEmpPersonal.nameExtension, tblEmpPersonal.salutation, tblPosition.positionDesc FROM tblEmpPersonal 				
-		// 					LEFT JOIN tblEmpPosition ON tblEmpPersonal.empNumber=tblEmpPosition.empNumber
-		// 					LEFT JOIN tblPosition ON tblEmpPosition.positionCode=tblPosition.positionCode
-		// 					LEFT JOIN tblAppointment ON tblAppointment.appointmentCode=tblEmpPosition.appointmentCode
-			
-		// 			WHERE 1=1 AND tblEmpPosition.statusOfAppointment='In-Service' AND tblAppointment.leaveEntitled='Y' $where ORDER BY tblEmpPersonal.surname ASC,tblEmpPersonal.firstname";
 		$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname,tblEmpPersonal.firstname,
 		 tblEmpPersonal.middlename,tblEmpPersonal.sex, tblEmpPersonal.nameExtension, tblEmpPersonal.salutation, tblPosition.positionDesc');
 		$this->db->join('tblEmpPosition',
@@ -48,33 +39,25 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->where('tblAppointment.leaveEntitled','Y');
 		$objQuery = $this->db->get('tblEmpPersonal');
-		//$objQuery = $this->db->query($strSQL);
+		
 		return $objQuery->result_array();
 	
 	}
 
 	function getLeaveBalance($t_strEmpNmbr, $t_intMonth, $t_intYear)
 	{
-		// $sql = "SELECT periodMonth,periodYear,vlBalance,slBalance FROM tblEmpLeaveBalance
-		// 			WHERE empNumber='".$t_strEmpNmbr."' AND periodMonth='".$t_intMonth."' AND periodYear='".$t_intYear."' ORDER BY periodYear DESC,periodMonth DESC LIMIT 0,1";	
-		// $cn= new MySQLHandler2;
-		// $cn->init();
-		// $rs=$cn->Select($sql);
 		$this->db->where('periodMonth',$t_intMonth);
 		$this->db->where('periodYear',$t_intYear);
 		$this->db->order_by('periodYear DESC,periodMonth DESC');
 		$this->db->Select('periodMonth,periodYear,vlBalance,slBalance');
 		$this->db->limit(1,0);
 		$objQuery = $this->db->get('tblEmpLeaveBalance');
-		//echo $this->db->last_query();
 		return $objQuery->result_array();
 	}
 
-	function printRow($row,$i)
+	function printRow($row,$i,$arrGet)
 	{
 		$rs=$row;
-		//$obj=new Attendance;
-		//$gen=new General;
 		
 		$t_intMonth=$_GET['dtMonth'];
 		$t_intYear=$_GET['dtYear'];
@@ -89,19 +72,14 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		$this->fpdf->Cell(0,5,"MEMORANDUM FOR:",0,0,'L');
 		$this->fpdf->Ln();
 		
-		$PD='RAUL D. DUMOL, DPA|Chief Administrative Officer|Personnel Division';
-		$ALS='TEODORO M. GATCHALIAN, PhD|Assistant Secretary for Administration';
-		$sig=explode('|',$PD);
-		$sig2=explode('|',$ALS);
+		// $PD='RAUL D. DUMOL, DPA|Chief Administrative Officer|Personnel Division';
+		// $ALS='TEODORO M. GATCHALIAN, PhD|Assistant Secretary for Administration';
+		// $sig=explode('|',$PD);
+		// $sig2=explode('|',$ALS);
 		
 		$strEmployeeName = strtoupper($rs[$i]['salutation']." ".$rs[$i]['firstname']." ".($rs[$i]['middlename']!=""?substr($rs[$i]['middlename'],0,1).". ":" ").strtoupper($rs[$i]['surname'])." ".strtoupper($rs[$i]['nameExtension']));
 		$strPosition = $rs[$i]['positionDesc'];
-		//if($obj->getClientIP()=='202.90.141.27')
-			//$this->Cell(0,5,'stripos('.$sig[1].",".$strEmployeeName.')=>'.(stripos($sig[1], trim($strEmployeeName))?'true':'false'),0,0,'L');
-		//if(stripos($sig[1], $strEmployeeName))
-		
-		
-		//$this->Cell(0,5,strtoupper($gen->gettitleOfCourtesy($rs[$i]['sex'])." ".$rs[$i]['firstname']." ".($rs[$i]['middlename']!=""?substr($rs[$i]['middlename'],0,1).". ":" ").strtoupper($rs[$i]['surname'])." ".strtoupper($rs[$i]['nameExtension'])),0,0,'L');
+
 		$this->fpdf->Cell(0,5,$strEmployeeName,0,0,'L');
 		$this->fpdf->Ln();
 		
@@ -115,7 +93,7 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		$day= date('t',strtotime($t_intMonth.'/1/'.$t_intYear));
 
 		$this->fpdf->Cell(0,5,"                Please be informed that your accumulated leave credits as of ".date('F',strtotime(date('Y').'-'.$t_intMonth.'-'.date('d')))." ".$day.", ".$t_intYear." are as follows:",0,0,'L');
-		//$this->Cell(0,5,"   Please be informed that your accumulated leave credits as of _____________________ are as follows:",0,0,'L');
+		
 		$this->fpdf->Ln(6);
 		$intVL=0;$intSL=0;
 		if(count($lb)>0):
@@ -159,7 +137,17 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		$this->fpdf->Ln(2);
 		
 		
-			
+		$sig=getSignatories($arrGet['intSignatory']);
+		if(count($sig)>0)
+		{
+			$sigName = $sig[0]['signatory'];
+			$sigPos = $sig[0]['signatoryPosition'];
+		}
+		else
+		{
+			$sigName='';
+			$sigPos='';
+		}
 
 		//$this->SetFont('Arial','',10);		
 		$this->fpdf->Cell(120,10,"",0,0,'C');
@@ -169,51 +157,59 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		$this->fpdf->Cell(120,10,"",0,0,'C');
 		if(trim($strEmployeeName)=='RAUL D. DUMOL')
 		{
-			//$strEmployeeName = strtoupper("RHODORA C. ALFONSO");
-			//$strPosition = "Supervising Administrative Officer";
 			$this->fpdf->Cell(70,10,"MA. VERONICA B. TOLEDANO",0,0,'C');
 		}
 		else
-			$this->fpdf->Cell(70,10,$sig[1],0,0,'C');
-		//$this->Cell(70,10,"RHODORA C. ALFONSO",0,0,'C');
+			$this->fpdf->Cell(70,10,$sigName,0,0,'C');
 		
 
 		$this->fpdf->Ln(4);
 		$this->fpdf->Cell(120,10,"",0,0,'C');
 		if(trim($strEmployeeName)=='RAUL D. DUMOL')
 		{
-			//$strEmployeeName = strtoupper("RHODORA C. ALFONSO");
-			//$strPosition = "Supervising Administrative Officer";
 			$this->fpdf->Cell(70,10,"Administrative Officer IV",0,0,'C');
 		}
 		else
-			$this->fpdf->Cell(70,10,$sig[2],0,0,'C');
+			$this->fpdf->Cell(70,10,$sigPos,0,0,'C');
 		//$this->Cell(70,10,"Supervising Administrative Officer",0,0,'C');
 		
 		
 		$this->fpdf->Ln(4);
 		$this->fpdf->Cell(120,10,"",0,0,'C');
-		if(trim($strEmployeeName)=='RAUL D. DUMOL')
-		{
-			//$strEmployeeName = strtoupper("RHODORA C. ALFONSO");
-			//$strPosition = "Supervising Administrative Officer";
-			$this->fpdf->Cell(70,10,"Personnel Division",0,0,'C');
-		}
-		else
-			$this->fpdf->Cell(70,10,$sig[0],0,0,'C');
+		// if(trim($strEmployeeName)=='RAUL D. DUMOL')
+		// {
+		// 	//$strEmployeeName = strtoupper("RHODORA C. ALFONSO");
+		// 	//$strPosition = "Supervising Administrative Officer";
+		// 	//$this->fpdf->Cell(70,10,"Personnel Division",0,0,'C');
+		// }
+		// else
+		// 	$this->fpdf->Cell(70,10,$sig[0],0,0,'C');
 		$this->fpdf->Ln(2);
 		
-		$this->fpdf->Cell(120,10,trim(strtoupper($sig2[1]))!=trim($strEmployeeName)?"NOTED:":"",0,0,'L');				
+		//$this->fpdf->Cell(120,10,trim(strtoupper($sig2[1]))!=trim($strEmployeeName)?"NOTED:":"",0,0,'L');
+		$this->fpdf->Cell(120,10,"NOTED:",0,0,'L');	
 		$this->fpdf->Cell(70,10,"",0,0,'C');				
 		$this->fpdf->Ln(8);
 		
-		//$this->Cell(120,10,trim(strtoupper($sig2[1]))!=trim($strEmployeeName)?strtoupper($sig2[1]):"",0,0,'L');				
-		$this->fpdf->Cell(120,10,'TEODORO M. GATCHALIAN, PhD',0,0,'L');				
+		//$this->Cell(120,10,trim(strtoupper($sig2[1]))!=trim($strEmployeeName)?strtoupper($sig2[1]):"",0,0,'L');
+
+		$sigNoted=getSignatories($arrGet['intSignatoryNoted']);
+		if(count($sig)>0)
+		{
+			$sigNotedName = $sigNoted[0]['signatory'];
+			$sigNotedPos = $sigNoted[0]['signatoryPosition'];
+		}
+		else
+		{
+			$sigNotedName='';
+			$sigNotedPos='';
+		}			
+		$this->fpdf->Cell(120,10,$sigNotedName,0,0,'L');				
 		$this->fpdf->Cell(70,10,"",0,0,'C');
 		$this->fpdf->Ln(4);
 		//$this->Cell(120,10,trim(strtoupper($sig2[1]))!=trim($strEmployeeName)?$sig2[2].", ".$sig2[0]:"",0,0,'L');		
-		$this->fpdf->Cell(120,10,'Assistant Secretary for Administration',0,0,'L');
-		$this->fpdf->Ln(11);
+		$this->fpdf->Cell(120,10,$sigNotedPos,0,0,'L');
+		//$this->fpdf->Ln(11);
 
 		//$this->Cell(120,10,"TEODORO M. GATCHALIAN",0,0,'L');				
 		//$this->Cell(70,10,"",0,0,'C');
@@ -239,11 +235,11 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		for($i=0;$i<sizeof($rs);$i++)		
 			{
 			$this->fpdf->AddPage();								
-			$this->printRow($rs,$i);
+			$this->printRow($rs,$i,$arrData);
 			$this->fpdf->Cell(120,10,"_______________________________________________________________________________________________________________________",0,0,'L');
 			$this->fpdf->Ln(7);
 			
-			$this->printRow($rs,$i);	
+			$this->printRow($rs,$i,$arrData);	
 			}
 		}
 		echo $this->fpdf->Output();
