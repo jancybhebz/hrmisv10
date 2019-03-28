@@ -10,7 +10,9 @@
                     <th width="10%">Salary/  Job Pay Grade</th>
                     <th width="10%">Status of Appointment</th>
                     <th width="10%">Gov. Service (Yes/No)</th>
+                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                     <th width="10%">Action</th>
+                    <?php endif; ?>
                 </tr>
                 <?php foreach($arrService as $row):?>
                 <tr>
@@ -21,8 +23,10 @@
                     <td><?=$row['salaryGrade']?></td>
                     <td><?=$row['appointmentCode']?></td>
                     <td><?=$row['governService']?></td>
+                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                     <td> <a class="btn green" data-toggle="modal" href="#workExp_modal" onclick="getWork(<?=$row['serviceRecID']?>,'<?=$row['serviceFromDate']?>','<?=$row['serviceToDate']?>','<?=$row['positionDesc']?>')"> Edit </a>
-                      <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteWorkExp"> Delete </a></td>
+                    <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteWorkExp"> Delete </a></td>
+                    <?php endif; ?>
                 </tr>
                 <?php endforeach;?>
             </table>
@@ -209,8 +213,9 @@
                 <!-- /.modal-dialog -->
             </div>
             <?=form_close()?>
-
+            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
             <a class="btn green" data-toggle="modal" href="#addWorkExp_modal"> Add </a>
+            <?php endif; ?>
             <div class="modal fade bs-modal-lg"  id="addWorkExp_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
