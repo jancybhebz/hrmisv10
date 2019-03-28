@@ -7,7 +7,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
+            <span><?=$this->session->userdata('sessUserLevel')==1 ? 'HR' : 'Finance'?> Module</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>

@@ -1,4 +1,7 @@
-<?php load_plugin('css',array('select'));?>
+<?php load_plugin('css',array('select'));
+      if($_SESSION['sessUserLevel'] != 1):?>
+        <style> ul.nav.nav-tabs { display: none;} .tab-content { border-top: none !important;} </style>
+<?php endif; ?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -34,7 +37,7 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-user font-dark"></i>
-                            <span class="caption-subject bold uppercase"> Attendance Summary</span>
+                            <span class="caption-subject bold uppercase"> Attendance</span>
                         </div>
                     </div>
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
@@ -75,7 +78,7 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' && !(preg_match('#[0-9]#',$tab)) ? 'hidden' : ''?>>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=($this_page == 'dtr' && !(preg_match('#[0-9]#',$tab))) || $this_page == 'qr_code' ? 'hidden' : ''?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <div class="form-group" style="display: inline-flex;">

@@ -101,12 +101,12 @@ class Leave_model extends CI_Model {
 	// TODO:: SURE FOR THIS FUNCTION
 	function getleave($empid, $month=0, $yr=0)
 	{
-		if($month == 0 || $yr == 0):
-			$arrcond = array('empNumber' => $empid);
-		else:
-			$arrcond = array('empNumber' => $empid, 'periodMonth' => $month, 'periodYear' => $yr);
-		endif;
-		$this->db->order_by('lb_id', 'desc');
+		$arrcond = array('empNumber' => $empid);
+		if($month != 0) : $arrcond['periodMonth']=$month; endif;
+		if($yr != 0) : $arrcond['periodYear']=$yr; endif;
+
+		$this->db->order_by('periodMonth', 'desc');
+		$this->db->order_by('periodYear', 'desc');
 		return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
 	}
 

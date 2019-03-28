@@ -12,6 +12,7 @@
                     <span class="caption-subject bold uppercase"> Daily Time Record</span>
                 </div>
                 <div class="actions">
+                    <?php if( $_SESSION['sessUserLevel'] == 1): ?>
                     <div class="btn-group">
                         <a class="btn green btn-lg bold" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
                             style="font-size: 14px;padding: 5px 11px;"> Actions
@@ -43,32 +44,36 @@
                             </li>
                         </ul>
                     </div>
+                    <?php endif; ?>
+                    <a href="javascript:;" class="btn blue">Preview / Print</a>
                 </div>
-                <br><br>
-                <p><center>
-                    <div class="form-inline" style="line-height: 3;">
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?yr='.$yr.'&month='.$month?>">Edit Mode</a>&nbsp;
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a>&nbsp;
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber']?>">Local Holiday</a>&nbsp;
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>">OB</a>&nbsp;
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>">Leave</a>&nbsp;
-                        <a  class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>">Compensatory Leave</a>&nbsp;
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a>&nbsp;
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/flagcrmy').'/'.$arrData['empNumber']?>">Flag Ceremony</a>&nbsp;
-                        <a class="btn blue"
-                            href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a>&nbsp;
-                        <a class="btn blue"
-                            href="#">Preview / Print</a>
-                    </div>
-                </p></center>
+                <?php if( $_SESSION['sessUserLevel'] == 1): ?>
+                    <br><br>
+                    <p><center>
+                        <div class="form-inline" style="line-height: 3;">
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?yr='.$yr.'&month='.$month?>">Edit Mode</a>&nbsp;
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a>&nbsp;
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber']?>">Local Holiday</a>&nbsp;
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>">OB</a>&nbsp;
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>">Leave</a>&nbsp;
+                            <a  class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>">Compensatory Leave</a>&nbsp;
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a>&nbsp;
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/flagcrmy').'/'.$arrData['empNumber']?>">Flag Ceremony</a>&nbsp;
+                            <a class="btn blue"
+                                href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a>&nbsp;
+                            <a class="btn blue"
+                                href="#">Preview / Print</a>
+                        </div>
+                    </p></center>
+                <?php endif; ?>
             </div>
             <div style="display: inline-flex;">
                 <div class="legend-def1">
@@ -76,6 +81,7 @@
                 <div class="legend-def1">
                     <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Holiday</small> &nbsp;&nbsp;</div>
             </div>
+            <br><br>
             <table class="table table-striped table-bordered order-column" id="tbldtr">
                 <thead>
                     <tr>
@@ -185,8 +191,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
+            <div class="row" <?=$_SESSION['sessUserLevel'] == 1 ? '' : 'hidden'?>>
                 <div class="col-md-12">
                     <a href="<?=base_url('hr/attendance_summary/dtr/certify_offset').'/'.$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>" class="btn blue">Certify Offset</a>
                     <small><i>Click here to include/exclude Offset from computation.</i></small>

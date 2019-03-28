@@ -332,4 +332,19 @@ class Leave extends MY_Controller {
     	$this->template->load('template/template_view','employee/leave/leave_view',$this->arrData);
     }
 
+    # begin employee leave balance
+    public function leave_balance()
+    {
+    	// echo '<pre>';
+    	$empid = $this->uri->segment(3);
+    	$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+    	// print_r($lbalance);
+    	// die();
+    	$this->arrData['leave_balance'] = $this->leave_model->getleave($empid, 0, $yr);
+
+    	$this->template->load('template/template_view','employee/leave/leave_employee_view', $this->arrData);
+    }
+    # end employee leave balance
+
+
 }

@@ -31,8 +31,7 @@ if ( ! function_exists('get_libraries'))
 			'separation_mode'=>'Separation Mode',
 			'service_code'=>'Service Code',
 			'signatories'=>'Signatory',
-			'user_account'=>'User Account',
-			'zone'=>'Zone'
+			'user_account'=>'User Account'
 		);
 	}
 }
