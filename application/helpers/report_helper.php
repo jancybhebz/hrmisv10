@@ -178,3 +178,23 @@ if ( ! function_exists('comboSignatory'))
     	return $str;
     }
 }
+
+if (! function_exists('daySuffix'))
+{
+	function daySuffix($day)
+	{
+		
+		if($day==1 || $day==21 || $day==31)	
+			$day = $day.'st';
+		elseif($day==2 || $day==22)	
+			$day = $day.'nd';
+		elseif($day==3 || $day==23)	
+			$day = $day.'rd';
+		elseif($day>=4 && $day<=20)	
+			$day = $day.'th';
+		elseif($day>=24 && $day<=30)	
+			$day = $day.'th';		
+			
+		return $day;
+	}
+}
