@@ -21,6 +21,7 @@ class AttendanceSummary_model extends CI_Model {
 
 	public function getemp_dtr($empid, $month, $yr)
 	{
+		$month = sprintf('%02d', $month);
 		# DTR Data
 		$this->db->order_by('dtrDate', 'asc');
 		$this->db->where('empNumber', $empid);
