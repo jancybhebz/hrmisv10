@@ -95,8 +95,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
                             <?php $sum = 0;
-                                    $sum += $arrData[0]['vlBalance']+ $arrData[0]['slBalance'];
-                                    echo $sum; ?>
+                                $sum += $arrData[0]['vlBalance']+ $arrData[0]['slBalance'];
+                                echo $sum; ?>
                             </div>
                         </div>
                     </div>
@@ -181,7 +181,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12 text-center">
                             <div class="form-group">
-                                <input type="checkbox" value="1" name="test" /><b> Commutation</b>
+                                <input type="checkbox" value="1" name="commutation" id="commutation" /><b> Commutation</b>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div></br>
-
+                     <div class="row reason">
+                        <div class="col-sm-6 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Reason :</label>
+                            </div>
+                        </div>
+                    <div class="row reason">
+                        <div class="col-sm-2 text-right">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strReason" id="strReason" value="<?=isset($arrData[0][''])?$arrData[0]['']:''?>">
+                            </div>
+                        </div>
+                    </div></br>
 
                     <div class="row">
                       <div class="col-sm-12 text-center">
@@ -250,6 +262,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+    <?php if($commutation==''):?>
+        $('.reason').hide();
+    <?php endif;?>
+    <?php if($commutation=='1'):?>
+        $('.reason').show();
+    <?php endif;?>
 
     $('#printreport').click(function(){
         var desti=$('#strDestination').val();
