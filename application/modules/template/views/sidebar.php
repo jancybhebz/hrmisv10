@@ -1,9 +1,14 @@
 <?php 
 //set active for menu highlight
 $active=$this->uri->segment(1)!=''?$this->uri->segment(1):'home';
+$active = strtolower($active);
 //set activesub for submenu highlight
 $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
+$activesub = strtolower($activesub);
 $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
+$activetab = strtolower($activetab);
+
+
 // echo '<br>active = '.$active;
 // echo '<br>activesub = '.$activesub;
 // echo '<br>activetab = '.$activetab;
@@ -70,24 +75,24 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                         <span class="title">201</span>
                     </a>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='attendance' || strtolower($activesub)=='attendance_summary'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='attendance' || $activesub=='attendance_summary'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Attendance</span>
-                        <span class="arrow <?=strtolower($activesub)=='attendance' || strtolower($activesub)=='attendance_summary'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=strtolower($activetab)=='conversion_table'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='conversion_table'?'active open':''?>">
                             <a href="<?=base_url('hr/attendance/conversion_table')?>">
                                 <span class="title">Conversion Table</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($active)=='hr' && strtolower($activesub)=='attendance_summary'?'active open':''?>">
+                        <li class="nav-item <?=$active=='hr' && $activesub=='attendance_summary'?'active open':''?>">
                             <a href="<?=base_url('hr/attendance/view_all')?>">
                                 <span class="title">Attendance Summary</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='override'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='override'?'active open':''?>">
                             <a href="<?=base_url('hr/attendance/override/ob')?>">
                                 <span class="title">Override</span>
                             </a>
@@ -110,9 +115,10 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <ul class="sub-menu">
                         <?php 
                             //get library menu item from menu_helper
+                            $signatory_url = $_SESSION['sessUserLevel'] == 1 ? 'hr/libraries/signatory' : 'finance/libraries/signatory';
                             $arrMenu = get_libraries();
                             foreach($arrMenu as $i=>$menuItem):
-                                $baseurl = ($i=="signatories") ? 'finance/libraries/signatory' : 'libraries/'.$i;
+                                $baseurl = ($i=="signatories") ? $signatory_url : 'libraries/'.$i;
                                 if($i!="signatories"):?>
                                     <li class="nav-item start <?=$activesub==$i?'active':''?>">
                                         <a href="<?=base_url('libraries/'.$i)?>" class="nav-link ">
@@ -121,7 +127,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                                     </li><?php
                                 else: ?>
                                     <li class="nav-item start active">
-                                        <a href="<?=base_url('finance/libraries/signatory')?>" class="nav-link ">
+                                        <a href="<?=base_url($signatory_url)?>" class="nav-link ">
                                             <span class="title"><?=$menuItem?></span>
                                         </a>
                                     </li><?php
@@ -129,14 +135,14 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                             endforeach; ?>
                     </ul>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='compensation'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-wallet"></i>
                         <span class="title">Compensation</span>
-                        <span class="arrow <?=strtolower($activesub)=='compensation'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=strtolower($activetab)=='personnel_profile'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
                             <a href="<?=base_url('finance/compensation/personnel_profile')?>">
                                 <span class="title">Personnel Profile</span>
                             </a>
@@ -151,120 +157,120 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                 <li class="heading">
                     <h3 class="uppercase">Finance Module</h3>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='notifications'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='notifications'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-bell"></i>
                         <span class="title">Notifications</span>
-                        <span class="arrow <?=strtolower($activesub)=='notifications'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='notifications'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=strtolower($activetab)=='npayroll'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='npayroll'?'active open':''?>">
                             <a href="<?=base_url('finance/notifications/npayroll')?>">
                                 <span class="title">Included in Payroll</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='matureloans'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='matureloans'?'active open':''?>">
                             <a href="<?=base_url('finance/notifications/matureloans')?>">
                                 <span class="title">Maturing Loans</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='nlongi'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='nlongi'?'active open':''?>">
                             <a href="<?=base_url('finance/notifications/nlongi')?>">
                                 <span class="title">Increase in Longevity Factor</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='compensation'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-wallet"></i>
                         <span class="title">Compensation</span>
-                        <span class="arrow <?=strtolower($activesub)=='compensation'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=strtolower($activetab)=='personnel_profile'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
                             <a href="<?=base_url('finance/compensation/personnel_profile')?>">
                                 <span class="title">Personnel Profile</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='payroll_update'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='payroll_update'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-docs"></i>
                         <span class="title">Update</span>
-                        <span class="arrow <?=strtolower($activesub)=='payroll_update'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='payroll_update'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item start <?=strtolower($activetab)=='process'?'active open':''?>">
+                        <li class="nav-item start <?=$activetab=='process'?'active open':''?>">
                             <a href="<?=base_url('finance/payroll_update/process')?>">
                                 <span class="title">Process Payroll</span>
                             </a>
                         </li>
-                        <li class="nav-item start <?=strtolower($activetab)=='update_or'?'active open':''?>">
+                        <li class="nav-item start <?=$activetab=='update_or'?'active open':''?>">
                             <a href="<?=base_url('finance/payroll_update/update_or')?>">
                                 <span class="title">Update OR Remittances</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='reports'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='reports'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-docs"></i>
                         <span class="title">Reports</span>
-                        <span class="arrow <?=strtolower($activesub)=='reports'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='reports'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=strtolower($activetab)=='monthly'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='monthly'?'active open':''?>">
                             <a href="<?=base_url('finance/reports/monthly')?>">
                                 <span class="title">Monthly Reports</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='remittance'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='remittance'?'active open':''?>">
                             <a href="<?=base_url('finance/reports/remittance')?>">
                                 <span class="title">Employee Remittances</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='loanbalance'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='loanbalance'?'active open':''?>">
                             <a href="<?=base_url('finance/reports/loanbalance')?>">
                                 <span class="title">Employee Loan balance</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='libraries'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='libraries'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Libraries</span>
-                        <span class="arrow <?=strtolower($activesub)=='libraries'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='libraries'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=strtolower($activetab)=='deductions' || strtolower($activetab)=='agency'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='deductions' || $activetab=='agency'?'active open':''?>">
                             <a href="<?=base_url('finance/libraries/deductions')?>">
                                 <span class="title">Deduction</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='income'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='income'?'active open':''?>">
                             <a href="<?=base_url('finance/libraries/income')?>">
                                 <span class="title">Income</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='payrollprocess'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='payrollprocess'?'active open':''?>">
                             <a href="<?=base_url('finance/libraries/payrollprocess')?>">
                                 <span class="title">Payroll Process</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='projectcode'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='projectcode'?'active open':''?>">
                             <a href="<?=base_url('finance/libraries/projectcode')?>">
                                 <span class="title">Project Code</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='payrollgroup'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='payrollgroup'?'active open':''?>">
                             <a href="<?=base_url('finance/libraries/payrollgroup')?>">
                                 <span class="title">Payroll Group</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activetab)=='signatory'?'active open':''?>">
+                        <li class="nav-item <?=$activetab=='signatory'?'active open':''?>">
                             <a href="<?=base_url('finance/libraries/signatory')?>">
                                 <span class="title">Signatory</span>
                             </a>
@@ -285,11 +291,11 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                         <span class="title">201</span>
                     </a>
                 </li>
-                <li class="nav-item <?=strtolower($activesub)=='attendance' || strtolower($activesub)=='attendance_summary'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='attendance' || $activesub=='attendance_summary'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Attendance</span>
-                        <span class="arrow <?=strtolower($activesub)=='attendance' || strtolower($activesub)=='attendance_summary'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item <?=$activesub=='attendance' && $activetab=='officer_dtr' ? 'active' : ''?>">
@@ -319,11 +325,11 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=strtolower($active)=='employee'?'active open':''?>">
+                <li class="nav-item <?=$active=='employee'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
-                        <span class="arrow <?=strtolower($active)=='employee'?'open':''?>"></span>
+                        <span class="arrow <?=$active=='employee'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item <?=$active=='employee' && $activesub=='official_business' ? 'active' : ''?>">
@@ -408,35 +414,35 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                         <span class="title">201</span>
                     </a>
                 </li>
-                <li class="nav-item <?=strtolower($active)=='hr' && strtolower($activesub)=='attendance_summary'?'active open':''?>">
+                <li class="nav-item <?=($active=='hr' && $activesub=='attendance_summary') || ($active=='employee' && $activesub=='leave_balance')?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Attendance</span>
-                        <span class="arrow <?=strtolower($active)=='hr' && strtolower($activesub)=='attendance_summary'?'open':''?>"></span>
+                        <span class="arrow <?=$active=='hr' && $activesub=='attendance_summary'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=strtolower($activesub)=='attendance_summary' && strtolower($activetab)=='dtr'?'active':''?>">
+                        <li class="nav-item <?=$activesub=='attendance_summary' && $activetab=='dtr'?'active':''?>">
                             <a href="<?=base_url('hr/attendance_summary/dtr/'.$this->session->userdata('sessEmpNo'))?>">
                                 <span class="title">Daily Time Record</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activesub)=='attendance_summary' && strtolower($activetab)=='leave_balance'?'active':''?>">
-                            <a href="<?=base_url('hr/attendance_summary/leave_balance/'.$this->session->userdata('sessEmpNo'))?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='leave_balance'?'active':''?>">
+                            <a href="<?=base_url('employee/leave_balance/'.$this->session->userdata('sessEmpNo'))?>">
                                 <span class="title">Leave Balance</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=strtolower($activesub)=='attendance_summary' && strtolower($activetab)=='qr_code'?'active':''?>">
+                        <li class="nav-item <?=$activesub=='attendance_summary' && $activetab=='qr_code'?'active':''?>">
                             <a href="<?=base_url('hr/attendance_summary/qr_code/'.$this->session->userdata('sessEmpNo'))?>">
                                 <span class="title">QR Code</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=strtolower($active)=='employee'?'active open':''?>">
+                <li class="nav-item <?=$active=='employee' && !in_array($activesub, array('leave_balance'))?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
-                        <span class="arrow <?=strtolower($active)=='employee'?'open':''?>"></span>
+                        <span class="arrow <?=$active=='employee'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item <?=$active=='employee' && $activesub=='official_business' ? 'active' : ''?>">
@@ -497,7 +503,7 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
                     <i class="icon-layers"></i>
                     <span class="title">FAQ</span>
                     <span class="arrow"></span>
-                </a>                    
+                </a>
             </li>
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
