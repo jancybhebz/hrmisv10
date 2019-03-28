@@ -1,34 +1,38 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// if ( ! function_exists('log_action'))
-// {
-//     function log_action($strEmpNo,$strModule,$strTableName,$strDescription,$strData,$strData2)
-//     {
-// 		$CI =& get_instance();
-// 		$arrLogData = array(
-// 			'empNumber' 	=> $strEmpNo,
-// 			'module'		=> $strModule,
-// 			'tablename' 	=> $strTableName,
-// 			'date_time' 	=> date('Y-m-d H:i:s'),
-// 			'description'	=> $strDescription,
-// 			'data'			=> $strData,
-// 			'data2'			=> $strData2,
-// 			'ip'			=> $CI->input->ip_address()
-// 			);
-// 		$CI->db->insert('tblChangeLog', $arrLogData);
-// 		return $CI->db->insert_id();	
-// 	}
-// }
+if ( ! function_exists('getSignatories'))
+{
+	function getSignatories($empno="")
+    {
+    	$CI =& get_instance();
+    	$CI->db->Select('signatory,signatoryPosition,signatoryId');
+    	if($empno!='')
+    		$CI->db->where('signatoryId',$empno);
+    	$objQuery = $CI->db->get('tblSignatory');
+    	$rs = $objQuery->result_array();
+		if(count($rs)>0)
+		{
+			return $rs;
+		}
+    }
+}  
 
 if ( ! function_exists('getAgencyName'))
 {
 	function getAgencyName()
     {
-        // $obj=new General;
-        // $sql = "SELECT agencyName FROM tblAgency";
-        // $result = mysql_query($sql);    
-        // $row=mysql_fetch_array($result);
-        // return $row['agencyName'];
+    	$CI =& get_instance();
+    	$CI->db->Select('agencyName');
+    	$objQuery = $CI->db->get('tblAgency');
+    	$rs = $objQuery->result_array();
+		if(count($rs)>0)
+		{
+			foreach($rs as $row):
+				return $row['agencyName'];
+			endforeach;
+		}
+		else
+			return false;
     }
 }  
 
@@ -113,5 +117,64 @@ if ( ! function_exists('intToBuwan'))
                         7=>"Hulyo", 8=>"Agosto", 9=>"Septembre", 
                         10=>"Oktubre", 11=>"Nobyembre", 12=>"Disyembre");
         return $arrMonths[$t_intMonth];
+    }
+}
+
+if ( ! function_exists('comboYear'))
+{    
+    function comboYear($strName="intYear")
+    {
+    	$str = '<select name="'.$strName.'" class="form-control">';
+    	for($i=date('Y');$i>=2003;$i--)
+    	{
+    		$str .= '<option value="'.$i.'">'.$i.'</option>';
+    	}
+    	$str .= '</select>';
+    	return $str;
+    }
+}
+
+if ( ! function_exists('comboMonth'))
+{    
+    function comboMonth($strName="intMonth")
+    {
+    	$str = '<select name="'.$strName.'" class="form-control">';
+    	for($i=1;$i<=12;$i++)
+    	{
+    		$str .= '<option value="'.$i.'" '.(date('n')==$i?'selected="selected"':'').'>'.date('F',strtotime(date('Y-'.$i.'-d'))).'</option>';
+    	}
+    	$str .= '</select>';
+    	return $str;
+    }
+}
+
+if ( ! function_exists('comboDay'))
+{    
+    function comboDay($strName="intDay",$intMaxDay=31)
+    {
+    	
+    	$str = '<select name="'.$strName.'" class="form-control">';
+    	for($i=1;$i<=$intMaxDay;$i++)
+    	{
+    		$str .= '<option value="'.$i.'" '.(date('j')==$i?'selected="selected"':'').'>'.$i.'</option>';
+    	}
+    	$str .= '</select>';
+    	return $str;
+    }
+}
+
+if ( ! function_exists('comboSignatory'))
+{    
+    function comboSignatory($strName="intSignatory")
+    {
+    	
+    	$str = '<select name="'.$strName.'" class="form-control">';
+    	$rs = getSignatories();
+    	foreach($rs as $row)
+    	{
+    		$str .= '<option value="'.$row['signatoryId'].'" >'.$row['signatory'].'</option>';
+    	}
+    	$str .= '</select>';
+    	return $str;
     }
 }

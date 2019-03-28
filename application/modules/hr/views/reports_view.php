@@ -81,7 +81,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" required>
                         <option value="">Select</option>
                         <?php foreach($arrEmployees as $i=>$data): ?>
-                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                        <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']))?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -150,7 +150,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('select[name="strSelectPer"]').change(function(){
             $per = $(this).val();
 
-            if($per=='All Employees')
+            if($per==0)
                 $('.employee-block').hide();
             else
                 $('.employee-block').show();

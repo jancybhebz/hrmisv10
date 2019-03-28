@@ -1,7 +1,7 @@
 <?php 
 /** 
 Purpose of file:    Controller for Reports
-Author:             Rose Anne L. Grefaldeo
+Author:             Louie Carl R. Mandapat
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -33,14 +33,19 @@ class Generate extends MY_Controller
     	{
     		case 'AR': 
     			$this->load->model('AcceptanceResignation_model');
-    			//$this->load->model('hr/reports_model');
-    			//include('report/AcceptanceResignation_model');
-    			
-    			//print_r($arrGet);
-				$arrData=array(
-					'empno'=>$empno
-				);
 				$this->AcceptanceResignation_model->generate($arrGet);
+    		break;
+    		case 'ALC':
+    			$this->load->model('AccumulatedLeaveCredits_model');
+				$this->AccumulatedLeaveCredits_model->generate($arrGet);
+    		break;
+    		case 'ADR';
+    			$this->load->model('AssumptionDutiesResponsibilities_model');
+				$this->AssumptionDutiesResponsibilities_model->generate($arrGet);
+    		break;
+    		case 'CDR';
+    			$this->load->model('CertificateDutiesResponsibilities_model');
+				$this->CertificateDutiesResponsibilities_model->generate($arrGet);
     		break;
     	}
 

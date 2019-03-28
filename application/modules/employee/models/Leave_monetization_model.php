@@ -38,6 +38,8 @@ class Leave_monetization_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+
+
 	function submit($arrData)
 	{
 		$this->db->insert('tblemprequest', $arrData);

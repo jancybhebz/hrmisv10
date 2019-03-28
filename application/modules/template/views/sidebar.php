@@ -357,8 +357,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Reports</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='' ? 'active' : ''?>">
-                            <a href="<?=base_url('')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='leave_monetization' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/leave_monetization')?>">
                                 <span class="title">Leave Monetization</span>
                             </a>
                         </li>
@@ -470,8 +470,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Reports</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='' ? 'active' : ''?>">
-                            <a href="<?=base_url('')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='leave_monetization' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/leave_monetization')?>">
                                 <span class="title">Leave Monetization</span>
                             </a>
                         </li>

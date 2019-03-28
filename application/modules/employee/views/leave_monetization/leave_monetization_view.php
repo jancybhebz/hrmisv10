@@ -65,9 +65,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     <div class="row">
-                        <div class="col-sm-1 text-right">
+                        <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="VL" id="VL" value="<?=isset($arrData['vlBalance'])?$arrData['vlBalance']:''?>">
+                                <?php echo $arrData[0]['vlBalance']; ?>
                             </div>
                         </div>
                     </div>
@@ -79,9 +79,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     <div class="row">
-                        <div class="col-sm-1 text-right">
+                        <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="SL" id="SL" value="<?=isset($arrData['slBalance'])?$arrData['slBalance']:''?>">
+                                <?php echo $arrData[0]['slBalance'];?>
                             </div>
                         </div>
                     </div>
@@ -92,9 +92,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     <div class="row">
-                        <div class="col-sm-1 text-right">
+                        <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <input name="TotalLC" id="TotalLC" type="text" class="form-control" value="<?=!empty($this->session->userdata('TotalLC'))?$this->session->userdata('TotalLC'):''?>">
+                            <?php $sum = 0;
+                                $sum += $arrData[0]['vlBalance']+ $arrData[0]['slBalance'];
+                                echo $sum; ?>
                             </div>
                         </div>
                     </div>
@@ -106,23 +108,28 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-sm-6 text-right">
                             <div class="form-group">
-                                <label class="control-label" name="ProjVL" id="ProjVL">Projected Vacation Leave :</label>
+                                <label class="control-label">Projected Vacation Leave :</label>
                             </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-1 text-left">
+                            <div class="form-group">
+                                <?php echo $arrData[0]['vlBalance']; ?>
+                                </div>
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-sm-6 text-right">
                             <div class="form-group">
-                                <label class="control-label" name="ProjSL" id="ProjSL">Projected Sick Leave :</label>
+                                <label class="control-label">Projected Sick Leave :</label>
                             </div>
                         </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12 text-center">
+                    <div class="row">
+                        <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <label class="control-label"></label>
+                                <?php echo $arrData[0]['slBalance']; ?>
                             </div>
                         </div>
                     </div>
@@ -171,6 +178,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                     <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <div class="form-group">
+                                <input type="checkbox" value="1" name="commutation" id="commutation" /><b> Commutation</b>
+                            </div>
+                        </div>
+                    </div>
+                     
                     <div class="row">
                         <div class="col-sm-6 text-right">
                             <div class="form-group">
@@ -180,7 +195,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                <input name="MonetizedVL" id="MonetizedVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('MonetizedVL'))?$this->session->userdata('MonetizedVL'):''?>">
+                                 <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrData[0]['vlBalance'])?$arrData[0]['vlBalance']:''?>">
                             </div>
                         </div>
                     </div>
@@ -193,11 +208,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                <input name="MonetizedSL" id="MonetizedSL" type="text" class="form-control" value="<?=!empty($this->session->userdata('MonetizedSL'))?$this->session->userdata('MonetizedSL'):''?>">
+                                <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrData[0]['slBalance'])?$arrData[0]['slBalance']:''?>">
                             </div>
                         </div>
                     </div></br>
-
+                     <div class="row reason">
+                        <div class="col-sm-6 text-right">
+                            <div class="form-group">
+                                <label class="control-label">Reason :</label>
+                            </div>
+                        </div>
+                    <div class="row reason">
+                        <div class="col-sm-2 text-right">
+                            <div class="form-group">
+                                 <input type="text" class="form-control" name="strReason" id="strReason" value="<?=isset($arrData[0][''])?$arrData[0]['']:''?>">
+                            </div>
+                        </div>
+                    </div></br>
 
                     <div class="row">
                       <div class="col-sm-12 text-center">
@@ -235,6 +262,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+    <?php if($commutation==''):?>
+        $('.reason').hide();
+    <?php endif;?>
+    <?php if($commutation=='1'):?>
+        $('.reason').show();
+    <?php endif;?>
 
     $('#printreport').click(function(){
         var desti=$('#strDestination').val();
