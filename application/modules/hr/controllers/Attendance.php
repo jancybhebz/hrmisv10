@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','AttendanceSummary_model','employee/Leave_model','CalendarDates_model'));
+        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model'));
     }
 
     public function conversion_table()
@@ -44,15 +44,15 @@ class Attendance extends MY_Controller {
 		
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
-		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
 		$this->arrData['arrspe_leave'] = $this->Leave_model->getspe_leave($empid, $yr);
 		// TODO:: GET FORCED LEAVE
 		// $this->arrData['arrforce_leave'] = $this->Leave_model->getforce_leave($empid, $yr);
 		// TODO:: GET OFFSET BALANCE
-		// $this->arrData['arroff_bal'] = $this->AttendanceSummary_model->getOffsetBalance($empid, $month, $yr);
+		// $this->arrData['arroff_bal'] = $this->Attendance_summary_model->getOffsetBalance($empid, $month, $yr);
 		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -66,7 +66,7 @@ class Attendance extends MY_Controller {
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 
-		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
 		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
 		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
@@ -104,7 +104,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrLatestBalance'] = $arrLatestBalance[0];
 
 		# Leave Balance details in modal
-		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
 		# vl + (late + undertime + absent w/o leave) + fl
 		// TODO:: Halfday for vl
@@ -148,7 +148,7 @@ class Attendance extends MY_Controller {
 			$break_dates = $this->CalendarDates_model->dates_nw_nh($procdate['from'], $procdate['to'], $yr, $empid);
 			$days_toless = array();
 			foreach(array('PL','FL','STL','MTL','PTL') as $eleave):
-				$emp_fl = $this->AttendanceSummary_model->getleaves($empid, $eleave);
+				$emp_fl = $this->Attendance_summary_model->getleaves($empid, $eleave);
 				$arrfl_filedates = array();
 				foreach($emp_fl as $efl):
 					$fl_filedates = breakdates(date('Y-m-d', strtotime($efl['leaveFrom'])), date('Y-m-d', strtotime($efl['leaveTo'])));
@@ -168,7 +168,7 @@ class Attendance extends MY_Controller {
 		// echo '<pre>';
 		$curr_date = date('Y M', strtotime($arrLatestBalance[0]['periodYear'].'-'.$arrLatestBalance[0]['periodMonth']));
 		$next_date = date("Y M", strtotime("+1 month", strtotime($curr_date)));
-		$att_summary = $this->AttendanceSummary_model->getemp_dtr($empid, $arrLatestBalance[0]['periodMonth']+1, date('Y',strtotime($next_date)));
+		$att_summary = $this->Attendance_summary_model->getemp_dtr($empid, $arrLatestBalance[0]['periodMonth']+1, date('Y',strtotime($next_date)));
 		
 		// $effectiveDate = date("F", strtotime($arrLatestBalance[0]['periodMonth'] . " +1 month"));
 		// echo '<br>current month = '.$curr_date;
@@ -243,7 +243,7 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		$this->arrData['schedules'] = $this->AttendanceSummary_model->getBrokenschedules($empid);
+		$this->arrData['schedules'] = $this->Attendance_summary_model->getBrokenschedules($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
@@ -258,7 +258,7 @@ class Attendance extends MY_Controller {
 				'schemeCode'=> $arrpost['selscheme'],
 				'dateFrom'	=> $arrpost['from'],
 				'dateTo'	=> $arrpost['to']);
-			$this->AttendanceSummary_model->add_brokensched($arrData);
+			$this->Attendance_summary_model->add_brokensched($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Schedule added successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
 		endif;
@@ -294,7 +294,7 @@ class Attendance extends MY_Controller {
 				'schemeCode'=> $arrpost['selscheme'],
 				'dateFrom'	=> $arrpost['from'],
 				'dateTo'	=> $arrpost['to']);
-			$this->AttendanceSummary_model->edit_brokensched($arrData, $_GET['id']);
+			$this->Attendance_summary_model->edit_brokensched($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Schedule updated successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
 		endif;
@@ -318,7 +318,7 @@ class Attendance extends MY_Controller {
 			$arrtt_schemes[] = $varas;
 		endforeach;
 		$this->arrData['arrAttSchemes'] = $arrtt_schemes;
-		$sched = $this->AttendanceSummary_model->getSchedule($_GET['id']);
+		$sched = $this->Attendance_summary_model->getSchedule($_GET['id']);
 		$this->arrData['arrshedule'] = $sched[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
@@ -326,7 +326,7 @@ class Attendance extends MY_Controller {
 
 	public function dtr_delete_broken_sched()
 	{
-		$this->AttendanceSummary_model->delete_brokensched($_POST['txtdel_action']);
+		$this->Attendance_summary_model->delete_brokensched($_POST['txtdel_action']);
 		$this->session->set_flashdata('strSuccessMsg','Schedule deleted successfully.');
 		redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(4));
 	}
@@ -341,7 +341,7 @@ class Attendance extends MY_Controller {
 		
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$this->arrData['arremp_dtr'] = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -371,9 +371,9 @@ class Attendance extends MY_Controller {
 									 'editdate'		=> $dtr['tr'][13]['td'].';'.date('Y-m-d h:i:s A'),
 									 'oldValue' 	=> $dtr['tr'][14]['td']);
 					if($dtrid != ''):
-						$this->AttendanceSummary_model->edit_dtr($arrData, $dtrid);
+						$this->Attendance_summary_model->edit_dtr($arrData, $dtrid);
 					else:
-						$this->AttendanceSummary_model->add_dtr($arrData);
+						$this->Attendance_summary_model->add_dtr($arrData);
 					endif;
 				endif;
 			endif;
@@ -389,7 +389,7 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		$this->arrData['arrHolidays'] = $this->AttendanceSummary_model->getLocalHolidays($empid);
+		$this->arrData['arrHolidays'] = $this->Attendance_summary_model->getLocalHolidays($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -401,7 +401,7 @@ class Attendance extends MY_Controller {
 			$arrData=array(
 				'empNumber'	  => $this->uri->segment(5),
 				'holidayCode' => $arrpost['selholiday']);
-			$this->AttendanceSummary_model->add_localholiday($arrData);
+			$this->Attendance_summary_model->add_localholiday($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Local holiday added successfully.');
 			redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
 		endif;
@@ -423,7 +423,7 @@ class Attendance extends MY_Controller {
 		if(!empty($arrpost)):
 			$arrData=array(
 				'holidayCode' => $arrpost['selholiday']);
-			$this->AttendanceSummary_model->edit_localholiday($arrData,$_GET['id']);
+			$this->Attendance_summary_model->edit_localholiday($arrData,$_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Local holiday updated successfully.');
 			redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
 		endif;
@@ -435,7 +435,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['action'] = 'edit';
 
-		$empholiday = $this->AttendanceSummary_model->getHoliday($_GET['id']);
+		$empholiday = $this->Attendance_summary_model->getHoliday($_GET['id']);
 		$this->arrData['arrempholiday'] = $empholiday[0];
 		
 		$this->arrData['localHolidays'] = $this->Holiday_model->checkLocExist();
@@ -444,7 +444,7 @@ class Attendance extends MY_Controller {
 
 	public function dtr_delete_local_holiday()
 	{
-		$this->AttendanceSummary_model->delete_localholiday($_POST['txtdel_action']);
+		$this->Attendance_summary_model->delete_localholiday($_POST['txtdel_action']);
 		$this->session->set_flashdata('strSuccessMsg','Local holiday deleted successfully.');
 		redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
 	}
@@ -456,7 +456,7 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		$this->arrData['arrObs'] = $this->AttendanceSummary_model->getobs($empid);
+		$this->arrData['arrObs'] = $this->Attendance_summary_model->getobs($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -483,7 +483,7 @@ class Attendance extends MY_Controller {
 				'approveRequest' => 'Y',
 				'approveChief' 	 => 'Y',
 				'approveHR' 	 => 'Y');
-			$this->AttendanceSummary_model->add_ob($arrData);
+			$this->Attendance_summary_model->add_ob($arrData);
 			$this->session->set_flashdata('strSuccessMsg','OB added successfully.');
 			redirect('hr/attendance_summary/dtr/ob/'.$this->uri->segment(5));
 		endif;
@@ -512,7 +512,7 @@ class Attendance extends MY_Controller {
 				'obMeal' 		 => $arrpost['radob_wmeal'] ? 'Y' : 'N',
 				'purpose' 		 => $arrpost['txtob_purpose'],
 				'official' 		 => $arrpost['radob'] ? 'Y' : 'N');
-			$this->AttendanceSummary_model->edit_ob($arrData,$_GET['id']);
+			$this->Attendance_summary_model->edit_ob($arrData,$_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','OB updated successfully.');
 			redirect('hr/attendance_summary/dtr/ob/'.$this->uri->segment(5));
 		endif;
@@ -521,7 +521,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['action'] = 'edit';
 
-		$emp_ob = $this->AttendanceSummary_model->getOb($_GET['id']);
+		$emp_ob = $this->Attendance_summary_model->getOb($_GET['id']);
 		$this->arrData['arrem_ob'] = $emp_ob[0];
 		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
@@ -529,7 +529,7 @@ class Attendance extends MY_Controller {
 
 	public function dtr_delete_ob()
 	{
-		$this->AttendanceSummary_model->delete_ob($_POST['txtdel_action']);
+		$this->Attendance_summary_model->delete_ob($_POST['txtdel_action']);
 		$this->session->set_flashdata('strSuccessMsg','OB deleted successfully.');
 		redirect('hr/attendance_summary/dtr/ob/'.$this->uri->segment(4));
 	}
@@ -542,7 +542,7 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->arrData['arrLeaves'] = $this->AttendanceSummary_model->getleaves($empid);
+		$this->arrData['arrLeaves'] = $this->Attendance_summary_model->getleaves($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -565,7 +565,7 @@ class Attendance extends MY_Controller {
 				'certifyHR' 	=> 'Y',
 				'approveChief' 	=> 'Y',
 				'approveRequest'=> 'N');
-			$this->AttendanceSummary_model->add_leave($arrData);
+			$this->Attendance_summary_model->add_leave($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Leave added successfully.');
 			redirect('hr/attendance_summary/dtr/leave/'.$this->uri->segment(5));
 		endif;
@@ -594,7 +594,7 @@ class Attendance extends MY_Controller {
 				'reason'		=> $arrpost['txtleave_reason'],
 				'leaveFrom' 	=> $arrpost['txtleave_dtfrom'],
 				'leaveTo' 		=> $arrpost['txtleave_dtto']);
-			$this->AttendanceSummary_model->edit_leave($arrData, $_GET['id']);
+			$this->Attendance_summary_model->edit_leave($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Leave updated successfully.');
 			redirect('hr/attendance_summary/dtr/leave/'.$this->uri->segment(5));
 		endif;
@@ -606,9 +606,9 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['action'] = 'edit';
 
-		$emp_leave = $this->AttendanceSummary_model->getLeave($_GET['id']);
+		$emp_leave = $this->Attendance_summary_model->getLeave($_GET['id']);
 		$this->arrData['arremp_leave'] = $emp_leave[0];
-		$this->arrData['noofdays'] = $this->AttendanceSummary_model->getTotalnoofdays($emp_leave[0]['leaveFrom'],$emp_leave[0]['leaveTo']);
+		$this->arrData['noofdays'] = $this->Attendance_summary_model->getTotalnoofdays($emp_leave[0]['leaveFrom'],$emp_leave[0]['leaveTo']);
 
 		$this->arrData['arrleaveTypes'] = $this->Leave_type_model->getData();
 
@@ -617,14 +617,14 @@ class Attendance extends MY_Controller {
 
 	public function dtr_delete_leave()
 	{
-		$this->AttendanceSummary_model->delete_leave($_POST['txtdel_action']);
+		$this->Attendance_summary_model->delete_leave($_POST['txtdel_action']);
 		$this->session->set_flashdata('strSuccessMsg','Leave deleted successfully.');
 		redirect('hr/attendance_summary/dtr/leave/'.$this->uri->segment(4));
 	}
 
 	public function dtr_specific_leave()
 	{
-		$spe_leaves = $this->AttendanceSummary_model->getSpecificLeave($_GET['type']);
+		$spe_leaves = $this->Attendance_summary_model->getSpecificLeave($_GET['type']);
 		if(count($spe_leaves) > 0):
 			echo json_encode($spe_leaves);	
 		else:
@@ -634,7 +634,7 @@ class Attendance extends MY_Controller {
 
 	public function dtr_no_ofdays()
 	{
-		$days = $this->AttendanceSummary_model->getTotalnoofdays($_GET['leavefrom'],$_GET['leaveto']);
+		$days = $this->Attendance_summary_model->getTotalnoofdays($_GET['leavefrom'],$_GET['leaveto']);
 		echo $days;
 	}
 	# end leave
@@ -646,7 +646,7 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->arrData['arrCompLeaves'] = $this->AttendanceSummary_model->getcomp_leaves($empid);
+		$this->arrData['arrCompLeaves'] = $this->Attendance_summary_model->getcomp_leaves($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -658,7 +658,7 @@ class Attendance extends MY_Controller {
 		$arrpost = $this->input->post();
 		if(!empty($arrpost)):
 			# HR Account
-			$dtrEntry = $this->AttendanceSummary_model->checkEntry($empid, $arrpost['txtcompen_date']);
+			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrpost['txtcompen_date']);
 			$arrData=array(
 				'empNumber' => $empid,
 				'inAM' 		=> $arrpost['txtcl_am_timefrom'],
@@ -669,7 +669,7 @@ class Attendance extends MY_Controller {
 				'name'		=> $dtrEntry[0]['name'].';'.$_SESSION['sessName'],
 				'ip'	    => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
 				'editdate'  => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
-			$this->AttendanceSummary_model->edit_comp_leave($arrData, $empid, $arrpost['txtcompen_date']);
+			$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrpost['txtcompen_date']);
 			$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
 			redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
 		endif;
@@ -690,7 +690,7 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->arrData['arrdtrTime'] = $this->AttendanceSummary_model->getdtrTimes($empid);
+		$this->arrData['arrdtrTime'] = $this->Attendance_summary_model->getdtrTimes($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -704,7 +704,7 @@ class Attendance extends MY_Controller {
 			# HR Account
 			$arrdates = breakdates($arrpost['txtdtr_dtfrom'],$arrpost['txtdtr_dtto']);
 			foreach($arrdates as $ddate):
-				$dtrEntry = $this->AttendanceSummary_model->checkEntry($empid, $ddate);
+				$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $ddate);
 				
 				$amtimein = explode(' ',$arrpost['txtdtr_amtimein']);
 				$amtimeout = explode(' ',$arrpost['txtdtr_amtimeout']);
@@ -723,7 +723,7 @@ class Attendance extends MY_Controller {
 					'name'		=> $dtrEntry[0]['name'].';'.$_SESSION['sessName'],
 					'ip'	    => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
 					'editdate'  => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
-				$this->AttendanceSummary_model->edit_dtrTime($arrData, $empid, $ddate);
+				$this->Attendance_summary_model->edit_dtrTime($arrData, $empid, $ddate);
 			endforeach;
 			$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
 			redirect('hr/attendance_summary/dtr/time/'.$this->uri->segment(5));
@@ -744,7 +744,7 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->arrData['arrempTo'] = $this->AttendanceSummary_model->gettos($empid);
+		$this->arrData['arrempTo'] = $this->Attendance_summary_model->gettos($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -767,7 +767,7 @@ class Attendance extends MY_Controller {
 				'transportation' => $arrpost['seltranspo'],
 				'perdiem' 		 => isset($arrpost['radperdiem']) ? $arrpost['radperdiem'] : 'N',
 				'wmeal' 		 => isset($arrpost['radwmeal']) ? $arrpost['radwmeal'] : 'N');
-			$this->AttendanceSummary_model->add_to($arrData);
+			$this->Attendance_summary_model->add_to($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Travel Order added successfully.');
 			redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(5));
 		endif;
@@ -796,7 +796,7 @@ class Attendance extends MY_Controller {
 				'transportation' => $arrpost['seltranspo'],
 				'perdiem' 		 => isset($arrpost['radperdiem']) ? $arrpost['radperdiem'] : 'N',
 				'wmeal' 		 => isset($arrpost['radwmeal']) ? $arrpost['radwmeal'] : 'N');
-			$this->AttendanceSummary_model->edit_to($arrData, $_GET['id']);
+			$this->Attendance_summary_model->edit_to($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Travel Order updated successfully.');
 			redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(5));
 		endif;
@@ -805,7 +805,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['action'] = 'edit';
 
-		$arrempto = $this->AttendanceSummary_model->getTo($_GET['id']);
+		$arrempto = $this->Attendance_summary_model->getTo($_GET['id']);
 		$this->arrData['arrempto'] = $arrempto[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
@@ -813,7 +813,7 @@ class Attendance extends MY_Controller {
 
 	public function dtr_delete_to()
 	{
-		$this->AttendanceSummary_model->delete_to($_POST['txtdel_action']);
+		$this->Attendance_summary_model->delete_to($_POST['txtdel_action']);
 		$this->session->set_flashdata('strSuccessMsg','Travel order deleted successfully.');
 		redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(4));
 	}
@@ -826,7 +826,7 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->arrData['arrflgcrmy'] = $this->AttendanceSummary_model->getflagcrmys($empid);
+		$this->arrData['arrflgcrmy'] = $this->Attendance_summary_model->getflagcrmys($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -839,7 +839,7 @@ class Attendance extends MY_Controller {
 		if(!empty($arrpost)):
 			# HR Account
 			# First check if dtr entry is exists
-			$dtrEntry = $this->AttendanceSummary_model->checkEntry($empid, $arrpost['txtdtr_fcdate']);
+			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrpost['txtdtr_fcdate']);
 			$fc_timein = explode(' ',$arrpost['txtdtr_amtimein']);
 			if(count($dtrEntry) > 0):
 				# Edit Entry
@@ -850,7 +850,7 @@ class Attendance extends MY_Controller {
 						'name'	   => $_SESSION['sessName'],
 						'ip'	   => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
 						'editdate' => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
-				$this->AttendanceSummary_model->edit_flagcrmy($arrData, $empid, $arrpost['txtdtr_fcdate']);
+				$this->Attendance_summary_model->edit_flagcrmy($arrData, $empid, $arrpost['txtdtr_fcdate']);
 			else:
 				# Add Entry
 				$arrData=array(
@@ -861,7 +861,7 @@ class Attendance extends MY_Controller {
 						'name'	   => $_SESSION['sessName'],
 						'ip'	   => $this->input->ip_address(),
 						'editdate' => date('Y-m-d h:i:s A'));
-				$this->AttendanceSummary_model->add_flagcrmy($arrData);
+				$this->Attendance_summary_model->add_flagcrmy($arrData);
 			endif;
 			$this->session->set_flashdata('strSuccessMsg','Flag ceremony entry added successfully.');
 			redirect('hr/attendance_summary/dtr/flagcrmy/'.$this->uri->segment(5));
@@ -884,7 +884,7 @@ class Attendance extends MY_Controller {
 
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}

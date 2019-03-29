@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class AttendanceSummary_model extends CI_Model {
+class Attendance_summary_model extends CI_Model {
 
 	function __construct()
 	{

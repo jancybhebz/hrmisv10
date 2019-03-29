@@ -6,7 +6,7 @@ class Dtr extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('hr/Hr_model','libraries/Attendance_scheme_model','hr/AttendanceSummary_model','libraries/Agency_profile_model'));
+        $this->load->model(array('hr/Hr_model','libraries/Attendance_scheme_model','hr/Attendance_summary_model','libraries/Agency_profile_model'));
     }
 	
 	public function print_preview()
@@ -75,7 +75,7 @@ class Dtr extends MY_Controller {
 		# DTR Content
 		$this->fpdf->SetFont('Arial','', 7);
 		# DTR Details
-		$arremp_dtr = $this->AttendanceSummary_model->getemp_dtr($empid, $month, $yr);
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
 		foreach($arremp_dtr['dtr'] as $dtr):
 			$row_detail = array();
