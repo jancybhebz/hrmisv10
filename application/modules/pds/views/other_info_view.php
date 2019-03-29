@@ -7,15 +7,19 @@
                     <th>Special Skills / Hobbies</th>
                     <th>Non-Academic Distinctions / Recognition</th>
                     <th>Membership in Association / Organization</th>
+                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                     <th>Action</th>
+                    <?php endif;?>
                 </tr>
                
                 <tr>
                     <td><?=$arrData['skills']?></td>
                     <td><?=$arrData['nadr']?></td>
                     <td><?=$arrData['miao']?></td>
+                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                     <td> <a class="btn green" data-toggle="modal" href="#editSkills_modal"> Edit </a>
                    <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteSkills"> Delete </a></td>
+                   <?php endif;?>
                 </tr>
             </table>
 
@@ -87,8 +91,9 @@
                 <!-- /.modal-dialog -->
             </div>
             <?=form_close()?>
-
+            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                 <a class="btn green" data-toggle="modal" href="#addSkills_modal"> Add </a>
+            <?php endif;?>
                    <div class="modal fade bs-modal-lg"  id="addSkills_modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -228,7 +233,9 @@
                     </td>
                 </tr>
                 <tr>
+                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                     <td> <a class="btn green" data-toggle="modal" href="#Legal_modal"> Edit </a>
+                <?php endif;?>
                     
                 </tr>
 

@@ -10,7 +10,9 @@
                         <th width="10%">Place of Examination/ Conferment</th>
                         <th width="10%">License Number</th>
                         <th width="10%">Date of Validity</th>
+                        <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                         <th width="10%">Action</th>
+                        <?php endif;?>
                     </tr>
                     <?php foreach($arrExam as $row):?>
                     <tr>
@@ -20,8 +22,10 @@
                         <td><?=$row['examPlace']?></td>
                         <td><?=$row['licenseNumber']?></td>
                         <td><?=$row['dateRelease']?></td>
+                        <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                         <td>  <a class="btn green" data-toggle="modal" href="#exam_modal" onclick="getExam(<?=$row['ExamIndex']?>,'<?=$row['examCode']?>','<?=$row['examRating']?>','<?=$row['examDate']?>')"> Edit </a>
                         <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteExam"> Delete </a></a></td>
+                        <?php endif;?>
                     </tr>
                     <?php endforeach;?>
         </table>
@@ -129,8 +133,9 @@
         </div>
         <?=form_close()?>
 
-
+        <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
         <a class="btn green" data-toggle="modal" href="#addExam_modal"> Add </a>
+        <?php endif; ?>
          <div class="modal fade bs-modal-lg"  id="addExam_modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">

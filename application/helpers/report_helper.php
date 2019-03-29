@@ -178,3 +178,47 @@ if ( ! function_exists('comboSignatory'))
     	return $str;
     }
 }
+
+if (! function_exists('daySuffix'))
+{
+	function daySuffix($day)
+	{
+		
+		if($day==1 || $day==21 || $day==31)	
+			$day = $day.'st';
+		elseif($day==2 || $day==22)	
+			$day = $day.'nd';
+		elseif($day==3 || $day==23)	
+			$day = $day.'rd';
+		elseif($day>=4 && $day<=20)	
+			$day = $day.'th';
+		elseif($day>=24 && $day<=30)	
+			$day = $day.'th';		
+			
+		return $day;
+	}
+}
+
+if (! function_exists('intToMonthName'))
+{
+	function intToMonthName($t_intMonth)
+	{
+		$arrMonths = array(1=>"Jan", 2=>"Feb", 3=>"Mar", 
+						4=>"Apr", 5=>"May", 6=>"Jun", 
+						7=>"Jul", 8=>"Aug", 9=>"Sep", 
+						10=>"Oct", 11=>"Nov", 12=>"Dec");
+		return $arrMonths[$t_intMonth];
+	}
+}
+
+if (! function_exists('intToMonthFull'))
+{
+	function intToMonthFull($t_intMonth)
+	{
+		$arrMonths = array(1=>"January", 2=>"February", 3=>"March", 
+						4=>"April", 5=>"May", 6=>"June", 
+						7=>"July", 8=>"August", 9=>"September", 
+						10=>"October", 11=>"November", 12=>"December");
+		return $arrMonths[$t_intMonth];
+	}
+}

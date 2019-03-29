@@ -10,7 +10,9 @@
                 <th width="15%">Employer/Business Name </th>
                 <th width="20%">Business Address </th>
                 <th width="5%">Telephone Number </th>
+                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                 <th width="10%">Action </th>
+                <?php endif; ?>
             </tr>
 
             <?php //foreach($arrData as $row):?>
@@ -20,7 +22,9 @@
                 <td><?=$arrData['spouseBusName']?></td>
                 <td><?=$arrData['spouseBusAddress']?></td>
                 <td><?=$arrData['spouseTelephone']?></td>
+                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                 <td><a class="btn green" data-toggle="modal" href="#editSpouse_modal"> Edit </a>
+                <?php endif;?>
                  
             </tr>
             <?php //endforeach;?>
@@ -180,7 +184,9 @@
                 <th width="19%">Name of Father </th>
                 <th width="16%">Name of Mother </th>
                 <th width="30%">Parents Address </th>
+                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                 <th width="20%">Action </th>
+                <?php endif; ?>
             </tr>
 
             <?php //foreach($arrData as $row):?>
@@ -188,7 +194,9 @@
                 <td><?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname'] .' '.$arrData['fathernameExtension']?></td>
                 <td><?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></td>
                 <td><?=$arrData['parentAddress']?></td>
+                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
                 <td><a class="btn green" data-toggle="modal" href="#editParent_modal"> Edit </a>
+                <?php endif; ?>
                  
             </tr>
             <?php //endforeach;?>
@@ -452,7 +460,9 @@
 
 <?=form_open(base_url('pds/add_child/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmChild'))?>
     <div class="margin-top-10">
+    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
     <a class="btn green" data-toggle="modal" href="#addChildren_modal"> Add Child</a>
+    <?php endif; ?>
     </div>
 
     <div class="modal fade bs-modal-lg"  id="addChildren_modal" tabindex="-1" role="dialog" aria-hidden="true">

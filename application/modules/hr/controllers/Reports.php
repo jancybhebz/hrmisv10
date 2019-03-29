@@ -158,6 +158,40 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
+            case 'CEC':
+				echo '<div class="row">
+					<div class="col-sm-3 text-right">
+	                	<div class="form-group">
+	                		<label class="control-label"> Payroll Date : </label>
+	                	</div>
+	                </div>';
+				echo '<div class="col-sm-2">'.comboYear('intPayrollYear').'</div>
+                <div class="col-sm-2">'.comboMonth('intPayrollMonth').'</div>
+                </div>
+                </div>';
+				echo '<div class="row">
+					<div class="col-sm-3 text-right">
+	                	<div class="form-group">
+	                		<label class="control-label"> Issued Date : </label>
+	                	</div>
+	                </div>';
+				echo '<div class="col-sm-2">'.comboYear('intYear').'</div>
+                <div class="col-sm-2">'.comboMonth('intMonth').'</div>
+                <div class="col-sm-2">'.comboDay('intDay').'</div>
+                </div>
+                </div>';
+				echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Signatory : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
 
 		}
 	}
