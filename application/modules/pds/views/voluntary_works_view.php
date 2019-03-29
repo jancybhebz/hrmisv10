@@ -10,7 +10,7 @@
                         <th width="10%">Inclusive Dates [From-To]</th>
                         <th width="10%">Number of Hours</th>
                         <th width="10%">Position/Nature of work</th>
-                        <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                         <th width="10%">Action</th>
                         <?php endif; ?>
                     </tr>
@@ -21,7 +21,7 @@
                         <td><?=$row['vwDateFrom'].'-'.$row['vwDateTo']?></td>
                         <td><?=$row['vwHours']?></td>
                         <td><?=$row['vwPosition']?></td>
-                        <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                         <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal" onclick="getWorks(<?=$row['VoluntaryIndex']?>,'<?=$row['vwName']?>','<?=$row['vwAddress']?>','<?=$row['vwPosition']?>')"> Edit </a>
                         <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteVolWork"> Delete </a></td>
                         <?php endif; ?>
@@ -146,7 +146,7 @@
                     <!-- /.modal-dialog -->
                 </div>
             <?=form_close()?>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <a class="btn green" data-toggle="modal" href="#addVolWorks_modal"> Add </a>
                     <?php endif; ?>
                     <div class="modal fade bs-modal-lg"  id="addVolWorks_modal" tabindex="-1" role="dialog" aria-hidden="true">

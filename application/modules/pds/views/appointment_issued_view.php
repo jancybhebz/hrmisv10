@@ -1,7 +1,7 @@
 <div id="tab_appointment" class="tab-pane" style="overflow-x:auto;">
     <form action="#">
             <b>APPOINTMENT ISSUED </b><br><br>                 
-            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
             <a class="btn green" data-toggle="modal" href="#add_appointment_modal"> Add </a>     
             <?php endif; ?>               
             <div class="modal fade bs-modal-lg"  id="add_appointment_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -126,7 +126,7 @@
                     <th>Position</th>
                     <th>Date Issued Add</th>
                     <th>Date Publication</th>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <th>Action</th>
                     <?php endif; ?>
                 </tr>
@@ -135,7 +135,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td colspan="2"> <a class="btn green" data-toggle="modal" href="#edit_appointment_modal"> Edit </a>
                     <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteAppointment"> Delete </a></td>
                     <?php endif;?>

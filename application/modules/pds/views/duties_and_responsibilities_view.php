@@ -1,7 +1,7 @@
  <div id="tab_duties" class="tab-pane">
     <form action="#">
         <b>DUTIES AND RESPONSIBILITIES :</b><br><br>    
-        <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
         <a class="btn green" data-toggle="modal" href="#addDuties_position_modal"> Add </a>
         <?php endif;?>                    
         <div class="modal fade bs-modal-lg"  id="addDuties_position_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -63,14 +63,14 @@
                 <tr>
                     <th>Duties and Responsibilities</th>
                     <th>Percent of Working Time</th>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <th>Action</th>
                     <?php endif;?>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td colspan="2"> <a class="btn green" data-toggle="modal" href="#editDuties_position_modal"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteDutiesPosition"> Delete </a></td>
                     <?php endif;?>
@@ -150,7 +150,7 @@
             </div>
                 
             <table class="table table-bordered table-striped" class="table-responsive">
-            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
             <a class="btn green" data-toggle="modal" href="#addDuties_plantilla_modal"> Add </a>
             <?php endif;?>                    
             <div class="modal fade bs-modal-lg"  id="addDuties_plantilla_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -289,7 +289,7 @@
             </div> 
 
             <table class="table table-bordered table-striped" class="table-responsive">
-            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
             <a class="btn green" data-toggle="modal" href="#addActual_modal"> Add </a>         
             <?php endif;?>           
             <div class="modal fade bs-modal-lg"  id="addActual_modal" tabindex="-1" role="dialog" aria-hidden="true">

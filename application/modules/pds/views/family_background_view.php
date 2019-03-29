@@ -10,7 +10,7 @@
                 <th width="15%">Employer/Business Name </th>
                 <th width="20%">Business Address </th>
                 <th width="5%">Telephone Number </th>
-                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                 <th width="10%">Action </th>
                 <?php endif; ?>
             </tr>
@@ -22,7 +22,7 @@
                 <td><?=$arrData['spouseBusName']?></td>
                 <td><?=$arrData['spouseBusAddress']?></td>
                 <td><?=$arrData['spouseTelephone']?></td>
-                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                 <td><a class="btn green" data-toggle="modal" href="#editSpouse_modal"> Edit </a>
                 <?php endif;?>
                  
@@ -184,7 +184,7 @@
                 <th width="19%">Name of Father </th>
                 <th width="16%">Name of Mother </th>
                 <th width="30%">Parents Address </th>
-                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                 <th width="20%">Action </th>
                 <?php endif; ?>
             </tr>
@@ -194,7 +194,7 @@
                 <td><?=$arrData['fatherFirstname'].' '.$arrData['fatherMiddlename'].' '.$arrData['fatherSurname'] .' '.$arrData['fathernameExtension']?></td>
                 <td><?=$arrData['motherFirstname'].' '.$arrData['motherMiddlename'].' '.$arrData['motherSurname']?></td>
                 <td><?=$arrData['parentAddress']?></td>
-                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                 <td><a class="btn green" data-toggle="modal" href="#editParent_modal"> Edit </a>
                 <?php endif; ?>
                  
@@ -460,7 +460,7 @@
 
 <?=form_open(base_url('pds/add_child/'.$this->uri->segment(4)), array('method' => 'post', 'name' => 'frmChild'))?>
     <div class="margin-top-10">
-    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
     <a class="btn green" data-toggle="modal" href="#addChildren_modal"> Add Child</a>
     <?php endif; ?>
     </div>
