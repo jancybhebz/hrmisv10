@@ -65,7 +65,6 @@ $activetab = strtolower($activetab);
                     <a href="<?=base_url('home')?>" class="nav-link nav-toggle">
                         <i class="icon-home"></i>
                         <span class="title">Dashboard</span>
-                        <span class="arrow"></span>
                     </a>                            
                 </li>                            
                 <li class="nav-item <?=$active=='pds' || ($active=='hr' && $activesub=='add_employee') || ($active=='hr' && $activesub=='profile') ? 'active' : ''?>">

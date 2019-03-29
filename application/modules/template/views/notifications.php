@@ -112,10 +112,35 @@
             <i class="fa fa-angle-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-menu-default">
-            <li>
-                <a href="#">
-                    <i class="icon-user"></i> Employee Module </a>
-            </li>
+            <!-- begin HR switch account -->
+            <?php if($_SESSION['sessUserLevel'] == 1 && $_SESSION['sessUserPermission'] == 'HR Officer'): ?>
+                <li>
+                    <a href="<?=base_url('home/switch_hr_emp')?>">
+                        <i class="icon-user"></i> Employee Module </a>
+                </li>
+            <?php endif; ?>
+            <?php if($_SESSION['sessUserLevel'] == 5 && $_SESSION['sessUserPermission'] == 'HR Officer'): ?>
+                <li>
+                    <a href="<?=base_url('home/switch_emp_hr')?>">
+                        <i class="icon-user"></i> HR Module </a>
+                </li>
+            <?php endif; ?>
+            <!-- end HR switch account -->
+
+            <!-- begin Finance switch account -->
+            <?php if($_SESSION['sessUserLevel'] == 2 && $_SESSION['sessUserPermission'] == 'Cashier Officer'): ?>
+                <li>
+                    <a href="<?=base_url('home/switch_fin_emp')?>">
+                        <i class="icon-user"></i> Employee Module </a>
+                </li>
+            <?php endif; ?>
+            <?php if($_SESSION['sessUserLevel'] == 5 && $_SESSION['sessUserPermission'] == 'Cashier Officer'): ?>
+                <li>
+                    <a href="<?=base_url('home/switch_emp_fin')?>">
+                        <i class="icon-user"></i> Finance Module </a>
+                </li>
+            <?php endif; ?>
+            <!-- end Finance switch account -->
             <li>
                 <a href="#">
                     <i class="icon-lock"></i> Change Password </a>
