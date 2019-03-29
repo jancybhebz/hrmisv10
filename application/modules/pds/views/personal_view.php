@@ -80,8 +80,9 @@
                 <td><?=$arrData['businessPartnerNumber']?></td>
             </tr>
         </table>      
+        
          <div class="margin-top-10">
-         <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
             <a class="btn green" data-toggle="modal" href="#editPersonal_modal" > Edit </a>
         <?php endif; ?>
         </div><br>  
