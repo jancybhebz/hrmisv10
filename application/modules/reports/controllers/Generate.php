@@ -51,6 +51,10 @@ class Generate extends MY_Controller
     			$this->load->model('CertificateEmployeeCompensation_model');
 				$this->CertificateEmployeeCompensation_model->generate($arrGet);
     		break;
+    		case 'CNAC';
+    			$this->load->model('CertificateNoAdministrativeCharge_model');
+				$this->CertificateNoAdministrativeCharge_model->generate($arrGet);
+    		break;
     	}
 
     	
