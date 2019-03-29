@@ -26,13 +26,24 @@
                     <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal" onclick="getTraining(<?=$row['TrainingIndex']?>,'<?=$row['trainingTitle']?>')"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteTraining"> Delete </a></td>
                     <td>
-                    <?=form_open(base_url('hr/pds/uploadTraining/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
+
+                    <?php 
+                    $folder='uploads/employees/attachments/trainings/'.$row['TrainingIndex'];
+                   if (is_dir($folder))
+                     {
+                        $map = directory_map($folder);
+                        //print_r($map);
+                    }
+                    else { ?>
+                    <?=form_open(base_url('pds/pds/uploadTraining/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
+                        <input type="hidden" name="idTraining" id="idTraining" value="<?=$row['TrainingIndex']?>">
+                        <input type="hidden" name="EmployeeId" id="EmployeeId" value="<?=$row['empNumber']?>">  
                         <input type="file" name="userfile" id="userfile"> 
                         <button type="submit" name="uploadTraining" class="btn blue start">
                               <i class="fa fa-upload"></i>
                               <span> Start upload </span>
                         </button>   
-                    <?=form_close()?> 
+                    <?=form_close(); }?> 
                     </td>
                     <?php endif; ?>
                 </tr>
