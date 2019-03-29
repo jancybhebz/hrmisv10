@@ -689,37 +689,6 @@ class Pds extends MY_Controller
 		}		
 	}
 
-	public function uploadEduc()
-	{
-		$arrPost = $this->input->post();
-
-		$config['upload_path']          = 'assets/images/';
-        $config['allowed_types']        = 'jpg|png';
-        
-		$config['file_name'] = 'logo.png';
-		$config['overwrite'] = TRUE;
-
-		$this->load->library('upload', $config);
-		
-		if ( ! $this->upload->do_upload('userfile'))
-		{
-			//echo $this->upload->display_errors();
-			$error = array('error' => $this->upload->display_errors());
-			$this->session->set_flashdata('error','Please try again!');
-		}
-		else
-		{
-			$data = $this->upload->data();
-			//print_r($data);
-				$arrLogo = array(
-					'agencyLogo' => $data['file_name']	
-				);
-			$this->session->set_flashdata('upload_status','Upload successfully saved.');
-			
-		}
-		redirect('hr/profile');
-		
-	}
 
 	public function uploadTraining()
 	{
@@ -767,6 +736,54 @@ class Pds extends MY_Controller
 		redirect('hr/profile/'.$strEmpNum);
 		
 	}
+
+	public function uploadEduc()
+	{
+		$arrPost = $this->input->post();
+		$strEmpNum = $arrPost['EmployeeId'];
+		$idEduc= $arrPost['idEduc'];
+
+		$config['upload_path']          = 'uploads/employees/attachments/educ/'.$idEduc.'/';
+        $config['allowed_types']        = 'jpg|png|pdf';
+        // $path = $_FILES['image']['userfile'];
+		// $newName = "<Whatever name>".".".pathinfo($path, PATHINFO_EXTENSION); 
+		//$config['file_name'] = $idTraining.".".pathinfo($path, PATHINFO_EXTENSION); 
+		$config['overwrite'] = TRUE;
+		// print_r($config);
+		// exit(1);
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		
+		if (!is_dir($config['upload_path'])) {
+    		mkdir($config['upload_path'], 0777, TRUE);
+			}
+
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			//echo $this->upload->display_errors();
+			$error = array('error' => $this->upload->display_errors());
+			//print_r($error);
+			//exit(1);
+			$this->session->set_flashdata('upload_status','Please try again!');
+		}
+		else
+		{
+			$data = $this->upload->data();
+			//rename($data['full_path'],$data['file_path'].$idTraining.$data['file_ext']);
+			// print_r($data);
+			// exit(1);
+			
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
+			
+		}
+		// print_r($error);
+		// print_r($data);
+		// exit(1);
+		redirect('hr/profile/'.$strEmpNum);
+		
+	}
+ 
  
 
    

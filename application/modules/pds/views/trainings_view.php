@@ -26,13 +26,13 @@
                     <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal" onclick="getTraining(<?=$row['TrainingIndex']?>,'<?=$row['trainingTitle']?>')"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteTraining"> Delete </a></td>
                     <td>
-
                     <?php 
                     $folder='uploads/employees/attachments/trainings/'.$row['TrainingIndex'];
-                   if (is_dir($folder))
+                    if(is_dir($folder))
                      {
                         $map = directory_map($folder);
-                        //print_r($map);
+                        foreach($map as $content)
+                            echo $folder.'/'.$content;
                     }
                     else { ?>
                     <?=form_open(base_url('pds/pds/uploadTraining/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>

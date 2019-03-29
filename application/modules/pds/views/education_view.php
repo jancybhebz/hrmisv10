@@ -30,16 +30,27 @@
                     <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td> 
                     <a class="btn green" data-toggle="modal" href="#educ_modal" onclick="getEduc(<?=$row['SchoolIndex']?>,'<?=$row['levelCode']?>','<?=$row['schoolName']?>','<?=$row['course']?>')"> Edit </a>
-                     <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteEduc"> Delete </a>
+                    <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteEduc"> Delete </a>
+                    <?php 
+                    $folder='uploads/employees/attachments/educ/'.$row['levelCode'];
+                    if(is_dir($folder))
+                     {
+                        $map = directory_map($folder);
+                        foreach($map as $content)
+                            echo $folder.'/'.$content;
+                    }
+                    else { ?>
                     </td>
                     <td>
-                    <?=form_open(base_url('hr/pds/uploadEduc/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
+                    <?=form_open(base_url('pds/pds/uploadEduc/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
+                       <input type="hidden" name="idEduc" id="idEduc" value="<?=$row['levelCode']?>">
+                        <input type="hidden" name="EmployeeId" id="EmployeeId" value="<?=$row['empNumber']?>">  
                         <input type="file" name="userfile" id="userfile"> 
                         <button type="submit" name="uploadEduc" class="btn blue start">
                               <i class="fa fa-upload"></i>
                               <span> Start upload </span>
                         </button> 
-                    <?=form_close()?>      
+                    <?=form_close(); }?>      
                     </td>
                     <?php endif; ?>
                 </tr>
