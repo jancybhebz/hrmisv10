@@ -55,6 +55,10 @@ class Generate extends MY_Controller
     			$this->load->model('CertificateNoAdministrativeCharge_model');
 				$this->CertificateNoAdministrativeCharge_model->generate($arrGet);
     		break;
+    		case 'CNACLP';
+    			$this->load->model('CertificateNoAdministrativeChargeLegalPurpose_model');
+				$this->CertificateNoAdministrativeChargeLegalPurpose_model->generate($arrGet);
+    		break;
     	}
 
     	
