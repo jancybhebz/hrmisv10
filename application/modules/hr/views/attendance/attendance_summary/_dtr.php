@@ -40,12 +40,12 @@
                                 <a href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a></li>
                             <li class="divider"> </li>
                             <li>
-                                <a href="javascript:;">Preview / Print</a>
+                                <a data-toggle="modal" data-target="#print-preview-modal">Preview / Print</a>
                             </li>
                         </ul>
                     </div>
                     <?php endif; ?>
-                    <a href="javascript:;" class="btn blue">Preview / Print</a>
+                    <a class="btn blue" data-toggle="modal" data-target="#print-preview-modal">Preview / Print</a>
                 </div>
                 <?php if( $_SESSION['sessUserLevel'] == 1): ?>
                     <br><br>

@@ -1,13 +1,12 @@
 <?php 
-//set active for menu highlight
+# set active for menu highlight
 $active=$this->uri->segment(1)!=''?$this->uri->segment(1):'home';
 $active = strtolower($active);
-//set activesub for submenu highlight
+# set activesub for submenu highlight
 $activesub=$this->uri->segment(2)!=''?$this->uri->segment(2):'';
 $activesub = strtolower($activesub);
 $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
 $activetab = strtolower($activetab);
-
 
 // echo '<br>active = '.$active;
 // echo '<br>activesub = '.$activesub;
@@ -110,7 +109,7 @@ $activetab = strtolower($activetab);
                     <a href="<?=base_url('libraries')?>" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Libraries</span>
-                        <span class="arrow"></span>
+                        <span class="arrow <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory')?'open':''?>""></span>
                     </a>
                     <ul class="sub-menu">
                         <?php 
@@ -125,8 +124,8 @@ $activetab = strtolower($activetab);
                                             <span class="title"><?=$menuItem?></span>
                                         </a>
                                     </li><?php
-                                else: ?>
-                                    <li class="nav-item start active">
+                                else:?>
+                                    <li class="nav-item start <?=$active=='hr' && $activesub=='libraries' && $activetab=='signatory' ? 'active' : ''?>">
                                         <a href="<?=base_url($signatory_url)?>" class="nav-link ">
                                             <span class="title"><?=$menuItem?></span>
                                         </a>
@@ -270,7 +269,7 @@ $activetab = strtolower($activetab);
                                 <span class="title">Payroll Group</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$activetab=='signatory'?'active open':''?>">
+                        <li class="nav-item <?=$active=='finance' && $activesub=='libraries' && $activetab=='signatory'?'active open':''?>">
                             <a href="<?=base_url('finance/libraries/signatory')?>">
                                 <span class="title">Signatory</span>
                             </a>

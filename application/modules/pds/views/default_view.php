@@ -20,15 +20,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </li>
     </ul>
 </div>
-<!-- END BREADCRUMB -->
-
+<!-- END PAGE BAR -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+       &nbsp;
+    </div>
+</div>
+<div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
+                    <i class="icon-user font-dark"></i>
                     <span class="caption-subject bold uppercase"> List of Employees</span>
                 </div>
                 
@@ -160,7 +165,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#tblemployees').show();
-            }} );
+            }, pageLength: 5,} );
 
         // Build the chart
         $('#chart_plantilla').highcharts({

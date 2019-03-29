@@ -7,6 +7,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
+<?=load_plugin('css',array('datepicker'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -15,11 +16,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="<?=base_url('libraries')?>">Libraries</a>
+            <span>HR Module</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Agency Profile</span>
+            <span>Libraries</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Agency Profile</span>
         </li>
     </ul>
 </div>
@@ -29,333 +34,216 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 	   &nbsp;
 	</div>
 </div>
-<div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase">Edit Agency Profile</span>
-                </div>
-                
+                    <span class="caption-subject bold uppercase"> Edit Agency Profile</span>
+                </div> 
             </div>
-            <div class="portlet-body">
-            <?=form_open(base_url('libraries/agency_profile/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmAgencyProfile'))?>
-                <div class="form-body">
+            <div class="portlet-body form">
+                <?=form_open(base_url('libraries/agency_profile/edit/'.$this->uri->segment(4)), array('method' => 'post', 'class' => 'form-horizontal', 'id' => 'frmAgencyProfile'))?>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Agency name <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strAgencyName" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>">
+                            </div>
+                        </div>
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Agency Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAgencyName" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>">
-                                </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Agency Code <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strAgencyName" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Region <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strAgencyCode" value="<?=!empty($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Tin Number <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intTinNum" value="<?=!empty($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Address <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strAddress" value="<?=!empty($arrAgency[0]['address'])?$arrAgency[0]['address']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Zip Code <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intZipCode" value="<?=!empty($arrAgency[0]['zipCode'])?$arrAgency[0]['zipCode']:''?>">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Telephone <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intTelephone" value="<?=!empty($arrAgency[0]['telephone'])?$arrAgency[0]['telephone']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Facsimile <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intFax" value="<?=!empty($arrAgency[0]['facsimile'])?$arrAgency[0]['facsimile']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Email <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strEmail" value="<?=!empty($arrAgency[0]['email'])?$arrAgency[0]['email']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Website <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strWebsite" value="<?=!empty($arrAgency[0]['website'])?$arrAgency[0]['website']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Salary Schedule <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strSalarySched" value="<?=!empty($arrAgency[0]['salarySchedule'])?$arrAgency[0]['salarySchedule']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">GSIS Number <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intGSISNum" value="<?=!empty($arrAgency[0]['gsisId'])?$arrAgency[0]['gsisId']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">GSIS Employee Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intGSISEmpShare" value="<?=!empty($arrAgency[0]['gsisEmpShare'])?$arrAgency[0]['gsisEmpShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">GSIS Employer Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intGSISEmprShare" value="<?=!empty($arrAgency[0]['gsisEmprShare'])?$arrAgency[0]['gsisEmprShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Pagibig Number <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intPagibigNum" value="<?=!empty($arrAgency[0]['pagibigId'])?$arrAgency[0]['pagibigId']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Pagibig Employee Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intPagibigEmpShare" value="<?=!empty($arrAgency[0]['pagibigEmpShare'])?$arrAgency[0]['pagibigEmpShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Pagibig Employer Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intPagibigEmprShare" value="<?=!empty($arrAgency[0]['pagibigEmprShare'])?$arrAgency[0]['pagibigEmprShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Provident Employee Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intProvidentEmpShare" value="<?=!empty($arrAgency[0]['providentEmpShare'])?$arrAgency[0]['providentEmpShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Provident Employer Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intProvidentEmprShare" value="<?=!empty($arrAgency[0]['providentEmprShare'])?$arrAgency[0]['providentEmprShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Philhealth Employee Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intPhilhealthEmpShare" value="<?=!empty($arrAgency[0]['philhealthEmpShare'])?$arrAgency[0]['philhealthEmpShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Philhealth Employer Share <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intPhilhealthEmprShare" value="<?=!empty($arrAgency[0]['philhealthEmprShare'])?$arrAgency[0]['philhealthEmprShare']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Philhealth Percentage <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intPhilhealthPercentage" value="<?=!empty($arrAgency[0]['philhealthPercentage'])?$arrAgency[0]['philhealthPercentage']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Philhealth Number <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="intPhilhealthNum" value="<?=!empty($arrAgency[0]['PhilhealthNum'])?$arrAgency[0]['PhilhealthNum']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Mission <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <textarea type="text" name="strMission" class="form-control"><?=!empty($arrAgency[0]['Mission'])?$arrAgency[0]['Mission']:''?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Vision <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <textarea type="text" name="strVision" class="form-control"><?=!empty($arrAgency[0]['Vision'])?$arrAgency[0]['Vision']:''?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Mandate <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strMandate" value="<?=!empty($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Bank Account # <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="strAccountNum" value="<?=!empty($arrAgency[0]['AccountNum'])?$arrAgency[0]['AccountNum']:''?>">
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Agency Code <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAgencyCode" value="<?=!empty($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Region <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strRegion" value="<?=!empty($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">TIN Number <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intTinNum" value="<?=!empty($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Address <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strAddress" value="<?=!empty($arrAgency[0]['address'])?$arrAgency[0]['address']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Zip Code <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intZipCode" value="<?=!empty($arrAgency[0]['zipCode'])?$arrAgency[0]['zipCode']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Telephone <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intTelephone" value="<?=!empty($arrAgency[0]['telephone'])?$arrAgency[0]['telephone']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Facsimile <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intFax" value="<?=!empty($arrAgency[0]['facsimile'])?$arrAgency[0]['facsimile']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Email <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strEmail" value="<?=!empty($arrAgency[0]['email'])?$arrAgency[0]['email']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Website <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strWebsite" value="<?=!empty($arrAgency[0]['website'])?$arrAgency[0]['website']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   <!--  <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Salary Schedule <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strSalarySched" value="<?=!empty($arrAgency[0]['salarySchedule'])?$arrAgency[0]['salarySchedule']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">GSIS Number <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intGSISNum" value="<?=!empty($arrAgency[0]['gsisId'])?$arrAgency[0]['gsisId']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">GSIS Employee Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intGSISEmpShare" value="<?=!empty($arrAgency[0]['gsisEmpShare'])?$arrAgency[0]['gsisEmpShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">GSIS Employer Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intGSISEmprShare" value="<?=!empty($arrAgency[0]['gsisEmprShare'])?$arrAgency[0]['gsisEmprShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Pagibig Number <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intPagibigNum" value="<?=!empty($arrAgency[0]['pagibigId'])?$arrAgency[0]['pagibigId']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Pagibig Employee Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intPagibigEmpShare" value="<?=!empty($arrAgency[0]['pagibigEmpShare'])?$arrAgency[0]['pagibigEmpShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Pagibig Employer Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intPagibigEmprShare" value="<?=!empty($arrAgency[0]['pagibigEmprShare'])?$arrAgency[0]['pagibigEmprShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Provident Employee Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intProvidentEmpShare" value="<?=!empty($arrAgency[0]['providentEmpShare'])?$arrAgency[0]['providentEmpShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Provident Employer Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intProvidentEmprShare" value="<?=!empty($arrAgency[0]['providentEmprShare'])?$arrAgency[0]['providentEmprShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Philhealth Employee Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intPhilhealthEmpShare" value="<?=!empty($arrAgency[0]['philhealthEmpShare'])?$arrAgency[0]['philhealthEmpShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Philhealth Employer Share <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intPhilhealthEmprShare" value="<?=!empty($arrAgency[0]['philhealthEmprShare'])?$arrAgency[0]['philhealthEmprShare']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Philhealth Percentage <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intPhilhealthPercentage" value="<?=!empty($arrAgency[0]['philhealthPercentage'])?$arrAgency[0]['philhealthPercentage']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Philhealth Number <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="intPhilhealthNum" value="<?=!empty($arrAgency[0]['PhilhealthNum'])?$arrAgency[0]['PhilhealthNum']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Mission <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <textarea type="text" name="strMission" class="form-control" >
-                                    <?=!empty($arrAgency[0]['Mission'])?$arrAgency[0]['Mission']:''?>
-                                    </textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Vision <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <textarea type="text" name="strVision" class="form-control" >
-                                    <?=!empty($arrAgency[0]['Vision'])?$arrAgency[0]['Vision']:''?>
-                                    </textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Mandate <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strMandate" value="<?=!empty($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Bank Account # <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strAccountNum" value="<?=!empty($arrAgency[0]['AccountNum'])?$arrAgency[0]['AccountNum']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
                                 <input type="hidden" name="intAgencyName" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>">
-                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/agency_profile')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <button class="btn green" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/agency_profile')?>" class="btn btn-primary"><i class="icon-ban"></i> Cancel</a>
                             </div>
                         </div>
                     </div>
-                </div>
                 <?=form_close()?>
             </div>
         </div>
