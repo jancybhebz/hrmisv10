@@ -39,21 +39,29 @@ class Generate extends MY_Controller
     			$this->load->model('AccumulatedLeaveCredits_model');
 				$this->AccumulatedLeaveCredits_model->generate($arrGet);
     		break;
-    		case 'ADR';
+    		case 'ADR':
     			$this->load->model('AssumptionDutiesResponsibilities_model');
 				$this->AssumptionDutiesResponsibilities_model->generate($arrGet);
     		break;
-    		case 'CDR';
+    		case 'CDR':
     			$this->load->model('CertificateDutiesResponsibilities_model');
 				$this->CertificateDutiesResponsibilities_model->generate($arrGet);
     		break;
-    		case 'CEC';
+    		case 'CEC':
     			$this->load->model('CertificateEmployeeCompensation_model');
 				$this->CertificateEmployeeCompensation_model->generate($arrGet);
     		break;
-    		case 'CNAC';
+    		case 'CNAC':
     			$this->load->model('CertificateNoAdministrativeCharge_model');
 				$this->CertificateNoAdministrativeCharge_model->generate($arrGet);
+    		break;
+    		case 'CNACLP':
+    			$this->load->model('CertificateNoAdministrativeChargeLegalPurpose_model');
+				$this->CertificateNoAdministrativeChargeLegalPurpose_model->generate($arrGet);
+    		break;
+    		case 'CNACL':
+    			$this->load->model('CertificateServiceLoyaltyAward_model');
+				$this->CertificateServiceLoyaltyAward_model->generate($arrGet);
     		break;
     	}
 
