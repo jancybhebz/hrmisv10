@@ -10,15 +10,11 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
+            <span>HR Module</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Compensation</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>Personnel Profile</span>
+            <span>Attendance</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>

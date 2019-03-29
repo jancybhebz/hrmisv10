@@ -232,6 +232,9 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+		// $this->arrData['arrLeave'] = ;
+		// $this->arrData['arrOb'] = ;
+		// $this->arrData['arrTo'] = ;
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
