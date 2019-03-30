@@ -32,8 +32,9 @@
                      {
                         $map = directory_map($folder);
                         foreach($map as $content)
-                            echo $folder.'/'.$content;
-                    }
+                             //echo $folder.'/'.$content;
+                         ?> <a href="<?=base_url('uploads/employees/attachments/trainings/'.$row['TrainingIndex'])?>">uploads/employees/attachments/trainings/</a> <?php
+                    }       
                     else { ?>
                     <?=form_open(base_url('pds/pds/uploadTraining/'.$this->uri->segment(4)), array('method' => 'post', 'enctype' => 'multipart/form-data'))?>
                         <input type="hidden" name="idTraining" id="idTraining" value="<?=$row['TrainingIndex']?>">

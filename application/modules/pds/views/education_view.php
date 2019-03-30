@@ -37,7 +37,9 @@
                      {
                         $map = directory_map($folder);
                         foreach($map as $content)
-                            echo $folder.'/'.$content;
+                           // echo $folder.'/'.$content;
+                        ?> <a href="<?=base_url('uploads/employees/attachments/educ/'.$row['levelCode'])?>">uploads/employees/attachments/educ/</a> <?php
+                            //unlink($folder); 
                     }
                     else { ?>
                     </td>
