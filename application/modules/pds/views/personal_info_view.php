@@ -144,7 +144,7 @@
                                 <a data-toggle="tab" href="#tab_appointment">
                                     <i class="fa fa-edit"></i> Appointment Issued </a>
                             </li>
-                            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                             <li>
                                 <a data-toggle="tab" href="#tab_modify">
                                     <i class="fa fa-edit"></i> Edit / Modify Employee Number </a>

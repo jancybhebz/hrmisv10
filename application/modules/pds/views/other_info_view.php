@@ -7,7 +7,7 @@
                     <th>Special Skills / Hobbies</th>
                     <th>Non-Academic Distinctions / Recognition</th>
                     <th>Membership in Association / Organization</th>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <th>Action</th>
                     <?php endif;?>
                 </tr>
@@ -16,7 +16,7 @@
                     <td><?=$arrData['skills']?></td>
                     <td><?=$arrData['nadr']?></td>
                     <td><?=$arrData['miao']?></td>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td> <a class="btn green" data-toggle="modal" href="#editSkills_modal"> Edit </a>
                    <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteSkills"> Delete </a></td>
                    <?php endif;?>
@@ -91,7 +91,7 @@
                 <!-- /.modal-dialog -->
             </div>
             <?=form_close()?>
-            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                 <a class="btn green" data-toggle="modal" href="#addSkills_modal"> Add </a>
             <?php endif;?>
                    <div class="modal fade bs-modal-lg"  id="addSkills_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -233,7 +233,7 @@
                     </td>
                 </tr>
                 <tr>
-                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td> <a class="btn green" data-toggle="modal" href="#Legal_modal"> Edit </a>
                 <?php endif;?>
                     

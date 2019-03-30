@@ -9,7 +9,7 @@
                     <th>Type of Leadership</th>
                     <th>Conducted/Sponsored By</th>
                     <th>Training Venue</th>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <th>Action</th>
                     <th>Attachments</th>
                     <?php endif; ?>
@@ -22,7 +22,7 @@
                     <td><?=$row['trainingTypeofLD']?></td>
                     <td><?=$row['trainingConductedBy']?></td>
                     <td><?=$row['trainingVenue']?></td>
-                    <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal" onclick="getTraining(<?=$row['TrainingIndex']?>,'<?=$row['trainingTitle']?>')"> Edit </a>
                       <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteTraining"> Delete </a></td>
                     <td>
@@ -190,7 +190,7 @@
             </div>
         <?=form_close()?>
         <br>
-            <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
             <a class="btn green" data-toggle="modal" href="#addTrainings_modal"> Add </a>
             <?php endif; ?>
                 <div class="modal fade bs-modal-lg"  id="addTrainings_modal" tabindex="-1" role="dialog" aria-hidden="true">

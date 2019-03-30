@@ -107,7 +107,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                <?php if($this->session->userdata('sessAccessLevel') == 'System Administrator'): ?>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td>  <a class="btn green" data-toggle="modal" href="#editPosition_modal"> Edit </a></td>
                 <?php endif;?>
                 </tr>
