@@ -94,7 +94,7 @@ class Dtr extends MY_Controller {
 			# Remarks if OB
 			if($dtr['obremarks'] != ''):
 				$obremarks = json_decode($dtr['obremarks'],true);
-				$remarks = $remarks!='' ? $remarks.'; (OB) '.$obremarks['obTimeFrom'].' - '.$obremarks['obTimeTo'] : '(OB) '.$obremarks['obTimeFrom'].' - '.$obremarks['obTimeTo'];
+				$remarks = $remarks!='' ? $remarks.'; (OB) '.date('H:i A', strtotime($obremarks['obTimeFrom'])).' - '.date('H:i A', strtotime($obremarks['obTimeTo'])) : '(OB) '.date('H:i A', strtotime($obremarks['obTimeFrom'])).' - '.date('H:i A', strtotime($obremarks['obTimeTo']));
 			endif;
 			# Remarks if OB
 			if($dtr['toremarks'] != ''):
@@ -103,12 +103,12 @@ class Dtr extends MY_Controller {
 			endif;
 
 			$row_detail = array($ddate,
-								(count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inAM'] : ':'),
-								(count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outAM'] : ':'),
-								(count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inPM'] : ':'),
-								(count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outPM'] : ':'),
-								(count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inOT'] : ':'),
-								(count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : ':'),
+								(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inAM'])) : ':'),
+								(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outAM'])) : ':'),
+								(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inPM'])) : ':'),
+								(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outPM'])) : ':'),
+								(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inOT'])) : ':'),
+								(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ':'),
 								(count($dtr['dtrdata']) > 0 ? $dtr['late'] != '00:00' ? $dtr['late'] : ':' : ':'),
 								(count($dtr['dtrdata']) > 0 ? $dtr['overtime'] != '00:00' ? $dtr['overtime'] : ':' : ':'),
 								(count($dtr['dtrdata']) > 0 ? $dtr['undertime'] != '00:00' ? $dtr['undertime'] : ':' : ':'),
@@ -125,22 +125,26 @@ class Dtr extends MY_Controller {
 		# footer
 		$this->fpdf->SetFont('Arial','', 8);
 
-		$this->fpdf->Cell(115,5,'Total Number of Working Days: ',0,0,'L');
-		$this->fpdf->Cell(75,5,'Total Days Absent: ',0,1,'L');
+		$this->fpdf->Cell(115,5,'Total Number of Working Days: '.$arremp_dtr['total_workingdays'],0,0,'L');
+		$this->fpdf->Cell(75,5,'Total Days Absent: '.count($arremp_dtr['date_absents']),0,1,'L');
 
-		$this->fpdf->Cell(115,5,'Dates Absent: ',0,0,'L');
-		$this->fpdf->Cell(75,5,'VL: ',0,1,'L');
+		$date_absents = '';
+		foreach($arremp_dtr['date_absents'] as $absent):
+			$date_absents.= date('d', strtotime($absent)).' ';
+		endforeach;
+		$this->fpdf->Cell(115,5,'Dates Absent: '.$date_absents,0,0,'L');
+		$this->fpdf->Cell(75,5,'VL: '.($arremp_dtr['total_days_vl']+$arremp_dtr['total_days_fl']),0,1,'L');
 
-		$this->fpdf->Cell(115,5,'Total Undertime: ',0,0,'L');
-		$this->fpdf->Cell(75,5,'SL: ',0,1,'L');
+		$this->fpdf->Cell(115,5,'Total Undertime: '.date('H:i', mktime(0, $arremp_dtr['total_undertime'])),0,0,'L');
+		$this->fpdf->Cell(75,5,'SL: '.$arremp_dtr['total_days_sl'],0,1,'L');
 
-		$this->fpdf->Cell(115,5,'Total Late: Late/Undertime: ',0,0,'L');
+		$this->fpdf->Cell(115,5,'Total Late:'.date('H:i', mktime(0, $arremp_dtr['total_late'])).'   Late/Undertime: '.date('H:i', mktime(0, $arremp_dtr['total_undertime']+$arremp_dtr['total_late'])),0,0,'L');
 		$this->fpdf->Cell(75,5,'Offset Balance: ',0,1,'L');
 
-		$this->fpdf->Cell(115,5,'Total Days Late/Undertime: ',0,0,'L');
+		$this->fpdf->Cell(115,5,'Total Days Late/Undertime: '.($arremp_dtr['total_days_late'] + $arremp_dtr['total_days_ut']),0,0,'L');
 		$this->fpdf->Cell(75,5,'Offset for the Month: ',0,1,'L');
 
-		$this->fpdf->Cell(115,5,'Total Days LWOP: ',0,0,'L');
+		$this->fpdf->Cell(115,5,'Total Days LWOP: '.$arremp_dtr['total_days_lwop'],0,0,'L');
 		$this->fpdf->Cell(75,5,'Offset Used: ',0,1,'L');
 
 		$this->fpdf->Ln(3);
