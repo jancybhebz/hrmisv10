@@ -71,6 +71,10 @@ class Generate extends MY_Controller
     			$this->load->model('ListEmployeesAge_model');
 				$this->ListEmployeesAge_model->generate($arrGet);
     		break;
+    		case 'LEDH':
+    			$this->load->model('ListEmployeesDateHired_model');
+				$this->ListEmployeesDateHired_model->generate($arrGet);
+    		break;
     	}
 
     	
