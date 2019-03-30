@@ -151,5 +151,21 @@ class Request_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	# Request Flow
+	function getRequestFlow($type)
+	{
+		$res = $this->db->get_where('tblRequestFlow', array('RequestType' => $type))->result_array();
+		// return count($res) > 0 ? $res[0] : null;
+		return $res[0];
+	}
+
+	function getEmployeeRequest($empnumber)
+	{
+		$this->db->order_by('requestDate', 'desc');
+		return $this->db->get_where('tblEmpRequest', array('empNumber' => $empnumber))->result_array();
+	}
+
+
 		
 }

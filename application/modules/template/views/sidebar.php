@@ -323,7 +323,7 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$active=='employee'?'active open':''?>">
+                <li class="nav-item <?=$active=='employee' && $activesub !='notification'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
@@ -436,7 +436,7 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$active=='employee' && !in_array($activesub, array('leave_balance'))?'active open':''?>">
+                <li class="nav-item <?=$active=='employee' && $activesub !='notification' && !in_array($activesub, array('leave_balance'))?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>

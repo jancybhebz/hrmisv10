@@ -1,7 +1,7 @@
 <?=load_plugin('css', array('profile-2','datatables'))?>
 <div class="tab-pane active" id="tab_1_2">
     <div class="col-md-6">
-         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+        <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">

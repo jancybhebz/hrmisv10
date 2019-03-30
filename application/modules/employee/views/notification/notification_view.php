@@ -1,82 +1,83 @@
-<?php 
-/** 
-Purpose of file:    Notification View
-Author:             Rose Anne L. Grefaldeo
-System Name:        Human Resource Management Information System Version 10
-Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
-**/
-?>
+<?php load_plugin('css',array('datatables'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
-            <a href="<?=base_url('home')?>">Employee</a>
+            <a href="<?=base_url('home')?>">Home</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="<?=base_url('employee')?>">Notification</a>
+            <span><?=strtolower($this->uri->segment(1)) == 'employee' ? 'Employee' : 'HR' ?> Module</span>
             <i class="fa fa-circle"></i>
         </li>
-     
+        <li>
+            <span>Notification</span>
+        </li>
     </ul>
 </div>
 <!-- END PAGE BAR -->
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-       &nbsp;
-    </div>
-</div>
+<br>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Notification</span>
+                    <span class="caption-subject bold uppercase"> <i class="icon-bell"></i> Notification</span>
                 </div>
             </div>
-                <div class="portlet-body">
-                <?=form_open(base_url('employee/notification'), array('method' => 'post', 'id' => 'frmNotification'))?>
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_appointment_status">
-                    <thead>
-                        <tr>
-                            <th> Request Date </th>
-                            <th> Request Type </th>
-                            <th> Request Status </th>
-                            <th> Remarks </th>
-                            <th> Destination </th>
-                            <th colspan="2"> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                     foreach($arrRequest as $row):?>
-                        <tr> 
-                            <td><?=$row['requestDate']?></td> <!-- requestDate -->
-                            <td>Type of Request :
-                                <br> <br>
-                                Leave Date :
-                                <br>
-                                From :
-                                <br>
-                                To :
-                            </td>  <!-- requestDetails -->
-                            
-                            <td><?=$row['requestStatus']?></td> <!-- requestStatus -->
-                            <td><?=$row['remarks']?></td> <!-- remarks -->
-                            <td><?=$row['signatory']?></td> <!-- signatory -->
-                            <td colspan="2"> </td>
-                        </tr>
-
-                    <?php endforeach;?>
-                    </tbody>
-                </table>
-                <?=form_close()?>
+            
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="tabbable-line tabbable-full-width col-md-12">
+                        <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                        <table class="table table-striped table-bordered table-hover" id="table-notif" style="visibility: hidden;">
+                            <thead>
+                                <th style="text-align: center;width:50px;">No</th>
+                                <th style="text-align: center;width:150px;"> Request Date </th>
+                                <th style="text-align: center;width:100px;"> Request Type </th>
+                                <th style="text-align: center;width:150px;"> Request Status </th>
+                                <th style="text-align: center;"> Remarks </th>
+                                <th> Destination </th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                <?php $no=1; foreach($arrRequest as $request): ?>
+                                    <tr class="<?=$request['requestStatus'] == 'Cancelled'? 'cancelled':''?>">
+                                        <td align="center"><?=$no++?></td>
+                                        <td align="center"><?=$request['requestDate']?></td>
+                                        <td align="center"><?=$request['requestCode']?></td>
+                                        <td align="center"><?=$request['requestStatus']?></td>
+                                        <td align="center"><?=$request['remarks']?></td>
+                                        <td></td>
+                                        <td nowrap>
+                                            <center>
+                                                <a href="" class="btn btn-sm blue"> <i class="icon-magnifier"></i> View </a>
+                                                <?php if($request['requestStatus'] != 'Cancelled'): ?>
+                                                    <a href="" class="btn btn-sm red"> <i class="icon-close"></i> Cancel </a>
+                                                <?php endif; ?>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 
-<!-- <script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>"> -->
+<?php load_plugin('js',array('datatables'));?>
+
+<script>
+    $(document).ready(function() {
+        $('#table-notif').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#table-notif').css('visibility', 'visible');
+            }} );
+    });
+</script>

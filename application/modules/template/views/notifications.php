@@ -9,8 +9,8 @@
         <ul class="dropdown-menu">
             <li class="external">
                 <h3>
-                    <span class="bold">12 pending</span> notifications</h3>
-                <a href="page_user_profile_1.html">view all</a>
+                    <span class="bold">12 pensdding</span> notifications</h3>
+                <a href="<?=base_url('employee/notification')?>">view all</a>
             </li>
             <li>
                 <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
