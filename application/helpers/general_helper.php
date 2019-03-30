@@ -132,6 +132,7 @@ if ( ! function_exists('getfullname'))
     {
     	$mid_ini = $mid!='' ? str_replace('.', '', $mid) : $mname[0];
     	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
+    	$mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.';
     	return $lname.', '.$fname.' '.$mid_ini;
 	}
 }

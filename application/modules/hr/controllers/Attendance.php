@@ -976,48 +976,6 @@ class Attendance extends MY_Controller {
 
 	}
 
-	public function override_gen_dtr_add()
-	{
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function officer_dtr()
-	{
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function employees_present()
-	{
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function employees_absent()
-	{
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function employees_onleave()
-	{
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function employees_onottott()
-	{
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
 
 }
 
