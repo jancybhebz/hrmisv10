@@ -51,7 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row per-block">
              <div class="col-sm-3 text-right">
                 <div class="form-group">
-                    <label class="control-label">Select Name Per : <span class="required"> * </span></label>
+                    <label class="control-label">Select Name Per : </label>
                 </div>
             </div>
              <div class="col-sm-3">
@@ -78,7 +78,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                     <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" required>
+                     <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>">
                         <option value="">Select</option>
                         <?php foreach($arrEmployees as $i=>$data): ?>
                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']))?></option>
@@ -132,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('select[name="strReports"]').change(function(){
             $rpt = $(this).val();
             
-            if($rpt=='')
+            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LET' || $rpt=='LVP' || $rpt=='LEA')
                 $('.per-block, .employee-block').hide();
             else
                 $('.per-block').show();
@@ -172,7 +172,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             //console.log($form);
             //console.log($rpt+$empno);
 
-            if($rpt!='' && $empno!='')
+            if($rpt!='')
                 window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
         });
     });

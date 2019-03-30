@@ -25,6 +25,7 @@ if ( ! function_exists('getAppStatus'))
     	$CI->db->Select('appointmentCode,appointmentDesc');
     	if($appstatus!='')
     		$CI->db->where('appointmentCode',$appstatus);
+    	$CI->db->order_by('appointmentDesc');
     	$objQuery = $CI->db->get('tblAppointment');
     	$rs = $objQuery->result_array();
 		if(count($rs)>0)
@@ -203,6 +204,7 @@ if ( ! function_exists('comboAppStatus'))
     	
     	$str = '<select name="'.$strName.'" class="form-control">';
     	$rs = getAppStatus();
+    	$str .= '<option></option>';
     	foreach($rs as $row)
     	{
     		$str .= '<option value="'.$row['appointmentCode'].'" >'.$row['appointmentDesc'].'</option>';
