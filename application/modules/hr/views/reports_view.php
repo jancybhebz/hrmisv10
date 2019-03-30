@@ -171,7 +171,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             //$form += '&csrf_dostitd=<?=time()?>';
             //console.log($form);
             //console.log($rpt+$empno);
-
+            if($rpt=='DTR')
+            {
+                $year=$('select[name="dtrYear"]').val();
+                $month=$('select[name="dtrMonth"]').val();
+                window.open('<?=base_url('employee/dtr/print_preview')?>/'+$empno+'?yr='+$year+'&month='+$month,'toolbar=0');
+                return false;
+            }
             if($rpt!='')
                 window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
         });
