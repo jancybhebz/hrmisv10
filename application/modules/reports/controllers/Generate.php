@@ -63,6 +63,14 @@ class Generate extends MY_Controller
     			$this->load->model('CertificateServiceLoyaltyAward_model');
 				$this->CertificateServiceLoyaltyAward_model->generate($arrGet);
     		break;
+    		case 'LEA':
+    			$this->load->model('ListEducationalAttainment_model');
+				$this->ListEducationalAttainment_model->generate($arrGet);
+    		break;
+    		case 'LEAGE':
+    			$this->load->model('ListEmployeesAge_model');
+				$this->ListEmployeesAge_model->generate($arrGet);
+    		break;
     	}
 
     	
