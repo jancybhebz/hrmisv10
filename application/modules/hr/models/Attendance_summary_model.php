@@ -574,9 +574,17 @@ class Attendance_summary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function getobs($empid)
+	public function getobs($empid, $ddate='')
 	{
-		return $this->db->get_where('tblEmpOB', array('empNumber' => $empid))->result_array();
+		$this->db->where('tblEmpOB.empNumber', $empid);
+		$this->db->where('requestStatus', 'Certified');
+		$this->db->where('requestCode', 'OB');
+
+		if($ddate != ''):
+			$this->db->where("('".$ddate."' >= obDateFrom and '".$ddate."' <= obDateTo)");
+		endif;
+		$this->db->join('tblEmpRequest', 'tblEmpRequest.empNumber = tblEmpOB.empNumber', 'left');
+		return $this->db->get('tblEmpOB')->result_array();
 	}
 
 	public function getOb($id)
@@ -606,15 +614,19 @@ class Attendance_summary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function getleaves($empid,$leavetype='')
+	public function getleaves($empid,$leavetype='',$ddate='')
 	{
-		if($leavetype == ''):
-			$arrcond = array('empNumber' => $empid);
-		else:
-			$arrcond = array('empNumber' => $empid, 'tblEmpLeave.leaveCode' => $leavetype);
+		$this->db->where('tblEmpLeave.empNumber', $empid);
+		$this->db->where('requestStatus', 'Certified');
+		if($leavetype != ''):
+			$this->db->where('tblEmpLeave.leaveCode', $leavetype);
 		endif;
+		if($ddate != ''):
+			$this->db->where("('".$ddate."' >= leaveFrom and '".$ddate."' <= leaveTo)");
+		endif;
+		$this->db->join('tblEmpRequest', 'tblEmpRequest.empNumber = tblEmpLeave.empNumber', 'left');
 		$this->db->join('tblLeave', 'tblLeave.leaveCode = tblEmpLeave.leaveCode', 'left');
-		return $this->db->get_where('tblEmpLeave', $arrcond)->result_array();
+		return $this->db->get('tblEmpLeave')->result_array();
 	}
 
 	public function getLeave($id)
@@ -693,9 +705,17 @@ class Attendance_summary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function gettos($empid)
+	public function gettos($empid,$ddate='')
 	{
-		return $this->db->get_where('tblEmpTravelOrder', array('empNumber' => $empid))->result_array();
+		$this->db->where('tblEmpTravelOrder.empNumber', $empid);
+		$this->db->where('requestStatus', 'Certified');
+		$this->db->where('requestCode', 'TO');
+
+		if($ddate != ''):
+			$this->db->where("('".$ddate."' >= toDateFrom and '".$ddate."' <= toDateTo)");
+		endif;
+		$this->db->join('tblEmpRequest', 'tblEmpRequest.empNumber = tblEmpTravelOrder.empNumber', 'left');
+		return $this->db->get('tblEmpTravelOrder')->result_array();
 	}
 
 	public function getTo($id)

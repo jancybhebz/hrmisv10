@@ -1,5 +1,7 @@
-<?php load_plugin('css',array('select'));?>
-<?php $this_page = $this->uri->segment(4);?>
+<?php
+$modulename = array('','HR','Financial','Officer','Executive','Employee');
+load_plugin('css',array('select'));
+$this_page = $this->uri->segment(4);?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -8,7 +10,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
+            <span><?=$modulename[$_SESSION['sessUserLevel']]?> Module</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>

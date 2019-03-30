@@ -296,29 +296,29 @@ $activetab = strtolower($activetab);
                         <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=$activesub=='attendance' && $activetab=='officer_dtr' ? 'active' : ''?>">
-                            <a href="<?=base_url('hr/attendance/officer_dtr')?>">
+                        <li class="nav-item <?=$activesub=='attendance' && $activetab=='officer_dtr' || ($active == 'hr' && $activesub == 'attendance_summary' && $activetab == 'dtr') ? 'active' : ''?>">
+                            <a href="<?=base_url('officer/attendance/officer_dtr')?>">
                                 <span class="title">Daily Time Record</span>
                             </a>
                         </li>
                         <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_present' ? 'active' : ''?>">
-                            <a href="<?=base_url('hr/attendance/employees_present')?>">
+                            <a href="<?=base_url('officer/attendance/employees_present')?>">
                                 <span class="title">Employees Present</span>
                             </a>
                         </li>
                         <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_absent' ? 'active' : ''?>">
-                            <a href="<?=base_url('hr/attendance/employees_absent')?>">
+                            <a href="<?=base_url('officer/attendance/employees_absent')?>">
                                 <span class="title">Employees Absent</span>
                             </a>
                         </li>
                         <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_onleave' ? 'active' : ''?>">
-                            <a href="<?=base_url('hr/attendance/employees_onleave')?>">
+                            <a href="<?=base_url('officer/attendance/employees_onleave')?>">
                                 <span class="title">Employees On Leave</span>
                             </a>
                         </li>
                         <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_onottott' ? 'active' : ''?>">
-                            <a href="<?=base_url('hr/attendance/employees_onottott')?>">
-                                <span class="title">Employees On OT/TO/TT</span>
+                            <a href="<?=base_url('officer/attendance/employees_onottott')?>">
+                                <span class="title">Employees On OB/TO</span>
                             </a>
                         </li>
                     </ul>
