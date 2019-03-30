@@ -168,7 +168,7 @@
                         <p>Total Number of Working Days: <?=$emp_workingdays?></p>
                         <p>Total Undertime: <?=date('H:i', mktime(0, $total_undertime))?></p>
                         <p>Total Late: <?=date('H:i', mktime(0, $total_late))?></p>
-                        <p>Late/Undertime: =NULL</p>
+                        <p>Late/Undertime: <?=date('H:i', mktime(0, $total_undertime+$total_late))?></p>
                         <p>Total Days Late/Undertime: <?=$total_days_ut + $total_days_late?></p>
                         <p>Total Days LWOP: =NULL</p>
                     </div>
