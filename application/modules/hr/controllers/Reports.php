@@ -246,7 +246,103 @@ class Reports extends MY_Controller
 				echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
-	        				<label class="control-label">Signatory : </label>
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'LEA':
+            	echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Appointment Status : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'LEAGE':
+            	echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Appointment Status : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'LEDH':
+            	echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Appointment Status : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'LEDB':
+            	echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Appointment Status : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
 	        			</div>
 	        			</div>
 	        			<div class="form-group">

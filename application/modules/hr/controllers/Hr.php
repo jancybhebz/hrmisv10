@@ -33,6 +33,7 @@ class Hr extends MY_Controller {
 
 	public function profile()
 	{
+		$this->load->helper('directory');
 		$strEmpNo = $this->uri->segment(3);
 		if ($strEmpNo == '')
 			redirect('pds');
