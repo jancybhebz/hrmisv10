@@ -17,6 +17,23 @@ if ( ! function_exists('getSignatories'))
     }
 }  
 
+if ( ! function_exists('getAppStatus'))
+{
+	function getAppStatus($appstatus="")
+    {
+    	$CI =& get_instance();
+    	$CI->db->Select('appointmentCode,appointmentDesc');
+    	if($appstatus!='')
+    		$CI->db->where('appointmentCode',$appstatus);
+    	$objQuery = $CI->db->get('tblAppointment');
+    	$rs = $objQuery->result_array();
+		if(count($rs)>0)
+		{
+			return $rs;
+		}
+    }
+}
+
 if ( ! function_exists('getAgencyName'))
 {
 	function getAgencyName()
@@ -173,6 +190,22 @@ if ( ! function_exists('comboSignatory'))
     	foreach($rs as $row)
     	{
     		$str .= '<option value="'.$row['signatoryId'].'" >'.$row['signatory'].'</option>';
+    	}
+    	$str .= '</select>';
+    	return $str;
+    }
+}
+
+if ( ! function_exists('comboAppStatus'))
+{    
+    function comboAppStatus($strName="strAppStatus")
+    {
+    	
+    	$str = '<select name="'.$strName.'" class="form-control">';
+    	$rs = getAppStatus();
+    	foreach($rs as $row)
+    	{
+    		$str .= '<option value="'.$row['appointmentCode'].'" >'.$row['appointmentDesc'].'</option>';
     	}
     	$str .= '</select>';
     	return $str;
