@@ -146,7 +146,22 @@ class ListEmployeesGender_model extends CI_Model {
 	function generate($arrData)
 	{		
 		$this->fpdf->AddPage('P','A4');
+		$this->fpdf->Ln(5);
+		$this->fpdf->Cell(25,0,"",0,0,'L');
+	
+		$this->fpdf->Ln(5);
+		$this->fpdf->Cell(25,0,"",0,0,'L');
+	
+		$this->fpdf->Ln(15);
+		$this->fpdf->SetFont('Arial','B',12);
 		
+		$this->fpdf->Cell(0,5,strtoupper('list of employees by gender'),0,0,'C');
+		$this->fpdf->Ln(10);
+		$this->fpdf->Cell(0,2,'As of '.date("Y"), 0, 0, 'C');
+		$this->fpdf->Ln(10);
+		$this->fpdf->SetFont('Arial','',12);
+		
+
 		$objEmpGenderFemale = $this->getSQLData('F',$arrData['strAppStatus']);
 		$intCounter =0;
 		$tmp=0;$tmp2=0;

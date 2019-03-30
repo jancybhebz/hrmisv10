@@ -84,7 +84,19 @@ class ListEmployeesEducationalAttainment_model extends CI_Model {
 	function generate($arrData)
 	{		
 		$this->fpdf->AddPage('P','A4');
-		
+		$this->fpdf->SetFont('Arial','B',10);
+		//$this->Cell(0,6,'Republic of the Philippines', 0, 0, 'C');
+		//$this->Ln(5);
+		//$this->Cell(0,6,$this->agencyName, 0, 0, 'C');
+		$this->fpdf->Ln(5);
+		//$this->Cell(0,6,$this->agencyAdd, 0, 0, 'C');		
+		$this->fpdf->Ln(20);
+		//$head = new title();
+		$this->fpdf->SetFont('Arial','B',12);
+		$this->fpdf->Cell(0,6,strtoupper('list of employees by educational attainment'), 0, 0, 'C');
+		$this->fpdf->Ln(5);
+		$this->fpdf->Cell(0,6,"As of " . date("Y"), 0, 0, 'C');
+		$this->fpdf->Ln(15);	
 		//$degQuery=mysql_query("SELECT DISTINCT courseCode,courseDesc from tblCourse where courseDesc!='' order by courseDesc");
 		$degQuery = $this->get_degrees();
 		foreach($degQuery as $degree)
@@ -133,6 +145,7 @@ class ListEmployeesEducationalAttainment_model extends CI_Model {
 				$this->fpdf->SetWidths($w);
 				$this->fpdf->SetAligns($Ln);
 				$this->fpdf->Row(array($name,$strOfficePosition),0);
+				$this->fpdf->Ln();
 
 			}//end inner while
 			//$this->fpdf->Ln();

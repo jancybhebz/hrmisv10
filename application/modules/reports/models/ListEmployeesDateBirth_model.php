@@ -87,7 +87,11 @@ class ListEmployeesDateBirth_model extends CI_Model {
 	function generate($arrData)
 	{		
 		$this->fpdf->AddPage('P','A4');
-		
+		$this->fpdf->Ln(5);
+		$this->fpdf->Ln(20);
+		$this->fpdf->SetFont('Arial','B',12);
+		$this->fpdf->Cell(0,2,strtoupper('list of employees by date of birth'), 0, 0, 'C');
+		$this->fpdf->Ln(10);
 		
 		for($intMonthCntr = 1; $intMonthCntr <=12; $intMonthCntr++)
 		{
