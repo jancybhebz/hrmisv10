@@ -152,6 +152,13 @@ class Request_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function update_employeeRequest($arrData, $requestid)
+	{
+		$this->db->where('requestID', $requestid);
+		$this->db->update('tblEmpRequest', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	# Request Flow
 	function getRequestFlow($type)
 	{
