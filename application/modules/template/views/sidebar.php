@@ -8,9 +8,9 @@ $activesub = strtolower($activesub);
 $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
 $activetab = strtolower($activetab);
 
-echo '<br>active = '.$active;
-echo '<br>activesub = '.$activesub;
-echo '<br>activetab = '.$activetab;
+// echo '<br>active = '.$active;
+// echo '<br>activesub = '.$activesub;
+// echo '<br>activetab = '.$activetab;
 ?>
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
