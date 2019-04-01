@@ -240,7 +240,7 @@ $activetab = strtolower($activetab);
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Libraries</span>
-                        <span class="arrow <?=$activesub=='libraries'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item <?=$activetab=='deductions' || $activetab=='agency'?'active open':''?>">

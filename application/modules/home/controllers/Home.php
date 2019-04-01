@@ -49,5 +49,5 @@ class Home extends MY_Controller {
 		redirect('home');
 	}
 
-
+	
 }
