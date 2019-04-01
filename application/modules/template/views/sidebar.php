@@ -236,7 +236,7 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$activesub=='libraries'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Libraries</span>
@@ -263,8 +263,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Project Code</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$activetab=='payrollgroup'?'active open':''?>">
-                            <a href="<?=base_url('finance/libraries/payrollgroup')?>">
+                        <li class="nav-item <?=$activetab=='payrollgroup' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
+                            <a href="<?=base_url('libraries/payroll_group')?>">
                                 <span class="title">Payroll Group</span>
                             </a>
                         </li>

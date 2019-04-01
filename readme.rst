@@ -68,3 +68,11 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+*********
+Other Setup
+*********
+
+Errors:
+-  The action you have requested is not allowed. (POST) or timeoutkeepalive 403 (Forbidden):
+	$config['csrf_regenerate'] = FALSE;
