@@ -5,4 +5,3 @@ $route['404_override'] = '';
 
 ## Employee leave balance
 $route['employee/leave_balance/(:any)'] = 'employee/leave/leave_balance/$1';
-$route['employee/Leave_Monetization/index'] = 'employee/leave_monetization';
