@@ -41,7 +41,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($arremp_dtr as $dtr): ?>
+                                <?php foreach($arremp_dtr['dtr'] as $dtr): ?>
                                 <tr class="odd <?=$dtr['day']?> <?=$dtr['holiday']!='' ? 'holiday' : ''?>"
                                         title="<?=date('l', strtotime($dtr['date']))?> <?=count($dtr['dtrdata']) > 0 ? $dtr['holiday']!='' ? ' - '.$dtr['holiday'] : '' : ''?>">
                                     <td hidden><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['id'] : ''?></td>
