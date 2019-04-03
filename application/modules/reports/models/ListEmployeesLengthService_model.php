@@ -79,6 +79,8 @@ class ListEmployeesLengthService_model extends CI_Model {
 		$this->fpdf->Ln(5);
 		$query = $this->getSQLData($arrData['strAppStatus']);
 		$this->fpdf->SetFont('Arial','',9);
+		$this->fpdf->SetFillColor(255,255,255);
+		$this->fpdf->SetDrawColor(0,0,0);
 		foreach($query as $row)
 		//while ($row = mysql_fetch_array($query))
 		{
@@ -102,7 +104,7 @@ class ListEmployeesLengthService_model extends CI_Model {
 			$this->fpdf->SetAligns($Ln);
 			$firstDay=$row['firstDayGov']!="0000-00-00"?$row['firstDayGov']:"-";
 			//$this->Row(array($name,$firstDay,$total,$strOfficePosition),1);
-			$this->fpdf->Row(array($name,$total,$strOfficePosition),0);
+			$this->fpdf->FancyRow(array($name,$total,$strOfficePosition),array(1,1,1));
 		}
 		
 

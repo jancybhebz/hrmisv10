@@ -51,7 +51,7 @@ class ListEmployeesAge_model extends CI_Model {
 		$Ln = array('L','C','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->Row(array($strNumEmpName,$t_OfficePosition, $t_age),0);
+		$this->fpdf->FancyRow(array($strNumEmpName,$t_OfficePosition, $t_age),array(1,1,1));
 	}
 
 	function generate($arrData)

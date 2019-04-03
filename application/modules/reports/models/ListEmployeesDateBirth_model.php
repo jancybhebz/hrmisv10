@@ -35,7 +35,7 @@ class ListEmployeesDateBirth_model extends CI_Model {
 		$Ln = array('L','C','C','C','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->Row(array($t_intCounter,$t_strBDDay, $t_strBDYear,$t_strEmpName,$t_OfficePosition),0);
+		$this->fpdf->FancyRow(array($t_intCounter,$t_strBDDay, $t_strBDYear,$t_strEmpName,$t_OfficePosition),array(1,1,1,1,1));
 
 	}
 

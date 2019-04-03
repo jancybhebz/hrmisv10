@@ -1,7 +1,8 @@
 <?php
 $modulename = array('','HR','Financial','Officer','Executive','Employee');
 load_plugin('css',array('select'));
-$this_page = $this->uri->segment(4);?>
+$this_page = $this->uri->segment(4);
+$arrData = $arrData[0];?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
