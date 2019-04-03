@@ -58,18 +58,16 @@ class Holiday_model extends CI_Model {
 		{
 			$this->db->where($this->tableid2,$strCode);
 		}
-		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+		$this->db->order_by('holidayDate desc');
 
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
 
-	function getLocalCode($strLocalCode = '')
+	function getLastLocalCode()
 	{		
-		if($strLocalCode != "")
-		{
-			$this->db->where('holidayCode',$strLocalCode);
-		}
+		$this->db->Select('holidayCode');
+		$this->db->order_by('holidayCode desc');
 		$objQuery = $this->db->get('tblLocalHoliday');
 		return $objQuery->result_array();	
 	}
@@ -86,15 +84,17 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	
 	function getWorkSuspension($intHolidayId = '')
 	{		
+		$this->db->where('holidayCode','WS');
 		if($intHolidayId != "")
 		{
 			$this->db->where('holidayId',$intHolidayId);
 		}
 		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 		$this->db->order_by('holidayCode');
-		$this->db->group_by('tblholidayyear'.'.holidayCode');
+		// $this->db->group_by('tblholidayyear'.'.holidayCode');
 		$objQuery = $this->db->get('tblholidayyear');
 		return $objQuery->result_array();	
 	}
@@ -199,16 +199,16 @@ class Holiday_model extends CI_Model {
 
 	function save_local($arrData, $strCode)
 	{
-		$this->db->where('holidayName', $strCode);
+		$this->db->where('holidayCode', $strCode);
 		$this->db->update('tblLocalHoliday', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_worksuspension($arrData, $strCode)
+	function save_worksuspension($arrData, $intHolidayId)
 	{
-		$this->db->where('holidayId', $strCode);
-		$this->db->update('tblHolidayYear', $arrData);
+		$this->db->where('holidayId', $intHolidayId);
+		$this->db->update('tblholidayyear', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -233,7 +233,7 @@ class Holiday_model extends CI_Model {
 	function delete_local($strCode)
 	{
 		$this->db->where('holidayName', $strCode);
-		$this->db->delete('tblLocalHolidayYear'); 	
+		$this->db->delete('tblLocalHoliday'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

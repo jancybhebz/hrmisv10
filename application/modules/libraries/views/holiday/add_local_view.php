@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                      <option value="">Select</option>
                                       <?php foreach($arrHoliday as $local)
                                         {
-                                          echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
+                                          echo '<option value="'.$local['holidayName'].'">'.$local['holidayName'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -77,6 +77,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
+                                <input type="hidden" name="strLocalCode" value="<?=isset($strLocalCode)?$strLocalCode:''?>">
                                 <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
                                 <a href="<?=base_url('libraries/holiday')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -95,6 +96,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> No. </th>
                             <th> Local Holiday Code </th>
                             <th> Local Holiday Name </th>
+                            <th> Local Holiday Date </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -105,10 +107,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['holidayCode']?> </td> 
-                            <td> <?=$row['holidayName']?> </td>                       
+                            <td> <?=$row['holidayName']?> </td>  
+                            <td> <?=$row['holidayDate']?> </td>                       
                             <td>
-                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>

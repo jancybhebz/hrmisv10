@@ -70,7 +70,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strCode" value="<?=isset($arrData[0]['holidayId'])?$arrData[0]['holidayId']:''?>">
+                                <input type="hidden" name="intHolidayId" value="<?=isset($arrData[0]['holidayId'])?$arrData[0]['holidayId']:''?>">
+                                <input type="hidden" name="dtmHolidayDate" value="<?=isset($arrData[0]['holidayDate'])?$arrData[0]['holidayDate']:''?>">
+                                <input type="hidden" name="dtmHolidayTime" value="<?=isset($arrData[0]['holidayTime'])?$arrData[0]['holidayTime']:''?>">
                                 <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
                                 <a href="<?=base_url('libraries/holiday/add_worksuspension')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>

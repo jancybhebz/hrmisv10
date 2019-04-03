@@ -52,7 +52,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Work Suspension Date</label>
                                     <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="<?=isset($arrWorkSus[0]['holidayDate'])?$arrWorkSus[0]['holidayDate']:''?>" >
+                                     <input id="dtmSuspensionDate" name="dtmSuspensionDate" type="text" autocomplete="off" class="form-control form-control-inline input-medium date-picker" size="16" value="<?=!empty($arrSuspendData[0]['holidayDate'])?$arrSuspendData[0]['holidayDate']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Work Suspension Time</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" id="dtmSuspensionTime" value="<?=!empty($arrWorkSus[0]['holidayTime'])?$arrWorkSus[0]['holidayTime']:'12:00:00 PM'?>">
+                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" id="dtmSuspensionTime" value="<?=!empty($arrSuspendData[0]['holidayTime'])?$arrSuspendData[0]['holidayTime']:''?>">
                                     </div>
                                 </div>
                             </div>

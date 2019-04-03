@@ -51,7 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Work Suspension Date <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                    <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Work Suspension Time <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" size="10"  id="dtmSuspensionTime" value="12:00:00 AM">     
+                                     <input type="text" class="form-control timepicker timepicker-default"  autocomplete="off" name="dtmSuspensionTime" size="10"  id="dtmSuspensionTime" value="12:00:00 AM">     
                                 
                                 </div>
                             </div>
@@ -94,7 +94,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <tbody>
                 <?php 
                 $i=1;
-                foreach($arrHoliday as $row):?>
+                foreach($arrWorkSuspend as $row):?>
                     <tr class="odd gradeX">
                         <td> <?=$i?> </td>
                         <td><?=$row['holidayDate']?></td> 
