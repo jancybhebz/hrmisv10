@@ -210,7 +210,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn green" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                <button class="btn green" data-toggle="modal" href="#payrollDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <?php endif; ?>
                         </div>
                     </div>
                     
@@ -250,7 +252,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn green" data-toggle="modal" href="#positionDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                <button class="btn green" data-toggle="modal" href="#positionDetails_modal"> <i class="fa fa-edit"></i> Edit</button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

@@ -7,8 +7,8 @@
                     <tbody>
                         <tr>
                             <th></th>
-                            <th style="width: 30%">EMPLOYEE SHARE</th>
-                            <th style="width: 30%">GOVERNMENT SHARE</th>
+                            <th style="width: 30%; text-align: center;">EMPLOYEE SHARE</th>
+                            <th style="width: 30%; text-align: center;">GOVERNMENT SHARE</th>
                         </tr>
                         <tr>
                             <td><b>Life and Retirement</b></td>
@@ -53,17 +53,19 @@
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-loans" >
                             <thead>
                                 <tr>
+                                    <th style="text-align: center;"> No </th>
                                     <th> Deduction Code </th>
-                                    <th> Loan </th>
-                                    <th> Amount </th>
-                                    <th> Monthly Due </th>
-                                    <th> Balance </th>
-                                    <th> Due Date </th>
+                                    <th style="text-align: center;"> Loan </th>
+                                    <th style="text-align: center;"> Amount </th>
+                                    <th style="text-align: center;"> Monthly Due </th>
+                                    <th style="text-align: center;"> Balance </th>
+                                    <th style="text-align: center;"> Due Date </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($arrLoans as $loans): ?>
+                                <?php $no=1; foreach($arrLoans as $loans): ?>
                                 <tr class="odd gradeX">
+                                    <td><?=$no++?></td>
                                     <td style="text-align: left !important; padding-left: 15px;"><?=$loans['deductionCode']?></td>
                                     <td align="center"><?=$loans['deductionDesc']?></td>
                                     <td align="center"><?=number_format($loans['amountGranted'], 2)?></td>
@@ -82,16 +84,18 @@
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-contributions" >
                             <thead>
                                 <tr>
+                                    <th style="text-align: center;"> No </th>
                                     <th> Deduction Code </th>
                                     <th> Description </th>
-                                    <th> Amount </th>
+                                    <th style="text-align: center;"> Amount </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($arrContributions as $contri): ?>
+                                <?php $no=1; foreach($arrContributions as $contri): ?>
                                 <tr class="odd gradeX">
-                                    <td style="text-align: left !important; padding-left: 15px;"><?=$contri['deductionCode']?></td>
-                                    <td align="center"><?=$contri['deductionDesc']?></td>
+                                    <td><?=$no++?></td>
+                                    <td style="padding-left: 15px;"><?=$contri['deductionCode']?></td>
+                                    <td><?=$contri['deductionDesc']?></td>
                                     <td align="center"><?=number_format($contri['deductAmount'], 2)?></td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -106,10 +110,10 @@
                             <thead>
                                 <tr>
                                     <th> ID </th>
-                                    <th> Deduction Code </th>
-                                    <th> Loan </th>
-                                    <th> Amount </th>
-                                    <th> Monthly Due </th>
+                                    <th style="text-align: center;"> Deduction Code </th>
+                                    <th style="text-align: center;"> Loan </th>
+                                    <th style="text-align: center;"> Amount </th>
+                                    <th style="text-align: center;"> Monthly Due </th>
                                 </tr>
                             </thead>
                             <tbody>
