@@ -73,7 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Entitled? <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="chrLeaveEntitled" value="<?=!empty($arrAppointStatuses[0]['leaveEntitled'])?$arrAppointStatuses[0]['leaveEntitled']:''?>">
+                                    <input type="text" class="form-control" name="strLeaveEntitled" value="<?=!empty($arrAppointStatuses[0]['leaveEntitled'])?$arrAppointStatuses[0]['leaveEntitled']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Included in Plantilla? <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intIncludedPlantilla" value="<?=$arrAppointStatuses[0]['incPlantilla']?>">
+                                    <input type="text" class="form-control" name="intIncludedPlantilla" value="<?=!empty($arrAppointStatuses[0]['incPlantilla'])?$arrAppointStatuses[0]['incPlantilla']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmCountry');
+            var form2 = $('#frmAppointmentStatus');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 

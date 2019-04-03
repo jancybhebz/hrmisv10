@@ -84,7 +84,7 @@ class Leave_type extends MY_Controller {
 			if(!empty($strLeaveCode) AND !empty($strLeaveType)) 
 			{
 				$arrData = array(
-					// 'leaveCode'=>$strLeaveCode,
+					'leaveCode'=>$strLeaveCode,
 					'leaveType'=>$strLeaveType,
 					'numOfDays'=>$intDays
 				);
