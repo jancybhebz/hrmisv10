@@ -13,14 +13,16 @@
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-benefitList" data-title="Benefit">
                             <thead>
                                 <tr>
-                                    <th style="width: 140px;"> Benefit </th>
+                                    <th> Benefit </th>
                                     <th> Monthly </th>
                                     <?php 
                                         foreach(setPeriods($empPayrollProcess) as $period):
                                             echo '<th> '.$period.' </th>';
                                         endforeach; ?>
                                     <th> Status </th>
-                                    <th style="text-align: center;"> Action </th>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <th style="text-align: center;"> Action </th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,20 +45,22 @@
 
                                     <td><?=isset($benefit['arrbenefits']) ? 
                                             getincome_status($benefit['arrbenefits']['status']) : ''?></td>
-                                    <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
-                                                data-period1="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period1'] == '' ? '0.00' : $benefit['arrbenefits']['period1'] : '0.00'?>"
-                                                data-period2="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period2'] == '' ? '0.00' : $benefit['arrbenefits']['period2'] : '0.00'?>"
-                                                data-period3="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period3'] == '' ? '0.00' : $benefit['arrbenefits']['period3'] : '0.00'?>"
-                                                data-period4="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period4'] == '' ? '0.00' : $benefit['arrbenefits']['period4'] : '0.00'?>"
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <td align="center">
+                                            <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
+                                                    data-period1="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period1'] == '' ? '0.00' : $benefit['arrbenefits']['period1'] : '0.00'?>"
+                                                    data-period2="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period2'] == '' ? '0.00' : $benefit['arrbenefits']['period2'] : '0.00'?>"
+                                                    data-period3="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period3'] == '' ? '0.00' : $benefit['arrbenefits']['period3'] : '0.00'?>"
+                                                    data-period4="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['period4'] == '' ? '0.00' : $benefit['arrbenefits']['period4'] : '0.00'?>"
 
-                                                data-incomecode="<?=$benefit['incomeCode']?>" data-stat="benefit"
-                                                data-benefitcode="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['benefitCode'] : ''?>"
-                                                data-tax="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['ITW'] : '0.00'?>"
-                                                data-statusval="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['status'] : "null"?>">
+                                                    data-incomecode="<?=$benefit['incomeCode']?>" data-stat="benefit"
+                                                    data-benefitcode="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['benefitCode'] : ''?>"
+                                                    data-tax="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['ITW'] : '0.00'?>"
+                                                    data-statusval="<?=isset($benefit['arrbenefits']) ? $benefit['arrbenefits']['status'] : "null"?>">
 
-                                            <i class="fa fa-edit"></i> Edit</button>
-                                    </td>
+                                                <i class="fa fa-edit"></i> Edit</button>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -83,7 +87,9 @@
                                     <th> Salary </th>
                                     <th> Percent </th>
                                     <th> LP </th>
-                                    <th style="text-align: center;"> Actions </th>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <th style="text-align: center;"> Actions </th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,14 +99,16 @@
                                     <td><?=number_format($longe['longiAmount'], 2)?></td>
                                     <td><?=$longe['longiPercent']?></td>
                                     <td><?=number_format($longe['longiPay'], 2)?></td>
-                                    <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#longevityModal" id="btn-modal-longevity"
-                                            data-longeid="<?=$longe['id']?>" >
-                                            <i class="fa fa-edit"></i> Edit</button>
-                                        <button data-toggle="modal" href="#deleteLongevity" class="btn btn-sm red" id="btn-del-longevity"
-                                            data-longeid="<?=$longe['id']?>" >
-                                            <i class="fa fa-trash"></i> Delete</button>
-                                    </td>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <td align="center">
+                                            <button class="btn btn-sm green" data-toggle="modal" href="#longevityModal" id="btn-modal-longevity"
+                                                data-longeid="<?=$longe['id']?>" >
+                                                <i class="fa fa-edit"></i> Edit</button>
+                                            <button data-toggle="modal" href="#deleteLongevity" class="btn btn-sm red" id="btn-del-longevity"
+                                                data-longeid="<?=$longe['id']?>" >
+                                                <i class="fa fa-trash"></i> Delete</button>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -108,7 +116,7 @@
                                 <tr>
                                     <td colspan="3" style="text-align:right">Longevity Pay: &nbsp;</td>
                                     <td style="padding-left: 6px;"><?=number_format($totalLP, 2)?></td>
-                                    <td></td>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?><td></td><?php endif; ?>
                                 </tr>
                             </tfoot>
                         </table>
@@ -139,7 +147,9 @@
                                         endforeach; ?>
                                     <th> Tax </th>
                                     <th> Status </th>
-                                    <th style="text-align: center;"> Actions </th>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <th style="text-align: center;"> Actions </th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,19 +173,21 @@
                                             number_format($bonus['arrbenefits']['ITW'], 2) : '0.00'?></td>
                                     <td><?=isset($bonus['arrbenefits']) ? 
                                             getincome_status($bonus['arrbenefits']['status']) : ''?></td>
-                                    <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
-                                                data-period1="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period1'] == '' ? '0.00' : $bonus['arrbenefits']['period1'] : '0.00'?>"
-                                                data-period2="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period2'] == '' ? '0.00' : $bonus['arrbenefits']['period2'] : '0.00'?>"
-                                                data-period3="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period3'] == '' ? '0.00' : $bonus['arrbenefits']['period3'] : '0.00'?>"
-                                                data-period4="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period4'] == '' ? '0.00' : $bonus['arrbenefits']['period4'] : '0.00'?>"
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <td align="center">
+                                            <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
+                                                    data-period1="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period1'] == '' ? '0.00' : $bonus['arrbenefits']['period1'] : '0.00'?>"
+                                                    data-period2="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period2'] == '' ? '0.00' : $bonus['arrbenefits']['period2'] : '0.00'?>"
+                                                    data-period3="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period3'] == '' ? '0.00' : $bonus['arrbenefits']['period3'] : '0.00'?>"
+                                                    data-period4="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['period4'] == '' ? '0.00' : $bonus['arrbenefits']['period4'] : '0.00'?>"
 
-                                                data-incomecode="<?=$bonus['incomeCode']?>" data-stat="bonus"
-                                                data-benefitcode="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['benefitCode'] : ''?>"
-                                                data-tax="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['ITW'] : '0.00'?>"
-                                                data-statusval="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['status'] : "null"?>">
-                                            <i class="fa fa-edit"></i> Edit</button>
-                                    </td>
+                                                    data-incomecode="<?=$bonus['incomeCode']?>" data-stat="bonus"
+                                                    data-benefitcode="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['benefitCode'] : ''?>"
+                                                    data-tax="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['ITW'] : '0.00'?>"
+                                                    data-statusval="<?=isset($bonus['arrbenefits']) ? $bonus['arrbenefits']['status'] : "null"?>">
+                                                <i class="fa fa-edit"></i> Edit</button>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -205,7 +217,9 @@
                                         endforeach; ?>
                                     <th> Tax </th>
                                     <th> Status </th>
-                                    <th style="text-align: center;"> Actions </th>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <th style="text-align: center;"> Actions </th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -229,19 +243,21 @@
                                             number_format($addtl['arrbenefits']['ITW'], 2) : '0.00'?></td>
                                     <td><?=isset($addtl['arrbenefits']) ? 
                                             getincome_status($addtl['arrbenefits']['status']) : ''?></td>
-                                    <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
-                                            data-period1="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period1'] == '' ? '0.00' : $addtl['arrbenefits']['period1'] : '0.00'?>"
-                                            data-period2="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period2'] == '' ? '0.00' : $addtl['arrbenefits']['period2'] : '0.00'?>"
-                                            data-period3="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period3'] == '' ? '0.00' : $addtl['arrbenefits']['period3'] : '0.00'?>"
-                                            data-period4="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period4'] == '' ? '0.00' : $addtl['arrbenefits']['period4'] : '0.00'?>"
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <td align="center">
+                                            <button class="btn btn-sm green" data-toggle="modal" href="#benefitList" id="btn-modal-benefitList"
+                                                data-period1="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period1'] == '' ? '0.00' : $addtl['arrbenefits']['period1'] : '0.00'?>"
+                                                data-period2="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period2'] == '' ? '0.00' : $addtl['arrbenefits']['period2'] : '0.00'?>"
+                                                data-period3="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period3'] == '' ? '0.00' : $addtl['arrbenefits']['period3'] : '0.00'?>"
+                                                data-period4="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['period4'] == '' ? '0.00' : $addtl['arrbenefits']['period4'] : '0.00'?>"
 
-                                            data-incomecode="<?=$addtl['incomeCode']?>" data-stat="addtl"
-                                            data-benefitcode="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['benefitCode'] : ''?>"
-                                            data-tax="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['ITW'] : '0.00'?>"
-                                            data-statusval="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['status'] : ""?>">
-                                            <i class="fa fa-edit"></i> Edit</button>
-                                    </td>
+                                                data-incomecode="<?=$addtl['incomeCode']?>" data-stat="addtl"
+                                                data-benefitcode="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['benefitCode'] : ''?>"
+                                                data-tax="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['ITW'] : '0.00'?>"
+                                                data-statusval="<?=isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['status'] : ""?>">
+                                                <i class="fa fa-edit"></i> Edit</button>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
