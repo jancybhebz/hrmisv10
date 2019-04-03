@@ -64,7 +64,7 @@ class ListEmployeesGender_model extends CI_Model {
 		$Ln = array('L','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->Row(array($ctrFemale.'.  '.$t_strEmpName,$t_strPosition),0);
+		$this->fpdf->FancyRow(array($ctrFemale.'.  '.$t_strEmpName,$t_strPosition),array(1,1));
 
 	}
 	
@@ -101,7 +101,7 @@ class ListEmployeesGender_model extends CI_Model {
 		$Ln = array('L','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->Row(array($ctrMale.'.  '.$t_strEmpName,$t_strPosition),0);
+		$this->fpdf->FancyRow(array($ctrMale.'.  '.$t_strEmpName,$t_strPosition),array(1,1));
 
 		
 
@@ -167,6 +167,8 @@ class ListEmployeesGender_model extends CI_Model {
 		$tmp=0;$tmp2=0;
 		$this->printFemaleHeader();
 		$this->fpdf->SetFont('Arial','',12);
+		$this->fpdf->SetDrawColor(0,0,0);
+		$this->fpdf->SetFillColor(255,255,255);
 		foreach($objEmpGenderFemale as $arrEmpGenderFemale)
 		//while($arrEmpGenderFemale = mysql_fetch_array($objEmpGenderFemale))
 		{

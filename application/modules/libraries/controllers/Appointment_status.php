@@ -112,6 +112,7 @@ class Appointment_status extends MY_Controller {
 		}
 		
 	}
+
 	public function delete()
 	{
 		//$strDescription=$arrPost['strDescription'];

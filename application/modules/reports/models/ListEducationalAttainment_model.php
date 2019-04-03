@@ -99,6 +99,8 @@ class ListEducationalAttainment_model extends CI_Model {
 		$intCountEmpEducation = 0;
 
 		$intCtr = 0;
+		$this->fpdf->SetFillColor(255,255,255);
+		$this->fpdf->SetDrawColor(0,0,0);
 		//while($arrHighestEducAttainment = mysql_fetch_array($objEmpEducation))
 		foreach($objEmpEducation as $arrHighestEducAttainment)
 		{
@@ -109,9 +111,9 @@ class ListEducationalAttainment_model extends CI_Model {
 			$strLevelCode = $arrHighestEducAttainment['levelCode'];
 			//$strLevel = $arrHighestEducAttainment['level'];
 		if($intCtr==1)
-			$this->fpdf->Row(array($t_strEmpName,$t_strPositionDesc,$t_strCourse,$strCourse),0);
+			$this->fpdf->FancyRow(array($t_strEmpName,$t_strPositionDesc,$t_strCourse,$strCourse),array('T','T','T','T'));
 		else
-			$this->fpdf->Row(array('','','',$strCourse),0);		
+			$this->fpdf->Row(array('','','',$strCourse),array(1,1,1,1));		
 		}	//end while
 	}	//end of PrintBody
 

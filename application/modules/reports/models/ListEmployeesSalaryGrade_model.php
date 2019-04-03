@@ -61,7 +61,7 @@ class ListEmployeesSalaryGrade_model extends CI_Model {
 		$Ln = array('L','C','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->Row(array($strEmpNumCmbine,$t_strEmpName,$strOfficePosition),0);
+		$this->fpdf->FancyRow(array($strEmpNumCmbine,$t_strEmpName,$strOfficePosition),array(1,1,1));
 
 	}
 
@@ -83,7 +83,7 @@ class ListEmployeesSalaryGrade_model extends CI_Model {
 		$Ln = array('C','C','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->Row(array("EMPLOYEE NUMBER","EMPLOYEE NAME","OFFICE - POSITION"),1);
+		$this->fpdf->FancyRow(array("EMPLOYEE NUMBER","EMPLOYEE NAME","OFFICE - POSITION"),array(1,1,1));
 	}
 
 	function get_salarygrade()
@@ -103,7 +103,7 @@ class ListEmployeesSalaryGrade_model extends CI_Model {
 		$this->fpdf->Ln(15);
 		
 		$objSalaryGrade = $this->get_salarygrade();
-		
+		$this->fpdf->SetDrawColor(0,0,0);
 		foreach($objSalaryGrade as $arrSalaryGrade)
 		//while($arrSalaryGrade = mysql_fetch_array($objSalaryGrade))
 		{

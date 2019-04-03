@@ -40,7 +40,7 @@ class Org_structure extends MY_Controller {
 			$strExecHead = $arrPost['strExecHead'];
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary = $arrPost['strSecretary'];
-			$strCustodian1 = $arrPost['strCustodian1'];
+			
 			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -51,8 +51,8 @@ class Org_structure extends MY_Controller {
 						'group1Name'=>$strExecName,
 						'empNumber'=>$strExecHead,
 						'group1HeadTitle'=>$strHeadTitle,
-						'group1Secretary'=>$strSecretary,	
-						'group1Custodian'=>$strCustodian1,	
+						'group1Secretary'=>$strSecretary
+						
 					);
 					$blnReturn  = $this->org_structure_model->add_exec($arrData);
 
@@ -93,7 +93,7 @@ class Org_structure extends MY_Controller {
 			$strExecHead = $arrPost['strExecHead'];
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary= $arrPost['strSecretary'];
-			$strCustodian1= $arrPost['strCustodian1'];
+			
 			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
 			{
 				$arrData = array(
@@ -101,8 +101,8 @@ class Org_structure extends MY_Controller {
 					'group1Name'=>$strExecName,
 					'empNumber'=>$strExecHead,
 					'group1HeadTitle'=>$strHeadTitle,
-					'group1Secretary'=>$strSecretary,
-					'group1Custodian'=>$strCustodian1
+					'group1Secretary'=>$strSecretary
+					
 					
 				);
 				$blnReturn = $this->org_structure_model->save_exec($arrData, $strCode);
