@@ -84,14 +84,14 @@ class Request_model extends CI_Model {
 	{		
 		if($strGroupCode != "")
 		{
-			$this->db->where($this->tableid5,$strGroupCode);
+			//$this->db->where('group'.$strGroupCode.'Code',$strGroupCode);
 		}
-		$this->db->join('tblgroup2','tblgroup2.group1Code = '.$this->table5.'.group1Code','left');
-		$this->db->join('tblgroup3','tblgroup3.group1Code = '.$this->table5.'.group1Code','left');
-		$this->db->join('tblgroup4','tblgroup4.group1Code = '.$this->table5.'.group1Code','left');
+		// $this->db->join('tblgroup2','tblgroup2.group1Code = '.$this->table5.'.group1Code','left');
+		// $this->db->join('tblgroup3','tblgroup3.group1Code = '.$this->table5.'.group1Code','left');
+		// $this->db->join('tblgroup4','tblgroup4.group1Code = '.$this->table5.'.group1Code','left');
 		//$this->db->order_by("group2Name", "asc");
 		//$this->db->order_by('tblgroup1.'.$this->tableid5,'DESC');
-		$objQuery = $this->db->get($this->table5);
+		$objQuery = $this->db->get('tblGroup'.$strGroupCode);
 		return $objQuery->result_array();	
 	}
 

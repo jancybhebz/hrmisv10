@@ -111,7 +111,21 @@ class Request extends MY_Controller {
 			$this->arrData['arrRequest']= $this->request_model->getData($intReqId); 
 			$this->arrData['arrRequestType'] = $this->request_model->getRequestType();
 			$this->arrData['arrApplicant'] = $this->request_model->getApplicant();
-			$this->arrData['arrOfficeName'] = $this->request_model->getOfficeName();
+			$arrOfficeName = array();
+			for($i=1,$j=0;$i<=5;$i++)
+			{
+				$arrOffice = $this->request_model->getOfficeName($i);
+				//print_r($arrOffice);
+				foreach($arrOffice as $row):
+					if($row['group'.$i.'Code']!='')
+					{
+						$arrOfficeName[$j]['groupCode']=$row['group'.$i.'Code'];
+						$arrOfficeName[$j]['groupName']=$row['group'.$i.'Name'];
+						$j++;
+					}
+				endforeach;				
+			}
+			$this->arrData['arrOfficeName'] = $arrOfficeName;
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();

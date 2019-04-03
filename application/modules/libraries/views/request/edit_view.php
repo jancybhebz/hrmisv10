@@ -44,7 +44,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <?=form_open(base_url('libraries/request/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmRequest'))?>
                 
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php print_r($arrRequest);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrRequestType as $type)
                                         {
-                                          echo '<option value="'.$type['requestCode'].'" '.($arrRequest[0]['requestCode']==$type['requestCode']?'selected':'').'>'.$type['requestDesc'].'</option>';
+                                          echo '<option value="'.$type['requestCode'].'" '.($arrRequest[0]['RequestType']==$type['requestCode']?'selected':'').'>'.$type['requestDesc'].'</option>';
                                         }?>
                                     </select> 
                                 </div>
@@ -79,7 +79,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrApplicant as $applicant)
                                         {
-                                          echo '<option value="'.$applicant['AppliCode'].'" '.($arrRequest[0]['AppliCode']==$applicant['AppliCode']?'selected':'').'>'.$applicant['Applicant'].'</option>';
+                                          echo '<option value="'.$applicant['AppliCode'].'" '.($arrRequest[0]['Applicant']==$applicant['AppliCode']?'selected':'').'>'.$applicant['Applicant'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -96,9 +96,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrOfficeName as $office)
                                         {
-                                          echo '<option value="'.$office['group1Code'].'" '.($arrRequest[0]['group1Code']==$office['group1Code']?'selected':'').'>'.$office['group1Name'].'</option>';
-                                          echo '<option value="'.$office['group2Code'].'" '.($arrRequest[0]['group2Code']==$office['group2Code']?'selected':'').'>'.$office['group2Name'].'</option>';
-                                          echo '<option value="'.$office['group3Code'].'" '.($arrRequest[0]['group3Code']==$office['group3Code']?'selected':'').'>'.$office['group3Name'].'</option>';
+                                          echo '<option value="'.$office['groupCode'].'" '.($arrRequest[0]['groupCode']==$office['groupCode']?'selected':'').'>'.$office['groupName'].'</option>';                                          
                                         }?> 
                                     </select>
                                 </div>
