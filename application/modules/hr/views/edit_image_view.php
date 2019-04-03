@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <input type="hidden" name="EmployeeId" value="<?=$this->uri->segment(3)?>">
                                 <button type="submit" name="upload" class="btn blue start"><i class="fa fa-upload"></i></i> Upload</button>
-                                <a href="<?=base_url('hr/profile')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('hr/profile/'.$strEmpNum)?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>

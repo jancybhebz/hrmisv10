@@ -173,6 +173,7 @@ class Hr extends MY_Controller {
     public function edit_image()
 	{
 	 	$arrPost = $this->input->post();
+	 	$this->arrData['strEmpNum'] = $this->uri->segment(3);
 		$this->template->load('template/template_view','hr/edit_image_view', $this->arrData);
 	
 	}
