@@ -250,9 +250,7 @@ class Holiday extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			// $this->arrData['arrHolidayDate']=$this->holiday_model->getHolidayDate();
-			$this->arrData['arrHoliday']=$this->holiday_model->getData();
-			// $this->arrData['arrManageHoliday'] = $this->holiday_model->getHolidayDate();
+			$this->arrData['arrHoliday']=$this->holiday_model->getManageHoliday();
 			$this->template->load('template/template_view','libraries/holiday/manage_add_view',$this->arrData);	
 		}
 		else
@@ -343,6 +341,7 @@ class Holiday extends MY_Controller {
 		if(empty($arrPost))
 		{	
 			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			$this->arrData['arrHoliday']=$this->holiday_model->getManageHoliday();
 			$this->template->load('template/template_view','libraries/holiday/add_worksuspension_view',$this->arrData);	
 		}
 		else

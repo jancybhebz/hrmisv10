@@ -30,6 +30,19 @@ class Holiday_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strCode);
 		}
+		// $this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = '.$this->table.'.holidayCode','inner');
+		// $this->db->order_by('holidayName');
+		// $this->db->group_by($this->table.'.holidayCode');
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+
+	function getManageHoliday($strCode = '')
+	{		
+		if($strCode != "")
+		{
+			$this->db->where($this->tableid,$strCode);
+		}
 		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = '.$this->table.'.holidayCode','inner');
 		$this->db->order_by('holidayName');
 		$this->db->group_by($this->table.'.holidayCode');
