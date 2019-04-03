@@ -44,7 +44,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <?=form_open(base_url('libraries/request/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmRequest'))?>
                 
                 <div class="form-body">
-                    <?php print_r($arrRequest);?>
+                    <?php //print_r($arrRequest);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
