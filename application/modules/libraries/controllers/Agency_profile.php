@@ -219,17 +219,21 @@ class Agency_profile extends MY_Controller {
 		$config['overwrite'] = TRUE;
 
 		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
 		
 		if ( ! $this->upload->do_upload('userfile'))
 		{
 			//echo $this->upload->display_errors();
+
 			$error = array('error' => $this->upload->display_errors());
+			print_r($error);
 			$this->session->set_flashdata('error','Please try again!');
 		}
 		else
 		{
 			$data = $this->upload->data();
-			//print_r($data);
+			print_r($data);
+
 				$arrLogo = array(
 					'agencyLogo' => $data['file_name']	
 				);

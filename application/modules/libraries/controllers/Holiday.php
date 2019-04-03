@@ -352,7 +352,7 @@ class Holiday extends MY_Controller {
 			if(!empty($dtmSuspensionDate) && !empty($dtmSuspensionTime))
 			{	
 				// check if exam code and/or exam desc already exist
-				if(count($this->holiday_model->checkWorkSuspensionExist($dtmSuspensionDate, $dtmSuspensionTime))==0)
+				if(count($this->holiday_model->checkWorkSuspensionExist($dtmSuspensionDate))==0)
 				{
 					$arrData = array(
 						'holidayDate'=>$dtmSuspensionDate,
@@ -360,7 +360,6 @@ class Holiday extends MY_Controller {
 
 					);
 					$blnReturn  = $this->holiday_model->add_worksuspension($arrData);
-
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Added '.$dtmSuspensionDate.' Holiday',implode(';',$arrData),'');
@@ -385,14 +384,15 @@ class Holiday extends MY_Controller {
 		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			$strCode = urldecode($this->uri->segment(4));
+			$intHolidayId = urldecode($this->uri->segment(4));
 			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
 			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			$this->arrData['arrWorkSus'] = $this->holiday_model->getWorkSuspension($intHolidayId);
 			$this->template->load('template/template_view','libraries/holiday/edit_worksuspension_view', $this->arrData);
 		}
 		else
 		{
-			$strCode = $arrPost['strCode'];
+			$intHolidayId = $arrPost['intHolidayId'];
 			$dtmSuspensionDate = $arrPost['dtmSuspensionDate'];
 			$dtmSuspensionTime = $arrPost['dtmSuspensionTime'];
 			if(!empty($dtmSuspensionDate) && !empty($dtmSuspensionTime))
@@ -402,7 +402,7 @@ class Holiday extends MY_Controller {
 						'holidayTime'=>$dtmSuspensionTime
 					
 				);
-				$blnReturn = $this->holiday_model->save_worksuspension($arrData, $strCode);
+				$blnReturn = $this->holiday_model->save_worksuspension($arrData, $intHolidayId);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Edited '.$dtmSuspensionDate.' Holiday',implode(';',$arrData),'');
@@ -417,25 +417,26 @@ class Holiday extends MY_Controller {
 	{
 		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$strCode = $this->uri->segment(4);
+		$intHolidayId = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
 			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
 			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			$this->arrData['arrWorkSus'] = $this->holiday_model->getWorkSuspension();
 			$this->template->load('template/template_view','libraries/holiday/delete_worksuspension_view',$this->arrData);
 		}
 		else
 		{
-			$strCode = $arrPost['strCode'];
+			$intHolidayId = $arrPost['intHolidayId'];
 			//add condition for checking dependencies from other tables
-			if(!empty($strCode))
+			if(!empty($intHolidayId))
 			{
-				$arrLocHoliday = $this->holiday_model->getData($strCode);
-				$strLocalName = $arrLocHoliday[0]['holidayName'];	
-				$blnReturn = $this->holiday_model->delete_worksuspension($strCode);
+				$arrWorkSus = $this->holiday_model->getData($intHolidayId);
+				$holidayDate = $arrLocHoliday[0]['holidayDate'];	
+				$blnReturn = $this->holiday_model->delete_worksuspension($intHolidayId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Deleted '.$strLocalName.' Holiday',implode(';',$arrSignatory[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Deleted '.$dtmSuspensionDate.' Holiday',implode(';',$arrSignatory[0]),'');
 					$this->session->set_flashdata('strMsg','Work Suspension deleted successfully.');
 				}
 				redirect('libraries/holiday');

@@ -61,10 +61,23 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getWorkSuspension($intHolidayId = '')
+	{		
+		if($intHolidayId != "")
+		{
+			$this->db->where('holidayId',$intHolidayId);
+		}
+		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
+
+		$objQuery = $this->db->get('tblholidayyear');
+		return $objQuery->result_array();	
+	}
+
+
 	//ADD
 	function add($arrData)
 	{
-		$this->db->insert('tblHoliday', $arrData);
+		$this->db->insert('tblholiday', $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -134,8 +147,7 @@ class Holiday_model extends CI_Model {
 	{		
 		$strSQL = " SELECT * FROM tblHolidayYear					
 					WHERE  
-					holidayDate ='$dtmSuspensionDate' OR
-					holidayTime ='$dtmSuspensionTime' 								
+					holidayDate ='$dtmSuspensionDate'								
 					";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);

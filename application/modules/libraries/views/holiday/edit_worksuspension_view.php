@@ -52,7 +52,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Work Suspension Date</label>
                                     <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="<?=isset($arrWorkSus[0]['holidayDate'])?$arrWorkSus[0]['holidayDate']:''?>" >
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Work Suspension Time</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" id="dtmSuspensionTime" value="<?=!empty($arrHoliday[0]['amTimeinFrom'])?$arrHoliday[0]['amTimeinFrom']:'12:00:00 PM'?>">
+                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" id="dtmSuspensionTime" value="<?=!empty($arrWorkSus[0]['holidayTime'])?$arrWorkSus[0]['holidayTime']:'12:00:00 PM'?>">
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strCode" value="<?=isset($arrHoliday[0]['holidayId'])?$arrHoliday[0]['holidayId']:''?>">
+                                <input type="hidden" name="intHolidayId" value="<?=isset($arrWorkSus[0]['holidayId'])?$arrHoliday[0]['holidayId']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/holiday/add_worksuspension')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
