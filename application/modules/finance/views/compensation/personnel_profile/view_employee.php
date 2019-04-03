@@ -61,14 +61,19 @@ $this_page = $this->uri->segment(4);?>
                                     <li class="<?=$this_page == 'remittances' ? 'active' : ''?>">
                                         <a href="<?=base_url('finance/compensation/personnel_profile/remittances/').$this->uri->segment(5)?>"> Remittances </a>
                                     </li>
-                                    <li class="<?=($this_page == 'tax_details' or $this_page == 'edit_tax_details') ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/tax_details/').$this->uri->segment(5)?>"> Tax Details </a>
-                                    </li>
-                                    <li class="<?=$this_page == 'dtr' ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/dtr/').$this->uri->segment(5)?>"> DTR </a>
-                                    </li>
-                                    <li class="<?=$this_page == 'adjustments' ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/adjustments/').$this->uri->segment(5)?>"> Adjustments </a>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <li class="<?=($this_page == 'tax_details' or $this_page == 'edit_tax_details') ? 'active' : ''?>">
+                                            <a href="<?=base_url('finance/compensation/personnel_profile/tax_details/').$this->uri->segment(5)?>"> Tax Details </a>
+                                        </li>
+                                        <li class="<?=$this_page == 'dtr' ? 'active' : ''?>">
+                                            <a href="<?=base_url('finance/compensation/personnel_profile/dtr/').$this->uri->segment(5)?>"> DTR </a>
+                                        </li>
+                                        <li class="<?=$this_page == 'adjustments' ? 'active' : ''?>">
+                                            <a href="<?=base_url('finance/compensation/personnel_profile/adjustments/').$this->uri->segment(5)?>"> Adjustments </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li class="<?=$this_page == 'reports' ? 'active' : ''?>">
+                                        <a href=""> Reports </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
@@ -79,9 +84,11 @@ $this_page = $this->uri->segment(4);?>
                                             if($this_page == 'deduction_summary'): include('_deduction_summary.php'); endif;
                                             if($this_page == 'premium_loan'): include('_premiumLoans.php'); endif;
                                             if($this_page == 'remittances'): include('_remittances.php'); endif;
-                                            if($this_page == 'tax_details' or $this_page == 'edit_tax_details'): include('_tax_details.php'); endif;
-                                            if($this_page == 'dtr'): include('_dtr.php'); endif;
-                                            if($this_page == 'adjustments'): include('_adjustments.php'); endif;
+                                            if($_SESSION['sessUserLevel'] == '2'):
+                                                if($this_page == 'tax_details' or $this_page == 'edit_tax_details'): include('_tax_details.php'); endif;
+                                                if($this_page == 'dtr'): include('_dtr.php'); endif;
+                                                if($this_page == 'adjustments'): include('_adjustments.php'); endif;
+                                            endif;
                                         ?>
                                     </div>
                                 </div>

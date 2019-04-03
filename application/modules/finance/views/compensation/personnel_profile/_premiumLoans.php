@@ -21,7 +21,9 @@
                                             echo '<th> '.$period.' </th>';
                                         endforeach; ?>
                                     <th> Status </th>
-                                    <th style="text-align: center;width: 10px;"> Actions </th>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <th style="text-align: center;width: 10px;"> Actions </th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,18 +36,20 @@
                                             echo '<td> '.number_format($deduction['period'.$p], 2).' </td>';
                                         endforeach; ?>
                                     <td><?=getincome_status($deduction['status'])?></td>
-                                    <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
-                                                data-period1="<?=$deduction['period1'] == '' ? '0.00' : $deduction['period1']?>"
-                                                data-period2="<?=$deduction['period2'] == '' ? '0.00' : $deduction['period2']?>"
-                                                data-period3="<?=$deduction['period3'] == '' ? '0.00' : $deduction['period3']?>"
-                                                data-period4="<?=$deduction['period4'] == '' ? '0.00' : $deduction['period4']?>"
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <td align="center">
+                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                                    data-period1="<?=$deduction['period1'] == '' ? '0.00' : $deduction['period1']?>"
+                                                    data-period2="<?=$deduction['period2'] == '' ? '0.00' : $deduction['period2']?>"
+                                                    data-period3="<?=$deduction['period3'] == '' ? '0.00' : $deduction['period3']?>"
+                                                    data-period4="<?=$deduction['period4'] == '' ? '0.00' : $deduction['period4']?>"
 
-                                                data-deductioncode="<?=$deduction['deductionCode']?>" data-stat="deduction"
-                                                data-deductcode="<?=$deduction['deductCode']?>"
-                                                data-statusval="<?=$deduction['status']?>">
-                                            <i class="fa fa-edit"></i> Edit</button>
-                                    </td>
+                                                    data-deductioncode="<?=$deduction['deductionCode']?>" data-stat="deduction"
+                                                    data-deductcode="<?=$deduction['deductCode']?>"
+                                                    data-statusval="<?=$deduction['status']?>">
+                                                <i class="fa fa-edit"></i> Edit</button>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -74,7 +78,9 @@
                                             echo '<th> '.$period.' </th>';
                                         endforeach; ?>
                                     <th> Status </th>
-                                    <th style="text-align: center;width: 10px;"> Actions </th>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <th style="text-align: center;width: 10px;"> Actions </th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,19 +93,21 @@
                                             echo '<td> '.number_format($loan['period'.$p], 2).' </td>';
                                         endforeach; ?>
                                     <td><?=getincome_status($loan['status'])?></td>
-                                    <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
-                                                data-period1="<?=$loan['period1'] == '' ? '0.00' : $loan['period1']?>"
-                                                data-period2="<?=$loan['period2'] == '' ? '0.00' : $loan['period2']?>"
-                                                data-period3="<?=$loan['period3'] == '' ? '0.00' : $loan['period3']?>"
-                                                data-period4="<?=$loan['period4'] == '' ? '0.00' : $loan['period4']?>"
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <td align="center">
+                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                                    data-period1="<?=$loan['period1'] == '' ? '0.00' : $loan['period1']?>"
+                                                    data-period2="<?=$loan['period2'] == '' ? '0.00' : $loan['period2']?>"
+                                                    data-period3="<?=$loan['period3'] == '' ? '0.00' : $loan['period3']?>"
+                                                    data-period4="<?=$loan['period4'] == '' ? '0.00' : $loan['period4']?>"
 
-                                                data-deductioncode="<?=$loan['deductionCode']?>" data-stat="loan"
-                                                data-deductcode="<?=$loan['deductCode']?>"
-                                                data-statusval="<?=$loan['status']?>">
+                                                    data-deductioncode="<?=$loan['deductionCode']?>" data-stat="loan"
+                                                    data-deductcode="<?=$loan['deductCode']?>"
+                                                    data-statusval="<?=$loan['status']?>">
 
-                                            <i class="fa fa-edit"></i> Edit</button>
-                                    </td>
+                                                <i class="fa fa-edit"></i> Edit</button>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -130,7 +138,9 @@
                                             echo '<th> '.$period.' </th>';
                                         endforeach; ?>
                                     <th> Status </th>
-                                    <th style="text-align: center;width: 10px;"> Actions </th>
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <th style="text-align: center;width: 10px;"> Actions </th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,19 +153,21 @@
                                             echo '<td> '.number_format($contri['period'.$p], 2).' </td>';
                                         endforeach; ?>
                                     <td><?=getincome_status($contri['status'])?></td>
-                                    <td align="center">
-                                        <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
-                                                data-period1="<?=$contri['period1'] == '' ? '0.00' : $contri['period1']?>"
-                                                data-period2="<?=$contri['period2'] == '' ? '0.00' : $contri['period2']?>"
-                                                data-period3="<?=$contri['period3'] == '' ? '0.00' : $contri['period3']?>"
-                                                data-period4="<?=$contri['period4'] == '' ? '0.00' : $contri['period4']?>"
+                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
+                                        <td align="center">
+                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                                    data-period1="<?=$contri['period1'] == '' ? '0.00' : $contri['period1']?>"
+                                                    data-period2="<?=$contri['period2'] == '' ? '0.00' : $contri['period2']?>"
+                                                    data-period3="<?=$contri['period3'] == '' ? '0.00' : $contri['period3']?>"
+                                                    data-period4="<?=$contri['period4'] == '' ? '0.00' : $contri['period4']?>"
 
-                                                data-deductioncode="<?=$contri['deductionCode']?>" data-stat="loan"
-                                                data-deductcode="<?=$contri['deductCode']?>"
-                                                data-statusval="<?=$contri['status']?>">
+                                                    data-deductioncode="<?=$contri['deductionCode']?>" data-stat="loan"
+                                                    data-deductcode="<?=$contri['deductCode']?>"
+                                                    data-statusval="<?=$contri['status']?>">
 
-                                            <i class="fa fa-edit"></i> Edit</button>
-                                    </td>
+                                                <i class="fa fa-edit"></i> Edit</button>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
