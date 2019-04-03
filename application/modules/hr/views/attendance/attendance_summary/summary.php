@@ -15,7 +15,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>HR Module</span>
+            <span><?=$_SESSION['sessUserLevel'] == 5 ? 'Employee' : 'HR'?> Module</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -23,7 +23,11 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></span>
+            <?php if($_SESSION['sessUserLevel'] == 5 && $this_page == 'dtr'): ?>
+                <span>Daily Time Record</span>
+            <?php else: ?>
+                <span><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></span>
+            <?php endif; ?>
         </li>
     </ul>
 </div>

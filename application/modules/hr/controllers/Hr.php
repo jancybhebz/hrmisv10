@@ -52,6 +52,7 @@ class Hr extends MY_Controller {
 		// $this->arrData['arrPlantillaDuties'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_PLANTILLADUTIES);
 
 		$this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
+		// $this->template->load('template/template_view','pds/201/view_employee', $this->arrData);
 	}
 
 	public function add_employee()
