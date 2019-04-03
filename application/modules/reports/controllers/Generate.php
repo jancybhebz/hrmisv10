@@ -95,6 +95,12 @@ class Generate extends MY_Controller
     			$this->load->model('ListEmployeesSalaryGrade_model');
 				$this->ListEmployeesSalaryGrade_model->generate($arrGet);
     		break;
+
+
+    		case 'SR':
+    			$this->load->model('ServiceRecord_model');
+				$this->ServiceRecord_model->generate($arrGet);
+    		break;
     	}
 
     	
