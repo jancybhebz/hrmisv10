@@ -94,3 +94,12 @@ if ( ! function_exists('income_type'))
 	}
 
 }
+
+if ( ! function_exists('pending_notif'))
+{
+    function pending_notif($strEmpNo)
+    {
+		$CI =& get_instance();
+		return $CI->db->select('*')->get_where('tblEmpRequest', array('empNumber' => $strEmpNo, 'requestStatus' => 'Filed Request'))->result_array();
+	}
+}

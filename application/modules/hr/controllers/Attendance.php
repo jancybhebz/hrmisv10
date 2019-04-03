@@ -49,6 +49,9 @@ class Attendance extends MY_Controller {
 		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
 		$this->arrData['arrspe_leave'] = $this->Leave_model->getspe_leave($empid, $yr);
+		// echo '<pre>';
+		// print_r($this->arrData['arremp_dtr']);
+		// die();
 		// TODO:: GET FORCED LEAVE
 		// $this->arrData['arrforce_leave'] = $this->Leave_model->getforce_leave($empid, $yr);
 		// TODO:: GET OFFSET BALANCE
@@ -221,6 +224,7 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrLeaves'] = $this->Leave_model->getleave($empid);
 		$this->arrData['arrData'] = $res[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);

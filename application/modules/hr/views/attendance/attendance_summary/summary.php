@@ -1,7 +1,12 @@
 <?php load_plugin('css',array('select'));
       if($_SESSION['sessUserLevel'] != 1):?>
         <style> ul.nav.nav-tabs { display: none;} .tab-content { border-top: none !important;} </style>
-<?php endif; ?>
+<?php endif;
+    $this_page = $this->uri->segment(3);
+    $tab = $this->uri->segment(4);
+    $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+    $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -32,8 +37,8 @@
                 <div class="portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption font-dark">
-                            <i class="icon-user font-dark"></i>
-                            <span class="caption-subject bold uppercase"> Attendance</span>
+                            <i class="icon-settings font-dark"></i>
+                            <span class="caption-subject bold uppercase"> <?=$this_page == 'qr_code' ? 'QR Code' : 'Attendance'?></span>
                         </div>
                     </div>
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
@@ -42,12 +47,6 @@
                         <div class="row">
                             <div class="tabbable-line tabbable-full-width col-md-12">
                                 <ul class="nav nav-tabs">
-                                    <?php
-                                        $this_page = $this->uri->segment(3);
-                                        $tab = $this->uri->segment(4);
-                                        $month = isset($_GET['month']) ? $_GET['month'] : date('m');
-                                        $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-                                    ?>
                                     <li class="<?=$this_page == 'index' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Attendance Summary </a>

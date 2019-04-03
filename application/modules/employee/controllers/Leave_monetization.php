@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Controller for Leave_Monetization
+Purpose of file:    Controller for Leave_monetization
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Leave_Monetization extends MY_Controller {
+class Leave_monetization extends MY_Controller {
 
 	var $arrData;
 

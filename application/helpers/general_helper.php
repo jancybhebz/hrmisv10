@@ -9,6 +9,19 @@ if ( ! function_exists('employee_details'))
 	}
 }
 
+if ( ! function_exists('employee_name'))
+{
+    function employee_name($strEmpNo)
+    {
+		$CI =& get_instance();
+		$res = $CI->db->select('surname,firstname,middlename,middleInitial')->get_where('tblEmpPersonal', array('empNumber' => $strEmpNo))->result_array();
+		$mid_ini = $res[0]['middleInitial']!='' ? str_replace('.', '', $res[0]['middleInitial']) : $res[0]['middlename'][0];
+    	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
+    	$mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.';
+    	return $res[0]['surname'].', '.$res[0]['firstname'].' '.$mid_ini;
+	}
+}
+
 if ( ! function_exists('appstatus_name'))
 {
     function appstatus_name($strCode)

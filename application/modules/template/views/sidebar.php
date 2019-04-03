@@ -236,11 +236,11 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$activesub=='libraries'?'active open':''?>">
+                <li class="nav-item <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Libraries</span>
-                        <span class="arrow <?=$activesub=='libraries'?'open':''?>"></span>
+                        <span class="arrow <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item <?=$activetab=='deductions' || $activetab=='agency'?'active open':''?>">
@@ -263,8 +263,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Project Code</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$activetab=='payrollgroup'?'active open':''?>">
-                            <a href="<?=base_url('finance/libraries/payrollgroup')?>">
+                        <li class="nav-item <?=$activetab=='payrollgroup' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
+                            <a href="<?=base_url('libraries/payroll_group')?>">
                                 <span class="title">Payroll Group</span>
                             </a>
                         </li>
@@ -323,7 +323,7 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$active=='employee'?'active open':''?>">
+                <li class="nav-item <?=$active=='employee' && $activesub !='notification'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
@@ -436,7 +436,7 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$active=='employee' && !in_array($activesub, array('leave_balance'))?'active open':''?>">
+                <li class="nav-item <?=$active=='employee' && $activesub !='notification' && !in_array($activesub, array('leave_balance'))?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
