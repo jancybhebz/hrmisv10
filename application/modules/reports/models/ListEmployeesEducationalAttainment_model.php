@@ -144,7 +144,7 @@ class ListEmployeesEducationalAttainment_model extends CI_Model {
 				$Ln = array('L','C');
 				$this->fpdf->SetWidths($w);
 				$this->fpdf->SetAligns($Ln);
-				$this->fpdf->Row(array($name,$strOfficePosition),0);
+				$this->fpdf->FancyRow(array($name,$strOfficePosition),array(1,1));
 				$this->fpdf->Ln();
 
 			}//end inner while

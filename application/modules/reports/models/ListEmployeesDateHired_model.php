@@ -71,6 +71,7 @@ class ListEmployeesDateHired_model extends CI_Model {
 
 		$intCounter = 0;
 		$ctr=0;
+		$this->fpdf->SetFont('Arial','',10);
 		foreach($rs as $arrEmpDateHired):
 			$strMidName = $arrEmpDateHired['middlename'];
 			$strMiddleName = substr($strMidName, 0,1);
