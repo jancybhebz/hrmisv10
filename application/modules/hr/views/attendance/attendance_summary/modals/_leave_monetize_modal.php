@@ -20,9 +20,15 @@
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
                                                     <i class="fa fa-warning tooltips i-required"></i>
                                                     <select class="form-control form-required bs-select" name="txtadjmon" id="txtadjmon" placeholder="">
-                                                        <option value="null">SELECT MONTH</option>
                                                         <?php foreach (range(1, 12) as $m): ?>
-                                                            <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                                            <option value="<?=sprintf('%02d', $m)?>"
+                                                                <?php 
+                                                                    if(isset($_GET['month'])):
+                                                                        echo $_GET['month'] == $m ? 'selected' : '';
+                                                                    else:
+                                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                                    endif;
+                                                                 ?> >
                                                                 <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
                                                         <?php endforeach; ?>
                                                     </select>
@@ -42,14 +48,16 @@
                                                 <label class="control-label"># of Leave Credits to be Monetized on Vacation Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
-                                                    <input type="text" class="form-control form-required" name="txtvl-earned" id="txtvl-earned">
+                                                    <input type="text" class="form-control form-required" name="txtvl-earned" id="txtvl-earned"
+                                                        value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['vlBalance'] : ''?>">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Sick Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
-                                                    <input type="text" class="form-control form-required" name="txtvl-wpay" id="txtvl-wpay">
+                                                    <input type="text" class="form-control form-required" name="txtvl-wpay" id="txtvl-wpay"
+                                                        value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['slBalance'] : ''?>">
                                                 </div>
                                             </div>
                                             <!-- end input elements -->

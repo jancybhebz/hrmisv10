@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/appointment_status/add'), array('method' => 'post', 'id' => 'frmAppointment'))?>
+            <?=form_open('libraries/Appointment_status/add', array('method' => 'post', 'id' => 'frmAppointment'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -106,6 +106,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
+    /*
     jQuery.validator.addMethod("noSpace", function(value, element) { 
   return value.indexOf(" ") < 0 && value != ""; 
 }, "No space please and don't leave it empty");
@@ -197,4 +198,5 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
+*/
 </script>

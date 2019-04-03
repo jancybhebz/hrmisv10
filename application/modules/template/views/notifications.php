@@ -1,105 +1,220 @@
 <ul class="nav navbar-nav pull-right">
     <!-- BEGIN NOTIFICATION DROPDOWN -->
     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-            <i class="icon-bell"></i>
-            <span class="badge badge-default"> 7 </span>
-        </a>
-        <ul class="dropdown-menu">
-            <li class="external">
-                <h3>
-                    <span class="bold">12 pensdding</span> notifications</h3>
-                <a href="<?=base_url('employee/notification')?>">view all</a>
-            </li>
-            <li>
-                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">just now</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-success">
-                                    <i class="fa fa-plus"></i>
-                                </span> New user registered. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">3 mins</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-danger">
-                                    <i class="fa fa-bolt"></i>
-                                </span> Server #12 overloaded. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">10 mins</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-warning">
-                                    <i class="fa fa-bell-o"></i>
-                                </span> Server #2 not responding. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">14 hrs</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-info">
-                                    <i class="fa fa-bullhorn"></i>
-                                </span> Application error. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">2 days</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-danger">
-                                    <i class="fa fa-bolt"></i>
-                                </span> Database overloaded 68%. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">3 days</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-danger">
-                                    <i class="fa fa-bolt"></i>
-                                </span> A user IP blocked. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">4 days</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-warning">
-                                    <i class="fa fa-bell-o"></i>
-                                </span> Storage Server #4 not responding dfdfdfd. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">5 days</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-info">
-                                    <i class="fa fa-bullhorn"></i>
-                                </span> System Error. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">9 days</span>
-                            <span class="details">
-                                <span class="label label-sm label-icon label-danger">
-                                    <i class="fa fa-bolt"></i>
-                                </span> Storage server failed. </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        
-    </li>
+    
+    <!-- begin employee notification -->
+    <?php if(in_array($_SESSION['sessUserLevel'], array(5))): ?>
+        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <i class="icon-bell"></i>
+                <span class="badge badge-default"> <?=count(pending_notif($_SESSION['sessEmpNo']))?> </span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="external">
+                    <h3>
+                        <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo']))?> pending</span> requests</h3>
+                    <a href="<?=base_url('employee/notification')?>">view all</a>
+                </li>
+                <li>
+                    <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                        <?php foreach(pending_notif($_SESSION['sessEmpNo']) as $notif): ?>
+                            <li>
+                                <a href="javascript:;">
+                                    <?php
+                                        $now = time();
+                                        $your_date = strtotime($notif['requestDate']);
+                                        $datediff = $now - $your_date;
+
+                                        $days = round($datediff / (60 * 60 * 24));
+
+                                        switch ($notif['requestCode']):
+                                            case 'OB':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-primary">
+                                                            <span class="letter">OB</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case '201':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-info">
+                                                            <span class="letter">201</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Leave':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-success">
+                                                            <span class="letter">Leave</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'TO':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger">
+                                                            <span class="letter">TO</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Monetization':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-warning">
+                                                            <span class="letter">Monetization</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Trainings':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-info">
+                                                            <span class="letter">Trainings</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Commutation':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-default">
+                                                            <span class="letter">Commutation</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'DTR':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-warning">
+                                                            <span class="letter">DTR</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Report':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger">
+                                                            <span class="letter">Report</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            default:
+                                                return '';
+                                                break;
+                                        endswitch;
+                                        ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+                
+                <li class="external">
+                    <h3>
+                        <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo']))?> pending</span> requests</h3>
+                    <a href="<?=base_url('employee/notification')?>">view all</a>
+                </li>
+                <li>
+                    <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                        <?php foreach(pending_notif($_SESSION['sessEmpNo']) as $notif): ?>
+                            <li>
+                                <a href="javascript:;">
+                                    <?php
+                                        $now = time();
+                                        $your_date = strtotime($notif['requestDate']);
+                                        $datediff = $now - $your_date;
+
+                                        $days = round($datediff / (60 * 60 * 24));
+
+                                        switch ($notif['requestCode']):
+                                            case 'OB':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-primary">
+                                                            <span class="letter">OB</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case '201':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-info">
+                                                            <span class="letter">201</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Leave':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-success">
+                                                            <span class="letter">Leave</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'TO':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger">
+                                                            <span class="letter">TO</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Monetization':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-warning">
+                                                            <span class="letter">Monetization</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Trainings':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-info">
+                                                            <span class="letter">Trainings</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Commutation':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-default">
+                                                            <span class="letter">Commutation</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'DTR':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-warning">
+                                                            <span class="letter">DTR</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            case 'Report':
+                                                echo '<span class="time">'.$days.' days</span>
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger">
+                                                            <span class="letter">Report</span>
+                                                            </span> '.$notif['requestStatus'].'
+                                                        </span>';
+                                                break;
+                                            default:
+                                                return '';
+                                                break;
+                                        endswitch;
+                                        ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    <?php endif; ?>
+    <!-- end employee notification -->
 
     <!-- END NOTIFICATION DROPDOWN -->
 

@@ -14,7 +14,7 @@
                 <div class="actions">
                     <?php if( $_SESSION['sessUserLevel'] == 1): ?>
                     <div class="btn-group">
-                        <a class="btn green btn-lg bold" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
+                        <a class="btn green" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
                             style="font-size: 14px;padding: 5px 11px;"> Actions
                             <i class="fa fa-angle-down"></i>
                         </a>
@@ -35,45 +35,19 @@
                             <li>
                                 <a href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a></li>
                             <li>
-                                <a href="#">Flag Ceremony</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/flagcrmy').'/'.$arrData['empNumber']?>">Flag Ceremony</a></li>
                             <li>
                                 <a href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a></li>
                             <li class="divider"> </li>
                             <li>
-                                <a data-toggle="modal" data-target="#print-preview-modal">Preview / Print</a>
+                                <a href="javascript:;" data-toggle="modal" data-target="#print-preview-modal">Preview / Print</a>
                             </li>
                         </ul>
                     </div>
+                    <?php else: ?>
+                        <a class="btn blue pull-right" data-toggle="modal" data-target="#print-preview-modal">Preview / Print</a>
                     <?php endif; ?>
-                    <a class="btn blue" data-toggle="modal" data-target="#print-preview-modal">Preview / Print</a>
                 </div>
-                <?php if( $_SESSION['sessUserLevel'] == 1): ?>
-                    <br><br>
-                    <p><center>
-                        <div class="form-inline" style="line-height: 3;">
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?yr='.$yr.'&month='.$month?>">Edit Mode</a>&nbsp;
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a>&nbsp;
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber']?>">Local Holiday</a>&nbsp;
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>">OB</a>&nbsp;
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>">Leave</a>&nbsp;
-                            <a  class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>">Compensatory Leave</a>&nbsp;
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a>&nbsp;
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/flagcrmy').'/'.$arrData['empNumber']?>">Flag Ceremony</a>&nbsp;
-                            <a class="btn blue"
-                                href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a>&nbsp;
-                            <a class="btn blue"
-                                href="#">Preview / Print</a>
-                        </div>
-                    </p></center>
-                <?php endif; ?>
             </div>
             <div style="display: inline-flex;">
                 <div class="legend-def1">
