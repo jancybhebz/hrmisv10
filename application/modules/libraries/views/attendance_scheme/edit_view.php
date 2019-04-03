@@ -46,18 +46,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('libraries/attendance_scheme/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmAttendanceScheme'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrPost); 
+                    echo $arrAttendance[0]['schemeType']; ?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Scheme Type <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="strSchemeType" id="strSchemeType" value="<?=!empty($this->session->userdata('schemeType'))?$this->session->userdata('schemeType'):''?>" required>
+                                  <select type="text" class="form-control" name="strType" id="strType" value="<?=!empty($this->session->userdata('schemeType'))?$this->session->userdata('schemeType'):''?>" disabled>
                                      <option value="">Select</option>
                                      <?php foreach($arrType as $i=>$type)
                                         {
-                                          echo '<option value="'.$type['schemeCode'].'" '.($arrType[0]['schemeCode']==$type['schemeCode']?'selected':'').'>'.(strtoupper($type['schemeType'])).'</option>';
+                                          echo '<option value="'.$type['schemeType'].'" '.($arrAttendance[0]['schemeType']==$type['schemeType']?'selected':'').'>'.(strtoupper($type['schemeType'])).'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -69,14 +70,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Scheme Code<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($this->session->userdata('schemeCode'))?$this->session->userdata('schemeCode'):''?>" required>
-                                     <option value="">Select</option>
-                                     <?php foreach($arrAttendance as $i=>$code)
-                                        {
-                                          echo '<option value="'.$code['schemeCode'].'" '.($arrAttendance[0]['schemeCode']==$code['schemeCode']?'selected':'').'>'.(strtoupper($code['schemeCode'])).'</option>';
-                                        }?>
-                                    </select>
+                                    <i class="fa"></i><?php //print_r($arrAttendance)?>
+                                   <input type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($arrAttendance[0]['schemeCode'])?$arrAttendance[0]['schemeCode']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -87,13 +82,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Scheme Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strSchemeCode" id="strSchemeCode" value="<?=!empty($this->session->userdata('schemeName'))?$this->session->userdata('schemeName'):''?>" required>
-                                     <option value="">Select</option>
-                                     <?php foreach($arrName as $i=>$name)
-                                        {
-                                          echo '<option value="'.$name['schemeCode'].'" '.($arrName[0]['schemeCode']==$name['schemeCode']?'selected':'').'>'.(strtoupper($name['schemeCode'])).'</option>';
-                                        }?>
-                                    </select>
+                                   <input type="text" class="form-control" name="strSchemeName" id="strSchemeName" value="<?=!empty($arrAttendance[0]['schemeName'])?$arrAttendance[0]['schemeName']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -260,6 +249,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" name="strCode" value="<?=isset($arrAttendance[0]['schemeCode'])?$arrAttendance[0]['schemeCode']:''?>">
+                                <input type="hidden" name="strSchemeType" value="<?=isset($arrAttendance[0]['schemeType'])?$arrAttendance[0]['schemeType']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/attendance_scheme')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -370,10 +360,10 @@ jQuery(document).ready(function() {
 
 
         <?php if($arrAttendance[0]['schemeType']=='Sliding'):?>
-            $('.sch-sliding').hide();
+            $('.sch-fixed').hide();
         <?php endif;?>
         <?php if($arrAttendance[0]['schemeType']=='Fixed'):?>
-            $('.sch-fixed').hide();
+            $('.sch-sliding').hide();
         <?php endif;?>
     });
 </script>

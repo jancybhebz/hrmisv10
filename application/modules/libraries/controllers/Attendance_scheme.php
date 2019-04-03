@@ -108,16 +108,17 @@ class Attendance_scheme extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$strCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrAttendance']=$this->attendance_scheme_model->getData();
+			$this->arrData['arrAttendance']=$this->attendance_scheme_model->getData($strCode);
 			$this->arrData['arrType'] = $this->attendance_scheme_model->getType();
 			$this->arrData['arrName'] = $this->attendance_scheme_model->getName();
 			$this->template->load('template/template_view','libraries/attendance_scheme/edit_view', $this->arrData);
 		}
 		else
 		{
+			print_r($arrPost);
 			$strCode = $arrPost['strCode'];
 			$strSchemeType = $arrPost['strSchemeType'];
-			$strSchemeCode = $arrPost['strSchemeCode'];
+			// $strSchemeCode = $arrPost['strSchemeCode'];
 			$strSchemeName = $arrPost['strSchemeName'];
 			// fixed
 			$dtmFtimeIn = $arrPost['dtmFtimeIn'];
@@ -135,29 +136,37 @@ class Attendance_scheme extends MY_Controller {
 			$dtmStimeInToNN = $arrPost['dtmStimeInToNN'];
 			$dtmStimeOutFrom = $arrPost['dtmStimeOutFrom'];
 			$dtmStimeOutTo = $arrPost['dtmStimeOutTo'];
-			if(!empty($strSchemeCode) AND !empty($strSchemeName)) 
+			if(!empty($strCode) AND !empty($strSchemeName)) 
 			{
-				$arrData = array(
-					'schemeType'=>$strSchemeType,
-					'schemeCode'=>$strSchemeCode,
-					'schemeName'=>$strSchemeName,
-					// fixed
-				  'amTimeinFrom'=>$dtmFtimeIn,
-				 'nnTimeoutFrom'=>$dtmFtimeOutFrom, 
-				   'nnTimeoutTo'=>$dtmFtimeOutTo, 
-				  'nnTimeinFrom'=>$dtmFtimeInFrom,
-					'nnTimeinTo'=>$dtmFtimeInTo, 
-				   'pmTimeoutTo'=>$dtmFtimeOut, 
-				   // sliding
-				  'amTimeinFrom'=>$dtmStimeInFrom,
-					'amTimeinTo'=>$dtmStimeInTo,
-				 'nnTimeoutFrom'=>$dtmStimeOutFromNN,
-				   'nnTimeoutTo'=>$dtmStimeOutToNN, 
-				  'nnTimeinFrom'=>$dtmStimeInFromNN,
-					'nnTimeinTo'=>$dtmStimeInToNN, 
-				 'pmTimeoutFrom'=>$dtmStimeOutFrom,
-				   'pmTimeoutTo'=>$dtmStimeOutTo 
-				);
+				if ($strSchemeType =='Fixed')
+				{
+					$arrData = array(
+						'schemeName'=>$strSchemeName,
+					  	'amTimeinFrom'=>$arrPost['dtmFtimeIn'],
+					 	'nnTimeoutFrom'=>$dtmFtimeOutFrom, 
+					   	'nnTimeoutTo'=>$dtmFtimeOutTo, 
+					  	'nnTimeinFrom'=>$dtmFtimeInFrom,
+						'nnTimeinTo'=>$dtmFtimeInTo, 
+					   	'pmTimeoutTo'=>$dtmFtimeOut
+				   );
+				}
+				if ($strSchemeType =='Sliding')
+				{
+					$arrData = array(
+						'schemeName'=>$strSchemeName,
+				 	 	'amTimeinFrom'=>$dtmStimeInFrom,
+						'amTimeinTo'=>$dtmStimeInTo,
+				 		'nnTimeoutFrom'=>$dtmStimeOutFromNN,
+				   		'nnTimeoutTo'=>$dtmStimeOutToNN, 
+				  		'nnTimeinFrom'=>$dtmStimeInFromNN,
+						'nnTimeinTo'=>$dtmStimeInToNN, 
+				 		'pmTimeoutFrom'=>$dtmStimeOutFrom,
+				   		'pmTimeoutTo'=>$dtmStimeOutTo 
+				   	); 
+				}	  	
+				//echo '<br><br>';
+				// print_r($arrData);
+				// exit(1);
 				$blnReturn = $this->attendance_scheme_model->save($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
