@@ -127,6 +127,115 @@ class Holiday extends MY_Controller {
 		}		
 	}
 
+	//MANAGE HOLIDAY 
+    public function manage_add()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrManageHoliday']=$this->holiday_model->getManageHoliday();
+			$this->arrData['arrWorkSus'] = $this->holiday_model->getWorkSuspension();
+			$this->template->load('template/template_view','libraries/holiday/manage_add_view',$this->arrData);	
+		}
+		else
+		{	
+			$strHolidayName = $arrPost['strHolidayName'];
+			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
+			if(!empty($strHolidayName) && !empty($dtmHolidayDate))
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->holiday_model->checkHolidayExist($strHolidayName, $dtmHolidayDate))==0)
+				{
+					$arrData = array(
+						'holidayCode'=>$strHolidayName,
+						'holidayDate'=>$dtmHolidayDate
+
+					);
+					$blnReturn  = $this->holiday_model->manage_add($arrData);
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Added '.$strHolidayName.' Holiday',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Holiday added successfully.');
+					}
+					redirect('libraries/holiday/manage_add');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Holiday name and/or date already exists.');
+					$this->session->set_flashdata('strHolidayName',$strHolidayName);
+					$this->session->set_flashdata('dtmHolidayDate',$dtmHolidayDate);
+					redirect('libraries/holiday/manage_add');
+				}
+			}
+		}
+    	
+    }
+    public function edit_manage()
+	{
+		$arrPost = $this->input->post();
+		//print_r($arrPost);
+		if(empty($arrPost))
+		{
+			//$this->arrData['intHolidayId'] = urldecode($this->uri->segment(4));
+			$this->arrData['arrManageHoliday']=$this->holiday_model->getManageHoliday();
+			$this->arrData['arrDataHoliday']=$this->holiday_model->getManageHoliday(urldecode($this->uri->segment(4)));
+			$this->arrData['arrHoliday']=$this->holiday_model->getData();
+			// $this->arrData['arrHoliday'] = $this->holiday_model->getLocalHoliday();
+			$this->template->load('template/template_view','libraries/holiday/edit_manage_view', $this->arrData);
+		}
+		else
+		{
+			$intHolidayId = $arrPost['intHolidayId'];
+			$strHolidayName = $arrPost['strHolidayName'];
+			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
+			if(!empty($strHolidayName) && !empty($dtmHolidayDate))
+			{	
+				$arrData = array(
+						'holidayCode'=>$strHolidayName,
+						'holidayDate'=>$dtmHolidayDate
+				
+				);
+				$blnReturn = $this->holiday_model->save_manage($arrData, $intHolidayId);
+				//print_r($arrData)
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Edited '.$strHolidayName.' Holiday',implode(';',$arrData),'');
+					$this->session->set_flashdata('strMsg','Holiday saved successfully.');
+				}
+				redirect('libraries/holiday/manage_add');
+			}
+		}
+	}
+
+	public function delete_manage()
+	{
+		//$strDescription=$arrPost['strDescription'];
+		$arrPost = $this->input->post();
+		$intHolidayId = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrManageHoliday']=$this->holiday_model->getManageHoliday($intHolidayId);
+			$this->template->load('template/template_view','libraries/holiday/delete_manage_view',$this->arrData);
+		}
+		else
+		{
+			$intHolidayId = $arrPost['intHolidayId'];
+			$strHolidayName = $arrPost['strHolidayName'];
+			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
+			$arrManageHoliday=$this->holiday_model->getManageHoliday($intHolidayId);
+			if(!empty($intHolidayId))
+			{
+				$blnReturn = $this->holiday_model->delete_manage($intHolidayId);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Deleted '.$strHolidayName.','.$dtmHolidayDate.'Holiday',implode(';',$arrManageHoliday[0]),'');
+					$this->session->set_flashdata('strMsg','Holiday deleted successfully.');
+				}
+				redirect('libraries/holiday');
+			}
+		}		
+	}
+
 	 //ADD LOCAL HOLIDAY
     public function add_local()
     {
@@ -134,6 +243,7 @@ class Holiday extends MY_Controller {
 		if(empty($arrPost))
 		{	
 			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
+			$this->arrData['arrLocalCode'] = $this->holiday_model->getLocalCode();
 			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
 			$this->template->load('template/template_view','libraries/holiday/add_local_view',$this->arrData);	
 		}
@@ -144,12 +254,12 @@ class Holiday extends MY_Controller {
 			if(!empty($strLocalName) && !empty($dtmHolidayDate))
 			{	
 				// check if holiday name/date desc already exist
-				if(count($this->holiday_model->checkLocExist($dtmHolidayDate))==0)
+					if(count($this->holiday_model->checkLocExist($strLocalName, $dtmHolidayDate))==0)
 				{   
 					$rs = $this->holiday_model->getData($strCode);
 					$strLocalName = count($rs)>0?$rs[0]['holidayName']:'';
 					$arrData = array(
-						'holidayCode'=>$strLocalCode, 
+						// 'holidayCode'=>$strLocalCode, 
 						'holidayName'=>$strLocalName,
 						'holidayDate'=>$dtmHolidayDate
 				
@@ -161,7 +271,7 @@ class Holiday extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Added '.$strLocalName.' Holiday',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Local Holiday added successfully.');
 					}
-					redirect('libraries/holiday');
+					redirect('libraries/holiday/add_local');
 				}
 				else
 				{	
@@ -244,95 +354,7 @@ class Holiday extends MY_Controller {
 		
 	}
 
-    //MANAGE HOLIDAY 
-    public function manage_add()
-    {
-    	$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{	
-			$this->arrData['arrHoliday']=$this->holiday_model->getManageHoliday();
-			$this->template->load('template/template_view','libraries/holiday/manage_add_view',$this->arrData);	
-		}
-		else
-		{	
-			$strHolidayCode = $arrPost['strHolidayCode'];
-			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
-			// $dtmYear = $arrPost['dtmYear'];
-			// $dtmMonth = $arrPost['dtmMonth'];
-			// $dtmDay = $arrPost['dtmDay'];
-			if(!empty($strHolidayName) && !empty($strHolidayCode))
-			{	
-				// check if exam code and/or exam desc already exist
-				if(count($this->holiday_model->checkHolidayExist($strHolidayCode, $dtmHolidayDate))==0)
-				{
-					$arrData = array(
-						'holidayCode'=>$strHolidayCode,
-						'holidayDate'=>$dtmHolidayDate,
-						// 'holidayYear'=>$dtmYear,
-						// 'holidayMonth'=>$dtmMonth,
-						// 'holidayDay'=>$dtmDay,
-						
-					);
-					$blnReturn  = $this->holiday_model->manage_add($arrData);
-
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Added '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Holiday added successfully.');
-					}
-					redirect('libraries/holiday/manage_add');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Holiday name and/or date already exists.');
-					$this->session->set_flashdata('strHolidayCode',$strHolidayCode);
-					$this->session->set_flashdata('dtmHolidayDate',$dtmHolidayDate);
-					// $this->session->set_flashdata('dtmMonth',$dtmMonth);
-					// $this->session->set_flashdata('dtmDay',$dtmDay);
-					redirect('libraries/holiday/manage_add');
-				}
-			}
-		}
-    	
-    }
-    public function edit_manage_holiday()
-	{
-		$arrPost = $this->input->post();
-		//print_r($arrPost);
-		if(empty($arrPost))
-		{
-			$strLocCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrHoliday'] = $this->holiday_model->getLocalHoliday($strCode);
-			$this->template->load('template/template_view','libraries/holiday/manage_local_view', $this->arrData);
-		}
-		else
-		{
-			$strCode = $arrPost['strCode'];
-			$strHolidayCode = $arrPost['strHolidayCode'];
-			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
-			// $dtmYear = $arrPost['dtmYear'];
-			// $dtmMonth = $arrPost['dtmMonth'];
-			// $dtmDay = $arrPost['dtmDay'];
-			if(!empty($strHolidayCode) && !empty($dtmHolidayDate))
-			{	
-				$arrData = array(
-						'holidayCode'=>$strHolidayCode,
-						'holidayDate'=>$dtmHolidayDate
-						// 'holidayYear'=>$dtmYear,
-						// 'holidayMonth'=>$dtmMonth,
-						// 'holidayDay'=>$dtmDay
-					
-				);
-				$blnReturn = $this->holiday_model->save_manage_holiday($arrData, $strCode);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Edited '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Holiday saved successfully.');
-				}
-				redirect('libraries/holiday/manage_holiday');
-			}
-		}
-	}
+    
 
 	 //ADD WORK SUSPENSION
     public function add_worksuspension()
@@ -342,6 +364,7 @@ class Holiday extends MY_Controller {
 		{	
 			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
 			$this->arrData['arrHoliday']=$this->holiday_model->getManageHoliday();
+			$this->arrData['arrWorkSus'] = $this->holiday_model->getWorkSuspension();
 			$this->template->load('template/template_view','libraries/holiday/add_worksuspension_view',$this->arrData);	
 		}
 		else
