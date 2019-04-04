@@ -378,15 +378,19 @@
         <tr>
             <th width="30%">Name of Children </th>
             <th width="30%">Date of Birth </th>
+        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
             <th width="30%">Action </th>
+        <?php endif; ?>
         </tr>
         <?php foreach($arrChild as $row):?>
         <tr>
             <td><?=$row['childName']?></td>
             <td><?=$row['childBirthDate']?></td>
+        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
             <td>
             <a class="btn green" data-toggle="modal" href="#editChildren_modal" onclick="getChild(<?=$row['childCode']?>,'<?=$row['childName']?>','<?=$row['childBirthDate']?>')"> Edit </a>
             <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteChild"> Delete </a>
+         <?php endif; ?>
         </tr>
         <?php endforeach;?>
     </table>
