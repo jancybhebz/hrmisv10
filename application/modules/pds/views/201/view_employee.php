@@ -38,61 +38,208 @@ $arrData = $arrData[0];?>
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-user font-dark"></i>
-                            <span class="caption-subject bold uppercase"> Personnel Profile</span>
+                            <span class="caption-subject bold uppercase"> 201</span>
                         </div>
                     </div>
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div style="height: 560px;" id="div_hide"></div>
                     <div class="portlet-body"  id="employee_view" style="display: none">
                         <div class="row">
-                            <div class="tabbable-line tabbable-full-width col-md-12">
-                                <ul class="nav nav-tabs">
-                                    <li class="<?=$this_page == 'employee' ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/employee/').$this->uri->segment(5)?>"> Personnel Profile </a>
-                                    </li>
-                                    <li class="<?=$this_page == 'income' ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/income/').$this->uri->segment(5)?>"> Income </a>
-                                    </li>
-                                    <li class="<?=$this_page == 'deduction_summary' ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/deduction_summary/').$this->uri->segment(5)?>"> Deduction Summary </a>
-                                    </li>
-                                    <li class="<?=$this_page == 'premium_loan' ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/premium_loan/').$this->uri->segment(5)?>"> Premiums/Loans </a>
-                                    </li>
-                                    <li class="<?=$this_page == 'remittances' ? 'active' : ''?>">
-                                        <a href="<?=base_url('finance/compensation/personnel_profile/remittances/').$this->uri->segment(5)?>"> Remittances </a>
-                                    </li>
-                                    <?php if($_SESSION['sessUserLevel'] == '2'): ?>
-                                        <li class="<?=($this_page == 'tax_details' or $this_page == 'edit_tax_details') ? 'active' : ''?>">
-                                            <a href="<?=base_url('finance/compensation/personnel_profile/tax_details/').$this->uri->segment(5)?>"> Tax Details </a>
-                                        </li>
-                                        <li class="<?=$this_page == 'dtr' ? 'active' : ''?>">
-                                            <a href="<?=base_url('finance/compensation/personnel_profile/dtr/').$this->uri->segment(5)?>"> DTR </a>
-                                        </li>
-                                        <li class="<?=$this_page == 'adjustments' ? 'active' : ''?>">
-                                            <a href="<?=base_url('finance/compensation/personnel_profile/adjustments/').$this->uri->segment(5)?>"> Adjustments </a>
-                                        </li>
-                                    <?php else: ?>
-                                        <li class="<?=$this_page == 'reports' ? 'active' : ''?>">
-                                            <a href=""> Reports </a>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane fade active in" id="tab-profile">
-                                        <?php
-                                            if($this_page == 'employee'): include('_personnelProfile.php'); endif;
-                                            if($this_page == 'income'): include('_income.php'); endif;
-                                            if($this_page == 'deduction_summary'): include('_deduction_summary.php'); endif;
-                                            if($this_page == 'premium_loan'): include('_premiumLoans.php'); endif;
-                                            if($this_page == 'remittances'): include('_remittances.php'); endif;
-                                            if($_SESSION['sessUserLevel'] == '2'):
-                                                if($this_page == 'tax_details' or $this_page == 'edit_tax_details'): include('_tax_details.php'); endif;
-                                                if($this_page == 'dtr'): include('_dtr.php'); endif;
-                                                if($this_page == 'adjustments'): include('_adjustments.php'); endif;
-                                            endif;
-                                        ?>
+                            <div class="tab-pane active" id="tab_1_1">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <ul class="list-unstyled profile-nav">
+                                            <li>
+                                                <img src="<?=base_url('assets/images/logo.png')?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                                            </li>
+                                        </ul>
                                     </div>
+                                    <!-- begin 201 profile -->
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-9 profile-info">
+                                                <h1 class="font-green sbold uppercase"><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></h1>
+                                                <div class="row">
+                                                    <table class="table table-bordered table-striped">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="25%"><b>Employee Number</b></td>
+                                                                <td width="25%"><?=$arrData['empNumber']?></td>
+                                                                <td width="25%"><b>Mode of Separation</b></td>
+                                                                <td width="25%"><?=$arrData['statusOfAppointment']?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Position </b></td>
+                                                                <td><?=$arrData['positionDesc']?></td>
+                                                                <td><b>Appointment </b></td>
+                                                                <td><?=$arrData['appointmentDesc']?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Office</b></td>
+                                                                <td colspan="3"><?=office_name(employee_office($arrData['empNumber']))?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="portlet sale-summary">
+                                                    <div class="portlet-title">
+                                                        <div class="caption font-red sbold"> DTR </div>
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <ul class="list-unstyled" style="line-height: 15px;">
+                                                            <li>
+                                                                <span class="sale-info"> LOG IN </span>
+                                                                <span class="sale-num"> 23 </span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="sale-info"> BREAK OUT </span>
+                                                                <span class="sale-num"> 87 </span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="sale-info"> BREAK IN </span>
+                                                                <span class="sale-num"> 237asdf7 </span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="sale-info"> LOG OUT </span>
+                                                                <span class="sale-num"> 2377 </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="tabbable-line tabbable-custom-profile">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active">
+                                                    <a href="#personal_info" data-toggle="tab"> Personal Info </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#family_background" data-toggle="tab"> Family Background </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#education" data-toggle="tab"> Education </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#examination" data-toggle="tab"> Examination </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#work_experience" data-toggle="tab"> Work Experience </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#voluntary_work" data-toggle="tab"> Voluntary Work </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#trainings" data-toggle="tab"> Trainings </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#other_info" data-toggle="tab"> Other Informations </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#position_details" data-toggle="tab"> Position Details </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#duties" data-toggle="tab"> Duties and Responsibilities </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#appoint_issued" data-toggle="tab"> Appointment Issued </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#emp_number" data-toggle="tab"> Employee Number </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                
+                                                <!-- begin personal info -->
+                                                <div class="tab-pane " id="personal_info" style="padding: 0 !important;position: relative;top: -20px;">
+                                                    <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                                        <div class="row">
+                                                            <div class="col-md-12" style="padding: 0 30px 10px;">
+                                                                <a class="btn green pull-right" data-toggle="modal" href="#editPersonal_modal">
+                                                                    <i class="icon-pencil"></i> Edit Personal Info </a>
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <div class="scroller" style="height:330px;" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_personal_view.php'); ?>
+                                                    </div>
+                                                </div>
+                                                <!-- end personal info -->
+
+                                                    <!-- begin Family Background -->
+                                                    <div class="tab-pane active" id="family_background">
+                                                        <div class="scroller" style="height:330px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_family_background_view.php'); ?>
+                                                    </div>
+                                                    </div>
+                                                    <!-- end Family Background -->
+
+                                                    <!-- begin Education Bacgkround -->
+                                                    <div class="tab-pane" id="education">
+                                                        Education Bacgkround
+                                                    </div>
+                                                    <!-- end Education Bacgkround -->
+
+                                                    <!-- begin Examination -->
+                                                    <div class="tab-pane" id="examination">
+                                                        Examination
+                                                    </div>
+                                                    <!-- end Examination -->
+
+                                                    <!-- begin Work Experience -->
+                                                    <div class="tab-pane" id="work_experience">
+                                                        Work Experience
+                                                    </div>
+                                                    <!-- end Work Experience -->
+
+                                                    <!-- begin Voluntary Work -->
+                                                    <div class="tab-pane" id="voluntary_work">
+                                                        Voluntary Work
+                                                    </div>
+                                                    <!-- end Voluntary Work -->
+
+                                                    <!-- begin Trainings -->
+                                                    <div class="tab-pane" id="trainings">
+                                                        Trainings
+                                                    </div>
+                                                    <!-- end Trainings -->
+
+                                                    <!-- begin other info -->
+                                                    <div class="tab-pane" id="other_info">
+                                                        other info
+                                                    </div>
+                                                    <!-- end other info -->
+
+                                                    <!-- begin position details -->
+                                                    <div class="tab-pane" id="position_details">
+                                                        position details
+                                                    </div>
+                                                    <!-- end position details -->
+
+                                                    <!-- begin duties and responsibilities -->
+                                                    <div class="tab-pane" id="duties">
+                                                        duties and responsibilities
+                                                    </div>
+                                                    <!-- end duties and responsibilities -->
+
+                                                    <!-- begin appointment issued -->
+                                                    <div class="tab-pane" id="appoint_issued">
+                                                        appointment issued
+                                                    </div>
+                                                    <!-- end appointment issued -->
+
+                                                    <!-- begin employee number -->
+                                                    <div class="tab-pane" id="emp_number">
+                                                        employee number
+                                                    </div>
+                                                    <!-- end employee number -->
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 201 profile -->
                                 </div>
                             </div>
                         </div>

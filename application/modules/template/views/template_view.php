@@ -114,18 +114,18 @@
                     toastr.error('<?=$this->session->flashdata('strErrorMsg')?>')
                 <?php endif;?>
                 /* set session timeout */
-                $.sessionTimeout({
-                    title: 'Session Timeout Notification',
-                    message: 'Your session is about to expire.',
-                    keepAliveUrl: '<?=base_url('login/timeoutkeepalive')?>',
-                    redirUrl: '<?=base_url('logout')?>',
-                    logoutUrl: '<?=base_url('logout')?>',
-                    warnAfter: 600000, //warn after 5 seconds
-                    redirAfter: 700000, //redirect after 10 secons, (1500/second)
-                    ignoreUserActivity: true,
-                    countdownMessage: 'Redirecting in {timer} seconds.',
-                    countdownBar: true
-                });
+                // $.sessionTimeout({
+                //     title: 'Session Timeout Notification',
+                //     message: 'Your session is about to expire.',
+                //     keepAliveUrl: '<?=base_url('login/timeoutkeepalive')?>',
+                //     redirUrl: '<?=base_url('logout')?>',
+                //     logoutUrl: '<?=base_url('logout')?>',
+                //     warnAfter: 600000, //warn after 5 seconds
+                //     redirAfter: 700000, //redirect after 10 secons, (1500/second)
+                //     ignoreUserActivity: true,
+                //     countdownMessage: 'Redirecting in {timer} seconds.',
+                //     countdownBar: true
+                // });
             });  
         </script>
         <!-- END TEMPLATE SCRIPTS -->
