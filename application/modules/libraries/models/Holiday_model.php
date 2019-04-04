@@ -39,12 +39,12 @@ class Holiday_model extends CI_Model {
 
 	function getManageHoliday($intHolidayId = '')
 	{	
-		$this->db->Select('tblholidayyear.*,tblHoliday.holidayName');
+		$this->db->Select('tblHolidayYear.*,tblHoliday.holidayName');
 		if($intHolidayId != "")
 		{
-			$this->db->where('tblholidayyear.holidayId',$intHolidayId);
+			$this->db->where('tblHolidayYear.holidayId',$intHolidayId);
 		}
-		$this->db->join('tblholidayyear','tblholidayyear.holidayCode = '.$this->table.'.holidayCode','inner');
+		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = '.$this->table.'.holidayCode','inner');
 		$this->db->order_by('holidayName');
 		$this->db->group_by($this->table.'.holidayCode');
 		$objQuery = $this->db->get($this->table);
@@ -95,7 +95,7 @@ class Holiday_model extends CI_Model {
 		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 		$this->db->order_by('holidayCode');
 		// $this->db->group_by('tblholidayyear'.'.holidayCode');
-		$objQuery = $this->db->get('tblholidayyear');
+		$objQuery = $this->db->get('tblHolidayYear');
 		return $objQuery->result_array();	
 	}
 
@@ -103,7 +103,7 @@ class Holiday_model extends CI_Model {
 	//ADD
 	function add($arrData)
 	{
-		$this->db->insert('tblholiday', $arrData);
+		$this->db->insert('tblHoliday', $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -192,7 +192,7 @@ class Holiday_model extends CI_Model {
 	function save_manage($arrData, $intHolidayId)
 	{
 		$this->db->where('holidayId', $intHolidayId);
-		$this->db->update('tblholidayyear', $arrData);
+		$this->db->update('tblHolidayYear', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -208,7 +208,7 @@ class Holiday_model extends CI_Model {
 	function save_worksuspension($arrData, $intHolidayId)
 	{
 		$this->db->where('holidayId', $intHolidayId);
-		$this->db->update('tblholidayyear', $arrData);
+		$this->db->update('tblHolidayYear', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
