@@ -32,7 +32,9 @@
                     <li>
                         <img src="<?=base_url('assets/images/logo.png')?>" width="200" class="img-responsive pic-bordered" alt="" />
                         <?=form_open(base_url('hr/edit_image'), array('method' => 'post', 'id' => 'frmEmpImage'))?>
-                            <a href="<?=base_url('hr/edit_image').'/'.$arrData['empNumber']?>" class="profile-edit"> edit </a>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <a href="<?=base_url('hr/edit_image').'/'.$arrData['empNumber']?>" class="profile-edit"> edit </a>
+                            <?php endif; ?>
                         <?=form_close()?>
                     </li>
                 </ul>

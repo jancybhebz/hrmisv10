@@ -1,14 +1,12 @@
 <?php 
 /** 
-Purpose of file:    Edit page for Work Suspension
+Purpose of file:    Edit page for Holiday Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
-<?=load_plugin('css', array('datepicker','timepicker'))?>
-
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -20,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Work Suspension</span>
+            <span>Edit Holiday</span>
         </li>
     </ul>
 </div>
@@ -38,33 +36,39 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Work Suspension</span>
+                    <span class="caption-subject bold uppercase"> Edit Holiday</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/holiday/edit_worksuspension/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmWorkSuspension'))?>
+            <?=form_open(base_url('libraries/holiday/edit_manage/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmManageHoliday'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Work Suspension Date</label>
-                                    <div class="input-icon right">
+                                <label class="control-label">Holiday Name <span class="required"> * </span></label>
+                                <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input id="dtmSuspensionDate" name="dtmSuspensionDate" type="text" autocomplete="off" class="form-control form-control-inline input-medium date-picker" size="16" value="<?=!empty($arrSuspendData[0]['holidayDate'])?$arrSuspendData[0]['holidayDate']:''?>">
+                                    <select type="text" class="form-control" name="strHolidayName">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrManageHoliday as $holiday)
+                                        {
+                                          echo '<option value="'.$holiday['holidayCode'].'" '.($arrDataHoliday[0]['holidayId']==$holiday['holidayId']?'selected':'').'>'.$holiday['holidayName'].'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Work Suspension Time</label>
+                                <label class="control-label">Holiday Date <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmSuspensionTime" id="dtmSuspensionTime" value="<?=!empty($arrSuspendData[0]['holidayTime'])?$arrSuspendData[0]['holidayTime']:''?>">
-                                    </div>
+                                
+                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="text" value="<?=!empty($arrDataHoliday[0]['holidayDate'])?$arrDataHoliday[0]['holidayDate']:''?>" data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div>
@@ -73,9 +77,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intHolidayId" value="<?=isset($arrWorkSus[0]['holidayId'])?$arrHoliday[0]['holidayId']:''?>">
+                                <input type="hidden" name="intHolidayId" value="<?=isset($arrDataHoliday[0]['holidayId'])?$arrDataHoliday[0]['holidayId']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/holiday/add_worksuspension')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/holiday/manage_add')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +101,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmWorkSuspension');
+            var form2 = $('#frmHoliday');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -107,12 +111,12 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strLocalName: {
-                        minlength: 1,
+                    strHolidayCode: {
+                        minLength: 1,
                         required: true
                     },
-                    dtmHolidayDate: {
-                        minlength: 1,
+                    strHolidayName: {
+                        minLength: 1,
                         required: true,
                     }
                     
@@ -168,32 +172,9 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
     FormValidation.init();
-    $('#dtmHolidayDate').datepicker({
+     $('#dtmHolidayDate').datepicker({
         format:"yyyy-mm-dd"
     });
-
 });
-</script>
 
-<?=load_plugin('js',array('validation','datepicker'));?>
-<script>
-    $(document).ready(function() 
-    {
-        $('.date-picker').datepicker();
-    });
- 
-</script>
-
-<?=load_plugin('js',array('timepicker'));?>
-<script>
-    $(document).ready(function() {
-        $('.timepicker').timepicker({
-                timeFormat: 'HH:mm:ss A',
-                disableFocus: true,
-                showInputs: false,
-                showSeconds: true,
-                showMeridian: true,
-                // defaultValue: '12:00:00 a'
-            });
-    });
 </script>

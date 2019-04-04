@@ -7,6 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?php load_plugin('css',array('datepicker','datatables'));?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -41,7 +43,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-                <form action = "<?=base_url('libraries/holiday/manage_add')?>" method="post" id="frmManageHoliday">
+            <?=form_open(base_url('libraries/holiday/manage_add'), array('method' => 'post', 'id' => 'frmManageHoliday'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -50,9 +52,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strHolidayCode" value="<?=!empty($this->session->userdata('strHolidayCode'))?$this->session->userdata('strHolidayCode'):''?>">
+                                   <select type="text" class="form-control" name="strHolidayName" value="<?=!empty($this->session->userdata('strHolidayName'))?$this->session->userdata('strHolidayName'):''?>">
                                      <option value="">Select</option>
-                                      <?php foreach($arrHoliday as $holiday)
+                                      <?php foreach($arrManageHoliday as $holiday)
                                         {
                                           echo '<option value="'.$holiday['holidayCode'].'">'.$holiday['holidayName'].'</option>';
                                         }?>
@@ -67,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Holiday Date</label>
                                     <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input id="dtmHolidate" name="dtmHolidayDate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
+                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div>
@@ -127,7 +129,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                </form>
+            <?=form_close()?>
             </div>
         </div>
     </div>
@@ -145,15 +147,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <tbody>
                     <?php 
                     $i=1;
-                    foreach($arrHoliday as $row):?>
+                    foreach($arrManageHoliday as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['holidayName']?> </td> 
-                           <!--  <td> <?=$row['holidayName']?> </td>  -->
                             <td> <?=$row['holidayDate']?> </td>                           
                             <td>
-                                <a href="<?=base_url('libraries/holiday/manage_edit/'.$row['holidayId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/holiday/manage_delete/'.$row['holidayId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/holiday/edit_manage/'.$row['holidayId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/holiday/delete_manage/'.$row['holidayId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>
@@ -247,10 +248,17 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
    
-    FormValidation.init();
-    $('#dtmHolidayDate').datepicker({
+     FormValidation.init();
+     $('#dtmHolidayDate').datepicker({
         format:"yyyy-mm-dd"
     });
 
 });
+
+<?php load_plugin('js',array('datatables'));?>
+
+<script>
+    $(document).ready(function() {
+        Datatables.init('libraries_holiday');
+  });
 </script>

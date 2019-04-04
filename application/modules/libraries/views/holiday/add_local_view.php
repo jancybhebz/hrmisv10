@@ -6,6 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
+<?php load_plugin('css',array('datepicker','datatables'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -25,8 +26,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-	   &nbsp;
-	</div>
+       &nbsp;
+    </div>
 </div>
 <div class="clearfix"></div>
 <div class="row">
@@ -41,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/holiday/add_local'), array('method' => 'post', 'id' => 'frmLocalHoliday'))?>
+               <?=form_open(base_url('libraries/holiday/add_local'), array('method' => 'post', 'id' => 'frmLocalHoliday'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -54,71 +55,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                      <option value="">Select</option>
                                       <?php foreach($arrHoliday as $local)
                                         {
-                                          echo '<option value="'.$local['holidayCode'].'">'.$local['holidayName'].'</option>';
+                                          echo '<option value="'.$local['holidayName'].'">'.$local['holidayName'].'</option>';
                                         }?>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Local Holiday Date <span class="required"> * </span></label>
-                                <div class="input-icon right">
+                                    <label class="control-label">Local Holiday Date</label>
+                                    <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input id="dtmHolidayDate" name="dtmHolidayDate" type="text" class="form-control form-control-inline input-medium date-picker" size="16">
+                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                  <!--   <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label ">Holiday Date :</span></label><br>
-                                <label class="control-label ">Year<span class="required"> * </span></label>
-                                   <select name="dtmYear" id="dtmYear">
-                                    <?php
-                                        $initialYear = 2000;
-                                        $currentYear = date('Y');
-                                        for ($i=$initialYear;$i <= $currentYear ;$i++)
-                                        {
-                                            $checked = ($i == $currentYear ? "selected" : "");
-                                            //echo '<option value="'.$i.'" '.$checked.'>'.$i.'</option>';
-                                        }
-                                     ?>
-                                    </select> &nbsp&nbsp
-                                    <label class="control-label ">Month <span class="required"> * </span></label>
-                                    <select id="dtmMonth" name="dtmMonth">
-                                        <option selected value="January">Jan</option>
-                                        <option value="February">Feb</option>
-                                        <option value="March">Mar</option>
-                                        <option value="April">Apr</option>
-                                        <option value="May">May</option>
-                                        <option value="June">June</option>
-                                        <option value="July">July</option>
-                                        <option value="August">Aug</option>
-                                        <option value="September">Sept</option>
-                                        <option value="October">Oct</option>
-                                        <option value="November">Nov</option>
-                                        <option value="December">Dec</option>
-                                    </select>&nbsp&nbsp
-                                <label class="control-label ">Day<span class="required"> * </span></label>
-                                  <!--   <select  id="dtmDay" name="dtmDay" -->
-                                        <?php
-                                        // echo '<select name="dtmDay" id="dtmDay">' . PHP_EOL;
-                                        for ($d=1; $d<=31; $d++) {
-                                        //    echo '  <option value="' . $d . '">' . $d . '</option>' . PHP_EOL;
-                                        }
-                                        //echo '</select>' . PHP_EOL;
-                                        ?>
-                                   <!--  </select> -->
-                   
-
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
+                                <input type="hidden" name="strLocalCode" value="<?=isset($strLocalCode)?$strLocalCode:''?>">
                                 <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
                                 <a href="<?=base_url('libraries/holiday')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -131,12 +90,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_holiday">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_local_holiday">
                     <thead>
                         <tr>
                             <th> No. </th>
                             <th> Local Holiday Code </th>
                             <th> Local Holiday Name </th>
+                            <th> Local Holiday Date </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -147,10 +107,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['holidayCode']?> </td> 
-                            <td> <?=$row['holidayName']?> </td>                       
+                            <td> <?=$row['holidayName']?> </td>  
+                            <td> <?=$row['holidayDate']?> </td>                       
                             <td>
-                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayName'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/holiday/edit_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/holiday/delete_local/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>
@@ -161,6 +122,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </table>
 
 <?php load_plugin('js',array('validation'));?>
+<?php load_plugin('js',array('datatables'));?>
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
   return value.indexOf(" ") < 0 && value != ""; 
@@ -251,15 +213,19 @@ var FormValidation = function () {
     };
 
 }();
-
+</script>
+<script>
 jQuery(document).ready(function() {
 //     var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
 // $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
     FormValidation.init();
-    $('#dtmHolidayDate').datepicker({
+     $('#dtmHolidayDate').datepicker({
         format:"yyyy-mm-dd"
     });
-
+    Datatables.init('libraries_local_holiday');
 });
 
+
+
+    
 </script>

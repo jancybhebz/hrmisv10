@@ -208,14 +208,18 @@
                 <tr>
                     <th>Duties and Responsibilities</th>
                     <th>Percent of Working Time</th>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <th>Action</th>
+                <?php endif; ?>
                 </tr>
                 <?php foreach($arrPlantillaDuties as $row): ?>
                 <tr>
                     <td><?=$row['itemDuties']?></td>
                     <td><?=$row['percentWork']?></td>
+                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td colspan="2"> <a class="btn green" data-toggle="modal" href="#editDuties_plantilla_modal"> Edit </a>
                        <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteDutiesPlantilla"> Delete </a></td>
+                  <?php endif; ?>
                 </tr>
                 <?php endforeach; ?>
                 <div class="modal fade bs-modal-lg"  id="editDuties_plantilla_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -347,14 +351,18 @@
                 <tr>
                     <th>Duties and Responsibilities</th>
                     <th>Percent of Working Time</th>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <th>Action</th>
+                <?php endif; ?>
                 </tr>
                 <?php foreach($arrDuties as $row): ?>
                 <tr>
                     <td><?=$row['duties']?></td>
                     <td><?=$row['percentWork']?></td>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <td colspan="2"><a class="btn green" data-toggle="modal" href="#editActual_modal"> Edit </a>  
                     <a class="btn btn-sm btn-danger" data-toggle="modal" href="#deleteActualDuties"> Delete </a></td>
+                <?php endif; ?>
                 </tr>
                 <?php endforeach; ?>
                 <div class="modal fade bs-modal-lg"  id="editActual_modal" tabindex="-1" role="dialog" aria-hidden="true">
