@@ -115,7 +115,7 @@ class Attendance_scheme extends MY_Controller {
 		}
 		else
 		{
-			print_r($arrPost);
+			//print_r($arrPost);
 			$strCode = $arrPost['strCode'];
 			$strSchemeType = $arrPost['strSchemeType'];
 			// $strSchemeCode = $arrPost['strSchemeCode'];

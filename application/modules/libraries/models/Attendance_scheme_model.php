@@ -40,7 +40,7 @@ class Attendance_scheme_model extends CI_Model {
 		$this->db->Select('*');
 		$this->db->group_by('schemeType');
 		$objQuery = $this->db->get($this->table);
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
 		return $objQuery->result_array();	
 	}
 
