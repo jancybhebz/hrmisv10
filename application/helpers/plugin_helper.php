@@ -141,6 +141,12 @@ if ( ! function_exists('load_plugin'))
                    	                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
                    	                    '<script src="'.base_url('assets/pages/scripts/components-multi-select.min.js').'" type="text/javascript"></script>';
                    	    break;
+                   	case 'form-wizard':
+                   	    $str.=  '<script src="'.base_url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js').'" type="text/javascript"></script>'.
+                   	    				'<script src="'.base_url('assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/global/scripts/app.min.js').'" type="text/javascript"></script>'.
+                   	                    '<script src="'.base_url('assets/pages/scripts/form-wizard.min.js').'" type="text/javascript"></script>';
+                   	    break;
 
 				}
 			endforeach;

@@ -39,7 +39,7 @@ class Payrollupdate extends MY_Controller {
 		$arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['mon'], 'year' => $_GET['yr']);
 		$arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
 
-		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
+		$this->template->load('template/template_view','finance/payroll/process_step1',$this->arrData);
 	}
 
 	public function update_or()
