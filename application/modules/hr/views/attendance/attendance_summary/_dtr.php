@@ -92,14 +92,13 @@
                             <td style="display: none;"></td>
                             <td style="display: none;"></td>
                         <?php else: ?>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inAM'] : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outAM'] : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inPM'] : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outPM'] : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inOT'] : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : ''?></td>
-                            <td>
-                                <?php 
+                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inAM'])) : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outAM'])) : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inPM'])) : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outPM'])) : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inOT'])) : ''?></td>
+                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ''?></td>
+                            <td><?php 
                                     echo count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
                                     if($dtr['obremarks']!=''):
                                         echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars($dtr['obremarks']).'">

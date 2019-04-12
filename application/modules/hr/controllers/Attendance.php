@@ -46,14 +46,18 @@ class Attendance extends MY_Controller {
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
-		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
 		$this->arrData['arrspe_leave'] = $this->Leave_model->getspe_leave($empid, $yr);
 		// echo '<pre>';
 		// print_r($this->arrData['arremp_dtr']);
 		// die();
-		// TODO:: GET FORCED LEAVE
-		// $this->arrData['arrforce_leave'] = $this->Leave_model->getforce_leave($empid, $yr);
+
+		# GET FORCED LEAVE
+		$no_fl = $this->Leave_model->getleave_data('FL');
+		$no_fl = $no_fl[0]['numOfDays'];
+		$month_fl = $this->Leave_model->getforce_leave($empid, $yr, $month);
+		$this->arrData['fl_left'] = $no_fl - count($month_fl);
+
 		// TODO:: GET OFFSET BALANCE
 		// $this->arrData['arroff_bal'] = $this->Attendance_summary_model->getOffsetBalance($empid, $month, $yr);
 		
@@ -79,7 +83,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
 		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
 		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
-
+		die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 

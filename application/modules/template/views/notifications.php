@@ -110,7 +110,19 @@
                         <?php endforeach; ?>
                     </ul>
                 </li>
-                
+            </ul>
+        </li>
+    <?php endif; ?>
+    <!-- end employee notification -->
+
+    <!-- begin hr notification -->
+    <?php if(in_array($_SESSION['sessUserLevel'], array(1))): ?>
+        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <i class="icon-bell"></i>
+                <span class="badge badge-default"> <?=count(pending_notif($_SESSION['sessEmpNo']))?> </span>
+            </a>
+            <ul class="dropdown-menu">
                 <li class="external">
                     <h3>
                         <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo']))?> pending</span> requests</h3>
@@ -214,7 +226,7 @@
             </ul>
         </li>
     <?php endif; ?>
-    <!-- end employee notification -->
+    <!-- end HR notification -->
 
     <!-- END NOTIFICATION DROPDOWN -->
 

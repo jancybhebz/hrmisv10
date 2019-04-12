@@ -21,6 +21,7 @@ class Attendance_summary_model extends CI_Model {
 
 	public function getemp_dtr($empid, $month, $yr)
 	{
+		echo '<pre>';
 		$month = sprintf('%02d', $month);
 		# DTR Data
 		$this->db->order_by('dtrDate', 'asc');
@@ -199,6 +200,7 @@ class Attendance_summary_model extends CI_Model {
 			$obremarks = '';
 			$toremarks = '';
 			$leaveremarks = '';
+			$lunchremarks = '';
 
 			$late = 0;
 			$late_am = 0;
@@ -290,6 +292,15 @@ class Attendance_summary_model extends CI_Model {
 			if(count($dtrdata) > 0):
 				$dtrin_out = array($dtrdata['inAM'], $dtrdata['outAM'], $dtrdata['inPM'], $dtrdata['outPM'], $dtrdata['inOT'], $dtrdata['outOT']);
 
+
+				if(($dtrdata['inAM'] != '00:00:00' && $dtrdata['inAM'] != '' && $dtrdata['outPM'] != '00:00:00' && $dtrdata['outPM'] != '')):
+					if(($dtrdata['outAM'] == '00:00:00' || $dtrdata['outAM'] == '') || ($dtrdata['inPM'] == '00:00:00' || $dtrdata['inPM'] == '')):
+						$dtrdata['outAM'] = '12:01:00';
+						$dtrdata['inPM'] = '12:01:00';
+						$lunchremarks = 'NO LUNCH OUT';
+					endif;
+				endif;
+				
 				# Attendance Scheme
 				$am_timein_from = date('H:i:s', strtotime($att_scheme['amTimeinFrom'].' AM'));
 				$am_timein_to = date('H:i:s', strtotime($att_scheme['amTimeinTo'].' AM'));
@@ -416,6 +427,12 @@ class Attendance_summary_model extends CI_Model {
 				# Overtime weekends, holidays
 				$total_ot_wkendsholi = $total_ot_wkendsholi + $overtime;
 			endif;
+			# overtime less than 1 hr, [after official time out]
+			$overtime = $overtime - 60;
+			# if has late
+			$overtime = $late > 0 ? 0 : $overtime;
+			# if overtime is greater than or equal to 1 hr
+			$overtime = $overtime >= 60 ? $overtime : 0;
 
 			$emp_dtrdata = array('date' => $ddate,
 								  'day'  => $dday,
@@ -458,7 +475,7 @@ class Attendance_summary_model extends CI_Model {
 			# Total undertime
 			$total_undertime = $total_undertime + $undertime;
 
-			// echo '<hr>';
+			echo '<hr>';
 		endforeach;
 		
 		$arrdtrData = array('dtr' 			 	 => $arrdtrData,
@@ -475,11 +492,11 @@ class Attendance_summary_model extends CI_Model {
 							'total_days_fl'		 => $total_days_fl,
 							'total_days_lwop'	 => $total_days_lwop);
 
-		return $arrdtrData;
+		// return $arrdtrData;
 		
 		# PRINTDIE
 		// print_r($arrdtrData);
-		// die();
+		die();
 	}
 
 	# Begin Broken Sched

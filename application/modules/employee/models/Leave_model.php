@@ -164,21 +164,17 @@ class Leave_model extends CI_Model {
 	}
 
 	#Forced Leave
-	public function getforce_leave($empid, $yr=0)
+	public function getforce_leave($empid, $yr=0, $month=0)
 	{
-		echo '<pre>';
 		$this->db->where("empNumber", $empid);
-		$this->db->like("dtrDate", $yr, "after");
 		$this->db->where("remarks", "FL");
-		$dtrfl = $this->db->get('tblEmpDTR')->result_array();
-		$dtrfl_used = count($dtrfl) > 0 ? count($dtrfl) : 0;
-		
-		// $numdays = $this->db->get_where('tblLeave', array('leaveCode' => 'PL'))->result_array();
-		// $numdays = count($numdays) > 0 ? $numdays[0]['numOfDays'] : 0;
-		
-		// $spe_leave = $numdays - $dtrpl_sl_used;
-		// return $spe_leave;
-		die();
+		if($month == 0):
+			$this->db->like("dtrDate", $yr,'after');
+		else:
+			$this->db->where("dtrDate >", $yr.'-01-01');
+			$this->db->where("dtrDate <", join('-',array($yr,sprintf('%02d', $month+1),'01')));
+		endif;
+		return $this->db->get('tblEmpDTR')->result_array();
 	}
 
 	public function getleave_data($code = '')

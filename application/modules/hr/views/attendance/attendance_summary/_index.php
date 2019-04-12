@@ -64,7 +64,7 @@
                                 </tr>
                                 <tr>
                                     <td><b>Forced Leave Left</b></td>
-                                    <td style="width: 75%;"> <pre>// TODO::</pre></td>
+                                    <td style="width: 75%;"><?=$fl_left?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Offset Balance</b></td>

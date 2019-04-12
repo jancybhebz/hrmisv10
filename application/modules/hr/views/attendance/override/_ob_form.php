@@ -222,7 +222,7 @@
         });
 
         // hide all the group
-        $(".div-group,.div-<?=str_replace(' ','',$_ENV['Group1'])?>,.div-<?=str_replace(' ','',$_ENV['Group2'])?>,.div-<?=str_replace(' ','',$_ENV['Group3'])?>,.div-<?=str_replace(' ','',$_ENV['Group4'])?>,.div-<?=str_replace(' ','',$_ENV['Group5'])?>").hide();
+        // $(".div-group,.div-<?=str_replace(' ','',$_ENV['Group1'])?>,.div-<?=str_replace(' ','',$_ENV['Group2'])?>,.div-<?=str_replace(' ','',$_ENV['Group3'])?>,.div-<?=str_replace(' ','',$_ENV['Group4'])?>,.div-<?=str_replace(' ','',$_ENV['Group5'])?>").hide();
 
         $('#seltype').change(function() {
             strgrp = $(this).val();
