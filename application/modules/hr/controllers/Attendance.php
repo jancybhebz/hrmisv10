@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model'));
+        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model'));
     }
 
     public function conversion_table()
@@ -240,10 +240,39 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		// $this->arrData['arrLeave'] = ;
+
+		$arremp_request = $this->Request_model->getEmpFiledRequest($empid,array('Commutation','DTR','Leave','Monetization','OB','TO'));
+		// print_r($arremp_request);
+		// die();
+		// $arrLeave = array_map(function($r){if(strtolower($r['requestCode']) == 'leave'){ return $r;}}, $arremp_request);
+		
+		// $arrRequest = array();
+
+		// foreach($arremp_request as $request):
+		// 	if($request['requestCode'] == 'Leave'):
+		// 		$reqdetails = explode(';', $request['requestDetails']);
+		// 		$request['requestCode'] = $reqdetails[0];
+		// 	endif;
+		// 	$requestFlow = $this->Request_model->getRequestFlow($request['requestCode']);
+		// 	if($request['SignatoryFin'] ==''):
+		// 		$sign_request = $this->Notification_model->checksignatory1($requestFlow, $request);
+		// 		if($sign_request=='done'):
+		// 			$arrRequest[] = array('emp_request' => $request, 'next_sign' => '');
+		// 		else:
+		// 			$arrRequest[] = array('emp_request' => $request, 'next_sign' => $this->Notification_model->getDestination($sign_request));
+		// 		endif;
+		// 	else:
+		// 		$arrRequest[] = array('emp_request' => $request, 'next_sign' => '');
+		// 	endif;
+		// endforeach;
+		// die();
+		$this->arrData['arrcomm'] = array_map(function($r){if(strtolower($r['requestCode']) == 'commutation'){ return $r;}}, $arremp_request);
+		$this->arrData['arrdtr'] = array_map(function($r){if(strtolower($r['requestCode']) == 'dtr'){ return $r;}}, $arremp_request);
+		$this->arrData['arrleave'] = array_map(function($r){if(strtolower($r['requestCode']) == 'leave'){ return $r;}}, $arremp_request);
+		$this->arrData['arrmonetize'] = array_map(function($r){if(strtolower($r['requestCode']) == 'monetization'){ return $r;}}, $arremp_request);
 		// $this->arrData['arrOb'] = ;
 		// $this->arrData['arrTo'] = ;
-
+		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}

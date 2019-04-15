@@ -39,8 +39,7 @@
             <div class="col-md-12">
                 <div class="m-heading-1 border-blue m-bordered small" style="position: static;display: block;line-height: 1.8;">
                     Projected Leave = Actual Leave - Approved Leave <br>
-                    <b>jQuery Validation Plugin</b><br>
-                        Approved Leaves from Jan to Nov <br>
+                    <b>Approved Leaves from Jan to Nov</b><br>
                         "Monetization of 50% or more of all your accumulated leave credit may be allowable for valid and justifiable reasons subject to the discretion of the agency head and the availability of funds." <br>
                         "Sick leave credits may be monetized if an employee has no available vacation leave credits. Vacation leave credits must be exhausted first before sick leave credits maybe used." <br>
                         Five (5) days must be left at Vacation Leaves credits after monetization. <br>
