@@ -33,7 +33,7 @@
                     </ul>
                     <div class="tab-content">
                         <!-- begin commutation order -->
-                        <div class="tab-pane " id="tab-comm">
+                        <div class="tab-pane active" id="tab-comm">
                             <table class="table table-bordered table-hover" id="tbl-comm">
                                 <thead>
                                     <tr>
@@ -42,7 +42,7 @@
                                         <th style="text-align: center;">Date Request</th>
                                         <th style="text-align: center;">Purpose</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;">Action</th>
+                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,7 +76,7 @@
                                         <th style="text-align: center;">Date</th>
                                         <th style="text-align: center;width: 250px;">Time</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;">Action</th>
+                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,7 +116,7 @@
                                         <th style="text-align: center;">Date To</th>
                                         <th style="text-align: center;">Reason</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;">Action</th>
+                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -143,77 +143,112 @@
                         <!-- end leave -->
 
                         <!-- begin monetization order -->
-                        <div class="tab-pane active" id="tab-mone">
+                        <div class="tab-pane " id="tab-mone">
                             <table class="table table-bordered table-hover" id="tbl-mone">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Date Filed</th>
-                                        <th>Date</th>
-                                        <th>Destination</th>
-                                        <th>Purpose</th>
+                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;">Date Filed</th>
+                                        <th style="text-align: center;">Monetized on VL</th>
+                                        <th style="text-align: center;">Monetized on SL</th>
+                                        <th style="text-align: center;">Month / Year</th>
+                                        <th style="text-align: center;">Status</th>
+                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $no=1; foreach($arrmonetize as $monetize): if(count($monetize) > 0): $rdate = explode(';', $monetize['requestDetails']); ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td align="center"><?=$no++?></td>
+                                        <td align="center"><?=$monetize['requestDate']?></td>
+                                        <td align="center"><?=$rdate[0]?></td>
+                                        <td align="center"><?=$rdate[1]?></td>
+                                        <td align="center"><?=date('F', mktime(0, 0, 0, $rdate[2], 10))?> <?=$rdate[3]?></td>
+                                        <td align="center"><?=$monetize['requestStatus']?></td>
+                                        <td align="center" nowrap>
+                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
+                                            <?php if($monetize['requestStatus'] == 'Filed Request'): ?>
+                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
+                                            <?php endif; ?>
+                                        </td>
                                     </tr>
+                                    <?php endif; endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
                         <!-- end monetization order -->
 
                         <!-- begin official business -->
-                        <div class="tab-pane" id="tab-ob">
+                        <div class="tab-pane " id="tab-ob">
                             <table class="table table-bordered table-hover" id="tbl-ob">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Date Filed</th>
-                                        <th>Place</th>
-                                        <th>Purpose</th>
-                                        <th>Date From</th>
-                                        <th>Date To</th>
+                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;">Date Filed</th>
+                                        <th style="text-align: center;">Place</th>
+                                        <th style="text-align: center;">Purpose</th>
+                                        <th style="text-align: center;">From</th>
+                                        <th style="text-align: center;">To</th>
+                                        <th style="text-align: center;">Status</th>
+                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $no=1; foreach($arrob as $ob): if(count($ob) > 0): $rdate = explode(';', $ob['requestDetails']); ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td align="center"><?=$no++?></td>
+                                        <td align="center"><?=$ob['requestDate']?></td>
+                                        <td align="center"><?=$rdate[6]?></td>
+                                        <td align="center"><?=$rdate[7]?></td>
+                                        <td align="center"><?=$rdate[2]?> <?=$rdate[4]?></td>
+                                        <td align="center"><?=$rdate[3]?> <?=$rdate[5]?></td>
+                                        <td align="center"><?=$ob['requestStatus']?></td>
+                                        <td align="center" nowrap>
+                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
+                                            <?php if($ob['requestStatus'] == 'Filed Request'): ?>
+                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
+                                            <?php endif; ?>
+                                        </td>
                                     </tr>
+                                    <?php endif; endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
                         <!-- end official business -->
 
                         <!-- begin travel order -->
-                        <div class="tab-pane" id="tab-to">
+                        <div class="tab-pane " id="tab-to">
                             <table class="table table-bordered table-hover" id="tbl-to">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Date Filed</th>
-                                        <th>Date</th>
-                                        <th>Destination</th>
-                                        <th>Purpose</th>
+                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;">Date Filed</th>
+                                        <th style="text-align: center;">Place</th>
+                                        <th style="text-align: center;">Purpose</th>
+                                        <th style="text-align: center;">From</th>
+                                        <th style="text-align: center;">To</th>
+                                        <th style="text-align: center;">Status</th>
+                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $no=1; foreach($arrto as $to): if(count($to) > 0): $rdate = explode(';', $to['requestDetails']); ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td align="center"><?=$no++?></td>
+                                        <td align="center"><?=$to['requestDate']?></td>
+                                        <td align="center"><?=$rdate[0]?></td>
+                                        <td align="center"><?=$rdate[3]?></td>
+                                        <td align="center"><?=$rdate[1]?></td>
+                                        <td align="center"><?=$rdate[2]?></td>
+                                        <td align="center"><?=$to['requestStatus']?></td>
+                                        <td align="center" nowrap>
+                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
+                                            <?php if($to['requestStatus'] == 'Filed Request'): ?>
+                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
+                                            <?php endif; ?>
+                                        </td>
                                     </tr>
+                                    <?php endif; endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -234,6 +269,10 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#employee_view').show();
-            }} );
+            }, "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false,
+                }]
+        });
     });
 </script>
