@@ -35,27 +35,26 @@
                 </div>
             </div>
         </div>
-
-        <div class="well">
-            <small>
-                <p>Projected Leave = Actual Leave - Approved Leave</p>
-                <p><b>Approved Leaves from Jan to Nov</b></p>
-                <br>
-                <p>"Monetization of 50% or more of all your accumulated leave credit may be allowable for valid and justifiable reasons subject to the discretion of the agency head and the availability of funds."</p>
-                <br>
-                <p>"Sick leave credits may be monetized if an employee has no available vacation leave credits. Vacation leave credits must be exhausted first before sick leave credits maybe used."</p>
-                <br>
-                <p>Five (5) days must be left at Vacation Leaves credits after monetization.</p>
-            </small>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="m-heading-1 border-blue m-bordered small" style="position: static;display: block;line-height: 1.8;">
+                    Projected Leave = Actual Leave - Approved Leave <br>
+                    <b>jQuery Validation Plugin</b><br>
+                        Approved Leaves from Jan to Nov <br>
+                        "Monetization of 50% or more of all your accumulated leave credit may be allowable for valid and justifiable reasons subject to the discretion of the agency head and the availability of funds." <br>
+                        "Sick leave credits may be monetized if an employee has no available vacation leave credits. Vacation leave credits must be exhausted first before sick leave credits maybe used." <br>
+                        Five (5) days must be left at Vacation Leaves credits after monetization. <br>
+                </div>
+            </div>
         </div>
-
         <div class="portlet light bordered">
             <div class="portlet-body">
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-leave-monetization-form" id="btn-monetize-leave">
                             <i class="fa fa-money"></i> &nbsp;Monetize Leave</button>&nbsp;
-                        <button class="btn blue"><i class="fa fa-money"></i> &nbsp;Monetize Form</button>
+                        <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#monetize-form">
+                            <i class="fa fa-money"></i> &nbsp;Monetize Form</button>
                         <br><br>
                         <table class="table table-striped table-bordered table-hover table-checkable order-column">
                             <thead>

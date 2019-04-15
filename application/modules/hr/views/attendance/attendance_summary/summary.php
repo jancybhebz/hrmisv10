@@ -26,7 +26,7 @@
             <?php if($_SESSION['sessUserLevel'] == 5 && $this_page == 'dtr'): ?>
                 <span>Daily Time Record</span>
             <?php else: ?>
-                <span><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></span>
+                <span><?=ucwords($arrData['firstname'])?> <?=strtoupper($arrData['middleInitial'])?>. <?=ucfirst($arrData['surname'])?></span>
             <?php endif; ?>
         </li>
     </ul>

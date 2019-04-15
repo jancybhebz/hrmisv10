@@ -105,4 +105,30 @@
     </div>
 </div>
 
+<!-- begin monetize form modal -->
+<div id="monetize-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Application for Leave</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed src="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?month='.currmo().'&yr='.curryr())?>" frameborder="0" width="100%" height="400px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?month='.currmo().'&yr='.curryr())?>" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end monetize form modal -->
+
 <?php load_plugin('js', array('form_validation')) ?>
