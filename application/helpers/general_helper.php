@@ -162,3 +162,32 @@ if ( ! function_exists('breakdates'))
 		return $arrdates;
 	}
 }
+
+if ( ! function_exists('breakdates'))
+{
+    function breakdates($from,$to)
+    {
+    	$arrdates = array();
+		while (strtotime($from) <= strtotime($to)) {
+			array_push($arrdates, $from);
+			$from = date ("Y-m-d", strtotime("+1 day", strtotime($from)));
+		}
+		return $arrdates;
+	}
+}
+
+if ( ! function_exists('curryr'))
+{
+    function curryr()
+    {
+    	return isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+	}
+}
+
+if ( ! function_exists('currmo'))
+{
+    function currmo()
+    {
+    	return isset($_GET['month']) ? $_GET['month'] : date('m');
+	}
+}
