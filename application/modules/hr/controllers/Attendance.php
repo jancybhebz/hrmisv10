@@ -83,7 +83,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
 		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
 		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
-		die();
+		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 

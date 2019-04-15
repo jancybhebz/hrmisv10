@@ -21,7 +21,7 @@ class Attendance_summary_model extends CI_Model {
 
 	public function getemp_dtr($empid, $month, $yr)
 	{
-		echo '<pre>';
+		// echo '<pre>';
 		$month = sprintf('%02d', $month);
 		# DTR Data
 		$this->db->order_by('dtrDate', 'asc');
@@ -475,7 +475,7 @@ class Attendance_summary_model extends CI_Model {
 			# Total undertime
 			$total_undertime = $total_undertime + $undertime;
 
-			echo '<hr>';
+			// echo '<hr>';
 		endforeach;
 		
 		$arrdtrData = array('dtr' 			 	 => $arrdtrData,
@@ -492,11 +492,11 @@ class Attendance_summary_model extends CI_Model {
 							'total_days_fl'		 => $total_days_fl,
 							'total_days_lwop'	 => $total_days_lwop);
 
-		// return $arrdtrData;
+		return $arrdtrData;
 		
 		# PRINTDIE
 		// print_r($arrdtrData);
-		die();
+		// die();
 	}
 
 	# Begin Broken Sched
