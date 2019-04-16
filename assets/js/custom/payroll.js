@@ -144,6 +144,12 @@ $(document).ready(function() {
         console.log('month' + $('#pselyr').val());
     });
 
-
+    $('select#selemployment').change(function() {
+        if($(this).val() == 'P'){
+            $('.div-period').hide();
+        }else{
+            $('.div-period').show();
+        }
+    });
 
 });

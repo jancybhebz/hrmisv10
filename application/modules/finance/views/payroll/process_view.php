@@ -99,7 +99,7 @@
                         <?=form_close()?>
                         <br>
                         <div class="col-md-2"></div>
-                        <button class="btn blue" id="btn-computeBenefit" data-target="#modal-computeBenefits-Monthly" data-backdrop="static" data-toggle="modal" data-keyboard="false"> Compute Benefits</button>
+                        <button class="btn blue" id="btn-computeBenefit" data-target="#modal-computeBenefits-Monthly" data-backdrop="static" data-toggle="modal" data-keyboard="false"> Benefits</button>
                         <button class="btn green"> Deductions</button>
                         <br><br>
                     </div>
