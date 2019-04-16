@@ -179,6 +179,7 @@ class Request_model extends CI_Model {
 		$this->db->where('empNumber', $empNumber);
 		$this->db->where_in('requestCode', $arrcode);
 		$this->db->where('(requestDate >= \''.curryr().'-'.currmo().'-01\' and requestDate <= LAST_DAY(\''.curryr().'-'.currmo().'-01\'))');
+		$this->db->where('requestStatus!=','Cancelled');
 		return $this->db->get_where('tblEmpRequest')->result_array();
 	}
 

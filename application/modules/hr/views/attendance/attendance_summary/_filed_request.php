@@ -42,7 +42,6 @@
                                         <th style="text-align: center;">Date Request</th>
                                         <th style="text-align: center;">Purpose</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,12 +52,6 @@
                                         <td align="center"><?=join('-',array($rdate[3],$rdate[2],$rdate[1] == '' ? $rdate[0] : $rdate[1] ))?></td>
                                         <td align="center"><?=$rdate[4]?></td>
                                         <td align="center"><?=$commutation['requestStatus']?></td>
-                                        <td align="center" nowrap>
-                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
-                                            <?php if($commutation['requestStatus'] == 'Filed Request'): ?>
-                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                     <?php endif; endforeach; ?>
                                 </tbody>
@@ -76,7 +69,6 @@
                                         <th style="text-align: center;">Date</th>
                                         <th style="text-align: center;width: 250px;">Time</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,12 +83,6 @@
                                             echo '<b>Afternoon:</b> '.join(':',array($rdate[16],$rdate[17],$rdate[18])).' '.$rdate[19].' - '.join(':',array($rdate[20],$rdate[21],$rdate[22])).' PM';?></small>
                                         </td>
                                         <td align="center"><?=$rdtr['requestStatus']?></td>
-                                        <td align="center" nowrap>
-                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
-                                            <?php if($rdtr['requestStatus'] == 'Filed Request'): ?>
-                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                     <?php endif; endforeach; ?>
                                 </tbody>
@@ -116,7 +102,6 @@
                                         <th style="text-align: center;">Date To</th>
                                         <th style="text-align: center;">Reason</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -129,12 +114,6 @@
                                         <td align="center"><?=$rdate[3]?></td>
                                         <td align="center"><?=$rdate[1]?></td>
                                         <td align="center"><?=$rleave['requestStatus']?></td>
-                                        <td align="center" nowrap>
-                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
-                                            <?php if($rleave['requestStatus'] == 'Filed Request'): ?>
-                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                     <?php endif; endforeach; ?>
                                 </tbody>
@@ -153,7 +132,6 @@
                                         <th style="text-align: center;">Monetized on SL</th>
                                         <th style="text-align: center;">Month / Year</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -165,12 +143,6 @@
                                         <td align="center"><?=$rdate[1]?></td>
                                         <td align="center"><?=date('F', mktime(0, 0, 0, $rdate[2], 10))?> <?=$rdate[3]?></td>
                                         <td align="center"><?=$monetize['requestStatus']?></td>
-                                        <td align="center" nowrap>
-                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
-                                            <?php if($monetize['requestStatus'] == 'Filed Request'): ?>
-                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                     <?php endif; endforeach; ?>
                                 </tbody>
@@ -190,7 +162,6 @@
                                         <th style="text-align: center;">From</th>
                                         <th style="text-align: center;">To</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -203,12 +174,6 @@
                                         <td align="center"><?=$rdate[2]?> <?=$rdate[4]?></td>
                                         <td align="center"><?=$rdate[3]?> <?=$rdate[5]?></td>
                                         <td align="center"><?=$ob['requestStatus']?></td>
-                                        <td align="center" nowrap>
-                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
-                                            <?php if($ob['requestStatus'] == 'Filed Request'): ?>
-                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                     <?php endif; endforeach; ?>
                                 </tbody>
@@ -228,7 +193,6 @@
                                         <th style="text-align: center;">From</th>
                                         <th style="text-align: center;">To</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;width: 200px;" class="no-sort">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -241,12 +205,6 @@
                                         <td align="center"><?=$rdate[1]?></td>
                                         <td align="center"><?=$rdate[2]?></td>
                                         <td align="center"><?=$to['requestStatus']?></td>
-                                        <td align="center" nowrap>
-                                            <button class="btn btn-sm blue"><i class="glyphicon glyphicon-ok-circle"></i> View</button>
-                                            <?php if($to['requestStatus'] == 'Filed Request'): ?>
-                                                <button class="btn btn-sm red"><i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                     <?php endif; endforeach; ?>
                                 </tbody>
@@ -262,6 +220,8 @@
     </div>
 </div>
 <?=load_plugin('js',array('datatables'));?>
+
+<?php $this->load->view('modals/_filed_request_modal'); ?>
 
 <script>
     $(document).ready(function() {
