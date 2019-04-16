@@ -65,4 +65,34 @@ class Leave_monetization extends MY_Controller {
 		}
     	$this->template->load('template/template_view','employee/leave_monetization/leave_monetization_view',$this->arrData);
     }
+
+    public function monetized_leave()
+    {
+    	echo '<pre>';
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(4);
+    	echo $empid;
+    	print_r($arrPost);
+    	die();
+    	if(!empty($arrpost)):
+    		# HR Account
+    		$arrData=array(
+    			'empNumber' 	=> $empid,
+    			'vlMonetize'	=> $arrpost['txtvl'],
+    			'slMonetize'	=> $arrpost['txtsl'],
+    			'processMonth'	=> date('m'),
+    			'processYear' 	=> date('Y'),
+    			'monetizeMonth'	=> $arrpost['txtperiodmo'],
+    			'monetizeYear' 	=> $arrpost['txtperiodyr'],
+    			'monetizeAmount'=> $arrpost['txtcl_pm_timeto'],
+    			'processBy'		=> $_SESSION['sessName'],
+    			'ip'	    	=> $this->input->ip_address(),
+    			'processDate'	=> date('Y-m-d h:i:s A'));
+    		// $this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrpost['txtcompen_date']);
+    		// $this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
+    		// redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
+    	endif;
+    }
+
+
 }

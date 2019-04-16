@@ -221,8 +221,6 @@
 </div>
 <?=load_plugin('js',array('datatables'));?>
 
-<?php $this->load->view('modals/_filed_request_modal'); ?>
-
 <script>
     $(document).ready(function() {
         $('#tbl-comm,#tbl-dtr,#tbl-leave,#tbl-mone,#tbl-ob,#tbl-to').dataTable( {

@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Leave Monetization</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/edit_payrollDetails/'.$this->uri->segment(5), array('id' => 'frmedit-vl'))?>
+            <?=form_open('employee/Leave_monetization/monetized_leave/'.$this->uri->segment(4).'?month='.currmo().'&yr='.curryr(), array('id' => 'frmmonetize'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
@@ -15,6 +15,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <!-- begin input elements -->
+                                            <input type="text" name="txtperiodmo" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodMonth'] : ''?>">
+                                            <input type="text" name="txtperiodyr" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodYear'] : ''?>">
                                             <div class="form-group col-md-12" style="padding: 0 !important;">
                                                 <label class="control-label col-md-12" style="padding: 0 !important;">Date<span class="required"> * </span></label>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
@@ -48,7 +50,7 @@
                                                 <label class="control-label"># of Leave Credits to be Monetized on Vacation Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
-                                                    <input type="text" class="form-control form-required" name="txtvl-earned" id="txtvl-earned"
+                                                    <input type="text" class="form-control form-required" name="txtvl" id="txtvl"
                                                         value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['vlBalance'] : ''?>">
                                                 </div>
                                             </div>
@@ -56,7 +58,7 @@
                                                 <label class="control-label"># of Leave Credits to be Monetized on Sick Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
-                                                    <input type="text" class="form-control form-required" name="txtvl-wpay" id="txtvl-wpay"
+                                                    <input type="text" class="form-control form-required" name="txtsl" id="txtsl"
                                                         value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['slBalance'] : ''?>">
                                                 </div>
                                             </div>
