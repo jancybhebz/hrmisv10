@@ -68,6 +68,8 @@ class Payrollupdate extends MY_Controller {
 		
 	}
 
+	
+
 }
 /* End of file Payrollupdate.php
  * Location: ./application/modules/finance/controllers/payroll_update/Payrollupdate.php */

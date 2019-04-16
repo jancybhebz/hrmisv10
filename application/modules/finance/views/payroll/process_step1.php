@@ -159,10 +159,10 @@
                                     <div class="col-md-offset-3 col-md-9">
                                         <a href="javascript:;" class="btn default btn-previous">
                                             <i class="fa fa-angle-left"></i> Back </a>
-                                        <a href="javascript:;" class="btn btn-outline green btn-next"> Continue
+                                        <a href="javascript:;" class="btn green btn-next"> Continue
                                             <i class="fa fa-angle-right"></i>
                                         </a>
-                                        <a href="javascript:;" class="btn green btn-submit"> Submit
+                                        <a href="javascript:;" class="btn blue btn-submit"> Submit
                                             <i class="fa fa-check"></i>
                                         </a>
                                     </div>

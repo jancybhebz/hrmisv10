@@ -1,3 +1,6 @@
+div#bar {
+    height: 8px !important;
+}
 .form-wizard .steps {
     padding: 0px !important;
     margin-bottom: 5px !important;
