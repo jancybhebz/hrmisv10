@@ -15,7 +15,7 @@ class Personnel_profile extends MY_Controller {
 	function __construct() {
         parent::__construct();
         $this->load->model(array('hr/Hr_model','Deduction_model',
-        						 'Compensation_model', 'libraries/Appointment_status_model',
+        						 'Compensation_model', 'libraries/Appointment_status_model','hr/Attendance_summary_model','employee/Leave_model',
         						 'Benefit_model'));
     }
 
@@ -380,19 +380,21 @@ class Personnel_profile extends MY_Controller {
 
 	public function dtr($empid)
 	{
-		$this->load->model(array('Dtr_model','libraries/Attendance_scheme_model'));
-		$employeeData = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $employeeData[0];
+		$empid = $this->uri->segment(5);
+		$res = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $res[0];
 
-		if(!isset($_GET['yr']) && !isset($_GET['mon'])):
-			$_GET['yr'] = date('Y'); $_GET['mon'] = date('n');
-		endif;
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid,currmo(),curryr());
 
-		$month = str_pad($_GET['mon'], 2, '0', STR_PAD_LEFT);
-		$year = $_GET['yr'];
-
-
-		$this->arrData['arrDtr'] = $this->Dtr_model->dtrSummary($empid, $year, $month);
+		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
+		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
+		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
+		$this->arrData['total_late'] = $arremp_dtr['total_late'];
+		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
+		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
+		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
+		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid,currmo(),curryr());
+		
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
 

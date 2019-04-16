@@ -87,7 +87,7 @@ $this_page = $this->uri->segment(4);?>
                                             if($this_page == 'remittances'): include('_remittances.php'); endif;
                                             if($_SESSION['sessUserLevel'] == '2'):
                                                 if($this_page == 'tax_details' or $this_page == 'edit_tax_details'): include('_tax_details.php'); endif;
-                                                if($this_page == 'dtr'): include('_dtr.php'); endif;
+                                                if($this_page == 'dtr'): $this->load->view('hr/attendance/attendance_summary/_dtr'); endif;
                                                 if($this_page == 'adjustments'): include('_adjustments.php'); endif;
                                             endif;
                                         ?>
