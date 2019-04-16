@@ -201,8 +201,13 @@ $activetab = strtolower($activetab);
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item start <?=$activetab=='process'?'active open':''?>">
-                            <a href="<?=base_url('finance/payroll_update/process')?>">
+                            <a href="<?=base_url('finance/payroll_update/process/index')?>">
                                 <span class="title">Process Payroll</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start <?=$activetab=='process_history'?'active open':''?>">
+                            <a href="<?=base_url('finance/payroll_update/process_history')?>">
+                                <span class="title">Process History</span>
                             </a>
                         </li>
                         <li class="nav-item start <?=$activetab=='update_or'?'active open':''?>">
