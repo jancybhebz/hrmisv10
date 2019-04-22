@@ -3,10 +3,11 @@
 # year start
 if ( ! function_exists('getyear'))
 {
-    function getyear()
+    function getyear($syr=0)
     {
+        $syear = $syr == 0 ? 2003 : $syr;
 		$arrYears = array();
-        foreach(range((date('Y') + 1), 2003, -1) as $yr):
+        foreach(range((date('Y') + 1), $syear, -1) as $yr):
             array_push($arrYears, $yr);
         endforeach;
         return $arrYears;

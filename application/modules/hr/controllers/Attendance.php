@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model'));
+        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model'));
     }
 
     public function conversion_table()
@@ -228,7 +228,28 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrLeaves'] = $this->Leave_model->getleave($empid);
+		$arrLeaves = $this->Leave_model->getleave($empid);
+		
+		$total_monetize = $this->Leave_monetization_model->getemp_total_monetized($empid, date('n'), date('Y'));
+		$sl_monetized = 0;
+		if(count($arrLeaves) > 0):
+			if(count($total_monetize) > 0):
+				$sl_monetized = $arrLeaves[0]['slBalance'] - $total_monetize['slmonetize'];
+				$vl_monetized = $arrLeaves[0]['vlBalance'] - $total_monetize['vlmonetize'];
+			else:
+				$sl_monetized = $arrLeaves[0]['slBalance'];
+				$vl_monetized = $arrLeaves[0]['vlBalance'];
+			endif;
+		else:
+			$sl_monetized = '0.0000';
+			$vl_monetized = '0.0000';
+		endif;
+
+		$this->arrData['total_monetize'] = $total_monetize;
+		$this->arrData['sl_monetized'] = $sl_monetized;
+		$this->arrData['vl_monetized'] = $vl_monetized;
+		$this->arrData['arrLeaves'] = $arrLeaves;
+		$this->arrData['arrMonetize'] = $this->Leave_monetization_model->getemp_monetized($empid, currmo(), curryr());
 		$this->arrData['arrData'] = $res[0];
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
