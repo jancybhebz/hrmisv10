@@ -28,7 +28,7 @@ $(document).ready(function() {
         }
     });
     $('a#btn_step1').click(function() {
-        window.location.href = "select_benefits?appt="+ $('select#selemployment').val() +"&month="+ $('select#selmon').val() +"&yr=" +$('select#selyr').val() +"&datefrom=" +$('#txt_dtfrom').val() + "&dateto=" +$('#txt_dtto').val();
+        window.location.href = "select_benefits?appt="+ $('select#selemployment').val() +"&per=" + $('select#selperiod').val() +"&month="+ $('select#selmon').val() +"&yr=" +$('select#selyr').val() +"&datefrom=" +$('#txt_dtfrom').val() + "&dateto=" +$('#txt_dtto').val();
     });
     $('.date-picker').datepicker({autoclose: true});
     // end process 1
@@ -159,6 +159,6 @@ $(document).ready(function() {
             });
     });
     // end manage check boxes
-    
+
 
 });
