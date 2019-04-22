@@ -14,15 +14,11 @@
                                     if(isset($_SESSION['strUserPermission'])):
                                         if($_SESSION['strUserPermission'] == "Cashier Assistant"):
                                             if($appointment['appointmentCode']=='GIA'): ?>
-                                                <option value="<?=$appointment['appointmentCode']?>"
-                                                    <?=isset($_GET) ? $appointment['appointmentCode'] == $_GET['selemployment'] ? 'selected': '' : ''?>>
-                                                    <?=$appointment['appointmentDesc']?></option><?php
+                                                <option value="<?=$appointment['appointmentCode']?>"><?=$appointment['appointmentDesc']?></option><?php
                                             endif;
                                         endif;
                                     else: ?>
-                                        <option value="<?=$appointment['appointmentCode']?>"
-                                            <?=isset($_GET) ? $appointment['appointmentCode'] == $_GET['selemployment'] ? 'selected': '' : ''?>>
-                                            <?=$appointment['appointmentDesc']?></option><?php
+                                        <option value="<?=$appointment['appointmentCode']?>"><?=$appointment['appointmentDesc']?></option><?php
                                     endif;
                                 endif;
                             endforeach; ?>
@@ -71,6 +67,20 @@
                 </select>
             </div>
         </div>
+        <div class="form-group div-date">
+            <label class="control-label col-md-3">Date
+                <span class="required"> * </span>
+            </label>
+            <div class="col-md-4">
+                <div class="input-group date-picker input-daterange" data-date="2003" data-date-format="yyyy-mm-dd" data-date-viewmode="years" id="dateRange">
+                    <input type="text" class="form-control form-required" id="txt_dtfrom"
+                        value="<?=isset($arrem_ob) ? $arrem_ob['obDateFrom'] : ''?>">
+                    <span class="input-group-addon"> to </span>
+                    <input type="text" class="form-control form-required" id="txt_dtto"
+                        value="<?=isset($arrem_ob) ? $arrem_ob['obDateTo'] : ''?>">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="form-actions">
@@ -78,7 +88,7 @@
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <a href="<?=base_url('finance/payroll_update/process/select_benefits')?>" class="btn blue btn-submit"> Save and Continue
+            <a href="javascript:;" id="btn_step1" class="btn blue btn-submit"> Save and Continue
                 <i class="fa fa-angle-right"></i>
             </a>
         </div>

@@ -11,7 +11,29 @@ $(document).ready(function() {
 	$('.loading-image').hide();
 	$('#div-body').show();
 
-    // check boxes
+    // button compute
+    $('#btn-pprocess-compute').click(function(e) {
+        e.preventDefault();
+        console.log('yr' + $('#pselmon').val());
+        console.log('month' + $('#pselyr').val());
+    });
+
+    // begin process 1
+    $('.div-date').hide();
+    $('select#selemployment').change(function() {
+        if($(this).val() == 'P'){
+            $('.div-period,.div-date').hide();
+        }else{
+            $('.div-period,.div-date').show();
+        }
+    });
+    $('a#btn_step1').click(function() {
+        window.location.href = "select_benefits?appt="+ $('select#selemployment').val() +"&month="+ $('select#selmon').val() +"&yr=" +$('select#selyr').val() +"&datefrom=" +$('#txt_dtfrom').val() + "&dateto=" +$('#txt_dtto').val();
+    });
+    $('.date-picker').datepicker({autoclose: true});
+    // end process 1
+
+    // begin manage check boxes
     $('div.col-md-3').on('click', 'label.checkbox', function() {
     	var checker = $(this).find('div.checker > span');
     	if(checker.attr('class') == ''){
@@ -136,20 +158,7 @@ $(document).ready(function() {
                 }
             });
     });
-
-    // button compute
-    $('#btn-pprocess-compute').click(function(e) {
-        e.preventDefault();
-        console.log('yr' + $('#pselmon').val());
-        console.log('month' + $('#pselyr').val());
-    });
-
-    $('select#selemployment').change(function() {
-        if($(this).val() == 'P'){
-            $('.div-period').hide();
-        }else{
-            $('.div-period').show();
-        }
-    });
+    // end manage check boxes
+    
 
 });
