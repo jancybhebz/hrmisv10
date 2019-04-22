@@ -52,3 +52,6 @@ $route['finance/reports/loanbalance'] = 'finance/reports/LoanBalanceReports';
 # UPDATE
 $route['finance/payroll_update/process/(:any)'] = 'finance/payroll_update/Payrollupdate/index/$1';
 $route['finance/payroll_update/update_or'] = 'finance/payroll_update/Payrollupdate/update_or';
+
+# PROCESS HISTORY
+$route['finance/payroll_update/process_history'] = 'finance/payroll_update/Payrollupdate/process_history';
