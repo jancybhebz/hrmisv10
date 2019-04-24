@@ -3,7 +3,10 @@
 <?=form_open('', array('class' => 'form-horizontal', 'method' => 'get'))?>
 <div class="tab-content">
     <div class="tab-pane active">
-        <h3 class="block">Compute Benefits</h3>
+        <div class="block">
+            <h3 style="display: inline-block;">Compute Benefits</h3>
+            <small style="margin-left: 10px;">Payroll Date: April 2019 || Total Working days: 19 for Subsistence Allowance and RATA For Permanent Employees</small>
+        </div>
         <div class="row">
             <div class="col-md-12 scroll">
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>

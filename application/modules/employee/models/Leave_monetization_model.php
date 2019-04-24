@@ -72,5 +72,31 @@ class Leave_monetization_model extends CI_Model {
 		$this->db->delete('tblemprequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
+
+	function getemp_monetized($empid, $month, $yr)
+	{
+		return $this->db->get_where('tblEmpMonetization', array('processMonth' => $month,'processYear' => $yr,'empNumber' => $empid))->result_array();
+	}
+
+	function getemp_total_monetized($empid, $month, $yr)
+	{
+		$this->db->select('SUM(vlMonetize) as vlmonetize, SUM(slMonetize) as slmonetize');
+		$res = $this->db->get_where('tblEmpMonetization', array('processMonth' => $month,'processYear' => $yr,'empNumber' => $empid))->result_array();
+		return count($res) > 0 ? $res[0] : null;
+	}
+	
+	function addemp_monetized($arrData)
+	{
+		$this->db->insert('tblEmpMonetization', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function delete_monetized($monid)
+	{
+		$this->db->where('mon_id', $monid);
+		$this->db->delete('tblEmpMonetization'); 	
+		return $this->db->affected_rows() > 0 ? TRUE : FALSE;
+	}
+
+
 }

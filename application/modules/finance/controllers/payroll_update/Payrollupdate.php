@@ -39,6 +39,11 @@ class Payrollupdate extends MY_Controller {
 		$arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['mon'], 'year' => $_GET['yr']);
 		$arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
 		
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			print_r($arrPost);
+		endif;
+
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
@@ -64,9 +69,14 @@ class Payrollupdate extends MY_Controller {
 		$arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['selmon'], 'year' => $_GET['selyr']);
 		$arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
 
-		echo json_encode($arrData);
-		
+		echo json_encode($arrData);	
 	}
+
+	public function process_history()
+	{
+		$this->template->load('template/template_view','finance/payroll/process_history',$this->arrData);
+	}
+
 
 	
 

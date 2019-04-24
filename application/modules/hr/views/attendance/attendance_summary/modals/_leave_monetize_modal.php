@@ -15,22 +15,16 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <!-- begin input elements -->
-                                            <input type="text" name="txtperiodmo" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodMonth'] : ''?>">
-                                            <input type="text" name="txtperiodyr" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodYear'] : ''?>">
+                                            <input type="hidden" name="txtperiodmo" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodMonth'] : ''?>">
+                                            <input type="hidden" name="txtperiodyr" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodYear'] : ''?>">
                                             <div class="form-group col-md-12" style="padding: 0 !important;">
                                                 <label class="control-label col-md-12" style="padding: 0 !important;">Date<span class="required"> * </span></label>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
                                                     <i class="fa fa-warning tooltips i-required"></i>
                                                     <select class="form-control form-required bs-select" name="txtadjmon" id="txtadjmon" placeholder="">
+                                                        <option value="null">SELECT MONTH</option>
                                                         <?php foreach (range(1, 12) as $m): ?>
-                                                            <option value="<?=sprintf('%02d', $m)?>"
-                                                                <?php 
-                                                                    if(isset($_GET['month'])):
-                                                                        echo $_GET['month'] == $m ? 'selected' : '';
-                                                                    else:
-                                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
-                                                                    endif;
-                                                                 ?> >
+                                                            <option value="<?=sprintf('%02d', $m)?>" <?=sprintf('%02d', date('n')) == $m ? 'selected' : ''?>>
                                                                 <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
                                                         <?php endforeach; ?>
                                                     </select>
@@ -39,8 +33,8 @@
                                                     <i class="fa fa-warning tooltips i-required"></i>
                                                     <select class="form-control form-required bs-select" name="txtadjyr" id="txtadjyr" placeholder="">
                                                         <option value="null">SELECT YEAR</option>
-                                                        <?php foreach (getYear() as $yr): ?>
-                                                            <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+                                                        <?php foreach (getYear($arrLeaves[0]['periodYear']) as $yr): ?>
+                                                            <option value="<?=$yr?>" <?=date('Y') == $yr ? 'selected' : ''?>>
                                                                 <?=$yr?></option>
                                                         <?php endforeach; ?>
                                                     </select>
@@ -51,7 +45,7 @@
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
                                                     <input type="text" class="form-control form-required" name="txtvl" id="txtvl"
-                                                        value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['vlBalance'] : ''?>">
+                                                        placeholder="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['vlBalance'] : ''?>">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -59,7 +53,7 @@
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
                                                     <input type="text" class="form-control form-required" name="txtsl" id="txtsl"
-                                                        value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['slBalance'] : ''?>">
+                                                        placeholder="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['slBalance'] : ''?>">
                                                 </div>
                                             </div>
                                             <!-- end input elements -->
@@ -86,12 +80,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Rollback</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
+            <?=form_open('employee/Leave_monetization/monetized_rollback/'.$this->uri->segment(4), array('id' => 'frmrollback'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="txtdel_action" id="txtdel_action">
-                            <input type="hidden" name="txtdel_longevityid" id="txtdel_longevityid">
+                            <input type="hidden" name="txt_monid" id="txt_monid">
                             <div class="form-group">
                                 <label>Are you sure you want to Rollback?</label>
                             </div>
@@ -132,5 +125,3 @@
     </div>
 </div>
 <!-- end monetize form modal -->
-
-<?php load_plugin('js', array('form_validation')) ?>
