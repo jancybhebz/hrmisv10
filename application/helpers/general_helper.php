@@ -1,5 +1,18 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if ( ! function_exists('check_session'))
+{
+    function check_session()
+    {
+    	$session = isset($_SESSION['sessBoolLoggedIn']) ? 1 : 0;
+    	$session = $session ? $_SESSION['sessBoolLoggedIn'] : 0;
+
+    	if(!$session):
+    		redirect('login');
+    	endif;
+	}
+}
+
 if ( ! function_exists('employee_details'))
 {
     function employee_details($strEmpNo)
