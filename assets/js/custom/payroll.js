@@ -23,12 +23,10 @@ $(document).ready(function() {
     $('select#selemployment').change(function() {
         if($(this).val() == 'P'){
             $('.div-period,.div-date').hide();
+            $('.div-datause').show();
         }else{
             $('.div-period,.div-date').show();
         }
-    });
-    $('a#btn_step1').click(function() {
-        window.location.href = "select_benefits?appt="+ $('select#selemployment').val() +"&per=" + $('select#selperiod').val() +"&month="+ $('select#selmon').val() +"&yr=" +$('select#selyr').val() +"&datefrom=" +$('#txt_dtfrom').val() + "&dateto=" +$('#txt_dtto').val();
     });
     $('.date-picker').datepicker({autoclose: true});
     // end process 1

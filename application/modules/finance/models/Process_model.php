@@ -72,6 +72,12 @@ class Process_model extends CI_Model {
 		return false;
 	}
 
+	public function getWorkingDays($month, $yr)
+	{
+		
+		
+	}
+
 }
 /* End of file Process_model.php */
 /* Location: ./application/modules/finance/models/Process_model.php */

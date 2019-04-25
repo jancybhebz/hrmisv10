@@ -1,6 +1,8 @@
 <?=load_plugin('css', array('datatables'))?>
 
-<?=form_open('', array('class' => 'form-horizontal', 'method' => 'get'))?>
+<?=form_open('', array('class' => 'form-horizontal', 'method' => 'post'))?>
+<span id="txtprocess"><?=$_POST['txtprocess']?></span>
+<span id="chkbenefit"><?=json_encode($_POST['chkbenefit'])?></span>
 <div class="tab-content">
     <div class="tab-pane active">
         <div class="block">
@@ -9,61 +11,37 @@
         </div>
         <div class="row">
             <div class="col-md-12 scroll">
+                <div></div>
+                <pre><?=print_r($_POST)?></pre>
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                 <table class="table table-striped table-bordered order-column" id="tblemployee-list" style="visibility: hidden;">
                     <thead>
                         <tr>
                             <th> Employee Name </th>
-                            <th> Salary </th>
-                            <th> Working Days </th>
-                            <th> Actual Days Present </th>
-                            <th> Absences </th>
-                            <th> HP % </th>
-                            <th> HP </th>
-                            <th> 8 hrs </th>
-                            <th> 6 hrs </th>
-                            <th> 5 hrs </th>
-                            <th> 4 hrs </th>
-                            <th> Total per diem </th>
-                            <th> Subsistence </th>
-                            <th> Days w/o Laundry</th>
-                            <th> Laundry </th>
-                            <th> LP </th>
-                            <th> RA % </th>
-                            <th> RA </th>
-                            <th> days w/ vehicle</th>
-                            <th> TA % </th>
-                            <th> TA </th>
-                            <th> Total </th>
+                            <th style="text-align: center"> Salary </th>
+                            <th style="text-align: center"> Working Days </th>
+                            <th style="text-align: center"> Actual Days Present </th>
+                            <th style="text-align: center"> Absences </th>
+                            <th style="text-align: center"> HP % </th>
+                            <th style="text-align: center"> HP </th>
+                            <th style="text-align: center"> 8 hrs </th>
+                            <th style="text-align: center"> 6 hrs </th>
+                            <th style="text-align: center"> 5 hrs </th>
+                            <th style="text-align: center"> 4 hrs </th>
+                            <th style="text-align: center"> Total per diem </th>
+                            <th style="text-align: center"> Subsistence </th>
+                            <th style="text-align: center"> Days w/o Laundry</th>
+                            <th style="text-align: center"> Laundry </th>
+                            <th style="text-align: center"> LP </th>
+                            <th style="text-align: center"> RA % </th>
+                            <th style="text-align: center"> RA </th>
+                            <th style="text-align: center"> days w/ vehicle</th>
+                            <th style="text-align: center"> TA % </th>
+                            <th style="text-align: center"> TA </th>
+                            <th style="text-align: center"> Total </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach(range(0, 100) as $i): ?>
-                        <tr>
-                            <td nowrap> Employee sample <?=$i?> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <?php endforeach;  ?>
                     </tbody>
                 </table>
             </div>
@@ -85,7 +63,7 @@
 </div>
 <?=form_close()?>
 <?=load_plugin('js', array('datatables'))?>
-
+<script src="<?=base_url('assets/js/custom/payroll-compute_benefits.js')?>"></script>
 <script>
     $(document).ready(function() {
         $('#tblemployee-list').dataTable( {

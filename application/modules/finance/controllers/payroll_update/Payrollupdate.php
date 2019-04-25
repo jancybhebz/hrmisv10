@@ -14,37 +14,89 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payrollupdate_model','Deduction_model'));
+        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model'));
         $this->arrData = array();
     }
 
 	public function index()
 	{
-		$this->load->model(array('libraries/Appointment_status_model','pds/Pds_model'));
-		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
-		
+		$process_name = $this->uri->segment(4);
 		$_GET['selemployment'] = isset($_GET['selemployment']) ? $_GET['selemployment'] : 'P';
 		$_GET['mon'] = isset($_GET['mon']) ? $_GET['mon'] : date('n');
 		$_GET['yr'] = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$_GET['period'] = isset($_GET['period']) ? $_GET['period'] : 'Period 1';
 		
-		$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Benefit');
-		$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Bonus');
-		$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($_GET['selemployment'], $_GET['mon'], $_GET['yr'], $_GET['period'], 'Additional');
-
-		$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
-		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
-		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
-
-		$arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['mon'], 'year' => $_GET['yr']);
-		$arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
-		
 		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
-			print_r($arrPost);
-		endif;
+		switch ($process_name):
+			case 'index':
+				$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
+				break;
 
+			case 'select_benefits':
+				if(!empty($arrPost)):
+					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($arrPost['selemployment'], $arrPost['mon'], $arrPost['yr'], $arrPost['period'], 'Benefit');
+					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($arrPost['selemployment'], $arrPost['mon'], $arrPost['yr'], $arrPost['period'], 'Bonus');
+					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($arrPost['selemployment'], $arrPost['mon'], $arrPost['yr'], $arrPost['period'], 'Additional');
+
+					$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
+					$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
+					$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
+				else:
+					redirect('finance/payroll_update/process/index');
+				endif;
+				break;
+
+			case 'compute_benefits':
+				// if(!empty($arrPost)):
+					// $process_data = json_decode($arrPost['txtprocess'],true);
+					// $arrEmployees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['yr'],$process_data['mon']);
+					// echo '<pre>';
+					// foreach($arrEmployees as $emp):
+					// 	// echo $emp['empNumber'];
+					// 	// echo '<br>';
+					// 	// echo $process_data['yr'];
+					// 	// echo '<br>';
+					// 	// echo $process_data['mon'];
+					// 	// getemp_dtr($empid, $month, $yr)
+					// 	$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['mon'],$process_data['yr']);
+					// 	print_r($emp_dtr['date_absents']);
+					// 	echo '<hr>';
+					// endforeach;
+					// die();
+					// $this->arrData['arrEmployees']
+				// else:
+					// redirect('finance/payroll_update/process/index');
+				// endif;
+				break;
+
+			default:
+				# code...
+				break;
+		endswitch;
+		
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
+	}
+
+	public function compute_benefits()
+	{
+		$arrPost = $this->input->post();
+		echo json_encode($arrPost);
+		// $process_data = json_decode($arrPost['txtprocess'],true);
+		// $arrEmployees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['yr'],$process_data['mon']);
+		// echo '<pre>';
+		// foreach($arrEmployees as $emp):
+		// 	// echo $emp['empNumber'];
+		// 	// echo '<br>';
+		// 	// echo $process_data['yr'];
+		// 	// echo '<br>';
+		// 	// echo $process_data['mon'];
+		// 	// getemp_dtr($empid, $month, $yr)
+		// 	$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['mon'],$process_data['yr']);
+		// 	print_r($emp_dtr['date_absents']);
+		// 	echo '<hr>';
+		// endforeach;
+		// die();
+		// $this->arrData['arrEmployees']
 	}
 
 	public function update_or()
@@ -63,13 +115,13 @@ class Payrollupdate extends MY_Controller {
 	
 	public function getListofEmployee()
 	{
-		$this->load->model(array('libraries/Appointment_status_model','pds/Pds_model'));
-		$appt = $this->Appointment_status_model->getData($_GET['selemployment'],$_GET['selmon'],$_GET['selyr']);
-		$arrData['appt'] = $appt[0]['appointmentDesc'];
-		$arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['selmon'], 'year' => $_GET['selyr']);
-		$arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
+		// $this->load->model(array('libraries/Appointment_status_model','pds/Pds_model'));
+		// $appt = $this->Appointment_status_model->getData($_GET['selemployment'],$_GET['selmon'],$_GET['selyr']);
+		// $arrData['appt'] = $appt[0]['appointmentDesc'];
+		// $arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['selmon'], 'year' => $_GET['selyr']);
+		// $arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
 
-		echo json_encode($arrData);	
+		// echo json_encode($arrData);	
 	}
 
 	public function process_history()

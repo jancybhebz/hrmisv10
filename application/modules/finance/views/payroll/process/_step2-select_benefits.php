@@ -1,17 +1,18 @@
-<?=form_open('finance/payroll_update/process/compute_benefits?appt='.$_GET['appt'].'&month='.$_GET['month'].'&yr='.$_GET['yr'].'&datefrom='.$_GET['datefrom'].'&dateto='.$_GET['dateto'], array('class' => 'form-horizontal', 'method' => 'post'))?>
+<?=form_open('finance/payroll_update/process/compute_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
+        <textarea name="txtprocess"><?=json_encode($_POST)?></textarea>
         <h3 class="block">Select Benefits</h3>
         <div class="portlet-body">
             <!-- Monthly Benefits -->
-            <div class="row" id="row-benefit" <?=count($arrBenefit) > 0 ? '' : 'hidden'?>>
+            <div class="row" id="row-benefit">
                 <div class="col-md-11" style="margin-left: 40px;">
-                    <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall" <?=isset($_GET['appt']) ? strtolower($_GET['appt']) == 'p' ? 'checked' : '' : ''?>> Check All </label>
+                    <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> Check All </label>
                     <div class="portlet-body" id="div-benefit">
                         <?php foreach($arrBenefit as $benefit): ?>
                             <div class="col-md-3">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>" <?=isset($_GET['appt']) ? strtolower($_GET['appt']) == 'p' ? 'checked' : '' : ''?>> <?=ucwords($benefit['incomeDesc'])?>
+                                    <input type="checkbox" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> <?=ucwords($benefit['incomeDesc'])?>
                                 </label>
                             </div>
                         <?php endforeach; ?>
@@ -21,7 +22,7 @@
             <hr id="row-benefit" />
 
             <!-- Bonus -->
-            <div class="row" id="row-bonus" <?=count($arrBonus) > 0 ? '' : 'hidden'?>>
+            <div class="row" id="row-bonus">
                 <div class="col-md-11" style="margin-left: 40px;">
                     <label class="checkbox chkall"><input type="checkbox" id="chkall-bonus" value="chkall"> Check All </label>
                     <div class="portlet-body" id="div-bonus">
@@ -34,7 +35,7 @@
             <hr id="row-bonus" />
 
             <!-- Income -->
-            <div class="row" id="row-income" <?=count($arrIncome) > 0 ? '' : 'hidden'?>>
+            <div class="row" id="row-income">
                 <div class="col-md-11" style="margin-left: 40px;">
                     <label class="checkbox chkall"><input type="checkbox" id="chkall-income" value="chkall"> Check All </label>
                     <div class="portlet-body" id="div-income">
@@ -53,9 +54,9 @@
 <div class="form-actions">
     <div class="row">
         <div class="col-md-offset-3 col-md-9">
-            <a href="<?=base_url('finance/payroll_update/process/index?appt='.$_GET['appt'].'&month='.$_GET['month'].'&yr='.$_GET['yr'].'&datefrom='.$_GET['datefrom'].'&dateto='.$_GET['dateto'])?>" class="btn default btn-previous">
+            <a href="<?=base_url('finance/payroll_update/process/index?appt='.$_POST['selemployment'].'&month='.$_POST['mon'].'&yr='.$_POST['yr'].'&datefrom='.(isset($_POST['datefrom'])?$_POST['datefrom']:'').'&dateto='.(isset($_POST['dateto'])?$_POST['dateto']:''))?>" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <button type="submit" class="btn blue btn-submit"> Compute </button>
+            <button type="submit" class="btn blue btn-submit" id="btncompute"> Compute </button>
         </div>
     </div>
 </div>

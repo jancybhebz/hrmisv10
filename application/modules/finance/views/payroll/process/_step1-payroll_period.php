@@ -1,3 +1,4 @@
+<?=form_open('finance/payroll_update/process/select_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmprocess'))?>
 <div class="form-horizontal">
     <div class="tab-content">
         <div class="tab-pane active" id="tab-payroll">
@@ -83,15 +84,54 @@
                     </div>
                 </div>
             </div>
+            <div class="div-datause" style="display: none;">
+                <div class="row">
+                    <label class="control-label col-md-3"></label>
+                    <label class="control-label col-md-4">
+                        <div class="caption">
+                            <span class="caption-subject font-black bold uppercase pull-left" style="padding-bottom: 5px;">Data Use</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Month
+                        <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-4">
+                        <select class="form-control bs-select" name="data_fr_mon" id="data_fr_mon">
+                            <option value="null">-- SELECT MONTH --</option>
+                            <?php foreach (range(1, 12) as $m): ?>
+                                <option value="<?=$m?>" <?=isset($_GET['month']) ? $_GET['month']-1 == $m ? 'selected' : '' : date('n')-1 == $m ? 'selected' : ''?>>
+                                    <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Year
+                        <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-4">
+                        <select class="form-control bs-select" name="data_fr_yr" id="data_fr_yr">
+                            <option value="null">-- SELECT YEAR --</option>
+                            <?php foreach (getYear() as $yr): ?>
+                                <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('Y') == $yr?>>
+                                    <?=$yr?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-actions">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
-                <a href="javascript:;" id="btn_step1" class="btn blue btn-submit"> Save and Continue
+                <button type="submit" id="btn_step1" class="btn blue btn-submit"> Save and Continue
                     <i class="fa fa-angle-right"></i>
-                </a>
+                </button>
             </div>
         </div>
     </div>
 </div>
+<?=form_close()?>
