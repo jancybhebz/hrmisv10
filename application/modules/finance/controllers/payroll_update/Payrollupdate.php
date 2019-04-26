@@ -47,26 +47,18 @@ class Payrollupdate extends MY_Controller {
 				break;
 
 			case 'compute_benefits':
-				// if(!empty($arrPost)):
-					// $process_data = json_decode($arrPost['txtprocess'],true);
-					// $arrEmployees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['yr'],$process_data['mon']);
-					// echo '<pre>';
-					// foreach($arrEmployees as $emp):
-					// 	// echo $emp['empNumber'];
-					// 	// echo '<br>';
-					// 	// echo $process_data['yr'];
-					// 	// echo '<br>';
-					// 	// echo $process_data['mon'];
-					// 	// getemp_dtr($empid, $month, $yr)
-					// 	$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['mon'],$process_data['yr']);
-					// 	print_r($emp_dtr['date_absents']);
-					// 	echo '<hr>';
-					// endforeach;
-					// die();
-					// $this->arrData['arrEmployees']
-				// else:
-					// redirect('finance/payroll_update/process/index');
-				// endif;
+				if(!empty($arrPost)):
+					$process_data = json_decode($arrPost['txtprocess'],true);
+					$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['yr'],$process_data['mon']);
+					$arrEmployees = array();
+					foreach($process_employees as $emp):
+						$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['mon'],$process_data['yr']);
+						$arrEmployees[] = array('emp_detail' => $emp, 'date_absents' => count($emp_dtr['date_absents']));
+					endforeach;
+					$this->arrData['arrEmployees'] = $arrEmployees;
+				else:
+					redirect('finance/payroll_update/process/index');
+				endif;
 				break;
 
 			default:
@@ -75,28 +67,6 @@ class Payrollupdate extends MY_Controller {
 		endswitch;
 		
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
-	}
-
-	public function compute_benefits()
-	{
-		$arrPost = $this->input->post();
-		echo json_encode($arrPost);
-		// $process_data = json_decode($arrPost['txtprocess'],true);
-		// $arrEmployees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['yr'],$process_data['mon']);
-		// echo '<pre>';
-		// foreach($arrEmployees as $emp):
-		// 	// echo $emp['empNumber'];
-		// 	// echo '<br>';
-		// 	// echo $process_data['yr'];
-		// 	// echo '<br>';
-		// 	// echo $process_data['mon'];
-		// 	// getemp_dtr($empid, $month, $yr)
-		// 	$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['mon'],$process_data['yr']);
-		// 	print_r($emp_dtr['date_absents']);
-		// 	echo '<hr>';
-		// endforeach;
-		// die();
-		// $this->arrData['arrEmployees']
 	}
 
 	public function update_or()

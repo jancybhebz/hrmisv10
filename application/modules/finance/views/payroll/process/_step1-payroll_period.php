@@ -1,5 +1,8 @@
-<?=form_open('finance/payroll_update/process/select_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmprocess'))?>
 <div class="form-horizontal">
+    <div class="loading-fade" style="display: none;width: 80%;height: 50%;">
+        <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
+    </div>
+    <?=form_open('finance/payroll_update/process/select_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmprocess'))?>
     <div class="tab-content">
         <div class="tab-pane active" id="tab-payroll">
             <h3 class="block">Process Payroll</h3>
@@ -135,3 +138,11 @@
     </div>
 </div>
 <?=form_close()?>
+
+<script>
+    $(document).ready(function() {
+        $('button#btn_step1').on('click', function() {
+            $('.loading-fade').show();
+        });
+    });
+</script>

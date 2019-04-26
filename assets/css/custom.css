@@ -1,3 +1,8 @@
+.loading-fade {
+    z-index: 2;
+    position: fixed;
+    background-color: #ffffff80;
+}
 div#bar {
     height: 8px !important;
 }
