@@ -34,10 +34,9 @@ class Payrollupdate extends MY_Controller {
 
 			case 'select_benefits':
 				if(!empty($arrPost)):
-					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate($arrPost['selemployment'], $arrPost['mon'], $arrPost['yr'], $arrPost['period'], 'Benefit');
-					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate($arrPost['selemployment'], $arrPost['mon'], $arrPost['yr'], $arrPost['period'], 'Bonus');
-					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate($arrPost['selemployment'], $arrPost['mon'], $arrPost['yr'], $arrPost['period'], 'Additional');
-
+					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');
+					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate('Bonus');
+					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate('Additional');
 					$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
 					$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
 					$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
