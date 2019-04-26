@@ -1,5 +1,5 @@
 <div class="form-horizontal">
-    <div class="loading-fade" style="display: none;width: 80%;height: 50%;">
+    <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
     </div>
     <?=form_open('finance/payroll_update/process/select_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmprocess'))?>

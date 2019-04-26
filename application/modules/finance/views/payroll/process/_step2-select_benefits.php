@@ -1,7 +1,10 @@
 <?=form_open('finance/payroll_update/process/compute_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
+    <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
+        <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
+    </div>
     <div class="tab-pane active" id="tab-payroll">
-        <textarea name="txtprocess"><?=json_encode($_POST)?></textarea>
+        <input type="hidden" name="txtprocess" value='<?=json_encode($_POST)?>'>
         <h3 class="block">Select Benefits</h3>
         <div class="portlet-body">
             <!-- Monthly Benefits -->
@@ -61,3 +64,11 @@
     </div>
 </div>
 <?=form_close()?>
+
+<script>
+    $(document).ready(function() {
+        $('button#btncompute').on('click', function() {
+            $('.loading-fade').show();
+        });
+    });
+</script>
