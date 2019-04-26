@@ -41,30 +41,30 @@
                     </thead>
                     <tbody>
                         <?php foreach($arrEmployees as $emp): ?>
-                            <td><?php #getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?>
-                                
-                            </td>
-                            <td style="text-align: center"> Salary </td>
-                            <td style="text-align: center"> Working Days </td>
-                            <td style="text-align: center"> Actual Days Present </td>
-                            <td style="text-align: center"> Absences </td>
-                            <td style="text-align: center"> HP % </td>
-                            <td style="text-align: center"> HP </td>
-                            <td style="text-align: center"> 8 hrs </td>
-                            <td style="text-align: center"> 6 hrs </td>
-                            <td style="text-align: center"> 5 hrs </td>
-                            <td style="text-align: center"> 4 hrs </td>
-                            <td style="text-align: center"> Total per diem </td>
-                            <td style="text-align: center"> Subsistence </td>
-                            <td style="text-align: center"> Days w/o Laundry</td>
-                            <td style="text-align: center"> Laundry </td>
-                            <td style="text-align: center"> LP </td>
-                            <td style="text-align: center"> RA % </td>
-                            <td style="text-align: center"> RA </td>
-                            <td style="text-align: center"> days w/ vehicle</td>
-                            <td style="text-align: center"> TA % </td>
-                            <td style="text-align: center"> TA </td>
-                            <td style="text-align: center"> Total </td>
+                            <tr>
+                                <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
+                                <td style="text-align: center"> <?=$emp['emp_detail']['actualSalary']?> </td>
+                                <td style="text-align: center"> <?=$emp['working_days']?> </td>
+                                <td style="text-align: center"> <?=$emp['working_days'] - $emp['date_absents']?> </td>
+                                <td style="text-align: center"> <?=$emp['date_absents']?> </td>
+                                <td style="text-align: center"> HP % </td>
+                                <td style="text-align: center"> HP </td>
+                                <td style="text-align: center"> 8 hrs </td>
+                                <td style="text-align: center"> 6 hrs </td>
+                                <td style="text-align: center"> 5 hrs </td>
+                                <td style="text-align: center"> 4 hrs </td>
+                                <td style="text-align: center"> Total per diem </td>
+                                <td style="text-align: center"> Subsistence </td>
+                                <td style="text-align: center"> Days w/o Laundry</td>
+                                <td style="text-align: center"> Laundry </td>
+                                <td style="text-align: center"> LP </td>
+                                <td style="text-align: center"> RA % </td>
+                                <td style="text-align: center"> RA </td>
+                                <td style="text-align: center"> days w/ vehicle</td>
+                                <td style="text-align: center"> TA % </td>
+                                <td style="text-align: center"> TA </td>
+                                <td style="text-align: center"> Total </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

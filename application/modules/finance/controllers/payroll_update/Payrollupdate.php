@@ -53,7 +53,7 @@ class Payrollupdate extends MY_Controller {
 					$arrEmployees = array();
 					foreach($process_employees as $emp):
 						$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['mon'],$process_data['yr']);
-						$arrEmployees[] = array('emp_detail' => $emp, 'date_absents' => count($emp_dtr['date_absents']));
+						$arrEmployees[] = array('emp_detail' => $emp, 'date_absents' => count($emp_dtr['date_absents']), 'working_days' => $emp_dtr['total_workingdays']);
 					endforeach;
 					$this->arrData['arrEmployees'] = $arrEmployees;
 				else:
