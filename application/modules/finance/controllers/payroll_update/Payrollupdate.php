@@ -60,6 +60,19 @@ class Payrollupdate extends MY_Controller {
 				endif;
 				break;
 
+			case 'select_deductions':
+				if(!empty($arrPost)):
+					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');
+					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate('Bonus');
+					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate('Additional');
+					$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
+					$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
+					$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
+				else:
+					redirect('finance/payroll_update/process/index');
+				endif;
+				break;
+				
 			default:
 				# code...
 				break;
