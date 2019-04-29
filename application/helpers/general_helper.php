@@ -154,12 +154,13 @@ if ( ! function_exists('periods'))
 
 if ( ! function_exists('getfullname'))
 {
-    function getfullname($fname, $lname, $mname='', $mid='')
+    function getfullname($fname, $lname, $mname='', $mid='', $ext='')
     {
     	$mid_ini = $mid!='' ? str_replace('.', '', $mid) : $mname[0];
     	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
     	$mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.';
-    	return $lname.', '.$fname.' '.$mid_ini;
+    	$ext = $ext!='' ? $ext.' ': '';
+    	return ucwords($ext.$lname.', '.$fname.' '.$mid_ini);
 	}
 }
 

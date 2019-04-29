@@ -129,6 +129,14 @@ class Pds_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
+	function delete_child($code)
+	{
+		$this->db->where($this->tblChildId, $code);
+		$this->db->delete($this->tblChild); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	function checkExist($strAgencyName = '', $strAgencyCode = '')
 	{		
 		

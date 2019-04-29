@@ -162,25 +162,27 @@ $arrData = $arrData[0];?>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
-                                                    <div class="scroller" style="height:330px;" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:350px;" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_personal_view.php'); ?>
                                                     </div>
                                                 </div>
                                                 <!-- end personal info -->
 
-                                                    <!-- begin Family Background -->
-                                                    <div class="tab-pane active" id="family_background">
-                                                        <div class="scroller" style="height:330px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                <!-- begin Family Background -->
+                                                <div class="tab-pane " id="family_background">
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_family_background_view.php'); ?>
                                                     </div>
-                                                    </div>
-                                                    <!-- end Family Background -->
+                                                </div>
+                                                <!-- end Family Background -->
 
-                                                    <!-- begin Education Bacgkround -->
-                                                    <div class="tab-pane" id="education">
-                                                        Education Bacgkround
+                                                <!-- begin Education Bacgkround -->
+                                                <div class="tab-pane active" id="education">
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_education.php'); ?>
                                                     </div>
-                                                    <!-- end Education Bacgkround -->
+                                                </div>
+                                                <!-- end Education Bacgkround -->
 
                                                     <!-- begin Examination -->
                                                     <div class="tab-pane" id="examination">
