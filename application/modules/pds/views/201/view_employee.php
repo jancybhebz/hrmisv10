@@ -162,7 +162,7 @@ $arrData = $arrData[0];?>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
-                                                    <div class="scroller" style="height:330px;" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:350px;" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_personal_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -170,7 +170,7 @@ $arrData = $arrData[0];?>
 
                                                     <!-- begin Family Background -->
                                                     <div class="tab-pane active" id="family_background">
-                                                        <div class="scroller" style="height:330px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_family_background_view.php'); ?>
                                                     </div>
                                                     </div>
