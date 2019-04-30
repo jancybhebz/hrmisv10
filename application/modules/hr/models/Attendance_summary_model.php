@@ -193,6 +193,7 @@ class Attendance_summary_model extends CI_Model {
 		$total_days_vl = 0;
 		$total_days_fl = 0;
 		$total_days_lwop = 0;
+		$total_days_present = 0;
 
 		$arrdtrData = array();
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
@@ -213,6 +214,8 @@ class Attendance_summary_model extends CI_Model {
 			$mins_timein = 0;
 			$expected_timein = '';
 			$expected_timeout = '';
+
+			$dtrin_out = array();
 
 			$ddate = $yr.'-'.$month.'-'.sprintf('%02d', $day);
 			$dday = date('D', strtotime($ddate));
@@ -291,7 +294,6 @@ class Attendance_summary_model extends CI_Model {
 
 			if(count($dtrdata) > 0):
 				$dtrin_out = array($dtrdata['inAM'], $dtrdata['outAM'], $dtrdata['inPM'], $dtrdata['outPM'], $dtrdata['inOT'], $dtrdata['outOT']);
-
 
 				if(($dtrdata['inAM'] != '00:00:00' && $dtrdata['inAM'] != '' && $dtrdata['outPM'] != '00:00:00' && $dtrdata['outPM'] != '')):
 					if(($dtrdata['outAM'] == '00:00:00' || $dtrdata['outAM'] == '') || ($dtrdata['inPM'] == '00:00:00' || $dtrdata['inPM'] == '')):
@@ -434,9 +436,9 @@ class Attendance_summary_model extends CI_Model {
 			# if overtime is greater than or equal to 1 hr
 			$overtime = $overtime >= 60 ? $overtime : 0;
 
-			$emp_dtrdata = array('date' => $ddate,
-								  'day'  => $dday,
-								  'late' => date('H:i', mktime(0, $late)),
+			$emp_dtrdata = array('date' 	 => $ddate,
+								  'day'  	 => $dday,
+								  'late' 	 => date('H:i', mktime(0, $late)),
 								  'undertime'=> date('H:i', mktime(0, $undertime)),
 								  'overtime' => date('H:i', mktime(0, $overtime)),
 								  'holiday'  => $holiday!='' ? $localholi!='' ? $holiday.' + '.$localholi : $holiday : '',
@@ -450,24 +452,40 @@ class Attendance_summary_model extends CI_Model {
 
 			# Absent
 			if($holiday == '' && $localholi == '' && !in_array($dday, array('Sat','Sun'))):
+
 				# check if no remarks
 				if($bsremarks == '' && $obremarks == '' && $toremarks == '' && $leaveremarks == ''):
 					if(count($dtrdata) < 1):
 						array_push($date_absents, $ddate);
 					else:
-						if (count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
-							array_push($date_absents, $ddate);
-							$total_days_lwop = $total_days_lwop + 1;
+						if($dtrin_out != null):
+							if(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
+								array_push($date_absents, $ddate);
+								$total_days_lwop = $total_days_lwop + 1;
+							endif;
 						endif;
 					endif;
 				else:
-					if (count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
-						array_push($date_absents, $ddate);
+					if($dtrin_out != null):
+						if(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
+							array_push($date_absents, $ddate);
+						endif;
+					endif;
+				endif;
+
+				if($obremarks != '' || $toremarks != ''):
+					$total_days_present = $total_days_present + 1;
+				else:
+					if(count($dtrdata) > 0):
+						if($dtrdata['inAM'] != '00:00:00' || $dtrdata['inPM'] != '00:00:00'):
+							$total_days_present = $total_days_present + 1;
+						endif;
 					endif;
 				endif;
 
 				# Total working days
 				$total_workingdays = $total_workingdays + 1;
+
 			endif;
 
 			# Total late
@@ -475,9 +493,11 @@ class Attendance_summary_model extends CI_Model {
 			# Total undertime
 			$total_undertime = $total_undertime + $undertime;
 
+			// print_r($emp_dtrdata);
+
 			// echo '<hr>';
 		endforeach;
-		
+
 		$arrdtrData = array('dtr' 			 	 => $arrdtrData,
 							'date_absents' 	 	 => $date_absents,
 							'total_late' 	 	 => $total_late,
@@ -490,7 +510,8 @@ class Attendance_summary_model extends CI_Model {
 							'total_days_sl'		 => $total_days_sl,
 							'total_days_vl'		 => $total_days_vl,
 							'total_days_fl'		 => $total_days_fl,
-							'total_days_lwop'	 => $total_days_lwop);
+							'total_days_lwop'	 => $total_days_lwop,
+							'total_days_present' => $total_days_present);
 
 		return $arrdtrData;
 		

@@ -48,12 +48,12 @@
                         <?php foreach($arrEmployees as $emp): ?>
                             <tr>
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
-                                <td style="text-align: center"><?=number_format($emp['emp_detail']['authorizeSalary'], 2)?></td>
+                                <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$emp['working_days']?></td>
-                                <td style="text-align: center"><?=$emp['working_days'] - $emp['date_absents']?></td>
+                                <td style="text-align: center"><?=$emp['days_present']?></td>
                                 <td style="text-align: center"><?=$emp['date_absents']?></td>
                                 <td style="text-align: center"><?=$emp['emp_detail']['hpFactor']?> %</td>
-                                <td style="text-align: center"> HP </td>
+                                <td style="text-align: center"><?=number_format($emp['hp'], 2)?></td>
                                 <td style="text-align: center"> 8 hrs </td>
                                 <td style="text-align: center"> 6 hrs </td>
                                 <td style="text-align: center"> 5 hrs </td>
