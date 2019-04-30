@@ -43,14 +43,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="portlet-body">
             <?=form_open(base_url('employee/official_business/submit'), array('method' => 'post', 'id' => 'frmOB'))?>
+            </br>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-11 text-left">
                             <div class="form-group">
                                 <label class="control-label">Official Business : <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
                                 <label class="mt-radio">
                                     <input type="radio" name="strOBtype" id="strOBtype" value="Official" checked> Official
                                 </label>
@@ -59,100 +56,100 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        
+                        <div class="col-sm-1">
                             <div class="form-group">
                                 <font color='red'> <span id="ob1"></span></font>
                             </div>
                         </div>
                     </div>
-                    <br><br>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Request Date : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                         <div class="col-sm-7 text-left">
                             <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="datereq"></span></font>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Date From : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-7 text-left">
                             <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="datefrom"></span></font>
                             </div>
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Date To : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-7">
                             <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdateto" id="dtmOBdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdateto" id="dtmOBdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="dateto"></span></font>
                             </div>
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Time From : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeFrom" id="dtmTimeFrom" value="12:00:00 AM">      
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeFrom" id="dtmTimeFrom" value="12:00:00 AM"  autocomplete="off">      
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="timefrom"></span></font>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Time To : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeTo" id="dtmTimeTo" value="12:00:00 PM">      
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="timeto"></span></font>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Destination : <span class="required"> * </span></label>
                             </div>
@@ -162,14 +159,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"> </textarea>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="desti"></span></font>
                             </div>
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                  <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
                                     <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
@@ -177,14 +174,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="meal"></span></font>
                             </div>
                         </div>
                     </div>
                       <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Purpose : <span class="required"> * </span></label>
                             </div>
@@ -203,7 +200,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                     <br><br>
                      <div class="row">
-                      <div class="col-sm-12 text-center">
+                      <div class="col-sm-6 text-center">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="OB">
                             

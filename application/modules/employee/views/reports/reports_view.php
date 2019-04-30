@@ -41,13 +41,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="portlet-body">
                 <?=form_open(base_url('employee/reports/submit'), array('method' => 'post', 'id' => 'frmReports'))?>
+                </br>
                      <div class="row">
-                            <div class="col-sm-3 text-right">
+                            <div class="col-sm-2 text-left">
                                 <div class="form-group">
                                     <label class="control-label"><strong>Type of Reports : </strong><span class="required"> * </span></label>
                                 </div>
                             </div>
-                         <div class="col-sm-3">
+                         <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <select name="strReporttype" id="strReporttype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
                                 <option value="">Select Report Type</option>
@@ -59,20 +60,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </select>
                             </div>
                         </div>
-                         <div class="col-sm-3">
+                         <div class="col-sm-2">
                             <div class="form-group">
                                  <font color='red'> <span id="idnum"></span></font>
                             </div>
                         </div>
                      </div>
-                     <br><br>
                      <div class="row">
-                            <div class="col-sm-3 text-right">
+                           <div class="col-sm-2 text-left">
                                 <div class="form-group">
                                     <label class="control-label">Type of Remittances : <span class="required"> * </span></label>
                                 </div>
                             </div>
-                         <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <select name="strRemittype" id="strRemittype" type="text" class="form-control"  value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
                                 <option value=""></option>
@@ -84,19 +84,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </select>
                             </div>
                         </div>
-                         <div class="col-sm-3">
+                         <div class="col-sm-2">
                             <div class="form-group">
                                  <font color='red'> <span id="remit"></span></font>
                             </div>
                         </div>
                      </div>
                      <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Month : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                       <div class="col-sm-5 text-left">
                             <div class="form-group">
                                 <select id="month" name="month" class="form-control select2" style="width: 40%;">
                                     <option value="">Select Month</option>
@@ -112,12 +112,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div> 
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Date : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5 text-left">
                             <div class="form-group">
                                <?php
                                 $already_selected_value = date("Y");
@@ -130,7 +130,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 print '</select>'; ?>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="dateupdate"></span></font>
                             </div>
@@ -139,7 +139,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <br><br>
 
                      <div class="row">
-                        <div class="col-sm-12 text-center">
+                            <div class="col-sm-2 text-left">
+                            </div>
+                        <div class="col-sm-3 text-left">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="Reports">
 
