@@ -41,7 +41,7 @@ class User_account extends MY_Controller {
 			$strAccessLevel = $arrPost['strAccessLevel'];
 			$strEmpName = $arrPost['strEmpName'];
 			$strUsername = $arrPost['strUsername'];
-			$strPassword = $arrPost['strPassword'];
+			$strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			if(!empty($strAccessLevel) && !empty($strEmpName) && !empty($strUsername) && !empty($strPassword))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -95,7 +95,7 @@ class User_account extends MY_Controller {
 			$strAccessLevel = $arrPost['strAccessLevel'];
 			$strEmpName = $arrPost['strEmpName'];
 			$strUsername = $arrPost['strUsername'];
-			$strPassword = $arrPost['strPassword'];
+			$strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			if(!empty($strAccessLevel) AND !empty($strEmpName) AND !empty($strUsername) AND !empty($strPassword)) 
 			{
 				$arrData = array(

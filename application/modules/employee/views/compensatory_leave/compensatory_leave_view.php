@@ -43,65 +43,65 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave'))?>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Date : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="dateupdate"></span></font>
                             </div>
                         </div>
                     </div><br>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Old Morning In : </label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                  <input type="text" class="form-control timepicker timepicker-default" name="dtmOldMorningIn" id="dtmOldMorningIn" value="12:00:00"> </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Old Morning Out :</label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOldMorningOut" id="dtmOldMorningOut" value="12:00:00 PM"> 
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Old Afternoon In : </label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOldAfternoonIn" id="dtmOldAfternoonIn" value="12:00:00 PM">
                             </div>
                         </div>
                     </div>
                       <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Old Afternoon Out :</label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                  <input type="text" class="form-control timepicker timepicker-default" name="dtmOldAfternoonOut" id="dtmOldAfternoonOut" value="12:00:00 PM">
                             </div>
@@ -110,48 +110,48 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                   <br>
 
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">New Morning Time In :</label>
                             </div>
                         </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                       <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">New Morning Time Out :</label>
                             </div>
                         </div>
-                         <div class="col-sm-3">
+                         <div class="col-sm-3 text-left">
                             <div class="form-group">
                                   <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">New Afternoon Time In :</label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">New Afternoon Time Out :</label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM">
                             </div>
@@ -160,17 +160,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                    
                     <br>
                     <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Purpose/Target Deliverables :</label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                <textarea name="strReason" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"> </textarea>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="reason"></span></font>
                             </div>
@@ -178,12 +178,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                      
                      <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Recommending Approval : </label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <select name="strRecommend" id="strRecommend" type="text" class="form-control" value="<?=!empty($this->session->userdata('strRecommend'))?$this->session->userdata('strRecommend'):''?>">
                                     <option value="">Select</option>
@@ -193,19 +193,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="reco"></span></font>
                             </div>
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-sm-3 text-right">
+                        <div class="col-sm-2 text-left">
                             <div class="form-group">
                                 <label class="control-label">Approval / Disapproval : </label>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 text-left">
                             <div class="form-group">
                                 <select name="strApproval" id="strApproval" type="text" class="form-control" value="<?=!empty($this->session->userdata('strApproval'))?$this->session->userdata('strApproval'):''?>">
                                     <option value="">Select</option>
@@ -215,7 +215,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <font color='red'> <span id="approval"></span></font>
                             </div>
@@ -223,7 +223,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                     <br><br>
                      <div class="row">
-                      <div class="col-sm-12 text-center">
+                      <div class="col-sm-6 text-center">
                         <input class="hidden" name="strStatus" value="Filed Request">
                         <input class="hidden" name="strCode" value="COC">
 
