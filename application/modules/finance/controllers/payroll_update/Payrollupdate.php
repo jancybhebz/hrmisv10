@@ -47,13 +47,19 @@ class Payrollupdate extends MY_Controller {
 
 			case 'compute_benefits':
 				if(!empty($arrPost)):
+					echo '<pre>';
+					$this->load->helper('payroll_helper');
 					$process_data = json_decode($arrPost['txtprocess'],true);
 					$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['yr'],$process_data['mon']);
 					$arrEmployees = array();
 					foreach($process_employees as $emp):
 						$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['mon'],$process_data['yr']);
-						$arrEmployees[] = array('emp_detail' => $emp, 'date_absents' => count($emp_dtr['date_absents']), 'working_days' => $emp_dtr['total_workingdays']);
+						// $arrEmployees[]
+						$empdd = array('emp_detail' => $emp, 'date_absents' => count($emp_dtr['date_absents']), 'working_days' => $emp_dtr['total_workingdays']);
+						print_r($empdd);
+						echo '<hr>';
 					endforeach;
+					die();
 					$this->arrData['arrEmployees'] = $arrEmployees;
 				else:
 					redirect('finance/payroll_update/process/index');

@@ -52,7 +52,7 @@
                                 <td style="text-align: center"><?=$emp['working_days']?></td>
                                 <td style="text-align: center"><?=$emp['working_days'] - $emp['date_absents']?></td>
                                 <td style="text-align: center"><?=$emp['date_absents']?></td>
-                                <td style="text-align: center"> HP % </td>
+                                <td style="text-align: center"><?=$emp['emp_detail']['hpFactor']?> %</td>
                                 <td style="text-align: center"> HP </td>
                                 <td style="text-align: center"> 8 hrs </td>
                                 <td style="text-align: center"> 6 hrs </td>
