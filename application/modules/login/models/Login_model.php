@@ -9,18 +9,34 @@ class Login_model extends CI_Model {
 	
 	public function authenticate($strUsername,$strPassword)
 	{
-		
-		$strPass = $this->db->escape_str($strPassword);
 		$strSQL = " SELECT tblEmpAccount.*,tblEmpPosition.*,tblEmpPersonal.surname,tblEmpPersonal.firstname FROM tblEmpAccount
 					LEFT JOIN tblEmpPosition ON tblEmpPosition.empNumber=tblEmpAccount.empNumber
 					LEFT JOIN tblEmpPersonal ON tblEmpPersonal.empNumber=tblEmpAccount.empNumber
 					WHERE 1=1 
-					AND userName='".$this->db->escape_str($strUsername)."'
-					AND userPassword='".md5($strPass)."'
-					";
-		//echo $strSQL;exit(1);			
+					AND userName='".$this->db->escape_str($strUsername)."'";
+
+		// echo $strSQL;exit(1);			
 		$objQuery = $this->db->query($strSQL);
-		return $objQuery->result_array();
+		$rs= $objQuery->result_array();
+		if (count($rs)>0)
+		{
+			$strPass = $this->db->escape_str($rs[0]['userPassword']);
+			$hashed_password = password_hash($strPass,PASSWORD_BCRYPT);
+			$blnValid = password_verify($strPass,$hashed_password);
+			
+			if($blnValid)
+			{
+				return $rs;
+			}
+			else{
+				return array();
+			}
+		}
+		else
+		{
+			return array();
+		}
+
 	}		
 }
 /* End of file login_model.php */
