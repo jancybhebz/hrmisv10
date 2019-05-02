@@ -16,6 +16,7 @@ function showtextbox()
 		$('#height_textbox').show();
 		$('#blood_textbox').show();
 		$('#gsis_textbox').show();
+		$('#bp_textbox').show();
 		$('#pagibig_textbox').show();
 		$('#philhealth_textbox').show();
 		$('#tin_textbox').show();
@@ -153,6 +154,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -290,6 +292,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -428,6 +431,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -565,6 +569,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -702,6 +707,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -839,6 +845,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -977,6 +984,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -1114,6 +1122,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -1251,6 +1260,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -1390,6 +1400,7 @@ function showtextbox()
 		$('#height_textbox').hide();
 		$('#blood_textbox').hide();
 		$('#gsis_textbox').hide();
+		$('#bp_textbox').hide();
 		$('#pagibig_textbox').hide();
 		$('#philhealth_textbox').hide();
 		$('#tin_textbox').hide();
@@ -1531,6 +1542,7 @@ $(document).ready(function()
 	$('#height_textbox').hide();
 	$('#blood_textbox').hide();
 	$('#gsis_textbox').hide();
+	$('#bp_textbox').hide();
 	$('#pagibig_textbox').hide();
 	$('#philhealth_textbox').hide();
 	$('#tin_textbox').hide();

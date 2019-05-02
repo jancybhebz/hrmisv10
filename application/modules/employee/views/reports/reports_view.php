@@ -42,15 +42,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
                 <?=form_open(base_url('employee/reports/submit'), array('method' => 'post', 'id' => 'frmReports'))?>
                 </br>
-                     <div class="row">
-                            <div class="col-sm-2 text-left">
-                                <div class="form-group">
-                                    <label class="control-label"><strong>Type of Reports : </strong><span class="required"> * </span></label>
-                                </div>
-                            </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <select name="strReporttype" id="strReporttype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
+                     
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label"><strong>Type of Reports : </strong><span class="required"> * </span></label>
+                            <div class="input-icon left">
+                                 <select name="strReporttype" id="strReporttype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
                                 <option value="">Select Report Type</option>
                                 <option>Daily Time Record</option>
                                 <option>Service Record</option>
@@ -60,22 +58,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </select>
                             </div>
                         </div>
-                         <div class="col-sm-2">
-                            <div class="form-group">
-                                 <font color='red'> <span id="idnum"></span></font>
-                            </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                           <div class="col-sm-2 text-left">
-                                <div class="form-group">
-                                    <label class="control-label">Type of Remittances : <span class="required"> * </span></label>
-                                </div>
-                            </div>
-                        <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <select name="strRemittype" id="strRemittype" type="text" class="form-control"  value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
-                                <option value=""></option>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                           <label class="control-label">Type of Remittances : <span class="required"> * </span></label>
+                            <div class="input-icon left">
+                                 <select name="strRemittype" id="strRemittype" type="text" class="form-control"  value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
+                                <option value="">Select Remittance</option>
                                 <option>Conso Loan</option>
                                 <option>E-Cash</option>
                                 <option>GSIS Educational</option>
@@ -84,21 +75,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </select>
                             </div>
                         </div>
-                         <div class="col-sm-2">
-                            <div class="form-group">
-                                 <font color='red'> <span id="remit"></span></font>
-                            </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Month : <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                       <div class="col-sm-5 text-left">
-                            <div class="form-group">
-                                <select id="month" name="month" class="form-control select2" style="width: 40%;">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                           <label class="control-label">Month : <span class="required"> * </span></label>
+                            <div class="input-icon left">
+                                 <select id="month" name="month" class="form-control select2" style="width: 40%;">
                                     <option value="">Select Month</option>
                                     <?php
                                     $monthArray = range(1, 12);
@@ -108,18 +92,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         echo '<option value="'.$monthPadding.'">'.$fdate.'</option>';
                                     }?>
                                 </select>
-                             </div>
-                        </div> 
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Date : <span class="required"> * </span></label>
                             </div>
                         </div>
-                        <div class="col-sm-5 text-left">
-                            <div class="form-group">
-                               <?php
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Date : <span class="required"> * </span></label>
+                            <div class="input-icon left">
+                                  <?php
                                 $already_selected_value = date("Y");
                                 $earliest_year = 2003;
 
@@ -130,25 +112,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 print '</select>'; ?>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <font color='red'> <span id="dateupdate"></span></font>
-                            </div>
-                        </div>
                     </div>
-                    <br><br>
-
+                </div>
+                <br><br>
                      <div class="row">
-                            <div class="col-sm-2 text-left">
-                            </div>
-                        <div class="col-sm-3 text-left">
+                        <div class="col-sm-8 text-center">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="Reports">
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="<?=base_url('employee/reports')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>    
+                            <button type="submit" class="btn blue">Submit</button>
+                            <a href="<?=base_url('employee/reports')?>"/><button type="reset" class="btn blue">Clear</button></a>    
                         </div>            
                     </div>
+               
                <?=form_close()?>
             </div>
         </div>

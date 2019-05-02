@@ -42,17 +42,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
                     <div class="portlet-body">
             <?=form_open(base_url('employee/leave/submitFL'), array('method' => 'post', 'id' => 'frmLeave'))?>
-                    <div class="row">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
-                            </div>
-                        </div>
-                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
+                                <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                       <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
+                        <div class="input-icon left">
+                            <i class="fa"></i>
+                             <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
                             <option value="">Please select</option>
-                            <option value=""></option>
                             <option value="forced">Forced Leave</option>
                             <option value="special">Special Leave</option>
                             <option value="sick">Sick Leave</option>
@@ -63,12 +60,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </select>
                         </div>
                     </div>
-                     <div class="col-sm-3">
-                        <div class="form-group">
-                             <font color='red'> <span id="idnum"></span></font>
-                        </div>
-                    </div>
-                 </div><br>
+                </div>
+            </div>
+
+                 
              <?php  $strLeavetype = '';
                     $action = '';
             if($strLeavetype == 'forced'){  ?>
@@ -87,183 +82,141 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <?php $action = base_url('employee/pds_update/submitSTL'); ?>
             <?php } ?>
             
-                <div class="row" id="wholeday_textbox">
-                       <div class="col-sm-5 text-right">
-                            <div class="form-group">
-                                <label class="mt-radio">
-                                    <input type="radio" name="strDay" id="strDay" value="Whole day" checked> Whole day
-                                </label>
-                                <label class="mt-radio">
-                                    <input type="radio" name="strDay" id="strDay" value="Half day"> Half day
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <font color='red'> <span id="ob1"></span></font>
-                            </div>
-                        </div>
-                    </div><br>
-                     <div class="row" id="leavefrom_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Leave From : <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <font color='red'> <span id="leavefrom"></span></font>
-                            </div>
+            <div class="row" id="wholeday_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <div class="input-icon left">
+                           <label class="mt-radio">
+                            <input type="radio" name="strDay" id="strDay" value="Whole day" checked> Whole day
+                            </label>
+                            <label class="mt-radio">
+                                <input type="radio" name="strDay" id="strDay" value="Half day"> Half day
+                            </label>
                         </div>
                     </div>
-                     <div class="row" id="leaveto_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Leave To : <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <font color='red'> <span id="leavefrom"></span></font>
-                            </div>
+                </div>
+            </div>
+            <div class="row" id="leavefrom_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                     <label class="control-label">Leave From : <span class="required"> * </span></label>
+                        <div class="input-icon left">
+                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row" id="daysapplied_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label"># of Days Applied : </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
-                            </div>
+                </div>
+            </div>
+             <div class="row" id="leaveto_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                     <label class="control-label">Leave To : <span class="required"> * </span></label>
+                        <div class="input-icon left">
+                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
-                     <div class="row" id="signatory1_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Authorized Official (1st Signatory) :</label>
-                            </div>
+                </div>
+            </div>
+             <div class="row" id="daysapplied_textbox">
+                <div class="col-sm-1">
+                    <div class="form-group">
+                     <label class="control-label"># of Days Applied : </label>
+                        <div class="input-icon left">
+                             <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
+                    </div>
+                </div>
+            </div>
+              <div class="row" id="signatory1_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                     <label class="control-label">Authorized Official (1st Signatory) :</label>
+                        <div class="input-icon left">
+                            <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
                                 </select>
-                            </div>
                         </div>
                     </div>
-                     <div class="row" id="signatory2_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Authorized Official (2nd Signatory) : </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                               <select type="text" class="form-control" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" >
+                </div>
+            </div>
+            <div class="row" id="signatory2_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                     <label class="control-label">Authorized Official (2nd Signatory) :</label>
+                        <div class="input-icon left">
+                            <select type="text" class="form-control" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" >
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                     <?php endforeach; ?>
                                 </select>
-                            </div>
                         </div>
                     </div>
-                    <div class="row" id="reason_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Specify Reason/s :</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <textarea name="strReason" id="strReason" type="text" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
-                                 </textarea>
-                            </div>
+                </div>
+            </div>
+             <div class="row" id="reason_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                      <label class="control-label">Specify Reason/s :</label>
+                        <div class="input-icon left">
+                             <textarea name="strReason" id="strReason" type="text" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
+                             </textarea>
                         </div>
                     </div>
-                     <div class="row" id="incaseSL_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">In Case of Sick Leave : </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
+                </div>
+            </div>
+             <div class="row" id="incaseSL_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                      <label class="control-label">In Case of Sick Leave : </label>
+                        <div class="input-icon left">
+                             <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
                                  <option value="">Select</option>
-                                 <option value=""></option>
                                  <option value="in patient">in patient</option>
                                  <option value="out patient">out patient</option>
-                                 </select>
-                            </div>
+                             </select>
                         </div>
                     </div>
-                    <div class="row" id="incaseVL_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">In Case of Vacation Leave : </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
+                </div>
+            </div>
+            <div class="row" id="incaseVL_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                       <label class="control-label">In Case of Vacation Leave : </label>
+                        <div class="input-icon left">
+                              <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
                                  <option value="">Select</option>
                                  <option value=""></option>
                                  <option value="within the country">within the country</option>
                                  <option value="abroad">abroad</option>
-                                 </select>
-                            </div>
+                             </select>
                         </div>
                     </div>
+                </div>
+            </div>
+            <br><br>
+                <div class="row">
+                  <div class="col-sm-8 text-right">
+                        <input class="hidden" name="strStatus" value="Filed Request">
+                        <input class="hidden" name="strCode1" value="Forced Leave">
+                        <input class="hidden" name="strCodeSPL" value="Special Leave">
+                        <button type="button" id="printreport" value="reportLeave" class="btn blue">Print/Preview</button>
 
-                <br><br>
-                    <div class="row">
-                      <div class="col-sm-12 text-center">
-                            <input class="hidden" name="strStatus" value="Filed Request">
-                              
-                            <input class="hidden" name="strCode1" value="Forced Leave">
-                        
-                            <input class="hidden" name="strCodeSPL" value="Special Leave">
-                     
-                          <!--   <input class="hidden" name="strCode3" value="Sick Leave">
-                        
-                            <input class="hidden" name="strCode" value="Vacation Leave">
-                  
-                            <input class="hidden" name="strCode" value="Maternity Leave">
-                     
-                            <input class="hidden" name="strCode" value="Paternity Leave">
-                        
-                            <input class="hidden" name="strCode" value="Study Leave"> -->
-          
-         
+                     <div class="col-sm-10 text-center">
+                        <button type="submit" id="submitFL" class="btn btn-success">Submit</button>
+                        <button type="submit" id="submitSPL" class="btn btn-success">Submit</button>
+                        <button type="submit" id="submitSL" class="btn btn-success">Submit</button>
+                        <button type="submit" id="submitVL" class="btn btn-success">Submit</button>
+                        <button type="submit" id="submitML" class="btn btn-success">Submit</button>
+                        <button type="submit" id="submitPL" class="btn btn-success">Submit</button>
+                        <button type="submit" id="submitSTL" class="btn btn-success">Submit</button>
+                        <a href="<?=base_url('employee/leave')?>"/><button type="reset" class="btn blue">Clear</button></a>
                             
-                            <button type="submit" id="submitFL" class="btn btn-primary">Submit</button>
-                            <button type="submit" id="submitSPL" class="btn btn-primary">Submit</button>
-                            <button type="submit" id="submitSL" class="btn btn-primary">Submit</button>
-                            <button type="submit" id="submitVL" class="btn btn-primary">Submit</button>
-                            <button type="submit" id="submitML" class="btn btn-primary">Submit</button>
-                            <button type="submit" id="submitPL" class="btn btn-primary">Submit</button>
-                            <button type="submit" id="submitSTL" class="btn btn-primary">Submit</button>
-                            <a href="<?=base_url('employee/leave')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                            <button type="button" id="printreport" value="reportLeave" class="btn btn-primary">Print/Preview</button>
-                      </div>
-                    </div>
+                        </div>
+                   </div>
+                </div>
                 <?=form_close()?>
             </div>
         </div>

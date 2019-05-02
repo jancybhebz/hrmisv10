@@ -44,195 +44,160 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('employee/dtr_update/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
             <br>
-                    <div class="row">
-                        <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Date : <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-7 text-left">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <font color='red'> <span id="dateupdate"></span></font>
-                            </div>
+                   
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Date : <span class="required"> * </span></label>
+                        <div class="input-icon left">
+                              <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                       <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Old Morning In : </label>
-                            </div>
-                        </div>
-                       <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningIn'))?$this->session->userdata('strOldMorningIn'):''?>"> 
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Old Morning In : </label>
+                        <div class="input-icon left">
+                            <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningIn'))?$this->session->userdata('strOldMorningIn'):''?>" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Old Morning Out :</label>
-                            </div>
-                        </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningOut'))?$this->session->userdata('strOldMorningOut'):''?>"> 
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Old Morning Out :</label>
+                        <div class="input-icon left">
+                            <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningOut'))?$this->session->userdata('strOldMorningOut'):''?>" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Old Afternoon In : </label>
-                            </div>
-                        </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonIn'))?$this->session->userdata('strOldAfternoonIn'):''?>"> 
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Old Afternoon In :</label>
+                        <div class="input-icon left">
+                             <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonIn'))?$this->session->userdata('strOldAfternoonIn'):''?>" autocomplete="off">
                         </div>
                     </div>
-                      <div class="row">
-                        <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Old Afternoon Out :</label>
-                            </div>
-                        </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonOut'))?$this->session->userdata('strOldAfternoonOut'):''?>"> 
-                            </div>
+                </div>
+            </div>
+          <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Old Afternoon Out :</label>
+                        <div class="input-icon left">
+                              <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonOut'))?$this->session->userdata('strOldAfternoonOut'):''?>" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Old Overtime In : </label>
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Old Overtime In : </label>
+                        <div class="input-icon left">
+                              <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeIn'))?$this->session->userdata('strOldOvertimeIn'):''?>" autocomplete="off">
                         </div>
-                        <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeIn'))?$this->session->userdata('strOldOvertimeIn'):''?>"> 
-                            </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Old Overtime Out : </label>
+                        <div class="input-icon left">
+                               <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeOut'))?$this->session->userdata('strOldOvertimeOut'):''?>" autocomplete="off">
                         </div>
-                      </div>
-                      <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Old Overtime Out :</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeOut'))?$this->session->userdata('strOldOvertimeOut'):''?>"> 
-                            </div>
-                        </div>
-                    </div><br>
-
+                    </div>
+                </div>
+            </div>
                     <!-- New TIME -->
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">New Morning Time In :</label>
-                            </div>
-                        </div>
-                           <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00 AM">
-                            </div>
+             <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">New Morning Time In : </label>
+                        <div class="input-icon left">
+                              <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00 AM" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">New Morning Time Out :</label>
-                            </div>
-                        </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00 PM">
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                         <label class="control-label">New Morning Time Out :</label>
+                        <div class="input-icon left">
+                               <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00 PM" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">New Afternoon Time In :</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM">
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                         <label class="control-label">New Afternoon Time In :</label>
+                        <div class="input-icon left">
+                               <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">New Afternoon Time Out :</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM">
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                         <label class="control-label">New Afternoon Time Out :</label>
+                        <div class="input-icon left">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">New Overtime In :</label>
-                            </div>
-                        </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" value="12:00:00 PM">
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                         <label class="control-label">New Overtime In :</label>
+                        <div class="input-icon left">
+                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" value="12:00:00 PM" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                       <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">New Afternoon Out :</label>
-                            </div>
-                        </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" value="12:00:00 PM">
-                            </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                         <label class="control-label">New Overtime Out :</label>
+                        <div class="input-icon left">
+                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" value="12:00:00 PM" autocomplete="off">
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                         <div class="col-sm-2 text-left">
-                            <div class="form-group">
-                                <label class="control-label">Reason :</label>
-                            </div>
-                        </div>
-                         <div class="col-sm-3 text-left">
-                            <div class="form-group">
-                               <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <font color='red'> <span id="reason"></span></font>
-                            </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Reason :</label>
+                        <div class="input-icon left">
+                              <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
                         </div>
                     </div>
-                    <br><br>
-                     <div class="row">
-                      <div class="col-sm-6 text-center">
-                          <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                           <a href="<?=base_url('employee/dtr_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                           <button type="button" id="printreport" value="reportDTRupdate" class="btn btn-primary">Print/Preview</button>
-                      </div>
-                    </div>
+                </div>
+            </div>
+            <br>
+            <br><br>
+                 <div class="row">
+                  <div class="col-sm-6 text-center">
+                      <button type="submit" class="btn btn-success"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                       <a href="<?=base_url('employee/dtr_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
+                  </div>
+                  <div class="col-sm-2 text-right">
+                       <button type="button" id="printreport" value="reportDTRupdate" class="btn blue">Print/Preview</button>
+                  </div>
+                </div>
                 <?=form_close()?>
             </div>
         </div>
