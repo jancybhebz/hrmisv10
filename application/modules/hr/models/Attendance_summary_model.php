@@ -178,8 +178,10 @@ class Attendance_summary_model extends CI_Model {
 		
 		# Attendance Scheme
 		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
-		$att_scheme = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
-		$att_scheme = $att_scheme[0];
+		if(count($emp_scheme) > 0):
+			$att_scheme = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
+			$att_scheme = $att_scheme[0];
+		endif;
 
 		$date_absents = array();
 		$total_undertime = 0;

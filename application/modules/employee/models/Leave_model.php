@@ -185,5 +185,12 @@ class Leave_model extends CI_Model {
 			return $this->db->get('tblLeave')->result_array();
 		endif;
 	}
+
+	public function getEmpLeave_balance($empid,$permonth,$peryr)
+	{
+		$res = $this->db->get_where('tblEmpLeaveBalance', array('empNumber' => $empid, 'periodMonth' => $permonth, 'periodYear' => $peryr))->result_array();
+		return $res;
+
+	}
 		
 }

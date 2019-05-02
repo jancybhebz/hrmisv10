@@ -10,9 +10,9 @@
     <div class="tab-pane active">
         <div class="block">
             <h3 style="display: inline-block;">Compute Benefits</h3>
-            <small style="margin-left: 10px;">Payroll Date: April 2019 || Total Working days: 19 for Subsistence Allowance and RATA For Permanent Employees</small>
+            <small style="margin-left: 10px;">Payroll Date: <?=$payroll_date?> || Total Working days: <?=$curr_period_workingdays?> for Subsistence Allowance and RATA For Permanent Employees</small>
             <a href="javascript:;" class="btn green btn-refresh pull-right" style="top: 12px;position: relative;">
-                <i class="fa fa-refresh"></i> Reload </a>
+                <i class="fa fa-refresh"></i> Recompute </a>
         </div>
         <div class="row">
             <div class="col-md-12 scroll">
@@ -49,16 +49,24 @@
                             <tr>
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
-                                <td style="text-align: center"><?=$emp['working_days']?></td>
+                                <td style="text-align: center"><?=$curr_period_workingdays?></td>
                                 <td style="text-align: center"><?=$emp['days_present']?></td>
                                 <td style="text-align: center"><?=$emp['date_absents']?></td>
                                 <td style="text-align: center"><?=$emp['emp_detail']['hpFactor']?> %</td>
                                 <td style="text-align: center"><?=number_format($emp['hp'], 2)?></td>
-                                <td style="text-align: center"> 8 hrs </td>
-                                <td style="text-align: center"> 6 hrs </td>
-                                <td style="text-align: center"> 5 hrs </td>
-                                <td style="text-align: center"> 4 hrs </td>
-                                <td style="text-align: center"> Total per diem </td>
+                                <?php if(count($emp['leave_bal']) > 0): ?>
+                                    <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_8h']?></td>
+                                    <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_6h']?></td>
+                                    <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_5h']?></td>
+                                    <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_4h']?></td>
+                                    <td style="text-align: center"><?=$emp['leave_bal'][0]['numOfPerdiem']?></td>
+                                <?php else:?>
+                                    <td style="text-align: center" colspan="5">No Leave Balance</td>
+                                    <td hidden></td>
+                                    <td hidden></td>
+                                    <td hidden></td>
+                                    <td hidden></td>
+                                <?php endif; ?>
                                 <td style="text-align: center"> Subsistence </td>
                                 <td style="text-align: center"> Days w/o Laundry</td>
                                 <td style="text-align: center"> Laundry </td>
@@ -73,6 +81,12 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+
+                <?php 
+                    if($total_empnolb > 0):
+                        echo 'Employee with no leave balance = '.$total_empnolb;
+                    endif;
+                 ?>
             </div>
         </div>
         <br><br>
