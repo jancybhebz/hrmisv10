@@ -50,7 +50,7 @@
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$curr_period_workingdays?></td>
-                                <td style="text-align: center"><?=$emp['days_present']?></td>
+                                <td style="text-align: center"><?=$emp['actual_present']?></td>
                                 <td style="text-align: center"><?=$emp['date_absents']?></td>
                                 <td style="text-align: center"><?=$emp['emp_detail']['hpFactor']?> %</td>
                                 <td style="text-align: center"><?=number_format($emp['hp'], 2)?></td>
@@ -59,7 +59,7 @@
                                     <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_6h']?></td>
                                     <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_5h']?></td>
                                     <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_4h']?></td>
-                                    <td style="text-align: center"><?=$emp['leave_bal'][0]['numOfPerdiem']?></td>
+                                    <td style="text-align: center"><?=$emp['leave_bal'][0]['ctr_diem']?></td>
                                 <?php else:?>
                                     <td style="text-align: center" colspan="5">No Leave Balance</td>
                                     <td hidden></td>
