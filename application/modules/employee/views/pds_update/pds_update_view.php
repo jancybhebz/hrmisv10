@@ -1172,50 +1172,47 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <?=form_close()?>
 <!-- Community Tax Certification -->
 <?=form_open(base_url('employee/pds_update/submitTax'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
-                <div class="row" id="taxcert_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Tax Certificate Number :  </label>
-                            </div>
+            <div class="row" id="taxcert_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Tax Certificate Number :  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                        <input type="text" class="form-control" name="intTaxCert" value="<?=isset($arrCommunity[0]['intTaxCert'])?$arrCommunity[0]['intTaxCert']:''?>" autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <input type="text" class="form-control" name="intTaxCert" value="<?=isset($arrCommunity[0]['intTaxCert'])?$arrCommunity[0]['intTaxCert']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                <div class="row" id="issuedAt_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Issued At :  </label>
-                            </div>
+            </div>
+            <div class="row" id="issuedAt_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Issued At :  </label> 
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                        <input type="text" class="form-control" name="strIssuedAt" value="<?=isset($arrCommunity[0]['strIssuedAt'])?$arrCommunity[0]['strIssuedAt']:''?>" autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="form-control" name="strIssuedAt" value="<?=isset($arrCommunity[0]['strIssuedAt'])?$arrCommunity[0]['strIssuedAt']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                 <div class="row" id="issuedOn_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Issued On :  </label>
-                            </div>
+            </div>
+              <div class="row" id="issuedOn_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Issued On :  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                       <input class="form-control form-control-inline input-medium date-picker" name="dtmIssuedOn" id="dtmIssuedOn" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmIssuedOn" id="dtmIssuedOn" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
-
+                    </div>
                 </div>
+            </div>
+                 
                  <div class="row" id="submitTax">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-sm-8 text-center">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="201 Tax">
 
-                            <button type="submit" name="submitTax" id="submitTax" class="btn btn-primary">Submit</button>
-                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                            <button type="submit" name="submitTax" id="submitTax" class="btn btn-success">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
                         </div>
                 </div>
         <?=form_close()?>
@@ -1239,48 +1236,56 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <?php endforeach;?>
                 </table>
                 <div class="row" id="refname_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Name :  </label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Name :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="strRefName" value="<?=isset($arrRef[0]['strRefName'])?$arrRef[0]['strRefName']:''?>"  autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="strRefName" value="<?=isset($arrRef[0]['strRefName'])?$arrRef[0]['strRefName']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                  <div class="row" id="refadd_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Address : </label>
+                 <div class="row" id="refadd_textbox">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Address :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="strRefAdd" value="<?=isset($arrRef[0]['strRefAdd'])?$arrRef[0]['strRefAdd']:''?>" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="strRefAdd" value="<?=isset($arrRef[0]['strRefAdd'])?$arrRef[0]['strRefAdd']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
                  <div class="row" id="refcontact_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Contract Number : </label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Contract Number :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="intRefContact" value="<?=isset($arrRef[0]['intRefContact'])?$arrRef[0]['intRefContact']:''?>" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="intRefContact" value="<?=isset($arrRef[0]['intRefContact'])?$arrRef[0]['intRefContact']:''?>">
+                    </div>
+                </div>
+                 <div class="row" id="refcontact_textbox">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Contract Number :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="intRefContact" value="<?=isset($arrRef[0]['intRefContact'])?$arrRef[0]['intRefContact']:''?>" autocomplete="off">
                             </div>
                         </div>
+                    </div>
                 </div>
                 <div class="row" id="submitRef">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-sm-8 text-center">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="201 Ref">
 
-                            <button type="submit" name="submitRef" id="submitRef" class="btn btn-primary">Submit</button>
-                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                            <button type="submit" name="submitRef" id="submitRef" class="btn btn-success">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
                         </div>
                 </div>
         <?=form_close()?>
@@ -1308,85 +1313,79 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </tr>
                     <?php endforeach;?>
                 </table>
-                 <div class="row" id="volname_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Name of Organization : </label>
+                <div class="row" id="volname_textbox">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Name of Organization : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="strVolName" value="<?=isset($arrRef[0]['strVolName'])?$arrRef[0]['strVolName']:''?>"  autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="strVolName" value="<?=isset($arrRef[0]['strVolName'])?$arrRef[0]['strVolName']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                 <div class="row" id="voladd_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Address : </label>
+                  <div class="row" id="voladd_textbox">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Address : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="strVolAdd" value="<?=isset($arrRef[0]['strVolAdd'])?$arrRef[0]['strVolAdd']:''?>" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="strVolAdd" value="<?=isset($arrRef[0]['strVolAdd'])?$arrRef[0]['strVolAdd']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                <div class="row" id="voldatefrom_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Inclusive Date From :  </label>
+                  <div class="row" id="voldatefrom_textbox">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Inclusive Date From :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                             <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateFrom" id="dtmVolDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateFrom" id="dtmVolDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                <div class="row" id="voldateto_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Inclusive Date To :  </label>
+                 <div class="row" id="voldateto_textbox">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Inclusive Date To :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                              <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateTo" id="dtmVolDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateTo" id="dtmVolDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
+                    </div>
                 </div>
                 <div class="row" id="volhours_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Number of Hours :  </label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                             <label class="control-label">Number of Hours :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                               <input type="text" class="form-control" name="intVolHours" value="<?=isset($arrVoluntary[0]['intVolHours'])?$arrVoluntary[0]['intVolHours']:''?>" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="intVolHours" value="<?=isset($arrVoluntary[0]['intVolHours'])?$arrVoluntary[0]['intVolHours']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                <div class="row" id="worknature_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Position / Nature of Work :  </label>
+                 <div class="row" id="worknature_textbox">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Position / Nature of Work :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="strNature" value="<?=isset($arrVoluntary[0]['strNature'])?$arrVoluntary[0]['strNature']:''?>" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="strNature" value="<?=isset($arrVoluntary[0]['strNature'])?$arrVoluntary[0]['strNature']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
                 <div class="row" id="submitVol">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-sm-8 text-center">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="201 Voluntary">
 
-                            <button type="submit" name="submitVol" id="submitVol" class="btn btn-primary">Submit</button>
-                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                            <button type="submit" name="submitVol" id="submitVol" class="btn btn-success">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
                         </div>
                 </div>
         <?=form_close()?>
@@ -1418,75 +1417,67 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </tr>
                 <?php endforeach;?>
             </table>
-            
              <div class="row" id="expdatefrom_textbox">
-                    <div class="col-sm-3 text-right">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Inclusive Date From : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                             <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateFrom" id="dtmExpDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateFrom" id="dtmExpDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                        </div>
-                    </div>
-            </div>
-             <div class="row" id="expdateto_textbox">
-                    <div class="col-sm-3 text-right">
+                </div>
+            </div>  
+            <div class="row" id="expdateto_textbox">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Inclusive Date To : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                             <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateTo" id="dtmExpDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateTo" id="dtmExpDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                        </div>
-                    </div>
-            </div>
+                </div>
+             </div>
              <div class="row" id="exptitle_textbox">
-                    <div class="col-sm-3 text-right">
+                    <div class="col-sm-8">
                         <div class="form-group">
-                            <label class="control-label">Position Title : </label>
+                             <label class="control-label">Position Title : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                              <input type="text" class="form-control" name="strPosTitle" value="<?=isset($arrExperience[0]['strPosTitle'])?$arrExperience[0]['strPosTitle']:''?>" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                </div>
+             </div>
+             <div class="row" id="expdept_textbox">
+                    <div class="col-sm-8">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strPosTitle" value="<?=isset($arrExperience[0]['strPosTitle'])?$arrExperience[0]['strPosTitle']:''?>">
+                             <label class="control-label">Department/Agency/Office : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                             <input type="text" class="form-control" name="strExpDept" value="<?=isset($arrExperience[0]['strExpDept'])?$arrExperience[0]['strExpDept']:''?>" autocomplete="off">
                         </div>
                     </div>
-            </div>
-            <div class="row" id="expdept_textbox">
-                    <div class="col-sm-3 text-right">
-                        <div class="form-group">
-                            <label class="control-label">Department/Agency/Office : </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="strExpDept" value="<?=isset($arrExperience[0]['strExpDept'])?$arrExperience[0]['strExpDept']:''?>">
-                        </div>
-                    </div>
-            </div>
-            <div class="row" id="expsalary_textbox">
-                    <div class="col-sm-3 text-right">
+                </div>
+             </div>
+             <div class="row" id="expdept_textbox">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Salary : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="strSalary" value="<?=isset($arrExperience[0]['strSalary'])?$arrExperience[0]['strSalary']:''?>" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="strSalary" value="<?=isset($arrExperience[0]['strSalary'])?$arrExperience[0]['strSalary']:''?>">
-                        </div>
-                    </div>
-            </div>       
+                </div>
+             </div>
             <div class="row" id="expper_textbox">
-                    <div class="col-sm-3 text-right">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Per : </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
+                            <div class="input-icon left">
+                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strExpPer" value="<?=isset($arrExperience[0]['strExpPer'])?$arrExperience[0]['strExpPer']:''?>">
                             <option value="">Select</option>
                             <option value="Hour">Hour</option>
@@ -1497,40 +1488,37 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </select>
                         </div>
                     </div>
-            </div>        
-            <div class="row" id="expcurrency_textbox">
-                    <div class="col-sm-3 text-right">
+                </div>
+             </div>    
+             <div class="row" id="expcurrency_textbox">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Currency : </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
+                            <div class="input-icon left">
+                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strCurrency" value="<?=isset($arrExperience[0]['strCurrency'])?$arrExperience[0]['strCurrency']:''?>">
                             <label>(leave blank if PHP) /   (ex. USD for US dollars)</label>
                         </div>
                     </div>
-            </div>        
+                </div>
+             </div>
             <div class="row" id="expsg_textbox">
-                    <div class="col-sm-3 text-right">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Salary Grade & Step Incremet (Format "00-0") : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                             <input type="text" class="form-control" name="strExpSG" value="<?=isset($arrExperience[0]['strExpSG'])?$arrExperience[0]['strExpSG']:''?>" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="strExpSG" value="<?=isset($arrExperience[0]['strExpSG'])?$arrExperience[0]['strExpSG']:''?>">
-                        </div>
-                    </div>
-            </div>    
+                </div>
+             </div>   
              <div class="row" id="expstatus_textbox">
-                    <div class="col-sm-3 text-right">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Status of Appointment :  </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
+                            <div class="input-icon left">
+                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strAStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
                                 <option value="">Select</option>
                                 <?php foreach($arrAppointment as $appoint)
@@ -1540,44 +1528,41 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </select>
                         </div>
                     </div>
-            </div>   
-            <div class="row" id="expgov_textbox">
-                    <div class="col-sm-3 text-right">
-                        <div class="form-group">
+                </div>
+             </div> 
+             <div class="row" id="expgov_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
                             <label class="control-label">Government Service : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                           <input type="text" class="form-control" name="strGovn" value="<?=isset($arrExperience[0]['strGovn'])?$arrExperience[0]['strGovn']:''?>" autocomplete="off">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="strGovn" value="<?=isset($arrExperience[0]['strGovn'])?$arrExperience[0]['strGovn']:''?>">
-                        </div>
-                    </div>
-            </div>    
-             <div class="row" id="expbranch_textbox">
-                    <div class="col-sm-3 text-right">
-                        <div class="form-group">
-                            <label class="control-label">Branch : </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
+                </div> 
+            <div class="row" id="expbranch_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                           <label class="control-label">Branch : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strBranch" value="<?=!empty($this->session->userdata('strBranch'))?$this->session->userdata('strBranch'):''?>" required>
                             <option value="">Select</option>
                             <option value="Government Corp">Government Corp.</option>
                             <option value="National">National</option>
                             <option value="FGI">FGI</option>
                             </select>
+                            </div>
                         </div>
                     </div>
-            </div>       
+                </div> 
              <div class="row" id="expsepcause_textbox">
-                    <div class="col-sm-3 text-right">
-                        <div class="form-group">
-                            <label class="control-label">Separation Cause : </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                           <label class="control-label">Separation Cause : </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strSepCause" value="<?=!empty($this->session->userdata('strSepCause'))?$this->session->userdata('strSepCause'):''?>" required>
                                 <option value="">Select</option>
                                 <?php foreach($arrSeparation as $separation)
@@ -1585,41 +1570,39 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 echo '<option value="'.$separation['serviceRecID'].'">'.$separation['separationCause'].'</option>';
                                 }?>
                             </select>
+                            </div>
                         </div>
                     </div>
-            </div>   
+                </div> 
              <div class="row" id="expsepdate_textbox">
-                    <div class="col-sm-3 text-right">
-                        <div class="form-group">
-                            <label class="control-label">Separation Date :  </label>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                           <label class="control-label">Separation Date :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input class="form-control form-control-inline input-medium date-picker" name="strSepDate" id="strSepDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input class="form-control form-control-inline input-medium date-picker" name="strSepDate" id="strSepDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                        </div>
-                    </div>
-            </div>  
+                </div> 
              <div class="row" id="expleave_textbox">
-                    <div class="col-sm-3 text-right">
-                        <div class="form-group">
-                            <label class="control-label">L/V ABS W/O PAY : </label>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                           <label class="control-label">L/V ABS W/O PAY :  </label>
+                            <div class="input-icon left">
+                            <i class="fa"></i>
+                            <input type="text" class="form-control" name="strLV" value="<?=isset($arrExperience[0]['strLV'])?$arrExperience[0]['strLV']:''?>" autocomplete="off">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="strLV" value="<?=isset($arrExperience[0]['strLV'])?$arrExperience[0]['strLV']:''?>">
-                        </div>
-                    </div>
-            </div>     
-
+                </div> 
                 <div class="row" id="submitWorkExp">
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-8 text-center">
                         <input class="hidden" name="strStatus" value="Filed Request">
                         <input class="hidden" name="strCode" value="201 WorkExp">
 
-                        <button type="submit" name="submitWorkExp" id="submitWorkExp" class="btn btn-primary">Submit</button>
-                        <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                        <button type="submit" name="submitWorkExp" id="submitWorkExp" class="btn btn-success">Submit</button>
+                        <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
                     </div>
                 </div>
         <?=form_close()?>
