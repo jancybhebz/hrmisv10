@@ -1052,129 +1052,121 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Edit </a>
                     </tr>
                     <?php endforeach;?>
-                </table>
-                <div class="row" id="examdesc_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Exam Description :  </label>
-                            </div>
+            </table>
+            <div class="row" id="examdesc_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Exam Description :  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                         <select type="text" class="form-control" name="strExamDesc" value="<?=!empty($this->session->userdata('strExamDesc'))?$this->session->userdata('strExamDesc'):''?>" required>
+                                 <option value="">Select</option>
+                                <?php foreach($arrExamination_CMB as $exam)
+                                {
+                                  echo '<option value="'.$exam['examId'].'">'.$exam['examDesc'].'</option>';
+                                }?>
+                        </select>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <select type="text" class="form-control" name="strExamDesc" value="<?=!empty($this->session->userdata('strExamDesc'))?$this->session->userdata('strExamDesc'):''?>" required>
-                                         <option value="">Select</option>
-                                        <?php foreach($arrExamination_CMB as $exam)
-                                        {
-                                          echo '<option value="'.$exam['examId'].'">'.$exam['examDesc'].'</option>';
-                                        }?>
-                                </select>
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                 <div class="row" id="rating_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Rating (%):  </label>
-                            </div>
+            </div> 
+            <div class="row" id="rating_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Rating (%):  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                         <input type="text" class="form-control" name="strChildName" value="<?=isset($arrExam[0]['strChildName'])?$arrExam[0]['strChildName']:''?>"  autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <input type="text" class="form-control" name="strChildName" value="<?=isset($arrExam[0]['strChildName'])?$arrExam[0]['strChildName']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                <div class="row" id="examdate_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Date of Exam/Conferment :  </label>
-                            </div>
+            </div> 
+             <div class="row" id="examdate_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Date of Exam/Conferment :  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                        <input class="form-control form-control-inline input-medium date-picker" name="dtmExamDate" id="dtmExamDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmExamDate" id="dtmExamDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                 <div class="row" id="examplace_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Place of Exam/Conferment :  </label>
-                            </div>
+            </div> 
+            <div class="row" id="examplace_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Place of Exam/Conferment :  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                        <input type="text" class="form-control" name="strPlaceExam" value="<?=isset($arrExam[0]['strPlaceExam'])?$arrExam[0]['strPlaceExam']:''?>"  autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <input type="text" class="form-control" name="strPlaceExam" value="<?=isset($arrExam[0]['strPlaceExam'])?$arrExam[0]['strPlaceExam']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                 <div class="row" id="licenseNo_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">License No. (if applicable) : </label>
-                            </div>
+            </div>
+            <div class="row" id="licenseNo_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                         <label class="control-label">License No. (if applicable) : </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                         <input type="text" class="form-control" name="intLicenseNo" value="<?=isset($arrExam[0]['intLicenseNo'])?$arrExam[0]['intLicenseNo']:''?>"  autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <input type="text" class="form-control" name="intLicenseNo" value="<?=isset($arrExam[0]['intLicenseNo'])?$arrExam[0]['intLicenseNo']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                <div class="row" id="release_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Date of Release : </label>
-                            </div>
+            </div>
+             <div class="row" id="release_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                         <label class="control-label">Date of Release : </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                        <input class="form-control form-control-inline input-medium date-picker" name="dtmRelease" id="dtmRelease" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmRelease" id="dtmRelease" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
+                    </div>
                 </div>
+            </div>   
                 <div class="row" id="submitExam">
-                        <div class="col-sm-12 text-center">
-                            <input class="hidden" name="strStatus" value="Filed Request">
-                            <input class="hidden" name="strCode" value="201 Exam">
+                    <div class="col-sm-8 text-center">
+                        <input class="hidden" name="strStatus" value="Filed Request">
+                        <input class="hidden" name="strCode" value="201 Exam">
 
-                            <button type="submit" name="submitExam" id="submitExam" class="btn btn-primary">Submit</button>
-                             <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
-                        </div>
+                        <button type="submit" name="submitExam" id="submitExam" class="btn btn-success">Submit</button>
+                         <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
+                    </div>
                 </div>
         <?=form_close()?>
 </div>
 <!-- Children -->
 <?=form_open(base_url('employee/pds_update/submitChild'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
-                <div class="row" id="childname_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Name of Children :  </label>
-                            </div>
+            <div class="row" id="childname_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Name of Children :  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                         <input type="text" class="form-control" name="strChildName" value="<?=isset($arrChild[0]['strChildName'])?$arrChild[0]['strChildName']:''?>"  autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                 <input type="text" class="form-control" name="strChildName" value="<?=isset($arrChild[0]['strChildName'])?$arrChild[0]['strChildName']:''?>">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                <div class="row" id="childbdate_textbox">
-                        <div class="col-sm-3 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Date of Birth :  </label>
-                            </div>
+            </div> 
+            <div class="row" id="childbdate_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Date of Birth :  </label>
+                        <div class="input-icon left">
+                        <i class="fa"></i>
+                          <input class="form-control form-control-inline input-medium date-picker" name="dtmChildBdate" id="dtmChildBdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                              <input class="form-control form-control-inline input-medium date-picker" name="dtmChildBdate" id="dtmChildBdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
-                        </div>
+                    </div>
                 </div>
-                 <div class="row" id="submitChild">
-                        <div class="col-sm-12 text-center">
+            </div> 
+             <div class="row" id="submitChild">
+                        <div class="col-sm-8 text-center">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="201 Child">
 
-                            <button type="submit" name="submitChild" id="submitChild" class="btn btn-primary">Submit</button>
-                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn btn-primary">Clear</button></a>
+                            <button type="submit" name="submitChild" id="submitChild" class="btn btn-success">Submit</button>
+                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
                         </div>
                     </div>
             <?=form_close()?>
