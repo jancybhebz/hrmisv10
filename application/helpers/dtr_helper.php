@@ -12,14 +12,19 @@ if ( ! function_exists('toMinutes'))
 }
 
 # get all weekends in a month
-if ( ! function_exists('month_weekends'))
+if ( ! function_exists('get_workingdays'))
 {
-    function month_weekends($month,$yr)
+    function get_workingdays($month,$yr,$holidays=null)
     {
-		foreach(range(1, cal_days_in_month(CAL_GREGORIAN,$month,$yr)) as $day):
-			echo '<br>';
-			print_r($day);
-		endforeach;
+    	$arrworking_days = array();
+    	$holidays = array_column($holidays, 'holidayDate');
+    	foreach(range(1, cal_days_in_month(CAL_GREGORIAN,$month,$yr)) as $day):
+    		$ddate = date('Y-m-d',strtotime(implode('-',array($yr,$month,$day))));
+    		if(!in_array(date('D',strtotime($ddate)),array('Sat','Sun')) && !in_array($ddate,$holidays)):
+    			array_push($arrworking_days,$ddate);
+    		endif;
+    	endforeach;
+    	return $arrworking_days;
 	}
 
 }

@@ -52,6 +52,7 @@ class Payrollupdate extends MY_Controller {
 					print_r($arrPost);
 
 					$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
+					// print_r($computed_benefits);
 					echo '</pre>';
 					// $this->load->helper('payroll_helper');
 
@@ -84,9 +85,12 @@ class Payrollupdate extends MY_Controller {
 					// endforeach;
 					// // die();
 					
-					// $this->arrData['payroll_date'] = date('F Y',strtotime($process_data['yr'].'-'.$process_data['mon'].'-1'));
-					// $this->arrData['curr_period_workingdays'] = $total_workingdays;
-					// $this->arrData['arrEmployees'] = $arrEmployees;
+					$this->arrData['payroll_date'] = date('F Y',strtotime($process_data['yr'].'-'.$process_data['mon'].'-1'));
+					$this->arrData['process_data_date'] = date('F Y',strtotime($process_data['data_fr_yr'].'-'.$process_data['data_fr_mon'].'-1'));
+					$this->arrData['process_data_workingdays'] = $computed_benefits['workingdays'];
+					$this->arrData['curr_period_workingdays'] = $computed_benefits['curr_workingdays'];
+					$this->arrData['arrEmployees'] = $computed_benefits['arremployees'];
+					$this->arrData['no_empty_lb'] = $computed_benefits['no_empty_lb'];
 					// $this->arrData['total_empnolb'] = $total_empnolb;
 				else:
 					redirect('finance/payroll_update/process/index');
