@@ -47,44 +47,47 @@ class Payrollupdate extends MY_Controller {
 
 			case 'compute_benefits':
 				if(!empty($arrPost)):
+					$process_data = json_decode($arrPost['txtprocess'],true);
 					echo '<pre>';
 					print_r($arrPost);
+
+					$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
 					echo '</pre>';
-					$this->load->helper('payroll_helper');
+					// $this->load->helper('payroll_helper');
 
-					$process_data = json_decode($arrPost['txtprocess'],true);
-					$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['data_fr_yr'],$process_data['data_fr_mon']);
-					$total_workingdays = $this->Attendance_summary_model->getemp_dtr('',$process_data['mon'],$process_data['yr']);
-					$total_workingdays = $total_workingdays['total_workingdays'];
+					// $process_data = json_decode($arrPost['txtprocess'],true);
+					// $process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$process_data['data_fr_yr'],$process_data['data_fr_mon']);
+					// $total_workingdays = $this->Attendance_summary_model->getemp_dtr('',$process_data['mon'],$process_data['yr']);
+					// $total_workingdays = $total_workingdays['total_workingdays'];
 					
-					$arrEmployees = array();
-					$total_empnolb = 0;
-					foreach($process_employees as $emp):
-						$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['data_fr_mon'],$process_data['data_fr_yr']);
-						$emp_leavebal = $this->Leave_model->getEmpLeave_balance($emp['empNumber'],$process_data['data_fr_mon'],$process_data['data_fr_yr']);
-						$absents = count($emp_dtr['date_absents']);
-						$presents = $total_workingdays - $absents;
-						$hpfactor = hpfactor($presents, $emp['hpFactor']);
-						// $arrEmployees[]
-						if(count($emp_leavebal) < 1):
-							$total_empnolb = $total_empnolb + 1;
-						endif;
+					// $arrEmployees = array();
+					// $total_empnolb = 0;
+					// foreach($process_employees as $emp):
+					// 	$emp_dtr = $this->Attendance_summary_model->getemp_dtr($emp['empNumber'],$process_data['data_fr_mon'],$process_data['data_fr_yr']);
+					// 	$emp_leavebal = $this->Leave_model->getEmpLeave_balance($emp['empNumber'],$process_data['data_fr_mon'],$process_data['data_fr_yr']);
+					// 	$absents = count($emp_dtr['date_absents']);
+					// 	$presents = $total_workingdays - $absents;
+					// 	$hpfactor = hpfactor($presents, $emp['hpFactor']);
+					// 	// $arrEmployees[]
+					// 	if(count($emp_leavebal) < 1):
+					// 		$total_empnolb = $total_empnolb + 1;
+					// 	endif;
 
-						$arrEmployees[] = array( 'emp_detail' 			=> $emp,
-												 'date_absents' 		=> $absents,
-												 'actual_days_present' 	=> $emp_dtr['total_days_present'],
-												 'hp' 					=> $emp['actualSalary'] * $hpfactor,
-												 'leave_bal' 			=> $emp_leavebal,
-												 'actual_present'		=> $presents);
-						// print_r($empdd);
-						// echo '<hr>';
-					endforeach;
-					// die();
+					// 	$arrEmployees[] = array( 'emp_detail' 			=> $emp,
+					// 							 'date_absents' 		=> $absents,
+					// 							 'actual_days_present' 	=> $emp_dtr['total_days_present'],
+					// 							 'hp' 					=> $emp['actualSalary'] * $hpfactor,
+					// 							 'leave_bal' 			=> $emp_leavebal,
+					// 							 'actual_present'		=> $presents);
+					// 	// print_r($empdd);
+					// 	// echo '<hr>';
+					// endforeach;
+					// // die();
 					
-					$this->arrData['payroll_date'] = date('F Y',strtotime($process_data['yr'].'-'.$process_data['mon'].'-1'));
-					$this->arrData['curr_period_workingdays'] = $total_workingdays;
-					$this->arrData['arrEmployees'] = $arrEmployees;
-					$this->arrData['total_empnolb'] = $total_empnolb;
+					// $this->arrData['payroll_date'] = date('F Y',strtotime($process_data['yr'].'-'.$process_data['mon'].'-1'));
+					// $this->arrData['curr_period_workingdays'] = $total_workingdays;
+					// $this->arrData['arrEmployees'] = $arrEmployees;
+					// $this->arrData['total_empnolb'] = $total_empnolb;
 				else:
 					redirect('finance/payroll_update/process/index');
 				endif;

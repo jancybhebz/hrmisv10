@@ -15,12 +15,16 @@ class Dtr_model extends CI_Model {
 		return $this->db->get_where($this->table)->result_array();
 	}
 
-	function getHoliday($strday)
+	function getHoliday($strday, $all=0)
 	{
 		$this->db->join('tblHoliday', 'tblHoliday.holidayCode = tblHolidayYear.holidayCode', 'left');
-		$this->db->where("tblHolidayYear.holidayDate like '".$strday."'");
+		$this->db->where("tblHolidayYear.holidayDate like '%".$strday."%'");
 		$res = $this->db->get_where('tblHolidayYear')->result_array();
-		return count($res) > 0 ? $res[0] : null; 
+		if($all):
+			return $res;
+		else:
+			return count($res) > 0 ? $res[0] : null; 
+		endif;
 	}
 
 	function getLocalHoliday($strday)

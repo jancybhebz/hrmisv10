@@ -21,6 +21,7 @@ class Attendance_summary_model extends CI_Model {
 
 	public function getemp_dtr($empid, $month, $yr)
 	{
+		$this->load->helper('dtr_helper');
 		// echo '<pre>';
 		$month = sprintf('%02d', $month);
 		# DTR Data
