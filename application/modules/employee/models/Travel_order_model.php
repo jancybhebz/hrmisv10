@@ -67,5 +67,12 @@ class Travel_order_model extends CI_Model {
 		$this->db->delete('tblemprequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	function getEmployeeTO($empid,$datefrom,$dateto)
+	{
+		$this->db->where('empNumber', $empid);
+		$this->db->where("(toDateFrom between '".$datefrom."' and '".$dateto."' or toDateTo between '".$datefrom."' and '".$dateto."')");
+		return $this->db->get('tblEmpTravelOrder')->result_array();
+	}
 		
 }

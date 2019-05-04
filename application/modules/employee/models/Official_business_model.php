@@ -67,5 +67,14 @@ class Official_business_model extends CI_Model {
 		$this->db->delete('tblemprequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	function getEmployeeOB($empid,$datefrom,$dateto)
+	{
+		$this->db->where('empNumber', $empid);
+		$this->db->where('approveHR', 'Y');
+		$this->db->where("(obDateFrom between '".$datefrom."' and '".$dateto."' or obDateTo between '".$datefrom."' and '".$dateto."')");
+		$res = $this->db->get('tblEmpOB')->result_array();
+		return $res;
+	}
 		
 }

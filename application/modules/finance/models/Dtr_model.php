@@ -43,69 +43,87 @@ class Dtr_model extends CI_Model {
 		return $res; 
 	}
 
-	// get dtr summary
-	function dtrSummary($empid, $year, $month)
+	function getemp_obdates($empid,$datefrom,$dateto,$dateonly=0)
 	{
-		// echo '<pre>';
-		$resDtr = $this->getData($empid, $year, $month);
-		$totaldays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-
-		$empOB = $this->getEmpOB($empid, $year, $month);
-		$arrOB = array();
-		foreach($empOB as $ob):
-			$days = $this->breakDates($ob['obDateFrom'], $ob['obDateTo'], '('.strdate($ob['obTimeFrom'], 1).' - '.strdate($ob['obTimeTo'], 1).')');
-			foreach($days as $day):
-				array_push($arrOB, $day);
-			endforeach;
-		endforeach;
-
-		$arrDtr = array();
-
-		foreach (range(1, $totaldays) as $day):
-			$strsearch = $year.'-'.$month.'-'.str_pad($day, 2, '0', STR_PAD_LEFT);
-			$dayname = date('l', strtotime($strsearch));
-
-			$ob_key = array_search($strsearch, array_column($arrOB, 'date')); # ob key
-			$ob = '';
-			if(!($ob_key == '' && $ob_key !== 0)):
-				$arrob = $arrOB[$ob_key];
-				$ob = $arrob['desc'];
-			endif;
-			
-			$d_key = array_search($strsearch, array_column($resDtr, 'dtrDate')); # data key
-
-			$holiday = $this->getHoliday($strsearch);
-			$scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
-
-			$total_late = '00:00';
-			$total_undertime = '00:00';
-			$total_overtime = '00:00';
-
-			if(!($d_key == '' && $d_key !== 0)):
-				$total_late = $this->computeLate($scheme, $resDtr[$d_key]);
-				if(!(in_array($dayname, restdays() ))):
-					$total_late = $this->computeLate($scheme, $resDtr[$d_key]);
-					$total_undertime = $this->computeUndertime($scheme, $resDtr[$d_key], $total_late);
-					$total_overtime = $this->computeOvertime($scheme, $resDtr[$d_key], $total_late, $scheme['nnTimeoutFrom'], $total_undertime, 0);
-				else:
-					$total_overtime = $this->total_workhours($resDtr[$d_key], $scheme);
+		$this->load->model('employee/Official_business_model');
+		# OB
+		$ob_dates = array();
+		$arremp_ob = array();
+		$empob = $this->Official_business_model->getEmployeeOB($empid,$datefrom,$dateto);
+		foreach($empob as $ob):
+			$obdate = $ob['obDateFrom'];
+			$schedto = $ob['obDateTo'];
+			while (strtotime($obdate) <= strtotime($schedto))
+			{
+				if($dateonly == 0):
+					$obdatekey = array_search($obdate, array_column($arremp_ob, 'date'));
+					$arrobdata = array( 'obid'			=> $ob['obID'],
+										'dateFiled'		=> $ob['dateFiled'],
+										'date'			=> $obdate,
+										'obTimeFrom'    => $ob['obTimeFrom'],
+										'obTimeTo'    	=> $ob['obTimeTo'],
+										'obPlace'   	=> $ob['obPlace'],
+										'obMeal'  		=> $ob['obMeal'],
+										'purpose'    	=> $ob['purpose'],
+										'official' 		=> $ob['official'],
+										'approveRequest'=> $ob['approveRequest'],
+										'approveChief'  => $ob['approveChief'],
+										'approveHR'  	=> $ob['approveHR']);
+					if(is_numeric($obdatekey)):
+						$arremp_ob[$obdatekey] = $arrobdata;
+					else:
+						$arremp_ob[] = $arrobdata;
+					endif;
 				endif;
-			endif;
 
-			$arrDtr[] = array('mday' => str_pad($day, 2, '0', STR_PAD_LEFT),
-							  'wday' => $dayname,
-							  'holiday' => $holiday != null ? $holiday['holidayName'] : '',
-							  'late' => $total_late == '00:00' ? '' : $total_late,
-							  'undertime' => $total_undertime == '00:00' ? '' : $total_undertime,
-							  'overtime' => $total_overtime == '00:00' ? '' : $total_overtime,
-							  'ob' => $ob == '' ? '' : 'OB '.$ob,
-							  'data' => $d_key == '' && $d_key !== 0 ? null : $resDtr[$d_key]);
-			// echo '<hr>';
-
+				if($obdate >= $datefrom && $obdate <= $dateto && !in_array(date('D',strtotime($obdate)), array('Sat','Sun'))):
+					array_push($ob_dates,$obdate);
+				endif;
+				
+				$obdate = date('Y-m-d', strtotime($obdate . ' +1 day'));
+			}
 		endforeach;
-		// die();
+		return $dateonly == 1 ? array_unique($ob_dates) : $arremp_ob;
+	}
 
-		return $arrDtr;
+	function getemp_todates($empid,$datefrom,$dateto,$dateonly=0)
+	{
+		$this->load->model('employee/Travel_order_model');
+		# Travel Order
+		$to_dates = array();
+		$arremp_to = array();
+		$empto = $this->Travel_order_model->getEmployeeTO($empid,$datefrom,$dateto);
+		foreach($empto as $to):
+			$todate = $to['toDateFrom'];
+			$to_to = $to['toDateTo'];
+			while (strtotime($todate) <= strtotime($to_to))
+			{
+				$todatekey = array_search($todate, array_column($arremp_to, 'date'));
+				$arrtodata = array( 'toID'			=> $to['toID'],
+									'dateFiled'		=> $to['dateFiled'],
+									'date'			=> $todate,
+									'toDateFrom'    => $to['toDateFrom'],
+									'toDateTo'    	=> $to['toDateTo'],
+									'destination'   => $to['destination'],
+									'purpose'  		=> $to['purpose'],
+									'fund'    		=> $to['fund'],
+									'transportation'=> $to['transportation'],
+									'perdiem'		=> $to['perdiem'],
+									'wmeal'  		=> $to['wmeal']);
+				if(is_numeric($todatekey)):
+					$arremp_to[$todatekey] = $arrtodata;
+				else:
+					$arremp_to[] = $arrtodata;
+				endif;
+
+				if($todate >= $datefrom && $todate <= $dateto && !in_array(date('D',strtotime($todate)), array('Sat','Sun'))):
+					array_push($to_dates,$todate);
+				endif;
+				$todate = date('Y-m-d', strtotime($todate . ' +1 day'));
+			}
+		endforeach;
+
+		return $dateonly == 1 ? array_unique($to_dates) : $arremp_to;
 	}
 
 	//covert time format to total minutes

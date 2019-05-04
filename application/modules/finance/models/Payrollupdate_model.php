@@ -60,7 +60,7 @@ class Payrollupdate_model extends CI_Model {
 	// 	return array('employees' => $arrEmployees, 'total_workingdays' => $total_workingdays, 'total_empnolb' => $total_empnolb);
 	// }
 
-	function compute_benefits($arrPost, $process_data)
+	function compute_benefits($arrPost, $process_data,$empid='')
 	{
 		$this->load->helper(array('payroll_helper','dtr_helper'));
 		$this->load->model('Dtr_model');
@@ -68,6 +68,8 @@ class Payrollupdate_model extends CI_Model {
 		$month = sprintf('%02d', $process_data['data_fr_mon']);
 		$yr = $process_data['data_fr_yr'];
 
+		$datefrom = implode('-',array($yr,$month,'01'));
+		$dateto = implode('-',array($yr,$month,cal_days_in_month(CAL_GREGORIAN,$month,$yr)));
 		// $arrholidays = array();
 		
 		// foreach($holidays as $hday):
@@ -89,9 +91,8 @@ class Payrollupdate_model extends CI_Model {
 		$no_empty_lb = 0;
 		$arremployees = array();
 		$emp_leavebal = $this->Leave_model->getEmpLeave_balance('',$month,$yr);
-		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$yr,$month);
+		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$yr,$month,$empid);
 		foreach($process_employees as $emp):
-			// print_r($emp);
 			$empdtr = $this->Dtr_model->getData($emp['empNumber'],$yr,$month);
 			$empdays_present = array_column($empdtr, 'dtrDate', 'id');
 			// print_r($empdays_present);
@@ -103,7 +104,6 @@ class Payrollupdate_model extends CI_Model {
 			foreach($actual_present as $key => $att):
 				// echo 'key '.$key.' val '.$att;
 				// print_r($empdtr[$key]);
-				
 				$emp_att = $empdtr[array_search($key, array_column($empdtr, 'id'))];
 				$dtr_empty = count(array_keys(array($emp_att['inAM'],$emp_att['outAM'],$emp_att['inPM'],$emp_att['outPM']), '00:00:00'));
 				if($dtr_empty < 4):
@@ -112,6 +112,42 @@ class Payrollupdate_model extends CI_Model {
 				endif;
 				// echo '<br>';
 			endforeach;
+
+			# check if on OB
+			$obdates = $this->Dtr_model->getemp_obdates($emp['empNumber'],$datefrom,$dateto,1);
+			// $obs = array_intersect($workingdays,$obdates);
+			# check all obdates not present in empdays_present
+			// print_r($obdates);
+			// print_r($date_presents);
+			$allobs = array_intersect($date_presents,$obdates);
+			$obs = array_diff($obdates,$allobs);
+			// print_r($allobs);
+			// print_r($obs);
+			// // $ctrob = 0;
+			// // print_r(array_intersect($empdays_present,$obdates));
+			// // if(count(array_intersect($empdays_present,$obdates)) < 1):
+
+			// // else:
+
+			// // endif;
+			$actual_presents = $actual_presents + count($obs);
+
+			# check if on TO
+			$todates = $this->Dtr_model->getemp_todates($emp['empNumber'],$datefrom,$dateto,1);
+			// print_r($todates);
+			$alltos = array_intersect($date_presents,$todates);
+			// print_r($todates);
+
+			// print_r($alltos);
+
+			// print_r($empdays_present);
+			$tos = array_diff($todates,$alltos);
+			// print_r($tos);
+			// echo 'tos: ';
+			// print_r(count($tos));
+			// echo '<br>';
+			$actual_presents = $actual_presents + count($tos);
+
 			$emp_lb = $emp_leavebal[array_search($emp['empNumber'], array_column($emp_leavebal, 'empNumber'))];
 			if(count($emp_lb) < 1):
 				$no_empty_lb = $no_empty_lb + 1;
@@ -143,6 +179,11 @@ class Payrollupdate_model extends CI_Model {
 									 'actual_days_absent' 	=> count($workingdays) - $actual_presents,
 									 'hp' 					=> $hpfactor,
 									 'emp_leavebal'			=> $emp_lb);
+			// print_r(array( 'emp_detail' 			=> $emp,
+			// 						 'actual_days_present' 	=> $actual_presents,
+			// 						 'actual_days_absent' 	=> count($workingdays) - $actual_presents,
+			// 						 'hp' 					=> $hpfactor,
+			// 						 'emp_leavebal'			=> $emp_lb));
 		endforeach;
 		return array('arremployees' => $arremployees, 'workingdays' => count($workingdays), 'curr_workingdays' => count($curr_workingdays), 'no_empty_lb' => $no_empty_lb);
 	}
