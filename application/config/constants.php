@@ -107,3 +107,11 @@ define('TABLE_REFERENCE','tblEmpReference');
 define('TABLE_VOLUNTARY','tblempvoluntarywork'); 
 
 define('STORE_QR','uploads/qr/'); 
+
+/* predefined variable use in payroll */
+define('AMT_SUBSISTENCE',150); 
+define('AMT_CTR_8H',150);
+define('AMT_CTR_6H',125);
+define('AMT_CTR_5H',100);
+define('AMT_CTR_4H',75);
+

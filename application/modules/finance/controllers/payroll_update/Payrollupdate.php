@@ -153,6 +153,7 @@ class Payrollupdate extends MY_Controller {
 		echo '<pre>';
 		$process_data = json_decode('{"selemployment":"P","mon":"2","yr":"2019","period":"1","data_fr_mon":"1","data_fr_yr":"2019"}',true);
 		$total_workingdays = $this->Payrollupdate_model->compute_benefits(null, $process_data,$_GET['id']);
+		echo '<br></br>';
 		print_r($total_workingdays);
 	}
 	

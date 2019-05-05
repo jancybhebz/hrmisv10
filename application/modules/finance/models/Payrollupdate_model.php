@@ -77,10 +77,11 @@ class Payrollupdate_model extends CI_Model {
 		// 		array_push($arrholidays,$hday['holidayDate']); }
 		// endforeach;
 
+		/** curr_workingdays = working days in the current period
+		    workingdays = working days from process month/date */
 		# current period working days
 		$curr_holidays = $this->Dtr_model->getHoliday($process_data['yr'].'-'.sprintf('%02d', $process_data['mon']).'-',1);
 		$curr_workingdays = get_workingdays(sprintf('%02d', $process_data['mon']),$process_data['yr'],$curr_holidays);
-
 		# process data working days
 		$holidays = $this->Dtr_model->getHoliday($yr.'-'.$month.'-',1);
 		$workingdays = get_workingdays($month,$yr,$holidays);
@@ -152,6 +153,7 @@ class Payrollupdate_model extends CI_Model {
 			if(count($emp_lb) < 1):
 				$no_empty_lb = $no_empty_lb + 1;
 			endif;
+			$emp_lb = array('ctr_8h' => $emp_lb['ctr_8h'],'ctr_6h' => $emp_lb['ctr_6h'],'ctr_5h' => $emp_lb['ctr_5h'],'ctr_4h' => $emp_lb['ctr_4h'],'ctr_diem' => $emp_lb['ctr_diem']);
 			// $actual_presents = 0;
 			// $date_presents = array();
 			// foreach($empdtr as $dtr):
@@ -173,18 +175,21 @@ class Payrollupdate_model extends CI_Model {
 			// // endforeach;
 			// echo '<hr>';
 			$hpfactor = hpfactor($actual_presents, $emp['hpFactor']);
+			$subsis = substistence(count($curr_workingdays), count($workingdays), $emp_lb);
 			$hpfactor = $emp['actualSalary'] * $hpfactor;
 			$arremployees[] = array( 'emp_detail' 			=> $emp,
 									 'actual_days_present' 	=> $actual_presents,
 									 'actual_days_absent' 	=> count($workingdays) - $actual_presents,
 									 'hp' 					=> $hpfactor,
-									 'emp_leavebal'			=> $emp_lb);
+									 'emp_leavebal'			=> $emp_lb,
+									 'subsis'				=> $subsis);
 			// print_r(array( 'emp_detail' 			=> $emp,
 			// 						 'actual_days_present' 	=> $actual_presents,
 			// 						 'actual_days_absent' 	=> count($workingdays) - $actual_presents,
 			// 						 'hp' 					=> $hpfactor,
 			// 						 'emp_leavebal'			=> $emp_lb));
 		endforeach;
+
 		return array('arremployees' => $arremployees, 'workingdays' => count($workingdays), 'curr_workingdays' => count($curr_workingdays), 'no_empty_lb' => $no_empty_lb);
 	}
 

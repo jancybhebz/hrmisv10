@@ -74,7 +74,7 @@
                                     <td hidden></td>
                                     <td hidden></td>
                                 <?php endif; ?>
-                                <td style="text-align: center"> Subsistence </td>
+                                <td style="text-align: center"><?=number_format($emp['subsis'], 2)?></td>
                                 <td style="text-align: center"> Days w/o Laundry</td>
                                 <td style="text-align: center"> Laundry </td>
                                 <td style="text-align: center"> LP </td>

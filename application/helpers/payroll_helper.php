@@ -33,3 +33,23 @@ if ( ! function_exists('hpfactor'))
 	}
 }
 
+# substistence
+if ( ! function_exists('substistence'))
+{
+    function substistence($wdays_period, $wdays_process, $lb)
+    {
+        $subs = $wdays_period - $wdays_process;
+        $subs = $subs * AMT_SUBSISTENCE;
+
+        $ctr_8h = AMT_CTR_8H * $lb['ctr_8h'];
+        $ctr_6h = AMT_CTR_6H * $lb['ctr_6h'];
+        $ctr_5h = AMT_CTR_5H * $lb['ctr_5h'];
+        $ctr_4h = AMT_CTR_4H * $lb['ctr_4h'];
+
+        $total_subs = ($ctr_8h + $ctr_6h + $ctr_5h + $ctr_4h) - $lb['ctr_diem'] + $subs;
+        return $total_subs >= 0 ? $total_subs : 0;
+
+    }
+}
+
+
