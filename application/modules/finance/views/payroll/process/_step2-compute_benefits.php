@@ -75,14 +75,14 @@
                                     <td hidden></td>
                                 <?php endif; ?>
                                 <td style="text-align: center"><?=number_format($emp['subsis'], 2)?></td>
-                                <td style="text-align: center"> Days w/o Laundry</td>
-                                <td style="text-align: center"> Laundry </td>
-                                <td style="text-align: center"> LP </td>
-                                <td style="text-align: center"> RA % </td>
-                                <td style="text-align: center"> RA </td>
-                                <td style="text-align: center"> days w/ vehicle</td>
-                                <td style="text-align: center"> TA % </td>
-                                <td style="text-align: center"> TA </td>
+                                <td style="text-align: center"> days without landry </td>
+                                <td style="text-align: center"><?=number_format($emp['laundry'], 2)?></td>
+                                <td style="text-align: center"><?=number_format($emp['longevity'], 2)?></td>
+                                <td style="text-align: center"><?=$emp['rata']['ra_percent']?> %</td>
+                                <td style="text-align: center"><?=number_format($emp['rata']['ra_amount'], 2)?></td>
+                                <td style="text-align: center"><?=$emp['rata']['days_w_vehicle']?></td>
+                                <td style="text-align: center"><?=$emp['rata']['ta_percent']?> %</td>
+                                <td style="text-align: center"><?=number_format($emp['rata']['ta_amount'], 2)?></td>
                                 <td style="text-align: center"> Total </td>
                             </tr>
                         <?php endforeach; ?>

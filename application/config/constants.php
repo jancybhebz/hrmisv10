@@ -114,4 +114,8 @@ define('AMT_CTR_8H',150);
 define('AMT_CTR_6H',125);
 define('AMT_CTR_5H',100);
 define('AMT_CTR_4H',75);
+define('AMT_LAUNDRY',500);
+define('AMT_CTR_LAUNDRY',22.727);
+
+define('RATA_PERCENT',100);
 

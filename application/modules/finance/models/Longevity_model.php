@@ -39,6 +39,13 @@ class Longevity_model extends CI_Model {
 		return $this->db->get_where('tblEmpLongevity', array('empNumber' => $empid))->result_array();
 	}
 
+	function getLongevitySum($empid='')
+	{
+		$this->db->select('SUM(longiPay) AS longiPay');
+		$res = $this->db->get_where('tblEmpLongevity', array('empNumber' => $empid))->result_array();
+		return count($res) > 0 ? $res[0]['longiPay'] : 0;
+	}
+
 	function addLongevity($arrData)
 	{
 		$this->db->insert('tblEmpLongevity', $arrData);
