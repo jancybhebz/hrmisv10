@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="form-group div-date" <?=isset($_GET['appt']) ? strtolower($_GET['appt']) == 'p' ? 'hidden' : '' : ''?>>
-                <label class="control-label col-md-3">Date
+                <label class="control-label col-md-3">Process Date
                     <span class="required"> * </span>
                 </label>
                 <div class="col-md-4">
