@@ -118,4 +118,4 @@ define('AMT_LAUNDRY',500);
 define('AMT_CTR_LAUNDRY',22.727);
 
 define('RATA_PERCENT',100);
-
+define('AMT_PERA',2000);
