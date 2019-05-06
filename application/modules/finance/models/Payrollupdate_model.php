@@ -149,21 +149,26 @@ class Payrollupdate_model extends CI_Model {
 			// echo 'tos: ';
 			// print_r(count($tos));
 			// echo '<br>';
-			$actual_presents = $actual_presents + count($tos);
-			$actual_days_absent = count($workingdays) - $actual_presents;
+			// $actual_presents = $actual_presents + count($tos);
+			// $actual_days_absent = count($workingdays) - $actual_presents;
 			# current working days - days absent
-			$actual_days_work = count($curr_workingdays) - $actual_days_absent;
-
+			// $days_work = count($curr_workingdays) - $actual_days_absent;
 			$emp_lb = $emp_leavebal[array_search($emp['empNumber'], array_column($emp_leavebal, 'empNumber'))];
 			if(count($emp_lb) < 1):
 				$no_empty_lb = $no_empty_lb + 1;
 			endif;
-			$emp_lb = array('ctr_8h' => $emp_lb['ctr_8h'],
-							'ctr_6h' => $emp_lb['ctr_6h'],
-							'ctr_5h' => $emp_lb['ctr_5h'],
-							'ctr_4h' => $emp_lb['ctr_4h'],
-							'ctr_diem' => $emp_lb['ctr_diem'],
-							'ctr_laundry' => $emp_lb['ctr_laundry']);
+
+			$lbkey = array_search($emp['empNumber'], array_column($emp_leavebal, 'empNumber'));
+			$lb_details = is_numeric($lbkey) ? $emp_leavebal[$lbkey] : null;
+			
+			$emp_lb = array('ctr_8h' => $lb_details['ctr_8h'] == '' ? 0 : $lb_details['ctr_8h'],
+							'ctr_6h' => $lb_details['ctr_6h'] == '' ? 0 : $lb_details['ctr_6h'],
+							'ctr_5h' => $lb_details['ctr_5h'] == '' ? 0 : $lb_details['ctr_5h'],
+							'ctr_4h' => $lb_details['ctr_4h'] == '' ? 0 : $lb_details['ctr_4h'],
+							'ctr_diem' => $lb_details['ctr_diem'] == '' ? 0 : $lb_details['ctr_diem'],
+							'ctr_laundry' => $lb_details['ctr_laundry'] == '' ? 0 : $lb_details['ctr_laundry'],
+							'nodays_absent' => $lb_details['nodays_absent'] == '' ? 0 : $lb_details['nodays_absent']);
+			$days_work = count($curr_workingdays) - $lb_details['nodays_absent'];
 			// $actual_presents = 0;
 			// $date_presents = array();
 			// foreach($empdtr as $dtr):
@@ -184,22 +189,24 @@ class Payrollupdate_model extends CI_Model {
 			// // 	print_r($day);
 			// // endforeach;
 			// echo '<hr>';
-			$hpfactor = hpfactor($actual_days_work, $emp['hpFactor']);
+			$hpfactor = hpfactor($days_work, $emp['hpFactor']);
 			$hpfactor = $emp['actualSalary'] * $hpfactor;
 			$subsis = substistence(count($curr_workingdays), count($workingdays), $emp_lb);
 			$laundry = laundry($emp_lb['ctr_laundry']);
 			$longevity = $this->Longevity_model->getLongevitySum($emp['empNumber']);
-			$rata = rata($arrrata, $actual_days_work, count($curr_workingdays), $emp['RATACode'], $emp['RATAVehicle']);
+			$rata = rata($arrrata, $days_work, count($curr_workingdays), $emp['RATACode'], $emp['RATAVehicle']);
+			$total_income = $hpfactor + $subsis + $laundry + $longevity + $rata['ra_amount'] + $rata['ta_amount'] + AMT_PERA;
 
 			$arremployees[] = array( 'emp_detail' 			=> $emp,
 									 'actual_days_present' 	=> $actual_presents,
-									 'actual_days_absent' 	=> $actual_days_absent,
+									 'actual_days_absent' 	=> $emp_lb['nodays_absent'],
 									 'hp' 					=> $hpfactor,
 									 'emp_leavebal'			=> $emp_lb,
 									 'subsis'				=> $subsis,
 									 'laundry'				=> $laundry,
 									 'longevity'			=> $longevity,
-									 'rata'					=> $rata);
+									 'rata'					=> $rata,
+									 'total_income'			=> $total_income);
 			// print_r(array( 'emp_detail' 			=> $emp,
 			// 						 'actual_days_present' 	=> $actual_presents,
 			// 						 'actual_days_absent' 	=> count($workingdays) - $actual_presents,
