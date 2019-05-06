@@ -156,7 +156,8 @@ if ( ! function_exists('getfullname'))
 {
     function getfullname($fname, $lname, $mname='', $mid='', $ext='')
     {
-    	$mid_ini = $mid!='' ? str_replace('.', '', $mid) : $mname[0];
+    	$mname = $mname == '' ? '' : $mname[0];
+    	$mid_ini = $mid!='' ? str_replace('.', '', $mid) : $mname;
     	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
     	$mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.';
     	$ext = $ext!='' ? $ext.' ': '';

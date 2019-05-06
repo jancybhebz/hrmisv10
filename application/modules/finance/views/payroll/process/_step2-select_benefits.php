@@ -13,11 +13,9 @@
                     <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> Check All </label>
                     <div class="portlet-body" id="div-benefit">
                         <?php foreach($arrBenefit as $benefit): ?>
-                            <div class="col-md-3">
-                                <label class="checkbox">
-                                    <input type="checkbox" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> <?=ucwords($benefit['incomeDesc'])?>
-                                </label>
-                            </div>
+                            <label class="checkbox col-md-3">
+                                <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> <?=ucwords($benefit['incomeDesc'])?>
+                            </label>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -70,5 +68,22 @@
         $('button#btncompute').on('click', function() {
             $('.loading-fade').show();
         });
+        $('#chkall-benefit').click(function() {
+            if($(this).prop('checked')){
+                $('div#div-benefit > label.checkbox').find('div.checker > span').addClass('checked');
+            }else{
+                $('div#div-benefit > label.checkbox').find('div.checker > span').removeClass('checked');
+            }
+        });
+        // $('input#chkall-benefit').on('click', function() {
+        //     if($(this).is(":checked")){
+        //         $('div#div-benefit').find('label.checkbox.col-md-3').find('input.chkbenefit').attr('checked', true);
+        //         $('div#div-benefit').find('label.checkbox.col-md-3 > div.checker').addClass('focus');
+        //         $('div#div-benefit').find('label.checkbox.col-md-3 > div.checker').find('span').addClass('checked');
+        //     }else{
+        //         $('div#div-benefit').find('label.checkbox.col-md-3').find('input.chkbenefit').attr('checked', false);
+        //         $('div#div-benefit').find('label.checkbox.col-md-3 > div.checker').find('span').removeClass('checked');
+        //     }
+        // });
     });
 </script>

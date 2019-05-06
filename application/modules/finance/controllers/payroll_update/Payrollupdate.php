@@ -34,6 +34,9 @@ class Payrollupdate extends MY_Controller {
 
 			case 'select_benefits':
 				if(!empty($arrPost)):
+					if($arrPost['selemployment'] != 'P'):
+						redirect('finance/payroll_update/process/index');	
+					endif;
 					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');
 					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate('Bonus');
 					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate('Additional');
@@ -47,12 +50,16 @@ class Payrollupdate extends MY_Controller {
 
 			case 'compute_benefits':
 				if(!empty($arrPost)):
-					$process_data = json_decode($arrPost['txtprocess'],true);
+					
 					echo '<pre>';
 					print_r($arrPost);
-
+					if(isset($arrPost['txtprocess'])):
+						$process_data = json_decode($arrPost['txtprocess'],true);
+					else:
+						$process_data = $arrPost;
+					endif;
 					$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
-					// print_r($computed_benefits);
+					print_r($computed_benefits);
 					echo '</pre>';
 
 					$this->arrData = array( 'employment_type'	 => $process_data['selemployment'],

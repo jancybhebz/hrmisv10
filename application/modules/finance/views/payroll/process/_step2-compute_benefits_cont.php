@@ -37,15 +37,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="text-align: center"> Total </td>
-                            <td style="text-align: center"> Total </td>
-                            <td style="text-align: center"> Total </td>
-                            <td style="text-align: center"> Total </td>
-                            <td style="text-align: center"> Total </td>
-                            <td style="text-align: center"> Total </td>
-                            <td style="text-align: center"> Total </td>
-                        </tr>
+                        <?php foreach($arrEmployees as $emp): ?>
+                            <tr>
+                                <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
+                                <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
+                                <td style="text-align: center"><?=$emp['actual_days_present']?></td>
+                                <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
+                                <td style="text-align: center"> Total </td>
+                                <td style="text-align: center"> Total </td>
+                                <td style="text-align: center"> Total </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
 

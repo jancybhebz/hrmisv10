@@ -43,13 +43,13 @@ $(document).ready(function() {
     	}
     });
 
-    $('#chkall-benefit').click(function() {
-    	if($(this).prop('checked')){
-    		$('div#div-benefit > div.col-md-3 > label.checkbox').find('div.checker > span').addClass('checked');
-    	}else{
-    		$('div#div-benefit > div.col-md-3 > label.checkbox').find('div.checker > span').removeClass('checked');
-    	}
-    });
+    // $('#chkall-benefit').click(function() {
+    // 	if($(this).prop('checked')){
+    // 		$('div#div-benefit > div.col-md-3 > label.checkbox').find('div.checker > span').addClass('checked');
+    // 	}else{
+    // 		$('div#div-benefit > div.col-md-3 > label.checkbox').find('div.checker > span').removeClass('checked');
+    // 	}
+    // });
 
     $('#chkall-bonus').click(function() {
     	if($(this).prop('checked')){

@@ -202,7 +202,7 @@ class Payrollupdate_model extends CI_Model {
 									 'actual_days_absent' 	=> $emp_lb['nodays_absent'],
 									 'hp' 					=> $hpfactor,
 									 'emp_leavebal'			=> $emp_lb,
-									 'subsis'				=> $subsis,
+									 'subsis'				=> isset($arrPost['chkbenefit']) ? in_array('SUBSIS', $arrPost['chkbenefit']) ? $subsis : 0 : 0,
 									 'laundry'				=> $laundry,
 									 'longevity'			=> $longevity,
 									 'rata'					=> $rata,

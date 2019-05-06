@@ -144,5 +144,12 @@
         $('button#btn_step1').on('click', function() {
             $('.loading-fade').show();
         });
+        $('select#selemployment').on('changed.bs.select', function (e) {
+            var selected = e.target.value;
+            alert(selected);
+            if(selected != 'P'){
+                $('#frmprocess').attr('action', 'compute_benefits');
+            }
+        });
     });
 </script>
