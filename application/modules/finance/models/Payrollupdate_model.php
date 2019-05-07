@@ -68,8 +68,16 @@ class Payrollupdate_model extends CI_Model {
 		$month = sprintf('%02d', $process_data['data_fr_mon']);
 		$yr = $process_data['data_fr_yr'];
 
-		$datefrom = implode('-',array($yr,$month,'01'));
-		$dateto = implode('-',array($yr,$month,cal_days_in_month(CAL_GREGORIAN,$month,$yr)));
+		if(isset($process_data['txt_dtfrom']) && isset($process_data['txt_dtto'])):
+			$datefrom = date('Y-m-d', strtotime($process_data['txt_dtfrom']));
+			$dateto = date('Y-m-d', strtotime($process_data['txt_dtto']));
+		else:
+			$datefrom = implode('-',array($yr,$month,'01'));
+			$dateto = implode('-',array($yr,$month,cal_days_in_month(CAL_GREGORIAN,$month,$yr)));
+		endif;
+
+		echo '<br>datefrom '.$datefrom;
+		echo '<br>dateto '.$dateto;
 
 		$arrrata = $this->Rata_model->getData();
 

@@ -59,7 +59,6 @@ class Payrollupdate extends MY_Controller {
 						$process_data = $arrPost;
 					endif;
 					$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
-					print_r($computed_benefits);
 					echo '</pre>';
 
 					$this->arrData = array( 'employment_type'	 => $process_data['selemployment'],
@@ -129,8 +128,9 @@ class Payrollupdate extends MY_Controller {
 	public function testingtesting()
 	{
 		echo '<pre>';
-		$process_data = json_decode('{"selemployment":"P","mon":"2","yr":"2019","period":"1","data_fr_mon":"1","data_fr_yr":"2019"}',true);
+		$process_data = json_decode('{"selemployment":"P","mon":"2","yr":"2019","period":"1","data_fr_mon":"1","data_fr_yr":"2019","txt_dtfrom":"2019-01-01","txt_dtto":"2019-01-31"}',true);
 		$process_data['selemployment'] = 'GIA';
+		print_r($process_data);
 		$emp = $this->Payrollupdate_model->compute_benefits(null, $process_data,$_GET['id']);
 		echo '<br></br>';
 		print_r($emp);

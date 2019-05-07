@@ -31,8 +31,8 @@
                             <th style="text-align: center"> Basic Salary </th>
                             <th style="text-align: center"> Days Present </th>
                             <th style="text-align: center"> Days Absent </th>
-                            <th style="text-align: center"> Lates </th>
-                            <th style="text-align: center"> Undertime </th>
+                            <th style="text-align: center"> Late and Undertime </th>
+                            <th style="text-align: center"> Deduction Amount </th>
                             <th style="text-align: center"> Period Salary </th>
                         </tr>
                     </thead>
@@ -43,19 +43,14 @@
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
-                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_late']))?></td>
-                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_ut']))?></td>
-                                <td style="text-align: center"> Total </td>
+                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_late']))?> = <?=$emp['total_late']?></td>
+                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_ut']))?> = <?=$emp['total_ut']?></td>
+                                <td style="text-align: center"> <?php print_r($emp) ?> </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
 
-                <?php 
-                    if($no_empty_lb > 0):
-                        echo 'Employee with no leave balance = '.$no_empty_lb;
-                    endif;
-                 ?>
             </div>
         </div>
         <br><br>

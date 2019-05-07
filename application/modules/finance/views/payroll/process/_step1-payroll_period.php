@@ -81,9 +81,9 @@
                 </label>
                 <div class="col-md-4">
                     <div class="input-group date-picker input-daterange" data-date="2003" data-date-format="yyyy-mm-dd" data-date-viewmode="years" id="dateRange">
-                        <input type="text" class="form-control form-required" id="txt_dtfrom">
+                        <input type="text" class="form-control form-required" id="txt_dtfrom" name="txt_dtfrom">
                         <span class="input-group-addon"> to </span>
-                        <input type="text" class="form-control form-required" id="txt_dtto">
+                        <input type="text" class="form-control form-required" id="txt_dtto" name="txt_dtto">
                     </div>
                 </div>
             </div>
@@ -138,18 +138,3 @@
     </div>
 </div>
 <?=form_close()?>
-
-<script>
-    $(document).ready(function() {
-        $('button#btn_step1').on('click', function() {
-            $('.loading-fade').show();
-        });
-        $('select#selemployment').on('changed.bs.select', function (e) {
-            var selected = e.target.value;
-            alert(selected);
-            if(selected != 'P'){
-                $('#frmprocess').attr('action', 'compute_benefits');
-            }
-        });
-    });
-</script>

@@ -11,25 +11,41 @@ $(document).ready(function() {
 	$('.loading-image').hide();
 	$('#div-body').show();
 
-    // button compute
-    $('#btn-pprocess-compute').click(function(e) {
-        e.preventDefault();
-        console.log('yr' + $('#pselmon').val());
-        console.log('month' + $('#pselyr').val());
+    /* BEGIN PROCESSS 1 */
+    $('button#btn_step1').on('click', function() {
+        $('.loading-fade').show();
     });
 
-    // begin process 1
     $('.div-date').hide();
-    $('select#selemployment').change(function() {
-        if($(this).val() == 'P'){
-            $('.div-period,.div-date').hide();
-            $('.div-datause').show();
+    $('select#selemployment').on('changed.bs.select', function (e) {
+        var employment = e.target.value;
+        if(employment != 'P'){
+            $('#frmprocess').attr('action', 'compute_benefits');
+
+            $('.div-datause').hide();
+            $('.div-date').show();
         }else{
-            $('.div-period,.div-date').show();
+            $('#frmprocess').attr('action', 'select_benefits');
+
+            $('.div-datause').show();
+            $('.div-date').hide();
         }
     });
+
+    $('select#selmon').on('changed.bs.select', function (e) {
+        var selmonth = e.target.value;
+        var selyr = $('select#selyr').val();
+        if(selmonth == 1){
+            selmonth = 13;
+            $('select#data_fr_yr').selectpicker('val',(selyr-1));
+        }else{
+            $('select#data_fr_yr').selectpicker('val',(selyr));
+        }
+        $('select#data_fr_mon').selectpicker('val',(selmonth-1));
+    });
+
     $('.date-picker').datepicker({autoclose: true});
-    // end process 1
+    /* END PROCESSS 1 */
 
     // begin manage check boxes
     $('div.col-md-3').on('click', 'label.checkbox', function() {
