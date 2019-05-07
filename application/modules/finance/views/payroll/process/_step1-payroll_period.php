@@ -152,5 +152,4 @@
 </div>
 <?=form_close()?>
 
-<?=load_plugin('js', array('form_validation'))?>
 <script src="<?=base_url('assets/js/custom/payroll-step_1.js')?>"></script>
