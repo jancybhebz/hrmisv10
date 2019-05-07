@@ -31,8 +31,8 @@
                             <th style="text-align: center"> Basic Salary </th>
                             <th style="text-align: center"> Days Present </th>
                             <th style="text-align: center"> Days Absent </th>
-                            <th style="text-align: center"> Hours Late </th>
-                            <th style="text-align: center"> Minutes Late </th>
+                            <th style="text-align: center"> Lates </th>
+                            <th style="text-align: center"> Undertime </th>
                             <th style="text-align: center"> Period Salary </th>
                         </tr>
                     </thead>
@@ -43,8 +43,8 @@
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
-                                <td style="text-align: center"> Total </td>
-                                <td style="text-align: center"> Total </td>
+                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_late']))?></td>
+                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_ut']))?></td>
                                 <td style="text-align: center"> Total </td>
                             </tr>
                         <?php endforeach; ?>

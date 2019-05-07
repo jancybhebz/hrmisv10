@@ -24,16 +24,16 @@ if ( ! function_exists('constWorkHrs'))
 	}
 }
 
-# fix monday start
-if ( ! function_exists('fixMondayDate'))
-{
-    function fixMondayDate()
-    {
-		return array('amTimeinTo' => '08:00:00',
-					 'nnTimeinTo' => '05:00:00',
-					 'fixMonDate' => '2017-09-01');
-	}
-}
+// # fix monday start
+// if ( ! function_exists('fixMondayDate'))
+// {
+//     function fixMondayDate()
+//     {
+// 		return array('amTimeinTo' => '08:00:00',
+// 					 'nnTimeinTo' => '05:00:00',
+// 					 'fixMonDate' => '2017-09-01');
+// 	}
+// }
 
 # hour before ot
 if ( ! function_exists('hrintbeforeOT'))

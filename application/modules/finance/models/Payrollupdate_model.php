@@ -63,7 +63,7 @@ class Payrollupdate_model extends CI_Model {
 	function compute_benefits($arrPost, $process_data,$empid='')
 	{
 		$this->load->helper(array('payroll_helper','dtr_helper'));
-		$this->load->model(array('Dtr_model','Longevity_model','Rata_model'));
+		$this->load->model(array('Dtr_model','Longevity_model','Rata_model','libraries/Attendance_scheme_model'));
 
 		$month = sprintf('%02d', $process_data['data_fr_mon']);
 		$yr = $process_data['data_fr_yr'];
@@ -72,6 +72,8 @@ class Payrollupdate_model extends CI_Model {
 		$dateto = implode('-',array($yr,$month,cal_days_in_month(CAL_GREGORIAN,$month,$yr)));
 
 		$arrrata = $this->Rata_model->getData();
+
+		$att_schemes = $this->Attendance_scheme_model->getData();
 		// $arrholidays = array();
 		
 		// foreach($holidays as $hday):
@@ -96,11 +98,16 @@ class Payrollupdate_model extends CI_Model {
 		$emp_leavebal = $this->Leave_model->getEmpLeave_balance('',$month,$yr);
 		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$yr,$month,$empid);
 		foreach($process_employees as $emp):
+			# employee attendance scheme
+			$emp_att_scheme = $att_schemes[array_search($emp['schemeCode'], array_column($att_schemes, 'schemeCode'))];
+
 			$empdtr = $this->Dtr_model->getData($emp['empNumber'],$yr,$month);
 			$empdays_present = array_column($empdtr, 'dtrDate', 'id');
 			// print_r($empdays_present);
 
 			$actual_present = array_intersect($empdays_present,$workingdays);
+			$total_late = 0;
+			$total_ut = 0;
 			// print_r($actual_present);
 			$actual_presents =  0;
 			$date_presents = array();
@@ -112,6 +119,14 @@ class Payrollupdate_model extends CI_Model {
 				if($dtr_empty < 4):
 					$actual_presents++;
 					array_push($date_presents,$emp_att['dtrDate']);
+					# Lates
+					$late = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att);
+					$total_late = $total_late + $late;
+					# Undertimes
+					$uts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $late);
+					$total_ut = $total_ut + $uts;
+					// print_r($uts);
+					// echo '<hr>';
 				endif;
 				// echo '<br>';
 			endforeach;
@@ -206,7 +221,9 @@ class Payrollupdate_model extends CI_Model {
 									 'laundry'				=> $laundry,
 									 'longevity'			=> $longevity,
 									 'rata'					=> $rata,
-									 'total_income'			=> $total_income);
+									 'total_income'			=> $total_income,
+									 'total_late'			=> $total_late,
+									 'total_ut'				=> $total_ut);
 			// print_r(array( 'emp_detail' 			=> $emp,
 			// 						 'actual_days_present' 	=> $actual_presents,
 			// 						 'actual_days_absent' 	=> count($workingdays) - $actual_presents,
