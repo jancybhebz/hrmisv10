@@ -60,9 +60,13 @@ class Income extends MY_Controller {
 			$this->template->load('template/template_view','finance/libraries/income/income_add',$this->arrData);
 		endif;
 	}
-
-	public function delete() {
-		$this->Income_Model->delete($_GET['code']);
-	}
 	
+	public function delete()
+	{
+		$arrPost = $this->input->post();
+		$this->Income_Model->delete($arrPost['txtcode']);
+		$this->session->set_flashdata('strSuccessMsg','Income successfully deleted.');
+		redirect('finance/libraries/income');
+	}
+
 }

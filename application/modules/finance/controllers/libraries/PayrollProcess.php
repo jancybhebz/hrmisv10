@@ -73,7 +73,10 @@ class PayrollProcess extends MY_Controller {
 
 	public function delete()
 	{
-		$this->Process_model->delete($_GET['code']);
+		$arrPost = $this->input->post();
+		$this->Process_model->delete($arrPost['txtcode']);
+		$this->session->set_flashdata('strSuccessMsg','Payroll process successfully deleted.');
+		redirect('finance/libraries/payrollprocess');
 	}
 
 

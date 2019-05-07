@@ -162,6 +162,9 @@
 <div class="modal fade" id="delete" tabindex="-1" role="basic" aria-hidden="true"> 
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
+            <?=form_open('finance/libraries/deductions/delete', array('method' => 'post'))?>
+            <input type="hidden" name="txtcode" id="txtcode">
+            <input type="hidden" name="txttab" id="txttab">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete</h4>
@@ -173,6 +176,7 @@
                 <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
                     <i class="icon-ban"> </i> Cancel</button>
             </div>
+            <?=form_close()?>
         </div>
     </div>
 </div>
@@ -197,16 +201,11 @@
         $('#table-agency, #table-deductions').on('click', 'tr > td > a#btnDelDeduction', function () {
             code = $(this).data('code');
             tab = $(this).data('tab');
+            $('#txtcode').val(code);
+            $('#txttab').val(tab);
+
             $('.modal-title').html((tab == 1) ? 'Delete Deduction' : 'Delete Agency');
             $('#delete').modal('show');
-        });
-
-        $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'deductions/delete?tab='+tab+'&code='+code,
-                success: function(){
-                    toastr.success('Deduction '+code+' successfully deleted.','Success');
-                    $('#delete').modal('hide');
-                    $('[data-code="' + code + '"]').closest('tr').hide(); }});
         });
     });
 </script>

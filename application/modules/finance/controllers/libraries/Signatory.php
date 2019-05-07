@@ -55,6 +55,13 @@ class Signatory extends MY_Controller {
 		$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 	}
 
-	public function delete() { $this->Signatory_model->delete($_GET['code']); }
+	public function delete()
+	{
+		$arrPost = $this->input->post();
+		$this->Signatory_model->delete($arrPost['txtcode']);
+		$this->session->set_flashdata('strSuccessMsg','Signatory successfully deleted.');
+		redirect('finance/libraries/signatory');
+	}
+
 	public function fetchSignatoryData($code) { echo json_encode($this->Signatory_model->getSignatories($code)); }
 }

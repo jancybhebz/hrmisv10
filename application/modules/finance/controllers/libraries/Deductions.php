@@ -122,7 +122,14 @@ class Deductions extends MY_Controller {
 
 	public function delete()
 	{
-		$this->Deduction_Model->delete($_GET['tab'], $_GET['code']);
+		$arrPost = $this->input->post();
+		$this->Deduction_Model->delete($arrPost['txttab'], $arrPost['txtcode']);
+		$this->session->set_flashdata('strSuccessMsg',$arrPost['txtcode'].' successfully deleted.');
+		if($arrPost['txttab'] == 1):
+			redirect('finance/libraries/deductions');
+		else:
+			redirect('finance/libraries/deductions?tab=agency');
+		endif;
 	}
 
 }

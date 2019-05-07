@@ -58,7 +58,10 @@ class ProjectCode extends MY_Controller {
 
 	public function delete()
 	{
-		$this->ProjectCode_model->delete($_GET['code']);
+		$arrPost = $this->input->post();
+		$this->ProjectCode_model->delete($arrPost['txtcode']);
+		$this->session->set_flashdata('strSuccessMsg','Project code successfully deleted.');
+		redirect('finance/libraries/projectcode');
 	}
 
 
