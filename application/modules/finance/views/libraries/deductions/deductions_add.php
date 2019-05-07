@@ -61,7 +61,7 @@
                             </div>
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
-                                <form action="<?=$action == 'edit' ? base_url('finance/libraries/deductions/edit/'.$this->uri->segment(4)) : ''?>" method="post">
+                                <?=form_open($action == 'edit' ? 'finance/libraries/deductions/edit/'.$this->uri->segment(4) : '', array('method' => 'post'))?>
                                     <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
                                     <div class="form-body">
                                         <div class="row">
@@ -130,7 +130,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                <?=form_close()?>
+
                             </div>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ class Appointment_status_model extends CI_Model {
 	{		
 		$strWhere = '';
 		if($intAppointmentId != "")
-			$strWhere .= " AND appointmentId = '".$intAppointmentId."'";
+			$strWhere .= " AND appointmentCode = '".$intAppointmentId."'";
 		
 		$strSQL = " SELECT * FROM tblAppointment					
 					WHERE 1=1 
