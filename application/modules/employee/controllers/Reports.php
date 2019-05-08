@@ -112,7 +112,7 @@ class Reports extends MY_Controller {
 			break;
 			case 'reportPDSupdate': 
 				$this->load->model(array('reports/ReportPDSupdate_rpt_model'));
-				$arrData=array('request'=>$arrGet['request'],'dtmComLeave'=>$arrGet['comleave='],'dtmOldMorningIn'=>$arrGet['oldmorin'],'dtmOldMorningOut'=>$arrGet['oldmorout'],'dtmOldAfternoonIn'=>$arrGet['oldafin'],'dtmOldAfternoonOut'=>$arrGet['oldafout'],'dtmMorningIn'=>$arrGet['morningin'],'dtmMorningOut'=>$arrGet['morningout'],'dtmAfternoonIn'=>$arrGet['aftrnoonin'],'dtmAfternoonOut'=>$arrGet['aftrnoonout'],'strPurpose'=>$arrGet['purpose'],'strRecommend'=>$arrGet['reco'],'strApproval'=>$arrGet['approval']);			
+				$arrData=array('strProfileType'=>$arrGet['profile'],'strSname'=>$arrGet['surname']);			
 				$this->ReportPDSupdate_rpt_model->generate($arrData);
 				echo $this->fpdf->Output();	
 			break;

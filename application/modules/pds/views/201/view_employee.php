@@ -149,6 +149,9 @@ $arrData = $arrData[0];?>
                                                 <li>
                                                     <a href="#emp_number" data-toggle="tab"> Employee Number </a>
                                                 </li>
+                                                 <li>
+                                                    <a href="<?=base_url('employee/reports/generate')?>"/><button type="button" class="btn blue">Print Personal Data Sheet</button></a>
+                                                </li>
                                             </ul>
                                             <div class="tab-content">
                                                 
@@ -257,5 +260,8 @@ $arrData = $arrData[0];?>
     $(document).ready(function() {
         $('.loading-image, #div_hide').hide();
         $('#employee_view').show();
+
     });
+
+ 
 </script>
