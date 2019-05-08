@@ -92,11 +92,21 @@ class Payrollupdate_model extends CI_Model {
 		/** curr_workingdays = working days in the current period
 		    workingdays = working days from process month/date */
 		# current period working days
-		$curr_holidays = $this->Dtr_model->getHoliday($process_data['yr'].'-'.sprintf('%02d', $process_data['mon']).'-',1);
-		$curr_workingdays = get_workingdays(sprintf('%02d', $process_data['mon']),$process_data['yr'],$curr_holidays);
-		# process data working days
-		$holidays = $this->Dtr_model->getHoliday($yr.'-'.$month.'-',1);
-		$workingdays = get_workingdays($month,$yr,$holidays);
+		echo '<br>';
+		print_r($process_data['txt_dtfrom']!=null && $process_data['txt_dtto']!=null);
+		echo '<hr>';
+		if($process_data['txt_dtfrom']!=null && $process_data['txt_dtto']!=null){
+			$curr_holidays = $this->Dtr_model->getHoliday('',1,$datefrom,$dateto);
+			$curr_workingdays = get_workingdays('','',$curr_holidays,$datefrom,$dateto);
+			# process data working days
+			$workingdays = $curr_workingdays;
+		}else{
+			$curr_holidays = $this->Dtr_model->getHoliday($process_data['yr'].'-'.sprintf('%02d', $process_data['mon']).'-',1);
+			$curr_workingdays = get_workingdays(sprintf('%02d', $process_data['mon']),$process_data['yr'],$curr_holidays);
+			# process data working days
+			$holidays = $this->Dtr_model->getHoliday($yr.'-'.$month.'-',1);
+			$workingdays = get_workingdays($month,$yr,$holidays);
+		}
 
 		// echo 'working days :<br>';
 		// print_r($workingdays);
@@ -109,9 +119,18 @@ class Payrollupdate_model extends CI_Model {
 			# employee attendance scheme
 			$emp_att_scheme = $att_schemes[array_search($emp['schemeCode'], array_column($att_schemes, 'schemeCode'))];
 
-			$empdtr = $this->Dtr_model->getData($emp['empNumber'],$yr,$month);
+			# Employee Local Holiday
+			$emplocal_holidays = $this->Dtr_model->getLocalHoliday($emp['empNumber']);
+			$curr_workingdays = array_diff($curr_workingdays,array_column($emplocal_holidays, 'holidate'));
+			$workingdays = array_diff($workingdays,array_column($emplocal_holidays, 'holidate'));
+
+			if($process_data['txt_dtfrom']!=null && $process_data['txt_dtto']!=null){
+				$empdtr = $this->Dtr_model->getData($emp['empNumber'],'','',$datefrom,$dateto);
+			}else{
+				$empdtr = $this->Dtr_model->getData($emp['empNumber'],$yr,$month);
+			}
+			
 			$empdays_present = array_column($empdtr, 'dtrDate', 'id');
-			// print_r($empdays_present);
 
 			$actual_present = array_intersect($empdays_present,$workingdays);
 			$total_late = 0;

@@ -128,7 +128,7 @@ class Payrollupdate extends MY_Controller {
 	public function testingtesting()
 	{
 		echo '<pre>';
-		$process_data = json_decode('{"selemployment":"P","mon":"2","yr":"2019","period":"1","data_fr_mon":"1","data_fr_yr":"2019","txt_dtfrom":"2019-01-01","txt_dtto":"2019-01-31"}',true);
+		$process_data = json_decode('{"selemployment":"P","mon":"2","yr":"2019","period":"1","data_fr_mon":"1","data_fr_yr":"2019","txt_dtfrom":"2019-01-01","txt_dtto":"2019-02-25"}',true);
 		$process_data['selemployment'] = 'GIA';
 		print_r($process_data);
 		$emp = $this->Payrollupdate_model->compute_benefits(null, $process_data,$_GET['id']);

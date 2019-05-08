@@ -7,18 +7,26 @@ class Dtr_model extends CI_Model {
 		$this->table = 'tblEmpDTR';
 	}
 	
-	function getData($empid,$yr,$mon)
+	function getData($empid,$yr,$mon,$sdate='',$edate='')
 	{
-		$this->db->where("dtrDate like '".$yr."-".$mon."%'");
+		if($sdate != '' && $edate != ''){
+			$this->db->where("(dtrDate >= '".$sdate."' and dtrDate <= '".$edate."')");
+		}else{
+			$this->db->where("dtrDate like '".$yr."-".$mon."%'");
+		}
 		$this->db->where("empNumber",$empid);
 		$this->db->order_by("dtrDate", "asc");
 		return $this->db->get_where($this->table)->result_array();
 	}
 
-	function getHoliday($strday, $all=0)
+	function getHoliday($strday='',$all=0,$sdate='',$edate='')
 	{
 		$this->db->join('tblHoliday', 'tblHoliday.holidayCode = tblHolidayYear.holidayCode', 'left');
-		$this->db->where("tblHolidayYear.holidayDate like '%".$strday."%'");
+		if($sdate != '' && $edate != ''){
+			$this->db->where("(holidayDate >= '".$sdate."' and holidayDate <= '".$edate."')");
+		}else{
+			$this->db->where("tblHolidayYear.holidayDate like '%".$strday."%'");
+		}
 		$res = $this->db->get_where('tblHolidayYear')->result_array();
 		if($all):
 			return $res;
@@ -27,12 +35,13 @@ class Dtr_model extends CI_Model {
 		endif;
 	}
 
-	function getLocalHoliday($strday)
+	function getLocalHoliday($empid)
 	{
-		$this->db->join('tblHoliday', 'tblHoliday.holidayCode = tblEmpLocalHoliday.holidayCode', 'left');
-		$this->db->where("tblEmpLocalHoliday.holidayDate like '".$strday."'");
+		$this->db->select("tblLocalHoliday.holidayCode,CONCAT(holidayYear,'-',holidayMonth,'-',holidayDay) as holidate");
+		$this->db->join('tblLocalHoliday', 'tblLocalHoliday.holidayCode = tblEmpLocalHoliday.holidayCode', 'left');
+		$this->db->where("tblEmpLocalHoliday.empNumber like '".$empid."'");
 		$res = $this->db->get_where('tblEmpLocalHoliday')->result_array();
-		return count($res) > 0 ? $res[0] : null; 
+		return $res; 
 	}
 
 	function getEmpOB($empid, $year, $month)
