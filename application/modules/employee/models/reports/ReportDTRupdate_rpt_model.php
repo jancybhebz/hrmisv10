@@ -96,9 +96,9 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->Cell(110, 5, "", 0, 0, "C"); 
 		$this->fpdf->Cell(100, 5, "", 0, 0, "C"); 
 		
-		$this->fpdf->Ln(15);
+		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial', "", 8);
-		$this->fpdf->Cell(0, 4, "**************** NO SIGNATURE NEEDED. THIS DOCUMENT HAS BEEN APPROVED ONLINE ****************", 0, 1, "C");		
+		$this->fpdf->Cell(0, 4, "========================================================================================================", 0, 1, "C");		
 		
 			
 		echo $this->fpdf->Output();
