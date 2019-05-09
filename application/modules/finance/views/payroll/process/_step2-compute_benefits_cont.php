@@ -41,8 +41,8 @@
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
                                 <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_late'] + $emp['total_ut']))?></td>
-                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_ut']))?> = <?=$emp['total_ut']?></td>
-                                <td style="text-align: center"> <?php print_r($emp) ?> </td>
+                                <td style="text-align: center"><?=number_format($emp['total_deduct'], 2)?></td>
+                                <td style="text-align: center"><?=number_format($emp['period_salary'], 2)?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

@@ -142,101 +142,122 @@ class Dtr_model extends CI_Model {
 		return  ($t_time[0] * 60) + $t_time[1];
 	}
 
-	function computeLate($scheme, $dtrData)
+	function computeLate($scheme, $dtrData, $obdates=null, $todates=null)
 	{
 		$total_late = '00:00';
+		if(!in_array($dtrData['dtrDate'],$obdates) && !in_array($dtrData['dtrDate'],$todates)):
+			# begin working lunch
+			if($dtrData['inAM'] != '00:00:00' && $dtrData['inAM'] != '00:00:00'):
+				$dtrData['outAM'] = $dtrData['outAM'] == '00:00:00' ? '12:01:00' : $dtrData['outAM'];
+				$dtrData['inPM']  = $dtrData['inPM'] == '00:00:00' ? '12:01:00' : $dtrData['inPM'];
+			endif;
+			# end working lunch
 
-		if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
-			$am_systimein = fixTime($_ENV['FLAGCRMNY'],'am');
-		else:
-			$am_systimein = fixTime($scheme['amTimeinTo'],'am');
+			if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
+				$am_systimein = fixTime($_ENV['FLAGCRMNY'],'am');
+			else:
+				$am_systimein = fixTime($scheme['amTimeinTo'],'am');
+			endif;
+
+			$am_timein = strdate($dtrData['inAM']);
+			$am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
+
+			# Afternoon
+			$pm_timein = strdate($dtrData['inPM']);
+			$pm_systimein = strdate($scheme['nnTimeinTo']);
+			$pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
+
+			$total_late = $this->time_add($am_late, $pm_late);
 		endif;
-
-		$am_timein = strdate($dtrData['inAM']);
-		$am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
-
-		# Afternoon
-		$pm_timein = strdate($dtrData['inPM']);
-		$pm_systimein = strdate($scheme['nnTimeinTo']);
-		$pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
-
-		$total_late = $this->time_add($am_late, $pm_late);
-
+		// if($total_late > 0):
+		// 	print_r($dtrData);
+		// endif;
 		return $this->toMinutes($total_late);
 	}
 
-	function computeUndertime($scheme, $dtrData, $late_am)
+	function computeUndertime($scheme, $dtrData, $late_am, $obdates=null, $todates=null)
 	{
-		#  UnderTime
-		# Attendance Scheme
-		$am_timein_from = date('H:i:s', strtotime($scheme['amTimeinFrom'].' AM'));
-		// $am_timein_to = date('H:i:s', strtotime($scheme['amTimeinTo'].' AM'));
-		$nn_timein_from = date('H:i:s', strtotime($scheme['nnTimeoutFrom'].' PM'));
-		$nn_timein_to = date('H:i:s', strtotime($scheme['nnTimeoutTo'].' PM'));
-		$pm_timeout_from = date('H:i:s', strtotime($scheme['pmTimeoutFrom'].' PM'));
-		// $pm_timeout_to = date('H:i:s', strtotime($scheme['pmTimeoutTo'].' PM'));
+		$total_undertime = 0;
+		if(!in_array($dtrData['dtrDate'],$obdates) && !in_array($dtrData['dtrDate'],$todates)):
+			#  UnderTime
+			# Attendance Scheme
+			$am_timein_from = date('H:i:s', strtotime($scheme['amTimeinFrom'].' AM'));
+			$nn_timein_from = date('H:i:s', strtotime($scheme['nnTimeoutFrom'].' PM'));
+			$nn_timein_to = date('H:i:s', strtotime($scheme['nnTimeoutTo'].' PM'));
+			$pm_timeout_from = date('H:i:s', strtotime($scheme['pmTimeoutFrom'].' PM'));
 
-		if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
-			$am_timein_to = date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM'));
-			$pm_timeout_to = date("H:i:s", strtotime('+540 minutes', strtotime($_ENV['FLAGCRMNY'])));
-		else:
-			$am_timein_to = date('H:i:s', strtotime($scheme['amTimeinTo'].' AM'));
-			$pm_timeout_to = date('H:i:s', strtotime($scheme['pmTimeoutTo'].' PM'));
-		endif;
-
-		$undertime_am = 0;
-		$undertime_pm = 0;
-
-		# morning
-		$am_time_in = date('H:i:s', strtotime($dtrData['inAM'].' AM'));
-		if($dtrData['outAM'] >= '12:00:00'):
-			$am_time_out = date('H:i:s', strtotime($dtrData['outAM'].' PM'));
-		else:
-			$am_time_out = date('H:i:s', strtotime($dtrData['outAM'].' AM'));
-		endif;
-
-		# afternoon
-		$pm_time_in = date('H:i:s', strtotime($dtrData['inPM'].' PM'));
-		$pm_time_out = date('H:i:s', strtotime($dtrData['outPM'].' PM'));
-		## Get employee's expected time out first to check if employee gets undertime
-		/* if employee has AM time in*/
-		if($am_time_in != '00:00:00'):
-			## AM UnderTime
-			if($am_time_out <= $nn_timein_from):
-				$undertime_am = toMinutes($nn_timein_from) - toMinutes($am_time_out);
-			endif;
-
-			## PM UnderTime
-			/* if employee's timein is earlier than att scheme amTimeinFrom, set the timein to the amTimeinFrom */
-			if($am_time_in < $am_timein_from):
-				$expected_timein = $am_timein_from;
+			if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
+				$am_timein_to = date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM'));
+				$pm_timeout_to = date("H:i:s", strtotime('+540 minutes', strtotime($_ENV['FLAGCRMNY'])));
 			else:
-				$expected_timein = $am_time_in;
+				$am_timein_to = date('H:i:s', strtotime($scheme['amTimeinTo'].' AM'));
+				$pm_timeout_to = date('H:i:s', strtotime($scheme['pmTimeoutTo'].' PM'));
 			endif;
-			/* if employee is late, the expected time out will be the pmTimeoutTo */
-			if($late_am > 0):
+
+			$undertime_am = 0;
+			$undertime_pm = 0;
+
+			# begin working lunch
+			if($dtrData['inAM'] != '00:00:00' && $dtrData['inAM'] != '00:00:00'):
+				$dtrData['outAM'] = $dtrData['outAM'] == '00:00:00' ? '12:01:00' : $dtrData['outAM'];
+				$dtrData['inPM']  = $dtrData['inPM'] == '00:00:00' ? '12:01:00' : $dtrData['inPM'];
+			endif;
+			# end working lunch
+
+			# morning
+			$am_time_in = date('H:i:s', strtotime($dtrData['inAM'].' AM'));
+			if($dtrData['outAM'] >= '12:00:00'):
+				$am_time_out = date('H:i:s', strtotime($dtrData['outAM'].' PM'));
+			else:
+				$am_time_out = date('H:i:s', strtotime($dtrData['outAM'].' AM'));
+			endif;
+
+			# afternoon
+			$pm_time_in = date('H:i:s', strtotime($dtrData['inPM'].' PM'));
+			$pm_time_out = date('H:i:s', strtotime($dtrData['outPM'].' PM'));
+			## Get employee's expected time out first to check if employee gets undertime
+			/* if employee has AM time in*/
+			if($am_time_in != '00:00:00'):
+				## AM UnderTime
+				if($am_time_out <= $nn_timein_from):
+					$undertime_am = toMinutes($nn_timein_from) - toMinutes($am_time_out);
+				endif;
+
+				## PM UnderTime
+				/* if employee's timein is earlier than att scheme amTimeinFrom, set the timein to the amTimeinFrom */
+				if($am_time_in < $am_timein_from):
+					$expected_timein = $am_timein_from;
+				else:
+					$expected_timein = $am_time_in;
+				endif;
+				/* if employee is late, the expected time out will be the pmTimeoutTo */
+				if($late_am > 0):
+					$expected_timeout = $pm_timeout_to;
+				else:
+					$mins_timein = toMinutes($expected_timein) - toMinutes($am_timein_from);
+					$expected_timeout = date("H:i:s", strtotime('+'.$mins_timein.' minutes', strtotime($pm_timeout_from)));
+				endif;
+			else:
+				# No AM Undertime
+				/* if employee has no AM time in; expected time out is pmTimeoutTo */
 				$expected_timeout = $pm_timeout_to;
+			endif;
+			## PM UnderTime
+			# check undertime using expected_timeout
+			/* Check if employee has PM timein */
+			if($pm_time_in != '00:00:00'):
+				if($expected_timeout > $pm_time_out):
+					$undertime_pm = toMinutes($expected_timeout) - toMinutes($pm_time_out);
+				endif;
 			else:
-				$mins_timein = toMinutes($expected_timein) - toMinutes($am_timein_from);
-				$expected_timeout = date("H:i:s", strtotime('+'.$mins_timein.' minutes', strtotime($pm_timeout_from)));
+				$undertime_pm = toMinutes($expected_timeout) - toMinutes($nn_timein_to);
 			endif;
-		else:
-			# No AM Undertime
-			/* if employee has no AM time in; expected time out is pmTimeoutTo */
-			$expected_timeout = $pm_timeout_to;
-		endif;
-		## PM UnderTime
-		# check undertime using expected_timeout
-		/* Check if employee has PM timein */
-		if($pm_time_in != '00:00:00'):
-			if($expected_timeout > $pm_time_out):
-				$undertime_pm = toMinutes($expected_timeout) - toMinutes($pm_time_out);
-			endif;
-		else:
-			$undertime_pm = toMinutes($expected_timeout) - toMinutes($nn_timein_to);
-		endif;
 
-		$total_undertime = $undertime_am + $undertime_pm;
+			$total_undertime = $undertime_am + $undertime_pm;
+		endif;
+		// if($total_undertime > 0):
+		// 	print_r($dtrData);
+		// endif;
 		return $total_undertime;
 
 	}

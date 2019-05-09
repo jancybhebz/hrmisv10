@@ -119,9 +119,13 @@ class Payrollupdate_model extends CI_Model {
 		foreach($process_employees as $emp):
 			# employee attendance scheme
 			$emp_att_scheme = $att_schemes[array_search($emp['schemeCode'], array_column($att_schemes, 'schemeCode'))];
-
 			# Employee Local Holiday
 			$emplocal_holidays = $this->Dtr_model->getLocalHoliday($emp['empNumber']);
+			# Employee OB
+			$obdates = $this->Dtr_model->getemp_obdates($emp['empNumber'],$datefrom,$dateto,1);
+			# Employee TO
+			$todates = $this->Dtr_model->getemp_todates($emp['empNumber'],$datefrom,$dateto,1);
+
 			$curr_workingdays = array_diff($curr_workingdays,array_column($emplocal_holidays, 'holidate'));
 			$workingdays = array_diff($workingdays,array_column($emplocal_holidays, 'holidate'));
 
@@ -148,10 +152,10 @@ class Payrollupdate_model extends CI_Model {
 					$actual_presents++;
 					array_push($date_presents,$emp_att['dtrDate']);
 					# Lates
-					$late = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att);
+					$late = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $obdates, $todates);
 					$total_late = $total_late + $late;
 					# Undertimes
-					$uts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $late);
+					$uts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $late, $obdates, $todates);
 					$total_ut = $total_ut + $uts;
 					// print_r($uts);
 					// echo '<hr>';
@@ -159,8 +163,7 @@ class Payrollupdate_model extends CI_Model {
 				// echo '<br>';
 			endforeach;
 
-			# check if on OB
-			$obdates = $this->Dtr_model->getemp_obdates($emp['empNumber'],$datefrom,$dateto,1);
+			
 			// $obs = array_intersect($workingdays,$obdates);
 			# check all obdates not present in empdays_present
 			// print_r($obdates);
@@ -178,8 +181,7 @@ class Payrollupdate_model extends CI_Model {
 			// // endif;
 			$actual_presents = $actual_presents + count($obs);
 
-			# check if on TO
-			$todates = $this->Dtr_model->getemp_todates($emp['empNumber'],$datefrom,$dateto,1);
+			# Check TO dates
 			// print_r($todates);
 			$alltos = array_intersect($date_presents,$todates);
 			// print_r($todates);
@@ -211,6 +213,10 @@ class Payrollupdate_model extends CI_Model {
 							'ctr_diem' => $lb_details['ctr_diem'] == '' ? 0 : $lb_details['ctr_diem'],
 							'ctr_laundry' => $lb_details['ctr_laundry'] == '' ? 0 : $lb_details['ctr_laundry'],
 							'nodays_absent' => $lb_details['nodays_absent'] == '' ? 0 : $lb_details['nodays_absent']);
+			# if not permanent
+			if($process_data['selemployment'] != 'P'):
+				$emp_lb['nodays_absent'] = count($curr_workingdays) - $actual_presents;
+			endif;
 			$days_work = count($curr_workingdays) - $lb_details['nodays_absent'];
 			// $actual_presents = 0;
 			// $date_presents = array();
@@ -233,13 +239,15 @@ class Payrollupdate_model extends CI_Model {
 			// // endforeach;
 			// echo '<hr>';
 
+			# deduction and salary period computation
 			$per_period = $emp['actualSalary'] / 2;
 			$per_day = $emp['actualSalary'] / SALARY_DAYS;
 			$per_hr = $per_day / 8;
 			$per_min = $per_hr / 60;
 			$deduct_day = $emp_lb['nodays_absent'] * $per_day;
 			$deduct_mins = ($total_late + $total_ut) * $per_min;
-			$period_salary = 0;
+			$total_deduct = $deduct_day + $deduct_mins;
+			$period_salary = $per_period - $total_deduct;
 
 			$hpfactor = hpfactor($days_work, $emp['hpFactor']);
 			$hpfactor = $emp['actualSalary'] * $hpfactor;
@@ -261,12 +269,7 @@ class Payrollupdate_model extends CI_Model {
 									 'total_income'			=> $total_income,
 									 'total_late'			=> $total_late,
 									 'total_ut'				=> $total_ut,
-									 'per_period'			=> $per_period,
-									 'per_day'				=> $per_day,
-									 'per_hr'				=> $per_hr,
-									 'per_min'				=> $per_min,
-									 'deduct_day'			=> $deduct_day,
-									 'deduct_mins'			=> $deduct_mins,
+									 'total_deduct'			=> $total_deduct,
 									 'period_salary'		=> $period_salary);
 			// print_r(array( 'emp_detail' 			=> $emp,
 			// 						 'actual_days_present' 	=> $actual_presents,
