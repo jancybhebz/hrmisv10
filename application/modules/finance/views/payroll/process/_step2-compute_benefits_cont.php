@@ -25,6 +25,7 @@
                     <thead>
                         <tr>
                             <th style="text-align: center;vertical-align: middle;"> Employee Name </th>
+                            <th style="text-align: center;vertical-align: middle;"> Employee number </th>
                             <th style="text-align: center;vertical-align: middle;"> Basic Salary </th>
                             <th style="text-align: center;vertical-align: middle;"> Days Present </th>
                             <th style="text-align: center;vertical-align: middle;"> Days Absent </th>
@@ -37,6 +38,7 @@
                         <?php foreach($arrEmployees as $emp): ?>
                             <tr>
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
+                                <td><?=$emp['emp_detail']['empNumber']?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_absent']?></td>

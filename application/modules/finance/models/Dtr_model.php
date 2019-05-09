@@ -142,44 +142,108 @@ class Dtr_model extends CI_Model {
 		return  ($t_time[0] * 60) + $t_time[1];
 	}
 
-	function computeLate($scheme, $dtrData, $obdates=null, $todates=null)
+	function computeLate($scheme, $dtrData, $todates)
 	{
-		$total_late = '00:00';
-		// if(!in_array($dtrData['dtrDate'],array_unique(array_column($obdates, 'date'))) && !in_array($dtrData['dtrDate'],$todates)):
+		// $total_late = '00:00';
+		$total_late = 0;
+		if(!in_array($dtrData['dtrDate'],$todates)):
+			# Attendance Scheme
+			$am_timein_from = date('H:i:s', strtotime($scheme['amTimeinFrom'].' AM'));
+			$am_timein_to = date('H:i:s', strtotime($scheme['amTimeinTo'].' AM'));
+			$nn_timein_from = date('H:i:s', strtotime($scheme['nnTimeoutFrom'].' PM'));
+			$nn_timein_to = date('H:i:s', strtotime($scheme['nnTimeoutTo'].' PM'));
+			$pm_timeout_from = date('H:i:s', strtotime($scheme['pmTimeoutFrom'].' PM'));
+			$pm_timeout_to = date('H:i:s', strtotime($scheme['pmTimeoutTo'].' PM'));
 
-		# begin working lunch
-		if($dtrData['inAM'] != '00:00:00' && $dtrData['inAM'] != '00:00:00'):
-			$dtrData['outAM'] = $dtrData['outAM'] == '00:00:00' ? '12:01:00' : $dtrData['outAM'];
-			$dtrData['inPM']  = $dtrData['inPM'] == '00:00:00' ? '12:01:00' : $dtrData['inPM'];
+			# morning
+			$am_time_in = date('H:i:s', strtotime($dtrData['inAM'].' AM'));
+			if($dtrData['outAM'] >= '12:00:00'):
+				$am_time_out = date('H:i:s', strtotime($dtrData['outAM'].' PM'));
+			else:
+				$am_time_out = date('H:i:s', strtotime($dtrData['outAM'].' AM'));
+			endif;
+
+			# afternoon
+			$pm_time_in = date('H:i:s', strtotime($dtrData['inPM'].' PM'));
+			$pm_time_out = date('H:i:s', strtotime($dtrData['outPM'].' PM'));
+
+			# if Fix Monday and Monday
+			if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
+				/* amTimeinTo in monday will change; then minutes from att-scheme-am-timein-to minus flag-cer-time will added to att-scheme-pm-timeout-from and become att-scheme-pm-timeout-to */
+				$fc_minutes = toMinutes($am_timein_to) - toMinutes(date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM')));
+				$am_timein_to = date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM'));
+				$pm_timeout_to = date("H:i:s", strtotime('+'.$fc_minutes.' minutes', strtotime($pm_timeout_from)));
+
+				$late_am = toMinutes($am_time_in) - toMinutes($_ENV['FLAGCRMNY']);
+				$late_pm = toMinutes($pm_time_in) - toMinutes($nn_timein_to);
+			# if Not Fix Monday and Not Monday
+			else:
+				$late_am = toMinutes($am_time_in) - toMinutes($am_timein_to);
+				$late_pm = toMinutes($pm_time_in) - toMinutes($nn_timein_to);
+			endif;
+
+			# Compute Total Late
+			/* if employee has no AM timein*/
+			if($am_time_in == '00:00:00'):
+				$late_am = toMinutes($nn_timein_from) - toMinutes($am_timein_to);
+			endif;
+
+			$late_am = $late_am > 0 ? $late_am : 0;
+			$late_pm = ($late_pm > 0 ? $late_pm : 0);
+
+			$total_late = $late_am + $late_pm;
+			// if($total_late > 0):
+			// 	echo '<br>dtrDate = '.$dtrData['dtrDate'];
+			// 	echo '<br>am_late = '.$late_am;
+			// 	echo '<br>late_pm = '.$late_pm;
+			// 	echo '<br>total_late = '.$total_late;
+			// endif;
+			// print_r($dtrData);
+			// # begin working lunch
+			// if($dtrData['inAM'] != '00:00:00' && $dtrData['inAM'] != '00:00:00'):
+			// 	$dtrData['outAM'] = $dtrData['outAM'] == '00:00:00' ? '12:01:00' : $dtrData['outAM'];
+			// 	$dtrData['inPM']  = $dtrData['inPM'] == '00:00:00' ? '12:01:00' : $dtrData['inPM'];
+			// endif;
+			// # end working lunch
+
+			// if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
+			// 	$am_systimein = fixTime($_ENV['FLAGCRMNY'],'am');
+			// else:
+			// 	$am_systimein = fixTime($scheme['amTimeinTo'],'am');
+			// endif;
+
+			// $am_timein = 	strdate($dtrData['inAM']);
+			// $am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
+			// echo '<br> $am_timein '.$am_timein;
+			// echo '<br> $am_systimein '.$am_systimein;
+			// echo '<br> $am_late '.$am_late;
+			// # Afternoon
+			// $pm_timein = strdate($dtrData['inPM']);
+			// $pm_systimein = strdate($scheme['nnTimeinTo']);
+			// $pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
+
+			// $total_late = $this->time_add($am_late, $pm_late);
+			// // endif;
+			// if($total_late > 0):
+			// 	print_r($dtrData);
+			// 	echo '<br> $total_late '.$total_late;
+			// 	echo '<br>';
+			// endif;
 		endif;
-		# end working lunch
 
-		if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
-			$am_systimein = fixTime($_ENV['FLAGCRMNY'],'am');
-		else:
-			$am_systimein = fixTime($scheme['amTimeinTo'],'am');
-		endif;
-
-		$am_timein = strdate($dtrData['inAM']);
-		$am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
-
-		# Afternoon
-		$pm_timein = strdate($dtrData['inPM']);
-		$pm_systimein = strdate($scheme['nnTimeinTo']);
-		$pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
-
-		$total_late = $this->time_add($am_late, $pm_late);
-		// endif;
-		// if($total_late > 0):
-		// 	print_r($dtrData);
-		// endif;
-		return $this->toMinutes($total_late);
+		// return $this->toMinutes($total_late);
+		return $total_late;
 	}
 
-	function computeUndertime($scheme, $dtrData, $late_am, $obdates=null, $todates=null)
+	function computeUndertime($scheme, $dtrData, $late_am, $todates)
 	{
 		$total_undertime = 0;
-		if(!in_array($dtrData['dtrDate'],$obdates) && !in_array($dtrData['dtrDate'],$todates)):
+		if(!in_array($dtrData['dtrDate'],$todates)):
+			# check dtr if between 12 - 1 PM
+			if((strtotime($dtrData['outPM']) >= strtotime($scheme['nnTimeoutFrom'])) && (strtotime($dtrData['outPM']) >= strtotime($scheme['nnTimeinTo']))):
+				# set attendance schme nn out to less 1 lunch break
+				$dtrData['outPM'] = $scheme['nnTimeinTo'];
+			endif;
 			#  UnderTime
 			# Attendance Scheme
 			$am_timein_from = date('H:i:s', strtotime($scheme['amTimeinFrom'].' AM'));
@@ -216,6 +280,7 @@ class Dtr_model extends CI_Model {
 			# afternoon
 			$pm_time_in = date('H:i:s', strtotime($dtrData['inPM'].' PM'));
 			$pm_time_out = date('H:i:s', strtotime($dtrData['outPM'].' PM'));
+
 			## Get employee's expected time out first to check if employee gets undertime
 			/* if employee has AM time in*/
 			if($am_time_in != '00:00:00'):
@@ -247,6 +312,13 @@ class Dtr_model extends CI_Model {
 			# check undertime using expected_timeout
 			/* Check if employee has PM timein */
 			if($pm_time_in != '00:00:00'):
+				if($pm_time_out == '00:00:00'):
+					$pm_time_out = date('H:i:s', strtotime($scheme['nnTimeinTo'].' PM'));
+					$undertime_pm = toMinutes($expected_timeout) - toMinutes($pm_time_out);
+					// echo $expected_timeout.' = '.toMinutes($expected_timeout).'<br>';
+					// echo $pm_time_out.' = '.toMinutes($pm_time_out).'<br>';
+					// echo 'check this<br>';
+				endif;
 				if($expected_timeout > $pm_time_out):
 					$undertime_pm = toMinutes($expected_timeout) - toMinutes($pm_time_out);
 				endif;
@@ -255,10 +327,23 @@ class Dtr_model extends CI_Model {
 			endif;
 
 			$total_undertime = $undertime_am + $undertime_pm;
+			if($total_undertime > 0):
+				echo '<br>date '.$dtrData['dtrDate'];
+			// 	echo '<br>expected_timeout -tominutes '.toMinutes($expected_timeout);
+			// 	echo '<br>pm_time_out '.$pm_time_out;
+			// 	echo '<br>pm_time_in '.$pm_time_in;
+			// 	echo '<br>pm_time_in -tominutes '.toMinutes($pm_time_in);
+			// 	echo '<br>nn_timein_to '.$nn_timein_to;
+			// 	echo '<br>nn_timein_to -tominutes '.toMinutes($nn_timein_to);
+			// 	echo '<br>undertime_am '.$undertime_am;
+			// 	echo '<br>undertime_pm '.$undertime_pm;
+			// // 	print_r($dtrData);
+			// 	echo '<br>';
+			// 	print_r($dtrData);
+			// 	echo $total_undertime;
+			endif;
 		endif;
-		// if($total_undertime > 0):
-		// 	print_r($dtrData);
-		// endif;
+		// echo 'undertime '.$total_undertime.'<br>';
 		return $total_undertime;
 
 	}
@@ -271,7 +356,6 @@ class Dtr_model extends CI_Model {
 		
 		// echo '<br>total_late '.$total_late;
 		// echo '<br>total_undertime '.$total_undertime;
-
 
 		$total_overtime = '00:00';
 		if($total_late != '00:00' || $total_undertime != '00:00'):
