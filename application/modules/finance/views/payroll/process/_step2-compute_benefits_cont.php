@@ -15,10 +15,7 @@
         </div>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
-                Payroll Date: <?=$payroll_date?> || Total Working days: <?=$curr_period_workingdays?> for Subsistence Allowance and RATA For Permanent Employees.
-            </small>
-            <small style="margin-left: 10px;">
-                Use data from <?=$process_data_date?> || working days <?=$process_data_workingdays?>
+                Payroll Date: <?=$payroll_date?> (<?=ordinal($_POST['period'])?> Half) || For <?=$_POST['selemployment']?> Employees || Total Calendar days: <?=$curr_period_workingdays?>
             </small>
         </div>
         <div class="row">
@@ -27,13 +24,13 @@
                 <table class="table table-striped table-bordered order-column" id="tblemployee-list" style="visibility: hidden;">
                     <thead>
                         <tr>
-                            <th> Employee Name </th>
-                            <th style="text-align: center"> Basic Salary </th>
-                            <th style="text-align: center"> Days Present </th>
-                            <th style="text-align: center"> Days Absent </th>
-                            <th style="text-align: center"> Late and Undertime </th>
-                            <th style="text-align: center"> Deduction Amount </th>
-                            <th style="text-align: center"> Period Salary </th>
+                            <th style="text-align: center;vertical-align: middle;"> Employee Name </th>
+                            <th style="text-align: center;vertical-align: middle;"> Basic Salary </th>
+                            <th style="text-align: center;vertical-align: middle;"> Days Present </th>
+                            <th style="text-align: center;vertical-align: middle;"> Days Absent </th>
+                            <th style="text-align: center;vertical-align: middle;"> Total <br>Late and Undertime </th>
+                            <th style="text-align: center;vertical-align: middle;"> Deduction Amount </th>
+                            <th style="text-align: center;vertical-align: middle;"> Period Salary </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,7 +40,7 @@
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
-                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_late']))?> = <?=$emp['total_late']?></td>
+                                <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_late'] + $emp['total_ut']))?></td>
                                 <td style="text-align: center"><?=date('H:i', mktime(0, $emp['total_ut']))?> = <?=$emp['total_ut']?></td>
                                 <td style="text-align: center"> <?php print_r($emp) ?> </td>
                             </tr>

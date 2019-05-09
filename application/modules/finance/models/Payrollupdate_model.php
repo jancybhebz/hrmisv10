@@ -115,6 +115,7 @@ class Payrollupdate_model extends CI_Model {
 		$arremployees = array();
 		$emp_leavebal = $this->Leave_model->getEmpLeave_balance('',$month,$yr);
 		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$yr,$month,$empid);
+		
 		foreach($process_employees as $emp):
 			# employee attendance scheme
 			$emp_att_scheme = $att_schemes[array_search($emp['schemeCode'], array_column($att_schemes, 'schemeCode'))];
@@ -231,6 +232,15 @@ class Payrollupdate_model extends CI_Model {
 			// // 	print_r($day);
 			// // endforeach;
 			// echo '<hr>';
+
+			$per_period = $emp['actualSalary'] / 2;
+			$per_day = $emp['actualSalary'] / SALARY_DAYS;
+			$per_hr = $per_day / 8;
+			$per_min = $per_hr / 60;
+			$deduct_day = $emp_lb['nodays_absent'] * $per_day;
+			$deduct_mins = ($total_late + $total_ut) * $per_min;
+			$period_salary = 0;
+
 			$hpfactor = hpfactor($days_work, $emp['hpFactor']);
 			$hpfactor = $emp['actualSalary'] * $hpfactor;
 			$subsis = substistence(count($curr_workingdays), count($workingdays), $emp_lb);
@@ -250,7 +260,14 @@ class Payrollupdate_model extends CI_Model {
 									 'rata'					=> $rata,
 									 'total_income'			=> $total_income,
 									 'total_late'			=> $total_late,
-									 'total_ut'				=> $total_ut);
+									 'total_ut'				=> $total_ut,
+									 'per_period'			=> $per_period,
+									 'per_day'				=> $per_day,
+									 'per_hr'				=> $per_hr,
+									 'per_min'				=> $per_min,
+									 'deduct_day'			=> $deduct_day,
+									 'deduct_mins'			=> $deduct_mins,
+									 'period_salary'		=> $period_salary);
 			// print_r(array( 'emp_detail' 			=> $emp,
 			// 						 'actual_days_present' 	=> $actual_presents,
 			// 						 'actual_days_absent' 	=> count($workingdays) - $actual_presents,
