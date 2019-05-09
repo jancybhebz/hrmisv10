@@ -145,30 +145,31 @@ class Dtr_model extends CI_Model {
 	function computeLate($scheme, $dtrData, $obdates=null, $todates=null)
 	{
 		$total_late = '00:00';
-		if(!in_array($dtrData['dtrDate'],$obdates) && !in_array($dtrData['dtrDate'],$todates)):
-			# begin working lunch
-			if($dtrData['inAM'] != '00:00:00' && $dtrData['inAM'] != '00:00:00'):
-				$dtrData['outAM'] = $dtrData['outAM'] == '00:00:00' ? '12:01:00' : $dtrData['outAM'];
-				$dtrData['inPM']  = $dtrData['inPM'] == '00:00:00' ? '12:01:00' : $dtrData['inPM'];
-			endif;
-			# end working lunch
+		// if(!in_array($dtrData['dtrDate'],array_unique(array_column($obdates, 'date'))) && !in_array($dtrData['dtrDate'],$todates)):
 
-			if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
-				$am_systimein = fixTime($_ENV['FLAGCRMNY'],'am');
-			else:
-				$am_systimein = fixTime($scheme['amTimeinTo'],'am');
-			endif;
-
-			$am_timein = strdate($dtrData['inAM']);
-			$am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
-
-			# Afternoon
-			$pm_timein = strdate($dtrData['inPM']);
-			$pm_systimein = strdate($scheme['nnTimeinTo']);
-			$pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
-
-			$total_late = $this->time_add($am_late, $pm_late);
+		# begin working lunch
+		if($dtrData['inAM'] != '00:00:00' && $dtrData['inAM'] != '00:00:00'):
+			$dtrData['outAM'] = $dtrData['outAM'] == '00:00:00' ? '12:01:00' : $dtrData['outAM'];
+			$dtrData['inPM']  = $dtrData['inPM'] == '00:00:00' ? '12:01:00' : $dtrData['inPM'];
 		endif;
+		# end working lunch
+
+		if($scheme['fixMonday'] == 'Y' && date('D', strtotime($dtrData['dtrDate'])) == 'Mon'):
+			$am_systimein = fixTime($_ENV['FLAGCRMNY'],'am');
+		else:
+			$am_systimein = fixTime($scheme['amTimeinTo'],'am');
+		endif;
+
+		$am_timein = strdate($dtrData['inAM']);
+		$am_late = $this->time_subtract(fixTime($am_systimein,'AM'), fixTime($am_timein,'AM'), $scheme['gpLeaveCredits'], $scheme['gracePeriod']);
+
+		# Afternoon
+		$pm_timein = strdate($dtrData['inPM']);
+		$pm_systimein = strdate($scheme['nnTimeinTo']);
+		$pm_late = $this->time_subtract(fixTime($pm_systimein,'PM'), fixTime($pm_timein,'PM'));
+
+		$total_late = $this->time_add($am_late, $pm_late);
+		// endif;
 		// if($total_late > 0):
 		// 	print_r($dtrData);
 		// endif;

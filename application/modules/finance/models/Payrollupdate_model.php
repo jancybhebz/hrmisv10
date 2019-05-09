@@ -122,7 +122,7 @@ class Payrollupdate_model extends CI_Model {
 			# Employee Local Holiday
 			$emplocal_holidays = $this->Dtr_model->getLocalHoliday($emp['empNumber']);
 			# Employee OB
-			$obdates = $this->Dtr_model->getemp_obdates($emp['empNumber'],$datefrom,$dateto,1);
+			$obdates = $this->Dtr_model->getemp_obdates($emp['empNumber'],$datefrom,$dateto,0);
 			# Employee TO
 			$todates = $this->Dtr_model->getemp_todates($emp['empNumber'],$datefrom,$dateto,1);
 
@@ -148,18 +148,29 @@ class Payrollupdate_model extends CI_Model {
 				// print_r($empdtr[$key]);
 				$emp_att = $empdtr[array_search($key, array_column($empdtr, 'id'))];
 				$dtr_empty = count(array_keys(array($emp_att['inAM'],$emp_att['outAM'],$emp_att['inPM'],$emp_att['outPM']), '00:00:00'));
-				if($dtr_empty < 4):
-					$actual_presents++;
-					array_push($date_presents,$emp_att['dtrDate']);
-					# Lates
-					$late = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $obdates, $todates);
-					$total_late = $total_late + $late;
-					# Undertimes
-					$uts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $late, $obdates, $todates);
-					$total_ut = $total_ut + $uts;
-					// print_r($uts);
-					// echo '<hr>';
+				#compute present days not include ob
+				if(!in_array($emp_att['dtrDate'],array_unique(array_column($obdates, 'date')))):
+					if($dtr_empty < 4):
+						$actual_presents++;
+						array_push($date_presents,$emp_att['dtrDate']);
+						# Lates
+						$late = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att);
+						$total_late = $total_late + $late;
+						# Undertimes
+						$uts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $late, $obdates, $todates);
+						$total_ut = $total_ut + $uts;
+						// print_r($uts);
+						// echo '<hr>';
+					endif;
+				else:
+					$empob = $obdates[array_search($emp_att['dtrDate'], array_column($obdates, 'date'))];
+					print_r($empob);
+					print_r($emp_att);
+					echo '<hr>';
 				endif;
+
+				// # check OB
+				// print_r($obdates);
 				// echo '<br>';
 			endforeach;
 
@@ -168,8 +179,8 @@ class Payrollupdate_model extends CI_Model {
 			# check all obdates not present in empdays_present
 			// print_r($obdates);
 			// print_r($date_presents);
-			$allobs = array_intersect($date_presents,$obdates);
-			$obs = array_diff($obdates,$allobs);
+			$allobs = array_intersect($date_presents,array_unique(array_column($obdates, 'date')));
+			$obs = array_diff(array_unique(array_column($obdates, 'date')),$allobs);
 			// print_r($allobs);
 			// print_r($obs);
 			// // $ctrob = 0;
