@@ -198,8 +198,10 @@ class Payrollupdate_model extends CI_Model {
 					# if ob end time is PM, dtr time out pm is equals to ob end time
 					if(date('A', strtotime($obd_etime)) == 'PM'):
 						# if between 12 - 1 PM
-						$emp_att_scheme['nnTimeoutFrom'] = date('H:i:s A', strtotime($emp_att_scheme['nnTimeoutFrom'].' PM'));
-						$emp_att_scheme['nnTimeinTo'] = date('H:i:s A', strtotime($emp_att_scheme['nnTimeinTo'].' PM'));
+						// $emp_att_scheme['nnTimeoutFrom'] = date('H:i:s A', strtotime($emp_att_scheme['nnTimeoutFrom'].' PM'));
+						// $emp_att_scheme['nnTimeinTo'] = date('H:i:s A', strtotime($emp_att_scheme['nnTimeinTo'].' PM'));
+						$emp_att_scheme['nnTimeoutFrom'] = $emp_att_scheme['nnTimeoutFrom'];
+						$emp_att_scheme['nnTimeinTo'] = $emp_att_scheme['nnTimeinTo'];
 						
 						if((strtotime($obd_etime) >= strtotime($emp_att_scheme['nnTimeoutFrom'])) && (strtotime($obd_etime) <= strtotime($emp_att_scheme['nnTimeinTo']))):
 							$emp_att['outAM'] = $emp_att['outAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_etime)) : $emp_att['outAM'];

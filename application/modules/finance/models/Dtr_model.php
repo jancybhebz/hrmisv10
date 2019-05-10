@@ -242,7 +242,10 @@ class Dtr_model extends CI_Model {
 			# check dtr if between 12 - 1 PM
 			if((strtotime($dtrData['outPM']) >= strtotime($scheme['nnTimeoutFrom'])) && (strtotime($dtrData['outPM']) >= strtotime($scheme['nnTimeinTo']))):
 				# set attendance schme nn out to less 1 lunch break
+				// echo 'outPM2 '.$dtrData['outPM'].'<br>';
 				$dtrData['outPM'] = $scheme['nnTimeinTo'];
+				// echo 'nnTimeinTo '.$scheme['nnTimeinTo'].'<br>';
+				// echo 'outPM1 '.$dtrData['outPM'].'<br>';
 			endif;
 			#  UnderTime
 			# Attendance Scheme
@@ -313,10 +316,12 @@ class Dtr_model extends CI_Model {
 			/* Check if employee has PM timein */
 			if($pm_time_in != '00:00:00'):
 				if($pm_time_out == '00:00:00'):
+					// echo 'pm_time_out '.$pm_time_out.' = '.toMinutes($pm_time_out).'<br>';
+					// print_r($dtrData);
 					$pm_time_out = date('H:i:s', strtotime($scheme['nnTimeinTo'].' PM'));
 					$undertime_pm = toMinutes($expected_timeout) - toMinutes($pm_time_out);
-					// echo $expected_timeout.' = '.toMinutes($expected_timeout).'<br>';
-					// echo $pm_time_out.' = '.toMinutes($pm_time_out).'<br>';
+					// echo 'expected_timeout '.$expected_timeout.' = '.toMinutes($expected_timeout).'<br>';
+					// echo 'pm_time_out '.$pm_time_out.' = '.toMinutes($pm_time_out).'<br>';
 					// echo 'check this<br>';
 				endif;
 				if($expected_timeout > $pm_time_out):
@@ -327,21 +332,21 @@ class Dtr_model extends CI_Model {
 			endif;
 
 			$total_undertime = $undertime_am + $undertime_pm;
-			if($total_undertime > 0):
-				echo '<br>date '.$dtrData['dtrDate'];
-			// 	echo '<br>expected_timeout -tominutes '.toMinutes($expected_timeout);
-			// 	echo '<br>pm_time_out '.$pm_time_out;
-			// 	echo '<br>pm_time_in '.$pm_time_in;
-			// 	echo '<br>pm_time_in -tominutes '.toMinutes($pm_time_in);
-			// 	echo '<br>nn_timein_to '.$nn_timein_to;
-			// 	echo '<br>nn_timein_to -tominutes '.toMinutes($nn_timein_to);
+			// if($total_undertime > 0):
+			// 	echo '<br>date '.$dtrData['dtrDate'];
+			// // 	echo '<br>expected_timeout -tominutes '.toMinutes($expected_timeout);
+			// // 	echo '<br>pm_time_out '.$pm_time_out;
+			// // 	echo '<br>pm_time_in '.$pm_time_in;
+			// // 	echo '<br>pm_time_in -tominutes '.toMinutes($pm_time_in);
+			// // 	echo '<br>nn_timein_to '.$nn_timein_to;
+			// // 	echo '<br>nn_timein_to -tominutes '.toMinutes($nn_timein_to);
 			// 	echo '<br>undertime_am '.$undertime_am;
 			// 	echo '<br>undertime_pm '.$undertime_pm;
+			// // // 	print_r($dtrData);
+			// // 	echo '<br>';
 			// // 	print_r($dtrData);
-			// 	echo '<br>';
-			// 	print_r($dtrData);
-			// 	echo $total_undertime;
-			endif;
+			// 	echo '<br>total_undertime '.$total_undertime;
+			// endif;
 		endif;
 		// echo 'undertime '.$total_undertime.'<br>';
 		return $total_undertime;
