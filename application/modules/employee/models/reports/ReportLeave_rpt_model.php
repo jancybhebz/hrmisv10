@@ -24,9 +24,44 @@ class ReportLeave_rpt_model extends CI_Model {
 	
 	function generate($arrData)
 	{
+		$today =  date("F j, Y",strtotime(date("Y-m-d")));
+		$strWholeday ="";
+		$strHalfday ="";
+		$dtmLeavefrom = date("F j, Y",strtotime($arrData['dtmLeavefrom']));
+		$dtmLeaveto = date("F j, Y",strtotime($arrData['dtmLeaveto']));
+		$intDaysApplied = $arrData['intDaysApplied'];
+		$str1stSignatory = $arrData['str1stSignatory'];
+		$strEmpName2 = $arrData['strEmpName2'];
+		$strReason = $arrData['strReason'];
+
+		$strIncaseSL = "";
+		$strInpatient = "";
+		$strOutpatient ="";
+
+		if ($strIncaseSL=='in patient')
+			$strInpatient = "x";
+		else
+			$strOutpatient = "";
+
+		$strIncaseVL = "";
+		$strWithin = "";
+		$strAbroad = "";		
+		
+		if ($strIncaseVL=='within the country')
+			$strWithin = "x";
+		else
+			$strAbroad = "";
+
+		
+
+		// if ($strDay=='Whole day')
+		// 	$strWholeday = "x";
+		// else
+		// 	$strHalfday = "x";
+
 		$this->fpdf->SetTitle('Application for Leave Form');
-		$this->fpdf->SetLeftMargin(25);
-		$this->fpdf->SetRightMargin(25);
+		$this->fpdf->SetLeftMargin(10);
+		$this->fpdf->SetRightMargin(10);
 		$this->fpdf->SetTopMargin(10);
 		$this->fpdf->SetAutoPageBreak("on",10);
 		$this->fpdf->AddPage('P','','A4');
@@ -69,7 +104,7 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(45, 5, "5. SALARY (Monthly)", 0, 0, "L");
 		$this->fpdf->Cell(200, 5, "", 0, 0, "L");
 		$this->fpdf->Ln(0);
-		$this->fpdf->Cell(50, 12, '', "R", 0, "L");
+		$this->fpdf->Cell(50, 15, "$today", "R", 0, "C");
 		$this->fpdf->Cell(90, 12, '', "R", 0, "L");
 		$this->fpdf->Cell(45, 12, '', 0, 1, "L");
 
@@ -102,7 +137,8 @@ class ReportLeave_rpt_model extends CI_Model {
 		// if($strLocal == "local" && $strLeaveType == "VL" )
 		// 	$this->fpdf->Cell(6, 5,"x", 1, 0, "C");		
 		// else
-			$this->fpdf->Cell(6, 5,"", 1, 0, "C");					
+			// $this->fpdf->Cell(6, 5,"d", 1, 0, "C");					
+		$this->fpdf->Cell(6, 5,"$strWithin", 1, 0, "C");					
 		$this->fpdf->Cell(37, 5,"Within the Philippines", 0, 0, "L");
 		$this->fpdf->Cell(47, 5,"", "B", 1, "L"); 
 		//----------------------------------------------------------
@@ -114,7 +150,7 @@ class ReportLeave_rpt_model extends CI_Model {
 		// if($strLocal == "abroad" && $strLeaveType == "VL" )
 		// 	$this->objRprt->Cell(6, 5,"x", 1, 0, "C");		
 		// else
-		$this->fpdf->Cell(6, 5,"", 1, 0, "C");					
+		$this->fpdf->Cell(6, 5,"$strAbroad", 1, 0, "C");					
 		$this->fpdf->Cell(37, 5,"Abroad (Specify)", 0, 0, "L");
 		$this->fpdf->Cell(47, 5,"", "B", 1, "L"); 
 
@@ -146,7 +182,7 @@ class ReportLeave_rpt_model extends CI_Model {
 	// if($strPatient == "in" && $strLeaveType == "SL")
 	// 	$this->fpdf->Cell(6, 5,"x", 1, 0, "C");		
 	// else
-		$this->fpdf->Cell(6, 5,"", 1, 0, "C");		
+		$this->fpdf->Cell(6, 5,"$strInpatient", 1, 0, "C");		
 		$this->fpdf->Cell(37, 5,"In Hospital (Specify)", 0, 0, "L");
 		$this->fpdf->Cell(47, 5,"", "B", 1, "L"); 
 
@@ -178,7 +214,7 @@ class ReportLeave_rpt_model extends CI_Model {
 	// if($strPatient == "out" && $strLeaveType == "SL")
 		// $this->fpdf->Cell(6, 5,"x", 1, 0, "C");		
 	// else
-		$this->fpdf->Cell(6, 5,"", 1, 0, "C");		
+		$this->fpdf->Cell(6, 5,"$strOutpatient", 1, 0, "C");		
 		$this->fpdf->Cell(37, 5,"Out Patient (Specify)", 0, 0, "L");
 		$this->fpdf->Cell(47, 5,"", "B", 1, "L"); 
 
@@ -197,8 +233,8 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(90, 5, "6. C)  NUMBER OF WORKING DAYS APPLIED FOR", "R", 0, "L");
 		$this->fpdf->Cell(90, 5, "6. D)  COMMUTATION", 0, 1, "L");
 
-		$this->fpdf->Cell(10, 5,"", 0, 0, "L");	
-		$this->fpdf->Cell(78, 5,"", "B", 0, "C"); 
+		$this->fpdf->Cell(10, 5,"", 0, 0, "C");	
+		$this->fpdf->Cell(78, 5,"$intDaysApplied", "B", 0, "C"); 
 		$this->fpdf->Cell(2, 10,"", "R", 0, "L"); 
 
 		$this->fpdf->Cell(10, 5,"", 0, 0, "L");	
@@ -224,8 +260,8 @@ class ReportLeave_rpt_model extends CI_Model {
 //----------------------------------------------------------
 
 		$this->fpdf->Cell(10, 6,"", 0, 0, "L");	
-		$this->fpdf->Cell(78, 6,"from ", "B", 0, "C"); 
-		$this->fpdf->Cell(2, 10,"", "R", 0, "L"); 
+		$this->fpdf->Cell(78, 6,"$dtmLeavefrom from $dtmLeaveto", "B", 0, "C"); 
+		$this->fpdf->Cell(2, 6,"", "R", 0, "L"); 
 		
 		$this->fpdf->Cell(20, 6,"", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "B", 10);	
@@ -369,18 +405,22 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(60, 5,"DR. RAUL D. DUMOL  "."  ", 0, 0, "C"); 
 		$this->fpdf->Cell(2, 5,"", "R", 0, "L"); 
 		
-		$this->fpdf->Cell(40, 5,"",  0, 0, "L");	
+		$this->fpdf->Cell(25, 5,"",  0, 0, "L");	
 		//1st authorized official
 		$this->fpdf->SetFont('Arial', "B", 10);
-		$this->fpdf->Cell(60, 5, 0, 1, "C");
+		// $this->fpdf->Cell(60, 5, 0, 0, "C");
+		$this->fpdf->Cell(8, 5,"",  0, 0, "C");
 		
 //----------------------------------------------------------
+		$this->fpdf->SetFont('Arial', "B", 10);
+		$this->fpdf->Cell(30, 5,"$str1stSignatory", 0, 0, "C");	
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(28, 5,"", 0, 0, "L");	
-		$this->fpdf->Cell(60, 5,"(Personnel Officer)", "T", 0, "C"); 
+		$this->fpdf->Ln(5);
+		$this->fpdf->Cell(30, 5,"", "", 0, "C"); 
+		$this->fpdf->Cell(58, 5,"(Personnel Officer)", "T", 0, "C"); 
 		$this->fpdf->Cell(2, 8,"", "R", 0, "L");  
 		
-		$this->fpdf->Cell(40, 5,"", 0, 0, "L");	
+		$this->fpdf->Cell(20, 5,"", 0, 0, "L");	
 		$this->fpdf->Cell(60, 5,"(Authorized Official)", "T", 1, "C");
 
 		$this->fpdf->Ln(3);
@@ -438,7 +478,9 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(55, 5,"", 0, 0, "L");	
 		//signature
-		$this->fpdf->Cell(70, 5,"",0, 1, "C");
+		$this->fpdf->SetFont('Arial', "B", 10);		
+		$this->fpdf->Cell(70, 5,"$strEmpName2",0, 1, "C");
+		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Ln(0);
 
 		$this->fpdf->Cell(55, 6,"", 0, 0, "L");			
