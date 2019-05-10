@@ -170,9 +170,13 @@ class ReportOB_rpt_model extends CI_Model {
 		$this->fpdf->Cell(100, 5, "", 0, 0, "C"); 
 	 
  		$this->fpdf->Ln(5);
- 		$this->fpdf->SetFont('Arial', "U", 10);
+ 		$this->fpdf->SetFont('Arial', "", 10);
  		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(225, 5, "Date :  "."$dtmOBrequestdate", 0, 0, "C"); 
+		$this->fpdf->Ln(0);
+		$this->fpdf->SetFont('Arial', "B", 10);
+		$this->fpdf->Cell(95, 5, "", 0, 0, "C"); 
+		$this->fpdf->Cell(20, 5,"___________________________________", 0, 0, "L"); 
 		$this->fpdf->Ln(10);
 		$this->fpdf->SetFont('Arial', "BI", 8);
 		$this->fpdf->Cell(200, 5, "", 0, 0, "C");
@@ -200,7 +204,7 @@ function empInfo()
 									WHERE tblEmpPersonal.empNumber = '".$_SESSION['sesEmpNmbr']."'");
 									
 		$arrEmpInfo = mysql_fetch_array($objEmpInfo);
-		$this->objRprt->AddPage();
+		$this->fpdf->AddPage();
 		$this->bodyOB($arrEmpInfo, $arrAgency);
 
 }

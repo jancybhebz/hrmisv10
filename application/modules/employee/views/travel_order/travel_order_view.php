@@ -104,7 +104,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8 text-right">
                             <input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="TO">
-                            <button type="button" id="printreport" value="reportTO" class="btn blue">Print/Preview</button>
+                            <!-- <button type="button" id="printreport" value="reportTO" class="btn blue">Print/Preview</button> -->
 
                         <div class="col-sm-10 text-center">
                             <button type="submit" class="btn btn-success"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
