@@ -15,12 +15,15 @@ class DTR_update extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employee/dtr_update_model'));
+        $this->load->model(array('employee/dtr_update_model','libraries/user_account_model','hr/hr_model'));
     }
 
 	public function index()
 	{
 		// $this->arrData['arrOB'] = $this->dtr_update_model->getData();
+		$this->arrData['arrUser'] = $this->user_account_model->getData();
+		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 		$this->template->load('template/template_view', 'employee/dtr_update/dtr_update_view', $this->arrData);
 	}
 	
@@ -37,6 +40,9 @@ class DTR_update extends MY_Controller {
 			$dtmOvertimeIn=$arrPost['dtmOvertimeIn'];
 			$dtmOvertimeOut=$arrPost['dtmOvertimeOut'];
 			$strReason=$arrPost['strReason'];
+			$dtmMonthOf=$arrPost['dtmMonthOf'];
+			$strEvidence=$arrPost['strEvidence'];
+			$strSignatory=$arrPost['strSignatory'];
 			if(!empty($dtmDTRupdate))
 			{	
 				if( count($this->dtr_update_model->checkExist($dtmDTRupdate))==0 )

@@ -188,7 +188,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="input-icon left">
                               <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
                                  <option value="">Select</option>
-                                 <option value=""></option>
                                  <option value="within the country">within the country</option>
                                  <option value="abroad">abroad</option>
                              </select>
