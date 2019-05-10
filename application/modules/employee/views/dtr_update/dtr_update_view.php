@@ -58,6 +58,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <label class="control-label">For the month of : <span class="required"> * </span></label>
+                        <div class="input-icon left">
+                              <input name="dtmMonthOf" id="dtmMonthOf" class="form-control" size="10" type="text" value="" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <label class="control-label">Old Morning In : </label>
                         <div class="input-icon left">
                             <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningIn'))?$this->session->userdata('strOldMorningIn'):''?>" autocomplete="off">
@@ -187,6 +197,31 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label">Supporting Evidence :</label>
+                        <div class="input-icon left">
+                              <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row" id="signatory1_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                     <label class="control-label">Authorized Official (Signatory) :</label>
+                        <div class="input-icon left">
+                            <select name="strSignatory" id="strSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
+                                    <option value="">Select</option>
+                                    <?php foreach($arrEmployees as $i=>$data): ?>
+                                    <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                        <?php endforeach; ?>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <br>
             <br><br>
                  <div class="row">
@@ -240,12 +275,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var OTtimein=$('#dtmOvertimeIn').val();
         var OTtimeout=$('#dtmOvertimeOut').val();
         var reason=$('#strReason').val();
+        var month=$('#dtmMonthOf').val();
+        var evidence=$('#strEvidence').val();
+        var signatory=$('#strSignatory').val();
+        
 
         // if(request=='reportDTRupdate')
         //     valid=true;
         // if(valid)
 
-            window.open("reports/generate/?rpt=reportDTRupdate&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&reason="+reason,'_blank'); //ok
+            window.open("reports/generate/?rpt=reportDTRupdate&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&month="+month+"&evidence="+evidence+"&reason="+reason+"&signatory="+signatory,'_blank'); //ok
     
     });
  });

@@ -24,9 +24,22 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 	
 	function generate($arrData)
 	{
+		$today =  date("F j, Y",strtotime(date("Y-m-d")));
+		$dtmDTRupdate = date("F j, Y",strtotime($arrData['dtmDTRupdate']));
+		$dtmMorningIn = $arrData['dtmMorningIn'];
+		$dtmMorningOut = $arrData['dtmMorningOut'];
+		$dtmAfternoonIn = $arrData['dtmAfternoonIn'];
+		$dtmAfternoonOut = $arrData['dtmAfternoonOut'];
+		$dtmOvertimeIn = $arrData['dtmOvertimeIn'];
+		$dtmOvertimeOut = $arrData['dtmOvertimeOut'];
+		$strReason = $arrData['strReason'];
+		$dtmMonthOf = $arrData['dtmMonthOf'];
+		$strEvidence = $arrData['strEvidence'];
+		$strSignatory = $arrData['strSignatory'];
+
 		$this->fpdf->SetTitle('Confirmation Slip');
-		$this->fpdf->SetLeftMargin(25);
-		$this->fpdf->SetRightMargin(25);
+		$this->fpdf->SetLeftMargin(20);
+		$this->fpdf->SetRightMargin(20);
 		$this->fpdf->SetTopMargin(10);
 		$this->fpdf->SetAutoPageBreak("on",10);
 		$this->fpdf->AddPage('P','','A4');
@@ -56,39 +69,52 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(69, 5,"Name : ________________________________"  , 0, 0, "C"); 
 		$this->fpdf->Cell(55, 5,"Position : ____________", 0, 0, "C"); 
-		$this->fpdf->Cell(30, 5,"Date : _______________", 0, 0, "C"); 
+		$this->fpdf->Cell(30, 5,"Date : ", 0, 0, "C"); 
+		$this->fpdf->SetFont('Arial', "U", 10);	
+		$this->fpdf->Cell(0, 5,"$today"."", 0, 0, "C"); 
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial', "", 10);		
-		$this->fpdf->Cell(85, 5,"For the month of : ________________________________"  , 0, 0, "C"); 
+		$this->fpdf->Cell(22, 5,"For the month of :"  , 0, 0, "C"); 
+		$this->fpdf->SetFont('Arial', "U", 10);	
+		$this->fpdf->Cell(15, 5,"$dtmMonthOf"  , 0, 0, "C"); 
 		$this->fpdf->Ln(10);
 		// start of table
-
-		$this->fpdf->Cell(20,6,'Day',1,0);
-		$this->fpdf->Cell(20,6,'IN',1,0);
-		$this->fpdf->Cell(20,6,'OUT',1,0);
-		$this->fpdf->Cell(70,6,'Signature Over Printed Name',1,0);
-		$this->fpdf->Cell(35,6,'Supporting Evidence/',1,0);
+		$this->fpdf->SetFont('Arial', "", 10);	
+		$this->fpdf->Cell(25,6,'Day',"RLT",0,"C");
+		$this->fpdf->Cell(20,6,'IN',"RLT",0,"C");
+		$this->fpdf->Cell(20,6,'OUT',"RLT",0,"C");
+		$this->fpdf->Cell(70,6,'Signature Over Printed Name',"RLT",0,"C");
+		$this->fpdf->Cell(35,6,'Supporting Evidence/',"RLT",0,"C");
 		$this->fpdf->Ln(6);
-		$this->fpdf->Cell(20,6,'',1,0);
-		$this->fpdf->Cell(20,6,'',1,0);
-		$this->fpdf->Cell(20,6,'',1,0);
-		$this->fpdf->Cell(70,6,'of Authorized Official/Supervisor Concerned',1,0);
-		$this->fpdf->Cell(35,6,'Documents',1,0);
+		$this->fpdf->Cell(25,6,'',"RL",0,"C");
+		$this->fpdf->Cell(20,6,'',"RL",0,"C");
+		$this->fpdf->Cell(20,6,'',"RL",0,"C");
+		$this->fpdf->Cell(70,6,'of Authorized Official/Supervisor Concerned',"RL",0,"C");
+		$this->fpdf->Cell(35,6,'Documents',"RL",0,"C");
 		$this->fpdf->Ln(6);
-		$this->fpdf->Cell(20,6,'',1,0);
-		$this->fpdf->Cell(20,6,'',1,0);
-		$this->fpdf->Cell(20,6,'',1,0);
-		$this->fpdf->Cell(70,6,'Supervisor Concerned',1,0);
-		$this->fpdf->Cell(35,6,'',1,0);
+		$this->fpdf->Cell(25,6,'',"RL",0,"C");
+		$this->fpdf->Cell(20,6,'',"RL",0,"C");
+		$this->fpdf->Cell(20,6,'',"RL",0,"C");
+		$this->fpdf->Cell(70,6,'Supervisor Concerned',"RL",0,"C");
+		$this->fpdf->Cell(35,6,'',"RL",0,"C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->Cell(25,6,"$dtmDTRupdate",1,0,"C");
+		$this->fpdf->Cell(20,6,'',1,0,"C");
+		$this->fpdf->Cell(20,6,'',1,0,"C");
+		$this->fpdf->Cell(70,6,"$strSignatory",1,0,"C");
+		$this->fpdf->Cell(35,6,"$strEvidence",1,0,"C");
 		// end of table
 
 		$this->fpdf->Ln(15);
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(15, 5,"Submitted by :"  , 0, 0, "C"); 
-		$this->fpdf->Cell(150, 5,"Date Submitted :", 0, 0, "C"); 
+		$this->fpdf->Cell(172, 5,"Date Submitted : ", 0, 0, "C"); 
 		$this->fpdf->Ln(10);
+		
 		$this->fpdf->Cell(65, 5,"_____________________________________"  , 0, 0, "C"); 
-		$this->fpdf->Cell(70, 5,"________________________", 0, 0, "C"); 
+		$this->fpdf->SetFont('Arial', "U", 10);	
+		$this->fpdf->Cell(66, 5,"$today", 0, 0, "C"); 
+		$this->fpdf->SetFont('Arial', "", 10);	
 			
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial', "", 10);		
@@ -98,7 +124,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial', "", 8);
-		$this->fpdf->Cell(0, 4, "========================================================================================================", 0, 1, "C");		
+		$this->fpdf->Cell(0, 4, "===========================================================================================================", 0, 1, "C");		
 		
 			
 		echo $this->fpdf->Output();
