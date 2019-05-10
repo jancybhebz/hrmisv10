@@ -15,8 +15,10 @@ class Dtr_model extends CI_Model {
 			$this->db->where("dtrDate like '".$yr."-".$mon."%'");
 		}
 		$this->db->where("empNumber",$empid);
+		$this->db->where("(inAM != '00:00:00' AND outAM != '00:00:00' AND inPM != '00:00:00' AND outPM != '00:00:00')");
 		$this->db->order_by("dtrDate", "asc");
-		return $this->db->get_where($this->table)->result_array();
+		$res = $this->db->get_where($this->table)->result_array();
+		return $res;
 	}
 
 	function getHoliday($strday='',$all=0,$sdate='',$edate='')
@@ -224,11 +226,11 @@ class Dtr_model extends CI_Model {
 
 			// $total_late = $this->time_add($am_late, $pm_late);
 			// // endif;
-			// if($total_late > 0):
-			// 	print_r($dtrData);
-			// 	echo '<br> $total_late '.$total_late;
-			// 	echo '<br>';
-			// endif;
+			if($total_late > 0):
+				// print_r($dtrData['dtrDate']);
+				// echo '<br> $total_late '.$total_late;
+				// echo '<br>';
+			endif;
 		endif;
 
 		// return $this->toMinutes($total_late);
@@ -334,17 +336,17 @@ class Dtr_model extends CI_Model {
 			$total_undertime = $undertime_am + $undertime_pm;
 			// if($total_undertime > 0):
 			// 	echo '<br>date '.$dtrData['dtrDate'];
-			// // 	echo '<br>expected_timeout -tominutes '.toMinutes($expected_timeout);
-			// // 	echo '<br>pm_time_out '.$pm_time_out;
-			// // 	echo '<br>pm_time_in '.$pm_time_in;
-			// // 	echo '<br>pm_time_in -tominutes '.toMinutes($pm_time_in);
-			// // 	echo '<br>nn_timein_to '.$nn_timein_to;
-			// // 	echo '<br>nn_timein_to -tominutes '.toMinutes($nn_timein_to);
-			// 	echo '<br>undertime_am '.$undertime_am;
-			// 	echo '<br>undertime_pm '.$undertime_pm;
-			// // // 	print_r($dtrData);
-			// // 	echo '<br>';
-			// // 	print_r($dtrData);
+			// // // 	echo '<br>expected_timeout -tominutes '.toMinutes($expected_timeout);
+			// // // 	echo '<br>pm_time_out '.$pm_time_out;
+			// // // 	echo '<br>pm_time_in '.$pm_time_in;
+			// // // 	echo '<br>pm_time_in -tominutes '.toMinutes($pm_time_in);
+			// // // 	echo '<br>nn_timein_to '.$nn_timein_to;
+			// // // 	echo '<br>nn_timein_to -tominutes '.toMinutes($nn_timein_to);
+			// // 	echo '<br>undertime_am '.$undertime_am;
+			// // 	echo '<br>undertime_pm '.$undertime_pm;
+			// // // // 	print_r($dtrData);
+			// 	echo '<br>';
+			// 	print_r($dtrData);
 			// 	echo '<br>total_undertime '.$total_undertime;
 			// endif;
 		endif;

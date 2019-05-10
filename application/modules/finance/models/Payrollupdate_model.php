@@ -140,9 +140,10 @@ class Payrollupdate_model extends CI_Model {
 			$actual_present = array_intersect($empdays_present,$workingdays);
 			$total_late = 0;
 			$total_ut = 0;
-			// print_r($actual_present);
+			// print_r($empdtr);
 			$actual_days_presents =  0;
 			$date_presents = array();
+			// print_r(array_column($empdtr, 'dtrDate'));
 			foreach($actual_present as $key => $att):
 				// echo 'key '.$key.' val '.$att;
 				// print_r($empdtr[$key]);
@@ -155,6 +156,7 @@ class Payrollupdate_model extends CI_Model {
 						array_push($date_presents,$emp_att['dtrDate']);
 						# Lates
 						$late = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
+						// echo $emp_att['dtrDate'].' = checklate<br>';
 						$total_late = $total_late + $late;
 						# Undertimes
 						$uts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $late, $todates);
@@ -176,8 +178,6 @@ class Payrollupdate_model extends CI_Model {
 
 			# Manage OB
 			foreach($obdates as $obd):
-				// echo 'obdate = '.$obd['date'].'<br>';
-				// print_r($obd);
 				$obd_date = $obd['date'];
 				$obd_stime = $obd['obTimeFrom'];
 				$obd_etime = $obd['obTimeTo'];
@@ -187,55 +187,56 @@ class Payrollupdate_model extends CI_Model {
 				if(strtotime($obhrs) >= strtotime('09:00')):
 					$actual_days_presents = $actual_days_presents + 1;
 				else:
-					$emp_att = $empdtr[array_search($obd['date'], array_column($empdtr, 'dtrDate'))];
-					# if ob start time is PM, dtr time in pm is equals to ob start time, else vice versa
-					if(date('A', strtotime($obd_stime)) == 'AM'):
-						$emp_att['inAM'] = $emp_att['inAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_stime)) : $emp_att['inAM'];
-					else:
-						$emp_att['outAM'] = $emp_att['outAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_stime)) : $emp_att['outAM'];
-						$emp_att['inPM'] = $emp_att['inPM'] == '00:00:00' ? date("g:i:s", strtotime($obd_stime)) : $emp_att['inPM'];
-					endif;
-					# if ob end time is PM, dtr time out pm is equals to ob end time
-					if(date('A', strtotime($obd_etime)) == 'PM'):
-						# if between 12 - 1 PM
-						// $emp_att_scheme['nnTimeoutFrom'] = date('H:i:s A', strtotime($emp_att_scheme['nnTimeoutFrom'].' PM'));
-						// $emp_att_scheme['nnTimeinTo'] = date('H:i:s A', strtotime($emp_att_scheme['nnTimeinTo'].' PM'));
-						$emp_att_scheme['nnTimeoutFrom'] = $emp_att_scheme['nnTimeoutFrom'];
-						$emp_att_scheme['nnTimeinTo'] = $emp_att_scheme['nnTimeinTo'];
-						
-						if((strtotime($obd_etime) >= strtotime($emp_att_scheme['nnTimeoutFrom'])) && (strtotime($obd_etime) <= strtotime($emp_att_scheme['nnTimeinTo']))):
-							$emp_att['outAM'] = $emp_att['outAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_etime)) : $emp_att['outAM'];
-							$emp_att['inPM'] = $emp_att['inPM'] == '00:00:00' ? date("g:i:s", strtotime($obd_etime)) : $emp_att['inPM'];
-						endif;
-
-						if($emp_att['outPM'] == '00:00:00'):
-							$emp_att['outPM'] = date("g:i:s", strtotime($obd_etime));
+					$emp_att_key = array_search($obd['date'], array_column($empdtr, 'dtrDate'));
+					echo 'emp_att_key ='.$emp_att_key;
+					if($emp_att_key!==''):
+						$emp_att = $empdtr[array_search($obd['date'], array_column($empdtr, 'dtrDate'))];
+						# if ob start time is PM, dtr time in pm is equals to ob start time, else vice versa
+						if(date('A', strtotime($obd_stime)) == 'AM'):
+							$emp_att['inAM'] = $emp_att['inAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_stime)) : $emp_att['inAM'];
 						else:
-							$outPM_check = date('H:i:s', strtotime($emp_att['outPM'].' PM'));
-							if(strtotime($outPM_check) < strtotime($obd['obTimeTo'])):
+							$emp_att['outAM'] = $emp_att['outAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_stime)) : $emp_att['outAM'];
+							$emp_att['inPM'] = $emp_att['inPM'] == '00:00:00' ? date("g:i:s", strtotime($obd_stime)) : $emp_att['inPM'];
+						endif;
+						# if ob end time is PM, dtr time out pm is equals to ob end time
+						if(date('A', strtotime($obd_etime)) == 'PM'):
+							# if between 12 - 1 PM
+							$emp_att_scheme['nnTimeoutFrom'] = $emp_att_scheme['nnTimeoutFrom'];
+							$emp_att_scheme['nnTimeinTo'] = $emp_att_scheme['nnTimeinTo'];
+							
+							if((strtotime($obd_etime) >= strtotime($emp_att_scheme['nnTimeoutFrom'])) && (strtotime($obd_etime) <= strtotime($emp_att_scheme['nnTimeinTo']))):
+								$emp_att['outAM'] = $emp_att['outAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_etime)) : $emp_att['outAM'];
+								$emp_att['inPM'] = $emp_att['inPM'] == '00:00:00' ? date("g:i:s", strtotime($obd_etime)) : $emp_att['inPM'];
+							endif;
+
+							if($emp_att['outPM'] == '00:00:00'):
 								$emp_att['outPM'] = date("g:i:s", strtotime($obd_etime));
+							else:
+								$outPM_check = date('H:i:s', strtotime($emp_att['outPM'].' PM'));
+								if(strtotime($outPM_check) < strtotime($obd['obTimeTo'])):
+									$emp_att['outPM'] = date("g:i:s", strtotime($obd_etime));
+								endif;
 							endif;
 						endif;
+						// print_r($obd);
+						// echo '<hr>';
+						$actual_days_presents = $actual_days_presents + 1;
+						# Late with ob
+						$oblate = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
+						$total_late = $total_late + $oblate;
+						# undertime with ob
+						$obuts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $oblate, $todates);
+						$total_ut = $total_ut + $obuts;
+					else:
+						# no time in but with ob
+						// $actual_days_presents = $actual_days_presents + 1;
+						// # Late with ob
+						// $oblate = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
+						// $total_late = $total_late + $oblate;
+						// # undertime with ob
+						// $obuts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $oblate, $todates);
+						// $total_ut = $total_ut + $obuts;
 					endif;
-					// print_r($obd);
-					// echo '<hr>';
-					$actual_days_presents = $actual_days_presents + 1;
-					# Late with ob
-					$oblate = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
-					$total_late = $total_late + $oblate;
-					# undertime with ob
-					$obuts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $oblate, $todates);
-					// if($obuts > 0):
-					// 	print_r($emp_att_scheme);
-					// 	print_r($obd);
-					// 	print_r($empdtr[array_search($obd['date'], array_column($empdtr, 'dtrDate'))]);
-						// print_r($emp_att);
-
-
-					// 	echo $emp_att['outPM'].'<br>';
-					// 	echo $obuts;
-					// endif;
-					$total_ut = $total_ut + $obuts;
 
 				endif;
 			endforeach;
