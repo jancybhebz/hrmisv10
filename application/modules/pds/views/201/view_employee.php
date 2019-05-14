@@ -4,6 +4,11 @@ load_plugin('css',array('select'));
 $this_page = $this->uri->segment(4);
 $arrData = $arrData[0];?>
 <!-- BEGIN PAGE BAR -->
+<style>
+    .tabbable-line > .nav-tabs > li > a {
+        padding-left: 3px;
+    }
+</style>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -80,6 +85,9 @@ $arrData = $arrData[0];?>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div>
+                                                        <a href="<?=base_url('employee/reports/generate')?>"/><button type="button" class="btn blue">Print Personal Data Sheet</button></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -110,7 +118,8 @@ $arrData = $arrData[0];?>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                    </div>
+                                    <div class="col-md-12">
                                         <div class="tabbable-line tabbable-custom-profile">
                                             <ul class="nav nav-tabs">
                                                 <li class="active">
@@ -149,9 +158,6 @@ $arrData = $arrData[0];?>
                                                 <li>
                                                     <a href="#emp_number" data-toggle="tab"> Employee Number </a>
                                                 </li>
-                                                 <li>
-                                                    <a href="<?=base_url('employee/reports/generate')?>"/><button type="button" class="btn blue">Print Personal Data Sheet</button></a>
-                                                </li>
                                             </ul>
                                             <div class="tab-content">
                                                 
@@ -182,7 +188,7 @@ $arrData = $arrData[0];?>
                                                 <!-- begin Education Bacgkround -->
                                                 <div class="tab-pane active" id="education">
                                                     <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
-                                                        <?php $this->load->view('_education.php'); ?>
+                                                        <?php $this->load->view('_education_view.php'); ?>
                                                     </div>
                                                 </div>
                                                 <!-- end Education Bacgkround -->

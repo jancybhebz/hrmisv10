@@ -165,6 +165,12 @@ class Pds_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function add_educ($arrData)
+	{
+		$this->db->insert($this->tblEduc, $arrData);
+		return $this->db->insert_id();
+	}
+
 	function save_educ($arrData, $intSchoolIndex)
 	{
 		$this->db->where($this->tblEducId, $intSchoolIndex);

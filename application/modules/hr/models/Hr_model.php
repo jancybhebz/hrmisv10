@@ -273,7 +273,12 @@ class Hr_model extends CI_Model {
 		$this->db->select($strSelect);
 		$rs = $this->db->get($strTable);
 		return $rs->result_array();
+	}
 
+	function getEmployeeEducation($empid)
+	{
+		$this->db->join('tblScholarship','tblScholarship.id = '.'tblEmpSchool.ScholarshipCode','left');
+		return $this->db->get_where('tblEmpSchool', array('empNumber' => $empid))->result_array();
 	}
 
 	function getPlantillaDuties($strEmpNo)
