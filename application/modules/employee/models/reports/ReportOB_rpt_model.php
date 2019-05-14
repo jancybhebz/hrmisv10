@@ -151,7 +151,6 @@ class ReportOB_rpt_model extends CI_Model {
 		$this->fpdf->Cell(10, 5,"RECOMMENDED BY:", 0, 0, "L"); 
 		$this->fpdf->Cell(195, 5,"APPROVED BY:", 0, 0, "C");
 		
-		
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial', "B", 10);		
 		$this->fpdf->Cell(100, 5,"", 0, 0, "C"); 
@@ -172,7 +171,7 @@ class ReportOB_rpt_model extends CI_Model {
  		$this->fpdf->Ln(5);
  		$this->fpdf->SetFont('Arial', "", 10);
  		$this->fpdf->Ln(5);
-		$this->fpdf->Cell(225, 5, "Date :  "."$dtmOBrequestdate", 0, 0, "C"); 
+		$this->fpdf->Cell(230, 5, "Date :  "."$dtmOBrequestdate", 0, 0, "C"); 
 		$this->fpdf->Ln(0);
 		$this->fpdf->SetFont('Arial', "B", 10);
 		$this->fpdf->Cell(95, 5, "", 0, 0, "C"); 
