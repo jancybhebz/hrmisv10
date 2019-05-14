@@ -8,11 +8,11 @@ class Chart_model extends CI_Model {
 
 	public function plantilla_positions()
 	{
-		return $this->db->select('DISTINCT tblPlantilla.plantillaID,tblPlantilla.itemNumber,tblPosition.positiondesc,tblEmpPosition.empNumber',false)
+		return $this->db->select('tblPlantilla.plantillaID,tblPlantilla.itemNumber,tblPosition.positiondesc,tblEmpPosition.empNumber',false)
 		->join('tblPosition','tblPlantilla.positioncode=tblPosition.positionCode','left')
 		->join('tblEmpPosition','tblEmpPosition.itemNumber=tblPlantilla.itemNumber','left')
 		->where('tblPlantilla.itemNumber!=','')
-		->group_by('tblPlantilla.itemNumber')
+		->group_by('tblPlantilla.itemNumber,tblPlantilla.plantillaID')
 		->get('tblPlantilla');
 	}
 
