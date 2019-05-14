@@ -48,10 +48,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Destination : <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
                                <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"> </textarea>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,10 +56,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Date From : <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
-                              <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
+                              <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -70,10 +64,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Date To : <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
-                               <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdateto" id="dtmTOdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
-                            </div>
+                               <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdateto" id="dtmTOdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -81,10 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Purpose : <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
                                <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"> </textarea>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,10 +81,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                            <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
-                            <div class="input-icon right">
-                                <i class="fa"></i>
                                 <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
-                            </div>
                         </div>
                     </div>
                 </div>

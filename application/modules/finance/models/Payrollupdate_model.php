@@ -123,6 +123,7 @@ class Payrollupdate_model extends CI_Model {
 			$emplocal_holidays = $this->Dtr_model->getLocalHoliday($emp['empNumber']);
 			# Employee OB
 			$obdates = $this->Dtr_model->getemp_obdates($emp['empNumber'],$datefrom,$dateto,0);
+			// print_r($obdates);
 			# Employee TO
 			$todates = $this->Dtr_model->getemp_todates($emp['empNumber'],$datefrom,$dateto,1);
 
@@ -140,7 +141,6 @@ class Payrollupdate_model extends CI_Model {
 			$actual_present = array_intersect($empdays_present,$workingdays);
 			$total_late = 0;
 			$total_ut = 0;
-			// print_r($empdtr);
 			$actual_days_presents =  0;
 			$date_presents = array();
 			// print_r(array_column($empdtr, 'dtrDate'));
@@ -156,7 +156,6 @@ class Payrollupdate_model extends CI_Model {
 						array_push($date_presents,$emp_att['dtrDate']);
 						# Lates
 						$late = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
-						// echo $emp_att['dtrDate'].' = checklate<br>';
 						$total_late = $total_late + $late;
 						# Undertimes
 						$uts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $late, $todates);
@@ -172,10 +171,11 @@ class Payrollupdate_model extends CI_Model {
 				endif;
 
 				// # check OB
-				// print_r($obdates);
+				
 				// echo '<br>';
 			endforeach;
 
+			// print_r($obdates);
 			# Manage OB
 			foreach($obdates as $obd):
 				$obd_date = $obd['date'];
@@ -187,10 +187,10 @@ class Payrollupdate_model extends CI_Model {
 				if(strtotime($obhrs) >= strtotime('09:00')):
 					$actual_days_presents = $actual_days_presents + 1;
 				else:
-					$emp_att_key = array_search($obd['date'], array_column($empdtr, 'dtrDate'));
-					echo 'emp_att_key ='.$emp_att_key;
-					if($emp_att_key!==''):
-						$emp_att = $empdtr[array_search($obd['date'], array_column($empdtr, 'dtrDate'))];
+					$emp_att = $empdtr[array_search($obd['date'], array_column($empdtr, 'dtrDate'))];
+					# ob with dtrdata
+					$obdatekey = array_search($obd['date'], array_column($empdtr, 'dtrDate'));
+					if(is_numeric($obdatekey)):
 						# if ob start time is PM, dtr time in pm is equals to ob start time, else vice versa
 						if(date('A', strtotime($obd_stime)) == 'AM'):
 							$emp_att['inAM'] = $emp_att['inAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_stime)) : $emp_att['inAM'];
@@ -201,10 +201,7 @@ class Payrollupdate_model extends CI_Model {
 						# if ob end time is PM, dtr time out pm is equals to ob end time
 						if(date('A', strtotime($obd_etime)) == 'PM'):
 							# if between 12 - 1 PM
-							$emp_att_scheme['nnTimeoutFrom'] = $emp_att_scheme['nnTimeoutFrom'];
-							$emp_att_scheme['nnTimeinTo'] = $emp_att_scheme['nnTimeinTo'];
-							
-							if((strtotime($obd_etime) >= strtotime($emp_att_scheme['nnTimeoutFrom'])) && (strtotime($obd_etime) <= strtotime($emp_att_scheme['nnTimeinTo']))):
+							if((strtotime($obd_etime) >= strtotime(fixTime($emp_att_scheme['nnTimeoutFrom'],'PM'))) && (strtotime($obd_etime) <= strtotime(fixTime($emp_att_scheme['nnTimeinTo'],'PM')))):
 								$emp_att['outAM'] = $emp_att['outAM'] == '00:00:00' ? date("g:i:s", strtotime($obd_etime)) : $emp_att['outAM'];
 								$emp_att['inPM'] = $emp_att['inPM'] == '00:00:00' ? date("g:i:s", strtotime($obd_etime)) : $emp_att['inPM'];
 							endif;
@@ -218,26 +215,19 @@ class Payrollupdate_model extends CI_Model {
 								endif;
 							endif;
 						endif;
-						// print_r($obd);
-						// echo '<hr>';
-						$actual_days_presents = $actual_days_presents + 1;
-						# Late with ob
-						$oblate = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
-						$total_late = $total_late + $oblate;
-						# undertime with ob
-						$obuts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $oblate, $todates);
-						$total_ut = $total_ut + $obuts;
 					else:
-						# no time in but with ob
-						// $actual_days_presents = $actual_days_presents + 1;
-						// # Late with ob
-						// $oblate = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
-						// $total_late = $total_late + $oblate;
-						// # undertime with ob
-						// $obuts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $oblate, $todates);
-						// $total_ut = $total_ut + $obuts;
+						# ob without dtrdata
 					endif;
-
+					// print_r($obd);
+					// echo '<hr>';
+					$actual_days_presents = $actual_days_presents + 1;
+					echo 'count from ob';
+					# Late with ob
+					$oblate = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
+					$total_late = $total_late + $oblate;
+					# undertime with ob
+					$obuts = $this->Dtr_model->computeUndertime($emp_att_scheme, $emp_att, $oblate, $todates);
+					$total_ut = $total_ut + $obuts;
 				endif;
 			endforeach;
 

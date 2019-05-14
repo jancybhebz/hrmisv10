@@ -15,7 +15,7 @@ class Dtr_model extends CI_Model {
 			$this->db->where("dtrDate like '".$yr."-".$mon."%'");
 		}
 		$this->db->where("empNumber",$empid);
-		$this->db->where("(inAM != '00:00:00' AND outAM != '00:00:00' AND inPM != '00:00:00' AND outPM != '00:00:00')");
+		$this->db->where("NOT (`inAM` = '00:00:00' AND `outAM` = '00:00:00' AND `inPM` = '00:00:00' AND `outPM` = '00:00:00')");
 		$this->db->order_by("dtrDate", "asc");
 		$res = $this->db->get_where($this->table)->result_array();
 		return $res;

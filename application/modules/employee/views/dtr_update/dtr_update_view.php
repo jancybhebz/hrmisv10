@@ -49,9 +49,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Date : <span class="required"> * </span></label>
-                        <div class="input-icon left">
                               <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -59,9 +57,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">For the month of : <span class="required"> * </span></label>
-                        <div class="input-icon left">
                               <input name="dtmMonthOf" id="dtmMonthOf" class="form-control" size="10" type="text" value="" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -69,9 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Morning In : </label>
-                        <div class="input-icon left">
                             <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningIn'))?$this->session->userdata('strOldMorningIn'):''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -79,9 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Morning Out :</label>
-                        <div class="input-icon left">
                             <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningOut'))?$this->session->userdata('strOldMorningOut'):''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -89,9 +81,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Afternoon In :</label>
-                        <div class="input-icon left">
                              <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonIn'))?$this->session->userdata('strOldAfternoonIn'):''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -99,9 +89,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Afternoon Out :</label>
-                        <div class="input-icon left">
                               <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonOut'))?$this->session->userdata('strOldAfternoonOut'):''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -109,9 +97,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Overtime In : </label>
-                        <div class="input-icon left">
                               <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeIn'))?$this->session->userdata('strOldOvertimeIn'):''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -119,7 +105,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Overtime Out : </label>
-                        <div class="input-icon left">
                                <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeOut'))?$this->session->userdata('strOldOvertimeOut'):''?>" autocomplete="off">
                         </div>
                     </div>
@@ -130,9 +115,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">New Morning Time In : </label>
-                        <div class="input-icon left">
                               <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00 AM" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -140,19 +123,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                          <label class="control-label">New Morning Time Out :</label>
-                        <div class="input-icon left">
                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00 PM" autocomplete="off">
                         </div>
-                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
                          <label class="control-label">New Afternoon Time In :</label>
-                        <div class="input-icon left">
                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -160,9 +139,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                          <label class="control-label">New Afternoon Time Out :</label>
-                        <div class="input-icon left">
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -170,9 +147,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                          <label class="control-label">New Overtime In :</label>
-                        <div class="input-icon left">
                                  <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" value="12:00:00 PM" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -180,9 +155,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                          <label class="control-label">New Overtime Out :</label>
-                        <div class="input-icon left">
                                  <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" value="12:00:00 PM" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -191,9 +164,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Reason :</label>
-                        <div class="input-icon left">
                               <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -201,24 +172,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Supporting Evidence :</label>
-                        <div class="input-icon left">
-                              <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
-                        </div>
+                            <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
                     </div>
                 </div>
             </div>
              <div class="row" id="signatory1_textbox">
                 <div class="col-sm-8">
                     <div class="form-group">
-                     <label class="control-label">Authorized Official (Signatory) :</label>
-                        <div class="input-icon left">
+                        <label class="control-label">Authorized Official (Signatory) :</label>
                             <select name="strSignatory" id="strSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
-                                </select>
-                        </div>
+                            </select>
                     </div>
                 </div>
             </div>

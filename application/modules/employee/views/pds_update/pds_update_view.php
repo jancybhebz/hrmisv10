@@ -46,8 +46,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                            <label class="control-label"><strong>Type of Profile : </strong><span class="required"> * </span></label>
-                            <div class="input-icon left">
-                                <i class="fa"></i>
                                 <select name="strProfileType" id="strProfileType" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strProfileType'))?$this->session->userdata('strProfileType'):''?>" onchange="showtextbox()">
                                 <option value="">Select Personal Data</option>
                                 <option value=""></option>
@@ -62,7 +60,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option value="Voluntary">Voluntary Works</option>
                                 <option value="WorkExp">Work Experience</option>
                             </select>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,10 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Surname : <span class="required"> * </span></label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                         <input type="text" class="form-control" name="strSname" value="<?=isset($arrData[0]['strSname'])?$arrData[0]['strSname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -87,10 +81,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Firstname : <span class="required"> * </span></label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="strFname" value="<?=isset($arrData[0]['strFname'])?$arrData[0]['strFname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -98,10 +89,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Middle Name : <span class="required"> * </span></label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="strMname" value="<?=isset($arrData[0]['strMname'])?$arrData[0]['strMname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -109,10 +97,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Name Extension: <span class="required"> * </span></label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="strExtension" value="<?=isset($arrData[0]['strExtension'])?$arrData[0]['strExtension']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -120,10 +105,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Date of Birth : <span class="required"> * </span></label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input class="form-control form-control-inline input-medium date-picker" name="dtmBirthdate" id="dtmBirthdate" size="20" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off" value="<?=isset($arrData[0]['dtmBirthdate'])?$arrData[0]['dtmBirthdate']:''?>" >
-                    </div>
                 </div>
             </div>
         </div>
@@ -131,10 +113,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                    <label class="control-label">Place of Birth : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="strBirthplace" value="<?=isset($arrData[0]['strBirthplace'])?$arrData[0]['strBirthplace']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -142,10 +121,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Civil Status : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="strCS" value="<?=isset($arrData[0]['strCS'])?$arrData[0]['strCS']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -153,10 +129,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Weight(kg) : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="intWeight" value="<?=isset($arrData[0]['intWeight'])?$arrData[0]['intWeight']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -164,32 +137,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Height(m) : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                       <input type="text" class="form-control" name="intHeight" value="<?=isset($arrData[0]['intHeight'])?$arrData[0]['intHeight']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
          <div class="row" id="blood_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                      <label class="control-label">Blood : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
-                      <input type="text" class="form-control" name="strBlood" value="<?=isset($arrData[0]['strBlood'])?$arrData[0]['strBlood']:''?>" autocomplete="off">
-                    </div>
+                    <label class="control-label">Blood : </label>
+                    <input type="text" class="form-control" name="strBlood" value="<?=isset($arrData[0]['strBlood'])?$arrData[0]['strBlood']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
          <div class="row" id="gsis_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">GSIS Policy No. : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
+                    <label class="control-label">GSIS Policy No. : </label>
                        <input type="text" class="form-control" name="intGSIS" value="<?=isset($arrData[0]['intGSIS'])?$arrData[0]['intGSIS']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -197,10 +161,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Business Partner No. : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control"  name="strBP" value="<?=isset($arrData[0][''])?$arrData[0]['']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -208,10 +169,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">PAG-IBIG ID No. : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control"  name="intPagibig" value="<?=isset($arrData[0]['intPagibig'])?$arrData[0]['intPagibig']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -219,10 +177,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">PHILHEALTH No. :  </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="intPhilhealth" value="<?=isset($arrData[0]['intPhilhealth'])?$arrData[0]['intPhilhealth']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -230,10 +185,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">TIN No. :  </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="intTin" value="<?=isset($arrData[0]['intTin'])?$arrData[0]['intTin']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -248,10 +200,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">House/Block/Lot No. : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                       <input type="text" class="form-control" name="strBlk1" value="<?=isset($arrData[0]['strBlk1'])?$arrData[0]['strBlk1']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -259,10 +208,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                       <label class="control-label">Street : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                       <input type="text" class="form-control" name="strStreet1" value="<?=isset($arrData[0]['strStreet1'])?$arrData[0]['strStreet1']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -270,43 +216,31 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Subdivision/Village : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="strSubd1" value="<?=isset($arrData[0]['strSubd1'])?$arrData[0]['strSubd1']:''?>" autocomplete="off">
-                    </div>
-                </div>
+               </div>
             </div>
         </div>
          <div class="row" id="brgy1_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Barangay : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
                        <input type="text" class="form-control" name="strBrgy1" value="<?=isset($arrData[0]['strBrgy1'])?$arrData[0]['strBrgy1']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
         <div class="row" id="city1_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">City/Municipality : </label>
-                    <div class="input-icon left">
-                        <i class="fa"></i>
+                    <label class="control-label">City/Municipality : </label>
                       <input type="text" class="form-control" name="strCity1" value="<?=isset($arrData[0]['strCity1'])?$arrData[0]['strCity1']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
          <div class="row" id="prov1_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">Province : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
-                     <input type="text" class="form-control" name="strProv1" value="<?=isset($arrData[0]['strProv1'])?$arrData[0]['strProv1']:''?>"  autocomplete="off">
-                    </div>
+                    <label class="control-label">Province : </label>
+                    <input type="text" class="form-control" name="strProv1" value="<?=isset($arrData[0]['strProv1'])?$arrData[0]['strProv1']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>   
@@ -314,21 +248,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Zip Code : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                      <input type="text" class="form-control" name="strZipCode1" value="<?=isset($arrData[0]['strZipCode1'])?$arrData[0]['strZipCode1']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>  
          <div class="row" id="tel1_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">Telephone No. : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
+                    <label class="control-label">Telephone No. : </label>
                     <input type="text" class="form-control" name="strTel1" value="<?=isset($arrData[0]['strTel1'])?$arrData[0]['strTel1']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>  
@@ -343,10 +271,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">House/Block/Lot No. : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strBlk2" value="<?=isset($arrData[0]['strBlk2'])?$arrData[0]['strBlk2']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -354,10 +279,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Street : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strStreet2" value="<?=isset($arrData[0]['strStreet2'])?$arrData[0]['strStreet2']:''?>"" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -365,10 +287,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Subdivision/Village : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                      <input type="text" class="form-control" name="strSubd2" value="<?=isset($arrData[0]['strSubd2'])?$arrData[0]['strSubd2']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -376,10 +295,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Barangay : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strBrgy2" value="<?=isset($arrData[0]['strBrgy2'])?$arrData[0]['strBrgy2']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -387,10 +303,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">City/Municipality : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strCity2" value="<?=isset($arrData[0]['strCity2'])?$arrData[0]['strCity2']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>  
@@ -398,10 +311,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Province : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strProv2" value="<?=isset($arrData[0]['strProv2'])?$arrData[0]['strProv2']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>   
@@ -409,10 +319,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Zip Code : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strProv2" value="<?=isset($arrData[0]['strProv2'])?$arrData[0]['strProv2']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -420,10 +327,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Telephone No.: </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="intTel2" value="<?=isset($arrData[0]['intTel2'])?$arrData[0]['intTel2']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>  
@@ -431,10 +335,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Email Address (if any) : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strEmail" value="<?=isset($arrData[0]['strEmail'])?$arrData[0]['strEmail']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>    
@@ -442,10 +343,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Cellphone No. : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                      <input type="text" class="form-control" name="strCP" value="<?=isset($arrData[0]['strCP'])?$arrData[0]['strCP']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -477,10 +375,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Surname :  </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                       <input type="text" class="form-control" name="strSSurname" value="<?=isset($arrFamily[0]['strSSurname'])?$arrFamily[0]['strSSurname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -488,10 +383,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Firstname :  </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
-                      <input type="text" class="form-control" name="strSFirstname" value="<?=isset($arrFamily[0]['strSFirstname'])?$arrFamily[0]['strSFirstname']:''?>" autocomplete="off">
-                    </div>
+                       <input type="text" class="form-control" name="strSFirstname" value="<?=isset($arrFamily[0]['strSFirstname'])?$arrFamily[0]['strSFirstname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -499,10 +391,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Middlename : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                       <input type="text" class="form-control" name="strSMidname" value="<?=isset($arrFamily[0]['strSMidname'])?$arrFamily[0]['strSMidname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -510,10 +399,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Name Extension : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                       <input type="text" class="form-control" name="strSNameExt" value="<?=isset($arrFamily[0]['strSNameExt'])?$arrFamily[0]['strSNameExt']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>       
@@ -521,10 +407,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                    <label class="control-label">Occupation  : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strSOccupation" value="<?=isset($arrFamily[0]['strSOccupation'])?$arrFamily[0]['strSOccupation']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>     
@@ -532,10 +415,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                    <label class="control-label">Employer/Business Name : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strSBusname" value="<?=isset($arrFamily[0]['strSBusname'])?$arrFamily[0]['strSBusname']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>       
@@ -543,10 +423,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                    <label class="control-label">Business Address : </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strSBusadd" value="<?=isset($arrFamily[0]['strSBusadd'])?$arrFamily[0]['strSBusadd']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>       
@@ -554,10 +431,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Telephone No. :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                       <input type="text" class="form-control" name="strSTel" value="<?=isset($arrFamily[0]['strSTel'])?$arrFamily[0]['strSTel']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>         
@@ -572,10 +446,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Surname :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                       <input type="text" class="form-control" name="strFSurname" value="<?=isset($arrFamily[0]['strFSurname'])?$arrFamily[0]['strFSurname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>         
@@ -583,10 +454,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Firstname :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
-                      <input type="text" class="form-control" name="strFFirstname" value="<?=isset($arrFamily[0]['strFFirstname'])?$arrFamily[0]['strFFirstname']:''?>" autocomplete="off">
-                    </div>
+                       <input type="text" class="form-control" name="strFFirstname" value="<?=isset($arrFamily[0]['strFFirstname'])?$arrFamily[0]['strFFirstname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -594,10 +462,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Middle name :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                        <input type="text" class="form-control" name="strFMidname" value="<?=isset($arrFamily[0]['strFMidname'])?$arrFamily[0]['strFMidname']:''?>"  autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -605,10 +470,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Name Extension :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                        <input type="text" class="form-control" name="strFExtension" value="<?=isset($arrFamily[0]['strFExtension'])?$arrFamily[0]['strFExtension']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>      
@@ -623,10 +485,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Surname :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
-                        <input type="text" class="form-control" name="strMSurname" value="<?=isset($arrFamily[0]['strFSurname'])?$arrFamily[0]['strFSurname']:''?>" autocomplete="off">
-                    </div>
+                         <input type="text" class="form-control" name="strMSurname" value="<?=isset($arrFamily[0]['strFSurname'])?$arrFamily[0]['strFSurname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>         
@@ -634,10 +493,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Firstname :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                         <input type="text" class="form-control" name="strMFirstname" value="<?=isset($arrFamily[0]['strMFirstname'])?$arrFamily[0]['strMFirstname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>       
@@ -645,10 +501,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Middle name :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                        <input type="text" class="form-control" name="strMMidname" value="<?=isset($arrFamily[0]['strMMidname'])?$arrFamily[0]['strMMidname']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -656,10 +509,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Parents Address :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                         <input type="text" class="form-control" name="strPaddress" value="<?=isset($arrFamily[0]['strPaddress'])?$arrFamily[0]['strPaddress']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>        
@@ -714,8 +564,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Level Description :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <select type="text" class="form-control" name="strLevelDesc" value="<?=!empty($this->session->userdata('strLevelDesc'))?$this->session->userdata('strLevelDesc'):''?>" required>
                              <option value="">Select</option>
                             <?php foreach($arrEduc_CMB as $educ)
@@ -723,7 +571,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                               echo '<option value="'.$educ['levelId'].'">'.$educ['levelDesc'].'</option>';
                             }?>
                     </select>
-                    </div>
                 </div>
             </div>
         </div>  
@@ -731,10 +578,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">School Name :  </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <input type="text" class="form-control" name="strSchName" value="<?=isset($arrEduc[0]['strSchName'])?$arrEduc[0]['strSchName']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div> 
@@ -742,8 +586,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Basic Education/Degree/Course :  </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <select type="text" class="form-control" name="strDegree" value="<?=!empty($this->session->userdata('strDegree'))?$this->session->userdata('strDegree'):''?>" required>
                              <option value="">Select</option>
                             <?php foreach($arrCourse as $course)
@@ -751,7 +593,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                               echo '<option value="'.$course['courseCode'].'">'.$course['courseDesc'].'</option>';
                             }?>
                     </select>
-                    </div>
                 </div>
             </div>
         </div> 
@@ -759,8 +600,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-1">
                 <div class="form-group">
                     <label class="control-label">From Year :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                    <?php
                         $already_selected_value = date("Y");
                         $earliest_year = 1970;
@@ -770,7 +609,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
                         }
                         print '</select>'; ?>
-                    </div>
                 </div>
             </div>
         </div>       
@@ -778,9 +616,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-1">
                 <div class="form-group">
                     <label class="control-label">To :</label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
-                   <?php
+                    <?php
                         $already_selected_value = date("Y");
                         $earliest_year = 1970;
 
@@ -789,7 +625,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
                         }
                         print '</select>'; ?>
-                    </div>
                 </div>
             </div>
         </div>           
@@ -797,19 +632,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Units Earned :  </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
-                   <input type="text" class="form-control" name="intUnits" value="<?=isset($arrEduc[0]['intUnits'])?$arrEduc[0]['intUnits']:''?>" autocomplete="off"><label>* (write - if not-applicable)</label>
-                    </div>
+                    <input type="text" class="form-control" name="intUnits" value="<?=isset($arrEduc[0]['intUnits'])?$arrEduc[0]['intUnits']:''?>" autocomplete="off"><label>* (write - if not-applicable)</label>
                 </div>
             </div>
         </div>       
          <div class="row" id="scholarship_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">Scholarship :  </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
+                    <label class="control-label">Scholarship :  </label>
                     <select type="text" class="form-control" name="strScholarship" value="<?=!empty($this->session->userdata('strScholarship'))?$this->session->userdata('strScholarship'):''?>" required>
                              <option value="">Select</option>
                             <?php foreach($arrScholarship as $scholar)
@@ -817,18 +647,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                               echo '<option value="'.$scholar['id'].'">'.$scholar['description'].'</option>';
                             }?>
                     </select>
-                    </div>
                 </div>
             </div>
         </div>    
          <div class="row" id="honors_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">Honors :   </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
+                    <label class="control-label">Honors :   </label>
+
                    <input type="text" class="form-control" name="strHonors" value="<?=isset($arrEduc[0]['strHonors'])?$arrEduc[0]['strHonors']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -836,40 +663,32 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Licensed :   </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
                     <select type="text" class="form-control" name="strLicensed" value="<?=!empty($this->session->userdata('strLicensed'))?$this->session->userdata('strLicensed'):''?>" required>
                             <option value="">Select</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                     </select>    
-                    </div>
                 </div>
             </div>
         </div>
          <div class="row" id="graduated_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">Graudated :   </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
+                    <label class="control-label">Graudated :   </label>
+
                     <select type="text" class="form-control" name="strGraduated" value="<?=!empty($this->session->userdata('strGraduated'))?$this->session->userdata('strGraduated'):''?>" required>
                             <option value="">Select</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                     </select>      
-                    </div>
                 </div>
             </div>
         </div>      
         <div class="row" id="yrgraduated_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                     <label class="control-label">Year Graduated :   </label>
-                    <div class="input-icon left">
-                    <i class="fa"></i>
+                    <label class="control-label">Year Graduated :   </label>
                    <input type="number" class="form-control" name="strYrGraduated" maxlength="4" value="<?=isset($arrEduc[0]['strYrGraduated'])?$arrEduc[0]['strYrGraduated']:''?>" autocomplete="off">
-                    </div>
                 </div>
             </div>
         </div>
@@ -916,21 +735,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Training Title : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input type="text" class="form-control" name="strTrainTitle" value="<?=isset($arrTraining[0]['strTrainTitle'])?$arrTraining[0]['strTrainTitle']:''?>" autocomplete="off">
-                        </div>
-                    </div>
+                     </div>
                 </div>
             </div>
             <div class="row" id="startdate_textbox">
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Start Date : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <input class="form-control form-control-inline input-medium date-picker" name="dtmStartDate" id="dtmStartDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -938,10 +751,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">End Date : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <input class="form-control form-control-inline input-medium date-picker" name="dtmEndDate" id="dtmEndDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -949,26 +759,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Number of Hours : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                           <input type="number" class="form-control" name="dtmHours" value="<?=isset($arrTraining[0]['dtmHours'])?$arrTraining[0]['dtmHours']:''?>"  autocomplete="off">
-                        </div>
-                    </div>
+                     </div>
                 </div>
             </div>   
               <div class="row" id="typeLD_textbox">
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Type of LD : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <select type="text" class="form-control" name="strTypeLD" value="<?=isset($arrTraining[0]['strTypeLD'])?$arrTraining[0]['strTypeLD']:''?>">
                              <option value="">Select</option>
                              <option value="">Managerial</option>
                              <option value="">Supervisory</option>
                              <option value="">Technical</option>
                          </select>
-                        </div>
                     </div>
                 </div>
             </div>    
@@ -976,10 +780,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Conducted By : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input type="text" class="form-control" name="strConduct" value="<?=isset($arrTraining[0]['strConduct'])?$arrTraining[0]['strConduct']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>      
@@ -987,10 +788,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Venue : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input type="text" class="form-control" name="strVenue" value="<?=isset($arrTraining[0]['strVenue'])?$arrTraining[0]['strVenue']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div> 
@@ -998,10 +796,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Cost : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <input type="text" class="form-control" name="intCost" value="<?=isset($arrTraining[0]['intCost'])?$arrTraining[0]['intCost']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>    
@@ -1009,10 +804,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Contract Dates : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                           <input class="form-control form-control-inline input-medium date-picker" name="dtmContract" id="dtmContract" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>  
@@ -1057,8 +849,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Exam Description :  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <select type="text" class="form-control" name="strExamDesc" value="<?=!empty($this->session->userdata('strExamDesc'))?$this->session->userdata('strExamDesc'):''?>" required>
                                  <option value="">Select</option>
                                 <?php foreach($arrExamination_CMB as $exam)
@@ -1066,7 +856,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                   echo '<option value="'.$exam['examId'].'">'.$exam['examDesc'].'</option>';
                                 }?>
                         </select>
-                        </div>
                     </div>
                 </div>
             </div> 
@@ -1074,10 +863,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Rating (%):  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <input type="text" class="form-control" name="strChildName" value="<?=isset($arrExam[0]['strChildName'])?$arrExam[0]['strChildName']:''?>"  autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div> 
@@ -1085,10 +871,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Date of Exam/Conferment :  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input class="form-control form-control-inline input-medium date-picker" name="dtmExamDate" id="dtmExamDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div> 
@@ -1096,10 +879,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Place of Exam/Conferment :  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input type="text" class="form-control" name="strPlaceExam" value="<?=isset($arrExam[0]['strPlaceExam'])?$arrExam[0]['strPlaceExam']:''?>"  autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1107,10 +887,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                          <label class="control-label">License No. (if applicable) : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <input type="text" class="form-control" name="intLicenseNo" value="<?=isset($arrExam[0]['intLicenseNo'])?$arrExam[0]['intLicenseNo']:''?>"  autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1118,10 +895,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                          <label class="control-label">Date of Release : </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input class="form-control form-control-inline input-medium date-picker" name="dtmRelease" id="dtmRelease" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>   
@@ -1142,21 +916,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Name of Children :  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                          <input type="text" class="form-control" name="strChildName" value="<?=isset($arrChild[0]['strChildName'])?$arrChild[0]['strChildName']:''?>"  autocomplete="off">
-                        </div>
-                    </div>
+                     </div>
                 </div>
             </div> 
             <div class="row" id="childbdate_textbox">
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Date of Birth :  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                           <input class="form-control form-control-inline input-medium date-picker" name="dtmChildBdate" id="dtmChildBdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div> 
@@ -1176,10 +944,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Tax Certificate Number :  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input type="text" class="form-control" name="intTaxCert" value="<?=isset($arrCommunity[0]['intTaxCert'])?$arrCommunity[0]['intTaxCert']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1187,10 +952,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Issued At :  </label> 
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                         <input type="text" class="form-control" name="strIssuedAt" value="<?=isset($arrCommunity[0]['strIssuedAt'])?$arrCommunity[0]['strIssuedAt']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1198,23 +960,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Issued On :  </label>
-                        <div class="input-icon left">
-                        <i class="fa"></i>
                        <input class="form-control form-control-inline input-medium date-picker" name="dtmIssuedOn" id="dtmIssuedOn" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
                  
-                 <div class="row" id="submitTax">
-                        <div class="col-sm-8 text-center">
-                            <input class="hidden" name="strStatus" value="Filed Request">
-                            <input class="hidden" name="strCode" value="201 Tax">
+             <div class="row" id="submitTax">
+                    <div class="col-sm-8 text-center">
+                        <input class="hidden" name="strStatus" value="Filed Request">
+                        <input class="hidden" name="strCode" value="201 Tax">
 
-                            <button type="submit" name="submitTax" id="submitTax" class="btn btn-success">Submit</button>
-                            <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
-                        </div>
-                </div>
+                        <button type="submit" name="submitTax" id="submitTax" class="btn btn-success">Submit</button>
+                        <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
+                    </div>
+            </div>
         <?=form_close()?>
 <!-- References -->
 <div id="tab_ref" class="tab-pane">
@@ -1239,10 +998,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Name :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strRefName" value="<?=isset($arrRef[0]['strRefName'])?$arrRef[0]['strRefName']:''?>"  autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1250,10 +1006,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Address :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strRefAdd" value="<?=isset($arrRef[0]['strRefAdd'])?$arrRef[0]['strRefAdd']:''?>" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1261,10 +1014,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Contract Number :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="intRefContact" value="<?=isset($arrRef[0]['intRefContact'])?$arrRef[0]['intRefContact']:''?>" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1272,10 +1022,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Contract Number :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="intRefContact" value="<?=isset($arrRef[0]['intRefContact'])?$arrRef[0]['intRefContact']:''?>" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1317,10 +1064,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Name of Organization : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strVolName" value="<?=isset($arrRef[0]['strVolName'])?$arrRef[0]['strVolName']:''?>"  autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1328,10 +1072,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Address : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strVolAdd" value="<?=isset($arrRef[0]['strVolAdd'])?$arrRef[0]['strVolAdd']:''?>" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1339,10 +1080,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Inclusive Date From :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateFrom" id="dtmVolDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1350,10 +1088,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Inclusive Date To :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
-                              <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateTo" id="dtmVolDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
-                            </div>
+                                 <input class="form-control form-control-inline input-medium date-picker" name="dtmVolDateTo" id="dtmVolDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd"  autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -1361,21 +1096,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                              <label class="control-label">Number of Hours :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                                <input type="text" class="form-control" name="intVolHours" value="<?=isset($arrVoluntary[0]['intVolHours'])?$arrVoluntary[0]['intVolHours']:''?>" autocomplete="off">
-                            </div>
-                        </div>
+                          </div>
                     </div>
                 </div>
                  <div class="row" id="worknature_textbox">
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Position / Nature of Work :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strNature" value="<?=isset($arrVoluntary[0]['strNature'])?$arrVoluntary[0]['strNature']:''?>" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1421,10 +1150,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Inclusive Date From : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateFrom" id="dtmExpDateFrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>  
@@ -1432,10 +1158,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Inclusive Date To : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmExpDateTo" id="dtmExpDateTo" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
              </div>
@@ -1443,10 +1166,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                              <label class="control-label">Position Title : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                               <input type="text" class="form-control" name="strPosTitle" value="<?=isset($arrExperience[0]['strPosTitle'])?$arrExperience[0]['strPosTitle']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
              </div>
@@ -1454,10 +1174,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                              <label class="control-label">Department/Agency/Office : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                              <input type="text" class="form-control" name="strExpDept" value="<?=isset($arrExperience[0]['strExpDept'])?$arrExperience[0]['strExpDept']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
              </div>
@@ -1465,10 +1182,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Salary : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strSalary" value="<?=isset($arrExperience[0]['strSalary'])?$arrExperience[0]['strSalary']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
              </div>
@@ -1476,8 +1190,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Per : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strExpPer" value="<?=isset($arrExperience[0]['strExpPer'])?$arrExperience[0]['strExpPer']:''?>">
                             <option value="">Select</option>
                             <option value="Hour">Hour</option>
@@ -1486,7 +1198,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <option value="Quarter">Quarter</option>
                             <option value="Year">Year</option>
                             </select>
-                        </div>
                     </div>
                 </div>
              </div>    
@@ -1494,11 +1205,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Currency : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strCurrency" value="<?=isset($arrExperience[0]['strCurrency'])?$arrExperience[0]['strCurrency']:''?>">
                             <label>(leave blank if PHP) /   (ex. USD for US dollars)</label>
-                        </div>
                     </div>
                 </div>
              </div>
@@ -1506,10 +1214,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Salary Grade & Step Incremet (Format "00-0") : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                              <input type="text" class="form-control" name="strExpSG" value="<?=isset($arrExperience[0]['strExpSG'])?$arrExperience[0]['strExpSG']:''?>" autocomplete="off">
-                        </div>
                     </div>
                 </div>
              </div>   
@@ -1517,8 +1222,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Status of Appointment :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strAStatus" value="<?=!empty($this->session->userdata('strStatus'))?$this->session->userdata('strStatus'):''?>" required>
                                 <option value="">Select</option>
                                 <?php foreach($arrAppointment as $appoint)
@@ -1526,7 +1229,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 echo '<option value="'.$appoint['appointmentId'].'">'.$appoint['appointmentDesc'].'</option>';
                                 }?>
                             </select>
-                        </div>
                     </div>
                 </div>
              </div> 
@@ -1534,10 +1236,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                             <label class="control-label">Government Service : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                            <input type="text" class="form-control" name="strGovn" value="<?=isset($arrExperience[0]['strGovn'])?$arrExperience[0]['strGovn']:''?>" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div> 
@@ -1545,15 +1244,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                            <label class="control-label">Branch : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strBranch" value="<?=!empty($this->session->userdata('strBranch'))?$this->session->userdata('strBranch'):''?>" required>
                             <option value="">Select</option>
                             <option value="Government Corp">Government Corp.</option>
                             <option value="National">National</option>
                             <option value="FGI">FGI</option>
                             </select>
-                            </div>
                         </div>
                     </div>
                 </div> 
@@ -1561,8 +1257,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                            <label class="control-label">Separation Cause : </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <select type="text" class="form-control" name="strSepCause" value="<?=!empty($this->session->userdata('strSepCause'))?$this->session->userdata('strSepCause'):''?>" required>
                                 <option value="">Select</option>
                                 <?php foreach($arrSeparation as $separation)
@@ -1570,7 +1264,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 echo '<option value="'.$separation['serviceRecID'].'">'.$separation['separationCause'].'</option>';
                                 }?>
                             </select>
-                            </div>
                         </div>
                     </div>
                 </div> 
@@ -1578,10 +1271,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                            <label class="control-label">Separation Date :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input class="form-control form-control-inline input-medium date-picker" name="strSepDate" id="strSepDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div> 
@@ -1589,10 +1279,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                            <label class="control-label">L/V ABS W/O PAY :  </label>
-                            <div class="input-icon left">
-                            <i class="fa"></i>
                             <input type="text" class="form-control" name="strLV" value="<?=isset($arrExperience[0]['strLV'])?$arrExperience[0]['strLV']:''?>" autocomplete="off">
-                            </div>
                         </div>
                     </div>
                 </div> 
