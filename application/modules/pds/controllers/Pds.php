@@ -227,53 +227,51 @@ class Pds extends MY_Controller
 		}
 	}
 
+	public function add_educ()
+	{
+		$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+    	if(!empty($arrPost)):
+    		$arrData = array(
+    						'empNumber'		=> $empid,
+    						'levelCode'		=> $arrPost['sellevel'],
+    						'schoolName'	=> $arrPost['txtschool'],
+    						'course'		=> $arrPost['seldegree'],
+    						'yearGraduated'	=> $arrPost['txtyrgraduate'],
+    						'units'			=> $arrPost['txtunits'],
+    						'schoolFromDate'=> $arrPost['txtperiodatt_from'],
+    						'schoolToDate'	=> $arrPost['txtperiodatt_to'],
+    						'ScholarshipCode'=>$arrPost['selscholarship'],
+    						'honors'		=> $arrPost['txthonors'],
+    						'licensed'		=> isset($arrPost['optgraduate']) ? $arrPost['optgraduate'] : '',
+    						'graduated'		=> isset($arrPost['optlicense']) ? $arrPost['optlicense'] : '');
+    		$this->pds_model->add_educ($arrData);
+    		$this->session->set_flashdata('strSuccessMsg','Education information added successfully.');
+    		redirect('hr/profile/'.$empid);
+    	endif;
+	}
+
 	public function edit_educ()
 	{
 		$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{
-			$intSchoolIndex = urldecode($this->uri->segment(4));
-			$this->arrData['arrEduc']=$this->pds_model->getData($intSchoolIndex);
-			$this->template->load('template/template_view','pds/education_view', $this->arrData);
-		}
-		else
-		{
-			$intSchoolIndex = $arrPost['intSchoolIndex'];
-			$strEmpNumber = $arrPost['strEmpNumber'];
-			$strLvlDesc=$arrPost['strLvlDesc'];
-			$strSchoolname=$arrPost['strSchoolname'];
-			$strDegree=$arrPost['strDegree'];
-			$dtmPeriod=$arrPost['dtmPeriod'];
-			$intUnits=$arrPost['intUnits'];
-			$dtmYearGrad=$arrPost['dtmYearGrad'];
-			$strScholarsip=$arrPost['strScholarsip'];
-			$strHonors=$arrPost['strHonors'];
-			$strLicense=$arrPost['strLicense'];
-
-			if(!empty($strLvlDesc))
-			{
-				$arrData = array(
-					'levelCode'=>$strLvlDesc,
-					'schoolName'=>$strSchoolname,
-					'course'=>$strDegree,
-					'schoolFromDate'=>$dtmPeriod,
-					'units'=>$intUnits,
-					'yearGraduated'=>$dtmYearGrad,
-					'ScholarshipCode'=>$strScholarsip,
-					'honors'=>$strHonors,
-					'licensed'=>$strLicense	
-				);
-				 // echo '='.$strEmpNumber;
-				 // exit(1);
-				$blnReturn = $this->pds_model->save_educ($arrData, $intSchoolIndex);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpSchool','Edited '.$strLvlDesc.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Education information updated successfully.');
-				}
-				redirect('hr/profile/'.$strEmpNumber);
-			}
-		}		
+    	$empid = $this->uri->segment(3);
+    	if(!empty($arrPost)):
+    		$arrData = array(
+    						'levelCode'		=> $arrPost['sellevel'],
+    						'schoolName'	=> $arrPost['txtschool'],
+    						'course'		=> $arrPost['seldegree'],
+    						'yearGraduated'	=> $arrPost['txtyrgraduate'],
+    						'units'			=> $arrPost['txtunits'],
+    						'schoolFromDate'=> $arrPost['txtperiodatt_from'],
+    						'schoolToDate'	=> $arrPost['txtperiodatt_to'],
+    						'ScholarshipCode'=>$arrPost['selscholarship'],
+    						'honors'		=> $arrPost['txthonors'],
+    						'licensed'		=> isset($arrPost['optgraduate']) ? $arrPost['optgraduate'] : '',
+    						'graduated'		=> isset($arrPost['optlicense']) ? $arrPost['optlicense'] : '');
+    		$this->pds_model->save_educ($arrData,$arrPost['txteducid']);
+    		$this->session->set_flashdata('strSuccessMsg','Education information updated successfully.');
+    		redirect('hr/profile/'.$empid);
+    	endif;
 	}
 
 	public function edit_exam()

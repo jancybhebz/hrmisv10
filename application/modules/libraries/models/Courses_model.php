@@ -36,18 +36,24 @@ class Courses_model extends CI_Model {
 
 	function getData($intCourseId="")
 	{		
-		$where='';
-		if($intCourseId!="")
-			$where .= " AND courseId='".$intCourseId."'";
+		// $where='';
+		// if($intCourseId!="")
+		// 	$where .= " AND courseId='".$intCourseId."'";
 		
-		$strSQL = " SELECT * FROM tblCourse					
-					WHERE 1=1 
-					$where
-					ORDER BY courseDesc
-					";
-		//echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
-		return $objQuery->result_array();	
+		// $strSQL = " SELECT * FROM tblCourse					
+		// 			WHERE 1=1 
+		// 			$where
+		// 			ORDER BY courseDesc
+		// 			";
+		// //echo $strSQL;exit(1);				
+		// $objQuery = $this->db->query($strSQL);
+		// return $objQuery->result_array();
+		$this->db->order_by('courseDesc');
+		if($intCourseId!=''):
+			return $this->db->get_where('tblCourse',array('courseId' => $intCourseId))->result_array();
+		else:
+			return $this->db->get('tblCourse')->result_array();
+		endif;
 	}			
 		
 	

@@ -13,7 +13,7 @@ class Hr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model'));
+        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model'));
     }
 
 	public function index()
@@ -41,7 +41,12 @@ class Hr extends MY_Controller {
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
 		$this->arrData['arrChild'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
-		$this->arrData['arrEduc'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
+		// $this->arrData['arrEduc'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
+		$this->arrData['arrEduc'] = $this->Hr_model->getEmployeeEducation($strEmpNo);
+		$this->arrData['arrLevel'] = $this->Educ_level_model->getData();
+		$this->arrData['arrCourses'] = $this->Courses_model->getData();
+		$this->arrData['arrScholarships'] = $this->Scholarship_model->getData();
+
 		$this->arrData['arrExam'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EXAM);
 		$this->arrData['arrVol'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_VOLWORK);
 		$this->arrData['arrService'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_SERVICE);

@@ -17,7 +17,7 @@ class Educ_level_model extends CI_Model {
 	
 	function getData($intEducLevelId = '')
 	{
-		$this->db->order_by('levelCode', 'desc');
+		$this->db->order_by('levelCode');
 		if($intEducLevelId != ""):
 			return $this->db->get_where('tblEducationalLevel', array('levelId' => $intEducLevelId))->result_array();
 		else:

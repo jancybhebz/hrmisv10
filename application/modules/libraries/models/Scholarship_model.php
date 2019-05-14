@@ -20,12 +20,13 @@ class Scholarship_model extends CI_Model {
 	
 	function getData($intScholarshipId = '')
 	{		
-		if($intScholarshipId != "")
-		{
-			$this->db->where($this->tableid,$intScholarshipId);	
-		}
-		$objQuery = $this->db->get($this->table);
-		return $objQuery->result_array();	
+		$this->db->order_by('description');
+		if($intScholarshipId!=''):
+			return $this->db->get_where('tblScholarship',array('id' => $intScholarshipId))->result_array();
+		else:
+			return $this->db->get('tblScholarship')->result_array();
+		endif;
+
 	}
 
 	function add($arrData)
