@@ -46,16 +46,16 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->SetFont('Arial','B',12);
 		$this->fpdf->Ln(10);
 
-		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->SetFont('Arial','',10);
 		$this->fpdf->Cell(0,6,'      Department of Science and Technology','',0,'C');
 		$this->fpdf->Ln(5);
-		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->SetFont('Arial','',10);
 		$this->fpdf->Cell(0,6,'       Administrative and Legal Service','',0,'C');
 		$this->fpdf->Ln(5);
-		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->SetFont('Arial','',10);
 		$this->fpdf->Cell(0,6,'       Human Resource Management Information System','',0,'C');
 		$this->fpdf->Ln(10);
-		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->SetFont('Arial','',10);
 		$this->fpdf->Cell(0,6,'       ATTENDANCE TRACKING SYSTEM','',0,'C');
 		$this->fpdf->Ln(10);
 		$this->fpdf->SetFont('Arial','B',11);
@@ -65,40 +65,49 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->Cell(0,6,'       (For Noon Break Missing Entry/ies)','',0,'C');
 
 		$this->fpdf->Ln(10);
-
-		$this->fpdf->SetFont('Arial', "", 10);		
-		$this->fpdf->Cell(69, 5,"Name : ________________________________"  , 0, 0, "C"); 
-		$this->fpdf->Cell(55, 5,"Position : ____________", 0, 0, "C"); 
-		$this->fpdf->Cell(30, 5,"Date : ", 0, 0, "C"); 
-		$this->fpdf->SetFont('Arial', "U", 10);	
-		$this->fpdf->Cell(0, 5,"$today"."", 0, 0, "C"); 
-		$this->fpdf->Ln(5);
-		$this->fpdf->SetFont('Arial', "", 10);		
-		$this->fpdf->Cell(22, 5,"For the month of :"  , 0, 0, "C"); 
-		$this->fpdf->SetFont('Arial', "U", 10);	
-		$this->fpdf->Cell(15, 5,"$dtmMonthOf"  , 0, 0, "C"); 
-		$this->fpdf->Ln(10);
+		$arrDetails=$this->empInfo();
+		foreach($arrDetails as $row)
+			{
+				$this->fpdf->SetFont('Arial', "", 10);		
+				$this->fpdf->Cell(15, 5,"Name :"  , 0, 0, "L"); 
+				$this->fpdf->SetFont('Arial', "UB", 10);		
+				$this->fpdf->Cell(70, 5,$row['firstname'].' '.$row['middleInitial'].' '.$row['surname']  , 0, 0, "L"); 
+				$this->fpdf->SetFont('Arial', "", 10);	
+				$this->fpdf->Cell(15, 5,"Position : ", 0, 0, "L"); 
+				$this->fpdf->SetFont('Arial', "UB", 10);	
+				$this->fpdf->Cell(20, 5,$row['positionCode'], 0, 0, "L"); 
+				$this->fpdf->SetFont('Arial', "", 10);	
+				$this->fpdf->Cell(30, 5,"Date : ", 0, 0, "C"); 
+				$this->fpdf->SetFont('Arial', "UB", 10);	
+				$this->fpdf->Cell(0, 5,"$today"."", 0, 0, "C"); 
+				$this->fpdf->Ln(5);
+				$this->fpdf->SetFont('Arial', "", 10);		
+				$this->fpdf->Cell(30, 5,"For the month of :"  , 0, 0, "C"); 
+				$this->fpdf->SetFont('Arial', "U", 10);	
+				$this->fpdf->Cell(15, 5,"$dtmMonthOf"  , 0, 0, "C"); 
+				$this->fpdf->Ln(10);
+			}
 		// start of table
-		$this->fpdf->SetFont('Arial', "", 10);	
-		$this->fpdf->Cell(25,6,'Day',"RLT",0,"C");
+		$this->fpdf->SetFont('Arial', "", 9);	
+		$this->fpdf->Cell(30,6,'Day',"RLT",0,"C");
 		$this->fpdf->Cell(20,6,'IN',"RLT",0,"C");
 		$this->fpdf->Cell(20,6,'OUT',"RLT",0,"C");
 		$this->fpdf->Cell(70,6,'Signature Over Printed Name',"RLT",0,"C");
 		$this->fpdf->Cell(35,6,'Supporting Evidence/',"RLT",0,"C");
 		$this->fpdf->Ln(6);
-		$this->fpdf->Cell(25,6,'',"RL",0,"C");
+		$this->fpdf->Cell(30,6,'',"RL",0,"C");
 		$this->fpdf->Cell(20,6,'',"RL",0,"C");
 		$this->fpdf->Cell(20,6,'',"RL",0,"C");
 		$this->fpdf->Cell(70,6,'of Authorized Official/Supervisor Concerned',"RL",0,"C");
 		$this->fpdf->Cell(35,6,'Documents',"RL",0,"C");
 		$this->fpdf->Ln(6);
-		$this->fpdf->Cell(25,6,'',"RL",0,"C");
+		$this->fpdf->Cell(30,6,'',"RL",0,"C");
 		$this->fpdf->Cell(20,6,'',"RL",0,"C");
 		$this->fpdf->Cell(20,6,'',"RL",0,"C");
 		$this->fpdf->Cell(70,6,'Supervisor Concerned',"RL",0,"C");
 		$this->fpdf->Cell(35,6,'',"RL",0,"C");
 		$this->fpdf->Ln(6);
-		$this->fpdf->Cell(25,6,"$dtmDTRupdate",1,0,"C");
+		$this->fpdf->Cell(30,6,"$dtmDTRupdate",1,0,"C");
 		$this->fpdf->Cell(20,6,'',1,0,"C");
 		$this->fpdf->Cell(20,6,'',1,0,"C");
 		$this->fpdf->Cell(70,6,"$strSignatory",1,0,"C");
@@ -107,18 +116,18 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 
 		$this->fpdf->Ln(15);
 		$this->fpdf->SetFont('Arial', "", 10);		
-		$this->fpdf->Cell(15, 5,"Submitted by :"  , 0, 0, "C"); 
+		$this->fpdf->Cell(22, 5,"Submitted by :"  , 0, 0, "C"); 
 		$this->fpdf->Cell(172, 5,"Date Submitted : ", 0, 0, "C"); 
 		$this->fpdf->Ln(10);
 		
-		$this->fpdf->Cell(65, 5,"_____________________________________"  , 0, 0, "C"); 
+		$this->fpdf->Cell(72, 5,"_____________________________________"  , 0, 0, "C"); 
 		$this->fpdf->SetFont('Arial', "U", 10);	
 		$this->fpdf->Cell(66, 5,"$today", 0, 0, "C"); 
 		$this->fpdf->SetFont('Arial', "", 10);	
 			
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial', "", 10);		
-		$this->fpdf->Cell(60, 5, "Signature Over Printed Name of Employee", 0, 0, "C"); 
+		$this->fpdf->Cell(67, 5, "Signature Over Printed Name of Employee", 0, 0, "C"); 
 		$this->fpdf->Cell(110, 5, "", 0, 0, "C"); 
 		$this->fpdf->Cell(100, 5, "", 0, 0, "C"); 
 		
@@ -130,7 +139,23 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		echo $this->fpdf->Output();
 	}
 	
-	
+	function empInfo()
+		{
+			$sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
+							tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblPlantilla.plantillaGroupCode,
+							 tblPlantillaGroup.plantillaGroupName, tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode
+							
+							FROM tblEmpPersonal
+							LEFT JOIN tblEmpPosition ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
+							LEFT JOIN tblPlantilla ON tblEmpPosition.itemNumber = tblPlantilla.itemNumber
+							LEFT JOIN tblPlantillaGroup ON tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode
+							WHERE tblEmpPersonal.empNumber = '".$this->session->userdata('sessEmpNo')."'";
+	            		// WHERE emp_id=$empId";
+	          // echo $sql;exit(1);				
+			$query = $this->db->query($sql);
+			return $query->result_array();	
+
+		}	
 	
 }
 /* End of file Reminder_renewal_model.php */
