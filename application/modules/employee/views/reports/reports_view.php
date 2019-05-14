@@ -47,7 +47,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label"><strong>Type of Reports : </strong><span class="required"> * </span></label>
-                            <div class="input-icon left">
                                  <select name="strReporttype" id="strReporttype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
                                 <option value="">Select Report Type</option>
                                 <option>Daily Time Record</option>
@@ -56,7 +55,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option>Payslip</option>
                                 <option>Certificate of Compensation</option>
                                 </select>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +62,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                            <label class="control-label">Type of Remittances : <span class="required"> * </span></label>
-                            <div class="input-icon left">
                                  <select name="strRemittype" id="strRemittype" type="text" class="form-control"  value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
                                 <option value="">Select Remittance</option>
                                 <option>Conso Loan</option>
@@ -73,7 +70,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option>GSIS Emergency</option>
                                 <option>Pag-ibig Loan</option>
                                 </select>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +77,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-5">
                         <div class="form-group">
                            <label class="control-label">Month : <span class="required"> * </span></label>
-                            <div class="input-icon left">
                                  <select id="month" name="month" class="form-control select2" style="width: 40%;">
                                     <option value="">Select Month</option>
                                     <?php
@@ -92,7 +87,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         echo '<option value="'.$monthPadding.'">'.$fdate.'</option>';
                                     }?>
                                 </select>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +94,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Date : <span class="required"> * </span></label>
-                            <div class="input-icon left">
                                   <?php
                                 $already_selected_value = date("Y");
                                 $earliest_year = 2003;
@@ -110,7 +103,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
                                 }
                                 print '</select>'; ?>
-                            </div>
                         </div>
                     </div>
                 </div>

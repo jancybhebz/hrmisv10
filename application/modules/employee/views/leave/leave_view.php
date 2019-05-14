@@ -46,7 +46,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                        <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
-                        <div class="input-icon left">
                             <i class="fa"></i>
                              <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
                             <option value="">Please select</option>
@@ -58,7 +57,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <option value="paternity">Paternity Leave</option>
                             <option value="study">Study Leave</option>
                             </select>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -100,9 +98,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave From : <span class="required"> * </span></label>
-                        <div class="input-icon left">
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -110,9 +106,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave To : <span class="required"> * </span></label>
-                        <div class="input-icon left">
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -120,9 +114,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-1">
                     <div class="form-group">
                      <label class="control-label"># of Days Applied : </label>
-                        <div class="input-icon left">
                              <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -130,14 +122,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Authorized Official (1st Signatory) :</label>
-                        <div class="input-icon left">
                             <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
                                 </select>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -145,14 +135,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Authorized Official (2nd Signatory) :</label>
-                        <div class="input-icon left">
                             <select type="text" class="form-control" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" >
                                     <option value="">Select</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                     <?php endforeach; ?>
                                 </select>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -160,10 +148,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                       <label class="control-label">Specify Reason/s :</label>
-                        <div class="input-icon left">
                              <textarea name="strReason" id="strReason" type="text" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
                              </textarea>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -171,13 +157,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                       <label class="control-label">In Case of Sick Leave : </label>
-                        <div class="input-icon left">
                              <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
                                  <option value="">Select</option>
                                  <option value="in patient">in patient</option>
                                  <option value="out patient">out patient</option>
                              </select>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -185,13 +169,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                        <label class="control-label">In Case of Vacation Leave : </label>
-                        <div class="input-icon left">
                               <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
                                  <option value="">Select</option>
                                  <option value="within the country">within the country</option>
                                  <option value="abroad">abroad</option>
                              </select>
-                        </div>
                     </div>
                 </div>
             </div>
