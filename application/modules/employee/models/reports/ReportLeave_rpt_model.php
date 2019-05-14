@@ -82,31 +82,34 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Ln(9);
 		
 		$this->fpdf->Line(10, 25, 200, 25); //------------------------------------------------------------------
-				
-		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(50, 5, "1. OFFICE/AGENCY", "R", 0, "L");
-		$this->fpdf->Cell(45, 5, "2. NAME (Last)", 0, 0, "L");
-		$this->fpdf->Cell(45, 5, "(First)", 0, 0, "L");
-		$this->fpdf->Cell(45, 5, "(Middle)", 0, 1, "L");
-			
-		$this->fpdf->Cell(50, 7, '', "R", 0, "L");
-		$this->fpdf->Cell(45, 7, '', 0, 0, "L");
+		$arrDetails=$this->empInfo();
+		foreach($arrDetails as $row)
+			{
+				$this->fpdf->SetFont('Arial', "", 10);
+				$this->fpdf->Cell(50, 5, "1. OFFICE/AGENCY", "R", 0, "L");
+				$this->fpdf->Cell(45, 5, "2. NAME (Last)", 0, 0, "L");
+				$this->fpdf->Cell(45, 5, "(First)", 0, 0, "L");
+				$this->fpdf->Cell(45, 5, "(Middle)", 0, 1, "L");
+					
+				$this->fpdf->Cell(50, 7,$row['payrollGroupCode'], "R", 0, "C");
+				$this->fpdf->Cell(100, 7,$row['surname'].'                      '.$row['firstname'].'                                       '.$row['middleInitial'], 0, 0, "C");
 
-		$this->fpdf->Cell(45, 7,'', 0, 0, "L");
-		$this->fpdf->Cell(45, 7, '', 0, 1, "L");
+				$this->fpdf->Cell(45, 7,'', 0, 0, "L");
+				$this->fpdf->Cell(45, 7, '', 0, 1, "L");
 
-		$this->fpdf->Ln(0);
-		$this->fpdf->Line(10, 37, 200, 37); //------------------------------------------------------------------
+				$this->fpdf->Ln(0);
+				$this->fpdf->Line(10, 37, 200, 37); //------------------------------------------------------------------
 
-		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(50, 5, "3. DATE OF FILING", "R", 0, "L");
-		$this->fpdf->Cell(90, 5, "4. POSITION", "R", 0, "L");
-		$this->fpdf->Cell(45, 5, "5. SALARY (Monthly)", 0, 0, "L");
-		$this->fpdf->Cell(200, 5, "", 0, 0, "L");
-		$this->fpdf->Ln(0);
-		$this->fpdf->Cell(50, 15, "$today", "R", 0, "C");
-		$this->fpdf->Cell(90, 12, '', "R", 0, "L");
-		$this->fpdf->Cell(45, 12, '', 0, 1, "L");
+				$this->fpdf->SetFont('Arial', "", 10);
+				$this->fpdf->Cell(50, 5, "3. DATE OF FILING", "R", 0, "L");
+				$this->fpdf->Cell(90, 5, "4. POSITION", "R", 0, "L");
+				$this->fpdf->Cell(45, 5, "5. SALARY (Monthly)", 0, 0, "L");
+				$this->fpdf->Cell(200, 5, "", 0, 0, "L");
+				$this->fpdf->Ln(0);
+				$this->fpdf->Cell(50, 15, "$today", "R", 0, "C");
+				$this->fpdf->Cell(90, 12,'    '.$row['positionCode'], "R", 0, "L");
+				$this->fpdf->Cell(45, 12,'    '.$row['actualSalary'], 0, 1, "L");
+			}
 
 		$this->fpdf->Line(10, 49, 200, 49); //------------------------------------------------------------------
 		$this->fpdf->Ln(2);
@@ -507,6 +510,24 @@ class ReportLeave_rpt_model extends CI_Model {
 
 
 	}
+
+	function empInfo()
+	{
+		$sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
+						tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblPlantilla.plantillaGroupCode,
+						 tblPlantillaGroup.plantillaGroupName, tblEmpPosition.actualSalary, tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode
+						
+						FROM tblEmpPersonal
+						LEFT JOIN tblEmpPosition ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
+						LEFT JOIN tblPlantilla ON tblEmpPosition.itemNumber = tblPlantilla.itemNumber
+						LEFT JOIN tblPlantillaGroup ON tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode
+						WHERE tblEmpPersonal.empNumber = '".$this->session->userdata('sessEmpNo')."'";
+            		// WHERE emp_id=$empId";
+          // echo $sql;exit(1);				
+		$query = $this->db->query($sql);
+		return $query->result_array();	
+
+	}	
 	
 	
 	

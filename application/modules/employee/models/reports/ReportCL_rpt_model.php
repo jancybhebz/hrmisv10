@@ -26,7 +26,7 @@ class ReportCL_rpt_model extends CI_Model {
 	{
 		$dtmComLeave=date("F j, Y",strtotime($arrData['dtmComLeave']));
 		$strPurpose=$arrData['strPurpose'];
-		$strRecommend=$arrData['strRecommend'];
+		$strRecommend='';
 		$strApproval=$arrData['strApproval'];
 
 		$dtmMorningIn=$arrData['dtmMorningIn'];
@@ -57,21 +57,26 @@ class ReportCL_rpt_model extends CI_Model {
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial','',10);
 		$this->fpdf->Ln(5);
-		$this->fpdf->Cell(100,6,'       Requested by :','',0,'L');
-		$this->fpdf->Cell(32,6,'       Requested on : ',0,'C');
-		$this->fpdf->SetFont('Arial','U',10);
-		$this->fpdf->Cell(35,6,$dtmComLeave.'',0,0,'L');
-		$this->fpdf->SetFont('Arial','',10);
-		$this->fpdf->Ln(5);
-		$this->fpdf->Cell(20,6,'       Name :',0,0,'L');
-		$this->fpdf->SetFont('Arial','U',10);
-		$this->fpdf->Cell(80,6,'name ',0,0,'L');
-		$this->fpdf->SetFont('Arial','',10);
-		$this->fpdf->Cell(20,6,'       Office :','',0,'C');
-		$this->fpdf->SetFont('Arial','U',10);
-		$this->fpdf->Cell(50,6,'office ',0,0,'L');
-		$this->fpdf->SetFont('Arial','',10);
-		$this->fpdf->Ln(10);
+
+		$arrDetails=$this->empInfo();
+		foreach($arrDetails as $row)
+			{
+			$this->fpdf->Cell(100,6,'       Requested by :','',0,'L');
+			$this->fpdf->Cell(32,6,'       Requested on : ',0,'C');
+			$this->fpdf->SetFont('Arial','U',10);
+			$this->fpdf->Cell(35,6,$dtmComLeave.'',0,0,'L');
+			$this->fpdf->SetFont('Arial','',10);
+			$this->fpdf->Ln(5);
+			$this->fpdf->Cell(20,6,'       Name :',0,0,'L');
+			$this->fpdf->SetFont('Arial','U',10);
+			$this->fpdf->Cell(80,6,$row['firstname'].' '.$row['middleInitial'].' '.$row['surname'].' '.$row['nameExtension'],0,0,'L');
+			$this->fpdf->SetFont('Arial','',10);
+			$this->fpdf->Cell(20,6,'       Office :','',0,'C');
+			$this->fpdf->SetFont('Arial','U',10);
+			$this->fpdf->Cell(50,6,$row['payrollGroupCode'],0,0,'L');
+			$this->fpdf->SetFont('Arial','',10);
+			$this->fpdf->Ln(10);
+			}
 
 		$this->fpdf->Cell(8,6,'      ','',0,'C');
 		$this->fpdf->Cell(120,6,'       Purpose/Target Deliverables','TBRL',0,'C');
@@ -99,32 +104,30 @@ class ReportCL_rpt_model extends CI_Model {
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(60,6,'       ','',0,'C');
 		$this->fpdf->Cell(63,6,'Secretary/Authorized Representative ','T',0,'C'); 
-
-
-		
 	}
-	
-	
-	
+
+
+	function empInfo()
+	{
+		$sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
+						tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblPlantilla.plantillaGroupCode,
+						 tblPlantillaGroup.plantillaGroupName, tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode
+						
+						FROM tblEmpPersonal
+						LEFT JOIN tblEmpPosition ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
+						LEFT JOIN tblPlantilla ON tblEmpPosition.itemNumber = tblPlantilla.itemNumber
+						LEFT JOIN tblPlantillaGroup ON tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode
+						WHERE tblEmpPersonal.empNumber = '".$this->session->userdata('sessEmpNo')."'";
+            		// WHERE emp_id=$empId";
+          // echo $sql;exit(1);				
+		$query = $this->db->query($sql);
+		return $query->result_array();	
+
+	}
+
 }
 
-function empInfo()
-{
-		$objEmpInfo = mysql_query("SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
-									tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblPlantilla.plantillaGroupCode,
-									 tblPlantillaGroup.plantillaGroupName, tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode
-									
-									FROM tblEmpPersonal
-									LEFT JOIN tblEmpPosition ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
-									LEFT JOIN tblPlantilla ON tblEmpPosition.itemNumber = tblPlantilla.itemNumber
-									LEFT JOIN tblPlantillaGroup ON tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode
-									WHERE tblEmpPersonal.empNumber = '".$_SESSION['sesEmpNmbr']."'");
-									
-		$arrEmpInfo = mysql_fetch_array($objEmpInfo);
-		$this->fpdf->AddPage();
-		$this->bodyOB($arrEmpInfo, $arrAgency);
 
-}
 /* End of file Reminder_renewal_model.php */
 /* Location: ./application/models/reports/Reminder_renewal_model.php */
 
