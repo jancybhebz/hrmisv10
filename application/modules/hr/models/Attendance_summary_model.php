@@ -22,13 +22,16 @@ class Attendance_summary_model extends CI_Model {
 	public function getemp_dtr($empid, $month, $yr)
 	{
 		$this->load->helper('dtr_helper');
+		$this->load->model('finance/Dtr_model');
 		// echo '<pre>';
 		$month = sprintf('%02d', $month);
 		# DTR Data
-		$this->db->order_by('dtrDate', 'asc');
-		$this->db->where('empNumber', $empid);
-		$this->db->like('dtrDate', $yr.'-'.$month, 'after');
-		$arrData = $this->db->get('tblEmpDTR')->result_array();
+		// $this->db->order_by('dtrDate', 'asc');
+		// $this->db->where('empNumber', $empid);
+		// $this->db->like('dtrDate', $yr.'-'.$month, 'after');
+		// $arrData = $this->db->get('tblEmpDTR')->result_array();
+
+		$arrData = $this->Dtr_model->getData($empid,$yr,$month);
 
 		# Regular Holiday
 		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = tblHoliday.holidayCode','inner');
@@ -108,7 +111,6 @@ class Attendance_summary_model extends CI_Model {
 		# OB
 		$arremp_ob = array();
 		$empob = $this->getobs($empid);
-
 		foreach($empob as $ob):
 			$obdate = $ob['obDateFrom'];
 			$schedto = $ob['obDateTo'];
