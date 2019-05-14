@@ -50,48 +50,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">Old Morning In : </label>
-                            <input type="text" class="form-control timepicker timepicker-default" name="dtmOldMorningIn" id="dtmOldMorningIn" value="12:00:00" autocomplete="off"> </div>
-                    </div>
-                </div>
-           
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">Old Morning Out : </label>
-                         <input type="text" class="form-control timepicker timepicker-default" name="dtmOldMorningOut" id="dtmOldMorningOut" value="12:00:00 PM" autocomplete="off"> </div>
-                    </div>
-                </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">Old Afternoon In : </label>
-                            <input type="text" class="form-control timepicker timepicker-default" name="dtmOldAfternoonIn" id="dtmOldAfternoonIn" value="12:00:00 PM" autocomplete="off"> </div>
-                    </div>
-                </div>
-             <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">Old Afternoon Out : </label>
-                            <input type="text" class="form-control timepicker timepicker-default" name="dtmOldAfternoonOut" id="dtmOldAfternoonOut" value="12:00:00 PM" autocomplete="off"> </div>
-                </div>
-            </div>
+
             <br>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label class="control-label">New Morning Time In :</label>
-                             <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00">
+                        <label class="control-label">Morning Time In :</label>
+                             <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00" autocomplete="off">
                     </div>
                 </div>
             </div>      
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label class="control-label">New Morning Time Out :</label>
+                        <label class="control-label">Morning Time Out :</label>
                              <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00" autocomplete="off">
                     </div>
                 </div>
@@ -99,7 +71,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
              <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label class="control-label">New Afternoon Time In :</label>
+                        <label class="control-label">Afternoon Time In :</label>
                              <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM" autocomplete="off">
                     </div>
                 </div>
@@ -107,7 +79,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
               <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label class="control-label">New Afternoon Time Out :</label>
+                        <label class="control-label">Afternoon Time Out :</label>
                              <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM" autocomplete="off">
                     </div>
                 </div>
