@@ -54,7 +54,7 @@ class Duties_responsibilities extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblduties','Added '.$strDuties.' Duties_responsibilities',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Duties added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Duties added successfully.');
 					}
 					redirect('libraries/duties_responsibilities');
 				}

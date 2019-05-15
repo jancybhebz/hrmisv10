@@ -52,7 +52,7 @@ class Project_code extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblProject','Added '.$strProjectDescription.' Project_code',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Project code added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Project code added successfully.');
 					}
 					redirect('libraries/project_code');
 				}
@@ -98,7 +98,7 @@ class Project_code extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblproject','Edited '.$strProjectDescription.' Project_code',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Project code saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Project code saved successfully.');
 				}
 				redirect('libraries/project_code');
 			}

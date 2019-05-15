@@ -52,7 +52,7 @@ class Position extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblposition','Added '.$strPositionDescription.' Position',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Position added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Position added successfully.');
 					}
 					redirect('libraries/position');
 				}
@@ -97,7 +97,7 @@ class Position extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblposition','Edited '.$strPositionDescription.' Position',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Position saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Position saved successfully.');
 				}
 				redirect('libraries/position');
 			}

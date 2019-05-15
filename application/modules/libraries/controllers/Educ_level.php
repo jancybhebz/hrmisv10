@@ -51,7 +51,7 @@ class Educ_level extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEducationalLevel','Added '.$strEducLevelDesc.' Educational Level',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Educational Level added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Educational Level added successfully.');
 					}
 					redirect('libraries/educ_level');
 				}
@@ -94,7 +94,7 @@ class Educ_level extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEducationalLevel','Edited '.$strEducLevelDesc.' Level',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Educational Level saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Educational Level saved successfully.');
 				}
 				redirect('libraries/educ_level');
 			}

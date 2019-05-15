@@ -51,7 +51,7 @@ class Leave_type extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblleave','Added '.$strLeaveCode.' Leave_type',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Leave type added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Leave type added successfully.');
 					}
 					redirect('libraries/leave_type');
 				}
@@ -92,7 +92,7 @@ class Leave_type extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblleave','Edited '.$strLeaveCode.' Leave',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Leave saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Leave saved successfully.');
 				}
 				redirect('libraries/leave_type');
 			}

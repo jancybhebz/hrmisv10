@@ -85,7 +85,7 @@ class Attendance_scheme extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Added '.$strSchemeCode.' Attendance_scheme',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Attendance scheme added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Attendance scheme added successfully.');
 					}
 					redirect('libraries/attendance_scheme');
 				}
@@ -172,7 +172,7 @@ class Attendance_scheme extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Edited '.$strSchemeName.' Attendance_scheme',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Attendance Scheme saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Attendance Scheme saved successfully.');
 				}
 				redirect('libraries/attendance_scheme');
 			}

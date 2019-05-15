@@ -54,7 +54,7 @@ class Plantilla_duties extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantilladuties','Added '.$strDuties.' Plantilla_Duties',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Duties added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Duties added successfully.');
 					}
 					redirect('libraries/plantilla_duties');
 				}

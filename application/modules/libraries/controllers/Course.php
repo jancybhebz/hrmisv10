@@ -37,7 +37,7 @@ class Course extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCourse','Added Course',implode(';',$arrData),'');
 					
 					if(count($blnReturn)>0)
-						$this->session->set_flashdata('strMsg','Course added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Course added successfully.');
 				
 					redirect('libraries/course');
 				}
@@ -80,7 +80,7 @@ class Course extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCourse','Edited '.$strCode.' Course',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Course saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Course saved successfully.');
 				}
 				redirect('libraries/course');
 			}

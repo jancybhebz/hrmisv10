@@ -68,7 +68,7 @@ class Salary_sched extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSalarySchedVersion','Added '.$strTitle.' Salary Schedule',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Salary schedule name added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Salary schedule name added successfully.');
 					}
 					redirect('libraries/salary_sched/add');
 				}
@@ -115,7 +115,7 @@ class Salary_sched extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalarysched','Added '.$strSalarySched.' Salary Schedule',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Salary schedule name added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Salary schedule name added successfully.');
 					}
 					redirect('libraries/salary_sched/');
 				}
@@ -160,7 +160,7 @@ class Salary_sched extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSalarySchedVersion','Added '.$strTitle.' Salary Schedule',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Salary schedule name added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Salary schedule name added successfully.');
 
 					}
 					redirect('libraries/salary_sched/add');
@@ -208,7 +208,7 @@ class Salary_sched extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalarysched','Edited '.$strSG.' Salary Schedule',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Salary Schedule saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Salary Schedule saved successfully.');
 				}
 				redirect('libraries/salary_sched');
 			}

@@ -60,7 +60,7 @@ class Payroll_group extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Added '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Payroll group added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Payroll group added successfully.');
 					}
 					redirect('libraries/payroll_group');
 				}
@@ -115,7 +115,7 @@ class Payroll_group extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Edited '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Payroll Group updated successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Payroll Group updated successfully.');
 				}
 				redirect('libraries/payroll_group');
 			}

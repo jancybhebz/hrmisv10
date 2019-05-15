@@ -50,7 +50,7 @@ class Country extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountrY','Added '.$strCountryName.' Country',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Country added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Country added successfully.');
 					}
 					redirect('libraries/country');
 				}
@@ -93,7 +93,7 @@ class Country extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Edited '.$strCountryName.' Country',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Country saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Country saved successfully.');
 				}
 				redirect('libraries/country');
 			}
