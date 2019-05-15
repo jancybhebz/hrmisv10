@@ -275,6 +275,14 @@ class Hr_model extends CI_Model {
 		return $rs->result_array();
 	}
 
+	function getExam($empid)
+	{
+		$this->db->order_by('examDate');
+		$this->db->join('tblExamType', 'tblExamType.examCode = tblEmpExam.examCode');
+		$res = $this->db->get_where('tblEmpExam', array('empNumber' => $empid))->result_array();
+		return $res;
+	}
+
 	function getEmployeeEducation($empid)
 	{
 		$this->db->join('tblScholarship','tblScholarship.id = '.'tblEmpSchool.ScholarshipCode','left');
