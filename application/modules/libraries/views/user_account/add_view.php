@@ -51,12 +51,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strAccessLevel" value="<?=!empty($this->session->userdata('strAccessLevel'))?$this->session->userdata('strAccessLevel'):''?>" required>
-                                    <option value="">Select</option>
-                                    <option value="1">HR Module</option>
-                                    <option value="2">Finance Module</option>
-                                    <option value="3">Officer Module</option>
-                                    <option value="4">Execom Module</option>
-                                    <option value="5">Employee Module</option>
+                                    <option value="">Select Access Level</option>
+                                    <?php foreach(userlevel() as $level):
+                                            echo '<option value="'.$level['id'].'">'.ucfirst($level['desc']).' Officer</option>';
+                                          endforeach; ?>
                                     </select>
                                 </div>
                             </div>
@@ -69,7 +67,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" required>
-                                        <option value="">Select</option>
+                                        <option value="">Select Employee Name</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>

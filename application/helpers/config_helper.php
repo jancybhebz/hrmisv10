@@ -111,3 +111,25 @@ if ( ! function_exists('setPeriods'))
 
     }
 }
+
+# userlevel
+if ( ! function_exists('userlevel'))
+{
+    function userlevel($level='')
+    {
+        $arruserlevel = array(
+                array('id' => 1, 'desc' => 'hr'),
+                array('id' => 2, 'desc' => 'finance'),
+                array('id' => 3, 'desc' => 'officer'),
+                array('id' => 4, 'desc' => 'executive'),
+                array('id' => 5, 'desc' => 'employee'));
+
+        if($level!=''):
+            $key = array_search($level, array_column($arruserlevel, 'id'));
+            return $arruserlevel[$key];
+        else:
+            return $arruserlevel;
+        endif;
+
+    }
+}
