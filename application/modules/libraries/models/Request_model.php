@@ -160,16 +160,20 @@ class Request_model extends CI_Model {
 	}
 
 	# Request Flow
-	function getRequestFlow($applicant,$req_type='')
+	function getRequestFlow($applicant='')
 	{
 		// $res = $this->db->get_where('tblRequestFlow', array('RequestType' => $type))->result_array();
 		// // return count($res) > 0 ? $res[0] : null;
 		// return $res;
-		$this->db->or_like('Applicant', $applicant, 'before', false);
-		$this->db->or_like('Applicant', $applicant, 'after', false);
-		$this->db->or_like('Applicant', $applicant, 'both', false);
-		$this->db->or_where('Applicant','ALLEMP');
-		$res = $this->db->get('tblRequestFlow')->result_array();
+		if($applicant==''):
+			$this->db->or_like('Applicant', $applicant, 'before', false);
+			$this->db->or_like('Applicant', $applicant, 'after', false);
+			$this->db->or_like('Applicant', $applicant, 'both', false);
+			$this->db->or_where('Applicant','ALLEMP');
+			$res = $this->db->get('tblRequestFlow')->result_array();
+		else:
+			$res = $this->db->get('tblRequestFlow')->result_array();
+		endif;
 		return $res;
 	}
 
@@ -187,6 +191,11 @@ class Request_model extends CI_Model {
 		$this->db->where('(requestDate >= \''.curryr().'-'.currmo().'-01\' and requestDate <= LAST_DAY(\''.curryr().'-'.currmo().'-01\'))');
 		// $this->db->where('requestStatus!=','Cancelled');
 		return $this->db->get_where('tblEmpRequest')->result_array();
+	}
+
+	function request_type()
+	{
+		return $this->db->get_where('tblRequestType')->result_array();
 	}
 
 		

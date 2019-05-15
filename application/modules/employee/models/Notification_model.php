@@ -208,5 +208,35 @@ class Notification_model extends CI_Model {
 		endif;
 	}
 
+	function gethr_requestflow($arrRequestFlow)
+	{
+		$arrhr_flow = array();
+		foreach($arrRequestFlow as $rflow):
+			$field = '';
+			$request = null;
+			if(strpos($rflow['Signatory1'], 'HR') !== false){
+				$field = 'Signatory1';
+				$request = $rflow;
+			}
+			if(strpos($rflow['Signatory2'], 'HR') !== false){
+				$field = 'Signatory2';
+				$request = $rflow;
+			}
+			if(strpos($rflow['Signatory3'], 'HR') !== false){
+				$field = 'Signatory3';
+				$request = $rflow;
+			}
+			if(strpos($rflow['SignatoryFin'], 'HR') !== false){
+				$field = 'SignatoryFin';
+				$request = $rflow;
+			}
+			if($field!='' && $request!=null){
+				$arrhr_flow[] = array('field' => $field, 'request' => $request);
+			}
+		endforeach;
+
+		return $arrhr_flow;
+	}
+
 
 }
