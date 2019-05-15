@@ -146,4 +146,22 @@ class User_account extends MY_Controller {
 		}
 		
 	}
+
+	public function changePassword()
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array('userPassword' => $arrPost['txtnewpass']);
+
+			$res = $this->user_account_model->save($arrData, $this->session->userdata('sessEmpNo'));
+			if(count($res)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Update Password '.$strUsername.' User_account',implode(';',$arrData),'');
+				
+				$this->session->set_flashdata('strSuccessMsg','Password updated successfully.');
+			endif;
+			redirect('home');
+		endif;
+	}
+
+
 }

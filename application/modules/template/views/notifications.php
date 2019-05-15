@@ -269,7 +269,7 @@
             <?php endif; ?>
             <!-- end Finance switch account -->
             <li>
-                <a href="#">
+                <a href="javascript:;" data-toggle="modal" data-target="#change_password">
                     <i class="icon-lock"></i> Change Password </a>
             </li>
             <li>
@@ -288,4 +288,3 @@
     </li> -->
     <!-- END QUICK SIDEBAR TOGGLER -->
     </ul>
-

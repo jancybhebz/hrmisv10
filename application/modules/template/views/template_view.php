@@ -71,6 +71,41 @@
                     <!-- BEGIN PAGE CONTENT -->
                     <?=$contents?>
                     <!-- END PAGE CONTENT -->
+
+                    <!-- BEGIN MODAL CHANGE PASSWORD -->
+                    <div class="modal fade" id="change_password" tabindex="-1" role="basic" aria-hidden="true"> 
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <?=form_open('libraries/User_account/changePassword', array('method' => 'post'))?>
+                                <input type="hidden" name="txtcode" id="txtcode">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Change Password</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-4 control-label right"> Change Password <span class="required"> * </span></label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa fa-warning tooltips i-required"></i>
+                                                    <input name="txtnewpass" id="txtnewpass" type="text" maxlength="255" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-sm green">
+                                        <i class="icon-check"> </i> Yes</button>
+                                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                                        <i class="icon-ban"> </i> Cancel</button>
+                                </div>
+                                <?=form_close()?>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END MODAL CHANGE PASSWORD -->
                 </div>
                 <!-- END CONTENT BODY -->
             </div>

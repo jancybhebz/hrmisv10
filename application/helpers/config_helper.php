@@ -126,7 +126,7 @@ if ( ! function_exists('userlevel'))
 
         if($level!=''):
             $key = array_search($level, array_column($arruserlevel, 'id'));
-            return $arruserlevel[$key];
+            return $arruserlevel[$key]['desc'];
         else:
             return $arruserlevel;
         endif;
