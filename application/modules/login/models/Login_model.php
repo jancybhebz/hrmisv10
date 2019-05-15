@@ -9,34 +9,21 @@ class Login_model extends CI_Model {
 	
 	public function authenticate($strUsername,$strPassword)
 	{
-		$strSQL = " SELECT tblEmpAccount.*,tblEmpPosition.*,tblEmpPersonal.surname,tblEmpPersonal.firstname FROM tblEmpAccount
-					LEFT JOIN tblEmpPosition ON tblEmpPosition.empNumber=tblEmpAccount.empNumber
-					LEFT JOIN tblEmpPersonal ON tblEmpPersonal.empNumber=tblEmpAccount.empNumber
-					WHERE 1=1 
-					AND userName='".$this->db->escape_str($strUsername)."'";
 
-		// echo $strSQL;exit(1);			
-		$objQuery = $this->db->query($strSQL);
-		$rs= $objQuery->result_array();
-		if (count($rs)>0)
-		{
+		$this->db->select('tblEmpAccount.*,tblEmpPosition.*,tblEmpPersonal.surname,tblEmpPersonal.firstname');
+		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpAccount.empNumber','left');
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber=tblEmpAccount.empNumber','left');
+		$rs = $this->db->get_where('tblEmpAccount', array('userName' => $strUsername))->result_array();
+
+		if(count($rs) > 0):
 			$strPass = $this->db->escape_str($rs[0]['userPassword']);
-			$hashed_password = password_hash($strPass,PASSWORD_BCRYPT);
-			$blnValid = password_verify($strPass,$hashed_password);
-			
-			if($blnValid)
-			{
+			$blnValid = password_verify($strPassword,$rs[0]['userPassword']);
+			if($blnValid):
 				return $rs;
-			}
-			else{
-				return array();
-			}
-		}
-		else
-		{
-			return array();
-		}
+			endif;
+		endif;
 
+		return array();
 	}		
 }
 /* End of file login_model.php */

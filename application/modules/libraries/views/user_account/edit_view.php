@@ -51,13 +51,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Access Level <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=!empty($this->session->userdata('userLevel'))?$this->session->userdata('userLevel'):''?>" required>
-                                     <option value="">Select</option>
-                                     <?php foreach($arrUserLevel as $i=>$level)
-                                        {
-                                          echo '<option value="'.$level['empNumber'].'" '.($arrUserLevel[0]['empNumber']==$level['empNumber']?'selected':'').'>'.(strtoupper($level['userLevel'])).'</option>';
-                                        }?>
+                                    <option value="">Select Access Level</option>
+                                    <?php foreach(userlevel() as $level):
+                                            echo '<option value="'.$level['id'].'" '.($userlevel[0]['id']==$level['id']?'selected':'').'>'.(strtoupper($level['desc'])). ' Officer</option>';
+                                          endforeach; ?>
                                     </select>
-
                                 </div>
                             </div>
                         </div>

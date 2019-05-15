@@ -59,7 +59,7 @@ class Org_structure extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Added '.$strExecOffice.' Org_structure',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Executive Office added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Executive Office added successfully.');
 					}
 					redirect('libraries/org_structure');
 				}
@@ -110,7 +110,7 @@ class Org_structure extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Edited '.$strExecOffice.' Org_structure',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Executive name saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Executive name saved successfully.');
 				}
 				redirect('libraries/org_structure');
 			}
@@ -186,7 +186,7 @@ class Org_structure extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Added '.$strServiceCode.' Org_structure',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Service Name added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Service Name added successfully.');
 					}
 					redirect('libraries/org_structure/add_service');
 				}
@@ -239,7 +239,7 @@ class Org_structure extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Edited '.$strServiceCode.' Org_structure',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Service Name saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Service Name saved successfully.');
 				}
 				redirect('libraries/org_structure/add_service');
 			}
@@ -319,7 +319,7 @@ class Org_structure extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Added '.$strDivCode.' Org_structure',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Division Name added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Division Name added successfully.');
 					}
 					redirect('libraries/org_structure/add_division');
 				}
@@ -375,7 +375,7 @@ class Org_structure extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Edited '.$strDivCode.' Org_structure',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Division name saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Division name saved successfully.');
 				}
 				redirect('libraries/org_structure/add_division');
 			}
@@ -457,7 +457,7 @@ class Org_structure extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Added '.$strSecCode.' Org_structure',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Section Name added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Section Name added successfully.');
 					}
 					redirect('libraries/org_structure/');
 				}
@@ -516,7 +516,7 @@ class Org_structure extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Edited '.$strSecCode.' Org_structure',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Section name saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Section name saved successfully.');
 				}
 				redirect('libraries/org_structure/add_section');
 			}

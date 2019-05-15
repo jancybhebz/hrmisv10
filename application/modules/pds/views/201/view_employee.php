@@ -86,7 +86,7 @@ $arrData = $arrData[0];?>
                                                         </tbody>
                                                     </table>
                                                     <div>
-                                                        <a href="<?=base_url('employee/reports/generate')?>"/><button type="button" class="btn blue">Print Personal Data Sheet</button></a>
+                                                        <a href="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate')?>"/><button type="button" value="reportPDSupdate" class="btn blue">Print Personal Data Sheet</button></a>
                                                     </div>
                                                 </div>
                                             </div>

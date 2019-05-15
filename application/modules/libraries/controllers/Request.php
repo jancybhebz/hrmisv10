@@ -81,7 +81,7 @@ class Request extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblrequestflow','Added '.$strReqType.' Request',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request signatory added successfully.'); 
+						$this->session->set_flashdata('strSuccessMsg','Request signatory added successfully.'); 
 					}
 					redirect('libraries/request');
 				}
@@ -168,7 +168,7 @@ class Request extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblrequestflow','Edited '.$strReqType.' Request',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Request signatory updated successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Request signatory updated successfully.');
 				}
 				redirect('libraries/request');
 			}

@@ -69,7 +69,7 @@ class Plantilla extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantilla','Added '.$strItemNumber.' Plantilla',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Plantilla added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Plantilla added successfully.');
 					}
 					redirect('libraries/plantilla');
 				}
@@ -128,7 +128,7 @@ class Plantilla extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantilla','Edited '.$strItemNumber.' Plantilla',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Plantilla updated successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Plantilla updated successfully.');
 				}
 				redirect('libraries/plantilla');
 			}

@@ -59,7 +59,7 @@ class User_account extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Added '.$strUsername.' User_account',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','User Account added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','User Account added successfully.');
 					}
 					redirect('libraries/user_account');
 				}
@@ -110,7 +110,7 @@ class User_account extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Edited '.$strUsername.' User_account',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','User Account saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','User Account saved successfully.');
 				}
 				redirect('libraries/user_account');
 			}
@@ -146,4 +146,22 @@ class User_account extends MY_Controller {
 		}
 		
 	}
+
+	public function changePassword()
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array('userPassword' => password_hash($arrPost['txtnewpass'],PASSWORD_BCRYPT));
+
+			$res = $this->user_account_model->save($arrData, $this->session->userdata('sessEmpNo'));
+			if(count($res)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Update Password '.$strUsername.' User_account',implode(';',$arrData),'');
+				
+				$this->session->set_flashdata('strSuccessMsg','Password updated successfully.');
+			endif;
+			redirect('home');
+		endif;
+	}
+
+
 }

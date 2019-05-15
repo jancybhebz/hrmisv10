@@ -59,7 +59,7 @@ $activetab = strtolower($activetab);
             <!-- begin hr module -->
             <?php if($this->session->userdata('sessUserLevel')==1):?>
                 <li class="heading">
-                    <h3 class="uppercase">HR Module</h3>
+                    <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
                 <li class="nav-item start <?=$active=='home'?'active open':''?>">
                     <a href="<?=base_url('home')?>" class="nav-link nav-toggle">
@@ -153,7 +153,7 @@ $activetab = strtolower($activetab);
             <!-- begin hr module -->
             <?php if($this->session->userdata('sessUserLevel')==2):?>
                 <li class="heading">
-                    <h3 class="uppercase">Finance Module</h3>
+                    <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
                 <li class="nav-item <?=$activesub=='notifications'?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
@@ -286,7 +286,7 @@ $activetab = strtolower($activetab);
             <!-- begin officer / executive module -->
             <?php if(in_array($this->session->userdata('sessUserLevel'), array(3,4))):?>
                 <li class="heading">
-                    <h3 class="uppercase"><?=$this->session->userdata('sessUserLevel') == 3 ? 'officer' : 'executive'?> Module</h3>
+                    <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
                 <li class="nav-item <?=$active=='hr' && $activesub =='profile' ? 'active': ''?>">
                     <a href="<?=base_url('hr/profile/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">
@@ -409,7 +409,7 @@ $activetab = strtolower($activetab);
             <!-- begin employee module -->
             <?php if($this->session->userdata('sessUserLevel') == 5):?>
                 <li class="heading">
-                    <h3 class="uppercase">Employee Module</h3>
+                    <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
                 <li class="nav-item  <?=$active =='hr' && $activesub =='profile' ? 'active': ''?>">
                     <a href="<?=base_url('hr/profile/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">

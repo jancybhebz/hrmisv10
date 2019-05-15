@@ -101,7 +101,7 @@ class Agency_profile extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagency','Added '.$strAgencyName.' Agency_profile',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Agency name added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Agency name added successfully.');
 					}
 					redirect('libraries/agency_profile');
 				}
@@ -194,7 +194,7 @@ class Agency_profile extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagency','Edited '.$strAgencyName.' Agency_profile',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Agency profile saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Agency profile saved successfully.');
 				}
 				redirect('libraries/agency_profile');
 			}
