@@ -1,6 +1,6 @@
 <?=load_plugin('css', array('datatables'))?>
 
-<?=form_open('', array('class' => 'form-horizontal', 'method' => 'post'))?>
+<?=form_open('finance/payroll_update/process/save_benefits', array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'))?>
 <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
 <input type="hidden" name="chkbenefit" value='<?=json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
@@ -102,12 +102,12 @@
 </div>
 <div class="form-actions">
     <div class="row">
+        <input type="text" id="txtjson" name="txtjson">
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <a href="<?=base_url('finance/payroll_update/process/select_deductions')?>" class="btn blue btn-submit"> Save and Continue
-                <i class="fa fa-angle-right"></i>
-            </a>
+            <button type="submit" id="btnsavecont" class="btn blue btn-submit"> Save and Continue
+                <i class="fa fa-angle-right"></i> </button>
         </div>
     </div>
 </div>

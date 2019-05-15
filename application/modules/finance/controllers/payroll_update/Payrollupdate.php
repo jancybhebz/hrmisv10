@@ -73,7 +73,13 @@ class Payrollupdate extends MY_Controller {
 					redirect('finance/payroll_update/process/index');
 				endif;
 				break;
+			case 'save_benefits':
+				if(!empty($arrPost)):
+					echo '<pre>';
+					print_r($arrPost);
 
+					die();
+				endif;
 			case 'select_deductions':
 				if(!empty($arrPost)):
 					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');

@@ -186,18 +186,20 @@ $arrData = $arrData[0];?>
                                                 <!-- end Family Background -->
 
                                                 <!-- begin Education Bacgkround -->
-                                                <div class="tab-pane active" id="education">
+                                                <div class="tab-pane " id="education">
                                                     <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_education_view.php'); ?>
                                                     </div>
                                                 </div>
                                                 <!-- end Education Bacgkround -->
 
-                                                    <!-- begin Examination -->
-                                                    <div class="tab-pane" id="examination">
-                                                        Examination
+                                                <!-- begin Examination -->
+                                                <div class="tab-pane active" id="examination">
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_examination_view.php'); ?>
                                                     </div>
-                                                    <!-- end Examination -->
+                                                </div>
+                                                <!-- end Examination -->
 
                                                     <!-- begin Work Experience -->
                                                     <div class="tab-pane" id="work_experience">
