@@ -97,9 +97,17 @@ if ( ! function_exists('income_type'))
 
 if ( ! function_exists('pending_notif'))
 {
-    function pending_notif($strEmpNo)
+    function pending_notif($strEmpNo,$access_level)
     {
 		$CI =& get_instance();
-		return $CI->db->select('*')->get_where('tblEmpRequest', array('empNumber' => $strEmpNo, 'requestStatus' => 'Filed Request'))->result_array();
+		$arrnotif = array();
+
+		if($access_level == 1):
+			
+		elseif($access_level == 5):
+			$arrnotif = $CI->db->select('*')->get_where('tblEmpRequest', array('empNumber' => $strEmpNo, 'requestStatus' => 'Filed Request'))->result_array();
+		endif;
+
+		return $arrnotif;
 	}
 }

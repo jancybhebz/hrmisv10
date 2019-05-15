@@ -7,17 +7,17 @@
         <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                 <i class="icon-bell"></i>
-                <span class="badge badge-default"> <?=count(pending_notif($_SESSION['sessEmpNo']))?> </span>
+                <span class="badge badge-default"> <?=count(pending_notif($_SESSION['sessEmpNo'],5))?> </span>
             </a>
             <ul class="dropdown-menu">
                 <li class="external">
                     <h3>
-                        <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo']))?> pending</span> requests</h3>
+                        <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo'],5))?> pending</span> requests</h3>
                     <a href="<?=base_url('employee/notification')?>">view all</a>
                 </li>
                 <li>
                     <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                        <?php foreach(pending_notif($_SESSION['sessEmpNo']) as $notif): ?>
+                        <?php foreach(pending_notif($_SESSION['sessEmpNo'],5) as $notif): ?>
                             <li>
                                 <a href="javascript:;">
                                     <?php
@@ -120,17 +120,17 @@
         <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                 <i class="icon-bell"></i>
-                <span class="badge badge-default"> <?=count(pending_notif($_SESSION['sessEmpNo']))?> </span>
+                <span class="badge badge-default"> <?=count(pending_notif($_SESSION['sessEmpNo'],1))?> </span>
             </a>
             <ul class="dropdown-menu">
                 <li class="external">
                     <h3>
-                        <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo']))?> pending</span> requests</h3>
+                        <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo'],1))?> pending</span> requests</h3>
                     <a href="<?=base_url('employee/notification')?>">view all</a>
                 </li>
                 <li>
                     <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                        <?php foreach(pending_notif($_SESSION['sessEmpNo']) as $notif): ?>
+                        <?php foreach(pending_notif($_SESSION['sessEmpNo'],1) as $notif): ?>
                             <li>
                                 <a href="javascript:;">
                                     <?php

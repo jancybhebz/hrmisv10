@@ -52,17 +52,17 @@
                             </thead>
                             <tbody>
                                 <?php $no=1; foreach($arrRequest as $request): ?>
-                                    <tr class="<?=strtolower($request['emp_request']['requestStatus']) == 'cancelled'? 'cancelled':''?> <?=strtolower($request['emp_request']['requestStatus']) == 'disapproved'? 'disapproved':''?>">
+                                    <tr class="<?=strtolower($request['req_status']) == 'cancelled'? 'cancelled':''?> <?=strtolower($request['req_status']) == 'disapproved'? 'disapproved':''?>">
                                         <td align="center"><?=$no++?></td>
-                                        <td align="center"><?=$request['emp_request']['requestDate']?></td>
-                                        <td align="center"><?=$request['emp_request']['requestCode']?></td>
-                                        <td align="center"><?=$request['emp_request']['requestStatus']?></td>
-                                        <td align="center"><?=$request['emp_request']['remarks']?></td>
-                                        <td><?=$request['next_sign']?></td>
+                                        <td align="center"><?=$request['req_date']?></td>
+                                        <td align="center"><?=$request['req_type']?></td>
+                                        <td align="center"><?=$request['req_status']?></td>
+                                        <td align="center"><?=$request['req_remarks']?></td>
+                                        <td><?=$request['req_nextsign']?></td>
                                         <td nowrap style="vertical-align: middle;text-align: left;">
                                             <a href="" class="btn btn-sm blue"> <i class="icon-magnifier"></i> View </a>
-                                            <?php if(!in_array(strtolower($request['emp_request']['requestStatus']), array('cancelled', 'disapproved','certified'))): ?>
-                                                <button data-id="<?=$request['emp_request']['requestID']?>" class="btn btn-sm red btn-cancel"> <i class="icon-close"></i> Cancel </button>
+                                            <?php if(!in_array(strtolower($request['req_status']), array('cancelled', 'disapproved','certified'))): ?>
+                                                <button data-id="<?=$request['req_id']?>" class="btn btn-sm red btn-cancel"> <i class="icon-close"></i> Cancel </button>
                                             <?php endif; ?>
                                         </td>
                                     </tr>

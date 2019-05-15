@@ -15,19 +15,19 @@ class Request_model extends CI_Model {
 	var $table2 = 'tblemprequest';
 	var $tableid2 = 'empNumber';
 
-	var $table3 = 'tblrequesttype';
+	var $table3 = 'tblRequestType';
 	var $tableid3 = 'requestCode';
 
-	var $table4 = 'tblrequestapplicant';
+	var $table4 = 'tblRequestApplicant';
 	var $tableid4 = 'AppliCode';
 
 	var $table5 = 'tblgroup1';
 	var $tableid5 = 'group1Code';
 	
-	var $table6 = 'tblrequestsignatoryaction';
+	var $table6 = 'tblRequestSignatoryAction';
 	var $tableid6 = 'ID';
 
-	var $table7 = 'tblrequestsignatory';
+	var $table7 = 'tblRequestSignatory';
 	var $tableid7 = 'SignCode';
 	
 	function __construct()
@@ -160,11 +160,17 @@ class Request_model extends CI_Model {
 	}
 
 	# Request Flow
-	function getRequestFlow($type)
+	function getRequestFlow($applicant,$req_type='')
 	{
-		$res = $this->db->get_where('tblRequestFlow', array('RequestType' => $type))->result_array();
-		// return count($res) > 0 ? $res[0] : null;
-		return $res[0];
+		// $res = $this->db->get_where('tblRequestFlow', array('RequestType' => $type))->result_array();
+		// // return count($res) > 0 ? $res[0] : null;
+		// return $res;
+		$this->db->or_like('Applicant', $applicant, 'before', false);
+		$this->db->or_like('Applicant', $applicant, 'after', false);
+		$this->db->or_like('Applicant', $applicant, 'both', false);
+		$this->db->or_where('Applicant','ALLEMP');
+		$res = $this->db->get('tblRequestFlow')->result_array();
+		return $res;
 	}
 
 	function getEmployeeRequest($empnumber)

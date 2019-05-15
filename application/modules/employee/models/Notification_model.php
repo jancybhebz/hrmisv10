@@ -95,15 +95,17 @@ class Notification_model extends CI_Model {
 
 	function checksignatory1($flow_sign, $req_sign)
 	{
-		if($flow_sign['Signatory1'] != ''):
-			if($req_sign['Signatory1'] != ''):
-				$this->signatoryflow('Signatory2', $flow_sign, $req_sign);
-			else:
-				return $flow_sign['Signatory1'];
-			endif;
-		else:
-			$this->signatoryflow('Signatory2', $flow_sign, $req_sign);
-		endif;
+		print_r($flow_sign);
+		print_r($req_sign);
+		// if($flow_sign['Signatory1'] != ''):
+		// 	if($req_sign['Signatory1'] != ''):
+		// 		$this->signatoryflow('Signatory2', $flow_sign, $req_sign);
+		// 	else:
+		// 		return $flow_sign['Signatory1'];
+		// 	endif;
+		// else:
+		// 	$this->signatoryflow('Signatory2', $flow_sign, $req_sign);
+		// endif;
 	}
 
 	function checksignatory2($flow_sign, $req_sign)
@@ -170,5 +172,41 @@ class Notification_model extends CI_Model {
 		endif;
 	}
 	# END NOTIFICATION
+	
+	function getrequestflow($arrflow, $requestType)
+	{
+		$arrRequestFlow = array();
+		$arr_rflow = array();
+		foreach($arrflow as $flow):
+			if($flow['RequestType'] == $requestType):
+				array_push($arrRequestFlow,$flow);
+			endif;
+		endforeach;
+		if(count($arrRequestFlow) > 1):
+			foreach($arrRequestFlow as $rflow):
+				if($rflow['Applicant'] != 'ALLEMP'){
+					array_push($arr_rflow,$rflow);
+				}
+			endforeach;
+		else:
+			array_push($arr_rflow,$arrRequestFlow[0]);
+		endif;
 		
+		return $arr_rflow[0];
+	}
+
+	function validate_signature($flow_sign, $req_sign, $field)
+	{
+		if($flow_sign[$field] != ''):
+			if($req_sign[$field] != ''):
+				return 1;
+			else:
+				return 0;
+			endif;
+		else:
+			return 1;
+		endif;
+	}
+
+
 }
