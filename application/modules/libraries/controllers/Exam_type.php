@@ -52,7 +52,7 @@ class Exam_type extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblexamtype','Added '.$strExamDesc.' Exam Type',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Exam Type added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Exam Type added successfully.');
 					}
 					redirect('libraries/exam_type');
 				}
@@ -97,7 +97,7 @@ class Exam_type extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblexamtype','Edited '.$strExamDesc.' Exam Type',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Exam Type saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Exam Type saved successfully.');
 				}
 				redirect('libraries/exam_type');
 			}

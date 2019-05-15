@@ -52,7 +52,7 @@ class Scholarship extends MY_Controller
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblscholarship','Added '.$strScholarship.' Scholarship',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Scholarship added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Scholarship added successfully.');
 					}
 					redirect('libraries/scholarship');
 				}
@@ -94,7 +94,7 @@ class Scholarship extends MY_Controller
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblscholarship','Edited '.$strScholarship.' Scholarship',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Scholarship saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Scholarship saved successfully.');
 				}
 				redirect('libraries/scholarship');
 			}

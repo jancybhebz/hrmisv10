@@ -55,7 +55,7 @@ class Appointment_status extends MY_Controller {
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Added '.$strAppointmentDesc.' Appointment Status',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strMsg','Appointment Status added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Appointment Status added successfully.');
 					}
 					redirect('libraries/appointment_status');
 				}
@@ -105,7 +105,7 @@ class Appointment_status extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Edited '.$strAppointmentDesc.' Appointment status',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strMsg','Appointment status saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Appointment status saved successfully.');
 				}
 				redirect('libraries/appointment_status');
 			}

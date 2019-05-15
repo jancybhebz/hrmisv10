@@ -50,7 +50,7 @@ class Holiday extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Added '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Holiday added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Holiday added successfully.');
 					}
 					redirect('libraries/holiday');
 				}
@@ -91,7 +91,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Edited '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Holiday saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Holiday saved successfully.');
 				}
 				redirect('libraries/holiday');
 			}
@@ -155,7 +155,7 @@ class Holiday extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Added '.$strHolidayName.' Holiday',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Holiday added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Holiday added successfully.');
 					}
 					redirect('libraries/holiday/manage_add');
 				}
@@ -200,7 +200,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Edited '.$strHolidayName.' Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Holiday saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Holiday saved successfully.');
 				}
 				redirect('libraries/holiday/manage_add');
 			}
@@ -294,7 +294,7 @@ class Holiday extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Added '.$strLocalName.' Holiday',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Local Holiday added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Local Holiday added successfully.');
 					}
 					redirect('libraries/holiday/add_local');
 				}
@@ -339,7 +339,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tbllocalholiday','Edited '.$strLocalName.','.$dtmHolidate.' Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Local Holiday saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Local Holiday saved successfully.');
 				}
 				redirect('libraries/holiday/add_local');
 			}
@@ -407,7 +407,7 @@ class Holiday extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Added '.$dtmSuspensionDate.' Holiday',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Work Suspension added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Work Suspension added successfully.');
 					}
 					redirect('libraries/holiday/add_worksuspension');
 				}
@@ -450,7 +450,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Edited '.$dtmSuspensionDate.' Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Work Suspension saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Work Suspension saved successfully.');
 				}
 				redirect('libraries/holiday/add_worksuspension');
 			}
