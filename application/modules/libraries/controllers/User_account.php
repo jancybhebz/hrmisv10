@@ -151,7 +151,7 @@ class User_account extends MY_Controller {
 	{
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
-			$arrData = array('userPassword' => $arrPost['txtnewpass']);
+			$arrData = array('userPassword' => password_hash($arrPost['txtnewpass'],PASSWORD_BCRYPT));
 
 			$res = $this->user_account_model->save($arrData, $this->session->userdata('sessEmpNo'));
 			if(count($res)>0):

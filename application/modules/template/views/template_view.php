@@ -87,17 +87,14 @@
                                         <div class="row">
                                             <label class="col-md-4 control-label right"> Change Password <span class="required"> * </span></label>
                                             <div class="col-md-8">
-                                                <div class="input-icon right">
-                                                    <i class="fa fa-warning tooltips i-required"></i>
-                                                    <input name="txtnewpass" id="txtnewpass" type="text" maxlength="255" class="form-control">
-                                                </div>
+                                                <input name="txtnewpass" id="txtnewpass" type="password" maxlength="255" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-sm green">
-                                        <i class="icon-check"> </i> Yes</button>
+                                        <i class="icon-check"> </i> Submit</button>
                                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
                                         <i class="icon-ban"> </i> Cancel</button>
                                 </div>
