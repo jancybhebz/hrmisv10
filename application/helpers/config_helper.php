@@ -142,3 +142,21 @@ if ( ! function_exists('salary_period'))
         return array('Day','Hour','Month','Quarter','Year');
     }
 }
+
+# Government Branch
+if ( ! function_exists('gov_branches'))
+{
+    function gov_branches($branch='')
+    {
+        $branches = array('Govt Corp' => 'Government Owned and Controlled Corporation',
+                          'National' => 'National Government Agencies',
+                          'GFI' => 'Government Financial Institution');
+
+        if($branch!=''):
+            return $branches[$branch];
+        else:
+            return $branches;
+        endif;
+
+    }
+}

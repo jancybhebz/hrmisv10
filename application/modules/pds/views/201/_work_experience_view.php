@@ -46,7 +46,7 @@
                                 <center>
                                     <a class="btn green btn-xs btnedit_srvc" data-json='<?=json_encode($srvc)?>'>
                                         <i class="fa fa-pencil"></i> Edit </a>
-                                    <a class="btn red btn-xs btndelete_srvc" data-toggle="modal" href="#delete_srvc" data-examid="<?=$srvc['serviceRecID']?>">
+                                    <a class="btn red btn-xs btndelete_srvc" data-toggle="modal" href="#delete_service" data-srvid="<?=$srvc['serviceRecID']?>">
                                         <i class="fa fa-trash"></i> Delete </a>
                                 </center>
                             </td>
@@ -69,37 +69,84 @@
             $('#frmxp').attr("action","<?=base_url('pds/add_work_xp/').$this->uri->segment(3)?>");
             $('span.action').html('Add ');
             $('#add_work_xp').modal('show');
-            // $('#exam_desc').select2('val', '');
-            // $('#txtrating').val('');
-            // $('#txtplace_exam').val('');
-            // $('#txtdate_exam').val('');
-            // $('#txtlicense').val('');
-            // $('#txtvalidity').val('');
-            // $('#txtverifier').val('');
-            // $('#txtreviewer').val('');
+            
+            $('#txtdfrom').val('');
+            $('#txtdto').val('');
+            
+            $('input#chkpresent').prop('checked', false).uniform('refresh');
 
-            // $('#txtexamid').val('');
+            $('#txtposition').val('');
+            $('#txtoffice').val('');
+            $('#txtsalary').val('');
+            $('#selperiod').val('');
+            $('#txtcurrency').val('');
+            $('#txtgrade').val('');
+            $('#selappointment').select2('val', '');
+            
+            $('div.radio-list').find('#optgov_srvc_n').attr('checked', '');
+            $('div.radio-list').find('#optgov_srvc_n').parent().removeClass('checked');
+            $('div.radio-list').find('#optgov_srvc_y').attr('checked', '');
+            $('div.radio-list').find('#optgov_srvc_y').parent().removeClass('checked');
+
+            $('#selbranch').selectpicker('val', '');
+            $('#selmode_separation').select2('val', '');
+            $('#txtseparation_date').val('');
+            $('#txtabs').val('');
+            $('#txtremarks').val('');
+            $('#txtprocessor').val('');
+            $('#txtofficial').val('');
+
+            $('#txtxpid').val('');
         });
 
-        $('#tblworkxp').on('click','a.btnedit_exam',function() {
+        $('#tblworkxp').on('click','a.btnedit_srvc',function() {
             var jsondata = $(this).data('json');
-            $('#frmxp').attr("action","<?=base_url('pds/edit_exam/').$this->uri->segment(3)?>");
+            $('#frmxp').attr("action","<?=base_url('pds/edit_workExp/').$this->uri->segment(3)?>");
             $('span.action').html('Edit ');
             $('#add_work_xp').modal('show');
-            // $('#exam_desc').select2('val', jsondata.examCode);
-            // $('#txtrating').val(jsondata.examRating);
-            // $('#txtplace_exam').val(jsondata.examPlace);
-            // $('#txtdate_exam').val(jsondata.examDate);
-            // $('#txtlicense').val(jsondata.licenseNumber);
-            // $('#txtvalidity').val(jsondata.dateRelease);
-            // $('#txtverifier').val(jsondata.verifier);
-            // $('#txtreviewer').val(jsondata.reviewer);
 
-            // $('#txtexamid').val(jsondata.ExamIndex);
+            $('#txtdfrom').val(jsondata.serviceFromDate);
+            $('#txtdto').val(jsondata.serviceToDate);
+            if(jsondata.tmpServiceToDate == "Present"){
+                console.log('present');
+                $('input#chkpresent').prop('checked', true).uniform('refresh');
+            }else{
+                console.log('not present');
+                $('input#chkpresent').prop('checked', true).uniform('refresh');
+            }
+            $('#txtposition').val(jsondata.positionDesc);
+            $('#txtoffice').val(jsondata.stationAgency);
+            $('#txtsalary').val(jsondata.salary);
+            $('#selperiod').val(jsondata.salaryPer);
+            $('#txtcurrency').val(jsondata.currency);
+            $('#txtgrade').val(jsondata.salaryGrade);
+            $('#selappointment').select2('val', jsondata.appointmentCode);
+            if(jsondata.governService != 'No'){
+                $('div.radio-list').find('#optgov_srvc_y').attr('checked', 'checked');
+                $('div.radio-list').find('#optgov_srvc_y').parent().addClass('checked');
+
+                $('div.radio-list').find('#optgov_srvc_n').attr('checked', '');
+                $('div.radio-list').find('#optgov_srvc_n').parent().removeClass('checked');
+            }else{
+                $('div.radio-list').find('#optgov_srvc_n').attr('checked', 'checked');
+                $('div.radio-list').find('#optgov_srvc_n').parent().addClass('checked');
+
+                $('div.radio-list').find('#optgov_srvc_y').attr('checked', '');
+                $('div.radio-list').find('#optgov_srvc_y').parent().removeClass('checked');
+            }
+            $('#selbranch').selectpicker('val', jsondata.branch);
+            $('#selmode_separation').select2('val', jsondata.separationCause);
+            $('#txtseparation_date').val(jsondata.separationDate);
+            $('#txtabs').val(jsondata.lwop);
+            $('#txtremarks').val(jsondata.remarks);
+            $('#txtprocessor').val(jsondata.processor);
+            $('#txtofficial').val(jsondata.signee);
+
+            $('#txtxpid').val(jsondata.serviceRecID);
         });
 
-        $('#tblworkxp').on('click','a.btndelete_exam',function() {
-            $('#txtdel_exam').val($(this).data('examid'));
+        $('#tblworkxp').on('click','a.btndelete_srvc',function() {
+            $('#txtdel_srv').val($(this).data('srvid'));
         });
     });
 </script>

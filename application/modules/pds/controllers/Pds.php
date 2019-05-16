@@ -333,54 +333,85 @@ class Pds extends MY_Controller
 		}
 	}
 
+	public function add_work_xp()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'empNumber' 	  => $empid,
+							'serviceFromDate' => $arrPost['txtdfrom'],
+							'serviceToDate'   => $arrPost['txtdto'],
+							'tmpServiceToDate'=> isset($arrPost['chkpresent']) ? 'Present' : '',
+							// 'positionCode' 	  => $arrPost['txtposition_code'],
+							'positionDesc' 	  => $arrPost['txtposition'],
+							'salary' 		  => $arrPost['txtsalary'],
+							'salaryPer' 	  => $arrPost['selperiod'],
+							'stationAgency'   => $arrPost['txtoffice'],
+							'salaryGrade' 	  => $arrPost['txtgrade'],
+							'appointmentCode' => $arrPost['selappointment'],
+							'governService'   => isset($arrPost['optgov_srvc']) ? $arrPost['optgov_srvc'] : 'N',
+							// 'NCCRA' 		  => $arrPost[''],
+							'separationCause' => $arrPost['selmode_separation'],
+							'separationDate'  => $arrPost['txtseparation_date'],
+							'branch' 		  => $arrPost['selbranch'],
+							'currency' 		  => $arrPost['txtcurrency'],
+							'remarks' 		  => $arrPost['txtremarks'],
+							'lwop' 			  => $arrPost['txtabs'],
+							'processor' 	  => $arrPost['txtprocessor'],
+							'signee' 		  => $arrPost['txtofficial']);
+
+			$this->pds_model->add_workExp($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Work Experience added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
+	public function delete_work_xp()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_workExp($arrPost['txtdel_srv']);
+
+			$this->session->set_flashdata('strSuccessMsg','Work Experience deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+
 	public function edit_workExp()
 	{
+		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{
-			$intServiceId = urldecode($this->uri->segment(4));
-			$this->arrData['arrService']=$this->pds_model->getData($intServiceId);
-			$this->template->load('template/template_view','pds/work_exp_view', $this->arrData);
-		}
-		else
-		{
-			$intServiceId = $arrPost['intServiceId'];
-			$strEmpNumber = $arrPost['strEmpNumber'];
-			$dtmDateFrom=$arrPost['dtmDateFrom'];
-			$dtmDateTo=$arrPost['dtmDateTo'];
-			$strPosTitle=$arrPost['strPosTitle'];
-			$strDept=$arrPost['strDept'];
-			$strSG=$arrPost['strSG'];
-			$strStatus=$arrPost['strStatus'];
-			$strGovernment=$arrPost['strGovernment'];
-			$strBranch=$arrPost['strBranch'];
-			$strMode=$arrPost['strMode'];
-			$strSalary=$arrPost['strSalary'];
-			if(!empty($dtmDateFrom))
-			{
-				$arrData = array(
-					'serviceFromDate'=>$dtmDateFrom,
-					'serviceToDate'=>$dtmDateTo,
-					'positionDesc'=>$strPosTitle,
-					'stationAgency'=>$strDept,
-					'salaryGrade'=>$strSG,
-					'appointmentCode'=>$strStatus,
-					'governService'=>$strGovernment,
-					'branch'=>$strBranch,
-					'separationCause'=>$strMode,
-					'separationDate'=>$strSepDate
-				);
-				 // echo '='.$strEmpNumber;
-				 // exit(1);
-				$blnReturn = $this->pds_model->save_workExp($arrData, $intServiceId);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblServiceRecord','Edited '.$dtmDateFrom.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Service information updated successfully.');
-				}
-				redirect('hr/profile/'.$strEmpNumber);
-			}
-		}		
+		if(!empty($arrPost)):
+			$arrData = array(
+							'serviceFromDate' => $arrPost['txtdfrom'],
+							'serviceToDate'   => $arrPost['txtdto'],
+							'tmpServiceToDate'=> isset($arrPost['chkpresent']) ? 'Present' : '',
+							// 'positionCode' 	  => $arrPost['txtposition_code'],
+							'positionDesc' 	  => $arrPost['txtposition'],
+							'salary' 		  => $arrPost['txtsalary'],
+							'salaryPer' 	  => $arrPost['selperiod'],
+							'stationAgency'   => $arrPost['txtoffice'],
+							'salaryGrade' 	  => $arrPost['txtgrade'],
+							'appointmentCode' => $arrPost['selappointment'],
+							'governService'   => isset($arrPost['optgov_srvc']) ? $arrPost['optgov_srvc'] : 'N',
+							// 'NCCRA' 		  => $arrPost[''],
+							'separationCause' => $arrPost['selmode_separation'],
+							'separationDate'  => $arrPost['txtseparation_date'],
+							'branch' 		  => $arrPost['selbranch'],
+							'currency' 		  => $arrPost['txtcurrency'],
+							'remarks' 		  => $arrPost['txtremarks'],
+							'lwop' 			  => $arrPost['txtabs'],
+							'processor' 	  => $arrPost['txtprocessor'],
+							'signee' 		  => $arrPost['txtofficial']);
+
+			$this->pds_model->save_workExp($arrData, $arrPost['txtxpid']);
+			$this->session->set_flashdata('strSuccessMsg','Work Experience updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
 	}
 
 	public function edit_volWorks()

@@ -201,6 +201,12 @@ class Pds_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function add_workExp($arrData)
+	{
+		$this->db->insert($this->tblService, $arrData);
+		return $this->db->insert_id();
+	}
+
 	function save_workExp($arrData, $intServiceId)
 	{
 		$this->db->where($this->tblServiceId, $intServiceId);
@@ -209,6 +215,14 @@ class Pds_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function delete_workExp($intServiceId)
+	{
+		$this->db->where($this->tblServiceId, $intServiceId);
+		$this->db->delete($this->tblService); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	
 	function save_training($arrData, $strEmpNumber)
 	{
 		$this->db->where($this->tblTrainingId, $strEmpNumber);

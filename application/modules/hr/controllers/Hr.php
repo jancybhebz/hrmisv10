@@ -13,7 +13,7 @@ class Hr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model'));
+        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model','libraries/Appointment_status_model','libraries/Separation_mode_model'));
     }
 
 	public function index()
@@ -53,6 +53,10 @@ class Hr extends MY_Controller {
 
 		$this->arrData['arrExam'] = $this->Hr_model->getExam($strEmpNo);
 		$this->arrData['arrExamType'] = $this->Exam_type_model->getData();
+
+		# Work Experience
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrSeparation_mode'] = $this->Separation_mode_model->getData();
 
 		$this->arrData['arrVol'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_VOLWORK);
 		$this->arrData['arrService'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_SERVICE);

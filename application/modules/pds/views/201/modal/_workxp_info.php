@@ -27,9 +27,7 @@
                                     <span class="help-block"></span>
                                 </div>
                                 <div class="col-md-2" style="margin-top: 7px;">
-                                    <div class="checkbox-list">
-                                        <label><input type="checkbox"> Present </label>
-                                    </div>
+                                    <label><input type="checkbox" name="chkpresent" id="chkpresent"> Present </label>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -79,8 +77,8 @@
                                 <div class="col-md-8">
                                     <select class="form-control select2" name="selappointment" id="selappointment">
                                         <option value=""> </option>
-                                        <?php foreach($arrExamType as $type):
-                                                echo '<option value="'.$type['examCode'].'">'.$type['examDesc'].'</option>';
+                                        <?php foreach($arrAppointments as $appt):
+                                                echo '<option value="'.$appt['appointmentCode'].'">'.$appt['appointmentDesc'].'</option>';
                                               endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>
@@ -91,9 +89,9 @@
                                 <div class="col-md-8">
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optgov_srvc" id="optgov_srvc_y" value="Y"> Yes </label>
+                                            <input type="radio" name="optgov_srvc" id="optgov_srvc_y" value="Yes"> Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optgov_srvc" id="optgov_srvc_n" value="N"> No </label>
+                                            <input type="radio" name="optgov_srvc" id="optgov_srvc_n" value="No"> No </label>
                                     </div>
                                     <span class="help-block"></span>
                                 </div>
@@ -103,10 +101,10 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Branch</label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2" name="selbranch" id="selbranch">
+                                    <select class="form-control bs-select" name="selbranch" id="selbranch">
                                         <option value=""> </option>
-                                        <?php foreach($arrExamType as $type):
-                                                echo '<option value="'.$type['examCode'].'">'.$type['examDesc'].'</option>';
+                                        <?php foreach(gov_branches() as $key => $value):
+                                                echo '<option value="'.$key.'">'.$value.'</option>';
                                               endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>
@@ -117,8 +115,8 @@
                                 <div class="col-md-8">
                                     <select class="form-control select2" name="selmode_separation" id="selmode_separation">
                                         <option value=""> </option>
-                                        <?php foreach($arrExamType as $type):
-                                                echo '<option value="'.$type['examCode'].'">'.$type['examDesc'].'</option>';
+                                        <?php foreach($arrSeparation_mode as $mode):
+                                                echo '<option value="'.$mode['separationCause'].'">'.$mode['separationCause'].'</option>';
                                               endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>
@@ -134,28 +132,28 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">L/V ABS W/O PAY</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtabs" id="txtabs" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txtabs" id="txtabs" class="form-control">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Remarks</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtremarks" id="txtremarks" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txtremarks" id="txtremarks" class="form-control">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Processor</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtprocessor" id="txtprocessor" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txtprocessor" id="txtprocessor" class="form-control">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Signing Official</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtofficial" id="txtofficial" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txtofficial" id="txtofficial" class="form-control">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -174,15 +172,15 @@
 <!-- end modal update/add child info -->
 
 <!-- begin delete child -->
-<div class="modal fade" id="delete_exam" tabindex="-1" role="basic" aria-hidden="true"> 
+<div class="modal fade" id="delete_service" tabindex="-1" role="basic" aria-hidden="true"> 
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete</h4>
             </div>
-            <?=form_open('pds/delete_exam/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdelexam','class' => 'form-horizontal'))?>
-                <input type="hidden" name="txtdel_exam" id="txtdel_exam">
+            <?=form_open('pds/delete_work_xp/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdelsrv','class' => 'form-horizontal'))?>
+                <input type="hidden" name="txtdel_srv" id="txtdel_srv">
                 <div class="modal-body"> Are you sure you want to delete this data? </div>
                 <div class="modal-footer">
                     <button type="submit" id="btndelete" class="btn btn-sm green">
