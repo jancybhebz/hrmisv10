@@ -252,6 +252,7 @@ class Notification_model extends CI_Model {
 
 	function check_request_flow_and_signatories($requestFlow,$emp_requests)
 	{
+		$arrRequest = array();
 		foreach($emp_requests as $request):
 			$request['code'] = $request['requestCode'];
 			if($request['requestCode'] == 'Leave'):
