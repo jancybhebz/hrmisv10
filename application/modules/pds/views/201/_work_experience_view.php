@@ -101,7 +101,7 @@
 
         $('#tblworkxp').on('click','a.btnedit_srvc',function() {
             var jsondata = $(this).data('json');
-            $('#frmxp').attr("action","<?=base_url('pds/edit_workExp/').$this->uri->segment(3)?>");
+            $('#frmxp').attr("action","<?=base_url('pds/edit_work_xp/').$this->uri->segment(3)?>");
             $('span.action').html('Edit ');
             $('#add_work_xp').modal('show');
 
