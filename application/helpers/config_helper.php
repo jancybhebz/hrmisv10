@@ -160,3 +160,12 @@ if ( ! function_exists('gov_branches'))
 
     }
 }
+
+# Type of LD
+if ( ! function_exists('ld_type'))
+{
+    function ld_type()
+    {
+        return array('Administrative','Managerial','Supervisory','Technical');
+    }
+}

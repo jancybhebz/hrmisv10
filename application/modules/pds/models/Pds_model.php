@@ -27,8 +27,8 @@ class Pds_model extends CI_Model {
 	var $tblVol = 'tblEmpVoluntaryWork';
 	var $tblVolId = 'VoluntaryIndex';
 
-	var $tblTraining = 'tblemptraining';
-	var $tblTrainingId = 'XtrainingCode';
+	var $tblTraining = 'tblEmpTraining';
+	var $tblTrainingId = 'TrainingIndex';
 
 	var $tblPosition = 'tblEmpPosition';
 	var $tblPositionId = 'empNumber';
@@ -244,6 +244,13 @@ class Pds_model extends CI_Model {
 	}
 	# END VOLUNTARY WORK
 
+	# ADD TRAINING
+	function add_training($arrData)
+	{
+		$this->db->insert($this->tblTraining, $arrData);
+		return $this->db->insert_id();
+	}
+
 	function save_training($arrData, $strEmpNumber)
 	{
 		$this->db->where($this->tblTrainingId, $strEmpNumber);
@@ -251,6 +258,14 @@ class Pds_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	function delete_training($strtraIndex)
+	{
+		$this->db->where($this->tblTrainingId, $strtraIndex);
+		$this->db->delete($this->tblTraining); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	# END TRAINING
 
 	function save_skill($arrData, $strEmpNumber)
 	{

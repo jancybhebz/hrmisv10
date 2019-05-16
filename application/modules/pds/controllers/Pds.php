@@ -176,6 +176,7 @@ class Pds extends MY_Controller
 		}
 	}
 	
+	# BEGIN CHILD
 	public function add_child()
 	{
 		$empid = $this->uri->segment(3);
@@ -226,7 +227,9 @@ class Pds extends MY_Controller
 			redirect('hr/profile/'.$empid);
 		}
 	}
+	# END CHILD
 
+	# BEGIN EDUCATION
 	public function add_educ()
 	{
 		$arrPost = $this->input->post();
@@ -273,7 +276,9 @@ class Pds extends MY_Controller
     		redirect('hr/profile/'.$empid);
     	endif;
 	}
+	# END EDUCATION
 
+	# BEGIN EXAMINATION
 	public function add_exam()
 	{
 		$empid = $this->uri->segment(3);
@@ -332,7 +337,9 @@ class Pds extends MY_Controller
 			redirect('hr/profile/'.$empid);
 		}
 	}
+	# END EXAMINATION
 
+	# BEGIN WORK EXPERIENCE
 	public function add_work_xp()
 	{
 		$empid = $this->uri->segment(3);
@@ -367,6 +374,39 @@ class Pds extends MY_Controller
 		endif;
 	}
 
+	public function edit_work_xp()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'serviceFromDate' => $arrPost['txtdfrom'],
+							'serviceToDate'   => $arrPost['txtdto'],
+							'tmpServiceToDate'=> isset($arrPost['chkpresent']) ? 'Present' : '',
+							// 'positionCode' 	  => $arrPost['txtposition_code'],
+							'positionDesc' 	  => $arrPost['txtposition'],
+							'salary' 		  => $arrPost['txtsalary'],
+							'salaryPer' 	  => $arrPost['selperiod'],
+							'stationAgency'   => $arrPost['txtoffice'],
+							'salaryGrade' 	  => $arrPost['txtgrade'],
+							'appointmentCode' => $arrPost['selappointment'],
+							'governService'   => isset($arrPost['optgov_srvc']) ? $arrPost['optgov_srvc'] : 'N',
+							// 'NCCRA' 		  => $arrPost[''],
+							'separationCause' => $arrPost['selmode_separation'],
+							'separationDate'  => $arrPost['txtseparation_date'],
+							'branch' 		  => $arrPost['selbranch'],
+							'currency' 		  => $arrPost['txtcurrency'],
+							'remarks' 		  => $arrPost['txtremarks'],
+							'lwop' 			  => $arrPost['txtabs'],
+							'processor' 	  => $arrPost['txtprocessor'],
+							'signee' 		  => $arrPost['txtofficial']);
+
+			$this->pds_model->save_workExp($arrData, $arrPost['txtxpid']);
+			$this->session->set_flashdata('strSuccessMsg','Work Experience added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
 	public function delete_work_xp()
     {
     	$arrPost = $this->input->post();
@@ -380,7 +420,9 @@ class Pds extends MY_Controller
 			redirect('hr/profile/'.$empid);
 		}
 	}
+	# END WORK EXPERIENCE
 
+	# BEGIN VOLUNTARY WORK
 	public function add_vol_work()
 	{
 		$empid = $this->uri->segment(3);
@@ -432,53 +474,70 @@ class Pds extends MY_Controller
 			redirect('hr/profile/'.$empid);
 		}
 	}
+	# END VOLUNTARY WORK
+
+	# BEGIN TRAINING
+	public function add_training()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'empNumber'			  => $empid,
+							'trainingTitle'		  => $arrPost['txttra_name'],
+							'trainingContractDate'=> $arrPost['txttra_contract'],
+							'trainingStartDate'	  => $arrPost['txttra_sdate'],
+							'trainingEndDate'	  => $arrPost['txttra_edate'],
+							'trainingHours'		  => $arrPost['txttra_hrs'],
+							'trainingTypeofLD'	  => $arrPost['seltra_typeld'],
+							'trainingConductedBy' => $arrPost['txttra_sponsored'],
+							'trainingVenue'		  => $arrPost['txttra_venue'],
+							'trainingCost'		  => $arrPost['txttra_cost'],
+							'trainingDesc'		  => $arrPost['txttra_name']); # Same as training title
+
+			$this->pds_model->add_training($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Training added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
 
 	public function edit_training()
 	{
+		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{
-			$intTrainingIndex = urldecode($this->uri->segment(4));
-			$this->arrData['arrTraining']=$this->pds_model->getData($intTrainingIndex);
-			$this->template->load('template/template_view','pds/trainings_view', $this->arrData);
-		}
-		else
-		{
-			$intTrainingIndex=$arrPost['intTrainingIndex'];
-			$strEmpNumber=$arrPost['strEmpNumber'];
-			$strTitle=$arrPost['strTitle'];
-			$strHours=$arrPost['strHours'];
-			$strVenue=$arrPost['strVenue'];
-			$strTypeofLD=$arrPost['strTypeofLD'];
-			$strConducted=$arrPost['strConducted'];
-			$strCost=$arrPost['strCost'];
-			$dtmStartDate=$arrPost['dtmStartDate'];
-			$dtmEndDate=$arrPost['dtmEndDate'];
-			// $XtrainingCode = $this->uri->segment(4);
-			if(!empty($strTitle))
-			{
-				$arrData = array(
-					'trainingTitle'=>$strTitle,
-					'trainingHours'=>$strHours,
-					'trainingVenue'=>$strVenue,
-					'trainingTypeofLD'=>$strTypeofLD,
-					'trainingConductedBy'=>$strConducted,
-					'trainingCost'=>$strCost,
-					'trainingStartDate'=>$dtmStartDate,
-					'trainingEndDate'=>$dtmEndDate
-				);
-				 // echo '='.$strEmpNumber;
-				 // exit(1);
-				$blnReturn = $this->pds_model->save_training($arrData, $intTrainingIndex);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpTraining','Edited '.$strTitle.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
-				}
-				redirect('hr/profile/'.$strEmpNumber);
-			}
-		}		
+		if(!empty($arrPost)):
+			$arrData = array(
+							'trainingTitle'		  => $arrPost['txttra_name'],
+							'trainingContractDate'=> $arrPost['txttra_contract'],
+							'trainingStartDate'	  => $arrPost['txttra_sdate'],
+							'trainingEndDate'	  => $arrPost['txttra_edate'],
+							'trainingHours'		  => $arrPost['txttra_hrs'],
+							'trainingTypeofLD'	  => $arrPost['seltra_typeld'],
+							'trainingConductedBy' => $arrPost['txttra_sponsored'],
+							'trainingVenue'		  => $arrPost['txttra_venue'],
+							'trainingCost'		  => $arrPost['txttra_cost'],
+							'trainingDesc'		  => $arrPost['txttra_name']); # Same as training title
+
+			$this->pds_model->save_training($arrData, $arrPost['txttraid']);
+			$this->session->set_flashdata('strSuccessMsg','Training updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;	
 	}
+
+	public function del_training()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_training($arrPost['txtdel_tra']);
+
+			$this->session->set_flashdata('strSuccessMsg','Training deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+	# END TRAINING
 
 	public function edit_skill()
 	{
