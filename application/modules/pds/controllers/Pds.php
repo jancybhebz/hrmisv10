@@ -539,39 +539,50 @@ class Pds extends MY_Controller
 	}
 	# END TRAINING
 
+	# BEGIN SKILL & LEGAL INFORMATION
 	public function edit_skill()
 	{
+		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{
-			$strEmpNumber = urldecode($this->uri->segment(4));
-			$this->arrData['arrSkill']=$this->pds_model->getData($strEmpNumber);
-			$this->template->load('template/template_view','pds/other_info_view', $this->arrData);
-		}
-		else
-		{
-			$strEmpNumber = $arrPost['strEmpNumber'];
-			$strSkill=$arrPost['strSkill'];
-			$strNonAcademic=$arrPost['strNonAcademic'];
-			$strMembership=$arrPost['strMembership'];
-			
-			if(!empty($strSkill))
-			{
-				$arrData = array(
-					'skills'=>$strSkill,
-					'nadr'=>$strNonAcademic,
-					'miao'=>$strMembership	
-				);
-				$blnReturn = $this->pds_model->save_skill($arrData, $strEmpNumber);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strSkill.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Skill information updated successfully.');
-				}
-				redirect('hr/profile/'.$strEmpNumber);
-			}
-		}	
+
+		if(!empty($arrPost)):
+			$arrData = array(
+							'skills'=> $arrPost['txtskills'],
+							'nadr'	=> $arrPost['txtrecognition'],
+							'miao'	=> $arrPost['txtorganization']);
+
+			$this->pds_model->save_skill($arrData, $empid);
+			$this->session->set_flashdata('strSuccessMsg','Other information updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
 	}
+
+	public function edit_legal_info()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+
+		if(!empty($arrPost)):
+			$arrData = array(
+							'relatedThird'	 => $arrPost['optrelated_third'],
+							'relatedFourth'	 => $arrPost['optrelated_fourth'],
+							'adminCase'		 => $arrPost['optadmincase'],
+							'formallyCharged'=> $arrPost['optformally_charged'],
+							'violateLaw'	 => $arrPost['optviolate_law'],
+							'forcedResign'	 => $arrPost['optforced_resign'],
+							'candidate'		 => $arrPost['optcandidate'],
+							'campaign'		 => $arrPost['optcampaign'],
+							'immigrant'		 => $arrPost['optimmigrant'],
+							'indigenous'	 => $arrPost['optindigenous'],
+							'disabled'		 => $arrPost['optdisabled'],
+							'soloParent'	 => $arrPost['optsolo_parent']);
+
+			$this->pds_model->save_skill($arrData, $empid);
+			$this->session->set_flashdata('strSuccessMsg','Legal information updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+	# END SKILL & LEGAL INFORMATION
 
 	public function edit_position()
 	{

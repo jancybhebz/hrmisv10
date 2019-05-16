@@ -225,11 +225,13 @@ $arrData = $arrData[0];?>
                                                 </div>
                                                 <!-- end Trainings -->
 
-                                                    <!-- begin other info -->
-                                                    <div class="tab-pane" id="other_info">
-                                                        other info
+                                                <!-- begin other info -->
+                                                <div class="tab-pane " id="other_info">
+                                                    <div>
+                                                        <?php $this->load->view('_other_info_view.php'); ?>
                                                     </div>
-                                                    <!-- end other info -->
+                                                </div>
+                                                <!-- end other info -->
 
                                                     <!-- begin position details -->
                                                     <div class="tab-pane" id="position_details">
