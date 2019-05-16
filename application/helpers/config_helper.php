@@ -133,3 +133,12 @@ if ( ! function_exists('userlevel'))
 
     }
 }
+
+# salary periods
+if ( ! function_exists('salary_period'))
+{
+    function salary_period()
+    {
+        return array('Day','Hour','Month','Quarter','Year');
+    }
+}

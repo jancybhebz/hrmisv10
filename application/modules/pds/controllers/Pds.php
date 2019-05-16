@@ -274,44 +274,63 @@ class Pds extends MY_Controller
     	endif;
 	}
 
+	public function add_exam()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+				'empNumber'		=> $empid,
+				'examCode'		=> $arrPost['exam_desc'],
+				'examDate'		=> $arrPost['txtdate_exam'],
+				'examRating'	=> $arrPost['txtrating'],
+				'examPlace'		=> $arrPost['txtplace_exam'],
+				'licenseNumber' => $arrPost['txtlicense'],
+				'dateRelease'	=> $arrPost['txtvalidity'],
+				'verifier'		=> $arrPost['txtverifier'],
+				'reviewer'		=> $arrPost['txtreviewer']);
+
+			$this->pds_model->add_exam($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Examination information added successfully.');
+
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
 	public function edit_exam()
 	{
+		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
-		if(empty($arrPost))
+		if(!empty($arrPost)):
+			$arrData = array(
+				'examCode'		=> $arrPost['exam_desc'],
+				'examDate'		=> $arrPost['txtdate_exam'],
+				'examRating'	=> $arrPost['txtrating'],
+				'examPlace'		=> $arrPost['txtplace_exam'],
+				'licenseNumber' => $arrPost['txtlicense'],
+				'dateRelease'	=> $arrPost['txtvalidity'],
+				'verifier'		=> $arrPost['txtverifier'],
+				'reviewer'		=> $arrPost['txtreviewer']);
+
+			$this->pds_model->save_exam($arrData, $arrPost['txtexamid']);
+			$this->session->set_flashdata('strSuccessMsg','Examination information updated successfully.');
+
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
+	public function delete_exam()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
 		{
-			$intExamIndex = urldecode($this->uri->segment(4));
-			$this->arrData['arrExam']=$this->pds_model->getData($intExamIndex);
-			$this->template->load('template/template_view','pds/examination_view', $this->arrData);
+			$this->pds_model->delete_exam($arrPost['txtdel_exam']);
+
+			$this->session->set_flashdata('strSuccessMsg','Exam deleted successfully.');
+			redirect('hr/profile/'.$empid);
 		}
-		else
-		{
-			$intExamIndex = $arrPost['intExamIndex'];
-			$strEmpNumber = $arrPost['strEmpNumber'];
-			$strExamDesc=$arrPost['strExamDesc'];
-			$strRating=$arrPost['strRating'];
-			$strExamPlace=$arrPost['strExamPlace'];
-			$strLicense=$arrPost['strLicense'];
-			$strValidity=$arrPost['strValidity'];
-			if(!empty($strExamDesc))
-			{
-				$arrData = array(
-					'examCode'=>$strExamDesc,
-					'examRating'=>$strRating,
-					'examPlace'=>$strExamPlace,
-					'licenseNumber'=>$strLicense,
-					'dateRelease'=>$strValidity
-				);
-				 // echo '='.$strEmpNumber;
-				 // exit(1);
-				$blnReturn = $this->pds_model->save_exam($arrData, $intExamIndex);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpExam','Edited '.$strExamDesc.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
-				}
-				redirect('hr/profile/'.$strEmpNumber);
-			}
-		}		
 	}
 
 	public function edit_workExp()

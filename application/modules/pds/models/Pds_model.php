@@ -179,10 +179,24 @@ class Pds_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function add_exam($arrData)
+	{
+		$this->db->insert($this->tblExam, $arrData);
+		return $this->db->insert_id();
+	}
+
 	function save_exam($arrData, $intExamIndex)
 	{
 		$this->db->where($this->tblExamId, $intExamIndex);
 		$this->db->update($this->tblExam, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_exam($examid)
+	{
+		$this->db->where($this->tblExamId, $examid);
+		$this->db->delete($this->tblExam); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

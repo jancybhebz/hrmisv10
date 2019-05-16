@@ -16,20 +16,12 @@ class Exam_type_model extends CI_Model {
 	}
 	
 	function getData($intExamId = '')
-	{		
-		$strWhere = '';
-		if($intExamId != "")
-			$strWhere .= " AND examId = '".$intExamId."'";
-		
-		$strSQL = " SELECT * FROM tblExamType					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY examDesc
-					";
-		//]echo $strSQL;exit(1);				
-		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
-		return $objQuery->result_array();	
+	{
+		if($intExamId!=''):
+			return $this->db->get_where('tblExamType',array('examId' => $intExamId))->result_array();
+		else:
+			return $this->db->get('tblExamType')->result_array();
+		endif;
 	}
 
 	function add($arrData)
@@ -48,9 +40,7 @@ class Exam_type_model extends CI_Model {
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	
-	}
-
-				
+	}			
 		
 	function save($arrData, $intExamId)
 	{
