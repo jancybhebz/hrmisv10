@@ -22,12 +22,12 @@
                                 <a href="javascript:;">
                                     <?php
                                         $now = time();
-                                        $your_date = strtotime($notif['requestDate']);
+                                        $your_date = strtotime($notif['req_date']);
                                         $datediff = $now - $your_date;
 
                                         $days = round($datediff / (60 * 60 * 24));
 
-                                        switch ($notif['requestCode']):
+                                        switch ($notif['req_code']):
                                             case 'OB':
                                                 echo '<span class="time">'.$days.' days</span>
                                                         <span class="details">
@@ -135,18 +135,17 @@
                                 <a href="javascript:;">
                                     <?php
                                         $now = time();
-                                        $your_date = strtotime($notif['requestDate']);
+                                        $your_date = strtotime($notif['req_date']);
                                         $datediff = $now - $your_date;
 
                                         $days = round($datediff / (60 * 60 * 24));
-
-                                        switch ($notif['requestCode']):
+                                        switch ($notif['req_code']):
                                             case 'OB':
                                                 echo '<span class="time">'.$days.' days</span>
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-primary">
                                                             <span class="letter">OB</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case '201':
@@ -154,7 +153,7 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-info">
                                                             <span class="letter">201</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case 'Leave':
@@ -162,7 +161,7 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-success">
                                                             <span class="letter">Leave</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case 'TO':
@@ -170,7 +169,7 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-danger">
                                                             <span class="letter">TO</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case 'Monetization':
@@ -178,7 +177,7 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-warning">
                                                             <span class="letter">Monetization</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case 'Trainings':
@@ -186,7 +185,7 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-info">
                                                             <span class="letter">Trainings</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case 'Commutation':
@@ -194,7 +193,7 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-default">
                                                             <span class="letter">Commutation</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case 'DTR':
@@ -202,7 +201,7 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-warning">
                                                             <span class="letter">DTR</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             case 'Report':
@@ -210,14 +209,14 @@
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-danger">
                                                             <span class="letter">Report</span>
-                                                            </span> '.$notif['requestStatus'].'
+                                                            </span> '.$notif['req_status'].'
                                                         </span>';
                                                 break;
                                             default:
                                                 return '';
                                                 break;
                                         endswitch;
-                                        ?>
+                                    ?>
                                 </a>
                             </li>
                         <?php endforeach; ?>

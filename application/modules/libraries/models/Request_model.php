@@ -198,5 +198,20 @@ class Request_model extends CI_Model {
 		return $this->db->get_where('tblRequestType')->result_array();
 	}
 
+	function employee_request($yr='',$month='',$iscancel=0)
+	{
+		if($yr == '' && $month == ''):
+			$this->db->where('(requestDate >= \''.date('Y').'-01-01\' and requestDate <= LAST_DAY(\''.date('Y').'-12-01\'))');
+		else:
+			$this->db->where('(requestDate >= \''.$yr.'-'.$month.'-01\' and requestDate <= LAST_DAY(\''.$yr.'-'.$month.'-01\'))');
+		endif;
+
+		if($iscancel) { $this->db->where('requestStatus!=','Cancelled'); }
+
+		$this->db->where('SignatoryFin=','');
+
+		return $this->db->get('tblEmpRequest')->result_array();
+	}
+
 		
 }

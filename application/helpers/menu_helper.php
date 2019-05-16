@@ -103,11 +103,23 @@ if ( ! function_exists('pending_notif'))
 		$arrnotif = array();
 
 		if($access_level == 1):
-			
+
+			$CI->load->model(array('libraries/Request_model','employee/Notification_model'));
+
+			$requestFlow = $CI->Request_model->getRequestFlow('HR');
+			$emp_requests = $CI->Request_model->employee_request('','',1);
+			$requests = $CI->Notification_model->check_request_flow_and_signatories($requestFlow,$emp_requests);
+
+			$arrnotif = $CI->Notification_model->gethr_requestflow($requests);
+
+
+			// $CI->db->where('(requestDate >= \''.date('Y').'-01-01\' and requestDate <= LAST_DAY(\''.date('Y').'-12-01\'))');
+			// $arrnotif = $CI->db->get_where('tblEmpRequest', array('SignatoryFin' => '', 'requestStatus!=' => 'Cancelled'))->result_array();
+			// echo $CI->db->last_query();
 		elseif($access_level == 5):
 			$arrnotif = $CI->db->select('*')->get_where('tblEmpRequest', array('empNumber' => $strEmpNo, 'requestStatus' => 'Filed Request'))->result_array();
 		endif;
-
+		
 		return $arrnotif;
 	}
 }

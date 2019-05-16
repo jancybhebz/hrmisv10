@@ -189,10 +189,14 @@ class Notification_model extends CI_Model {
 				}
 			endforeach;
 		else:
-			array_push($arr_rflow,$arrRequestFlow[0]);
+			if(count($arrRequestFlow) > 0){
+				array_push($arr_rflow,$arrRequestFlow[0]);
+			}
 		endif;
 		
-		return $arr_rflow[0];
+		if(count($arr_rflow) > 0){
+			return $arr_rflow[0];
+		}
 	}
 
 	function validate_signature($flow_sign, $req_sign, $field)
@@ -208,34 +212,96 @@ class Notification_model extends CI_Model {
 		endif;
 	}
 
-	function gethr_requestflow($arrRequestFlow)
+	function gethr_requestflow($requests)
 	{
-		$arrhr_flow = array();
-		foreach($arrRequestFlow as $rflow):
-			$field = '';
-			$request = null;
-			if(strpos($rflow['Signatory1'], 'HR') !== false){
-				$field = 'Signatory1';
-				$request = $rflow;
-			}
-			if(strpos($rflow['Signatory2'], 'HR') !== false){
-				$field = 'Signatory2';
-				$request = $rflow;
-			}
-			if(strpos($rflow['Signatory3'], 'HR') !== false){
-				$field = 'Signatory3';
-				$request = $rflow;
-			}
-			if(strpos($rflow['SignatoryFin'], 'HR') !== false){
-				$field = 'SignatoryFin';
-				$request = $rflow;
-			}
-			if($field!='' && $request!=null){
-				$arrhr_flow[] = array('field' => $field, 'request' => $request);
-			}
+		$forhr_requests = array();
+		foreach($requests as $req):
+			if(strpos($req['req_nextsign'], 'HR') !== false):
+				array_push($forhr_requests,$req);
+			endif;
 		endforeach;
 
-		return $arrhr_flow;
+		return $forhr_requests;
+		// $arrhr_flow = array();
+		// foreach($arrRequestFlow as $rflow):
+		// 	$field = '';
+		// 	$request = null;
+		// 	if(strpos($rflow['Signatory1'], 'HR') !== false){
+		// 		$field = 'Signatory1';
+		// 		$request = $rflow;
+		// 	}
+		// 	if(strpos($rflow['Signatory2'], 'HR') !== false){
+		// 		$field = 'Signatory2';
+		// 		$request = $rflow;
+		// 	}
+		// 	if(strpos($rflow['Signatory3'], 'HR') !== false){
+		// 		$field = 'Signatory3';
+		// 		$request = $rflow;
+		// 	}
+		// 	if(strpos($rflow['SignatoryFin'], 'HR') !== false){
+		// 		$field = 'SignatoryFin';
+		// 		$request = $rflow;
+		// 	}
+		// 	if($field!='' && $request!=null){
+		// 		$arrhr_flow[] = array('field' => $field, 'request' => $request);
+		// 	}
+		// endforeach;
+
+		// return $arrhr_flow;
+	}
+
+	function check_request_flow_and_signatories($requestFlow,$emp_requests)
+	{
+		foreach($emp_requests as $request):
+			$request['code'] = $request['requestCode'];
+			if($request['requestCode'] == 'Leave'):
+				$reqdetails = explode(';', $request['requestDetails']);
+				$request['requestCode'] = $reqdetails[0];
+			endif;
+
+			$rflow = $this->Notification_model->getrequestflow($requestFlow, $request['requestCode']);
+			$next_sign = '';
+			if($request['SignatoryFin'] == ''):
+				# check signatory 1
+				$sign1 = $this->Notification_model->validate_signature($rflow, $request, 'Signatory1');
+				if($sign1):
+					# signatory 1 is done -> check signatory 2
+					$sign2 = $this->Notification_model->validate_signature($rflow, $request, 'Signatory2');
+					if($sign2):
+						# signatory 2 is done -> check signatory 3
+						$sign3 = $this->Notification_model->validate_signature($rflow, $request, 'Signatory3');
+						if($sign3):
+							# signatory 3 is done -> check final signatory
+							$sign4 = $this->Notification_model->validate_signature($rflow, $request, 'SignatoryFin');
+							if(!$sign4):
+								$next_sign = $rflow['SignatoryFin'];
+							endif;
+						else:
+							$next_sign = $rflow['Signatory3'];
+						endif;
+					else:
+						$next_sign = $rflow['Signatory2'];
+					endif;
+				else:
+					# next destination is signatory 1
+					$next_sign = $rflow['Signatory1'];
+				endif;
+			else:
+				$next_sign = '';
+			endif;
+
+			$request_detail = array('req_id' => $request['requestID'],
+								  'req_date' => $request['requestDate'],
+								  'req_code' => $request['code'],
+								  'req_type' => $request['requestCode'],
+								  'req_status' => $request['requestStatus'],
+								  'req_remarks' => $request['remarks'],
+								  'req_nextsign' => $next_sign);
+
+			$arrRequest[] = $request_detail;
+		endforeach;
+
+		return $arrRequest;
 	}
 
 
