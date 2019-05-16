@@ -194,18 +194,20 @@ $arrData = $arrData[0];?>
                                                 <!-- end Education Bacgkround -->
 
                                                 <!-- begin Examination -->
-                                                <div class="tab-pane active" id="examination">
+                                                <div class="tab-pane " id="examination">
                                                     <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_examination_view.php'); ?>
                                                     </div>
                                                 </div>
                                                 <!-- end Examination -->
 
-                                                    <!-- begin Work Experience -->
-                                                    <div class="tab-pane" id="work_experience">
-                                                        Work Experience
+                                                <!-- begin Work Experience -->
+                                                <div class="tab-pane active" id="work_experience">
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_work_experience_view.php'); ?>
                                                     </div>
-                                                    <!-- end Work Experience -->
+                                                </div>
+                                                <!-- end Work Experience -->
 
                                                     <!-- begin Voluntary Work -->
                                                     <div class="tab-pane" id="voluntary_work">
