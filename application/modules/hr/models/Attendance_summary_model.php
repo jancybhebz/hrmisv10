@@ -19,6 +19,16 @@ class Attendance_summary_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
+	function getcurrent_dtr($empid)
+	{
+		$res = $this->db->get_where('tblEmpDTR' ,array('empNumber' => $empid, 'dtrDate' => 'NOW()'))->result_array();
+		if(count($res) > 0){
+			return $res[0];
+		}else{
+			return null;
+		}
+	}
+
 	public function getemp_dtr($empid, $month, $yr)
 	{
 		$this->load->helper('dtr_helper');

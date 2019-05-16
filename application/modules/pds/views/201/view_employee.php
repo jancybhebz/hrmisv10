@@ -99,19 +99,19 @@ $arrData = $arrData[0];?>
                                                         <ul class="list-unstyled" style="line-height: 15px;">
                                                             <li>
                                                                 <span class="sale-info"> LOG IN </span>
-                                                                <span class="sale-num"> 23 </span>
+                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inAM'])) : '00:00'?></span>
                                                             </li>
                                                             <li>
                                                                 <span class="sale-info"> BREAK OUT </span>
-                                                                <span class="sale-num"> 87 </span>
+                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outAM'])) : '00:00'?></span>
                                                             </li>
                                                             <li>
                                                                 <span class="sale-info"> BREAK IN </span>
-                                                                <span class="sale-num"> 237asdf7 </span>
+                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inPM'])) : '00:00'?></span>
                                                             </li>
                                                             <li>
                                                                 <span class="sale-info"> LOG OUT </span>
-                                                                <span class="sale-num"> 2377 </span>
+                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outPM'])) : '00:00'?></span>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -162,7 +162,7 @@ $arrData = $arrData[0];?>
                                             <div class="tab-content">
                                                 
                                                 <!-- begin personal info -->
-                                                <div class="tab-pane " id="personal_info" style="padding: 0 !important;position: relative;top: -20px;">
+                                                <div class="tab-pane active" id="personal_info" style="padding: 0 !important;position: relative;top: -20px;">
                                                     <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                                         <div class="row">
                                                             <div class="col-md-12" style="padding: 0 30px 10px;">
@@ -202,7 +202,7 @@ $arrData = $arrData[0];?>
                                                 <!-- end Examination -->
 
                                                 <!-- begin Work Experience -->
-                                                <div class="tab-pane active" id="work_experience">
+                                                <div class="tab-pane " id="work_experience">
                                                     <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_work_experience_view.php'); ?>
                                                     </div>

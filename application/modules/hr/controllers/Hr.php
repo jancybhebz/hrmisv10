@@ -13,7 +13,7 @@ class Hr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model'));
+        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model'));
     }
 
 	public function index()
@@ -34,12 +34,16 @@ class Hr extends MY_Controller {
 	public function profile()
 	{
 		$this->load->helper('directory');
+		
+
 		$strEmpNo = $this->uri->segment(3);
 		if ($strEmpNo == '')
 			redirect('pds');
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
+		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($strEmpNo);
+		
 		$this->arrData['arrChild'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
 		// $this->arrData['arrEduc'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
 		$this->arrData['arrEduc'] = $this->Hr_model->getEmployeeEducation($strEmpNo);
