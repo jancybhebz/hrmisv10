@@ -381,82 +381,58 @@ class Pds extends MY_Controller
 		}
 	}
 
-	public function edit_workExp()
+	public function add_vol_work()
 	{
 		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-							'serviceFromDate' => $arrPost['txtdfrom'],
-							'serviceToDate'   => $arrPost['txtdto'],
-							'tmpServiceToDate'=> isset($arrPost['chkpresent']) ? 'Present' : '',
-							// 'positionCode' 	  => $arrPost['txtposition_code'],
-							'positionDesc' 	  => $arrPost['txtposition'],
-							'salary' 		  => $arrPost['txtsalary'],
-							'salaryPer' 	  => $arrPost['selperiod'],
-							'stationAgency'   => $arrPost['txtoffice'],
-							'salaryGrade' 	  => $arrPost['txtgrade'],
-							'appointmentCode' => $arrPost['selappointment'],
-							'governService'   => isset($arrPost['optgov_srvc']) ? $arrPost['optgov_srvc'] : 'N',
-							// 'NCCRA' 		  => $arrPost[''],
-							'separationCause' => $arrPost['selmode_separation'],
-							'separationDate'  => $arrPost['txtseparation_date'],
-							'branch' 		  => $arrPost['selbranch'],
-							'currency' 		  => $arrPost['txtcurrency'],
-							'remarks' 		  => $arrPost['txtremarks'],
-							'lwop' 			  => $arrPost['txtabs'],
-							'processor' 	  => $arrPost['txtprocessor'],
-							'signee' 		  => $arrPost['txtofficial']);
-
-			$this->pds_model->save_workExp($arrData, $arrPost['txtxpid']);
-			$this->session->set_flashdata('strSuccessMsg','Work Experience updated successfully.');
+							'empNumber' 	  => $empid,
+							'vwName' 		  => $arrPost['txtorganization'],
+							'vwAddress'   	  => $arrPost['txtaddress'],
+							'vwDateFrom' 	  => $arrPost['txtdfrom_vl'],
+							'vwDateTo' 		  => $arrPost['txtdto_vl'],
+							'vwHours'	 	  => $arrPost['txthrs'],
+							'vwPosition'	  => $arrPost['txtwork']);
+			$this->pds_model->add_volWorks($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Voluntary work added successfully.');
 			redirect('hr/profile/'.$empid);
 		endif;
 	}
 
-	public function edit_volWorks()
+	public function edit_vol_work()
 	{
+		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{
-			$intVolIndex = urldecode($this->uri->segment(4));
-			$this->arrData['arrVolWork']=$this->pds_model->getData($intVolIndex);
-			$this->template->load('template/template_view','pds/voluntary_works_view', $this->arrData);
-		}
-		else
-		{
-			$intVolIndex=$arrPost['intVolIndex'];
-			$strEmpNumber=$arrPost['strEmpNumber'];
-			$strOrgName=$arrPost['strOrgName'];
-			$strAddress=$arrPost['strAddress'];
-			$dtmDateFrom=$arrPost['dtmDateFrom'];
-			$dtmDateTo=$arrPost['dtmDateTo'];
-			$dtmHours=$arrPost['dtmHours'];
-			$strNature=$arrPost['strNature'];
-			// $XtrainingCode = $this->uri->segment(4);
-			if(!empty($strExamDesc))
-			{
-				$arrData = array(
-					'vwName'=>$strOrgName,
-					'vwAddress'=>$strAddress,
-					'vwDateFrom'=>$dtmDateFrom,
-					'vwDateTo'=>$dtmDateTo,
-					'vwHours'=>$dtmHours,
-					'vwPosition'=>$strNature
-				);
-				 // echo '='.$strEmpNumber;
-				 // exit(1);
-				$blnReturn = $this->pds_model->save_volWorks($arrData, $intVolIndex);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpVoluntaryWork','Edited '.$strOrgName.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
-				}
-				redirect('hr/profile/'.$strEmpNumber);
-			}
-		}		
+		if(!empty($arrPost)):
+			$arrData = array(
+							'empNumber' 	  => $empid,
+							'vwName' 		  => $arrPost['txtorganization'],
+							'vwAddress'   	  => $arrPost['txtaddress'],
+							'vwDateFrom' 	  => $arrPost['txtdfrom_vl'],
+							'vwDateTo' 		  => $arrPost['txtdto_vl'],
+							'vwHours'	 	  => $arrPost['txthrs'],
+							'vwPosition'	  => $arrPost['txtwork']);
+			$this->pds_model->save_volWorks($arrData,$arrPost['txtvolid']);
+			$this->session->set_flashdata('strSuccessMsg','Voluntary work updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
 	}
 	
+	public function del_vol_work()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_volWorks($arrPost['txtdelvolid']);
+
+			$this->session->set_flashdata('strSuccessMsg','Voluntary work deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+
 	public function edit_training()
 	{
 		$arrPost = $this->input->post();

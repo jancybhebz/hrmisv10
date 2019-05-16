@@ -160,11 +160,10 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblChildId, $intChildCode);
 		$this->db->update($this->tblChild, $arrData);
-		//echo $this->db->last_query();exit(1);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	# BEGIN EDUCATION
 	function add_educ($arrData)
 	{
 		$this->db->insert($this->tblEduc, $arrData);
@@ -175,10 +174,11 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblEducId, $intSchoolIndex);
 		$this->db->update($this->tblEduc, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+	# END EDUCATION
 
+	# BEGIN EXAM
 	function add_exam($arrData)
 	{
 		$this->db->insert($this->tblExam, $arrData);
@@ -189,7 +189,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblExamId, $intExamIndex);
 		$this->db->update($this->tblExam, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -197,10 +196,11 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblExamId, $examid);
 		$this->db->delete($this->tblExam); 	
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+	# END EXAM
 
+	# BEGIN WORK EXPERIENCE
 	function add_workExp($arrData)
 	{
 		$this->db->insert($this->tblService, $arrData);
@@ -211,7 +211,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblServiceId, $intServiceId);
 		$this->db->update($this->tblService, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -219,22 +218,36 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblServiceId, $intServiceId);
 		$this->db->delete($this->tblService); 	
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-	
-	function save_training($arrData, $strEmpNumber)
+	# END WORK EXPERIENCE
+
+	# BEGIN VOLUNTARY WORK
+	function add_volWorks($arrData)
 	{
-		$this->db->where($this->tblTrainingId, $strEmpNumber);
-		$this->db->update($this->tblTraining, $arrData);
-		//echo $this->db->affected_rows();
-		return $this->db->affected_rows()>0?TRUE:FALSE;
+		$this->db->insert($this->tblVol, $arrData);
+		return $this->db->insert_id();
 	}
 
 	function save_volWorks($arrData, $strVolIndex)
 	{
 		$this->db->where($this->tblVolId, $strVolIndex);
 		$this->db->update($this->tblVol, $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_volWorks($strVolIndex)
+	{
+		$this->db->where($this->tblVolId, $strVolIndex);
+		$this->db->delete($this->tblVol); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	# END VOLUNTARY WORK
+
+	function save_training($arrData, $strEmpNumber)
+	{
+		$this->db->where($this->tblTrainingId, $strEmpNumber);
+		$this->db->update($this->tblTraining, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

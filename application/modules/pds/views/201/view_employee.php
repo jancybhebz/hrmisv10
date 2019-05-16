@@ -209,11 +209,13 @@ $arrData = $arrData[0];?>
                                                 </div>
                                                 <!-- end Work Experience -->
 
-                                                    <!-- begin Voluntary Work -->
-                                                    <div class="tab-pane" id="voluntary_work">
-                                                        Voluntary Work
+                                                <!-- begin Voluntary Work -->
+                                                <div class="tab-pane " id="voluntary_work">
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_voluntary_work_view.php'); ?>
                                                     </div>
-                                                    <!-- end Voluntary Work -->
+                                                </div>
+                                                <!-- end Voluntary Work -->
 
                                                     <!-- begin Trainings -->
                                                     <div class="tab-pane" id="trainings">
