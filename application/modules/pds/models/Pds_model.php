@@ -271,7 +271,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tableid, $strEmpNumber);
 		$this->db->update($this->table, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
