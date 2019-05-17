@@ -198,19 +198,43 @@ class Request_model extends CI_Model {
 		return $this->db->get_where('tblRequestType')->result_array();
 	}
 
-	function employee_request($yr='',$month='',$iscancel=0)
+	function employee_request($yr='',$month='',$iscancel=0,$status='')
 	{
-		if($yr == '' && $month == ''):
-			$this->db->where('(requestDate >= \''.date('Y').'-01-01\' and requestDate <= LAST_DAY(\''.date('Y').'-12-01\'))');
+		// if($yr == '' && $month == ''):
+		// 	$this->db->where('(requestDate >= \''.date('Y').'-01-01\' and requestDate <= LAST_DAY(\''.date('Y').'-12-01\'))');
+		// else:
+		// 	if($yr=='all' || $month=='all'):
+		// 		if($yr!='all'):
+		// 			$this->db->where('(requestDate >= \''.$yr.'-01-01\' and requestDate <= LAST_DAY(\''.$yr.'-12-01\'))');
+		// 		endif;
+		// 		if($month!='all'):
+		// 			$this->db->where('(requestDate >= \''.$yr.'-01-01\' and requestDate <= LAST_DAY(\''.$yr.'-12-01\'))');
+		// 		endif;
+		// 	else:
+		// 		$this->db->where('(requestDate >= \''.$yr.'-'.$month.'-01\' and requestDate <= LAST_DAY(\''.$yr.'-'.$month.'-01\'))');
+		// 	endif;
+		// endif;
+
+		if($month == 'all'):
+			if($yr != 'all'):
+				$this->db->where('(requestDate >= \''.$yr.'-01-01\' and requestDate <= LAST_DAY(\''.$yr.'-12-01\'))');
+			endif;
 		else:
-			$this->db->where('(requestDate >= \''.$yr.'-'.$month.'-01\' and requestDate <= LAST_DAY(\''.$yr.'-'.$month.'-01\'))');
+			if($yr == 'all'):
+				$this->db->where("(requestDate like '%".sprintf('%02d', $month)."%'");
+			else:
+				$this->db->where('(requestDate >= \''.$yr.'-'.$month.'-01\' and requestDate <= LAST_DAY(\''.$yr.'-'.$month.'-01\'))');
+			endif;
 		endif;
 
 		if($iscancel) { $this->db->where('requestStatus!=','Cancelled'); }
 
-		$this->db->where('SignatoryFin=','');
+		if($status!='') { $this->db->where('requestStatus',$status); }
 
-		return $this->db->get('tblEmpRequest')->result_array();
+		$this->db->where('SignatoryFin=','');
+		$res = $this->db->get('tblEmpRequest')->result_array();
+		
+		return $res;
 	}
 
 		
