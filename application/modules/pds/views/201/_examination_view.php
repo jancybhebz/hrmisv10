@@ -5,7 +5,8 @@
 <div class="col-md-12">
     <table class="table table-bordered">
         <tr class="active">
-            <th style="line-height: 2;" colspan="4">CAREER SERVICE / RA 1080 (BOARD / BAR) UNDER SPECIAL LAWS / CES / CSEE
+            <th style="line-height: 2;" colspan="4">
+                CAREER SERVICE / RA 1080 (BOARD / BAR) UNDER SPECIAL LAWS / CES / CSEE
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <a class="btn blue btn-sm pull-right" href="javascript:;" id="btnadd_exam"> <i class="icon-pencil"></i> Add Examination </a>
                 <?php endif; ?>

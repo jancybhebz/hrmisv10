@@ -5,7 +5,8 @@
 <div class="col-md-12">
     <table class="table table-bordered">
         <tr class="active">
-            <th style="line-height: 2;" colspan="4">Voluntary Work or Involvement in Civic / Non-Governement / People / Voluntary Organization
+            <th style="line-height: 2;" colspan="4">
+                VOLUNTARY WORK OR INVOLVEMENT IN CIVIV / NON-GOVERNMENT / PEOPLE / VOLUNTARY ORGANIZATION
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <a class="btn blue btn-sm pull-right" href="javascript:;" id="btnadd_vol"> <i class="icon-pencil"></i> Add Voluntary Work </a>
                 <?php endif; ?>

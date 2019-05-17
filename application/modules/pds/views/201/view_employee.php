@@ -227,7 +227,7 @@ $arrData = $arrData[0];?>
 
                                                 <!-- begin other info -->
                                                 <div class="tab-pane " id="other_info">
-                                                    <div>
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                                         <?php $this->load->view('_other_info_view.php'); ?>
                                                     </div>
                                                 </div>

@@ -40,6 +40,9 @@ class Hr_model extends CI_Model {
 	var $tableplantilla = 'tblplantilladuties';
 	var $tableplantillaid = 'itemDuties';
 
+	var $tableCharRef = 'tblEmpReference';
+	var $tableCharRefId = 'ReferenceIndex';
+
 	public function __construct()
 	{
 		$this->load->database();
@@ -331,6 +334,13 @@ class Hr_model extends CI_Model {
 		$res = $this->db->get_where($this->table, array($this->tableid => $empid))->result_array();
 		return $res[0];
 	}
+
+	# BEGIN CHARACTER REFERENCES
+	function get_character_references($empNumber)
+	{
+		return $this->db->get_where($this->tableCharRef, array('empNumber' => $empNumber))->result_array();
+	}
+	# END CHARACTER REFERENCES
 
 }
 /* End of file Hr_model.php */

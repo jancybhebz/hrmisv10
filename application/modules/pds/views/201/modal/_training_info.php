@@ -1,5 +1,5 @@
 <?=load_plugin('css', array('select','datepicker'))?>
-<!-- begin modal update/add child info -->
+<!-- begin modal update/add training info -->
 <div class="modal fade in" id="add_training" tabindex="-1" role="full" aria-hidden="true">
     <div class="modal-dialog" style="width: 70%;">
         <div class="modal-content">
@@ -87,9 +87,9 @@
         </div>
     </div>
 </div>
-<!-- end modal update/add child info -->
+<!-- end modal update/add training info -->
 
-<!-- begin delete child -->
+<!-- begin delete training -->
 <div class="modal fade" id="delete_training" tabindex="-1" role="basic" aria-hidden="true"> 
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -110,7 +110,7 @@
         </div>
     </div>
 </div>
-<!-- end delete child -->
+<!-- end delete training -->
 <?=load_plugin('js',array('select','datepicker'));?>
 
 <script>

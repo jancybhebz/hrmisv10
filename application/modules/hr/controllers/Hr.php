@@ -50,17 +50,20 @@ class Hr extends MY_Controller {
 		$this->arrData['arrLevel'] = $this->Educ_level_model->getData();
 		$this->arrData['arrCourses'] = $this->Courses_model->getData();
 		$this->arrData['arrScholarships'] = $this->Scholarship_model->getData();
-
+		# Examination
 		$this->arrData['arrExam'] = $this->Hr_model->getExam($strEmpNo);
 		$this->arrData['arrExamType'] = $this->Exam_type_model->getData();
-
 		# Work Experience
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrSeparation_mode'] = $this->Separation_mode_model->getData();
-
+		# Voluntary Work
 		$this->arrData['arrVol'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_VOLWORK);
+		# Work Experiences
 		$this->arrData['arrService'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_SERVICE);
+		# Trainings
 		$this->arrData['arrTraining'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_TRAINING);
+		# Other Information
+		$this->arrData['arrReferences'] = $this->Hr_model->get_character_references($strEmpNo);
 		$this->arrData['arrPosition'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_POSITION);
 		$this->arrData['arrDuties'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_DUTIES);
 		$this->arrData['arrPlantillaDuties'] = $this->Hr_model->getPlantillaDuties($strEmpNo,'*',TABLE_PLANTILLADUTIES);

@@ -39,6 +39,9 @@ class Pds_model extends CI_Model {
 	var $table10 = 'tblplantilladuties';
 	var $tableid10 = 'itemDuties';
 
+	var $tableCharRef = 'tblEmpReference';
+	var $tableCharRefId = 'ReferenceIndex';
+
 
 	function __construct()
 	{
@@ -255,7 +258,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblTrainingId, $strEmpNumber);
 		$this->db->update($this->tblTraining, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -266,6 +268,28 @@ class Pds_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	# END TRAINING
+
+	# BEGIN CHARACTER REFERENCES
+	function add_char_refs($arrData)
+	{
+		$this->db->insert($this->tableCharRef, $arrData);
+		return $this->db->insert_id();
+	}
+
+	function save_char_refs($arrData, $strcharIndex)
+	{
+		$this->db->where($this->tableCharRefId, $strcharIndex);
+		$this->db->update($this->tableCharRef, $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_char_refs($strcharIndex)
+	{
+		$this->db->where($this->tableCharRefId, $strcharIndex);
+		$this->db->delete($this->tableCharRef); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	# END CHARACTER REFERENCES
 
 	function save_skill($arrData, $strEmpNumber)
 	{

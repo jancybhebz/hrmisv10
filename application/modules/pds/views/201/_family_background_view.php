@@ -4,7 +4,7 @@
 <div class="col-md-12">
     <table class="table table-bordered">
         <tr class="active">
-            <th style="line-height: 2;" colspan="4">Spouse Information
+            <th style="line-height: 2;" colspan="4">SPOUSE INFORMATION
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <a class="btn green btn-sm pull-right" data-toggle="modal" href="#edit_spouse_modal"> <i class="icon-pencil"></i> Edit </a>
                 <?php endif; ?>
@@ -35,7 +35,7 @@
 <div class="col-md-12">
     <table class="table table-bordered">
         <tr class="active">
-            <th style="line-height: 2;" colspan="4">Parent's Information
+            <th style="line-height: 2;" colspan="4">PARENT'S INFORMATION
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <a class="btn green btn-sm pull-right" data-toggle="modal" href="#edit_parents_modal"> <i class="icon-pencil"></i> Edit </a>
                 <?php endif; ?>
@@ -61,7 +61,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr class="active">
-                <th style="line-height: 2;" colspan="4"><b>Children Information</b>
+                <th style="line-height: 2;" colspan="4"><b>CHILDREN INFORMATION</b>
                     <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                         <a class="btn blue btn-sm pull-right" href="javascript:;" id="btnadd_child"> <i class="fa fa-plus"></i> Add Child </a>
                     <?php endif; ?>

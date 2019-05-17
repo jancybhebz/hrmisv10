@@ -5,7 +5,7 @@
 <div class="col-md-12">
     <table class="table table-bordered">
         <tr class="active">
-            <th style="line-height: 2;" colspan="4">Education Information
+            <th style="line-height: 2;" colspan="4">EDUCATION INFORMATION
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <a class="btn blue btn-sm pull-right" href="javascript:;" id="btnadd_educ"> <i class="icon-pencil"></i> Add Education </a>
                 <?php endif; ?>

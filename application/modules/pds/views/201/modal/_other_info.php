@@ -177,3 +177,63 @@
         </div>
     </div>
 </div>
+
+<!-- begin modal update/add character references -->
+<div class="modal fade in" id="add_character_refs" tabindex="-1" role="full" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h5 class="modal-title uppercase"><b><span class="action"></span> Character Reference</b></h5>
+            </div>
+            <?=form_open(''.$this->uri->segment(3), array('method' => 'post', 'id' => 'frm_charrefs'))?>
+            <input type="hidden" id="txtrefid" name="txtrefid">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="txtref_name" name="txtref_name">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" id="txtref_address" name="txtref_address">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label>Telephone Number</label>
+                    <input type="text" class="form-control" id="txtref_telno" name="txtref_telno">
+                    <span class="help-block"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn green">Save</button>
+            </div>
+            <?=form_close()?>
+        </div>
+    </div>
+</div>
+<!-- end modal update/add character references -->
+
+<!-- begin delete character reference -->
+<div class="modal fade" id="delete_reference" tabindex="-1" role="basic" aria-hidden="true"> 
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <?=form_open('pds/del_char_reference/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdeltra','class' => 'form-horizontal'))?>
+                <input type="hidden" name="txtdel_char_ref" id="txtdel_char_ref">
+                <div class="modal-body"> Are you sure you want to delete this data? </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btndelete" class="btn btn-sm green">
+                        <i class="icon-check"> </i> Yes</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                        <i class="icon-ban"> </i> Cancel</button>
+                </div>
+            <?=form_close()?>
+        </div>
+    </div>
+</div>
+<!-- end delete character reference -->

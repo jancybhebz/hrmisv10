@@ -584,6 +584,55 @@ class Pds extends MY_Controller
 	}
 	# END SKILL & LEGAL INFORMATION
 
+	# BEGIN CHARACTER REFS
+	public function add_char_reference()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'empNumber'	  => $empid,
+							'refName'	  => $arrPost['txtref_name'],
+							'refAddress'  => $arrPost['txtref_address'],
+							'refTelephone'=> $arrPost['txtref_telno']);
+
+			$this->pds_model->add_char_refs($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Character reference added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
+	public function edit_char_reference()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'refName'	  => $arrPost['txtref_name'],
+							'refAddress'  => $arrPost['txtref_address'],
+							'refTelephone'=> $arrPost['txtref_telno']);
+
+			$this->pds_model->save_char_refs($arrData, $arrPost['txtrefid']);
+			$this->session->set_flashdata('strSuccessMsg','Character reference updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;	
+	}
+
+	public function del_char_reference()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_char_refs($arrPost['txtdel_char_ref']);
+
+			$this->session->set_flashdata('strSuccessMsg','Character reference deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+	# END CHARACTER REFS
+
 	public function edit_position()
 	{
 		$arrPost = $this->input->post();
