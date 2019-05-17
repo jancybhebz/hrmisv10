@@ -162,7 +162,7 @@ $arrData = $arrData[0];?>
                                             <div class="tab-content">
                                                 
                                                 <!-- begin personal info -->
-                                                <div class="tab-pane " id="personal_info" style="padding: 0 !important;position: relative;top: -20px;">
+                                                <div class="tab-pane active" id="personal_info" style="padding: 0 !important;position: relative;top: -20px;">
                                                     <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                                         <div class="row">
                                                             <div class="col-md-12" style="padding: 0 30px 10px;">
