@@ -107,7 +107,7 @@ if ( ! function_exists('pending_notif'))
 			$CI->load->model(array('libraries/Request_model','employee/Notification_model'));
 
 			$requestFlow = $CI->Request_model->getRequestFlow('HR');
-			$emp_requests = $CI->Request_model->employee_request('','',1);
+			$emp_requests = $CI->Request_model->notification_request();
 			$requests = $CI->Notification_model->check_request_flow_and_signatories($requestFlow,$emp_requests);
 
 			$arrnotif = $CI->Notification_model->gethr_requestflow($requests);

@@ -126,7 +126,7 @@
                 <li class="external">
                     <h3>
                         <span class="bold"><?=count(pending_notif($_SESSION['sessEmpNo'],1))?> pending</span> requests</h3>
-                    <a href="<?=base_url('employee/notification')?>">view all</a>
+                    <a href="<?=base_url('hr/notification')?>">view all</a>
                 </li>
                 <li>
                     <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">

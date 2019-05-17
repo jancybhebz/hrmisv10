@@ -297,6 +297,7 @@ class Notification_model extends CI_Model {
 								  'req_type' => $request['requestCode'],
 								  'req_status' => $request['requestStatus'],
 								  'req_remarks' => $request['remarks'],
+								  'req_details' => $request['requestDetails'],
 								  'req_nextsign' => $next_sign);
 
 			$arrRequest[] = $request_detail;

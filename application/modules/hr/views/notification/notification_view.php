@@ -33,8 +33,21 @@
                         <ul class="dropdown-menu pull-right">
                             <?php foreach($arrNotif_menu as $notif):?>
                                     <li>
-                                        <a href="<?=base_url('hr/notification?status='.$notif.'&month='.currmo().'&yr='.curryr())?>">
+                                        <a href="<?=base_url('hr/notification?status='.$notif.'&code='.$active_code.'&month='.currmo().'&yr='.curryr())?>">
                                             <i class="fa fa-<?=$notif_icon[$notif]?>"></i> <?=$notif == 'All' ? 'All Requests' : $notif?> </a>
+                                    </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn blue btn-sm btn-outline dropdown-toggle" href="<?=base_url('hr/notification?=All')?>" data-toggle="dropdown">
+                            <?=$active_code == 'all' ? 'All Request Type' : $active_code?> <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <?php foreach($request_codes as $rcode):?>
+                                    <li>
+                                        <a href="<?=base_url('hr/notification?status='.$active_menu.'&code='.$rcode['requestCode'].'&month='.currmo().'&yr='.curryr())?>">
+                                            <?=$rcode['requestCode'] == 'all' ? 'All Request Type' : $rcode['requestCode']?> </a>
                                     </li>
                             <?php endforeach; ?>
                         </ul>
@@ -48,7 +61,8 @@
                         <div class="col-md-12">
                             <center>
                                 <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
-                                    <input type="hidden" name="status" value="<?=isset($_GET['status']) ? $_GET['status'] : ''?>">
+                                    <input type="hidden" name="status" value="<?=$active_menu?>">
+                                    <input type="hidden" name="code" value="<?=$active_code?>">
                                     <div class="form-group" style="display: inline-flex;">
                                         <label style="padding: 6px;">Month</label>
                                         <select class="bs-select form-control" name="month">
@@ -89,7 +103,7 @@
                         </div>
 
                         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                        <div style="display: inline-flex;" class="div-legend" style="visibility: hidden;">
+                        <div style="display: inline-flex;visibility: hidden;" class="div-legend">
                             <div class="legend-def1">
                                 <div class="legend-dd1" style="background-color: #ffffb0;"></div> &nbsp;<small style="margin-left: 10px;">Disapproved</small> &nbsp;&nbsp;</div>
                             <div class="legend-def1">
@@ -118,9 +132,9 @@
                                         <td align="center"><?=$request['req_remarks']?></td>
                                         <td><?=$request['req_nextsign']?></td>
                                         <td nowrap style="vertical-align: middle;text-align: left;">
-                                            <a href="" class="btn btn-sm blue"> <i class="icon-magnifier"></i> View </a>
+                                            <button class="btn btn-sm blue btn-view" data-json='<?=json_encode($request)?>'> <i class="icon-magnifier"></i> View </button>
                                             <?php if(!in_array(strtolower($request['req_status']), array('cancelled', 'disapproved','certified'))): ?>
-                                                <button data-id="<?=$request['req_id']?>" class="btn btn-sm red btn-cancel"> <i class="icon-close"></i> Cancel </button>
+                                                <button data-id="<?=$request['req_id']?>" class="btn btn-sm red btn-cancel"> <i class="icon-ban"></i> Cancel Request </button>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -135,35 +149,8 @@
     </div>
 </div>
 
-<div id="modal-cancelRequest" class="modal fade" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Cancel Request</h4>
-            </div>
-            <?=form_open('employee/requests/cancel_request', array('id' => 'frmcancel_request'))?>
-                <div class="modal-body">
-                    <div class="row form-body">
-                        <div class="col-md-12">
-                            <input type="hidden" name="txtreqid" id="txtreqid">
-                            <div class="form-group">
-                                <label>Are you sure you want to cancel this request?</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
-                </div>
-            <?=form_close()?>
-        </div>
-    </div>
-</div>
-
+<?php include '_notification_modal.php' ?>
 <?php load_plugin('js',array('datatables','select'));?>
-<?php include 'modal/notification_info.php' ?>
 
 <script>
     $(document).ready(function() {
@@ -172,6 +159,44 @@
                 $('.loading-image').hide();
                 $('#table-notif, .div-legend').css('visibility', 'visible');
             }} );
+
+        $('#table-notif').on('click', 'button.btn-view', function() {
+            var jsondata = $(this).data('json');
+            console.log(jsondata);
+            switch(jsondata.req_code) {
+                case '201':
+                    $('#modal-201_form').modal('show');
+                    break;
+                case 'OB':
+                    $('#modal-ob_form').modal('show');
+                    break;
+                case 'Leave':
+                    $('#modal-leave_form').modal('show');
+                    break;
+                case 'TO':
+                    $('#modal-to_form').modal('show');
+                    break;
+                case 'Report':
+                    $('#modal-report_form').modal('show');
+                    break;
+                case 'Monetization':
+                    $('#modal-monetization_form').modal('show');
+                    break;
+                case 'Trainings':
+                    $('#modal-trainings_form').modal('show');
+                    break;
+                case 'Commutation':
+                    $('#modal-commutation_form').modal('show');
+                    break;
+                case 'DTR':
+                    $('#modal-dtr_form').modal('show');
+                    break;
+                default:
+                    break;
+            }
+            
+        });
+
         $('#table-notif').on('click', 'button.btn-cancel', function() {
             $('#txtreqid').val($(this).data('id'));
             $('#modal-cancelRequest').modal('show');

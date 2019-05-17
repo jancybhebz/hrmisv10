@@ -198,23 +198,8 @@ class Request_model extends CI_Model {
 		return $this->db->get_where('tblRequestType')->result_array();
 	}
 
-	function employee_request($yr='',$month='',$iscancel=0,$status='')
+	function employee_request($yr='',$month='',$iscancel=0,$status='',$code='')
 	{
-		// if($yr == '' && $month == ''):
-		// 	$this->db->where('(requestDate >= \''.date('Y').'-01-01\' and requestDate <= LAST_DAY(\''.date('Y').'-12-01\'))');
-		// else:
-		// 	if($yr=='all' || $month=='all'):
-		// 		if($yr!='all'):
-		// 			$this->db->where('(requestDate >= \''.$yr.'-01-01\' and requestDate <= LAST_DAY(\''.$yr.'-12-01\'))');
-		// 		endif;
-		// 		if($month!='all'):
-		// 			$this->db->where('(requestDate >= \''.$yr.'-01-01\' and requestDate <= LAST_DAY(\''.$yr.'-12-01\'))');
-		// 		endif;
-		// 	else:
-		// 		$this->db->where('(requestDate >= \''.$yr.'-'.$month.'-01\' and requestDate <= LAST_DAY(\''.$yr.'-'.$month.'-01\'))');
-		// 	endif;
-		// endif;
-
 		if($month == 'all'):
 			if($yr != 'all'):
 				$this->db->where('(requestDate >= \''.$yr.'-01-01\' and requestDate <= LAST_DAY(\''.$yr.'-12-01\'))');
@@ -227,11 +212,35 @@ class Request_model extends CI_Model {
 			endif;
 		endif;
 
-		if($iscancel) { $this->db->where('requestStatus!=','Cancelled'); }
+		if($code!=''):
+			if($code!='all'):
+				$this->db->where('requestCode',$code);
+			endif;
+		endif;
 
+		if($iscancel) { $this->db->where('requestStatus!=','Cancelled'); }
 		if($status!='') { $this->db->where('requestStatus',$status); }
 
 		$this->db->where('SignatoryFin=','');
+		$res = $this->db->get('tblEmpRequest')->result_array();
+		
+		return $res;
+	}
+
+	function notification_request()
+	{
+		$this->db->where('(requestDate >= \''.date('Y').'-01-01\' and requestDate <= LAST_DAY(\''.date('Y').'-12-01\'))');
+		$this->db->where('requestStatus!=','Cancelled');
+		$this->db->where('SignatoryFin=','');
+		$res = $this->db->get('tblEmpRequest')->result_array();
+		
+		return $res;
+	}
+
+	function request_code()
+	{
+		$this->db->select('requestCode');
+		$this->db->group_by('requestCode');
 		$res = $this->db->get('tblEmpRequest')->result_array();
 		
 		return $res;
