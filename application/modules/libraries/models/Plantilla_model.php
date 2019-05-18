@@ -32,9 +32,20 @@ class Plantilla_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getAllPlantilla()
-	{		
-		return $this->db->order_by('itemNumber','ASC')->get($this->table)->result_array();	
+	function getAllPlantilla($plantillaId='')
+	{
+		if($plantillaId!=''):
+			$res = $this->db->get_where('tblPlantilla', array('plantillaID' => $plantillaId))->result_array();
+			return count($res) > 0 ? $res[0] : array(); 
+		else:
+			return $this->db->order_by('itemNumber','ASC')->get($this->table)->result_array();	
+		endif;
+	}
+
+	function get_plantilla_byItemNumber($itemNumber)
+	{
+		$res = $this->db->get_where('tblPlantilla', array('itemNumber' => $itemNumber))->result_array();
+		return count($res) > 0 ? $res[0] : array(); 
 	}
 
 	function add($arrData)

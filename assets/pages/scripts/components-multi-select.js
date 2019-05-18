@@ -8,7 +8,7 @@ var ComponentsDropdowns = function () {
         });
 
         $('#select2_sample2').select2({
-            placeholder: "Select a State",
+            placeholder: "",
             allowClear: true
         });
 
@@ -125,7 +125,7 @@ var ComponentsDropdowns = function () {
         });
 
         $('#select2_sample_modal_2').select2({
-            placeholder: "Select a State",
+            placeholder: "",
             allowClear: true
         });
 

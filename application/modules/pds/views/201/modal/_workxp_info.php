@@ -1,6 +1,6 @@
 <?=load_plugin('css', array('select','select2','datepicker'))?>
 <!-- begin modal update/add child info -->
-<div class="modal fade in" id="add_work_xp" tabindex="-1" role="full" aria-hidden="true">
+<div class="modal fade in" id="add_work_xp" aria-hidden="true">
     <div class="modal-dialog" style="width: 95%;">
         <div class="modal-content">
             <div class="modal-header">
@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Status of Appointment</label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2" name="selappointment" id="selappointment">
+                                    <select class="form-control bs-select" name="selappointment" id="selappointment">
                                         <option value=""> </option>
                                         <?php foreach($arrAppointments as $appt):
                                                 echo '<option value="'.$appt['appointmentCode'].'">'.$appt['appointmentDesc'].'</option>';

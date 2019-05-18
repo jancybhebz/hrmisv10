@@ -342,6 +342,20 @@ class Hr_model extends CI_Model {
 	}
 	# END CHARACTER REFERENCES
 
+	# BEGIN POSITION DETAILS
+	function get_pos_sepMode()
+	{
+		$this->db->group_by('statusOfAppointment');
+		return $this->db->get_where('tblEmpPosition', array('statusOfAppointment!=' => ''))->result_array();
+	}
+
+	function get_pos_personnelAction()
+	{
+		$this->db->group_by('personnelAction');
+		return $this->db->get_where('tblEmpPosition', array('personnelAction!=' => ''))->result_array();
+	}
+	# END POSITION DETAILS
+
 }
 /* End of file Hr_model.php */
 /* Location: ./application/modules/employees/models/Employees_model.php */

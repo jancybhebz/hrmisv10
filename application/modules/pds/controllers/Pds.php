@@ -633,6 +633,37 @@ class Pds extends MY_Controller
 	}
 	# END CHARACTER REFS
 
+	# BEGIN POSITION DETAILS
+	public function edit_position_details()
+	{
+	    $empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'serviceCode' 		  => $arrPost['sel_srvcode'],
+							'firstDayGov' 		  => $arrPost['txt_fday_govt'],
+							'effectiveDate' 	  => $arrPost['txtsalary_eff_date'],
+							'firstDayAgency' 	  => $arrPost['txt_fday_agency'],
+							'statusOfAppointment' => $arrPost['selmode_separation'],
+							'appointmentCode' 	  => $arrPost['selappt_desc'],
+							#'officecode' 		  => '',
+							#'service' 			  => '',
+							#'divisionCode'		  => '',
+							#'sectionCode'		  => '',
+							'personnelAction' 	  => $arrPost['selper_action'],
+							'assignPlace' 		  => $arrPost['txtassign_place'],
+							'employmentBasis' 	  => isset($arrPost['optemp_basis']) ? $arrPost['optemp_basis'] : '',
+							'categoryService' 	  => isset($arrPost['optcateg_srv']) ? $arrPost['optcateg_srv'] : '',
+							'taxStatCode' 		  => $arrPost['sel_tax_stat'],
+							'dependents' 		  => $arrPost['txtno_dependents']);
+
+			$this->pds_model->save_position($arrData, $empid);
+			$this->session->set_flashdata('strSuccessMsg','Position details updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;		
+	}
+	# END POSITION DETAILS
+
 	public function edit_position()
 	{
 		$arrPost = $this->input->post();

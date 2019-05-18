@@ -1,6 +1,6 @@
 <?=load_plugin('css', array('select2','datepicker'))?>
 <!-- begin modal update/add child info -->
-<div class="modal fade in" id="add_exam" tabindex="-1" role="full" aria-hidden="true">
+<div class="modal fade in" id="add_exam" aria-hidden="true">
     <div class="modal-dialog" style="width: 68%;">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,6 +109,5 @@
 <script>
     $(document).ready(function() {
         $('.date-picker').datepicker();
-        $('.select2').select2({placeholder: "",allowClear: true});
     });
 </script>

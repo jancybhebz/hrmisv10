@@ -1,11 +1,11 @@
 <?=load_plugin('css', array('select','select2'))?>
 <!-- begin modal update/add child info -->
-<div class="modal fade in" id="add_education" tabindex="-1" role="full" aria-hidden="true">
+<div class="modal fade in" id="add_education" aria-hidden="true">
     <div class="modal-dialog" style="width: 50%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title uppercase"><b><span class="action"></span> Education Information</b></h4>
+                <h5 class="modal-title uppercase"><b><span class="action"></span> Education Information</b></h5>
             </div>
             <?=form_open('', array('method' => 'post', 'id' => 'frmeduc','class' => 'form-horizontal'))?>
             <input type="hidden" name="txteducid" id="txteducid">
@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Degree / Course</label>
                     <div class="col-md-8">
-                        <select class="form-control select2" name="seldegree" id="seldegree">
+                        <select class="form-control select2" name="seldegree" id="seldegree" placeholder="">
                             <option value=""></option>
                             <?php foreach($arrCourses as $course):
                                     echo '<option value="'.$course['courseCode'].'">'.$course['courseDesc'].'</option>';
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Scholarship</label>
                     <div class="col-md-8">
-                        <select class="form-control select2" id="selscholarship" name="selscholarship">
+                        <select class="form-control select2" id="selscholarship" name="selscholarship" placeholder="">
                             <option value=""></option>
                             <?php foreach($arrScholarships as $scholarship):
                                     echo '<option value="'.$scholarship['id'].'">'.$scholarship['description'].'</option>';
@@ -71,9 +71,9 @@
                     <label class="col-md-3 control-label">Period of Attendance</label>
                     <div class="col-md-9">
                         <div class="input-group input-large input-daterange" style="width: 88% !important;">
-                            <input type="text" maxlength="4" class="form-control" name="txtperiodatt_from" id="txtperiodatt_from">
+                            <input type="text" maxlength="4" class="form-control" name="txtperiodatt_from" id="txtperiodatt_from" placeholder="YYYY">
                             <span class="input-group-addon"> to </span>
-                            <input type="text" maxlength="4" class="form-control" name="txtperiodatt_to" id="txtperiodatt_to">
+                            <input type="text" maxlength="4" class="form-control" name="txtperiodatt_to" id="txtperiodatt_to" placeholder="YYYY">
                         </div>
                         <span class="help-block"></span>
                     </div>
@@ -145,7 +145,10 @@
 <?=load_plugin('js',array('select','select2'));?>
 
 <script>
-    $(document).ready(function() {
-        $('.select2').select2({placeholder: "",allowClear: true});
+    $('select.select2').select2({
+        minimumResultsForSearch: -1,
+        placeholder: function(){
+            $(this).data('placeholder');
+        }
     });
 </script>

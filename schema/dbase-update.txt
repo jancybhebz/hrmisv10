@@ -1,16 +1,16 @@
-ALTER TABLE `tblposition` ADD `positionId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `positionId` (`positionId`);
+ALTER TABLE `tblPosition` ADD `positionId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `positionId` (`positionId`);
 
-ALTER TABLE `tbleducationallevel` ADD `levelId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `levelId` (`levelId`);
+ALTER TABLE `tblEducationalLevel` ADD `levelId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `levelId` (`levelId`);
 
-ALTER TABLE `tblexamtype` ADD `examId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `ExamId` (`examId`);
+ALTER TABLE `tblExamType` ADD `examId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `ExamId` (`examId`);
 
-ALTER TABLE `tblpayrollgroup` ADD `payrollGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `payrollGroupId` (`payrollGroupId`);
+ALTER TABLE `tblPayrollGroup` ADD `payrollGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `payrollGroupId` (`payrollGroupId`);
 
-ALTER TABLE `tblplantillagroup` ADD `plantillaGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `plantillaGroupId` (`plantillaGroupId`);
+ALTER TABLE `tblPlantillaGroup` ADD `plantillaGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `plantillaGroupId` (`plantillaGroupId`);
 
-ALTER TABLE `tblproject` ADD `projectId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `projectId` (`projectId`);
+ALTER TABLE `tblProject` ADD `projectId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `projectId` (`projectId`);
 
-ALTER TABLE `tblservicecode` ADD `serviceId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `serviceId` (`serviceId`);
+ALTER TABLE `tblServiceCode` ADD `serviceId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `serviceId` (`serviceId`);
 
-ALTER TABLE `tblsignatory` ADD `sig_module` TINYINT NULL AFTER `signatoryOrder`;
+ALTER TABLE `tblSignatory` ADD `sig_module` TINYINT NULL AFTER `signatoryOrder`;
 
