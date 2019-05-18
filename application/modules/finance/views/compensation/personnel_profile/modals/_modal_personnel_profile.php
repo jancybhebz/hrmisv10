@@ -243,7 +243,7 @@
                             <label class="control-label">Step Number<span class="required"> * </span></label>
                             <div class="input-icon right">
                                 <i class="fa fa-warning tooltips i-required"></i>
-                                <select class="form-control select2" name="selStep_number" placeholder="select step number">
+                                <select class="form-control bs-select" name="selStep_number" placeholder="select step number">
                                     <option value="NULL">SELECT STEP</option>
                                     <?php foreach (range(1, 8) as $step): ?>
                                         <option value="<?=$step?>" <?=$step == $arrData['stepNumber'] ? 'selected' : ''?>>

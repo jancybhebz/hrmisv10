@@ -328,50 +328,60 @@
 <!-- end modal update payroll details info -->
 
 <!-- begin modal update plantilla details info -->
-<div class="modal fade in" id="edit_plantilla_details" tabindex="-1" role="full" aria-hidden="true">
+<div class="modal fade in" id="edit_plantilla_details" aria-hidden="true">
     <div class="modal-dialog-lg" style="width: 75%;margin: 5% auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h5 class="modal-title uppercase"><b>Edit Position Details</b></h5>
             </div>
-            <?=form_open('pds/edit_parents/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
+            <?=form_open('pds/edit_plantilla_details/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Item Number</label>
+                                <input type="hidden" id="txtunique_itemno" name="txtunique_itemno" value="<?=$arrPosition[0]['uniqueItemNumber']?>">
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <select class="form-control select2" id="sel_plantilla" name="sel_plantilla">
+                                        <option value=""> </option>
+                                        <?php foreach($arrplantilla as $plantilla):
+                                                $selected = $plantilla['itemNumber'] == $arrPosition[0]['itemNumber'] ? 'selected' : '';
+                                                echo '<option id="'.$plantilla['uniqueItemNumber'].'" value="'.$plantilla['itemNumber'].'" '.$selected.'>'.$plantilla['itemNumber'].'</option>';
+                                              endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Actual Salary</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtactual_salary" class="form-control" value="<?=isset($arrPosition) ? number_format($arrPosition[0]['actualSalary'],2) : ''?>">
+                                    <input type="text" name="txtactual_salary" class="form-control" 
+                                        value="<?=isset($arrPosition) ? number_format($arrPosition[0]['actualSalary'],2) : ''?>" disabled>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Authorize Salary</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtauthorized_salary" class="form-control" value="<?=isset($arrPosition) ? number_format($arrPosition[0]['authorizeSalary'],2) : ''?>">
+                                    <input type="text" name="txtauthorized_salary" class="form-control" 
+                                        value="<?=isset($arrPosition) ? number_format($arrPosition[0]['authorizeSalary'],2) : ''?>" disabled>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Position</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <input type="text" name="txtplant_pos" class="form-control" value="<?=$arrData[0]['positionDesc']?>" disabled>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Position Date</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtposition_date" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txtposition_date" class="form-control date-picker"
+                                        value="<?=$arrPosition[0]['positionDate']?>" data-date-format="yyyy-mm-dd">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -380,21 +390,28 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Salary Grade</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <input type="text" name="txtsalary_grade" class="form-control" value="<?=$arrPosition[0]['salaryGradeNumber']?>">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Step Number</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <select class="form-control bs-select" name="selStep_number" placeholder="">
+                                        <option value=""></option>
+                                        <?php foreach (range(1, 8) as $step): ?>
+                                            <option value="<?=$step?>" <?=$step == $arrPosition[0]['stepNumber'] ? 'selected' : ''?>>
+                                                <?=$step?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Date Increment</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txt_inc_date" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txt_date_inc" class="form-control date-picker" 
+                                        value="<?=$arrPosition[0]['dateIncremented']?>" data-date-format="yyyy-mm-dd">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -413,3 +430,12 @@
 <!-- end modal update plantilla details info -->
 
 <?=load_plugin('js', array('select2','datepicker'))?>
+
+<script>
+    $(document).ready(function() {
+        $('#sel_plantilla').on('select2:select',function(e) {
+            dataid = $(this).find('option:selected').attr('id');
+            $('#txtunique_itemno').val(dataid);
+        });
+    });
+</script>

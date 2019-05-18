@@ -683,6 +683,27 @@ class Pds extends MY_Controller
 			redirect('hr/profile/'.$empid);
 		endif;
 	}
+
+	public function edit_plantilla_details()
+	{
+	    $empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'uniqueItemNumber' => $arrPost['txtunique_itemno'],
+							'itemNumber' 	   => $arrPost['sel_plantilla'],
+							// 'actualSalary' 	   => $arrPost['txtactual_salary'],
+							// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
+							'positionDate' 	   => $arrPost['txtposition_date'],
+							'salaryGradeNumber'=> $arrPost['txtsalary_grade'],
+							'stepNumber' 	   => $arrPost['selStep_number'],
+							'dateIncremented'  => $arrPost['txt_date_inc']);
+
+			$this->pds_model->save_position($arrData, $empid);
+			$this->session->set_flashdata('strSuccessMsg','Plantilla details updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
 	# END POSITION DETAILS
 
 	public function edit_position()

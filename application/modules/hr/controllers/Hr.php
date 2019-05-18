@@ -74,6 +74,7 @@ class Hr extends MY_Controller {
 		# Payroll Details
 		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
 		$this->arrData['arrAttSchemes'] = $this->Attendance_scheme_model->get_att_schemes();
+		$this->arrData['arrplantilla'] = $this->Plantilla_model->getAllPlantilla();
 
 		$this->arrData['arrDuties'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_DUTIES);
 		$this->arrData['arrPlantillaDuties'] = $this->Hr_model->getPlantillaDuties($strEmpNo,'*',TABLE_PLANTILLADUTIES);
