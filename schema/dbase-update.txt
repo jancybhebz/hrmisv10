@@ -14,3 +14,8 @@ ALTER TABLE `tblServiceCode` ADD `serviceId` INT NOT NULL AUTO_INCREMENT FIRST, 
 
 ALTER TABLE `tblSignatory` ADD `sig_module` TINYINT NULL AFTER `signatoryOrder`;
 
+ALTER TABLE  `tblEmpDuties` ADD  `empduties_index` INT NOT NULL AUTO_INCREMENT FIRST , ADD PRIMARY KEY (  `empduties_index` ) ;
+
+ALTER TABLE  `tblDuties` ADD  `duties_index` INT NOT NULL AUTO_INCREMENT FIRST , ADD PRIMARY KEY (  `duties_index` ) ;
+
+ALTER TABLE  `tblPlantillaDuties` ADD  `plantilla_duties_index` INT NOT NULL AUTO_INCREMENT FIRST , ADD PRIMARY KEY (  `plantilla_duties_index` ) ;

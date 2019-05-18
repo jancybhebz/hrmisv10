@@ -291,6 +291,71 @@ class Pds_model extends CI_Model {
 	}
 	# END CHARACTER REFERENCES
 
+	# BEGIN DUTIES & RESPONSIBILITIES
+	#	- For Position
+	function add_duties_position($arrData)
+	{
+		$this->db->insert('tblDuties', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function save_duties_position($arrData, $duties_id)
+	{
+		$this->db->where('duties_index', $duties_id);
+		$this->db->update('tblDuties', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_duties_position($duties_id)
+	{
+		$this->db->where('duties_index', $duties_id);
+		$this->db->delete('tblDuties'); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	#	- For Plantilla
+	function add_duties_plantilla($arrData)
+	{
+		$this->db->insert('tblPlantillaDuties', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function save_duties_plantilla($arrData, $duties_id)
+	{
+		$this->db->where('plantilla_duties_index', $duties_id);
+		$this->db->update('tblPlantillaDuties', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_duties_plantilla($duties_id)
+	{
+		$this->db->where('plantilla_duties_index', $duties_id);
+		$this->db->delete('tblPlantillaDuties'); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	#	- For Actual
+	function add_duties_actual($arrData)
+	{
+		$this->db->insert('tblEmpDuties', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function save_duties_actual($arrData, $duties_id)
+	{
+		$this->db->where('empduties_index', $duties_id);
+		$this->db->update('tblEmpDuties', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_duties_actual($duties_id)
+	{
+		$this->db->where('empduties_index', $duties_id);
+		$this->db->delete('tblEmpDuties'); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	# END DUTIES & RESPONSIBILITIES
+
 	function save_skill($arrData, $strEmpNumber)
 	{
 		$this->db->where($this->tableid, $strEmpNumber);

@@ -75,10 +75,10 @@ class Hr extends MY_Controller {
 		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
 		$this->arrData['arrAttSchemes'] = $this->Attendance_scheme_model->get_att_schemes();
 		$this->arrData['arrplantilla'] = $this->Plantilla_model->getAllPlantilla();
-
-		$this->arrData['arrDuties'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_DUTIES);
-		$this->arrData['arrPlantillaDuties'] = $this->Hr_model->getPlantillaDuties($strEmpNo,'*',TABLE_PLANTILLADUTIES);
-		// $this->arrData['arrPlantillaDuties'] = $this->employees_model->getEmployeeDetails($strEmpNo,'*',TABLE_PLANTILLADUTIES);
+		# Duties and Responsibilities
+		$this->arrData['position_duties'] = $this->Hr_model->duties_position($this->arrData['arrPosition'][0]['positionCode']);
+		$this->arrData['plantilla_duties'] = $this->Hr_model->duties_plantilla($this->arrData['arrPosition'][0]['itemNumber']);
+		$this->arrData['actual_duties'] = $this->Hr_model->duties_actual($strEmpNo);
 
 		// $this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
 		$this->template->load('template/template_view','pds/201/view_employee', $this->arrData);

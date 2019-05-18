@@ -292,15 +292,6 @@ class Hr_model extends CI_Model {
 		return $this->db->get_where('tblEmpSchool', array('empNumber' => $empid))->result_array();
 	}
 
-	function getPlantillaDuties($strEmpNo)
-	{
-		if($strEmpNo!='')
-			$this->db->where('empNumber',$strEmpNo);
-		$this->db->join('tblEmpPosition','tblEmpPosition.itemNumber = '.'tblPlantillaDuties.itemNumber','left');
-		$objQuery = $this->db->get('tblPlantillaDuties');
-		return $objQuery->result_array();	
-	}
-
 	
 	// public function getEmpNumber($intInviteeId="",$intSourceAgency="",$strSearch="",$isVIP="")
 	// {
@@ -355,6 +346,25 @@ class Hr_model extends CI_Model {
 		return $this->db->get_where('tblEmpPosition', array('personnelAction!=' => ''))->result_array();
 	}
 	# END POSITION DETAILS
+
+	# BEGIN DUTIES AND RESPONSIBILITIES
+	function duties_position($poscode)
+	{
+		$this->db->order_by('dutyNumber');
+		return $this->db->get_where('tblDuties', array('positionCode' => $poscode))->result_array();
+	}
+
+	function duties_plantilla($itemno)
+	{
+		$this->db->order_by('dutyNumber');
+		return $this->db->get_where('tblPlantillaDuties', array('itemNumber' => $itemno))->result_array();
+	}
+
+	function duties_actual($empid)
+	{
+		return $this->db->get_where('tblEmpDuties', array('empNumber' => $empid))->result_array();
+	}
+	# END DUTIES AND RESPONSIBILITIES
 
 }
 /* End of file Hr_model.php */

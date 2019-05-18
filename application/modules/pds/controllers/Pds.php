@@ -706,6 +706,144 @@ class Pds extends MY_Controller
 	}
 	# END POSITION DETAILS
 
+	# BEGIN DUTIES & RESPONSIBILITIES
+	#	- For Position
+	public function add_position_duties()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'positionCode'=> $arrPost['txtdr_poscode'],
+							'duties'   	  => $arrPost['txtduties'],
+							'percentWork' => $arrPost['txtper_work'],
+							'dutyNumber'  => $arrPost['txtno_duty']);
+			$this->pds_model->add_duties_position($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for position added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
+	public function edit_position_duties()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'duties'   	  => $arrPost['txtduties'],
+							'percentWork' => $arrPost['txtper_work'],
+							'dutyNumber'  => $arrPost['txtno_duty']);
+			$this->pds_model->save_duties_position($arrData,$arrPost['txtdr_id']);
+			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for position updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+	
+	public function del_position_duties()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_duties_position($arrPost['txtdel_drid']);
+
+			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for position deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+
+	#	- For Plantilla
+	public function add_plantilla_duties()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'itemNumber'  => $arrPost['txtdr_itemno'],
+							'itemDuties'  => $arrPost['txtduties'],
+							'percentWork' => $arrPost['txtper_work'],
+							'dutyNumber'  => $arrPost['txtno_duty']);
+			$this->pds_model->add_duties_plantilla($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for plantilla added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
+	public function edit_plantilla_duties()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'itemDuties'  => $arrPost['txtduties'],
+							'percentWork' => $arrPost['txtper_work'],
+							'dutyNumber'  => $arrPost['txtno_duty']);
+			$this->pds_model->save_duties_plantilla($arrData,$arrPost['txtdr_id']);
+			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for plantilla updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+	
+	public function del_plantilla_duties()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_duties_plantilla($arrPost['txtdel_drid']);
+
+			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for plantilla deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+
+	#	- For Actual Duties
+	public function add_actual_duties()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'empNumber'  => $empid,
+							'duties'  	 => $arrPost['txtduties'],
+							'percentWork'=> $arrPost['txtper_work']);
+			$this->pds_model->add_duties_actual($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Actual Duties and responsibilites added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
+	public function edit_actual_duties()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'duties'  	 => $arrPost['txtduties'],
+							'percentWork'=> $arrPost['txtper_work']);
+			$this->pds_model->save_duties_actual($arrData,$arrPost['txtdr_id']);
+			$this->session->set_flashdata('strSuccessMsg','Actual Duties and responsibilites updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+	
+	public function del_actual_duties()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_duties_actual($arrPost['txtdel_drid']);
+
+			$this->session->set_flashdata('strSuccessMsg','Actual Duties and responsibilites deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+	# END DUTIES & RESPONSIBILITIES
+
 	public function edit_position()
 	{
 		$arrPost = $this->input->post();

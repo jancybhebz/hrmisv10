@@ -241,11 +241,13 @@ $arrData = $arrData[0];?>
                                                 </div>
                                                 <!-- end position details -->
 
-                                                    <!-- begin duties and responsibilities -->
-                                                    <div class="tab-pane" id="duties">
-                                                        duties and responsibilities
+                                                <!-- begin duties and responsibilities -->
+                                                <div class="tab-pane " id="duties">
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_duties_responsiblities_view.php'); ?>
                                                     </div>
-                                                    <!-- end duties and responsibilities -->
+                                                </div>
+                                                <!-- end duties and responsibilities -->
 
                                                     <!-- begin appointment issued -->
                                                     <div class="tab-pane" id="appoint_issued">
