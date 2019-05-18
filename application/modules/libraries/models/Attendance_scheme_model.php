@@ -30,6 +30,22 @@ class Attendance_scheme_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function get_att_schemes()
+	{
+		$arrAttSchemes = $this->getData();
+		foreach($arrAttSchemes as $as):
+			if($as['schemeType'] == 'Sliding'):
+				$varas['code'] = $as['schemeCode'];
+				$varas['label'] = $as['schemeName'].'-'.$as['schemeType'].' ('.substr($as['amTimeinFrom'],0,5).'-'.substr($as['amTimeinTo'],0,5).','.substr($as['pmTimeoutFrom'],0,5).'-'.substr($as['pmTimeoutTo'],0,5).')';
+			else:
+				$varas['code'] = $as['schemeCode'];
+				$varas['label'] = $as['schemeName'].'-'.$as['schemeType'].' ('.substr($as['amTimeinFrom'],0,5)."-".substr($as['pmTimeoutTo'],0,5).')';
+			endif;
+			$arrAs[] = $varas;
+		endforeach;
+		return $arrAs;
+	}
+
 	function getType($strType = '')
 	{		
 		if($strType != "")

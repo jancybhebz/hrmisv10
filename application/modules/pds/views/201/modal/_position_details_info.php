@@ -196,14 +196,14 @@
 <!-- end modal update position details info -->
 
 <!-- begin modal update payroll details info -->
-<div class="modal fade in" id="edit_payroll_details" tabindex="-1" role="full" aria-hidden="true">
+<div class="modal fade in" id="edit_payroll_details" aria-hidden="true">
     <div class="modal-dialog-lg" style="width: 75%;margin: 5% auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h5 class="modal-title uppercase"><b>Edit Position Details</b></h5>
             </div>
-            <?=form_open('pds/edit_parents/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
+            <?=form_open('pds/edit_payroll_details/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -211,35 +211,68 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Payroll Group</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <select class="form-control select2" name="selpayrollGrp" placeholder="">
+                                        <option value=""></option>
+                                        <?php foreach($pGroups as $pg): ?>
+                                            <option value="<?=$pg['payrollGroupCode']?>" <?=$pg['payrollGroupCode'] == $arrData[0]['payrollGroupCode'] ? 'selected' : ''?>>
+                                                (<?=$pg['payrollGroupCode']?>) <?=$pg['payrollGroupName']?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Include in DTR?</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_dtr" value="Y"
+                                                <?=$arrPosition[0]['dtrSwitch'] == 'Y' ? 'checked' : ''?>> Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_dtr" value="N"
+                                                <?=$arrPosition[0]['dtrSwitch'] == 'N' ? 'checked' : ''?>> No </label>
+                                    </div>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Attendance Scheme</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <select class="form-control select2" name="selattScheme" placeholder="">
+                                        <option value=""></option>
+                                        <?php foreach($arrAttSchemes as $as): ?>
+                                            <option value="<?=$as['code']?>" <?=$as['code'] == $arrData[0]['schemeCode'] ? 'selected' : ''?>>
+                                                <?=$as['label']?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Include in PhilHealth?</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_phealth" value="Y"
+                                                <?=$arrPosition[0]['philhealthSwitch'] == 'Y' ? 'checked' : ''?>> Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_phealth" value="N"
+                                                <?=$arrPosition[0]['philhealthSwitch'] == 'N' ? 'checked' : ''?>> No </label>
+                                    </div>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Include in Life & Retirement?</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_liferet" value="Y"
+                                                <?=$arrPosition[0]['lifeRetSwitch'] == 'Y' ? 'checked' : ''?>> Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_liferet" value="N"
+                                                <?=$arrPosition[0]['lifeRetSwitch'] == 'N' ? 'checked' : ''?>> No </label>
+                                    </div>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -248,21 +281,35 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Include in Payroll?</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_payroll" value="Y"
+                                                <?=$arrPosition[0]['payrollSwitch'] == 'Y' ? 'checked' : ''?>> Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_payroll" value="N"
+                                                <?=$arrPosition[0]['payrollSwitch'] == 'N' ? 'checked' : ''?>> No </label>
+                                    </div>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Hazard Pay Factor</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <input type="text" name="txthazard" value="<?=$arrPosition[0]['hpFactor']?>" class="form-control" value="">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Include in PAGIBIG?</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtfatherExt" class="form-control" value="">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_pagibig" value="Y"
+                                                <?=$arrPosition[0]['pagibigSwitch'] == 'Y' ? 'checked' : ''?>> Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inc_pagibig" value="N"
+                                                <?=$arrPosition[0]['pagibigSwitch'] == 'N' ? 'checked' : ''?>> No </label>
+                                    </div>
                                     <span class="help-block"></span>
                                 </div>
                             </div>

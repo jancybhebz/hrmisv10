@@ -660,7 +660,28 @@ class Pds extends MY_Controller
 			$this->pds_model->save_position($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Position details updated successfully.');
 			redirect('hr/profile/'.$empid);
-		endif;		
+		endif;
+	}
+
+	public function edit_payroll_details()
+	{
+	    $empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'payrollGroupCode' => $arrPost['selpayrollGrp'],
+							'dtrSwitch' 	   => isset($arrPost['inc_dtr']) ? $arrPost['inc_dtr'] : '',
+							'schemeCode'	   => $arrPost['selattScheme'],
+							'philhealthSwitch' => isset($arrPost['inc_phealth']) ? $arrPost['inc_phealth'] : '',
+							'lifeRetSwitch'    => isset($arrPost['inc_liferet']) ? $arrPost['inc_liferet'] : '',
+							'payrollSwitch'    => isset($arrPost['inc_payroll']) ? $arrPost['inc_payroll'] : '',
+							'hpFactor' 		   => $arrPost['txthazard'],
+							'pagibigSwitch'	   => isset($arrPost['inc_pagibig']) ? $arrPost['inc_pagibig'] : '');
+
+			$this->pds_model->save_position($arrData, $empid);
+			$this->session->set_flashdata('strSuccessMsg','Payroll details updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
 	}
 	# END POSITION DETAILS
 
