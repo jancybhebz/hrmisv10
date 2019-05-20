@@ -50,7 +50,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 
                             </div>
                             <div class="btn-group">
-                                <a href="<?=base_url('pds/print')?>" class="btn blue"><i class="fa fa-print"></i> Print PDS</a>
+                                <input type="submit" class="btn blue" name="Submit" value="PRINT PDS CS-212 Form" onclick="openPrint()" />
+                                <!-- <a href="//base_url('pds/print')" class="btn blue"><i class="fa fa-print"></i> Print PDS</a> -->
                             </div>
                         </div>  
                     </div>
@@ -101,3 +102,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             }} );
     });
 </script>
+
+
+<!-- Print CS Form 212  -->
+<script>
+function openPrint()
+{
+    
+    window.open('hr/PersonalDataSheet.xlsx');
+    
+}
+</script>
+
