@@ -899,6 +899,19 @@ class Pds extends MY_Controller
 	}
 	# END APPOINTMENT ISSUE DETAILS
 
+	# BEGIN EDIT EMPLOYEE NUMBER
+	public function edit_empnumber()
+	{
+		$empid = $this->uri->segment(3);
+		$new_empid = $_GET['new_empnumber'];
+		if($new_empid!=''):
+			$this->pds_model->save_empnumber($empid,$new_empid);
+			$this->session->set_flashdata('strSuccessMsg','Employee number updated successfully.');
+			redirect('hr/profile/'.$new_empid);
+		endif;
+	}
+	# END EDIT EMPLOYEE NUMBER
+
 	public function edit_position()
 	{
 		$arrPost = $this->input->post();

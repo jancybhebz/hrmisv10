@@ -82,6 +82,8 @@ class Hr extends MY_Controller {
 		# Appointment Issued
 		$this->arrData['arrpositions'] = $this->Position_model->getData();
 		$this->arrData['arrEmpAppointment'] = $this->Appointment_status_model->employee_appointment_byEmpNumber($strEmpNo);
+		# Employee Number
+		$this->arrData['arrEmpNumbers'] = $this->Hr_model->get_employee_number();
 		// $this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
 		$this->template->load('template/template_view','pds/201/view_employee', $this->arrData);
 	}

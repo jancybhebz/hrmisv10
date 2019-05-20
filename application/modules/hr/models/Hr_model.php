@@ -89,6 +89,16 @@ class Hr_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	public function get_employee_number()
+	{
+		$this->db->select('empNumber');
+		$this->db->where('statusOfAppointment','In-Service');
+
+		$res = $this->db->get('tblEmpPosition')->result_array();
+		$res = array_column($res, 'empNumber');
+		return json_encode($res);
+	}
+
 	public function getData_byGroup()
 	{
 		$this->db->select('tblEmpPosition.empNumber,appointmentCode,statusOfAppointment,positionCode,appointmentCode,

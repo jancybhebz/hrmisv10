@@ -378,6 +378,19 @@ class Pds_model extends CI_Model {
 	}
 	# END APPOINTMENT ISSUE
 
+	# BEGIN UPDATE EMPNUMBER
+	function save_empnumber($old_empid,$new_empid)
+	{
+		$all_tables = $this->db->list_tables();
+		foreach($all_tables as $tblname):
+			if($this->db->field_exists('empNumber', $tblname)):
+				$this->db->where('empNumber', $old_empid);
+				$this->db->update($tblname, array('empNumber' => $new_empid));
+			endif;
+		endforeach;
+	}
+	# END UPDATE EMPNUMBER
+
 	function save_skill($arrData, $strEmpNumber)
 	{
 		$this->db->where($this->tableid, $strEmpNumber);
