@@ -249,11 +249,13 @@ $arrData = $arrData[0];?>
                                                 </div>
                                                 <!-- end duties and responsibilities -->
 
-                                                    <!-- begin appointment issued -->
-                                                    <div class="tab-pane" id="appoint_issued">
-                                                        appointment issued
+                                                <!-- begin appointment issued -->
+                                                <div class="tab-pane " id="appoint_issued">
+                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                        <?php $this->load->view('_appointment_issue_view.php'); ?>
                                                     </div>
-                                                    <!-- end appointment issued -->
+                                                </div>
+                                                <!-- end appointment issued -->
 
                                                     <!-- begin employee number -->
                                                     <div class="tab-pane" id="emp_number">
