@@ -20,6 +20,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <span class="caption-subject bold uppercase"> EDIT SCHEDULE</span>
                 </div>
             </div>
+            <?=form_open(base_url('libraries/salary_sched/edit'), array('method' => 'post', 'id' => 'frmSalary'))?>
+            <div class="form-body">
                <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
@@ -41,6 +43,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 <br>
                  
+
                 <div class="portlet-body">
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_salary_sched" style="visibility: hidden;">
@@ -66,14 +69,31 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                                 )
                                             );
                                             $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
-                                            echo '<a href="'.base_url('libraries/salary_sched/edit/'.$row['salaryGradeNumber'].'/'.$column['stepNumber'].'/'.$actual_salary.'/'.$intVersion).'">'.$actual_salary.'</a>';
+                                            // echo  '<input type="text" name="intActualSalary" value="'.$arrSalarySched[0]['actualSalary'].'">';
+                                            echo '<input type="text" value='.$actual_salary.'>';
+                                            
 
                                         ?></td>
                                 <?php endforeach; ?>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
+
                     </table>
+
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" name="stepNum" value="<?=$arrSalarySched[0]['stepNumber']?>">
+                                <input type="hidden" name="SG" value="<?=$arrSalarySched[0]['salaryGradeNumber']?>">
+                                <input type="hidden" name="ver" value="<?=$arrSalarySched[0]['version']?>">
+                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
                 </div>
 
             </div>   
