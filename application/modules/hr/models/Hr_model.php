@@ -58,12 +58,6 @@ class Hr_model extends CI_Model {
 	public function checkExist($strEmpNo)
 	{		
 		$objQuery = $this->select('empNumber')->get($this->table);
-		// $strSQL = " SELECT empNumber FROM tblEmpPersonal					
-		// 			WHERE 1=1 
-		// 			AND empNumber='".$strEmpNo."'
-		// 			";
-		//echo $strSQL;exit(1);
-		//$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	
 	}
 
@@ -90,17 +84,21 @@ class Hr_model extends CI_Model {
 		->join('tblPosition','tblPosition.positionCode=tblEmpPosition.positionCode','left')
 		->join('tblAppointment','tblAppointment.appointmentCode=tblEmpPosition.appointmentCode','left')
 		->order_by('surname,firstname,middlename','asc');
-		$strSQL = " SELECT tblEmpPersonal.*,tblEmpPosition.statusOfAppointment,tblEmpPosition.appointmentCode,tblEmpPosition.positionCode,tblPosition.positionDesc FROM tblEmpPersonal						
-					LEFT JOIN tblEmpPosition ON tblEmpPosition.empNumber=tblEmpPersonal.empNumber
-					LEFT JOIN tblPosition ON tblPosition.positionCode=tblEmpPosition.positionCode
-					WHERE 1=1 
-					$where
-					ORDER BY surname,firstname,middlename
-					";
-		// echo $strSQL;exit(1);				
-		//$objQuery = $this->db->query($strSQL);
+
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
+	}
+
+	public function getData_byGroup()
+	{
+		$this->db->select('tblEmpPosition.empNumber,appointmentCode,statusOfAppointment,positionCode,appointmentCode,
+							group1,group2,group3,group4,group5,surname,firstname,middlename,middlename,
+							middleInitial,nameExtension');
+		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber = tblEmpPersonal.empNumber','left')
+				  ->order_by('surname,firstname','asc');
+		$this->db->where('statusOfAppointment','In-Service');
+
+		return $this->db->get($this->table)->result_array();
 	}			
 		
 	public function savePersonal($arrData, $strEmpNo)

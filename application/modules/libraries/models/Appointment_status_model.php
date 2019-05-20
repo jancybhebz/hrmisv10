@@ -23,19 +23,6 @@ class Appointment_status_model extends CI_Model {
 			$this->db->order_by('appointmentDesc', 'asc');
 			return $this->db->get('tblAppointment')->result_array();
 		endif;
-		// $strWhere = '';
-		// if($intAppointmentId != "")
-		// 	$strWhere .= " AND appointmentCode = '".$intAppointmentId."'";
-		
-		// $strSQL = " SELECT * FROM tblAppointment					
-		// 			WHERE 1=1 
-		// 			$strWhere
-		// 			ORDER BY appointmentDesc
-		// 			";
-		// //]echo $strSQL;exit(1);				
-		// $objQuery = $this->db->query($strSQL);
-		// //print_r($objQuery->result_array());
-		// return $objQuery->result_array();	
 	}
 
 	function employee_appointment($apptid='')

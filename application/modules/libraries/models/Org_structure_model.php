@@ -184,5 +184,60 @@ class Org_structure_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
+	function getData_group1($grp_code='')
+	{
+		if($grp_code!=''):
+			return $this->db->get_where('tblGroup1', array('group1Code' => $grp_code))->result_array();
+		else:
+			return $this->db->get('tblGroup1')->result_array();
+		endif;
+	}
+
+	function getData_group2($grp_code='')
+	{
+		if($grp_code!=''):
+			return $this->db->get_where('tblGroup2', array('group2Code' => $grp_code))->result_array();
+		else:
+			return $this->db->get('tblGroup2')->result_array();
+		endif;
+	}
+
+	function getData_group3($grp_code='')
+	{
+		if($grp_code!=''):
+			return $this->db->get_where('tblGroup3', array('group3Code' => $grp_code))->result_array();
+		else:
+			return $this->db->get('tblGroup3')->result_array();
+		endif;
+	}
+
+	function getData_group4($grp_code='')
+	{
+		if($grp_code!=''):
+			return $this->db->get_where('tblGroup4', array('group4Code' => $grp_code))->result_array();
+		else:
+			return $this->db->get('tblGroup4')->result_array();
+		endif;
+	}
+
+	function getData_group5($grp_code='')
+	{
+		if($grp_code!=''):
+			return $this->db->get_where('tblGroup5', array('group5Code' => $grp_code))->result_array();
+		else:
+			return $this->db->get('tblGroup5')->result_array();
+		endif;
+	}
+
+	function getData_allgroups()
+	{
+		$res['arrGroup1'] = $_ENV['Group1'] !='' ? $this->getData_group1() : array();
+		$res['arrGroup2'] = $_ENV['Group2'] !='' ? $this->getData_group2() : array();
+		$res['arrGroup3'] = $_ENV['Group3'] !='' ? $this->getData_group3() : array();
+		$res['arrGroup4'] = $_ENV['Group4'] !='' ? $this->getData_group4() : array();
+		$res['arrGroup5'] = $_ENV['Group5'] !='' ? $this->getData_group5() : array();
+
+		return $res;
+	}
 		
 }

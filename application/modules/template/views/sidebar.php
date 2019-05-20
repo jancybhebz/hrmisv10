@@ -85,7 +85,7 @@ $activetab = strtolower($activetab);
                                 <span class="title">Conversion Table</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='hr' && $activesub=='attendance_summary'?'active open':''?>">
+                        <li class="nav-item <?=$active=='hr' && $activesub=='attendance' && $activetab =='view_all'?'active open':''?>">
                             <a href="<?=base_url('hr/attendance/view_all')?>">
                                 <span class="title">Attendance Summary</span>
                             </a>

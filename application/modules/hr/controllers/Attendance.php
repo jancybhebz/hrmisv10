@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model'));
+        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model','libraries/Org_structure_model','libraries/Appointment_status_model'));
     }
 
     public function conversion_table()
@@ -931,6 +931,11 @@ class Attendance extends MY_Controller {
 
 	public function override()
 	{
+		// $this->arrData['arrGroup1'] = $_ENV['Group1'] !='' ? $this->Org_structure_model->getData_group1() : array();
+		// $this->arrData['arrGroup2'] = $_ENV['Group2'] !='' ? $this->Org_structure_model->getData_group2() : array();
+		// $this->arrData['arrGroup3'] = $_ENV['Group3'] !='' ? $this->Org_structure_model->getData_group3() : array();
+		// $this->arrData['arrGroup4'] = $_ENV['Group4'] !='' ? $this->Org_structure_model->getData_group4() : array();
+		// $this->arrData['arrGroup5'] = $_ENV['Group5'] !='' ? $this->Org_structure_model->getData_group5() : array();
 		// $empid = $this->uri->segment(4);
 		// $res = $this->Hr_model->getData($empid,'','all');
 		// $this->arrData['arrData'] = $res[0];
@@ -948,7 +953,6 @@ class Attendance extends MY_Controller {
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}
-
 
    	public function download_qrcode()
    	{
@@ -989,6 +993,10 @@ class Attendance extends MY_Controller {
 
 	public function override_ob_add()
 	{
+		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+
 		$this->arrData['action'] = 'add';
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 
@@ -1016,5 +1024,6 @@ class Attendance extends MY_Controller {
 
 
 }
+
 
 
