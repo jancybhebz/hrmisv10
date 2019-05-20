@@ -50,7 +50,7 @@ class Appointment_status_model extends CI_Model {
 
 	function employee_appointment_byEmpNumber($empid='')
 	{
-		$this->db->join('tblPosition', 'tblPosition.positionCode = tblEmpAppointment.positionCode')
+		$this->db->join('tblPosition', 'tblPosition.positionCode = tblEmpAppointment.positionCode');
 		return $this->db->get_where('tblEmpAppointment', array('empNumber' => $empid))->result_array();
 	}
 
