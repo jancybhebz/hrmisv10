@@ -27,16 +27,16 @@ class Personnel_profile extends MY_Controller {
 
 	public function employee($empid)
 	{
-		$this->load->model(array('PayrollGroup_model', 'Rata_model',
+		$this->load->model(array('Payroll_group_model', 'Rata_model',
 								 'libraries/Attendance_scheme_model', 'Tax_exempt_model',
 								 'libraries/Plantilla_model', 'libraries/Separation_mode_model',
 								 'Benefit_model'));
 
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
+		$this->arrData['pGroups'] = $this->Payroll_group_model->getData();
 		$this->arrData['rata'] = $this->Rata_model->getData($res[0]['RATACode']);
-		$this->arrData['pg'] = $this->PayrollGroup_model->getData($res[0]['payrollGroupCode']);
+		$this->arrData['pg'] = $this->Payroll_group_model->getData($res[0]['payrollGroupCode']);
 
 		$arrAs = array();
 		$arrAttSchemes = $this->Attendance_scheme_model->getData();

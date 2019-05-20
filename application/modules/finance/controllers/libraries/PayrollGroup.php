@@ -7,12 +7,12 @@ class PayrollGroup extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('PayrollGroup_model', 'ProjectCode_model'));
+        $this->load->model(array('Payroll_group_model', 'ProjectCode_model'));
     }
 
 	public function index()
 	{
-		$this->arrData['payrollgroup'] = $this->PayrollGroup_model->getData('');
+		$this->arrData['payrollgroup'] = $this->Payroll_group_model->getData('');
 		$this->template->load('template/template_view','finance/libraries/payrollgroup/payrollgroup_view',$this->arrData);
 	}
 
@@ -27,8 +27,8 @@ class PayrollGroup extends MY_Controller {
 				'payrollGroupOrder' => $arrPost['txtorder'],
 				'payrollGroupRC' => $arrPost['txtrc']
 			);
-			if(!$this->PayrollGroup_model->isCodeExists($arrPost['txtcode'],'add')):
-				$this->PayrollGroup_model->add($arrData);
+			if(!$this->Payroll_group_model->isCodeExists($arrPost['txtcode'],'add')):
+				$this->Payroll_group_model->add($arrData);
 				$this->session->set_flashdata('strSuccessMsg','Payroll group added successfully.');
 				redirect('finance/libraries/payrollgroup');
 			else:
@@ -51,19 +51,19 @@ class PayrollGroup extends MY_Controller {
 				'payrollGroupOrder' => $arrPost['txtorder'],
 				'payrollGroupRC' => $arrPost['txtrc']
 			);
-			$this->PayrollGroup_model->edit($arrData, $code);
+			$this->Payroll_group_model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Project Code updated successfully.');
 			redirect('finance/libraries/payrollgroup');
 		endif;
 		$this->arrData['action'] = 'edit';
-		$this->arrData['data'] = $this->PayrollGroup_model->getData($code);
+		$this->arrData['data'] = $this->Payroll_group_model->getData($code);
 		$this->arrData['projectcode'] = $this->ProjectCode_model->getData('');
 		$this->template->load('template/template_view','finance/libraries/payrollgroup/payrollgroup_add',$this->arrData);
 	}
 
 	public function delete() 
 	{ 
-		$this->PayrollGroup_model->delete($_GET['code']);
+		$this->Payroll_group_model->delete($_GET['code']);
 	}
 
 

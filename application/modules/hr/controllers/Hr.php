@@ -13,7 +13,7 @@ class Hr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model','libraries/Appointment_status_model','libraries/Separation_mode_model','libraries/Plantilla_model','libraries/service_code_model','finance/Tax_exempt_model','finance/PayrollGroup_model','libraries/Attendance_scheme_model'));
+        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model','libraries/Appointment_status_model','libraries/Separation_mode_model','libraries/Plantilla_model','libraries/service_code_model','finance/Tax_exempt_model','finance/Payroll_group_model','libraries/Attendance_scheme_model'));
     }
 
 	public function index()
@@ -72,7 +72,7 @@ class Hr extends MY_Controller {
 		$this->arrData['service_code'] = $this->service_code_model->getData();
 		$this->arrData['tax_stat'] = $this->Tax_exempt_model->getData();
 		# Payroll Details
-		$this->arrData['pGroups'] = $this->PayrollGroup_model->getData();
+		$this->arrData['pGroups'] = $this->Payroll_group_model->getData();
 		$this->arrData['arrAttSchemes'] = $this->Attendance_scheme_model->get_att_schemes();
 		$this->arrData['arrplantilla'] = $this->Plantilla_model->getAllPlantilla();
 		# Duties and Responsibilities
