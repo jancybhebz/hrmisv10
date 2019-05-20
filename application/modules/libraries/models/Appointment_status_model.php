@@ -38,6 +38,22 @@ class Appointment_status_model extends CI_Model {
 		// return $objQuery->result_array();	
 	}
 
+	function employee_appointment($apptid='')
+	{
+		if($apptid != ''):
+			return $this->db->get_where('tblAppointment', array('appointmentissuedcode' => $apptid))->result_array();
+		else:
+			$this->db->order_by('positionCode', 'asc');
+			return $this->db->get('tblEmpAppointment')->result_array();
+		endif;	
+	}
+
+	function employee_appointment_byEmpNumber($empid='')
+	{
+		$this->db->join('tblPosition', 'tblPosition.positionCode = tblEmpAppointment.positionCode')
+		return $this->db->get_where('tblEmpAppointment', array('empNumber' => $empid))->result_array();
+	}
+
 	function add($arrData)
 	{
 		$this->db->insert('tblAppointment', $arrData);
