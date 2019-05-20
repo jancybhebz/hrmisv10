@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class TaxExempt_model extends CI_Model {
+class Tax_exempt_model extends CI_Model {
 
 	function __construct()
 	{
@@ -16,5 +16,5 @@ class TaxExempt_model extends CI_Model {
 	}
 		
 }
-/* End of file TaxExempt_model.php */
-/* Location: ./application/modules/finance/models/TaxExempt_model.php */
+/* End of file Tax_exempt_model.php */
+/* Location: ./application/modules/finance/models/Tax_exempt_model.php */

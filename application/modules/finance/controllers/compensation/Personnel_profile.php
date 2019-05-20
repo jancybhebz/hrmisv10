@@ -28,7 +28,7 @@ class Personnel_profile extends MY_Controller {
 	public function employee($empid)
 	{
 		$this->load->model(array('PayrollGroup_model', 'Rata_model',
-								 'libraries/Attendance_scheme_model', 'TaxExempt_model',
+								 'libraries/Attendance_scheme_model', 'Tax_exempt_model',
 								 'libraries/Plantilla_model', 'libraries/Separation_mode_model',
 								 'Benefit_model'));
 
@@ -51,7 +51,7 @@ class Personnel_profile extends MY_Controller {
 			$arrAs[] = $varas;
 		endforeach;
 		$this->arrData['arrAttSchemes'] = $arrAs;
-		$this->arrData['tax_status'] = $this->TaxExempt_model->getData();
+		$this->arrData['tax_status'] = $this->Tax_exempt_model->getData();
 		$this->arrData['arrRataCode'] = $this->Rata_model->getData();
 
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
