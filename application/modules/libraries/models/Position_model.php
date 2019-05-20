@@ -16,17 +16,12 @@ class Position_model extends CI_Model {
 	}
 	
 	function getData($intPositionId = '')
-	{		
-		$strWhere = '';
-		if($intPositionId != "")
-			$strWhere .= " AND positionId = '".$intPositionId."'";
-		
-		$strSQL = " SELECT * FROM tblPosition					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY positionDesc";	
-		$objQuery = $this->db->query($strSQL);
-		return $objQuery->result_array();	
+	{
+		if($intPositionId!=''):
+			return $this->db->get_where('tblPosition', array('positionId' => $intPositionId))->result_array();
+		else:
+			return $this->db->get_where('tblPosition')->result_array();
+		endif;
 	}
 
 	function getDataByFields($fieldname, $value, $fields="*")

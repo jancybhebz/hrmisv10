@@ -1,80 +1,59 @@
-<?=load_plugin('css', array('select','datepicker'))?>
-<!-- begin modal update/add training info -->
-<div class="modal fade in" id="add_training" tabindex="-1" role="full" aria-hidden="true">
+<?=load_plugin('css', array('select2','datepicker'))?>
+<!-- begin modal update/add employee appointment info -->
+<div class="modal fade in" id="add_appointment_issued" tabindex="-1" role="full" aria-hidden="true">
     <div class="modal-dialog" style="width: 70%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h5 class="modal-title uppercase"><b><span class="action"></span> Training Information</b></h5>
+                <h5 class="modal-title uppercase"><b><span class="action"></span> Appointment Issue Information</b></h5>
             </div>
-            <?=form_open('', array('method' => 'post', 'id' => 'frmtraining','class' => 'form-horizontal'))?>
-            <input type="hidden" name="txttraid" id="txttraid">
+            <?=form_open('', array('method' => 'post', 'id' => 'frmappointment_issued','class' => 'form-horizontal'))?>
+            <input type="hidden" name="txtappt_id" id="txtappt_id">
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Title of Learning and Dev./Training Programs</label>
+                    <label class="col-md-3 control-label">Position</label>
                     <div class="col-md-8">
-                        <input type="text" name="txttra_name" id="txttra_name" class="form-control">
-                        <span class="help-block"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Number of Hours</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="txttra_hrs" name="txttra_hrs">
-                        <span class="help-block"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Venue</label>
-                    <div class="col-md-8">
-                        <textarea name="txttra_venue" id="txttra_venue" class="form-control"></textarea>
-                        <span class="help-block"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Type of LD (Administrative / Managerial / Supervisory / Technical)</label>
-                    <div class="col-md-8">
-                        <select class="form-control bs-select" name="seltra_typeld" id="seltra_typeld">
+                        <select class="form-control select2" name="sel_appt_pos" id="sel_appt_pos">
                             <option value=""> </option>
-                            <?php foreach(ld_type() as $type):
-                                    echo '<option value="'.$type.'">'.$type.'</option>';
+                            <?php foreach($arrpositions as $position):
+                                    echo '<option value="'.$position['positionCode'].'">'.$position['positionDesc'].' ('.$position['positionAbb'].')</option>';
                                   endforeach; ?>
                         </select>
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Conducted/Sponsored By</label>
+                    <label class="col-md-3 control-label">Date Issued Add</label>
                     <div class="col-md-8">
-                        <input type="text" name="txttra_sponsored" id="txttra_sponsored" class="form-control">
+                        <input type="text" name="txt_appt_issueddate" id="txt_appt_issueddate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Cost</label>
+                    <label class="col-md-3 control-label">Date Publication</label>
                     <div class="col-md-8">
-                        <input type="text" name="txttra_cost" id="txttra_cost" class="form-control">
+                        <input type="text" name="txt_appt_publisheddate" id="txt_appt_publisheddate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Contract Dates</label>
+                    <label class="col-md-3 control-label">Place Issued</label>
                     <div class="col-md-8">
-                        <input type="text" name="txttra_contract" id="txttra_contract" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                        <textarea name="txt_appt_issuedplace" id="txt_appt_issuedplace" class="form-control"></textarea>
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Start Date</label>
+                    <label class="col-md-3 control-label">Relevant Experience</label>
                     <div class="col-md-8">
-                        <input type="text" name="txttra_sdate" id="txttra_sdate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                        <textarea name="txt_appt_relxp" id="txt_appt_relxp" class="form-control"></textarea>
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">End Date</label>
+                    <label class="col-md-3 control-label">Relevant Training</label>
                     <div class="col-md-8">
-                        <input type="text" name="txttra_edate" id="txttra_edate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                        <textarea name="txt_appt_reltraining" id="txt_appt_reltraining" class="form-control"></textarea>
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -87,18 +66,18 @@
         </div>
     </div>
 </div>
-<!-- end modal update/add training info -->
+<!-- end modal update/add employee appointment info -->
 
-<!-- begin delete training -->
-<div class="modal fade" id="delete_training" tabindex="-1" role="basic" aria-hidden="true"> 
+<!-- begin delete employee appointment -->
+<div class="modal fade" id="delete_emp_appointment" tabindex="-1" role="basic" aria-hidden="true"> 
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete</h4>
             </div>
-            <?=form_open('pds/del_training/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdeltra','class' => 'form-horizontal'))?>
-                <input type="hidden" name="txtdel_tra" id="txtdel_tra">
+            <?=form_open('pds/del_appointment_issue/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdelappt','class' => 'form-horizontal'))?>
+                <input type="hidden" name="txtdel_appt" id="txtdel_appt">
                 <div class="modal-body"> Are you sure you want to delete this data? </div>
                 <div class="modal-footer">
                     <button type="submit" id="btndelete" class="btn btn-sm green">
@@ -110,8 +89,8 @@
         </div>
     </div>
 </div>
-<!-- end delete training -->
-<?=load_plugin('js',array('select','datepicker'));?>
+<!-- end delete employee appointment -->
+<?=load_plugin('js',array('select2','datepicker'));?>
 
 <script>
     $(document).ready(function() {

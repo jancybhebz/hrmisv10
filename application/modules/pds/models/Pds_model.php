@@ -356,6 +356,28 @@ class Pds_model extends CI_Model {
 	}
 	# END DUTIES & RESPONSIBILITIES
 
+	# BEGIN APPOINTMENT ISSUE
+	function add_apptIssue($arrData)
+	{
+		$this->db->insert('tblEmpAppointment', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function save_apptIssue($arrData, $apptcode)
+	{
+		$this->db->where('appointmentissuedcode', $apptcode);
+		$this->db->update('tblEmpAppointment', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete_apptIssue($apptcode)
+	{
+		$this->db->where('appointmentissuedcode', $apptcode);
+		$this->db->delete('tblEmpAppointment'); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	# END APPOINTMENT ISSUE
+
 	function save_skill($arrData, $strEmpNumber)
 	{
 		$this->db->where($this->tableid, $strEmpNumber);

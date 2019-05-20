@@ -844,6 +844,61 @@ class Pds extends MY_Controller
 	}
 	# END DUTIES & RESPONSIBILITIES
 
+	# BEGIN APPOINTMENT ISSUE DETAILS
+	public function add_appointment_issue()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'empNumber'	  		=> $empid,
+							'positionCode'	  	=> $arrPost['sel_appt_pos'],
+							'dateIssued'  		=> $arrPost['txt_appt_issueddate'],
+							'datePublished'  	=> $arrPost['txt_appt_publisheddate'],
+							'placePublished'  	=> $arrPost['txt_appt_issuedplace'],
+							'relevantExperience'=> $arrPost['txt_appt_relxp'],
+							'relevantTraining'  => $arrPost['txt_appt_reltraining']);
+
+			$this->pds_model->add_apptIssue($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Appointment issue added successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;
+	}
+
+	public function edit_appointment_issue()
+	{
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'positionCode'	  	=> $arrPost['sel_appt_pos'],
+							'dateIssued'  		=> $arrPost['txt_appt_issueddate'],
+							'datePublished'  	=> $arrPost['txt_appt_publisheddate'],
+							'placePublished'  	=> $arrPost['txt_appt_issuedplace'],
+							'relevantExperience'=> $arrPost['txt_appt_relxp'],
+							'relevantTraining'  => $arrPost['txt_appt_reltraining']);
+
+			$this->pds_model->save_apptIssue($arrData, $arrPost['txtappt_id']);
+			$this->session->set_flashdata('strSuccessMsg','Appointment issue updated successfully.');
+			redirect('hr/profile/'.$empid);
+		endif;	
+	}
+
+	public function del_appointment_issue()
+    {
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_apptIssue($arrPost['txtdel_appt']);
+
+			$this->session->set_flashdata('strSuccessMsg','Appointment issue deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
+	# END APPOINTMENT ISSUE DETAILS
+
 	public function edit_position()
 	{
 		$arrPost = $this->input->post();

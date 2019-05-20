@@ -1,9 +1,10 @@
+<?=load_plugin('css',array('datatables'));?>
 <div class="col-md-12">
     <table class="table table-bordered">
         <tr class="active">
             <th style="line-height: 2;" colspan="4">APPOINTMENT ISSUE
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
-                    <a class="btn blue btn-sm pull-right" id="btnadd_charrefs" data-toggle="modal" href="#add_character_refs"> <i class="fa fa-plus"></i> Add Appointment Issue </a>
+                    <a class="btn blue btn-sm pull-right" id="btnadd_emp_appt" data-toggle="modal" href="#add_appointment_issued"> <i class="fa fa-plus"></i> Add Appointment Issue </a>
                 <?php endif; ?>
             </th>
         </tr>
@@ -15,40 +16,47 @@
                             <th>No</th>
                             <th>Position</th>
                             <th>Date Issued Add</th>
-                            <th>Date Publication</th>
+                            <th>Date Published</th>
+                            <th>Place Issued</th>
                             <th>Relevant Experience</th>
                             <th>Relevant Training</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <?php $no=1; foreach($arrReferences as $refs): ?>
+                        <?php $no=1; foreach($arrEmpAppointment as $appt): ?>
                         <tr>
                             <td align="center"><?=$no++?></td>
-                            <td><?=$refs['refName']?></td>
-                            <td><?=$refs['refAddress']?></td>
-                            <td><?=$refs['refTelephone']?></td>
+                            <td><?=$appt['positionDesc']?></td>
+                            <td><?=$appt['dateIssued']?></td>
+                            <td><?=$appt['datePublished']?></td>
+                            <td><?=$appt['placePublished']?></td>
+                            <td><?=$appt['relevantExperience']?></td>
+                            <td><?=$appt['relevantTraining']?></td>
                             <td style="width: 200px;" nowrap>
                                 <center>
-                                    <a class="btn green btn-xs btnedit_char_refs" data-json='<?=json_encode($refs)?>'>
+                                    <a class="btn green btn-xs btnedit_emp_appt" data-json='<?=json_encode($appt)?>'>
                                         <i class="fa fa-pencil"></i> Edit </a>
-                                    <a class="btn red btn-xs btndelete_char_refs" data-toggle="modal" href="#delete_reference" data-refid="<?=$refs['ReferenceIndex']?>">
+                                    <a class="btn red btn-xs btndelete_emp_appt" data-toggle="modal" href="#delete_emp_appointment" data-apptid="<?=$appt['appointmentissuedcode']?>">
                                         <i class="fa fa-trash"></i> Delete </a>
                                 </center>
                             </td>
                         </tr>
-                        <?php endforeach; ?> -->
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </td>
         </tr>
     </table>
 </div>
+<?=load_plugin('js',array('datatables'));?>
 
 <?php require 'modal/_appointment_issue_info.php'; ?>
 
 <script>
     $(document).ready(function() {
+        $('#tblappointment').dataTable( {pageLength: 5} );
+
         $('#btnview-legal-info').click(function() {
             $('div.radio-list, .btnlegal_info-save').hide();
         });
@@ -57,32 +65,38 @@
             $('div.radio-list, .btnlegal_info-save').show();
         });
 
-        $('a#btnadd_charrefs').click(function() {
-            $('#frm_charrefs').attr("action","<?=base_url('pds/add_char_reference/').$this->uri->segment(3)?>");
+        $('a#btnadd_emp_appt').click(function() {
+            $('#frmappointment_issued').attr("action","<?=base_url('pds/add_appointment_issue/').$this->uri->segment(3)?>");
             $('span.action').html('Add ');
             
-            $('#txtref_name').val('');
-            $('#txtref_address').val('');
-            $('#txtref_telno').val('');
-            
-            $('#txtrefid').val('');
+            $('#sel_appt_pos').select2("val", '');
+            $('#txt_appt_issueddate').val('');
+            $('#txt_appt_publisheddate').val('');
+            $('#txt_appt_issuedplace').val('');
+            $('#txt_appt_relxp').val('');
+            $('#txt_appt_reltraining').val('');
+
+            $('#txtappt_id').val('');
         });
 
-        $('#tblchar-references').on('click','a.btnedit_char_refs',function() {
+        $('#tblappointment').on('click','a.btnedit_emp_appt',function() {
             var jsondata = $(this).data('json');
-            $('#frm_charrefs').attr("action","<?=base_url('pds/edit_char_reference/').$this->uri->segment(3)?>");
+            $('#frmappointment_issued').attr("action","<?=base_url('pds/edit_appointment_issue/').$this->uri->segment(3)?>");
             $('span.action').html('Edit ');
-            $('#add_character_refs').modal('show');
+            $('#add_appointment_issued').modal('show');
             
-            $('#txtref_name').val(jsondata.refName);
-            $('#txtref_address').val(jsondata.refAddress);
-            $('#txtref_telno').val(jsondata.refTelephone);
+            $('#sel_appt_pos').select2("val", jsondata.positionCode);
+            $('#txt_appt_issueddate').val(jsondata.dateIssued);
+            $('#txt_appt_publisheddate').val(jsondata.datePublished);
+            $('#txt_appt_issuedplace').val(jsondata.placePublished);
+            $('#txt_appt_relxp').val(jsondata.relevantExperience);
+            $('#txt_appt_reltraining').val(jsondata.relevantTraining);
 
-            $('#txtrefid').val(jsondata.ReferenceIndex);
+            $('#txtappt_id').val(jsondata.appointmentissuedcode);
         });
 
-        $('#tblchar-references').on('click','a.btndelete_char_refs',function() {
-            $('#txtdel_char_ref').val($(this).data('refid'));
+        $('#tblappointment').on('click','a.btndelete_emp_appt',function() {
+            $('#txtdel_appt').val($(this).data('apptid'));
         });
 
     });

@@ -162,7 +162,7 @@ $arrData = $arrData[0];?>
                                             <div class="tab-content">
                                                 
                                                 <!-- begin personal info -->
-                                                <div class="tab-pane active" id="personal_info" style="padding: 0 !important;position: relative;top: -20px;">
+                                                <div class="tab-pane " id="personal_info" style="padding: 0 !important;position: relative;top: -20px;">
                                                     <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                                         <div class="row">
                                                             <div class="col-md-12" style="padding: 0 30px 10px;">
@@ -250,9 +250,9 @@ $arrData = $arrData[0];?>
                                                 <!-- end duties and responsibilities -->
 
                                                 <!-- begin appointment issued -->
-                                                <div class="tab-pane " id="appoint_issued">
+                                                <div class="tab-pane active" id="appoint_issued">
                                                     <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
-                                                        <?php #$this->load->view('_appointment_issue_view.php'); ?>
+                                                        <?php $this->load->view('_appointment_issue_view.php'); ?>
                                                     </div>
                                                 </div>
                                                 <!-- end appointment issued -->

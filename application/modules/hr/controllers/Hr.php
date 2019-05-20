@@ -13,7 +13,7 @@ class Hr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model','libraries/Appointment_status_model','libraries/Separation_mode_model','libraries/Plantilla_model','libraries/service_code_model','finance/Tax_exempt_model','finance/Payroll_group_model','libraries/Attendance_scheme_model'));
+        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model','libraries/Appointment_status_model','libraries/Separation_mode_model','libraries/Plantilla_model','libraries/service_code_model','finance/Tax_exempt_model','finance/Payroll_group_model','libraries/Attendance_scheme_model','libraries/Position_model'));
     }
 
 	public function index()
@@ -79,7 +79,9 @@ class Hr extends MY_Controller {
 		$this->arrData['position_duties'] = $this->Hr_model->duties_position($this->arrData['arrPosition'][0]['positionCode']);
 		$this->arrData['plantilla_duties'] = $this->Hr_model->duties_plantilla($this->arrData['arrPosition'][0]['itemNumber']);
 		$this->arrData['actual_duties'] = $this->Hr_model->duties_actual($strEmpNo);
-
+		# Appointment Issued
+		$this->arrData['arrpositions'] = $this->Position_model->getData();
+		$this->arrData['arrEmpAppointment'] = $this->Appointment_status_model->employee_appointment_byEmpNumber($strEmpNo);
 		// $this->template->load('template/template_view','pds/personal_info_view', $this->arrData);
 		$this->template->load('template/template_view','pds/201/view_employee', $this->arrData);
 	}
