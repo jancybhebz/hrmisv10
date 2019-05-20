@@ -181,10 +181,28 @@ class Salary_sched extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{
+			$this->arrData['arrSalary'] = $this->Salary_sched_model->getVersion();
+				$arrPost = $this->input->post();
+				//print_r($arrPost);
+				if(isset($arrPost['strversion'])):
+					$version = $arrPost['strversion'];
+				else:
+					#default version
+					$arrVersion= $this->Salary_sched_model->getVersion("",1);
+					if(count($arrVersion)>0)
+					{
+						$version = $arrVersion[0]['version'];
+					}
+				endif;
+			$this->arrData['arrSalarysched'] = $this->Salary_sched_model->getDataSched($version);
+			$this->arrData['intVersion'] = $version;
+			$this->arrData['sggradeNumber'] = $this->Salary_sched_model->getSchedHeader('salaryGradeNumber', $version); #row
+				$this->arrData['stepNumber'] = $this->Salary_sched_model->getSchedHeader('stepNumber', $version); #column
 			$strSG=$this->uri->segment(4);
 			$intStepNum=$this->uri->segment(5);
 			$intActualSalary=$this->uri->segment(6);
 			$intVersion=$this->uri->segment(7);
+
 			$this->arrData['arrSG'] = $this->Salary_sched_model->getSG();
 			$this->arrData['arrStep'] = $this->Salary_sched_model->getStepNum();
 			$this->arrData['arrVersion'] = $this->Salary_sched_model->getVersion();

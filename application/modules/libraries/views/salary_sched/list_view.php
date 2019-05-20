@@ -86,6 +86,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                             );
                                             $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
                                             echo '<a href="'.base_url('libraries/salary_sched/edit/'.$row['salaryGradeNumber'].'/'.$column['stepNumber'].'/'.$actual_salary.'/'.$intVersion).'">'.$actual_salary.'</a>';
+
                                         ?></td>
                                 <?php endforeach; ?>
                             </tr>

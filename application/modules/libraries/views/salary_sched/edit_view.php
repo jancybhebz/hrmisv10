@@ -7,47 +7,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
-<div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <a href="<?=base_url('home')?>">Home</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <a href="<?=base_url('libraries')?>">Libraries</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>Edit Salary Schedule</span>
-        </li>
-    </ul>
-</div>
-<!-- END PAGE BAR -->
+<?php load_plugin('css',array('datepicker','datatables'));?>
+
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-	   &nbsp;
-	</div>
-</div>
-<div class="clearfix"></div>
-<div class="row">
+
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Salary Schedule</span>
+                    <i class="icon-settings font-dark"></i>
+                    <span class="caption-subject bold uppercase"> EDIT SCHEDULE</span>
                 </div>
-                
             </div>
-            <div class="portlet-body">
-            <?=form_open(base_url('libraries/salary_sched/edit'), array('method' => 'post', 'id' => 'frmSalary'))?>
-                <div class="form-body">
-                    <?php //print_r($arrPost);?>
-                    <div class="row">
-                        <div class="col-sm-12">
+               <div class="row">
+                        <div class="col-sm-2">
                             <div class="form-group">
-                                <label class="control-label">Version<span class="required"> * </span></label>
+                                <label class="control-label"><b>Version :</b></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     
@@ -63,156 +39,70 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                   <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Salary Grade Number<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <select type="text" class="form-control" name="strSG" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSG'):''?>" disabled>
-                                         <option value="">Select</option>
-                                         
-                                        <?php foreach($arrSG as $sg)
-                                        {
-                                          echo '<option value="'.$sg['salaryGradeNumber'].'" '.($sg['salaryGradeNumber']==$arrSalarySched[0]['salaryGradeNumber']?'selected':'').'>'.$sg['salaryGradeNumber'].'</option>';
-                                        }?>
-                                  </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Step Number<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="intStepNum" value="<?=!empty($this->session->userdata('intStepNum'))?$this->session->userdata('intStepNum'):''?>" disabled>
-                                         <option value="">Select</option>
-                                        <?php foreach($arrStep as $step)
-                                        {
-                                          echo '<option value="'.$step['stepNumber'].'" '.($step['stepNumber']==$arrSalarySched[0]['stepNumber']?'selected':'').' >'.$step['stepNumber'].'</option>';
-                                        }?>
-                                  </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Actual Salary<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intActualSalary"  maxlength="10" value="<?=$arrSalarySched[0]['actualSalary']?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <input type="hidden" name="stepNum" value="<?=$arrSalarySched[0]['stepNumber']?>">
-                                <input type="hidden" name="SG" value="<?=$arrSalarySched[0]['salaryGradeNumber']?>">
-                                <input type="hidden" name="ver" value="<?=$arrSalarySched[0]['version']?>">
-                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
-                            </div>
-                        </div>
-                    </div>
+                <br>
+                 
+                <div class="portlet-body">
+                    <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_salary_sched" style="visibility: hidden;">
+                        <thead>
+                            <tr>
+                                <th>SG</th>
+                                <?php foreach($stepNumber as $column): ?>
+                                    <th>STEP <?=$column['stepNumber']?></th>
+                                <?php endforeach; ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($sggradeNumber as $row): ?>
+                            <tr>
+                                <td><?=$row['salaryGradeNumber']?></td>
+                                <?php foreach($stepNumber as $column): ?>
+                                    <td><?php
+                                            $search = ["stepNumber" => $column['stepNumber'], "salaryGradeNumber" => $row['salaryGradeNumber']];
+                                            $keys = array_keys(
+                                                array_filter(
+                                                    $arrSalarysched,
+                                                    function ($v) use ($search) { return $v['stepNumber'] == $search['stepNumber'] && $v['salaryGradeNumber'] == $search['salaryGradeNumber']; }
+                                                )
+                                            );
+                                            $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
+                                            echo '<a href="'.base_url('libraries/salary_sched/edit/'.$row['salaryGradeNumber'].'/'.$column['stepNumber'].'/'.$actual_salary.'/'.$intVersion).'">'.$actual_salary.'</a>';
+
+                                        ?></td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
-                   <?=form_close()?>
-            </div>
+
+            </div>   
         </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-<?php load_plugin('js',array('validation'));?>
-<script type="text/javascript">
-    jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
-var FormValidation = function () {
+<?php load_plugin('js',array('datatables'));?>
 
-    // validation using icons
-    var handleValidation = function() {
-        // for more info visit the official plugin documentation: 
-            // http://docs.jquery.com/Plugins/Validation
-
-            var form2 = $('#frmSalary');
-            var error2 = $('.alert-danger', form2);
-            var success2 = $('.alert-success', form2);
-
-            form2.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",  // validate all fields including form hidden input
-                rules: {
-                    strSG: {
-                        minLength: 1,
-                        required: true
-                    },
-                    intStepNum: {
-                        minLength: 1,
-                        required: true
-                    },
-                    intActualSalary: {
-                        minLength: 1,
-                        required: true
-                    },
-                  
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit              
-                    success2.hide();
-                    error2.show();
-                    App.scrollTo(error2, -200);
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    
-                },
-
-                success: function (label, element) {
-                    var icon = $(element).parent('.input-icon').children('i');
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                    icon.removeClass("fa-warning").addClass("fa-check");
-                },
-
-                submitHandler: function (form) {
-                    success2.show();
-                    error2.hide();
-                    form[0].submit(); // submit the form
-                }
+<script>
+    $(document).ready(function() {
+        $('#libraries_salary_sched').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#libraries_salary_sched').css('visibility', 'visible');
+            }} );
+        $("#updateSalary").click(function(){
+           
+            var x=confirm("Warning: This will update Plantilla library and salaries of employees. Do you want to continue?");
+            if (!x) return;
+            var vid=$("#version").val();
+            $("#updatediv").html("checking <img src='../images/indicator.gif'>  ");
+            $("#updatediv").load("salary_sched.php?strEmpNmbr=<? echo $strEmpNmbr;?>&mode=updatesalary&version="+vid);
+        
             });
 
-
-    }
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };
-
-}();
-
-jQuery(document).ready(function() {
-    FormValidation.init();
 });
+
 </script>
+
+
+<!--  -->
