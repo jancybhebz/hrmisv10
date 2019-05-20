@@ -336,13 +336,13 @@ class Hr_model extends CI_Model {
 	# BEGIN POSITION DETAILS
 	function get_pos_sepMode()
 	{
-		$this->db->group_by('statusOfAppointment');
+		$this->db->select('distinct(statusOfAppointment) as statusOfAppointment');
 		return $this->db->get_where('tblEmpPosition', array('statusOfAppointment!=' => ''))->result_array();
 	}
 
 	function get_pos_personnelAction()
 	{
-		$this->db->group_by('personnelAction');
+		$this->db->select('distinct(personnelAction) as personnelAction');
 		return $this->db->get_where('tblEmpPosition', array('personnelAction!=' => ''))->result_array();
 	}
 	# END POSITION DETAILS
