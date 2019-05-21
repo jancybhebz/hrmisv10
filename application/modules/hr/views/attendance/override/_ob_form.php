@@ -15,13 +15,13 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <?=form_open('finance/libraries/deductions/edit/'.$this->uri->segment(4), array('method' => 'post', 'id' => 'frmaddsched'))?>
+                        <?=form_open('hr/attendance/override/ob_add', array('method' => 'post', 'id' => 'frmaddsched'))?>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Official Business <span class="required"> * </span></label>
-                                    <label><input type="radio" name="isob"> Yes</label>
-                                    <label><input type="radio" name="isob"> No</label>
+                                    <label><input type="radio" name="isob" value="Y"> Yes</label>
+                                    <label><input type="radio" name="isob" value="N"> No</label>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                             <div class="col-md-5 div-type">
                                 <div class="form-group">
                                     <label class="control-label">Select Type <span class="required"> * </span></label>
-                                    <select class="bs-select form-control" id="seltype">
+                                    <select class="bs-select form-control" id="seltype" name="seltype">
                                         <option value="">&nbsp;</option>
                                         <option value="AllEmployees">All Employees</option>
                                         <?php
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-group div-group2" <?=$_ENV['Group2']!=''? '' : 'hidden'?>>
                                     <label class="control-label">Select <?=ucfirst($_ENV['Group2'])?> <span class="required"> * </span></label>
-                                    <select class="select2 form-control selper" name="selgroup2">
+                                    <select class="select2 form-control selper" name="selgroup2" id="selgroup2">
                                         <option value="0">ALL</option>
                                         <?php 
                                             if(count($arrGroups['arrGroup2']) > 0):
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="form-group div-group3" <?=$_ENV['Group3']!=''? '' : 'hidden'?>>
                                     <label class="control-label">Select <?=ucfirst($_ENV['Group3'])?> <span class="required"> * </span></label>
-                                    <select class="select2 form-control selper" name="selgroup3">
+                                    <select class="select2 form-control selper" name="selgroup3" id="selgroup3">
                                         <option value="0">ALL</option>
                                         <?php 
                                             if(count($arrGroups['arrGroup3']) > 0):
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="form-group div-group4" <?=$_ENV['Group4']!=''? '' : 'hidden'?>>
                                     <label class="control-label">Select <?=ucfirst($_ENV['Group4'])?> <span class="required"> * </span></label>
-                                    <select class="select2 form-control selper" name="selgroup4">
+                                    <select class="select2 form-control selper" name="selgroup4" id="selgroup4">
                                         <option value="0">ALL</option>
                                         <?php 
                                             if(count($arrGroups['arrGroup4']) > 0):
@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="form-group div-group5" <?=$_ENV['Group5']!=''? '' : 'hidden'?>>
                                     <label class="control-label">Select <?=ucfirst($_ENV['Group5'])?> <span class="required"> * </span></label>
-                                    <select class="select2 form-control selper" name="selgroup5">
+                                    <select class="select2 form-control selper" name="selgroup5" id="selgroup5">
                                         <option value="0">ALL</option>
                                         <?php 
                                             if(count($arrGroups['arrGroup5']) > 0):
@@ -127,7 +127,7 @@
                             <div class="col-md-10">
                                 <div class="form-group">
                                     <label class="control-label">Employees <span class="required"> * </span></label>
-                                    <select multiple="multiple" class="multi-select form-control" id="selemps" name="my_multi_select2[]">
+                                    <select multiple="multiple" class="multi-select form-control" id="selemps" name="selemps[]">
                                         <?php
                                             foreach($arrEmployees as $emp):
                                                 echo '<option data-grp1="'.$emp['group1'].'"
@@ -142,16 +142,16 @@
                                 </div>
                             </div>
                         </div>
-                        <pre><textarea id="json_employee"><?=json_encode($arrEmployees)?></textarea></pre>
+                        <textarea hidden id="json_employee"><?=json_encode($arrEmployees)?></textarea>
                         <br>
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="control-label">Date From <span class="required"> * </span></label>
-                                    <div class="input-group date-picker input-daterange" data-date="2003" data-date-format="yyyy-mm-dd" data-date-viewmode="years" id="dateRange">
-                                        <input type="text" class="form-control form-required" name="from">
+                                    <div class="input-group input-daterange" data-date="2003">
+                                        <input type="text" class="form-control form-required date-picker" name="ob_datefrom" data-date-format="yyyy-mm-dd">
                                         <span class="input-group-addon"> to </span>
-                                        <input type="text" class="form-control form-required" name="to">
+                                        <input type="text" class="form-control form-required date-picker" name="ob_dateto" data-date-format="yyyy-mm-dd">
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
                                     <label class="control-label">Time From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="08:00:00 AM">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="ob_timefrom" id="ob_timefrom" value="08:00:00 AM">
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                                     <label class="control-label">Time To <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="05:00:00 PM">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="ob_timeto" id="ob_timeto" value="05:00:00 PM">
                                     </div>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="control-label">Place <span class="required"> * </span></label>
-                                    <input type="text" class="form-control" name="">
+                                    <input type="text" class="form-control" name="txtob_place" id="txtob_place">
                                 </div>
                             </div>
 
@@ -188,7 +188,7 @@
                                 <div class="form-group">
                                     <label class="control-label">&nbsp;</label>
                                     <br>
-                                    <label><input type="checkbox" name=""> With Meal</label>
+                                    <label><input type="checkbox" name="chk_obmeal" id="chk_obmeal"> With Meal</label>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +197,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="control-label">Purpose <span class="required"> * </span></label>
-                                    <textarea class="form-control"></textarea>
+                                    <textarea class="form-control" name="txtob_purpose" id="txtob_purpose"></textarea>
                                 </div>
                             </div>
                         </div>

@@ -63,14 +63,15 @@ $route['hr/attendance_summary/dtr/(:any)'] = 'hr/attendance/dtr/$1';
 	
 $route['hr/attendance_summary/qr_code/(:any)'] = 'hr/attendance/qr_code/$1';
 
-$route['hr/attendance/override/override_ob'] = 'hr/attendance/override_ob';
-	$route['hr/attendance/override/ob_add'] = 'hr/attendance/override_ob_add';
+# Override
+$route['hr/attendance/override/ob'] = 'hr/override/override_ob';
+	$route['hr/attendance/override/ob_add'] = 'hr/override/override_ob_add';
 
-$route['hr/attendance/override/exclude_dtr'] = 'hr/attendance/exclude_dtr';
-	$route['hr/attendance/override/exclude_dtr_add'] = 'hr/attendance/override_exec_dtr_add';
+$route['hr/attendance/exclude_dtr'] = 'hr/override/exclude_dtr';
+	$route['hr/attendance/override_exec_dtr_add'] = 'hr/override/exclude_dtr_add';
 
-$route['hr/attendance/override/generate_dtr'] = 'hr/attendance/generate_dtr';
-	$route['hr/attendance/override/generate_dtr_add'] = 'hr/attendance/override_gen_dtr_add';
+$route['hr/attendance/generate_dtr'] = 'hr/override/generate_dtr';
+	$route['hr/attendance/override_gen_dtr_add'] = 'hr/override/generate_dtr_add';
 
 // Signatory
 $route['hr/libraries/signatory'] = 'finance/libraries/Signatory/index';

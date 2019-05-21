@@ -149,7 +149,7 @@
     </div>
 </div>
 
-<?php include '_notification_modal.php' ?>
+<?php include 'modals/_notification_modal.php' ?>
 <?php load_plugin('js',array('datatables','select'));?>
 
 <script>
@@ -163,6 +163,7 @@
         $('#table-notif').on('click', 'button.btn-view', function() {
             var jsondata = $(this).data('json');
             console.log(jsondata);
+            alert(jsondata.req_code);
             switch(jsondata.req_code) {
                 case '201':
                     $('#modal-201_form').modal('show');

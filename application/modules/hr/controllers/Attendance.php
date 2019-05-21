@@ -929,21 +929,6 @@ class Attendance extends MY_Controller {
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
-	public function override()
-	{
-		// $this->arrData['arrGroup1'] = $_ENV['Group1'] !='' ? $this->Org_structure_model->getData_group1() : array();
-		// $this->arrData['arrGroup2'] = $_ENV['Group2'] !='' ? $this->Org_structure_model->getData_group2() : array();
-		// $this->arrData['arrGroup3'] = $_ENV['Group3'] !='' ? $this->Org_structure_model->getData_group3() : array();
-		// $this->arrData['arrGroup4'] = $_ENV['Group4'] !='' ? $this->Org_structure_model->getData_group4() : array();
-		// $this->arrData['arrGroup5'] = $_ENV['Group5'] !='' ? $this->Org_structure_model->getData_group5() : array();
-		// $empid = $this->uri->segment(4);
-		// $res = $this->Hr_model->getData($empid,'','all');
-		// $this->arrData['arrData'] = $res[0];
-
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
 	public function qr_code()
 	{
 		$empid = $this->uri->segment(4);
@@ -982,42 +967,6 @@ class Attendance extends MY_Controller {
 		else:
 			$this->session->set_flashdata('strErrorMsg','Failed to generate QR Code, please try again later or contact Administrator.');
 		endif;
-
-	}
-
-	public function override_ob()
-	{
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function override_ob_add()
-	{
-		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
-		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
-		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
-
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function exclude_dtr()
-	{
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function override_exec_dtr_add()
-	{
-		$this->arrData['action'] = 'add';
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
-	}
-
-	public function generate_dtr()
-	{
-		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 
 	}
 
