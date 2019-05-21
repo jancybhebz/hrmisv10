@@ -109,7 +109,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 function openPrint()
 {
     
-    window.open('hr/PersonalDataSheet.xlsx');
+    window.open('uploads/pds/PersonalDataSheet.xlsx');
     
 }
 </script>
