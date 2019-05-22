@@ -40,14 +40,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <?=form_open(base_url('employee/reports/submit'), array('method' => 'post', 'id' => 'frmReports'))?>
+                <?=form_open(base_url('employee/reports/submit'), array('method' => 'post', 'id' => 'frmReports', 'onsubmit' => 'return checkForBlank()'))?>
                 </br>
                      
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label"><strong>Type of Reports : </strong><span class="required"> * </span></label>
-                                 <select name="strReporttype" id="strReporttype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
+                                 <select name="strReporttype" id="strReporttype" type="text" class="form-control" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
                                 <option value="">Select Report Type</option>
                                 <option>Daily Time Record</option>
                                 <option>Service Record</option>
@@ -55,13 +55,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option>Payslip</option>
                                 <option>Certificate of Compensation</option>
                                 </select>
+                                <font color='red'> <span id="errortype"></span></font>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-8">
-                        <div class="form-group">
-                           <label class="control-label">Type of Remittances : <span class="required"> * </span></label>
+                        <div class="form-group remit">
+                           <label class="control-label">Type of Remittances : </label>
                                  <select name="strRemittype" id="strRemittype" type="text" class="form-control"  value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
                                 <option value="">Select Remittance</option>
                                 <option>Conso Loan</option>
@@ -87,6 +88,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         echo '<option value="'.$monthPadding.'">'.$fdate.'</option>';
                                     }?>
                                 </select>
+                                <font color='red'> <span id="errormonth"></span></font>
                         </div>
                     </div>
                 </div>
@@ -103,6 +105,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
                                 }
                                 print '</select>'; ?>
+                                <font color='red'> <span id="erroryear"></span></font>
                         </div>
                     </div>
                 </div>
@@ -122,3 +125,50 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
+
+
+<script>
+$(document).ready(function()
+{
+$('.remit').hide();
+  $('#strReporttype').on('change',function()
+  {
+    var country = $("#strReporttype").find("option:selected").text();
+    //alert(state);
+    if(country=='Remittances')
+      $('.remit').show();
+    else
+      $('.remit').hide();
+  });
+}); 
+
+</script>
+<script>
+
+function checkForBlank()
+{
+   var spaceCount = 0;
+
+    $type= $('#strReporttype').val();
+    $month= $('#month').val();
+
+    $('#errortype','errormonth').html('');
+
+    if($type=="")
+    {
+      $('#errortype').html('This field is required!');
+      return false;
+    }
+    if($month=="")
+    {
+      $('#errormonth').html('This field is required!');
+      return false;
+    }
+    
+    else
+    {
+      return true;
+    }
+
+}
+</script>
