@@ -24,3 +24,5 @@ ALTER TABLE  `tblPlantillaDuties` ADD  `plantilla_duties_index` INT NOT NULL AUT
 ALTER TABLE  `tblEmpOB` ADD  `is_override` INT NOT NULL DEFAULT  '0';
 ALTER TABLE  `tblEmpOB` ADD  `override_id` INT NULL ;
 
+## EXCLUDE DTR
+ALTER TABLE  `tblEmpPosition` ADD  `is_override` INT NOT NULL DEFAULT  '0', ADD  `override_id` INT NULL ;

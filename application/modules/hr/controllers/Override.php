@@ -14,7 +14,7 @@ class Override extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Override_model','libraries/Org_structure_model','libraries/Appointment_status_model','Hr_model','hr/Attendance_summary_model'));
+        $this->load->model(array('Override_model','libraries/Org_structure_model','libraries/Appointment_status_model','Hr_model','hr/Attendance_summary_model','pds/Pds_model'));
     }
 
 	public function override_ob()
@@ -136,13 +136,110 @@ class Override extends MY_Controller {
 
 	public function exclude_dtr()
 	{
+		$this->arrData['arr_excdtr'] = $this->Override_model->get_override_excdtr();
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 	}
 
 	public function override_exec_dtr_add()
 	{
+		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$overrideData = array(
+								 'override_type'=> 2,
+								 'office_type'	=> $arrPost['seltype'],
+								 'office'		=> $arrPost['txtoffice'],
+								 'appt_status'	=> $arrPost['selappt'],
+								 'created_date' => date('Y-m-d H:i:s'),
+								 'created_by' 	=> $this->session->userdata('sessEmpNo'));
+			$override_id = $this->Override_model->add($overrideData);
+
+			foreach($arrPost['selemps'] as $emps):
+				$arrData = array(
+								'dtrSwitch'	 => 'N',
+								'is_override'=> 1,
+								'override_id'=> $override_id);
+				
+				$this->Pds_model->save_position($arrData,$emps);
+			endforeach;
+			
+			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR added successfully.');
+			redirect('hr/attendance/override/exclude_dtr');
+		endif;
+
 		$this->arrData['action'] = 'add';
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+	}
+
+	public function override_exec_dtr_edit()
+	{
+		$arrexecdtr_data = $this->Override_model->get_override_excdtr($this->uri->segment(5));
+		$this->arrData['arrexecdtr_data'] = $arrexecdtr_data;
+		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+
+		$arrPost = $this->input->post();
+		$override_id = $this->uri->segment(5);
+		if(!empty($arrPost)):
+			$overrideData = array(
+								 'office_type'	=> $arrPost['seltype'],
+								 'office'		=> $arrPost['txtoffice'],
+								 'appt_status'	=> $arrPost['selappt'],
+								 'lastupdated_date' => date('Y-m-d H:i:s'),
+								 'lastupdate_dby' 	=> $this->session->userdata('sessEmpNo'));
+			$this->Override_model->save($overrideData, $override_id);
+
+			foreach(json_decode($arrPost['txtemp_ob']) as $oemps):
+				$arrData = array(
+								'dtrSwitch'	 => 'Y',
+								'is_override'=> 0,
+								'override_id'=> null);
+				
+				$this->Pds_model->save_position($arrData,$oemps);
+			endforeach;
+			
+			foreach($arrPost['selemps'] as $emps):
+				$arrData = array(
+								'dtrSwitch'	 => 'N',
+								'is_override'=> 1,
+								'override_id'=> $override_id);
+				
+				$this->Pds_model->save_position($arrData,$emps);
+			endforeach;
+			
+			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR updated successfully.');
+			redirect('hr/attendance/override/exclude_dtr');
+		endif;
+
+		$this->arrData['action'] = 'edit';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+	}
+
+	public function override_exec_dtr_delete()
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrexecdtr_data = $this->Override_model->get_override_excdtr($arrPost['txtdel_excdtr']);
+			# set position to switch dtr to Y
+			foreach($arrexecdtr_data['emps'] as $oemps):
+				$arrData = array(
+								'dtrSwitch'	 => 'Y',
+								'is_override'=> 0,
+								'override_id'=> null);
+				
+				$this->Pds_model->save_position($arrData,$oemps['empNumber']);
+			endforeach;
+			
+			$this->Override_model->delete($arrPost['txtdel_excdtr']);
+		endif;
+
+		$this->session->set_flashdata('strSuccessMsg','Employee excluded to DTR  deleted successfully.');
+		redirect('hr/attendance/override/exclude_dtr');
 	}
 
 	public function generate_dtr()
