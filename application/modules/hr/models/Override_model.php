@@ -24,4 +24,19 @@ class Override_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function save($arrData, $id)
+	{
+		$this->db->where('override_id', $id);
+		$this->db->update('tblOverride', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function delete($id)
+	{
+		$this->db->where('override_id', $id);
+		$this->db->delete('tblOverride');
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+
 }

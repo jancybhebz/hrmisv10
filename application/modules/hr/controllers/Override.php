@@ -77,20 +77,29 @@ class Override extends MY_Controller {
 
 	public function override_ob_edit()
 	{
-		$this->arrData['arrob_data'] = $this->Override_model->get_override_ob($this->uri->segment(5));
+		$arrob_data = $this->Override_model->get_override_ob($this->uri->segment(5));
+		$this->arrData['arrob_data'] = $arrob_data;
 		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
 
-		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
+		$override_id = $this->uri->segment(5);
 		if(!empty($arrPost)):
 			$overrideData = array(
-								 'override_type'=> 1,
-								 'created_date' => date('Y-m-d H:i:s'),
-								 'created_by' 	=> $this->session->userdata('sessEmpNo'));
-			$override_id = $this->Override_model->add($overrideData);
+								 'office_type'	=> $arrPost['seltype'],
+								 'office'		=> $arrPost['txtoffice'],
+								 'appt_status'	=> $arrPost['selappt'],
+								 'lastupdated_date' => date('Y-m-d H:i:s'),
+								 'lastupdate_dby' 	=> $this->session->userdata('sessEmpNo'));
+			$this->Override_model->save($overrideData, $override_id);
 
+			# remove ob before insert new
+			foreach(array_column($arrob_data, 'obID') as $obid):
+				$this->Attendance_summary_model->delete_ob($obid);
+			endforeach;
+
+			# insert new ob
 			foreach($arrPost['selemps'] as $emps):
 				$arrData = array(
 								'dateFiled'	 => date('Y-m-d'),
@@ -109,13 +118,26 @@ class Override extends MY_Controller {
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
-			$this->session->set_flashdata('strSuccessMsg','Override OB added successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Override OB updated successfully.');
 			redirect('hr/attendance/override/ob');
 		endif;
 
 		$this->arrData['action'] = 'edit';
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+	}
 
+	public function override_ob_delete()
+	{
+		$arrPost = $this->input->post();
+		$arrob_data = $this->Override_model->get_override_ob($arrPost['txtdelover_ob']);
+		# remove emp ob
+		foreach(array_column($arrob_data, 'obID') as $obid):
+			$this->Attendance_summary_model->delete_ob($obid);
+		endforeach;
+
+		$this->Override_model->delete($arrPost['txtdelover_ob']);
+		$this->session->set_flashdata('strSuccessMsg','Override OB deleted successfully.');
+		redirect('hr/attendance/override/ob');
 	}
 
 	public function exclude_dtr()
