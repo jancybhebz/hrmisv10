@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <?=form_open(base_url('employee/pds_update/'), array('method' => 'post', 'id' => 'frmPDSupdate','onsubmit' => 'return checkForBlank()'))?>
+                <?=form_open(base_url('employee/pds_update/'), array('method' => 'post', 'id' => 'frmPDSupdate', 'onsubmit' => 'return checkForBlank()'))?>
                   <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -1353,7 +1353,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 });
 </script>
 
-
+<!-- 
 
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
@@ -1373,10 +1373,6 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strProfileType: {
-                        required: true,
-                        noSpace: true
-                    },
                     strSname: {
                         required: true,
                         noSpace: true
@@ -1449,3 +1445,4 @@ jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
+ -->
