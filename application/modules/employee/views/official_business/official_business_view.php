@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/official_business/submit'), array('method' => 'post', 'id' => 'frmOB'))?>
+            <?=form_open(base_url('employee/official_business/submit'), array('method' => 'post', 'id' => 'frmOB', 'onsubmit' => 'return checkForBlank()'))?>
             </br>
                     <div class="row">
                         <div class="col-sm-12">
@@ -68,6 +68,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" size="20" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                                 </div>
+                                <div class="input-icon left">
+                                   <font color='red'> <span id="errorreq"></span></font>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,6 +81,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                                   </div>
+                                <div class="input-icon left">
+                                   <font color='red'> <span id="errorfrom"></span></font>
                                 </div>
                             </div>
                         </div>
@@ -89,6 +95,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmOBdateto" id="dtmOBdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                                   </div>
+                                    <div class="input-icon left">
+                                   <font color='red'> <span id="errorto"></span></font>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +129,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Destination :  <span class="required"> * </span></label>
                                     <i class="fa"></i>
-                                    <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"> </textarea>
+                                    <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"> </textarea>
+                                    </div>
+                                     <div class="input-icon left">
+                                   <font color='red'> <span id="errordesti"></span></font>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -141,7 +154,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                <label class="control-label">Purpose : <span class="required"> * </span></label>
                                     <i class="fa"></i>
-                                    <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"> </textarea>
+                                    <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"> </textarea>
+                                    </div>
+                                     <div class="input-icon left">
+                                   <font color='red'> <span id="errorpur"></span></font>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -215,3 +232,182 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     });
  });
 </script>
+
+<?php load_plugin('js',array('validation'));?>
+<script type="text/javascript">
+    jQuery.validator.addMethod("noSpace", function(value, element) { 
+  return value.indexOf(" ") < 0 && value != ""; 
+}, "No space please and don't leave it empty");
+var FormValidation = function () {
+
+    // validation using icons
+    var handleValidation = function() {
+        // for more info visit the official plugin documentation: 
+            // http://docs.jquery.com/Plugins/Validation
+
+            var form2 = $('#frmOB');
+            var error2 = $('.alert-danger', form2);
+            var success2 = $('.alert-success', form2);
+
+            form2.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    dtmOBrequestdate: {
+                        required: true,
+                    },
+                    dtmOBdatefrom: {
+                        required: true,
+                    },
+                    dtmOBdateto: {
+                        required: true,
+                    },
+                    dtmTimeFrom: {
+                        required: true,
+                    },
+                    dtmTimeTo: {
+                        required: true,
+                    },
+                    strDestination: {
+                        required: true,
+                        noSpace: true
+                    },
+                    strPurpose: {
+                        required: true,
+                        noSpace: true
+                    }
+
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success2.hide();
+                    error2.show();
+                    App.scrollTo(error2, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
+                },
+
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+                submitHandler: function (form) {
+                    success2.show();
+                    error2.hide();
+                    form[0].submit(); // submit the form
+                }
+            });
+
+
+    }
+
+    return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+jQuery(document).ready(function() {
+    FormValidation.init();
+});
+</script>
+
+
+<script>
+
+// function checkForBlank()
+// {
+//    var spaceCount = 0;
+
+//     $dtmOBrequestdate= $('#dtmOBrequestdate').val();
+//     $dtmOBdatefrom= $('#dtmOBdatefrom').val();
+//     $dtmOBdateto= $('#dtmOBdateto').val();
+//     $strDestination= $('#strDestination').val();
+//     $strPurpose= $('#strPurpose').val();
+
+//     $('#errorreq','errorfrom','errorto','errordesti','errorpur').html('');
+
+//     if($dtmOBrequestdate=="")
+//     {
+//       $('#errorreq').html('This field is required!');
+//       return false;
+//     }
+//      if($dtmOBdatefrom=="")
+//     {
+//       $('#errorfrom').html('This field is required!');
+//       return false;
+//     }
+//      if($dtmOBdateto=="")
+//     {
+//       $('#errorto').html('This field is required!');
+//       return false;
+//     }
+//      if($strDestination=="")
+//     {
+//       $('#errordesti').html('This field is required!');
+//       return false;
+//     }
+//      if($strPurpose=="")
+//     {
+//       $('#errorpur').html('This field is required!');
+//       return false;
+//     }
+
+   
+//     else if($dtmOBrequestdate==0)
+//     {
+//       $('#errorreq').html('Invalid input!');
+//       return false;
+//     }
+//     else if($dtmOBdatefrom==0)
+//     {
+//       $('#errorfrom').html('Invalid input!');
+//       return false;
+//     }
+//     else if($dtmOBdateto==0)
+//     {
+//       $('#errorto').html('Invalid input!');
+//       return false;
+//     }
+//     else if($strDestination==0)
+//     {
+//       $('#errordesti').html('Invalid input!');
+//       return false;
+//     }
+//     else if($strPurpose==0)
+//     {
+//       $('#errorpur').html('Invalid input!');
+//       return false;
+//     }
+    
+
+//     else
+//     {
+//       return true;
+//     }
+
+// }
+</script>
+
