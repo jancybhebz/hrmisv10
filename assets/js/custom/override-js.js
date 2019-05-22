@@ -18,7 +18,9 @@ $(document).ready(function() {
     });
 
     // hide all the group
-    $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
+    if($('#spnaction').text().toLowerCase == 'add'){
+        $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
+    }
 
     $('#seltype').change(function() {
         strgrp = $(this).val();
@@ -44,6 +46,7 @@ $(document).ready(function() {
     all_employees = $.parseJSON($('#json_employee').val());
     $('#selappt,#selgroup1,#selgroup2,#selgroup3,#selgroup4,#selgroup5').on("select2:select", function(e) {
         var arrgrp_emp = [];
+        var officename = '';
 
         /*check if group 1 is visible*/
         if($('div.div-group1').is(":visible")){
@@ -56,6 +59,7 @@ $(document).ready(function() {
                     }
                 }, this));
             }
+            officename = $('#selgroup1').val();
         }
 
         /*check if group 2 is visible*/
@@ -69,6 +73,7 @@ $(document).ready(function() {
                     }
                 }, this));
             }
+            officename = $('#selgroup2').val();
         }
 
         /*check if group 3 is visible*/
@@ -82,6 +87,7 @@ $(document).ready(function() {
                     }
                 }, this));
             }
+            officename = $('#selgroup3').val();
         }
 
         /*check if group 4 is visible*/
@@ -108,10 +114,12 @@ $(document).ready(function() {
                     }
                 }, this));
             }
+            officename = $('#selgroup5').val();
         }
 
         else {
             arrgrp_emp = all_employees;
+            officename = '';
         }
 
         /* Appointment Code */
@@ -134,6 +142,7 @@ $(document).ready(function() {
         }, this));
         $('#selemps').multiSelect({});
 
+        $('#txtoffice').val(officename);
     });
 
 });

@@ -39,6 +39,15 @@ class Override extends MY_Controller {
 		$empid = $this->uri->segment(3);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
+			$overrideData = array(
+								 'override_type'=> 1,
+								 'office_type'	=> $arrPost['seltype'],
+								 'office'		=> $arrPost['txtoffice'],
+								 'appt_status'	=> $arrPost['selappt'],
+								 'created_date' => date('Y-m-d H:i:s'),
+								 'created_by' 	=> $this->session->userdata('sessEmpNo'));
+			$override_id = $this->Override_model->add($overrideData);
+
 			foreach($arrPost['selemps'] as $emps):
 				$arrData = array(
 								'dateFiled'	 => date('Y-m-d'),
@@ -52,7 +61,8 @@ class Override extends MY_Controller {
 								'purpose'	 => $arrPost['txtob_purpose'],
 								'official'	 => isset($arrPost['isob']) ? $arrPost['isob'] : 'N',
 								'approveHR'	 => 'Y',
-								'is_override'=> 1);
+								'is_override'=> 1,
+								'override_id'=> $override_id);
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
@@ -61,6 +71,49 @@ class Override extends MY_Controller {
 		endif;
 
 		$this->arrData['action'] = 'add';
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+
+	}
+
+	public function override_ob_edit()
+	{
+		$this->arrData['arrob_data'] = $this->Override_model->get_override_ob($this->uri->segment(5));
+		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+
+		$empid = $this->uri->segment(3);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$overrideData = array(
+								 'override_type'=> 1,
+								 'created_date' => date('Y-m-d H:i:s'),
+								 'created_by' 	=> $this->session->userdata('sessEmpNo'));
+			$override_id = $this->Override_model->add($overrideData);
+
+			foreach($arrPost['selemps'] as $emps):
+				$arrData = array(
+								'dateFiled'	 => date('Y-m-d'),
+								'empNumber'	 => $emps,
+								'obDateFrom' => $arrPost['ob_datefrom'],
+								'obDateTo'	 => $arrPost['ob_dateto'],
+								'obTimeFrom' => $arrPost['ob_timefrom'],
+								'obTimeTo'	 => $arrPost['ob_timeto'],
+								'obPlace'	 => $arrPost['txtob_place'],
+								'obMeal'	 => isset($arrPost['chk_obmeal']) ? 'Y' : 'N',
+								'purpose'	 => $arrPost['txtob_purpose'],
+								'official'	 => isset($arrPost['isob']) ? $arrPost['isob'] : 'N',
+								'approveHR'	 => 'Y',
+								'is_override'=> 1,
+								'override_id'=> $override_id);
+				$this->Attendance_summary_model->add_ob($arrData);
+			endforeach;
+			
+			$this->session->set_flashdata('strSuccessMsg','Override OB added successfully.');
+			redirect('hr/attendance/override/ob');
+		endif;
+
+		$this->arrData['action'] = 'edit';
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 
 	}
@@ -83,7 +136,6 @@ class Override extends MY_Controller {
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 
 	}
-
 
 
 }

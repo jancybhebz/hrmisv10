@@ -34,7 +34,7 @@
                                     <td align="center"><?=$ob['obDateTo']?> <?=date('g:i A', strtotime($ob['obTimeTo']))?></td>
                                     <td width="150px" nowrap>
                                         <center>
-                                            <a href="<?=base_url('hr/attendance/override/ob_add')?>" class="btn green btn-xs" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteOB">
+                                            <a href="<?=base_url('hr/attendance/override/ob_edit/'.$ob['override_id'])?>" class="btn green btn-xs" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteOB">
                                                 <i class="fa fa-pencil"></i> Edit</a>
                                             <button class="btn red btn-xs" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-deleteOB">
                                                 <i class="fa fa-trash"></i> Delete</button>
@@ -57,45 +57,45 @@
     $(document).ready(function() {
         $('#tbloverride_ob').dataTable( {pageLength: 5} );
 
-        $('a#btnadd_training').click(function() {
-            $('#frmtraining').attr("action","<?=base_url('pds/add_training/').$this->uri->segment(3)?>");
-            $('span.action').html('Add ');
-            $('#add_training').modal('show');
+        // $('a#btnadd_training').click(function() {
+        //     $('#frmtraining').attr("action","<?=base_url('pds/add_training/').$this->uri->segment(3)?>");
+        //     $('span.action').html('Add ');
+        //     $('#add_training').modal('show');
             
-            $('#txttra_name').val('');
-            $('#txttra_hrs').val('');
-            $('#txttra_venue').val('');
-            $('#seltra_typeld').selectpicker('val', '');
-            $('#txttra_sponsored').val('');
-            $('#txttra_cost').val('');
-            $('#txttra_contract').val('');
-            $('#txttra_sdate').val('');
-            $('#txttra_edate').val('');
+        //     $('#txttra_name').val('');
+        //     $('#txttra_hrs').val('');
+        //     $('#txttra_venue').val('');
+        //     $('#seltra_typeld').selectpicker('val', '');
+        //     $('#txttra_sponsored').val('');
+        //     $('#txttra_cost').val('');
+        //     $('#txttra_contract').val('');
+        //     $('#txttra_sdate').val('');
+        //     $('#txttra_edate').val('');
 
-            $('#txttraid').val('');
-        });
+        //     $('#txttraid').val('');
+        // });
 
-        $('#tbltraining').on('click','a.btnedit_srvc',function() {
-            var jsondata = $(this).data('json');
-            $('#frmtraining').attr("action","<?=base_url('pds/edit_training/').$this->uri->segment(3)?>");
-            $('span.action').html('Edit ');
-            $('#add_training').modal('show');
+        // $('#tbltraining').on('click','a.btnedit_srvc',function() {
+        //     var jsondata = $(this).data('json');
+        //     $('#frmtraining').attr("action","<?=base_url('pds/edit_training/').$this->uri->segment(3)?>");
+        //     $('span.action').html('Edit ');
+        //     $('#add_training').modal('show');
             
-            $('#txttra_name').val(jsondata.trainingTitle);
-            $('#txttra_hrs').val(jsondata.trainingHours);
-            $('#txttra_venue').val(jsondata.trainingVenue);
-            $('#seltra_typeld').selectpicker('val', jsondata.trainingTypeofLD);
-            $('#txttra_sponsored').val(jsondata.trainingConductedBy);
-            $('#txttra_cost').val(jsondata.trainingCost);
-            $('#txttra_contract').val(jsondata.trainingContractDate);
-            $('#txttra_sdate').val(jsondata.trainingStartDate);
-            $('#txttra_edate').val(jsondata.trainingEndDate);
+        //     $('#txttra_name').val(jsondata.trainingTitle);
+        //     $('#txttra_hrs').val(jsondata.trainingHours);
+        //     $('#txttra_venue').val(jsondata.trainingVenue);
+        //     $('#seltra_typeld').selectpicker('val', jsondata.trainingTypeofLD);
+        //     $('#txttra_sponsored').val(jsondata.trainingConductedBy);
+        //     $('#txttra_cost').val(jsondata.trainingCost);
+        //     $('#txttra_contract').val(jsondata.trainingContractDate);
+        //     $('#txttra_sdate').val(jsondata.trainingStartDate);
+        //     $('#txttra_edate').val(jsondata.trainingEndDate);
 
-            $('#txttraid').val(jsondata.TrainingIndex);
-        });
+        //     $('#txttraid').val(jsondata.TrainingIndex);
+        // });
 
-        $('#tbltraining').on('click','a.btndelete_tra',function() {
-            $('#txtdel_tra').val($(this).data('traid'));
-        });
+        // $('#tbltraining').on('click','a.btndelete_tra',function() {
+        //     $('#txtdel_tra').val($(this).data('traid'));
+        // });
     });
 </script>

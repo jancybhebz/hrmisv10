@@ -56,6 +56,7 @@
                                         <?php
                                             switch ($this_page):
                                                 case 'ob_add':
+                                                case 'ob_edit':
                                                     $this->load->view('_ob_form.php');
                                                     break;
                                                 case 'exclude_dtr':
@@ -72,6 +73,7 @@
                                                     break;
                                                 default:
                                                     $this->load->view('_ob.php');
+                                                    break;
                                             endswitch;
                                         ?>
                                     </div>

@@ -66,6 +66,7 @@ $route['hr/attendance_summary/qr_code/(:any)'] = 'hr/attendance/qr_code/$1';
 # Override
 $route['hr/attendance/override/ob'] = 'hr/override/override_ob';
 	$route['hr/attendance/override/ob_add'] = 'hr/override/override_ob_add';
+	$route['hr/attendance/override/ob_edit/(:any)'] = 'hr/override/override_ob_edit/$1';
 
 $route['hr/attendance/exclude_dtr'] = 'hr/override/exclude_dtr';
 	$route['hr/attendance/override_exec_dtr_add'] = 'hr/override/exclude_dtr_add';

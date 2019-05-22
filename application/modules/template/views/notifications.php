@@ -22,12 +22,12 @@
                                 <a href="javascript:;">
                                     <?php
                                         $now = time();
-                                        $your_date = strtotime($notif['req_date']);
+                                        $your_date = strtotime($notif['requestDate']);
                                         $datediff = $now - $your_date;
 
                                         $days = round($datediff / (60 * 60 * 24));
 
-                                        switch ($notif['req_code']):
+                                        switch ($notif['requestCode']):
                                             case 'OB':
                                                 echo '<span class="time">'.$days.' days</span>
                                                         <span class="details">
