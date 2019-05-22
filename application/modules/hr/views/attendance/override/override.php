@@ -67,9 +67,6 @@
                                                     $this->load->view('_execdtr_form.php');
                                                     break;
                                                 case 'generate_dtr':
-                                                    $this->load->view('_gendtr.php');
-                                                    break;
-                                                case 'generate_dtr_add':
                                                     $this->load->view('_gendtr_form.php');
                                                     break;
                                                 default:

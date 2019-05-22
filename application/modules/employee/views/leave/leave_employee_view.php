@@ -1,3 +1,7 @@
+<style type="text/css">
+    th { text-align: center; }
+    tr td { vertical-align: middle !important; }
+</style>
 <?=load_plugin('css',array('select','datatables'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
@@ -83,8 +87,8 @@
 				                            <tbody>
 				                            	<?php $no=1; foreach($leave_balance as $empleave): ?>
 				                                <tr>
-				                                	<td><?=$no++?></td>
-				                                	<td nowrap align="left"><?=date('M', mktime(0, 0, 0, $empleave['periodMonth'], 10))?> <?=$empleave['periodYear']?></td>
+				                                	<td align="center"><?=$no++?></td>
+				                                	<td nowrap align="center"><?=date('M', mktime(0, 0, 0, $empleave['periodMonth'], 10))?> <?=$empleave['periodYear']?></td>
 				                                	<td align="center"><?=$_ENV['leave_earned']?></td>
 				                                	<td align="center"><?=$empleave['vlAbsUndWPay']?></td>
 				                                	<td align="center"><?=$empleave['vlBalance']?></td>
@@ -124,8 +128,8 @@
 				                            <tbody>
 				                                <?php $no=1; foreach($leave_balance as $empleave): ?>
 				                                <tr>
-				                                	<td><?=$no++?></td>
-				                                	<td nowrap align="left"><?=date('M', mktime(0, 0, 0, $empleave['periodMonth'], 10))?> <?=$empleave['periodYear']?></td>
+				                                	<td align="center"><?=$no++?></td>
+				                                	<td nowrap align="center"><?=date('M', mktime(0, 0, 0, $empleave['periodMonth'], 10))?> <?=$empleave['periodYear']?></td>
 				                                	<td align="center"><?=$_ENV['leave_earned']?></td>
 				                                	<td align="center"><?=$empleave['slAbsUndWPay']?></td>
 				                                	<td align="center"><?=$empleave['slBalance']?></td>

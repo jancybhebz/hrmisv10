@@ -42,13 +42,13 @@ class Leave_monetization_model extends CI_Model {
 
 	function submit($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strDestination = '', $dtmTOdatefrom = '')
 	{		
-		$strSQL = " SELECT * FROM tblemprequest					
+		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
 					requestDetails ='$strDestination' OR
 					requestDate ='$dtmTOdatefrom'					
@@ -61,7 +61,7 @@ class Leave_monetization_model extends CI_Model {
 	function save($arrData, $intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->update('tblemprequest', $arrData);
+		$this->db->update('tblEmpRequest', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -69,7 +69,7 @@ class Leave_monetization_model extends CI_Model {
 	function delete($intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->delete('tblemprequest'); 	
+		$this->db->delete('tblEmpRequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 

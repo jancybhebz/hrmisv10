@@ -244,6 +244,9 @@ class Override extends MY_Controller {
 
 	public function generate_dtr()
 	{
+		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 	}
 

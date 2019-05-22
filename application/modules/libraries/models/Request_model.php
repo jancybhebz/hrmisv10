@@ -12,7 +12,7 @@ class Request_model extends CI_Model {
 	var $table = 'tblRequestFlow';
 	var $tableid = 'reqID';
 
-	var $table2 = 'tblemprequest';
+	var $table2 = 'tblEmpRequest';
 	var $tableid2 = 'empNumber';
 
 	var $table3 = 'tblRequestType';

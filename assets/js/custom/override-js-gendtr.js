@@ -1,11 +1,4 @@
 $(document).ready(function() {
-    $('.timepicker').timepicker({
-        timeFormat: 'HH:mm:ss A',
-        disableFocus: true,
-        showInputs: false,
-        showSeconds: true,
-        showMeridian: true,
-    });
     $('.date-picker').datepicker();
     $('.date-picker').on('changeDate', function(){
         $(this).datepicker('hide');
@@ -17,89 +10,17 @@ $(document).ready(function() {
         allowClear: true
     });
 
+    /* Generate DTR */
+    $('#generate_dtr').click(function(e) {
+        e.preventDefault();
+        $('#print-preview-gendtr').modal('show');
+    });
+
+    $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
     all_employees = $.parseJSON($('#json_employee').val());
 
     // hide all the group
-    if($('#spnaction').text().toLowerCase() == 'add'){
-        $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
-    }else{
-        var arrgrp_emp = [];
-        var arrappt_emp = [];
-
-        var selgroup1 = $('#selgroup1').val();
-        if(selgroup1!=0){
-            $.each(all_employees, $.proxy(function(i, emp) {
-                if(emp.group1 == selgroup1){
-                    arrgrp_emp.push(emp);
-                }
-            }, this));
-        }
-
-        var selgroup2 = $('#selgroup2').val();
-        if(selgroup2!=0){
-            $.each(all_employees, $.proxy(function(i, emp) {
-                if(emp.group2 == selgroup2){
-                    arrgrp_emp.push(emp);
-                }
-            }, this));
-        }
-
-        var selgroup3 = $('#selgroup3').val();
-        if(selgroup3!=0){
-            $.each(all_employees, $.proxy(function(i, emp) {
-                if(emp.group3 == selgroup3){
-                    arrgrp_emp.push(emp);
-                }
-            }, this));
-        }
-
-        var selgroup4 = $('#selgroup4').val();
-        if(selgroup4!=0){
-            $.each(all_employees, $.proxy(function(i, emp) {
-                if(emp.group4 == selgroup4){
-                    arrgrp_emp.push(emp);
-                }
-            }, this));
-        }
-
-        var selgroup5 = $('#selgroup5').val();
-        if(selgroup5!=0){
-            $.each(all_employees, $.proxy(function(i, emp) {
-                if(emp.group5 == selgroup5){
-                    arrgrp_emp.push(emp);
-                }
-            }, this));
-        }
-
-        if(selgroup1 == 0 && selgroup2 == 0 && selgroup3 == 0 && selgroup4 == 0 && selgroup5 == 0){
-            arrgrp_emp = all_employees;
-        }
-        console.log(arrgrp_emp);
-
-        var apptcode = $('#selappt').val();
-        if(apptcode!=0){
-            $.each(arrgrp_emp, $.proxy(function(i, emp) {
-                if(emp.appointmentCode == apptcode){
-                    arrappt_emp.push(emp);
-                }
-            }, this));
-        }else{ arrappt_emp = arrgrp_emp; }
-        
-        console.log(arrappt_emp);
-        edit_emp = $.parseJSON($('#txtemp_ob').val());
-        console.log(edit_emp);
-        $('#selemps').multiSelect('destroy').empty();
-        $.each(arrappt_emp, $.proxy(function(i, emp) {
-            e_name = emp.surname + ', ' + emp.firstname + ' ' + emp.middleInitial + '.';
-            selected = '';
-            if($.inArray(emp.empNumber, edit_emp) !== -1){
-                selected = 'selected';
-                console.log(emp.empNumber);
-            }
-            $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
-        }, this));
-        $('#selemps').multiSelect({});
-    }
+    $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
 
     $('#seltype').change(function() {
         strgrp = $(this).val();
@@ -215,16 +136,9 @@ $(document).ready(function() {
         }
 
         $('#selemps').multiSelect('destroy').empty();
-        if($('#spnaction').text().toLowerCase() == 'edit'){ edit_emp = $.parseJSON($('#txtemp_ob').val()); }
         $.each(arrappt_emp, $.proxy(function(i, emp) {
             e_name = emp.surname + ', ' + emp.firstname + ' ' + emp.middleInitial + '.';
-            selected = '';
-            if($('#spnaction').text().toLowerCase() == 'edit'){
-                if($.inArray(emp.empNumber, edit_emp) != -1){
-                    selected = 'selected';
-                }
-            }
-            $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
+            $('#selemps').append('<option value="'+ emp.empNumber +'">'+ e_name +'</option>');
         }, this));
         $('#selemps').multiSelect({});
 

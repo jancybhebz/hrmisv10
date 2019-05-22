@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Leave_model extends CI_Model {
 
-	var $table = 'tblemprequest';
+	var $table = 'tblEmpRequest';
 	var $tableid = 'requestID';
 
 	function __construct()
@@ -24,7 +24,7 @@ class Leave_model extends CI_Model {
 		if($intReqId != "")
 			$strWhere .= " AND requestID = '".$intReqId."'";
 		
-		$strSQL = " SELECT * FROM tblemprequest					
+		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY requestDate
@@ -37,43 +37,43 @@ class Leave_model extends CI_Model {
 
 	function submitFL($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitSPL($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitSL($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitVL($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitML($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitPL($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitSTL($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($strDay = '')
 	{		
-		$strSQL = " SELECT * FROM tblemprequest					
+		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
 					requestDetails ='$strDay' 				
 					";
@@ -85,7 +85,7 @@ class Leave_model extends CI_Model {
 	function save($arrData, $intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->update('tblemprequest', $arrData);
+		$this->db->update('tblEmpRequest', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -93,7 +93,7 @@ class Leave_model extends CI_Model {
 	function delete($intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->delete('tblemprequest'); 	
+		$this->db->delete('tblEmpRequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
