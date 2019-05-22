@@ -15,13 +15,7 @@ class Override extends MY_Controller {
 	function __construct() {
         parent::__construct();
         $this->load->model(array('Override_model','libraries/Org_structure_model','libraries/Appointment_status_model','Hr_model','hr/Attendance_summary_model'));
-        // $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model','libraries/Org_structure_model','libraries/Appointment_status_model'));
     }
-
-	// public function override()
-	// {
-	// 	$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-	// }
 
 	public function override_ob()
 	{
@@ -143,20 +137,17 @@ class Override extends MY_Controller {
 	public function exclude_dtr()
 	{
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
 	}
 
 	public function override_exec_dtr_add()
 	{
 		$this->arrData['action'] = 'add';
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
 	}
 
 	public function generate_dtr()
 	{
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
 	}
 
 

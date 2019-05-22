@@ -22,7 +22,9 @@
                         <th rowspan="2">Type of Leadership</th>
                         <th rowspan="2">Conducted / Sponsored By</th>
                         <th rowspan="2">Training Venue</th>
-                        <th rowspan="2">Action</th>
+                        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                            <th rowspan="2"></th>
+                        <?php endif; ?>
                     </tr>
                     <tr>
                         <th>From</th>
@@ -40,14 +42,16 @@
                             <td style="text-align: center;"><?=$tra['trainingTypeofLD']?></td>
                             <td><?=$tra['trainingConductedBy']?></td>
                             <td style="text-align: center;"><?=$tra['trainingVenue']?></td>
-                            <td style="width: 150px;" nowrap>
-                                <center>
-                                    <a class="btn green btn-xs btnedit_srvc" data-json='<?=json_encode($tra)?>'>
-                                        <i class="fa fa-pencil"></i> Edit </a>
-                                    <a class="btn red btn-xs btndelete_tra" data-toggle="modal" href="#delete_training" data-traid="<?=$tra['TrainingIndex']?>">
-                                        <i class="fa fa-trash"></i> Delete </a>
-                                </center>
-                            </td>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <td style="width: 150px;" nowrap>
+                                    <center>
+                                        <a class="btn green btn-xs btnedit_srvc" data-json='<?=json_encode($tra)?>'>
+                                            <i class="fa fa-pencil"></i> Edit </a>
+                                        <a class="btn red btn-xs btndelete_tra" data-toggle="modal" href="#delete_training" data-traid="<?=$tra['TrainingIndex']?>">
+                                            <i class="fa fa-trash"></i> Delete </a>
+                                    </center>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

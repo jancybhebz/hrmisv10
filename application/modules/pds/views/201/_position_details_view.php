@@ -127,7 +127,7 @@
             <th style="text-align: right;">Item Number :</th>
             <td><?=$arrPosition[0]['itemNumber']?></td>
             <th style="text-align: right;">Head of the Agency :</th>
-            <td><?=$agencyHead['agencyHead'] == 1 ? 'Y' : 'N'?></td>
+            <td><?=count($agencyHead) > 0 ? $agencyHead['agencyHead'] == 1 ? 'Y' : 'N' : ''?></td>
         </tr>
         <tr>
             <th style="text-align: right;">Actual Salary :</th>

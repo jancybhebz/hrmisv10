@@ -23,7 +23,9 @@
                         <th>Place of Examination / Conferment</th>
                         <th>License Number</th>
                         <th>Date of Validity</th>
-                        <th></th>
+                        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                            <th></th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,14 +38,16 @@
                             <td style="text-align: center;"><?=$exam['examPlace']?></td>
                             <td style="text-align: center;"><?=$exam['licenseNumber']?></td>
                             <td style="text-align: center;"><?=$exam['dateRelease'] == '0000-00-00' ? '' : $exam['dateRelease']?></td>
-                            <td style="width: 150px;" nowrap>
-                                <center>
-                                    <a class="btn green btn-xs btnedit_exam" data-json='<?=json_encode($exam)?>'>
-                                        <i class="fa fa-pencil"></i> Edit </a>
-                                    <a class="btn red btn-xs btndelete_exam" data-toggle="modal" href="#delete_exam" data-examid="<?=$exam['ExamIndex']?>">
-                                        <i class="fa fa-trash"></i> Delete </a>
-                                </center>
-                            </td>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <td style="width: 150px;" nowrap>
+                                    <center>
+                                        <a class="btn green btn-xs btnedit_exam" data-json='<?=json_encode($exam)?>'>
+                                            <i class="fa fa-pencil"></i> Edit </a>
+                                        <a class="btn red btn-xs btndelete_exam" data-toggle="modal" href="#delete_exam" data-examid="<?=$exam['ExamIndex']?>">
+                                            <i class="fa fa-trash"></i> Delete </a>
+                                    </center>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -21,7 +21,9 @@
                             <th width="5%">No</th>
                             <th>Duties and Responsbilities</th>
                             <th width="20%">Percent of Working Time</th>
-                            <th></th>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <th></th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,14 +32,16 @@
                                 <td align="center"><?=$pos_d['dutyNumber']?></td>
                                 <td><?=$pos_d['duties']?></td>
                                 <td align="center"><?=$pos_d['percentWork']?></td>
-                                <td style="width: 150px;" nowrap>
-                                    <center>
-                                        <a class="btn green btn-xs btnedit_pos_dr" data-json='<?=json_encode($pos_d)?>'>
-                                            <i class="fa fa-pencil"></i> Edit </a>
-                                        <a class="btn red btn-xs btndelete_pos_dr" data-drid="<?=$pos_d['duties_index']?>">
-                                            <i class="fa fa-trash"></i> Delete </a>
-                                    </center>
-                                </td>
+                                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                    <td style="width: 150px;" nowrap>
+                                        <center>
+                                            <a class="btn green btn-xs btnedit_pos_dr" data-json='<?=json_encode($pos_d)?>'>
+                                                <i class="fa fa-pencil"></i> Edit </a>
+                                            <a class="btn red btn-xs btndelete_pos_dr" data-drid="<?=$pos_d['duties_index']?>">
+                                                <i class="fa fa-trash"></i> Delete </a>
+                                        </center>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; else: ?>
                             <tr><td colspan="4" align="center">Not Yet Defined</td></tr>
@@ -62,7 +66,9 @@
                             <th width="5%">No</th>
                             <th>Duties and Responsbilities</th>
                             <th width="20%">Percent of Working Time</th>
-                            <th></th>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <th></th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,14 +77,16 @@
                                 <td align="center"><?=$plant_d['dutyNumber']?></td>
                                 <td><?=$plant_d['itemDuties']?></td>
                                 <td align="center"><?=$plant_d['percentWork']?></td>
-                                <td style="width: 150px;" nowrap>
-                                    <center>
-                                        <a class="btn green btn-xs btnedit_plan_dr" data-json='<?=json_encode($plant_d)?>'>
-                                            <i class="fa fa-pencil"></i> Edit </a>
-                                        <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['plantilla_duties_index']?>">
-                                            <i class="fa fa-trash"></i> Delete </a>
-                                    </center>
-                                </td>
+                                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                    <td style="width: 150px;" nowrap>
+                                        <center>
+                                            <a class="btn green btn-xs btnedit_plan_dr" data-json='<?=json_encode($plant_d)?>'>
+                                                <i class="fa fa-pencil"></i> Edit </a>
+                                            <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['plantilla_duties_index']?>">
+                                                <i class="fa fa-trash"></i> Delete </a>
+                                        </center>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; else: ?>
                             <tr><td colspan="4" align="center">Not Yet Defined</td></tr>
@@ -103,7 +111,9 @@
                             <th width="5%">No</th>
                             <th>Duties and Responsbilities</th>
                             <th width="20%">Percent of Working Time</th>
-                            <th></th>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <th></th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,14 +122,16 @@
                                 <td align="center"><?=$no++?></td>
                                 <td><?=$actual_d['duties']?></td>
                                 <td align="center"><?=$actual_d['percentWork']?></td>
-                                <td style="width: 150px;" nowrap>
-                                    <center>
-                                        <a class="btn green btn-xs btnedit_actual_dr" data-json='<?=json_encode($actual_d)?>'>
-                                            <i class="fa fa-pencil"></i> Edit </a>
-                                        <a class="btn red btn-xs btndelete_actual_dr" data-drid="<?=$actual_d['empduties_index']?>">
-                                            <i class="fa fa-trash"></i> Delete </a>
-                                    </center>
-                                </td>
+                                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                    <td style="width: 150px;" nowrap>
+                                        <center>
+                                            <a class="btn green btn-xs btnedit_actual_dr" data-json='<?=json_encode($actual_d)?>'>
+                                                <i class="fa fa-pencil"></i> Edit </a>
+                                            <a class="btn red btn-xs btndelete_actual_dr" data-drid="<?=$actual_d['empduties_index']?>">
+                                                <i class="fa fa-trash"></i> Delete </a>
+                                        </center>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; else: ?>
                             <tr><td colspan="4" align="center">Not Yet Defined</td></tr>

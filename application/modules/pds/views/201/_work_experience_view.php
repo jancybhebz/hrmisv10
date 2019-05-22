@@ -23,7 +23,9 @@
                         <th rowspan="2">Salary / <br>Job Pay Grade</th>
                         <th rowspan="2">Status of<br> Appointment</th>
                         <th rowspan="2">Gov. Service <br>(<i>Yes / No</i>)</th>
-                        <th rowspan="2">Action</th>
+                        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                            <th rowspan="2">Action</th>
+                        <?php endif; ?>
                     </tr>
                     <tr>
                         <th>From</th>
@@ -42,14 +44,16 @@
                             <td style="text-align: center;"><?=$srvc['salaryGrade']?></td>
                             <td style="text-align: center;"><?=$srvc['appointmentCode']?></td>
                             <td style="text-align: center;"><?=$srvc['governService']?></td>
-                            <td style="width: 150px;" nowrap>
-                                <center>
-                                    <a class="btn green btn-xs btnedit_srvc" data-json='<?=json_encode($srvc)?>'>
-                                        <i class="fa fa-pencil"></i> Edit </a>
-                                    <a class="btn red btn-xs btndelete_srvc" data-toggle="modal" href="#delete_service" data-srvid="<?=$srvc['serviceRecID']?>">
-                                        <i class="fa fa-trash"></i> Delete </a>
-                                </center>
-                            </td>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <td style="width: 150px;" nowrap>
+                                    <center>
+                                        <a class="btn green btn-xs btnedit_srvc" data-json='<?=json_encode($srvc)?>'>
+                                            <i class="fa fa-pencil"></i> Edit </a>
+                                        <a class="btn red btn-xs btndelete_srvc" data-toggle="modal" href="#delete_service" data-srvid="<?=$srvc['serviceRecID']?>">
+                                            <i class="fa fa-trash"></i> Delete </a>
+                                    </center>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

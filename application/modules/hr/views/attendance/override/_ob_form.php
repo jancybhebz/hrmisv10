@@ -52,7 +52,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 div-group" <?=isset($arrob_data) ? $arrob_data[0]['office_type'] == 'AllEmployees' ? 'hidden' : '' : ''?>>>
+                            <div class="col-md-4 div-group" <?=isset($arrob_data) ? $arrob_data[0]['office_type'] == 'AllEmployees' ? 'hidden' : '' : ''?>>
                                 <div class="form-group div-group1" <?=$_ENV['Group1']!=''? isset($arrob_data) ? $arrob_data[0]['office_type'] == 1 ? '' : 'hidden' : 'hidden' : 'hidden'?>>
                                     <label class="control-label">Select <?=ucfirst($_ENV['Group1'])?> <span class="required"> * </span></label>
                                     <select class="select2 form-control selper" name="selgroup1" id="selgroup1">
