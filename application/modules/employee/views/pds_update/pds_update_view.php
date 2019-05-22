@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <?=form_open(base_url('employee/pds_update/'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+                <?=form_open(base_url('employee/pds_update/'), array('method' => 'post', 'id' => 'frmPDSupdate','onsubmit' => 'return checkForBlank()'))?>
                   <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <br><br>
 
 <!-- Profile -->
-        <?=form_open(base_url('employee/pds_update/submitProfile'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+        <?=form_open(base_url('employee/pds_update/submitProfile'), array('method' => 'post', 'id' => 'frmFam'))?>
                 <div class="row" id="surname_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
@@ -112,7 +112,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="row" id="birthplace_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                   <label class="control-label">Place of Birth : </label>
+                   <label class="control-label">Place of Birth : <span class="required"> * </span></label>
                        <input type="text" class="form-control" name="strBirthplace" value="<?=isset($arrData[0]['strBirthplace'])?$arrData[0]['strBirthplace']:''?>" autocomplete="off">
                 </div>
             </div>
@@ -319,7 +319,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Zip Code : </label>
-                    <input type="text" class="form-control" name="strProv2" value="<?=isset($arrData[0]['strProv2'])?$arrData[0]['strProv2']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strZipCode2" value="<?=isset($arrData[0]['strProv2'])?$arrData[0]['strProv2']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -362,7 +362,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
  <?=form_close()?>
 <!-- Family Background -->
- <?=form_open(base_url('employee/pds_update/submitFam'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+ <?=form_open(base_url('employee/pds_update/submitFam'), array('method' => 'post', 'id' => 'frmSpouse'))?>
             
         <div class="row" id="spouse_textbox">
             <div class="col-sm-8">
@@ -525,7 +525,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <?=form_close()?>
 <!-- Educational Attainment -->
 <div id="tab_education" class="tab-pane" style="overflow-x:auto;">
-    <?=form_open(base_url('employee/pds_update/submitEduc'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+    <?=form_open(base_url('employee/pds_update/submitEduc'), array('method' => 'post', 'id' => 'frmDegree'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Level Code</th>
@@ -558,7 +558,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <?php endforeach;?>
             </table>
 
-        <?=form_open(base_url('employee/pds_update/submitEduc'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+        <?=form_open(base_url('employee/pds_update/submitEduc'), array('method' => 'post', 'id' => 'frmEduc'))?>
                 
         <div class="row" id="educlevel_textbox">
             <div class="col-sm-8">
@@ -653,7 +653,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row" id="honors_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="control-label">Honors :   </label>
+                    <label class="control-label">Honors :  </label>
 
                    <input type="text" class="form-control" name="strHonors" value="<?=isset($arrEduc[0]['strHonors'])?$arrEduc[0]['strHonors']:''?>" autocomplete="off">
                 </div>
@@ -707,7 +707,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <!-- Trainings -->
 <div id="tab_training" class="tab-pane">
-<?=form_open(base_url('employee/pds_update/submitTraining'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+<?=form_open(base_url('employee/pds_update/submitTraining'), array('method' => 'post', 'id' => 'frmTraining'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th>Title of Learning & Dev./Training Programs</th>
@@ -822,7 +822,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 <!-- Examinations -->
 <div id="tab_exam" class="tab-pane">
-<?=form_open(base_url('employee/pds_update/submitExam'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+<?=form_open(base_url('employee/pds_update/submitExam'), array('method' => 'post', 'id' => 'frmExam'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th width="10%">Exam Description</th>
@@ -911,7 +911,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <?=form_close()?>
 </div>
 <!-- Children -->
-<?=form_open(base_url('employee/pds_update/submitChild'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+<?=form_open(base_url('employee/pds_update/submitChild'), array('method' => 'post', 'id' => 'frmChild'))?>
             <div class="row" id="childname_textbox">
                 <div class="col-sm-8">
                     <div class="form-group">
@@ -939,7 +939,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
             <?=form_close()?>
 <!-- Community Tax Certification -->
-<?=form_open(base_url('employee/pds_update/submitTax'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+<?=form_open(base_url('employee/pds_update/submitTax'), array('method' => 'post', 'id' => 'frmTax'))?>
             <div class="row" id="taxcert_textbox">
                 <div class="col-sm-8">
                     <div class="form-group">
@@ -977,7 +977,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <?=form_close()?>
 <!-- References -->
 <div id="tab_ref" class="tab-pane">
-<?=form_open(base_url('employee/pds_update/submitRef'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>
+<?=form_open(base_url('employee/pds_update/submitRef'), array('method' => 'post', 'id' => 'frmRef'))?>
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th>Name of Reference</th>
@@ -1039,7 +1039,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- Voluntary Works -->
 <div id="tab_volWork" class="tab-pane">
-<?=form_open(base_url('employee/pds_update/submitVol'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>  
+<?=form_open(base_url('employee/pds_update/submitVol'), array('method' => 'post', 'id' => 'frmOrg'))?>  
             <table class="table table-bordered table-striped" class="table-responsive">
                     <tr>
                         <th width="10%">Name of Organization</th>
@@ -1121,7 +1121,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- Work Experience -->
 <div id="tab_workExp" class="tab-pane">
-<?=form_open(base_url('employee/pds_update/submitWorkExp'), array('method' => 'post', 'id' => 'frmPDSupdate'))?>   
+<?=form_open(base_url('employee/pds_update/submitWorkExp'), array('method' => 'post', 'id' => 'frmWorkExp'))?>   
             <table class="table table-bordered table-striped" class="table-responsive">
                 <tr>
                     <th width="10%">Inclusive Date [From-To]</th>
@@ -1350,5 +1350,102 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             window.open("reports/generate/?rpt=reportPDSupdate&profile="+profile+"&surname="+surname,'_blank'); //ok
     
     });
+});
+</script>
+
+
+
+<script type="text/javascript">
+    jQuery.validator.addMethod("noSpace", function(value, element) { 
+  return value.indexOf(" ") < 0 && value != ""; 
+}, "No space please and don't leave it empty");
+var FormValidation = function () {
+
+    var handleValidation = function() {
+
+            var form2 = $('#frmPDSupdate');
+            var error2 = $('.alert-danger', form2);
+            var success2 = $('.alert-success', form2);
+
+            form2.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    strProfileType: {
+                        required: true,
+                        noSpace: true
+                    },
+                    strSname: {
+                        required: true,
+                        noSpace: true
+                    },
+                    strFname: {
+                        required: true,
+                        noSpace: true
+                    },
+                    strMname: {
+                        required: true,
+                        noSpace: true
+                    },
+                    strExtension: {
+                        required: true,
+                        noSpace: true
+                    },
+                    dtmBirthdate: {
+                        required: true,
+                        noSpace: true
+                    },
+                    strBirthplace: {
+                        required: true,
+                        noSpace: true
+                    }
+
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success2.hide();
+                    error2.show();
+                    App.scrollTo(error2, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
+                },
+
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+                submitHandler: function (form) {
+                    success2.show();
+                    error2.hide();
+                    form[0].submit(); // submit the form
+                }
+            });
+    }
+    return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+        }
+    };
+}();
+jQuery(document).ready(function() {
+    FormValidation.init();
 });
 </script>
