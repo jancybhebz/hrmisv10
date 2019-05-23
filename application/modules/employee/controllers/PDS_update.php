@@ -25,7 +25,7 @@ class PDS_update extends MY_Controller {
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
-		$this->arrData['arrData'] = $this->pds_update_model->getData();
+		$this->arrData['arrData'] = $this->pds_update_model->getData($strEmpNo);
 		$this->arrData['arrEduc_CMB'] = $this->pds_update_model->getEducData();	
 		$this->arrData['arrEduc'] = $this->pds_update_model->getEduc($strEmpNo);		
 		$this->arrData['arrCourse'] = $this->pds_update_model->getCourseData();
