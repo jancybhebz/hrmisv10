@@ -10,12 +10,6 @@ $(document).ready(function() {
         allowClear: true
     });
 
-    /* Generate DTR */
-    $('#generate_dtr').click(function(e) {
-        e.preventDefault();
-        $('#print-preview-gendtr').modal('show');
-    });
-
     $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
     all_employees = $.parseJSON($('#json_employee').val());
 

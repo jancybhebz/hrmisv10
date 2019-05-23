@@ -42,3 +42,22 @@ if ( ! function_exists('get_workingdays'))
 }
 
 
+# get all weekdays between dates
+if ( ! function_exists('get_weekdays'))
+{
+    function get_weekdays($sdate,$edate)
+    {
+        $arrweekdays = array();
+        while (strtotime($sdate) <= strtotime($edate))
+        {
+            if(!in_array(date('D',strtotime($sdate)),array('Sat','Sun'))):
+                array_push($arrweekdays,$sdate);
+            endif;
+            $sdate = date('Y-m-d', strtotime($sdate . ' +1 day'));
+
+        }
+        return $arrweekdays;
+    }
+
+}
+

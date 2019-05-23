@@ -31,8 +31,9 @@
                 <h4 class="modal-title">Generate DTR</h4>
             </div>
             <?=form_open('hr/override/override_gen_dtr', array('method' => 'post', 'id' => 'frminc_dtr','class' => 'form-horizontal'))?>
-                <input type="text" name="txtgendtr_empnum" id="txtgendtr_empnum">
+                <input type="hidden" name="txtgendtr_empnum" id="txtgendtr_empnum">
                 <div class="modal-body">
+                    <h5 class="bold" id="empname_gen"></h5>
                     <div class="form-body">
                         <div class="form-group">
                             <div class="col-md-12">
@@ -54,7 +55,7 @@
                                         <div class="input-icon right">
                                             <i class="fa fa-clock-o"></i>
                                             <input type="text" class="form-control timepicker form-required timepicker-default"
-                                                name="gendtr_timefrom" value="08:00:00 AM">
+                                                name="gendtr_timefrom" value="07:00:00 AM">
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +66,7 @@
                                         <div class="input-icon right">
                                             <i class="fa fa-clock-o"></i>
                                             <input type="text" class="form-control timepicker form-required timepicker-default"
-                                                name="gendtr_timeto" value="05:00:00 PM">
+                                                name="gendtr_timeto" value="04:00:00 PM">
                                         </div>
                                     </div>
                                 </div>
