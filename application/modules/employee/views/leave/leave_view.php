@@ -64,21 +64,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                  
              <?php  $strLeavetype = '';
                     $action = '';
-            if($strLeavetype == 'forced'){  ?>
-                    <?php $action = base_url('employee/pds_update/submitFL'); ?>
-                <?php } else if($strLeavetype == 'special'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitSPL'); ?>
-                <?php } else if($strLeavetype == 'sick'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitSL'); ?>
-                <?php } else if($strLeavetype == 'vacation'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitVL'); ?>
-                <?php } else if($strLeavetype == 'maternity'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitML'); ?>
-                <?php } else if($strLeavetype == 'paternity'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitPL'); ?>
-                <?php } else if($strLeavetype == 'study'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitSTL'); ?>
-            <?php } ?>
+            if($strLeavetype == 'forced'){  
+                $action = base_url('employee/pds_update/submitFL'); 
+                } else if($strLeavetype == 'special'){ 
+                $action = base_url('employee/pds_update/submitSPL'); 
+                } else if($strLeavetype == 'sick'){ 
+                $action = base_url('employee/pds_update/submitSL'); 
+                } else if($strLeavetype == 'vacation'){ 
+                $action = base_url('employee/pds_update/submitVL'); 
+                } else if($strLeavetype == 'maternity'){ 
+                $action = base_url('employee/pds_update/submitML');
+                } else if($strLeavetype == 'paternity'){ 
+                $action = base_url('employee/pds_update/submitPL'); 
+                } else if($strLeavetype == 'study'){
+                $action = base_url('employee/pds_update/submitSTL'); 
+                } ?>
             
             <div class="row" id="wholeday_textbox">
                 <div class="col-sm-8">
