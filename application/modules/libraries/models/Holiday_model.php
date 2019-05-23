@@ -238,7 +238,6 @@ class Holiday_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
-
 	function delete_worksuspension($strCode)
 	{
 		$this->db->where('holidayId', $strCode);
@@ -246,5 +245,19 @@ class Holiday_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	function getAllHolidates($empid,$sdate,$edate)
+	{
+		$this->db->where("(holidayDate >= '".$sdate."' and holidayDate <= '".$edate."')");
+		$reg_holidays = $this->db->get_where('tblHolidayYear')->result_array();
+
+		$this->db->select("concat(holidayYear,'-',LPAD(holidayMonth,2,0),'-',LPAD(holidayDay,2,0)) as holidate");
+		$this->db->where("(STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') >= '".$sdate."' and STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') <= '".$edate."')");
+		$localholidays = $this->db->get('tblLocalHoliday')->result_array();
+
+		$allholidays = array_merge(array_column($reg_holidays,'holidayDate'),array_column($localholidays,'holidate'));
+		return $allholidays;
+	}
+
 		
 }

@@ -47,7 +47,7 @@
                                     <li class="<?=$this_page == 'exclude_dtr' || $this_page == 'exclude_dtr_add' || $this_page == 'exclude_dtr_edit' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance/override/exclude_dtr')?>"> Exclude in DTR </a>
                                     </li>
-                                    <li class="<?=$this_page == 'generate_dtr' || $this_page == 'generate_dtr_add' ? 'active' : ''?>">
+                                    <li class="<?=$this_page == 'generate_dtr' || $this_page == 'generate_dtr_allemp' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance/override/generate_dtr')?>"> Generate DTR </a>
                                     </li>
                                 </ul>
@@ -68,6 +68,9 @@
                                                     break;
                                                 case 'generate_dtr':
                                                     $this->load->view('_gendtr.php');
+                                                    break;
+                                                case 'generate_dtr_allemp':
+                                                    $this->load->view('_gendtr_form.php');
                                                     break;
                                                 default:
                                                     $this->load->view('_ob.php');

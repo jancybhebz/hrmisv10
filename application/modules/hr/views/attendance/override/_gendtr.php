@@ -10,7 +10,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <a class="btn blue" href="<?=base_url('hr/attendance/override/exclude_dtr_add')?>">
+                        <a class="btn blue" href="<?=base_url('hr/attendance/override/generate_dtr_allemp')?>">
                             <i class="fa fa-refresh"></i> Generate Employee DTR</a>
                         <br><br>
                         <table class="table table-striped table-bordered table-hover" id="tbloverride_gendtr">
@@ -29,7 +29,7 @@
                                     <td width="150px" style='white-space:nowrap;'>
                                         <center>
                                             <a href="<?=base_url('hr/attendance_summary/dtr/'.$emp['empNumber'])?>" class="btn btn-sm grey-cascade"> <i class="icon-calendar"></i>&nbsp; View DTR </a>
-                                            <a class="btn blue btn-sm" data-toggle="modal" href="#modal-gen-dtr"
+                                            <a class="btn blue btn-sm btngen_dtr" data-toggle="modal" href="#modal-gen-dtr"
                                                 data-empid="<?=$emp['empNumber']?>"
                                                 data-empname="<?=$empname?>">
                                                 <i class="fa fa-refresh"></i> Generate DTR</a>
@@ -60,6 +60,11 @@
         $('#tbloverride_gendtr').on('click','a.btninc_dtr',function() {
             $('#txtempinc_id').val($(this).data('empid'));
             $('#empname').html($(this).data('empname'));
+        });
+
+        $('#tbloverride_gendtr').on('click','a.btngen_dtr',function() {
+            $('#txtgendtr_empnum').val($(this).data('empid'));
+            $('#empname_gen').html($(this).data('empname'));
         });
     });
 </script>

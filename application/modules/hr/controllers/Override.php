@@ -14,7 +14,7 @@ class Override extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Override_model','libraries/Org_structure_model','libraries/Appointment_status_model','Hr_model','hr/Attendance_summary_model','pds/Pds_model'));
+        $this->load->model(array('Override_model','libraries/Org_structure_model','libraries/Appointment_status_model','Hr_model','hr/Attendance_summary_model','pds/Pds_model','finance/Dtr_model'));
     }
 
 	public function override_ob()
@@ -244,8 +244,6 @@ class Override extends MY_Controller {
 
 	public function generate_dtr()
 	{
-		// $this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
-		// $this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup('N');
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
 	}
@@ -265,8 +263,157 @@ class Override extends MY_Controller {
 		endif;
 	}
 
+	public function override_gen_dtr()
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$sdate = $arrPost['gendtr_datefrom'];
+			$edate = $arrPost['gendtr_dateto'];
+			$empid = $arrPost['txtgendtr_empnum'];
+
+			$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$sdate,$edate);
+			# get all weekdays
+			$this->load->helper('dtr_helper');
+			$weekdays = get_weekdays($sdate,$edate);
+			# get all holidays, regular holidays
+			$this->load->model('libraries/Holiday_model');
+			$holidays = $this->Holiday_model->getAllHolidates($empid,$sdate,$edate);
+			
+			# foreach working days
+			foreach($weekdays as $wkday):
+				# check if holiday
+				if(!in_array($wkday,$holidays)):
+					# check if empdtr is not null
+					if(count($empdtr) < 1):
+						# add timein and time out
+						$arrData = array('empNumber' => $empid,
+										 'dtrDate' 	 => $wkday,
+										 'inAM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timefrom'])),
+										 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
+										 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
+										 'outPM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timeto'])),
+										 'OT' 	 	 => 0,
+										 'name' 	 => 'override');
+						$this->Attendance_summary_model->add_dtr($arrData);
+					else:
+						# check if have record in dtr
+						if(!in_array($wkday,array_column($empdtr,'dtrDate'))):
+							# add timein and time out
+							$arrData = array('empNumber' => $empid,
+											 'dtrDate' 	 => $wkday,
+											 'inAM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timefrom'])),
+											 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
+											 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
+											 'outPM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timeto'])),
+											 'OT' 	 	 => 0,
+											 'name' 	 => 'override');
+							$this->Attendance_summary_model->add_dtr($arrData);
+						else:
+							# search the dtr id and update
+							$dtrkey = array_search($wkday, array_column($empdtr, 'dtrDate'));
+							# update timein and time out
+							$arrData = array('empNumber' => $empid,
+											 'dtrDate' 	 => $wkday,
+											 'inAM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timefrom'])),
+											 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
+											 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
+											 'outPM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timeto'])),
+											 'OT' 	 	 => 0,
+											 'name' 	 => 'override');
+
+							$this->Attendance_summary_model->edit_dtr($arrData, $empdtr[$dtrkey]['id']);
+						endif;
+					endif;
+
+				endif;
+			endforeach;
+
+			$this->session->set_flashdata('strSuccessMsg','DTR generated successfully.');
+			redirect('hr/attendance/override/generate_dtr');
+		endif;
+	}
+
+	public function generate_dtr_allemp()
+	{
+		$arrexecdtr_data = $this->Override_model->get_override_excdtr($this->uri->segment(5));
+		$this->arrData['arrexecdtr_data'] = $arrexecdtr_data;
+		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup('N');
+
+		$arrPost = $this->input->post();
+		$override_id = $this->uri->segment(5);
+		if(!empty($arrPost)):
+			$sdate = $arrPost['datefrom'];
+			$edate = $arrPost['dateto'];
+			foreach($arrPost['selemps'] as $emps):
+				$empid = $emps;
+
+				$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$sdate,$edate);
+				# get all weekdays
+				$this->load->helper('dtr_helper');
+				$weekdays = get_weekdays($sdate,$edate);
+				# get all holidays, regular holidays
+				$this->load->model('libraries/Holiday_model');
+				$holidays = $this->Holiday_model->getAllHolidates($empid,$sdate,$edate);
+				
+				# foreach working days
+				foreach($weekdays as $wkday):
+					# check if holiday
+					if(!in_array($wkday,$holidays)):
+						# check if empdtr is not null
+						if(count($empdtr) < 1):
+							# add timein and time out
+							$arrData = array('empNumber' => $empid,
+											 'dtrDate' 	 => $wkday,
+											 'inAM' 	 => date('h:i:s',strtotime($arrPost['timefrom'])),
+											 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
+											 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
+											 'outPM' 	 => date('h:i:s',strtotime($arrPost['timeto'])),
+											 'OT' 	 	 => 0,
+											 'name' 	 => 'override');
+							$this->Attendance_summary_model->add_dtr($arrData);
+						else:
+							# check if have record in dtr
+							if(!in_array($wkday,array_column($empdtr,'dtrDate'))):
+								# add timein and time out
+								$arrData = array('empNumber' => $empid,
+												 'dtrDate' 	 => $wkday,
+												 'inAM' 	 => date('h:i:s',strtotime($arrPost['timefrom'])),
+												 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
+												 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
+												 'outPM' 	 => date('h:i:s',strtotime($arrPost['timeto'])),
+												 'OT' 	 	 => 0,
+												 'name' 	 => 'override');
+								$this->Attendance_summary_model->add_dtr($arrData);
+							else:
+								# search the dtr id and update
+								$dtrkey = array_search($wkday, array_column($empdtr, 'dtrDate'));
+								# update timein and time out
+								$arrData = array('empNumber' => $empid,
+												 'dtrDate' 	 => $wkday,
+												 'inAM' 	 => date('h:i:s',strtotime($arrPost['timefrom'])),
+												 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
+												 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
+												 'outPM' 	 => date('h:i:s',strtotime($arrPost['timeto'])),
+												 'OT' 	 	 => 0,
+												 'name' 	 => 'override');
+
+								$this->Attendance_summary_model->edit_dtr($arrData, $empdtr[$dtrkey]['id']);
+							endif;
+						endif;
+					endif;
+				endforeach;
+			endforeach;
+			
+			$this->session->set_flashdata('strSuccessMsg','DTR generated successfully.');
+			redirect('hr/attendance/override/generate_dtr');
+		endif;
+
+		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+	}
+
 
 }
-
 
 
