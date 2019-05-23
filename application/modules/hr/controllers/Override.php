@@ -244,10 +244,25 @@ class Override extends MY_Controller {
 
 	public function generate_dtr()
 	{
-		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
-		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
-		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+		// $this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
+		// $this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup('N');
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
+	}
+
+	public function override_inc_dtr()
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$arrData = array(
+							'dtrSwitch'	 => 'Y',
+							'is_override'=> 0,
+							'override_id'=> null);
+			$this->Pds_model->save_position($arrData,$arrPost['txtempinc_id']);
+
+			$this->session->set_flashdata('strSuccessMsg','Employee include to DTR updated successfully.');
+			redirect('hr/attendance/override/generate_dtr');
+		endif;
 	}
 
 

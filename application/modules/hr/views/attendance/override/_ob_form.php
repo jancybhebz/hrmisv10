@@ -161,7 +161,7 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label class="control-label">Date From <span class="required"> * </span></label>
+                                    <label class="control-label">Date <span class="required"> * </span></label>
                                     <div class="input-group input-daterange" data-date="2003">
                                         <input type="text" class="form-control form-required date-picker"
                                             value="<?=isset($arrob_data) ? $arrob_data[0]['obDateFrom'] : ''?>" name="ob_datefrom" data-date-format="yyyy-mm-dd">

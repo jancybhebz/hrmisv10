@@ -99,16 +99,16 @@ class Hr_model extends CI_Model {
 		return json_encode($res);
 	}
 
-	public function getData_byGroup()
+	public function getData_byGroup($dtrswitch='Y')
 	{
 		$this->db->select('tblEmpPosition.empNumber,appointmentCode,statusOfAppointment,positionCode,appointmentCode,
 							group1,group2,group3,group4,group5,surname,firstname,middlename,middlename,
 							middleInitial,nameExtension');
 		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber = tblEmpPersonal.empNumber','left')
 				  ->order_by('surname,firstname','asc');
-		$this->db->where('statusOfAppointment','In-Service');
 
-		return $this->db->get($this->table)->result_array();
+		$res = $this->db->get_where($this->table,array('statusOfAppointment' => 'In-Service','dtrSwitch' => $dtrswitch))->result_array();
+		return $res;
 	}			
 		
 	public function savePersonal($arrData, $strEmpNo)
