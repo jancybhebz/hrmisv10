@@ -1,11 +1,4 @@
 $(document).ready(function() {
-    $('.timepicker').timepicker({
-        timeFormat: 'HH:mm:ss A',
-        disableFocus: true,
-        showInputs: false,
-        showSeconds: true,
-        showMeridian: true,
-    });
     $('.date-picker').datepicker();
     $('.date-picker').on('changeDate', function(){
         $(this).datepicker('hide');
@@ -17,10 +10,17 @@ $(document).ready(function() {
         allowClear: true
     });
 
+    /* Generate DTR */
+    $('#generate_dtr').click(function(e) {
+        e.preventDefault();
+        $('#print-preview-gendtr').modal('show');
+    });
+
+    $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
+    all_employees = $.parseJSON($('#json_employee').val());
+
     // hide all the group
-    if($('#spnaction').text().toLowerCase == 'add'){
-        $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
-    }
+    $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
 
     $('#seltype').change(function() {
         strgrp = $(this).val();
@@ -43,7 +43,6 @@ $(document).ready(function() {
     });
 
     
-    all_employees = $.parseJSON($('#json_employee').val());
     $('#selappt,#selgroup1,#selgroup2,#selgroup3,#selgroup4,#selgroup5').on("select2:select", function(e) {
         var arrgrp_emp = [];
         var officename = '';
@@ -101,6 +100,7 @@ $(document).ready(function() {
                     }
                 }, this));
             }
+            officename = $('#selgroup4').val();
         }
 
         /*check if group 5 is visible*/

@@ -26,7 +26,6 @@
                                         $datediff = $now - $your_date;
 
                                         $days = round($datediff / (60 * 60 * 24));
-
                                         switch ($notif['requestCode']):
                                             case 'OB':
                                                 echo '<span class="time">'.$days.' days</span>
@@ -45,6 +44,7 @@
                                                         </span>';
                                                 break;
                                             case 'Leave':
+                                            case 'Forced Leave':
                                                 echo '<span class="time">'.$days.' days</span>
                                                         <span class="details">
                                                             <span class="label label-sm label-icon label-success">
@@ -101,7 +101,7 @@
                                                         </span>';
                                                 break;
                                             default:
-                                                return '';
+                                                echo $notif['requestCode'];
                                                 break;
                                         endswitch;
                                         ?>
@@ -213,7 +213,7 @@
                                                         </span>';
                                                 break;
                                             default:
-                                                return '';
+                                                echo $notif['requestCode'];
                                                 break;
                                         endswitch;
                                     ?>

@@ -55,7 +55,7 @@ class Leave extends MY_Controller {
 					$blnReturn  = $this->leave_model->submitFL($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
@@ -99,7 +99,7 @@ class Leave extends MY_Controller {
 					$blnReturn  = $this->leave_model->submitSPL($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
@@ -144,7 +144,7 @@ class Leave extends MY_Controller {
 					$blnReturn  = $this->leave_model->submitSL($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
@@ -188,7 +188,7 @@ class Leave extends MY_Controller {
 					$blnReturn  = $this->leave_model->submitVL($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
@@ -231,7 +231,7 @@ class Leave extends MY_Controller {
 					$blnReturn  = $this->leave_model->submitML($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
@@ -274,7 +274,7 @@ class Leave extends MY_Controller {
 					$blnReturn  = $this->leave_model->submitPL($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
@@ -317,7 +317,7 @@ class Leave extends MY_Controller {
 					$blnReturn  = $this->leave_model->submitSTL($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');

@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class DTR_update_model extends CI_Model {
 
-	var $table = 'tblemprequest';
+	var $table = 'tblEmpRequest';
 	var $tableid = 'requestID';
 
 	function __construct()
@@ -24,7 +24,7 @@ class DTR_update_model extends CI_Model {
 		if($intReqId != "")
 			$strWhere .= " AND requestID = '".$intReqId."'";
 		
-		$strSQL = " SELECT * FROM tblemprequest					
+		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE 1=1 
 					$strWhere
 					ORDER BY requestDate
@@ -37,13 +37,13 @@ class DTR_update_model extends CI_Model {
 
 	function submit($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	
 	function checkExist($dtmDTRupdate = '')
 	{		
-		$strSQL = " SELECT * FROM tblemprequest					
+		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
 					requestDetails ='$dtmDTRupdate'					
 					";
@@ -55,7 +55,7 @@ class DTR_update_model extends CI_Model {
 	function save($arrData, $intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->update('tblemprequest', $arrData);
+		$this->db->update('tblEmpRequest', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -63,7 +63,7 @@ class DTR_update_model extends CI_Model {
 	function delete($intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->delete('tblemprequest'); 	
+		$this->db->delete('tblEmpRequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

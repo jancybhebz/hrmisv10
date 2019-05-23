@@ -610,7 +610,8 @@ class Attendance_summary_model extends CI_Model {
 	public function add_ob($arrData)
 	{
 		$this->db->insert('tblEmpOB', $arrData);
-		return $this->db->insert_id();		
+		$res = $this->db->insert_id();
+		return $res;
 	}
 
 	function edit_ob($arrData, $id)

@@ -101,7 +101,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitProfile($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -157,7 +157,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitFam($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -207,7 +207,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitEduc($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -254,7 +254,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitTraining($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -299,7 +299,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitExam($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -340,7 +340,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitChild($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -382,7 +382,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitTax($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -424,7 +424,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitRef($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -469,7 +469,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitVol($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
@@ -521,7 +521,7 @@ class PDS_update extends MY_Controller {
 					$blnReturn  = $this->pds_update_model->submitWorkExp($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');

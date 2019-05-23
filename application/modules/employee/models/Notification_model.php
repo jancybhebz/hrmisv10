@@ -21,8 +21,8 @@ class Notification_model extends CI_Model {
 		{
 			$this->db->where('requestID',$intrequestID);
 		}
-		$this->db->join('tblempPersonal','tblempPersonal.empNumber = tblempRequest.empNumber','left');
-		$objQuery = $this->db->get('tblempRequest');
+		$this->db->join('tblempPersonal','tblempPersonal.empNumber = tblEmpRequest.empNumber','left');
+		$objQuery = $this->db->get('tblEmpRequest');
 		return $objQuery->result_array();	
 	}
 
@@ -33,15 +33,15 @@ class Notification_model extends CI_Model {
 	// 	{
 	// 		$this->db->where('requestID',$intrequestID);
 	// 	}
-	// 	$this->db->join('tblempPersonal','tblempPersonal.empNumber = tblempRequest.empNumber','left');
-	// 	$objQuery = $this->db->get('tblempRequest');
+	// 	$this->db->join('tblempPersonal','tblempPersonal.empNumber = tblEmpRequest.empNumber','left');
+	// 	$objQuery = $this->db->get('tblEmpRequest');
 	// 	return $objQuery->result_array();	
 	// }
 
 
 	function add($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	

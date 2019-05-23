@@ -41,10 +41,10 @@
                             <div class="tabbable-line tabbable-full-width col-md-12">
                                 <ul class="nav nav-tabs">
                                     <?php $this_page = $this->uri->segment(4); $tab = $this->uri->segment(4); ?>
-                                    <li class="<?=$this_page == 'ob' || $this_page == 'ob_add' ? 'active' : ''?>">
+                                    <li class="<?=$this_page == 'ob' || $this_page == 'ob_add' || $this_page == 'ob_edit' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance/override/ob')?>"> Official Business </a>
                                     </li>
-                                    <li class="<?=$this_page == 'exclude_dtr' || $this_page == 'exclude_dtr_add' ? 'active' : ''?>">
+                                    <li class="<?=$this_page == 'exclude_dtr' || $this_page == 'exclude_dtr_add' || $this_page == 'exclude_dtr_edit' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance/override/exclude_dtr')?>"> Exclude in DTR </a>
                                     </li>
                                     <li class="<?=$this_page == 'generate_dtr' || $this_page == 'generate_dtr_add' ? 'active' : ''?>">
@@ -63,13 +63,11 @@
                                                     $this->load->view('_execdtr.php');
                                                     break;
                                                 case 'exclude_dtr_add':
+                                                case 'exclude_dtr_edit':
                                                     $this->load->view('_execdtr_form.php');
                                                     break;
                                                 case 'generate_dtr':
                                                     $this->load->view('_gendtr.php');
-                                                    break;
-                                                case 'generate_dtr_add':
-                                                    $this->load->view('_gendtr_form.php');
                                                     break;
                                                 default:
                                                     $this->load->view('_ob.php');

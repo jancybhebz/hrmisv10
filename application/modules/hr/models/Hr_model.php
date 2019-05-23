@@ -99,23 +99,22 @@ class Hr_model extends CI_Model {
 		return json_encode($res);
 	}
 
-	public function getData_byGroup()
+	public function getData_byGroup($dtrswitch='Y')
 	{
 		$this->db->select('tblEmpPosition.empNumber,appointmentCode,statusOfAppointment,positionCode,appointmentCode,
 							group1,group2,group3,group4,group5,surname,firstname,middlename,middlename,
 							middleInitial,nameExtension');
 		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber = tblEmpPersonal.empNumber','left')
 				  ->order_by('surname,firstname','asc');
-		$this->db->where('statusOfAppointment','In-Service');
 
-		return $this->db->get($this->table)->result_array();
+		$res = $this->db->get_where($this->table,array('statusOfAppointment' => 'In-Service','dtrSwitch' => $dtrswitch))->result_array();
+		return $res;
 	}			
 		
 	public function savePersonal($arrData, $strEmpNo)
 	{
 		$this->db->where($this->tableid,$strEmpNo);
 		$this->db->update($this->table, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -123,7 +122,6 @@ class Hr_model extends CI_Model {
 	{
 		$this->db->where($this->tableChildid,$strEmpNo);
 		$this->db->update($this->tableChild, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -131,7 +129,6 @@ class Hr_model extends CI_Model {
 	{
 		$this->db->where($this->tableChildid,$strEmpNo);
 		$this->db->update($this->tableChild, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -139,7 +136,6 @@ class Hr_model extends CI_Model {
 	{
 		$this->db->where($this->tableChildid,$strChildCode);
 		$this->db->update($this->tableChild, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -147,7 +143,6 @@ class Hr_model extends CI_Model {
 	{
 		$this->db->where($this->tableSchoolid,$strLevelCode);
 		$this->db->update($this->tableSchool, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -155,7 +150,6 @@ class Hr_model extends CI_Model {
 	{
 		$this->db->where($this->tableExamid,$strExamCode);
 		$this->db->update($this->tableExam, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
@@ -163,78 +157,6 @@ class Hr_model extends CI_Model {
 	{
 		$this->db->where($this->tableid, $strEmpNo);
 		$this->db->delete($this->table); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// children
-	public function deleteChild($strChildCode)
-	{
-		$this->db->where($this->tableChildid, $strChildCode);
-		$this->db->delete($this->tableChild); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// education
-	public function deleteEduc($strLevelCode)
-	{
-		$this->db->where($this->tableSchoolid, $strLevelCode);
-		$this->db->delete($this->tableSchool); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// examination
-	public function deleteExam($strExamCode)
-	{
-		$this->db->where($this->tableExamid, $strExamCode);
-		$this->db->delete($this->tableExam); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// work experience
-	public function deleteWorkExp($strServiceRecID)
-	{
-		$this->db->where($this->tableServiceid, $strServiceRecID);
-		$this->db->delete($this->tableService); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// voluntary works
-	public function deleteVolWorks($strVwName)
-	{
-		$this->db->where($this->tableVWid, $strVwName);
-		$this->db->delete($this->tableVW); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// trainings
-	public function deleteTraining($strXtrainingCode)
-	{
-		$this->db->where($this->tabletrainingid, $strXtrainingCode);
-		$this->db->delete($this->tabletraining); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// appointment issued
-	public function deleteAppoint($strAppointmentCode)
-	{
-		$this->db->where($this->tableposid, $strAppointmentCode);
-		$this->db->delete($this->tablepos); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	} 
-
-	// duties
-	public function deleteDuties($strDuties)
-	{
-		$this->db->where($this->tabledutiesid, $strDuties);
-		$this->db->delete($this->tableduties); 	
-		return $this->db->affected_rows()>0?TRUE:FALSE;
-	}
-
-	// plantilla duties
-	public function deletePlantillaDuties($strItemDuties)
-	{
-		$this->db->where($this->tableplantillaid, $strItemDuties);
-		$this->db->delete($this->tableplantilla); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

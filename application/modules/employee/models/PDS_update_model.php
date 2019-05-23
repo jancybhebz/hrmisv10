@@ -244,52 +244,52 @@ class PDS_update_model extends CI_Model {
 	// submission of requests
 	function submitProfile($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitFam($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitEduc($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}	
 	function submitTraining($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitExam($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitChild($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitTax($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitRef($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	function submitVol($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}	
 	function submitWorkExp($arrData)
 	{
-		$this->db->insert('tblemprequest', $arrData);
+		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -299,7 +299,7 @@ class PDS_update_model extends CI_Model {
 	// check existence
 	function checkExist($strSname = '', $strFname = '')
 	{		
-		$strSQL = " SELECT * FROM tblemprequest					
+		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
 					requestDetails ='$strSname' OR
 					requestDate ='$strFname'					
@@ -313,7 +313,7 @@ class PDS_update_model extends CI_Model {
 	function save($arrData, $intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->update('tblemprequest', $arrData);
+		$this->db->update('tblEmpRequest', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -322,7 +322,7 @@ class PDS_update_model extends CI_Model {
 	function delete($intReqId)
 	{
 		$this->db->where('requestID', $intReqId);
-		$this->db->delete('tblemprequest'); 	
+		$this->db->delete('tblEmpRequest'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

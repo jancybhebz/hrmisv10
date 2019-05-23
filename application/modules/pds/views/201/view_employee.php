@@ -156,9 +156,11 @@ $arrData = $arrData[0];?>
                                                 <li>
                                                     <a href="#appoint_issued" data-toggle="tab"> Appointment Issued </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#emp_number" data-toggle="tab"> Employee Number </a>
-                                                </li>
+                                                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                                    <li>
+                                                        <a href="#emp_number" data-toggle="tab"> Employee Number </a>
+                                                    </li>
+                                                <?php endif; ?>
                                             </ul>
                                             <div class="tab-content">
                                                 

@@ -54,7 +54,7 @@ class Reports extends MY_Controller {
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strReporttype.' Reports',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strReporttype.' Reports',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/reports');

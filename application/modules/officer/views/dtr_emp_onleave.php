@@ -1,4 +1,3 @@
-<?php load_plugin('css',array('datatables'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -33,25 +32,19 @@
             
             <div class="portlet-body">
                 <div class="row">
-                    <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover" id="table-employees">
-                            <thead>
-                                <th width="50px;">No</th>
-                                <th>Employee</th>
-                                <th></th>
-                            </thead>
-                            <tbody>
-                                <?php $no=1; foreach($arremployees as $employee): ?>
-                                <tr>
-                                    <td align="center"><?=$no++?></td>
-                                    <td style="width: 70%;"><?=getfullname($employee['empdetails']['firstname'], $employee['empdetails']['surname'], $employee['empdetails']['middlename'], $employee['empdetails']['middleInitial'])?></td>
-                                    <td><center>
-                                    	<a href="<?=base_url('hr/attendance_summary/dtr/'.$employee['empdetails']['empNumber'])?>" class="btn btn-sm grey-cascade"> <i class="icon-calendar"></i>&nbsp; View DTR </a>
-                                    </center></td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    <div class="tabbable-line tabbable-full-width col-md-8">
+                        <ul class="list-group">
+                            <?php 
+                                if(count($arremployees) > 0):
+                                    $no=1;
+                                    foreach($arremployees as $employee):
+                                        echo '<li class="list-group-item">'.getfullname($employee['empdetails']['firstname'], $employee['empdetails']['surname'], $employee['empdetails']['middlename'], $employee['empdetails']['middleInitial']).'</li>';
+                                    endforeach;
+                                else:
+                                    echo '<li class="list-group-item"><i>No Employee On Leave for the Day</i></li>';
+                                endif;
+                            ?>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -60,10 +53,3 @@
     </div>
 </div>
 
-<?php load_plugin('js',array('datatables'));?>
-
-<script>
-    $(document).ready(function() {
-        $('#table-employees').dataTable();
-    });
-</script>

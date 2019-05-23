@@ -30,7 +30,9 @@
         <tr>
             <td>
                 <a class="btn blue btn-sm" data-toggle="modal" href="#modal-legal-information" id="btnview-legal-info"> <i class="fa fa-file-text-o"></i> View Legal Information </a>
-                <a class="btn green btn-sm" data-toggle="modal" href="#modal-legal-information" id="btnedit-legal-info"> <i class="icon-pencil"></i> Edit Legal Information </a>
+                <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                    <a class="btn green btn-sm" data-toggle="modal" href="#modal-legal-information" id="btnedit-legal-info"> <i class="icon-pencil"></i> Edit Legal Information </a>
+                <?php endif; ?>
             </td>
         </tr>
         <tr class="active">
@@ -49,7 +51,9 @@
                             <th>Name of References</th>
                             <th>Address</th>
                             <th>Telephone</th>
-                            <th></th>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <th></th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,14 +63,16 @@
                             <td><?=$refs['refName']?></td>
                             <td><?=$refs['refAddress']?></td>
                             <td><?=$refs['refTelephone']?></td>
-                            <td style="width: 200px;" nowrap>
-                                <center>
-                                    <a class="btn green btn-xs btnedit_char_refs" data-json='<?=json_encode($refs)?>'>
-                                        <i class="fa fa-pencil"></i> Edit </a>
-                                    <a class="btn red btn-xs btndelete_char_refs" data-toggle="modal" href="#delete_reference" data-refid="<?=$refs['ReferenceIndex']?>">
-                                        <i class="fa fa-trash"></i> Delete </a>
-                                </center>
-                            </td>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <td style="width: 200px;" nowrap>
+                                    <center>
+                                        <a class="btn green btn-xs btnedit_char_refs" data-json='<?=json_encode($refs)?>'>
+                                            <i class="fa fa-pencil"></i> Edit </a>
+                                        <a class="btn red btn-xs btndelete_char_refs" data-toggle="modal" href="#delete_reference" data-refid="<?=$refs['ReferenceIndex']?>">
+                                            <i class="fa fa-trash"></i> Delete </a>
+                                    </center>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

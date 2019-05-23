@@ -421,7 +421,7 @@ $activetab = strtolower($activetab);
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Attendance</span>
-                        <span class="arrow <?=$active=='hr' && $activesub=='attendance_summary'?'open':''?>"></span>
+                        <span class="arrow <?=($active=='hr' && $activesub=='attendance_summary') || ($active=='employee' && $activesub=='leave_balance')?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item <?=$activesub=='attendance_summary' && $activetab=='dtr'?'active':''?>">

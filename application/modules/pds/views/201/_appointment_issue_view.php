@@ -20,7 +20,9 @@
                             <th>Place Issued</th>
                             <th>Relevant Experience</th>
                             <th>Relevant Training</th>
-                            <th></th>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <th></th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,14 +35,16 @@
                             <td><?=$appt['placePublished']?></td>
                             <td><?=$appt['relevantExperience']?></td>
                             <td><?=$appt['relevantTraining']?></td>
-                            <td style="width: 200px;" nowrap>
-                                <center>
-                                    <a class="btn green btn-xs btnedit_emp_appt" data-json='<?=json_encode($appt)?>'>
-                                        <i class="fa fa-pencil"></i> Edit </a>
-                                    <a class="btn red btn-xs btndelete_emp_appt" data-toggle="modal" href="#delete_emp_appointment" data-apptid="<?=$appt['appointmentissuedcode']?>">
-                                        <i class="fa fa-trash"></i> Delete </a>
-                                </center>
-                            </td>
+                            <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                                <td style="width: 200px;" nowrap>
+                                    <center>
+                                        <a class="btn green btn-xs btnedit_emp_appt" data-json='<?=json_encode($appt)?>'>
+                                            <i class="fa fa-pencil"></i> Edit </a>
+                                        <a class="btn red btn-xs btndelete_emp_appt" data-toggle="modal" href="#delete_emp_appointment" data-apptid="<?=$appt['appointmentissuedcode']?>">
+                                            <i class="fa fa-trash"></i> Delete </a>
+                                    </center>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

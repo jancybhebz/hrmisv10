@@ -136,7 +136,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblChildId, $code);
 		$this->db->delete($this->tblChild); 	
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -155,7 +154,6 @@ class Pds_model extends CI_Model {
 		$this->db->where($this->tableid, $strEmpNumber);
 		$this->db->update($this->table, $arrData);
 		//echo $this->db->last_query();exit(1);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -402,7 +400,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblPositionId, $strEmpNumber);
 		$this->db->update($this->tblPosition, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -410,7 +407,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tableid9, $strEmpNumber);
 		$this->db->update($this->table9, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -418,7 +414,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tableid, $strAgencyName);
 		$this->db->update($this->table, $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -426,7 +421,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where('id', $ImageId);
 		$this->db->update('tblagencyimages', $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
@@ -434,7 +428,6 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tableid, $strAgencyName);
 		$this->db->delete($this->table); 	
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
