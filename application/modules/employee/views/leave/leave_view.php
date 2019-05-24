@@ -41,13 +41,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
                     <div class="portlet-body">
-            <?=form_open(base_url('employee/leave/submitFL'), array('method' => 'post', 'id' => 'frmLeave'))?>
+            <?=form_open(base_url('employee/leave/submitFL'), array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()'))?>
                                 <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
                        <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
                             <i class="fa"></i>
-                             <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
+                             <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
                             <option value="">Please select</option>
                             <option value="forced">Forced Leave</option>
                             <option value="special">Special Leave</option>
@@ -64,21 +64,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                  
              <?php  $strLeavetype = '';
                     $action = '';
-            if($strLeavetype == 'forced'){  ?>
-                    <?php $action = base_url('employee/pds_update/submitFL'); ?>
-                <?php } else if($strLeavetype == 'special'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitSPL'); ?>
-                <?php } else if($strLeavetype == 'sick'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitSL'); ?>
-                <?php } else if($strLeavetype == 'vacation'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitVL'); ?>
-                <?php } else if($strLeavetype == 'maternity'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitML'); ?>
-                <?php } else if($strLeavetype == 'paternity'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitPL'); ?>
-                <?php } else if($strLeavetype == 'study'){ ?>
-                    <?php $action = base_url('employee/pds_update/submitSTL'); ?>
-            <?php } ?>
+            if($strLeavetype == 'forced'){  
+                $action = base_url('employee/pds_update/submitFL'); 
+                } else if($strLeavetype == 'special'){ 
+                $action = base_url('employee/pds_update/submitSPL'); 
+                } else if($strLeavetype == 'sick'){ 
+                $action = base_url('employee/pds_update/submitSL'); 
+                } else if($strLeavetype == 'vacation'){ 
+                $action = base_url('employee/pds_update/submitVL'); 
+                } else if($strLeavetype == 'maternity'){ 
+                $action = base_url('employee/pds_update/submitML');
+                } else if($strLeavetype == 'paternity'){ 
+                $action = base_url('employee/pds_update/submitPL'); 
+                } else if($strLeavetype == 'study'){
+                $action = base_url('employee/pds_update/submitSTL'); 
+                } ?>
             
             <div class="row" id="wholeday_textbox">
                 <div class="col-sm-8">
@@ -248,5 +248,92 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     
     });
  });
+</script>
+
+<?php load_plugin('js',array('validation'));?>
+<script type="text/javascript">
+    jQuery.validator.addMethod("noSpace", function(value, element) { 
+  return value.indexOf(" ") < 0 && value != ""; 
+}, "No space please and don't leave it empty");
+var FormValidation = function () {
+
+    // validation using icons
+    var handleValidation = function() {
+        // for more info visit the official plugin documentation: 
+            // http://docs.jquery.com/Plugins/Validation
+
+            var form2 = $('#frmLeave');
+            var error2 = $('.alert-danger', form2);
+            var success2 = $('.alert-success', form2);
+
+            form2.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    strLeavetype: {
+                        required: true,
+                    },
+                    dtmLeavefrom: {
+                        required: true,
+                    },
+                    dtmLeaveto: {
+                        required: true,
+                    }
+
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success2.hide();
+                    error2.show();
+                    App.scrollTo(error2, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
+                },
+
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
+
+                submitHandler: function (form) {
+                    success2.show();
+                    error2.hide();
+                    form[0].submit(); // submit the form
+                }
+            });
+
+
+    }
+
+    return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
+
+jQuery(document).ready(function() {
+    FormValidation.init();
+});
 </script>
 
