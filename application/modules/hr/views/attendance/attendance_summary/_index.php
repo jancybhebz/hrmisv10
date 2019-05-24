@@ -50,6 +50,7 @@
                                         ?>
                                     </td>
                                 </tr>
+                                <?php if($arrData['appointmentCode']=='P'): ?>
                                 <tr>
                                     <td><b>Vacation Leave Left</b></td>
                                     <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves[0]['vlBalance'] : ''?></td>
@@ -66,6 +67,7 @@
                                     <td><b>Forced Leave Left</b></td>
                                     <td style="width: 75%;"><?=$fl_left?></td>
                                 </tr>
+                                <?php endif; ?>
                                 <tr>
                                     <td><b>Offset Balance</b></td>
                                     <td style="width: 75%;"> <pre>// TODO::</pre></td>

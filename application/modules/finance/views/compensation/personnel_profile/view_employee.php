@@ -73,7 +73,7 @@ $this_page = $this->uri->segment(4);?>
                                         </li>
                                     <?php else: ?>
                                         <li class="<?=$this_page == 'reports' ? 'active' : ''?>">
-                                            <a href=""> Reports </a>
+                                            <a href="<?=base_url('finance/compensation/personnel_profile/reports/').$this->uri->segment(5)?>"> Reports </a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
@@ -90,6 +90,7 @@ $this_page = $this->uri->segment(4);?>
                                                 if($this_page == 'dtr'): $this->load->view('hr/attendance/attendance_summary/_dtr'); endif;
                                                 if($this_page == 'adjustments'): include('_adjustments.php'); endif;
                                             endif;
+                                            if($this_page == 'reports'): include('_reports.php'); endif;
                                         ?>
                                     </div>
                                 </div>
