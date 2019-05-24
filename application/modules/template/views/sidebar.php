@@ -85,7 +85,7 @@ $activetab = strtolower($activetab);
                                 <span class="title">Conversion Table</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='hr' && ($activesub=='attendance' || $activesub=='attendance_summary') && ($activetab =='view_all' || $activetab =='index')?'active open':''?>">
+                        <li class="nav-item <?=$active=='hr' && ($activesub=='attendance_summary' && in_array($activetab, array('index','leave_balance','leave_monetization','filed_request','dtr','qr_code','leave_balance_set','leave_balance_update')) || ($activesub=='attendance' && in_array($activetab, array('view_all')))) ? 'active open' : ''?>">
                             <a href="<?=base_url('hr/attendance/view_all')?>">
                                 <span class="title">Attendance Summary</span>
                             </a>

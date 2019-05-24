@@ -48,9 +48,11 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-leave-monetization-form" id="btn-monetize-leave">
+                        <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                            href="#modal-leave-monetization-form" id="btn-monetize-leave" <?=($vl_monetized + $sl_monetized) < 0.001 ? 'disabled' : ''?>>
                             <i class="fa fa-money"></i> &nbsp;Monetize Leave</button>&nbsp;
-                        <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#monetize-form">
+                        <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                            href="#monetize-form" <?=($vl_monetized + $sl_monetized) < 0.001 ? 'disabled' : ''?>>
                             <i class="fa fa-money"></i> &nbsp;Monetize Form</button>
                         <br><br>
                         <table class="table table-striped table-bordered table-hover table-checkable order-column">
