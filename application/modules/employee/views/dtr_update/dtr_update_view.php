@@ -164,7 +164,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Reason :</label>
-                              <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
+                              <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"></textarea>
                     </div>
                 </div>
             </div>
@@ -172,7 +172,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Supporting Evidence :</label>
-                            <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"> </textarea>
+                            <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"></textarea>
                     </div>
                 </div>
             </div>
