@@ -24,7 +24,7 @@ class Duties_responsibilities_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strDuties);
 		}
-		$this->db->join('tblPosition','tblPosition.positionId = '.$this->table.'.duties','left');
+		// $this->db->join('tblPosition','tblPosition.positionId = '.$this->table.'.duties','left');
 		$this->db->order_by('tblDuties.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
