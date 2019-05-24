@@ -128,16 +128,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <label class="control-label">Destination :  <span class="required"> * </span></label>
-                                    <i class="fa"></i>
-                                    <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"> </textarea>
+                                <div>
+                                     <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
                                     </div>
+                                </div>
                                      <div class="input-icon left">
                                    <font color='red'> <span id="errordesti"></span></font>
                                 </div>
                             </div>
                         </div>
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group">
                                  <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
@@ -154,7 +155,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                <label class="control-label">Purpose : <span class="required"> * </span></label>
                                     <i class="fa"></i>
-                                    <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"> </textarea>
+                                    <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
                                     </div>
                                      <div class="input-icon left">
                                    <font color='red'> <span id="errorpur"></span></font>
