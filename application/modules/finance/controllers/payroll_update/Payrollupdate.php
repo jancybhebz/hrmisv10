@@ -131,6 +131,11 @@ class Payrollupdate extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_history',$this->arrData);
 	}
 
+	public function process_reports()
+	{
+		$this->template->load('template/template_view','finance/payroll/process_history',$this->arrData);
+	}
+
 	public function testingtesting()
 	{
 		echo '<pre>';
