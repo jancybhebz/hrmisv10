@@ -1,8 +1,11 @@
 <?=load_plugin('css', array('datatables'))?>
 
-<?=form_open('finance/payroll_update/process/save_benefits', array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'))?>
+<?php
+$page = $this->uri->segment(4);
+$form = $page == 'save_benefits' ? 'finance/payroll_update/process/compute_benefits' : 'finance/payroll_update/process/save_benefits';
+echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'))?>
 <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
-<input type="hidden" name="chkbenefit" value='<?=json_encode($_POST['chkbenefit'])?>'>
+<input type="hidden" name="chkbenefit" value='<?=$page == 'save_benefits' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -10,8 +13,13 @@
     <div class="tab-pane active">
         <div class="block">
             <h3 style="display: inline-block;">Compute Benefits</h3>
-            <a href="javascript:;" class="btn green btn-refresh pull-right" style="top: 20px;position: relative;">
-                <i class="fa fa-refresh"></i> Recompute </a>
+            <?php if($page == 'save_benefits'): ?>
+                <button type="submit" class="btn green btn-refresh pull-right" style="top: 20px;position: relative;">
+                    <i class="fa fa-refresh"></i> Recompute </button>
+            <?php else: ?>
+                <a href="javascript:;" class="btn green btn-refresh pull-right" style="top: 20px;position: relative;">
+                    <i class="fa fa-refresh"></i> Recompute </a>
+            <?php endif; ?>
         </div>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
@@ -101,11 +109,14 @@
 </div>
 <div class="form-actions">
     <div class="row">
-        <textarea id="txtjson" name="txtjson"><?=json_encode($arrEmployees)?></textarea>
+        <textarea id="txtjson" name="txtjson" hidden><?=json_encode($arrEmployees)?></textarea>
+        <input type="hidden" value="<?=$process_data_workingdays?>" name="txtdata_wdays">
+        <input type="hidden" value="<?=$curr_period_workingdays?>" name="txtper_wdays">
+        <input type="hidden" value="<?=$no_empty_lb?>" name="txtno_empty_lb">
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <button type="submit" id="btnsavecont" class="btn blue btn-submit"> Save and Continue
+            <button type="submit" id="btnsavecont" class="btn blue btn-submit"> <?=$this->uri->segment(4) == 'save_benefits' ? 'Proceed and Continue' : 'Save'?>
                 <i class="fa fa-angle-right"></i> </button>
         </div>
     </div>

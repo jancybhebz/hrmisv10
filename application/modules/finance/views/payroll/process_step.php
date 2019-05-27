@@ -43,6 +43,7 @@
                                         echo 'STEP 2 OF 4';
                                         break;
                                     case 'compute_benefits':
+                                    case 'save_benefits':
                                         echo 'STEP 2 OF 4';
                                         break;
                                     case 'select_deductions':
@@ -103,6 +104,7 @@
                                     $this->load->view('process/_step2-select_benefits');
                                     break;
                                 case 'compute_benefits':
+                                case 'save_benefits':
                                     if($employment_type == 'P'):
                                         $this->load->view('process/_step2-compute_benefits');
                                     else:
