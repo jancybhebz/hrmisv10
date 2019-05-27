@@ -30,6 +30,12 @@ class MonthlyReports extends MY_Controller {
 		$this->Payslip->generate();
 	}
 
+	public function remittances()
+	{
+		$this->load->model('reports/remittances/Remittances');
+		$this->Remittances->generate();
+	}
+
 }
 /* End of file MonthlyReports.php
  * Location: ./application/modules/finance/controllers/reports/MonthlyReports.php */

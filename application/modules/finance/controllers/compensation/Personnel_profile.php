@@ -323,6 +323,23 @@ class Personnel_profile extends MY_Controller {
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
 
+	public function reports($empid)
+	{
+		$employeeData = $this->Hr_model->getData($empid,'','all');
+		$this->arrData['arrData'] = $employeeData[0];
+
+		$arrPost = $this->input->get();
+		if(!empty($arrPost)):
+			// $this->load->model('Remittance_model');
+			// $this->arrData['arrRemittances'] = $this->Remittance_model->getRemittance($empid, $arrPost['selpayrollGrp'], $arrPost['from'], $arrPost['to']);
+		endif;
+
+		$arrDeductions = $this->Deduction_model->getDeductionsByStatus(0);
+		array_push($arrDeductions, array('deductionCode' => 'ALLGSIS', 'deductionDesc' => 'ALL GSIS Deduction(exc. Life and Ret. Prem.)'));
+		$this->arrData['arrDeductions'] = $arrDeductions;
+		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
+	}
+
 	public function tax_details($empid)
 	{
 		$this->load->model('TaxDetails_model');

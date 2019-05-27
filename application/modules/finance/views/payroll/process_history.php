@@ -1,3 +1,6 @@
+<style type="text/css">
+    th { text-align: center; }
+</style>
 <?=load_plugin('css', array('select','datatables'))?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
@@ -36,7 +39,7 @@
                 </div>
             </div>
             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-            <div class="portlet-body" id="div-body" style="display: none">
+            <div class="portlet-body" id="div-body" style="visibility: hidden;">
                 <div class="portlet light bordered">
                     <div class="col-md-12" style="margin-bottom: 20px;">
                         <center>
@@ -78,16 +81,36 @@
                         </center>
                     </div>
                     <div class="portlet-body">
-                        <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                         <table class="table table-striped table-bordered order-column" id="tblprocess-history" style="visibility: hidden;">
                             <thead>
                                 <tr>
-                                    <th> Employee Name </th>
+                                    <th width="50px"> No </th>
+                                    <th> Employee </th>
+                                    <th> Month </th>
+                                    <th> Year </th>
+                                    <th> Date Processed </th>
+                                    <th> Details </th>
+                                    <th> Processed By </th>
+                                    <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess">
+                                            <i class="fa fa-refresh"></i> Reprocessed</a>
+                                        <a href="javascript:;" class="btn btn-sm grey-cascade" id="btnreprocess">
+                                            <i class="fa fa-file-o"></i> Reports</a>
+                                        <a href="javascript:;" class="btn btn-sm green" id="btnreprocess">
+                                            <i class="fa fa-check"></i> Publish</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -106,6 +129,7 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#tblprocess-history').css('visibility', 'visible');
+                $('#div-body').css('visibility', 'visible');
             }} );
     });
 </script>

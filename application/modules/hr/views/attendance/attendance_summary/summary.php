@@ -55,11 +55,11 @@
                                         <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Attendance Summary </a>
                                     </li>
-                                    <li class="<?=in_array($this_page, array('leave_balance','leave_balance_update','leave_balance_set')) ? 'active' : ''?>">
+                                    <li <?=$arrData['appointmentCode']!='P' ? 'style="display: none;"' :''?> class="<?=in_array($this_page, array('leave_balance','leave_balance_update','leave_balance_set')) ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Leave Balance </a>
                                     </li>
-                                    <li class="<?=$this_page == 'leave_monetization' ? 'active' : ''?>">
+                                    <li <?=$arrData['appointmentCode']!='P' ? 'style="display: none;"' :''?> class="<?=$this_page == 'leave_monetization' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/leave_monetization/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
                                             Leave Monetization </a>
                                     </li>
