@@ -27,4 +27,16 @@ ALTER TABLE  `tblEmpOB` ADD  `override_id` INT NULL ;
 ## EXCLUDE DTR
 ALTER TABLE  `tblEmpPosition` ADD  `is_override` INT NOT NULL DEFAULT  '0', ADD  `override_id` INT NULL ;
 
+<<<<<<< Updated upstream
 ALTER TABLE  `tblCourse` ADD  `courseId` INT NULL FIRST , ADD UNIQUE ( `courseId` );
+=======
+<<<<<<< HEAD
+## SET INDEX in payroll processs
+ALTER TABLE  `tblPayrollProcess` ADD INDEX (  `appointmentCode` );
+
+## UPDATE PAYROLL
+ALTER TABLE  `tblEmpBenefits` ADD  `incomeYear` INT NULL AFTER  `incomeAmount`;
+=======
+ALTER TABLE  `tblCourse` ADD  `courseId` INT NULL FIRST , ADD UNIQUE ( `courseId` );
+>>>>>>> master
+>>>>>>> Stashed changes

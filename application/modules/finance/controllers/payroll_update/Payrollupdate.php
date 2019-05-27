@@ -15,6 +15,7 @@ class Payrollupdate extends MY_Controller {
 	function __construct() {
         parent::__construct();
         $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model'));
+        $this->load->helper('payroll_helper');
         $this->arrData = array();
     }
 
@@ -77,9 +78,34 @@ class Payrollupdate extends MY_Controller {
 				if(!empty($arrPost)):
 					echo '<pre>';
 					print_r($arrPost);
-
+					echo '<hr>';
+					$process_details = json_decode($arrPost['txtprocess'],true);
+					$payroll_schedule = periods(agency_paryoll_process());
+					print_r($payroll_schedule);
+					$trdetail = json_decode($arrPost['txtjson'],true);
+					foreach($trdetail as $tr):
+						$arrtr = array_column($tr['tr'],'td');
+						if(count($arrtr) > 0):
+							print_r(array_column($tr['tr'],'td'));
+						endif;
+						echo '<hr>';
+					endforeach;
 					die();
 				endif;
+			case 'save_income':
+				// if(!empty($arrPost)):
+				// 	echo '<pre>';
+				// 	// print_r($arrPost);
+				// 	$trdetail = json_decode($arrPost['txtjson'],true);
+				// 	foreach($trdetail as $tr):
+				// 		$arrtr = array_column($tr['tr'],'td');
+				// 		if(count($arrtr) > 0):
+				// 			print_r(array_column($tr['tr'],'td'));
+				// 		endif;
+				// 		echo '<hr>';
+				// 	endforeach;
+				// 	die();
+				// endif;
 			case 'select_deductions':
 				if(!empty($arrPost)):
 					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');

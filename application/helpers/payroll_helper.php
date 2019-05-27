@@ -110,3 +110,29 @@ if ( ! function_exists('rata'))
 
     }
 }
+
+if ( ! function_exists('payroll_group'))
+{
+    function payroll_group($process_code)
+    {
+        $CI =& get_instance();
+        $CI->db->or_like('processWith', $process_code, 'before', false);
+        $CI->db->or_like('processWith', $process_code, 'after', false);
+        $CI->db->or_like('processWith', $process_code, 'both', false);
+        $CI->db->or_where('processWith',$process_code);
+        $res = $CI->db->get('tblPayrollProcess')->result_array();
+        
+        return count($res) > 0 ? $res[0]['computation'] : '';
+    }
+}
+
+if ( ! function_exists('agency_paryoll_process'))
+{
+    function agency_paryoll_process()
+    {
+        $CI =& get_instance();
+        $res = $CI->db->get('tblAgency')->result_array();
+        
+        return count($res) > 0 ? $res[0]['salarySchedule'] : '';
+    }
+}
