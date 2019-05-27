@@ -27,7 +27,6 @@
                     <thead>
                         <tr>
                             <th> Employee Name </th>
-                            <th hidden></th>
                             <th style="text-align: center"> Salary </th>
                             <th style="text-align: center"> Working Days </th>
                             <th style="text-align: center"> Actual Days Present </th>
@@ -55,7 +54,6 @@
                         <?php foreach($arrEmployees as $emp): ?>
                             <tr>
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
-                                <td hidden><?=$emp['emp_detail']['empNumber']?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$curr_period_workingdays?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
@@ -103,7 +101,7 @@
 </div>
 <div class="form-actions">
     <div class="row">
-        <input type="text" id="txtjson" name="txtjson">
+        <textarea id="txtjson" name="txtjson"><?=json_encode($arrEmployees)?></textarea>
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>

@@ -14,7 +14,7 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model'));
+        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model'));
         $this->load->helper('payroll_helper');
         $this->arrData = array();
     }
@@ -80,15 +80,45 @@ class Payrollupdate extends MY_Controller {
 					print_r($arrPost);
 					echo '<hr>';
 					$process_details = json_decode($arrPost['txtprocess'],true);
-					$payroll_schedule = periods(agency_paryoll_process());
-					print_r($payroll_schedule);
+					$total_periods = periods(agency_paryoll_process());
 					$trdetail = json_decode($arrPost['txtjson'],true);
+					# income code - benefits
+					$incomecodes = $this->Income_model->getDataByType('Benefit');
+					// foreach($incomecodes as $income):
+					// 	$incomedetails = $this->Payrollupdate_model->setamount_benefits($income);
+					// 	print_r($incomedetails);
+					// endforeach;
+					// $incomecodes = array('HAZARD','LAUNDRY', 'SUBSIS', 'LONGI', 'TA', 'RA', 'SALARY');
+
+					
 					foreach($trdetail as $tr):
-						$arrtr = array_column($tr['tr'],'td');
-						if(count($arrtr) > 0):
-							print_r(array_column($tr['tr'],'td'));
-						endif;
-						echo '<hr>';
+						$income_data = array();
+						$income_data = $this->Income_model->currentIncome_data($tr['emp_detail']['empNumber']);
+						// $row = array_column($tr['tr'],'td');
+					// 	foreach($incomecodes as $inc):
+					// 		$incomedetails = $this->Payrollupdate_model->setamount_benefits($inc);
+							// if(count($row) > 0):
+					// 			$row = array_column($tr['tr'],'td');
+					// 			$arrData = array('empNumber' 	=> $row[1],
+					// 							 'incomeCode' 	=> $inc,
+					// 							 'incomeMonth' 	=> $process_details['mon'],
+					// 							 'incomeYear'	=> $process_details['yr'],
+					// 							 'incomeAmount' => 0,
+					// 							 'ITW' 			=> $row[0],
+					// 							 'period1' 		=> $row[0],
+					// 							 'period2' 		=> $row[0],
+					// 							 'period3' 		=> $row[0],
+					// 							 'period4' 		=> $row[0]);
+					// 		endif;
+					// 	endforeach;
+							foreach($incomecodes as $income):
+								$incomedetails = $this->Income_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
+								echo '<br><b>'.$income['incomeCode'];echo '</b><br>';
+								print_r($incomedetails);
+							endforeach;
+							print_r($tr);
+						// 	echo '<hr>';
+						// endif;
 					endforeach;
 					die();
 				endif;
