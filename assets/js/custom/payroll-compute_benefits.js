@@ -2,6 +2,17 @@ $(document).ready(function() {
 	$('.loading-image').hide();
 	$('#div-body').show();
 
+    $('#tblemployee-list').dataTable( {
+        "initComplete": function(settings, json) {
+            $('.loading-image').hide();
+            $('#tblemployee-list').css('visibility', 'visible');
+        }} );
+    $('a.btn-refresh').on('click', function() {
+        $('.loading-fade').show();
+        location.reload();
+    });
+
+    var json_alltr = [];
     $('#frmsavebenefits').submit( function(ev) {
         // alert();
         // ev.preventDefault();

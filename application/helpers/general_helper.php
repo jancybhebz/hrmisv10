@@ -150,9 +150,28 @@ if ( ! function_exists('adjustmentType'))
 # Return Period
 if ( ! function_exists('periods'))
 {
-    function periods()
+    function periods($computation = '')
     {
-    	return array(array('id' => 1, 'val' => 'Period 1'), array('id' => 2, 'val' => 'Period 2'));
+    	$arrPeriods = array(array('id' => 1, 'val' => 'Period 1'),
+    						array('id' => 2, 'val' => 'Period 2'),
+    						array('id' => 3, 'val' => 'Period 3'),
+    						array('id' => 4, 'val' => 'Period 4'));
+
+    	switch($computation):
+    		case 'Monthly':
+    			return array($arrPeriods[0]);
+    			break;
+    		case 'Semimonthly':
+    		case 'Bi-Monthly':
+    			return array($arrPeriods[0],$arrPeriods[1]);
+    			break;
+    		case 'Weekly':
+    			return $arrPeriods;
+    			break;
+    		default:
+    			return array($arrPeriods[0],$arrPeriods[1]);
+    			break;
+    	endswitch;
 	}
 }
 

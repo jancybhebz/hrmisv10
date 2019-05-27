@@ -24,10 +24,12 @@
         <div class="row">
             <div class="col-md-12 scroll">
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                <!-- Pls be careful in using colspan and colrow, table details will be use in saving payroll process in json form -->
                 <table class="table table-striped table-bordered order-column" id="tblemployee-list" style="visibility: hidden;">
                     <thead>
                         <tr>
                             <th> Employee Name </th>
+                            <th hidden></th>
                             <th style="text-align: center"> Salary </th>
                             <th style="text-align: center"> Working Days </th>
                             <th style="text-align: center"> Actual Days Present </th>
@@ -55,6 +57,7 @@
                         <?php foreach($arrEmployees as $emp): ?>
                             <tr>
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
+                                <td hidden><?=$emp['emp_detail']['empNumber']?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$curr_period_workingdays?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
@@ -115,7 +118,7 @@
 <?=load_plugin('js', array('datatables'))?>
 <script src="<?=base_url('assets/js/custom/payroll-compute_benefits.js')?>"></script>
 <script>
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $('#tblemployee-list').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
@@ -125,5 +128,5 @@
             $('.loading-fade').show();
             location.reload();
         });
-    });
+    });*/
 </script>
