@@ -15,10 +15,8 @@
         </div>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
-                Payroll Date: <?=$payroll_date?> || Total Working days: <?=$curr_period_workingdays?> for Subsistence Allowance and RATA For Permanent Employees.
-            </small>
-            <small style="margin-left: 10px;">
-                Use data from <?=$process_data_date?> || working days <?=$process_data_workingdays?>
+                Payroll Date: <b><?=$payroll_date?></b> || Total Working days: <?=$curr_period_workingdays?> for Subsistence Allowance and RATA For Permanent Employees.
+                Use data from <b><?=$process_data_date?></b> || working days <?=$process_data_workingdays?>
             </small>
         </div>
         <div class="row">

@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </div>
-            <div class="div-datause" style="display: none;">
+            <div class="div-datause" <?=isset($_GET['appt']) ? $_GET['appt']=='P' ? '' : 'style="display: none;"' : 'style="display: none;"'?>>
                 <div class="row">
                     <label class="control-label col-md-3"></label>
                     <label class="control-label col-md-4">
