@@ -53,11 +53,47 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$i?> </td>
                             <td> <?=$request['RequestType']?> </td>
                             <td> <?=$request['Applicant']?> </td>
-                            <td> <?=$request['Signatory1']?> </td>
-                            <td> <?=$request['Signatory2']?> </td>
-                            <td> <?=$request['Signatory3']?> </td>
-                            <td> <?=$request['SignatoryFin']?> </td>
-                            <!-- <td> <?=$request['SignatoryFin'].':'.$request['surname'].', '.$request['firstname'].' '.$request['middlename']?>?> </td> -->
+                            <?php $arrSig1 = explode(';', $request['Signatory1']);?>
+                            <td> <?php 
+                                if (count($arrSig1)>2)
+                                { 
+                                    echo $arrSig1[0].' - '.employee_name($arrSig1[2]);
+                                } 
+                                else if (count($arrSig1)==1)
+                                { 
+                                    echo employee_name($arrSig1[0]);
+                                } ?>
+                            <?php $arrSig2 = explode(';', $request['Signatory2']);?>
+                            <td> <?php 
+                                if (count($arrSig2)>2)
+                                { 
+                                    echo $arrSig2[0].' - '.employee_name($arrSig2[2]);
+                                } 
+                                else if (count($arrSig2)==1)
+                                { 
+                                    echo employee_name($arrSig2[0]);
+                                } ?>
+                            <?php $arrSig3 = explode(';', $request['Signatory3']);?>
+                            <td> <?php 
+                                if (count($arrSig3)>2)
+                                { 
+                                    echo $arrSig3[0].' - '.employee_name($arrSig3[2]);
+                                } 
+                                else if (count($arrSig3)==1)
+                                { 
+                                    echo employee_name($arrSig3[0]);
+                                } ?>
+                                <?php $arrSigFin = explode(';', $request['SignatoryFin']);?>
+                                <td> <?php 
+                                if (count($arrSigFin)>2)
+                                { 
+                                    echo $arrSigFin[0].' - '.employee_name($arrSigFin[2]);
+                                } 
+                                else if (count($arrSigFin)==1)
+                                { 
+                                    echo employee_name($arrSigFin[0]);
+                                } ?>
+                            </td> 
                             <td>
                                 <a href="<?=base_url('libraries/request/edit/'.$request['reqID'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/request/delete/'.$request['reqID'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>

@@ -42,23 +42,22 @@ class Request_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$intReqId);
 		}
-		//$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table.'.empNumber','left');
 
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
-	// function getEmpDetails($strEmpNumber = '')
-	// {		
-	// 	if($strEmpNumber != "")
-	// 	{
-	// 		$this->db->where($this->tableid2,$strEmpNumber);
-	// 	}
-	// 	$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
+	function getEmpDetails($strEmpNumber = '')
+	{		
+		if($strEmpNumber != "")
+		{
+			$this->db->where($this->tableid2,$strEmpNumber);
+		}
+		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
 
-	// 	$objQuery = $this->db->get($this->table2);
-	// 	return $objQuery->result_array();	
-	// }
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}
 
 	function getRequestType($strReqCode = '')
 	{		
