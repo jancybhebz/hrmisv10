@@ -10,7 +10,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 class Separation_mode_model extends CI_Model {
 
 	var $table = 'tblSeparationCause';
-	var $tableid = 'serviceId';
+	var $tableid = 'separationCause';
 
 	function __construct()
 	{
@@ -18,11 +18,11 @@ class Separation_mode_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 
-	function getData($strSeparationMode = '')
+	function getData($strMode = '')
 	{		
-		if($strSeparationMode != "")
+		if($strMode != "")
 		{
-			$this->db->where($this->tableid,$strSeparationMode);
+			$this->db->where($this->tableid,$strMode);
 		}
 		
 		$objQuery = $this->db->get($this->table);
@@ -35,25 +35,25 @@ class Separation_mode_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 	
-	function checkExist($strSeparationMode = '')
+	function checkExist($strMode = '')
 	{		
-		$this->db->where('separationCause',$strSeparationMode);
+		$this->db->where('separationCause',$strMode);
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 	
-	function save($arrData, $strSeparationMode)
+	function save($arrData, $strMode)
 	{
-		$this->db->where($this->tableid, $strSeparationMode);
+		$this->db->where($this->tableid, $strMode);
 		$this->db->update($this->table, $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($strSeparationMode)
+	function delete($strMode)
 	{
-		$this->db->where($this->tableid, $strSeparationMode);
+		$this->db->where($this->tableid, $strMode);
 		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;

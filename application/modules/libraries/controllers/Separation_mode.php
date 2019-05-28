@@ -64,7 +64,69 @@ class Separation_mode extends MY_Controller
 				}
 			}
 		}
-    	
-    	
     }
+
+     public function edit()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$strSepCause = urldecode($this->uri->segment(4));
+			$this->arrData['arrSeparation']=$this->separation_mode_model->getData($strSepCause);
+			$this->template->load('template/template_view','libraries/separation_mode/edit_view', $this->arrData);
+		}
+		else
+		{
+			$strSepCause = $arrPost['strSepCause'];
+			$strMode=$arrPost['strMode'];
+		
+			if(!empty($strMode)) 
+			{
+				$arrData = array(
+					'separationCause'=>$strMode
+					
+				);
+				$blnReturn = $this->separation_mode_model->save($arrData, $strSepCause);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Edited '.$strMode.' Separation Mode',implode(';',$arrData),'');
+					
+					$this->session->set_flashdata('strSuccessMsg','Separation saved successfully.');
+				}
+				redirect('libraries/separation_mode');
+			}
+		}
+	}
+
+	public function delete()
+	{
+	
+		$arrPost = $this->input->post();
+		$strSepCause = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrData'] = $this->separation_mode_model->getData($strSepCause);
+			$this->template->load('template/template_view','libraries/separation_mode/delete_view', $this->arrData);
+			
+		}
+		else
+		{
+			$strSepCause = $arrPost['strSepCause'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strSepCause))
+			{
+				$arrSeparation = $this->separation_mode_model->getData($strSepCause);
+				$strMode = $arrSeparation[0]['separationCause'];	
+				$blnReturn = $this->separation_mode_model->delete($strSepCause);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Deleted '.$strCode.' Separation Mode',implode(';',$arrSeparation[0]),'');
+					$this->session->set_flashdata('strMsg','Separation cause deleted successfully.');
+				}
+				redirect('libraries/separation_mode');
+			}
+		}
+		
+	}
+
 }

@@ -37,6 +37,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr>
                             <th> No. </th>
                             <th> Separation Mode </th>
+                            <th> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +47,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['separationCause']?> </td>
-                           
+                            <td>
+                                <?php if ($row['system'] != 1) 
+                                { ?>
+                                <a href="<?=base_url('libraries/separation_mode/edit/'.$row['separationCause'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/separation_mode/delete/'.$row['separationCause'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <?php  
+                                } 
+                                else
+                                {
+                                   echo " <button class='btn btn-sm btn-info disabled'><span class='fa fa-info' title='Edit'></span> System</button>";
+                                }    
+
+                                ?>
+
+                            </td>
                         </tr>
                     <?php 
                     $i++;
