@@ -8,6 +8,7 @@ class Payrollupdate_model extends CI_Model {
 	
 	function getPayrollUpdate($type)
 	{
+		$this->db->order_by('incomeDesc');
 		return $this->db->get_where('tblIncome', array('incomeType' => $type, 'hidden' => 0))->result_array();
 	}
 
@@ -19,16 +20,13 @@ class Payrollupdate_model extends CI_Model {
 		$month = sprintf('%02d', $process_data['data_fr_mon']);
 		$yr = $process_data['data_fr_yr'];
 
-		if(isset($process_data['txt_dtfrom']) && isset($process_data['txt_dtto'])):
+		if($process_data['txt_dtfrom']!='' && $process_data['txt_dtto']!=''):
 			$datefrom = date('Y-m-d', strtotime($process_data['txt_dtfrom']));
 			$dateto = date('Y-m-d', strtotime($process_data['txt_dtto']));
 		else:
 			$datefrom = implode('-',array($yr,$month,'01'));
 			$dateto = implode('-',array($yr,$month,cal_days_in_month(CAL_GREGORIAN,$month,$yr)));
 		endif;
-
-		echo '<br>datefrom '.$datefrom;
-		echo '<br>dateto '.$dateto;
 
 		$arrrata = $this->Rata_model->getData();
 
@@ -43,9 +41,6 @@ class Payrollupdate_model extends CI_Model {
 		/** curr_workingdays = working days in the current period
 		    workingdays = working days from process month/date */
 		# current period working days
-		echo '<br>';
-		print_r($process_data['txt_dtfrom']!=null && $process_data['txt_dtto']!=null);
-		echo '<hr>';
 		if($process_data['txt_dtfrom']!=null && $process_data['txt_dtto']!=null){
 			$curr_holidays = $this->Dtr_model->getHoliday('',1,$datefrom,$dateto);
 			$curr_workingdays = get_workingdays('','',$curr_holidays,$datefrom,$dateto);
@@ -172,7 +167,6 @@ class Payrollupdate_model extends CI_Model {
 					// print_r($obd);
 					// echo '<hr>';
 					$actual_days_presents = $actual_days_presents + 1;
-					echo 'count from ob';
 					# Late with ob
 					$oblate = $this->Dtr_model->computeLate($emp_att_scheme, $emp_att, $todates);
 					$total_late = $total_late + $oblate;

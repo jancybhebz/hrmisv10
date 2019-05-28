@@ -69,7 +69,7 @@
                                         <i class="fa fa-check"></i> Payroll Period </span>
                                 </a>
                             </li>
-                            <li class="<?=in_array($page,array('select_benefits','compute_benefits'))?'active':''?>">
+                            <li class="<?=in_array($page,array('select_benefits','compute_benefits','save_benefits'))?'active':''?>">
                                 <a href="#tab2" data-toggle="tab" class="step">
                                     <span class="number"> 2 </span><br>
                                     <span class="desc">
@@ -131,6 +131,6 @@
 </div>
 
 <?=load_plugin('js', array('select','select2','form-wizard','datepicker','form_validation'))?>
-<?php $this->load->view('_modal'); ?>
+<?php # $this->load->view('_modal'); ?>
 
 <!-- <script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script> -->

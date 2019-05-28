@@ -59,8 +59,8 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($arrEmployees as $emp): ?>
-                            <tr>
+                        <?php $less5k_amt = 0; foreach($arrEmployees as $emp): if($emp['total_income'] < 5000){ $less5k_amt++; }  ?>
+                            <tr class="<?=$emp['total_income'] < 5000 ? 'danger' : ''?>">
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$curr_period_workingdays?></td>
@@ -101,6 +101,15 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
                         echo 'Employee with no leave balance = '.$no_empty_lb;
                     endif;
                  ?>
+
+                <div class="alert alert-danger" <?=$less5k_amt > 0 ? '' : 'hidden'?>>
+                    <strong>Warning!</strong><br>
+                    <?php 
+                        if($less5k_amt > 0):
+                            echo 'Total no of employee/s with less than P5000 Net Pay = <b><u> '.$less5k_amt.' <u/><b>';
+                        endif;
+                     ?>
+                </div>
             </div>
         </div>
         <br><br>

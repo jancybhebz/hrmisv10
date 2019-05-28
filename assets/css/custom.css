@@ -1,3 +1,18 @@
+.alert-danger {
+    background-color: #ffb3b9;
+    border-color: #ffb3b9;
+    color: #e73d4a;
+}
+
+
+tr.danger > td.sorting_1 {
+    background-color: #ffb3b9 !important;
+}
+
+tr.danger > td {
+    background-color: #ffb3b9 !important;
+}
+
 div.info {
     border-bottom: 1px solid #ccc !important;
     padding: 5px 0;

@@ -62,6 +62,7 @@ class Deduction_model extends CI_Model {
 
 	function getDeductionsByType($type)
 	{
+		$this->db->order_by('deductionDesc');
 		return $this->db->get_where('tblDeduction', array('deductionType' => $type))->result_array();
 	}
 
