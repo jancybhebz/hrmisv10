@@ -15,7 +15,7 @@ class User_account extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/user_account_model','hr/hr_model'));
+        $this->load->model(array('libraries/user_account_model','hr/hr_model','finance/payroll_group_model'));
     }
 
 	public function index()
@@ -23,6 +23,7 @@ class User_account extends MY_Controller {
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 		$this->arrData['arrEmployees'] = $this->hr_model->getData();
+		$this->arrData['pGroups'] = $this->payroll_group_model->getData();
 		$this->template->load('template/template_view', 'libraries/user_account/list_view', $this->arrData);
 	}
 	
@@ -31,9 +32,10 @@ class User_account extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->load->model(array('hr/hr_model'));
+			$this->load->model(array('hr/hr_model','finance/payroll_group_model'));
 			// $this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			$this->arrData['pGroups'] = $this->payroll_group_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);	
 		}
 		else

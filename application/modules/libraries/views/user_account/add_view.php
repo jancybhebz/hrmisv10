@@ -60,6 +60,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                    <!-- start of HR Officer access-->
                     <div class="row" id="HR1">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -146,6 +147,103 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                    <!-- end of HR Officer access-->
+                    <!-- start of Finance Officer access-->
+                    <div class="row" id="Finance1">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="radio" name="radio1" class="icheck" checked> Assistant </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" id="Finance2">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck"> Notification </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1" id="Finance3">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck" checked> Compensation </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1" id="Finance4">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck" checked> Update </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="Finance5">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck"> Reports </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1" id="Finance6">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck"> Library </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="Finance7">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label>Assigned Payroll Group </label>
+                                     <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="">
+                                        <option value="null">SELECT</option>
+                                        <?php foreach($pGroups as $pg): ?>
+                                            <option value="<?=$pg['payrollGroupCode']?>" <?=$pg['payrollGroupCode'] == $arrData['payrollGroupCode'] ? 'selected' : ''?>>
+                                                (<?=$pg['projectDesc']?>) <?=$pg['payrollGroupName']?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="Finance8">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="radio" name="radio1" class="icheck">Finance Officer (Access all sections) </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" id="Finance9">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck" checked> all sections </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of Finance Module access-->
                     <br>
                     <div class="row">
                         <div class="col-sm-12">
