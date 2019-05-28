@@ -116,8 +116,13 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <button type="submit" id="btnsavecont" class="btn blue btn-submit"> <?=$this->uri->segment(4) == 'save_benefits' ? 'Proceed and Continue' : 'Save'?>
+            <?php if($this->uri->segment(4) == 'save_benefits'): ?>
+                <button type="submit" id="btnprocess" class="btn blue btn-submit"> Proceed and Continue
                 <i class="fa fa-angle-right"></i> </button>
+            <?php else: ?>
+                <button type="submit" id="btnsavecont" class="btn blue btn-submit"> Save
+                <i class="fa fa-angle-right"></i> </button>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -125,15 +130,9 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
 <?=load_plugin('js', array('datatables'))?>
 <script src="<?=base_url('assets/js/custom/payroll-compute_benefits.js')?>"></script>
 <script>
-    /*$(document).ready(function() {
-        $('#tblemployee-list').dataTable( {
-            "initComplete": function(settings, json) {
-                $('.loading-image').hide();
-                $('#tblemployee-list').css('visibility', 'visible');
-            }} );
-        $('a.btn-refresh').on('click', function() {
-            $('.loading-fade').show();
-            location.reload();
+    $(document).ready(function() {
+        $('button#btnprocess').click(function(e) {
+            $('#frmsavebenefits').attr("action","<?=base_url('finance/payroll_update/process/select_deductions')?>");
         });
-    });*/
+    });
 </script>
