@@ -35,6 +35,10 @@ class Payrollupdate extends MY_Controller {
 
 			case 'select_benefits':
 				if(!empty($arrPost)):
+					// echo '<pre>';
+					// print_r($arrPost);
+					// echo '</pre>';
+					// die();
 					if($arrPost['selemployment'] != 'P'):
 						redirect('finance/payroll_update/process/index');	
 					endif;
@@ -50,9 +54,8 @@ class Payrollupdate extends MY_Controller {
 				break;
 
 			case 'compute_benefits':
+
 				if(!empty($arrPost)):
-					
-					echo '<pre>';
 					if(gettype($arrPost['chkbenefit']) == 'string'):
 						$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
 					endif;
@@ -61,9 +64,11 @@ class Payrollupdate extends MY_Controller {
 					else:
 						$process_data = $arrPost;
 					endif;
-					print_r($arrPost);
+					// echo '<pre>';
+					// print_r($arrPost);
+					// echo '</pre>';
+					// die();
 					$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
-					echo '</pre>';
 
 					$this->arrData = array( 'employment_type'	 => $process_data['selemployment'],
 											'payroll_date'		 => date('F Y',strtotime($process_data['yr'].'-'.$process_data['mon'].'-1')),
@@ -170,28 +175,32 @@ class Payrollupdate extends MY_Controller {
 											'no_empty_lb'		 => $arrPost['txtno_empty_lb']);
 					// die();
 				endif;
-			case 'save_income':
-				// if(!empty($arrPost)):
-				// 	echo '<pre>';
-				// 	// print_r($arrPost);
-				// 	$trdetail = json_decode($arrPost['txtjson'],true);
-				// 	foreach($trdetail as $tr):
-				// 		$arrtr = array_column($tr['tr'],'td');
-				// 		if(count($arrtr) > 0):
-				// 			print_r(array_column($tr['tr'],'td'));
-				// 		endif;
-				// 		echo '<hr>';
-				// 	endforeach;
-				// 	die();
-				// endif;
 			case 'select_deductions':
 				if(!empty($arrPost)):
+					if(gettype($arrPost['chkbenefit']) == 'string'):
+						$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
+					endif;
+					echo '<pre>';
+					print_r($arrPost);
+					echo '</pre>';
 					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');
 					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate('Bonus');
 					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate('Additional');
 					$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
 					$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
 					$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
+				else:
+					redirect('finance/payroll_update/process/index');
+				endif;
+				break;
+
+			case 'process_complete':
+				if(!empty($arrPost)):
+					echo '<pre>';
+					print_r($arrPost);
+					echo '</pre>';
+
+					die();
 				else:
 					redirect('finance/payroll_update/process/index');
 				endif;

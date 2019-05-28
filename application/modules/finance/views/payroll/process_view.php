@@ -153,5 +153,5 @@
 </div>
 
 <?=load_plugin('js', array('select','datatables','form_validation'))?>
-<?php $this->load->view('_modal'); ?>
+<?php # $this->load->view('_modal'); ?>
 <script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script>
