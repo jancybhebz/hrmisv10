@@ -37,7 +37,7 @@ class Income_model extends CI_Model {
 
 	function getDataByType($type='')
 	{
-		return $this->db->order_by('incomeDesc','ASC')->get_where('tblIncome', array('incomeType' => $type))->result_array();
+		return $this->db->order_by('incomeDesc','ASC')->get_where('tblIncome', array('incomeType' => $type, 'hidden' => 0))->result_array();
 	}
 
 	function getIncome($status='')
@@ -68,6 +68,13 @@ class Income_model extends CI_Model {
 			endif;
 		endif;
 		return false;
+	}
+
+	function currentIncome_data($empnumber)
+	{
+		$income_data = $this->db->select_max('incomeYear')->select_max('incomeMonth')->get('tblEmpBenefits')->result_array();
+		$res = $this->db->get_where('tblEmpBenefits',array('empNumber' => $empnumber, 'incomeMonth' => $income_data[0]['incomeMonth'], 'incomeYear' => $income_data[0]['incomeYear']))->result_array();
+		return $res;
 	}
 		
 }

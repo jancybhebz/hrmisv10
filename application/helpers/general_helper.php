@@ -241,3 +241,11 @@ if ( ! function_exists('ordinal'))
     	    return $number. $ends[$number % 10];
 	}
 }
+
+if ( ! function_exists('fixFloat'))
+{
+    function fixFloat($number)
+    {
+    	return floatval(str_replace(',', '', $number));
+	}
+}

@@ -12,14 +12,17 @@ $(document).ready(function() {
         location.reload();
     });
 
+/*
     var json_alltr = [];
-    $('#frmsavebenefits').submit( function(ev) {
+    console.log('test');
+    $('#frmsavebenefits').submit( function(e) {
+        // e.preventDefault();
+        $('#tblemployee-list').dataTable().fnDestroy();
         // alert();
-        // ev.preventDefault();
         $('#tblemployee-list tr').each(function (i, valtr) {
             // dtr_tr = [];
             json_tr = [{}];
-            $(this).find('td').each(function (f, valtd) {
+            $(this).find('td.td-jsondata').each(function (f, valtd) {
                 td_text = $(this).text();
                 td_text = td_text.replace(/(<([^>]+)>)/ig,"").replace(/(\r\n|\n|\r)/gm, "");
                 // dtr_tr.push($.trim(td_text));
@@ -29,15 +32,16 @@ $(document).ready(function() {
             // console.log(json_tr);
             // dtr.push('tr', [dtr_tr]);
         });
-        console.log(JSON.stringify(json_alltr));
+        // console.log(JSON.stringify(json_alltr));
         // // dtr = ;
         // // jsondtr = {};
         // // jsondtr.val = JSON.stringify(dtr);
         // // console.log(jsondtr);
         $('#txtjson').val(JSON.stringify(json_alltr));
+        // e.preventDefault();
         $(this).unbind('submit').submit()
     });
-
+*/
     // var dtr = [];
     // var json_alltr = [{}];
     // $('a#btnsavecont').click(function(e) {

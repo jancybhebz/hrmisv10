@@ -14,7 +14,7 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model'));
+        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model','finance/Benefit_model'));
         $this->load->helper('payroll_helper');
         $this->arrData = array();
     }
@@ -53,12 +53,15 @@ class Payrollupdate extends MY_Controller {
 				if(!empty($arrPost)):
 					
 					echo '<pre>';
-					print_r($arrPost);
+					if(gettype($arrPost['chkbenefit']) == 'string'):
+						$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
+					endif;
 					if(isset($arrPost['txtprocess'])):
 						$process_data = json_decode($arrPost['txtprocess'],true);
 					else:
 						$process_data = $arrPost;
 					endif;
+					print_r($arrPost);
 					$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
 					echo '</pre>';
 
@@ -75,22 +78,97 @@ class Payrollupdate extends MY_Controller {
 				endif;
 				break;
 			case 'save_benefits':
+				$arr_amt = 0;
+				$amount = 0;
+				$itw = 0;
+				$period_amt = 0;
+				$stat = 1;
+
 				if(!empty($arrPost)):
-					echo '<pre>';
-					print_r($arrPost);
-					echo '<hr>';
+					// echo '<pre>';
+					// print_r($arrPost);
+					// echo '<hr>';
 					$process_details = json_decode($arrPost['txtprocess'],true);
-					$payroll_schedule = periods(agency_paryoll_process());
-					print_r($payroll_schedule);
+					$total_periods = periods(agency_paryoll_process());
 					$trdetail = json_decode($arrPost['txtjson'],true);
+					# income code - benefits
+					$incomecodes = $this->Income_model->getDataByType('Benefit');
+					// foreach($incomecodes as $income):
+					// 	$incomedetails = $this->Payrollupdate_model->setamount_benefits($income);
+					// 	print_r($incomedetails);
+					// endforeach;
+					// $incomecodes = array('HAZARD','LAUNDRY', 'SUBSIS', 'LONGI', 'TA', 'RA', 'SALARY');
+
+					$arrinc_ids = array();
 					foreach($trdetail as $tr):
-						$arrtr = array_column($tr['tr'],'td');
-						if(count($arrtr) > 0):
-							print_r(array_column($tr['tr'],'td'));
-						endif;
-						echo '<hr>';
+						$income_data = array();
+						$income_data = $this->Income_model->currentIncome_data($tr['emp_detail']['empNumber']);
+						$arrinc_ids = array_merge($arrinc_ids, array_column($income_data,'benefitCode'));
+						// $row = array_column($tr['tr'],'td');
+					// 	foreach($incomecodes as $inc):
+					// 		$incomedetails = $this->Payrollupdate_model->setamount_benefits($inc);
+							// if(count($row) > 0):
+					// 			$row = array_column($tr['tr'],'td');
+					// 			$arrData = array('empNumber' 	=> $row[1],
+					// 							 'incomeCode' 	=> $inc,
+					// 							 'incomeMonth' 	=> $process_details['mon'],
+					// 							 'incomeYear'	=> $process_details['yr'],
+					// 							 'incomeAmount' => 0,
+					// 							 'ITW' 			=> $row[0],
+					// 							 'period1' 		=> $row[0],
+					// 							 'period2' 		=> $row[0],
+					// 							 'period3' 		=> $row[0],
+					// 							 'period4' 		=> $row[0]);
+					// 		endif;
+					// 	endforeach;
+							foreach($incomecodes as $income):
+								$incomedetails = $this->Benefit_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
+								$this->Benefit_model->add($incomedetails);
+							endforeach;
+							# Add Salary
+							$key = array_search('SALARY', array_column($income_data, 'incomeCode'));
+							if($key!=''):
+								$arr_amt = $income_data[$key];
+								$itw = $arr_amt['ITW']; $stat = $arr_amt['status'];
+							endif;
+							$period_amt = fixFloat($tr['period_salary']) / count($total_periods);
+
+							$arrData = array('empNumber' 	=> $tr['emp_detail']['empNumber'],
+											 'incomeCode' 	=> 'SALARY',
+											 'incomeMonth' 	=> $process_details['mon'],
+											 'incomeYear'	=> $process_details['yr'],
+											 'incomeAmount' => $tr['period_salary'],
+											 'ITW' 			=> $itw,
+											 'period1' 		=> $period_amt,
+											 'period2' 		=> $period_amt,
+											 'period3' 		=> $period_amt,
+											 'period4' 		=> $period_amt,
+											 'status' 		=> $stat);
+							if(count($total_periods) == 1):
+								$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => 0, 'period3' => 0, 'period4' => 0));
+							elseif(count($total_periods) == 4):
+								$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => $period_amt, 'period3' => $period_amt, 'period4' => $period_amt));
+							else:
+								$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => $period_amt, 'period3' => 0, 'period4' => 0));
+							endif;
+							$this->Benefit_model->add($arrData);
+							// print_r($arrData);
+							// print_r($tr);
+							// echo '<hr>';
+						// endif;
 					endforeach;
-					die();
+					# delete previous benefits
+					$this->Benefit_model->multiple_delete($arrinc_ids);
+					// die();
+					// print_r(json_decode($trdetail,true));die();
+					$this->arrData = array( 'employment_type'	 => $process_details['selemployment'],
+											'payroll_date'		 => date('F Y',strtotime($process_details['yr'].'-'.$process_details['mon'].'-1')),
+											'process_data_date'	 => date('F Y',strtotime($process_details['data_fr_yr'].'-'.$process_details['data_fr_mon'].'-1')),
+											'process_data_workingdays' => $arrPost['txtdata_wdays'],
+											'curr_period_workingdays'  => $arrPost['txtper_wdays'],
+											'arrEmployees'		 => $trdetail,
+											'no_empty_lb'		 => $arrPost['txtno_empty_lb']);
+					// die();
 				endif;
 			case 'save_income':
 				// if(!empty($arrPost)):
