@@ -50,16 +50,103 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Access Level <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strAccessLevel" value="<?=!empty($this->session->userdata('strAccessLevel'))?$this->session->userdata('strAccessLevel'):''?>" required>
+                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=!empty($this->session->userdata('strAccessLevel'))?$this->session->userdata('strAccessLevel'):''?>" onchange="showtextbox()" required>
                                     <option value="">Select Access Level</option>
                                     <?php foreach(userlevel() as $level):
-                                            echo '<option value="'.$level['id'].'">'.ucfirst($level['desc']).' Officer</option>';
+                                            echo '<option value="'.$level['id'].'">'.strtoupper($level['desc']).' Officer</option>';
                                           endforeach; ?>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="HR1">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="radio" name="radio1" class="icheck" checked> Assistant </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" id="HR2">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck" checked> Notification </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1" id="HR3">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck"> Attendance </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1" id="HR4">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck"> Libraries </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="HR5">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck" checked> 201 Section </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1" id="HR6">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck"> Reports </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1" id="HR7">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck"> Compensation </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="HR8">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-icon left">
+                                    <i class="fa"></i>
+                                    <label><input type="radio" name="radio1" class="icheck">HRMO (Access all sections) </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" id="HR9">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <label><input type="checkbox" name="icheck" class="icheck" checked> all sections </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -112,6 +199,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
+<script type="text/javascript" src="<?=base_url('assets/js/useraccount.js')?>">
+</script>
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
@@ -204,3 +293,25 @@ jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
+
+<!-- 
+<script type="text/javascript" 
+
+</script> -->
+
+<!-- <script>
+$(document).ready(function()
+{
+  $('#HR1').hide();
+  $('#strAccessLevel').on('change',function()
+  {
+    var access = $("#strAccessLevel").find("option:selected").text();
+    //alert(state);
+    if(access=='HR Officer')
+      $('#HR1').show();
+    else
+      $('#HR1').hide();
+  });
+
+</script> 
+ -->
