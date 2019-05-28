@@ -24,7 +24,7 @@ class Plantilla_duties_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strDuties);
 		}
-		$this->db->join('tblPlantilla','tblPlantilla.itemNumber = '.$this->table.'.itemDuties','left');
+		// $this->db->join('tblPlantilla','tblPlantilla.itemNumber = '.$this->table.'.itemDuties','left');
 		$this->db->order_by('tblPlantillaDuties.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	

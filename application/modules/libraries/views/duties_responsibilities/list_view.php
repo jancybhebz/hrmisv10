@@ -36,6 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <thead>
                         <tr>
                             <th> No. </th>
+                            <th> Positions </th>
                             <th> Duties and Responsibilities </th>
                     </thead>
                     <tbody>
@@ -44,7 +45,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrDuties as $duty):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$duty['duties']?> </td>
+                            <td> <?=$duty['positionCode']?></td>
+                            <td> <?=$duty['duties']?></td>
                         </tr>
                     <?php 
                     $i++;

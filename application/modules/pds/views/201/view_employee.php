@@ -15,12 +15,12 @@ $arrData = $arrData[0];?>
             <a href="<?=base_url('home')?>">Home</a>
             <i class="fa fa-circle"></i>
         </li>
-        <li>
-            <span><?=$modulename[$_SESSION['sessUserLevel']]?> Module</span>
+      <!--   <li>
+            <span><//$modulename[$_SESSION['sessUserLevel']] Module</span>
             <i class="fa fa-circle"></i>
-        </li>
+        </li> -->
         <li>
-            <span>Compensation</span>
+            <span>201</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>

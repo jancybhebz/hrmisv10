@@ -21,6 +21,7 @@ class Duties_responsibilities extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrDuties'] = $this->duties_responsibilities_model->getData();
+		$this->arrData['arrPosition']=$this->position_model->getData(); 
 		$this->template->load('template/template_view', 'libraries/duties_responsibilities/list_view', $this->arrData);
 	}
 	

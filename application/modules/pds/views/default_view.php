@@ -14,10 +14,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <a href="<?=base_url('home')?>">Home</a>
             <i class="fa fa-circle"></i>
         </li>
-        <li>
+      <!--   <li>
             <span>HR Module</span>
             <i class="fa fa-circle"></i>
-        </li>
+        </li> -->
         <li>
             <span>201</span>
         </li>
