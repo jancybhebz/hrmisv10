@@ -36,6 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <thead>
                         <tr>
                             <th> No. </th>
+                            <th> Item Number </th>
                             <th> Duties </th>
                     </thead>
                     <tbody>
@@ -44,6 +45,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrPDuties as $duty):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
+                            <td> <?=$duty['itemNumber']?> </td>
                             <td> <?=$duty['itemDuties']?> </td>
                         </tr>
                     <?php 
