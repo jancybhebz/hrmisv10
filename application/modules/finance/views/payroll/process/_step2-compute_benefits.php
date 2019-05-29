@@ -59,7 +59,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $less5k_amt = 0; foreach($arrEmployees as $emp): if($emp['total_income'] < 5000){ $less5k_amt++; }  ?>
+                        <?php $less5k_amt = 0; foreach(fixArray($arrEmployees) as $emp): if($emp['total_income'] < 5000){ $less5k_amt++; }  ?>
                             <tr class="<?=$emp['total_income'] < 5000 ? 'danger' : ''?>">
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
@@ -113,15 +113,14 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
             </div>
         </div>
         <br><br>
-
+        <textarea id="txtjson" name="txtjson" hidden><?=fixJson($arrEmployees)?></textarea>
+        <input type="hidden" value="<?=$process_data_workingdays?>" name="txtdata_wdays">
+        <input type="hidden" value="<?=$curr_period_workingdays?>" name="txtper_wdays">
+        <input type="hidden" value="<?=$no_empty_lb?>" name="txtno_empty_lb">
     </div>
 </div>
 <div class="form-actions">
     <div class="row">
-        <textarea id="txtjson" name="txtjson" hidden><?=json_encode($arrEmployees)?></textarea>
-        <input type="hidden" value="<?=$process_data_workingdays?>" name="txtdata_wdays">
-        <input type="hidden" value="<?=$curr_period_workingdays?>" name="txtper_wdays">
-        <input type="hidden" value="<?=$no_empty_lb?>" name="txtno_empty_lb">
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
