@@ -2,6 +2,7 @@
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
         <h3 class="block">Select Benefits</h3>
+        <input type="text" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
         <div class="row form-body">
             <div class="col-md-4" id="div-loan">
                 <div class="portlet light bordered">
@@ -69,6 +70,7 @@
                     </div>
                 </div>
             </div>
+            <textarea id="txtjson" name="txtjson"><?=fixJson($arrEmployees)?></textarea>
         </div>
     </div>
 </div>

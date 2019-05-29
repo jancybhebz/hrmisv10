@@ -88,7 +88,6 @@ class Payrollupdate extends MY_Controller {
 				$itw = 0;
 				$period_amt = 0;
 				$stat = 1;
-
 				if(!empty($arrPost)):
 					// echo '<pre>';
 					// print_r($arrPost);
@@ -103,29 +102,11 @@ class Payrollupdate extends MY_Controller {
 					// 	print_r($incomedetails);
 					// endforeach;
 					// $incomecodes = array('HAZARD','LAUNDRY', 'SUBSIS', 'LONGI', 'TA', 'RA', 'SALARY');
-
 					$arrinc_ids = array();
 					foreach($trdetail as $tr):
 						$income_data = array();
 						$income_data = $this->Income_model->currentIncome_data($tr['emp_detail']['empNumber']);
 						$arrinc_ids = array_merge($arrinc_ids, array_column($income_data,'benefitCode'));
-						// $row = array_column($tr['tr'],'td');
-					// 	foreach($incomecodes as $inc):
-					// 		$incomedetails = $this->Payrollupdate_model->setamount_benefits($inc);
-							// if(count($row) > 0):
-					// 			$row = array_column($tr['tr'],'td');
-					// 			$arrData = array('empNumber' 	=> $row[1],
-					// 							 'incomeCode' 	=> $inc,
-					// 							 'incomeMonth' 	=> $process_details['mon'],
-					// 							 'incomeYear'	=> $process_details['yr'],
-					// 							 'incomeAmount' => 0,
-					// 							 'ITW' 			=> $row[0],
-					// 							 'period1' 		=> $row[0],
-					// 							 'period2' 		=> $row[0],
-					// 							 'period3' 		=> $row[0],
-					// 							 'period4' 		=> $row[0]);
-					// 		endif;
-					// 	endforeach;
 							foreach($incomecodes as $income):
 								$incomedetails = $this->Benefit_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
 								$this->Benefit_model->add($incomedetails);
@@ -183,6 +164,7 @@ class Payrollupdate extends MY_Controller {
 					echo '<pre>';
 					print_r($arrPost);
 					echo '</pre>';
+					$this->arrData['arrEmployees'] = $arrPost['txtjson'];
 					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');
 					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate('Bonus');
 					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate('Additional');
@@ -196,8 +178,21 @@ class Payrollupdate extends MY_Controller {
 
 			case 'process_complete':
 				if(!empty($arrPost)):
+					if(gettype($arrPost['txtjson']) == 'string'):
+						$arrEmployees = json_decode($arrPost['txtjson'],true);
+						$arrEmployees = array_column($arrEmployees,'emp_detail');
+					endif;
 					echo '<pre>';
-					print_r($arrPost);
+					$process_data = json_decode($arrPost['txtprocess'],true);
+					foreach(array_column($arrEmployees,'empNumber') as $emp):
+						print_r($emp);
+						# get employee deduction detail
+						$empdeducts = $this->Deduction_model->getDeductionByEmployee($emp,$process_data['data_fr_mon'],$process_data['data_fr_yr']);
+						print_r($empdeducts);
+						echo '<hr>';
+					endforeach;
+
+
 					echo '</pre>';
 
 					die();

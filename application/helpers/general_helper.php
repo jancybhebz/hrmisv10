@@ -249,3 +249,27 @@ if ( ! function_exists('fixFloat'))
     	return floatval(str_replace(',', '', $number));
 	}
 }
+
+if ( ! function_exists('fixArray'))
+{
+    function fixArray($arrData)
+    {
+    	if(gettype($arrData) == 'string'):
+    	    $arrData = json_decode($arrData, true);
+    	endif;
+
+    	return $arrData;
+	}
+}
+
+if ( ! function_exists('fixJson'))
+{
+    function fixJson($arrJson)
+    {
+        if(gettype($arrJson) == 'string'):
+            return $arrJson;
+        else:
+            return json_encode($arrJson);
+        endif;
+    }
+}

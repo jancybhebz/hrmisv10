@@ -130,6 +130,19 @@ class Deduction_model extends CI_Model {
 		return $objQuery->result_array();
 	}
 
+	function getDeductionByEmployee($empid,$mon,$yr)
+	{
+		$totaldays = cal_days_in_month(CAL_GREGORIAN, $mon, $yr);
+
+		$this->db->order_by('deductionCode');
+		$this->db->where("(STR_TO_DATE(CONCAT(actualStartYear,'-',actualStartMonth,'-01'), '%Y-%m-%d') <= '".$yr."-".$mon."-01')");
+		$this->db->where("(STR_TO_DATE(CONCAT(actualEndYear,'-',actualEndMonth,'-".$totaldays."'), '%Y-%m-%d') >= '".$yr."-".$mon."-01')");
+
+		$res = $this->db->get_where('tblEmpDeductions', array('empNumber' => $empid))->result_array();
+		return $res;
+	}
+
+
 }
 /* End of file Deduction_model.php */
 /* Location: ./application/modules/finance/models/Deduction_model.php */
