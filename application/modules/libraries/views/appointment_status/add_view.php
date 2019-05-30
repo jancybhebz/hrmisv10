@@ -72,7 +72,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Entitled? <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strLeaveEntitled" value="<?=!empty($this->session->userdata('strLeaveEntitled'))?$this->session->userdata('strLeaveEntitled'):''?>">
+                                    <select type="text" class="form-control" name="strLeaveEntitled" autocomplete="off" value="<?=!empty($arrAppointStatuses[0]['leaveEntitled'])?$arrAppointStatuses[0]['leaveEntitled']:''?>">
+                                        <option value="">Select</option>
+                                        <option value="Y">Yes</option>
+                                        <option value="N">No</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +87,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Included in Plantilla? <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intIncludedPlantilla" value="<?=!empty($this->session->userdata('intIncludedPlantilla'))?$this->session->userdata('intIncludedPlantilla'):''?>">
+                                     <select type="text" class="form-control" name="intIncludedPlantilla" autocomplete="off" value="<?=!empty($arrAppointStatuses[0]['intIncludedPlantilla'])?$arrAppointStatuses[0]['intIncludedPlantilla']:''?>">
+                                        <option value="">Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
