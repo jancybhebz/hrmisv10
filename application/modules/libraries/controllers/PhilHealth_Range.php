@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Controller for Country Library
+Purpose of file:    Controller for PhilHealth Range Library
 Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -9,19 +9,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Country extends MY_Controller {
+class PhilHealth_Range extends MY_Controller {
 
 	var $arrData;
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/country_model'));
+        $this->load->model(array('libraries/philhealth_range_model'));
     }
 
 	public function index()
 	{
-		$this->arrData['arrCountries'] = $this->country_model->getData();
-		$this->template->load('template/template_view', 'libraries/country/list_view', $this->arrData);
+		$this->arrData['arrPhilHealth'] = $this->philhealth_range_model->getData();
+		$this->template->load('template/template_view', 'libraries/philHealth_Range/list_view', $this->arrData);
 	}
 	
 	public function add()
@@ -29,7 +29,7 @@ class Country extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->template->load('template/template_view','libraries/country/add_view',$this->arrData);	
+			$this->template->load('template/template_view','libraries/philHealth_Range/add_view',$this->arrData);	
 		}
 		else
 		{	

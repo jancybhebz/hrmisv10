@@ -157,7 +157,7 @@ $arrData = $arrData[0];?>
                                                     <a href="#trainings" data-toggle="tab"> Trainings </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#other_info" data-toggle="tab"> Other Informations </a>
+                                                    <a href="#other_info" data-toggle="tab"> Other Information </a>
                                                 </li>
                                                 <li>
                                                     <a href="#position_details" data-toggle="tab"> Position Details </a>

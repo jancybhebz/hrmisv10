@@ -6,6 +6,8 @@ ALTER TABLE `tblExamType` ADD `examId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UN
 
 ALTER TABLE `tblPayrollGroup` ADD `payrollGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `payrollGroupId` (`payrollGroupId`);
 
+ALTER TABLE `tblPhilhealthrange` ADD `philHealthId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `payrollGroupId` (`philHealthId`);
+
 ALTER TABLE `tblPlantillaGroup` ADD `plantillaGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `plantillaGroupId` (`plantillaGroupId`);
 
 ALTER TABLE `tblProject` ADD `projectId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `projectId` (`projectId`);
