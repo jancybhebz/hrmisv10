@@ -306,7 +306,7 @@ $arrData = $arrData[0];?>
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate')?>" frameborder="0" width="100%" height="500px">
+                            <embed src="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate&empNumber='.$arrData['empNumber'])?>" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                 </div>

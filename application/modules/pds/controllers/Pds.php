@@ -223,7 +223,7 @@ class Pds extends MY_Controller
 		{
 			$this->pds_model->delete_child($arrPost['txtdelcode']);
 
-			$this->session->set_flashdata('strSuccessMsg','Child deleted successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Child information deleted successfully.');
 			redirect('hr/profile/'.$empid);
 		}
 	}
