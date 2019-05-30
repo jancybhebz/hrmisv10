@@ -55,7 +55,19 @@ $arrData = $arrData[0];?>
                                     <div class="col-md-2">
                                         <ul class="list-unstyled profile-nav">
                                             <li>
-                                                <img src="<?=base_url('assets/images/logo.png')?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                                                 <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>"> 
+                                                 <?php  $strImageUrl = '';
+                                                  if(@getimagesize($strImageUrl))
+                                                    { 
+                                                        $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
+                                                    } 
+                                                    else 
+                                                    {
+                                                      $strImage = base_url('assets/images/logo.png');
+                                                    }   
+                                                    $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
+                                                 <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" /> 
+                                                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Edit Image</button></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -145,7 +157,7 @@ $arrData = $arrData[0];?>
                                                     <a href="#trainings" data-toggle="tab"> Trainings </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#other_info" data-toggle="tab"> Other Informations </a>
+                                                    <a href="#other_info" data-toggle="tab"> Other Information </a>
                                                 </li>
                                                 <li>
                                                     <a href="#position_details" data-toggle="tab"> Position Details </a>
@@ -294,7 +306,7 @@ $arrData = $arrData[0];?>
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate')?>" frameborder="0" width="100%" height="500px">
+                            <embed src="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate&empNumber='.$arrData['empNumber'])?>" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                 </div>

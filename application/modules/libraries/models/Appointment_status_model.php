@@ -1,7 +1,7 @@
 <?php 
 /** 
 Purpose of file:    Model for Appointment Status Library
-Author:             Edgardo P. Catorce Jr.
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -18,10 +18,10 @@ class Appointment_status_model extends CI_Model {
 	function getData($intAppointmentId = '')
 	{
 		if($intAppointmentId != ''):
-			return $this->db->get_where('tblAppointment', array('appointmentDesc' => $intAppointmentId))->result_array();
+			return $this->db->get_where('tblAppointment', array('appointmentId' => $intAppointmentId))->result_array();
 		else:
 			$this->db->order_by('appointmentDesc', 'asc');
-			return $this->db->get('tblAppointment')->result_array();
+			return $this->db->get('tblappointment')->result_array();
 		endif;
 	}
 

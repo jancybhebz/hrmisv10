@@ -73,7 +73,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 		$this->fpdf->Cell(0,$InterLigne," (Do not fill up. For CSC use only)",'TR',0,"R");
 		$this->fpdf->Ln(5);
 
-		$arrDetails=$this->empInfo();
+		$arrDetails=$this->empInfo($arrData['empNumber']);
 		foreach($arrDetails as $row)
 			{
 				//  PERSONAL INFORMATION - Colors of frame, background and text
@@ -1670,7 +1670,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 
 	}
 	
-	function empInfo()
+	function empInfo($strEmpNmbr)
 		{
 			$sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
 							tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblEmpPersonal.birthday,tblEmpPersonal.birthPlace,tblEmpPersonal.citizenship,tblEmpPersonal.sex,tblEmpPersonal.civilStatus,tblEmpPersonal.height, tblEmpPersonal.weight, tblEmpPersonal.bloodType, tblEmpPersonal.gsisNumber,tblEmpPersonal.pagibigNumber, tblEmpPersonal.pagibigNumber, tblEmpPersonal.philHealthNumber,  tblEmpPersonal.sssNumber,tblEmpPersonal.tin, tblEmpPersonal.telephone1, tblEmpPersonal.mobile, 
@@ -1687,7 +1687,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 							LEFT JOIN tblEmpChild ON tblEmpPersonal.empNumber = tblEmpChild.empNumber
 							LEFT JOIN tblPlantilla ON tblEmpPosition.itemNumber = tblPlantilla.itemNumber
 							LEFT JOIN tblPlantillaGroup ON tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode
-							WHERE tblEmpPersonal.empNumber = '".$this->session->userdata('sessEmpNo')."'";
+							WHERE tblEmpPersonal.empNumber = '".$strEmpNmbr."'";
 	            		// WHERE emp_id=$empId";
 	          // echo $sql;exit(1);				
 			$query = $this->db->query($sql);

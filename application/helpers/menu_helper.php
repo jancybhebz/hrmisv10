@@ -20,6 +20,7 @@ if ( ! function_exists('get_libraries'))
 			'leave_type'=>'Leave Type',
 			'org_structure'=>'Org Structure',
 			'payroll_group'=>'Payroll Group',
+			'philHealth_Range'=>'PhilHealth Range',
 			'plantilla'=>'Plantilla',
 			'plantilla_group'=>'Plantilla Group',
 			'plantilla_duties'=>'Plantilla Duties',

@@ -39,7 +39,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">PDS Update</span>
+                    <span class="caption-subject bold uppercase">Add New Employee</span>
                 </div>
             </div>
             <div class="portlet-body form">

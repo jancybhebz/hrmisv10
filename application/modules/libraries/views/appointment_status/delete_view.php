@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Appointment Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['appointmentCode'])?$arrData[0]['appointmentCode']:''?>" disabled>
+                                    <input type="text" class="form-control" name="strAppointmentCode" autocomplete="off" value="<?=isset($arrAppointStatuses[0]['appointmentCode'])?$arrAppointStatuses[0]['appointmentCode']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -61,29 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Appointment Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAppointmentDesc" value="<?=!empty($arrData[0]['appointmentDesc'])?$arrData[0]['appointmentDesc']:''?>" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Leave Entitled? <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="chrLeaveEntitled" value="<?=!empty($arrData[0]['leaveEntitled'])?$arrData[0]['leaveEntitled']:''?>" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Included in Plantilla <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intIncludedPlantilla" value="<?=!empty($arrData[0]['incPlantilla'])?$arrData[0]['incPlantilla']:''?>" disabled>
+                                    <input type="text" class="form-control" name="strAppointmentDesc" autocomplete="off" value="<?=!empty($arrAppointStatuses[0]['appointmentDesc'])?$arrAppointStatuses[0]['appointmentDesc']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +69,35 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intAppointmentId" value="<?=isset($arrData[0]['appointmentId'])?$arrData[0]['appointmentId']:''?>">
+                                <label class="control-label">Leave Entitled? <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strLeaveEntitled" autocomplete="off" value="<?=!empty($arrAppointStatuses[0]['leaveEntitled'])?$arrAppointStatuses[0]['leaveEntitled']:''?>" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Included in Plantilla? <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <?php if ($arrAppointStatuses[0]['incPlantilla'] == 1)
+                                    { ?>
+                                        <input type="text" class="form-control" name="intIncludedPlantilla" autocomplete="off" value="Y" disabled>
+                                    <?php } 
+                                    else{ ?>
+                                    <input type="text" class="form-control" name="intIncludedPlantilla" autocomplete="off" value="N" disabled>
+                                    <?php }?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" name="intAppointmentId" value="<?=isset($arrAppointStatuses[0]['appointmentId'])?$arrAppointStatuses[0]['appointmentId']:''?>">
                                 <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
                                 <a href="<?=base_url('libraries/appointment_status')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
