@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title uppercase"><b>Edit Spouse Information</b></h4>
+                <h4 class="modal-title uppercase"><b>Edit Parents Information</b></h4>
             </div>
             <?=form_open('pds/edit_parents/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
             <div class="modal-body">

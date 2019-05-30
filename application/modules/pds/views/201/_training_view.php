@@ -17,7 +17,7 @@
                     <tr>
                         <th rowspan="2">No.</th>
                         <th rowspan="2">Title of Learning & Dev./<br> Training Programs</th>
-                        <th colspan="2">Inclusive dates of Attendance</th>
+                        <th colspan="2">Inclusive Dates of Attendance</th>
                         <th rowspan="2">Number of Hours</th>
                         <th rowspan="2">Type of Leadership</th>
                         <th rowspan="2">Conducted / Sponsored By</th>

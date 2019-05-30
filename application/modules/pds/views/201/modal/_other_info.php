@@ -137,32 +137,41 @@
                         <div class="col" style="line-height: 1.7;padding: 5px 0;">
                             Pursuant to (a) indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972) *please answer the following items
                             <ol type="a">
-                                <li>Are you a member of any indigenous group? <i>If you answer is "YES", please specify</i>
+                                <li>Are you a member of any indigenous group? <i>If your answer is "YES", please specify</i>
                                     <b class="red"><?=$arrData[0]['indigenous']?></b>
+                                    <b class="blue"><?=ucfirst($arrData[0]['indigenousParticulars'])?></b>
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optindigenous" value="Y" <?=$arrData[0]['indigenous']=='Y'?'checked':''?>> Yes </label>
+                                            <input type="radio" name="optindigenous" id="y_indi" value="Y" <?=$arrData[0]['indigenous']=='Y'?'checked':''?>> Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optindigenous" value="N" <?=$arrData[0]['indigenous']=='N'?'checked':''?>> No </label>
+                                            <input type="radio" name="optindigenous" id="n_indi" value="N" <?=$arrData[0]['indigenous']=='N'?'checked':''?>> No </label>
                                     </div>
+                                    <input type="text" class="input-sm" name="txtindigenous" id="txtindigenous" 
+                                        value="<?=$arrData[0]['indigenousParticulars']?>" <?=$arrData[0]['indigenous']=='Y'?'':'hidden'?>>
                                 </li>
-                                <li>Are you differently disabled? <i>If you answer is "YES", please specify</i>
+                                <li>Are you differently disabled? <i>If your answer is "YES", please specify</i>
                                     <b class="red"><?=$arrData[0]['disabled']?></b>
+                                    <b class="blue"><?=ucfirst($arrData[0]['disabledParticulars'])?></b>
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optdisabled" value="Y" <?=$arrData[0]['disabled']=='Y'?'checked':''?>> Yes </label>
+                                            <input type="radio" name="optdisabled" id="y_disable" value="Y" <?=$arrData[0]['disabled']=='Y'?'checked':''?>> Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optdisabled" value="N" <?=$arrData[0]['disabled']=='N'?'checked':''?>> No </label>
+                                            <input type="radio" name="optdisabled" id="n_disable" value="N" <?=$arrData[0]['disabled']=='N'?'checked':''?>> No </label>
                                     </div>
+                                    <input type="text" class="input-sm" name="txtdisabled" id="txtdisabled"
+                                        value="<?=$arrData[0]['disabledParticulars']?>" <?=$arrData[0]['disabled']=='Y'?'':'hidden'?>>
                                 </li>
-                                <li>Are you a solo parent? <i>If you answer is "YES", please specify</i>
+                                <li>Are you a solo parent? <i>If your answer is "YES", please specify</i>
                                     <b class="red"><?=$arrData[0]['soloParent']?></b>
+                                    <b class="blue"><?=ucfirst($arrData[0]['soloParentParticulars'])?></b>
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optsolo_parent" value="Y" <?=$arrData[0]['soloParent']=='Y'?'checked':''?>> Yes </label>
+                                            <input type="radio" name="optsolo_parent" id="y_solo" value="Y" <?=$arrData[0]['soloParent']=='Y'?'checked':''?>> Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optsolo_parent" value="N" <?=$arrData[0]['soloParent']=='N'?'checked':''?>> No </label>
+                                            <input type="radio" name="optsolo_parent" id="n_solo" value="N" <?=$arrData[0]['soloParent']=='N'?'checked':''?>> No </label>
                                     </div>
+                                    <input type="text" class="input-sm" name="txtsoloparent" id="txtsoloparent"
+                                        value="<?=$arrData[0]['soloParentParticulars']?>" <?=$arrData[0]['soloParent']=='Y'?'':'hidden'?>>
                                 </li>
                             </ol>
                         </div>

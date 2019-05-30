@@ -179,12 +179,14 @@ if ( ! function_exists('getfullname'))
 {
     function getfullname($fname, $lname, $mname='', $mid='', $ext='')
     {
+        $lname = $lname!='' ? $lname.', ' : '';
     	$mname = $mname == '' ? '' : $mname[0];
     	$mid_ini = $mid!='' ? str_replace('.', '', $mid) : $mname;
     	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
-    	$mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.';
+    	$mid_ini = $mid_ini != '' ? strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.' : '';
     	$ext = $ext!='' ? $ext.' ': '';
-    	return ucwords($ext.$lname.', '.$fname.' '.$mid_ini);
+    	$fullname = ucwords($ext.$lname.$fname.' '.$mid_ini);
+        return $fullname;
 	}
 }
 

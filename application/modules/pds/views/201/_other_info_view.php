@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <table class="table table-bordered">
         <tr class="active">
-            <th style="line-height: 2;" colspan="4">SKILLS / RECOGNITION / ORGANIZATIONS
+            <th style="line-height: 2;" colspan="4">SKILLS / RECOGNITIONS / ORGANIZATIONS
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                     <a class="btn green btn-sm pull-right" id="btnedit_information" data-toggle="modal" href="#edit_information"> <i class="icon-pencil"></i> Edit Information </a>
                 <?php endif; ?>
@@ -12,7 +12,7 @@
                 <table class="table table-striped table-bordered table-hover" id="tblskills" style="width: 100% !important;">
                     <thead>
                         <tr>
-                            <th>Special SKills / Hobbies</th>
+                            <th>Special Skills / Hobbies</th>
                             <th>Non-Academic Distinctions / Recognition</th>
                             <th>Membership in Association / Organization</th>
                         </tr>
@@ -48,9 +48,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name of References</th>
+                            <th>Name of Reference</th>
                             <th>Address</th>
-                            <th>Telephone</th>
+                            <th>Telephone Number</th>
                             <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                 <th></th>
                             <?php endif; ?>
@@ -87,10 +87,15 @@
 <script>
     $(document).ready(function() {
         $('#btnview-legal-info').click(function() {
-            $('div.radio-list, .btnlegal_info-save').hide();
+            $('b.blue, b.red').show();
+            $('div.radio-list, .btnlegal_info-save, #txtindigenous, #txtdisabled, #txtsoloparent').hide();
         });
 
         $('#btnedit-legal-info').click(function() {
+            $('b.blue, b.red').hide();
+            if($('#y_indi').is(':checked')) { $('#txtindigenous').show(); } else { $('#txtindigenous').hide(); }
+            if($('#y_disable').is(':checked')) { $('#txtdisabled').show(); } else { $('#txtdisabled').hide(); }
+            if($('#y_solo').is(':checked')) { $('#txtsoloparent').show(); } else { $('#txtsoloparent').hide(); }
             $('div.radio-list, .btnlegal_info-save').show();
         });
 
@@ -120,6 +125,27 @@
 
         $('#tblchar-references').on('click','a.btndelete_char_refs',function() {
             $('#txtdel_char_ref').val($(this).data('refid'));
+        });
+
+        $('#y_indi').on('click',function() {
+            $('#txtindigenous').show();
+        });
+        $('#n_indi').on('click',function() {
+            $('#txtindigenous').hide();
+        });
+
+        $('#y_disable').on('click',function() {
+            $('#txtdisabled').show();
+        });
+        $('#n_disable').on('click',function() {
+            $('#txtdisabled').hide();
+        });
+
+        $('#y_solo').on('click',function() {
+            $('#txtsoloparent').show();
+        });
+        $('#n_solo').on('click',function() {
+            $('#txtsoloparent').hide();
         });
 
     });

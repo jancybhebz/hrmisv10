@@ -177,6 +177,13 @@ class Pds_model extends CI_Model {
 		$this->db->update($this->tblEduc, $arrData);
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	function delete_educ($intSchoolIndex)
+	{
+		$this->db->where($this->tblEducId, $intSchoolIndex);
+		$this->db->delete($this->tblEduc); 	
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
 	# END EDUCATION
 
 	# BEGIN EXAM

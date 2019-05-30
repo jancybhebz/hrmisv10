@@ -28,7 +28,7 @@ $arrData = $arrData[0];?>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></span>
+            <span><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'])?></span>
         </li>
     </ul>
 </div>
@@ -63,7 +63,7 @@ $arrData = $arrData[0];?>
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-9 profile-info">
-                                                <h1 class="font-green sbold uppercase"><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></h1>
+                                                <h1 class="font-green sbold uppercase"><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'])?></h1>
                                                 <div class="row">
                                                     <table class="table table-bordered table-striped">
                                                         <tbody>
@@ -145,7 +145,7 @@ $arrData = $arrData[0];?>
                                                     <a href="#trainings" data-toggle="tab"> Trainings </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#other_info" data-toggle="tab"> Other Informations </a>
+                                                    <a href="#other_info" data-toggle="tab"> Other Information </a>
                                                 </li>
                                                 <li>
                                                     <a href="#position_details" data-toggle="tab"> Position Details </a>
@@ -301,7 +301,7 @@ $arrData = $arrData[0];?>
             </div>
             <div class="modal-footer">
                 <a href="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate')?>"
-                    class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open New Tab</a>
+                    class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>
         </div>
