@@ -33,34 +33,35 @@ class PhilHealth_Range extends MY_Controller {
 		}
 		else
 		{	
-			$strCountryName = $arrPost['strCountryName'];
-			$strCountryCode = $arrPost['strCountryCode'];
-			if(!empty($strCountryName) && !empty($strCountryCode))
+			$strRangeFrom = $arrPost['strRangeFrom'];
+			$strRangeTo = $arrPost['strRangeTo'];
+			$strSalBase = $arrPost['strSalBase'];
+			$intTotalContri = $arrPost['intTotalContri'];
+			if(!empty($strRangeFrom) && !empty($strRangeTo))
 			{	
-				// check if country name or country code already exist
-				if(count($this->country_model->checkExist($strCountryName, $strCountryCode))==0)
+				if(count($this->philhealth_range_model->checkExist($strRangeFrom, $strRangeTo))==0)
 				{
 					$arrData = array(
-						'countryName'=>$strCountryName,
-						'countryCode'=>$strCountryCode
+						'philhealthFrom'=>$strRangeFrom,
+						'philhealthTo'=>$strRangeTo,
+						'philSalaryBase'=>$strSalBase,
+						'philMonthlyContri'=>$intTotalContri
 					);
-					$blnReturn  = $this->country_model->add($arrData);
-
+					$blnReturn  = $this->philhealth_range_model->add($arrData);
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountrY','Added '.$strCountryName.' Country',implode(';',$arrData),'');
-					
-						$this->session->set_flashdata('strSuccessMsg','Country added successfully.');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Added '.$strRangeFrom.' PhilHealth Range',implode(';',$arrData),'');
+						$this->session->set_flashdata('strSuccessMsg','Philhealth Range added successfully.');
 					}
-					redirect('libraries/country');
+					redirect('libraries/philhealth_range');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Country name and/or country code already exists.');
-					$this->session->set_flashdata('strCountryName',$strCountryName);
-					$this->session->set_flashdata('strCountryCode',$strCountryCode);
+					$this->session->set_flashdata('strErrorMsg','Philhealth range already exists.');
+					$this->session->set_flashdata('strRangeFrom',$strRangeFrom);
+					$this->session->set_flashdata('strRangeTo',$strRangeTo);
 					//echo $this->session->flashdata('strErrorMsg');
-					redirect('libraries/country/add');
+					redirect('libraries/philhealth_range/add');
 				}
 			}
 		}
@@ -73,29 +74,32 @@ class PhilHealth_Range extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{
-			$intCountryId = urldecode($this->uri->segment(4));
-			$this->arrData['arrCountries']=$this->country_model->getData($intCountryId);
-			$this->template->load('template/template_view','libraries/country/edit_view', $this->arrData);
+			$intPhId = urldecode($this->uri->segment(4));
+			$this->arrData['arrPhilHealth']=$this->philhealth_range_model->getPhilhealth($intPhId);
+			$this->template->load('template/template_view','libraries/philhealth_range/edit_view', $this->arrData);
 		}
 		else
 		{
-			$intCountryId = $arrPost['intCountryId'];
-			$strCountryName = $arrPost['strCountryName'];
-			$strCountryCode = $arrPost['strCountryCode'];
-			if(!empty($strCountryName) AND !empty($strCountryCode)) 
-			{
+			$intPhId = $arrPost['intPhId'];
+			$strRangeFrom = $arrPost['strRangeFrom'];
+			$strRangeTo = $arrPost['strRangeTo'];
+			$strSalBase = $arrPost['strSalBase'];
+			$intTotalContri = $arrPost['intTotalContri'];
+			if(!empty($strRangeFrom) && !empty($strRangeTo))
+			{	
 				$arrData = array(
-					'countryName'=>$strCountryName,
-					'countryCode'=>$strCountryCode
+					'philhealthFrom'=>$strRangeFrom,
+					'philhealthTo'=>$strRangeTo,
+					'philSalaryBase'=>$strSalBase,
+					'philMonthlyContri'=>$intTotalContri
 				);
-				$blnReturn = $this->country_model->save($arrData, $intCountryId);
+				$blnReturn = $this->philhealth_range_model->save($arrData, $intPhId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Edited '.$strCountryName.' Country',implode(';',$arrData),'');
-					
-					$this->session->set_flashdata('strSuccessMsg','Country saved successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Edited '.$strRangeFrom.' PhilHealth Range',implode(';',$arrData),'');
+					$this->session->set_flashdata('strSuccessMsg','PhilHealth Range saved successfully.');
 				}
-				redirect('libraries/country');
+				redirect('libraries/philHealth_range');
 			}
 		}
 		

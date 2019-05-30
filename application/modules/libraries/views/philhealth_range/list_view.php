@@ -32,7 +32,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_payroll_group">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_philhealth_range">
                     <thead>
                         <tr>
                             <th> No. </th>
@@ -52,8 +52,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td><?=$row['philSalaryBase']?></td>
                             <td><?=$row['philMonthlyContri']?></td>
                             <td>
-                                <a href="<?=base_url('')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/philhealth_range/edit/'.$row['philhealthId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/philhealth_range/delete/'.$row['philhealthId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                             </td>
                         </tr>
                     <?php 

@@ -1,7 +1,8 @@
 <?php 
 /** 
-Purpose of file:    Add page for Holiday Library
-Author:             Rose Anne L. Grefaldeo
+Purpose of file:    Edit page for PhilHealth Range Library
+ Library
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -18,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add PhilHealth Range</span>
+            <span>Edit Philhealth Range</span>
         </li>
     </ul>
 </div>
@@ -35,22 +36,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add PhilHealth Range</span>
+                    <i class="icon-pencil font-dark"></i>
+                    <span class="caption-subject bold uppercase"> Edit Philhealth Range</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/philHealth_range/add'), array('method' => 'post', 'id' => 'frmPH'))?>
+            <?=form_open(base_url('libraries/philhealth_range/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmPH'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Range From :<span class="required"> * </span></label>
+                                <label class="control-label">Range From <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="number" class="form-control" maxlength="10" name="strRangeFrom" id="strRangeFrom" autocomplete="off" value="<?=!empty($this->session->userdata('strRangeFrom'))?$this->session->userdata('strRangeFrom'):''?>">
+                                    <input type="number" class="form-control" name="strRangeFrom" id="strRangeFrom" value="<?=isset($arrPhilHealth[0]['philhealthFrom'])?$arrPhilHealth[0]['philhealthFrom']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -58,10 +59,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Range To : <span class="required"> * </span></label>
+                                <label class="control-label">Range To <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="number" class="form-control"  maxlength="10" name="strRangeTo" id="strRangeTo" autocomplete="off" value="<?=!empty($this->session->userdata('strRangeTo'))?$this->session->userdata('strRangeTo'):''?>">
+                                    <input type="text" class="form-control" name="strRangeTo" id="strRangeTo" value="<?=!empty($arrPhilHealth[0]['philhealthTo'])?$arrPhilHealth[0]['philhealthTo']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Salary Base <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strSalBase" id="strSalBase"  value="<?=!empty($arrPhilHealth[0]['philSalaryBase'])?$arrPhilHealth[0]['philSalaryBase']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -69,10 +81,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Salary Base : <span class="required"> * </span></label>
+                                <label class="control-label">Total Monthly Contribution <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="number" class="form-control" name="strSalBase" id="strSalBase" autocomplete="off" value="<?=!empty($this->session->userdata('strSalBase'))?$this->session->userdata('strSalBase'):''?>">
+                                    <input type="text" class="form-control" name="intTotalContri" id="intTotalContri"  value="<?=!empty($arrPhilHealth[0]['philMonthlyContri'])?$arrPhilHealth[0]['philMonthlyContri']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -80,20 +92,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Total Monthly Contribution :  <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="number" class="form-control" name="intTotalContri" id="intTotalContri" autocomplete="off" value="<?=!empty($this->session->userdata('intTotalContri'))?$this->session->userdata('intTotalContri'):''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/philHealth_range')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <input type="hidden" name="intPhId" value="<?=isset($arrPhilHealth[0]['philhealthId'])?$arrPhilHealth[0]['philhealthId']:''?>">
+                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <a href="<?=base_url('libraries/philhealth_range')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>

@@ -19,21 +19,21 @@ class PhilHealth_range_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 
-	function getPhilhealth($strPH = '')
+	function getPhilhealth($intPhId = '')
 	{		
-		if($strPH != "")
+		if($intPhId != "")
 		{
-			$this->db->where($this->tableid,$strPH);
+			$this->db->where($this->tableid,$intPhId);
 		}
-		 $this->db->group_by('philhealthId'); 
+		$this->db->order_by('philhealthFrom');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 
-	function checkExist($strLeaveCode = '', $strLeaveType = '')
+	function checkExist($strRangeFrom = '', $strRangeTo = '')
 	{		
-		$this->db->where('leaveCode',$strLeaveCode);
-		$this->db->or_where('leaveType', $strLeaveType);			
+		$this->db->where('philhealthFrom',$strRangeFrom);
+		$this->db->or_where('philhealthTo', $strRangeTo);			
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
@@ -45,18 +45,18 @@ class PhilHealth_range_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function save($arrData, $strCode)
+	function save($arrData, $intPhId)
 	{
-		$this->db->where($this->tableid, $strCode);
-		$this->db->update($this->table, $arrData);
-		//echo $this->db->affected_rows();
+		$this->db->where($this->tableid, $intPhId);
+		$this->db->update($this->table, $intPhId);
+		echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
-	function delete_special($strSpecifyLeave)
+	function delete_special($intPhId)
 	{
-		$this->db->where($this->tableid2, $strSpecifyLeave);
-		$this->db->delete($this->table2); 	
+		$this->db->where($this->tableid, $intPhId);
+		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
