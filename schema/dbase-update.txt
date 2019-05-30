@@ -36,3 +36,10 @@ ALTER TABLE  `tblPayrollProcess` ADD INDEX (  `appointmentCode` );
 ALTER TABLE  `tblEmpBenefits` ADD  `incomeYear` INT NULL AFTER  `incomeMonth`;
 
 ALTER TABLE  `tblIncome` ADD INDEX (  `incomeCode` ) ;
+
+# Employee Shares
+ALTER TABLE  `tblDeduction` ADD  `agency_field` VARCHAR( 50 ) NULL AFTER  `deductionAccountCode`;
+# Employee Shares new data
+UPDATE  `hrmis`.`tblDeduction` SET  `agency_field` =  'gsisEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'LIFE';
+UPDATE  `hrmis`.`tblDeduction` SET  `agency_field` =  'philhealthEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'PAGIBIG';
+UPDATE  `hrmis`.`tblDeduction` SET  `agency_field` =  'pagibigEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'PHILHEALTH';

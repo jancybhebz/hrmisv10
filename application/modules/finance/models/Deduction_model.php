@@ -130,6 +130,12 @@ class Deduction_model extends CI_Model {
 		return $objQuery->result_array();
 	}
 
+	function getDeductionWShare()
+	{
+		$res = $this->db->get_where('tblDeduction', array('agency_field!=' => NULL))->result_array();
+		return $res;
+	}
+
 	function getDeductionByEmployee($empid,$mon,$yr)
 	{
 		$totaldays = cal_days_in_month(CAL_GREGORIAN, $mon, $yr);

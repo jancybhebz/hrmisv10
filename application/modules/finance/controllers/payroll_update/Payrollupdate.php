@@ -107,40 +107,41 @@ class Payrollupdate extends MY_Controller {
 						$income_data = array();
 						$income_data = $this->Income_model->currentIncome_data($tr['emp_detail']['empNumber']);
 						$arrinc_ids = array_merge($arrinc_ids, array_column($income_data,'benefitCode'));
-							foreach($incomecodes as $income):
-								$incomedetails = $this->Benefit_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
-								$this->Benefit_model->add($incomedetails);
-							endforeach;
-							# Add Salary
-							$key = array_search('SALARY', array_column($income_data, 'incomeCode'));
-							if($key!=''):
-								$arr_amt = $income_data[$key];
-								$itw = $arr_amt['ITW']; $stat = $arr_amt['status'];
-							endif;
-							$period_amt = fixFloat($tr['period_salary']) / count($total_periods);
 
-							$arrData = array('empNumber' 	=> $tr['emp_detail']['empNumber'],
-											 'incomeCode' 	=> 'SALARY',
-											 'incomeMonth' 	=> $process_details['mon'],
-											 'incomeYear'	=> $process_details['yr'],
-											 'incomeAmount' => $tr['period_salary'],
-											 'ITW' 			=> $itw,
-											 'period1' 		=> $period_amt,
-											 'period2' 		=> $period_amt,
-											 'period3' 		=> $period_amt,
-											 'period4' 		=> $period_amt,
-											 'status' 		=> $stat);
-							if(count($total_periods) == 1):
-								$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => 0, 'period3' => 0, 'period4' => 0));
-							elseif(count($total_periods) == 4):
-								$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => $period_amt, 'period3' => $period_amt, 'period4' => $period_amt));
-							else:
-								$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => $period_amt, 'period3' => 0, 'period4' => 0));
-							endif;
-							$this->Benefit_model->add($arrData);
-							// print_r($arrData);
-							// print_r($tr);
-							// echo '<hr>';
+						foreach($incomecodes as $income):
+							$incomedetails = $this->Benefit_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
+							$this->Benefit_model->add($incomedetails);
+						endforeach;
+						# Add Salary
+						$key = array_search('SALARY', array_column($income_data, 'incomeCode'));
+						if($key!=''):
+							$arr_amt = $income_data[$key];
+							$itw = $arr_amt['ITW']; $stat = $arr_amt['status'];
+						endif;
+						$period_amt = fixFloat($tr['period_salary']) / count($total_periods);
+
+						$arrData = array('empNumber' 	=> $tr['emp_detail']['empNumber'],
+											'incomeCode' 	=> 'SALARY',
+											'incomeMonth' 	=> $process_details['mon'],
+											'incomeYear'	=> $process_details['yr'],
+											'incomeAmount' => $tr['period_salary'],
+											'ITW' 			=> $itw,
+											'period1' 		=> $period_amt,
+											'period2' 		=> $period_amt,
+											'period3' 		=> $period_amt,
+											'period4' 		=> $period_amt,
+											'status' 		=> $stat);
+						if(count($total_periods) == 1):
+							$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => 0, 'period3' => 0, 'period4' => 0));
+						elseif(count($total_periods) == 4):
+							$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => $period_amt, 'period3' => $period_amt, 'period4' => $period_amt));
+						else:
+							$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => $period_amt, 'period3' => 0, 'period4' => 0));
+						endif;
+						$this->Benefit_model->add($arrData);
+						// print_r($arrData);
+						// print_r($tr);
+						// echo '<hr>';
 						// endif;
 					endforeach;
 					# delete previous benefits
@@ -184,11 +185,46 @@ class Payrollupdate extends MY_Controller {
 					endif;
 					echo '<pre>';
 					$process_data = json_decode($arrPost['txtprocess'],true);
+					// $shares = $this->Deduction_model->getDeductionWShare();
+					// $shares = explode(',',$_ENV['shares']);
+					// print_r($shares);
+					$deductions = $this->Deduction_model->getDeductionsByStatus(0);
 					foreach(array_column($arrEmployees,'empNumber') as $emp):
-						print_r($emp);
 						# get employee deduction detail
 						$empdeducts = $this->Deduction_model->getDeductionByEmployee($emp,$process_data['data_fr_mon'],$process_data['data_fr_yr']);
-						print_r($empdeducts);
+						
+						print_r($deductions);
+						# get all deductions
+						// foreach($deductions as $deduction):
+						// 	print_r($deductions).'<br>';
+						// endforeach;
+
+						// # get regular deductions
+						// # check if data has shares
+						// if(in_array($ededuct['deductionCode'],array_column($shares,'deductionCode'))):
+						// 	echo '<br>=='.$ededuct['deductCode'];
+						// endif;
+
+						// foreach($empdeducts as $ededuct):
+						// 	# data for deductionremit
+						// 	$arrData_remit = array('processID'		=> 0,
+						// 						   'empNumber'		=> $emp,
+						// 						   'code'			=> $ededuct['deductCode'],
+						// 						   'deductionCode'	=> $ededuct['deductionCode'],
+						// 						   'deductMonth'	=> $process_data['data_fr_mon'],
+						// 						   'deductYear'		=> $process_data['data_fr_yr'],
+						// 						   'period1'		=> $ededuct['period1'],
+						// 						   'period2'		=> $ededuct['period2'],
+						// 						   'period3'		=> $ededuct['period3'],
+						// 						   'period4'		=> $ededuct['period4'],
+						// 						   // 'orNumber'		=> ''
+						// 						   // 'orDate'			=> ''
+						// 						   // 'TYPE'			=> ''
+						// 						   'appointmentCode'=> $process_data['selemployment'],
+						// 						   'employerAmount' => 0
+						// 						 );
+						// endforeach;
+						// print_r($empdeducts);
 						echo '<hr>';
 					endforeach;
 
