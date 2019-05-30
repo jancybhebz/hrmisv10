@@ -21,7 +21,7 @@ class Appointment_status_model extends CI_Model {
 			return $this->db->get_where('tblAppointment', array('appointmentId' => $intAppointmentId))->result_array();
 		else:
 			$this->db->order_by('appointmentDesc', 'asc');
-			return $this->db->get('tblappointment')->result_array();
+			return $this->db->get('tblAppointment')->result_array();
 		endif;
 	}
 

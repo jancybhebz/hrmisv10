@@ -196,15 +196,158 @@ class Payrollupdate extends MY_Controller {
 					endif;
 					echo '<pre>';
 					$process_data = json_decode($arrPost['txtprocess'],true);
-					foreach(array_column($arrEmployees,'empNumber') as $emp):
-						print_r($emp);
+					print_r($process_data);
+					$deduction_code = '';
+					$deduct_code = '';
+					$code = '';
+					$period1 = 0;
+					$period2 = 0;
+					$period3 = 0;
+					$period4 = 0;
+					$employerAmt = 0;
+					$arremp_no_ph = array();
+					// $shares = explode(',',$_ENV['shares']);
+					// print_r($shares);
+					// print_r($arrPost);
+					$agency_shares = $this->Deduction_model->getAgencyDeductionShare();
+					$arrRegular_deductions = $this->Deduction_model->getDeductionsByType('Regular');
+					$arrDeductions = array_merge(isset($arrPost['chkloan']) ? $arrPost['chkloan'] : array(),isset($arrPost['chkcont']) ? $arrPost['chkcont'] : array(),isset($arrPost['chkothrs']) ? $arrPost['chkothrs'] : array());
+					print_r($arrDeductions);
+					// $deductions = $this->Deduction_model->getDeductionsByStatus(0);
+					foreach($arrEmployees as $emp):
+						$empid = $emp['empNumber'];
+
+						# get employee regular deductions
+						$empreg_deducts = $this->Deduction_model->getEmployee_regular_deduction($empid);
+						# get Regular Deductions
+						foreach($arrRegular_deductions as $reg):
+							if($reg['is_mandatory'] == 1):
+								# no need to check in empdeduct
+								# PAGIBIG
+								if($reg['deductionCode'] == 'PAGIBIG'):
+									$regpgbg = array_search($reg['deductionCode'], array_column($empreg_deducts, 'deductionCode'));
+									if($regpgbg!=''):
+										$emppagibig = $empreg_deducts[$regpgbg];
+										$deduction_code = $emppagibig['deductionCode'];
+										$deduct_code = $emppagibig['deductCode'];
+										$code = $emppagibig['deductCode'];
+										$period1 = $emppagibig['period1'];
+										$period2 = $emppagibig['period2'];
+										$period3 = $emppagibig['period3'];
+										$period4 = $emppagibig['period4'];
+									endif;
+									$employerAmt = $agency_shares['pagibigEmprShare'];
+								endif;
+
+								# PHILHEALTH
+								if($reg['deductionCode'] == 'PHILHEALTH'):
+									$regph = array_search($reg['deductionCode'], array_column($empreg_deducts, 'deductionCode'));
+									if($regph!=''):
+										$empphealth = $empreg_deducts[$regph];
+										$deduction_code = $empphealth['deductionCode'];
+										$deduct_code = $empphealth['deductCode'];
+										$code = $empphealth['deductCode'];
+										$period1 = $empphealth['period1'];
+										$period2 = $empphealth['period2'];
+										$period3 = $empphealth['period3'];
+										$period4 = $empphealth['period4'];
+									endif;
+									$phrange = $this->Deduction_model->getPhilHealthRange($emp['actualSalary']);
+									if($phrange['philMonthlyContri'] == 0):
+										array_push($arremp_no_ph, $emp);
+									endif;
+									$employerAmt = ($agency_shares['philhealthEmprShare'] / 100) * $phrange['philMonthlyContri'];
+								endif;
+
+								# LIFE
+								if($reg['deductionCode'] == 'LIFE'):
+									$reglife = array_search($reg['deductionCode'], array_column($empreg_deducts, 'deductionCode'));
+									if($reglife!=''):
+										$emplife = $empreg_deducts[$reglife];
+										$deduction_code = $emplife['deductionCode'];
+										$deduct_code = $emplife['deductCode'];
+										$code = $emplife['deductCode'];
+										$period1 = $emplife['period1'];
+										$period2 = $emplife['period2'];
+										$period3 = $emplife['period3'];
+										$period4 = $emplife['period4'];
+									endif;
+									$employerAmt = ($agency_shares['philhealthEmprShare'] / 100) * $emp['actualSalary'];
+								endif;
+							else:
+								# Other Regular Deductions
+								$regdeduction_key = array_search($reg['deductionCode'], array_column($empreg_deducts, 'deductionCode'));
+								$emp_deductions = $empreg_deducts[$regdeduction_key];
+
+								if(($emp_deductions['period1'] + $emp_deductions['period2'] + $emp_deductions['period3'] + $emp_deductions['period4'] + $emp_deductions['monthly']) > 0 && $emp_deductions['status'] == 1):
+									$deduction_code = $emp_deductions['deductionCode'];
+									$deduct_code = $emp_deductions['deductCode'];
+									$code = $emp_deductions['deductCode'];
+									$period1 = $emp_deductions['period1'];
+									$period2 = $emp_deductions['period2'];
+									$period3 = $emp_deductions['period3'];
+									$period4 = $emp_deductions['period4'];
+								endif;
+							endif;
+						endforeach;
+
 						# get employee deduction detail
 						$empdeducts = $this->Deduction_model->getDeductionByEmployee($emp,$process_data['data_fr_mon'],$process_data['data_fr_yr']);
-						print_r($empdeducts);
+
+						// print_r($deductions);
+						# get all deductions
+						// foreach($arrDeductions as $deduction):
+						// 	print_r(array_column($empdeducts,'deductionCode'));
+						// 	$deduction = json_decode($deduction,true);
+						// 	// if($deduction['deductionCode'])
+						// endforeach;
+
+						// # get regular deductions
+						// foreach($empdeducts as $ededuct):
+						// 	# data for deductionremit
+							
+						// endforeach;
+						// print_r($empdeducts);
+
+						// $arrData_remit = array('processID'		=> 0,
+						// 					   'empNumber'		=> $empid,
+						// 					   'code'			=> $ededuct['deductCode'],
+						// 					   'deductionCode'	=> $ededuct['deductionCode'],
+						// 					   'deductMonth'	=> $process_data['data_fr_mon'],
+						// 					   'deductYear'		=> $process_data['data_fr_yr'],
+						// 					   'period1'		=> $ededuct['period1'],
+						// 					   'period2'		=> $ededuct['period2'],
+						// 					   'period3'		=> $ededuct['period3'],
+						// 					   'period4'		=> $ededuct['period4'],
+						// 					   // 'orNumber'		=> ''
+						// 					   // 'orDate'			=> ''
+						// 					   // 'TYPE'			=> ''
+						// 					   'appointmentCode'=> $process_data['selemployment'],
+						// 					   'employerAmount' => 0
+						// 					 );
+
+						$arrData_remit = array('processID'		=> 0,
+											   'empNumber'		=> $empid,
+											   'code'			=> $deduct_code,
+											   'deductionCode'	=> $deduction_code,
+											   'deductMonth'	=> $process_data['data_fr_mon'],
+											   'deductYear'		=> $process_data['data_fr_yr'],
+											   'period1'		=> $period1,
+											   'period2'		=> $period2,
+											   'period3'		=> $period3,
+											   'period4'		=> $period4,
+											   // 'orNumber'		=> ''
+											   // 'orDate'			=> ''
+											   // 'TYPE'			=> ''
+											   'appointmentCode'=> $process_data['selemployment'],
+											   'employerAmount' => $employerAmt
+											 );
+						print_r($emp);
 						echo '<hr>';
+
 					endforeach;
 
-
+					print_r($arremp_no_ph);
 					echo '</pre>';
 
 					die();
@@ -243,7 +386,7 @@ class Payrollupdate extends MY_Controller {
 		// $arrWhere = array('appointmentCode' => $_GET['selemployment'], 'month' => $_GET['selmon'], 'year' => $_GET['selyr']);
 		// $arrData['arrEmployees'] = $this->Pds_model->getDataByField($arrWhere,'P');
 
-		// echo json_encode($arrData);	
+		// echo json_encode($arrData);
 	}
 
 	public function process_history()
