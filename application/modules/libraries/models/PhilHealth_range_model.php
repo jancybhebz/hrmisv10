@@ -53,7 +53,7 @@ class PhilHealth_range_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
-	function delete_special($intPhId)
+	function delete($intPhId)
 	{
 		$this->db->where($this->tableid, $intPhId);
 		$this->db->delete($this->table); 	

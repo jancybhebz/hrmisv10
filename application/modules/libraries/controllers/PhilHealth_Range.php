@@ -106,30 +106,28 @@ class PhilHealth_Range extends MY_Controller {
 	}
 	public function delete()
 	{
-		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$intCountryId = $this->uri->segment(4);
+		$intPhId = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->country_model->getData($intCountryId);
-			$this->template->load('template/template_view','libraries/country/delete_view',$this->arrData);
+			$this->arrData['arrPhilHealth'] = $this->philhealth_range_model->getPhilhealth($intPhId);
+			$this->template->load('template/template_view','libraries/philHealth_range/delete_view',$this->arrData);
 		}
 		else
 		{
-			$intCountryId = $arrPost['intCountryId'];
-			//add condition for checking dependencies from other tables
-			if(!empty($intCountryId))
+			$intPhId = $arrPost['intPhId'];
+			if(!empty($intPhId))
 			{
-				$arrCountries = $this->country_model->getData($intCountryId);
-				$strCountryName = $arrCountries[0]['countryName'];	
-				$blnReturn = $this->country_model->delete($intCountryId);
+				$arrPhilHealth = $this->philhealth_range_model->getPhilhealth($intPhId);
+				$strRangeFrom = $arrPhilHealth[0]['philhealthFrom'];	
+				$blnReturn = $this->philhealth_range_model->delete($intPhId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Deleted '.$strCountryName.' Country',implode(';',$arrCountries[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Deleted '.$strRangeFrom.' PhilHealth Range',implode(';',$arrPhilHealth[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Country deleted successfully.');
+					$this->session->set_flashdata('strMsg','PhilHealth Range deleted successfully.');
 				}
-				redirect('libraries/country');
+				redirect('libraries/philHealth_range');
 			}
 		}
 		
