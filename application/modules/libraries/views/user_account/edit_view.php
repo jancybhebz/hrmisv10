@@ -92,17 +92,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Password <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="password" class="form-control" name="strPassword" maxlength="20" value="<?=!empty($arrUser[0]['userPassword'])?$arrUser[0]['userPassword']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
                                 <input type="hidden" name="intEmpNumber" value="<?=isset($arrUser[0]['empNumber'])?$arrUser[0]['empNumber']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/user_account')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>

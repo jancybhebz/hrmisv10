@@ -97,21 +97,18 @@ class User_account extends MY_Controller {
 			$strAccessLevel = $arrPost['strAccessLevel'];
 			$strEmpName = $arrPost['strEmpName'];
 			$strUsername = $arrPost['strUsername'];
-			$strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
-			if(!empty($strAccessLevel) AND !empty($strEmpName) AND !empty($strUsername) AND !empty($strPassword)) 
+			if(!empty($strAccessLevel) AND !empty($strEmpName) AND !empty($strUsername))
 			{
 				$arrData = array(
 					'userLevel'=>$strAccessLevel,
 					'empNumber'=>$strEmpName,
-					'userName'=>$strUsername,
-					'userPassword'=>$strPassword
+					'userName'=>$strUsername
 				);
 
 				$blnReturn = $this->user_account_model->save($arrData, $intEmpNumber);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Edited '.$strUsername.' User_account',implode(';',$arrData),'');
-					
 					$this->session->set_flashdata('strSuccessMsg','User Account saved successfully.');
 				}
 				redirect('libraries/user_account');
@@ -163,6 +160,39 @@ class User_account extends MY_Controller {
 			endif;
 			redirect('home');
 		endif;
+	}
+
+	public function reset()
+	{
+		// $this->template->load('template/template_view', 'libraries/user_account/reset_view', $this->arrData);
+
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$intEmpNumber = urldecode($this->uri->segment(4));
+			$this->template->load('template/template_view','libraries/user_account/reset_view', $this->arrData);
+		}
+		else
+		{
+			$intEmpNumber = $arrPost['intEmpNumber'];
+			$strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
+			if(!empty($strPassword)) 
+			{
+				$arrData = array(
+					'userPassword'=>$strPassword
+				);
+
+				// print_r($arrPost);
+				// exit(1);
+				$blnReturn = $this->user_account_model->save($arrData, $intEmpNumber);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Edited User Password for '.$intEmpNumber,implode(';',$arrData),'');
+					$this->session->set_flashdata('strSuccessMsg','Password updated successfully.');
+				}
+				redirect('libraries/user_account');
+			}
+		}
 	}
 
 
