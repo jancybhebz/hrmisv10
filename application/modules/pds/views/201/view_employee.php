@@ -55,7 +55,19 @@ $arrData = $arrData[0];?>
                                     <div class="col-md-2">
                                         <ul class="list-unstyled profile-nav">
                                             <li>
-                                                <img src="<?=base_url('assets/images/logo.png')?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                                                 <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>"> 
+                                                 <?php  $strImageUrl = '';
+                                                  if(@getimagesize($strImageUrl))
+                                                    { 
+                                                        $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
+                                                    } 
+                                                    else 
+                                                    {
+                                                      $strImage = base_url('assets/images/logo.png');
+                                                    }   
+                                                    $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
+                                                 <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" /> 
+                                                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Edit Image</button></a>
                                             </li>
                                         </ul>
                                     </div>

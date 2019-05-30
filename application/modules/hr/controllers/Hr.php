@@ -217,9 +217,9 @@ class Hr extends MY_Controller {
 		$strEmpNum = $arrPost['EmployeeId'];
 
 		$config['upload_path']          = 'uploads/employees/';
-        $config['allowed_types']        = 'jpg|png';
+        $config['allowed_types']        = 'jpg';
         
-		$config['file_name'] = $strEmpNum.'.png';
+		$config['file_name'] = $strEmpNum.'.jpg';
 		$config['overwrite'] = TRUE;
 		//print_r($config);
 
@@ -230,8 +230,8 @@ class Hr extends MY_Controller {
 		{
 			//echo $this->upload->display_errors();
 			$error = array('error' => $this->upload->display_errors());
-			print_r($error);
-			exit(1);
+			// print_r($error);
+			// exit(1);
 			$this->session->set_flashdata('upload_status','Please try again!');
 		}
 		else
@@ -241,8 +241,8 @@ class Hr extends MY_Controller {
 				$arrEmp = array(
 					
 				);
-			print_r($data);
-			exit(1);
+			// print_r($data);
+			// exit(1);
 
 			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			
