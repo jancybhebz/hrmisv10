@@ -48,8 +48,8 @@ class PhilHealth_range_model extends CI_Model {
 	function save($arrData, $intPhId)
 	{
 		$this->db->where($this->tableid, $intPhId);
-		$this->db->update($this->table, $intPhId);
-		echo $this->db->affected_rows();
+		$this->db->update($this->table, $arrData);
+		// echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
