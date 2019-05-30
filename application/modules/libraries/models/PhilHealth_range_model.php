@@ -23,10 +23,10 @@ class PhilHealth_range_model extends CI_Model {
 	{		
 		if($strPH != "")
 		{
-			$this->db->where($this->tableid2,$strPH);
+			$this->db->where($this->tableid,$strPH);
 		}
-		 $this->db->group_by('leaveCode'); 
-		$objQuery = $this->db->get($this->table2);
+		 $this->db->group_by('philhealthId'); 
+		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
 

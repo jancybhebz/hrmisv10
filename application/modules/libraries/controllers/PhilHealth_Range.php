@@ -20,7 +20,7 @@ class PhilHealth_Range extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrPhilHealth'] = $this->philhealth_range_model->getData();
+		$this->arrData['arrPhilHealth'] = $this->philhealth_range_model->getPhilhealth();
 		$this->template->load('template/template_view', 'libraries/philHealth_Range/list_view', $this->arrData);
 	}
 	
