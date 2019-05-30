@@ -63,7 +63,7 @@ class Deduction_model extends CI_Model {
 	function getDeductionsByType($type)
 	{
 		$this->db->order_by('deductionDesc');
-		return $this->db->get_where('tblDeduction', array('deductionType' => $type))->result_array();
+		return $this->db->get_where('tblDeduction', array('deductionType' => $type,'hidden' => 0))->result_array();
 	}
 
 	function getDeductionGroup($groupCode='')
@@ -130,9 +130,19 @@ class Deduction_model extends CI_Model {
 		return $objQuery->result_array();
 	}
 
-	function getDeductionWShare()
+	function getAgencyDeductionShare()
 	{
-		$res = $this->db->get_where('tblDeduction', array('agency_field!=' => NULL))->result_array();
+		$res = $this->db->get_where('tblAgency')->result_array();
+		return $res[0];
+	}
+
+	function getEmployee_regular_deduction($empid)
+	{
+		$regular_deductions = $this->getDeductionsByType('Regular');
+		$this->db->order_by('deductionCode');
+		$this->db->where_in('deductionCode',array_column($regular_deductions,'deductionCode'));
+		$res = $this->db->get_where('tblEmpDeductions', array('empNumber' => $empid))->result_array();
+		echo $this->db->last_query();
 		return $res;
 	}
 

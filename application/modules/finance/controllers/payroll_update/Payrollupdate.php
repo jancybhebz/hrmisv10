@@ -185,18 +185,52 @@ class Payrollupdate extends MY_Controller {
 					endif;
 					echo '<pre>';
 					$process_data = json_decode($arrPost['txtprocess'],true);
-					// $shares = $this->Deduction_model->getDeductionWShare();
+					
+					$deduction_code = '';
+					$deduct_code = '';
+
 					// $shares = explode(',',$_ENV['shares']);
 					// print_r($shares);
-					$deductions = $this->Deduction_model->getDeductionsByStatus(0);
+					// print_r($arrPost);
+					$agency_shares = $this->Deduction_model->getAgencyDeductionShare();
+					$arrRegular_deductions = $this->Deduction_model->getDeductionsByType('Regular');
+					$arrDeductions = array_merge(isset($arrPost['chkloan']) ? $arrPost['chkloan'] : array(),isset($arrPost['chkcont']) ? $arrPost['chkcont'] : array(),isset($arrPost['chkothrs']) ? $arrPost['chkothrs'] : array());
+					print_r($arrDeductions);
+					// $deductions = $this->Deduction_model->getDeductionsByStatus(0);
 					foreach(array_column($arrEmployees,'empNumber') as $emp):
+						echo $emp;
 						# get employee deduction detail
-						$empdeducts = $this->Deduction_model->getDeductionByEmployee($emp,$process_data['data_fr_mon'],$process_data['data_fr_yr']);
-						
-						print_r($deductions);
+						// $empdeducts = $this->Deduction_model->getDeductionByEmployee($emp,$process_data['data_fr_mon'],$process_data['data_fr_yr']);
+
+						# get employee regular deductions
+						$empreg_deducts = $this->Deduction_model->getEmployee_regular_deduction($emp);
+						// print_r($empreg_deducts);
+						# get Regular Deductions
+						foreach($arrRegular_deductions as $reg):
+							if($reg['is_mandatory'] == 1):
+								# no need to check in empdeduct
+								if($reg['deduction_id'] == 29): # PAGIBIG
+									// print_r($empreg_deducts);
+									$regKey = array_search($reg['deductionCode'], array_column($empreg_deducts, 'deductionCode'));
+									echo 'Regkey = '.$regKey;
+									if($regKey!=''):
+									else:
+										print_r($empreg_deducts);
+									endif;
+									// $deduction_code = $reg['deductionCode'];
+									// $deduct_code = $reg['deductCode'];
+								endif;
+							else:
+
+							endif;
+						endforeach;
+
+						// print_r($deductions);
 						# get all deductions
-						// foreach($deductions as $deduction):
-						// 	print_r($deductions).'<br>';
+						// foreach($arrDeductions as $deduction):
+						// 	print_r(array_column($empdeducts,'deductionCode'));
+						// 	$deduction = json_decode($deduction,true);
+						// 	// if($deduction['deductionCode'])
 						// endforeach;
 
 						// # get regular deductions
@@ -207,24 +241,43 @@ class Payrollupdate extends MY_Controller {
 
 						// foreach($empdeducts as $ededuct):
 						// 	# data for deductionremit
-						// 	$arrData_remit = array('processID'		=> 0,
-						// 						   'empNumber'		=> $emp,
-						// 						   'code'			=> $ededuct['deductCode'],
-						// 						   'deductionCode'	=> $ededuct['deductionCode'],
-						// 						   'deductMonth'	=> $process_data['data_fr_mon'],
-						// 						   'deductYear'		=> $process_data['data_fr_yr'],
-						// 						   'period1'		=> $ededuct['period1'],
-						// 						   'period2'		=> $ededuct['period2'],
-						// 						   'period3'		=> $ededuct['period3'],
-						// 						   'period4'		=> $ededuct['period4'],
-						// 						   // 'orNumber'		=> ''
-						// 						   // 'orDate'			=> ''
-						// 						   // 'TYPE'			=> ''
-						// 						   'appointmentCode'=> $process_data['selemployment'],
-						// 						   'employerAmount' => 0
-						// 						 );
+							
 						// endforeach;
 						// print_r($empdeducts);
+
+						// $arrData_remit = array('processID'		=> 0,
+						// 					   'empNumber'		=> $emp,
+						// 					   'code'			=> $ededuct['deductCode'],
+						// 					   'deductionCode'	=> $ededuct['deductionCode'],
+						// 					   'deductMonth'	=> $process_data['data_fr_mon'],
+						// 					   'deductYear'		=> $process_data['data_fr_yr'],
+						// 					   'period1'		=> $ededuct['period1'],
+						// 					   'period2'		=> $ededuct['period2'],
+						// 					   'period3'		=> $ededuct['period3'],
+						// 					   'period4'		=> $ededuct['period4'],
+						// 					   // 'orNumber'		=> ''
+						// 					   // 'orDate'			=> ''
+						// 					   // 'TYPE'			=> ''
+						// 					   'appointmentCode'=> $process_data['selemployment'],
+						// 					   'employerAmount' => 0
+						// 					 );
+
+						$arrData_remit = array('processID'		=> 0,
+											   'empNumber'		=> $emp,
+											   'code'			=> $deduct_code,
+											   'deductionCode'	=> $deduction_code,
+											   'deductMonth'	=> '',
+											   'deductYear'		=> '',
+											   'period1'		=> '',
+											   'period2'		=> '',
+											   'period3'		=> '',
+											   'period4'		=> '',
+											   // 'orNumber'		=> ''
+											   // 'orDate'			=> ''
+											   // 'TYPE'			=> ''
+											   'appointmentCode'=> '',
+											   'employerAmount' => 0
+											 );
 						echo '<hr>';
 					endforeach;
 

@@ -40,6 +40,14 @@ ALTER TABLE  `tblIncome` ADD INDEX (  `incomeCode` ) ;
 # Employee Shares
 ALTER TABLE  `tblDeduction` ADD  `agency_field` VARCHAR( 50 ) NULL AFTER  `deductionAccountCode`;
 # Employee Shares new data
-UPDATE  `hrmis`.`tblDeduction` SET  `agency_field` =  'gsisEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'LIFE';
-UPDATE  `hrmis`.`tblDeduction` SET  `agency_field` =  'philhealthEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'PAGIBIG';
-UPDATE  `hrmis`.`tblDeduction` SET  `agency_field` =  'pagibigEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'PHILHEALTH';
+UPDATE  `tblDeduction` SET  `agency_field` =  'gsisEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'LIFE';
+UPDATE  `tblDeduction` SET  `agency_field` =  'philhealthEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'PAGIBIG';
+UPDATE  `tblDeduction` SET  `agency_field` =  'pagibigEmprShare' WHERE  `tblDeduction`.`deductionCode` =  'PHILHEALTH';
+ALTER TABLE  `tblDeduction` ADD  `is_mandatory` INT NOT NULL DEFAULT  '0' AFTER  `agency_field`;
+UPDATE  `tblDeduction` SET  `is_mandatory` =  '1' WHERE  `tblDeduction`.`deductionCode` =  'LIFE';
+UPDATE  `tblDeduction` SET  `is_mandatory` =  '1' WHERE  `tblDeduction`.`deductionCode` =  'PAGIBIG';
+UPDATE  `tblDeduction` SET  `is_mandatory` =  '1' WHERE  `tblDeduction`.`deductionCode` =  'PHILHEALTH';
+
+## DROP INDEX THEN ADD AUTO INCREMENT PRIMARY KEY
+DROP INDEX `PRIMARY` ON tblDeduction;
+ALTER TABLE  `tblDeduction` ADD  `deduction_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
