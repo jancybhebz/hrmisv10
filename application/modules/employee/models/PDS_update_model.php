@@ -33,7 +33,7 @@ class PDS_update_model extends CI_Model {
 	var $tableWorkExp = 'tblservicerecord';
 	var $tableWorkExpid = 'serviceRecID';
 	
-	var $tableAppoint = 'tblappointment';
+	var $tableAppoint = 'tblAppointment';
 	var $tableAppointid = 'appointmentId';
 
 	var $tableSepCause = 'tblseparationcause';

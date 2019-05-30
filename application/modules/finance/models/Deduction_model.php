@@ -142,20 +142,33 @@ class Deduction_model extends CI_Model {
 		$this->db->order_by('deductionCode');
 		$this->db->where_in('deductionCode',array_column($regular_deductions,'deductionCode'));
 		$res = $this->db->get_where('tblEmpDeductions', array('empNumber' => $empid))->result_array();
-		echo $this->db->last_query();
 		return $res;
 	}
 
 	function getDeductionByEmployee($empid,$mon,$yr)
 	{
+		# Regular deductions not included
+		$regular_deductions = $this->getDeductionsByType('Regular');
+		// print_r($regular_deductions);
 		$totaldays = cal_days_in_month(CAL_GREGORIAN, $mon, $yr);
+		// $this->db->order_by('deductionCode');
+		// $this->db->where_not_in('deductionCode',array_column($regular_deductions,'deductionCode'));
+		// $this->db->where("(STR_TO_DATE(CONCAT(actualStartYear,'-',actualStartMonth,'-01'), '%Y-%m-%d') <= '".$yr."-".$mon."-01')");
+		// $this->db->where("(STR_TO_DATE(CONCAT(actualEndYear,'-',actualEndMonth,'-".$totaldays."'), '%Y-%m-%d') >= '".$yr."-".$mon."-01')");
 
-		$this->db->order_by('deductionCode');
-		$this->db->where("(STR_TO_DATE(CONCAT(actualStartYear,'-',actualStartMonth,'-01'), '%Y-%m-%d') <= '".$yr."-".$mon."-01')");
-		$this->db->where("(STR_TO_DATE(CONCAT(actualEndYear,'-',actualEndMonth,'-".$totaldays."'), '%Y-%m-%d') >= '".$yr."-".$mon."-01')");
+		// $res = $this->db->get_where('tblEmpDeductions', array('empNumber' => $empid))->result_array();
+		// echo $this->db->last_query();
+		// return $res;
+	}
 
-		$res = $this->db->get_where('tblEmpDeductions', array('empNumber' => $empid))->result_array();
-		return $res;
+	function getPhilHealthRange($salary)
+	{
+		$this->db->where('philhealthFrom <= ',$salary);
+		$this->db->where('philhealthTo >= ',$salary);
+
+		$res = $this->db->get('tblPhilhealthRange')->result_array();
+		echo $this->db->last_query();
+		return count($res) > 0 ? $res[0] : array('philMonthlyContri' => 0);
 	}
 
 
