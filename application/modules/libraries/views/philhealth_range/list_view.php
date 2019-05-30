@@ -43,16 +43,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
+                    <?php 
+                    $i=1;
+                     foreach($arrPhilHealth as $row):?>
                         <tr class="odd gradeX">
-                            <td>  </td>
-                            <td>  </td>
-                            <td>  </td>
-                            <td>  </td>
+                            <td><?=$i?></td>
+                            <td><?=$row['philhealthFrom'].' to '.$row['philhealthTo']?></td>
+                            <td><?=$row['philSalaryBase']?></td>
+                            <td><?=$row['philMonthlyContri']?></td>
                             <td>
                                 <a href="<?=base_url('')?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('')?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                             </td>
                         </tr>
+                    <?php 
+                    $i++;
+                    endforeach;?>
                     </tbody>
                 </table>
             </div>

@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Range From :<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strRangeFrom" id="strRangeFrom" value="<?=!empty($this->session->userdata('strRangeFrom'))?$this->session->userdata('strRangeFrom'):''?>">
+                                    <input type="text" class="form-control" maxlength="3" name="strRangeFrom" id="strRangeFrom" autocomplete="off" value="<?=!empty($this->session->userdata('strRangeFrom'))?$this->session->userdata('strRangeFrom'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Range To : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strRangeTo" id="strRangeTo" value="<?=!empty($this->session->userdata('strRangeTo'))?$this->session->userdata('strRangeTo'):''?>">
+                                    <input type="text" class="form-control" name="strRangeTo" id="strRangeTo" autocomplete="off" value="<?=!empty($this->session->userdata('strRangeTo'))?$this->session->userdata('strRangeTo'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Salary Base : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSalBase" id="strSalBase"  value="<?=!empty($this->session->userdata('strSalBase'))?$this->session->userdata('strSalBase'):''?>">
+                                    <input type="text" class="form-control" name="strSalBase" id="strSalBase" autocomplete="off" value="<?=!empty($this->session->userdata('strSalBase'))?$this->session->userdata('strSalBase'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Total Monthly Contribution :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intTotalContri" id="intTotalContri" value="<?=!empty($this->session->userdata('intTotalContri'))?$this->session->userdata('intTotalContri'):''?>">
+                                    <input type="text" class="form-control" name="intTotalContri" id="intTotalContri" autocomplete="off" value="<?=!empty($this->session->userdata('intTotalContri'))?$this->session->userdata('intTotalContri'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -125,18 +125,22 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strLeaveCode: {
+                    strRangeFrom: {
                         minlength: 1,
                         required: true
                     },
-                    strLeaveType: {
+                    strRangeTo: {
                         minlength: 1,
                         required: true,
                     },
-                    intDays: {
+                    strSalBase  : {
                         minlength: 1,
                         required: true,
                     },
+                    intTotalContri  : {
+                        minlength: 1,
+                        required: true,
+                    }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
