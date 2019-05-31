@@ -45,7 +45,7 @@
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
                                                     <input type="text" class="form-control form-required" name="txtvl" id="txtvl"
-                                                        placeholder="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['vlBalance'] : ''?>">
+                                                        placeholder="<?=count($vl_monetized) > 0 ? $vl_monetized : ''?>">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -53,7 +53,7 @@
                                                 <div class="input-icon right">
                                                     <i class="fa fa-warning tooltips i-required"></i>
                                                     <input type="text" class="form-control form-required" name="txtsl" id="txtsl"
-                                                        placeholder="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['slBalance'] : ''?>">
+                                                        placeholder="<?=count($sl_monetized) > 0 ? $sl_monetized : ''?>">
                                                 </div>
                                             </div>
                                             <!-- end input elements -->
@@ -112,7 +112,7 @@
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?month='.currmo().'&yr='.curryr())?>" frameborder="0" width="100%" height="400px">
+                            <embed src="<?=base_url('employee/reports/generate/?rpt=reportLeave&leavetype=vacation&day=Whole%20day&leavefrom=&leaveto=&daysapplied=&signatory=&empname=&reason=&incaseSL=&incaseVL=')?>" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                 </div>

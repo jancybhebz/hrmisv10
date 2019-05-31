@@ -105,8 +105,7 @@ class Leave_model extends CI_Model {
 		if($month != 0) : $arrcond['periodMonth']=$month; endif;
 		if($yr != 0) : $arrcond['periodYear']=$yr; endif;
 
-		$this->db->order_by('periodMonth', 'desc');
-		$this->db->order_by('periodYear', 'desc');
+		$this->db->order_by('lb_id' , 'desc');
 		return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
 	}
 
