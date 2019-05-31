@@ -290,9 +290,17 @@ class Attendance extends MY_Controller {
 			$vl_monetized = '0.0000';
 		endif;
 
+		$approved_vl = $this->Leave_model->approved_vl($empid, date('Y'));
+		$approved_sl = $this->Leave_model->approved_sl($empid, date('Y'));
+		// echo '<br>vl_monetized = '.$vl_monetized;
+		// echo '<br>sl_monetized = '.$sl_monetized;
+		// echo '<br>approved_vl = '.$approved_vl;
+		// die();
 		$this->arrData['total_monetize'] = $total_monetize;
 		$this->arrData['sl_monetized'] = $sl_monetized;
 		$this->arrData['vl_monetized'] = $vl_monetized;
+		$this->arrData['sl_projected'] = $sl_monetized - $approved_sl;
+		$this->arrData['vl_projected'] = $vl_monetized - $approved_vl;
 		$this->arrData['arrLeaves'] = $arrLeaves;
 		$this->arrData['arrMonetize'] = $this->Leave_monetization_model->getemp_monetized($empid, currmo(), curryr());
 		$this->arrData['arrData'] = $res[0];

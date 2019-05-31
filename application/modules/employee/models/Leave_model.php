@@ -267,6 +267,19 @@ class Leave_model extends CI_Model {
 		
 		return $total_leave;
 	}
-		
+
+	public function approved_vl($empno,$yr)
+	{
+		$this->db->like('leaveFrom',$yr.'-','after');
+		$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'VL', 'certifyHR' => 'Y'))->result_array();
+		return count($emp_leaves);
+	}
+	
+	public function approved_sl($empno,$yr)
+	{
+		$this->db->like('leaveFrom',$yr.'-','after');
+		$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'SL', 'certifyHR' => 'Y'))->result_array();
+		return count($emp_leaves);	
+	}	
 
 }

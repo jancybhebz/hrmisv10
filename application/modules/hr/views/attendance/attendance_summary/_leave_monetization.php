@@ -3,7 +3,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Credits Available as of [<?=count($arrLeaves) > 0 ? date('F', mktime(0, 0, 0, $arrLeaves[0]['periodMonth'], 10)).' '.$arrLeaves[0]['periodYear'] : date('F Y')?>]</span>
+                    <span class="caption-subject bold uppercase"> Leave Credits Available as of <?=count($arrLeaves) > 0 ? date('F', mktime(0, 0, 0, $arrLeaves[0]['periodMonth'], 10)).' '.$arrLeaves[0]['periodYear'] : date('F Y')?></span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -15,13 +15,13 @@
                                     <td style="width: 25%;">Actual Vacation Leave</td>
                                     <td style="width: 25%;"><?=number_format($vl_monetized,3)?></td>
                                     <td style="width: 25%;">Projected Vacation Leave</td>
-                                    <td style="width: 25%;"></td>
+                                    <td style="width: 25%;"><?=number_format($vl_projected,3)?></td>
                                 </tr>
                                 <tr>
                                     <td>Actual Sick Leave</td>
                                     <td><?=number_format($sl_monetized,3)?></td>
                                     <td>Projected Sick Leaves</td>
-                                    <td></td>
+                                    <td><?=number_format($sl_projected,3)?></td>
                                 </tr>
                                 <tr>
                                     <td>Total Leave Credits</td>
@@ -55,31 +55,33 @@
                             href="#monetize-form" <?=($vl_monetized + $sl_monetized) < 0.001 ? 'disabled' : ''?>>
                             <i class="fa fa-money"></i> &nbsp;Monetize Form</button>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center;">LB Period</th>
-                                    <th style="text-align: center;">Process Period</th>
-                                    <th style="text-align: center;">VL</th>
-                                    <th style="text-align: center;">SL</th>
-                                    <th style="text-align: center;">Monetized Amount</th>
-                                    <th style="text-align: center;">Actions</th>
-                                </tr>
-                                <?php foreach($arrMonetize as $montz): ?>
+                        <?php if(count($arrMonetize) > 0): ?>
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                <thead>
                                     <tr>
-                                        <td><?=date('F', mktime(0, 0, 0, $montz['monetizeMonth'], 10))?> <?=$montz['monetizeYear']?></td>
-                                        <td align="center"><?=date('F', mktime(0, 0, 0, $montz['processMonth'], 10))?> <?=$montz['processYear']?></td>
-                                        <td align="center"><?=$montz['vlMonetize']?></td>
-                                        <td align="center"><?=$montz['slMonetize']?></td>
-                                        <td align="center"><?=$montz['monetizeAmount']?></td>
-                                        <td style="text-align: center;">
-                                            <button class="btn btn-sm blue" data-toggle="modal" id="btn-monetize-rollback" data-id="<?=$montz['mon_id']?>">
-                                                <i class="fa fa-refresh"></i> &nbsp;Rollback</button>
-                                        </td>
+                                        <th style="text-align: center;">LB Period</th>
+                                        <th style="text-align: center;">Process Period</th>
+                                        <th style="text-align: center;">VL</th>
+                                        <th style="text-align: center;">SL</th>
+                                        <th style="text-align: center;">Monetized Amount</th>
+                                        <th style="text-align: center;">Actions</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </thead>
-                        </table>
+                                    <?php foreach($arrMonetize as $montz): ?>
+                                        <tr>
+                                            <td><?=date('F', mktime(0, 0, 0, $montz['monetizeMonth'], 10))?> <?=$montz['monetizeYear']?></td>
+                                            <td align="center"><?=date('F', mktime(0, 0, 0, $montz['processMonth'], 10))?> <?=$montz['processYear']?></td>
+                                            <td align="center"><?=$montz['vlMonetize']?></td>
+                                            <td align="center"><?=$montz['slMonetize']?></td>
+                                            <td align="center"><?=$montz['monetizeAmount']?></td>
+                                            <td style="text-align: center;">
+                                                <button class="btn btn-sm blue" data-toggle="modal" id="btn-monetize-rollback" data-id="<?=$montz['mon_id']?>">
+                                                    <i class="fa fa-refresh"></i> &nbsp;Rollback</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </thead>
+                            </table>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
