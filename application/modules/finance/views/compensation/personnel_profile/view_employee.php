@@ -1,7 +1,10 @@
 <?php
-$modulename = array('','HR','Financial','Officer','Executive','Employee');
-load_plugin('css',array('select'));
-$this_page = $this->uri->segment(4);?>
+    $modulename = array('','HR','Financial','Officer','Executive','Employee');
+    load_plugin('css',array('select'));
+    $this_page = $this->uri->segment(4);
+    $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+    $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -77,7 +80,48 @@ $this_page = $this->uri->segment(4);?>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
+
                                 <div class="tab-content">
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' ? '' : 'hidden'?>>
+                                        <center>
+                                            <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                                                <div class="form-group" style="display: inline-flex;">
+                                                    <label style="padding: 6px;">Month</label>
+                                                    <select class="bs-select form-control" name="month">
+                                                        <?php foreach (range(1, 12) as $m): ?>
+                                                            <option value="<?=sprintf('%02d', $m)?>"
+                                                                <?php 
+                                                                    if(isset($_GET['month'])):
+                                                                        echo $_GET['month'] == $m ? 'selected' : '';
+                                                                    else:
+                                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                                    endif;
+                                                                 ?> >
+                                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" style="display: inline-flex;margin-left: 10px;">
+                                                    <label style="padding: 6px;">Year</label>
+                                                    <select class="bs-select form-control" name="yr">
+                                                        <?php foreach (getYear() as $yr): ?>
+                                                            <option value="<?=$yr?>"
+                                                                <?php 
+                                                                    if(isset($_GET['yr'])):
+                                                                        echo $_GET['yr'] == $yr ? 'selected' : '';
+                                                                    else:
+                                                                        echo $yr == date('Y') ? 'selected' : '';
+                                                                    endif;
+                                                                 ?> >  
+                                                            <?=$yr?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
+                                            <?=form_close()?>
+                                        </center>
+                                    </div>
+
                                     <div class="tab-pane fade active in" id="tab-profile">
                                         <?php
                                             if($this_page == 'employee'): include('_personnelProfile.php'); endif;

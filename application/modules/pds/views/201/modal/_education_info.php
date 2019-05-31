@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('select','select2'))?>
+<?=load_plugin('css', array('select','select2','datepicker'))?>
 <!-- begin modal update/add child info -->
 <div class="modal fade in" id="add_education" aria-hidden="true">
     <div class="modal-dialog" style="width: 50%;">
@@ -63,17 +63,17 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Year Graduated</label>
                     <div class="col-md-8">
-                        <input type="text" maxlength="4" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
+                        <input type="type" maxlength="4" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Period of Attendance</label>
                     <div class="col-md-9">
-                        <div class="input-group input-large input-daterange" style="width: 88% !important;">
-                            <input type="text" maxlength="4" class="form-control" name="txtperiodatt_from" id="txtperiodatt_from" placeholder="YYYY">
+                        <div class="input-group input-large input-daterange" id="attperiod" style="width: 88% !important;">
+                            <input type="type" maxlength="4" class="form-control" name="txtperiodatt_from" id="txtperiodatt_from" placeholder="YYYY">
                             <span class="input-group-addon"> to </span>
-                            <input type="text" maxlength="4" class="form-control" name="txtperiodatt_to" id="txtperiodatt_to" placeholder="YYYY">
+                            <input type="type" maxlength="4" class="form-control" name="txtperiodatt_to" id="txtperiodatt_to" placeholder="YYYY">
                         </div>
                         <span class="help-block"></span>
                     </div>
@@ -128,8 +128,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete</h4>
             </div>
-            <?=form_open('pds/delete_child/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmchild','class' => 'form-horizontal'))?>
-                <input type="hidden" name="txtdelcode" id="txtdelcode">
+            <?=form_open('pds/delete_educ/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmchild','class' => 'form-horizontal'))?>
+                <input type="hidden" name="txtdeleduc" id="txtdeleduc">
                 <div class="modal-body"> Are you sure you want to delete this data? </div>
                 <div class="modal-footer">
                     <button type="submit" id="btndelete" class="btn btn-sm green">
@@ -142,7 +142,7 @@
     </div>
 </div>
 <!-- end delete child -->
-<?=load_plugin('js',array('select','select2'));?>
+<?=load_plugin('js',array('select','select2','datepicker'));?>
 
 <script>
     $('select.select2').select2({
@@ -150,5 +150,16 @@
         placeholder: function(){
             $(this).data('placeholder');
         }
+    });
+    $(document).ready(function() {
+        $('#attperiod,#txtyrgraduate').datepicker( {
+            format: ' yyyy',
+            viewMode: 'years',
+            minViewMode: 'years'
+        });
+        $('#txtperiodatt_from,#txtperiodatt_to,#txtyrgraduate').on('changeDate', function(){
+            $(this).datepicker('hide');
+        });
+
     });
 </script>

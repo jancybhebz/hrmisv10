@@ -70,7 +70,7 @@ $activetab = strtolower($activetab);
                 <li class="nav-item <?=$active=='pds' || ($active=='hr' && $activesub=='add_employee') || ($active=='hr' && $activesub=='profile') ? 'active' : ''?>">
                     <a href="<?=base_url('pds')?>" class="nav-link nav-toggle">
                         <i class="icon-user"></i>
-                        <span class="title">201</span>
+                        <span class="title">201 File</span>
                     </a>
                 </li>
                 <li class="nav-item <?=$activesub=='attendance' || $activesub=='attendance_summary'?'active open':''?>">
@@ -291,7 +291,7 @@ $activetab = strtolower($activetab);
                 <li class="nav-item <?=$active=='hr' && $activesub =='profile' ? 'active': ''?>">
                     <a href="<?=base_url('hr/profile/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">
                         <i class="icon-user"></i>
-                        <span class="title">201</span>
+                        <span class="title">201 File</span>
                     </a>
                 </li>
                 <li class="nav-item <?=$activesub=='attendance' || $activesub=='attendance_summary'?'active open':''?>">
@@ -414,7 +414,7 @@ $activetab = strtolower($activetab);
                 <li class="nav-item  <?=$active =='hr' && $activesub =='profile' ? 'active': ''?>">
                     <a href="<?=base_url('hr/profile/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">
                         <i class="icon-user"></i>
-                        <span class="title">201</span>
+                        <span class="title">201 File</span>
                     </a>
                 </li>
                 <li class="nav-item <?=($active=='hr' && $activesub=='attendance_summary') || ($active=='employee' && $activesub=='leave_balance')?'active open':''?>">

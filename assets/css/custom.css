@@ -1,9 +1,13 @@
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .alert-danger {
     background-color: #ffb3b9;
     border-color: #ffb3b9;
     color: #e73d4a;
 }
-
 
 tr.danger > td.sorting_1 {
     background-color: #ffb3b9 !important;
@@ -18,10 +22,18 @@ div.info {
     padding: 5px 0;
     line-height: 1.7;
 }
+
 b.red {
     color: red;
     margin-left: 5px;
 }
+
+b.blue {
+    color: blue;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
 .loading-fade {
     z-index: 2;
     position: fixed;

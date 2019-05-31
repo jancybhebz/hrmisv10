@@ -47,7 +47,7 @@
                 <h4 class="modal-title">Delete</h4>
             </div>
             <?=form_open('pds/delete_child/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmchild','class' => 'form-horizontal'))?>
-                <input type="hidden" name="txtdelcode" id="txtdelcode">
+                <input type="hidden" name="txtdelchild" id="txtdelchild">
                 <div class="modal-body"> Are you sure you want to delete this data? </div>
                 <div class="modal-footer">
                     <button type="submit" id="btndelete" class="btn btn-sm green">

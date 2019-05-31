@@ -146,6 +146,7 @@ class Attendance extends MY_Controller {
 			$key = array_search($eleave, array_column($leaves, 'leaveCode'));
 			$arr_oth_daysleave[$eleave] = $leaves[$key]['numOfDays'];
 		endforeach;
+		
 		# date always starts in january 1 of the year and end in the last day of the process month
 		$process_date = array(
 							array('state' => 'previous', 'from' => $yr.'-01-01', 'to' => join('-',array($yr,$arrLatestBalance[0]['periodMonth'],cal_days_in_month(CAL_GREGORIAN,$arrLatestBalance[0]['periodMonth'], $yr)))),

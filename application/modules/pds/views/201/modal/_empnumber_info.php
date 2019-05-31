@@ -26,7 +26,7 @@
         
         $('a#btnsave_empno').click(function() {
             if($.inArray($('#txtnew_empnumber').val(),empnumbers) !== -1){
-                $('#txtnew_empnumber').next('.help-block').html('Dumplicate data. Empnumber is already taken.');
+                $('#txtnew_empnumber').next('.help-block').html('Duplicate data. Employee number is already taken.');
                 $('#txtnew_empnumber').closest('div.form-group').addClass('has-error');
             }else{
                 $('#txtnew_empnumber').next('.help-block').html('');

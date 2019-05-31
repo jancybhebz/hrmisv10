@@ -56,6 +56,7 @@
                     <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Holiday</small> &nbsp;&nbsp;</div>
             </div>
             <br><br>
+            <style type="text/css">th.no-sort { padding: 15px !important; }</style>
             <table class="table table-striped table-bordered order-column" id="tbldtr">
                 <thead>
                     <tr>
@@ -185,13 +186,15 @@
 <script>
     $(document).ready(function() {
         $('td.hide').hide();
-        $('#tbldtr').dataTable({
+        // $('#tbldtr').dataTable({
+            // "bPaginate" : false,
+            // pageLength: 50
             // "scrollY": "350px",
             // "scrollCollapse": true,
             // "paging": false,
             // "bInfo": false,
             // "bSort": false
-        });
+        // });
         // setTimeout(function () { $($.fn.dataTable.tables( true ) ).DataTable().columns.adjust().draw();},200);
     });
 </script>

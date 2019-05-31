@@ -18,7 +18,7 @@
                         <th rowspan="2">No.</th>
                         <th colspan="2">Inclusive Dates</th>
                         <th rowspan="2">Position Title</th>
-                        <th rowspan="2">Department / Agency /<br> Office Company</th>
+                        <th rowspan="2">Department / Agency /<br> Office / Company</th>
                         <th rowspan="2">Monthly</th>
                         <th rowspan="2">Salary / <br>Job Pay Grade</th>
                         <th rowspan="2">Status of<br> Appointment</th>

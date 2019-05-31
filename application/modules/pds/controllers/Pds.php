@@ -276,6 +276,21 @@ class Pds extends MY_Controller
     		redirect('hr/profile/'.$empid);
     	endif;
 	}
+
+	public function delete_educ()
+    {
+
+    	$arrPost = $this->input->post();
+    	$empid = $this->uri->segment(3);
+
+		if(!empty($arrPost))
+		{
+			$this->pds_model->delete_educ($arrPost['txtdeleduc']);
+
+			$this->session->set_flashdata('strSuccessMsg','Education information deleted successfully.');
+			redirect('hr/profile/'.$empid);
+		}
+	}
 	# END EDUCATION
 
 	# BEGIN EXAMINATION
@@ -575,7 +590,10 @@ class Pds extends MY_Controller
 							'immigrant'		 => $arrPost['optimmigrant'],
 							'indigenous'	 => $arrPost['optindigenous'],
 							'disabled'		 => $arrPost['optdisabled'],
-							'soloParent'	 => $arrPost['optsolo_parent']);
+							'soloParent'	 => $arrPost['optsolo_parent'],
+							'indigenousParticulars'	 => $arrPost['optindigenous'] == 'Y' ? $arrPost['txtindigenous'] : '',
+							'disabledParticulars'	 => $arrPost['optdisabled'] == 'Y' ? $arrPost['txtdisabled'] : '',
+							'soloParentParticulars'	 => $arrPost['optsolo_parent'] == 'Y' ? $arrPost['txtsoloparent'] : '');
 
 			$this->pds_model->save_skill($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Legal information updated successfully.');

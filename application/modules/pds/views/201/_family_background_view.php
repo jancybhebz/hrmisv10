@@ -82,7 +82,7 @@
                         <center>
                             <a class="btn green btn-xs btnedit_child" data-chilid="<?=$row['childCode']?>">
                                 <i class="fa fa-pencil"></i> Edit </a>
-                            <a class="btn red btn-xs btndelete_child" data-toggle="modal" href="#delete_child" data-chilid="<?=$row['childCode']?>">
+                            <a class="btn red btn-xs btndelete_child" data-chilid="<?=$row['childCode']?>">
                                 <i class="fa fa-trash"></i> Delete </a>
                         </center>
                     </td>
@@ -119,7 +119,8 @@
         });
 
         $('a.btndelete_child').click(function() {
-            $('#txtdelcode').val($(this).data('chilid'));
+            $('#txtdelchild').val($(this).data('chilid'));
+            $('#delete_child').modal('show');
         });
 
 

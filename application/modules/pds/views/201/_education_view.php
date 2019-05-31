@@ -18,7 +18,7 @@
                         <th>No.</th>
                         <th>Level Code</th>
                         <th>Name of School</th>
-                        <th>Basic Education /<br> Degree Course</th>
+                        <th>Basic Education /<br> Degree / Course</th>
                         <th>Period of Attendance<br> [From / To]</th>
                         <th>Highest Level /<br> Units Earned</th>
                         <th>Year <br> Graduated</th>
@@ -36,7 +36,7 @@
                         $schlrship = $educ['description'];
                         $honor = $educ['honors'];
                         $schdatefrom = $educ['schoolFromDate']!='' ? 'From '.$educ['schoolFromDate'] : '';
-                        $schdateto = $educ['schoolToDate']!='' ? 'To'.$educ['schoolToDate'] : '';
+                        $schdateto = $educ['schoolToDate']!='' ? 'to '.$educ['schoolToDate'] : '';
                         $schl_honor = $schlrship!='' && $honor!='' ? $schlrship.' / '.$honor:'';
                         $schl_dates = $schdatefrom!='' && $schdateto!='' ? $schdatefrom.' '.$schdateto:''; ?>
                         <tr>
@@ -55,7 +55,7 @@
                                     <center>
                                         <a class="btn green btn-xs btnedit_educ" data-json='<?=json_encode($educ)?>'>
                                             <i class="fa fa-pencil"></i> Edit </a>
-                                        <a class="btn red btn-xs btndelete_child" data-toggle="modal" href="#delete_child" data-educid="<?=$educ['SchoolIndex']?>">
+                                        <a class="btn red btn-xs btndelete_educ" data-educid="<?=$educ['SchoolIndex']?>">
                                             <i class="fa fa-trash"></i> Delete </a>
                                     </center>
                                 </td>
@@ -127,8 +127,9 @@
             $('#txteducid').val(jsondata.SchoolIndex);
         });
 
-        $('a.btndelete_child').click(function() {
-            $('#txtdelcode').val($(this).data('educid'));
+        $('#tbleduc').on('click','a.btndelete_educ',function() {
+            $('#txtdeleduc').val($(this).data('educid'));
+            $('#delete_education').modal('show');
         });
     });
 </script>

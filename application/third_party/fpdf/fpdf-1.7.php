@@ -2003,7 +2003,7 @@ function CheckPageBreak($h)
 	            $nb = $_maxline;
 	        }
 	    }
-	    $h = 5*$nb;
+	    $h = 7*$nb;
 	    //Issue a page break first if needed
 	    $this->CheckPageBreak($h);
 	    //Draw the cells of the row
@@ -2038,7 +2038,7 @@ function CheckPageBreak($h)
 	        if (isset($style[$i])) {
 	            $this->SetFont('', $style[$i]);
 	        }
-	        $this->MultiCell($w, 5, $data[$i], 0, $a, 0, $m);
+	        $this->MultiCell($w, 7, $data[$i], 0, $a, 0, $m);
 	        //Put the position to the right of the cell
 	        $this->SetXY($x+$w, $y);
 	    }
