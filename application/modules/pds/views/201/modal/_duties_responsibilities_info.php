@@ -12,7 +12,7 @@
             <input type="hidden" value="<?=$arrPosition[0]['itemNumber']?>" name="txtdr_itemno">
             <div class="modal-body">
                 <div class="form-group duty_number" style="display: none;">
-                    <label>dutyNumber</label>
+                    <label>Duty Number</label>
                     <input type="text" class="form-control" id="txtno_duty" name="txtno_duty">
                     <span class="help-block"></span>
                 </div>

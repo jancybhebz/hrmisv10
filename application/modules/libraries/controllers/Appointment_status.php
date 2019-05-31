@@ -115,28 +115,25 @@ class Appointment_status extends MY_Controller {
 
 	public function delete()
 	{
-		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
 		$intAppointmentId = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->appointment_status_model->getData($intAppointmentId);
+			$this->arrData['arrAppointStatuses']=$this->appointment_status_model->getData($intAppointmentId);
 			$this->template->load('template/template_view','libraries/appointment_status/delete_view',$this->arrData);
 		}
 		else
 		{
 			$intAppointmentId = $arrPost['intAppointmentId'];
-			//add condition for checking dependencies from other tables
 			if(!empty($intAppointmentId))
 			{
 				$arrAppointStatuses = $this->appointment_status_model->getData($intAppointmentId);
-				$strAppointmentDesc = $arrAppointStatuses[0]['appointmentDesc'];	
+				$strAppointmentCode = $arrAppointStatuses[0]['appointmentCode'];	
 				$blnReturn = $this->appointment_status_model->delete($intAppointmentId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Deleted '.$strAppointmentDesc.' Appointment Status',implode(';',$arrAppointStatuses[0]),'');
-	
-					$this->session->set_flashdata('strMsg','Appointment Status deleted successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Deleted '.$strAppointmentCode.' Appointment status',implode(';',$arrAppointStatuses[0]),'');
+					$this->session->set_flashdata('strMsg','Appointment status deleted successfully.');
 				}
 				redirect('libraries/appointment_status');
 			}

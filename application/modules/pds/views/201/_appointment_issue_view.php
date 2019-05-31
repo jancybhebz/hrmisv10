@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <td>
-                <table class="table table-striped table-bordered table-hover" id="tblappointment" style="width: 100% !important;">
+                <table class="table table-striped table-bordered table-hover" id="tblAppointment" style="width: 100% !important;">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -59,7 +59,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#tblappointment').dataTable( {pageLength: 5} );
+        $('#tblAppointment').dataTable( {pageLength: 5} );
 
         $('#btnview-legal-info').click(function() {
             $('div.radio-list, .btnlegal_info-save').hide();
@@ -83,7 +83,7 @@
             $('#txtappt_id').val('');
         });
 
-        $('#tblappointment').on('click','a.btnedit_emp_appt',function() {
+        $('#tblAppointment').on('click','a.btnedit_emp_appt',function() {
             var jsondata = $(this).data('json');
             $('#frmappointment_issued').attr("action","<?=base_url('pds/edit_appointment_issue/').$this->uri->segment(3)?>");
             $('span.action').html('Edit ');
@@ -99,7 +99,7 @@
             $('#txtappt_id').val(jsondata.appointmentissuedcode);
         });
 
-        $('#tblappointment').on('click','a.btndelete_emp_appt',function() {
+        $('#tblAppointment').on('click','a.btndelete_emp_appt',function() {
             $('#txtdel_appt').val($(this).data('apptid'));
         });
 

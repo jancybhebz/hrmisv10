@@ -51,7 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Appointment Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAppointmentCode" value="<?=isset($arrAppointStatuses[0]['appointmentCode'])?$arrAppointStatuses[0]['appointmentCode']:''?>">
+                                    <input type="text" class="form-control" name="strAppointmentCode" autocomplete="off" value="<?=isset($arrAppointStatuses[0]['appointmentCode'])?$arrAppointStatuses[0]['appointmentCode']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Appointment Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAppointmentDesc" value="<?=!empty($arrAppointStatuses[0]['appointmentDesc'])?$arrAppointStatuses[0]['appointmentDesc']:''?>">
+                                    <input type="text" class="form-control" name="strAppointmentDesc" autocomplete="off" value="<?=!empty($arrAppointStatuses[0]['appointmentDesc'])?$arrAppointStatuses[0]['appointmentDesc']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Entitled? <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strLeaveEntitled" value="<?=!empty($arrAppointStatuses[0]['leaveEntitled'])?$arrAppointStatuses[0]['leaveEntitled']:''?>">
+                                    <select type="text" class="form-control" name="strLeaveEntitled" autocomplete="off" value="<?=!empty($arrAppointStatuses[0]['leaveEntitled'])?$arrAppointStatuses[0]['leaveEntitled']:''?>">
+                                        <option value="">Select</option>
+                                        <option <?php if ($arrAppointStatuses[0]['leaveEntitled'] == 'Y' ) echo 'selected' ; ?> value="Y">Y</option>
+                                        <option <?php if ($arrAppointStatuses[0]['leaveEntitled'] != 'Y' ) echo 'selected' ; ?> value="N">N</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +88,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Included in Plantilla? <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intIncludedPlantilla" value="<?=!empty($arrAppointStatuses[0]['incPlantilla'])?$arrAppointStatuses[0]['incPlantilla']:''?>">
+                                    <select type="text" class="form-control" name="intIncludedPlantilla" autocomplete="off" value="<?=!empty($arrAppointStatuses[0]['incPlantilla'])?$arrAppointStatuses[0]['incPlantilla']:''?>">
+                                        <option value="">Select</option>
+                                        <option <?php if ($arrAppointStatuses[0]['incPlantilla'] == 1 ) echo 'selected' ; ?> value="1">Y</option>
+                                        <option <?php if ($arrAppointStatuses[0]['incPlantilla'] != 1 ) echo 'selected' ; ?> value="0">N</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +100,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intAppointmentId" value="<?=isset($arrAppointStatuses[0]['appointmentId'])?$arrAppointStatuses[0]['appointmentId']:''?>">
+                                <input type="hidden" name="intAppointmentId" id="intAppointmentId" value="<?=isset($arrAppointStatuses[0]['appointmentId'])?$arrAppointStatuses[0]['appointmentId']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/appointment_status')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -126,11 +134,19 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strCountryName: {
+                    strAppointmentCode: {
                         minLength: 1,
                         required: true
                     },
-                    strCountryCode: {
+                    strAppointmentDesc: {
+                        minLength: 1,
+                        required: true,
+                    },
+                    strLeaveEntitled: {
+                        minLength: 1,
+                        required: true,
+                    },
+                    intIncludedPlantilla: {
                         minLength: 1,
                         required: true,
                     }
@@ -186,5 +202,18 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
     FormValidation.init();
+
+
+<?php
+  if(!empty($arrAppointStatuses[0]['leaveEntitled']))
+    { ?>
+        //alert(jQuery('#strLeaveEntitled').val());
+
+        jQuery('#strLeaveEntitled').val('<?= $arrAppointStatuses[0]['leaveEntitled'] ?>').trigger('change');
+        
+        jQuery('#intAppointmentId').val('<?= $this->uri->segment(4) ?>').trigger('change');
+
+    <?php } ?>
+
 });
 </script>

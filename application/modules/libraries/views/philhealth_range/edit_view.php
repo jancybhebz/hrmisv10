@@ -1,7 +1,8 @@
 <?php 
 /** 
-Purpose of file:    Edit page for User Account Library
-Author:             Rose Anne L. Grefaldeo
+Purpose of file:    Edit page for PhilHealth Range Library
+ Library
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -18,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit User Account</span>
+            <span>Edit Philhealth Range</span>
         </li>
     </ul>
 </div>
@@ -36,55 +37,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit User Account</span>
+                    <span class="caption-subject bold uppercase"> Edit Philhealth Range</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-               
-            <?=form_open(base_url('libraries/user_account/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmUserAccount'))?>
+            <?=form_open(base_url('libraries/philhealth_range/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmPH'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Access Level <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=!empty($this->session->userdata('userLevel'))?$this->session->userdata('userLevel'):''?>" required>
-                                    <option value="">Select Access Level</option>
-                                    <?php foreach(userlevel() as $level):
-                                            echo '<option value="'.$level['id'].'" '.($userlevel[0]['id']==$level['id']?'selected':'').'>'.(strtoupper($level['desc'])). ' Officer</option>';
-                                          endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Employee Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                     <select type="text" class="form-control" name="strEmpName">
-                                     <option value="">Select</option>
-
-                                     <?php foreach($arrEmployees as $i=>$data)
-                                        {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrUser[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
-                                        }?>
-                                    </select>
-        
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Username <span class="required"> * </span></label>
+                                <label class="control-label">Range From <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strUsername" value="<?=!empty($arrUser[0]['userName'])?$arrUser[0]['userName']:''?>">
+                                    <input type="number" class="form-control" name="strRangeFrom" id="strRangeFrom" value="<?=isset($arrPhilHealth[0]['philhealthFrom'])?$arrPhilHealth[0]['philhealthFrom']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -92,14 +59,47 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intEmpNumber" value="<?=isset($arrUser[0]['empNumber'])?$arrUser[0]['empNumber']:''?>">
+                                <label class="control-label">Range To <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strRangeTo" id="strRangeTo" value="<?=!empty($arrPhilHealth[0]['philhealthTo'])?$arrPhilHealth[0]['philhealthTo']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Salary Base <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strSalBase" id="strSalBase"  value="<?=!empty($arrPhilHealth[0]['philSalaryBase'])?$arrPhilHealth[0]['philSalaryBase']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Total Monthly Contribution <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="intTotalContri" id="intTotalContri"  value="<?=!empty($arrPhilHealth[0]['philMonthlyContri'])?$arrPhilHealth[0]['philMonthlyContri']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="hidden" name="intPhId" value="<?=isset($arrPhilHealth[0]['philhealthId'])?$arrPhilHealth[0]['philhealthId']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/user_account')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/philhealth_range')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                 <?=form_close()?>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmUserAccount');
+            var form2 = $('#frmPH');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -126,19 +126,21 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strAccessLevel: {
+                    strRangeFrom: {
                         minlength: 1,
+                        maxlength: 10,
                         required: true
                     },
-                    strEmpName: {
+                    strRangeTo: {
+                        minlength: 1,
+                        maxlength: 10,
+                        required: true,
+                    },
+                    strSalBase  : {
                         minlength: 1,
                         required: true,
                     },
-                    strUsername: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strPassword: {
+                    intTotalContri  : {
                         minlength: 1,
                         required: true,
                     }

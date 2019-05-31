@@ -24,6 +24,7 @@
                         <th rowspan="2">Training Venue</th>
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                             <th rowspan="2"></th>
+                            <th rowspan="2">Attachment/s</th>
                         <?php endif; ?>
                     </tr>
                     <tr>
@@ -49,6 +50,12 @@
                                             <i class="fa fa-pencil"></i> Edit </a>
                                         <a class="btn red btn-xs btndelete_tra" data-toggle="modal" href="#delete_training" data-traid="<?=$tra['TrainingIndex']?>">
                                             <i class="fa fa-trash"></i> Delete </a>
+                                    </center>
+                                </td>
+                                <td>
+                                     <center>
+                                        <a class="btn green btn-xs btnedit_srvc" <a href="<?=base_url('training/uploadTraining/'.$tra['TrainingIndex'])?>"> 
+                                            <i class="fa fa-pencil"></i> Upload </a>
                                     </center>
                                 </td>
                             <?php endif; ?>

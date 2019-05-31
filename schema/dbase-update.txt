@@ -1,3 +1,5 @@
+ALTER TABLE  `tblEmpAccount` CHANGE  `userPassword`  `userPassword` VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT  '';
+
 ALTER TABLE `tblPosition` ADD `positionId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `positionId` (`positionId`);
 
 ALTER TABLE `tblEducationalLevel` ADD `levelId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `levelId` (`levelId`);
@@ -5,6 +7,8 @@ ALTER TABLE `tblEducationalLevel` ADD `levelId` INT NOT NULL AUTO_INCREMENT FIRS
 ALTER TABLE `tblExamType` ADD `examId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `ExamId` (`examId`);
 
 ALTER TABLE `tblPayrollGroup` ADD `payrollGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `payrollGroupId` (`payrollGroupId`);
+
+ALTER TABLE `tblPhilhealthrange` ADD `philHealthId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `payrollGroupId` (`philHealthId`);
 
 ALTER TABLE `tblPlantillaGroup` ADD `plantillaGroupId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `plantillaGroupId` (`plantillaGroupId`);
 

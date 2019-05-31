@@ -56,6 +56,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td>
                                 <a href="<?=base_url('libraries/user_account/edit/'.$row['empNumber'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/user_account/delete/'.$row['empNumber'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/user_account/reset/'.$row['empNumber'])?>"><button class="btn btn-sm btn-blue"><span class="fa fa-refresh" title="Reset"></span> Reset Password</button></a>
                                
                             </td>
                         </tr>

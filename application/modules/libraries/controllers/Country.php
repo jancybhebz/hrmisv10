@@ -1,7 +1,7 @@
 <?php 
 /** 
 Purpose of file:    Controller for Country Library
-Author:             Edgardo P. Catorce Jr.
+Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/

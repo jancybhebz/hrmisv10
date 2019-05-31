@@ -72,7 +72,9 @@ class User_account_model extends CI_Model {
 	{
 		$this->db->where($this->tableid, $intEmpNumber);
 		$this->db->update($this->table, $arrData);
-		//echo $this->db->affected_rows();
+		// echo $this->db->last_query();
+		// exit(1);
+		// echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
