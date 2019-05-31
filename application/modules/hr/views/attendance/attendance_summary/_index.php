@@ -74,11 +74,11 @@
                                 </tr>
                                 <tr>
                                     <td><b>Total Undertime</b></td>
-                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_late']))?></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_undertime']))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Late</b></td>
-                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_undertime']))?></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_late']))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Overtime Weekdays</b></td>

@@ -77,7 +77,7 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=($this_page == 'dtr' && !(preg_match('#[0-9]#',$tab))) || $this_page == 'qr_code' ? 'hidden' : ''?>>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=($this_page == 'dtr' && !(preg_match('#[0-9]#',$tab))) || in_array($this_page,array('qr_code','index','leave_monetization')) ? 'hidden' : ''?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <div class="form-group" style="display: inline-flex;">

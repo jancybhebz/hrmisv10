@@ -356,7 +356,7 @@ $activetab = strtolower($activetab);
                             </a>
                         </li>
                         <li class="nav-item <?=$active=='employee' && $activesub=='reports' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/reports')?>">
+                            <a href="<?=base_url('employee/reposdfrts')?>">
                                 <span class="title">Reports</span>
                             </a>
                         </li>
