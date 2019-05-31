@@ -146,7 +146,7 @@
                                             <input type="radio" name="optindigenous" value="N" <?=$arrData[0]['indigenous']=='N'?'checked':''?>> No </label>
                                     </div>
                                 </li>
-                                <li>Are you differently disabled? <i>If you answer is "YES", please specify</i>
+                                <li>Are you differently abled? <i>If you answer is "YES", please specify</i>
                                     <b class="red"><?=$arrData[0]['disabled']?></b>
                                     <div class="radio-list">
                                         <label class="radio-inline">
