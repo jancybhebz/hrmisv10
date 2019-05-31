@@ -101,9 +101,41 @@ class Attendance extends MY_Controller {
 	public function leave_balance_update()
 	{
 		$empid = $this->uri->segment(4);
-		$res = $this->Hr_model->getData($empid,'','all');
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			echo '<pre>';
+			$leave_data = json_decode($arrPost['txtleave_data'],true);
+			$leave_earned = $this->Leave_model->leave_earned($leave_data['dtr_summary']['date_absents']);
+			$vlfiled = $this->Leave_model->filed_vl($empid,$month,$yr);
+			$slfiled = $this->Leave_model->filed_sl($empid,$month,$yr);
+			$ut_late = $this->Leave_model->ltut_table_equiv($leave_data['dtr_summary']['mins_ut_late']);
+			$curr_sl = $leave_data['latest_leave']['slBalance'] + $leave_earned;
+			$period_month = $leave_data['latest_leave']['periodMonth'] == 12 ? 1 : $leave_data['latest_leave']['periodMonth'] + 1;
+			$period_yr = $leave_data['latest_leave']['periodMonth'] == 12 ? $leave_data['latest_leave']['periodYear'] + 1 : $leave_data['latest_leave']['periodYear'];
+			$arrData = array('empNumber'	=> $empid,
+							 'periodMonth'	=> $period_month,
+							 'periodYear'	=> $period_yr,
+							 'vlEarned'		=> $leave_earned,
+							 'vlBalance'	=> ($leave_data['latest_leave']['vlBalance'] + $leave_earned) - ($ut_late) - $vlfiled, # (vlbalance + leave_earned) - (late + undertime) - vlfiled
+							 'vlPreBalance'	=> $leave_data['latest_leave']['vlBalance'],
+							 'vlAbsUndWPay'	=> ($slfiled > $curr_sl) ? ($slfiled + $curr_sl) : $vlfiled + $ut_late,
+							 'vlAbsUndWoPay'=> $leave_data['dtr_summary']['date_absents'],
+							 'slEarned'		=> $leave_earned,
+							 'slBalance'	=> ($slfiled > $curr_sl) ? 0 : ($curr_sl - $slfiled),
+							 'slPreBalance'	=> $leave_data['latest_leave']['slBalance'],
+							 'slAbsUndWPay'	=> ($slfiled > $curr_sl) ? 0 : $slfiled,
+							 'slAbsUndWoPay'=> 0);
+
+			$this->Leave_model->addLeaveBalance($arrData);
+			
+			$this->session->set_flashdata('strSuccessMsg','Leave balance updated successfully.');
+			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month=all&yr='.$yr);
+		endif;
+
+		$res = $this->Hr_model->getData($empid,'','all');
+		
 
 		$this->arrData['arrData'] = $res[0];
 		$this->arrData['arrLeaveBalance'] = $this->Leave_model->getleave($empid, $month, $yr);
@@ -111,6 +143,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrLatestBalance'] = $arrLatestBalance[0];
 
 		# Leave Balance details in modal
+		$month = isset($_GET['month']) ? $_GET['month'] == 'all' ? date('m') : $_GET['month'] : date('m');
 		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
 		# vl + (late + undertime + absent w/o leave) + fl
@@ -223,6 +256,17 @@ class Attendance extends MY_Controller {
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
+	}
+
+	public function leave_balance_rollback()
+	{
+		$empid = $this->uri->segment(4);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$this->Leave_model->deleteLeaveBalance($arrPost['txtlb_id']);
+			$this->session->set_flashdata('strSuccessMsg','Rollback Saved Successfully.');
+			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month=all&yr='.date('Y'));
+		endif;
 	}
 
 	public function leave_monetization()

@@ -289,7 +289,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
+                <?=form_open('hr/attendance/leave_balance_update/'.$this->uri->segment(4).'?month='.($_GET['month'] == 'all' ? date('m') : $_GET['month']).'&yr='.$_GET['yr'], array('id' => 'frmupdate_leavebalance'))?>
+                    <?php 
+                        $arrleave_data = array('dtr_summary' => $att_summary,
+                                               'latest_leave' => $arrLatestBalance);
+                     ?>
+                    <input type="hidden" name="txtleave_data" value='<?=json_encode($arrleave_data)?>'>
+                    <button type="submit" class="btn green"><i class="icon-check"> </i> Update</button>
+                    <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
+                <?=form_close()?>
             </div>
         </div>
     </div>
@@ -302,14 +310,15 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Rollback</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
+            <?=form_open('hr/attendance/leave_balance_rollback/'.$this->uri->segment(4), array('id' => 'frmrollback'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="txtdel_action" id="txtdel_action">
-                            <input type="hidden" name="txtdel_longevityid" id="txtdel_longevityid">
+                            <input type="hidden" name="txtlb_id" id="txtlb_id" value="<?=$arrLatestBalance['lb_id']?>">
                             <div class="form-group">
-                                <label>Are you sure you want to Rollback?</label>
+                                <label>
+                                    Are you sure you want to rollback leave balance <b><?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth'], 10)).' '.$arrLatestBalance['periodYear']?></b>?
+                                </label>
                             </div>
                         </div>
                     </div>

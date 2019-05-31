@@ -57,7 +57,7 @@
                                             <input type="radio" name="optrelated_third" value="N" <?=$arrData[0]['relatedThird']=='N'?'checked':''?>> No </label>
                                     </div>
                                 </li>
-                                <li>within the fourth degree(for Local Government Unit-Career Employees) ? 
+                                <li>within the fourth degree(for Local Government Unit-Career Employees)? 
                                     <b class="red"><?=$arrData[0]['relatedFourth']?></b>
                                     <div class="radio-list">
                                         <label class="radio-inline">
@@ -69,7 +69,7 @@
                             </ol>
                         </div>
                         <div class="col info">
-                            <span>Have you ever been found guilty of any administrative offense ? 
+                            <span>Have you ever been found guilty of any administrative offense? 
                                 <b class="red"><?=$arrData[0]['adminCase']?></b></span>
                                 <div class="radio-list">
                                     <label class="radio-inline">

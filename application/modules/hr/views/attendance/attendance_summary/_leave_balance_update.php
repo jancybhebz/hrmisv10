@@ -1,11 +1,11 @@
-<?php $month = isset($_GET['month']) ? $_GET['month'] : date('m'); $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y'); ?>
+<?php $month = isset($_GET['month']) ? $_GET['month'] == 'all' ? date('m') : $_GET['month'] : date('m'); $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y'); ?>
 <div class="tab-pane active" id="tab_1_3">
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of
-                        <?=date('F', mktime(0, 0, 0, $month, 10)).' '.$yr?></span>
+                    <span class="caption-subject bold uppercase"> Leave Balance
+                        <?=$_GET['month']=='all' ? 'from '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, end($arrLeaveBalance)['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' to '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLeaveBalance[0]['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' ':'for the Month of '.date('F', mktime(0, 0, 0, $month, 10))?> <?=$yr?></span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -14,6 +14,7 @@
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-vl" data-title="Vacation Leave">
                             <thead>
                                 <tr>
+                                    <th rowspan="2" style="text-align: center;vertical-align: middle;"<?=$_GET['month']=='all'?'':'hidden'?>>Month</th>
                                     <th rowspan="2" style="text-align: center;vertical-align: middle;">Earned</th>
                                     <th colspan="3" style="text-align: center;">Vacation Leave</th>
                                     <th colspan="3" style="text-align: center;">Sick Leave</th>
@@ -29,21 +30,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX">
-                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlEarned'] : ''?></td>
-                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlAbsUndWPay'] : ''?></td>
-                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlBalance'] : ''?></td>
-                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['vlAbsUndWoPay'] : ''?></td>
-                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['slAbsUndWPay'] : ''?></td>
-                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['slBalance'] : ''?></td>
-                                    <td align="center"><?=count($arrLeaveBalance) > 0 ? $arrLeaveBalance[0]['slAbsUndWoPay'] : ''?></td>
-                                    <td align="center" style="width: 16%;" nowrap>
-                                        <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal">
-                                            <i class="fa fa-eye"></i> View</button>
-                                        <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal-override">
-                                            <i class="fa fa-edit"></i> Override</button>
-                                    </td>
-                                </tr>
+                                <?php foreach($arrLeaveBalance as $leave_bal): ?>
+                                    <tr class="odd gradeX">
+                                        <td align="center" <?=$_GET['month']=='all'?'':'hidden'?>><?=date('M', mktime(0, 0, 0, $leave_bal['periodMonth'], 10)).' '.$yr?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlEarned'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlAbsUndWPay'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlBalance'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlAbsUndWoPay'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['slAbsUndWPay'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['slBalance'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['slAbsUndWoPay'] : ''?></td>
+                                        <td align="center" style="width: 16%;" nowrap>
+                                            <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal">
+                                                <i class="fa fa-eye"></i> View</button>
+                                            <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal-override">
+                                                <i class="fa fa-edit"></i> Override</button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

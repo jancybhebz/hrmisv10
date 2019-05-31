@@ -68,7 +68,7 @@
                                             Filed Request </a>
                                     </li>
                                     <li class="<?=($this_page == 'dtr') ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?month='.($month == 'all' ? date('m') : $month).'&yr='.$yr?>">
                                             Daily Time Record </a>
                                     </li>
                                     <li class="<?=$this_page == 'qr_code' ? 'active' : ''?>">
@@ -83,6 +83,7 @@
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Month</label>
                                                     <select class="bs-select form-control" name="month">
+                                                        <option value="all">All</option>
                                                         <?php foreach (range(1, 12) as $m): ?>
                                                             <option value="<?=sprintf('%02d', $m)?>"
                                                                 <?php 
