@@ -19,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>201</span>
+            <span>201 File</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
