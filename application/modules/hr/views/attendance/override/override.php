@@ -7,16 +7,15 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
+            <span>Attendance</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Compensation</span>
+            <span>Attendance Summary</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Personnel Profile</span>
-            <i class="fa fa-circle"></i>
+            <span>Override</span>
         </li>
     </ul>
 </div>
