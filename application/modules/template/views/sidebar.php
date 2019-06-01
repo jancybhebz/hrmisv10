@@ -332,7 +332,7 @@ $activetab = strtolower($activetab);
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
-                        <span class="arrow <?=$active=='employee'?'open':''?>"></span>
+                        <span class="arrow <?=$active=='employee' && $activesub !='notification'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item <?=$active=='employee' && $activesub=='official_business' ? 'active' : ''?>">
@@ -377,19 +377,11 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item ">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-bell"></i>
-                        <span class="title">Notification</span>
-                        <span class="arrow"></span>
+                <li class="nav-item <?=$active=='employee' && $activesub=='notification' ? 'active' : ''?>">
+                    <a href="<?=base_url('employee/notification')?>">
+                        <i class="icon-list"></i>
+                        <span class="title">Tasks</span>
                     </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item <?=$active=='employee' && $activesub=='notification' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/notification')?>">
-                                <span class="title">Tasks</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item <?=$activesub =='compensation' && $activetab =='personnel_profile' ? 'active': ''?>">
                     <a href="<?=base_url('finance/compensation/personnel_profile/employee/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">
