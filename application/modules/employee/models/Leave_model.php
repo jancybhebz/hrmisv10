@@ -182,7 +182,7 @@ class Leave_model extends CI_Model {
 	public function getspe_leave($empid, $yr=0)
 	{
 		$this->db->where("empNumber", $empid);
-		$this->db->like("dtrDate", $yr, "after");
+		$this->db->like("dtrDate", $yr, "after",false);
 		$this->db->where("(remarks='PL' OR remarks='SPL')");
 		$dtrpl_sl = $this->db->get('tblEmpDTR')->result_array();
 		$dtrpl_sl_used = count($dtrpl_sl) > 0 ? count($dtrpl_sl) : 0;
@@ -200,7 +200,7 @@ class Leave_model extends CI_Model {
 		$this->db->where("empNumber", $empid);
 		$this->db->where("remarks", "FL");
 		if($month == 0):
-			$this->db->like("dtrDate", $yr,'after');
+			$this->db->like("dtrDate", $yr,'after',false);
 		else:
 			$this->db->where("dtrDate >", $yr.'-01-01');
 			$this->db->where("dtrDate <", join('-',array($yr,sprintf('%02d', $month+1),'01')));
@@ -232,10 +232,11 @@ class Leave_model extends CI_Model {
 	public function filed_vl($empno,$mon,$yr)
 	{
 		$total_leave = 0;
+		$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
+		$this->db->where('empNumber', $empno);
+		$emp_leaves = $this->db->get('tblEmpDTR')->result_array();
 
-		$this->db->like('dtrdate',$yr.'-'.$mon,'after');
-		$emp_leaves = $this->db->get_where('tblEmpDTR', array('empNumber' => $empno))->result_array();
-
+		echo $this->db->last_query();
 		foreach($emp_leaves as $leave):
 			if(in_array($leave["remarks"],array('HVL','HFL','HPL'))):
 				$total_leave = $total_leave + 0.5;
@@ -252,7 +253,7 @@ class Leave_model extends CI_Model {
 	{
 		$total_leave = 0;
 
-		$this->db->like('dtrdate',$yr.'-'.$mon,'after');
+		$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
 		$emp_leaves = $this->db->get_where('tblEmpDTR', array('empNumber' => $empno))->result_array();
 
 		foreach($emp_leaves as $leave):
@@ -268,16 +269,16 @@ class Leave_model extends CI_Model {
 		return $total_leave;
 	}
 
-	public function approved_vl($empno,$yr)
+	public function approved_vl($empno,$yr,$mon)
 	{
-		$this->db->like('leaveFrom',$yr.'-','after');
+		$this->db->like('leaveFrom',$this->db->escape_like_str($yr.'-'.$mon),'after',false);
 		$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'VL', 'certifyHR' => 'Y'))->result_array();
 		return count($emp_leaves);
 	}
 	
-	public function approved_sl($empno,$yr)
+	public function approved_sl($empno,$yr,$mon)
 	{
-		$this->db->like('leaveFrom',$yr.'-','after');
+		$this->db->like('leaveFrom',$this->db->escape_like_str($yr.'-'.$mon),'after',false);
 		$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'SL', 'certifyHR' => 'Y'))->result_array();
 		return count($emp_leaves);	
 	}	
