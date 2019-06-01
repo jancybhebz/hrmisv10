@@ -43,7 +43,7 @@ $arrData = $arrData[0];?>
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-user font-dark"></i>
-                            <span class="caption-subject bold uppercase"> 201</span>
+                            <span class="caption-subject bold uppercase"> 201 File</span>
                         </div>
                     </div>
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
