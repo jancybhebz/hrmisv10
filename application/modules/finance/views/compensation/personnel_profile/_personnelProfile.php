@@ -103,7 +103,7 @@
                                     <?php endforeach; ?>
                                 </select>    
                             </div>
-                            <button type="submit" class="btn green not-required">Submit</button>
+                            <button type="submit" class="btn blue not-required">Search</button>
                         <?=form_close()?>
                         <br>
                         <div class="portlet-body">
