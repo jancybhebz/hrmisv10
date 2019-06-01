@@ -52,19 +52,19 @@
                             <ul class="list-unstyled" style="line-height: 15px;">
                                 <li>
                                     <span class="sale-info"> LOG IN </span>
-                                    <span class="sale-num"> 23 </span>
+                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inAM'])) : '00:00'?></span>
                                 </li>
                                 <li>
                                     <span class="sale-info"> BREAK OUT </span>
-                                    <span class="sale-num"> 87 </span>
+                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outAM'])) : '00:00'?></span>
                                 </li>
                                 <li>
                                     <span class="sale-info"> BREAK IN </span>
-                                    <span class="sale-num"> 2377 </span>
+                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inPM'])) : '00:00'?></span>
                                 </li>
                                 <li>
                                     <span class="sale-info"> LOG OUT </span>
-                                    <span class="sale-num"> 2377 </span>
+                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outPM'])) : '00:00'?></span>
                                 </li>
                             </ul>
                         </div>
