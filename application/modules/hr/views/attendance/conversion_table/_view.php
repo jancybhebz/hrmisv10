@@ -12,15 +12,11 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
+            <span>Attendance</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Libraries</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>List of Employees</span>
+            <span>Conversion Table</span>
         </li>
     </ul>
 </div>

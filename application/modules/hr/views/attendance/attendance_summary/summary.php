@@ -15,11 +15,11 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$_SESSION['sessUserLevel'] == 5 ? 'Employee' : 'HR'?> Module</span>
+            <span>Attendance</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Attendance</span>
+            <span>Attendance Summary</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
