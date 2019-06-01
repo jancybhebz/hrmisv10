@@ -135,8 +135,9 @@ if ( ! function_exists('check_module'))
     	$module = '';
     	switch ($useraccess):
     		case 1:
-    			$module = 'hr';
-    			break;
+    			$module = 'hr'; break;
+    		case 2:
+    			$module = 'finance'; break;
     	endswitch;
     	return $module;
 	}

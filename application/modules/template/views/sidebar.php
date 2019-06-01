@@ -150,7 +150,7 @@ $activetab = strtolower($activetab);
             <?php endif; ?>
             <!-- end hr module -->
 
-            <!-- begin hr module -->
+            <!-- begin finance module -->
             <?php if($this->session->userdata('sessUserLevel')==2):?>
                 <li class="heading">
                     <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>

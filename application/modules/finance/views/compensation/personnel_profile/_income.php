@@ -74,8 +74,10 @@
                 <div class="caption font-dark">
                     <span class="caption-subject bold uppercase"> Longevity Pay</span>
                 </div>
-                <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" href="#longevityModal" id="btn-add-longevity" data-title="Longevity Pay">
-                    <i class="fa fa-plus"></i> Add New</button>
+                <?php if(check_module() == 'finance'): ?>
+                    <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" href="#longevityModal" id="btn-add-longevity" data-title="Longevity Pay">
+                        <i class="fa fa-plus"></i> Add New</button>
+                <?php endif; ?>
             </div>
             <div class="portlet-body">
                 <div class="row">
