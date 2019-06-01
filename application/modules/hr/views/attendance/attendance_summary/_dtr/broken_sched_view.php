@@ -54,7 +54,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete Broken Schedule</h4>
             </div>
-            <?=form_open('hr/attendance/dtr_delete_broken_sched/'.$this->uri->segment(5), array('id' => 'frmrollback'))?>
+            <?=form_open('hr/attendance/dtr_delete_broken_sched/'.$this->uri->segment(5), array('id' => 'frmdelBrokenSched'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                    <button type="submit" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
@@ -75,7 +75,6 @@
 </div>
 
 <?php load_plugin('js',array('datatables'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
 
 <script>
     $(document).ready(function() {

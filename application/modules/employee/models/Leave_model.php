@@ -235,8 +235,7 @@ class Leave_model extends CI_Model {
 		$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
 		$this->db->where('empNumber', $empno);
 		$emp_leaves = $this->db->get('tblEmpDTR')->result_array();
-
-		echo $this->db->last_query();
+		
 		foreach($emp_leaves as $leave):
 			if(in_array($leave["remarks"],array('HVL','HFL','HPL'))):
 				$total_leave = $total_leave + 0.5;
