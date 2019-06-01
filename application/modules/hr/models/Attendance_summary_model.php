@@ -199,7 +199,7 @@ class Attendance_summary_model extends CI_Model {
 				$bsdate = date('Y-m-d', strtotime($bsdate . ' +1 day'));
 			}
 		endforeach;
-
+		
 		# Attendance Scheme
 		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
 		if(count($emp_scheme) > 0):

@@ -1,5 +1,7 @@
 ALTER TABLE  `tblEmpAccount` CHANGE  `userPassword`  `userPassword` VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT  '';
 
+ALTER TABLE `tblAttendanceScheme` ADD `wrkhrLeave` INT(2) NOT NULL DEFAULT '0' AFTER `gpLate`, ADD `hlfLateUnd` CHAR(1) NOT NULL DEFAULT 'N' AFTER `wrkhrLeave`;
+
 ALTER TABLE `tblPosition` ADD `positionId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `positionId` (`positionId`);
 
 ALTER TABLE `tblEducationalLevel` ADD `levelId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `levelId` (`levelId`);
@@ -36,7 +38,7 @@ ALTER TABLE  `tblCourse` ADD  `courseId` INT NULL FIRST , ADD UNIQUE ( `courseId
 
 ## SET INDEX in payroll processs
 ALTER TABLE  `tblPayrollProcess` ADD INDEX (  `appointmentCode` );
-
+	
 ALTER TABLE  `tblEmpBenefits` ADD  `incomeYear` INT NULL AFTER  `incomeMonth`;
 
 ALTER TABLE  `tblIncome` ADD INDEX (  `incomeCode` ) ;

@@ -149,7 +149,7 @@
                                     <input type="text" class="input-sm" name="txtindigenous" id="txtindigenous" 
                                         value="<?=$arrData[0]['indigenousParticulars']?>" <?=$arrData[0]['indigenous']=='Y'?'':'hidden'?>>
                                 </li>
-                                <li>Are you differently abled? <i>If you answer is "YES", please specify</i>
+                                <li>Are you differently abled? <i>If your answer is "YES", please specify</i>
                                     <b class="red"><?=$arrData[0]['disabled']?></b>
                                     <b class="blue"><?=ucfirst($arrData[0]['disabledParticulars'])?></b>
                                     <div class="radio-list">
