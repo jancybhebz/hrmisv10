@@ -267,6 +267,8 @@ class Attendance_summary_model extends CI_Model {
 				else:
 					$att_scheme =  $att_scheme_ini;
 				endif;
+			else:
+				$att_scheme =  $att_scheme_ini;
 			endif;
 			
 			# Remarks for Employee's OB
