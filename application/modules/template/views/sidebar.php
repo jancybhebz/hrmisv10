@@ -57,7 +57,7 @@ $activetab = strtolower($activetab);
             <?php endif;?>
 
             <!-- begin hr module -->
-            <?php if($this->session->userdata('sessUserLevel')==1):?>
+            <?php if(check_module() == 'hr'):?>
                 <li class="heading">
                     <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>

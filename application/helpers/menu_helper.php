@@ -124,3 +124,21 @@ if ( ! function_exists('pending_notif'))
 		return $arrnotif;
 	}
 }
+
+if ( ! function_exists('check_module'))
+{
+    function check_module()
+    {
+    	$CI =& get_instance();
+    	$useraccess = $CI->session->userdata('sessUserLevel');
+
+    	$module = '';
+    	switch ($useraccess):
+    		case 1:
+    			$module = 'hr';
+    			break;
+    	endswitch;
+    	return $module;
+	}
+
+}

@@ -55,8 +55,7 @@ $arrData = $arrData[0];?>
                                     <div class="col-md-2">
                                         <ul class="list-unstyled profile-nav">
                                             <li>
-                                                 <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>"> 
-                                                 <?php  $strImageUrl = '';
+                                                <?php  $strImageUrl = '';
                                                   if(@getimagesize($strImageUrl))
                                                     { 
                                                         $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
@@ -66,8 +65,12 @@ $arrData = $arrData[0];?>
                                                       $strImage = base_url('assets/images/logo.png');
                                                     }   
                                                     $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
-                                                 <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" /> 
-                                                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Edit Image</button></a>
+                                                <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                                                
+                                                <?php if(check_module() == 'hr'): ?>
+                                                    <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>" class="btn dark btn-sm">
+                                                            <i class="icon-ban"> </i> Edit Image</a>
+                                                <?php endif; ?>
                                             </li>
                                         </ul>
                                     </div>
