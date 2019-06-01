@@ -45,7 +45,6 @@ class Attendance_summary_model extends CI_Model {
 	{
 		$this->load->helper('dtr_helper');
 		$this->load->model('finance/Dtr_model');
-		// echo '<pre>';
 		$month = sprintf('%02d', $month);
 		# DTR Data
 		// $this->db->order_by('dtrDate', 'asc');
@@ -200,12 +199,12 @@ class Attendance_summary_model extends CI_Model {
 				$bsdate = date('Y-m-d', strtotime($bsdate . ' +1 day'));
 			}
 		endforeach;
-		
+
 		# Attendance Scheme
 		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
 		if(count($emp_scheme) > 0):
-			$att_scheme = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
-			$att_scheme = $att_scheme[0];
+			$att_scheme_ini = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
+			$att_scheme_ini = $att_scheme_ini[0];
 		endif;
 
 		$date_absents = array();
@@ -266,10 +265,10 @@ class Attendance_summary_model extends CI_Model {
 					$att_scheme =  $arrbrokensched[$dtr_bskey];
 					$bsremarks = $arrbrokensched[$dtr_bskey]['schemeName'].'-'.$arrbrokensched[$dtr_bskey]['schemeType'].' ('.substr($arrbrokensched[$dtr_bskey]['amTimeinFrom'],0,5).'-'.substr($arrbrokensched[$dtr_bskey]['amTimeinTo'],0,5).', '.substr($arrbrokensched[$dtr_bskey]['pmTimeoutFrom'],0,5).' - '.substr($arrbrokensched[$dtr_bskey]['pmTimeoutTo'],0,5).')';
 				else:
-					$att_scheme =  $att_scheme;
+					$att_scheme =  $att_scheme_ini;
 				endif;
 			endif;
-
+			
 			# Remarks for Employee's OB
 			if(count($arremp_ob) > 0):
 				$dtr_obkey = array_search($ddate, array_column($arremp_ob, 'date'));
@@ -524,7 +523,7 @@ class Attendance_summary_model extends CI_Model {
 
 			// echo '<hr>';
 		endforeach;
-
+		
 		$arrdtrData = array('dtr' 			 	 => $arrdtrData,
 							'date_absents' 	 	 => $date_absents,
 							'total_late' 	 	 => $total_late,
