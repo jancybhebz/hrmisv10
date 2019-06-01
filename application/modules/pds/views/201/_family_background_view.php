@@ -70,7 +70,7 @@
             <tr>
                 <th><b>Name of Children</b></th>
                 <th style="text-align: center;"><b>Date of Birth</b></th>
-                <th></th>
+                <th <?=check_module() == 'hr' ? '' : 'hidden'?>></th>
             </tr>
         </thead>
         <tbody>
@@ -78,7 +78,7 @@
                 <tr>
                     <td><?=$row['childName']?></td>
                     <td style="text-align: center;"><?=$row['childBirthDate']?></td>
-                    <td style="width: 200px;" nowrap>
+                    <td style="width: 200px;" nowrap <?=check_module() == 'hr' ? '' : 'hidden'?>>
                         <center>
                             <a class="btn green btn-xs btnedit_child" data-chilid="<?=$row['childCode']?>">
                                 <i class="fa fa-pencil"></i> Edit </a>
