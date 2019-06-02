@@ -26,6 +26,23 @@ ALTER TABLE  `tblDuties` ADD  `duties_index` INT NOT NULL AUTO_INCREMENT FIRST ,
 
 ALTER TABLE  `tblPlantillaDuties` ADD  `plantilla_duties_index` INT NOT NULL AUTO_INCREMENT FIRST , ADD PRIMARY KEY (  `plantilla_duties_index` ) ;
 
+# Create table override
+CREATE TABLE `tblOverride` (
+  `override_id` int(11) NOT NULL,
+  `override_type` int(11) NOT NULL COMMENT '1=ob;2=exdtr;3=gendtr',
+  `office_type` varchar(20) NOT NULL,
+  `office` varchar(20) NOT NULL,
+  `appt_status` varchar(20) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `created_by` varchar(20) NOT NULL,
+  `lastupdated_date` datetime DEFAULT NULL,
+  `lastupdate_dby` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `tblOverride`
+  ADD PRIMARY KEY (`override_id`);
+ALTER TABLE `tblOverride`
+  MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT;
+
 ## OB Override
 ALTER TABLE  `tblEmpOB` ADD  `is_override` INT NOT NULL DEFAULT  '0';
 ALTER TABLE  `tblEmpOB` ADD  `override_id` INT NULL ;

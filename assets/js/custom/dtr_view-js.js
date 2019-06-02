@@ -1,9 +1,9 @@
 $('#tbldtr').on('click', 'tbody > tr > td #btnlog', function () {
     var jsdata = $(this).data('json');
-    $('#td-empname').text(jsdata['empname']);
-    $('#td-ipadd').text(jsdata['ipadd']);
-    $('#td-datetime').text(jsdata['datetime']);
-    $('#td-oldval').text(jsdata['oldval'] == null ? '' : jsdata['oldval']);
+    $('#td-empname').html(jsdata['empname'] == null ? '' : '<li>'+jsdata['empname'].split(';').join('<li>'));
+    $('#td-ipadd').html(jsdata['ipadd'] == null ? '' : '<li>'+jsdata['ipadd'].split(';').join('<li>'));
+    $('#td-datetime').html(jsdata['datetime'] == null ? '' : '<li>'+jsdata['datetime'].split(';').join('<li>'));
+    $('#td-oldval').html(jsdata['oldval'] == null ? '' : jsdata['oldval'].split(';').join('<li>'));
     $('#span-bsremarks').html('<b>Broken Schedule:</b> '+jsdata['bsremarks']);
     $('#log-modal').modal('show');
 });
