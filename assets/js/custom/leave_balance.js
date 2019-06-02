@@ -9,10 +9,16 @@ function numberformat(num)
     return parts.join(".");
 }
 
-function number_to_month(num) 
+function number_to_month(num,word=0) 
 {
     var array_month = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-    return array_month[num];
+    var array_month_word = ['','January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    if(word==0){
+        return array_month[num];    
+    }else{
+        return array_month_word[num];
+    }
+    
 }
 
 $(document).ready(function() {
@@ -36,6 +42,8 @@ $(document).ready(function() {
         }else{
             $('button#btnupdate_lb').hide();
         }
+
+        $('#txtprev_month').html('<b>'+ number_to_month(lb_data['lb_detail']['periodMonth'],1) + ' ' + lb_data['lb_detail']['periodYear']);
 
         /* Previous Month Balance */
         $('.prev_vl').html(lb_data['lb_detail']['vlBalance']);
@@ -134,7 +142,9 @@ $(document).ready(function() {
         var lb_data = $(this).data('json');
         var leave_earned = $(this).data('leave_earned');
         var latest_lb = $(this).data('latest_lb');
-        console.log(latest_lb);
+        
+        $('#txtprev_month').html('<b>'+ number_to_month(lb_data['lb_detail']['periodMonth'],1) + ' ' + lb_data['lb_detail']['periodYear']);
+
         /* Previous Month Balance */
         $('.prev_vl').html(lb_data['lb_detail']['vlBalance']);
         $('.prev_sl').html(lb_data['lb_detail']['slBalance']);

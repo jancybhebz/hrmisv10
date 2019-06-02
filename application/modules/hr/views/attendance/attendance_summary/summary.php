@@ -56,8 +56,13 @@
                                             Attendance Summary </a>
                                     </li>
                                     <li <?=$arrData['appointmentCode']!='P' ? 'style="display: none;"' :''?> class="<?=in_array($this_page, array('leave_balance','leave_balance_update','leave_balance_set')) ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
-                                            Leave Balance </a>
+                                        <?php if(check_module() == 'hr'): ?>
+                                            <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                                Leave Balance </a>
+                                        <?php else: ?>
+                                            <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                                Leave Balance </a>
+                                        <?php endif; ?>
                                     </li>
                                     <li <?=$arrData['appointmentCode']!='P' ? 'style="display: none;"' :''?> class="<?=$this_page == 'leave_monetization' ? 'active' : ''?>">
                                         <a href="<?=base_url('hr/attendance_summary/leave_monetization/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
