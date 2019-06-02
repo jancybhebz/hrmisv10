@@ -74,3 +74,15 @@ UPDATE  `tblDeduction` SET  `is_mandatory` =  '1' WHERE  `tblDeduction`.`deducti
 ## DROP INDEX THEN ADD AUTO INCREMENT PRIMARY KEY
 DROP INDEX `PRIMARY` ON tblDeduction;
 ALTER TABLE  `tblDeduction` ADD  `deduction_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
+## LEAVE
+DROP INDEX `PRIMARY` ON tblLeave;
+ALTER TABLE  `tblLeave` ADD  `leave_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HSTL', 'Half Study Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HFL', 'Half Forced Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HSL', 'Half Sick Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HVL', 'Half Vacation Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPL', 'Half Special Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HMTL', 'Half Maternity Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPTL', 'Half Paternity Leave', '0.5', '0');
