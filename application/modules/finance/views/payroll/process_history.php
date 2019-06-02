@@ -93,7 +93,7 @@
                                     <th> Date Processed </th>
                                     <th> Details </th>
                                     <th> Processed By </th>
-                                    <th> </th>
+                                    <th class="no-sort"> Actions </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -141,8 +141,9 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#tblprocess-history').css('visibility', 'visible');
-                $('#div-body').css('visibility', 'visible');
-            }} );
+                $('#div-body').css('visibility', 'visible');},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        } );
 
         $('#tblprocess-history').on('click', 'a#btnunpublish', function() {
             $('.modal-title').html('<b>Unpublish Process</b>');

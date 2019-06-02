@@ -58,7 +58,7 @@ class Signatory extends MY_Controller {
 	public function delete()
 	{
 		$arrPost = $this->input->post();
-		$this->Signatory_model->delete($arrPost['txtcode']);
+		$this->Signatory_model->delete($arrPost['txtsig_id']);
 		$this->session->set_flashdata('strSuccessMsg','Signatory successfully deleted.');
 		redirect('finance/libraries/signatory');
 	}

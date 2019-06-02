@@ -64,7 +64,7 @@
                                         <th> Income Description </th>
                                         <th> Income Type </th>
                                         <th> Status </th>
-                                        <th style="text-align: center;width:170px;"> Actions </th>
+                                        <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
                                     </tr>
                                 </tr>
                             </thead>
@@ -121,8 +121,9 @@
         $('#table-income').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
-                $('#table-income').show();
-            }} );
+                $('#table-income').show();},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        });
 
         var code = '';
         $('#table-income').on('click', 'tr > td > a#btnDelIncome', function () {

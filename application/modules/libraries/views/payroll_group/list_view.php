@@ -32,16 +32,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_payroll_group">
+                <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_payroll_group" style="display: none">
                     <thead>
                         <tr>
-                            <th> No. </th>
-                            <th> Project </th>
-                            <th> Payroll Group Code </th>
-                            <th> Payroll Group Description </th>
-                            <th> Payroll Group Order </th>
-                            <th> Responsibility Center </th>
-                            <th> Action </th>
+                            <th style="text-align: center;width: 75px;"> No. </th>
+                            <th style="text-align: center;"> Project </th>
+                            <th style="text-align: center;"> Payroll Group Code </th>
+                            <th style="text-align: center;"> Payroll Group Description </th>
+                            <th style="text-align: center;"> Payroll Group Order </th>
+                            <th style="text-align: center;"> Responsibility Center </th>
+                            <th class="no-sort" style="text-align: center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,11 +52,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['projectDesc']?> </td>
-                            <td> <?=$row['payrollGroupCode']?> </td>
+                            <td align="center"> <?=$row['payrollGroupCode']?> </td>
                             <td> <?=$row['payrollGroupName']?> </td>
-                            <td> <?=$row['payrollGroupOrder']?> </td>
-                            <td> <?=$row['payrollGroupRC']?> </td>
-                            <td>
+                            <td align="center"> <?=$row['payrollGroupOrder']?> </td>
+                            <td align="center"> <?=$row['payrollGroupRC']?> </td>
+                            <td width="150px" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/payroll_group/edit/'.$row['payrollGroupId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/payroll_group/delete/'.$row['payrollGroupId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
@@ -76,6 +77,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script>
     $(document).ready(function() {
-        Datatables.init('libraries_payroll_group');
+        $('#libraries_payroll_group').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#libraries_payroll_group').show();},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        });
   });
 </script>

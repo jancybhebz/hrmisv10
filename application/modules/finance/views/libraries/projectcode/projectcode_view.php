@@ -55,7 +55,7 @@
                                         <th> Order </th>
                                         <th> Project Code </th>
                                         <th> Project Description </th>
-                                        <th style="text-align: center;width:170px;"> Actions </th>
+                                        <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
                                     </tr>
                                 </tr>
                             </thead>
@@ -111,7 +111,7 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#table-project').show();
-            }} );
+            },"columnDefs": [{ "orderable":false, "targets":'no-sort' }]} );
 
         var code = '';
         $('#table-project').on('click', 'tr > td > a#btnDelDeduction', function () {
