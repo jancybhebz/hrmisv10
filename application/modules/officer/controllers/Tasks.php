@@ -27,18 +27,47 @@ class Tasks extends MY_Controller {
 
 		$allemp_request = array();
 
-		// foreach($emps as $emp):
-			$arremp_request = $this->Request_model->getEmployeeRequest($emps,curryr(),currmo());
-			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow,$arremp_request);
+		$arremp_request = $this->Request_model->getEmployeeRequest($emps,curryr(),currmo());
+		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow,$arremp_request);
 
-			foreach($arrRequest as $req):
-				if((strpos($req['req_nextsign'],$officer_empid) !== false)):
-					$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
-					$req['req_empname'] = employee_name($req['req_emp']);
-					array_push($allemp_request,$req);
-				endif;
-			endforeach;
-		// endforeach;
+		foreach($arrRequest as $req):
+			if((strpos($req['req_nextsign'],$officer_empid) !== false)):
+				$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
+				$req['req_empname'] = employee_name($req['req_emp']);
+				array_push($allemp_request,$req);
+			endif;
+		endforeach;
+		
+		$this->arrData['allemp_request'] = $allemp_request;
+		$this->template->load('template/template_view', 'officer/tasks', $this->arrData);
+	}
+
+	public function task_executive()
+	{
+		echo '<pre>';
+		$officer_empid = $this->session->userdata('sessEmpNo');
+		$office = employee_office($officer_empid);
+		$emps1 = $this->Position_model->getemployees_bygroup(1, $office);
+		$emps2 = $this->Position_model->getemployees_bygroup(2, $office);
+		$emps = array_merge($emps1,$emps2);
+
+		$emps = array_column($emps,'empNumber');
+		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
+		print_r($emps);
+		print_r($requestFlow);
+		die();
+		$allemp_request = array();
+
+		$arremp_request = $this->Request_model->getEmployeeRequest($emps,curryr(),currmo());
+		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow,$arremp_request);
+
+		foreach($arrRequest as $req):
+			if((strpos($req['req_nextsign'],$officer_empid) !== false)):
+				$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
+				$req['req_empname'] = employee_name($req['req_emp']);
+				array_push($allemp_request,$req);
+			endif;
+		endforeach;
 		
 		$this->arrData['allemp_request'] = $allemp_request;
 		$this->template->load('template/template_view', 'officer/tasks', $this->arrData);

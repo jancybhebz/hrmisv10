@@ -131,7 +131,7 @@ if ( ! function_exists('check_module'))
     {
     	$CI =& get_instance();
     	$useraccess = $CI->session->userdata('sessUserLevel');
-
+    	
     	$module = '';
     	switch ($useraccess):
     		case 1:
@@ -140,6 +140,8 @@ if ( ! function_exists('check_module'))
     			$module = 'finance'; break;
     		case 3:
     			$module = 'officer'; break;
+    		case 4:
+    			$module = 'executive'; break;
     	endswitch;
     	return $module;
 	}
