@@ -39,7 +39,7 @@ class Leave_type_model extends CI_Model {
 		{
 			$this->db->where($this->tableid,$strCode);
 		}
-		$this->db->order_by('leaveCode');
+		// $this->db->order_by('leaveCode');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}

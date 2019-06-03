@@ -72,29 +72,27 @@ class Leave_type extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$strCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrLeave']=$this->leave_type_model->leaveCode($strCode);
+			$this->arrData['arrLeave']=$this->leave_type_model->getData($strCode);
 			$this->template->load('template/template_view','libraries/leave_type/edit_view', $this->arrData);
 		}
 		else
 		{
 			$strCode = $arrPost['strCode'];
-			$strRangeFrom = $arrPost['strRangeFrom'];
-			$strRangeTo = $arrPost['strRangeTo'];
-			$strSalBase = $arrPost['strSalBase'];
-			$intTotalContri = $arrPost['intTotalContri'];
-			if(!empty($strRangeFrom) && !empty($strRangeTo))
+			$strLeaveCode = $arrPost['strLeaveCode'];
+			$strLeaveType = $arrPost['strLeaveType'];
+			$intDays = $arrPost['intDays'];
+			if(!empty($strLeaveCode) AND !empty($strLeaveType)) 
 			{	
 				$arrData = array(
-					'philhealthFrom'=>$strRangeFrom,
-					'philhealthTo'=>$strRangeTo,
-					'philSalaryBase'=>$strSalBase,
-					'philMonthlyContri'=>$intTotalContri
+					'leaveCode'=>$strLeaveCode,
+					'leaveType'=>$strLeaveType,
+					'numOfDays'=>$intDays
 				);
 				$blnReturn = $this->leave_type_model->save($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Edited '.$strRangeFrom.' PhilHealth Range',implode(';',$arrData),'');
-					$this->session->set_flashdata('strSuccessMsg','PhilHealth Range saved successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblleave','Edited '.$strLeaveCode.' Leave',implode(';',$arrData),'');
+	 				$this->session->set_flashdata('strSuccessMsg','Leave type saved successfully.');
 				}
 				redirect('libraries/leave_type');
 			}
