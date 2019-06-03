@@ -1,6 +1,6 @@
 function getrequest_status(stat)
 {
-    if(stat.toLowerCase() == "recommended"){
+    if(stat.toLowerCase() == "recommended" || stat.toLowerCase() == "recommend"){
         return "Recommend";
     }
 }
@@ -18,6 +18,7 @@ $(document).ready(function() {
         var details = data['req_details'].split(';');
         
         console.log(data);
+        console.log(status[0]);
         console.log(details);
         $('.modal-title').html('<b>'+data['req_code']+'</b>');
         if(data['req_code'] == "Leave") {
