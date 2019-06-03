@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="3" name="strLeaveCode" value="<?=!empty($this->session->userdata('strLeaveCode'))?$this->session->userdata('strLeaveCode'):''?>">
+                                    <input type="text" class="form-control" maxlength="3" name="strLeaveCode" automcomplete="off" value="<?=!empty($this->session->userdata('strLeaveCode'))?$this->session->userdata('strLeaveCode'):''?>">
                                 </div>
                             </div>
                         </div>

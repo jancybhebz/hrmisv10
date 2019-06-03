@@ -23,7 +23,7 @@
                         <th rowspan="2">Conducted / Sponsored By</th>
                         <th rowspan="2">Training Venue</th>
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
-                            <th rowspan="2"></th>
+                            <th rowspan="2">Action</th>
                             <th rowspan="2">Attachment/s</th>
                         <?php endif; ?>
                     </tr>
@@ -52,11 +52,26 @@
                                             <i class="fa fa-trash"></i> Delete </a>
                                     </center>
                                 </td>
+                                <!-- upload -->
                                 <td>
-                                     <center>
-                                        <a class="btn green btn-xs btnedit_srvc" <a href="<?=base_url('training/uploadTraining/'.$tra['TrainingIndex'])?>"> 
-                                            <i class="fa fa-pencil"></i> Upload </a>
-                                    </center>
+                                <?php 
+                                $folder = 'uploads/employees/attachments/trainings'.$tra['TrainingIndex']; 
+                                 
+                                 if (is_dir($folder))
+                                    {
+                                        $map=directory_map($folder);
+                                    }
+                                else 
+                                { ?>
+                                <?=form_open(base_url('pds/pds/uploadTraining/'.$this->uri->segment(4)), array('method'=> 'post', 'encrypt' => 'multipart/form-data'))?>
+                                    <input type ="hidden" name ="idTraining" id= "idTraining" value="<?=$tra['TrainingIndex']?>">
+                                    <input type ="hidden" name ="EmployeeId" id= "EmployeeId" value="<?=$tra['empNumber']?>">
+                                    <input type ="file" name ="userfile" id= "userfile">
+                                    <button type="submit" name="uploadTraining" class="btn blue start">
+                                        <i class="fa fa-upload"></i>
+                                        <span> Start Upload </span>
+                                    </button>
+                                <?php form_close();} ?>
                                 </td>
                             <?php endif; ?>
                         </tr>

@@ -26,7 +26,8 @@
                         <th>Graduate</th>
                         <th>Licensed</th>
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
-                            <th></th>
+                            <th>Action</th>
+                            <th>Attachment/s</th>
                         <?php endif; ?>
                     </tr>
                 </thead>
@@ -58,6 +59,27 @@
                                         <a class="btn red btn-xs btndelete_educ" data-educid="<?=$educ['SchoolIndex']?>">
                                             <i class="fa fa-trash"></i> Delete </a>
                                     </center>
+                                </td>
+                                <!-- upload -->
+                                <td>
+                                <?php 
+                                $folder = 'uploads/employees/attachments/trainings'.$educ['SchoolIndex']; 
+                                 
+                                 if (is_dir($folder))
+                                    {
+                                        $map=directory_map($folder);
+                                    }
+                                else 
+                                { ?>
+                                <?=form_open(base_url('pds/pds/uploadEduc/'.$this->uri->segment(4)), array('method'=> 'post', 'encrypt' => 'multipart/form-data'))?>
+                                    <input type ="hidden" name ="idTraining" id= "idTraining" value="<?=$educ['SchoolIndex']?>">
+                                    <input type ="hidden" name ="EmployeeId" id= "EmployeeId" value="<?=$educ['empNumber']?>">
+                                    <input type ="file" name ="userfile" id= "userfile">
+                                    <button type="submit" name="uploadEduc" class="btn blue start">
+                                        <i class="fa fa-upload"></i>
+                                        <span> Start Upload </span>
+                                    </button>
+                                <?php form_close();} ?>
                                 </td>
                             <?php endif; ?>
                         </tr>

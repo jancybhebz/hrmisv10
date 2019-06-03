@@ -22,15 +22,24 @@ class Leave_type_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 
-	function getData($strLeaveCode = '')
-	{		
-		if($strLeaveCode != "")
-		{
-			$this->db->where($this->tableid,$strLeaveCode);
-		}
-		//$this->db->join('tblspecificleave','tblspecificleave.leaveCode = '.$this->table.'.leaveCode','left');
-		// $this->db->order_by('tblleave.'.$this->tableid,'ASC');
+	// function getData($strLeaveCode = '')
+	// {		
+	// 	if($strLeaveCode != "")
+	// 	{
+	// 		$this->db->where($this->tableid,$strLeaveCode);
+	// 	}
 		
+	// 	$objQuery = $this->db->get($this->table);
+	// 	return $objQuery->result_array();	
+	// }
+
+	function getData($strCode = '')
+	{		
+		if($strCode != "")
+		{
+			$this->db->where($this->tableid,$strCode);
+		}
+		// $this->db->order_by('leaveCode');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}
