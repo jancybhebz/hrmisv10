@@ -230,7 +230,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete</h4>
+                <h4 class="modal-title">Delete Reference</h4>
             </div>
             <?=form_open('pds/del_char_reference/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdeltra','class' => 'form-horizontal'))?>
                 <input type="hidden" name="txtdel_char_ref" id="txtdel_char_ref">

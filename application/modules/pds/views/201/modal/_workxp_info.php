@@ -177,7 +177,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete</h4>
+                <h4 class="modal-title">Delete Work Experience</h4>
             </div>
             <?=form_open('pds/delete_work_xp/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdelsrv','class' => 'form-horizontal'))?>
                 <input type="hidden" name="txtdel_srv" id="txtdel_srv">

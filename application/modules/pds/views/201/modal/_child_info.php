@@ -44,7 +44,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete</h4>
+                <h4 class="modal-title">Delete Child Information</h4>
             </div>
             <?=form_open('pds/delete_child/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmchild','class' => 'form-horizontal'))?>
                 <input type="hidden" name="txtdelchild" id="txtdelchild">
