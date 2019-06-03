@@ -292,6 +292,7 @@ class Notification_model extends CI_Model {
 			endif;
 
 			$request_detail = array('req_id' => $request['requestID'],
+								  'req_emp' => $request['empNumber'],
 								  'req_date' => $request['requestDate'],
 								  'req_code' => $request['code'],
 								  'req_type' => $request['requestCode'],

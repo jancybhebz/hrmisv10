@@ -377,8 +377,8 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$active=='employee' && $activesub=='notification' ? 'active' : ''?>">
-                    <a href="<?=base_url('employee/notification')?>">
+                <li class="nav-item <?=$active=='officer' && $activesub=='tasks' ? 'active' : ''?>">
+                    <a href="<?=base_url('officer/tasks')?>">
                         <i class="icon-list"></i>
                         <span class="title">Tasks</span>
                     </a>

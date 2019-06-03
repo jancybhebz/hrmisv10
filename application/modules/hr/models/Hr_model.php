@@ -22,13 +22,13 @@ class Hr_model extends CI_Model {
 	var $tableExam = 'tblempexam';
 	var $tableExamid = 'examCode';
 
-	var $tableService = 'tblservicerecord';
+	var $tableService = 'tblServiceRecord';
 	var $tableServiceid = 'serviceRecID';
 
-	var $tableVW = 'tblempvoluntarywork';
+	var $tableVW = 'tblEmpVoluntaryWork';
 	var $tableVWid = 'vwName';
 
-	var $tabletraining = 'tblemptraining';
+	var $tabletraining = 'tblEmpTraining';
 	var $tabletrainingid = 'XtrainingCode';
 
 	var $tablepos = 'tblempposition';

@@ -12,31 +12,31 @@ class PDS_update_model extends CI_Model {
 	var $table = 'tblEmpPersonal';
 	var $tableid = 'empNumber';
 
-	var $tableSchool = 'tblempschool';
+	var $tableSchool = 'tblEmpSchool';
 	var $tableSchoolid = 'levelCode';
 
-	var $tableEduc = 'tbleducationallevel';
+	var $tableEduc = 'tblEducationalLevel';
 	var $tableEducid = 'levelId';
 
-	var $tableCourse = 'tblcourse';
+	var $tableCourse = 'tblCourse';
 	var $tableCourseid = 'courseCode';
 
-	var $tableScholarship = 'tblscholarship';
+	var $tableScholarship = 'tblScholarship';
 	var $tableScholarshipid = 'id';
 
-	var $tableTraining = 'tblemptraining';
+	var $tableTraining = 'tblEmpTraining';
 	var $tableTrainingid = 'XtrainingCode';
 
-	var $tableExam = 'tblexamtype';
+	var $tableExam = 'tblExamType';
 	var $tableExamid = 'examId';
 
-	var $tableWorkExp = 'tblservicerecord';
+	var $tableWorkExp = 'tblServiceRecord';
 	var $tableWorkExpid = 'serviceRecID';
 	
 	var $tableAppoint = 'tblAppointment';
 	var $tableAppointid = 'appointmentId';
 
-	var $tableSepCause = 'tblseparationcause';
+	var $tableSepCause = 'tblSeparationCause';
 	var $tableSepCauseid = 'separationCause';
 
 	var $tableRef = 'tblempreference';
@@ -163,7 +163,7 @@ class PDS_update_model extends CI_Model {
 	{		
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_TRAINING.'.empNumber','left');
 		$this->db->where(TABLE_TRAINING.'.empNumber',$strEmpNumber);
-		$this->db->order_by('tblemptraining.'.$this->tableTrainingid,'ASC');
+		$this->db->order_by('tblEmpTraining.'.$this->tableTrainingid,'ASC');
 		$objQuery = $this->db->get(TABLE_TRAINING);
 		return $objQuery->result_array();	
 	}

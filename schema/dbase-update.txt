@@ -82,6 +82,8 @@ ALTER TABLE  `tblDeduction` ADD  `deduction_id` INT NOT NULL AUTO_INCREMENT PRIM
 ## LEAVE
 DROP INDEX `PRIMARY` ON tblLeave;
 ALTER TABLE  `tblLeave` ADD  `leave_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+ALTER TABLE `tblLeave` CHANGE `leaveCode` `leaveCode` CHAR(5) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '';
+ALTER TABLE  `tblLeave` CHANGE  `numOfDays`  `numOfDays` FLOAT( 3 ) NOT NULL DEFAULT  '0';
 
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HSTL', 'Half Study Leave', '0.5', '0');
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HFL', 'Half Forced Leave', '0.5', '0');
