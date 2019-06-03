@@ -20,10 +20,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td id="td-empname" align="center"></td>
-                                    <td id="td-ipadd" align="center"></td>
-                                    <td id="td-datetime" align="center"></td>
-                                    <td id="td-oldval" align="center"></td>
+                                    <td id="td-empname"></td>
+                                    <td id="td-ipadd" nowrap></td>
+                                    <td id="td-datetime" nowrap></td>
+                                    <td id="td-oldval"></td>
                                 </tbody>
                             </table>
                             <div>

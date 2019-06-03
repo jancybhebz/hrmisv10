@@ -41,7 +41,7 @@
                     <div class="portlet-body" id="signatory" style="display: none" v-cloak>
                         <div class="table-toolbar">
                             <?=form_open($action == 'edit' ? 'finance/libraries/signatory/edit/'.$this->uri->segment(4) : '', array('method' => 'post'))?>
-                                <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
+                                <input type="hidden" id='txtsig_id' value="<?=$this->uri->segment(4)?>" />
                                 <div class="form-group">
                                     <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
@@ -90,3 +90,10 @@
     </div>
 </div>
 <?php load_plugin('js',array('select2','form_validation'));?>
+
+<script>
+    $(document).ready(function() {
+        $('.loading-image').hide();
+        $('.portlet-body').show();
+    });
+</script>

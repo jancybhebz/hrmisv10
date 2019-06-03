@@ -57,7 +57,7 @@
                                         <th> Order </th>
                                         <th> Project </th>
                                         <th> Resposibility Center (RC) </th>
-                                        <th style="text-align: center;width:170px;"> Actions </th>
+                                        <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
                                     </tr>
                                 </tr>
                             </thead>
@@ -70,7 +70,7 @@
                                         <td><?=$data['payrollGroupOrder']?></td>
                                         <td><?=$data['projectDesc']?></td>
                                         <td><?=$data['payrollGroupRC']?></td>
-                                        <td align="center" nowrap>
+                                        <td align="center" style="white-space: nowrap;">
                                             <a href="<?=base_url('finance/libraries/payrollgroup/edit/'.$data['payrollGroupCode'])?>" class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</a>
                                             <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['payrollGroupCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
@@ -110,7 +110,7 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#table-payrollgroup').show();
-            }} );
+            },"columnDefs": [{ "orderable":false, "targets":'no-sort' }]} );
 
         var code = '';
         $('#table-payrollgroup').on('click', 'tr > td > a#btnDelDeduction', function () {

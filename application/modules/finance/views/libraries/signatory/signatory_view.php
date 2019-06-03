@@ -51,11 +51,11 @@
                             <thead>
                                 <tr>
                                     <tr>
-                                        <th> No. </th>
-                                        <th> Payroll Group </th>
-                                        <th> Signatory </th>
-                                        <th> Position </th>
-                                        <th style="text-align: center;width:170px;"> Actions </th>
+                                        <th style="text-align: center; width: 75px;"> No. </th>
+                                        <th style="text-align: center;"> Payroll Group </th>
+                                        <th style="text-align: center;"> Signatory </th>
+                                        <th style="text-align: center;"> Position </th>
+                                        <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
                                     </tr>
                                 </tr>
                             </thead>
@@ -86,7 +86,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <?=form_open('finance/libraries/signatory/delete', array('method' => 'post'))?>
-            <input type="hidden" name="txtcode" id="txtcode">
+            <input type="hidden" name="txtsig_id" id="txtsig_id">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Delete Signatory</h4>
@@ -111,12 +111,13 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#table-signatory').show();
-            }} );
+            },"columnDefs" : [{ "orderable": false, "target": 'no-sort'}]
+        });
 
         var code = '';
         $('#table-signatory').on('click', 'tr > td > a#btnDelDeduction', function () {
             code = $(this).data('code');
-            $('#txtcode').val(code);
+            $('#txtsig_id').val(code);
             $('#delete').modal('show');
         });
 

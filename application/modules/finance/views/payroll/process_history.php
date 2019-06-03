@@ -47,6 +47,7 @@
                                 <div class="form-group" style="display: inline-flex;">
                                     <label style="padding: 6px;">Month</label>
                                     <select class="bs-select form-control" name="month">
+                                        <option value="all">All</option>
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=sprintf('%02d', $m)?>"
                                                 <?php 
@@ -85,33 +86,42 @@
                             <thead>
                                 <tr>
                                     <th width="50px"> No </th>
+                                    <th> Process </th>
                                     <th> Employee </th>
                                     <th> Month </th>
                                     <th> Year </th>
                                     <th> Date Processed </th>
                                     <th> Details </th>
                                     <th> Processed By </th>
-                                    <th> </th>
+                                    <th class="no-sort"> Actions </th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $no=1;foreach($arrprocess as $process): ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
+                                    <td align="center"><?=$no++?></td>
+                                    <td align="center"><?=$process['processCode']?></td>
+                                    <td align="center"><?=$process['appointmentDesc']?></td>
+                                    <td align="center"><?=date('F', mktime(0, 0, 0, $process['processMonth'], 10))?></td>
+                                    <td align="center"><?=$process['processYear']?></td>
+                                    <td align="center"><?=$process['processDate']?></td>
+                                    <td><?=$process['details']?></td>
+                                    <td><?=employee_name($process['empNumber'])?></td>
+                                    <td style="width: 250px; white-space: nowrap;">
                                         <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess">
                                             <i class="fa fa-refresh"></i> Reprocessed</a>
                                         <a href="javascript:;" class="btn btn-sm grey-cascade" id="btnreprocess">
                                             <i class="fa fa-file-o"></i> Reports</a>
-                                        <a href="javascript:;" class="btn btn-sm green" id="btnreprocess">
-                                            <i class="fa fa-check"></i> Publish</a>
+                                        <?php if($process['publish'] == 1): ?>
+                                            <a href="javascript:;" class="btn btn-sm green-meadow" id="btnunpublish" data-procid="<?=$process['processID']?>">
+                                                <i class="fa fa-check"></i> Unpublish</a>
+                                        <?php else: ?>
+                                            <a href="javascript:;" class="btn btn-sm green" id="btnpublish" data-procid="<?=$process['processID']?>">
+                                                <i class="fa fa-check"></i> Publish</a>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -121,6 +131,8 @@
     </div>
 </div>
 
+<?php include 'modals/process_history_modal.php'; ?>
+
 <?=load_plugin('js', array('select','datatables'))?>
 
 <script>
@@ -129,7 +141,25 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#tblprocess-history').css('visibility', 'visible');
-                $('#div-body').css('visibility', 'visible');
-            }} );
+                $('#div-body').css('visibility', 'visible');},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        } );
+
+        $('#tblprocess-history').on('click', 'a#btnunpublish', function() {
+            $('.modal-title').html('<b>Unpublish Process</b>');
+            $('#txtprocess_id').val($(this).data('procid'));
+            $('#txtpulish_val').val(0);
+            $('#spanpublish').html('unpublish');
+            $('#publish_process').modal('show');
+        });
+
+        $('#tblprocess-history').on('click', 'a#btnpublish', function() {
+            $('.modal-title').html('<b>Publish Process</b>');
+            $('#txtprocess_id').val($(this).data('procid'));
+            $('#txtpulish_val').val(1);
+            $('#spanpublish').html('pulish');
+            $('#publish_process').modal('show');
+        });
+
     });
 </script>

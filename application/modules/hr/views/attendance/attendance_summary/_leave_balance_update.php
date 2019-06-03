@@ -5,13 +5,13 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <span class="caption-subject bold uppercase"> Leave Balance
-                        <?=$_GET['month']=='all' ? 'from '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, end($arrLeaveBalance)['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' to '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLeaveBalance[0]['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' ':'for the Month of '.date('F', mktime(0, 0, 0, $month, 10))?> <?=$yr?></span>
+                        <?=$_GET['month']=='all' ? 'from '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, end($arrLeaveBalance)['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' to '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLeaveBalance[0]['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' ':'for the Month of '.date('F', mktime(0, 0, 0, $month, 10))?> <?=$yr?></span>
                 </div>
             </div>
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-vl" data-title="Vacation Leave">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblleave-balance" data-title="Vacation Leave">
                             <thead>
                                 <tr>
                                     <th rowspan="2" style="text-align: center;vertical-align: middle;"<?=$_GET['month']=='all'?'':'hidden'?>>Month</th>
@@ -32,18 +32,20 @@
                             <tbody>
                                 <?php foreach($arrLeaveBalance as $leave_bal): ?>
                                     <tr class="odd gradeX">
-                                        <td align="center" <?=$_GET['month']=='all'?'':'hidden'?>><?=date('M', mktime(0, 0, 0, $leave_bal['periodMonth'], 10)).' '.$yr?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlEarned'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlAbsUndWPay'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlBalance'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['vlAbsUndWoPay'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['slAbsUndWPay'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['slBalance'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['slAbsUndWoPay'] : ''?></td>
+                                        <td align="center" <?=$_GET['month']=='all'?'':'hidden'?>><?=date('M', mktime(0, 0, 0, $leave_bal['lb_detail']['periodMonth'], 10)).' '.$yr?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlEarned'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlAbsUndWPay'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlBalance'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlAbsUndWoPay'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['slAbsUndWPay'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['slBalance'] : ''?></td>
+                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['slAbsUndWoPay'] : ''?></td>
                                         <td align="center" style="width: 16%;" nowrap>
-                                            <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal">
+                                            <button class="btn btn-sm blue" id="btn-leavebal" data-json='<?=json_encode($leave_bal,0)?>'
+                                                data-action="view" data-leave_earned="<?=$_ENV['leave_earned']?>">
                                                 <i class="fa fa-eye"></i> View</button>
-                                            <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-leavebal-override">
+                                            <button class="btn btn-sm green" id="btn-leavebal-override" data-json='<?=json_encode($leave_bal,0)?>'
+                                                data-action="override" data-leave_earned="<?=$_ENV['leave_earned']?>">
                                                 <i class="fa fa-edit"></i> Override</button>
                                         </td>
                                     </tr>
@@ -68,7 +70,7 @@
                         <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of <?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?>. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
                         <br>
                         <p style="text-align: center;">
-                            <button class="btn red" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-update-leavebal">
+                            <button class="btn red" id="btn-update-leavebal" data-latest_lb='<?=json_encode($arrLatestBalance,0)?>' data-json='<?=json_encode($arrLeave_data,0)?>' data-leave_earned="<?=$_ENV['leave_earned']?>">
                                 <i class="fa fa-pencil"></i> &nbsp;Update Leave Balance</button>
                             <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-rollback" id="btn-rollback">
                                 <i class="fa fa-refresh"></i> &nbsp;Rollback</button>
@@ -83,3 +85,4 @@
 </div>
 
 <?php $this->load->view('modals/_leave_balance_update_modal'); ?>
+<script src="<?=base_url('assets/js/custom/leave_balance.js')?>"></script>

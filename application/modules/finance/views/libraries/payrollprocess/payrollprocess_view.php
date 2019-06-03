@@ -56,7 +56,7 @@
                                         <th> Appointment </th>
                                         <th> Process With </th>
                                         <th> Salary </th>
-                                        <th style="text-align: center;width:170px;"> Actions </th>
+                                        <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
                                     </tr>
                                 </tr>
                             </thead>
@@ -112,8 +112,9 @@
         $('#table-pprocess').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
-                $('#table-pprocess').show();
-            }} );
+                $('#table-pprocess').show();},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        });
 
         var code = '';
         $('#table-pprocess').on('click', 'tr > td > a#btnDelDeduction', function () {

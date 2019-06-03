@@ -270,6 +270,11 @@ class Override extends MY_Controller {
 			$sdate = $arrPost['gendtr_datefrom'];
 			$edate = $arrPost['gendtr_dateto'];
 			$empid = $arrPost['txtgendtr_empnum'];
+			# dtr details
+			$in_am = date('h:i:s',strtotime($arrPost['gendtr_timefrom']));
+			$out_am = date('h:i:s',strtotime('12:00:00'));
+			$in_pm = date('h:i:s',strtotime('12:00:01'));
+			$out_pm = date('h:i:s',strtotime($arrPost['gendtr_timeto']));
 
 			$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$sdate,$edate);
 			# get all weekdays
@@ -288,12 +293,14 @@ class Override extends MY_Controller {
 						# add timein and time out
 						$arrData = array('empNumber' => $empid,
 										 'dtrDate' 	 => $wkday,
-										 'inAM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timefrom'])),
-										 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
-										 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
-										 'outPM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timeto'])),
+										 'inAM' 	 => $in_am,
+										 'outAM' 	 => $out_am,
+										 'inPM' 	 => $in_pm,
+										 'outPM' 	 => $out_pm,
 										 'OT' 	 	 => 0,
-										 'name' 	 => 'override');
+										 'name' 	 => $this->session->userdata('sessName').' (override)',
+										 'ip'		 => $this->input->ip_address(),
+										 'editdate'	 => date('Y-m-d h:i:s A'));
 						$this->Attendance_summary_model->add_dtr($arrData);
 					else:
 						# check if have record in dtr
@@ -301,12 +308,14 @@ class Override extends MY_Controller {
 							# add timein and time out
 							$arrData = array('empNumber' => $empid,
 											 'dtrDate' 	 => $wkday,
-											 'inAM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timefrom'])),
-											 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
-											 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
-											 'outPM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timeto'])),
+											 'inAM' 	 => $in_am,
+										 	 'outAM' 	 => $out_am,
+										 	 'inPM' 	 => $in_pm,
+										 	 'outPM' 	 => $out_pm,
 											 'OT' 	 	 => 0,
-											 'name' 	 => 'override');
+											 'name' 	 => $this->session->userdata('sessName').' (override)',
+											 'ip'		 => $this->input->ip_address(),
+											 'editdate'	 => date('Y-m-d h:i:s A'));
 							$this->Attendance_summary_model->add_dtr($arrData);
 						else:
 							# search the dtr id and update
@@ -314,12 +323,15 @@ class Override extends MY_Controller {
 							# update timein and time out
 							$arrData = array('empNumber' => $empid,
 											 'dtrDate' 	 => $wkday,
-											 'inAM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timefrom'])),
-											 'outAM' 	 => date('h:i:s',strtotime('12:00:00')),
-											 'inPM' 	 => date('h:i:s',strtotime('12:00:01')),
-											 'outPM' 	 => date('h:i:s',strtotime($arrPost['gendtr_timeto'])),
+											 'inAM' 	 => $in_am,
+										 	 'outAM' 	 => $out_am,
+										 	 'inPM' 	 => $in_pm,
+										 	 'outPM' 	 => $out_pm,
 											 'OT' 	 	 => 0,
-											 'name' 	 => 'override');
+											 'name' 	 => $empdtr[$dtrkey]['name'].';'.$this->session->userdata('sessName').' (override)',
+											 'ip'		 => $empdtr[$dtrkey]['ip'].';'.$this->input->ip_address(),
+											 'editdate'	 => $empdtr[$dtrkey]['editdate'].';'.date('Y-m-d h:i:s A'),
+											 'oldValue'	 => $empdtr[$dtrkey]['oldValue'].';inAM='.$in_am.', outAM='.$out_am.', inPM='.$in_am.', outPM='.$out_pm.', inOT=00:00:00, outOT=00:00:00');
 
 							$this->Attendance_summary_model->edit_dtr($arrData, $empdtr[$dtrkey]['id']);
 						endif;

@@ -6,6 +6,47 @@ class Payroll_process_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	function getData($process_id=0)
+	{
+		if($process_id == 0):
+			return $this->db->get('tblProcess')->result_array();
+		else:
+			return $this->db->get_where('tblProcess',array('processID' => $process_id))->result_array();
+		endif;
+	}
+
+	function getall_process($month='all',$yr)
+	{
+		if($month == 'all'):
+			$condition = array('processYear' => $yr);
+		else:
+			$condition = array('processMonth' => $month, 'processYear' => $yr);
+		endif;
+
+		$this->db->order_by('processDate');
+		$this->db->join('tblAppointment','tblAppointment.appointmentCode = tblProcess.employeeAppoint','left');
+		$process = $this->db->get_where('tblProcess', $condition)->result_array();
+		foreach($process as $key => $proc):
+			$process[$key]['details'] = implode(', ',$this->getprocess_details($proc['processID']));
+		endforeach;
+		
+		return $process;
+	}
+
+	function getprocess_details($process_id)
+	{
+		$this->db->group_by('deductionCode');
+		$process_details = $this->db->get_where('tblEmpDeductionRemit', array('processID' => $process_id))->result_array();
+		return array_column($process_details,'deductionCode');
+	}
+
+	function edit_payroll_process($arrData,$procid)
+	{
+		$this->db->where('processID',$procid);
+		$this->db->update('tblProcess', $arrData);
+		return $this->db->affected_rows();
+	}
+
 	function getEmployees($appt_code,$yr,$month,$empid='')
 	{
 		$payroll_process = $this->db->get_where('tblPayrollProcess', array('appointmentCode' => $appt_code))->result_array();

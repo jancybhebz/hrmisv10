@@ -1,3 +1,7 @@
+## DROP INDEX THEN ADD AUTO INCREMENT PRIMARY KEY
+DROP INDEX `PRIMARY` ON tblAppointment;
+ALTER TABLE  `tblAppointment` ADD  `appointmentId` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
 ALTER TABLE  `tblEmpAccount` CHANGE  `userPassword`  `userPassword` VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT  '';
 
 ALTER TABLE `tblAttendanceScheme` ADD `wrkhrLeave` INT(2) NOT NULL DEFAULT '0' AFTER `gpLate`, ADD `hlfLateUnd` CHAR(1) NOT NULL DEFAULT 'N' AFTER `wrkhrLeave`;
@@ -25,6 +29,23 @@ ALTER TABLE  `tblEmpDuties` ADD  `empduties_index` INT NOT NULL AUTO_INCREMENT F
 ALTER TABLE  `tblDuties` ADD  `duties_index` INT NOT NULL AUTO_INCREMENT FIRST , ADD PRIMARY KEY (  `duties_index` ) ;
 
 ALTER TABLE  `tblPlantillaDuties` ADD  `plantilla_duties_index` INT NOT NULL AUTO_INCREMENT FIRST , ADD PRIMARY KEY (  `plantilla_duties_index` ) ;
+
+# Create table override
+CREATE TABLE `tblOverride` (
+  `override_id` int(11) NOT NULL,
+  `override_type` int(11) NOT NULL COMMENT '1=ob;2=exdtr;3=gendtr',
+  `office_type` varchar(20) NOT NULL,
+  `office` varchar(20) NOT NULL,
+  `appt_status` varchar(20) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `created_by` varchar(20) NOT NULL,
+  `lastupdated_date` datetime DEFAULT NULL,
+  `lastupdate_dby` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `tblOverride`
+  ADD PRIMARY KEY (`override_id`);
+ALTER TABLE `tblOverride`
+  MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT;
 
 ## OB Override
 ALTER TABLE  `tblEmpOB` ADD  `is_override` INT NOT NULL DEFAULT  '0';
@@ -57,3 +78,15 @@ UPDATE  `tblDeduction` SET  `is_mandatory` =  '1' WHERE  `tblDeduction`.`deducti
 ## DROP INDEX THEN ADD AUTO INCREMENT PRIMARY KEY
 DROP INDEX `PRIMARY` ON tblDeduction;
 ALTER TABLE  `tblDeduction` ADD  `deduction_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
+## LEAVE
+DROP INDEX `PRIMARY` ON tblLeave;
+ALTER TABLE  `tblLeave` ADD  `leave_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HSTL', 'Half Study Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HFL', 'Half Forced Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HSL', 'Half Sick Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HVL', 'Half Vacation Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPL', 'Half Special Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HMTL', 'Half Maternity Leave', '0.5', '0');
+INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPTL', 'Half Paternity Leave', '0.5', '0');

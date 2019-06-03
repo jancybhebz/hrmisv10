@@ -81,7 +81,7 @@
                                             <th> Account Code </th>
                                             <th> Type </th>
                                             <th> Status </th>
-                                            <th style="text-align: center;width:170px;"> Actions </th>
+                                            <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -130,7 +130,7 @@
                                             <th> Agency Code </th>
                                             <th> Agency Description </th>
                                             <th> Account Code </th>
-                                            <th style="text-align: center;width:170px;"> Actions </th>
+                                            <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -188,14 +188,16 @@
         $('#table-deductions').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
-                $('#table-deductions').show();
-            }} );
+                $('#table-deductions').show();},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        });
 
         $('#table-agency').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
-                $('#table-agency').show();
-            }} );
+                $('#table-agency').show();},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        });
 
         var code = '';
         $('#table-agency, #table-deductions').on('click', 'tr > td > a#btnDelDeduction', function () {

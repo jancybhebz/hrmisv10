@@ -116,6 +116,14 @@ class Leave_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	# update leave balance
+	function editLeaveBalance($arrData, $lb_id)
+	{
+		$this->db->where('lb_id', $lb_id);
+		$this->db->update('tblEmpLeaveBalance', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	# delete leave
 	function deleteLeaveBalance($lb_id)
 	{
@@ -229,12 +237,16 @@ class Leave_model extends CI_Model {
 		return $res;
 	}
 
+	public function getEmployee_dtr($empno,$mon,$yr)
+	{
+		$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
+		return $this->db->get_where('tblEmpDTR', array('empNumber' => $empno))->result_array();
+	}
+
 	public function filed_vl($empno,$mon,$yr)
 	{
 		$total_leave = 0;
-		$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
-		$this->db->where('empNumber', $empno);
-		$emp_leaves = $this->db->get('tblEmpDTR')->result_array();
+		$emp_leaves = $this->getEmployee_dtr($empno,$mon,$yr);
 		
 		foreach($emp_leaves as $leave):
 			if(in_array($leave["remarks"],array('HVL','HFL','HPL'))):
@@ -251,9 +263,7 @@ class Leave_model extends CI_Model {
 	public function filed_sl($empno,$mon,$yr)
 	{
 		$total_leave = 0;
-
-		$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
-		$emp_leaves = $this->db->get_where('tblEmpDTR', array('empNumber' => $empno))->result_array();
+		$emp_leaves = $this->getEmployee_dtr($empno,$mon,$yr);
 
 		foreach($emp_leaves as $leave):
 			if($leave["remarks"]=="HSL"):
@@ -261,6 +271,25 @@ class Leave_model extends CI_Model {
 			endif;
 
 			if($leave["remarks"]=="SL"):
+				$total_leave = $total_leave + 1.0;
+			endif;
+		endforeach;
+		
+		return $total_leave;
+	}
+
+	public function filed_leave_others($empno,$mon,$yr,$leave_type)
+	{
+		$total_leave = 0;
+		$emp_leaves = $this->getEmployee_dtr($empno,$mon,$yr);
+
+		# Half Day
+		foreach($emp_leaves as $leave):
+			if($leave["remarks"]=="H".$leave_type):
+				$total_leave = $total_leave + 0.5;
+			endif;
+
+			if($leave["remarks"]==$leave_type):
 				$total_leave = $total_leave + 1.0;
 			endif;
 		endforeach;
