@@ -456,5 +456,14 @@ class Pds_model extends CI_Model {
 		endif;
 	}
 
+	// EDIT EMPNUMBER
+	function checkEmpNumExist($strEmpNumber = '')
+	{		
+		$this->db->where('empNumber',$strEmpNumber);	
+		
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+
 
 }

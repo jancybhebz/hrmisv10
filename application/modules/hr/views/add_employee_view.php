@@ -643,67 +643,63 @@ var FormValidation = function () {
                     strEmpID: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                       
                     },
                     strSalutation: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                     
                     },
                     strSurname: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                     
                     },
                     strFirstname: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                     
                     },
                     dtmBday: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                    
                     },
                     strBirthPlace: {
-                        minlength: 2,
                         required: true,
-                        noSpace: true
                     },
-                    strSex: {
-                        minlength: 2,
+                    strSex: {         
                         required: true,
-                        noSpace: true
+                    
                     },
                     strCvlStatus: {
-                        minlength: 2,
                         required: true,
-                        noSpace: true
+                       
                     },
                     strCitizenship: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                        
                     },
                     strHeight: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                       
                     },
                     strWeight: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                        
                     },
                     strBloodType: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                        
                     },
                     intTin: {
                         minlength: 2,
                         required: true,
-                        noSpace: true
+                       
                     }
                 },
 
