@@ -641,27 +641,22 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strEmpID: {
-                        minlength: 2,
                         required: true,
                        
                     },
                     strSalutation: {
-                        minlength: 2,
                         required: true,
                      
                     },
                     strSurname: {
-                        minlength: 2,
-                        required: true,
+                         required: true,
                      
                     },
                     strFirstname: {
-                        minlength: 2,
                         required: true,
                      
                     },
                     dtmBday: {
-                        minlength: 2,
                         required: true,
                     
                     },
@@ -677,27 +672,22 @@ var FormValidation = function () {
                        
                     },
                     strCitizenship: {
-                        minlength: 2,
                         required: true,
                         
                     },
                     strHeight: {
-                        minlength: 2,
                         required: true,
                        
                     },
                     strWeight: {
-                        minlength: 2,
-                        required: true,
+                         required: true,
                         
                     },
                     strBloodType: {
-                        minlength: 2,
                         required: true,
                         
                     },
                     intTin: {
-                        minlength: 2,
                         required: true,
                        
                     }
