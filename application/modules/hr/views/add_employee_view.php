@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strEmpID" id="strEmpID" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strEmpID'))?$this->session->userdata('strEmpID'):''?>">
+                                        <input name="strEmpID" id="strEmpID" type="text" size="20" maxlength="20" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strEmpID'))?$this->session->userdata('strEmpID'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strSalutation" id="strSalutation" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strSalutation'))?$this->session->userdata('strSalutation'):''?>">
+                                        <input name="strSalutation" id="strSalutation" type="text" size="20" maxlength="20" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strSalutation'))?$this->session->userdata('strSalutation'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strSurname" id="strSurname" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strSurname'))?$this->session->userdata('strSurname'):''?>">
+                                        <input name="strSurname" id="strSurname" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strSurname'))?$this->session->userdata('strSurname'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strFirstname" id="strFirstname" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strFirstname'))?$this->session->userdata('strFirstname'):''?>">
+                                        <input name="strFirstname" id="strFirstname" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strFirstname'))?$this->session->userdata('strFirstname'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strMiddlename" id="strMiddlename" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strMiddlename'))?$this->session->userdata('strMiddlename'):''?>">
+                                        <input name="strMiddlename" id="strMiddlename" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strMiddlename'))?$this->session->userdata('strMiddlename'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strMidInitial" id="strMidInitial" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strMidInitial'))?$this->session->userdata('strMidInitial'):''?>">
+                                        <input name="strMidInitial" id="strMidInitial" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strMidInitial'))?$this->session->userdata('strMidInitial'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strNameExt" id="strNameExt" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strNameExt'))?$this->session->userdata('strNameExt'):''?>">
+                                        <input name="strNameExt" id="strNameExt" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strNameExt'))?$this->session->userdata('strNameExt'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input class="form-control form-control-inline input-medium date-picker" name="dtmBday" id="dtmBday" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                        <input class="form-control form-control-inline input-medium date-picker" name="dtmBday" id="dtmBday" autocomplete="off" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strBirthPlace" id="strBirthPlace" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBirthPlace'))?$this->session->userdata('strBirthPlace'):''?>">
+                                        <input name="strBirthPlace" id="strBirthPlace" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strBirthPlace'))?$this->session->userdata('strBirthPlace'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select name="strSex" id="strSex" type="text" class="form-control">
+                                        <select name="strSex" id="strSex" type="text" autocomplete="off" class="form-control">
                                             <option value="">Please Select</option>
                                             <option value="Female">Female</option>
                                             <option value="Male">Male</option>
@@ -171,7 +171,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                            <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" value="<?=!empty($this->session->userdata('strCvlStatus'))?$this->session->userdata('strCvlStatus'):''?>">
+                                            <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strCvlStatus'))?$this->session->userdata('strCvlStatus'):''?>">
                                                 <option value="">Please Select</option>
                                                 <option value="Sinlg">Single</option>
                                                 <option value="Married">Married</option>
@@ -201,7 +201,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strHeight" id="strHeight" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strHeight'))?$this->session->userdata('strHeight'):''?>">
+                                        <input name="strHeight" id="strHeight" type="text" size="20" maxlength="255" autocomplete="off" class="form-control" value="<?=!empty($this->session->userdata('strHeight'))?$this->session->userdata('strHeight'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strWeight" id="strWeight" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strWeight'))?$this->session->userdata('strWeight'):''?>">
+                                        <input name="strWeight" id="strWeight" type="text" size="20" maxlength="255" autocomplete="off" class="form-control" value="<?=!empty($this->session->userdata('strWeight'))?$this->session->userdata('strWeight'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strBloodType" id="strBloodType" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBloodType'))?$this->session->userdata('strBloodType'):''?>">
+                                        <input name="strBloodType" id="strBloodType" type="text" size="20" maxlength="255" autocomplete="off" class="form-control" value="<?=!empty($this->session->userdata('strBloodType'))?$this->session->userdata('strBloodType'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intGSIS" id="intGSIS" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intGSIS'))?$this->session->userdata('intGSIS'):''?>">
+                                        <input name="intGSIS" id="intGSIS" type="text" size="20" maxlength="255" autocomplete="off" class="form-control" value="<?=!empty($this->session->userdata('intGSIS'))?$this->session->userdata('intGSIS'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +249,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intPagibig" id="intPagibig" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intPagibig'))?$this->session->userdata('intPagibig'):''?>">
+                                        <input name="intPagibig" id="intPagibig" type="text" size="20" maxlength="255" autocomplete="off" class="form-control" value="<?=!empty($this->session->userdata('intPagibig'))?$this->session->userdata('intPagibig'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intPhilhealth" id="intPhilhealth" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intPhilhealth'))?$this->session->userdata('intPhilhealth'):''?>">
+                                        <input name="intPhilhealth" id="intPhilhealth" type="text" size="20" maxlength="255" autocomplete="off" class="form-control" value="<?=!empty($this->session->userdata('intPhilhealth'))?$this->session->userdata('intPhilhealth'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +273,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intTin" id="intTin" type="text" size="20" maxlength="255" class="form-control" required="" value="<?=!empty($this->session->userdata('intTin'))?$this->session->userdata('intTin'):''?>">
+                                        <input name="intTin" id="intTin" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intTin'))?$this->session->userdata('intTin'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +285,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strEmail" id="strEmail" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strEmail'))?$this->session->userdata('strEmail'):''?>">
+                                        <input name="strEmail" id="strEmail" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strEmail'))?$this->session->userdata('strEmail'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -297,7 +297,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intSSS" id="intSSS" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intSSS'))?$this->session->userdata('intSSS'):''?>">
+                                        <input name="intSSS" id="intSSS" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intSSS'))?$this->session->userdata('intSSS'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +309,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
+                                        <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -327,7 +327,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strLot1" id="strLot1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strLot1'))?$this->session->userdata('strLot1'):''?>">
+                                        <input name="strLot1" id="strLot1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strLot1'))?$this->session->userdata('strLot1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strStreet1" id="strStreet1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strStreet1'))?$this->session->userdata('strStreet1'):''?>">
+                                        <input name="strStreet1" id="strStreet1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strStreet1'))?$this->session->userdata('strStreet1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -351,7 +351,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strSubd1" id="strSubd1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strSubd1'))?$this->session->userdata('strSubd1'):''?>">
+                                        <input name="strSubd1" id="strSubd1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strSubd1'))?$this->session->userdata('strSubd1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -363,7 +363,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strBrgy1" id="strBrgy1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBrgy1'))?$this->session->userdata('strBrgy1'):''?>">
+                                        <input name="strBrgy1" id="strBrgy1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strBrgy1'))?$this->session->userdata('strBrgy1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -375,7 +375,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strCity1" id="strCity1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strCity1'))?$this->session->userdata('strCity1'):''?>">
+                                        <input name="strCity1" id="strCity1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strCity1'))?$this->session->userdata('strCity1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -387,7 +387,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strProv1" id="strProv1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strProv1'))?$this->session->userdata('strProv1'):''?>">
+                                        <input name="strProv1" id="strProv1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strProv1'))?$this->session->userdata('strProv1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -399,7 +399,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intZipCode1" id="intZipCode1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intZipCode1'))?$this->session->userdata('intZipCode1'):''?>">
+                                        <input name="intZipCode1" id="intZipCode1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intZipCode1'))?$this->session->userdata('intZipCode1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -411,7 +411,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
+                                        <input name="intTel1" id="intTel1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intTel1'))?$this->session->userdata('intTel1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -429,7 +429,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strLot2" id="strLot2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strLot2'))?$this->session->userdata('strLot2'):''?>">
+                                        <input name="strLot2" id="strLot2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strLot2'))?$this->session->userdata('strLot2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -441,7 +441,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strStreet2" id="strStreet2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strStreet2'))?$this->session->userdata('strStreet2'):''?>">
+                                        <input name="strStreet2" id="strStreet2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strStreet2'))?$this->session->userdata('strStreet2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -453,7 +453,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strSubd2" id="strSubd2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strSubd2'))?$this->session->userdata('strSubd2'):''?>">
+                                        <input name="strSubd2" id="strSubd2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strSubd2'))?$this->session->userdata('strSubd2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -465,7 +465,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strBrgy2" id="strBrgy2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strBrgy2'))?$this->session->userdata('strBrgy2'):''?>">
+                                        <input name="strBrgy2" id="strBrgy2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strBrgy2'))?$this->session->userdata('strBrgy2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -477,7 +477,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strCity2" id="strCity2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strCity2'))?$this->session->userdata('strCity2'):''?>">
+                                        <input name="strCity2" id="strCity2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strCity2'))?$this->session->userdata('strCity2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -489,7 +489,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strProv2" id="strProv2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('strProv2'))?$this->session->userdata('strProv2'):''?>">
+                                        <input name="strProv2" id="strProv2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strProv2'))?$this->session->userdata('strProv2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -501,7 +501,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intZipCode2" id="intZipCode2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intZipCode2'))?$this->session->userdata('intZipCode2'):''?>">
+                                        <input name="intZipCode2" id="intZipCode2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intZipCode2'))?$this->session->userdata('intZipCode2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -513,7 +513,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intTel2" id="intTel2" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intTel2'))?$this->session->userdata('intTel2'):''?>">
+                                        <input name="intTel2" id="intTel2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intTel2'))?$this->session->userdata('intTel2'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -525,7 +525,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intMobile" id="intMobile" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intMobile'))?$this->session->userdata('intMobile'):''?>">
+                                        <input name="intMobile" id="intMobile" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intMobile'))?$this->session->userdata('intMobile'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -537,7 +537,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intAccount" id="intAccount" type="text" size="20" maxlength="255" class="form-control" value="<?=!empty($this->session->userdata('intAccount'))?$this->session->userdata('intAccount'):''?>">
+                                        <input name="intAccount" id="intAccount" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intAccount'))?$this->session->userdata('intAccount'):''?>">
                                     </div>
                                 </div>
                             </div>
