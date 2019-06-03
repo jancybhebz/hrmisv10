@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strLeaveCode" value="<?=!empty($arrLeave[0]['leaveCode'])?$arrLeave[0]['leaveCode']:''?>">
+                                    <input type="text" class="form-control" name="strLeaveCode" value="<?=!empty($arrLeave[0]['leaveCode'])?$arrLeave[0]['leaveCode']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Leave Type <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strLeaveType" value="<?=!empty($arrLeave[0]['leaveType'])?$arrLeave[0]['leaveType']:''?>">
+                                    <input type="text" class="form-control" name="strLeaveType" value="<?=!empty($arrLeave[0]['leaveType'])?$arrLeave[0]['leaveType']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
