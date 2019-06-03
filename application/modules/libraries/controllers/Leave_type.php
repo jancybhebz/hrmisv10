@@ -66,18 +66,55 @@ class Leave_type extends MY_Controller {
 		}    	
     }
 
+	public function edit()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrLeave']=$this->leave_type_model->leaveCode($strCode);
+			$this->template->load('template/template_view','libraries/leave_type/edit_view', $this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			$strRangeFrom = $arrPost['strRangeFrom'];
+			$strRangeTo = $arrPost['strRangeTo'];
+			$strSalBase = $arrPost['strSalBase'];
+			$intTotalContri = $arrPost['intTotalContri'];
+			if(!empty($strRangeFrom) && !empty($strRangeTo))
+			{	
+				$arrData = array(
+					'philhealthFrom'=>$strRangeFrom,
+					'philhealthTo'=>$strRangeTo,
+					'philSalaryBase'=>$strSalBase,
+					'philMonthlyContri'=>$intTotalContri
+				);
+				$blnReturn = $this->leave_type_model->save($arrData, $strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Edited '.$strRangeFrom.' PhilHealth Range',implode(';',$arrData),'');
+					$this->session->set_flashdata('strSuccessMsg','PhilHealth Range saved successfully.');
+				}
+				redirect('libraries/leave_type');
+			}
+		}
+		
+	}
 	// public function edit()
 	// {
 	// 	$arrPost = $this->input->post();
+	// 	// print_r($arrPost);
 	// 	if(empty($arrPost))
 	// 	{
 	// 		$strCode = urldecode($this->uri->segment(4));
 	// 		$this->arrData['arrLeave']=$this->leave_type_model->getData($strCode);
 	// 		$this->template->load('template/template_view','libraries/leave_type/edit_view', $this->arrData);
+
 	// 	}
 	// 	else
 	// 	{
-	// 		// $strCode = $arrPost['strCode'];
+	// 		$strCode = $arrPost['strCode'];
 	// 		$strLeaveCode = $arrPost['strLeaveCode'];
 	// 		$strLeaveType = $arrPost['strLeaveType'];
 	// 		$intDays = $arrPost['intDays'];
@@ -88,53 +125,18 @@ class Leave_type extends MY_Controller {
 	// 				'leaveType'=>$strLeaveType,
 	// 				'numOfDays'=>$intDays
 	// 			);
-	// 			$blnReturn = $this->leave_type_model->save($arrData, $strCode);
+	// 			print_r($arrPost);
+	// 			// $blnReturn = $this->leave_type_model->save($arrData, $strCode);
 	// 			if(count($blnReturn)>0)
 	// 			{
 	// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblleave','Edited '.$strLeaveCode.' Leave',implode(';',$arrData),'');
-	// 				$this->session->set_flashdata('strSuccessMsg','Leave saved successfully.');
+	//  				$this->session->set_flashdata('strSuccessMsg','Leave type saved successfully.');
 	// 			}
 	// 			redirect('libraries/leave_type');
 	// 		}
-	// 	}		
-	// }
-
-	public function edit()
-	{
-		$arrPost = $this->input->post();
-		// print_r($arrPost);
-		if(empty($arrPost))
-		{
-			$strCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrLeave']=$this->leave_type_model->getData($strCode);
-			$this->template->load('template/template_view','libraries/leave_type/edit_view', $this->arrData);
-
-		}
-		else
-		{
-			$strCode = $arrPost['strCode'];
-			$strLeaveCode = $arrPost['strLeaveCode'];
-			$strLeaveType = $arrPost['strLeaveType'];
-			$intDays = $arrPost['intDays'];
-			if(!empty($strLeaveCode) AND !empty($strLeaveType)) 
-			{
-				$arrData = array(
-					'leaveCode'=>$strLeaveCode,
-					'leaveType'=>$strLeaveType,
-					'numOfDays'=>$intDays
-				);
-				print_r($arrPost);
-				// $blnReturn = $this->leave_type_model->save($arrData, $strCode);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblleave','Edited '.$strLeaveCode.' Leave',implode(';',$arrData),'');
-	 				$this->session->set_flashdata('strSuccessMsg','Leave type saved successfully.');
-				}
-				redirect('libraries/leave_type');
-			}
-		}
+	// 	}
 		
-	}
+	// }
 
 	public function add_special()
     {
