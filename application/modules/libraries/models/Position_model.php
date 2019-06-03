@@ -64,5 +64,11 @@ class Position_model extends CI_Model {
 		$this->db->delete('tblPosition'); 	
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
+	function getemployees_bygroup($groupno, $officename)
+	{
+		return $this->db->get_where('tblEmpPosition',array('group'.$groupno => $officename,'statusOfAppointment' => 'In-Service'))->result_array();
+	}
+
 		
 }

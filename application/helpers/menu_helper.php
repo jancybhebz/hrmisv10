@@ -138,6 +138,8 @@ if ( ! function_exists('check_module'))
     			$module = 'hr'; break;
     		case 2:
     			$module = 'finance'; break;
+    		case 3:
+    			$module = 'officer'; break;
     	endswitch;
     	return $module;
 	}

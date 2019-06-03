@@ -159,27 +159,42 @@ class Request_model extends CI_Model {
 	}
 
 	# Request Flow
-	function getRequestFlow($applicant='')
+	function getRequestFlow($app='')
 	{
-		// $res = $this->db->get_where('tblRequestFlow', array('RequestType' => $type))->result_array();
-		// // return count($res) > 0 ? $res[0] : null;
-		// return $res;
-		if($applicant==''):
-			$this->db->or_like('Applicant', $applicant, 'before', false);
-			$this->db->or_like('Applicant', $applicant, 'after', false);
-			$this->db->or_like('Applicant', $applicant, 'both', false);
-			$this->db->or_where('Applicant','ALLEMP');
+		if($app!=''):
+			$this->db->or_like('Applicant', $app, 'before', false);
+			$this->db->or_like('Applicant', $app, 'after', false);
+			$this->db->or_like('Applicant', $app, 'both', false);
+			if(check_module() == 'hr') {
+				$this->db->or_where('Applicant','ALLEMP');
+			}
 			$res = $this->db->get('tblRequestFlow')->result_array();
 		else:
 			$res = $this->db->get('tblRequestFlow')->result_array();
 		endif;
+		
 		return $res;
 	}
 
-	function getEmployeeRequest($empnumber)
+	function getEmployeeRequest($empnumber,$yr='',$month='')
 	{
 		$this->db->order_by('requestDate', 'desc');
-		return $this->db->get_where('tblEmpRequest', array('empNumber' => $empnumber))->result_array();
+		if($yr!='' && $month!=''):
+			if($month=='all'):
+				$this->db->like('requestDate', $yr.'-', 'after', false);
+			else:
+				$this->db->like('requestDate', $yr.'-'.$month, 'after', false);
+			endif;
+		endif;
+
+		if(gettype($empnumber) == 'array'):
+			$this->db->where_in('empNumber', $empnumber);
+			$res = $this->db->get('tblEmpRequest')->result_array();
+		else:
+			$res = $this->db->get_where('tblEmpRequest', array('empNumber' => $empnumber))->result_array();
+		endif;
+		
+		return $res;
 	}
 
 	function getEmpFiledRequest($empNumber,$arrcode=null)

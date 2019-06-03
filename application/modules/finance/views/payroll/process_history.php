@@ -109,7 +109,7 @@
                                     <td><?=employee_name($process['empNumber'])?></td>
                                     <td style="width: 250px; white-space: nowrap;">
                                         <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess">
-                                            <i class="fa fa-refresh"></i> Reprocessed</a>
+                                            <i class="fa fa-refresh"></i> Reprocess</a>
                                         <a href="javascript:;" class="btn btn-sm grey-cascade" id="btnreprocess">
                                             <i class="fa fa-file-o"></i> Reports</a>
                                         <?php if($process['publish'] == 1): ?>

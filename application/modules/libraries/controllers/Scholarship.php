@@ -50,7 +50,7 @@ class Scholarship extends MY_Controller
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblscholarship','Added '.$strScholarship.' Scholarship',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblScholarship','Added '.$strScholarship.' Scholarship',implode(';',$arrData),'');
 					
 						$this->session->set_flashdata('strSuccessMsg','Scholarship added successfully.');
 					}
@@ -92,7 +92,7 @@ class Scholarship extends MY_Controller
 				$blnReturn = $this->scholarship_model->save($arrData, $intScholarshipId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblscholarship','Edited '.$strScholarship.' Scholarship',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblScholarship','Edited '.$strScholarship.' Scholarship',implode(';',$arrData),'');
 					
 					$this->session->set_flashdata('strSuccessMsg','Scholarship saved successfully.');
 				}
@@ -123,7 +123,7 @@ class Scholarship extends MY_Controller
 				$blnReturn = $this->scholarship_model->delete($intScholarshipId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblscholarship','Deleted '.$strScholarship.' Scholarship',implode(';',$arrScholarship[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblScholarship','Deleted '.$strScholarship.' Scholarship',implode(';',$arrScholarship[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Scholarship deleted successfully.');
 				}

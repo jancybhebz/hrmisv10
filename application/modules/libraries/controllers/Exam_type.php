@@ -50,7 +50,7 @@ class Exam_type extends MY_Controller {
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblexamtype','Added '.$strExamDesc.' Exam Type',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblExamType','Added '.$strExamDesc.' Exam Type',implode(';',$arrData),'');
 					
 						$this->session->set_flashdata('strSuccessMsg','Exam Type added successfully.');
 					}
@@ -95,7 +95,7 @@ class Exam_type extends MY_Controller {
 				$blnReturn = $this->exam_type_model->save($arrData, $intExamId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblexamtype','Edited '.$strExamDesc.' Exam Type',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblExamType','Edited '.$strExamDesc.' Exam Type',implode(';',$arrData),'');
 					
 					$this->session->set_flashdata('strSuccessMsg','Exam Type saved successfully.');
 				}
@@ -125,7 +125,7 @@ class Exam_type extends MY_Controller {
 				$blnReturn = $this->exam_type_model->delete($intExamId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblexamtype','Deleted '.$strExamDesc.' Exam Type',implode(';',$arrExamTypes[0]),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblExamType','Deleted '.$strExamDesc.' Exam Type',implode(';',$arrExamTypes[0]),'');
 	
 					$this->session->set_flashdata('strMsg','Exam Type deleted successfully.');
 				}
