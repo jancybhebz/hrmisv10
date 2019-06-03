@@ -17,11 +17,13 @@ class PayrollProcess extends MY_Controller {
 			$pprocess = array();
 			foreach(explode(',', $payroll['processWith']) as $procwith):
 				$process = $this->Appointment_status_model->getData($procwith);
-				array_push($pprocess, $process[0]['appointmentDesc']);
+				if(count($process) > 0):
+					array_push($pprocess, $process[0]['appointmentDesc']);
+				endif;
 			endforeach;
 			$arrPayroll[$key]['process_with'] = implode(', ', $pprocess);
 		endforeach;
-
+		
 		$this->arrData['arrPayrollProc'] = $arrPayroll;
 		$this->template->load('template/template_view','finance/libraries/payrollprocess/payrollprocess_view',$this->arrData);
 	}
