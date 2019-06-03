@@ -80,9 +80,9 @@
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
-                                            <a class="btn green btn-xs btnedit_plan_dr" data-json='<?=json_encode($plant_d)?>'>
+                                            <a class="btn green btn-xs btnedit_plan_dr" data-json='<?=$plant_d['itemNumber']?>'>
                                                 <i class="fa fa-pencil"></i> Edit </a>
-                                            <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['plantilla_duties_index']?>">
+                                            <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['itemNumber']?>">
                                                 <i class="fa fa-trash"></i> Delete </a>
                                         </center>
                                     </td>
@@ -127,7 +127,7 @@
                                         <center>
                                             <a class="btn green btn-xs btnedit_actual_dr" data-json='<?=json_encode($actual_d)?>'>
                                                 <i class="fa fa-pencil"></i> Edit </a>
-                                            <a class="btn red btn-xs btndelete_actual_dr" data-drid="<?=$actual_d['empduties_index']?>">
+                                            <a class="btn red btn-xs btndelete_actual_dr" data-drid="<?=$actual_d['empNumber']?>">
                                                 <i class="fa fa-trash"></i> Delete </a>
                                         </center>
                                     </td>
