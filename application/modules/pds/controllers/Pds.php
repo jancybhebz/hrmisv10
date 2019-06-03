@@ -1094,8 +1094,8 @@ class Pds extends MY_Controller
 		{
 			//echo $this->upload->display_errors();
 			$error = array('error' => $this->upload->display_errors());
-			//print_r($error);
-			//exit(1);
+			// print_r($error);
+			// exit(1);
 			$this->session->set_flashdata('upload_status','Please try again!');
 		}
 		else

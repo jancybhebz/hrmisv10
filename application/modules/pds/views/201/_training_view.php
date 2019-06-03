@@ -23,7 +23,7 @@
                         <th rowspan="2">Conducted / Sponsored By</th>
                         <th rowspan="2">Training Venue</th>
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
-                            <th rowspan="2"></th>
+                            <th rowspan="2">Action</th>
                             <th rowspan="2">Attachment/s</th>
                         <?php endif; ?>
                     </tr>

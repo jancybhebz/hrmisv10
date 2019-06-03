@@ -26,7 +26,8 @@
                         <th>Graduate</th>
                         <th>Licensed</th>
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
-                            <th></th>
+                            <th>Action</th>
+                            <th>Attachment/s</th>
                         <?php endif; ?>
                     </tr>
                 </thead>
@@ -58,6 +59,10 @@
                                         <a class="btn red btn-xs btndelete_educ" data-educid="<?=$educ['SchoolIndex']?>">
                                             <i class="fa fa-trash"></i> Delete </a>
                                     </center>
+                                </td>
+                                <td>
+                                    <a class="btn green btn-xs btnedit_srvc" <a href="<?=base_url('training/uploadEduc/'.$educ['SchoolIndex'])?>"> 
+                                            <i class="fa fa-pencil"></i> Upload </a>
                                 </td>
                             <?php endif; ?>
                         </tr>
