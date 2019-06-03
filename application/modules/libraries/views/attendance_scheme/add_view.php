@@ -53,7 +53,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         <i class="fa"></i>
                                         <select name="strSchemeType" id="strSchemeType" class="form-control" onchange="showtextbox()">
                                             <option value="">Select Scheme </option>
-                                            <option value=""></option>
                                             <option value="Fixed">Fixed </option>
                                             <option value="Sliding">Sliding </option>
                                         </select>
