@@ -53,7 +53,7 @@
                                 <label class="control-label">Specific Leave :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <textarea class="form-control" name="strSpecial" value="<?=isset($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>" disabled></textarea>
+                                    <input class="form-control" name="strSpecial" value="<?=isset($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <input type="hidden" name="strSpecifyLeave" value="<?=isset($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>">
                                 <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
-                                <a href="<?=base_url('libraries/leave_type')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/leave_type/add_special')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>

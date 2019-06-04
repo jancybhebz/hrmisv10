@@ -142,6 +142,7 @@ class Leave_type extends MY_Controller {
 		if(empty($arrPost))
 		{	
 			$this->arrData['arrSpecialLeave'] = $this->leave_type_model->getSpecialLeave();
+			$this->arrData['arrSpecialLeaveGroupby'] = $this->leave_type_model->getSpecialLeaveGroupby();
 			$this->template->load('template/template_view','libraries/leave_type/add_special_view',$this->arrData);	
 		}
 		else
@@ -164,14 +165,14 @@ class Leave_type extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Added '.$strSpecialLeaveCode.' Leave_type',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Leave type added successfully.');
 					}
-					redirect('libraries/leave_type/add_special');
+					redirect('libraries/leave_type');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Special leave already exists.');
 					$this->session->set_flashdata('strSpecialLeaveCode',$strSpecialLeaveCode);
 					$this->session->set_flashdata('strSpecial',$strSpecial);
-					redirect('libraries/leave_type/add_special');
+					redirect('libraries/leave_type');
 				}
 			}
 		}    	
@@ -183,7 +184,7 @@ class Leave_type extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$strSpecifyLeave = urldecode($this->uri->segment(4));
-			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave();
+			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyLeave);
 			$this->template->load('template/template_view','libraries/leave_type/edit_special_view', $this->arrData);
 		}
 		else
@@ -201,7 +202,7 @@ class Leave_type extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Edited '.$strSpecialLeaveCode.' Leave',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Leave saved successfully.');
+					$this->session->set_flashdata('strMsg','Leave updated successfully.');
 				}
 				redirect('libraries/leave_type');
 			}
