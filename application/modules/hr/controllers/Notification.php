@@ -31,15 +31,20 @@ class Notification extends MY_Controller {
 		if($this->session->userdata('sessUserLevel') == 1):
 			$requestFlow = $this->Request_model->getRequestFlow('HR');
 			$emp_requests = $this->Request_model->employee_request(curryr(),currmo(),0,$active_menu == 'All' ? '' : $active_menu, $active_code);
-			$requests = $this->Notification_model->check_request_flow_and_signatories($requestFlow,$emp_requests);
+			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow,$emp_requests);
 
+			foreach($arrRequest as $req):
+				$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
+				$req['req_empname'] = employee_name($req['req_emp']);
+				array_push($forhr_requests,$req);
+			endforeach;
 			// $forhr_requests = $this->Notification_model->gethr_requestflow($requests);
 		endif;
 		
 		$this->arrData['request_codes'] = $codes;
 		$this->arrData['active_code'] = isset($_GET['code']) ? $_GET['code']=='' ? 'all' : $_GET['code'] : 'all';
 
-		$this->arrData['arrRequest'] = $requests;
+		$this->arrData['arrRequest'] = $forhr_requests;
 		$this->arrData['arrNotif_menu'] = $menu;
 		$this->arrData['active_menu'] = $active_menu;
 		$this->arrData['notif_icon'] = $notif_icon;

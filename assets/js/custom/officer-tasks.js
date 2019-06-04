@@ -2,6 +2,8 @@ function getrequest_status(stat)
 {
     if(stat.toLowerCase() == "recommended" || stat.toLowerCase() == "recommend"){
         return "Recommend";
+    }else if(stat.toLowerCase() == 'certified'){
+        return 'Certify';
     }
 }
 

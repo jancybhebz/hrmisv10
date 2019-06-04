@@ -114,28 +114,28 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;width:50px;">No</th>
+                                    <th>Employee</th>
                                     <th style="text-align: center;width:150px;"> Request Date </th>
                                     <th style="text-align: center;width:100px;"> Request Type </th>
                                     <th style="text-align: center;width:150px;"> Request Status </th>
                                     <th style="text-align: center;"> Remarks </th>
                                     <th> Destination </th>
-                                    <th style="width:50px;"></th>
+                                    <th style="text-align: center;width:150px;" class="no-sort"> Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $no=1; foreach($arrRequest as $request): ?>
                                     <tr class="<?=strtolower($request['req_status']) == 'cancelled'? 'cancelled':''?> <?=strtolower($request['req_status']) == 'disapproved'? 'disapproved':''?>">
                                         <td align="center"><?=$no++?></td>
+                                        <td><?=employee_name($request['req_emp'])?></td>
                                         <td align="center"><?=$request['req_date']?></td>
                                         <td align="center"><?=$request['req_type']?></td>
                                         <td align="center"><?=$request['req_status']?></td>
                                         <td align="center"><?=$request['req_remarks']?></td>
-                                        <td><?=$request['req_nextsign']?></td>
-                                        <td nowrap style="vertical-align: middle;text-align: left;">
-                                            <button class="btn btn-sm blue btn-view" data-json='<?=json_encode($request)?>'> <i class="icon-magnifier"></i> View </button>
-                                            <?php if(!in_array(strtolower($request['req_status']), array('cancelled', 'disapproved','certified'))): ?>
-                                                <button data-id="<?=$request['req_id']?>" class="btn btn-sm red btn-cancel"> <i class="icon-ban"></i> Cancel Request </button>
-                                            <?php endif; ?>
+                                        <td><?=$request['req_desti']?></td>
+                                        <td nowrap style="vertical-align: middle;text-align: center;">
+                                            <a href="javascript:;" id="btnview-details" class="btn btn-sm blue" data-json='<?=json_encode($request)?>'>
+                                                <i class="icon-magnifier"></i> View Details </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -152,56 +152,4 @@
 <?php include 'modals/_notification_modal.php' ?>
 <?php load_plugin('js',array('datatables','select'));?>
 
-<script>
-    $(document).ready(function() {
-        $('#table-notif').dataTable( {
-            "initComplete": function(settings, json) {
-                $('.loading-image').hide();
-                $('#table-notif, .div-legend').css('visibility', 'visible');
-            }} );
-
-        $('#table-notif').on('click', 'button.btn-view', function() {
-            var jsondata = $(this).data('json');
-            console.log(jsondata);
-            alert(jsondata.req_code);
-            switch(jsondata.req_code) {
-                case '201':
-                    $('#modal-201_form').modal('show');
-                    break;
-                case 'OB':
-                    $('#modal-ob_form').modal('show');
-                    break;
-                case 'Leave':
-                    $('#modal-leave_form').modal('show');
-                    break;
-                case 'TO':
-                    $('#modal-to_form').modal('show');
-                    break;
-                case 'Report':
-                    $('#modal-report_form').modal('show');
-                    break;
-                case 'Monetization':
-                    $('#modal-monetization_form').modal('show');
-                    break;
-                case 'Trainings':
-                    $('#modal-trainings_form').modal('show');
-                    break;
-                case 'Commutation':
-                    $('#modal-commutation_form').modal('show');
-                    break;
-                case 'DTR':
-                    $('#modal-dtr_form').modal('show');
-                    break;
-                default:
-                    break;
-            }
-            
-        });
-
-        $('#table-notif').on('click', 'button.btn-cancel', function() {
-            $('#txtreqid').val($(this).data('id'));
-            $('#modal-cancelRequest').modal('show');
-        });
-
-    });
-</script>
+<script src="<?=base_url('assets/js/custom/officer-tasks.js')?>"></script>

@@ -378,7 +378,7 @@ $activetab = strtolower($activetab);
                     </ul>
                 </li>
                 <li class="nav-item <?=$active=='officer' && $activesub=='tasks' ? 'active' : ''?>">
-                    <a href="<?=base_url('officer/tasks')?>">
+                    <a href="<?=base_url(check_module() == 'officer' ? 'officer/tasks' : 'officer/tasks/task_executive').'?month='.currmo().'&yr='.curryr()?>">
                         <i class="icon-list"></i>
                         <span class="title">Tasks</span>
                     </a>
