@@ -18,6 +18,41 @@ class Payslip extends CI_Model {
 
 	function generate()
 	{
+		echo '<pre>';
+		print_r($_GET);
+
+		$emp_details = array('empnumber' => $_GET['empno'],
+							 'empname' 	 => strtoupper(employee_name($_GET['empno'])),
+							 'basic' 	 => '');
+
+		$earnings = array('period_pay'=>'',
+						  'ut_abs' 	  =>'',
+						  'ot' 		  =>'',
+						  'gross_pay' =>'',
+						  'benefits'  =>'',
+						  'deductions'=>'',
+						  'net_pay'   =>'');
+
+
+
+		$benefits = array('hazard'=>'',
+						  'laundry' 	  =>'',
+						  'longi' 		  =>'',
+						  'subs' =>'',
+						  'benefits'  =>'',
+						  'deductions'=>'',
+						  'net_pay'   =>'');
+
+		echo 'emp_details <br>';
+		print_r($emp_details);
+		echo '<hr>';
+		echo 'earnings <br>';
+		print_r($earnings);
+		echo '<hr>';
+		echo 'benefits <br>';
+		print_r($benefits);
+		echo '<hr>';
+		die();
 		$this->fpdf->AddPage('P');
 		
 		$this->payslip_header();

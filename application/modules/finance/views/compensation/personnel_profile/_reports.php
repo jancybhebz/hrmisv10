@@ -7,6 +7,7 @@
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <div class="col-md-9">
                             <div class="form-horizontal">
+                                <input type="text" id="txtempnumber" value="<?=$this->uri->segment(5)?>">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Report Type</label>
                                     <div class="col-md-9">
@@ -33,7 +34,7 @@
                                 <div class="form-group div-month">
                                     <label class="col-md-3 control-label">Month</label>
                                     <div class="col-md-9">
-                                        <select class="bs-select form-control" name="month">
+                                        <select class="bs-select form-control" name="month" id="selmont">
                                             <?php foreach (range(1, 12) as $m): ?>
                                                 <option value="<?=sprintf('%02d', $m)?>"
                                                     <?php 
@@ -51,8 +52,9 @@
                                 </div>
                                 <div class="form-group div-yr">
                                     <label class="col-md-3 control-label">Year</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control input-large date-picker" name="from" data-date="2003" data-date-format="yyyy" data-date-viewmode="years" value="<?=date('Y')?>">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control input-large date-picker" name="from" id="txtps_yr"
+                                            data-date="2003" data-date-format="yyyy" data-date-viewmode="years" value="<?=date('Y')?>">
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
@@ -60,9 +62,9 @@
                                     <label class="col-md-3 control-label">Year</label>
                                     <div class="col-md-9">
                                         <div class="input-group input-large date-picker input-daterange" data-date="2003" data-date-format="yyyy" data-date-viewmode="years" id="dateRange">
-                                            <input type="text" class="form-control" name="from" value="<?=date('Y')?>">
+                                            <input type="text" class="form-control" name="from" id="txtremit_from" value="<?=date('Y')?>">
                                             <span class="input-group-addon"> to </span>
-                                            <input type="text" class="form-control" name="to" value="<?=date('Y')?>">
+                                            <input type="text" class="form-control" name="to" id="txtremit_to" value="<?=date('Y')?>">
                                         </div>
                                         <span class="help-block"></span>
                                     </div>
@@ -70,7 +72,7 @@
                                 <div class="form-group div-period">
                                     <label class="col-md-3 control-label">Period</label>
                                     <div class="col-md-9">
-                                        <select class="form-control bs-select form-required" name="selpayrollGrp">
+                                        <select class="form-control bs-select form-required" name="selpayrollGrp" id="selpayrollGrp">
                                             <option value=""> </option>
                                             <?php foreach(periods() as $per):
                                                     echo "<option value='".$per['id']."'>".$per['val']."</option>";
