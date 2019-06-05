@@ -35,7 +35,7 @@
                 </div>
                 <!-- END LOGO -->
                 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> <img src="<?=base_url('assets/images/logo.png')?>" width="30"></a>
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
                 
                 <!-- END RESPONSIVE MENU TOGGLER -->
 <!--                 <div class="hor-menu  hor-menu-light hidden-sm hidden-xs">

@@ -32,7 +32,7 @@ class Notification extends MY_Controller {
 			$requestFlow = $this->Request_model->getRequestFlow('HR');
 			$emp_requests = $this->Request_model->employee_request(curryr(),currmo(),0,$active_menu == 'All' ? '' : $active_menu, $active_code);
 			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow,$emp_requests);
-
+			
 			foreach($arrRequest as $req):
 				$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
 				$req['req_empname'] = employee_name($req['req_emp']);

@@ -167,7 +167,6 @@ class Deduction_model extends CI_Model {
 		$this->db->where('philhealthTo >= ',$salary);
 
 		$res = $this->db->get('tblPhilhealthRange')->result_array();
-		echo $this->db->last_query();
 		return count($res) > 0 ? $res[0] : array('philMonthlyContri' => 0);
 	}
 

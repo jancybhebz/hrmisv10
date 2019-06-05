@@ -105,7 +105,16 @@
                                     <td align="center"><?=date('F', mktime(0, 0, 0, $process['processMonth'], 10))?></td>
                                     <td align="center"><?=$process['processYear']?></td>
                                     <td align="center"><?=$process['processDate']?></td>
-                                    <td><?=$process['details']?></td>
+                                    <td>
+                                        <?php if(strlen($process['details']) > 50): ?>
+                                            <span class="ellipsis"><?=substr($process['details'], 0, 50)?> ...</span>
+                                            <span class="fulltext" style="display: none;"><?=$process['details']?></span>&nbsp;&nbsp;
+                                            <a class="showmore small" href="javascript:;"><u>show more</u></a>
+                                            <a class="showless small" href="javascript:;" style="display: none;"><u>show less</u></a>
+                                        <?php else: ?>
+                                            <?=$process['details']?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?=employee_name($process['empNumber'])?></td>
                                     <td style="width: 250px; white-space: nowrap;">
                                         <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess">
@@ -160,6 +169,19 @@
             $('#spanpublish').html('pulish');
             $('#publish_process').modal('show');
         });
+
+        /* ellipsis*/
+        $('#tblprocess-history').on('click', 'a.showmore', function() {
+            $(this).closest('td').find('.fulltext,a.showless').show();
+            $(this).prev().prev('.ellipsis').hide();
+            $(this).hide();
+        });
+        $('#tblprocess-history').on('click', 'a.showless', function() {
+            $(this).closest('td').find('.ellipsis,a.showmore').show();
+            $(this).closest('td').find('.fulltext').hide();
+            $(this).hide();
+        });
+
 
     });
 </script>
