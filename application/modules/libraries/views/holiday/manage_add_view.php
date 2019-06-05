@@ -139,7 +139,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr>
                             <th> No. </th>
                             <th> Holiday Name </th>
-                            <!-- <th> Holiday Name </th> -->
                             <th> Holiday Date </th>
                             <th> Action </th>
                         </tr>
@@ -245,6 +244,13 @@ var FormValidation = function () {
     };
 
 }();
+</script>
+<?php load_plugin('js',array('datatables'));?>
+
+<script>
+$(document).ready(function() {
+    Datatables.init('libraries_manage_holiday');
+  });
 
 jQuery(document).ready(function() {
    
@@ -254,11 +260,4 @@ jQuery(document).ready(function() {
     });
 
 });
-
-<?php load_plugin('js',array('datatables'));?>
-
-<script>
-    $(document).ready(function() {
-        Datatables.init('libraries_holiday');
-  });
 </script>

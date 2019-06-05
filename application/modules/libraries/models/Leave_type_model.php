@@ -50,6 +50,17 @@ class Leave_type_model extends CI_Model {
 		{
 			$this->db->where($this->tableid2,$strSpecifyLeave);
 		}
+		 // $this->db->group_by('leaveCode'); 
+		$objQuery = $this->db->get($this->table2);
+		return $objQuery->result_array();	
+	}
+
+	function getSpecialLeaveGroupby($strSpecifyLeave = '')
+	{		
+		if($strSpecifyLeave != "")
+		{
+			$this->db->where($this->tableid2,$strSpecifyLeave);
+		}
 		 $this->db->group_by('leaveCode'); 
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	

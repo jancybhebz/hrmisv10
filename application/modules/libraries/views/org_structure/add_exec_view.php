@@ -88,7 +88,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Executive Office Head Title <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                       <input type="text" class="form-control" name="strHeadTitle" value="<?=!empty($this->session->userdata('strHeadTitle'))?$this->session->userdata('strHeadTitle'):''?>">
+                                       <input type="text" class="form-control" name="strHeadTitle" autocomplete="off" value="<?=!empty($this->session->userdata('strHeadTitle'))?$this->session->userdata('strHeadTitle'):''?>">
                                 </div>
                             </div>
                         </div>

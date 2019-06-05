@@ -53,9 +53,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <select type="text" class="form-control" name="strSpecialLeaveCode" value="<?=!empty($this->session->userdata('strSpecialLeaveCode'))?$this->session->userdata('strSpecialLeaveCode'):''?>" required>
                                         
                                          <option value="">Select</option>
-                                        <?php foreach($arrSpecialLeave as $leave)
+                                        <?php foreach($arrSpecialLeaveGroupby as $leave)
                                         {
-                                          echo '<option value="'.$leave['leaveCode'].'">'.$leave['specifyLeave'].'</option>';
+                                          echo '<option value="'.$leave['leaveCode'].'">'.$leave['leaveCode'].'</option>';
                                         }?>
                                   </select>
                                 </div>
@@ -107,7 +107,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$leave['specifyLeave']?> </td>                   
                             <td>
                                 <a href="<?=base_url('libraries/leave_type/edit_special/'.$leave['specifyLeave'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                 <a href="<?=base_url('libraries/leave_type/delete_special/'.$leave['specifyLeave'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/leave_type/delete_special/'.$leave['specifyLeave'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                             </td>
                         </tr>
                     <?php 
