@@ -22,8 +22,8 @@ class Payslip extends CI_Model {
 	{
 		foreach(array("Employee's Copy","Cashier's Copy") as $copy):
 			$origin_y = 1;
-			$benefits = $this->Payslip_model->income_list($_GET['empno'], $_GET['ps_yr'], $_GET['month']);
-			$deductions = $this->Payslip_model->deduction_list($_GET['empno'], $_GET['ps_yr'], $_GET['month']);
+			$benefits = $this->Payslip_model->income_list($_GET['empno'], $_GET['pgroup']);
+			$deductions = $this->Payslip_model->deduction_list($_GET['empno'], $_GET['pgroup']);
 			$process_details = $this->Payroll_process_model->getData($_GET['pgroup']);
 			$period = salary_schedule($process_details[0]['salarySchedule'],$_GET['period']);
 			$period_range = salary_schedule($process_details[0]['salarySchedule'],$_GET['period'],1);
@@ -39,13 +39,12 @@ class Payslip extends CI_Model {
 			$arrot = $this->Payslip_model->get_employee_overtime($_GET['pgroup'],$_GET['empno']);
 			$ot = $arrot != '' ? $arrot[$period] : 0;
 
-			// $process_codes = $this->Payroll_process_model->get_process_code($_GET['pgroup']);
+			$process_codes = $this->Payroll_process_model->get_process_code($_GET['pgroup']);
 			// echo '<pre>';
 			// echo '<br>period_range = ';print_r($period_range);
 			// echo '<br>period = ';print_r($period);
 			// echo '<br>_GET<br>';print_r($_GET);
 			// echo '<br>process_details<br>';print_r($process_details);
-			// echo '<br>emp_details<br>';print_r($emp_details);
 			// echo '<br>benefits<br>';print_r($benefits);
 			// echo '<br>deductions<br>';print_r($deductions);
 			// die();
@@ -148,7 +147,7 @@ class Payslip extends CI_Model {
 				$this->fpdf->Cell(18,5,number_format($total_deductions, 2,'.',','), 'T', 1, 'R');
 				$this->fpdf->SetXY(143,$ded_y + $origin_y +10);   
 			else:
-				$this->SetXY(143,$ded_y + $origin_y +3);   
+				$this->fpdf->SetXY(143,$ded_y + $origin_y +3);   
 			endif;
 			$this->fpdf->SetFont('Arial','',8);
 			$this->fpdf->Cell(60,5,'*** Nothing Follows ***', 0, 0, 'C');

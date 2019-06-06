@@ -73,21 +73,22 @@
                                     <label class="col-md-3 control-label">Period</label>
                                     <div class="col-md-9">
                                         <select class="form-control bs-select form-required" name="selpayrollGrp" id="selpayrollGrp">
-                                            <option value=""> </option>
                                             <?php
-                                                foreach($periods as $period):
-                                                    if($period['period'] == 4 && $period['employeeAppoint'] == 'P'):
-                                                        if(strtolower($period['processCode']) == 'salary'):
-                                                            for($p = 1; $p <= salary_schedule($period['salarySchedule'],0,1); $p++):
-                                                                echo "<option value='".$period['processID']."' data-period='".$p."' data-codes='".implode(', ',$period['codes'])."'>".$period['processCode']." - PERIOD ".$p."</option>";
-                                                            endfor;
-                                                        else:
-                                                            echo "<option value='".$period['processID']."' data-period='' data-codes='".implode(', ',$period['codes'])."'>".$period['processCode']."</option>";
+                                                if(count($periods) > 0):
+                                                    foreach($periods as $period):
+                                                        if($period['publish'] == 1):
+                                                            if($period['period'] == 4 && $period['employeeAppoint'] == 'P'):
+                                                                for($p = 1; $p <= salary_schedule($period['salarySchedule'],0,1); $p++):
+                                                                    echo "<option value='".$period['processID']."' data-period='".$p."' data-codes='".implode(', ',$period['codes'])."'>".$period['processCode']." - PERIOD ".$p."</option>";
+                                                                endfor;
+                                                            else:
+                                                                echo "<option value='".$period['processID']."' data-period='' data-codes=''>".$period['processCode']." - PERIOD ".$period['period']."</option>";
+                                                            endif;
                                                         endif;
-                                                    else:
-                                                        echo "<option value='".$period['processID']."' data-period='' data-codes=''>".$period['processCode']." - PERIOD ".$period['period']."</option>";
-                                                    endif;
-                                                endforeach; ?>
+                                                    endforeach;
+                                                else:
+                                                    echo '<option value="">NO PUBLISHED PAYROLL FOR THIS MONTH</option>';
+                                                endif; ?>
                                         </select>
                                         <span class="help-block small" id="period-codes"></span>
                                         <span class="help-block"></span>
