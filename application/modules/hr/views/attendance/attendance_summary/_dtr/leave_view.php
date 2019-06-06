@@ -53,9 +53,9 @@
                                     <td><?=$leave['leaveTo']?></td>
                                     <td></td>
                                     <td><?=$leave['reason']?></td>
-                                    <td align="center">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/leave_edit/'.$this->uri->segment(5).'?id='.$leave['leaveID'])?>" class="btn green btn-sm"> <i class="fa fa-pencil"></i> Edit</a>
-                                        <button class="btn red btn-sm btn-delete" data-id="<?=$leave['leaveID']?>">
+                                    <td style="white-space: nowrap !important;">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/leave_edit/'.$this->uri->segment(5).'?id='.$leave['leaveID'])?>" class="btn green btn-xs"> <i class="fa fa-pencil"></i> Edit</a>
+                                        <button class="btn red btn-xs btn-delete" data-id="<?=$leave['leaveID']?>">
                                             <i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>

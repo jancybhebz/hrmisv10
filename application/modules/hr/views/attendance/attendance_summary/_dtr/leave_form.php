@@ -21,10 +21,10 @@
                                         <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="bs-select form-control form-required" name="sel_leavetype" id="sel_leavetype">
                                             <option value="null">-- SELECT LEAVE TYPE --</option>
-                                            <?php foreach($arrleaveTypes as $leave): ?>
+                                            <?php foreach($arrleaveTypes as $leave): if($leave['system'] == 1): ?>
                                                 <option value="<?=$leave['leaveCode']?>" <?=isset($arremp_leave) ? $leave['leaveCode'] == $arremp_leave['leaveCode'] ? 'selected' : '' : ''?>>
                                                     <?=$leave['leaveType']?></option>
-                                            <?php endforeach; ?>
+                                            <?php endif; endforeach; ?>
                                         </select>
                                     </div>
                                 </div>

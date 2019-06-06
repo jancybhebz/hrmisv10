@@ -142,6 +142,8 @@ if ( ! function_exists('check_module'))
     			$module = 'officer'; break;
     		case 4:
     			$module = 'executive'; break;
+    		case 5:
+    			$module = 'employee'; break;
     	endswitch;
     	return $module;
 	}
