@@ -173,7 +173,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         <i class="fa fa-warning tooltips i-required"></i>
                                             <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strCvlStatus'))?$this->session->userdata('strCvlStatus'):''?>">
                                                 <option value="">Please Select</option>
-                                                <option value="Sinlg">Single</option>
+                                                <option value="Single">Single</option>
                                                 <option value="Married">Married</option>
                                                 <option value="Separated">Separated</option>
                                                 <option value="Widowed">Widowed</option>
@@ -190,7 +190,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="col-md-2 control-label right"> Citizenship <span class="required"> * </span></label>
                                 <div class="col-md-9">
                                     <input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Filipino") echo "checked";?> value="female"> &nbsp;Filipino
-                                    <input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Dual") echo "checked";?> value="dual"> &nbsp;Dual Citizenship
+                                    <input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Dual Citizenship") echo "checked";?> value="dual"> &nbsp;Dual Citizenship
                                 </div>
                             </div>
                         </div>
@@ -285,7 +285,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strEmail" id="strEmail" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strEmail'))?$this->session->userdata('strEmail'):''?>">
+                                        <input name="strEmail" id="strEmail" type="email" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strEmail'))?$this->session->userdata('strEmail'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +303,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
 
-                        <div class="form-group">
+                    <!--     <div class="form-group">
                             <div class="row">
                                 <label class="col-md-2 control-label right"> Telephone Number <span class="required"> * </span></label>
                                 <div class="col-md-9">
@@ -313,7 +313,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <div class="row">

@@ -323,6 +323,7 @@
                         </div>
                     </div>
                 </div>
+               
                 <div class="row">
                 <div class="col-sm-1">
                         <div class="form-group">
@@ -335,7 +336,11 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strSex" autcomplete="off" value="<?=isset($arrData['sex'])?$arrData['sex']:''?>">
+                             <select type="text" class="form-control" name="strSex" autcomplete="off" value="<?=isset($arrData['sex'])?$arrData['sex']:''?>">
+                                 <option value="">Select</option>
+                                 <option <?php if ($arrData['sex'] == 'M' ) echo 'selected' ; ?> value="M">M</option>
+                                 <option <?php if ($arrData['sex'] == 'F' ) echo 'selected' ; ?> value="F">F</option>
+                             </select>
                         </div>
                     </div>
                 </div>
@@ -351,7 +356,15 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strCvlStatus" autcomplete="off" value="<?=isset($arrData['civilStatus'])?$arrData['civilStatus']:''?>">
+                              <select type="text" class="form-control" name="strCvlStatus" autcomplete="off" value="<?=isset($arrData['civilStatus'])?$arrData['civilStatus']:''?>">
+                                    <option value="">Please Select</option>
+                                    <option <?php if ($arrData['civilStatus'] == 'Single' ) echo 'selected' ; ?> value="Single">Single</option>
+                                    <option <?php if ($arrData['civilStatus'] == 'Married' ) echo 'selected' ; ?> value="Married">Married</option>
+                                    <option <?php if ($arrData['civilStatus'] == 'Separated' ) echo 'selected' ; ?> value="Separated">Separated</option>
+                                    <option <?php if ($arrData['civilStatus'] == 'Widowed' ) echo 'selected' ; ?> value="Widowed">Widowed</option>
+                                    <option <?php if ($arrData['civilStatus'] == 'Annulled' ) echo 'selected' ; ?> value="Annulled">Annulled</option>
+                                    <option <?php if ($arrData['civilStatus'] == 'Others' ) echo 'selected' ; ?> value="Others">Others</option>
+                             </select>
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
