@@ -48,6 +48,7 @@ ALTER TABLE `tblOverride`
   MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT;
 
 ## OB Override
+## pls remote default value 0000-00-00
 ALTER TABLE `tblEmpOB` CHANGE `dateFiled` `dateFiled` DATE NULL DEFAULT NULL, CHANGE `obDateFrom` `obDateFrom` DATE NULL DEFAULT NULL, CHANGE `obDateTo` `obDateTo` DATE NULL DEFAULT NULL, CHANGE `obTimeFrom` `obTimeFrom` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `obTimeTo` `obTimeTo` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 
 ALTER TABLE  `tblEmpOB` ADD  `is_override` INT NOT NULL DEFAULT  '0';
