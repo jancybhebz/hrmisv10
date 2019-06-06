@@ -31,7 +31,7 @@ class Hr_model extends CI_Model {
 	var $tabletraining = 'tblEmpTraining';
 	var $tabletrainingid = 'XtrainingCode';
 
-	var $tablepos = 'tblempposition';
+	var $tablepos = 'tblEmpPosition';
 	var $tableposid = 'appointmentCode';
 
 	var $tableduties = 'tblempduties';
@@ -87,6 +87,11 @@ class Hr_model extends CI_Model {
 
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
+	}
+
+	public function get_employee_position($empno)
+	{
+		return $this->db->get_where('tblEmpPosition',array('empNumber' => $empno))->result_array();
 	}
 
 	public function get_employee_number()

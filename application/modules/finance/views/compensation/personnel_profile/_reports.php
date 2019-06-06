@@ -7,7 +7,7 @@
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <div class="col-md-9">
                             <div class="form-horizontal">
-                                <input type="text" id="txtempnumber" value="<?=$this->uri->segment(5)?>">
+                                <input type="hidden" id="txtempnumber" value="<?=$this->uri->segment(5)?>">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Report Type</label>
                                     <div class="col-md-9">
@@ -52,8 +52,8 @@
                                 </div>
                                 <div class="form-group div-yr">
                                     <label class="col-md-3 control-label">Year</label>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control input-large date-picker" name="from" id="txtps_yr"
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control input-large date-picker" name="txtps_yr" id="txtps_yr"
                                             data-date="2003" data-date-format="yyyy" data-date-viewmode="years" value="<?=date('Y')?>">
                                         <span class="help-block"></span>
                                     </div>
@@ -74,10 +74,22 @@
                                     <div class="col-md-9">
                                         <select class="form-control bs-select form-required" name="selpayrollGrp" id="selpayrollGrp">
                                             <option value=""> </option>
-                                            <?php foreach(periods() as $per):
-                                                    echo "<option value='".$per['id']."'>".$per['val']."</option>";
-                                                  endforeach; ?>
+                                            <?php
+                                                foreach($periods as $period):
+                                                    if($period['period'] == 4 && $period['employeeAppoint'] == 'P'):
+                                                        if(strtolower($period['processCode']) == 'salary'):
+                                                            for($p = 1; $p <= salary_schedule($period['salarySchedule'],0,1); $p++):
+                                                                echo "<option value='".$period['processID']."' data-period='".$p."' data-codes='".implode(', ',$period['codes'])."'>".$period['processCode']." - PERIOD ".$p."</option>";
+                                                            endfor;
+                                                        else:
+                                                            echo "<option value='".$period['processID']."' data-period='' data-codes='".implode(', ',$period['codes'])."'>".$period['processCode']."</option>";
+                                                        endif;
+                                                    else:
+                                                        echo "<option value='".$period['processID']."' data-period='' data-codes=''>".$period['processCode']." - PERIOD ".$period['period']."</option>";
+                                                    endif;
+                                                endforeach; ?>
                                         </select>
+                                        <span class="help-block small" id="period-codes"></span>
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
@@ -122,7 +134,7 @@
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed id="embed-pdf" frameborder="0" width="100%" height="400px">
+                            <embed id="embed-pdf" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                 </div>

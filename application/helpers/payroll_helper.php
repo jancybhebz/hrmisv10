@@ -136,3 +136,55 @@ if ( ! function_exists('agency_paryoll_process'))
         return count($res) > 0 ? $res[0]['salarySchedule'] : '';
     }
 }
+
+if ( ! function_exists('salary_schedule'))
+{
+    function salary_schedule($sched,$ps_period=0,$period=0)
+    {
+        $period_name = '';
+        $period_no = 0;
+
+        switch ($sched):
+         case 'Bi-Monthly':
+             $period_name = $ps_period == 1 ? 'period1' : 'period2';
+             $period_no = 2;
+             break;
+         case 'Weekly':
+             $period_name = $ps_period == 1 ? 'period1' : $ps_period == 2 ? 'period2' : $ps_period == 3 ? 'period3' : 'period4';
+             $period_no = 4;
+             break;
+         case 'Monthly':
+             $period_name = 'period1';
+             $period_no = 1;
+             break;
+        endswitch;
+
+        if($period == 1):
+            return $period_no;
+        else:
+            return $period_name;
+        endif;
+    }
+}
+
+if ( ! function_exists('payroll_date'))
+{
+    function payroll_date($sched,$period=0)
+    {
+        $payroll_date = '';
+
+        switch ($sched):
+         case 'Bi-Monthly':
+             $payroll_date = $period == 1 ? '1 - 15' : '16 - '.cal_days_in_month(CAL_GREGORIAN,currmo(),curryr());
+             break;
+         case 'Weekly':
+             $payroll_date = $period == 1 ? '1st Week' : $period == 2 ? '2nd Week' : $period == 3 ? '3rd Week' : '4th Week' ;
+             break;
+         case 'Monthly':
+             $payroll_date = '1 - '.cal_days_in_month(CAL_GREGORIAN,currmo(),curryr());
+             break;
+        endswitch;
+        
+        return $payroll_date;
+    }
+}

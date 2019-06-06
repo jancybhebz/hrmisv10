@@ -17,6 +17,7 @@ class Personnel_profile extends MY_Controller {
         $this->load->model(array('hr/Hr_model','Deduction_model',
         						 'Compensation_model', 'libraries/Appointment_status_model','hr/Attendance_summary_model','employee/Leave_model',
         						 'Benefit_model'));
+        $this->load->helper('payroll_helper');
     }
 
 	public function index()
@@ -326,17 +327,33 @@ class Personnel_profile extends MY_Controller {
 
 	public function reports($empid)
 	{
+		$this->load->model('finance/Payroll_process_model');
 		$employeeData = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $employeeData[0];
 
 		$arrPost = $this->input->get();
 		if(!empty($arrPost)):
-			print($arrPost);
-			die();
-			// $this->load->model('Remittance_model');
-			// $this->arrData['arrRemittances'] = $this->Remittance_model->getRemittance($empid, $arrPost['selpayrollGrp'], $arrPost['from'], $arrPost['to']);
+
 		endif;
 
+		// $process_details = $this->Payroll_process_model->getData($_GET['pgroup']);
+		// $period = $process_details[0]['period'];
+		// switch ($process_details[0]['salarySchedule']):
+		// 	case 'Bi-Monthly':
+		// 		$period = $period == 1 ? 'period1' : 'period1';
+		// 		break;
+		// 	case 'Weekly':
+		// 		$period = $period == 1 ? 'period1' : $period == 2 ? 'period2' : $period == 3 ? 'period3' : 'period4';
+		// 		break;
+		// 	case 'Monthly':
+		// 		$period = 'period1';
+		// 		break;
+		// endswitch;
+
+		$emp_position = $this->Hr_model->get_employee_position($this->uri->segment(5));
+		$emp_position = $emp_position[0]['appointmentCode'];
+		$this->arrData['periods'] = $this->Payroll_process_model->get_process_by_appointment($emp_position,currmo(),curryr());
+		
 		$arrDeductions = $this->Deduction_model->getDeductionsByStatus(0);
 		array_push($arrDeductions, array('deductionCode' => 'ALLGSIS', 'deductionDesc' => 'ALL GSIS Deduction(exc. Life and Ret. Prem.)'));
 		$this->arrData['arrDeductions'] = $arrDeductions;
