@@ -323,6 +323,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                 <div class="col-sm-1">
                         <div class="form-group">
@@ -336,9 +337,16 @@
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
                              <input type="text" class="form-control" name="strSex" autcomplete="off" value="<?=isset($arrData['sex'])?$arrData['sex']:''?>">
+                             <select name="strSex" id="strSex" class="form-control">
+                                <option value="">Select</option>
+                                <option value="1" <?=$option1?>>Female</option>
+                                <option value="0" <?=$option2?>>Male</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="row">
                 <div class="col-sm-1">
                         <div class="form-group">
