@@ -25,6 +25,7 @@ ALTER TABLE `tblProject` ADD `projectId` INT NOT NULL AUTO_INCREMENT FIRST, ADD 
 ALTER TABLE `tblServiceCode` ADD `serviceId` INT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE `serviceId` (`serviceId`);
 
 ALTER TABLE `tblSignatory` ADD `sig_module` TINYINT NULL AFTER `signatoryOrder`;
+ALTER TABLE  `tblSignatory` CHANGE  `sig_module`  `sig_module` TINYINT( 4 ) NULL DEFAULT NULL COMMENT  '1=hr;0=payroll';
 
 ALTER TABLE  `tblEmpDuties` ADD  `empduties_index` INT NOT NULL AUTO_INCREMENT FIRST , ADD PRIMARY KEY (  `empduties_index` ) ;
 

@@ -46,12 +46,12 @@
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-hazards" >
                             <thead>
                                 <tr>
-                                    <th> No </th>
-                                    <th> Deduction </th>
-                                    <th> OR </th>
-                                    <th> Month </th>
-                                    <th> Year </th>
-                                    <th> Amount </th>
+                                    <th style="text-align: center;"> No </th>
+                                    <th style="text-align: center;"> Deduction </th>
+                                    <th style="text-align: center;"> OR </th>
+                                    <th style="text-align: center;"> Month </th>
+                                    <th style="text-align: center;"> Year </th>
+                                    <th style="text-align: right;"> Amount </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,12 +60,12 @@
                                     foreach($arrRemittances as $remit):
                                         $totalRemittance = $totalRemittance + ($remit['period1'] + $remit['period2'] + $remit['period3'] + $remit['period4']); ?>
                                         <tr class="odd gradeX">
-                                            <td><?=$no++?></td>
-                                            <td><?=$remit['deductionDesc']?></td>
-                                            <td><?=$remit['orNumber']?></td>
-                                            <td><?=date('F', mktime(0, 0, 0, $remit['deductMonth'], 10));?></td>
-                                            <td><?=$remit['deductYear']?></td>
-                                            <td><?=number_format(($remit['period1'] + $remit['period2'] + $remit['period3'] + $remit['period4']), 2)?></td>
+                                            <td style="text-align: center;"><?=$no++?></td>
+                                            <td style="text-align: center;"><?=$remit['deductionDesc']?></td>
+                                            <td style="text-align: center;"><?=$remit['orNumber']?></td>
+                                            <td style="text-align: center;"><?=date('F', mktime(0, 0, 0, $remit['deductMonth'], 10));?></td>
+                                            <td style="text-align: center;"><?=$remit['deductYear']?></td>
+                                            <td style="text-align: right;"><?=number_format(($remit['period1'] + $remit['period2'] + $remit['period3'] + $remit['period4']), 2)?></td>
                                         </tr>
                                 <?php endforeach; endif; ?>
                             </tbody>

@@ -94,6 +94,18 @@
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
+                                <div class="form-group div-signatory">
+                                    <label class="col-md-3 control-label">Signatory</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control select2 form-required" name="selsign" id="selsign">
+                                            <option value=""></option>
+                                            <?php foreach($arrSignatories as $sign): ?>
+                                                <option value="<?=$sign['signatoryId']?>"><?=$sign['signatory']?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
                                 <div class="form-group div-generate" hidden>
                                     <label class="col-md-3 control-label">Generate</label>
                                     <div class="col-md-9">

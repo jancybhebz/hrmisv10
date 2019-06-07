@@ -29,7 +29,7 @@ class Signatory_model extends CI_Model {
 	function getSignatories($id)
 	{
 		if($id==''):
-			return $this->db->join('tblPayrollGroup', 'tblPayrollGroup.payrollGroupCode = tblSignatory.payrollGroupCode', 'left')->order_by('signatory','ASC')->get('tblSignatory')->result_array();
+			return $this->db->order_by('signatory','ASC')->get('tblSignatory')->result_array();
 		else:
 			$result = $this->db->get_where('tblSignatory', array('signatoryId' => $id))->result_array();
 			return $result[0];
@@ -38,9 +38,8 @@ class Signatory_model extends CI_Model {
 
 	function getSignatoriesByModule($module)
 	{
-		return $this->db->join('tblPayrollGroup', 'tblPayrollGroup.payrollGroupCode = tblSignatory.payrollGroupCode', 'left')
-						->order_by('signatory','ASC')->get_where('tblSignatory', array('sig_module' => $module))->result_array();
-	}	
+		return $this->db->get_where('tblSignatory', array('sig_module' => $module))->result_array();
+	}
 		
 }
 /* End of file Signatory_model.php */

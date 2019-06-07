@@ -11,7 +11,8 @@ class Remittance_model extends CI_Model {
 		$this->db->where("deductYear between '".str_replace(' ', '', $from)."' and '".str_replace(' ', '', $to)."'");
 		$this->db->where('tblEmpDeductionRemit.deductionCode',$code);
 		$this->db->where('empNumber',$empid);
-		return $this->db->join('tblDeduction', 'tblDeduction.deductionCode = tblEmpDeductionRemit.deductionCode', 'left')->get_where('tblEmpDeductionRemit')->result_array();
+		$res = $this->db->join('tblDeduction', 'tblDeduction.deductionCode = tblEmpDeductionRemit.deductionCode', 'left')->get_where('tblEmpDeductionRemit')->result_array();
+		return $res;
 	}
 		
 }

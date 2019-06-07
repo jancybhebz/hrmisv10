@@ -6,6 +6,16 @@ class Deduction_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	function getData($code='')
+	{
+		if($code==''):
+			return $this->db->order_by('deductionGroupCode, deductionDesc')->get('tblDeduction')->result_array();
+		else:
+			$res = $this->db->get_where('tblDeduction', array('deductionCode' => $code))->result_array();
+			return $res[0];
+		endif;
+	}
+
 	function add($arrData)
 	{
 		$this->db->insert('tblDeduction', $arrData);

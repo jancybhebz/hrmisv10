@@ -33,7 +33,7 @@ $(document).ready(function() {
     $('#btnprint').click(function() {
         var reptype = $('#selrep_type').val();
         var replink = "";
-        var getdata = "empno=" + $('#txtempnumber').val() + "&rtype=" + $('#selrep_type').val() + "&remitt=" + $('#selrep_remitt').val() + "&month=" + $('#selmont').val() + "&ps_yr=" + $('#txtps_yr').val() + "&remit_fr=" + $('#txtremit_from').val() + "&remit_to=" + $('#txtremit_to').val() + "&pgroup=" + $('#selpayrollGrp').val() + "&file_gen=" + $('#selgen').val() + "&period=" + $('#selpayrollGrp').find(':selected').attr('data-period');
+        var getdata = "empno=" + $('#txtempnumber').val() + "&rtype=" + $('#selrep_type').val() + "&remitt=" + $('#selrep_remitt').val() + "&month=" + $('#selmont').val() + "&ps_yr=" + $('#txtps_yr').val() + "&remit_fr=" + $('#txtremit_from').val() + "&remit_to=" + $('#txtremit_to').val() + "&pgroup=" + $('#selpayrollGrp').val() + "&file_gen=" + $('#selgen').val() + "&period=" + $('#selpayrollGrp').find(':selected').attr('data-period') + "&sign=" + $('#selsign').val();
         if(reptype == 1){
             report_name = "Payslip";
             replink = "finance/reports/monthlyreports/payslip?"+getdata;
