@@ -41,15 +41,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave'))?>
              <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
                          <label class="control-label">Date : <span class="required"> * </span></label>
                          <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                    </div>
-                    <div class="input-icon left">
-                       <font color='red'> <span id="errorcom"></span></font>
                     </div>
                 </div>
             </div>
@@ -211,6 +208,10 @@ var FormValidation = function () {
                 rules: {
                     dtmComLeave: {
                         required: true,
+                    },
+                    strPurpose: {
+                        required: true,
+                        noSpace: true
                     }
 
                 },
@@ -267,32 +268,4 @@ jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
-
-<script>
-function checkForBlank()
-{
-   var spaceCount = 0;
-
-    $dtmComLeave= $('#dtmComLeave').val();
- 
-    $('#errorcom').html('');
-   
-    if($dtmComLeave=="")
-    {
-      $('#errorcom').html('This field is required!');
-      return false;
-    }
-    else if($dtmComLeave==0)
-    {
-      $('#errorcom').html('Invalid input!');
-      return false;
-    }
-   
-    else
-    {
-      return true;
-    }
-
-}
-</script>
-    
+  

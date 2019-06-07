@@ -42,7 +42,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/dtr_update/submit'), array('method' => 'post', 'id' => 'frmDTRupdate', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open(base_url('employee/dtr_update/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
+            <br>
                    
             <div class="row">
                 <div class="col-sm-8">
@@ -50,22 +51,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <label class="control-label">Date : <span class="required"> * </span></label>
                               <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                     </div>
-                    <div class="input-icon left">
-                       <font color='red'> <span id="errordate"></span></font>
-                    </div>
                 </div>
-            </div><br>
+            </div>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">For the month of : <span class="required"> * </span></label>
                               <input name="dtmMonthOf" id="dtmMonthOf" class="form-control" size="10" type="text" value="" autocomplete="off">
                     </div>
-                    <div class="input-icon left">
-                       <font color='red'> <span id="errormonth"></span></font>
-                    </div>
                 </div>
-            </div><br>
+            </div>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -354,31 +349,4 @@ jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
-
-<script>
-function checkForBlank()
-{
-
-    $dtmDTRupdate= $('#dtmDTRupdate').val();
-    $dtmMonthOf= $('#dtmMonthOf').val();
- 
-    $('#errordate','#errormonth').html('');
-   
-    if($dtmDTRupdate=="")
-    {
-      $('#errordate').html('This field is required!');
-      return false;
-    }
-    else if($dtmMonthOf=="")
-    {
-      $('#errormonth').html('This field is required!');
-      return false;
-    }
-   
-    else
-    {
-      return true;
-    }
-
-}
-</script>
+  

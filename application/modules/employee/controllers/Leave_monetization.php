@@ -51,7 +51,7 @@ class Leave_monetization extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpLeaveMonetization','Added '.$ProjVL.' Leave Monetization',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Your Request has been submitted.');
+						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
 					redirect('employee/leave_monetization');
 				}

@@ -137,8 +137,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-                    
-
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                 <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
+                                <div class="input-icon right">
+                                    <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
+                                    <span></span>
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                      <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group">
@@ -148,17 +159,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     </div>
                                      <div class="input-icon left">
                                    <font color='red'> <span id="errorpur"></span></font>
-                                </div>
-                            </div>
-                        </div>
-                   <br>
-                     <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group">
-                                 <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
-                                    <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
-                                    <span></span>
-                                </label>
                                 </div>
                             </div>
                         </div>
@@ -338,83 +338,77 @@ jQuery(document).ready(function() {
 
 <script>
 
-function checkForBlank()
-{
-   var spaceCount = 0;
+// function checkForBlank()
+// {
+//    var spaceCount = 0;
 
-    // $dtmOBrequestdate= $('#dtmOBrequestdate').val();
-    // $dtmOBdatefrom= $('#dtmOBdatefrom').val();
-    // $dtmOBdateto= $('#dtmOBdateto').val();
-    $strDestination= $('#strDestination').val();
-    $strPurpose= $('#strPurpose').val();
+//     $dtmOBrequestdate= $('#dtmOBrequestdate').val();
+//     $dtmOBdatefrom= $('#dtmOBdatefrom').val();
+//     $dtmOBdateto= $('#dtmOBdateto').val();
+//     $strDestination= $('#strDestination').val();
+//     $strPurpose= $('#strPurpose').val();
 
-    $('#errorreq','errorfrom','errorto','errordesti','errorpur').html('');
+//     $('#errorreq','errorfrom','errorto','errordesti','errorpur').html('');
 
-    // if($dtmOBrequestdate=="")
-    // {
-    //   $('#errorreq').html('This field is required!');
-    //   return false;
-    // }
-    //  if($dtmOBdatefrom=="")
-    // {
-    //   $('#errorfrom').html('This field is required!');
-    //   return false;
-    // }
-    // if($dtmOBdatefrom=="" && $dtmOBrequestdate!="")
-    // {
-    //     $('#errorfrom').html('This field is required!');
-    //     $('#errorreq').html('');
-    //   return false;
-    // }
-    //  if($dtmOBdateto=="")
-    // {
-    //   $('#errorto').html('This field is required!');
-    //   return false;
-    // }
-     if($strDestination=="")
-    {
-      $('#errordesti').html('This field is required!');
-      return false;
-    }
-     if($strPurpose=="")
-    {
-      $('#errorpur').html('This field is required!');
-      return false;
-    }
+//     if($dtmOBrequestdate=="")
+//     {
+//       $('#errorreq').html('This field is required!');
+//       return false;
+//     }
+//      if($dtmOBdatefrom=="")
+//     {
+//       $('#errorfrom').html('This field is required!');
+//       return false;
+//     }
+//      if($dtmOBdateto=="")
+//     {
+//       $('#errorto').html('This field is required!');
+//       return false;
+//     }
+//      if($strDestination=="")
+//     {
+//       $('#errordesti').html('This field is required!');
+//       return false;
+//     }
+//      if($strPurpose=="")
+//     {
+//       $('#errorpur').html('This field is required!');
+//       return false;
+//     }
 
    
-    // else if($dtmOBrequestdate==0)
-    // {
-    //   $('#errorreq').html('Invalid input!');
-    //   return false;
-    // }
-    // else if($dtmOBdatefrom==0)
-    // {
-    //   $('#errorfrom').html('Invalid input!');
-    //   return false;
-    // }
-    // else if($dtmOBdateto==0)
-    // {
-    //   $('#errorto').html('Invalid input!');
-    //   return false;
-    // }
-    else if($strDestination==0)
-    {
-      $('#errordesti').html('Invalid input!');
-      return false;
-    }
-    else if($strPurpose==0)
-    {
-      $('#errorpur').html('Invalid input!');
-      return false;
-    }
+//     else if($dtmOBrequestdate==0)
+//     {
+//       $('#errorreq').html('Invalid input!');
+//       return false;
+//     }
+//     else if($dtmOBdatefrom==0)
+//     {
+//       $('#errorfrom').html('Invalid input!');
+//       return false;
+//     }
+//     else if($dtmOBdateto==0)
+//     {
+//       $('#errorto').html('Invalid input!');
+//       return false;
+//     }
+//     else if($strDestination==0)
+//     {
+//       $('#errordesti').html('Invalid input!');
+//       return false;
+//     }
+//     else if($strPurpose==0)
+//     {
+//       $('#errorpur').html('Invalid input!');
+//       return false;
+//     }
     
 
-    else
-    {
-      return true;
-    }
+//     else
+//     {
+//       return true;
+//     }
 
-}
+// }
 </script>
 

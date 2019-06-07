@@ -42,27 +42,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/travel_order/submit'), array('method' => 'post', 'id' => 'frmTO', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open(base_url('employee/travel_order/submit'), array('method' => 'post', 'id' => 'frmTO'))?>
                     
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Destination : <span class="required"> * </span></label>
-                               <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
-                        </div>
-                         <div class="input-icon left">
-                           <font color='red'> <span id="errordesti"></span></font>
+                               <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
                         </div>
                     </div>
-                </div><br>
+                </div>
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Date From : <span class="required"> * </span></label>
                               <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                        </div>
-                         <div class="input-icon left">
-                           <font color='red'> <span id="errorfrom"></span></font>
                         </div>
                     </div>
                 </div>
@@ -72,9 +66,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <label class="control-label">Date To : <span class="required"> * </span></label>
                                <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdateto" id="dtmTOdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
-                        <div class="input-icon left">
-                           <font color='red'> <span id="errorto"></span></font>
-                        </div>
                     </div>
                 </div>
                  <div class="row">
@@ -83,12 +74,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <label class="control-label">Purpose : <span class="required"> * </span></label>
                                <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
                         </div>
-                        <div class="input-icon left">
-                           <font color='red'> <span id="errorpur"></span></font>
-                        </div>
                     </div>
                 </div>
-                <br>
+
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -178,19 +166,19 @@ var FormValidation = function () {
                 rules: {
                     strDestination: {
                         required: true,
+                        noSpace: true
                     },
                     dtmTOdatefrom: {
                         required: true,
                     },
                     dtmTOdateto: {
-                         required: true,
+                        required: true,
                     },
                     strPurpose: {
                         required: true,
-                    },
-                    strMeal: {
-                        required: true,
+                        noSpace: true
                     }
+
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -244,53 +232,4 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
-</script>
-<script>
-function checkForBlank()
-{
-   var spaceCount = 0;
-
-    $strDestination= $('#strDestination').val();
-    $dtmTOdatefrom= $('#dtmTOdatefrom').val();
-    $dtmTOdateto= $('#dtmTOdateto').val();
-    $strPurpose= $('#strPurpose').val();   
-
-    $('#errordesti','errorfrom','errorto','errorpur').html('');
-   
-    if($strDestination=="")
-    {
-      $('#errordesti').html('This field is required!');
-      return false;
-    }
-    else if($strDestination==0)
-    {
-      $('#errordesti').html('Invalid input!');
-      return false;
-    }
-    else if($dtmTOdatefrom=="")
-    {
-      $('#errorfrom').html('This field is required!');
-      return false;
-    }
-    else if($dtmTOdateto=="")
-    {
-      $('#errorto').html('This field is required!');
-      return false;
-    }
-    else if($strPurpose=="")
-    {
-      $('#errorpur').html('This field is required!');
-      return false;
-    }
-    else if($strPurpose==0)
-    {
-      $('#errorpur').html('Invalid input!');
-      return false;
-    }
-    else
-    {
-      return true;
-    }
-
-}
 </script>
