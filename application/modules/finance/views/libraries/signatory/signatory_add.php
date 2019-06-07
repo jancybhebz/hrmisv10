@@ -40,21 +40,8 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="signatory" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <?=form_open($action == 'edit' ? 'finance/libraries/signatory/edit/'.$this->uri->segment(4) : '', array('method' => 'post'))?>
-                                <input type="hidden" id='txtsig_id' value="<?=$this->uri->segment(4)?>" />
-                                <div class="form-group">
-                                    <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
-                                    <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="select2 form-control form-required" name="txtpgcode">
-                                            <option value="null">-- SELECT PAYROLL GROUP CODE --</option>
-                                            <?php foreach($paryollGroup as $code): ?>
-                                                <option value="<?=$code['payrollGroupCode']?>"
-                                                    <?=isset($data) ? $code['payrollGroupCode'] == $data['payrollGroupCode'] ? 'selected' : '' : ''?>><?=$code['payrollGroupName']?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
+                            <?=form_open($action == 'edit' ? 'finance/libraries/signatory/edit/'.$this->uri->segment(5) : '', array('method' => 'post'))?>
+                                <input type="hidden" id='txtsig_id' value="<?=$this->uri->segment(5)?>" />
                                 <div class="form-group ">
                                     <label class="control-label">Signatory <span class="required"> * </span></label>
                                     <div class="input-icon right">

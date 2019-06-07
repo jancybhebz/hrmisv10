@@ -52,7 +52,6 @@
                                 <tr>
                                     <tr>
                                         <th style="text-align: center; width: 75px;"> No. </th>
-                                        <th style="text-align: center;"> Payroll Group </th>
                                         <th style="text-align: center;"> Signatory </th>
                                         <th style="text-align: center;"> Position </th>
                                         <th style="text-align: center;width:170px;" class="no-sort"> Actions </th>
@@ -63,13 +62,12 @@
                                 <?php $no=1; foreach($signatories as $data): ?>
                                     <tr class="odd gradeX">
                                         <td><?=$no++?> </td>
-                                        <td><?=$data['payrollGroupName']?></td>
                                         <td><?=$data['signatory']?></td>
                                         <td><?=$data['signatoryPosition']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/libraries/signatory/edit/'.$data['signatoryId'])?>" class="btn btn-sm green">
+                                            <a href="<?=base_url('finance/libraries/signatory/edit/'.$data['signatoryId'])?>" class="btn btn-xs green">
                                                 <span class="fa fa-edit" title="Edit"></span> Edit</a>
-                                            <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['signatoryId']?>">
+                                            <a class="btn btn-xs btn-danger" id="btnDelDeduction" data-code="<?=$data['signatoryId']?>">
                                                 <span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>

@@ -23,7 +23,6 @@ class Signatory extends MY_Controller {
 		$module = $this->session->userdata('sessUserLevel')==1 ? 1 : 0;
 		if(!empty($arrPost)):
 			$arrData = array(
-				'payrollGroupCode'  => $arrPost['txtpgcode'],
 				'signatory' 		=> $arrPost['txtsignatory'],
 				'signatoryPosition' => $arrPost['txtposition'],
 				'sig_module' 		=> $module);
@@ -41,7 +40,6 @@ class Signatory extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-				'payrollGroupCode' => $arrPost['txtpgcode'],
 				'signatory' => $arrPost['txtsignatory'],
 				'signatoryPosition' => $arrPost['txtposition']
 			);
