@@ -775,13 +775,13 @@ class Attendance_summary_model extends CI_Model {
 	public function gettos($empid,$ddate='')
 	{
 		$this->db->where('tblEmpTravelOrder.empNumber', $empid);
-		$this->db->where('requestStatus', 'Certified');
-		$this->db->where('requestCode', 'TO');
+		// $this->db->where('LCASE(\'requestStatus\')', 'certified');
+		// $this->db->where('requestCode', 'TO');
 
 		if($ddate != ''):
 			$this->db->where("('".$ddate."' >= toDateFrom and '".$ddate."' <= toDateTo)");
 		endif;
-		$this->db->join('tblEmpRequest', 'tblEmpRequest.empNumber = tblEmpTravelOrder.empNumber', 'left');
+		// $this->db->join('tblEmpRequest', 'tblEmpRequest.empNumber = tblEmpTravelOrder.empNumber', 'left');
 		return $this->db->get('tblEmpTravelOrder')->result_array();
 	}
 

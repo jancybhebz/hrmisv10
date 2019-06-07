@@ -736,7 +736,7 @@ class Attendance extends MY_Controller {
 	public function dtr_add_compensatory_leave()
 	{
 		$empid = $this->uri->segment(5);
-		
+
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			# HR Account
@@ -839,7 +839,6 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-
 		$this->arrData['arrempTo'] = $this->Attendance_summary_model->gettos($empid);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
@@ -863,6 +862,7 @@ class Attendance extends MY_Controller {
 				'transportation' => $arrPost['seltranspo'],
 				'perdiem' 		 => isset($arrPost['radperdiem']) ? $arrPost['radperdiem'] : 'N',
 				'wmeal' 		 => isset($arrPost['radwmeal']) ? $arrPost['radwmeal'] : 'N');
+			
 			$this->Attendance_summary_model->add_to($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Travel Order added successfully.');
 			redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(5));
