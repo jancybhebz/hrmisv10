@@ -94,7 +94,7 @@
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
-                                <div class="form-group div-signatory">
+                                <div class="form-group" <?=check_module()=='payroll'?'':'hidden'?>>
                                     <label class="col-md-3 control-label">Signatory</label>
                                     <div class="col-md-9">
                                         <select class="form-control select2 form-required" name="selsign" id="selsign">

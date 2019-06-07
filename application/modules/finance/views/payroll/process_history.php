@@ -119,7 +119,7 @@
                                     <td style="width: 250px; white-space: nowrap;">
                                         <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess">
                                             <i class="fa fa-refresh"></i> Reprocess</a>
-                                        <a href="javascript:;" class="btn btn-sm grey-cascade" id="btnreprocess">
+                                        <a href="<?=base_url('finance/reports/monthly')?>" class="btn btn-sm grey-cascade" id="btnreprocess">
                                             <i class="fa fa-file-o"></i> Reports</a>
                                         <?php if($process['publish'] == 1): ?>
                                             <a href="javascript:;" class="btn btn-sm green-meadow" id="btnunpublish" data-procid="<?=$process['processID']?>">
