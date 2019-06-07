@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Date <span class="required"> * </span></label>
+                                    <label class="control-label"><b>Date</b> <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-calendar"></i>
                                         <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" 
@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="control-label"><b>Morning</b><br>Time From <span class="required"> * </span></label>
+                                    <label class="control-label"><b>Morning</b><br>From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timefrom" id="txtcl_am_timefrom" value="08:00:00 AM">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="control-label"><br>Time in <span class="required"> * </span></label>
+                                    <label class="control-label"><br>To <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timeto" id="txtcl_am_timeto" value="12:00:00 PM">
@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="control-label"><b>Afternoon</b><br>Time From <span class="required"> * </span></label>
+                                    <label class="control-label"><b>Afternoon</b><br>From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timefrom" id="txtcl_pm_timefrom" value="12:00:00 AM">
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="control-label"><br>Time in <span class="required"> * </span></label>
+                                    <label class="control-label"><br>To <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timeto" id="txtcl_pm_timeto" value="05:00:00 PM">
