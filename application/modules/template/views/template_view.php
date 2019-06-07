@@ -127,6 +127,7 @@
         
         <!--script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script-->
         <!--script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script-->
+        <script src="<?=base_url('assets/js/custom.js')?>" type="text/javascript"></script>
         <?php 
         //include global js plugins
         load_plugin('js',array('global'));?>
