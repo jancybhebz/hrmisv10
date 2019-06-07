@@ -14,7 +14,7 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model','finance/Benefit_model'));
+        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model','finance/Benefit_model','hr/Hr_model'));
         $this->load->helper('payroll_helper');
         $this->arrData = array();
     }
@@ -323,6 +323,9 @@ class Payrollupdate extends MY_Controller {
 
 	public function update_or()
 	{
+		$this->arrData['arrpayroll'] = $this->Payroll_process_model->get_paryoll_process(currmo(),curryr());
+		$this->arrData['arremployees'] = $this->Hr_model->getData();
+		$this->arrData['deduction_list'] = isset($_GET['processid']) && isset($_GET['empno']) ? $this->Deduction_model->getDeductionByProcess($_GET['processid'],$_GET['empno']) : array();
 		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
 	}
 

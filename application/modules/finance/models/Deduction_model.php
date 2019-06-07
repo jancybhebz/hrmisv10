@@ -155,6 +155,16 @@ class Deduction_model extends CI_Model {
 		return $res;
 	}
 
+	function getDeductionByProcess($process_id,$empid)
+	{
+		$this->join('tblProcess','tblEmpDeductionRemit.processID = tblProcess.processID','left');
+		$this->join('tblDeduction','tblDeduction.deductionCode = tblEmpDeductionRemit.deductionCode','left');
+		$this->db->where("tblEmpDeductionRemit.deductionCode!='UNDABS'");
+		$this->db->where('tblEmpDeductionRemit.empNumber',$empid);
+		$this->db->where('tblProcess.processID', $process_id);
+		$this->db->get('tblEmpDeductionRemit')->result_array();
+	}
+
 	function getDeductionByEmployee($empid,$mon,$yr)
 	{
 		# Regular deductions not included

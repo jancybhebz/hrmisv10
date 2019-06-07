@@ -47,7 +47,7 @@
                                         <label class="control-label">Process Date <span class="required"> * </span></label>
                                         <div class="input-icon right">
                                             <i class="fa fa-warning tooltips i-required"></i>
-                                            <select class="bs-select form-control form-required" name="selfund" id="selfund">
+                                            <select class="bs-select form-control form-required" name="selproc_mon" id="selproc_mon">
                                                 <option value="all">All</option>
                                                 <?php foreach (range(1, 12) as $m): ?>
                                                     <option value="<?=sprintf('%02d', $m)?>"
@@ -67,7 +67,7 @@
                                         <label class="control-label">&nbsp;</label>
                                         <div class="input-icon right">
                                             <i class="fa fa-warning tooltips i-required"></i>
-                                            <select class="bs-select form-control form-required" name="selfund" id="selfund">
+                                            <select class="bs-select form-control form-required" name="selproc_yr" id="selproc_yr">
                                                 <?php foreach (getYear() as $yr): ?>
                                                     <option value="<?=$yr?>"
                                                         <?php 
@@ -91,12 +91,12 @@
                                     <label class="control-label">Payroll Salary <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="bs-select form-control form-required" name="selfund" id="selfund">
-                                            <option value="null">-- SELECT FUND SOURCE --</option>
+                                        <select class="bs-select form-control form-required" name="selproc_sal" id="selproc_sal">
+                                            <option value=""> </option>
                                             <?php 
-                                                foreach(array('Fund 101', 'Fund 102') as $fund):
-                                                    $selected = isset($arrempto) ? $fund == $arrempto['fund'] ? 'selected' : '' : '';
-                                                    echo '<option value="'.$fund.'" '.$selected.'>'.$fund.'</option>';
+                                                foreach($arrpayroll as $payroll):
+                                                    $period = $payroll['employeeAppoint'] != 'P' ? ' - Period '.$payroll['period'] : '';
+                                                    echo '<option value="'.$payroll['processID'].'">'.$payroll['processCode'].$period.' ('.$payroll['employeeAppoint'].')'.'</option>';
                                                 endforeach;
                                              ?>
                                         </select>
@@ -110,12 +110,11 @@
                                     <label class="control-label">Employee name <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="select2 form-control form-required" name="selfund" id="selfund">
-                                            <option value="null">-- SELECT FUND SOURCE --</option>
+                                        <select class="select2 form-control form-required" name="selproc_emp" id="selproc_emp">
+                                            <option value="">  </option>
                                             <?php 
-                                                foreach(array('Fund 101', 'Fund 102') as $fund):
-                                                    $selected = isset($arrempto) ? $fund == $arrempto['fund'] ? 'selected' : '' : '';
-                                                    echo '<option value="'.$fund.'" '.$selected.'>'.$fund.'</option>';
+                                                foreach($arremployees as $emp):
+                                                    echo '<option value="'.$emp['empNumber'].'">'.getfullname($emp['firstname'],$emp['surname'],$emp['middlename'],$emp['middleInitial'],$emp['nameExtension']).'</option>';
                                                 endforeach;
                                              ?>
                                         </select>
@@ -126,10 +125,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <pre><?php print_r($deduction_list) ?></pre>
                                     <label class="control-label">Deduction List <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="select2 form-control form-required" name="selfund" id="selfund">
+                                        <select class="select2 form-control form-required" name="selproc_deduction" id="selproc_deduction">
                                             <option value="null">-- SELECT FUND SOURCE --</option>
                                             <?php 
                                                 foreach(array('Fund 101', 'Fund 102') as $fund):
@@ -187,9 +187,11 @@
 </div>
 
 <?=load_plugin('js', array('select','select2','datepicker','form_validation'))?>
-<script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
+        $('.loading-image').hide();
+        $('#div-body').show();
+
         $('.date-picker').datepicker();
         $('.date-picker').on('changeDate', function(){
             $(this).datepicker('hide');

@@ -32,6 +32,12 @@ class Payroll_process_model extends CI_Model {
 		return $process;
 	}
 
+	function get_paryoll_process($month,$yr)
+	{
+		$process = $this->db->get_where('tblProcess',array('processMonth' => ltrim($month,'0'), 'processYear' => $yr))->result_array();
+		return $process;
+	}
+
 	function getall_process($month='all',$yr)
 	{
 		if($month == 'all'):
