@@ -736,7 +736,7 @@ class Attendance extends MY_Controller {
 	public function dtr_add_compensatory_leave()
 	{
 		$empid = $this->uri->segment(5);
-
+		
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			# HR Account
@@ -748,11 +748,16 @@ class Attendance extends MY_Controller {
 				'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
 				'outPM' 	=> $arrPost['txtcl_pm_timeto'],
 				'remarks'	=> 'CL',
-				'name'		=> $dtrEntry[0]['name'].';'.$_SESSION['sessName'],
-				'ip'	    => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
-				'editdate'  => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
-			
-			$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
+				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
+				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
+			if(count($dtrEntry) > 0):
+				$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+			else:
+				$arrData['dtrDate'] = $arrPost['txtcompen_date'];
+				$this->Attendance_summary_model->add_dtr($arrData);
+			endif;
+
 			$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
 			redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
 		endif;

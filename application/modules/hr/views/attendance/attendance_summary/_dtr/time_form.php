@@ -117,8 +117,6 @@
             <div class="modal-body">
                 <div class="row form-body">
                     <div class="col-md-12">
-                        <input type="hidden" name="txtdel_action" id="txtdel_action">
-                        <input type="hidden" name="txtdel_id" id="txtdel_id">
                         <div class="form-group">
                             <label>Dates may contain entry, are you sure you want to override the data?</label>
                         </div>
