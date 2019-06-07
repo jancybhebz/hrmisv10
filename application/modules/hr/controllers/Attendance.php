@@ -186,21 +186,21 @@ class Attendance extends MY_Controller {
 		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$empid = $this->uri->segment(4);
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			$arrData=array(
 				'empNumber'		=> $empid,
 				'periodMonth'	=> $month,
 				'periodYear'	=> $yr,
-				'vlBalance' 	=> $arrpost['vl_start'],
-				'vlAbsUndWPay' 	=> $arrpost['vl_ut_wpay'],
-				'vlAbsUndWoPay' => $arrpost['vl_ut_wopay'],
-				'slBalance' 	=> $arrpost['sl_start'],
-				'slAbsUndWPay' 	=> $arrpost['sl_ut_wpay'],
-				'slAbsUndWoPay' => $arrpost['sl_ut_wopay'],
-				'off_bal' 		=> $arrpost['off_bal'],
-				'flBalance' 	=> $arrpost['fl_bal'],
-				'plBalance' 	=> $arrpost['pl_bal']);
+				'vlBalance' 	=> $arrPost['vl_start'],
+				'vlAbsUndWPay' 	=> $arrPost['vl_ut_wpay'],
+				'vlAbsUndWoPay' => $arrPost['vl_ut_wopay'],
+				'slBalance' 	=> $arrPost['sl_start'],
+				'slAbsUndWPay' 	=> $arrPost['sl_ut_wpay'],
+				'slAbsUndWoPay' => $arrPost['sl_ut_wopay'],
+				'off_bal' 		=> $arrPost['off_bal'],
+				'flBalance' 	=> $arrPost['fl_bal'],
+				'plBalance' 	=> $arrPost['pl_bal']);
 			$this->Leave_model->addLeaveBalance($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Leave balance added successfully.');
 			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month='.$month.'&yr='.$yr);
@@ -333,13 +333,13 @@ class Attendance extends MY_Controller {
 
 	public function dtr_add_broken_sched()
 	{
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			$arrData=array(
 				'empNumber'	=> $this->uri->segment(5),
-				'schemeCode'=> $arrpost['selscheme'],
-				'dateFrom'	=> $arrpost['from'],
-				'dateTo'	=> $arrpost['to']);
+				'schemeCode'=> $arrPost['selscheme'],
+				'dateFrom'	=> $arrPost['from'],
+				'dateTo'	=> $arrPost['to']);
 			$this->Attendance_summary_model->add_brokensched($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Schedule added successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
@@ -370,12 +370,12 @@ class Attendance extends MY_Controller {
 
 	public function dtr_edit_broken_sched()
 	{
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			$arrData=array(
-				'schemeCode'=> $arrpost['selscheme'],
-				'dateFrom'	=> $arrpost['from'],
-				'dateTo'	=> $arrpost['to']);
+				'schemeCode'=> $arrPost['selscheme'],
+				'dateFrom'	=> $arrPost['from'],
+				'dateTo'	=> $arrPost['to']);
 			$this->Attendance_summary_model->edit_brokensched($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Schedule updated successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
@@ -430,16 +430,16 @@ class Attendance extends MY_Controller {
 
 	public function dtr_edit()
 	{
-		$arrpost = $this->input->post();
-		$dtr_json = json_decode($arrpost['txtjson'], true);
+		$arrPost = $this->input->post();
+		$dtr_json = json_decode($arrPost['txtjson'], true);
 		foreach($dtr_json as $dtr):
 			# check if row
 			if(count($dtr) > 0):
 				# check if body
 				if(count($dtr['tr']) > 6):
 					$dtrid = $dtr['tr'][1]['td'];
-					$arrData = array('empNumber'	=> $arrpost['empnum'],
-									 'dtrDate'		=> $arrpost['yr'].'-'.$arrpost['month'].'-'.$dtr['tr'][2]['td'],
+					$arrData = array('empNumber'	=> $arrPost['empnum'],
+									 'dtrDate'		=> $arrPost['yr'].'-'.$arrPost['month'].'-'.$dtr['tr'][2]['td'],
 									 'inAM' 		=> $dtr['tr'][3]['td'],
 									 'outAM' 		=> $dtr['tr'][4]['td'],
 									 'inPM' 		=> $dtr['tr'][5]['td'],
@@ -447,7 +447,7 @@ class Attendance extends MY_Controller {
 									 'inOT' 		=> $dtr['tr'][7]['td'],
 									 'outOT' 		=> $dtr['tr'][8]['td'],
 									 // TODO:: OT field
-									 // 'OT' => $arrpost['empnum'],
+									 // 'OT' => $arrPost['empnum'],
 									 'name' 		=> $dtr['tr'][11]['td'].';'.$_SESSION['sessName'],
 									 'ip'			=> $dtr['tr'][12]['td'].';'.$this->input->ip_address(),
 									 'editdate'		=> $dtr['tr'][13]['td'].';'.date('Y-m-d h:i:s A'),
@@ -461,7 +461,7 @@ class Attendance extends MY_Controller {
 			endif;
 		endforeach;
 		$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
-		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrpost['empnum'].'?month='.$arrpost['month'].'&yr='.$arrpost['yr']);
+		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrPost['empnum'].'?month='.$arrPost['month'].'&yr='.$arrPost['yr']);
 	}
 	# End Edit Mode
 
@@ -478,11 +478,11 @@ class Attendance extends MY_Controller {
 
 	public function dtr_add_local_holiday()
 	{
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			$arrData=array(
 				'empNumber'	  => $this->uri->segment(5),
-				'holidayCode' => $arrpost['selholiday']);
+				'holidayCode' => $arrPost['selholiday']);
 			$this->Attendance_summary_model->add_localholiday($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Local holiday added successfully.');
 			redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
@@ -501,10 +501,10 @@ class Attendance extends MY_Controller {
 
 	public function dtr_edit_local_holiday()
 	{
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			$arrData=array(
-				'holidayCode' => $arrpost['selholiday']);
+				'holidayCode' => $arrPost['selholiday']);
 			$this->Attendance_summary_model->edit_localholiday($arrData,$_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Local holiday updated successfully.');
 			redirect('hr/attendance_summary/dtr/local_holiday/'.$this->uri->segment(5));
@@ -547,21 +547,21 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
 			$arrData=array(
 				'dateFiled' 	 => date('Y-m-d'),
 				'empNumber'	  	 => $this->uri->segment(5),
 				'requestID' 	 => '',
-				'obDateFrom' 	 => $arrpost['txtob_dtfrom'],
-				'obDateTo' 		 => $arrpost['txtob_dtto'],
-				'obTimeFrom' 	 => $arrpost['txtob_tmin'],
-				'obTimeTo' 		 => $arrpost['txtob_tmout'],
-				'obPlace' 		 => $arrpost['txtob_place'],
-				'obMeal' 		 => $arrpost['radob_wmeal'] ? 'Y' : 'N',
-				'purpose' 		 => $arrpost['txtob_purpose'],
-				'official' 		 => $arrpost['radob'] ? 'Y' : 'N',
+				'obDateFrom' 	 => $arrPost['txtob_dtfrom'],
+				'obDateTo' 		 => $arrPost['txtob_dtto'],
+				'obTimeFrom' 	 => $arrPost['txtob_tmin'],
+				'obTimeTo' 		 => $arrPost['txtob_tmout'],
+				'obPlace' 		 => $arrPost['txtob_place'],
+				'obMeal' 		 => $arrPost['radob_wmeal'] ? 'Y' : 'N',
+				'purpose' 		 => $arrPost['txtob_purpose'],
+				'official' 		 => $arrPost['radob'] ? 'Y' : 'N',
 				'approveRequest' => 'Y',
 				'approveChief' 	 => 'Y',
 				'approveHR' 	 => 'Y');
@@ -582,18 +582,18 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
 			$arrData=array(
-				'obDateFrom' 	 => $arrpost['txtob_dtfrom'],
-				'obDateTo' 		 => $arrpost['txtob_dtto'],
-				'obTimeFrom' 	 => $arrpost['txtob_tmin'],
-				'obTimeTo' 		 => $arrpost['txtob_tmout'],
-				'obPlace' 		 => $arrpost['txtob_place'],
-				'obMeal' 		 => $arrpost['radob_wmeal'] ? 'Y' : 'N',
-				'purpose' 		 => $arrpost['txtob_purpose'],
-				'official' 		 => $arrpost['radob'] ? 'Y' : 'N');
+				'obDateFrom' 	 => $arrPost['txtob_dtfrom'],
+				'obDateTo' 		 => $arrPost['txtob_dtto'],
+				'obTimeFrom' 	 => $arrPost['txtob_tmin'],
+				'obTimeTo' 		 => $arrPost['txtob_tmout'],
+				'obPlace' 		 => $arrPost['txtob_place'],
+				'obMeal' 		 => $arrPost['radob_wmeal'] ? 'Y' : 'N',
+				'purpose' 		 => $arrPost['txtob_purpose'],
+				'official' 		 => $arrPost['radob'] ? 'Y' : 'N');
 			$this->Attendance_summary_model->edit_ob($arrData,$_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','OB updated successfully.');
 			redirect('hr/attendance_summary/dtr/ob/'.$this->uri->segment(5));
@@ -633,17 +633,17 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
 			$arrData=array(
 				'dateFiled' 	=> date('Y-m-d'),
 				'empNumber'	  	=> $empid,
-				'leaveCode' 	=> $arrpost['sel_leavetype'],
-				'specificLeave' => $arrpost['sel_spe_leave'],
-				'reason'		=> $arrpost['txtleave_reason'],
-				'leaveFrom' 	=> $arrpost['txtleave_dtfrom'],
-				'leaveTo' 		=> $arrpost['txtleave_dtto'],
+				'leaveCode' 	=> $arrPost['sel_leavetype'],
+				'specificLeave' => $arrPost['sel_spe_leave'],
+				'reason'		=> $arrPost['txtleave_reason'],
+				'leaveFrom' 	=> $arrPost['txtleave_dtfrom'],
+				'leaveTo' 		=> $arrPost['txtleave_dtto'],
 				'certifyHR' 	=> 'Y',
 				'approveChief' 	=> 'Y',
 				'approveRequest'=> 'N');
@@ -667,15 +667,15 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
 			$arrData=array(
-				'leaveCode' 	=> $arrpost['sel_leavetype'],
-				'specificLeave' => $arrpost['sel_spe_leave'],
-				'reason'		=> $arrpost['txtleave_reason'],
-				'leaveFrom' 	=> $arrpost['txtleave_dtfrom'],
-				'leaveTo' 		=> $arrpost['txtleave_dtto']);
+				'leaveCode' 	=> $arrPost['sel_leavetype'],
+				'specificLeave' => $arrPost['sel_spe_leave'],
+				'reason'		=> $arrPost['txtleave_reason'],
+				'leaveFrom' 	=> $arrPost['txtleave_dtfrom'],
+				'leaveTo' 		=> $arrPost['txtleave_dtto']);
 			$this->Attendance_summary_model->edit_leave($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Leave updated successfully.');
 			redirect('hr/attendance_summary/dtr/leave/'.$this->uri->segment(5));
@@ -737,22 +737,22 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
-			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrpost['txtcompen_date']);
+			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrPost['txtcompen_date']);
 			$arrData=array(
 				'empNumber' => $empid,
-				'inAM' 		=> $arrpost['txtcl_am_timefrom'],
-				'outAM'		=> $arrpost['txtcl_am_timeto'],
-				'inPM' 		=> $arrpost['txtcl_pm_timefrom'],
-				'outPM' 	=> $arrpost['txtcl_pm_timeto'],
+				'inAM' 		=> $arrPost['txtcl_am_timefrom'],
+				'outAM'		=> $arrPost['txtcl_am_timeto'],
+				'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
+				'outPM' 	=> $arrPost['txtcl_pm_timeto'],
 				'remarks'	=> 'CL',
 				'name'		=> $dtrEntry[0]['name'].';'.$_SESSION['sessName'],
 				'ip'	    => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
 				'editdate'  => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
 			
-			$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrpost['txtcompen_date']);
+			$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
 			$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
 			redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
 		endif;
@@ -782,19 +782,19 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
-			$arrdates = breakdates($arrpost['txtdtr_dtfrom'],$arrpost['txtdtr_dtto']);
+			$arrdates = breakdates($arrPost['txtdtr_dtfrom'],$arrPost['txtdtr_dtto']);
 			foreach($arrdates as $ddate):
 				$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $ddate);
 				
-				$amtimein = explode(' ',$arrpost['txtdtr_amtimein']);
-				$amtimeout = explode(' ',$arrpost['txtdtr_amtimeout']);
-				$pmtimein = explode(' ',$arrpost['txtdtr_pmtimein']);
-				$pmtimeout = explode(' ',$arrpost['txtdtr_pmtimeout']);
-				$ottimein = explode(' ',$arrpost['txtdtr_ottimein']);
-				$ottimeout = explode(' ',$arrpost['txtdtr_ottimeout']);
+				$amtimein = explode(' ',$arrPost['txtdtr_amtimein']);
+				$amtimeout = explode(' ',$arrPost['txtdtr_amtimeout']);
+				$pmtimein = explode(' ',$arrPost['txtdtr_pmtimein']);
+				$pmtimeout = explode(' ',$arrPost['txtdtr_pmtimeout']);
+				$ottimein = explode(' ',$arrPost['txtdtr_ottimein']);
+				$ottimeout = explode(' ',$arrPost['txtdtr_ottimeout']);
 				$arrData=array(
 					'inAM' 		=> date('H:i:s', strtotime($amtimein[0])),
 					'outAM'		=> date('H:i:s', strtotime($amtimeout[0])),
@@ -803,11 +803,19 @@ class Attendance extends MY_Controller {
 					'inOT' 		=> date('H:i:s', strtotime($ottimein[0])),
 					'outOT' 	=> date('H:i:s', strtotime($ottimeout[0])),
 					'remarks'	=> '',
-					'name'		=> $dtrEntry[0]['name'].';'.$_SESSION['sessName'],
-					'ip'	    => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
-					'editdate'  => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
-				$this->Attendance_summary_model->edit_dtrTime($arrData, $empid, $ddate);
+					'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
+					'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
+					'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
+				
+				if(count($dtrEntry) > 0):
+					$this->Attendance_summary_model->edit_dtrTime($arrData, $empid, $ddate);
+				else:
+					$arrData['dtrDate'] = $ddate;
+					$arrData['empNumber'] = $empid;
+					$this->Attendance_summary_model->add_dtr($arrData);
+				endif;
 			endforeach;
+
 			$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
 			redirect('hr/attendance_summary/dtr/time/'.$this->uri->segment(5));
 		endif;
@@ -836,20 +844,20 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 		
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
 			$arrData=array(
 				'dateFiled' 	 => date('Y-m-d'),
 				'empNumber'	  	 => $empid,
-				'toDateFrom' 	 => $arrpost['dtfrom'],
-				'toDateTo' 		 => $arrpost['dtto'],
-				'destination' 	 => $arrpost['txtdestination'],
-				'purpose' 		 => $arrpost['txtpurpose'],
-				'fund' 		 	 => $arrpost['selfund'],
-				'transportation' => $arrpost['seltranspo'],
-				'perdiem' 		 => isset($arrpost['radperdiem']) ? $arrpost['radperdiem'] : 'N',
-				'wmeal' 		 => isset($arrpost['radwmeal']) ? $arrpost['radwmeal'] : 'N');
+				'toDateFrom' 	 => $arrPost['dtfrom'],
+				'toDateTo' 		 => $arrPost['dtto'],
+				'destination' 	 => $arrPost['txtdestination'],
+				'purpose' 		 => $arrPost['txtpurpose'],
+				'fund' 		 	 => $arrPost['selfund'],
+				'transportation' => $arrPost['seltranspo'],
+				'perdiem' 		 => isset($arrPost['radperdiem']) ? $arrPost['radperdiem'] : 'N',
+				'wmeal' 		 => isset($arrPost['radwmeal']) ? $arrPost['radwmeal'] : 'N');
 			$this->Attendance_summary_model->add_to($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Travel Order added successfully.');
 			redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(5));
@@ -867,18 +875,18 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 		
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
 			$arrData=array(
-				'toDateFrom' 	 => $arrpost['dtfrom'],
-				'toDateTo' 		 => $arrpost['dtto'],
-				'destination' 	 => $arrpost['txtdestination'],
-				'purpose' 		 => $arrpost['txtpurpose'],
-				'fund' 		 	 => $arrpost['selfund'],
-				'transportation' => $arrpost['seltranspo'],
-				'perdiem' 		 => isset($arrpost['radperdiem']) ? $arrpost['radperdiem'] : 'N',
-				'wmeal' 		 => isset($arrpost['radwmeal']) ? $arrpost['radwmeal'] : 'N');
+				'toDateFrom' 	 => $arrPost['dtfrom'],
+				'toDateTo' 		 => $arrPost['dtto'],
+				'destination' 	 => $arrPost['txtdestination'],
+				'purpose' 		 => $arrPost['txtpurpose'],
+				'fund' 		 	 => $arrPost['selfund'],
+				'transportation' => $arrPost['seltranspo'],
+				'perdiem' 		 => isset($arrPost['radperdiem']) ? $arrPost['radperdiem'] : 'N',
+				'wmeal' 		 => isset($arrPost['radwmeal']) ? $arrPost['radwmeal'] : 'N');
 			$this->Attendance_summary_model->edit_to($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Travel Order updated successfully.');
 			redirect('hr/attendance_summary/dtr/to/'.$this->uri->segment(5));
@@ -918,28 +926,28 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 		
-		$arrpost = $this->input->post();
-		if(!empty($arrpost)):
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
 			# HR Account
 			# First check if dtr entry is exists
-			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrpost['txtdtr_fcdate']);
-			$fc_timein = explode(' ',$arrpost['txtdtr_amtimein']);
+			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrPost['txtdtr_fcdate']);
+			$fc_timein = explode(' ',$arrPost['txtdtr_amtimein']);
 			if(count($dtrEntry) > 0):
 				# Edit Entry
 				$arrData=array(
 						'inAM' 	   => date('H:i:s', strtotime($fc_timein[0])),
-						'dtrDate'  => $arrpost['txtdtr_fcdate'],
+						'dtrDate'  => $arrPost['txtdtr_fcdate'],
 						'remarks'  => 'FC',
 						'name'	   => $_SESSION['sessName'],
 						'ip'	   => $dtrEntry[0]['ip'].';'.$this->input->ip_address(),
 						'editdate' => $dtrEntry[0]['editdate'].';'.date('Y-m-d h:i:s A'));
-				$this->Attendance_summary_model->edit_flagcrmy($arrData, $empid, $arrpost['txtdtr_fcdate']);
+				$this->Attendance_summary_model->edit_flagcrmy($arrData, $empid, $arrPost['txtdtr_fcdate']);
 			else:
 				# Add Entry
 				$arrData=array(
 						'empNumber'=> $empid,
 						'inAM' 	   => date('H:i:s', strtotime($fc_timein[0])),
-						'dtrDate'  => $arrpost['txtdtr_fcdate'],
+						'dtrDate'  => $arrPost['txtdtr_fcdate'],
 						'remarks'  => 'FC',
 						'name'	   => $_SESSION['sessName'],
 						'ip'	   => $this->input->ip_address(),
