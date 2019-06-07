@@ -36,5 +36,3 @@ vendor/*
 
 
 \.htaccess
-
-application/config/config\.php
