@@ -152,4 +152,4 @@
 <?php include 'modals/_notification_modal.php' ?>
 <?php load_plugin('js',array('datatables','select'));?>
 
-<script src="<?=base_url('assets/js/custom/officer-tasks.js')?>"></script>
+<script src="<?=base_url('assets/js/custom/hr-tasks.js')?>"></script>

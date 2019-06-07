@@ -4,7 +4,18 @@ $(document).ready(function() {
         format: 'yyyy',
         viewMode: 'years',
         minViewMode: 'years'
-      });
+    });
+
+    $('#txtps_yr').on('changeDate', function(){
+        window.open('?month='+$('#selmont').val()+'&yr='+$('#txtps_yr').val(),'_self');
+        $(this).datepicker('hide');
+    });
+    $('#selmont').on('change', function(){
+        window.open('?month='+$('#selmont').val()+'&yr='+$('#txtps_yr').val(),'_self');
+    });
+    $('#selpayrollGrp').on('change', function(){
+        $('#period-codes').html($(this).find(':selected').attr('data-codes'));
+    });
 
     $('#selrep_type').on('change',function() {
         var reptype = $(this).val();
@@ -22,12 +33,13 @@ $(document).ready(function() {
     $('#btnprint').click(function() {
         var reptype = $('#selrep_type').val();
         var replink = "";
+        var getdata = "empno=" + $('#txtempnumber').val() + "&rtype=" + $('#selrep_type').val() + "&remitt=" + $('#selrep_remitt').val() + "&month=" + $('#selmont').val() + "&ps_yr=" + $('#txtps_yr').val() + "&remit_fr=" + $('#txtremit_from').val() + "&remit_to=" + $('#txtremit_to').val() + "&pgroup=" + $('#selpayrollGrp').val() + "&file_gen=" + $('#selgen').val() + "&period=" + $('#selpayrollGrp').find(':selected').attr('data-period');
         if(reptype == 1){
             report_name = "Payslip";
-            replink = "finance/reports/monthlyreports/payslip";
+            replink = "finance/reports/monthlyreports/payslip?"+getdata;
         }else{
             report_name = "Remittance";
-            replink = "finance/reports/monthlyreports/remittances";
+            replink = "finance/reports/monthlyreports/remittances?"+getdata;
         }
         $('.modal-title').html(report_name);
         if(reptype == 1 || (reptype == 2 && $('#selgen').val() == 1)){
@@ -36,6 +48,10 @@ $(document).ready(function() {
             alert('download excel');
         }
         $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
+    });
+
+    $('#link-fullsize').click(function() {
+        window.open($(this).attr('src'));
     });
 
 });

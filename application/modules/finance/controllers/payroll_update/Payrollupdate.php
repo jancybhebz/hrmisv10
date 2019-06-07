@@ -35,10 +35,6 @@ class Payrollupdate extends MY_Controller {
 
 			case 'select_benefits':
 				if(!empty($arrPost)):
-					// echo '<pre>';
-					// print_r($arrPost);
-					// echo '</pre>';
-					// die();
 					if($arrPost['selemployment'] != 'P'):
 						redirect('finance/payroll_update/process/index');	
 					endif;
@@ -54,7 +50,6 @@ class Payrollupdate extends MY_Controller {
 				break;
 
 			case 'compute_benefits':
-
 				if(!empty($arrPost)):
 					if(gettype($arrPost['chkbenefit']) == 'string'):
 						$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
@@ -64,10 +59,6 @@ class Payrollupdate extends MY_Controller {
 					else:
 						$process_data = $arrPost;
 					endif;
-					// echo '<pre>';
-					// print_r($arrPost);
-					// echo '</pre>';
-					// die();
 					$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
 
 					$this->arrData = array( 'employment_type'	 => $process_data['selemployment'],
@@ -77,7 +68,6 @@ class Payrollupdate extends MY_Controller {
 											'curr_period_workingdays'  => $computed_benefits['curr_workingdays'],
 											'arrEmployees'		 => $computed_benefits['arremployees'],
 											'no_empty_lb'		 => $computed_benefits['no_empty_lb']);
-					// $this->arrData['total_empnolb'] = $total_empnolb;
 				else:
 					redirect('finance/payroll_update/process/index');
 				endif;
@@ -89,40 +79,33 @@ class Payrollupdate extends MY_Controller {
 				$period_amt = 0;
 				$stat = 1;
 				if(!empty($arrPost)):
-					// echo '<pre>';
-					// print_r($arrPost);
-					// echo '<hr>';
 					$process_details = json_decode($arrPost['txtprocess'],true);
 					$total_periods = periods(agency_paryoll_process());
 					$trdetail = json_decode($arrPost['txtjson'],true);
 					# income code - benefits
 					$incomecodes = $this->Income_model->getDataByType('Benefit');
-					// foreach($incomecodes as $income):
-					// 	$incomedetails = $this->Payrollupdate_model->setamount_benefits($income);
-					// 	print_r($incomedetails);
-					// endforeach;
-					// $incomecodes = array('HAZARD','LAUNDRY', 'SUBSIS', 'LONGI', 'TA', 'RA', 'SALARY');
 					$arrinc_ids = array();
 					foreach($trdetail as $tr):
 						$income_data = array();
 						$income_data = $this->Income_model->currentIncome_data($tr['emp_detail']['empNumber']);
 						$arrinc_ids = array_merge($arrinc_ids, array_column($income_data,'benefitCode'));
-							foreach($incomecodes as $income):
-								$incomedetails = $this->Benefit_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
-								$this->Benefit_model->add($incomedetails);
-							endforeach;
-							# Add Salary
-							$key = array_search('SALARY', array_column($income_data, 'incomeCode'));
-							if($key!=''):
-								$arr_amt = $income_data[$key];
-								$itw = $arr_amt['ITW']; $stat = $arr_amt['status'];
-							endif;
-							$period_amt = fixFloat($tr['period_salary']) / count($total_periods);
+						foreach($incomecodes as $income):
+							$incomedetails = $this->Benefit_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
+							$this->Benefit_model->add($incomedetails);
+						endforeach;
+						# Add Salary
+						$key = array_search('SALARY', array_column($income_data, 'incomeCode'));
+						if($key!=''):
+							$arr_amt = $income_data[$key];
+							$itw = $arr_amt['ITW']; $stat = $arr_amt['status'];
+						endif;
+						$period_amt = fixFloat($tr['period_salary']) / count($total_periods);
 
 						foreach($incomecodes as $income):
 							$incomedetails = $this->Benefit_model->setamount_benefits($income,$tr,$process_details['mon'],$process_details['yr'],$income_data);
 							$this->Benefit_model->add($incomedetails);
 						endforeach;
+
 						# Add Salary
 						$key = array_search('SALARY', array_column($income_data, 'incomeCode'));
 						if($key!=''):
@@ -150,15 +133,9 @@ class Payrollupdate extends MY_Controller {
 							$arrData = array_merge($arrData, array('period1' => $period_amt, 'period2' => $period_amt, 'period3' => 0, 'period4' => 0));
 						endif;
 						$this->Benefit_model->add($arrData);
-						// print_r($arrData);
-						// print_r($tr);
-						// echo '<hr>';
-						// endif;
 					endforeach;
 					# delete previous benefits
 					$this->Benefit_model->multiple_delete($arrinc_ids);
-					// die();
-					// print_r(json_decode($trdetail,true));die();
 					$this->arrData = array( 'employment_type'	 => $process_details['selemployment'],
 											'payroll_date'		 => date('F Y',strtotime($process_details['yr'].'-'.$process_details['mon'].'-1')),
 											'process_data_date'	 => date('F Y',strtotime($process_details['data_fr_yr'].'-'.$process_details['data_fr_mon'].'-1')),
@@ -166,7 +143,6 @@ class Payrollupdate extends MY_Controller {
 											'curr_period_workingdays'  => $arrPost['txtper_wdays'],
 											'arrEmployees'		 => $trdetail,
 											'no_empty_lb'		 => $arrPost['txtno_empty_lb']);
-					// die();
 				endif;
 			case 'select_deductions':
 				if(!empty($arrPost)):
@@ -194,6 +170,20 @@ class Payrollupdate extends MY_Controller {
 						$arrEmployees = json_decode($arrPost['txtjson'],true);
 						$arrEmployees = array_column($arrEmployees,'emp_detail');
 					endif;
+
+					$agency_shares = $this->Deduction_model->getAgencyDeductionShare();
+					# insert process
+					$arrData_process = array('employeeAppoint'	=> $process_data['selemployment'],
+											 'empNumber'		=> $this->session->userdata('sessEmpNo'),
+											 'processDate'		=> date('Y-m-d'),
+											 'processMonth'		=> $process_data['mon'],
+											 'processYear'		=> $process_data['yr'],
+											 'processCode'		=> $empid,
+											 // 'payrollGroupCode'	=> '',
+											 'salarySchedule'	=> $agency_shares['salarySchedule'],
+											 'period'			=> $empid,
+											 'publish'			=> 0);
+
 					echo '<pre>';
 					$process_data = json_decode($arrPost['txtprocess'],true);
 					print_r($process_data);
@@ -209,14 +199,12 @@ class Payrollupdate extends MY_Controller {
 					// $shares = explode(',',$_ENV['shares']);
 					// print_r($shares);
 					// print_r($arrPost);
-					$agency_shares = $this->Deduction_model->getAgencyDeductionShare();
 					$arrRegular_deductions = $this->Deduction_model->getDeductionsByType('Regular');
 					$arrDeductions = array_merge(isset($arrPost['chkloan']) ? $arrPost['chkloan'] : array(),isset($arrPost['chkcont']) ? $arrPost['chkcont'] : array(),isset($arrPost['chkothrs']) ? $arrPost['chkothrs'] : array());
 					print_r($arrDeductions);
 					// $deductions = $this->Deduction_model->getDeductionsByStatus(0);
 					foreach($arrEmployees as $emp):
 						$empid = $emp['empNumber'];
-
 						# get employee regular deductions
 						$empreg_deducts = $this->Deduction_model->getEmployee_regular_deduction($empid);
 						# get Regular Deductions
@@ -294,38 +282,6 @@ class Payrollupdate extends MY_Controller {
 						# get employee deduction detail
 						$empdeducts = $this->Deduction_model->getDeductionByEmployee($emp,$process_data['data_fr_mon'],$process_data['data_fr_yr']);
 
-						// print_r($deductions);
-						# get all deductions
-						// foreach($arrDeductions as $deduction):
-						// 	print_r(array_column($empdeducts,'deductionCode'));
-						// 	$deduction = json_decode($deduction,true);
-						// 	// if($deduction['deductionCode'])
-						// endforeach;
-
-						// # get regular deductions
-						// foreach($empdeducts as $ededuct):
-						// 	# data for deductionremit
-							
-						// endforeach;
-						// print_r($empdeducts);
-
-						// $arrData_remit = array('processID'		=> 0,
-						// 					   'empNumber'		=> $empid,
-						// 					   'code'			=> $ededuct['deductCode'],
-						// 					   'deductionCode'	=> $ededuct['deductionCode'],
-						// 					   'deductMonth'	=> $process_data['data_fr_mon'],
-						// 					   'deductYear'		=> $process_data['data_fr_yr'],
-						// 					   'period1'		=> $ededuct['period1'],
-						// 					   'period2'		=> $ededuct['period2'],
-						// 					   'period3'		=> $ededuct['period3'],
-						// 					   'period4'		=> $ededuct['period4'],
-						// 					   // 'orNumber'		=> ''
-						// 					   // 'orDate'			=> ''
-						// 					   // 'TYPE'			=> ''
-						// 					   'appointmentCode'=> $process_data['selemployment'],
-						// 					   'employerAmount' => 0
-						// 					 );
-
 						$arrData_remit = array('processID'		=> 0,
 											   'empNumber'		=> $empid,
 											   'code'			=> $deduct_code,
@@ -342,12 +298,13 @@ class Payrollupdate extends MY_Controller {
 											   'appointmentCode'=> $process_data['selemployment'],
 											   'employerAmount' => $employerAmt
 											 );
-						print_r($emp);
+						print_r($arrData_remit);
+
 						echo '<hr>';
 
 					endforeach;
 
-					print_r($arremp_no_ph);
+					// print_r($arremp_no_ph);
 					echo '</pre>';
 
 					die();

@@ -74,11 +74,11 @@
                                         <li class="<?=$this_page == 'adjustments' ? 'active' : ''?>">
                                             <a href="<?=base_url('finance/compensation/personnel_profile/adjustments/').$this->uri->segment(5)?>"> Adjustments </a>
                                         </li>
-                                    <?php else: ?>
+                                    <?php else: if(check_module() == 'employee'): ?>
                                         <li class="<?=$this_page == 'reports' ? 'active' : ''?>">
                                             <a href="<?=base_url('finance/compensation/personnel_profile/reports/').$this->uri->segment(5)?>"> Reports </a>
                                         </li>
-                                    <?php endif; ?>
+                                    <?php endif; endif; ?>
                                 </ul>
 
                                 <div class="tab-content">

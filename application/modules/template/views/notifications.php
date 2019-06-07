@@ -233,7 +233,7 @@
     <!-- BEGIN CONTROL PANEL -->
     <li class="dropdown dropdown-user">
         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-            <img alt="" class="img-circle" src="<?=base_url('assets/images/logo.png')?>" />
+            <img alt="" class="img-circle" src="<?=base_url('assets/images/user-default.jpg')?>" />
             <span class="username username-hide-on-mobile"> <?=$this->session->userdata('sessName')?> </span>
             <i class="fa fa-angle-down"></i>
         </a>

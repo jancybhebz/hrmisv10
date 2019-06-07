@@ -1,3 +1,4 @@
+<!-- BGEIN MODAL LEAVE -->
 <div id="request_leave" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -5,9 +6,10 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?=form_open('employee/requests/cancel_request', array('class' => 'form-horizontal'))?>
+            <?=form_open('hr/request/leave_request', array('class' => 'form-horizontal'))?>
                 <div class="modal-body">
                     <div class="form-body">
+                        <input type="text" name="txtleave_json" id="txtleave_json">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Request ID</label>
                             <div class="col-md-8">
@@ -102,6 +104,7 @@
         </div>
     </div>
 </div>
+<!-- END MODAL LEAVE -->
 
 <div id="request_ob" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
