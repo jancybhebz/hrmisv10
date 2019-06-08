@@ -182,6 +182,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <input class="hidden" name="strStatus" value="Filed Request">
                         <input class="hidden" name="strCode1" value="Forced Leave">
                         <input class="hidden" name="strCodeSPL" value="Special Leave">
+                        <input class="hidden" name="intVL" value="<?=!empty($this->session->userdata('intVL'))?$this->session->userdata('intVL'):''?>"">
+                        <input class="hidden" name="intSL" value="<?=!empty($this->session->userdata('intSL'))?$this->session->userdata('intSL'):''?>"">
                         <button type="button" id="printreport" value="reportLeave" class="btn blue">Print/Preview</button>
 
                      <div class="col-sm-10 text-center">
