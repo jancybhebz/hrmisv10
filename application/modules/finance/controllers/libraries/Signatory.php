@@ -31,7 +31,7 @@ class Signatory extends MY_Controller {
 			redirect('finance/libraries/signatory');
 		endif;
 		$this->arrData['action'] = 'add';
-		$this->arrData['paryollGroup'] = $this->Payroll_group_model->getData('');
+		$this->arrData['payrollGroup'] = $this->Payroll_group_model->getData('');
 		$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 	}
 
@@ -49,7 +49,7 @@ class Signatory extends MY_Controller {
 		endif;
 		$this->arrData['action'] = 'edit';
 		$this->arrData['data'] = $this->Signatory_model->getSignatories($code);
-		$this->arrData['paryollGroup'] = $this->Payroll_group_model->getData('');
+		$this->arrData['payrollGroup'] = $this->Payroll_group_model->getData('');
 		$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 	}
 

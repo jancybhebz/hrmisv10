@@ -32,10 +32,23 @@ class Payroll_process_model extends CI_Model {
 		return $process;
 	}
 
-	function get_paryoll_process($month,$yr)
+	function get_payroll_process($month,$yr)
 	{
 		$process = $this->db->get_where('tblProcess',array('processMonth' => ltrim($month,'0'), 'processYear' => $yr))->result_array();
 		return $process;
+	}
+
+	# Add payroll process
+	function add_payroll_process($arrData)
+	{
+		$this->db->insert('tblProcess', $arrData);
+		return $this->db->insert_id();
+	}
+
+	# delete payroll process
+	function delete_payroll_process($month,$yr)
+	{
+		$this->db->delete('tblProcess', array('processMonth' => ltrim($month,'0'), 'processYear' => $yr));
 	}
 
 	function getall_process($month='all',$yr)
