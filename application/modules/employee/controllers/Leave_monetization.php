@@ -30,16 +30,16 @@ class Leave_monetization extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
-			$ProjVL=$arrPost['ProjVL'];
-			$ProjSL=$arrPost['ProjSL'];
+			$MonetizedVL=$arrPost['MonetizedVL'];
+			$MonetizedSL=$arrPost['MonetizedSL'];
 			$strStatus=$arrPost['strStatus'];
 			$strCode=$arrPost['strCode'];
-			if(!empty($ProjVL) && !empty($ProjSL))
+			if(!empty($MonetizedVL) && !empty($MonetizedSL))
 			{	
-				if( count($this->leave_monetization_model->checkExist($ProjVL, $ProjSL))==0 )
+				if( count($this->leave_monetization_model->checkExist($strCode))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$ProjVL.';'.$ProjSL,
+						'requestDetails'=>$MonetizedVL.';'.$MonetizedSL,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode,
@@ -50,8 +50,8 @@ class Leave_monetization extends MY_Controller {
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpLeaveMonetization','Added '.$ProjVL.' Leave Monetization',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpLeaveMonetization','Added '.$strCode.' Leave Monetization',implode(';',$arrData),'');
+						$this->session->set_flashdata('strMsg','Your Request has been submitted.');
 					}
 					redirect('employee/leave_monetization');
 				}
