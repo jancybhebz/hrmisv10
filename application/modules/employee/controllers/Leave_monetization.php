@@ -34,12 +34,14 @@ class Leave_monetization extends MY_Controller {
 			$MonetizedSL=$arrPost['MonetizedSL'];
 			$strStatus=$arrPost['strStatus'];
 			$strCode=$arrPost['strCode'];
+			$commutation=$arrPost['commutation'];
+			$strReason=$arrPost['strReason'];
 			if(!empty($MonetizedVL) && !empty($MonetizedSL))
 			{	
 				if( count($this->leave_monetization_model->checkExist($strCode))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$MonetizedVL.';'.$MonetizedSL,
+						'requestDetails'=>$MonetizedVL.';'.$MonetizedSL.';'.$commutation.';'.$strReason,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode,
