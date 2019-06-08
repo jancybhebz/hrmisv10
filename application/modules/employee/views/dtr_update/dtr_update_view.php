@@ -246,7 +246,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var evidence=$('#strEvidence').val();
         var signatory=$('#strSignatory').val();
         
-
+        if(dtrupdate=='')
+          $('#printreport').disabled();
+        else
         // if(request=='reportDTRupdate')
         //     valid=true;
         // if(valid)

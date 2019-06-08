@@ -173,11 +173,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var purpose=$('#strPurpose').val();
         var reco=$('#strRecommend').val();
         var approval=$('#strApproval').val();
-       // var valid=false;
 
-        // if(request=='reportCL')
-        //     valid=true;
-        // if(valid)
+         if(comleave=='')
+          $('#printreport').disabled();
+        else
+ 
 
             window.open("reports/generate/?rpt=reportCL&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval,'_blank'); //ok
     

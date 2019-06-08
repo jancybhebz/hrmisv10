@@ -210,8 +210,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
-    
-    
+
+   
+    // $('#printreport').click(function(){
+    //     var dtmOBrequestdate = $("#dtmOBrequestdate").val();
+    //     //alert(dtmOBrequestdate);
+    //     if(dtmOBrequestdate=='')
+    //       $('#printreport').enabled();
+    //     else
+    //       $('#printreport').disabled();
+    //   });
+
     $('#printreport').click(function(){
         var obtype=$('#strOBtype').val();
         var reqdate=$('#dtmOBrequestdate').val();
@@ -222,6 +231,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var desti=$('#strDestination').val();
         var meal=$('#strMeal').val();
         var purpose=$('#strPurpose').val();
+
+        if(reqdate=='')
+          $('#printreport').disabled();
+        else
+        
        // var valid=false;
 
         // if(request=='reportOB')
