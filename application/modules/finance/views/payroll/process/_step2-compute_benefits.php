@@ -59,39 +59,46 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $less5k_amt = 0; foreach(fixArray($arrEmployees) as $emp): if($emp['total_income'] < 5000){ $less5k_amt++; }  ?>
-                            <tr class="<?=$emp['total_income'] < 5000 ? 'danger' : ''?>">
-                                <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
-                                <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
-                                <td style="text-align: center"><?=$curr_period_workingdays?></td>
-                                <td style="text-align: center"><?=$emp['actual_days_present']?></td>
-                                <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
-                                <td style="text-align: center"><?=$emp['emp_detail']['hpFactor']?> %</td>
-                                <td style="text-align: center"><?=number_format($emp['hp'], 2)?></td>
-                                <?php if(count($emp['emp_leavebal']) > 0): ?>
-                                    <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_8h']?></td>
-                                    <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_6h']?></td>
-                                    <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_5h']?></td>
-                                    <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_4h']?></td>
-                                    <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_diem']?></td>
-                                <?php else:?>
-                                    <td style="text-align: center" colspan="5">No Leave Balance</td>
-                                    <td hidden></td>
-                                    <td hidden></td>
-                                    <td hidden></td>
-                                    <td hidden></td>
-                                <?php endif; ?>
-                                <td style="text-align: center"><?=number_format($emp['subsis'], 2)?></td>
-                                <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
-                                <td style="text-align: center"><?=number_format($emp['laundry'], 2)?></td>
-                                <td style="text-align: center"><?=number_format($emp['longevity'], 2)?></td>
-                                <td style="text-align: center"><?=$emp['rata']['ra_percent']?> %</td>
-                                <td style="text-align: center"><?=number_format($emp['rata']['ra_amount'], 2)?></td>
-                                <td style="text-align: center"><?=$emp['rata']['days_w_vehicle']?></td>
-                                <td style="text-align: center"><?=$emp['rata']['ta_percent']?> %</td>
-                                <td style="text-align: center"><?=number_format($emp['rata']['ta_amount'], 2)?></td>
-                                <td style="text-align: center"><?=number_format($emp['total_income'], 2)?></td>
-                            </tr>
+                        <?php
+                            $arremp_less5k = array();
+                            $less5k_amt = 0;
+                            foreach(fixArray($arrEmployees) as $emp):
+                                if($emp['total_income'] < 5000){
+                                    $less5k_amt++;
+                                    array_push($arremp_less5k,$emp['emp_detail']['empNumber']);
+                                }  ?>
+                                <tr class="<?=$emp['total_income'] < 5000 ? 'danger' : ''?>">
+                                    <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
+                                    <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
+                                    <td style="text-align: center"><?=$curr_period_workingdays?></td>
+                                    <td style="text-align: center"><?=$emp['actual_days_present']?></td>
+                                    <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
+                                    <td style="text-align: center"><?=$emp['emp_detail']['hpFactor']?> %</td>
+                                    <td style="text-align: center"><?=number_format($emp['hp'], 2)?></td>
+                                    <?php if(count($emp['emp_leavebal']) > 0): ?>
+                                        <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_8h']?></td>
+                                        <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_6h']?></td>
+                                        <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_5h']?></td>
+                                        <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_4h']?></td>
+                                        <td style="text-align: center"><?=$emp['emp_leavebal']['ctr_diem']?></td>
+                                    <?php else:?>
+                                        <td style="text-align: center" colspan="5">No Leave Balance</td>
+                                        <td hidden></td>
+                                        <td hidden></td>
+                                        <td hidden></td>
+                                        <td hidden></td>
+                                    <?php endif; ?>
+                                    <td style="text-align: center"><?=number_format($emp['subsis'], 2)?></td>
+                                    <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
+                                    <td style="text-align: center"><?=number_format($emp['laundry'], 2)?></td>
+                                    <td style="text-align: center"><?=number_format($emp['longevity'], 2)?></td>
+                                    <td style="text-align: center"><?=$emp['rata']['ra_percent']?> %</td>
+                                    <td style="text-align: center"><?=number_format($emp['rata']['ra_amount'], 2)?></td>
+                                    <td style="text-align: center"><?=$emp['rata']['days_w_vehicle']?></td>
+                                    <td style="text-align: center"><?=$emp['rata']['ta_percent']?> %</td>
+                                    <td style="text-align: center"><?=number_format($emp['rata']['ta_amount'], 2)?></td>
+                                    <td style="text-align: center"><?=number_format($emp['total_income'], 2)?></td>
+                                </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -106,7 +113,8 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
                     <strong>Warning!</strong><br>
                     <?php 
                         if($less5k_amt > 0):
-                            echo 'Total no of employee/s with less than P5000 Net Pay = <b><u> '.$less5k_amt.' <u/><b>';
+                            echo 'Employees with Less Than P5000 Total Benefits:<br><br>';
+                            echo '<small>'.implode(', ',$arremp_less5k).'</small>';
                         endif;
                      ?>
                 </div>

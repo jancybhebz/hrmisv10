@@ -12,6 +12,45 @@ class Payrollupdate_model extends CI_Model {
 		return $this->db->get_where('tblIncome', array('incomeType' => $type, 'hidden' => 0))->result_array();
 	}
 
+	function payroll_select_income_process($process_mo,$process_yr,$appt,$inc_type)
+	{
+		$arrincome = $this->db->distinct()
+							  ->select('tblEmpIncome.incomeCode')
+							  ->join('tblProcess','tblProcess.processID = tblEmpIncome.processID','left')
+							  ->where('tblProcess.processMonth',$process_mo)
+							  ->where('processYear',$process_yr)
+							  ->where('employeeAppoint',$appt)
+							  ->get('tblEmpIncome')->result_array();
+
+		if(count($arrincome) > 0):
+			$this->db->where_not_in('incomeCode',array_column($arrincome,'incomeCode'));
+		endif;
+
+		if($inc_type=='Others'):
+			$this->db->where("(incomeType='Additional' OR incomeType='Monthly')");
+		else:
+			$this->db->where('incomeType',$inc_type);
+		endif;
+		$this->db->where('hidden',0);
+
+		$res = 	$this->db->get('tblIncome')->result_array();
+
+		return $res;
+	}
+
+	function check_salary_exist($process_mo,$process_yr,$appt)
+	{
+		$salary = $this->db->distinct()
+						   ->select('tblEmpIncome.incomeCode')
+						   ->join('tblProcess','tblProcess.processID = tblEmpIncome.processID')
+						   ->where('tblProcess.processMonth',$process_mo)
+						   ->where('processYear',$process_yr)
+						   ->where('employeeAppoint',$appt)
+						   ->where('incomeCode','SALARY')->get('tblEmpIncome')->result_array();
+
+		return count($salary) > 0 ? 1 : 0;
+	}
+
 	function compute_benefits($arrPost, $process_data,$empid='')
 	{
 		$this->load->helper(array('payroll_helper','dtr_helper'));

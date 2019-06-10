@@ -5,13 +5,24 @@
     </div>
     <div class="tab-pane active" id="tab-payroll">
         <input type="hidden" name="txtprocess" value='<?=json_encode($_POST)?>'>
-        <h3 class="block">Select Benefits</h3>
+        <h3>Select Benefits</h3>
+        <div class="block" style="margin-bottom: 10px;">
+            <small style="margin-left: 10px;">
+                Payroll Date: <b><?=date("F", mktime(0, 0, 0, $_POST['mon'], 10)).' '.$_POST['yr']?></b> |
+                Use data from: <b><?=date("F", mktime(0, 0, 0, $_POST['data_fr_mon'], 10)).' '.$_POST['data_fr_yr']?></b> |
+                For: <b><?=$_POST['selemployment']?></b>
+            </small>
+        </div>
         <div class="portlet-body">
             <!-- Monthly Benefits -->
             <div class="row" id="row-benefit">
                 <div class="col-md-11" style="margin-left: 40px;">
                     <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> Check All </label>
                     <div class="portlet-body" id="div-benefit">
+                        <label class="checkbox col-md-3" <?=$salary?'style="display:none"':''?>>
+                            <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="psalary" <?=$salary?'':'checked'?>>
+                            Monthly Salary
+                        </label>
                         <?php foreach($arrBenefit as $benefit): ?>
                             <label class="checkbox col-md-3">
                                 <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>"

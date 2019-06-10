@@ -35,12 +35,16 @@ class Payrollupdate extends MY_Controller {
 
 			case 'select_benefits':
 				if(!empty($arrPost)):
+					echo '<pre>';
+					print_r($arrPost);
+					echo '</pre>';
 					if($arrPost['selemployment'] != 'P'):
 						redirect('finance/payroll_update/process/index');	
 					endif;
-					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');
-					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate('Bonus');
-					$this->arrData['arrIncome'] = $this->Payrollupdate_model->getPayrollUpdate('Additional');
+					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Benefit');
+					$this->arrData['arrBonus'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Bonus');
+					$this->arrData['arrIncome'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Others');
+					$this->arrData['salary'] = $this->Payrollupdate_model->check_salary_exist($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment']);
 					$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
 					$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
 					$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
@@ -149,9 +153,34 @@ class Payrollupdate extends MY_Controller {
 					if(gettype($arrPost['chkbenefit']) == 'string'):
 						$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
 					endif;
+					if(gettype($arrPost['txtjson']) == 'string'):
+						$arrEmployees = json_decode($arrPost['txtjson'],true);
+						$arrEmployees = array_column($arrEmployees,'emp_detail');
+					endif;
 					echo '<pre>';
-					print_r($arrPost);
+					// print_r($arrEmployees);
+					foreach($arrEmployees as $employee):
+						// $SQL="INSERT INTO tblEmpBenefits (empNumber, incomeCode, incomeMonth, incomeAmount, period1,status) 
+						// SELECT c.empNumber, c.code, '$pmonth' AS incomeMonth, ROUND(c.amount,2), ROUND(c.amount,2), '1' FROM tblComputation c LEFT JOIN tblComputationInstance ci ON ci.id = c.fk_id WHERE ci.pmonth='$pmonth' AND ci.pyear='$pyear' AND ci.appointmentCode='$appoint' AND c.code != 'SALARY' GROUP BY `c`.`empNumber` , `c`.`code`";
+						// $rs=$sql->INSERT($SQL);
+						$arremp_benefits = array('empNumber' => $employee['empNumber'],
+												 'incomeCode' => '',
+												 'incomeMonth' => '',
+												 'incomeAmount' => '',
+												 'period1' => '',
+												 'status' => '');
+
+						print_r($employee);
+						print_r($arremp_benefits);
+						echo '<hr>';
+					endforeach;
 					echo '</pre>';
+					echo 'save the benefits here';
+					# insert benefits
+
+
+
+					die();
 					$this->arrData['arrEmployees'] = $arrPost['txtjson'];
 					$this->arrData['arrBenefit'] = $this->Payrollupdate_model->getPayrollUpdate('Benefit');
 					$this->arrData['arrBonus'] = $this->Payrollupdate_model->getPayrollUpdate('Bonus');
@@ -193,7 +222,7 @@ class Payrollupdate extends MY_Controller {
 												 'salarySchedule'  => $agency_shares['salarySchedule'],
 												 'period'		   => $process_data['selemployment'] == 'P' ? 4 : $process_data['period'],
 												 'publish'		   => 0);
-						$process_id = $this->Payroll_process_model->add_payroll_process($arrProcess_data);
+						// $process_id = $this->Payroll_process_model->add_payroll_process($arrProcess_data);
 					endif;
 
 					
