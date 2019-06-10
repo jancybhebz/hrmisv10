@@ -10,11 +10,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
-            <a href="<?=base_url('home')?>">Employee</a>
+            <a href="<?=base_url('home')?>">Home</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="<?=base_url('employee')?>">Request</a>
+            <a href="javascript:;">Request</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>

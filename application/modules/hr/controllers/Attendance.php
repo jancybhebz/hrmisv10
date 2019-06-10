@@ -83,7 +83,9 @@ class Attendance extends MY_Controller {
 		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
 		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
 		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
-		
+		if(in_array(check_module(),array('officer','executive'))):
+			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		endif;
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
@@ -990,7 +992,9 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-
+		if(check_module() == 'officer'):
+			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		endif;
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}

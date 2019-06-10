@@ -53,7 +53,7 @@
                                         ?>
                                     </td>
                                     <td><center>
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$employee['empdetails']['empNumber'].'?month='.(currmo() == 'all' ? date('m') : currmo()).'&yr='.curryr()?>"
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$employee['empdetails']['empNumber'].'?mode=employee&month='.(currmo() == 'all' ? date('m') : currmo()).'&yr='.curryr()?>"
                                             class="btn btn-sm grey-cascade"> <i class="icon-calendar"></i>&nbsp; View DTR </a>
                                     </center></td>
                                 </tr>

@@ -83,3 +83,7 @@ $route['hr/attendance/override/generate_dtr'] = 'hr/override/generate_dtr';
 $route['hr/libraries/signatory'] = 'finance/libraries/Signatory/index';
 $route['hr/libraries/signatory/add'] = 'finance/libraries/Signatory/add';
 $route['hr/libraries/signatory/edit/(:any)'] = 'finance/libraries/Signatory/edit/$1';
+
+# Officer dtr link
+// hr/attendance_summary/dtr/0015-CO0-2016?month=06&yr=2019
+$route['attendance_summary/(:any)'] = 'hr/attendance/dtr/$1';

@@ -284,7 +284,7 @@ $activetab = strtolower($activetab);
             <!-- end finance module -->
 
             <!-- begin officer / executive module -->
-            <?php if(in_array($this->session->userdata('sessUserLevel'), array(3,4))):?>
+            <?php if(in_array(check_module(), array('officer','executive'))):?>
                 <li class="heading">
                     <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
@@ -294,41 +294,66 @@ $activetab = strtolower($activetab);
                         <span class="title">201 File</span>
                     </a>
                 </li>
-                <li class="nav-item <?=$activesub=='attendance' || $activesub=='attendance_summary'?'active open':''?>">
+                <li class="nav-item <?=($active=='hr' && $activesub=='attendance_summary') || ($active=='employee' && $activesub=='leave_balance') || ($active=='officer' && $activesub=='attendance')?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Attendance</span>
+                        <span class="selected"></span>
                         <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?=$activesub=='attendance' && $activetab=='officer_dtr' || ($active == 'hr' && $activesub == 'attendance_summary' && $activetab == 'dtr') ? 'active' : ''?>">
-                            <a href="<?=base_url('officer/attendance/officer_dtr')?>">
+                        <li class="nav-item <?=$activesub=='attendance_summary' && $activetab=='dtr' && (isset($_GET['mode']) ? $_GET['mode'] == 'officer' ? 1 : 0 : 0) ?'active':''?>">
+                            <a href="<?=base_url('hr/attendance_summary/dtr/'.$this->session->userdata('sessEmpNo').'?mode=officer')?>">
                                 <span class="title">Daily Time Record</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_present' ? 'active' : ''?>">
-                            <a href="<?=base_url('officer/attendance/employees_present')?>">
-                                <span class="title">Employees Present</span>
+                        <li class="nav-item <?=$active=='employee' && $activesub=='leave_balance'?'active':''?>">
+                            <a href="<?=base_url('employee/leave_balance/'.$this->session->userdata('sessEmpNo'))?>">
+                                <span class="title">Leave Balance</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_absent' ? 'active' : ''?>">
-                            <a href="<?=base_url('officer/attendance/employees_absent')?>">
-                                <span class="title">Employees Absent</span>
+                        <li class="nav-item <?=$activesub=='attendance_summary' && $activetab=='qr_code'?'active':''?>">
+                            <a href="<?=base_url('hr/attendance_summary/qr_code/'.$this->session->userdata('sessEmpNo').'?mode=officer')?>">
+                                <span class="title">QR Code</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_onleave' ? 'active' : ''?>">
-                            <a href="<?=base_url('officer/attendance/employees_onleave')?>">
-                                <span class="title">Employees On Leave</span>
+                        <li class="nav-item  <?=($active=='officer' && $activesub=='attendance' && in_array($activetab,array('officer_dtr','employees_present','employees_absent','employees_onleave','employees_onottott'))) || (isset($_GET['mode']) ? $_GET['mode']=='employee' ? 1 : 0 : 0)? 'active open' : ''?>">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <span class="title">Employee</span>
+                                <?=$active=='officer' && $activesub=='attendance' && in_array($activetab,array('officer_dtr','employees_present','employees_absent','employees_onleave','employees_onottott')) ? '<span class="selected"></span>' : ''?>
+                                <span class="arrow <?=$active=='officer' && $activesub=='attendance' && in_array($activetab,array('officer_dtr','employees_present','employees_absent','employees_onleave','employees_onottott')) ? 'open' : ''?>"></span>
                             </a>
-                        </li>
-                        <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_onottott' ? 'active' : ''?>">
-                            <a href="<?=base_url('officer/attendance/employees_onottott')?>">
-                                <span class="title">Employees On OB/TO</span>
-                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item <?=$activesub=='attendance' && $activetab=='officer_dtr' || ($active == 'hr' && $activesub == 'attendance_summary' && $activetab == 'dtr') ? 'active' : ''?>">
+                                    <a href="<?=base_url('officer/attendance/officer_dtr')?>">
+                                        <span class="title">Daily Time Record</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_present' ? 'active' : ''?>">
+                                    <a href="<?=base_url('officer/attendance/employees_present')?>">
+                                        <span class="title">Present</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_absent' ? 'active' : ''?>">
+                                    <a href="<?=base_url('officer/attendance/employees_absent')?>">
+                                        <span class="title">Absent</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_onleave' ? 'active' : ''?>">
+                                    <a href="<?=base_url('officer/attendance/employees_onleave')?>">
+                                        <span class="title">On Leave</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item <?=$activesub=='attendance' && $activetab=='employees_onottott' ? 'active' : ''?>">
+                                    <a href="<?=base_url('officer/attendance/employees_onottott')?>">
+                                        <span class="title">On OB/TO</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$active=='employee' && $activesub !='notification'?'active open':''?>">
+                <li class="nav-item <?=$active=='employee' && !in_array($activesub,array('notification','leave_balance'))?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
@@ -433,7 +458,7 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item <?=$active=='employee' && $activesub !='notification' && !in_array($activesub, array('leave_balance'))?'active open':''?>">
+                <li class="nav-item <?=$active=='employee' && (!in_array($activesub,array('notification','leave_balance')))?'active open':''?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-doc"></i>
                         <span class="title">Request</span>
