@@ -76,7 +76,7 @@
             <tr>
                 <td>Email Address :</td>
                 <td><?=$arrData['email']?></td>
-                <td>Business Partner No.dd</td>
+                <td>Business Partner No.</td>
                 <td><?=$arrData['businessPartnerNumber']?></td>
             </tr>
         </table>      
@@ -205,7 +205,7 @@
                     </div>
                    <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Firstname : <span class="required"> * </span></label>
+                            <label class="control-label">First Name : <span class="required"> * </span></label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
