@@ -80,7 +80,7 @@ class Payrollupdate extends MY_Controller {
 				$stat = 1;
 				if(!empty($arrPost)):
 					$process_details = json_decode($arrPost['txtprocess'],true);
-					$total_periods = periods(agency_paryoll_process());
+					$total_periods = periods(agency_payroll_process());
 					$trdetail = json_decode($arrPost['txtjson'],true);
 					# income code - benefits
 					$incomecodes = $this->Income_model->getDataByType('Benefit');
@@ -170,22 +170,46 @@ class Payrollupdate extends MY_Controller {
 						$arrEmployees = json_decode($arrPost['txtjson'],true);
 						$arrEmployees = array_column($arrEmployees,'emp_detail');
 					endif;
-
-					$agency_shares = $this->Deduction_model->getAgencyDeductionShare();
-					# insert process
-					$arrData_process = array('employeeAppoint'	=> $process_data['selemployment'],
-											 'empNumber'		=> $this->session->userdata('sessEmpNo'),
-											 'processDate'		=> date('Y-m-d'),
-											 'processMonth'		=> $process_data['mon'],
-											 'processYear'		=> $process_data['yr'],
-											 'processCode'		=> $empid,
-											 // 'payrollGroupCode'	=> '',
-											 'salarySchedule'	=> $agency_shares['salarySchedule'],
-											 'period'			=> $empid,
-											 'publish'			=> 0);
-
 					echo '<pre>';
+					
+					$agency_shares = $this->Deduction_model->getAgencyDeductionShare();
+					$process_id = 0;
 					$process_data = json_decode($arrPost['txtprocess'],true);
+					print_r($_SESSION);
+					print_r($process_data);
+					print_r($agency_shares);
+					die();
+					# check if process month and yr is exist then delete before continue to the process
+					$process_exists = $this->Payroll_process_model->get_payroll_process($process_data['mon'],$process_data['yr']);
+					if(count($process_exists) > 0):
+						$this->Payroll_process_model->delete_payroll_process($process_data['mon'],$process_data['yr']);
+					else:
+						$arrProcess_data = array('employeeAppoint' => $process_data['selemployment'],
+												 'empNumber'	   => $this->session->userdata('sessEmpNo'),
+												 'processDate'	   => date('Y-m-d'),
+												 'processMonth'	   => $process_data['mon'],
+												 'processYear'	   => $process_data['yr'],
+												 'processCode'	   => $process_data[''],
+												 'salarySchedule'  => $agency_shares['salarySchedule'],
+												 'period'		   => $process_data['selemployment'] == 'P' ? 4 : $process_data['period'],
+												 'publish'		   => 0);
+						$process_id = $this->Payroll_process_model->add_payroll_process($arrProcess_data);
+					endif;
+
+					
+					# insert process
+					// $arrData_process = array('employeeAppoint'	=> $process_data['selemployment'],
+					// 						 'empNumber'		=> $this->session->userdata('sessEmpNo'),
+					// 						 'processDate'		=> date('Y-m-d'),
+					// 						 'processMonth'		=> $process_data['mon'],
+					// 						 'processYear'		=> $process_data['yr'],
+					// 						 'processCode'		=> $empid,
+					// 						 // 'payrollGroupCode'	=> '',
+					// 						 'salarySchedule'	=> $agency_shares['salarySchedule'],
+					// 						 'period'			=> $empid,
+					// 						 'publish'			=> 0);
+
+					
 					print_r($process_data);
 					$deduction_code = '';
 					$deduct_code = '';
@@ -201,7 +225,6 @@ class Payrollupdate extends MY_Controller {
 					// print_r($arrPost);
 					$arrRegular_deductions = $this->Deduction_model->getDeductionsByType('Regular');
 					$arrDeductions = array_merge(isset($arrPost['chkloan']) ? $arrPost['chkloan'] : array(),isset($arrPost['chkcont']) ? $arrPost['chkcont'] : array(),isset($arrPost['chkothrs']) ? $arrPost['chkothrs'] : array());
-					print_r($arrDeductions);
 					// $deductions = $this->Deduction_model->getDeductionsByStatus(0);
 					foreach($arrEmployees as $emp):
 						$empid = $emp['empNumber'];
@@ -282,12 +305,12 @@ class Payrollupdate extends MY_Controller {
 						# get employee deduction detail
 						$empdeducts = $this->Deduction_model->getDeductionByEmployee($emp,$process_data['data_fr_mon'],$process_data['data_fr_yr']);
 
-						$arrData_remit = array('processID'		=> 0,
+						$arrData_remit = array('processID'		=> $process_id,
 											   'empNumber'		=> $empid,
 											   'code'			=> $deduct_code,
 											   'deductionCode'	=> $deduction_code,
-											   'deductMonth'	=> $process_data['data_fr_mon'],
-											   'deductYear'		=> $process_data['data_fr_yr'],
+											   'deductMonth'	=> $process_data['mon'],
+											   'deductYear'		=> $process_data['yr'],
 											   'period1'		=> $period1,
 											   'period2'		=> $period2,
 											   'period3'		=> $period3,
@@ -323,7 +346,7 @@ class Payrollupdate extends MY_Controller {
 
 	public function update_or()
 	{
-		$this->arrData['arrpayroll'] = $this->Payroll_process_model->get_paryoll_process(currmo(),curryr());
+		$this->arrData['arrpayroll'] = $this->Payroll_process_model->get_payroll_process(currmo(),curryr());
 		$this->arrData['arremployees'] = $this->Hr_model->getData();
 		$this->arrData['deduction_list'] = isset($_GET['processid']) && isset($_GET['empno']) ? $this->Deduction_model->getDeductionByProcess($_GET['processid'],$_GET['empno']) : array();
 		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);

@@ -126,9 +126,9 @@ if ( ! function_exists('payroll_group'))
     }
 }
 
-if ( ! function_exists('agency_paryoll_process'))
+if ( ! function_exists('agency_payroll_process'))
 {
-    function agency_paryoll_process()
+    function agency_payroll_process()
     {
         $CI =& get_instance();
         $res = $CI->db->get('tblAgency')->result_array();
