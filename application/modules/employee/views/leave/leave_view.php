@@ -42,10 +42,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
                     <div class="portlet-body">
             <?=form_open(base_url('employee/leave/submitFL'), array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()'))?>
-                                <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group">
-                       <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
+            <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                <?php 
+                $permonth = date("F, Y", strtotime("last day of previous month"));
+                ?>
+                       <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
+                            <i class="fa"></i>
+                            <div><label>Vacation Leave left: <?=$arrBalance[0]['vlBalance']?></label></div>
+                            <div><label>Sick Leave left: <?=$arrBalance[0]['slBalance']?></label></div>
+                            <div><label>Special Leave left: <?=$arrBalance[0]['plBalance']?></label></div>
+                            <div><label>Forced Leave left: <?=$arrBalance[0]['flBalance']?></label></div>
+                            <div><label>Maternity Leave left: <?=$arrBalance[0]['mtlBalance']?></label></div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                   <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
                             <i class="fa"></i>
                              <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
                             <option value="">Please select</option>

@@ -35,6 +35,33 @@ class Leave_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	// function getBalances($strEmpNum = '')
+	// {		
+	// 	$strWhere = '';
+	// 	if($strEmpNum != "")
+	// 		$strWhere .= " AND empNumber = '".$strEmpNum."'";
+		
+	// 	$strSQL = " SELECT * FROM tblEmpLeaveBalance	
+	// 				-- LEFT JOIN tblEmpPersonal ON tblEmpPersonal.empNumber = tblEmpLeaveBalance.empNumber
+	// 				WHERE 1=1 
+	// 				$strWhere
+	// 				";
+			
+	// 	$objQuery = $this->db->query($strSQL);
+	// 	//print_r($objQuery->result_array());
+	// 	return $objQuery->result_array();	
+	// }
+
+	public function getBalances($strEmpNum)
+	{
+		$strWhere = '';
+		if($strEmpNum != "")
+			$strWhere .= " AND empNumber = '".$strEmpNum."'";
+
+		$res = $this->db->get_where('tblEmpLeaveBalance')->result_array();
+		return $res;
+	}
+
 	function submitFL($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);
