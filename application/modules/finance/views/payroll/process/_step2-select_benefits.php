@@ -1,4 +1,4 @@
-<?=form_open('finance/payroll_update/process/compute_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
+<?=form_open('finance/payroll_update/compute_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>

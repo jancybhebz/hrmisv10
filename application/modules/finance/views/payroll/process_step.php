@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('select','select2','datepicker'));$page = $this->uri->segment(4);?>
+<?=load_plugin('css', array('select','select2','datepicker'));$page = $this->uri->segment(3);?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -44,6 +44,7 @@
                                         break;
                                     case 'compute_benefits':
                                     case 'save_benefits':
+                                    case 'save_compute_benefits':
                                         echo 'STEP 2 OF 4';
                                         break;
                                     case 'select_deductions':
@@ -69,7 +70,7 @@
                                         <i class="fa fa-check"></i> Payroll Period </span>
                                 </a>
                             </li>
-                            <li class="<?=in_array($page,array('select_benefits','compute_benefits','save_benefits'))?'active':''?>">
+                            <li class="<?=in_array($page,array('select_benefits','compute_benefits','save_benefits','save_compute_benefits'))?'active':''?>">
                                 <a href="#tab2" data-toggle="tab" class="step">
                                     <span class="number"> 2 </span><br>
                                     <span class="desc">
@@ -97,7 +98,7 @@
                         <!-- begin form -->
                         <?php 
                             switch ($page):
-                                case 'index':
+                                case 'process':
                                     $this->load->view('process/_step1-payroll_period');
                                     break;
                                 case 'select_benefits':
@@ -105,6 +106,7 @@
                                     break;
                                 case 'compute_benefits':
                                 case 'save_benefits':
+                                case 'save_compute_benefits':
                                     if($employment_type == 'P'):
                                         $this->load->view('process/_step2-compute_benefits');
                                     else:

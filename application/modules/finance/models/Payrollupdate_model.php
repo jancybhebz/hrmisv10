@@ -100,7 +100,8 @@ class Payrollupdate_model extends CI_Model {
 		$arremployees = array();
 		$emp_leavebal = $this->Leave_model->getEmpLeave_balance('',$month,$yr);
 		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$yr,$month,$empid);
-		
+		$rata_details = $this->Payroll_process_model->get_rata_details();
+
 		foreach($process_employees as $emp):
 			# employee attendance scheme
 			$emp_att_scheme = $att_schemes[array_search($emp['schemeCode'], array_column($att_schemes, 'schemeCode'))];
@@ -261,6 +262,7 @@ class Payrollupdate_model extends CI_Model {
 							'ctr_6h' => $lb_details['ctr_6h'] == '' ? 0 : $lb_details['ctr_6h'],
 							'ctr_5h' => $lb_details['ctr_5h'] == '' ? 0 : $lb_details['ctr_5h'],
 							'ctr_4h' => $lb_details['ctr_4h'] == '' ? 0 : $lb_details['ctr_4h'],
+							'ctr_wmeal' => $lb_details['ctr_wmeal'] == '' ? 0 : $lb_details['ctr_wmeal'],
 							'ctr_diem' => $lb_details['ctr_diem'] == '' ? 0 : $lb_details['ctr_diem'],
 							'ctr_laundry' => $lb_details['ctr_laundry'] == '' ? 0 : $lb_details['ctr_laundry'],
 							'nodays_absent' => $lb_details['nodays_absent'] == '' ? 0 : $lb_details['nodays_absent']);
@@ -308,6 +310,10 @@ class Payrollupdate_model extends CI_Model {
 			$rata = rata($arrrata, $days_work, count($curr_workingdays), $emp['RATACode'], $emp['RATAVehicle']);
 			$total_income = $hpfactor + $subsis + $laundry + $longevity + $rata['ra_amount'] + $rata['ta_amount'] + AMT_PERA;
 
+			# RATA Details
+			$rata_key = array_search($emp['RATACode'], array_column($rata_details, 'RATACode'));
+			$rata_amt = is_numeric($rata_key) ? $rata_details[$rata_key]['RATAAmount'] : 0;
+
 			$arremployees[] = array( 'emp_detail' 			=> $emp,
 									 'actual_days_present' 	=> $actual_days_presents,
 									 'actual_days_absent' 	=> $emp_lb['nodays_absent'],
@@ -321,7 +327,8 @@ class Payrollupdate_model extends CI_Model {
 									 'total_late'			=> $total_late,
 									 'total_ut'				=> $total_ut,
 									 'total_deduct'			=> $total_deduct,
-									 'period_salary'		=> $period_salary);
+									 'period_salary'		=> $period_salary,
+									 'rata_amt'				=> $rata_amt);
 			// print_r(array( 'emp_detail' 			=> $emp,
 			// 						 'actual_days_present' 	=> $actual_days_presents,
 			// 						 'actual_days_absent' 	=> count($workingdays) - $actual_days_presents,

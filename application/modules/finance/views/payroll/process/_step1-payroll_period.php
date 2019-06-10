@@ -2,7 +2,7 @@
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
     </div>
-    <?=form_open('finance/payroll_update/process/select_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmprocess'))?>
+    <?=form_open('finance/payroll_update/select_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmprocess'))?>
     <div class="tab-content">
         <div class="tab-pane active" id="tab-payroll">
             <h3 class="block">Process Payroll</h3>

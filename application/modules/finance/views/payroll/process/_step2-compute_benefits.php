@@ -1,11 +1,11 @@
 <?=load_plugin('css', array('datatables'))?>
 
 <?php
-$page = $this->uri->segment(4);
-$form = $page == 'save_benefits' ? 'finance/payroll_update/process/compute_benefits' : 'finance/payroll_update/process/save_benefits';
+$page = $this->uri->segment(3);
+$form = $page == 'compute_benefits' ? 'finance/payroll_update/save_compute_benefits' : 'finance/payroll_update/process/save_benefits';
 echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'))?>
 <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
-<input type="hidden" name="chkbenefit" value='<?=$page == 'save_benefits' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit'])?>'>
+<input type="hidden" name="chkbenefit" value='<?=$page == 'compute_benefits' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -132,7 +132,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <?php if($this->uri->segment(4) == 'save_benefits'): ?>
+            <?php if($this->uri->segment(3) == 'save_compute_benefits'): ?>
                 <button type="submit" id="btnprocess" class="btn blue btn-submit"> Proceed and Continue
                 <i class="fa fa-angle-right"></i> </button>
             <?php else: ?>
@@ -146,9 +146,9 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
 <?=load_plugin('js', array('datatables'))?>
 <script src="<?=base_url('assets/js/custom/payroll-compute_benefits.js')?>"></script>
 <script>
-    $(document).ready(function() {
-        $('button#btnprocess').click(function(e) {
-            $('#frmsavebenefits').attr("action","<?=base_url('finance/payroll_update/process/select_deductions')?>");
-        });
-    });
+    // $(document).ready(function() {
+    //     $('button#btnprocess').click(function(e) {
+    //         $('#frmsavebenefits').attr("action","<?=base_url('finance/payroll_update/save_compute_benefits')?>");
+    //     });
+    // });
 </script>
