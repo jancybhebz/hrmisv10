@@ -358,3 +358,33 @@ jQuery(document).ready(function() {
 });
 </script>
 
+<script>
+
+$('#dtmLeavefrom, #dtmLeaveto').change(function()
+{
+
+    if($('#dtmLeavefrom').val() && $('#dtmLeaveto').val()){
+
+        var startDate = parseDate($('#dtmLeaveto').val())
+        var endDate = parseDate($('#dtmLeavefrom').val())
+        var days = calcDaysBetween(startDate, endDate)
+
+        $('#intDaysApplied').html(days + " days")    
+        
+    }
+})
+
+
+function parseDate(s)
+{
+    var parts = s.split('/')
+    return new Date(parts[2], parts[0]-1, parts[1])
+}
+
+function calcDaysBetween(startDate, endDate)
+{
+    return (endDate-startDate)/(1000*60*60*24)
+}
+
+</script>
+
