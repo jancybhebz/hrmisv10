@@ -162,7 +162,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                     <br><br>
                     <div class="row">
                     <div class="col-sm-8 text-right">

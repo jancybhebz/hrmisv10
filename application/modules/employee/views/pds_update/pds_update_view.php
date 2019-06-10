@@ -353,7 +353,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="input-icon left">
                     <input class="hidden" name="strStatus" value="Filed Request">
                     <input class="hidden" name="strCode" value="201 Profile">
-                    <button type="button" id="printreport" value="reportPDSupdate" class="btn blue">Print/Preview</button>
+                    <!-- <button type="button" id="printreport" value="reportPDSupdate" class="btn blue">Print/Preview</button> -->
                     <button type="submit" name="submitProfile" id="submitProfile" class="btn blue">Submit</button>
                     <a href="<?=base_url('employee/pds_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
                 </div>

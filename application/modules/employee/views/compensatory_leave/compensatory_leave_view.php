@@ -158,7 +158,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
-
   
     $('#printreport').click(function(){
         var comleave=$('#dtmComLeave').val();
@@ -176,8 +175,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
          if(comleave=='')
           $('#printreport').disabled();
-        else
- 
+        else 
 
             window.open("reports/generate/?rpt=reportCL&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval,'_blank'); //ok
     

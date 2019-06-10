@@ -167,12 +167,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"6.     CIVIL STATUS ",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				// if($row[$i]['civilStatus']=="Single")
+				if($row['civilStatus']=="Single")
 					{$this->fpdf->Cell($Ligne,$InterLigne," [  X  ]  Single    [    ]  Married",'R',0,'C');}
-				// if($row[$i]['civilStatus']=="Married")
-				// 	{$this->Cell($Ligne,$InterLigne," [    ]  Single    [  X  ]  Married",R,0,C);}
-				// if($row[$i]['civilStatus']!="Single" && $row[$i]['civilStatus']!="Married")
-				// 	{$this->Cell($Ligne,$InterLigne," [    ]  Single    [    ]  Married",R,0,C);}
+				if($row['civilStatus']=="Married")
+				 {$this->fpdf->Cell($Ligne,$InterLigne," [    ]  Single    [  X  ]  Married",R,0,C);}
+				if($row['civilStatus']!="Single" && $row[$i]['civilStatus']!="Married")
+					{$this->fpdf->Cell($Ligne,$InterLigne," [    ]  Single    [    ]  Married",R,0,C);}
 				// residential address
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"17. 		RESIDENTIAL ADDRESS                     ",'LR',0,'L',1);
@@ -183,12 +183,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'C',1);		
 
 				$this->fpdf->SetFont('Arial','',7);
-				// if($row[$i]['civilStatus']=="Widowed")
+				if($row['civilStatus']=="Widowed")
 					{$this->fpdf->Cell($Ligne,$InterLigne,"   [  X  ]  Widowed  [    ]  Separated",'LR',0,'C');}
-				// if($row[$i]['civilStatus']=="Separated")
-				// 	{$this->Cell($Ligne,$InterLigne,"    [    ]  Widowed  [  X  ]  Separated",LR,0,C);}
-				// if($row[$i]['civilStatus']!="Separated" && $row[$i]['civilStatus']!="Widowed")
-				// 	{$this->Cell($Ligne,$InterLigne,"   [    ]  Widowed  [    ]  Separated",LR,0,C);}
+				if($row['civilStatus']=="Separated")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"    [    ]  Widowed  [  X  ]  Separated",'LR',0,'C');}
+				if($row['civilStatus']!="Separated" && $row['civilStatus']!="Widowed")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"   [    ]  Widowed  [    ]  Separated",'LR',0,'C');}
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
 				$this->fpdf->SetFont('Arial','',7);
@@ -200,12 +200,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LBR',0,'C',1);		//  Civil Status Blank-2
 				$this->fpdf->SetFont('Arial','',7);
-				// if($row[$i]['civilStatus']=="Other/s:")
+				if($row['civilStatus']=="Other/s:")
 					{$this->fpdf->Cell($Ligne,$InterLigne,"   [  X  ]  Other/s:  [    ]  ",'LBR',0,'C');}
-				// if($row[$i]['civilStatus']=="")
-				// 	{$this->fpdf->Cell($Ligne,$InterLigne,"    [    ]  Other/s:  [  X  ]  ",LBR,0,C);}
-				// if($row[$i]['civilStatus']!="" && $row[$i]['civilStatus']!="Other/s:")
-				// 	{$this->fpdf->Cell($Ligne,$InterLigne,"   [    ]  Other/s:  ",LBR,0,C);}
+				if($row['civilStatus']=="")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"    [    ]  Other/s:  [  X  ]  ",'LBR',0,'C');}
+				if($row['civilStatus']!="" && $row['civilStatus']!="Other/s:")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"   [    ]  Other/s:  ",'LBR',0,'C');}
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
