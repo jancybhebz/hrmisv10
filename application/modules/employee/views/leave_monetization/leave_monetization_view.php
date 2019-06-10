@@ -221,7 +221,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row reason">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                 <input type="text" class="form-control" name="strReason" id="strReason" value="<?=isset($arrData[0][''])?$arrData[0]['']:''?>">
+                                 <input type="text" class="form-control" name="strReason" id="strReason"  value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
                             </div>
                         </div>
                     </div></br>

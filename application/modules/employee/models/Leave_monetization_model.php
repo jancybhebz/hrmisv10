@@ -38,21 +38,17 @@ class Leave_monetization_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-
-
 	function submit($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
 	
-	function checkExist($strDestination = '', $dtmTOdatefrom = '')
+	function checkExist($strCode = '')
 	{		
 		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
-					requestDetails ='$strDestination' OR
-					requestDate ='$dtmTOdatefrom'					
-					";
+					requestCode ='$strCode'";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	

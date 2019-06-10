@@ -239,6 +239,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var reason=$('#strReason').val();
         var incaseSL=$('#strIncaseSL').val();
         var incaseVL=$('#strIncaseVL').val();
+
+        if(leavefrom=='')
+          $('#printreport').disabled();
+        else
        // var valid=false;
 
         // if(request=='reportLeave')

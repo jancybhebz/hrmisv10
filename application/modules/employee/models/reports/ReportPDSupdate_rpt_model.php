@@ -115,12 +115,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,"16.    CITIZENSHIP           ",'LTR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
 				// $i='';
-				// if($row[$i]['citizenship']=="Filipino")
+				if($row['citizenship']=="Filipino")
 					{$this->fpdf->Cell(0,$InterLigne," [  X ] Filipino    [    ]  Dual Citizenship",'LR',0,'L');}
-				// if($row[$i]['citizenship']=="Dual Citizenship")
-				// 	{$this->fpdf->Cell(0,$InterLigne," [    ]  Filipino      [  X  ]  Dual Citizenship",'LR',0,'L');}
-				// if($row[$i]['citizenship']!="Filipino" && $row[$i]['citizenship']!="Dual Citizenship")
-				// 	{$this->fpdf->Cell(0,$InterLigne," [    ]  Filipino      [    ]  Dual Citizenship",'LR',0,'L');}
+				if($row['citizenship']=="Dual Citizenship")
+					{$this->fpdf->Cell(0,$InterLigne," [    ]  Filipino      [  X  ]  Dual Citizenship",'LR',0,'L');}
+				if($row['citizenship']!="Filipino" && $row['citizenship']!="Dual Citizenship")
+					{$this->fpdf->Cell(0,$InterLigne," [    ]  Filipino      [    ]  Dual Citizenship",'LR',0,'L');}
 				$this->fpdf->Ln(6);
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"         (mm/dd/yyyy)",'LR',0,'L',1);		//  Date of Birth Blank
@@ -128,12 +128,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'L',1);		//  Citizenship Blank
 				$this->fpdf->SetFont('Arial','',7);
-				// if($row[$i]['citizenship']=="by birth")
+				if($row['citizenship']=="by birth")
 					{$this->fpdf->Cell(0,$InterLigne,"[ X ]  by birth  [  ]  by naturalization",'LR',0,'R');}
-				// if($row[$i]['citizenship']=="by naturalization")
-				// 	{$this->fpdf->Cell(0,$InterLigne," [    ]  by birth    [  X  ]  by naturalization",LR,0,R);}
-				// if($row[$i]['citizenship']!="birth" && $row[$i]['citizenship']!="by naturalization")
-				// 	{$this->fpdf->Cell(0,$InterLigne," [    ]  by birth    [    ]  by naturalization",LR,0,R);}
+				if($row['citizenship']=="by naturalization")
+					{$this->fpdf->Cell(0,$InterLigne," [    ]  by birth    [  X  ]  by naturalization",'LR',0,'R');}
+				if($row['citizenship']!="birth" && $row['citizenship']!="by naturalization")
+					{$this->fpdf->Cell(0,$InterLigne," [    ]  by birth    [    ]  by naturalization",'LR',0,'R');}
 					
 				$this->fpdf->SetFont('Arial','',7);	
 				$this->fpdf->Ln(6);
@@ -167,12 +167,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"6.     CIVIL STATUS ",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				// if($row[$i]['civilStatus']=="Single")
+				if($row['civilStatus']=="Single")
 					{$this->fpdf->Cell($Ligne,$InterLigne," [  X  ]  Single    [    ]  Married",'R',0,'C');}
-				// if($row[$i]['civilStatus']=="Married")
-				// 	{$this->Cell($Ligne,$InterLigne," [    ]  Single    [  X  ]  Married",R,0,C);}
-				// if($row[$i]['civilStatus']!="Single" && $row[$i]['civilStatus']!="Married")
-				// 	{$this->Cell($Ligne,$InterLigne," [    ]  Single    [    ]  Married",R,0,C);}
+				if($row['civilStatus']=="Married")
+				 {$this->fpdf->Cell($Ligne,$InterLigne," [    ]  Single    [  X  ]  Married",R,0,C);}
+				if($row['civilStatus']!="Single" && $row[$i]['civilStatus']!="Married")
+					{$this->fpdf->Cell($Ligne,$InterLigne," [    ]  Single    [    ]  Married",R,0,C);}
 				// residential address
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"17. 		RESIDENTIAL ADDRESS                     ",'LR',0,'L',1);
@@ -183,12 +183,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'C',1);		
 
 				$this->fpdf->SetFont('Arial','',7);
-				// if($row[$i]['civilStatus']=="Widowed")
+				if($row['civilStatus']=="Widowed")
 					{$this->fpdf->Cell($Ligne,$InterLigne,"   [  X  ]  Widowed  [    ]  Separated",'LR',0,'C');}
-				// if($row[$i]['civilStatus']=="Separated")
-				// 	{$this->Cell($Ligne,$InterLigne,"    [    ]  Widowed  [  X  ]  Separated",LR,0,C);}
-				// if($row[$i]['civilStatus']!="Separated" && $row[$i]['civilStatus']!="Widowed")
-				// 	{$this->Cell($Ligne,$InterLigne,"   [    ]  Widowed  [    ]  Separated",LR,0,C);}
+				if($row['civilStatus']=="Separated")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"    [    ]  Widowed  [  X  ]  Separated",'LR',0,'C');}
+				if($row['civilStatus']!="Separated" && $row['civilStatus']!="Widowed")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"   [    ]  Widowed  [    ]  Separated",'LR',0,'C');}
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
 				$this->fpdf->SetFont('Arial','',7);
@@ -200,12 +200,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LBR',0,'C',1);		//  Civil Status Blank-2
 				$this->fpdf->SetFont('Arial','',7);
-				// if($row[$i]['civilStatus']=="Other/s:")
+				if($row['civilStatus']=="Other/s:")
 					{$this->fpdf->Cell($Ligne,$InterLigne,"   [  X  ]  Other/s:  [    ]  ",'LBR',0,'C');}
-				// if($row[$i]['civilStatus']=="")
-				// 	{$this->fpdf->Cell($Ligne,$InterLigne,"    [    ]  Other/s:  [  X  ]  ",LBR,0,C);}
-				// if($row[$i]['civilStatus']!="" && $row[$i]['civilStatus']!="Other/s:")
-				// 	{$this->fpdf->Cell($Ligne,$InterLigne,"   [    ]  Other/s:  ",LBR,0,C);}
+				if($row['civilStatus']=="")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"    [    ]  Other/s:  [  X  ]  ",'LBR',0,'C');}
+				if($row['civilStatus']!="" && $row['civilStatus']!="Other/s:")
+					{$this->fpdf->Cell($Ligne,$InterLigne,"   [    ]  Other/s:  ",'LBR',0,'C');}
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
@@ -305,12 +305,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',6);
 				$this->fpdf->Cell(55,$InterLigne,"23.   NAME of CHILDREN  (Write full name and list all)",1,0,'L',1);
 
-				// if($row[$i]['empNumber']!="" && $row[$i]['empNumber']!="undefined")
-				// 	$whereChild = " AND empNumber='".$row[$i]['empNumber']."'";
-				// else
-				// 	$whereChild = "";
-				// $SQL = "SELECT childName,childBirthDate FROM tblEmpChild 
-				// WHERE 1=1 $whereChild ORDER BY childBirthDate ASC";
+				if($row['empNumber']!="" && $row['empNumber']!="undefined")
+					$whereChild = " AND empNumber='".$row['empNumber']."'";
+				else
+					$whereChild = "";
+				$SQL = "SELECT childName,childBirthDate FROM tblEmpChild 
+				WHERE 1=1 $whereChild ORDER BY childBirthDate ASC";
 				
 				// $cn= new MySQLHandler2;
 				// $cn->init();
@@ -342,9 +342,9 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);  
 				$this->fpdf->Cell(70,$InterLigne,$row['spouseMiddlename'],'TBRL',0,'L');
 				$this->fpdf->Cell(55,$InterLigne,"",'TBRL',0,'C');//1st child
-				// if($row2[0]['childBirthDate']!='0000-00-00' && $row2[0]['childBirthDate']!='')
-				// 	$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($row2[1]['childBirthDate'])),1,0,C);//1st child bday
-				// else
+				if($row2['childBirthDate']!='0000-00-00' && $row2['childBirthDate']!='')
+					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($row2['childBirthDate'])),1,0,C);//1st child bday
+				else
 					$this->fpdf->Cell(0,$InterLigne,'',1,0,'C');
 				$this->fpdf->Ln(6);
 					// occupation

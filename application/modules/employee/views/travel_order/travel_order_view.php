@@ -133,6 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var purpose=$('#strPurpose').val();
         var meal=$('#strMeal').val();
 
+        
         // if(request=='reportTO')
         //     valid=true;
         // if(valid)

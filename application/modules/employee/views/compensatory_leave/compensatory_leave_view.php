@@ -41,17 +41,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave'))?>
-             <div class="row">
+            <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave', 'onsubmit' => 'return checkForBlank()'))?>
+            <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
-                         <label class="control-label">Date : <span class="required"> * </span></label>
-                         <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                        <label class="control-label">Date : <span class="required"> * </span></label>
+                              <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                          <font color='red'> <span id="errordate"></span></font>
                     </div>
                 </div>
             </div>
 
-            <br>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Offset balance:</label> 
+                             <?php echo $arrLB[0]['off_bal']; ?>
+                    </div>
+                </div>
+            </div>  
+            <br>  
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -157,7 +166,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
-
   
     $('#printreport').click(function(){
         var comleave=$('#dtmComLeave').val();
@@ -172,11 +180,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var purpose=$('#strPurpose').val();
         var reco=$('#strRecommend').val();
         var approval=$('#strApproval').val();
-       // var valid=false;
 
-        // if(request=='reportCL')
-        //     valid=true;
-        // if(valid)
+         if(comleave=='')
+          $('#printreport').disabled();
+        else 
 
             window.open("reports/generate/?rpt=reportCL&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval,'_blank'); //ok
     
@@ -268,4 +275,27 @@ jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
-  
+
+
+<script>
+
+function checkForBlank()
+{
+   var spaceCount = 0;
+
+    $comleave= $('#dtmComLeave').val();
+
+    $('#errordate').html('');
+
+    if($comleave=="")
+    {
+      $('#errordate').html('This field is required!');
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+
+}
+</script>
