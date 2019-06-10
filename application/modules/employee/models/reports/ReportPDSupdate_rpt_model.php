@@ -342,6 +342,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);  
 				$this->fpdf->Cell(70,$InterLigne,$row['spouseMiddlename'],'TBRL',0,'L');
 				$this->fpdf->Cell(55,$InterLigne,"",'TBRL',0,'C');//1st child
+				$row2 = '';
 				if($row2['childBirthDate']!='0000-00-00' && $row2['childBirthDate']!='')
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($row2['childBirthDate'])),1,0,C);//1st child bday
 				else

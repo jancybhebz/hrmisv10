@@ -109,11 +109,16 @@
                         <span class="help-block"></span>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn green">Save</button>
-            </div>
+                </div>
+                 <br><br><br><br><br><br><br><br><br><br>
+                 <br><br><br><br><br><br><br><br><br><br>
+                 
+                     <div class="modal-footer">
+                       <div class="col-md-8">
+                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn green">Save</button>
+                    </div>
+                </div>
             <?=form_close()?>
         </div>
     </div>

@@ -55,11 +55,23 @@ class Hr_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 	
-	public function checkExist($strEmpNo)
+	// public function checkExist($strEmpNo)
+	// {		
+	// 	$objQuery = $this->select('empNumber')->get($this->table);
+	// 	return $objQuery->result_array();	
+	// }
+
+	public function checkExist($strEmpID = '')
 	{		
-		$objQuery = $this->select('empNumber')->get($this->table);
+		$strSQL = " SELECT * FROM tblEmpPersonal					
+					WHERE  
+					empNumber ='$strEmpID'
+					";
+		//echo $strSQL;exit(1);
+		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	
 	}
+
 
 	//for QRCode
 	public function getData($strEmpNo="",$strSearch="",$strAppStatus="")

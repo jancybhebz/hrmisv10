@@ -114,7 +114,7 @@
                     </div>
                    <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Firstname : <span class="required"> * </span></label>
+                            <label class="control-label">First Name : <span class="required"> * </span></label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>

@@ -88,7 +88,125 @@ class Hr extends MY_Controller {
 		$this->template->load('template/template_view','pds/201/view_employee', $this->arrData);
 	}
 
-	public function add_employee()
+	// public function add_employee()
+ //    {
+ //    	$arrPost = $this->input->post();
+	// 	if(empty($arrPost))
+	// 	{	
+	// 		$this->template->load('template/template_view','hr/add_employee_view',$this->arrData);	
+	// 	}
+	// 	else
+	// 	{	
+	// 		$strEmpID =$arrPost['strEmpID'];
+	// 		$strSalutation =$arrPost['strSalutation'];
+	// 		$strSurname=$arrPost['strSurname'];
+	// 		$strFirstname=$arrPost['strFirstname'];
+	// 		$strMiddlename=$arrPost['strMiddlename'];
+	// 		$strMidInitial=$arrPost['strMidInitial'];
+	// 		$strNameExt=$arrPost['strNameExt'];
+	// 		$dtmBday=$arrPost['dtmBday'];
+	// 		$strBirthPlace=$arrPost['strBirthPlace'];
+	// 		$strSex=$arrPost['strSex'];
+	// 		$strCvlStatus=$arrPost['strCvlStatus'];
+	// 		$strCitizenship=$arrPost['strCitizenship'];
+	// 		$strHeight=$arrPost['strHeight'];
+	// 		$strWeight=$arrPost['strWeight'];
+	// 		$strBloodType=$arrPost['strBloodType'];
+	// 		$intGSIS=$arrPost['intGSIS'];
+	// 		$intPagibig=$arrPost['intPagibig'];
+	// 		$intPhilhealth=$arrPost['intPhilhealth'];
+	// 		$intTin=$arrPost['intTin'];
+	// 		$strEmail=$arrPost['strEmail'];
+	// 		$intSSS=$arrPost['intSSS'];
+
+	// 		$strLot1=$arrPost['strLot1'];
+	// 		$strLot2=$arrPost['strLot2'];
+	// 		$strStreet1=$arrPost['strStreet1'];
+	// 		$strStreet2=$arrPost['strStreet2'];
+	// 		$strSubd1=$arrPost['strSubd1'];
+	// 		$strSubd2=$arrPost['strSubd2'];
+	// 		$strBrgy1=$arrPost['strBrgy1'];
+	// 		$strBrgy2=$arrPost['strBrgy2'];
+	// 		$strProv1=$arrPost['strProv1'];
+	// 		$strProv2=$arrPost['strProv2'];
+	// 		$strCity1=$arrPost['strCity1'];
+	// 		$strCity2=$arrPost['strCity2'];
+	// 		$intZipCode1=$arrPost['intZipCode1'];
+	// 		$intZipCode2=$arrPost['intZipCode2'];
+	// 		$intTel1=$arrPost['intTel1'];
+	// 		$intTel2=$arrPost['intTel2'];
+	// 		$intMobile=$arrPost['intMobile'];
+	// 		$intAccount=$arrPost['intAccount'];
+		
+		
+	// 			if(!empty($strEmpID) && !empty($strSurname) && !empty($strFirstname) && !empty($strMiddlename))
+	// 			{
+	// 				if(count($this->hr_model->checkExist($strEmpID))==0)
+	// 				{
+	// 				$arrData = array(
+	// 					'salutation'=>$strSalutation,
+	// 					'empNumber'=>$strEmpID,
+	// 					'surname'=>$strSurname,
+	// 					'firstname'=>$strFirstname,
+	// 					'middlename'=>$strMiddlename,
+	// 					'middleInitial'=>$strMidInitial,
+	// 					'nameExtension'=>$strNameExt,
+	// 					'citizenship'=>$strCitizenship,
+	// 					'birthday'=>$dtmBday,
+	// 					'birthPlace'=>$strBirthPlace,
+	// 					'sex'=>$strSex,
+	// 					'civilStatus'=>$strCvlStatus,
+	// 					'gsisNumber'=>$intGSIS,
+	// 					'weight'=>$strWeight,
+	// 					'height'=>$strHeight,
+	// 					'tin'=>$intTin,
+	// 					'sssNumber'=>$intSSS,
+	// 					'bloodType'=>$strBloodType,
+	// 					'email'=>$strEmail,
+	// 					'pagibigNumber'=>$intPagibig,
+	// 					'philHealthNumber'=>$intPhilhealth,
+
+	// 					'lot1'=>$strLot1,
+	// 					'lot2'=>$strLot2,
+	// 					'street1'=>$strStreet1,
+	// 					'street2'=>$strStreet2,
+	// 					'subdivision1'=>$strSubd1,
+	// 					'subdivision2'=>$strSubd2,
+	// 					'barangay1'=>$strBrgy1,
+	// 					'barangay2'=>$strBrgy2,
+	// 					'city1'=>$strCity1,
+	// 					'city2'=>$strCity2,
+	// 					'province1'=>$strProv1,
+	// 					'province2'=>$strProv2,
+	// 					'zipCode1'=>$intZipCode1,
+	// 					'zipCode2'=>$intZipCode2,
+	// 					'telephone1'=>$intTel1,
+	// 					'telephone2'=>$intTel2,
+	// 					'Mobile'=>$intMobile,
+	// 					'AccountNum'=>$intAccount
+						
+	// 				);
+	// 				$blnReturn  = $this->Hr_model->add_employee($arrData);
+
+	// 				if(count($blnReturn)>0)
+	// 				{	
+	// 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Added '.$strSurname.'',implode(';',$arrData),'');
+	// 					$this->session->set_flashdata('strMsg','Personal Information added successfully.');
+	// 				}
+	// 				redirect('hr/add_employee');
+	// 			}
+	// 			else
+	// 			{	
+	// 				$this->session->set_flashdata('strErrorMsg','Personal Information already exists.');
+	// 				$this->session->set_flashdata('strSurname',$strSurname);
+	// 					//echo $this->session->flashdata('strErrorMsg');
+	// 				redirect('hr/add_employee');
+	// 			}
+	// 		}	
+	// 	}	
+ //    }
+
+    public function add_employee()
     {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
@@ -137,13 +255,13 @@ class Hr extends MY_Controller {
 			$intTel2=$arrPost['intTel2'];
 			$intMobile=$arrPost['intMobile'];
 			$intAccount=$arrPost['intAccount'];
-		
-		
-				if(!empty($strEmpID) && !empty($strSurname) && !empty($strFirstname) && !empty($strMiddlename))
+			if(!empty($strEmpID))
+			{	
+				if(count($this->Hr_model->checkExist($strEmpID))==0)
 				{
 					$arrData = array(
-						'salutation'=>$strSalutation,
 						'empNumber'=>$strEmpID,
+						'salutation'=>$strSalutation,
 						'surname'=>$strSurname,
 						'firstname'=>$strFirstname,
 						'middlename'=>$strMiddlename,
@@ -185,22 +303,24 @@ class Hr extends MY_Controller {
 						
 					);
 					$blnReturn  = $this->Hr_model->add_employee($arrData);
-
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Added '.$strSurname.'',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Personal Information added successfully.');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Added '.$strEmpID.' Personal Information',implode(';',$arrData),'');
+						$this->session->set_flashdata('strSuccessMsg','Personal Information added successfully.');
 					}
 					redirect('hr/add_employee');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Personal Information already exists.');
-					$this->session->set_flashdata('strSurname',$strSurname);
-						//echo $this->session->flashdata('strErrorMsg');
-					redirect('hr/add_employee');
+					$this->session->set_flashdata('strErrorMsg','Duplicate data. Employee number already taken.');
+					$this->session->set_flashdata('strEmpID',$strEmpID);
+					//echo $this->session->flashdata('strErrorMsg');
+				redirect('hr/add_employee');
 				}
-			}		
+			}
+		}
+    	
+    	
     }
 
     public function edit_image()

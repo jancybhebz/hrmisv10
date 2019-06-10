@@ -546,7 +546,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-11 text-center">
-                                    <button type="submit" name="add_employee" class="btn green"> <i class="fa fa-<?=$this->uri->segment(3) == 'edit' ? 'pencil' : 'plus'?>"></i> <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Add'?></button>
+                                    <button type="submit" class="btn green"> <i class="fa fa-<?=$this->uri->segment(3) == 'edit' ? 'pencil' : 'plus'?>"></i> <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Add'?></button>
                                     <a href="<?=base_url('hr/add_employee')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
                                 </div>
                             </div>

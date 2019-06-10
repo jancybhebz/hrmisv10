@@ -9,13 +9,6 @@
             <?=form_open('pds/edit_parents/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Father's Extension name</label>
-                    <div class="col-md-8">
-                        <input type="text" name="txtfatherExt" class="form-control" value="<?=isset($arrData) ? $arrData['fathernameExtension'] : ''?>">
-                        <span class="help-block"></span>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Father's First name</label>
                     <div class="col-md-8">
                         <input type="text" name="txtfatherFname" class="form-control" value="<?=isset($arrData) ? $arrData['fatherFirstname'] : ''?>">
@@ -33,6 +26,13 @@
                     <label class="col-md-3 control-label">Father's Last name</label>
                     <div class="col-md-8">
                         <input type="text" name="txtfatherLname" class="form-control" value="<?=isset($arrData) ? $arrData['fatherSurname'] : ''?>">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Father's Extension name</label>
+                    <div class="col-md-8">
+                        <input type="text" name="txtfatherExt" class="form-control" value="<?=isset($arrData) ? $arrData['fathernameExtension'] : ''?>">
                         <span class="help-block"></span>
                     </div>
                 </div>
