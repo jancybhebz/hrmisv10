@@ -35,6 +35,25 @@ class Compensatory_leave_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getOffsetBal($intLBId = '')
+	{		
+		$strWhere = '';
+		if($intLBId != "")
+			$strWhere .= " AND lb_id = '".$intLBId."'";
+		
+		$strSQL = " SELECT * FROM tblEmpLeaveBalance					
+					WHERE 1=1 
+					$strWhere
+					-- ORDER BY requestDate
+					";
+			
+		$objQuery = $this->db->query($strSQL);
+		//print_r($objQuery->result_array());
+		return $objQuery->result_array();	
+	}
+
+
+
 	function submit($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);

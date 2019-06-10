@@ -22,6 +22,7 @@ class Compensatory_leave extends MY_Controller {
 	{
 		// $this->arrData['arrOB'] = $this->dtr_update_model->getData();
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			$this->arrData['arrLB'] = $this->compensatory_leave_model->getOffsetBal();
 		$this->template->load('template/template_view', 'employee/compensatory_leave/compensatory_leave_view', $this->arrData);
 	}
 	

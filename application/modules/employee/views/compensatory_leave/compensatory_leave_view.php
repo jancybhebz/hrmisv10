@@ -52,7 +52,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
 
-            <br>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Offset balance:</label> 
+                             <?php echo $arrLB[0]['off_bal']; ?>
+                    </div>
+                </div>
+            </div>  
+            <br>  
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
