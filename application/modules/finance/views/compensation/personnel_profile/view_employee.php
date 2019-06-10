@@ -8,12 +8,37 @@
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
+        <?php 
+            $page_name = $this_page;
+            $breadcrumbs = array();
+            if($page_name == 'deduction_summary'):
+                $page_name = 'Deduction Summary';
+            elseif($page_name == 'premium_loan'):
+                $page_name = 'Premium Loan';
+            endif;
+
+            switch (check_module()):
+                case 'hr':
+                case 'finance':
+                    $breadcrumbs = array('Home','Compensation','Personnel Profile',ucwords($page_name),getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],''));
+                    break;
+                default:
+                    $breadcrumbs = array('Home','Compensation',ucwords($page_name));
+                    break;
+            endswitch;
+
+            foreach($breadcrumbs as $key => $bc):
+                echo '<li><span>'.$bc.'</span>';
+                if($key != count($breadcrumbs)-1):
+                    echo '<i class="fa fa-circle"></i>';
+                endif;    
+                echo '</li>';
+            endforeach;
+         ?>
+    </ul>
+    <!-- <ul class="page-breadcrumb">
         <li>
             <a href="<?=base_url('home')?>">Home</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span><?=$modulename[$_SESSION['sessUserLevel']]?> Module</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -27,7 +52,7 @@
         <li>
             <span><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></span>
         </li>
-    </ul>
+    </ul> -->
 </div>
 <!-- END PAGE BAR -->
 <br>

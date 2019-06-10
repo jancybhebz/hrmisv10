@@ -7,10 +7,6 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=strtolower($this->uri->segment(1)) == 'employee' ? 'Employee' : 'HR' ?> Module</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
             <span>Notification</span>
         </li>
     </ul>

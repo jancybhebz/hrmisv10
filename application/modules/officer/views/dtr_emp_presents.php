@@ -6,10 +6,6 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>HR Module</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
             <span>Attendance</span>
             <i class="fa fa-circle"></i>
         </li>

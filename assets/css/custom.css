@@ -1,10 +1,5 @@
-.page-sidebar .page-sidebar-menu .sidebar-search input, .page-sidebar .page-sidebar-menu>li .sub-menu {
-    background-color: #28303b!important;
-}
-
-@media (max-width: 991px)
-.page-header.navbar .page-logo img {
-    margin-left: -5px !important;
+a.nav-link.nav-toggle {
+    color: #fff !important;
 }
 
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {

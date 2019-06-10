@@ -15,14 +15,11 @@ $arrData = $arrData[0];?>
             <a href="<?=base_url('home')?>">Home</a>
             <i class="fa fa-circle"></i>
         </li>
-      <!--   <li>
-            <span><//$modulename[$_SESSION['sessUserLevel']] Module</span>
-            <i class="fa fa-circle"></i>
-        </li> -->
         <li>
             <span>201 File</span>
-            <i class="fa fa-circle"></i>
+            <?=!in_array(check_module(),array('officer','employee','executive')) ? '<i class="fa fa-circle"></i>' : ''?>
         </li>
+        <?php if(!in_array(check_module(),array('officer','employee','executive'))): ?>
         <li>
             <span>Personnel Profile</span>
             <i class="fa fa-circle"></i>
@@ -30,6 +27,7 @@ $arrData = $arrData[0];?>
         <li>
             <span><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'])?></span>
         </li>
+        <?php endif; ?>
     </ul>
 </div>
 <!-- END PAGE BAR -->
