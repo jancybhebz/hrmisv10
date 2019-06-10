@@ -55,7 +55,7 @@
                                     <select class="form-control bs-select" id="selperiod" name="selperiod">
                                         <option value="">PER</option>
                                         <?php foreach(salary_period() as $per):
-                                                echo '<option value="'.$per.'">Per '.$per.'</option>';
+                                                echo '<option value="'.$per.'"> '.$per.'</option>';
                                               endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>

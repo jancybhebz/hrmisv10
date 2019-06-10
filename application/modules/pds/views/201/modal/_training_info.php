@@ -10,72 +10,90 @@
             <?=form_open('', array('method' => 'post', 'id' => 'frmtraining','class' => 'form-horizontal'))?>
             <input type="hidden" name="txttraid" id="txttraid">
             <div class="modal-body">
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Title of Learning and Dev./Training Programs</label>
-                    <div class="col-md-8">
-                        <input type="text" name="txttra_name" id="txttra_name" class="form-control">
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Title of Learning and Dev./Training Programs</label>
+                        <div class="col-md-8">
+                            <input type="text" name="txttra_name" id="txttra_name" class="form-control">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Number of Hours</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="txttra_hrs" name="txttra_hrs">
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Number of Hours</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="txttra_hrs" name="txttra_hrs">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Venue</label>
-                    <div class="col-md-8">
-                        <textarea name="txttra_venue" id="txttra_venue" class="form-control"></textarea>
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Venue</label>
+                        <div class="col-md-8">
+                            <textarea name="txttra_venue" id="txttra_venue" class="form-control"></textarea>
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Type of LD (Administrative / Managerial / Supervisory / Technical)</label>
-                    <div class="col-md-8">
-                        <select class="form-control bs-select" name="seltra_typeld" id="seltra_typeld">
-                            <option value=""> </option>
-                            <?php foreach(ld_type() as $type):
-                                    echo '<option value="'.$type.'">'.$type.'</option>';
-                                  endforeach; ?>
-                        </select>
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Type of LD (Administrative / Managerial / Supervisory / Technical)</label>
+                        <div class="col-md-8">
+                            <select class="form-control bs-select" name="seltra_typeld" id="seltra_typeld">
+                                <option value=""> </option>
+                                <?php foreach(ld_type() as $type):
+                                        echo '<option value="'.$type.'">'.$type.'</option>';
+                                      endforeach; ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Conducted/Sponsored By</label>
-                    <div class="col-md-8">
-                        <input type="text" name="txttra_sponsored" id="txttra_sponsored" class="form-control">
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Conducted/Sponsored By</label>
+                        <div class="col-md-8">
+                            <input type="text" name="txttra_sponsored" id="txttra_sponsored" class="form-control">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Cost</label>
-                    <div class="col-md-8">
-                        <input type="text" name="txttra_cost" id="txttra_cost" class="form-control">
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Cost</label>
+                        <div class="col-md-8">
+                            <input type="text" name="txttra_cost" id="txttra_cost" class="form-control">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Contract Dates</label>
-                    <div class="col-md-8">
-                        <input type="text" name="txttra_contract" id="txttra_contract" class="form-control date-picker" data-date-format="yyyy-mm-dd">
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Contract Date</label>
+                        <div class="col-md-8">
+                            <input type="text" name="txttra_contract" id="txttra_contract" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Start Date</label>
-                    <div class="col-md-8">
-                        <input type="text" name="txttra_sdate" id="txttra_sdate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Start Date</label>
+                        <div class="col-md-8">
+                            <input type="text" name="txttra_sdate" id="txttra_sdate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">End Date</label>
-                    <div class="col-md-8">
-                        <input type="text" name="txttra_edate" id="txttra_edate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
-                        <span class="help-block"></span>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">End Date</label>
+                        <div class="col-md-8">
+                            <input type="text" name="txttra_edate" id="txttra_edate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
             </div>

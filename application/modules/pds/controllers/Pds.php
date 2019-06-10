@@ -118,7 +118,7 @@ class Pds extends MY_Controller
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strSurname.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Personal information updated successfully.');
+					$this->session->set_flashdata('strMsg','Updated Personal information.');
 				}
 				redirect('hr/profile/'.$strEmpNumber);
 			}
