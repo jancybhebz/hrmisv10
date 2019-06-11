@@ -93,3 +93,10 @@
     </div>
 </div>
 <?php load_plugin('js',array('select','form_validation'));?>
+
+<script>
+    $(document).ready(function() {
+        $('.loading-image').hide();
+        $('.portlet-body').show();
+    });
+</script>
