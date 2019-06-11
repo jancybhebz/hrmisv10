@@ -19,13 +19,13 @@
                                         if(isset($_SESSION['strUserPermission'])):
                                             if($_SESSION['strUserPermission'] == "Cashier Assistant"):
                                                 if($appointment['appointmentCode']=='GIA'): ?>
-                                                    <option value="<?=$appointment['appointmentCode']?>"
+                                                    <option value="<?=$appointment['appointmentCode']?>" data-comp="<?=$appointment['computation']?>"
                                                         <?=isset($_GET['appt']) ? $_GET['appt'] == $appointment['appointmentCode'] ? 'selected' : '' : ''?>>
                                                         <?=$appointment['appointmentDesc']?></option><?php
                                                 endif;
                                             endif;
                                         else: ?>
-                                            <option value="<?=$appointment['appointmentCode']?>"
+                                            <option value="<?=$appointment['appointmentCode']?>" data-comp="<?=$appointment['computation']?>"
                                                 <?=isset($_GET['appt']) ? $_GET['appt'] == $appointment['appointmentCode'] ? 'selected' : '' : ''?>>
                                                 <?=$appointment['appointmentDesc']?></option><?php
                                         endif;

@@ -37,15 +37,31 @@ $(document).ready(function() {
     });
 
     $('select#selemployment').on('changed.bs.select', function (e) {
-        var employment = e.target.value;
-        if(employment != 'P'){
-            $('#frmprocess').attr('action', 'compute_benefits');
+        var employment = e.target.value.toLowerCase();
+        var computation = $(this).find(':selected').data('comp').toLowerCase();
 
+        // switch(computation) {
+        //     case 'monthly':
+        //         $('#frmprocess').attr('action', 'compute_benefits_perm');
+        //         break;
+        //     case 'daily':
+        //         if(employment == 'JO'){
+        //             $('#frmprocess').attr('action', 'compute_benefits_nonperm_jo');
+        //         }else{
+        //             $('#frmprocess').attr('action', 'compute_benefits_nonperm_trc');
+        //         }
+        //         break;
+        //     default:
+        //         $('#frmprocess').attr('action', 'compute_benefits_nonperm');
+        //         break;
+        // }
+
+        if(employment != 'p'){
+            // $('#frmprocess').attr('action', 'compute_benefits');
             $('.div-datause').hide();
             $('.div-date').show();
         }else{
             $('#frmprocess').attr('action', 'select_benefits');
-
             $('.div-datause').show();
             $('.div-date').hide();
         }

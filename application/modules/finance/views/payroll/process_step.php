@@ -36,7 +36,7 @@
                         <span class="step-title"> 
                             <?php 
                                 switch ($page):
-                                    case 'index':
+                                    case 'process':
                                         echo 'STEP 1 OF 4';
                                         break;
                                     case 'select_benefits':
@@ -44,7 +44,6 @@
                                         break;
                                     case 'compute_benefits':
                                     case 'save_benefits':
-                                    case 'save_compute_benefits':
                                         echo 'STEP 2 OF 4';
                                         break;
                                     case 'select_deductions':
@@ -63,14 +62,14 @@
                 <div class="form-wizard">
                     <div class="form-body">
                         <ul class="nav nav-pills nav-justified steps">
-                            <li class="<?=$page=='index'?'active':''?>">
+                            <li class="<?=$page=='process'?'active':''?>">
                                 <a href="#tab1" data-toggle="tab" class="step">
                                     <span class="number"> 1 </span><br>
                                     <span class="desc">
                                         <i class="fa fa-check"></i> Payroll Period </span>
                                 </a>
                             </li>
-                            <li class="<?=in_array($page,array('select_benefits','compute_benefits','save_benefits','save_compute_benefits'))?'active':''?>">
+                            <li class="<?=in_array($page,array('select_benefits','compute_benefits','save_benefits'))?'active':''?>">
                                 <a href="#tab2" data-toggle="tab" class="step">
                                     <span class="number"> 2 </span><br>
                                     <span class="desc">
@@ -106,7 +105,6 @@
                                     break;
                                 case 'compute_benefits':
                                 case 'save_benefits':
-                                case 'save_compute_benefits':
                                     if($employment_type == 'P'):
                                         $this->load->view('process/_step2-compute_benefits');
                                     else:

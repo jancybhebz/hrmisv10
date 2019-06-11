@@ -1,11 +1,10 @@
 <?=load_plugin('css', array('datatables'))?>
-
 <?php
 $page = $this->uri->segment(3);
-$form = $page == 'compute_benefits' ? 'finance/payroll_update/save_compute_benefits' : 'finance/payroll_update/process/save_benefits';
-echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'))?>
+$form = $page == 'compute_benefits_perm' ? 'finance/payroll_update/save_compute_benefits' : 'finance/payroll_update/process/save_benefits';
+echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'));?>
 <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
-<input type="hidden" name="chkbenefit" value='<?=$page == 'compute_benefits' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit'])?>'>
+<input type="hidden" name="chkbenefit" value='<?=$page == 'compute_benefits_perm' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>

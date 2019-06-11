@@ -99,7 +99,7 @@ class Payrollupdate_model extends CI_Model {
 		$no_empty_lb = 0;
 		$arremployees = array();
 		$emp_leavebal = $this->Leave_model->getEmpLeave_balance('',$month,$yr);
-		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$yr,$month,$empid);
+		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$empid);
 		$rata_details = $this->Payroll_process_model->get_rata_details();
 
 		foreach($process_employees as $emp):

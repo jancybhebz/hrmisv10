@@ -34,11 +34,13 @@ class Payrollupdate extends MY_Controller {
 	public function select_benefits()
 	{
 		$arrPost = $this->input->post();
-
+		echo '<pre>';
+		print_r($arrPost);
+		echo '</pre>';
 		if(!empty($arrPost)):
-			if($arrPost['selemployment'] != 'P'):
-				redirect('finance/payroll_update/process');	
-			endif;
+			// if($arrPost['selemployment'] != 'P'):
+			// 	redirect('finance/payroll_update/process');	
+			// endif;
 		else:
 			redirect('finance/payroll_update/process');
 		endif;
@@ -104,7 +106,7 @@ class Payrollupdate extends MY_Controller {
 			endif;
 			$computed_benefits = $this->Payrollupdate_model->compute_benefits($arrPost, $process_data);
 
-			# get computation instance fk_id
+			# clean computation tables
 			$fk_id = 0;
 			$code_id = array();
 			$comp_instance_id = $this->Computation_instance_model->getData($process_data['mon'],$process_data['yr'],$process_data['selemployment']);
@@ -115,16 +117,19 @@ class Payrollupdate extends MY_Controller {
 					$this->Computation_instance_model->del_computation_details($cid['id']);
 				endforeach;
 			endif;
+			# clean delete empbenefit
+			$arremp_numbers = $this->Payroll_process_model->getEmployees($process_data['selemployment']);
+			$this->Benefit_model->delete_empbenefit_byempNumber($process_data['selemployment'],array_column($arremp_numbers,'empNumber'));
 
 			# insert in computation instance
-			$arrData = array('month' 			=> $process_data['data_fr_mon'],
-							 'year'				=> $process_data['data_fr_yr'],
-							 'appointmentCode'  => $process_data['selemployment'],
-							 'pmonth' 			=> $process_data['mon'],
-							 'pyear' 			=> $process_data['yr'],
-							 'totalNumDays' 	=> $computed_benefits['workingdays']);
+			$arrrData_comp_instance = array('month' 			=> $process_data['data_fr_mon'],
+											'year'				=> $process_data['data_fr_yr'],
+											'appointmentCode'  	=> $process_data['selemployment'],
+											'pmonth' 			=> $process_data['mon'],
+											'pyear' 			=> $process_data['yr'],
+											'totalNumDays' 		=> $computed_benefits['workingdays']);
 			# tablename : tblComputationInstance
-			$fk_id = $this->Computation_instance_model->insert_computation_instance($arrData);
+			$fk_id = $this->Computation_instance_model->insert_computation_instance($arrrData_comp_instance);
 
 			# insert computation and computation details
 			foreach($arremp_computations as $emp_comp):
@@ -137,51 +142,89 @@ class Payrollupdate extends MY_Controller {
 											  array('code' => 'RA', 	'amount' => $emp_comp['rata']['ra_amount']),
 											  array('code' => 'TA', 	'amount' => $emp_comp['rata']['ta_amount']));
 				foreach($arrComputation_codes as $comp_code):
-					$arrData = array('fk_id' 	 => $fk_id,
-									 'empNumber' => $emp_comp['emp_detail']['empNumber'],
-									 'code' 	 => $comp_code['code'],
-									 'amount' 	 => $comp_code['amount']);
+					$arrData_computation = array('fk_id' 	 => $fk_id,
+												 'empNumber' => $emp_comp['emp_detail']['empNumber'],
+												 'code' 	 => $comp_code['code'],
+												 'amount' 	 => $comp_code['amount']);
 					# tablename : tblComputation
-					$code_id[$comp_code['code']] = $this->Computation_instance_model->insert_computation($arrData);	
+					$code_id[$comp_code['code']] = $this->Computation_instance_model->insert_computation($arrData_computation);	
 				endforeach;
 
 				# insert computation details
-				$arrData = array('fk_id'			=> $fk_id,
-								'empNumber'			=> $emp_comp['emp_detail']['empNumber'],
-								'periodMonth'		=> $process_data['mon'],
-								'periodYear'		=> $process_data['yr'],
-								'workingDays'		=> $computed_benefits['workingdays'],
-								'nodaysPresent'		=> $emp_comp['actual_days_present'],
-								'nodaysAbsent'		=> $emp_comp['actual_days_absent'],
-								'hpFactor'			=> $emp_comp['emp_detail']['hpFactor'],
-								'ctr_8h'			=> $emp_comp['emp_leavebal']['ctr_8h'],
-								'ctr_6h'			=> $emp_comp['emp_leavebal']['ctr_6h'],
-								'ctr_5h'			=> $emp_comp['emp_leavebal']['ctr_5h'],
-								'ctr_4h'			=> $emp_comp['emp_leavebal']['ctr_4h'],
-								'ctr_wmeal'			=> $emp_comp['emp_leavebal']['ctr_wmeal'],
-								'ctr_diem'			=> $emp_comp['emp_leavebal']['ctr_diem'],
-								'ctr_laundry'		=> $emp_comp['emp_leavebal']['ctr_laundry'],
-								'rataAmount'		=> $emp_comp['rata_amt'],
-								'rataVehicle'		=> $emp_comp['emp_detail']['RATAVehicle'] == '' ? 'N' : $emp_comp['emp_detail']['RATAVehicle'],
-								'rataCode'			=> $emp_comp['emp_detail']['RATACode'] == '' ? '' : $emp_comp['emp_detail']['RATACode'],
-								'daysWithVehicle'	=> $emp_comp['emp_detail']['RATAVehicle'] == 'Y' ? $computed_benefits['workingdays'] : 0,
-								'raPercent'			=> $emp_comp['rata']['ra_percent'],
-								'taPercent'			=> $emp_comp['rata']['ta_percent'],
-								'latest'			=> count($emp_comp['emp_leavebal']) > 0 ? 'Y' : 'N',
-								'hazardCode'		=> count($code_id) > 0 ? $code_id['HAZARD'] : 0,
-								'hazard'			=> $emp_comp['hp'],
-								'laundryCode'		=> count($code_id) > 0 ? $code_id['LAUNDRY'] : 0,
-								'laundry'			=> $emp_comp['laundry'],
-								'subsisCode'		=> count($code_id) > 0 ? $code_id['SUBSIS'] : 0,
-								'subsistence'		=> $emp_comp['subsis'],
-								'salaryCode'		=> count($code_id) > 0 ? $code_id['SALARY'] : 0,
-								'salary'			=> $emp_comp['emp_detail']['actualSalary'],
-								'longi'				=> $emp_comp['longevity'] == '' ? 0.00 : $emp_comp['longevity'],
-								'ra'				=> $emp_comp['rata']['ra_amount'] == '' ? 0.00 : $emp_comp['rata']['ra_amount'],
-								'ta'				=> $emp_comp['rata']['ta_amount']);
+				$arrData_comp_details = array('fk_id'			=> $fk_id,
+											  'empNumber'		=> $emp_comp['emp_detail']['empNumber'],
+											  'periodMonth'		=> $process_data['mon'],
+											  'periodYear'		=> $process_data['yr'],
+											  'workingDays'		=> $computed_benefits['workingdays'],
+											  'nodaysPresent'	=> $emp_comp['actual_days_present'],
+											  'nodaysAbsent'	=> $emp_comp['actual_days_absent'],
+											  'hpFactor'		=> $emp_comp['emp_detail']['hpFactor'],
+											  'ctr_8h'			=> $emp_comp['emp_leavebal']['ctr_8h'],
+											  'ctr_6h'			=> $emp_comp['emp_leavebal']['ctr_6h'],
+											  'ctr_5h'			=> $emp_comp['emp_leavebal']['ctr_5h'],
+											  'ctr_4h'			=> $emp_comp['emp_leavebal']['ctr_4h'],
+											  'ctr_wmeal'		=> $emp_comp['emp_leavebal']['ctr_wmeal'],
+											  'ctr_diem'		=> $emp_comp['emp_leavebal']['ctr_diem'],
+											  'ctr_laundry'		=> $emp_comp['emp_leavebal']['ctr_laundry'],
+											  'rataAmount'		=> $emp_comp['rata_amt'],
+											  'rataVehicle'		=> $emp_comp['emp_detail']['RATAVehicle'] == '' ? 'N' : $emp_comp['emp_detail']['RATAVehicle'],
+											  'rataCode'		=> $emp_comp['emp_detail']['RATACode'] == '' ? '' : $emp_comp['emp_detail']['RATACode'],
+											  'daysWithVehicle'	=> $emp_comp['emp_detail']['RATAVehicle'] == 'Y' ? $computed_benefits['workingdays'] : 0,
+											  'raPercent'		=> $emp_comp['rata']['ra_percent'],
+											  'taPercent'		=> $emp_comp['rata']['ta_percent'],
+											  'latest'			=> count($emp_comp['emp_leavebal']) > 0 ? 'Y' : 'N',
+											  'hazardCode'		=> count($code_id) > 0 ? $code_id['HAZARD'] : 0,
+											  'hazard'			=> $emp_comp['hp'],
+											  'laundryCode'		=> count($code_id) > 0 ? $code_id['LAUNDRY'] : 0,
+											  'laundry'			=> $emp_comp['laundry'],
+											  'subsisCode'		=> count($code_id) > 0 ? $code_id['SUBSIS'] : 0,
+											  'subsistence'		=> $emp_comp['subsis'],
+											  'salaryCode'		=> count($code_id) > 0 ? $code_id['SALARY'] : 0,
+											  'salary'			=> $emp_comp['emp_detail']['actualSalary'],
+											  'longi'			=> $emp_comp['longevity'] == '' ? 0.00 : $emp_comp['longevity'],
+											  'ra'				=> $emp_comp['rata']['ra_amount'] == '' ? 0.00 : $emp_comp['rata']['ra_amount'],
+											  'ta'				=> $emp_comp['rata']['ta_amount']);
 				# tablename : tblComputationDetails
-				$this->Computation_instance_model->insert_computation_details($arrData);	
+				$this->Computation_instance_model->insert_computation_details($arrData_comp_details);
+
+				# tablename : empBenefits; insert benefits
+				$payroll_process = $this->Payroll_process_model->process_with($process_data['selemployment']);
+				$arrData_benefits = array();
+				foreach($arrComputation_codes as $comp_code):
+					$arrData_benefits = array('empNumber' 	=> $emp_comp['emp_detail']['empNumber'],
+											  'incomeCode' 	=> $comp_code['code'],
+											  'incomeMonth' => $process_data['data_fr_mon'],
+											  'incomeAmount'=> round($comp_code['amount'],2),
+											  'status' 		=> '1');
+					if($comp_code['code'] == 'SALARY'):
+						switch ($payroll_process['computation']):
+							case 'Monthly':
+								$arrData_benefits['period1'] = round($comp_code['amount'],2);
+								break;
+							case 'Semimonthly':
+							case 'Bi-Monthly':
+								$arrData_benefits['period1'] = round(($comp_code['amount']/2),2);
+								$arrData_benefits['period2'] = round(($comp_code['amount']/2),2);
+								break;
+							case 'Weekly':
+							case 'Daily':
+								$arrData_benefits['period1'] = round(($comp_code['amount']/4),2);
+								$arrData_benefits['period2'] = round(($comp_code['amount']/4),2);
+								$arrData_benefits['period3'] = round(($comp_code['amount']/4),2);
+								$arrData_benefits['period4'] = round(($comp_code['amount']/4),2);
+								break;
+						endswitch;
+					else:
+						$arrData_benefits['period1'] = round($comp_code['amount'],2);
+					endif;
+					# insert benefits; tablename : tblEmpBenefits
+					$this->Benefit_model->add($arrData_benefits);
+					# set previous computation instance staus as 0; then set it again as 1
+					$this->Computation_instance_model->edit_computation_instance(array('status' => 0),$process_data['selemployment']);
+					$this->Computation_instance_model->edit_computation_instance(array('status' => 1),$process_data['selemployment'],$process_data['mon'],$process_data['yr']);
+				endforeach;
 			endforeach;
+			
 			$this->session->set_flashdata('strSuccessMsg','Compute benefits saved successfully.');
 		else:
 			redirect('finance/payroll_update/process');
