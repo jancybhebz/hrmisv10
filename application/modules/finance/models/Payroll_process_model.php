@@ -92,7 +92,7 @@ class Payroll_process_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	function getEmployees($appt_code,$yr,$month,$empid='')
+	function getEmployees($appt_code,$empid='')
 	{
 		$payroll_process = $this->db->get_where('tblPayrollProcess', array('appointmentCode' => $appt_code))->result_array();
 		if(count($payroll_process) > 0):
@@ -114,6 +114,14 @@ class Payroll_process_model extends CI_Model {
 			return $employees;
 		endif;
 	}
+
+	function process_with($appt_code)
+	{
+		$res = $this->db->get_where('tblPayrollProcess', array('appointmentCode' => $appt_code))->result_array();
+		return count($res) > 0 ? $res[0] : null;
+	}
+
+
 
 
 }

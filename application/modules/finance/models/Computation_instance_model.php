@@ -17,6 +17,17 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function edit_computation_instance($arrData,$appt,$mon='',$yr='')
+	{
+		if($mon!='' && $yr!=''):
+			$this->db->where('pmonth',$mon);
+			$this->db->where('pyear',$yr);
+		endif;
+		$this->db->where('appointmentCode',$appt);
+		$this->db->update('tblComputationInstance', $arrData);
+		return $this->db->affected_rows();
+	}
+
 	# delete computation instance
 	function del_computation_instance($id)
 	{

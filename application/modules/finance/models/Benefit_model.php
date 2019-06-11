@@ -55,6 +55,22 @@ class Benefit_model extends CI_Model {
 		return $arrIncome;
 	}
 
+	function delete_empbenefit_byempNumber($appt, $arrempNumbers)
+	{
+		foreach($arrempNumbers as $empno):
+			if($appt == 'P'):
+				# permanent
+				$this->db->where('empNumber', $empno);
+				$this->db->where_in('incomeCode', array('HAZARD','LAUNDRY','SUBSIS','LONGI','TA','RA'));
+				$this->db->delete('tblEmpBenefits');
+			endif;
+			
+			$this->db->where('empNumber', $empno);
+			$this->db->where_in('incomeCode', array('HAZARD','LAUNDRY','SUBSIS','LONGI','TA','RA'));
+			$this->db->delete('tblEmpBenefits');
+		endforeach;
+	}
+
 	function setamount_benefits($arrbenefit,$empdetail,$proc_mon,$proc_yr,$income_data)
 	{
 		$arr_amt = 0;
