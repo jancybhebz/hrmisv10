@@ -233,7 +233,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> GSIS Policy No. <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> GSIS Policy No. </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -245,7 +245,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> PAG-IBIG ID No. <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> PAG-IBIG ID No. </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -257,7 +257,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> PHILHEALTH No. <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> PHILHEALTH No. </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -293,7 +293,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> SSS Number <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> SSS Number </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -610,7 +610,7 @@ function checkForBlank()
       employeeform.strPhilhealth.focus();
       employeeform.intTin.focus();
       employeeform.strEmail.focus();
-      employeeform.intSSS.focus();
+ 
 
       return(false);
       }
