@@ -92,7 +92,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Office Name <span class="required"> * </span></label>
+                                <label class="control-label">Office Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strOfficeName" value="<?=!empty($this->session->userdata('strOfficeName'))?$this->session->userdata('strOfficeName'):''?>" required>
@@ -113,7 +113,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Employee Name<span class="required"> * </span></label>
+                                <label class="control-label">Employee Name</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <select type="text" class="form-control" name="strName" value="<?=!empty($this->session->userdata('strName'))?$this->session->userdata('strName'):''?>" required>
@@ -129,14 +129,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>1ST SIGNATORY </strong> <span class="required"> * </span></label>
+                                <label class="control-label"><strong>1ST SIGNATORY </strong> </label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Action <span class="required"> * </span></label>
+                                <label class="control-label">Action </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="str1stSigAction" value="<?=!empty($this->session->userdata('str1stSigAction'))?$this->session->userdata('str1stSigAction'):''?>" required>
@@ -155,7 +155,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Signatory <span class="required"> * </span></label>
+                                <label class="control-label">Signatory </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                   <select type="text" class="form-control" name="str1stSignatory" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>" required>
@@ -174,7 +174,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                       <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Officer<span class="required"> * </span></label>
+                                <label class="control-label">Officer</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <select type="text" class="form-control" name="str1stOfficer" value="<?=!empty($this->session->userdata('str1stOfficer'))?$this->session->userdata('str1stOfficer'):''?>" required>
@@ -190,7 +190,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>2ND SIGNATORY </strong> <span class="required"> * </span></label>
+                                <label class="control-label"><strong>2ND SIGNATORY </strong> </label>
                             </div>
                         </div>
                     </div>
@@ -251,7 +251,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>3RD SIGNATORY </strong> <span class="required"> * </span></label>
+                                <label class="control-label"><strong>3RD SIGNATORY </strong> </label>
                             </div>
                         </div>
                     </div>
@@ -312,7 +312,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>FINAL SIGNATORY </strong> <span class="required"> * </span></label>
+                                <label class="control-label"><strong>FINAL SIGNATORY </strong> </label>
                             </div>
                         </div>
                     </div>

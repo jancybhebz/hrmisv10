@@ -53,7 +53,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=!empty($this->session->userdata('userLevel'))?$this->session->userdata('userLevel'):''?>" required>
                                     <option value="">Select Access Level</option>
                                     <?php foreach(userlevel() as $level):
-                                            echo '<option value="'.$level['id'].'" '.($userlevel[0]['id']==$level['id']?'selected':'').'>'.(strtoupper($level['desc'])). ' Officer</option>';
+                                            echo '<option value="'.$level['id'].'" '.($userlevel[0]['id']==$level['id']?'selected':'').'>'.(strtoupper($level['desc'])). ' Account User</option>';
                                           endforeach; ?>
                                     </select>
                                 </div>
