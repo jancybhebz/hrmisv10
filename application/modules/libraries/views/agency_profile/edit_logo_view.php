@@ -49,6 +49,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Please select file : </label>
+                                <div>
+                                <label class="control-label"><font color='red'>[Note: Please upload PNG format only] </label></font>
+                                </div>
                                 <br>
                                 <div class="input-icon left">
                                     <i class="fa"></i>
