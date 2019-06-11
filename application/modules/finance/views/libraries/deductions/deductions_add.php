@@ -48,7 +48,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="tab-deduction" class="tab-pane active" v-cloak>
+            <div id="tab-deduction" class="tab-pane active">
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
@@ -141,3 +141,10 @@
     </div>
 </div>
 <?php load_plugin('js',array('select','form_validation'));?>
+
+<script>
+    $(document).ready(function() {
+        $('.loading-image').hide();
+        $('.portlet-body').show();
+    });
+</script>

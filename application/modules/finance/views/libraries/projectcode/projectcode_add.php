@@ -84,3 +84,10 @@
     </div>
 </div>
 <?php load_plugin('js',array('form_validation'));?>
+
+<script>
+    $(document).ready(function() {
+        $('.loading-image').hide();
+        $('.portlet-body').show();
+    });
+</script>
