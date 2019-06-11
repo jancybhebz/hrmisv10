@@ -66,7 +66,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Request Date : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input class="form-control form-control-inline input-medium date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" size="20" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                                   <input class="form-control form-control-inline input-medium date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" size="20" type="text"  autocomplete="off">
                                 </div>
                                 <div class="input-icon left">
                                    <font color='red'> <span id="errorreq"></span></font>
@@ -401,3 +401,16 @@ function checkForBlank()
 }
 </script>
 
+<script>
+    $(document).ready( function() {
+    var now = new Date();
+    var month = (now.getMonth() + 1);               
+    var day = now.getDate();
+    if (month < 10) 
+        month = "0" + month;
+    if (day < 10) 
+        day = "0" + day;
+    var today = now.getFullYear() + '-' + month + '-' + day;
+    $('#dtmOBrequestdate').val(today);
+});
+</script>
