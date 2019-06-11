@@ -15,6 +15,15 @@ class Payroll_process_model extends CI_Model {
 		endif;
 	}
 
+	function get_rata_details($code='')
+	{
+		if($code != ''):
+			return $this->db->get_where('tblRATA',array('RATACode' => $code))->result_array();
+		else:
+			return $this->db->get('tblRATA')->result_array();
+		endif;
+	}
+
 	function get_process_code($process_id)
 	{
 		$deduction_codes = $this->db->group_by('deductionCode')->get_where('tblEmpDeductionRemit',array('processID' => $process_id))->result_array();

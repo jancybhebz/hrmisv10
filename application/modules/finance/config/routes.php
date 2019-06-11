@@ -50,9 +50,14 @@ $route['finance/reports/remittance'] = 'finance/reports/RemittanceReports';
 $route['finance/reports/loanbalance'] = 'finance/reports/LoanBalanceReports';
 
 # UPDATE
-$route['finance/payroll_update/process/(:any)'] = 'finance/payroll_update/Payrollupdate/index/$1';
-$route['finance/payroll_update/update_or'] = 'finance/payroll_update/Payrollupdate/update_or';
-$route['finance/payroll_update/compute_benefits']['post'] = 'finance/payroll_update/Payrollupdate/compute_benefits';
+$route['finance/payroll_update/process'] = 'finance/payroll_update/payrollupdate/index';
+$route['finance/payroll_update/select_benefits'] = 'finance/payroll_update/payrollupdate/select_benefits';
+$route['finance/payroll_update/compute_benefits'] = 'finance/payroll_update/payrollupdate/compute_benefits';
+$route['finance/payroll_update/save_compute_benefits'] = 'finance/payroll_update/payrollupdate/save_compute_benefits';
+// $route['finance/payroll_update/payrollupdate/select_benefits/(:any)'] = 'finance/payroll_update/select_benefits/$1';
 
-# PROCESS HISTORY
-$route['finance/payroll_update/process_history'] = 'finance/payroll_update/Payrollupdate/process_history';
+// $route['finance/payroll_update/update_or'] = 'finance/payroll_update/Payrollupdate/update_or';
+// $route['finance/payroll_update/compute_benefits']['post'] = 'finance/payroll_update/Payrollupdate/compute_benefits';
+
+// # PROCESS HISTORY
+// $route['finance/payroll_update/process_history'] = 'finance/payroll_update/Payrollupdate/process_history';
