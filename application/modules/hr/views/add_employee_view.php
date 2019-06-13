@@ -305,7 +305,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Telephone Number <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Telephone Number </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -691,7 +691,12 @@ var FormValidation = function () {
                     intTin: {
                         required: true,
                        
+                    },
+                    strEmail: {
+                        required: true,
+                        email: true,
                     }
+
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -746,3 +751,11 @@ jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
+
+<!-- <script>
+var validateEmail = function(email){
+  if(strEmail.includes(' ')){return false};
+  if(!strEmail.includes('@')){return false};
+  return true;
+}
+</script> -->

@@ -134,8 +134,8 @@ class Pds extends MY_Controller
 		if(!empty($arrPost))
 		{
 			$arrData = array(
-							'spouseSurname'		=> $arrPost['txtspouseFname'],
-							'spouseFirstname'	=> $arrPost['txtspouseLname'],
+							'spouseSurname'		=> $arrPost['txtspouseLname'],
+							'spouseFirstname'	=> $arrPost['txtspouseFname'],
 							'spouseMiddlename'	=> $arrPost['txtspouseMname'],
 							'spousenameExtension'=>$arrPost['txtspouseExt'],
 							'spouseWork'		=> $arrPost['txtspouseWork'],

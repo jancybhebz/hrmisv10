@@ -7,10 +7,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class PhilHealth_range_model extends CI_Model {
+class Philhealth_range_model extends CI_Model {
 
-	var $table = 'tblphilhealthrange';
-	var $tableid = 'philhealthId';
+	var $table = 'tblPhilhealthRange';
+	var $tableid = 'philHealthId';
 
 
 	function __construct()

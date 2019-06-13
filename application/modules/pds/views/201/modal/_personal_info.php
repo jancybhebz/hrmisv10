@@ -263,7 +263,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="dtmBday" autcomplete="off" value="<?=isset($arrData['birthday'])?$arrData['birthday']:''?>">
+                             <input class="form-control form-control-inline input-medium date-picker" type="text" class="form-control" name="dtmBday" autcomplete="off" value="<?=isset($arrData['birthday'])?$arrData['birthday']:''?>" data-date-format="yyyy-mm-dd">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -323,7 +323,7 @@
                         </div>
                     </div>
                 </div>
-
+                <?php //print_r($arrData[sex]); ?>
                 <div class="row">
                 <div class="col-sm-1">
                         <div class="form-group">
@@ -336,11 +336,10 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strSex" autcomplete="off" value="<?=isset($arrData['sex'])?$arrData['sex']:''?>">
-                             <select name="strSex" id="strSex" class="form-control">
+                            <select type="text" class="form-control" name="strSex" id="strSex" autocomplete="off" value="<?=!empty($arrData['sex'])?$arrData['sex']:''?>">
                                 <option value="">Select</option>
-                                <option value="1" <?=$option1?>>Female</option>
-                                <option value="0" <?=$option2?>>Male</option>
+                                <option <?php if ($arrData['sex'] == 'M' ) echo 'selected' ; ?> value="M">M</option>
+                                <option <?php if ($arrData['sex'] != 'M' ) echo 'selected' ; ?> value="F">F</option>
                             </select>
                         </div>
                     </div>
@@ -395,7 +394,11 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strCitizenship" autcomplete="off" value="<?=isset($arrData['citizenship'])?$arrData['citizenship']:''?>">
+                            <select type="text" class="form-control" name="strCitizenship" id="strCitizenship" autocomplete="off" value="<?=!empty($arrData['sex'])?$arrData['sex']:''?>">
+                                <option value="">Select</option>
+                                <option <?php if ($arrData['citizenship'] == 'Filipino' ) echo 'selected' ; ?> value="Filipino">Filipino</option>
+                                <option <?php if ($arrData['citizenship'] != 'Filipino' ) echo 'selected' ; ?> value="Dual Citizenship">Dual Citizenship</option>
+                            </select>
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -665,4 +668,9 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
+</script>
+<script>
+
+    $('#dtmBday').datepicker({dateFormat: 'dd-mm-yyyy'});
+
 </script>

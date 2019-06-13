@@ -77,7 +77,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Tin Number</label>
+                                    <label class="col-md-2 control-label">TIN Number</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>" disabled>
                                     </div>

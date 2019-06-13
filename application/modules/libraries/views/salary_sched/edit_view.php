@@ -17,10 +17,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> EDIT SCHEDULE</span>
+                    <span class="caption-subject bold uppercase"> EDIT SALARY SCHEDULE</span>
                 </div>
             </div>
-            <?=form_open(base_url('libraries/salary_sched/edit'), array('method' => 'post', 'id' => 'frmSalary'))?>
+            <?=form_open(base_url('libraries/salary_sched/edit'), array('method' => 'post', 'id' => 'frmSalary', 'name' => 'frmSalary','onSubmit'=>'return checkonsubmit();'))?>
             <div class="form-body">
                <div class="row">
                         <div class="col-sm-2">
@@ -69,10 +69,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                                 )
                                             );
                                             $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
+                                            // $version =$arrSalarysched['version'];
                                             // echo  '<input type="text" name="intActualSalary" value="'.$arrSalarySched[0]['actualSalary'].'">';
-                                            echo '<input type="text" value='.$actual_salary.'>';
                                             
-
+                                            echo '<input type="text" name="'.$row['salaryGradeNumber'].'::'.$column['stepNumber'].']" id="'.$row['salaryGradeNumber'].'::'.$column['stepNumber'].'" value='.$actual_salary.'>';        
+                                            
                                         ?></td>
                                 <?php endforeach; ?>
                             </tr>
@@ -84,9 +85,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="stepNum" value="<?=$arrSalarySched[0]['stepNumber']?>">
+                                <!-- <input type="hidden" name="stepNum" value="<?=$arrSalarySched[0]['stepNumber']?>">
                                 <input type="hidden" name="SG" value="<?=$arrSalarySched[0]['salaryGradeNumber']?>">
-                                <input type="hidden" name="ver" value="<?=$arrSalarySched[0]['version']?>">
+                                <input type="hidden" name="ver" value="<?=$arrSalarySched[0]['version']?>"> -->
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -96,7 +97,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                 </div>
 
-            </div>   
+            </div>
+            <?=form_close();?>   
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
@@ -120,8 +122,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         
             });
 
+    
+        // $('form[name="frmSalary"]').on('submit',function(e){
+            
+        // });
 });
 
+
+function checkonsubmit()
+{
+    alert('aa');
+    $("form[name='frmSalary'] input").each(function(){
+      $this = $(this);
+      inputObj[$this.id] = $this.val();
+    });
+    console.log(inputObj);
+    alert(inputObj);
+    //e.preventDefault();
+    return false;
+}
 </script>
 
 

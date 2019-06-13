@@ -51,6 +51,17 @@ class User_account_model extends CI_Model {
 		return $objQuery->result_array();		
 	}
 
+	function getPayrollGroup($intPGroup = '')
+	{		
+		if($intPGroup != "")
+		{
+			$this->db->where('payrollGroupId',$intPGroup);
+		}
+		// $this->db->group_by('payrollGroupName');
+		$objQuery = $this->db->get('tblPayrollGroup');
+		return $objQuery->result_array();		
+	}
+
 	
 	function add($arrData)
 	{			

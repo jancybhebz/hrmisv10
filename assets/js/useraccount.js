@@ -25,7 +25,8 @@ function showtextbox()
 		$('#Finance8').hide();
 		$('#Finance9').hide();
 	}
-	if(select_access == '2')
+
+	else if(select_access == '2')
 	{
 		$('#HR1').hide();
 		$('#HR2').hide();
@@ -40,24 +41,38 @@ function showtextbox()
 		$('#Finance2').show();
 		$('#Finance3').show();
 		$('#Finance4').show();
-		$('#Finance5').hide();
+		$('#Finance5').show();
 		$('#Finance6').show();
 		$('#Finance7').show();
 		$('#Finance8').show();
 		$('#Finance9').show();
 	}
-
-	else 
+	
+	else if(select_access == '3')
 	{
 		$('#HR1').hide();
 		$('#HR2').hide();
 		$('#HR3').hide();
 		$('#HR4').hide();
 		$('#HR5').hide();
-		$('#HR6').show();
+		$('#HR6').hide();
 		$('#HR7').hide();
 		$('#HR8').hide();
 		$('#HR9').hide();
+		$('#Finance1').hide();
+		$('#Finance2').hide();
+		$('#Finance3').hide();
+		$('#Finance4').hide();
+		$('#Finance5').hide();
+		$('#Finance6').hide();
+		$('#Finance7').hide();
+		$('#Finance8').hide();
+		$('#Finance9').hide();
+	}
+
+	else 
+	{
+		
 		$('#Finance1').hide();
 		$('#Finance2').hide();
 		$('#Finance3').hide();
