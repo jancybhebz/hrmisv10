@@ -54,6 +54,12 @@ class Hr_model extends CI_Model {
 		$this->db->insert($this->table, $arrData);
 		return $this->db->insert_id();		
 	}
+
+	public function add_employee_status($arrData)
+	{
+		$this->db->insert($this->tablepos, $arrData);
+		return $this->db->insert_id();		
+	}
 	
 	// public function checkExist($strEmpNo)
 	// {		

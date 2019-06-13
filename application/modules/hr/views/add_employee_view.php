@@ -173,7 +173,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         <i class="fa fa-warning tooltips i-required"></i>
                                             <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strCvlStatus'))?$this->session->userdata('strCvlStatus'):''?>">
                                                 <option value="">Please Select</option>
-                                                <option value="Sinlg">Single</option>
+                                                <option value="Single">Single</option>
                                                 <option value="Married">Married</option>
                                                 <option value="Separated">Separated</option>
                                                 <option value="Widowed">Widowed</option>
@@ -546,6 +546,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-11 text-center">
+                                    <input name="strStatus" id="strStatus" type="hidden" value="In-Service">
                                     <button type="submit" class="btn green"> <i class="fa fa-<?=$this->uri->segment(3) == 'edit' ? 'pencil' : 'plus'?>"></i> <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Add'?></button>
                                     <a href="<?=base_url('hr/add_employee')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
                                 </div>
