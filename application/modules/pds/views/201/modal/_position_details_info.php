@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Mode of Separation</label>
+                                <label class="col-md-3 control-label">Mode of Separation<span class="required"> * </span></label>
                                 <div class="col-md-8">
                                     <select class="form-control bs-select" name="selmode_separation">
                                         <option value=""> </option>

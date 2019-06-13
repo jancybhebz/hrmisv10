@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Title of Learning and Dev./Training Programs</label>
+                        <label class="col-md-3 control-label">Title of Learning and Dev./Training Programs<span class="required"> * </span></label>
                         <div class="col-md-8">
                             <input type="text" name="txttra_name" id="txttra_name" class="form-control">
                             <span class="help-block"></span>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Number of Hours</label>
+                        <label class="col-md-3 control-label">Number of Hours<span class="required"> * </span></label>
                         <div class="col-md-8">
                             <input type="text" class="form-control" id="txttra_hrs" name="txttra_hrs">
                             <span class="help-block"></span>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Venue</label>
+                        <label class="col-md-3 control-label">Venue<span class="required"> * </span></label>
                         <div class="col-md-8">
                             <textarea name="txttra_venue" id="txttra_venue" class="form-control"></textarea>
                             <span class="help-block"></span>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Start Date</label>
+                        <label class="col-md-3 control-label">Start Date<span class="required"> * </span></label>
                         <div class="col-md-8">
                             <input type="text" name="txttra_sdate" id="txttra_sdate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
                             <span class="help-block"></span>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">End Date</label>
+                        <label class="col-md-3 control-label">End Date<span class="required"> * </span></label>
                         <div class="col-md-8">
                             <input type="text" name="txttra_edate" id="txttra_edate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
                             <span class="help-block"></span>

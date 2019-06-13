@@ -199,17 +199,17 @@
             <input type="hidden" id="txtrefid" name="txtrefid">
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>Name<span class="required"> * </span></label>
                     <input type="text" class="form-control" id="txtref_name" name="txtref_name">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <label>Address</label>
+                    <label>Address<span class="required"> * </span></label>
                     <input type="text" class="form-control" id="txtref_address" name="txtref_address">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <label>Telephone Number</label>
+                    <label>Telephone Number<span class="required"> * </span></label>
                     <input type="text" class="form-control" id="txtref_telno" name="txtref_telno">
                     <span class="help-block"></span>
                 </div>
