@@ -92,10 +92,10 @@ class ListEmployeesTraining_model extends CI_Model {
 		$this->fpdf->Cell(15, 5, 'Hours', 'TB', 0, 'C');		
 		//$this->Cell(15, 5, 'Cost', 0, 0, 'C');		
 		$this->fpdf->Cell(35, 5, 'Conducted by', 'TB', 0, 'C');		
-		$this->fpdf->Cell(35, 5, 'Venue', 'TB', 0, 'C');	
+		$this->fpdf->Cell(45, 5, 'Venue', 'TB', 0, 'C');	
 		$this->fpdf->Ln(5);
-		
-		$this->fpdf->SetWidths(array(60, 35, 15, 35, 35));
+
+		$this->fpdf->SetWidths(array(60, 35, 15, 35, 45));
 		$this->fpdf->SetAligns(array("L", "C", "R", "L", "L"));
 		foreach($objQuery as $arrEmpData)
 		//while($arrSalaryGrade = mysql_fetch_array($objSalaryGrade))
@@ -104,7 +104,7 @@ class ListEmployeesTraining_model extends CI_Model {
 						."-".date("m/d/y",strtotime($arrEmpData["trainingEndDate"]));
 			$this->fpdf->Row(array($arrEmpData["trainingDesc"], $strPeriod, $arrEmpData["trainingHours"], $arrEmpData["trainingConductedBy"], $arrEmpData["trainingVenue"]), 0);
 		}
-
+		$this->fpdf->Cell(0, 5, '', 'B', 0, 'C');	
 		/* Signatory */
 		 if($this->fpdf->GetY()>195)
 			 $this->fpdf->AddPage();
