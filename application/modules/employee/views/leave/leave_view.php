@@ -114,7 +114,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave From : <span class="required"> * </span></label>
-                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off" onchange="showdiff()">
+                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave To : <span class="required"> * </span></label>
-                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off" onchange="showdiff()">
+                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -361,87 +361,55 @@ jQuery(document).ready(function() {
 <script>
     $('#dtmLeavefrom, #dtmLeaveto').change(function()
     {
-        if($('#dtmLeavefrom').val() && $('#dtmLeaveto').val()){
-            var startDate = parseDate($('#dtmLeaveto').val())
-            var endDate = parseDate($('#dtmLeavefrom').val())
-            var days = calcDaysBetween(startDate, endDate)
-            $('#intDaysApplied').html(days + " days")      
-
-            echo round($days / (60 * 60 * 24));   
+        if($('#dtmLeavefrom').val() != '' && $('#dtmLeaveto').val() != ''){
+            var startDate = parseDate($('#dtmLeavefrom').val());
+            var endDate = parseDate($('#dtmLeaveto').val());
+            //var days = calcDaysBetween(startDate, endDate);
+            var days = showDays(startDate, endDate);
+            $('#intDaysApplied').html(days + " days"); 
+            calculate();
+            // round($days / (60 * 60 * 24));  
         }
     })
 
+    function calculate() 
+    {
+        var d1 = $('#dtmLeavefrom').datepicker('getDate');
+        var d2 = $('#dtmLeaveto').datepicker('getDate');
+        var oneDay = 24*60*60*1000;
+        var diff = 0;
+
+        if (d1 && d2) 
+        {
+          diff = Math.round(Math.abs((d2.getTime() - d1.getTime())/(oneDay)));
+        }        
+        diff+=1;
+        $('#intDaysApplied').val(diff);
+    }
+
+    function showDays(firstDate,secondDate)
+    {
+        var startDay = new Date(secondDate);
+        var endDay = new Date(firstDate);
+        var millisecondsPerDay = 1000 * 60 * 60 * 24;
+
+        var millisBetween = startDay.getTime() - endDay.getTime();
+        var days = millisBetween / millisecondsPerDay;
+        console.log(Math.floor(days)); 
+        return Math.floor(days);
+    }
+
     function parseDate(s)
     {
-        var parts = s.split('/')
-        return new Date(parts[2], parts[0]-1, parts[1])
+        var parts = s.split('-');
+        //console.log(parts); 
+        return new Date(parts[0], parts[1], parts[2]);
     }
 
     function calcDaysBetween(startDate, endDate)
     {
-        return (endDate-startDate)/(1000*60*60*24)
+        console.log('endDate'+endDate+'startDate'+startDate);
+        return (endDate-startDate)/(1000*60*60*24);
     }
 
-
 </script>
-
-<!-- based from hrmisv9 -->
-
-<!-- <script>
-
-    function daysApplied(t_intYearFrom,t_intMonthFrom,t_intDayFrom,t_intYearTo,t_intMonthTo, t_intDayTo, t_strLeaveDay, t_cboLeaveType)
-    {
-            var weekday=new Array(7);
-                weekday[0]="Sunday";
-                weekday[1]="Monday";
-                weekday[2]="Tuesday";   
-                weekday[3]="Wednesday";
-                weekday[4]="Thursday";
-                weekday[5]="Friday";
-                weekday[6]="Saturday";
-            
-            var holidayweekends=0,holidate=0,IncludedHolidays=0,weekdays=0,day=86400000;
-            var holiDate  = new Array();
-            var datefrom=new Date(t_intYearFrom,t_intMonthFrom-1,t_intDayFrom); 
-            var dateto=new Date(t_intYearTo,t_intMonthTo-1,t_intDayTo); 
-            var datediff = (dateto - datefrom); //combobox date unit in milliseconds...
-            intDaysApp = Math.round(datediff / (1000 * 60 * 60 * 24)+1);//starting day is included in counting(kaya plus 1)...
-            //  intDaysApp =  Math.round(intDaysApp / 7 * 5); //exclude sat and sun
-
-            var dfrom = Math.round(datefrom / (1000 * 60 * 60 * 24));
-            var dto = Math.round(dateto / (1000 * 60 * 60 * 24));
-            dtfrom = datefrom.getTime();
-
-            for(j=dfrom,i=0;j<=dto;j++,i++)
-            {
-            cmbdate = datefrom.setTime(dtfrom+(day*i));
-            var inputDate = new Date(cmbdate);
-            inputDate.setHours(0);
-            if(weekday[inputDate.getUTCDay()] == "Sunday" || weekday[inputDate.getUTCDay()] == "Saturday") //excludes sat and sun 
-            weekdays++;
-                <? 
-                   //$holiday = mysql_query('SELECT holidayDate FROM tblHolidayYear'); 
-                   //while($arrholiday = mysql_fetch_array($holiday))
-                   //{ ?>
-                    var holidayDate = "<? echo //$arrholiday['holidayDate']; ?>";
-                    holiDate = holidayDate.split("-");
-                    var date = new Date(holiDate[0],holiDate[1]-1,holiDate[2]);
-                    if(date.getTime() == inputDate.getTime())
-                    {
-                    if(weekday[inputDate.getUTCDay()] == "Sunday" || weekday[inputDate.getUTCDay()] == "Saturday");
-                    else
-                    IncludedHolidays++;
-                    }
-                <? //} ?>
-            }
-                if(t_strLeaveDay){
-                    intDaysApp = intDaysApp * 0.5;  //if halfday
-                    document.all.optionLeaveDay.value=true;
-                    }
-                if(t_cboLeaveType==2){
-                    IncludedHolidays=0;
-                    weekdays=0;}
-                document.all.txtDaysApp.value = intDaysApp - (IncludedHolidays + weekdays);
-        }
-
-</script> -->
