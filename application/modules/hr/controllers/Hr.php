@@ -42,7 +42,6 @@ class Hr extends MY_Controller {
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 		
-		$this->arrData['arrViewEmp'] = $this->Hr_model->getEmpData($strEmpNo);
 		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($strEmpNo);
 		
 		$this->arrData['arrChild'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);

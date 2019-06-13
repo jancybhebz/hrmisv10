@@ -201,7 +201,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h5 class="modal-title uppercase"><b>Edit Position Details</b></h5>
+                <h5 class="modal-title uppercase"><b>Edit Payroll Details</b></h5>
             </div>
             <?=form_open('pds/edit_payroll_details/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
             <div class="modal-body">
@@ -333,7 +333,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h5 class="modal-title uppercase"><b>Edit Position Details</b></h5>
+                <h5 class="modal-title uppercase"><b>Edit Plantilla Position Details</b></h5>
             </div>
             <?=form_open('pds/edit_plantilla_details/'.$this->uri->segment(3), array('method' => 'post', 'name' => 'employeeform','class' => 'form-horizontal'))?>
             <div class="modal-body">

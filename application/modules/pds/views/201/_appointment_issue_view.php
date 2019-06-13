@@ -4,7 +4,7 @@
         <tr class="active">
             <th style="line-height: 2;" colspan="4">APPOINTMENT ISSUED
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
-                    <a class="btn blue btn-sm pull-right" id="btnadd_emp_appt" data-toggle="modal" href="#add_appointment_issued"> <i class="fa fa-plus"></i> Add Appointment Issue </a>
+                    <a class="btn blue btn-sm pull-right" id="btnadd_emp_appt" data-toggle="modal" href="#add_appointment_issued"> <i class="fa fa-plus"></i> Add Appointment Issued </a>
                 <?php endif; ?>
             </th>
         </tr>

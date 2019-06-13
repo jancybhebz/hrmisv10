@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h5 class="modal-title uppercase"><b><span class="action"></span> Appointment Issue Information</b></h5>
+                <h5 class="modal-title uppercase"><b><span class="action"></span> Appointment Issued Information</b></h5>
             </div>
             <?=form_open('', array('method' => 'post', 'id' => 'frmappointment_issued','class' => 'form-horizontal'))?>
             <input type="hidden" name="txtappt_id" id="txtappt_id">

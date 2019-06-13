@@ -878,7 +878,7 @@ class Pds extends MY_Controller
 							'relevantTraining'  => $arrPost['txt_appt_reltraining']);
 
 			$this->pds_model->add_apptIssue($arrData);
-			$this->session->set_flashdata('strSuccessMsg','Appointment issue added successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Appointment issued added successfully.');
 			redirect('hr/profile/'.$empid);
 		endif;
 	}
@@ -897,7 +897,7 @@ class Pds extends MY_Controller
 							'relevantTraining'  => $arrPost['txt_appt_reltraining']);
 
 			$this->pds_model->save_apptIssue($arrData, $arrPost['txtappt_id']);
-			$this->session->set_flashdata('strSuccessMsg','Appointment issue updated successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Appointment issued updated successfully.');
 			redirect('hr/profile/'.$empid);
 		endif;	
 	}
@@ -911,7 +911,7 @@ class Pds extends MY_Controller
 		{
 			$this->pds_model->delete_apptIssue($arrPost['txtdel_appt']);
 
-			$this->session->set_flashdata('strSuccessMsg','Appointment issue deleted successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Appointment issued deleted successfully.');
 			redirect('hr/profile/'.$empid);
 		}
 	}
