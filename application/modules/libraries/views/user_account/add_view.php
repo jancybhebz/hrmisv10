@@ -66,7 +66,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="radio" name="radio1" class="icheck" checked> Assistant </label>
+                                    <label><input type="radio" name="radioAsst" class="icheck" value="Assistant" checked> Assistant </label>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck" checked> Notification </label>
+                                    <label><input type="checkbox" name="chkNotif" class="icheck" value="Notification" checked> Notification </label>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck"> Attendance </label>
+                                    <label><input type="checkbox" name="chkAttdnce" class="icheck" value="Attendance"> Attendance </label>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck"> Libraries </label>
+                                    <label><input type="checkbox" name="chkLib" class="icheck" value="Libraries"> Libraries </label>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck" checked> 201 Section </label>
+                                    <label><input type="checkbox" name="chk201" class="icheck" value="201" checked> 201 Section </label>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck"> Reports </label>
+                                    <label><input type="checkbox" name="chkReports" class="icheck" value="Reports" > Reports </label>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck"> Compensation </label>
+                                    <label><input type="checkbox" name="chkCompen" class="icheck" value="Compensation"> Compensation </label>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="radio" name="radio1" class="icheck">HRMO (Access all sections) </label>
+                                    <label><input type="radio" name="radioHRMO" class="icheck" value="HRMO">HRMO (Access all sections) </label>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +142,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck" checked> all sections </label>
+                                    <label><input type="checkbox" name="chkALL" class="icheck" value="All" checked> all sections </label>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="radio" name="radio1" class="icheck" checked> Assistant </label>
+                                    <label><input type="radio" name="radioAsst2" class="icheck" value="Assistant" checked> Assistant </label>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +164,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck"> Notification </label>
+                                    <label><input type="checkbox" name="chkNotif2" class="icheck" value="Notification" > Notification </label>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck" checked> Compensation </label>
+                                    <label><input type="checkbox" name="chkCompen2" class="icheck" value="Compensation" checked> Compensation </label>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +182,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck" checked> Update </label>
+                                    <label><input type="checkbox" name="chkUpdate" class="icheck" value="Update" checked> Update </label>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +192,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck"> Reports </label>
+                                    <label><input type="checkbox" name="chkReports2" class="icheck" value="Reports"> Reports </label>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +201,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck"> Library </label>
+                                    <label><input type="checkbox" name="chkLib2" class="icheck" value="Library"> Library </label>
                                 </div>
                             </div>
                         </div>
@@ -209,17 +209,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row" id="Finance7">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="input-icon left">
                                     <i class="fa"></i>
                                     <label>Assigned Payroll Group </label>
                                      <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="">
-                                        <option value="null">SELECT</option>
-                                        <?php foreach($pGroups as $pg): ?>
-                                            <option value="<?=$pg['payrollGroupCode']?>" <?=$pg['payrollGroupCode'] == $arrData['payrollGroupCode'] ? 'selected' : ''?>>
-                                                (<?=$pg['projectDesc']?>) <?=$pg['payrollGroupName']?></option>
-                                        <?php endforeach; ?>
+                                        <option value="">Select</option>
+                                        <?php foreach($arrGroups as $group)
+                                        {
+                                           echo '<option value="'.$group['payrollGroupId'].'" '.($arrData[0]['payrollGroupId']==$group['payrollGroupId']?'selected':'').'>'.$group['payrollGroupName'].'</option>';
+                                        } ?>
                                     </select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -228,7 +226,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon left">
                                     <i class="fa"></i>
-                                    <label><input type="radio" name="radio1" class="icheck">Finance Officer (Access all sections) </label>
+                                    <label><input type="radio" name="radioFinance" class="icheck" value="ALL Access">Finance Officer (Access all sections) </label>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +236,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <label><input type="checkbox" name="icheck" class="icheck" checked> all sections </label>
+                                    <label><input type="checkbox" name="chkAll2" class="icheck" checked> all sections </label>
                                 </div>
                             </div>
                         </div>
