@@ -275,3 +275,34 @@ if ( ! function_exists('fixJson'))
         endif;
     }
 }
+
+if ( ! function_exists('getGroupOffice'))
+{
+    function getGroupOffice()
+    {
+        $CI =& get_instance();
+        $CI->load->model('request_model');
+        $str='';
+        $Group1 = $CI->request_model->getOfficeName(1);
+        foreach($Group1 as $g1):
+            $str .= '<option value="'.$g1['group1Code'].'">'.$g1['group1Name'].'</option>';
+            $Group2 = $CI->request_model->getOfficeName(2, $g1['group1Code']);
+            foreach($Group2 as $g2):
+                $str .= '<option value="'.$g2['group2Code'].'">&nbsp;&nbsp;'.$g2['group2Name'].'</option>';
+                $Group3 = $CI->request_model->getOfficeName(3, $g2['group2Code']);
+                foreach($Group3 as $g3):
+                    $str .= '<option value="'.$g3['group3Code'].'"> &nbsp;&nbsp;&nbsp;&nbsp;'.$g3['group3Name'].'</option>';
+                    $Group4 = $CI->request_model->getOfficeName(4, $g3['group3Code']);
+                    foreach($Group4 as $g4):
+                        $str .= '<option value="'.$g4['group4Code'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$g4['group4Name'].'</option>';
+                        $Group5 = $CI->request_model->getOfficeName(4, $g4['group4Code']);
+                        foreach($Group5 as $g5):
+                        $str .= '<option value="'.$g5['group5Code'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$g5['group5Name'].'</option>';
+                        endforeach; 
+                    endforeach;
+                endforeach; 
+            endforeach;     
+        endforeach;
+        return $str;
+    }
+}

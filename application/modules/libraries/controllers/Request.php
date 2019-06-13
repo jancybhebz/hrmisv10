@@ -33,7 +33,6 @@ class Request extends MY_Controller {
 		{	
 			$this->arrData['arrRequestType'] = $this->request_model->getRequestType();
 			$this->arrData['arrApplicant'] = $this->request_model->getApplicant();
-			$this->arrData['arrOfficeName'] = $this->request_model->getOfficeName();
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();

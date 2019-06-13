@@ -98,13 +98,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                      <select type="text" class="form-control" name="strOfficeName" value="<?=!empty($this->session->userdata('strOfficeName'))?$this->session->userdata('strOfficeName'):''?>" required>
                                         
                                          <option value="">Select</option>
-                                        <?php foreach($arrOfficeName as $office)
-                                        {
-                                          echo '<option value="'.$office['group1Code'].'">'.$office['group1Name'].'</option>';
-                                          echo '<option value="'.$office['group2Code'].'">'.$office['group2Name'].'</option>';
-                                          echo '<option value="'.$office['group3Code'].'">'.$office['group3Name'].'</option>';
-                                          echo '<option value="'.$office['group4Code'].'">'.$office['group4Name'].'</option>';
-                                        }?>
+                                        <?=getGroupOffice()?>
                                   </select>
                                 </div>
                             </div>

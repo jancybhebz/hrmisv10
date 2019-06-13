@@ -79,20 +79,34 @@ class Request_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getOfficeName($strGroupCode = '')
+	function getOfficeName($intLevel, $strGroupCode = '')
 	{		
+		$this->db->select('*');
+		$where='';
 		if($strGroupCode != "")
 		{
-			//$this->db->where('group'.$strGroupCode.'Code',$strGroupCode);
+			$this->db->where('group'.($intLevel-1).'Code',$strGroupCode);
 		}
-		// $this->db->join('tblgroup2','tblgroup2.group1Code = '.$this->table5.'.group1Code','left');
-		// $this->db->join('tblgroup3','tblgroup3.group1Code = '.$this->table5.'.group1Code','left');
-		// $this->db->join('tblgroup4','tblgroup4.group1Code = '.$this->table5.'.group1Code','left');
-		//$this->db->order_by("group2Name", "asc");
-		//$this->db->order_by('tblgroup1.'.$this->tableid5,'DESC');
-		$objQuery = $this->db->get('tblGroup'.$strGroupCode);
+		$this->db->order_by('group'.($intLevel).'Name','asc');
+		$objQuery = $this->db->get('tblGroup'.$intLevel);
 		return $objQuery->result_array();	
 	}
+
+	// function getOfficeName($strGroupCode = '')
+	// {		
+	// 	if($strGroupCode != "")
+	// 	{
+	// 		$this->db->where('group1Code',$strGroupCode);
+	// 	}
+	
+	// 	$this->db->join('tblGroup2','tblGroup2.group1Code = tblGroup1.group1Code','left');
+	// 	$this->db->join('tblGroup3','tblGroup3.group1Code = tblGroup1.group1Code','left');
+	// 	$this->db->join('tblGroup4','tblGroup4.group1Code = tblGroup1.group1Code','left');
+	// 	$this->db->order_by('group1Name','asc');
+	// 	$objQuery = $this->db->get('tblGroup1');
+	// 	return $objQuery->result_array();	
+	// }
+
 
 	function getAction($strAction = '')
 	{		
@@ -260,5 +274,6 @@ class Request_model extends CI_Model {
 		return $res;
 	}
 
+	
 		
 }
