@@ -56,14 +56,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="form-group">
                             <label class="col-md-2 control-label">Agency Code <span class="required"> * </span></label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="strAgencyName" value="<?=isset($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>">
+                                <input type="text" class="form-control" name="strAgencyCode" value="<?=isset($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label">Region <span class="required"> * </span></label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="strAgencyCode" value="<?=!empty($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>">
+                                <input type="text" class="form-control" name="strRegion" value="<?=!empty($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>">
                             </div>
                         </div>
 
