@@ -211,25 +211,32 @@ class Salary_sched extends MY_Controller {
 		}
 		else
 		{
-			$strSG = $arrPost['SG'];
-			$intStepNum = $arrPost['stepNum'];
-			$intActualSalary = $arrPost['intActualSalary'];
-			$intVersion =$arrPost['ver'];
-			//print_r($arrPost);exit(1);
-			if(!empty($intActualSalary)) 
-			{
-				$arrData = array(
-					'actualSalary'=>$intActualSalary	
-				);
-				$blnReturn = $this->Salary_sched_model->save($arrData,$strSG,$intStepNum,$intVersion);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalarysched','Edited '.$strSG.' Salary Schedule',implode(';',$arrData),'');
+			print_r($arrPost);
+			foreach($arrPost as $row):
+
+				print_r($row);
+				$sg=$row['sg'][0];
+				echo $sg.'<br>';
+			endforeach;
+			// $strSG = $arrPost['SG'];
+			// $intStepNum = $arrPost['stepNum'];
+			// $intActualSalary = $arrPost['intActualSalary'];
+			// $intVersion =$arrPost['ver'];
+			// //print_r($arrPost);exit(1);
+			// if(!empty($intActualSalary)) 
+			// {
+			// 	$arrData = array(
+			// 		'actualSalary'=>$intActualSalary	
+			// 	);
+			// 	$blnReturn = $this->Salary_sched_model->save($arrData,$strSG,$intStepNum,$intVersion);
+			// 	if(count($blnReturn)>0)
+			// 	{
+			// 		log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsalarysched','Edited '.$strSG.' Salary Schedule',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Salary Schedule saved successfully.');
-				}
-				redirect('libraries/salary_sched');
-			}
+			// 		$this->session->set_flashdata('strSuccessMsg','Salary Schedule saved successfully.');
+			// 	}
+			// 	redirect('libraries/salary_sched');
+			// }
 		}
     }
 	
