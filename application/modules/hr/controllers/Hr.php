@@ -41,7 +41,7 @@ class Hr extends MY_Controller {
 			redirect('pds');
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
-
+		
 		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($strEmpNo);
 		
 		$this->arrData['arrChild'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
@@ -255,6 +255,10 @@ class Hr extends MY_Controller {
 			$intTel2=$arrPost['intTel2'];
 			$intMobile=$arrPost['intMobile'];
 			$intAccount=$arrPost['intAccount'];
+			// in-service
+			$strStatus=$arrPost['strStatus'];
+			
+			
 			if(!empty($strEmpID))
 			{	
 				if(count($this->Hr_model->checkExist($strEmpID))==0)
@@ -299,10 +303,16 @@ class Hr extends MY_Controller {
 						'telephone1'=>$intTel1,
 						'telephone2'=>$intTel2,
 						'Mobile'=>$intMobile,
-						'AccountNum'=>$intAccount
+						'AccountNum'=>$intAccount,
+						
 						
 					);
 					$blnReturn  = $this->Hr_model->add_employee($arrData);
+						$arrData2 = array(
+						'empNumber'=>$strEmpID,
+						'statusOfAppointment'=>$strStatus
+						);
+					$blnReturn  = $this->Hr_model->add_employee_status($arrData2);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Added '.$strEmpID.' Personal Information',implode(';',$arrData),'');

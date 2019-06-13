@@ -54,7 +54,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                    <select type="text" class="form-control" name="strHolidayName" value="<?=!empty($this->session->userdata('strHolidayName'))?$this->session->userdata('strHolidayName'):''?>">
                                      <option value="">Select</option>
-                                      <?php foreach($arrManageHoliday as $holiday)
+                                      <?php foreach($arrHolidayName as $holiday)
                                         {
                                           echo '<option value="'.$holiday['holidayCode'].'">'.$holiday['holidayName'].'</option>';
                                         }?>
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Holiday Date</label>
                                     <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
+                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="date" value="" data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div>

@@ -133,6 +133,7 @@ class Holiday extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
+			$this->arrData['arrHolidayName']=$this->holiday_model->getHolidayName();
 			$this->arrData['arrManageHoliday']=$this->holiday_model->getManageHoliday();
 			$this->arrData['arrWorkSus'] = $this->holiday_model->getWorkSuspension();
 			$this->template->load('template/template_view','libraries/holiday/manage_add_view',$this->arrData);	
