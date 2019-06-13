@@ -56,19 +56,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="form-group">
                             <label class="col-md-2 control-label">Agency Code <span class="required"> * </span></label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="strAgencyName" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>">
+                                <input type="text" class="form-control" name="strAgencyName" value="<?=isset($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label">Region <span class="required"> * </span></label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="strAgencyCode" value="<?=!empty($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>">
+                                <input type="text" class="form-control" name="strAgencyCode" value="<?=!empty($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Tin Number <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">TIN Number <span class="required"> * </span></label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intTinNum" value="<?=!empty($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>">
                             </div>
@@ -122,114 +122,114 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <input type="text" class="form-control" name="strSalarySched" value="<?=!empty($arrAgency[0]['salarySchedule'])?$arrAgency[0]['salarySchedule']:''?>">
                             </div>
                         </div>
-
+                        <hr>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">GSIS Number <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">GSIS Number </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intGSISNum" value="<?=!empty($arrAgency[0]['gsisId'])?$arrAgency[0]['gsisId']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">GSIS Employee Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">GSIS Employee Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intGSISEmpShare" value="<?=!empty($arrAgency[0]['gsisEmpShare'])?$arrAgency[0]['gsisEmpShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">GSIS Employer Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">GSIS Employer Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intGSISEmprShare" value="<?=!empty($arrAgency[0]['gsisEmprShare'])?$arrAgency[0]['gsisEmprShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Pagibig Number <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Pagibig Number </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intPagibigNum" value="<?=!empty($arrAgency[0]['pagibigId'])?$arrAgency[0]['pagibigId']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Pagibig Employee Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Pagibig Employee Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intPagibigEmpShare" value="<?=!empty($arrAgency[0]['pagibigEmpShare'])?$arrAgency[0]['pagibigEmpShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Pagibig Employer Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Pagibig Employer Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intPagibigEmprShare" value="<?=!empty($arrAgency[0]['pagibigEmprShare'])?$arrAgency[0]['pagibigEmprShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Provident Employee Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Provident Employee Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intProvidentEmpShare" value="<?=!empty($arrAgency[0]['providentEmpShare'])?$arrAgency[0]['providentEmpShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Provident Employer Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Provident Employer Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intProvidentEmprShare" value="<?=!empty($arrAgency[0]['providentEmprShare'])?$arrAgency[0]['providentEmprShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Philhealth Employee Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Philhealth Employee Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intPhilhealthEmpShare" value="<?=!empty($arrAgency[0]['philhealthEmpShare'])?$arrAgency[0]['philhealthEmpShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Philhealth Employer Share <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Philhealth Employer Share </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intPhilhealthEmprShare" value="<?=!empty($arrAgency[0]['philhealthEmprShare'])?$arrAgency[0]['philhealthEmprShare']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Philhealth Percentage <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Philhealth Percentage </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intPhilhealthPercentage" value="<?=!empty($arrAgency[0]['philhealthPercentage'])?$arrAgency[0]['philhealthPercentage']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Philhealth Number <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Philhealth Number </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="intPhilhealthNum" value="<?=!empty($arrAgency[0]['PhilhealthNum'])?$arrAgency[0]['PhilhealthNum']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Mission <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Mission </label>
                             <div class="col-md-9">
                                 <textarea type="text" name="strMission" class="form-control"><?=!empty($arrAgency[0]['Mission'])?$arrAgency[0]['Mission']:''?></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Vision <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Vision </label>
                             <div class="col-md-9">
                                 <textarea type="text" name="strVision" class="form-control"><?=!empty($arrAgency[0]['Vision'])?$arrAgency[0]['Vision']:''?></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Mandate <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Mandate </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="strMandate" value="<?=!empty($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Bank Account # <span class="required"> * </span></label>
+                            <label class="col-md-2 control-label">Bank Account # </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="strAccountNum" value="<?=!empty($arrAgency[0]['AccountNum'])?$arrAgency[0]['AccountNum']:''?>">
                             </div>
