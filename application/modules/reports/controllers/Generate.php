@@ -107,6 +107,10 @@ class Generate extends MY_Controller
                 $this->load->model('ListOfRetirees_model');
                 $this->ListOfRetirees_model->generate($arrGet);
             break;
+            case 'LVP':
+                $this->load->model('ListOfVacantPositions_model');
+                $this->ListOfVacantPositions_model->generate($arrGet);
+            break;
     		case 'SR':
     			$this->load->model('ServiceRecord_model');
 				$this->ServiceRecord_model->generate($arrGet);
