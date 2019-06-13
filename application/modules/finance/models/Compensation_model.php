@@ -24,16 +24,17 @@ class Compensation_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	// function getEmployeeDeduction($empid, $yr, $mon)
-	// {
-	// 	return $this->db->join('tblDeduction', 'tblEmpDeductionRemit.deductionCode = tblDeduction.deductionCode', 'left')
-	// 				->group_by('tblDeduction.deductionCode')
-	// 				->where('empNumber',$empid)
-	// 				->where('hidden',0)
-	// 				->where('deductYear',$yr)
-	// 				->where('deductMonth',$mon)
-	// 				->get('tblEmpDeductionRemit')->result_array();
-	// }
+	function getEmployeeDeduction($empid, $yr, $mon)
+	{
+		return $this->db->join('tblDeduction', 'tblEmpDeductionRemit.deductionCode = tblDeduction.deductionCode', 'left')
+					// ->group_by('tblDeduction.deductionCode')
+		 			->group_by("CASE WHEN tblDeduction.deductionCode IS NOT NULL THEN tblDeduction.deductionCode END",FALSE)
+					->where('empNumber',$empid)
+					->where('hidden',0)
+					->where('deductYear',$yr)
+					->where('deductMonth',$mon)
+					->get('tblEmpDeductionRemit')->result_array();
+	}
 
 	function getEmployeeShare($empid, $contriCode)
 	{
