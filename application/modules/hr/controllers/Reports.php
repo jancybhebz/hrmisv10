@@ -483,17 +483,17 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'LET':
-            	echo '<div class="row">
-                	<div class="col-sm-3 text-right">
-	        			<div class="form-group">
-	        				<label class="control-label">Appointment Status : </label>
-	        			</div>
-	        			</div>
-	        			<div class="form-group">
-	        				<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
-	        			</div>
-                	</div>
-                </div>';
+            // 	echo '<div class="row">
+            //     	<div class="col-sm-3 text-right">
+	        			// <div class="form-group">
+	        			// 	<label class="control-label">Appointment Status : </label>
+	        			// </div>
+	        			// </div>
+	        			// <div class="form-group">
+	        			// 	<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
+	        			// </div>
+            //     	</div>
+            //     </div>';
                 echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">

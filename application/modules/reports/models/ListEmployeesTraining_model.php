@@ -22,26 +22,13 @@ class ListEmployeesTraining_model extends CI_Model {
 		$this->fpdf->Cell(0,3,"Page ".$this->fpdf->PageNo(),0,0,'R');
 	}
 
-	function getSQLData($strEmpNo="",$strAppStatus='')
+	function getSQLData($strEmpNo="")
 	{
-		$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname, 
-								tblEmpPersonal.firstname, tblEmpPersonal.middlename, 
-								tblEmpPersonal.birthday,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension, tblEmpPersonal.birthPlace,
-								tblPosition.* ');
-		
-		$this->db->join('tblEmpPosition',
-			'tblEmpPersonal.empNumber = tblEmpPosition.empNumber','inner');
-		$this->db->join('tblPosition',
-			'tblEmpPosition.positionCode = tblPosition.positionCode','inner');
-		//$this->db->join('tblSalarySched','tblEmpPosition.salaryGradeNumber = tblSalarySched.salaryGradeNumber','inner');
-		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
+		$this->db->select('tblEmpTraining.*');
 		if($strEmpNo!='')
-			$this->db->where('tblEmpPersonal.empNumber',$strEmpNo);
-		if($strAppStatus!='')
-			$this->db->where('tblEmpPosition.appointmentCode',$strAppStatus);
-		
-		$this->db->order_by('tblEmpPersonal.surname ASC, tblEmpPersonal.firstname ASC, tblEmpPersonal.middlename ASC');
-		$objQuery = $this->db->get('tblEmpPersonal');
+			$this->db->where('tblEmpTraining.empNumber',$strEmpNo);
+		$this->db->order_by('tblEmpTraining.trainingStartDate desc');
+		$objQuery = $this->db->get('tblEmpTraining');
 		//echo $this->db->last_query();
 		return $objQuery->result_array();
 	}
@@ -51,45 +38,71 @@ class ListEmployeesTraining_model extends CI_Model {
 		$this->fpdf->AddPage('P','A4');
 		$this->fpdf->Ln(18);
 		$this->fpdf->SetFont('Arial','B',10);
-		$this->fpdf->Cell(0,6,strtoupper('list of employees by salary grade (alphabetical)'), 0, 0, 'C');
+		$this->fpdf->Cell(0,6,strtoupper("list of employees' training"), 0, 0, 'C');
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(0,6,"As of " . date("Y"), 0, 0, 'C');
 		$this->fpdf->Ln(15);
 		
+		$arrEmpName = employee_name($arrData['empno']);
+
 		$this->fpdf->SetFont('Arial','B',10);
-		$this->fpdf->SetFillColor(150,150,150);
-		$this->fpdf->Cell(70,6,"EMPLOYEE NAME",1,0,'C',1);
-		$this->fpdf->Cell(85,6,"OFFICE - POSITION",1,0,'C',1);
-		$this->fpdf->Cell(30,6,"SALARY GRADE",1,0,'C',1);
-		$this->fpdf->Ln(6);
+		$this->fpdf->Cell(50, 10, "Employee Number : ", 0, 0, 'R');
+		$this->fpdf->SetFont('Arial','',10);		
+		$this->fpdf->Cell(0, 10, $arrData['empno'], 0, 0, 'L');
+		$this->fpdf->Ln(5);
+		$this->fpdf->SetFont('Arial','B',10);
+		$this->fpdf->Cell(50, 10, "Name : ", 0, 0, 'R');
+		$this->fpdf->SetFont('Arial','',10);		
+		$this->fpdf->Cell(0, 10, $arrEmpName, 0, 0, 'L');
+		$this->fpdf->Ln(5);
+		$this->fpdf->SetFont('Arial','B',10);
+		$this->fpdf->Cell(50, 10, "Position : ", 0, 0, 'R');
+		$this->fpdf->SetFont('Arial','',10);
+		$arrEmpDetails = employee_details($arrData['empno']);
+		//print_r($arrEmpDetails); exit(1);		
+		$this->fpdf->Cell(0, 10, $arrEmpDetails[0]['positionDesc'], 0, 0, 'L');
+		$this->fpdf->Ln(5);
+		$this->fpdf->SetFont('Arial','B',10);
+		$this->fpdf->Cell(50, 10, "Office : ", 0, 0, 'R');
+		$this->fpdf->SetFont('Arial','',10);
+		$strOffice = office_name(employee_office($arrData['empno']));	
+		$this->fpdf->Cell(0, 10, $strOffice, 0, 0, 'L');
+		$this->fpdf->Ln(5);
 		
-		$objQuery = $this->getSQLData($arrData['strAppStatus']);
+		//$strOfficePosition = $strOffice.' - '.$arrEmp["positionDesc"];
+
+		// $this->fpdf->SetFont('Arial','B',10);
+		// $this->fpdf->SetFillColor(150,150,150);
+		// $this->fpdf->Cell(70,6,"EMPLOYEE NAME",1,0,'C',1);
+		// $this->fpdf->Cell(85,6,"OFFICE - POSITION",1,0,'C',1);
+		// $this->fpdf->Cell(30,6,"SALARY GRADE",1,0,'C',1);
+		// $this->fpdf->Ln(6);
+		$this->fpdf->Ln(5);
+		$strPrgrph1 = "     This is to certify that the employee here in above has"
+					." attended the following training(s):";
+		$this->fpdf->MultiCell(0, 6, $strPrgrph1, 0, 'J', 0);
+
+		$objQuery = $this->getSQLData($arrData['empno']);
 		$this->fpdf->SetFillColor(255,255,255);
 		$this->fpdf->SetDrawColor(0,0,0);
 		$this->fpdf->SetFont('Arial','',10);
-		foreach($objQuery as $arrEmp)
+
+		$this->fpdf->Cell(60, 5, 'Training Title', 'TB', 0, 'C');
+		$this->fpdf->Cell(35, 5, 'Period of Training', 'TB', 0, 'C');
+		$this->fpdf->Cell(15, 5, 'Hours', 'TB', 0, 'C');		
+		//$this->Cell(15, 5, 'Cost', 0, 0, 'C');		
+		$this->fpdf->Cell(35, 5, 'Conducted by', 'TB', 0, 'C');		
+		$this->fpdf->Cell(35, 5, 'Venue', 'TB', 0, 'C');	
+		$this->fpdf->Ln(5);
+		
+		$this->fpdf->SetWidths(array(60, 35, 15, 35, 35));
+		$this->fpdf->SetAligns(array("L", "C", "R", "L", "L"));
+		foreach($objQuery as $arrEmpData)
 		//while($arrSalaryGrade = mysql_fetch_array($objSalaryGrade))
 		{
-			
-			$extension = (trim($arrEmp['nameExtension'])=="") ? "" : " ".$arrEmp['nameExtension'];		
-			//$name = $arrEmp['firstname']." ".$arrEmp['middleInitial'].". ".$arrEmp['surname']." ".$extension;
-			$name=$arrEmp["surname"].', '.$arrEmp["firstname"].$extension.' '.$arrEmp["middlename"];
-
-	/*			
-			$this->Cell(100,0,$name,0,0,L);
-			$this->Cell(220,0,$arrEmp["positionDesc"],0,0,L);
-			$this->Cell(0,0,$arrEmp["salaryGradeNumber"],0,0,R);
-			$this->Ln(5);
-	*/		
-					//$office = new General();
-					$strOffice = office_name(employee_office($arrEmp['empNumber']));
-					$strOfficePosition = $strOffice.' - '.$arrEmp["positionDesc"];
-
-			$w = array(70,85,30);
-			$Ln = array('L','C','C');
-			$this->fpdf->SetWidths($w);
-			$this->fpdf->SetAligns($Ln);
-			$this->fpdf->FancyRow(array($name,$strOfficePosition,$arrEmp["salaryGradeNumber"]),array(1,1,1));
+			$strPeriod = date("m/d/y",strtotime($arrEmpData["trainingStartDate"]))
+						."-".date("m/d/y",strtotime($arrEmpData["trainingEndDate"]));
+			$this->fpdf->Row(array($arrEmpData["trainingDesc"], $strPeriod, $arrEmpData["trainingHours"], $arrEmpData["trainingConductedBy"], $arrEmpData["trainingVenue"]), 0);
 		}
 
 		/* Signatory */

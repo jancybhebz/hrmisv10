@@ -132,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('select[name="strReports"]').change(function(){
             $rpt = $(this).val();
             
-            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LET' || $rpt=='LVP' || $rpt=='LEA')
+            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LVP' || $rpt=='LEA')
                 $('.per-block, .employee-block').hide();
             else
                 $('.per-block').show();
