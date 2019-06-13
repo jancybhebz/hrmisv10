@@ -56,7 +56,7 @@ class Payrollupdate extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
-	public function compute_benefits()
+	public function compute_benefits_perm()
 	{
 		$arrPost = $this->input->post();
 
@@ -86,7 +86,7 @@ class Payrollupdate extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
-	public function save_compute_benefits()
+	public function save_benefits_perm()
 	{
 		$arrPost = $this->input->post();
 		$arremp_computations = array();
@@ -239,6 +239,69 @@ class Payrollupdate extends MY_Controller {
 								'no_empty_lb'		 => $computed_benefits['no_empty_lb']);
 
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
+	}
+
+	public function select_deductions_perm()
+	{
+		$arrPost = $this->input->post();
+		$arrEmployees = array();
+		if(!empty($arrPost)):
+			if(gettype($arrPost['chkbenefit']) == 'string'):
+				$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
+			endif;
+			echo '<pre>';
+			print_r($arrPost);
+			echo '</pre>';
+		endif;
+
+		$this->arrData['arrEmployees'] = $arrPost['txtjson'];
+		$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
+		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
+		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
+
+		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
+	}
+
+	public function complete_process_perm()
+	{
+		$arrPost = $this->input->post();
+		echo '<pre>';
+		print_r($arrPost);
+		$arrEmployees = array();
+		if(gettype($arrPost['txtjson']) == 'string'):
+			$arrEmployees = json_decode($arrPost['txtjson'],true);
+			$arrEmployees = array_column($arrEmployees,'emp_detail');
+		endif;
+		if(isset($arrPost['txtprocess'])):
+			$process_data = json_decode($arrPost['txtprocess'],true);
+		else:
+			$process_data = $arrPost['txtprocess'];
+		endif;
+		if(gettype($arrPost['chkbenefit']) == 'string'):
+			$benefits = json_decode($arrPost['chkbenefit'],true);
+		else:
+			$benefits = $arrPost['chkbenefit'];
+		endif;
+		print_r($benefits);
+		echo '<br><br>';
+		echo 'table process<br>';
+		$arrData_process = array('employeeAppoint' => $process_data['selemployment'],
+								 'empNumber' 	   => $this->session->userdata('sessEmpNo'),
+								 'processDate'	   => date('Y-m-d'),
+								 'processMonth'    => date('n'),
+								 'processYear'     => date('Y'),
+								 'processCode'     => '',
+								 'payrollGroupCode'=> '',
+								 'salarySchedule'  => '',
+								 'period' 		   => '',
+								 'publish' 		   => 0);
+		# insert process; tablename : tblProcess
+		print_r($arrData_process);
+		// foreach($arrEmployees as $employee):
+		echo '<hr>';
+		# insert deductionremit ; tablename : tblempdeductionremit
+		# insert income; tablename : tblempincome
+		# insert netpay; tablename: tblempnetpay
 	}
 
 	public function update_or()

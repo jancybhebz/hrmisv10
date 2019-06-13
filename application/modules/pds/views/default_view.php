@@ -67,6 +67,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Office </th>
                             <th> Position </th>
                             <th> Appointment Desc </th>
+                            <th> Status </th>
                             <th> </th>
                         </tr>
                     </thead>
@@ -79,6 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <td> <?=employee_office($row['empNumber'])?> </td>
                                 <td> <?=$row['positionDesc']?></td>
                                 <td> <?=$row['appointmentDesc']?></td>
+                                <td> <?=$row['statusOfAppointment']?></td>
                                 <td style="text-align: center;">
                                     <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a>
                                 </td>

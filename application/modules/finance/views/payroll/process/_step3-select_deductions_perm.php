@@ -1,4 +1,5 @@
-<?=form_open('finance/payroll_update/process/process_complete', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmdeductions'))?>
+<?=form_open('finance/payroll_update/complete_process_perm', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmdeductions'))?>
+<input type="text" name="chkbenefit" value='<?=gettype($_POST['chkbenefit']) == 'string' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
         <h3 class="block">Select Benefits</h3>
@@ -70,6 +71,7 @@
                     </div>
                 </div>
             </div>
+            <pre><?php print_r($arrEmployees) ?></pre>
             <textarea id="txtjson" name="txtjson"><?=fixJson($arrEmployees)?></textarea>
         </div>
     </div>

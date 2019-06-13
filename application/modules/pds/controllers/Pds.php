@@ -13,7 +13,7 @@ class Pds extends MY_Controller
 
 	public function index()
 	{
-		$this->arrData['arrEmployees'] = $this->Hr_model->getData();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData('','','all');
 		$this->template->load('template/template_view','pds/default_view',$this->arrData);
 	}
 

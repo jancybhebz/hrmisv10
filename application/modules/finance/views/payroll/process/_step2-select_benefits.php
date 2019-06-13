@@ -1,10 +1,10 @@
-<?=form_open('finance/payroll_update/compute_benefits', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
+<?=form_open('finance/payroll_update/compute_benefits_perm', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
     </div>
     <div class="tab-pane active" id="tab-payroll">
-        <input type="hidden" name="txtprocess" value='<?=json_encode($_POST)?>'>
+        <input type="text" name="txtprocess" value='<?=json_encode($_POST)?>'>
         <h3>Select Benefits</h3>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
@@ -20,7 +20,7 @@
                     <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> Check All </label>
                     <div class="portlet-body" id="div-benefit">
                         <label class="checkbox col-md-3" <?=$salary?'style="display:none"':''?>>
-                            <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="psalary" <?=$salary?'':'checked'?>>
+                            <input type="checkbox" class="chkbenefit" name="chksalary" value="psalary" <?=$salary?'':'checked'?>>
                             Monthly Salary
                         </label>
                         <?php foreach($arrBenefit as $benefit): ?>

@@ -42,11 +42,11 @@
                                     case 'select_benefits':
                                         echo 'STEP 2 OF 4';
                                         break;
-                                    case 'compute_benefits':
-                                    case 'save_benefits':
+                                    case 'compute_benefits_perm':
+                                    case 'save_benefits_perm':
                                         echo 'STEP 2 OF 4';
                                         break;
-                                    case 'select_deductions':
+                                    case 'select_deductions_perm':
                                         echo 'STEP 3 OF 4';
                                         break;
                                     case 'reports':
@@ -69,14 +69,14 @@
                                         <i class="fa fa-check"></i> Payroll Period </span>
                                 </a>
                             </li>
-                            <li class="<?=in_array($page,array('select_benefits','compute_benefits','save_benefits'))?'active':''?>">
+                            <li class="<?=in_array($page,array('select_benefits','compute_benefits_perm','save_benefits_perm'))?'active':''?>">
                                 <a href="#tab2" data-toggle="tab" class="step">
                                     <span class="number"> 2 </span><br>
                                     <span class="desc">
                                         <i class="fa fa-check"></i> Income </span>
                                 </a>
                             </li>
-                            <li class="<?=$page=='select_deductions'?'active':''?>">
+                            <li class="<?=$page=='select_deductions_perm'?'active':''?>">
                                 <a href="#tab3" data-toggle="tab" class="step">
                                     <span class="number"> 3 </span><br>
                                     <span class="desc">
@@ -103,16 +103,16 @@
                                 case 'select_benefits':
                                     $this->load->view('process/_step2-select_benefits');
                                     break;
-                                case 'compute_benefits':
-                                case 'save_benefits':
+                                case 'compute_benefits_perm':
+                                case 'save_benefits_perm':
                                     if($employment_type == 'P'):
-                                        $this->load->view('process/_step2-compute_benefits');
+                                        $this->load->view('process/_step2-compute_benefits_perm');
                                     else:
                                         $this->load->view('process/_step2-compute_benefits_cont');
                                     endif;
                                     break;
-                                case 'select_deductions':
-                                    $this->load->view('process/_step3-select_deductions');
+                                case 'select_deductions_perm':
+                                    $this->load->view('process/_step3-select_deductions_perm');
                                     break;
                                 case 'reports':
                                     $this->load->view('process/_step4-reports');

@@ -53,7 +53,10 @@ $route['finance/reports/loanbalance'] = 'finance/reports/LoanBalanceReports';
 $route['finance/payroll_update/process'] = 'finance/payroll_update/payrollupdate/index';
 $route['finance/payroll_update/select_benefits'] = 'finance/payroll_update/payrollupdate/select_benefits';
 $route['finance/payroll_update/compute_benefits_perm'] = 'finance/payroll_update/payrollupdate/compute_benefits_perm';
-// $route['finance/payroll_update/save_compute_benefits'] = 'finance/payroll_update/payrollupdate/save_compute_benefits';
+$route['finance/payroll_update/save_benefits_perm'] = 'finance/payroll_update/payrollupdate/save_benefits_perm';
+$route['finance/payroll_update/select_deductions_perm'] = 'finance/payroll_update/payrollupdate/select_deductions_perm';
+$route['finance/payroll_update/complete_process_perm'] = 'finance/payroll_update/payrollupdate/complete_process_perm';
+
 // $route['finance/payroll_update/payrollupdate/select_benefits/(:any)'] = 'finance/payroll_update/select_benefits/$1';
 
 // $route['finance/payroll_update/update_or'] = 'finance/payroll_update/Payrollupdate/update_or';
