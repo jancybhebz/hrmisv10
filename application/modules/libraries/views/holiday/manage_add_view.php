@@ -54,7 +54,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <i class="fa"></i>
                                    <select type="text" class="form-control" name="strHolidayName" value="<?=!empty($this->session->userdata('strHolidayName'))?$this->session->userdata('strHolidayName'):''?>">
                                      <option value="">Select</option>
-                                      <?php foreach($arrManageHoliday as $holiday)
+                                      <?php foreach($arrHolidayName as $holiday)
                                         {
                                           echo '<option value="'.$holiday['holidayCode'].'">'.$holiday['holidayName'].'</option>';
                                         }?>

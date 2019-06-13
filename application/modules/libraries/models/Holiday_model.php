@@ -37,6 +37,17 @@ class Holiday_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getHolidayName($intHolidayId = '')
+	{	
+		$this->db->Select('tblHoliday.*,holidayName');
+		if($intHolidayId != "")
+		{
+			$this->db->where('tblHoliday.holidayId',$intHolidayId);
+		}
+		$objQuery = $this->db->get($this->table);
+		return $objQuery->result_array();	
+	}
+
 	function getManageHoliday($intHolidayId = '')
 	{	
 		$this->db->Select('tblHolidayYear.*,tblHoliday.holidayName');
@@ -44,9 +55,9 @@ class Holiday_model extends CI_Model {
 		{
 			$this->db->where('tblHolidayYear.holidayId',$intHolidayId);
 		}
-		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = '.$this->table.'.holidayCode','inner');
+		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = '.$this->table.'.holidayCode','');
 		$this->db->order_by('holidayName');
-		$this->db->group_by($this->table.'.holidayCode');
+		// $this->db->group_by($this->table.'.holidayCode');
 		$objQuery = $this->db->get($this->table);
 		//echo $this->db->last_query();
 		return $objQuery->result_array();	
