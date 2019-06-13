@@ -7,7 +7,7 @@ if ( ! function_exists('get_libraries'))
 		$CI =& get_instance();
 		/* array('module/controller'=>'Label for Library menu')*/
 		return array(
-			'agency_profile'=>'Agency Profile',
+			'agency_profile'=>'Agency Information',
 			'appointment_status'=>'Appointment Status',
 			'attendance_scheme'=>'Attendance Scheme',
 			'backup'=>'Back-up',

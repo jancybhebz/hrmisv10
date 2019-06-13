@@ -3,12 +3,7 @@
 $page = $this->uri->segment(3);
 $form = $page == 'compute_benefits_perm' ? 'finance/payroll_update/save_benefits_perm' : 'finance/payroll_update/select_deductions_perm';
 echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'));?>
-<input type="text" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
 <pre><?php print_r($_POST) ?></pre>
-<input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? gettype($_POST['chksalary']) == 'string' ? $_POST['chksalary'] : json_encode($_POST['chksalary']) : ''?>'>
-<input type="text" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? gettype($_POST['chkbenefit']) == 'string' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit']) : ''?>'>
-<input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? gettype($_POST['chkbonus']) == 'string' ? $_POST['chkbonus'] : json_encode($_POST['chkbonus']) : ''?>'>
-<input type="text" name="chkincome" value='<?=isset($_POST['chkincome']) ? gettype($_POST['chkincome']) == 'string' ? $_POST['chkincome'] : json_encode($_POST['chkincome']) : ''?>'>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -128,6 +123,12 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
         <input type="text" value="<?=$process_data_workingdays?>" name="txtdata_wdays">
         <input type="text" value="<?=$curr_period_workingdays?>" name="txtper_wdays">
         <input type="text" value="<?=$no_empty_lb?>" name="txtno_empty_lb">
+        <input type="text" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
+        <input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
+        <input type="text" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
+        <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
+        <input type="text" name="chkincome" value='<?=isset($_POST['chkincome']) ? fixJson($_POST['chkincome']) : ''?>'>
+        <textarea name="txtjson_computations"><?=isset($arr_computations) ? fixJson($arr_computations) : ''?></textarea>
     </div>
 </div>
 <div class="form-actions">

@@ -31,7 +31,7 @@ class Payrollupdate extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
-	public function select_benefits()
+	public function select_benefits_perm()
 	{
 		$arrPost = $this->input->post();
 		echo '<pre>';
@@ -48,7 +48,8 @@ class Payrollupdate extends MY_Controller {
 		$this->arrData['arrBenefit'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Benefit');
 		$this->arrData['arrBonus'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Bonus');
 		$this->arrData['arrIncome'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Others');
-		$this->arrData['salary'] = $this->Payrollupdate_model->check_salary_exist($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment']);
+		// $this->arrData['salary'] = $this->Payrollupdate_model->check_salary_exist($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment']);
+		$this->arrData['process'] = $this->Payroll_process_model->get_process_by_appointment($arrPost['selemployment'],$arrPost['mon'],$arrPost['yr']);
 		$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
 		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
 		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
@@ -61,8 +62,10 @@ class Payrollupdate extends MY_Controller {
 		$arrPost = $this->input->post();
 
 		if(!empty($arrPost)):
-			if(gettype($arrPost['chkbenefit']) == 'string'):
-				$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
+			if(isset($arrPost['chkbenefit'])):
+				if(gettype($arrPost['chkbenefit']) == 'string'):
+					$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
+				endif;
 			endif;
 			if(isset($arrPost['txtprocess'])):
 				$process_data = json_decode($arrPost['txtprocess'],true);
@@ -132,6 +135,7 @@ class Payrollupdate extends MY_Controller {
 			$fk_id = $this->Computation_instance_model->insert_computation_instance($arrrData_comp_instance);
 
 			# insert computation and computation details
+			$arr_computations = array();
 			foreach($arremp_computations as $emp_comp):
 				# insert computation
 				$arrComputation_codes = array(array('code' => 'HAZARD', 'amount' => $emp_comp['hp']),
@@ -186,7 +190,7 @@ class Payrollupdate extends MY_Controller {
 											  'ta'				=> $emp_comp['rata']['ta_amount']);
 				# tablename : tblComputationDetails
 				$this->Computation_instance_model->insert_computation_details($arrData_comp_details);
-
+				array_push($arr_computations,$arrData_comp_details);
 				# tablename : empBenefits; insert benefits
 				$payroll_process = $this->Payroll_process_model->process_with($process_data['selemployment']);
 				$arrData_benefits = array();
@@ -236,7 +240,8 @@ class Payrollupdate extends MY_Controller {
 								'process_data_workingdays' => $computed_benefits['workingdays'],
 								'curr_period_workingdays'  => $computed_benefits['curr_workingdays'],
 								'arrEmployees'		 => $computed_benefits['arremployees'],
-								'no_empty_lb'		 => $computed_benefits['no_empty_lb']);
+								'no_empty_lb'		 => $computed_benefits['no_empty_lb'],
+								'arr_computations'	 => $arr_computations);
 
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
@@ -267,41 +272,273 @@ class Payrollupdate extends MY_Controller {
 		$arrPost = $this->input->post();
 		echo '<pre>';
 		print_r($arrPost);
-		$arrEmployees = array();
-		if(gettype($arrPost['txtjson']) == 'string'):
-			$arrEmployees = json_decode($arrPost['txtjson'],true);
-			$arrEmployees = array_column($arrEmployees,'emp_detail');
+		$arrComputations = isset($arrPost['txtjson_computations']) ? fixArray($arrPost['txtjson_computations']) : array();
+		$process_data = isset($arrPost['txtprocess']) ? fixArray($arrPost['txtprocess']) : array();
+		$arrEmployees = isset($arrPost['txtjson']) ? fixArray($arrPost['txtjson']) : array();
+		$arrEmployees = array_column($arrEmployees,'emp_detail');
+		$benefits = isset($arrPost['chkbenefit']) ? fixArray($arrPost['chkbenefit']) : array();
+		$bonus = isset($arrPost['chkbonus']) ? fixArray($arrPost['chkbonus']) : array();
+		$loans = isset($arrPost['chkloan']) ? fixArray($arrPost['chkloan']) : array();
+		$process_exist = $this->Payroll_process_model->get_payroll_process($process_data['mon'],$process_data['yr'],$process_data['selemployment']);
+
+		$process_code = array();
+		if(isset($arrPost['chksalary'])):
+			if($arrPost['chksalary'] != '') { array_push($process_code,'SALARY'); }
 		endif;
-		if(isset($arrPost['txtprocess'])):
-			$process_data = json_decode($arrPost['txtprocess'],true);
-		else:
-			$process_data = $arrPost['txtprocess'];
+		if(isset($arrPost['chkbenefit'])):
+			if($arrPost['chkbenefit'] != ''):
+				# check if salary exists in process
+				if(in_array('SALARY',array_column($process_exist,'processCode'))):
+					array_push($process_code,'BENEFITS');
+				endif;
+			endif;
 		endif;
-		if(gettype($arrPost['chkbenefit']) == 'string'):
-			$benefits = json_decode($arrPost['chkbenefit'],true);
-		else:
-			$benefits = $arrPost['chkbenefit'];
+		if(isset($arrPost['chkbonus'])):
+			if($arrPost['chkbonus'] != '') { array_push($process_code,'BONUS'); }
 		endif;
-		print_r($benefits);
-		echo '<br><br>';
-		echo 'table process<br>';
-		$arrData_process = array('employeeAppoint' => $process_data['selemployment'],
-								 'empNumber' 	   => $this->session->userdata('sessEmpNo'),
-								 'processDate'	   => date('Y-m-d'),
-								 'processMonth'    => date('n'),
-								 'processYear'     => date('Y'),
-								 'processCode'     => '',
-								 'payrollGroupCode'=> '',
-								 'salarySchedule'  => '',
-								 'period' 		   => '',
-								 'publish' 		   => 0);
-		# insert process; tablename : tblProcess
-		print_r($arrData_process);
-		// foreach($arrEmployees as $employee):
-		echo '<hr>';
-		# insert deductionremit ; tablename : tblempdeductionremit
-		# insert income; tablename : tblempincome
-		# insert netpay; tablename: tblempnetpay
+		if(isset($arrPost['chkincome'])):
+			if($arrPost['chkincome'] != '') { array_push($process_code,'ADDITIONAL'); }
+		endif;
+
+		$salary_schedule = $this->Deduction_model->getAgencyDeductionShare();
+		$period = $process_data['selemployment'] == 'P' ? 4 : $process_data['period'];
+		$arrProcess_id = array();
+		foreach($process_code as $pcode):
+			$arrData_process = array('employeeAppoint' => $process_data['selemployment'],
+									 'empNumber' 	   => $this->session->userdata('sessEmpNo'),
+									 'processDate'	   => date('Y-m-d'),
+									 'processMonth'    => $process_data['mon'],
+									 'processYear'     => $process_data['yr'],
+									 'processCode'     => $pcode,
+									 // 'payrollGroupCode'=> '',
+									 'salarySchedule'  => $salary_schedule['salarySchedule'],
+									 'period' 		   => $period,
+									 'publish' 		   => 0);
+			# insert process; tablename : tblProcess
+			$proc_id = ''; # function for insert here
+			$arrProcess_id[] = array('proc_id' => $proc_id, 'code' => $pcode);
+			// print_r($arrData_process);
+		endforeach;
+
+		foreach($arrEmployees as $emp):
+			print_r($emp);
+			# foreach payroll process
+			foreach($arrProcess_id as $processid):
+				if($processid['code'] == 'SALARY'):
+					// echo 'SALARY<br>';
+					// echo 'insert to tblempincome<br>';
+					# get salary from tblEmpBenefits
+					$emp_income = $this->Income_model->get_employee_income($emp['empNumber'],array('SALARY'));
+					// print_r($emp_income);
+					# insert income; tablename : tblempincome
+					$arrData_empincome = array('processID' 		 => $processid['proc_id'],
+											   'empNumber' 		 => $emp['empNumber'],
+											   'incomeCode' 	 => $processid['code'],
+											   'incomeYear' 	 => $process_data['yr'],
+											   'incomeMonth' 	 => $process_data['mon'],
+											   'actualSalary' 	 => $emp['actualSalary'],
+											   'positionCode' 	 => $emp['positionCode'],
+											   'officeCode' 	 => $emp['officeCode'],
+											   'incomeAmount' 	 => $emp_income[0]['incomeAmount'],
+											   'appointmentCode' => $emp['appointmentCode'],
+											   'period1' 		 => $emp_income[0]['period1'],
+											   'period2' 		 => $emp_income[0]['period2'],
+											   'period3' 		 => $emp_income[0]['period3'],
+											   'period4' 		 => $emp_income[0]['period4']);
+					print_r($arrData_empincome);
+				elseif($processid['code'] == 'BENEFITS'):
+					echo 'insert BENEFITS<br>';
+					echo 'insert to tblempincome<br>';
+					# get benefits from tblEmpBenefits
+					$emp_benefit = $this->Income_model->get_employee_income($emp['empNumber'],fixArray($benefits),'Benefit');
+					// # insert income; tablename : tblempincome
+					foreach($emp_benefit as $emp_benefit):
+						$allperiods = array($emp_benefit['period1'],$emp_benefit['period2'],$emp_benefit['period3'],$emp_benefit['period4']);
+						if(count(array_unique($allperiods)) === 1 && end($allperiods) === 0.00):
+							$arrData_empbenefit = array('processID' 	 => $processid['proc_id'],
+													    'empNumber' 	 => $emp['empNumber'],
+													    'incomeCode' 	 => $emp_benefit['incomeCode'],
+													    'incomeYear' 	 => $process_data['yr'],
+													    'incomeMonth' 	 => $process_data['mon'],
+													    'actualSalary' 	 => $emp['actualSalary'],
+													    'positionCode' 	 => $emp['positionCode'],
+													    'officeCode' 	 => $emp['officeCode'],
+													    'incomeAmount' 	 => $emp_benefit['incomeAmount'],
+													    'appointmentCode'=> $emp['appointmentCode'],
+													    'period1' 		 => $emp_benefit['period1'],
+													    'period2' 		 => $emp_benefit['period2'],
+													    'period3' 		 => $emp_benefit['period3'],
+													    'period4' 		 => $emp_benefit['period4']);
+							print_r($arrData_empbenefit);
+						endif;
+					endforeach;
+				elseif($processid['code'] == 'BONUS'):
+					echo 'insert BONUS<br>';
+					echo 'insert to tblEmpIncome<br>';
+					# get bonus from tblEmpBenefits
+					$emp_bonus = $this->Income_model->get_employee_income($emp['empNumber'],fixArray($bonus),'Bonus');
+					// # insert income; tablename : tblempincome
+					foreach($emp_bonus as $emp_bonus):
+						$arrData_empbonus = array('processID' 	 => $processid['proc_id'],
+												  'empNumber' 	 => $emp['empNumber'],
+												  'incomeCode' 	 => $emp_bonus['incomeCode'],
+												  'incomeYear' 	 => $process_data['yr'],
+												  'incomeMonth'  => $process_data['mon'],
+												  'actualSalary' => $emp['actualSalary'],
+												  'positionCode' => $emp['positionCode'],
+												  'officeCode' 	 => $emp['officeCode'],
+												  'incomeAmount' => $emp_bonus['incomeAmount'],
+												  'appointmentCode'=> $emp['appointmentCode'],
+												  'period1' 	 => $emp_bonus['period1'],
+												  'period2' 	 => $emp_bonus['period2'],
+												  'period3' 	 => $emp_bonus['period3'],
+												  'period4' 	 => $emp_bonus['period4']);
+						print_r($arrData_empbonus);
+					endforeach;
+				else:
+					# ADDITIONAL
+					echo 'insert ADDITIONAL<br>';
+					echo 'insert to tblEmpIncome<br>';
+					# get bonus from tblEmpBenefits
+					$emp_addtl = $this->Income_model->get_employee_income($emp['empNumber'],fixArray($bonus),'Others');
+					// # insert income; tablename : tblempincome
+					foreach($emp_addtl as $emp_addtl):
+						$arrData_empbonus = array('processID' 	 => $processid['proc_id'],
+												  'empNumber' 	 => $emp['empNumber'],
+												  'incomeCode' 	 => $emp_addtl['incomeCode'],
+												  'incomeYear' 	 => $process_data['yr'],
+												  'incomeMonth'  => $process_data['mon'],
+												  'actualSalary' => $emp['actualSalary'],
+												  'positionCode' => $emp['positionCode'],
+												  'officeCode' 	 => $emp['officeCode'],
+												  'incomeAmount' => $emp_addtl['incomeAmount'],
+												  'appointmentCode'=> $emp['appointmentCode'],
+												  'period1' 	 => $emp_addtl['period1'],
+												  'period2' 	 => $emp_addtl['period2'],
+												  'period3' 	 => $emp_addtl['period3'],
+												  'period4' 	 => $emp_addtl['period4']);
+						print_r($arrData_empbonus);
+					endforeach;
+				endif;
+
+				# insert deductions - Loans; tablename : tblEmpDeductionRemit
+				$empLoans = $this->Income_model->get_employee_deductions($emp['empNumber'],$loans,'Loan');
+				echo 'insert INSERT LOAN<br>';
+				echo 'insert to tblEmpDeductionRemit<br>';
+				foreach($empLoans as $loan):
+					$arrData_loan = array('processID'	 => $processid['proc_id'],
+										  'code'		 => $loan['deductCode'],
+										  'empNumber'	 => $emp['empNumber'],
+										  'deductionCode'=> $loan['deductionCode'],
+										  'deductAmount' => $loan['amountGranted'],
+										  'period1'		 => $loan['period1'],
+										  'period2'		 => $loan['period2'],
+										  'period3'		 => $loan['period3'],
+										  'period4'		 => $loan['period4'],
+										  'deductMonth'	 => $process_data['mon'],
+										  'deductYear'	 => $process_data['yr'],
+										  'appointmentCode'	=> $emp['appointmentCode']);
+					print_r($arrData_loan);
+				endforeach;
+				# taxes in benefits
+				# LONGI - LPTAX; tablename: tblEmpDeductionRemit
+				if(in_array('LONGI',$benefits)):
+					$lp_tax = $this->Income_model->get_employee_deductions($emp['empNumber'],array('LPTAX'),'Regular');
+					$arrData_lptax = array('processID'	 => $processid['proc_id'],
+										  'code'		 => $lp_tax[0]['deductCode'],
+										  'empNumber'	 => $emp['empNumber'],
+										  'deductionCode'=> $lp_tax[0]['deductionCode'],
+										  'deductAmount' => $lp_tax[0]['amountGranted'],
+										  'period1'		 => $lp_tax[0]['period1'],
+										  'period2'		 => $lp_tax[0]['period2'],
+										  'period3'		 => $lp_tax[0]['period3'],
+										  'period4'		 => $lp_tax[0]['period4'],
+										  'deductMonth'	 => $process_data['mon'],
+										  'deductYear'	 => $process_data['yr'],
+										  'appointmentCode'	=> $emp['appointmentCode']);
+					print_r($arrData_lptax);
+				endif;
+				# HAZARD - LPTAX; tablename: tblEmpDeductionRemit
+				if(in_array('HAZARD',$benefits)):
+					$hp_tax = $this->Income_model->get_employee_deductions($emp['empNumber'],array('HPTAX'),'Regular');
+					$arrData_hptax = array('processID'	 => $processid['proc_id'],
+										  'code'		 => $hp_tax[0]['deductCode'],
+										  'empNumber'	 => $emp['empNumber'],
+										  'deductionCode'=> $hp_tax[0]['deductionCode'],
+										  'deductAmount' => $hp_tax[0]['amountGranted'],
+										  'period1'		 => $hp_tax[0]['period1'],
+										  'period2'		 => $hp_tax[0]['period2'],
+										  'period3'		 => $hp_tax[0]['period3'],
+										  'period4'		 => $hp_tax[0]['period4'],
+										  'deductMonth'	 => $process_data['mon'],
+										  'deductYear'	 => $process_data['yr'],
+										  'appointmentCode'	=> $emp['appointmentCode']);
+					print_r($arrData_hptax);
+				endif;
+				# OT; tablename: tblEmpDeductionRemit
+				if(in_array('OT',$benefits) && $processid['code'] != 'SALARY'):
+					$hp_tax = $this->Income_model->get_employee_deductions($emp['empNumber'],array(),'ot');
+					$arrData_ot = array('processID'	 => $processid['proc_id'],
+										  'code'		 => $hp_tax[0]['deductCode'],
+										  'empNumber'	 => $emp['empNumber'],
+										  'deductionCode'=> $hp_tax[0]['deductionCode'],
+										  'deductAmount' => $hp_tax[0]['amountGranted'],
+										  'period1'		 => $hp_tax[0]['period1'],
+										  'period2'		 => $hp_tax[0]['period2'],
+										  'period3'		 => $hp_tax[0]['period3'],
+										  'period4'		 => $hp_tax[0]['period4'],
+										  'deductMonth'	 => $process_data['mon'],
+										  'deductYear'	 => $process_data['yr'],
+										  'appointmentCode'	=> $emp['appointmentCode']);
+					print_r($arrData_ot);
+				endif;
+				# Other Deductions; tablename: tblEmpDeductionRemit
+				if(isset($arrPost['chkothrs'])):
+					$others_deductions = $this->Income_model->get_employee_deductions($emp['empNumber'],fixArray($arrPost['chkothrs']),'Others');
+					foreach($others_deductions as $oth_d):
+						$arrData_others = array('processID'	 => $processid['proc_id'],
+											  'code'		 => $oth_d[0]['deductCode'],
+											  'empNumber'	 => $emp['empNumber'],
+											  'deductionCode'=> $oth_d[0]['deductionCode'],
+											  'deductAmount' => $oth_d[0]['amountGranted'],
+											  'period1'		 => $oth_d[0]['period1'],
+											  'period2'		 => $oth_d[0]['period2'],
+											  'period3'		 => $oth_d[0]['period3'],
+											  'period4'		 => $oth_d[0]['period4'],
+											  'deductMonth'	 => $process_data['mon'],
+											  'deductYear'	 => $process_data['yr'],
+											  'appointmentCode'	=> $emp['appointmentCode']);
+						print_r($arrData_others);
+					endforeach;
+				endif;
+
+				# Contributions; tablename: tblEmpDeductionRemit
+				// TODO::
+				$check_deductions = $this->Income_model->check_empdeductions($process_data['mon'],$process_data['yr'],$emp['appointmentCode']);
+				if(count($check_deductions) > 0):
+					$contri_deductions = $this->Income_model->get_employee_deductions($emp['empNumber'],array(),'Contribution');
+					foreach($contri_deductions as $oth_d):
+						$arrData_others = array('processID'	 => $processid['proc_id'],
+											  'code'		 => $oth_d[0]['deductCode'],
+											  'empNumber'	 => $emp['empNumber'],
+											  'deductionCode'=> $oth_d[0]['deductionCode'],
+											  'deductAmount' => $oth_d[0]['amountGranted'],
+											  'period1'		 => $oth_d[0]['period1'],
+											  'period2'		 => $oth_d[0]['period2'],
+											  'period3'		 => $oth_d[0]['period3'],
+											  'period4'		 => $oth_d[0]['period4'],
+											  'deductMonth'	 => $process_data['mon'],
+											  'deductYear'	 => $process_data['yr'],
+											  'appointmentCode'	=> $emp['appointmentCode']);
+						print_r($arrData_others);
+					endforeach;
+				endif;
+
+
+			endforeach;
+			echo '<hr>';
+		endforeach;
+		
 	}
 
 	public function update_or()

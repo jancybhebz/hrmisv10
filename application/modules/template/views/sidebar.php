@@ -521,7 +521,7 @@ $activetab = strtolower($activetab);
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-layers"></i>
-                    <span class="title">FAQ</span>
+                    <span class="title">FAQs</span>
                     <span class="arrow"></span>
                 </a>
             </li>

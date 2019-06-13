@@ -1,5 +1,4 @@
 <?=form_open('finance/payroll_update/complete_process_perm', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmdeductions'))?>
-<input type="text" name="chkbenefit" value='<?=gettype($_POST['chkbenefit']) == 'string' ? $_POST['chkbenefit'] : json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
         <h3 class="block">Select Benefits</h3>
@@ -73,6 +72,11 @@
             </div>
             <pre><?php print_r($arrEmployees) ?></pre>
             <textarea id="txtjson" name="txtjson"><?=fixJson($arrEmployees)?></textarea>
+            <input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
+            <input type="text" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
+            <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
+            <input type="text" name="chkincome" value='<?=isset($_POST['chkincome']) ? fixJson($_POST['chkincome']) : ''?>'>
+            <textarea name="txtjson_computations"><?=isset($_POST['txtjson_computations']) ? fixJson($_POST['txtjson_computations']) : ''?></textarea>
         </div>
     </div>
 </div>

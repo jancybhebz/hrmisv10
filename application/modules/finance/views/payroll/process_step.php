@@ -39,7 +39,7 @@
                                     case 'process':
                                         echo 'STEP 1 OF 4';
                                         break;
-                                    case 'select_benefits':
+                                    case 'select_benefits_perm':
                                         echo 'STEP 2 OF 4';
                                         break;
                                     case 'compute_benefits_perm':
@@ -69,7 +69,7 @@
                                         <i class="fa fa-check"></i> Payroll Period </span>
                                 </a>
                             </li>
-                            <li class="<?=in_array($page,array('select_benefits','compute_benefits_perm','save_benefits_perm'))?'active':''?>">
+                            <li class="<?=in_array($page,array('select_benefits_perm','compute_benefits_perm','save_benefits_perm'))?'active':''?>">
                                 <a href="#tab2" data-toggle="tab" class="step">
                                     <span class="number"> 2 </span><br>
                                     <span class="desc">
@@ -100,8 +100,8 @@
                                 case 'process':
                                     $this->load->view('process/_step1-payroll_period');
                                     break;
-                                case 'select_benefits':
-                                    $this->load->view('process/_step2-select_benefits');
+                                case 'select_benefits_perm':
+                                    $this->load->view('process/_step2-select_benefits_perm');
                                     break;
                                 case 'compute_benefits_perm':
                                 case 'save_benefits_perm':

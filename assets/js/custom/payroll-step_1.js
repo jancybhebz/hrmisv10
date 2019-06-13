@@ -61,7 +61,7 @@ $(document).ready(function() {
             $('.div-datause').hide();
             $('.div-date').show();
         }else{
-            $('#frmprocess').attr('action', 'select_benefits');
+            $('#frmprocess').attr('action', 'select_benefits_perm');
             $('.div-datause').show();
             $('.div-date').hide();
         }

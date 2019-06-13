@@ -41,8 +41,11 @@ class Payroll_process_model extends CI_Model {
 		return $process;
 	}
 
-	function get_payroll_process($month,$yr)
+	function get_payroll_process($month,$yr,$appt='')
 	{
+		if($appt!=''):
+			$this->db->where('employeeAppoint',$appt);
+		endif;
 		$process = $this->db->get_where('tblProcess',array('processMonth' => ltrim($month,'0'), 'processYear' => $yr))->result_array();
 		return $process;
 	}
@@ -104,7 +107,8 @@ class Payroll_process_model extends CI_Model {
 			# Employees
 			$this->db->select("tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,
 							    tblEmpPosition.authorizeSalary,tblEmpPosition.actualSalary,tblEmpPosition.hpFactor,tblEmpPosition.RATACode,tblEmpPosition.RATAVehicle,
-							    tblEmpPosition.schemeCode");
+							    tblEmpPosition.schemeCode,tblEmpPosition.payrollSwitch,tblEmpPosition.positionCode,tblEmpPosition.positionCode,tblEmpPosition.appointmentCode,
+							    tblEmpPosition.officeCode");
 			$this->db->join('tblEmpPersonal', 'tblEmpPersonal.empNumber = tblEmpPosition.empNumber');
 			$this->db->where_in('appointmentCode', explode(',',$payroll_process[0]['processWith']));
 			$employees = $this->db->get_where('tblEmpPosition',$condition)->result_array();

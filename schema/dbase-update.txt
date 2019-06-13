@@ -65,6 +65,8 @@ ALTER TABLE  `tblCourse` ADD  `courseId` INT NULL FIRST , ADD UNIQUE ( `courseId
 
 ## SET INDEX in payroll processs
 ALTER TABLE  `tblPayrollProcess` ADD INDEX (  `appointmentCode` );
+ALTER TABLE  `tblPayrollProcess` ADD  `appointment_id` INT NOT NULL AUTO_INCREMENT FIRST ,
+ADD PRIMARY KEY (  `appointment_id` ) ;
 	
 ALTER TABLE  `tblEmpBenefits` ADD  `incomeYear` INT NULL AFTER  `incomeMonth`;
 

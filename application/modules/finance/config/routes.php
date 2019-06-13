@@ -51,7 +51,7 @@ $route['finance/reports/loanbalance'] = 'finance/reports/LoanBalanceReports';
 
 # UPDATE
 $route['finance/payroll_update/process'] = 'finance/payroll_update/payrollupdate/index';
-$route['finance/payroll_update/select_benefits'] = 'finance/payroll_update/payrollupdate/select_benefits';
+$route['finance/payroll_update/select_benefits_perm'] = 'finance/payroll_update/payrollupdate/select_benefits_perm';
 $route['finance/payroll_update/compute_benefits_perm'] = 'finance/payroll_update/payrollupdate/compute_benefits_perm';
 $route['finance/payroll_update/save_benefits_perm'] = 'finance/payroll_update/payrollupdate/save_benefits_perm';
 $route['finance/payroll_update/select_deductions_perm'] = 'finance/payroll_update/payrollupdate/select_deductions_perm';
