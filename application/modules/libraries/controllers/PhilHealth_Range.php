@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PhilHealth_Range extends MY_Controller {
+class Philhealth_range extends MY_Controller {
 
 	var $arrData;
 
