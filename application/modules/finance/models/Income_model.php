@@ -76,6 +76,52 @@ class Income_model extends CI_Model {
 		$res = $this->db->get_where('tblEmpBenefits',array('empNumber' => $empnumber, 'incomeMonth' => $income_data[0]['incomeMonth'], 'incomeYear' => $income_data[0]['incomeYear']))->result_array();
 		return $res;
 	}
+
+	function get_employee_income($empnumber,$income_code,$type='')
+	{
+		if($type!=''):
+			if($type=='Others'):
+				$this->db->where("(tblIncome.incomeType='Monthly' OR tblIncome.incomeType='Additional')");
+			else:
+				$this->db->where('incomeType',$type);
+			endif;
+		endif;
+		$this->db->join('tblIncome', 'tblIncome.incomeCode = tblEmpBenefits.incomeCode', 'left');
+		$this->db->where_in('tblEmpBenefits.incomeCode',$income_code);
+		$res = $this->db->get_where('tblEmpBenefits',array('empNumber' => $empnumber,'status' => 1))->result_array();
+
+		return $res;
+	}
+
+	function get_employee_deductions($empnumber,$deduct_code,$type='')
+	{
+		if($type!=''):
+			if($type=='ot'):
+				$this->db->where('tblDeduction.deductionType','Regular');
+				$this->db->where("(tblEmpDeductions.deductionCode!='LIFE' AND tblEmpDeductions.deductionCode!='PHILHEALTH' AND tblEmpDeductions.deductionCode!='PAGIBIG' AND tblEmpDeductions.deductionCode!='LPTAX' AND tblEmpDeductions.deductionCode!='HPTAX')");
+			else:
+				$this->db->where('tblDeduction.deductionType',$type);
+				if(count($deduct_code) > 0){
+					$this->db->where_in('tblEmpDeductions.deductionCode',$deduct_code);
+				}
+			endif;
+		endif;
+		$this->db->join('tblDeduction', 'tblEmpDeductions.deductionCode = tblDeduction.deductionCode', 'left');
+		$res = $this->db->get_where('tblEmpDeductions',array('empNumber' => $empnumber,'status' => 1))->result_array();
+
+		return $res;
+	}
+
+	function check_empdeductions($mon,$yr,$appt)
+	{
+		$res = $this->db->distinct()->select('tblEmpDeductionRemit.deductionCode')
+						->join('tblProcess','tblProcess ON tblProcess.processID = tblEmpDeductionRemit.processID','left')
+						->get_where('tblEmpDeductionRemit', array('tblProcess.processMonth' => $mon, 'processYear' => $yr, 'employeeAppoint' => $appt))
+						->result_array();
+		return $res;
+	}
+
+
 		
 }
 /* End of file Income_model.php */

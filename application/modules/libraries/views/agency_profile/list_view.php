@@ -23,7 +23,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Agency Profile</span>
+            <span>Agency Information</span>
         </li>
     </ul>
 </div>

@@ -66,7 +66,7 @@ class Benefit_model extends CI_Model {
 			endif;
 			
 			$this->db->where('empNumber', $empno);
-			$this->db->where_in('incomeCode', array('HAZARD','LAUNDRY','SUBSIS','LONGI','TA','RA'));
+			$this->db->where_in('incomeCode', array('SALARY'));
 			$this->db->delete('tblEmpBenefits');
 		endforeach;
 	}

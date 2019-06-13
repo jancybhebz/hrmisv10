@@ -13,7 +13,6 @@
                 For: <b><?=$_POST['selemployment']?></b>
             </small>
         </div>
-        <pre><?php #print_r($process) ?>
         <div class="portlet-body">
             <!-- Monthly Benefits -->
             <div class="row" id="row-benefit">
@@ -24,36 +23,25 @@
                             <input type="checkbox" class="chkbenefit" name="chksalary" value="psalary" <?=in_array('SALARY',array_column($process,'processCode'))?'':'checked'?>>
                             Monthly Salary
                         </label>
-                        <?php
-                            $key_salary = array_search('SALARY', array_column($process, 'processCode'));
-                            if(is_numeric($key_salary)):
-                                $salary = $process[$key_salary];
-                                print_r($salary);
-                            endif;
-                            
-                            foreach($arrBenefit as $benefit):
-                                $benefit_hide = '';
-                                
-                            ?>
-                            <label class="checkbox col-md-3">
-                                <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>"
-                                    <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> <?=ucwords($benefit['incomeDesc'])?>
-                            </label>
+                        <?php foreach($arrBenefit as $benefit):?>
+                                <label class="checkbox col-md-3">
+                                    <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>"
+                                        <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> <?=ucwords($benefit['incomeDesc'])?>
+                                </label>
                         <?php endforeach; ?>
                     </div>
                 </div>
             </div>
             <hr id="row-benefit" />
-            </pre>
             <!-- Bonus -->
             <div class="row" id="row-bonus">
                 <div class="col-md-11" style="margin-left: 40px;">
                     <label class="checkbox"><input type="checkbox" id="chkall-bonus" value="chkall"> Check All </label>
                     <div class="portlet-body" id="div-bonus">
                         <?php foreach($arrBonus as $bonus): ?>
-                            <label class="checkbox col-md-3">
-                                <input type="checkbox" class="chkbonus" name="chkbonus[]" value="<?=$bonus['incomeCode']?>"> <?=ucwords($bonus['incomeDesc'])?>
-                            </label>
+                                <label class="checkbox col-md-3">
+                                    <input type="checkbox" class="chkbonus" name="chkbonus[]" value="<?=$bonus['incomeCode']?>"> <?=ucwords($bonus['incomeDesc'])?>
+                                </label>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -66,9 +54,9 @@
                     <label class="checkbox"><input type="checkbox" id="chkall-income" value="chkall"> Check All </label>
                     <div class="portlet-body" id="div-income">
                         <?php foreach($arrIncome as $income): ?>
-                            <label class="checkbox col-md-3">
-                                <input type="checkbox" name="chkincome[]" class="chkincome" value="<?=$income['incomeCode']?>"> <?=ucwords($income['incomeDesc'])?>
-                            </label>
+                                <label class="checkbox col-md-3">
+                                    <input type="checkbox" name="chkincome[]" class="chkincome" value="<?=$income['incomeCode']?>"> <?=ucwords($income['incomeDesc'])?>
+                                </label>
                         <?php endforeach; ?>
                     </div>
                 </div>
