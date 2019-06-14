@@ -1,4 +1,4 @@
-<?=form_open('finance/payroll_update/compute_benefits_perm', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
+<?=form_open($_POST['selemployment'] == 'P' ? 'finance/payroll_update/compute_benefits_perm' : 'finance/payroll_update/computation_nonperm', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
