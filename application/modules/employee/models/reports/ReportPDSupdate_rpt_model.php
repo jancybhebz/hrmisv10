@@ -305,12 +305,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',6);
 				$this->fpdf->Cell(55,$InterLigne,"23.   NAME of CHILDREN  (Write full name and list all)",1,0,'L',1);
 
-				if($row['empNumber']!="" && $row['empNumber']!="undefined")
-					$whereChild = " AND empNumber='".$row['empNumber']."'";
-				else
-					$whereChild = "";
-				$SQL = "SELECT childName,childBirthDate FROM tblEmpChild 
-				WHERE 1=1 $whereChild ORDER BY childBirthDate ASC";
+				// if($row['empNumber']!="" && $row['empNumber']!="undefined")
+				// 	$whereChild = " AND empNumber='".$row['empNumber']."'";
+				// else
+				// 	$whereChild = "";
+				// $SQL = "SELECT childName,childBirthDate FROM tblEmpChild 
+				// WHERE 1=1 $whereChild ORDER BY childBirthDate ASC";
 				
 				// $cn= new MySQLHandler2;
 				// $cn->init();
@@ -342,10 +342,10 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);  
 				$this->fpdf->Cell(70,$InterLigne,$row['spouseMiddlename'],'TBRL',0,'L');
 				$this->fpdf->Cell(55,$InterLigne,"",'TBRL',0,'C');//1st child
-				$row2 = '';
-				if($row2['childBirthDate']!='0000-00-00' && $row2['childBirthDate']!='')
-					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($row2['childBirthDate'])),1,0,C);//1st child bday
-				else
+				// $row2 = '';
+				// if($row2['childBirthDate']!='0000-00-00' && $row2['childBirthDate']!='')
+				// 	$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($row2['childBirthDate'])),1,0,C);//1st child bday
+				// else
 					$this->fpdf->Cell(0,$InterLigne,'',1,0,'C');
 				$this->fpdf->Ln(6);
 					// occupation
@@ -564,7 +564,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,4,"CS FORM 212 (Revised 2017), Page 1 of 4",1,0,'R');
 				$this->fpdf->Ln(50);
 
-				$this->fpdf->AddPage();
+				$this->fpdf->AddPage('P','','Legal');
 				//  CIVIL SERVICE ELIGIBILITY
 				$this->fpdf->SetFont('Arial','IB',9);
 				$this->fpdf->Cell(0,$InterLigne,"IV. CIVIL SERVICE ELIGIBILITY",1,0,'L',1);
@@ -739,7 +739,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,4,"CS FORM 212 (Revised 2017), Page 2 of 4",1,0,'R');
 				$this->fpdf->Ln(50);
 
-				$this->fpdf->AddPage();
+				$this->fpdf->AddPage('P','','Legal');
 				//  VOLUNTARY WORK (Colors of frame, background and text)
 				$this->fpdf->SetFont('Arial','IB',9);
 				$this->fpdf->SetFillColor(200,200,200);
@@ -941,7 +941,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,4,"CS FORM 212 (Revised 2017), Page 3 of 4",1,0,'R');
 				$this->fpdf->Ln(50);
 
-				$this->fpdf->AddPage();
+				$this->fpdf->AddPage('P','','Legal');
 				//end page
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->SetFillColor(225,225,225);
@@ -965,24 +965,24 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(144,$InterLigne,"a.  within the third degree?",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"",'LR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne,"",'LR',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['relatedThird'] == "Y")
-				// 	{$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');}
-				// if ($row[$i]['relatedThird']== "N")	
-				// 	{$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LR,0,L);}
-				// if ($row[$i]['relatedThird'] != "N" && $row[$i]['relatedThird'] != "Y")
-				// 	{$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LR,0,L);}
+				if ($row['relatedThird'] == "Y")
+					{$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');}
+				if ($row['relatedThird']== "N")	
+					{$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LR',0,'L');}
+				if ($row['relatedThird'] != "N" && $row['relatedThird'] != "Y")
+					{$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LR',0,'L');}
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(144,$InterLigne,"b.  within the fourth degree (for Local Government Unit - Career Employees)?",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['relatedThird'] == "Y")
-				// 	{$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');}
-				// if ($row[$i]['relatedThird']== "N")
-				// 	{$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LR,0,L);}
-				// if ($row[$i]['relatedThird'] != "N" && $row[$i]['relatedThird'] != "Y")
+				if ($row['relatedThird'] == "Y")
+					{$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');}
+				if ($row['relatedThird']== "N")
+					{$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LR',0,'L');}
+				if ($row['relatedThird'] != "N" && $row['relatedThird'] != "Y")
 					{$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LR',0,'L');}
 				
 				$this->fpdf->Ln(4);
@@ -993,16 +993,16 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,$InterLigne,"If YES, give details:",'LR',0,'L');
 				$this->fpdf->Ln();
 
-				// if(strlen($row[$i]['relatedDegreeParticularsThird'])>38 && $row[$i]['relatedThird']=="Y")
-				// 	{
-				// 	$t_relatedThirdDegreeParticular = substr($row[$i]['relatedDegreeParticularsThird'],0,38);
-				// 	$t_relatedThirdDegreeParticular2 = substr($row[$i]['relatedDegreeParticularsThird'],38,38);
-				// 	$t_relatedThirdDegreeParticular3 = substr($row[$i]['relatedDegreeParticularsThird'],76,38);
-				// 	}
-				// else if($row[$i]['relatedThird']=="N")
-				// 	$t_relatedThirdDegreeParticular = "";
-				// else
-				// 	$t_relatedThirdDegreeParticular = $row[$i]['relatedDegreeParticularsThird']	;
+				if(strlen($row['relatedDegreeParticularsThird'])>38 && $row['relatedThird']=="Y")
+					{
+					$t_relatedThirdDegreeParticular = substr($row['relatedDegreeParticularsThird'],0,38);
+					$t_relatedThirdDegreeParticular2 = substr($row['relatedDegreeParticularsThird'],38,38);
+					$t_relatedThirdDegreeParticular3 = substr($row['relatedDegreeParticularsThird'],76,38);
+					}
+				else if($row['relatedThird']=="N")
+					$t_relatedThirdDegreeParticular = "";
+				else
+					$t_relatedThirdDegreeParticular = $row['relatedDegreeParticularsThird']	;
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'L',1);
@@ -1017,14 +1017,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				//35
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(144,$InterLigne,"35. a. Have you ever been found guilty of any administrative offense?",'LTR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"",'LTR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne,"",'LTR',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['formallyCharged'] == "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LTR,0,L);
-				// if ($row[$i]['formallyCharged'] == "N")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LTR,0,L);
-				// if ($row[$i]['formallyCharged'] != "N" && $row[$i]['formallyCharged'] != "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LTR,0,L);		
+				if ($row['formallyCharged'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LTR',0,'L');
+				if ($row['formallyCharged'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LTR',0,'L');
+				if ($row['formallyCharged'] != "N" && $row['formallyCharged'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LTR',0,'L');		
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',8);
@@ -1033,16 +1033,16 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,$InterLigne,"If YES, give details:",'LR',0,'L');
 				$this->fpdf->Ln();
 
-				// if(strlen($row[$i]['relatedDegreeParticulars'])>38 && $row[$i]['formallyCharged']=="Y")
-				// 	{
-				// 	$t_strformallyChargedParticulars = substr($row[$i]['formallyChargedParticulars'],0,38);
-				// 	$t_strformallyChargedParticulars2 = substr($row[$i]['formallyChargedParticulars'],38,38);
-				// 	$t_strformallyChargedParticulars3 = substr($row[$i]['formallyChargedParticulars'],76,38);
-				// 	}
-				// else if($row[$i]['formallyCharged']=="N")
-				// 	$t_strformallyChargedParticulars = "";
-				// else
-				// 	$t_strformallyChargedParticulars = $row[$i]['formallyChargedParticulars'];
+				if(strlen($row['relatedDegreeParticulars'])>38 && $row['formallyCharged']=="Y")
+					{
+					$t_strformallyChargedParticulars = substr($row['formallyChargedParticulars'],0,38);
+					$t_strformallyChargedParticulars2 = substr($row['formallyChargedParticulars'],38,38);
+					$t_strformallyChargedParticulars3 = substr($row['formallyChargedParticulars'],76,38);
+					}
+				else if($row['formallyCharged']=="N")
+					$t_strformallyChargedParticulars = "";
+				else
+					$t_strformallyChargedParticulars = $row['formallyChargedParticulars'];
 				
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'C',1);
@@ -1058,14 +1058,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->SetFillColor(225,225,225);
 				$this->fpdf->Cell(144,$InterLigne,"      b. Have you been criminally charged before any court? ",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"  ",'LR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne,"  ",'LR',0,'L');
 				$this->fpdf->SetFont('Arial','',9); 
-				// if ($row[$i]['adminCase'] == "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LR,0,L);
-				// if ($row[$i]['adminCase'] == "N")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LR,0,L);
-				// if ($row[$i]['adminCase'] != "N" && $row[$i]['adminCase'] != "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LR,0,L);
+				if ($row['adminCase'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');
+				if ($row['adminCase'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LR',0,'L');
+				if ($row['adminCase'] != "N" && $row['adminCase'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LR',0,'L');
 
 				$this->fpdf->Ln();
 
@@ -1074,16 +1074,16 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(0,$InterLigne,"If YES, give details:",'LR',0,'L');
 				$this->fpdf->Ln();
-				// if(strlen($row[$i]['adminCaseParticulars'])>38 && $row[$i]['adminCase']=="Y")
-				// 	{
-				// 	$t_stradminCaseParticulars = substr($row[$i]['adminCaseParticulars'],0,38);
-				// 	$t_stradminCaseParticulars2 = substr($row[$i]['adminCaseParticulars'],38,38);
-				// 	$t_stradminCaseParticulars3 = substr($row[$i]['adminCaseParticulars'],76,38);
-				// 	}
-				// else if($row[$i]['adminCase']=="N")
-				// 	$t_stradminCaseParticulars = "";
-				// else
-				// 	$t_stradminCaseParticulars = $row[$i]['adminCaseParticulars'];
+				if(strlen($row['adminCaseParticulars'])>38 && $row['adminCase']=="Y")
+					{
+					$t_stradminCaseParticulars = substr($row['adminCaseParticulars'],0,38);
+					$t_stradminCaseParticulars2 = substr($row['adminCaseParticulars'],38,38);
+					$t_stradminCaseParticulars3 = substr($row['adminCaseParticulars'],76,38);
+					}
+				else if($row['adminCase']=="N")
+					$t_stradminCaseParticulars = "";
+				else
+					$t_stradminCaseParticulars = $row[$i]['adminCaseParticulars'];
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'C',1);
 				$this->fpdf->SetFont('Arial','',8);
@@ -1118,14 +1118,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->SetFillColor(225,225,225);
 				$this->fpdf->Cell(144,$InterLigne,"36.  Have you ever been convicted of any crime or violation of any law, decree, ordinance or ",'LTR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"",'LTR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne,"",'LTR',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['violateLaw'] == "Y")
-				// 	$this->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LTR,0,L);
-				// if ($row[$i]['violateLaw'] == "N")
-				// 	$this->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LTR,0,L);
-				// if ($row[$i]['violateLaw'] != "N" && $row[$i]['violateLaw'] != "Y")
-				// 	$this->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LTR,0,L);
+				if ($row['violateLaw'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LTR',0,'L');
+				if ($row['violateLaw'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LTR',0,'L');
+				if ($row['violateLaw'] != "N" && $row['violateLaw'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LTR',0,'L');
 
 				$this->fpdf->Ln();
 
@@ -1134,16 +1134,16 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(0,$InterLigne,"If YES , give details:",'LR',0,'L');
 				$this->fpdf->Ln();
-				// if(strlen($row[$i]['violateLawParticulars'])>38 && $row[$i]['violateLaw']=="Y")
-				// 	{
-				// 	$t_strviolateLawParticulars = substr($row[$i]['violateLawParticulars'],0,38);
-				// 	$t_strviolateLawParticulars2 = substr($row[$i]['violateLawParticulars'],38,38);
-				// 	$t_strviolateLawParticulars3 = substr($row[$i]['violateLawParticulars'],76,38);
-				// 	}
-				// else if($row[$i]['violateLaw']=="N")
-				// 	$t_strviolateLawParticulars = "";
-				// else
-				// 	$t_strviolateLawParticulars = $row[$i]['violateLawParticulars'];
+				if(strlen($row['violateLawParticulars'])>38 && $row['violateLaw']=="Y")
+					{
+					$t_strviolateLawParticulars = substr($row['violateLawParticulars'],0,38);
+					$t_strviolateLawParticulars2 = substr($row['violateLawParticulars'],38,38);
+					$t_strviolateLawParticulars3 = substr($row['violateLawParticulars'],76,38);
+					}
+				else if($row['violateLaw']=="N")
+					$t_strviolateLawParticulars = "";
+				else
+					$t_strviolateLawParticulars = $row['violateLawParticulars'];
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'L',1);
@@ -1161,9 +1161,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->SetFillColor(225,225,225);
 				$this->fpdf->Cell(144,$InterLigne,"37. Have you ever been separated from the service in any of the following modes: resignation, ",'LTR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne," ",'LTR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne," ",'LTR',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// 
+				if ($row['forcedResign'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LTR',0,'L');
+				if ($row['forcedResign'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LTR',0,'L');
+				if ($row['forcedResign'] != "N" && $row['forcedResign'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LTR',0,'L');
 
 				$this->fpdf->Ln();
 
@@ -1176,16 +1181,16 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"     (abolition) in the public or private sector?",'LR',0,'L',1);
 
-				// if(strlen($row[$i]['forcedResignParticulars'])>38 && $row[$i]['forcedResign']=="Y")
-				// 	{
-				// 	$t_strforcedResignParticulars = substr($row[$i]['forcedResignParticulars'],0,38);
-				// 	$t_strforcedResignParticulars2 = substr($row[$i]['forcedResignParticulars'],38,38);
-				// 	$t_strforcedResignParticulars3 = substr($row[$i]['forcedResignParticulars'],76,38);
-				// 	}
-				// else if($row[$i]['forcedResign']=="N")
-				// 	$t_strforcedResignParticulars = "";
-				// else
-				// 	$t_strforcedResignParticulars = $row[$i]['forcedResignParticulars'];
+				if(strlen($row['forcedResignParticulars'])>38 && $row['forcedResign']=="Y")
+					{
+					$t_strforcedResignParticulars = substr($row['forcedResignParticulars'],0,38);
+					$t_strforcedResignParticulars2 = substr($row['forcedResignParticulars'],38,38);
+					$t_strforcedResignParticulars3 = substr($row['forcedResignParticulars'],76,38);
+					}
+				else if($row['forcedResign']=="N")
+					$t_strforcedResignParticulars = "";
+				else
+					$t_strforcedResignParticulars = $row[$i]['forcedResignParticulars'];
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(0,$InterLigne,"",'LBR',0,'L');
@@ -1200,14 +1205,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->SetFillColor(225,225,225);
 				$this->fpdf->Cell(144,$InterLigne,"38. a. Have you ever been a candidate in a national or local election held within the last year (except ",'LTR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne," ",'LTR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne," ",'LTR',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['candidate'] == "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LTR,0,L);
-				// if ($row[$i]['candidate'] == "N")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LTR,0,L);
-				// if ($row[$i]['candidate'] != "N" && $row[$i]['candidate'] != "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LTR,0,L);
+				if ($row['candidate'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LTR',0,'L');
+				if ($row['candidate'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LTR',0,'L');
+				if ($row['candidate'] != "N" && $row['candidate'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LTR',0,'L');
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',8);
@@ -1216,16 +1221,16 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,$InterLigne,"If YES , give details:",'LR',0,'L');
 				$this->fpdf->Ln();
 				
-				// if(strlen($row[$i]['candidateParticulars'])>38 && $row[$i]['candidate']=="Y")
-				// 	{
-				// 	$t_strcandidateParticulars = substr($row[$i]['candidateParticulars'],0,38);
-				// 	$t_strcandidateParticulars2 = substr($row[$i]['candidateParticulars'],38,38);
-				// 	$t_strcandidateParticulars3 = substr($row[$i]['candidateParticulars'],76,38);
-				// 	}
-				// else if($row[$i]['candidate']=="N")
-				// 	$t_strv = "";
-				// else
-				// 	$t_strcandidateParticulars = $row[$i]['candidateParticulars'];
+				if(strlen($row['candidateParticulars'])>38 && $row['candidate']=="Y")
+					{
+					$t_strcandidateParticulars = substr($row['candidateParticulars'],0,38);
+					$t_strcandidateParticulars2 = substr($row['candidateParticulars'],38,38);
+					$t_strcandidateParticulars3 = substr($row['candidateParticulars'],76,38);
+					}
+				else if($row['candidate']=="N")
+					$t_strv = "";
+				else
+					$t_strcandidateParticulars = $row[$i]['candidateParticulars'];
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'L',1);
@@ -1242,14 +1247,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->SetFillColor(225,225,225);
 				$this->fpdf->Cell(144,$InterLigne,"       b. Have you resigned from the government service during the three (3)-month period before the ",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"  ",'LR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne,"  ",'LR',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['campaign'] == "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LTR,0,L);
-				// if ($row[$i]['campaign'] == "N")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LTR,0,L);
-				// if ($row[$i]['campaign'] != "N" && $row[$i]['campaign'] != "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LTR,0,L);
+				if ($row['campaign'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LTR',0,'L');
+				if ($row['campaign'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LTR',0,'L');
+				if ($row['campaign'] != "N" && $row['campaign'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LTR',0,'L');
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',8);
@@ -1258,16 +1263,16 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,$InterLigne,"If YES , give details:",'LR',0,'L');
 				$this->fpdf->Ln();
 				
-				// if(strlen($row[$i]['campaignParticulars'])>38 && $row[$i]['campaign']=="Y")
-				// 	{
-				// 	$t_strcampaignParticulars = substr($row[$i]['campaignParticulars'],0,38);
-				// 	$t_strcampaignParticulars2 = substr($row[$i]['campaignParticulars'],38,38);
-				// 	$t_strcampaignParticulars3 = substr($row[$i]['campaignParticulars'],76,38);
-				// 	}
-				// else if($row[$i]['campaign']=="N")
-				// 	$t_strv = "";
-				// else
-				// 	$t_strcampaignParticulars = $row[$i]['campaignParticulars'];
+				if(strlen($row['campaignParticulars'])>38 && $row['campaign']=="Y")
+					{
+					$t_strcampaignParticulars = substr($row['campaignParticulars'],0,38);
+					$t_strcampaignParticulars2 = substr($row['campaignParticulars'],38,38);
+					$t_strcampaignParticulars3 = substr($row['campaignParticulars'],76,38);
+					}
+				else if($row['campaign']=="N")
+					$t_strv = "";
+				else
+					$t_strcampaignParticulars = $row['campaignParticulars'];
 				
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'L',1);
@@ -1284,14 +1289,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFillColor(225,225,225);
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"39. Have you acquired the status of an immigrant or permanent resident of another country?",'LTR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"",'R',0,'C');
+				// $this->fpdf->Cell(0,$InterLigne,"",'R',0,'C');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['immigrant'] == "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LTR,0,L);
-				// if ($row[$i]['immigrant'] == "N")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LTR,0,L);
-				// if ($row[$i]['immigrant'] != "N" && $row[$i]['immigrant'] != "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LTR,0,L);
+				if ($row['immigrant'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LTR',0,'L');
+				if ($row['immigrant'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LTR',0,'L');
+				if ($row['immigrant'] != "N" && $row['immigrant'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LTR',0,'L');
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',8);
@@ -1300,15 +1305,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(0,$InterLigne,"If YES, please give details (country):",'R',0,'L');
 				$this->fpdf->Ln();
 
-				// if(strlen($row[$i]['immigrantParticulars'])>16 && $row[$i]['indigenous']=="Y")
-				// 	{
-				// 	$t_strimmigrantParticulars = substr($row[$i]['immigrantParticulars'],0,16);
-					
-				// 	}
-				// else if($row[$i]['immigrant']=="N")
-				// 	$t_strimmigrantParticulars = "";
-				// else
-				// 	$t_strimmigrantParticulars = $row[$i]['immigrantParticulars'];
+				if(strlen($row['immigrantParticulars'])>16 && $row['indigenous']=="Y")
+					{
+					$t_strimmigrantParticulars = substr($row['immigrantParticulars'],0,16);
+					}
+				else if($row['immigrant']=="N")
+					$t_strimmigrantParticulars = "";
+				else
+					$t_strimmigrantParticulars = $row['immigrantParticulars'];
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'L',1);
@@ -1336,14 +1340,14 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"     a. Are you a member of any indigenous group?",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"",'R',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne,"",'R',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['indigenous'] == "Y")
-				// 	$this->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LR,0,L);
-				// if ($row[$i]['indigenous'] == "N")
-				// 	$this->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LR,0,L);
-				// if ($row[$i]['indigenous'] != "N" && $row[$i]['indigenous'] != "Y")
-				// 	$this->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LR,0,L);
+				if ($row['indigenous'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');
+				if ($row['indigenous'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LR',0,'L');
+				if ($row['indigenous'] != "N" && $row['indigenous'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LR',0,'L');
 
 				$this->fpdf->Ln();
 
@@ -1351,57 +1355,56 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'C',1);
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(35,$InterLigne,"If YES, please specify:",'L',0,'L');
-				// if(strlen($row[$i]['indigenousParticulars'])>16 && $row[$i]['indigenous']=="Y")
-				// 	{
-				// 	$t_strindigenousParticulars = substr($row[$i]['indigenousParticulars'],0,16);
-				// 	}
-				// else if($row[$i]['indigenous']=="N")
-				// 	$t_strindigenousParticulars = "";
-				// else
-				// 	$t_strindigenousParticulars = $row[$i]['indigenousParticulars'];
+				if(strlen($row['indigenousParticulars'])>16 && $row['indigenous']=="Y")
+					{
+					$t_strindigenousParticulars = substr($row['indigenousParticulars'],0,16);
+					}
+				else if($row['indigenous']=="N")
+					$t_strindigenousParticulars = "";
+				else
+					$t_strindigenousParticulars = $row['indigenousParticulars'];
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(0,$InterLigne,"",'RB',0,'L');
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"     b. Are you differently abled?",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne," ",'R',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne," ",'R',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['disabled'] == "Y")
-				// 	$this->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LR,0,L);
-				// if ($row[$i]['disabled'] == "N")
-				// 	$this->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LR,0,L);
-				// if ($row[$i]['disabled'] != "N" && $row[$i]['disabled'] != "Y")
-				// 	$this->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LR,0,L);
+				if ($row['disabled'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');
+				if ($row['disabled'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LR',0,'L');
+				if ($row['disabled'] != "N" && $row['disabled'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LR',0,'L');
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'C',1);
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(35,$InterLigne,"If YES, please specify:",'L',0,'L');
-				// if(strlen($row[$i]['disabledParticulars'])>16 && $row[$i]['disabled']=="Y")
-				// 	{
-				// 	$t_strdisabledParticulars = substr($row[$i]['disabledParticulars'],0,16);
-			
-				// 	}
-				// else if($row[$i]['disabled']=="N")
-				// 	$t_strdisabledParticulars = "";
-				// else
-				// 	$t_strdisabledParticulars = $row[$i]['disabledParticulars'];
+				if(strlen($row['disabledParticulars'])>16 && $row['disabled']=="Y")
+					{
+					$t_strdisabledParticulars = substr($row['disabledParticulars'],0,16);
+					}
+				else if($row['disabled']=="N")
+					$t_strdisabledParticulars = "";
+				else
+					$t_strdisabledParticulars = $row['disabledParticulars'];
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(0,$InterLigne,"",'BR',0,'L');
 				$this->fpdf->Ln();
 
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell(144,$InterLigne,"     c. Are you a solo parent?",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,"   ",'LR',0,'L');
+				// $this->fpdf->Cell(0,$InterLigne,"   ",'LR',0,'L');
 				$this->fpdf->SetFont('Arial','',9);
-				// if ($row[$i]['soloParent'] == "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",LR,0,L);
-				// if ($row[$i]['soloParent'] == "N")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",LR,0,L);
-				// if ($row[$i]['soloParent'] != "N" && $row[$i]['soloParent'] != "Y")
-				// 	$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",LR,0,L);
+				if ($row['soloParent'] == "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[  X  ] YES   [    ] NO",'LR',0,'L');
+				if ($row['soloParent'] == "N")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [  X  ] NO",'LR',0,'L');
+				if ($row['soloParent'] != "N" && $row['soloParent'] != "Y")
+					$this->fpdf->Cell(0,$InterLigne,"[    ] YES   [    ] NO",'LR',0,'L');
 
 				$this->fpdf->Ln();
 
@@ -1409,15 +1412,15 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell(144,$InterLigne,"",'LR',0,'C',1);
 				$this->fpdf->SetFont('Arial','',9);
 				$this->fpdf->Cell(35,$InterLigne,"If YES, please specify:",'L',0,'L');
-				// if(strlen($row[$i]['soloParentParticulars'])>16 && $row[$i]['soloParent']=="Y")
-				// 	{
-				// 	$t_strsoloParentParticulars = substr($row[$i]['soloParentParticulars'],0,16);
+				if(strlen($row['soloParentParticulars'])>16 && $row['soloParent']=="Y")
+					{
+					$t_strsoloParentParticulars = substr($row['soloParentParticulars'],0,16);
 			
-				// 	}
-				// else if($row[$i]['soloParent']=="N")
-				// 	$t_strsoloParentParticulars = "";
-				// else
-				// 	$t_strsoloParentParticulars = $row[$i]['soloParentParticulars'];
+					}
+				else if($row['soloParent']=="N")
+					$t_strsoloParentParticulars = "";
+				else
+					$t_strsoloParentParticulars = $row['soloParentParticulars'];
 				$this->fpdf->SetFont('Arial','',8);		
 				$this->fpdf->Cell(0,$InterLigne,"",'RB',0,'L');
 				$this->fpdf->Ln();
@@ -1462,7 +1465,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					$this->fpdf->Cell($w[1],$InterLigne,"",1,0,'L');
 					$this->fpdf->Cell($w[2],$InterLigne,"",1,0,'C');
 					$this->fpdf->Cell($w[3],$InterLigne,"",'LR','C');
-				// 	$this->fpdf->setFont('Arial','',6);
+					$this->fpdf->setFont('Arial','',6);
 					if ($j==1)
 						$this->fpdf->Cell($w[4],$InterLigne,"the last  6 months 3.5 cm",'R',0,'C');
 					if ($j==2)
@@ -1470,7 +1473,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					if ($j==3)
 						$this->fpdf->Cell($w[4],$InterLigne,"With full and handwritten",0,0,'C');
 					$this->fpdf->setFont('Arial','',8);
-					// $this->fpdf->Cell($w[5],$InterLigne,"",'LR','C');
+					$this->fpdf->Cell($w[5],$InterLigne,"",'LR','C');
 					
 					$this->fpdf->Ln();
 					
@@ -1488,17 +1491,23 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					
 				$this->fpdf->setFont('Arial','',6);
 				// if($j==0)		
-				// 	$this->fpdf->Cell($w[4],$InterLigne,"the last  6 months 3.5 cm",'R',0,'C');
-				// // if($j==1)
-				// 	$this->fpdf->Cell($w[4],$InterLigne,"X 4.5cm (passport size)",'R',0,'C');
-				// // if($j==2)
-				// 	$this->fpdf->Cell($w[4],$InterLigne,"With full and handwritten",'R',0,'C');
+					// $this->fpdf->Cell($w[4],$InterLigne,"the last  6 months 3.5 cm",'R',0,'C');
+				// if($j==1)
+					$this->fpdf->Cell($w[4],$InterLigne,"X 4.5cm (passport size)",'R',0,'C');
+				// if($j==2)
+					// $this->fpdf->Cell($w[4],$InterLigne,"With full and handwritten",'R',0,'C');
 				// $x+=1;$j+=1;
 				$this->fpdf->Cell($w[5],$InterLigne,"",'R','C');
 				$this->fpdf->Ln();
-				// }
-				//$this->Cell($w[5],$InterLigne,"",LR,C);
-				//$this->Ln();
+				// }x
+					$this->fpdf->Cell($w[0],$InterLigne,"",1,0,'C');
+					$this->fpdf->Cell($w[1],$InterLigne,"",1,0,'C');
+					$this->fpdf->Cell($w[2],$InterLigne,"",1,0,'C');
+					$this->fpdf->Cell($w[3],$InterLigne,"",'LR',0,'C');
+
+				$this->fpdf->Cell($w[4],$InterLigne,"With full and handwritten",'R',0,'C');
+				$this->fpdf->Cell($w[5],$InterLigne,"",'LR','C');
+				$this->fpdf->Ln();
 				//  42. declaration to wit
 				$txt = "42.  I declare under oath that I have personally accomplished this Personal Data Sheet which is a true, correct and";
 				$this->fpdf->SetFont('Arial','',7);
@@ -1593,8 +1602,8 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($w[1],$InterLigne,"ID/License/Passport No.: ",1,0,'L');
 				$this->fpdf->Cell($w[2],$InterLigne,"",0,0);
-				// $strDate2 = explode('-',$row[$i]['dateAccomplished']);
-				// $dateAccomplished = $strDate2[1]."-".$strDate2[2]."-".$strDate2[0];
+				$strDate2 = explode('-',$row['dateAccomplished']);
+				$dateAccomplished = $strDate2[1]."-".$strDate2[2]."-".$strDate2[0];
 				$this->fpdf->Cell($w[3],$InterLigne,"",'LTBR',0,'C');           // date accomplished
 				$this->fpdf->Cell($w[4],$InterLigne,"",'R',0);				//  spaces
 				$this->fpdf->Cell($w[5],$InterLigne,"",'LR',0);			    //  thumbmark
@@ -1679,6 +1688,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 							tblEmpPersonal.lot2,tblEmpPersonal.street2,tblEmpPersonal.subdivision2,tblEmpPersonal.barangay2,tblEmpPersonal.city2,tblEmpPersonal.province2,tblEmpPersonal.zipCode2,tblEmpPersonal.email,
 							tblEmpPersonal.spouseSurname,tblEmpPersonal.spouseFirstname,tblEmpPersonal.spouseMiddlename,tblEmpPersonal.spousenameExtension,tblEmpPersonal.spouseWork,tblEmpPersonal.spouseBusName,tblEmpPersonal.spouseBusAddress,tblEmpPersonal.spouseTelephone,
 							tblEmpPersonal.fatherSurname,tblEmpPersonal.fatherFirstname,tblEmpPersonal.fatherMiddlename,tblEmpPersonal.fathernameExtension,tblEmpPersonal.motherSurname,tblEmpPersonal.motherFirstname,tblEmpPersonal.motherMiddlename,tblEmpPersonal.motherName,
+							tblEmpPersonal.relatedThird,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.relatedDegreeParticularsThird,tblEmpPersonal.dateAccomplished,tblEmpPersonal.soloParentParticulars,tblEmpPersonal.soloParent,tblEmpPersonal.disabledParticulars,tblEmpPersonal.disabled,tblEmpPersonal.indigenousParticulars,tblEmpPersonal.indigenous,tblEmpPersonal.immigrantParticulars,tblEmpPersonal.immigrant,tblEmpPersonal.campaignParticulars,tblEmpPersonal.campaign,tblEmpPersonal.candidateParticulars,tblEmpPersonal.candidate,tblEmpPersonal.forcedResignParticulars,tblEmpPersonal.forcedResign,tblEmpPersonal.violateLawParticulars,tblEmpPersonal.violateLaw,tblEmpPersonal.adminCaseParticulars,tblEmpPersonal.adminCase,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.formallyCharged,tblEmpPersonal.formallyChargedParticulars,
 							tblPlantilla.plantillaGroupCode,
 						 	tblPlantillaGroup.plantillaGroupName, tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode,
 						 	tblEmpChild.childName,tblEmpChild.childBirthDate
