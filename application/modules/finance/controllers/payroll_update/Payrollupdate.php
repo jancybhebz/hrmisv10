@@ -270,8 +270,6 @@ class Payrollupdate extends MY_Controller {
 	public function complete_process_perm()
 	{
 		$arrPost = $this->input->post();
-		echo '<pre>';
-		print_r($arrPost);
 		$arrComputations = isset($arrPost['txtjson_computations']) ? fixArray($arrPost['txtjson_computations']) : array();
 		$process_data = isset($arrPost['txtprocess']) ? fixArray($arrPost['txtprocess']) : array();
 		$arrEmployees = isset($arrPost['txtjson']) ? fixArray($arrPost['txtjson']) : array();
@@ -300,7 +298,7 @@ class Payrollupdate extends MY_Controller {
 			if($arrPost['chkincome'] != '') { array_push($process_code,'ADDITIONAL'); }
 		endif;
 
-		$salary_schedule = $this->Deduction_model->getAgencyDeductionShare();
+		$agency_info = $this->Deduction_model->getAgencyDeductionShare();
 		$period = $process_data['selemployment'] == 'P' ? 4 : $process_data['period'];
 		$arrProcess_id = array();
 		foreach($process_code as $pcode):
@@ -311,25 +309,20 @@ class Payrollupdate extends MY_Controller {
 									 'processYear'     => $process_data['yr'],
 									 'processCode'     => $pcode,
 									 // 'payrollGroupCode'=> '',
-									 'salarySchedule'  => $salary_schedule['salarySchedule'],
+									 'salarySchedule'  => $agency_info['salarySchedule'],
 									 'period' 		   => $period,
 									 'publish' 		   => 0);
 			# insert process; tablename : tblProcess
-			$proc_id = ''; # function for insert here
+			$proc_id = $this->Payroll_process_model->add_payroll_process($arrData_process);
 			$arrProcess_id[] = array('proc_id' => $proc_id, 'code' => $pcode);
-			// print_r($arrData_process);
 		endforeach;
 
 		foreach($arrEmployees as $emp):
-			print_r($emp);
 			# foreach payroll process
 			foreach($arrProcess_id as $processid):
 				if($processid['code'] == 'SALARY'):
-					// echo 'SALARY<br>';
-					// echo 'insert to tblempincome<br>';
 					# get salary from tblEmpBenefits
 					$emp_income = $this->Income_model->get_employee_income($emp['empNumber'],array('SALARY'));
-					// print_r($emp_income);
 					# insert income; tablename : tblempincome
 					$arrData_empincome = array('processID' 		 => $processid['proc_id'],
 											   'empNumber' 		 => $emp['empNumber'],
@@ -339,19 +332,101 @@ class Payrollupdate extends MY_Controller {
 											   'actualSalary' 	 => $emp['actualSalary'],
 											   'positionCode' 	 => $emp['positionCode'],
 											   'officeCode' 	 => $emp['officeCode'],
-											   'incomeAmount' 	 => $emp_income[0]['incomeAmount'],
+											   'incomeAmount' 	 => $emp_income[0]['incomeAmount'] == '' ? 0 : $emp_income[0]['incomeAmount'],
 											   'appointmentCode' => $emp['appointmentCode'],
 											   'period1' 		 => $emp_income[0]['period1'],
 											   'period2' 		 => $emp_income[0]['period2'],
 											   'period3' 		 => $emp_income[0]['period3'],
 											   'period4' 		 => $emp_income[0]['period4']);
-					print_r($arrData_empincome);
+					$this->Income_model->add_emp_income($arrData_empincome);
+
+					// # Update Matured Loans
+					$this->Income_model->update_loan($process_data['mon'],$process_data['yr']);
+
+					# Pagibig; tablename: tblEmpDeductionRemit
+					$pagibig_deduction = $this->Income_model->get_employee_deductions($emp['empNumber'],array('PAGIBIG'),'');
+					foreach($pagibig_deduction as $pagibig):
+						$arrData_pagibig = array('processID'	 => $processid['proc_id'],
+												 'code'			 => $pagibig['deductCode'],
+												 'empNumber'	 => $emp['empNumber'],
+												 'deductionCode' => $pagibig['deductionCode'],
+												 'deductAmount'	 => $pagibig['amountGranted'],
+												 'period1'		 => $pagibig['period1'],
+												 'period2'		 => $pagibig['period2'],
+												 'period3'		 => $pagibig['period3'],
+												 'period4'		 => $pagibig['period4'],
+												 'deductMonth'	 => $process_data['mon'],
+												 'deductYear'	 => $process_data['yr'],
+												 'employerAmount' => $agency_info['pagibigEmprShare'],
+												 'appointmentCode'=> $emp['appointmentCode']);
+						$this->Income_model->add_deduction_remit($arrData_pagibig);
+					endforeach;
+
+					# Philhealth; tablename: tblEmpDeductionRemit
+					$phrange = $this->Deduction_model->getPhilHealthRange($emp['actualSalary']);
+					$ph_employer_amt = ($agency_info['philhealthEmprShare'] / 100) * $phrange['philMonthlyContri'];
+					$ph_deduction = $this->Income_model->get_employee_deductions($emp['empNumber'],array('PHILHEALTH'),'');
+					foreach($ph_deduction as $ph):
+						$arrData_pagibig = array('processID'	 => $processid['proc_id'],
+												 'code'			 => $ph['deductCode'],
+												 'empNumber'	 => $emp['empNumber'],
+												 'deductionCode' => $ph['deductionCode'],
+												 'deductAmount'	 => $ph['amountGranted'],
+												 'period1'		 => $ph['period1'],
+												 'period2'		 => $ph['period2'],
+												 'period3'		 => $ph['period3'],
+												 'period4'		 => $ph['period4'],
+												 'deductMonth'	 => $process_data['mon'],
+												 'deductYear'	 => $process_data['yr'],
+												 'employerAmount' => $ph_employer_amt,
+												 'appointmentCode'=> $emp['appointmentCode']);
+						$this->Income_model->add_deduction_remit($arrData_pagibig);
+					endforeach;
+
+					# GSIS; tablename: tblEmpDeductionRemit
+					$gsis_employer_amt = ($agency_info['philhealthEmprShare'] / 100) * $emp['actualSalary'];
+					$gsis_deduction = $this->Income_model->get_employee_deductions($emp['empNumber'],array('LIFE'),'');
+					foreach($gsis_deduction as $gsis):
+						$arrData_gsis = array('processID'	 	  => $processid['proc_id'],
+												 'code'			  => $gsis['deductCode'],
+												 'empNumber'	  => $emp['empNumber'],
+												 'deductionCode'  => $gsis['deductionCode'],
+												 'deductAmount'	  => $gsis['amountGranted'],
+												 'period1'		  => $gsis['period1'],
+												 'period2'		  => $gsis['period2'],
+												 'period3'		  => $gsis['period3'],
+												 'period4'		  => $gsis['period4'],
+												 'deductMonth'	  => $process_data['mon'],
+												 'deductYear'	  => $process_data['yr'],
+												 'employerAmount' => $gsis_employer_amt,
+												 'appointmentCode'=> $emp['appointmentCode']);
+						$this->Income_model->add_deduction_remit($arrData_gsis);
+					endforeach;
+
+					# Other Regular Deductions; tablename: tblEmpDeductionRemit
+					# OT AND REGULAR DEDUCTION HAS SAME CONDITIONS
+					$regular_deduction = $this->Income_model->get_employee_deductions($emp['empNumber'],array(),'ot');
+					foreach($regular_deduction as $reg):
+						$arrData_reg = array('processID'	 => $processid['proc_id'],
+												 'code'			 => $reg['deductCode'],
+												 'empNumber'	 => $emp['empNumber'],
+												 'deductionCode' => $reg['deductionCode'],
+												 'deductAmount'	 => $reg['amountGranted'],
+												 'period1'		 => $reg['period1'],
+												 'period2'		 => $reg['period2'],
+												 'period3'		 => $reg['period3'],
+												 'period4'		 => $reg['period4'],
+												 'deductMonth'	 => $process_data['mon'],
+												 'deductYear'	 => $process_data['yr'],
+												 'employerAmount' => $gsis_employer_amt,
+												 'appointmentCode'=> $emp['appointmentCode']);
+						$this->Income_model->add_deduction_remit($arrData_reg);
+					endforeach;
+
 				elseif($processid['code'] == 'BENEFITS'):
-					echo 'insert BENEFITS<br>';
-					echo 'insert to tblempincome<br>';
 					# get benefits from tblEmpBenefits
 					$emp_benefit = $this->Income_model->get_employee_income($emp['empNumber'],fixArray($benefits),'Benefit');
-					// # insert income; tablename : tblempincome
+					# insert income; tablename : tblempincome
 					foreach($emp_benefit as $emp_benefit):
 						$allperiods = array($emp_benefit['period1'],$emp_benefit['period2'],$emp_benefit['period3'],$emp_benefit['period4']);
 						if(count(array_unique($allperiods)) === 1 && end($allperiods) === 0.00):
@@ -363,21 +438,19 @@ class Payrollupdate extends MY_Controller {
 													    'actualSalary' 	 => $emp['actualSalary'],
 													    'positionCode' 	 => $emp['positionCode'],
 													    'officeCode' 	 => $emp['officeCode'],
-													    'incomeAmount' 	 => $emp_benefit['incomeAmount'],
+													    'incomeAmount' 	 => $emp_benefit['incomeAmount'] == '' ? 0 : $emp_benefit['incomeAmount'],
 													    'appointmentCode'=> $emp['appointmentCode'],
 													    'period1' 		 => $emp_benefit['period1'],
 													    'period2' 		 => $emp_benefit['period2'],
 													    'period3' 		 => $emp_benefit['period3'],
 													    'period4' 		 => $emp_benefit['period4']);
-							print_r($arrData_empbenefit);
+							$this->Income_model->add_emp_income($arrData_empbenefit);
 						endif;
 					endforeach;
 				elseif($processid['code'] == 'BONUS'):
-					echo 'insert BONUS<br>';
-					echo 'insert to tblEmpIncome<br>';
 					# get bonus from tblEmpBenefits
 					$emp_bonus = $this->Income_model->get_employee_income($emp['empNumber'],fixArray($bonus),'Bonus');
-					// # insert income; tablename : tblempincome
+					# insert income; tablename : tblempincome
 					foreach($emp_bonus as $emp_bonus):
 						$arrData_empbonus = array('processID' 	 => $processid['proc_id'],
 												  'empNumber' 	 => $emp['empNumber'],
@@ -387,23 +460,21 @@ class Payrollupdate extends MY_Controller {
 												  'actualSalary' => $emp['actualSalary'],
 												  'positionCode' => $emp['positionCode'],
 												  'officeCode' 	 => $emp['officeCode'],
-												  'incomeAmount' => $emp_bonus['incomeAmount'],
+												  'incomeAmount' => $emp_bonus['incomeAmount'] == '' ? 0 : $emp_bonus['incomeAmount'],
 												  'appointmentCode'=> $emp['appointmentCode'],
 												  'period1' 	 => $emp_bonus['period1'],
 												  'period2' 	 => $emp_bonus['period2'],
 												  'period3' 	 => $emp_bonus['period3'],
 												  'period4' 	 => $emp_bonus['period4']);
-						print_r($arrData_empbonus);
+						$this->Income_model->add_emp_income($arrData_empbonus);
 					endforeach;
 				else:
 					# ADDITIONAL
-					echo 'insert ADDITIONAL<br>';
-					echo 'insert to tblEmpIncome<br>';
 					# get bonus from tblEmpBenefits
 					$emp_addtl = $this->Income_model->get_employee_income($emp['empNumber'],fixArray($bonus),'Others');
 					// # insert income; tablename : tblempincome
 					foreach($emp_addtl as $emp_addtl):
-						$arrData_empbonus = array('processID' 	 => $processid['proc_id'],
+						$arrData_emp_addtl = array('processID' 	 => $processid['proc_id'],
 												  'empNumber' 	 => $emp['empNumber'],
 												  'incomeCode' 	 => $emp_addtl['incomeCode'],
 												  'incomeYear' 	 => $process_data['yr'],
@@ -411,20 +482,18 @@ class Payrollupdate extends MY_Controller {
 												  'actualSalary' => $emp['actualSalary'],
 												  'positionCode' => $emp['positionCode'],
 												  'officeCode' 	 => $emp['officeCode'],
-												  'incomeAmount' => $emp_addtl['incomeAmount'],
+												  'incomeAmount' => $emp_addtl['incomeAmount'] == '' ? 0 : $emp_addtl['incomeAmount'],
 												  'appointmentCode'=> $emp['appointmentCode'],
 												  'period1' 	 => $emp_addtl['period1'],
 												  'period2' 	 => $emp_addtl['period2'],
 												  'period3' 	 => $emp_addtl['period3'],
 												  'period4' 	 => $emp_addtl['period4']);
-						print_r($arrData_empbonus);
+						$this->Income_model->add_emp_income($arrData_emp_addtl);
 					endforeach;
 				endif;
 
 				# insert deductions - Loans; tablename : tblEmpDeductionRemit
 				$empLoans = $this->Income_model->get_employee_deductions($emp['empNumber'],$loans,'Loan');
-				echo 'insert INSERT LOAN<br>';
-				echo 'insert to tblEmpDeductionRemit<br>';
 				foreach($empLoans as $loan):
 					$arrData_loan = array('processID'	 => $processid['proc_id'],
 										  'code'		 => $loan['deductCode'],
@@ -438,107 +507,116 @@ class Payrollupdate extends MY_Controller {
 										  'deductMonth'	 => $process_data['mon'],
 										  'deductYear'	 => $process_data['yr'],
 										  'appointmentCode'	=> $emp['appointmentCode']);
-					print_r($arrData_loan);
+					$this->Income_model->add_deduction_remit($arrData_loan);
 				endforeach;
 				# taxes in benefits
 				# LONGI - LPTAX; tablename: tblEmpDeductionRemit
 				if(in_array('LONGI',$benefits)):
 					$lp_tax = $this->Income_model->get_employee_deductions($emp['empNumber'],array('LPTAX'),'Regular');
-					$arrData_lptax = array('processID'	 => $processid['proc_id'],
-										  'code'		 => $lp_tax[0]['deductCode'],
-										  'empNumber'	 => $emp['empNumber'],
-										  'deductionCode'=> $lp_tax[0]['deductionCode'],
-										  'deductAmount' => $lp_tax[0]['amountGranted'],
-										  'period1'		 => $lp_tax[0]['period1'],
-										  'period2'		 => $lp_tax[0]['period2'],
-										  'period3'		 => $lp_tax[0]['period3'],
-										  'period4'		 => $lp_tax[0]['period4'],
-										  'deductMonth'	 => $process_data['mon'],
-										  'deductYear'	 => $process_data['yr'],
-										  'appointmentCode'	=> $emp['appointmentCode']);
-					print_r($arrData_lptax);
+					if(count($lp_tax) > 0):
+						$arrData_lptax = array('processID'	 => $processid['proc_id'],
+											  'code'		 => $lp_tax[0]['deductCode'],
+											  'empNumber'	 => $emp['empNumber'],
+											  'deductionCode'=> $lp_tax[0]['deductionCode'],
+											  'deductAmount' => $lp_tax[0]['amountGranted'],
+											  'period1'		 => $lp_tax[0]['period1'],
+											  'period2'		 => $lp_tax[0]['period2'],
+											  'period3'		 => $lp_tax[0]['period3'],
+											  'period4'		 => $lp_tax[0]['period4'],
+											  'deductMonth'	 => $process_data['mon'],
+											  'deductYear'	 => $process_data['yr'],
+											  'appointmentCode'	=> $emp['appointmentCode']);
+						$this->Income_model->add_deduction_remit($arrData_lptax);
+					endif;
 				endif;
 				# HAZARD - LPTAX; tablename: tblEmpDeductionRemit
 				if(in_array('HAZARD',$benefits)):
 					$hp_tax = $this->Income_model->get_employee_deductions($emp['empNumber'],array('HPTAX'),'Regular');
-					$arrData_hptax = array('processID'	 => $processid['proc_id'],
-										  'code'		 => $hp_tax[0]['deductCode'],
-										  'empNumber'	 => $emp['empNumber'],
-										  'deductionCode'=> $hp_tax[0]['deductionCode'],
-										  'deductAmount' => $hp_tax[0]['amountGranted'],
-										  'period1'		 => $hp_tax[0]['period1'],
-										  'period2'		 => $hp_tax[0]['period2'],
-										  'period3'		 => $hp_tax[0]['period3'],
-										  'period4'		 => $hp_tax[0]['period4'],
-										  'deductMonth'	 => $process_data['mon'],
-										  'deductYear'	 => $process_data['yr'],
-										  'appointmentCode'	=> $emp['appointmentCode']);
-					print_r($arrData_hptax);
+					if(count($hp_tax) > 0):
+						$arrData_hptax = array('processID'	 => $processid['proc_id'],
+											  'code'		 => $hp_tax[0]['deductCode'],
+											  'empNumber'	 => $emp['empNumber'],
+											  'deductionCode'=> $hp_tax[0]['deductionCode'],
+											  'deductAmount' => $hp_tax[0]['amountGranted'],
+											  'period1'		 => $hp_tax[0]['period1'],
+											  'period2'		 => $hp_tax[0]['period2'],
+											  'period3'		 => $hp_tax[0]['period3'],
+											  'period4'		 => $hp_tax[0]['period4'],
+											  'deductMonth'	 => $process_data['mon'],
+											  'deductYear'	 => $process_data['yr'],
+											  'appointmentCode'	=> $emp['appointmentCode']);
+						$this->Income_model->add_deduction_remit($arrData_hptax);
+					endif;
 				endif;
 				# OT; tablename: tblEmpDeductionRemit
 				if(in_array('OT',$benefits) && $processid['code'] != 'SALARY'):
-					$hp_tax = $this->Income_model->get_employee_deductions($emp['empNumber'],array(),'ot');
-					$arrData_ot = array('processID'	 => $processid['proc_id'],
-										  'code'		 => $hp_tax[0]['deductCode'],
-										  'empNumber'	 => $emp['empNumber'],
-										  'deductionCode'=> $hp_tax[0]['deductionCode'],
-										  'deductAmount' => $hp_tax[0]['amountGranted'],
-										  'period1'		 => $hp_tax[0]['period1'],
-										  'period2'		 => $hp_tax[0]['period2'],
-										  'period3'		 => $hp_tax[0]['period3'],
-										  'period4'		 => $hp_tax[0]['period4'],
-										  'deductMonth'	 => $process_data['mon'],
-										  'deductYear'	 => $process_data['yr'],
-										  'appointmentCode'	=> $emp['appointmentCode']);
-					print_r($arrData_ot);
+					$ot = $this->Income_model->get_employee_deductions($emp['empNumber'],array(),'ot');
+					if(count($ot) > 0):
+						$arrData_ot = array('processID'	 => $processid['proc_id'],
+											  'code'		 => $ot[0]['deductCode'],
+											  'empNumber'	 => $emp['empNumber'],
+											  'deductionCode'=> $ot[0]['deductionCode'],
+											  'deductAmount' => $ot[0]['amountGranted'],
+											  'period1'		 => $ot[0]['period1'],
+											  'period2'		 => $ot[0]['period2'],
+											  'period3'		 => $ot[0]['period3'],
+											  'period4'		 => $ot[0]['period4'],
+											  'deductMonth'	 => $process_data['mon'],
+											  'deductYear'	 => $process_data['yr'],
+											  'appointmentCode'	=> $emp['appointmentCode']);
+						$this->Income_model->add_deduction_remit($arrData_ot);
+					endif;
 				endif;
 				# Other Deductions; tablename: tblEmpDeductionRemit
 				if(isset($arrPost['chkothrs'])):
 					$others_deductions = $this->Income_model->get_employee_deductions($emp['empNumber'],fixArray($arrPost['chkothrs']),'Others');
 					foreach($others_deductions as $oth_d):
 						$arrData_others = array('processID'	 => $processid['proc_id'],
-											  'code'		 => $oth_d[0]['deductCode'],
+											  'code'		 => $oth_d['deductCode'],
 											  'empNumber'	 => $emp['empNumber'],
-											  'deductionCode'=> $oth_d[0]['deductionCode'],
-											  'deductAmount' => $oth_d[0]['amountGranted'],
-											  'period1'		 => $oth_d[0]['period1'],
-											  'period2'		 => $oth_d[0]['period2'],
-											  'period3'		 => $oth_d[0]['period3'],
-											  'period4'		 => $oth_d[0]['period4'],
+											  'deductionCode'=> $oth_d['deductionCode'],
+											  'deductAmount' => $oth_d['amountGranted'],
+											  'period1'		 => $oth_d['period1'],
+											  'period2'		 => $oth_d['period2'],
+											  'period3'		 => $oth_d['period3'],
+											  'period4'		 => $oth_d['period4'],
 											  'deductMonth'	 => $process_data['mon'],
 											  'deductYear'	 => $process_data['yr'],
 											  'appointmentCode'	=> $emp['appointmentCode']);
-						print_r($arrData_others);
+						$this->Income_model->add_deduction_remit($arrData_others);
 					endforeach;
 				endif;
 
 				# Contributions; tablename: tblEmpDeductionRemit
-				// TODO::
 				$check_deductions = $this->Income_model->check_empdeductions($process_data['mon'],$process_data['yr'],$emp['appointmentCode']);
 				if(count($check_deductions) > 0):
 					$contri_deductions = $this->Income_model->get_employee_deductions($emp['empNumber'],array(),'Contribution');
-					foreach($contri_deductions as $oth_d):
+					foreach($contri_deductions as $contri):
 						$arrData_others = array('processID'	 => $processid['proc_id'],
-											  'code'		 => $oth_d[0]['deductCode'],
+											  'code'		 => $contri['deductCode'],
 											  'empNumber'	 => $emp['empNumber'],
-											  'deductionCode'=> $oth_d[0]['deductionCode'],
-											  'deductAmount' => $oth_d[0]['amountGranted'],
-											  'period1'		 => $oth_d[0]['period1'],
-											  'period2'		 => $oth_d[0]['period2'],
-											  'period3'		 => $oth_d[0]['period3'],
-											  'period4'		 => $oth_d[0]['period4'],
+											  'deductionCode'=> $contri['deductionCode'],
+											  'deductAmount' => $contri['amountGranted'],
+											  'period1'		 => $contri['period1'],
+											  'period2'		 => $contri['period2'],
+											  'period3'		 => $contri['period3'],
+											  'period4'		 => $contri['period4'],
 											  'deductMonth'	 => $process_data['mon'],
 											  'deductYear'	 => $process_data['yr'],
 											  'appointmentCode'	=> $emp['appointmentCode']);
-						print_r($arrData_others);
+						$this->Income_model->add_deduction_remit($arrData_others);
 					endforeach;
 				endif;
-
-
 			endforeach;
-			echo '<hr>';
 		endforeach;
-		
+
+		$this->session->set_flashdata('strSuccessMsg','Payroll saved successfully.');
+		redirect('finance/payroll_update/reports?processid='.implode(';',array_column($arrProcess_id,'proc_id')));
+	}
+
+	public function reports()
+	{
+		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
 	public function update_or()
