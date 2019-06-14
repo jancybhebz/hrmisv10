@@ -56,6 +56,7 @@ $route['finance/payroll_update/compute_benefits_perm'] = 'finance/payroll_update
 $route['finance/payroll_update/save_benefits_perm'] = 'finance/payroll_update/payrollupdate/save_benefits_perm';
 $route['finance/payroll_update/select_deductions_perm'] = 'finance/payroll_update/payrollupdate/select_deductions_perm';
 $route['finance/payroll_update/complete_process_perm'] = 'finance/payroll_update/payrollupdate/complete_process_perm';
+$route['finance/payroll_update/reports'] = 'finance/payroll_update/payrollupdate/reports';
 
 // $route['finance/payroll_update/payrollupdate/select_benefits/(:any)'] = 'finance/payroll_update/select_benefits/$1';
 
