@@ -10,6 +10,16 @@ class ReportLeave_rpt_model extends CI_Model {
 		//$this->load->model(array());
 	}
 	
+	public function getEmp($intEmpNumber = '')
+	{		
+		if($intEmpNumber != "")
+		{
+			$this->db->where('empNumber',$intEmpNumber);
+		}
+		$objQuery = $this->db->get('tblEmpPersonal');
+		return $objQuery->result_array();		
+	}
+
 	public function Header()
 	{
 
@@ -416,7 +426,9 @@ class ReportLeave_rpt_model extends CI_Model {
 		
 //----------------------------------------------------------
 		$this->fpdf->SetFont('Arial', "B", 10);
-		$this->fpdf->Cell(30, 5,"$str1stSignatory", 0, 0, "C");	
+		$arrDetails=$this->getEmp($str1stSignatory);
+		$FirstSig=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);
+		$this->fpdf->Cell(30, 5,$FirstSig, 0, 0, "C");	
 		$this->fpdf->SetFont('Arial', "", 10);
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(30, 5,"", "", 0, "C"); 
@@ -481,8 +493,11 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(55, 5,"", 0, 0, "L");	
 		//signature
-		$this->fpdf->SetFont('Arial', "B", 10);		
-		$this->fpdf->Cell(70, 5,"$strEmpName2",0, 1, "C");
+		$this->fpdf->SetFont('Arial', "B", 10);	
+		$strEmpName2='';
+		$arrDetails=$this->getEmp($strEmpName2);
+		$Signatory=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);	
+		$this->fpdf->Cell(70, 5,"$Signatory",0, 1, "C");
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Ln(0);
 
