@@ -1,6 +1,6 @@
 <?=load_plugin('css', array('datatables'))?>
 
-<?=form_open('', array('class' => 'form-horizontal', 'method' => 'post'))?>
+<?=form_open('finance/payroll_update/save_computation_nonperm', array('class' => 'form-horizontal', 'method' => 'post'))?>
 <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
 <input type="hidden" name="chkbenefit" value='<?=json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
@@ -15,13 +15,13 @@
         </div>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
-                Payroll Date: <?=$payroll_date?> (<?=ordinal($_POST['period'])?> Half) || For <?=$_POST['selemployment']?> Employees || Total Calendar days: <?=$curr_period_workingdays?>
+                Payroll Date: <?=$payroll_date?> (<?=ordinal($period)?> Half) || For <?=$employment_type?> Employees || Total Calendar days: <?=$curr_period_workingdays?>
             </small>
         </div>
         <div class="row">
             <div class="col-md-12 scroll">
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                <table class="table table-striped table-bordered order-column" id="tblemployee-list" style="visibility: hidden;">
+                <table class="table table-striped table-bordered order-column" id="tblemployees" style="visibility: hidden;">
                     <thead>
                         <tr>
                             <th style="text-align: center;vertical-align: middle;"> Employee Name </th>
@@ -61,9 +61,9 @@
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <a href="<?=base_url('finance/payroll_update/process/select_deductions')?>" class="btn blue btn-submit"> Save and Continue
+            <button class="btn blue btn-submit"> Save and Continue
                 <i class="fa fa-angle-right"></i>
-            </a>
+            </button>
         </div>
     </div>
 </div>
@@ -72,10 +72,10 @@
 <script src="<?=base_url('assets/js/custom/payroll-compute_benefits.js')?>"></script>
 <script>
     $(document).ready(function() {
-        $('#tblemployee-list').dataTable( {
+        $('#tblemployees').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
-                $('#tblemployee-list').css('visibility', 'visible');
+                $('#tblemployees').css('visibility', 'visible');
             }} );
         $('a.btn-refresh').on('click', function() {
             $('.loading-fade').show();
