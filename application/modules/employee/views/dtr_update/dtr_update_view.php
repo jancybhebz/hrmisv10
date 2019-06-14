@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Morning In : </label>
-                            <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningIn'))?$this->session->userdata('strOldMorningIn'):''?>" autocomplete="off">
+                            <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Morning Out :</label>
-                            <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldMorningOut'))?$this->session->userdata('strOldMorningOut'):''?>" autocomplete="off">
+                            <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Afternoon In :</label>
-                             <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonIn'))?$this->session->userdata('strOldAfternoonIn'):''?>" autocomplete="off">
+                             <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Afternoon Out :</label>
-                              <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldAfternoonOut'))?$this->session->userdata('strOldAfternoonOut'):''?>" autocomplete="off">
+                              <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Overtime In : </label>
-                              <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeIn'))?$this->session->userdata('strOldOvertimeIn'):''?>" autocomplete="off">
+                              <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Old Overtime Out : </label>
-                               <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="<?=!empty($this->session->userdata('strOldOvertimeOut'))?$this->session->userdata('strOldOvertimeOut'):''?>" autocomplete="off">
+                               <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                         </div>
                     </div>
                 </div>
@@ -351,4 +351,106 @@ jQuery(document).ready(function() {
     FormValidation.init();
 });
 </script>
-  
+
+<script>
+    $(document).ready(function() {
+        $('#dtmDTRupdate').change(function() {
+            //alert($('input[name="dtmDTRupdate"]').val());
+            //console.log( $(this).val() );
+            $date=$('#dtmDTRupdate').val();
+            $.ajax({
+                url: "getDTRUpdate.php?action=getinout&date="+$date,
+            success: function(result){
+                $arrTime = result.split(';');
+                //alert(result);
+                $('input[name="strOldMorningIn"]').val($arrTime[0]);
+                $('input[name="strOldMorningOut"]').val($arrTime[1]);
+                $('input[name="strOldAfternoonIn"]').val($arrTime[2]);
+                $('input[name="strOldAfternoonOut"]').val($arrTime[3]);
+                $('input[name="strOldOvertimeIn"]').val($arrTime[4]);
+                $('input[name="strOldOvertimeOut"]').val($arrTime[5]);
+                $arrInAM=$arrTime[0].split(':');
+                $('select[name="dtmMorningIn"]').val($arrInAM[0]);
+                $arrOutAM=$arrTime[1].split(':');
+                $('select[name="dtmMorningOut"]').val($arrOutAM[0]);
+                $arrInPM=$arrTime[2].split(':');
+                $('select[name="dtmAfternoonIn"]').val($arrInPM[0]);
+                $arrOutPM=$arrTime[3].split(':');
+                $('select[name="dtmAfternoonOut"]').val($arrOutPM[0]);
+                $arrInOT=$arrTime[4].split(':');
+                $('select[name="dtmOvertimeIn"]').val($arrInOT[0]);
+                $arrOutOT=$arrTime[5].split(':');
+                $('select[name="dtmOvertimeOut"]').val($arrOutOT[0]);
+                //console.log(result);
+                //$("#div1").html(result);
+            }});
+            //console.log( $year+$month+$day );
+        });
+    });
+</script>
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#cboYearFrom,#cboMonthFrom,#cboDayFrom').change(function() {
+            //alert($('input[name="cboYearFrom"]').val());
+            //console.log( $(this).val() );
+            $year=$('#cboYearFrom').val();
+            $month=$('#cboMonthFrom').val();
+            $day=$('#cboDayFrom').val();
+            $.ajax({
+                url: "getDTRUpdate.php?action=getinout&year="+$year+'&month='+$month+'&day='+$day,
+            success: function(result){
+                $arrTime = result.split(';');
+                //alert(result);
+                $('input[name="t_intTimeInAM"]').val($arrTime[0]);
+                $('input[name="t_intTimeOutAM"]').val($arrTime[1]);
+                $('input[name="t_intTimeInPM"]').val($arrTime[2]);
+                $('input[name="t_intTimeOutPM"]').val($arrTime[3]);
+                $('input[name="t_intTimeInOT"]').val($arrTime[4]);
+                $('input[name="t_intTimeOutOT"]').val($arrTime[5]);
+                $arrInAM=$arrTime[0].split(':');
+                $('select[name="t_intNdtrHourInAM"]').val($arrInAM[0]);
+                $('select[name="t_intNdtrMinInAM"]').val($arrInAM[1]);
+                $('select[name="t_intNdtrSecInAM"]').val($arrInAM[2]);
+                $arrOutAM=$arrTime[1].split(':');
+                $('select[name="t_intNdtrHourOutAM"]').val($arrOutAM[0]);
+                $('select[name="t_intNdtrMinOutAM"]').val($arrOutAM[1]);
+                $('select[name="t_intNdtrSecOutAM"]').val($arrOutAM[2]);
+                $arrInPM=$arrTime[2].split(':');
+                $('select[name="t_intNdtrHourInPM"]').val($arrInPM[0]);
+                $('select[name="t_intNdtrMinInPM"]').val($arrInPM[1]);
+                $('select[name="t_intNdtrSecInPM"]').val($arrInPM[2]);
+                $arrOutPM=$arrTime[3].split(':');
+                $('select[name="t_intNdtrHourOutPM"]').val($arrOutPM[0]);
+                $('select[name="t_intNdtrMinOutPM"]').val($arrOutPM[1]);
+                $('select[name="t_intNdtrSecOutPM"]').val($arrOutPM[2]);
+                $arrInOT=$arrTime[4].split(':');
+                $('select[name="t_intNdtrHourInOT"]').val($arrInOT[0]);
+                $('select[name="t_intNdtrMinInOT"]').val($arrInOT[1]);
+                $('select[name="t_intNdtrSecInOT"]').val($arrInOT[2]);
+                $arrOutOT=$arrTime[5].split(':');
+                $('select[name="t_intNdtrHourOutOT"]').val($arrOutOT[0]);
+                $('select[name="t_intNdtrMinOutOT"]').val($arrOutOT[1]);
+                $('select[name="t_intNdtrSecOutOT"]').val($arrOutOT[2]);
+                //console.log(result);
+                //$("#div1").html(result);
+            }});
+            //console.log( $year+$month+$day );
+        });
+    });
+</script> -->
+
+<?php
+// if($_GET['action']=="getinout")
+// {
+//     $date=$_GET['dtmDTRupdate'];
+//     $sql= "SELECT inAM,outAM,inPM,outPM,inOT,outOT FROM tblEmpDTR
+//                 WHERE empNumber='".$_SESSION['strEmpNo']."' AND dtrDate='".$year."-".$month."-".$day."' LIMIT 0,1";
+//     $empdtr=mysql_query($sql);
+    
+//     while($emp=mysql_fetch_array($empdtr)){
+//         echo $emp['inAM'].';'.$emp['outAM'].';'.$emp['inPM'].';'.$emp['outPM'].';'.$emp['inOT'].';'.$emp['outOT'];
+//     }
+    
+// }
+?>
