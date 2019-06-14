@@ -359,7 +359,7 @@ jQuery(document).ready(function() {
             //console.log( $(this).val() );
             $date=$('#dtmDTRupdate').val();
             $.ajax({
-                url: "getDTRUpdate.php?action=getinout&date="+$date,
+                url: "dtr_update_view.php?action=getinout&date="+$date,
             success: function(result){
                 $arrTime = result.split(';');
                 //alert(result);
