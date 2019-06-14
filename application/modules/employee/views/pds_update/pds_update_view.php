@@ -184,7 +184,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row" id="tin_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="control-label">TIN No. :  </label>
+                    <label class="control-label">TIN :  </label>
                        <input type="text" class="form-control" name="intTin" value="<?=isset($arrData[0]['tin'])?$arrData[0]['tin']:''?>"  autocomplete="off">
                 </div>
             </div>
