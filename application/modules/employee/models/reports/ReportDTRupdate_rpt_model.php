@@ -88,7 +88,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 				$this->fpdf->Ln(10);
 			}
 		// start of table
-		$this->fpdf->SetFont('Arial', "", 9);	
+		$this->fpdf->SetFont('Arial', "B", 9);	
 		$this->fpdf->Cell(30,6,'Day',"RLT",0,"C");
 		$this->fpdf->Cell(20,6,'IN',"RLT",0,"C");
 		$this->fpdf->Cell(20,6,'OUT',"RLT",0,"C");
@@ -106,6 +106,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->Cell(20,6,'',"RL",0,"C");
 		$this->fpdf->Cell(70,6,'Supervisor Concerned',"RL",0,"C");
 		$this->fpdf->Cell(35,6,'',"RL",0,"C");
+		$this->fpdf->SetFont('Arial', "", 9);	
 		$this->fpdf->Ln(6);
 		$this->fpdf->Cell(30,6,"$dtmDTRupdate",1,0,"C");
 		$this->fpdf->Cell(20,6,'',1,0,"C");
@@ -114,7 +115,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->Cell(35,6,"$strEvidence",1,0,"C");
 		// end of table
 
-		$this->fpdf->Ln(15);
+		$this->fpdf->Ln(10);
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(22, 5,"Submitted by :"  , 0, 0, "C"); 
 		$this->fpdf->Cell(172, 5,"Date Submitted : ", 0, 0, "C"); 
