@@ -305,12 +305,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',6);
 				$this->fpdf->Cell(55,$InterLigne,"23.   NAME of CHILDREN  (Write full name and list all)",1,0,'L',1);
 
-				// if($row['empNumber']!="" && $row['empNumber']!="undefined")
-				// 	$whereChild = " AND empNumber='".$row['empNumber']."'";
-				// else
-				// 	$whereChild = "";
-				// $SQL = "SELECT childName,childBirthDate FROM tblEmpChild 
-				// WHERE 1=1 $whereChild ORDER BY childBirthDate ASC";
+				if($row['empNumber']!="" && $row['empNumber']!="undefined")
+					$whereChild = " AND empNumber='".$row['empNumber']."'";
+				else
+					$whereChild = "";
+				$SQL = "SELECT childName,childBirthDate FROM tblEmpChild 
+				WHERE 1=1 $whereChild ORDER BY childBirthDate ASC";
 				
 				// $cn= new MySQLHandler2;
 				// $cn->init();
@@ -342,10 +342,11 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);  
 				$this->fpdf->Cell(70,$InterLigne,$row['spouseMiddlename'],'TBRL',0,'L');
 				$this->fpdf->Cell(55,$InterLigne,"",'TBRL',0,'C');//1st child
-				// $row2 = '';
-				// if($row2['childBirthDate']!='0000-00-00' && $row2['childBirthDate']!='')
-				// 	$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($row2['childBirthDate'])),1,0,C);//1st child bday
-				// else
+				// $row='';
+				$row2['childBirthDate'] = '';
+				if($row2['childBirthDate']!='0000-00-00' && $row2['childBirthDate']!='')
+					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($row2['childBirthDate'])),1,0,C);//1st child bday
+				else
 					$this->fpdf->Cell(0,$InterLigne,'',1,0,'C');
 				$this->fpdf->Ln(6);
 					// occupation
