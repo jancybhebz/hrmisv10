@@ -854,6 +854,30 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				// 	$total_training+=1;	
 				// 	}
 
+				$strEmpNmbr ='';
+				$trainingSQL = "SELECT * FROM tblEmpTraining WHERE empNumber='".$strEmpNmbr."' ORDER BY trainingStartDate DESC";
+				$result_training = $trainingSQL;
+				$total_training = $result_training;
+				$limit_training = 20;
+				$this->fpdf->SetWidths(array($w[0], $w[1]/2, $w[1]/2, $w[2], $w[3], $w[4]));
+				$align = array('C', 'C', 'C', 'C', 'C','C');
+				$this->fpdf->SetAligns($align);
+				$this->fpdf->SetFont('Arial','',6);
+				// while($training=mysql_fetch_array($result_training))
+				// $training=$result_training;
+				// foreach ($training  as $row)
+				// {
+				// 	$strDate = explode("-",$training['trainingStartDate']);
+				// 	$startDate = $strDate[1]."/".$strDate[2]."/".$strDate[0];		
+				// 	$strDate2 = explode("-",$training['trainingEndDate']);
+				// 	$endDate = $strDate2[1]."/".$strDate2[2]."/".$strDate2[0];		
+				// }
+					// if ($total_training<$limit_training)
+					// 	{
+					// 		$this->Row(array("", "", "", "", "",""), 1);	
+					// 		$total_training+=1;	
+					// 	}
+
 				$this->fpdf->SetFont('Arial','IB',7);
 				$this->fpdf->Cell(0,4,"(Continue on Separate sheet if necessary)",1,0,'C');
 				$this->fpdf->Ln(4);
@@ -871,17 +895,17 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',6);
 				$this->fpdf->Cell($w[2],$InterLigne,"33. MEMBERSHIP IN ASSOCIATION/ORGANIZATION",'LTR',0,'L');
 				$this->fpdf->Ln(3);
-				$this->fpdf->Cell($w[0],$InterLigne,"",'LR',0,'C');
-				$this->fpdf->Cell($w[1],$InterLigne,"(Write in full)",'LR',0,'C');
-				$this->fpdf->Cell($w[2],$InterLigne,"(Write in full)",'LR',0,'C');
+				$this->fpdf->Cell($w[0],$InterLigne,"",'LBR',0,'C');
+				$this->fpdf->Cell($w[1],$InterLigne,"(Write in full)",'LBR',0,'C');
+				$this->fpdf->Cell($w[2],$InterLigne,"(Write in full)",'LRB',0,'C');
 				$this->fpdf->Ln(6);
 						
 				$this->fpdf->SetWidths(array($w[0], $w[1], 56));
 				$align = array('C', 'C', 'C');
 				$this->fpdf->SetAligns($align);
-				$this->fpdf->SetFont('Arial','B',6);
-				$this->fpdf->Row(array(), 1);	
-				// $this->fpdf->Row(array($row[$i]['skills'], $row[$i]['nadr'], $row[$i]['miao']), 1);	
+				$this->fpdf->SetFont('Arial','',6);
+				$this->fpdf->Row(array(), 0);	
+				$this->fpdf->Row(array($row['skills'], $row['nadr'], $row['miao']),1,'C');
 				$this->fpdf->SetFont('Arial','IB',7);
 				$this->fpdf->Cell(0,4,"(Continue on Separate sheet if necessary)",1,0,'C');
 				$this->fpdf->Ln(4);
@@ -1688,7 +1712,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 							tblEmpPersonal.lot2,tblEmpPersonal.street2,tblEmpPersonal.subdivision2,tblEmpPersonal.barangay2,tblEmpPersonal.city2,tblEmpPersonal.province2,tblEmpPersonal.zipCode2,tblEmpPersonal.email,
 							tblEmpPersonal.spouseSurname,tblEmpPersonal.spouseFirstname,tblEmpPersonal.spouseMiddlename,tblEmpPersonal.spousenameExtension,tblEmpPersonal.spouseWork,tblEmpPersonal.spouseBusName,tblEmpPersonal.spouseBusAddress,tblEmpPersonal.spouseTelephone,
 							tblEmpPersonal.fatherSurname,tblEmpPersonal.fatherFirstname,tblEmpPersonal.fatherMiddlename,tblEmpPersonal.fathernameExtension,tblEmpPersonal.motherSurname,tblEmpPersonal.motherFirstname,tblEmpPersonal.motherMiddlename,tblEmpPersonal.motherName,
-							tblEmpPersonal.relatedThird,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.relatedDegreeParticularsThird,tblEmpPersonal.dateAccomplished,tblEmpPersonal.soloParentParticulars,tblEmpPersonal.soloParent,tblEmpPersonal.disabledParticulars,tblEmpPersonal.disabled,tblEmpPersonal.indigenousParticulars,tblEmpPersonal.indigenous,tblEmpPersonal.immigrantParticulars,tblEmpPersonal.immigrant,tblEmpPersonal.campaignParticulars,tblEmpPersonal.campaign,tblEmpPersonal.candidateParticulars,tblEmpPersonal.candidate,tblEmpPersonal.forcedResignParticulars,tblEmpPersonal.forcedResign,tblEmpPersonal.violateLawParticulars,tblEmpPersonal.violateLaw,tblEmpPersonal.adminCaseParticulars,tblEmpPersonal.adminCase,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.formallyCharged,tblEmpPersonal.formallyChargedParticulars,
+							tblEmpPersonal.relatedThird,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.relatedDegreeParticularsThird,tblEmpPersonal.dateAccomplished,tblEmpPersonal.soloParentParticulars,tblEmpPersonal.soloParent,tblEmpPersonal.disabledParticulars,tblEmpPersonal.disabled,tblEmpPersonal.indigenousParticulars,tblEmpPersonal.indigenous,tblEmpPersonal.immigrantParticulars,tblEmpPersonal.immigrant,tblEmpPersonal.campaignParticulars,tblEmpPersonal.campaign,tblEmpPersonal.candidateParticulars,tblEmpPersonal.candidate,tblEmpPersonal.forcedResignParticulars,tblEmpPersonal.forcedResign,tblEmpPersonal.violateLawParticulars,tblEmpPersonal.violateLaw,tblEmpPersonal.adminCaseParticulars,tblEmpPersonal.adminCase,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.formallyCharged,tblEmpPersonal.formallyChargedParticulars,tblEmpPersonal.skills,tblEmpPersonal.nadr,tblEmpPersonal.miao,
 							tblPlantilla.plantillaGroupCode,
 						 	tblPlantillaGroup.plantillaGroupName, tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode,
 						 	tblEmpChild.childName,tblEmpChild.childBirthDate
