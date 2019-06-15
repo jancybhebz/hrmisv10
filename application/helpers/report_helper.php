@@ -35,6 +35,22 @@ if ( ! function_exists('getAppStatus'))
     }
 }
 
+if ( ! function_exists('getPermanentGroup'))
+{
+    function getPermanentGroup()
+    {
+        $CI =& get_instance();
+        $CI->db->Select('processWith');
+        $CI->db->where('appointmentCode','P');
+        $objQuery = $CI->db->get('tblPayrollProcess');
+        $rs = $objQuery->result_array();
+        if(count($rs)>0)
+        {
+            return $rs;
+        }
+    }
+}
+
 if ( ! function_exists('getAgencyName'))
 {
 	function getAgencyName()

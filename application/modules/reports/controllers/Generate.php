@@ -79,6 +79,10 @@ class Generate extends MY_Controller
     			$this->load->model('ListEmployeesDateBirth_model');
 				$this->ListEmployeesDateBirth_model->generate($arrGet);
     		break;
+            case 'LEDBA':
+                $this->load->model('ListEmployeesDateBirthAlpha_model');
+                $this->ListEmployeesDateBirthAlpha_model->generate($arrGet);
+            break;
     		case 'LEEA':
     			$this->load->model('ListEmployeesEducationalAttainment_model');
 				$this->ListEmployeesEducationalAttainment_model->generate($arrGet);
@@ -110,6 +114,10 @@ class Generate extends MY_Controller
             case 'LVP':
                 $this->load->model('ListOfVacantPositions_model');
                 $this->ListOfVacantPositions_model->generate($arrGet);
+            break;
+            case 'PSK':
+                $this->load->model('PanunumpaSaKatungkulan_model');
+                $this->PanunumpaSaKatungkulan_model->generate($arrGet);
             break;
     		case 'SR':
     			$this->load->model('ServiceRecord_model');
