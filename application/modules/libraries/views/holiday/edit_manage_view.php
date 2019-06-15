@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strHolidayName">
+                                    <select type="text" class="form-control" name="strHolidayName" disabled>
                                     <option value="">Select</option>
                                     <?php foreach($arrManageHoliday as $holiday)
                                         {

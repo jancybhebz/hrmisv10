@@ -47,21 +47,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Country Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strCountryName" value="<?=isset($arrCountries[0]['countryName'])?$arrCountries[0]['countryName']:''?>" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
                                 <label class="control-label">Country Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strCountryCode" value="<?=!empty($arrCountries[0]['countryCode'])?$arrCountries[0]['countryCode']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Country Name <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strCountryName" value="<?=isset($arrCountries[0]['countryName'])?$arrCountries[0]['countryName']:''?>" >
                                 </div>
                             </div>
                         </div>
@@ -103,14 +103,15 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strCountryName: {
-                        minLength: 1,
-                        required: true
-                    },
                     strCountryCode: {
                         minLength: 1,
                         required: true,
+                    },
+                    strCountryName: {
+                        minLength: 1,
+                        required: true
                     }
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
