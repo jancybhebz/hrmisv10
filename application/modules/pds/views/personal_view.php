@@ -68,7 +68,7 @@
                 <td><?=$arrData['zipCode2']?></td>
             </tr>
             <tr>
-                <td>TIN No. :</td>
+                <td>TIN :</td>
                 <td><?=$arrData['tin']?></td>
                 <td>Telephone No. :</td>
                 <td><?=$arrData['telephone2']?></td>
@@ -555,7 +555,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">TIN No. : <span class="required"> * </span></label>
+                            <label class="control-label">TIN : <span class="required"> * </span></label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>

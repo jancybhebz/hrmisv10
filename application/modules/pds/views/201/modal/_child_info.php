@@ -11,7 +11,7 @@
             <input type="hidden" name="txtchildcode" id="txtchildcode">
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Children Name</label>
+                    <label class="col-md-3 control-label">Name</label>
                     <div class="col-md-8">
                         <input type="text" name="txtchildname" id="txtchildname" class="form-control">
                         <span class="help-block"></span>

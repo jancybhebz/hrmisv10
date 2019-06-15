@@ -47,21 +47,27 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Salary</label>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <input type="text" name="txtsalary" id="txtsalary" class="form-control">
                                     <span class="help-block"></span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-1 left">
+                                    <label>Per</label>
+                                </div>
+                                <div class="col-md-2 left">
                                     <select class="form-control bs-select" id="selperiod" name="selperiod">
-                                        <option value="">PER</option>
+                                        <option value=""> </option>
                                         <?php foreach(salary_period() as $per):
                                                 echo '<option value="'.$per.'"> '.$per.'</option>';
                                               endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
+                                <div class="col-md-1 left">
+                                    <label>Currency</label>
+                                </div>
                                 <div class="col-md-2">
-                                    <input type="text" name="txtcurrency" id="txtcurrency" class="form-control" placeholder="CURR">
+                                    <input type="text" name="txtcurrency" id="txtcurrency" class="form-control" placeholder="">
                                     <span class="help-block"></span>
                                 </div>
                             </div>

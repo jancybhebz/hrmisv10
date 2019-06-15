@@ -129,18 +129,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 });
 
 
-function checkonsubmit()
-{
-    alert('aa');
-    $("form[name='frmSalary'] input").each(function(){
-      $this = $(this);
-      inputObj[$this.id] = $this.val();
-    });
-    console.log(inputObj);
-    alert(inputObj);
-    //e.preventDefault();
-    return false;
-}
+// function checkonsubmit()
+// {
+//     alert('aa');
+//     $("form[name='frmSalary'] input").each(function(){
+//       $this = $(this);
+//       inputObj[$this.id] = $this.val();
+//     });
+//     console.log(inputObj);
+//     alert(inputObj);
+//     //e.preventDefault();
+//     return false;
+// }
 </script>
 
 

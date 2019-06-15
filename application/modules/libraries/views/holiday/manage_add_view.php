@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <label class="control-label">Holiday Date</label>
                                     <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="date" value="" data-date-format="yyyy-mm-dd">
+                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmHolidayDate" id="dtmHolidayDate" size="16" value="" data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div>

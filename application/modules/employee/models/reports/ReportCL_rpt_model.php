@@ -10,6 +10,16 @@ class ReportCL_rpt_model extends CI_Model {
 		//$this->load->model(array());
 	}
 	
+	public function getEmp($intEmpNumber = '')
+	{		
+		if($intEmpNumber != "")
+		{
+			$this->db->where('empNumber',$intEmpNumber);
+		}
+		$objQuery = $this->db->get('tblEmpPersonal');
+		return $objQuery->result_array();		
+	}
+
 	public function Header()
 	{
 
@@ -90,7 +100,9 @@ class ReportCL_rpt_model extends CI_Model {
 		$this->fpdf->Cell(20,6,'       Recommending Approval :','',0,'L');
 		$this->fpdf->Ln(10);
 		$this->fpdf->Cell(8,6,'       ','',0,'C');
-		$this->fpdf->Cell(20,6,$strRecommend,'',0,'L'); 
+		$arrDetails=$this->getEmp($strRecommend);
+		$Recommend=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].' '.$arrDetails[0]['surname']);
+		$this->fpdf->Cell(20,6,$Recommend,'',0,'L'); 
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(8,6,'       ','',0,'C');
 		$this->fpdf->Cell(60,6,'EXECOM Official/Service Director ','T',0,'L'); 
@@ -100,7 +112,9 @@ class ReportCL_rpt_model extends CI_Model {
 		$this->fpdf->Cell(20,6,'       APPROVAL / DISAPPROVAL :','',0,'C');
 		$this->fpdf->Ln(10);
 		$this->fpdf->Cell(78,6,'       ','',0,'C');
-		$this->fpdf->Cell(20,6,$strApproval,'',0,'L'); 
+		$arrDetails=$this->getEmp($strApproval);
+		$Approval=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].' '.$arrDetails[0]['surname']);
+		$this->fpdf->Cell(20,6,'         '.$Approval,'',0,'C'); 
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(60,6,'       ','',0,'C');
 		$this->fpdf->Cell(63,6,'Secretary/Authorized Representative ','T',0,'C'); 

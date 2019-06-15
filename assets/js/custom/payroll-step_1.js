@@ -40,28 +40,27 @@ $(document).ready(function() {
         var employment = e.target.value.toLowerCase();
         var computation = $(this).find(':selected').data('comp').toLowerCase();
 
-        // switch(computation) {
-        //     case 'monthly':
-        //         $('#frmprocess').attr('action', 'compute_benefits_perm');
-        //         break;
-        //     case 'daily':
-        //         if(employment == 'JO'){
-        //             $('#frmprocess').attr('action', 'compute_benefits_nonperm_jo');
-        //         }else{
-        //             $('#frmprocess').attr('action', 'compute_benefits_nonperm_trc');
-        //         }
-        //         break;
-        //     default:
-        //         $('#frmprocess').attr('action', 'compute_benefits_nonperm');
-        //         break;
-        // }
-
+        switch(computation) {
+            case 'monthly':
+                $('#frmprocess').attr('action', 'select_benefits_perm');
+                break;
+            case 'daily':
+                if(employment == 'JO'){
+                    $('#frmprocess').attr('action', 'select_benefits_nonperm_jo');
+                }else{
+                    $('#frmprocess').attr('action', 'select_benefits_nonperm_trc');
+                }
+                break;
+            default:
+                $('#frmprocess').attr('action', 'select_benefits_nonperm');
+                break;
+        }
+        alert(computation);
         if(employment != 'p'){
             // $('#frmprocess').attr('action', 'compute_benefits');
             $('.div-datause').hide();
             $('.div-date').show();
         }else{
-            $('#frmprocess').attr('action', 'select_benefits_perm');
             $('.div-datause').show();
             $('.div-date').hide();
         }

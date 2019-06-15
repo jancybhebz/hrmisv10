@@ -66,7 +66,7 @@
        
     </tr>
     <tr>
-        <th style="text-align:right;" nowrap>TIN No. </th>
+        <th style="text-align:right;" nowrap>TIN </th>
         <td><?=$arrData['tin']?></td>
          <th style="text-align:right;" nowrap>Zip Code </th>
         <td><?=$arrData['zipCode2']?></td>

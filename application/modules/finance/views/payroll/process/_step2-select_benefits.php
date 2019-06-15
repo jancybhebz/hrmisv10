@@ -33,7 +33,6 @@
                             
                             foreach($arrBenefit as $benefit):
                                 $benefit_hide = '';
-                                
                             ?>
                             <label class="checkbox col-md-3">
                                 <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>"
