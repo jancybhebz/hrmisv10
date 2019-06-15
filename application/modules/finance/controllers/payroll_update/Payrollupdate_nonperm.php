@@ -76,6 +76,55 @@ class Payrollupdate_nonperm extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
+	public function save_computation_nonperm()
+	{
+		$arrPost = $this->input->post();
+		echo '<pre>';
+		print_r($arrPost);
+		$process_data = fixArray($arrPost['txtprocess'],true);
+		$arrEmployees = fixArray($arrPost['txtjson_computations'],true);
+		print_r($process_data);
+
+		# insert tablename: tblNonPermComputationInstance
+		$arrData_comp_instance = array('startDate'		  => $process_data['txt_dtfrom'],
+									   'endDate' 		  => $process_data['txt_dtto'],
+									   'appointmentCode'  => $process_data['selemployment'],
+									   'pmonth' 		  => $process_data['mon'],
+									   'pyear' 			  => $process_data['yr'],
+									   'period' 		  => $process_data['period']
+									   /*'payrollGroupCode' => $process_data['txt_dtto']*/);
+		$comp_instance_id = ''; # insert arrData_comp_instance
+
+		foreach($arrEmployees as $emp_comp):
+			print_r($emp_comp);
+			$tardy = explode(':', date('H:i', mktime(0, $emp_comp['total_late'] + $emp_comp['total_ut'])));
+			print_r($tardy);
+			# insert tablename: tblNonPermComputation
+			$arrData_comp_instance = array('fk_id'		  	 => $comp_instance_id,
+										   'empNumber' 		 => $emp_comp['emp_detail']['empNumber'],
+										   'salary' 		 => $emp_comp['emp_detail']['actualSalary'] / 2,
+										   'basicSalary' 	 => $emp_comp['emp_detail']['actualSalary'],
+										   'nodays_absent' 	 => $emp_comp['actual_days_absent'],
+										   'nodays_present'  => $emp_comp['actual_days_present'],
+										   'totalTardyHour'  => $tardy[0],
+										   'totalTardyMinute'=> $tardy[1],
+										   'no_workingdays'  => $process_data['selemployment'],
+										   'lateamount' 	 => $process_data['mon'],
+										   'dayabsentamount' => $process_data['yr'],
+										   'tardyhouramount' => $process_data['period'],
+										   'tardyminuteamount'=> $process_data['txt_dtto']);
+			echo '<hr>';
+		endforeach;
+
+		# update tablename: tblNonPermComputation
+
+		# update / insert tablename: tblEmpBenefits
+		# update / insert tablename: tblEmpDeductions
+
+		echo '</pre>';
+		die();
+	}
+
 	// public function save_benefits_perm()
 	// {
 	// 	$arrPost = $this->input->post();
