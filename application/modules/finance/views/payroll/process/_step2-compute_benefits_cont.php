@@ -1,8 +1,6 @@
 <?=load_plugin('css', array('datatables'))?>
 
 <?=form_open('finance/payroll_update/save_computation_nonperm', array('class' => 'form-horizontal', 'method' => 'post'))?>
-<input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
-<input type="hidden" name="chkbenefit" value='<?=json_encode($_POST['chkbenefit'])?>'>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -59,11 +57,12 @@
 <div class="form-actions">
     <div class="row">
         <div class="col-md-offset-3 col-md-9">
-            <a href="javascript:;" class="btn default btn-previous">
-                <i class="fa fa-angle-left"></i> Back </a>
-            <button class="btn blue btn-submit"> Save and Continue
-                <i class="fa fa-angle-right"></i>
-            </button>
+            <textarea name="txtjson_computations"><?=isset($arrEmployees) ? fixJson($arrEmployees) : ''?></textarea>
+            <input type="hidden" name="txtprocess" value='<?=isset($_POST['txtprocess']) ? fixJson($_POST['txtprocess']) : ''?>'>
+            <input type="hidden" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
+            <input type="text" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
+            <a href="javascript:;" class="btn default btn-previous"> <i class="fa fa-angle-left"></i> Back </a>
+            <button class="btn blue btn-submit"> Save and Continue <i class="fa fa-angle-right"></i></button>
         </div>
     </div>
 </div>
