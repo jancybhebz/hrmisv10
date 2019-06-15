@@ -47,10 +47,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Country Name <span class="required"> * </span></label>
+                                <label class="control-label">Country Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strCountryName" value="<?=!empty($this->session->userdata('strCountryName'))?$this->session->userdata('strCountryName'):''?>">
+                                    <input type="text" class="form-control" name="strCountryCode" value="<?=!empty($this->session->userdata('strCountryCode'))?$this->session->userdata('strCountryCode'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -58,10 +58,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Country Code <span class="required"> * </span></label>
+                                <label class="control-label">Country Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strCountryCode" value="<?=!empty($this->session->userdata('strCountryCode'))?$this->session->userdata('strCountryCode'):''?>">
+                                    <input type="text" class="form-control" name="strCountryName" value="<?=!empty($this->session->userdata('strCountryName'))?$this->session->userdata('strCountryName'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -102,14 +102,15 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strCountryName: {
-                        minlength: 1,
-                        required: true
-                    },
                     strCountryCode: {
                         minlength: 1,
                         required: true,
+                    },
+                    strCountryName: {
+                        minlength: 1,
+                        required: true
                     }
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              

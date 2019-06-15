@@ -36,8 +36,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <thead>
                         <tr>
                             <th> No. </th>
-                            <th> Country Name </th>
                             <th> Country Code </th>
+                            <th> Country Name </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -47,8 +47,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrCountries as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=$row['countryName']?> </td>
                             <td class="center"> <?=$row['countryCode']?> </td>
+                            <td> <?=$row['countryName']?> </td>
                             <td>
                                 <a href="<?=base_url('libraries/country/edit/'.$row['countryId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/country/delete/'.$row['countryId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
