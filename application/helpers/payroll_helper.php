@@ -150,6 +150,17 @@ if ( ! function_exists('payroll_group'))
     }
 }
 
+if ( ! function_exists('process_with'))
+{
+    function process_with($appt)
+    {
+        $CI =& get_instance();
+        $res = $CI->db->get_where('tblPayrollProcess',array('appointmentCode' => $appt))->result_array();
+        
+        return count($res) > 0 ? explode(',',$res[0]['processWith']) : array();
+    }
+}
+
 if ( ! function_exists('agency_payroll_process'))
 {
     function agency_payroll_process()
