@@ -60,6 +60,8 @@
             <textarea name="txtjson_computations"><?=isset($arrEmployees) ? fixJson($arrEmployees) : ''?></textarea>
             <input type="hidden" name="txtprocess" value='<?=isset($_POST['txtprocess']) ? fixJson($_POST['txtprocess']) : ''?>'>
             <input type="hidden" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
+            <input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
+            <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
             <input type="text" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
             <a href="javascript:;" class="btn default btn-previous"> <i class="fa fa-angle-left"></i> Back </a>
             <button class="btn blue btn-submit"> Save and Continue <i class="fa fa-angle-right"></i></button>

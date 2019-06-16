@@ -12,8 +12,11 @@ class Benefit_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function edit($arrData, $benefitcode)
+	function edit($arrData, $benefitcode,$empid='')
 	{
+		if($empid!=''){
+			$this->db->where('empNumber',$empid);
+		}
 		$this->db->where('benefitCode',$benefitcode);
 		$this->db->update('tblEmpBenefits', $arrData);
 		return $this->db->affected_rows();

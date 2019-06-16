@@ -11,10 +11,38 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->get_where('tblComputationInstance',array('pmonth' => $mon, 'pyear' => $yr, 'appointmentCode' => $appt))->result_array();
 	}
 
+	function insert_computation($arrData)
+	{
+		$this->db->insert('tblComputation', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function insert_nonperm_computation($arrData)
+	{
+		$this->db->insert('tblNonPermComputation', $arrData);
+		return $this->db->insert_id();
+	}
+
 	function insert_computation_instance($arrData)
 	{
 		$this->db->insert('tblComputationInstance', $arrData);
 		return $this->db->insert_id();
+	}
+
+	function insert_nonpem_computation_instance($arrData)
+	{
+		$this->db->insert('tblNonPermComputationInstance', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_nonpem_computation_instance($arrData,$payrollgroup,$mon,$yr,$period)
+	{
+		$this->db->where('payrollGroupCode',$payrollgroup);
+		$this->db->where('pmonth',$mon);
+		$this->db->where('pyear',$yr);
+		$this->db->where('period',$period);
+		$this->db->update('tblNonPermComputationInstance', $arrData);
+		return $this->db->affected_rows();
 	}
 
 	function edit_computation_instance($arrData,$appt,$mon='',$yr='')
@@ -34,12 +62,6 @@ class Computation_instance_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete('tblComputationInstance');
 		return $this->db->affected_rows();
-	}
-
-	function insert_computation($arrData)
-	{
-		$this->db->insert('tblComputation', $arrData);
-		return $this->db->insert_id();
 	}
 
 	# delete computation

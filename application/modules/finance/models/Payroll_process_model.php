@@ -108,7 +108,7 @@ class Payroll_process_model extends CI_Model {
 			$this->db->select("tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,
 							    tblEmpPosition.authorizeSalary,tblEmpPosition.actualSalary,tblEmpPosition.hpFactor,tblEmpPosition.RATACode,tblEmpPosition.RATAVehicle,
 							    tblEmpPosition.schemeCode,tblEmpPosition.payrollSwitch,tblEmpPosition.positionCode,tblEmpPosition.positionCode,tblEmpPosition.appointmentCode,
-							    tblEmpPosition.officeCode");
+							    tblEmpPosition.officeCode,tblEmpPosition.taxSwitch");
 			$this->db->join('tblEmpPersonal', 'tblEmpPersonal.empNumber = tblEmpPosition.empNumber');
 			$this->db->where_in('appointmentCode', explode(',',$payroll_process[0]['processWith']));
 			$employees = $this->db->get_where('tblEmpPosition',$condition)->result_array();
