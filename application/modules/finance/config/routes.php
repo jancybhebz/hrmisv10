@@ -65,6 +65,12 @@ $route['finance/payroll_update/select_deductions_nonperm'] = 'finance/payroll_up
 $route['finance/payroll_update/save_computation_nonperm'] = 'finance/payroll_update/payrollupdate_nonperm/save_computation_nonperm';
 
 # daily
+# JO
+$route['finance/payroll_update/select_benefits_nonperm_jo'] = 'finance/payroll_update/Payrollupdate_nonperm_jo/select_benefits_nonperm_jo';
+$route['finance/payroll_update/compute_benefits_nonperm_jo'] = 'finance/payroll_update/Payrollupdate_nonperm_jo/compute_benefits_nonperm_jo';
+$route['finance/payroll_update/select_deduction_nonperm_jo'] = 'finance/payroll_update/Payrollupdate_nonperm_jo/select_deduction_nonperm_jo';
+$route['finance/payroll_update/save_computation_nonperm_jo'] = 'finance/payroll_update/Payrollupdate_nonperm_jo/save_computation_nonperm_jo';
+# TRC
 $route['finance/payroll_update/select_benefits_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/select_benefits_nonperm_trc';
 $route['finance/payroll_update/compute_benefits_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/compute_benefits_nonperm_trc';
 $route['finance/payroll_update/select_deduction_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/select_deduction_nonperm_trc';

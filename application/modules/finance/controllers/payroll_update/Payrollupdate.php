@@ -34,9 +34,6 @@ class Payrollupdate extends MY_Controller {
 	public function select_benefits_perm()
 	{
 		$arrPost = $this->input->post();
-		echo '<pre>';
-		print_r($arrPost);
-		echo '</pre>';
 		if(!empty($arrPost)):
 			// if($arrPost['selemployment'] != 'P'):
 			// 	redirect('finance/payroll_update/process');	
@@ -238,9 +235,6 @@ class Payrollupdate extends MY_Controller {
 			if(gettype($arrPost['chkbenefit']) == 'string'):
 				$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
 			endif;
-			echo '<pre>';
-			print_r($arrPost);
-			echo '</pre>';
 		endif;
 
 		$this->arrData['arrEmployees'] = $arrPost['txtjson'];
@@ -635,6 +629,8 @@ class Payrollupdate extends MY_Controller {
 				# Processed Employees
 				$period_amount = 0;
 				$payroll_process = $this->Payroll_process_model->process_with($process_data['selemployment']);
+				$netPayPeriod1 = 0;
+				$netPayPeriod2 = 0;
 				switch ($payroll_process['computation']):
 					case 'Monthly':
 						$period_amount = $income_salary['period1'];
