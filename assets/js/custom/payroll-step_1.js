@@ -55,7 +55,7 @@ $(document).ready(function() {
                 $('#frmprocess').attr('action', 'select_benefits_nonperm');
                 break;
         }
-        alert(computation);
+        $('#txtcomputation').val(computation);
         if(employment != 'p'){
             // $('#frmprocess').attr('action', 'compute_benefits');
             $('.div-datause').hide();

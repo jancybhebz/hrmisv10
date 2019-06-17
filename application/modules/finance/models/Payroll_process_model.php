@@ -57,6 +57,27 @@ class Payroll_process_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	# Add processed project
+	function add_processed_project($arrData)
+	{
+		$this->db->insert('tblProcessedEmployees', $arrData);
+		return $this->db->insert_id();
+	}
+
+	# Add processed employees
+	function add_processed_employees($arrData)
+	{
+		$this->db->insert('tblProcessedProject', $arrData);
+		return $this->db->insert_id();
+	}
+
+	# Add processed pgroup
+	function add_processed_pgroup($arrData)
+	{
+		$this->db->insert('tblProcessedPayrollGroup', $arrData);
+		return $this->db->insert_id();
+	}
+
 	# delete payroll process
 	function delete_payroll_process($month,$yr)
 	{
@@ -95,9 +116,10 @@ class Payroll_process_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	function getEmployees($appt_code,$empid='')
+	function getEmployees($appt_code,$empid='',$tblposition=0,$tblproject=0)
 	{
 		$payroll_process = $this->db->get_where('tblPayrollProcess', array('appointmentCode' => $appt_code))->result_array();
+
 		if(count($payroll_process) > 0):
 			$condition['statusOfAppointment'] = 'In-Service';
 			$condition['payrollSwitch'] = 'Y';
@@ -105,16 +127,23 @@ class Payroll_process_model extends CI_Model {
 				$condition['tblEmpPersonal.empNumber'] = $empid;
 			endif;
 			# Employees
-			$this->db->select("tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,
+			$this->db->select("tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPosition.payrollGroupCode,
 							    tblEmpPosition.authorizeSalary,tblEmpPosition.actualSalary,tblEmpPosition.hpFactor,tblEmpPosition.RATACode,tblEmpPosition.RATAVehicle,
 							    tblEmpPosition.schemeCode,tblEmpPosition.payrollSwitch,tblEmpPosition.positionCode,tblEmpPosition.positionCode,tblEmpPosition.appointmentCode,
 							    tblEmpPosition.officeCode,tblEmpPosition.taxSwitch");
 			$this->db->join('tblEmpPersonal', 'tblEmpPersonal.empNumber = tblEmpPosition.empNumber');
+			if($tblposition==1){
+				$this->db->select("tblPosition.positionAbb");
+				$this->db->join('tblPosition', 'tblEmpPosition.positionCode = tblPosition.positionCode');
+			}
+			if($tblproject==1){
+				$this->db->select('tblProject.projectCode,tblProject.projectDesc,tblProject.projectOrder,tblPayrollGroup.payrollGroupName,tblPayrollGroup.payrollGroupOrder');
+				$this->db->join('tblPayrollGroup', 'tblEmpPosition.payrollGroupCode = tblPayrollGroup.payrollGroupCode');
+				$this->db->join('tblProject', 'tblProject.projectCode = tblPayrollGroup.projectCode');
+			}
 			$this->db->where_in('appointmentCode', explode(',',$payroll_process[0]['processWith']));
 			$employees = $this->db->get_where('tblEmpPosition',$condition)->result_array();
 
-			// echo $this->db->last_query();
-			// die();
 			return $employees;
 		endif;
 	}

@@ -72,6 +72,11 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	function get_computation_details($arrData)
+	{
+		return $this->db->get_where('tblComputationDetails',array('latest' => 'Y'))->result_array();
+	}
+
 	function insert_computation_details($arrData)
 	{
 		$this->db->insert('tblComputationDetails', $arrData);

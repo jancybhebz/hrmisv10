@@ -72,11 +72,24 @@ class Process_model extends CI_Model {
 		return false;
 	}
 
-	public function getWorkingDays($month, $yr)
+	function deleteProcess($processid,$appt)
 	{
-		
-		
+		# delete tblEmpIncome where processid
+		# update tblEmpDeductions set status=1
+		# delete tblEmpDeductionRemit where processid
+		/* if appt=JO; delete tblNonPermComputationInstance where appointmentCode=appt,month,yr,period;
+			else delete tblNonPermComputationInstance where payrollGroupCode=appt,month,yr,period*/
+		# delete tblProcess where processid
 	}
+
+	// public function getWorkingDays($month, $yr)
+	// {
+		
+		
+	// }
+
+
+
 
 }
 /* End of file Process_model.php */

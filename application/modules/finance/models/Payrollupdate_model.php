@@ -61,9 +61,11 @@ class Payrollupdate_model extends CI_Model {
 		if($process_data['txt_dtfrom']!='' && $process_data['txt_dtto']!=''):
 			$datefrom = date('Y-m-d', strtotime($process_data['txt_dtfrom']));
 			$dateto = date('Y-m-d', strtotime($process_data['txt_dtto']));
+			$process_data_datediff = round((strtotime($process_data['txt_dtto']) - strtotime($process_data['txt_dtfrom'])) / (60 * 60 * 24)) + 1;
 		else:
 			$datefrom = implode('-',array($yr,$month,'01'));
 			$dateto = implode('-',array($yr,$month,cal_days_in_month(CAL_GREGORIAN,$month,$yr)));
+			$process_data_datediff = 0;
 		endif;
 
 		$arrrata = $this->Rata_model->getData();
@@ -98,7 +100,7 @@ class Payrollupdate_model extends CI_Model {
 		$no_empty_lb = 0;
 		$arremployees = array();
 		$emp_leavebal = $this->Leave_model->getEmpLeave_balance('',$month,$yr);
-		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$empid);
+		$process_employees = $this->Payroll_process_model->getEmployees($process_data['selemployment'],$empid,1,1);
 		$rata_details = $this->Payroll_process_model->get_rata_details();
 		foreach($process_employees as $emp):
 			# employee attendance scheme
@@ -292,7 +294,12 @@ class Payrollupdate_model extends CI_Model {
 
 			# deduction and salary period computation
 			$per_period = $emp['actualSalary'] / 2;
-			$per_day = $emp['actualSalary'] / SALARY_DAYS;
+			if(strtolower($process_data['txtcomputation']) == 'daily'){
+				$salary_days = $process_data_datediff;
+			}else{
+				$salary_days = SALARY_DAYS;
+			}
+			$per_day = $emp['actualSalary'] / $salary_days;
 			$per_hr = $per_day / 8;
 			$per_min = $per_hr / 60;
 			$deduct_day = $emp_lb['nodays_absent'] * $per_day;
@@ -334,7 +341,7 @@ class Payrollupdate_model extends CI_Model {
 			// 						 'emp_leavebal'			=> $emp_lb));
 		endforeach;
 
-		return array('arremployees' => $arremployees, 'workingdays' => count($workingdays), 'curr_workingdays' => count($curr_workingdays), 'no_empty_lb' => $no_empty_lb);
+		return array('arremployees' => $arremployees, 'workingdays' => count($workingdays), 'curr_workingdays' => count($curr_workingdays), 'no_empty_lb' => $no_empty_lb, 'process_data_datediff' => $process_data_datediff);
 	}
 
 

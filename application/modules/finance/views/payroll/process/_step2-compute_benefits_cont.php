@@ -1,6 +1,6 @@
 <?=load_plugin('css', array('datatables'))?>
 
-<?=form_open('finance/payroll_update/save_computation_nonperm', array('class' => 'form-horizontal', 'method' => 'post'))?>
+<?=form_open('finance/payroll_update/select_deductions_nonperm', array('class' => 'form-horizontal', 'method' => 'post'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -13,7 +13,7 @@
         </div>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
-                Payroll Date: <?=$payroll_date?> (<?=ordinal($period)?> Half) || For <?=$employment_type?> Employees || Total Calendar days: <?=$curr_period_workingdays?>
+                Payroll Date: <?=$payroll_date?> (<?=ordinal($period)?> Half) || For <?=$employment_type?> Employees || Total Calendar days: <?=$employment_type == 'JO' ? $process_data_datediff : $curr_period_workingdays?>
             </small>
         </div>
         <div class="row">

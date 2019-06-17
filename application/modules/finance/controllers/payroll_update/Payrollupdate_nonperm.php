@@ -76,13 +76,35 @@ class Payrollupdate_nonperm extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
+	public function select_deductions_nonperm()
+	{
+		$arrPost = $this->input->post();
+		$arrEmployees = array();
+		if(!empty($arrPost)):
+			if(gettype($arrPost['chkbenefit']) == 'string'):
+				$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
+			endif;
+			echo '<pre>';
+			print_r($arrPost);
+			echo '</pre>';
+		endif;
+
+		$this->arrData['arrEmployees'] = $arrPost['txtjson_computations'];
+		$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
+		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
+		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
+
+		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
+	}
+
 	public function save_computation_nonperm()
 	{
 		$arrPost = $this->input->post();
 		$process_data = fixArray($arrPost['txtprocess'],true);
 		$arrEmployees = fixArray($arrPost['txtjson_computations'],true);
 		$salary_period = 'period'.$process_data['period'];
-		
+		$loans = isset($arrPost['chkloan']) ? fixArray($arrPost['chkloan']) : array();
+
 		# insert tablename: tblNonPermComputationInstance
 		$arrData_comp_instance = array('startDate'		  => $process_data['txt_dtfrom'],
 									   'endDate' 		  => $process_data['txt_dtto'],
@@ -142,10 +164,10 @@ class Payrollupdate_nonperm extends MY_Controller {
 			else:
 				# insert tblEmpDeductions
 				$arrData_emp_deductions = array('empNumber' 	=> $emp_comp['emp_detail']['empNumber'],
-											'deductionCode' => 'ITW',
-											'monthly' 		=> '0',
-											$salary_period  => ROUND('$taxamount',2),
-											'status' 		=> '1');
+											    'deductionCode' => 'ITW',
+											    'monthly' 		=> '0',
+											    $salary_period  => ROUND('$taxamount',2),
+											    'status' 		=> '1');
 				$this->Deduction_model->add_emp_deductions($arrData_emp_deductions);
 			endif;
 			
@@ -224,11 +246,12 @@ class Payrollupdate_nonperm extends MY_Controller {
 									 'salarySchedule'  => $agency_info['salarySchedule'],
 									 'period' 		   => $period,
 									 'publish' 		   => 0);
+			print_r($arrData_process);
 			# insert process; tablename : tblProcess
 			$proc_id = $this->Payroll_process_model->add_payroll_process($arrData_process);
 			$arrProcess_id[] = array('proc_id' => $proc_id, 'code' => $pcode);
 		endforeach;
-
+		
 		# update tblNonPermComputationInstance
 		$this->Computation_instance_model->update_nonpem_computation_instance(array('status' => 1),$process_data['selemployment'],$process_data['mon'],$process_data['yr'],$process_data['period']);
 
@@ -292,14 +315,54 @@ class Payrollupdate_nonperm extends MY_Controller {
 					$this->Deduction_model->add_deduction_remit($arrData_deduction);
 				endforeach;
 
+				# insert deductions - Loans; tablename : tblEmpDeductionRemit
+				$empLoans = $this->Deduction_model->get_employee_deductions($emp['emp_detail']['empNumber'],$loans,'Loan');
+				foreach($empLoans as $loan):
+					if(($loan['period1'] + $loan['period2'] + $loan['period3'] + $loan['period4']) > 0):
+						$arrData_loan = array('processID'	 => $processid['proc_id'],
+											  'code'		 => $loan['deductCode'],
+											  'empNumber'	 => $emp['emp_detail']['empNumber'],
+											  'deductionCode'=> $loan['deductionCode'],
+											  'deductAmount' => $loan['amountGranted'],
+											  'period1'		 => $loan['period1'],
+											  'period2'		 => $loan['period2'],
+											  'period3'		 => $loan['period3'],
+											  'period4'		 => $loan['period4'],
+											  'deductMonth'	 => $process_data['mon'],
+											  'deductYear'	 => $process_data['yr'],
+											  'appointmentCode'	=> $emp['emp_detail']['appointmentCode']);
+						$this->Deduction_model->add_deduction_remit($arrData_loan);
+					endif;
+				endforeach;
+
+				# Other Deductions; tablename: tblEmpDeductionRemit
+				if(isset($arrPost['chkothrs'])):
+					$others_deductions = $this->Deduction_model->get_employee_deductions($emp['emp_detail']['empNumber'],fixArray($arrPost['chkothrs']),'Others');
+					foreach($others_deductions as $oth_d):
+						if(($oth_d['period1'] + $oth_d['period2'] + $oth_d['period3'] + $oth_d['period4']) > 0):
+							$arrData_others = array('processID'	 => $processid['proc_id'],
+												  'code'		 => $oth_d['deductCode'],
+												  'empNumber'	 => $emp['emp_detail']['empNumber'],
+												  'deductionCode'=> $oth_d['deductionCode'],
+												  'deductAmount' => $oth_d['amountGranted'],
+												  'period1'		 => $oth_d['period1'],
+												  'period2'		 => $oth_d['period2'],
+												  'period3'		 => $oth_d['period3'],
+												  'period4'		 => $oth_d['period4'],
+												  'deductMonth'	 => $process_data['mon'],
+												  'deductYear'	 => $process_data['yr'],
+												  'appointmentCode'	=> $emp['emp_detail']['appointmentCode']);
+							$this->Deduction_model->add_deduction_remit($arrData_others);
+						endif;
+					endforeach;
+				endif;
+
 			endforeach;
 		endforeach;
 
 		$this->session->set_flashdata('strSuccessMsg','Payroll saved successfully.');
 		redirect('finance/payroll_update/reports?processid='.implode(';',array_column($arrProcess_id,'proc_id')));
 	}
-
-	
 
 
 }
