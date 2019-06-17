@@ -12,8 +12,11 @@ class Payrollupdate_model extends CI_Model {
 		return $this->db->get_where('tblIncome', array('incomeType' => $type, 'hidden' => 0))->result_array();
 	}
 
-	function payroll_select_income_process($process_mo,$process_yr,$appt,$inc_type)
+	function payroll_select_income_process($process_mo,$process_yr,$appt,$inc_type,$period=0)
 	{
+		if($appt != 'P'){
+			$this->db->where('tblProcess.period',$period);
+		}
 		$processed = $this->db->distinct()->select('tblEmpIncome.incomeCode')
 							  ->join('tblProcess','tblProcess ON tblProcess.processID = tblEmpIncome.processID')
 							  ->where('tblProcess.processMonth',$process_mo)

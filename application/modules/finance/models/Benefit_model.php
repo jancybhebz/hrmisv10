@@ -29,6 +29,14 @@ class Benefit_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	function update_benefits($arrData,$empid='',$incomeCode='')
+	{
+		$this->db->where('empNumber',$empid);
+		$this->db->where('incomeCode',$incomeCode);
+		$this->db->update('tblEmpBenefits', $arrData);
+		return $this->db->affected_rows();
+	}
+
 	function getBenefits($empid='', $incomeCode='')
 	{
 		$arrWhere = $incomeCode!='' ? array('incomeCode' => $incomeCode, 'empNumber' => $empid) : array('empNumber' => $empid);

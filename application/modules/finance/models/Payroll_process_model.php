@@ -31,8 +31,13 @@ class Payroll_process_model extends CI_Model {
 		return array_filter(array_merge(array_column($deduction_codes,'deductionCode'),array_column($income_codes,'incomeCode')));
 	}
 
-	function get_process_by_appointment($appt,$month,$yr)
+	function get_process_by_appointment($appt,$month,$yr,$period=0)
 	{
+		if($period!=0):
+			if($appt != 'P'){
+				$this->db->where('tblProcess.period',$period);
+			}
+		endif;
 		$process = $this->db->get_where('tblProcess',array('employeeAppoint' => $appt, 'processMonth' => ltrim($month,'0'), 'processYear' => $yr))->result_array();
 		foreach($process as $key => $p):
 			$process[$key]['codes'] = $this->get_process_code($p['processID']);

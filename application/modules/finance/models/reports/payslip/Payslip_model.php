@@ -28,6 +28,7 @@ class Payslip_model extends CI_Model {
 	function get_employee_salary($process_id, $empnumber)
 	{
 		$res = $this->db->get_where('tblEmpIncome', array('incomeCode' => 'SALARY', 'processID' => $process_id, 'empNumber' => $empnumber))->result_array();
+		
 		return count($res) > 0 ? $res[0] : null;
 	}
 
