@@ -195,11 +195,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <br><br>
                 <div class="row">
                   <div class="col-sm-8 text-right">
+                      
                         <input class="hidden" name="strStatus" value="Filed Request">
                         <input class="hidden" name="strCode1" value="Forced Leave">
                         <input class="hidden" name="strCodeSPL" value="Special Leave">
-                        <input class="hidden" name="intVL" value="<?=!empty($this->session->userdata('intVL'))?$this->session->userdata('intVL'):''?>"">
-                        <input class="hidden" name="intSL" value="<?=!empty($this->session->userdata('intSL'))?$this->session->userdata('intSL'):''?>"">
+                        <input class="hidden" name="intVL" id="intVL" value="<?=!empty($arrBalance[0]['vlBalance'])?$arrBalance[0]['vlBalance']:''?>">
+                        <input class="hidden" name="intSL" id="intSL" value="<?=!empty($arrBalance[0]['slBalance'])?$arrBalance[0]['slBalance']:''?>">
                         <button type="button" id="printreport" value="reportLeave" class="btn blue">Print/Preview</button>
 
                      <div class="col-sm-10 text-center">
@@ -255,6 +256,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var reason=$('#strReason').val();
         var incaseSL=$('#strIncaseSL').val();
         var incaseVL=$('#strIncaseVL').val();
+        var intVL=$('#intVL').val();
+        var intSL=$('#intSL').val();
 
         if(leavefrom=='')
           $('#printreport').disabled();
@@ -265,7 +268,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         //     valid=true;
         // if(valid)
 
-            window.open("reports/generate/?rpt=reportLeave&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&empname="+empname+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL,'_blank'); //ok
+            window.open("reports/generate/?rpt=reportLeave&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&empname="+empname+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL+"&intVL="+intVL+"&intSL="+intSL,'_blank'); //ok
     
     });
  });
