@@ -46,9 +46,9 @@ if ( ! function_exists('get_request'))
 		return array(
 			'official_business'=>'Official Business',
 			'leave'=>'Leave',
-			'travel_order'=>'Travel Order',
-			'pds_update'=>'PDS Update',
-			'dtr_update'=>'DTR Update',
+			'travelorder'=>'Travel Order',
+			'update_pds'=>'PDS Update',
+			'update_dtr'=>'DTR Update',
 			'reports'=>'Reports',
 			'compensatory_leave'=>'Compensatory Leave',
 			

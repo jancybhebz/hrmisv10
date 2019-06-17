@@ -52,13 +52,12 @@ class Leave_model extends CI_Model {
 	// 	return $objQuery->result_array();	
 	// }
 
-	public function getBalances($strEmpNum)
+	public function getLatestBalance($strEmpNum)
 	{
-		$strWhere = '';
-		if($strEmpNum != "")
-			$strWhere .= " AND empNumber = '".$strEmpNum."'";
-
-		$res = $this->db->get_where('tblEmpLeaveBalance')->result_array();
+		
+		$this->db->where("empNumber",$strEmpNum);
+		$this->db->order_by('periodYear DESC,periodMonth DESC');
+		$res = $this->db->get('tblEmpLeaveBalance')->result_array();
 		return $res;
 	}
 

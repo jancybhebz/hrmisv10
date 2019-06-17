@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/dtr_update/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
+            <?=form_open(base_url('employee/update_dtr/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
             <br>
                    
             <div class="row">
@@ -115,7 +115,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">New Morning Time In : </label>
-                              <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00 AM" autocomplete="off">
+                              <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -194,7 +194,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                  <div class="row">
                   <div class="col-sm-6 text-center">
                       <button type="submit" class="btn btn-success"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                       <a href="<?=base_url('employee/dtr_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
+                       <a href="<?=base_url('employee/update_dtr')?>"/><button type="reset" class="btn blue">Clear</button></a>
                   </div>
                   <div class="col-sm-2 text-right">
                        <button type="button" id="printreport" value="reportDTRupdate" class="btn blue">Print/Preview</button>
@@ -359,28 +359,29 @@ jQuery(document).ready(function() {
             //console.log( $(this).val() );
             $date=$('#dtmDTRupdate').val();
             $.ajax({
-                url: "dtr_update_view.php?action=getinout&date="+$date,
+                 url: "<?=base_url('employee/update_dtr')?>/getinout?date="+$date,
             success: function(result){
                 $arrTime = result.split(';');
                 //alert(result);
-                $('input[name="strOldMorningIn"]').val($arrTime[0]);
-                $('input[name="strOldMorningOut"]').val($arrTime[1]);
-                $('input[name="strOldAfternoonIn"]').val($arrTime[2]);
-                $('input[name="strOldAfternoonOut"]').val($arrTime[3]);
-                $('input[name="strOldOvertimeIn"]').val($arrTime[4]);
-                $('input[name="strOldOvertimeOut"]').val($arrTime[5]);
+                console.log($arrTime);
+                $('input[name="strOldMorningIn"],input[name="dtmMorningIn"]').val($arrTime[0]);
+                $('input[name="strOldMorningOut"],input[name="dtmMorningOut"]').val($arrTime[1]);
+                $('input[name="strOldAfternoonIn"],input[name="dtmAfternoonIn"]').val($arrTime[2]);
+                $('input[name="strOldAfternoonOut"],input[name="dtmAfternoonOut"]').val($arrTime[3]);
+                $('input[name="strOldOvertimeIn"],input[name="dtmOvertimeIn"]').val($arrTime[4]);
+                $('input[name="strOldOvertimeOut"],input[name="dtmOvertimeOut"]').val($arrTime[5]);
                 // $arrInAM=$arrTime[0].split(':');
-                $('select[name="dtmMorningIn"]').val($arrInAM[0]);
+                //$('select[name="dtmMorningIn"]').val($arrInAM[0]);
                 // $arrOutAM=$arrTime[1].split(':');
-                $('select[name="dtmMorningOut"]').val($arrOutAM[0]);
+                // $('select[name="dtmMorningOut"]').val($arrOutAM[0]);
                 // $arrInPM=$arrTime[2].split(':');
-                $('select[name="dtmAfternoonIn"]').val($arrInPM[0]);
+                // $('select[name="dtmAfternoonIn"]').val($arrInPM[0]);
                 // $arrOutPM=$arrTime[3].split(':');
-                $('select[name="dtmAfternoonOut"]').val($arrOutPM[0]);
+                // $('select[name="dtmAfternoonOut"]').val($arrOutPM[0]);
                 // $arrInOT=$arrTime[4].split(':');
-                $('select[name="dtmOvertimeIn"]').val($arrInOT[0]);
+                // $('select[name="dtmOvertimeIn"]').val($arrInOT[0]);
                 // $arrOutOT=$arrTime[5].split(':');
-                $('select[name="dtmOvertimeOut"]').val($arrOutOT[0]);
+                // $('select[name="dtmOvertimeOut"]').val($arrOutOT[0]);
                 //console.log(result);
                 //$("#div1").html(result);
             }});
@@ -389,14 +390,14 @@ jQuery(document).ready(function() {
     });
 </script>
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#dtmDTRupdate').change(function() {
             //alert($('input[name="dtmDTRupdate"]').val());
             //console.log( $(this).val() );
             $date=$('#dtmDTRupdate').val();
             $.ajax({
-                url: "dtr_update_view.php?action=getinout&date="+$date,
+                
             success: function(result){
                 $arrTime = result.split(';');
                 //alert(result);
@@ -424,19 +425,4 @@ jQuery(document).ready(function() {
             //console.log( $year+$month+$day );
         });
     });
-</script>
-
-<?php
-// if($_GET['action']=="getinout")
-// {
-//     $date=$_GET['dtmDTRupdate'];
-//     $sql= "SELECT inAM,outAM,inPM,outPM,inOT,outOT FROM tblEmpDTR
-//                 WHERE empNumber='".$_SESSION['strEmpNo']."' AND dtrDate='".$year."-".$month."-".$day."' LIMIT 0,1";
-//     $empdtr=mysql_query($sql);
-    
-//     while($emp=mysql_fetch_array($empdtr)){
-//         echo $emp['inAM'].';'.$emp['outAM'].';'.$emp['inPM'].';'.$emp['outPM'].';'.$emp['inOT'].';'.$emp['outOT'];
-//     }
-    
-// }
-?>
+</script> -->

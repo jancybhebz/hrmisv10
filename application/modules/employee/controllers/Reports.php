@@ -94,7 +94,7 @@ class Reports extends MY_Controller {
 			break;
 			case 'reportLeave': 
 				$this->load->model(array('reports/ReportLeave_rpt_model'));	
-				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'strEmpName2'=>$arrGet['empname'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL']);
+				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'strEmpName2'=>$arrGet['empname'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL'],'intVL'=>$arrGet['intVL'],'intSL'=>$arrGet['intSL']);
 				$this->ReportLeave_rpt_model->generate($arrData);
 				echo $this->fpdf->Output();	
 			break;
@@ -102,7 +102,7 @@ class Reports extends MY_Controller {
 				$this->load->model(array('reports/ReportDTRupdate_rpt_model'));				
 				$arrData=array('dtmDTRupdate'=>$arrGet['dtrupdate'],'strOldMorningIn'=>$arrGet['oldmorin'],'strOldMorningOut'=>$arrGet['oldmorout'],'strOldAfternoonIn'=>$arrGet['oldafin'],'strOldAfternoonOut'=>$arrGet['oldaftout'],'strOldOvertimeIn'=>$arrGet['oldOTin'],'strOldOvertimeOut'=>$arrGet['oldOTout'],'dtmMorningIn'=>$arrGet['morningin'],'dtmMorningOut'=>$arrGet['morningout'],'dtmAfternoonIn'=>$arrGet['aftnoonin'],'dtmAfternoonOut'=>$arrGet['aftnoonout'],'dtmOvertimeIn'=>$arrGet['OTtimein'],'dtmOvertimeOut'=>$arrGet['OTtimeout'],'strReason'=>$arrGet['reason'],'dtmMonthOf'=>$arrGet['month'],'strEvidence'=>$arrGet['evidence'],'strSignatory'=>$arrGet['signatory']);
 				$this->ReportDTRupdate_rpt_model->generate($arrData);
-				echo $this->fpdf->Output();	
+				
 			break;
 			case 'reportCL': 
 				$this->load->model(array('reports/ReportCL_rpt_model'));

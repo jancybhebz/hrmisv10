@@ -44,16 +44,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                
             <?=form_open(base_url('libraries/user_account/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmUserAccount'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrUser);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Access Level <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=!empty($this->session->userdata('userLevel'))?$this->session->userdata('userLevel'):''?>" required>
+                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=!empty($this->session->userdata('userlevel'))?$this->session->userdata('userlevel'):''?>" required>
                                     <option value="">Select Access Level</option>
-                                    <?php foreach(userlevel() as $level):
-                                            echo '<option value="'.$level['id'].'" '.($userlevel[0]['id']==$level['id']?'selected':'').'>'.(strtoupper($level['desc'])). ' Account User</option>';
+                                    <?php foreach($arrUserLevel as $level):
+                                            echo '<option value="'.$level['id'].'" '.($arrUserLevel[0]['id']==$level['id']?'selected':'').'>'.(strtoupper($level['desc'])). ' Account User</option>';
                                           endforeach; ?>
                                     </select>
                                 </div>
@@ -65,13 +65,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Employee Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                     <select type="text" class="form-control" name="strEmpName">
+                                     <select type="text" class="form-control" name="strEmpName" id="strEmpName"  value="<?=isset($arrUser[0]['empNumber'])?$arrUser[0]['empNumber']:''?>">
                                      <option value="">Select</option>
 
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
                                           echo '<option value="'.$data['empNumber'].'" '.($arrUser[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
                                         }?>
+
                                     </select>
         
                                 </div>

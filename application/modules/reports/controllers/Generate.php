@@ -123,6 +123,10 @@ class Generate extends MY_Controller
                 $this->load->model('ListOfVacantPositions_model');
                 $this->ListOfVacantPositions_model->generate($arrGet);
             break;
+            case 'PDS':
+                $this->load->model('employee/reports/ReportPDSupdate_model');
+                $this->ReportPDSupdate_model->generate($arrGet);
+            break;
             case 'PP':
                 $this->load->model('PlantillaOfPersonnel_model');
                 $this->PlantillaOfPersonnel_model->generate($arrGet);
@@ -130,6 +134,10 @@ class Generate extends MY_Controller
             case 'PSK':
                 $this->load->model('PanunumpaSaKatungkulan_model');
                 $this->PanunumpaSaKatungkulan_model->generate($arrGet);
+            break;
+            case 'ROT':
+                $this->load->model('ReportTardiness_model');
+                $this->ReportTardiness_model->generate($arrGet);
             break;
     		case 'SR':
     			$this->load->model('ServiceRecord_model');

@@ -44,6 +44,12 @@ class ReportLeave_rpt_model extends CI_Model {
 		$strEmpName2 = $arrData['strEmpName2'];
 		$strReason = $arrData['strReason'];
 
+		$intVL = $arrData['intVL'];
+		$intSL = $arrData['intSL'];
+		
+		$intTotal = 0;
+		$intTotal = $intVL + $intSL;
+
 		$strIncaseSL = "";
 		$strInpatient = "";
 		$strOutpatient ="";
@@ -342,9 +348,9 @@ class ReportLeave_rpt_model extends CI_Model {
 		
 //----------------------------------------------------------
 		$this->fpdf->Cell(10, 3,"", "R", 0, "L");	
-		$this->fpdf->Cell(26, 3,"", "R", 0, "C"); 
-		$this->fpdf->Cell(26, 3,"", "R", 0, "C"); 
-		$this->fpdf->Cell(26, 3,"", "R", 0, "C"); 		
+		$this->fpdf->Cell(26, 6,$intVL, "R", 0, "C"); 
+		$this->fpdf->Cell(26, 6,$intSL, "R", 0, "C"); 
+		$this->fpdf->Cell(26, 6,$intTotal, "R", 0, "C"); 		
 		$this->fpdf->Cell(2, 3,"", "R", 0, "L"); 
 		
 		$this->fpdf->Cell(10, 3,"", 0, 0, "L");	

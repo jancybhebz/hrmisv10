@@ -15,13 +15,13 @@ class Leave_monetization extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employee/leave_monetization_model'));
+        $this->load->model(array('employee/leave_monetization_model','leave_model'));
     }
 
 	public function index()
 	{
 		$this->arrData['arrData'] = $this->leave_monetization_model->getData();
-		
+		$this->arrData['arrBalance'] = $this->leave_model->getLatestBalance($_SESSION['sessEmpNo']);
 		$this->template->load('template/template_view', 'employee/leave_monetization/leave_monetization_view', $this->arrData);
 	}
 	

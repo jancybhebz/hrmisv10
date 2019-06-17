@@ -369,13 +369,13 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='travel_order' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/travel_order')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='travelorder' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/travelorder')?>">
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='pds_update' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/pds_update')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_pds' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/update_pds')?>">
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
@@ -389,8 +389,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave Monetization</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='dtr_update' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/dtr_update')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_dtr' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/update_dtr')?>">
                                 <span class="title">DTR Update</span>
                             </a>
                         </li>
@@ -474,13 +474,13 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='travel_order' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/travel_order')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='travelorder' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/travelorder')?>">
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='pds_update' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/pds_update')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_pds' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/update_pds')?>">
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
@@ -494,8 +494,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave Monetization</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='dtr_update' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/dtr_update')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_dtr' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/update_dtr')?>">
                                 <span class="title">DTR Update</span>
                             </a>
                         </li>
