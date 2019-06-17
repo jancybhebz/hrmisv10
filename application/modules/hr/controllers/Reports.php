@@ -521,17 +521,7 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'LET':
-            // 	echo '<div class="row">
-            //     	<div class="col-sm-3 text-right">
-	        			// <div class="form-group">
-	        			// 	<label class="control-label">Appointment Status : </label>
-	        			// </div>
-	        			// </div>
-	        			// <div class="form-group">
-	        			// 	<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
-	        			// </div>
-            //     	</div>
-            //     </div>';
+        
                 echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -544,7 +534,52 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
-
+            case 'LOYR':
+        		echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Cut Off From Date : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="date-picker form-control" name="dtmFromDate" maxlength="10"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Cut Off To Date : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="date-picker form-control" name="dtmToDate" maxlength="10"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Printed Date : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="date-picker form-control" name="dtmPrintedDate" maxlength="10"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
             case 'LR':
             
                 echo '<div class="row">
