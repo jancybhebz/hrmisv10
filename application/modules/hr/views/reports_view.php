@@ -132,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('select[name="strReports"]').change(function(){
             $rpt = $(this).val();
             
-            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LR' || $rpt=='LVP' || $rpt=='LEA' || $rpt=='LVP')
+            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LR' || $rpt=='LVP' || $rpt=='LEA' || $rpt=='LVP' || $rpt=='PP' || $rpt=='EFDS' || $rpt=='LOYR')
                 $('.per-block, .employee-block').hide();
             else
                 $('.per-block').show();
@@ -181,5 +181,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             if($rpt!='')
                 window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
         });
+
+
     });
 </script>

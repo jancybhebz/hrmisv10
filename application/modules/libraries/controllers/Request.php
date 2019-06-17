@@ -37,6 +37,7 @@ class Request extends MY_Controller {
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
 
+
 			$this->template->load('template/template_view','libraries/request/add_view',$this->arrData);	
 		}
 		else
@@ -57,13 +58,14 @@ class Request extends MY_Controller {
 			$str4thSigAction = $arrPost['str4thSigAction'];
 			$str4thSignatory = $arrPost['str4thSignatory'];
 			$str4thOfficer = $arrPost['str4thOfficer'];
-			//print_r($arrPost);
-			if(!empty($strReqType) && !empty($strGenApplicant) && !empty($str1stOfficer) && !empty($str4thOfficer))
+			// print_r($arrPost);
+			// exit(1);
+			if(!empty($strReqType))
 			{	
-				// check if exam code and/or exam desc already exist
 				if(count($this->request_model->checkExist($strReqType, $strGenApplicant, $str1stOfficer, $str2ndOfficer, $str3rdOfficer, $str4thOfficer))==0)
 				{
-					
+					// print_r($arrPost);
+					// exit(1);
 					$arrData = array(
 						'RequestType'=>$strReqType,
 						'Applicant'=>$strGenApplicant,
@@ -72,14 +74,15 @@ class Request extends MY_Controller {
 						'Signatory1'=>$str1stSigAction.' : '.$str1stSignatory.' : '.$str1stOfficer,
 						'Signatory2'=>$str2ndSigAction.' : '.$str2ndSignatory.' : '.$str2ndOfficer,
 						'Signatory3'=>$str3rdSigAction.' : '.$str3rdSignatory.' : '.$str3rdOfficer,
-						'SignatoryFin'=>$str4thSigAction.' : '.$str4thSignatory.' : '.$str4thOfficer,
+						'SignatoryFin'=>$str4thSigAction.' : '.$str4thSignatory.' : '.$str4thOfficer
 					
 					);
+					
 					$blnReturn  = $this->request_model->add($arrData);
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblrequestflow','Added '.$strReqType.' Request',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblRequestflow','Added '.$strReqType.' Request',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request signatory added successfully.'); 
 					}
 					redirect('libraries/request');
@@ -88,11 +91,11 @@ class Request extends MY_Controller {
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request signatory already exists.');
 					$this->session->set_flashdata('strReqType',$strReqType);
-					$this->session->set_flashdata('strGenApplicant',$strGenApplicant);	
-					$this->session->set_flashdata('str1stOfficer',$str1stOfficer);	
-					$this->session->set_flashdata('str2ndOfficer',$str2ndOfficer);	
-					$this->session->set_flashdata('str3rdOfficer',$str3rdOfficer);	
-					$this->session->set_flashdata('str4thOfficer',$str4thOfficer);	
+					// $this->session->set_flashdata('strGenApplicant',$strGenApplicant);	
+					// $this->session->set_flashdata('str1stOfficer',$str1stOfficer);	
+					// $this->session->set_flashdata('str2ndOfficer',$str2ndOfficer);	
+					// $this->session->set_flashdata('str3rdOfficer',$str3rdOfficer);	
+					// $this->session->set_flashdata('str4thOfficer',$str4thOfficer);	
 					//echo $this->session->flashdata('strErrorMsg');
 					redirect('libraries/request/add');
 				}

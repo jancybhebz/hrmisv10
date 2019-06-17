@@ -51,7 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Type of Request <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i><?php //print_r($arrProject)?>
-                                    <select type="text" class="form-control" name="strReqType" value="<?=!empty($this->session->userdata('strReqType'))?$this->session->userdata('strReqType'):''?>" required>
+                                    <select type="text" class="form-control" name="strReqType" value="<?=!empty($this->session->userdata('strReqType'))?$this->session->userdata('strReqType'):''?>">
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrRequestType as $type)
@@ -76,7 +76,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">General <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strGenApplicant" value="<?=!empty($this->session->userdata('strGenApplicant'))?$this->session->userdata('strGenApplicant'):''?>" required>
+                                    <select type="text" class="form-control" name="strGenApplicant" value="<?=!empty($this->session->userdata('strGenApplicant'))?$this->session->userdata('strGenApplicant'):''?>">
                                         
                                          <option value="">Select</option>
                                          <!-- <option value="ALLEMP">All Employees</option> -->
@@ -95,7 +95,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Office Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <select type="text" class="form-control" name="strOfficeName" value="<?=!empty($this->session->userdata('strOfficeName'))?$this->session->userdata('strOfficeName'):''?>" required>
+                                     <select type="text" class="form-control" name="strOfficeName" value="<?=!empty($this->session->userdata('strOfficeName'))?$this->session->userdata('strOfficeName'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?=getGroupOffice()?>
@@ -110,7 +110,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Employee Name</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strName" value="<?=!empty($this->session->userdata('strName'))?$this->session->userdata('strName'):''?>" required>
+                                   <select type="text" class="form-control" name="strName" value="<?=!empty($this->session->userdata('strName'))?$this->session->userdata('strName'):''?>" >
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
@@ -133,7 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Action </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str1stSigAction" value="<?=!empty($this->session->userdata('str1stSigAction'))?$this->session->userdata('str1stSigAction'):''?>" required>
+                                    <select type="text" class="form-control" name="str1stSigAction" value="<?=!empty($this->session->userdata('str1stSigAction'))?$this->session->userdata('str1stSigAction'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrAction as $action)
@@ -152,7 +152,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Signatory </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str1stSignatory" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>" required>
+                                  <select type="text" class="form-control" name="str1stSignatory" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrSignatory as $signatory)
@@ -171,7 +171,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str1stOfficer" value="<?=!empty($this->session->userdata('str1stOfficer'))?$this->session->userdata('str1stOfficer'):''?>" required>
+                                   <select type="text" class="form-control" name="str1stOfficer" value="<?=!empty($this->session->userdata('str1stOfficer'))?$this->session->userdata('str1stOfficer'):''?>" >
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
@@ -316,7 +316,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Action <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str4thSigAction" value="<?=!empty($this->session->userdata('str4thSigAction'))?$this->session->userdata('str4thSigAction'):''?>" required>
+                                    <select type="text" class="form-control" name="str4thSigAction" value="<?=!empty($this->session->userdata('str4thSigAction'))?$this->session->userdata('str4thSigAction'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrAction as $action)
@@ -335,7 +335,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Signatory <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str4thSignatory" value="<?=!empty($this->session->userdata('str4thSignatory'))?$this->session->userdata('str4thSignatory'):''?>" required>
+                                  <select type="text" class="form-control" name="str4thSignatory" value="<?=!empty($this->session->userdata('str4thSignatory'))?$this->session->userdata('str4thSignatory'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrSignatory as $signatory)
@@ -354,7 +354,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str4thOfficer" value="<?=!empty($this->session->userdata('str4thOfficer'))?$this->session->userdata('str4thOfficer'):''?>" required>
+                                   <select type="text" class="form-control" name="str4thOfficer" value="<?=!empty($this->session->userdata('str4thOfficer'))?$this->session->userdata('str4thOfficer'):''?>" >
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
@@ -401,32 +401,30 @@ var FormValidation = function () {
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
                     strReqType: {
-                        minlength: 1,
                         required: true
                     },
                     strGenApplicant: {
-                        minlength: 1,
                         required: true,
                     },
-                    strOfficeName: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strName: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    str1stSigAction: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    str1stSignatory: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    str1stOfficer: {
-                        minlength: 1,
-                        required: true,
+                    // strOfficeName: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // strName: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str1stSigAction: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str1stSignatory: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // str1stOfficer: {
+                    //     minlength: 1,
+                    //     required: true,
                     // },
                     // str2ndSigAction: {
                     //     minlength: 1,
@@ -451,19 +449,16 @@ var FormValidation = function () {
                     // str3rdOfficer: {
                     //     minlength: 1,
                     //     required: true,
-                    },
+                    // },
                     str4thSigAction: {
-                        minlength: 1,
                         required: true,
                     },
                     str4thSigAction: {
-                        minlength: 1,
                         required: true,
                     },
                     str4thOfficer: {
-                        minlength: 1,
                         required: true,
-                    },
+                    }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              

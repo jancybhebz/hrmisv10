@@ -136,15 +136,15 @@ class Request_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function checkExist($strReqType = '', $strGenApplicant = '')
+	function checkExist($strReqType = '', $strGenApplicant = '', $str1stOfficer='',$str2ndOfficer='',$str3rdOfficer='',$str4thOfficer='')
 	{		
 		$this->db->where('RequestType',$strReqType);
-		$this->db->or_where('Applicant', $strGenApplicant);
-		$this->db->or_where('Signatory1', $str1stOfficer);	
-		$this->db->or_where('Signatory2', $str2ndOfficer);	
-		$this->db->or_where('Signatory3', $str3rdOfficer);	
-		$this->db->or_where('SignatoryFin', $str4thOfficer);			
-		
+		$this->db->where('Applicant', $strGenApplicant);
+		$this->db->where('Signatory1', $str1stOfficer);	
+		$this->db->where('Signatory2', $str2ndOfficer);	
+		$this->db->where('Signatory3', $str3rdOfficer);	
+		$this->db->where('SignatoryFin', $str4thOfficer);			
+		// echo $this->db->last_query();
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
 	}

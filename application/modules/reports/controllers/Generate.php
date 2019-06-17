@@ -63,6 +63,10 @@ class Generate extends MY_Controller
     			$this->load->model('CertificateServiceLoyaltyAward_model');
 				$this->CertificateServiceLoyaltyAward_model->generate($arrGet);
     		break;
+            case 'EFDS':
+                $this->load->model('EmployeeFirstDayService_model');
+                $this->EmployeeFirstDayService_model->generate($arrGet);
+            break;
     		case 'LEA':
     			$this->load->model('ListEducationalAttainment_model');
 				$this->ListEducationalAttainment_model->generate($arrGet);
@@ -79,6 +83,10 @@ class Generate extends MY_Controller
     			$this->load->model('ListEmployeesDateBirth_model');
 				$this->ListEmployeesDateBirth_model->generate($arrGet);
     		break;
+            case 'LEDBA':
+                $this->load->model('ListEmployeesDateBirthAlpha_model');
+                $this->ListEmployeesDateBirthAlpha_model->generate($arrGet);
+            break;
     		case 'LEEA':
     			$this->load->model('ListEmployeesEducationalAttainment_model');
 				$this->ListEmployeesEducationalAttainment_model->generate($arrGet);
@@ -103,6 +111,10 @@ class Generate extends MY_Controller
     			$this->load->model('ListEmployeesTraining_model');
 				$this->ListEmployeesTraining_model->generate($arrGet);
     		break;
+            case 'LOYR':
+                $this->load->model('LoyaltyReport_model');
+                $this->LoyaltyReport_model->generate($arrGet);
+            break;
             case 'LR':
                 $this->load->model('ListOfRetirees_model');
                 $this->ListOfRetirees_model->generate($arrGet);
@@ -110,6 +122,14 @@ class Generate extends MY_Controller
             case 'LVP':
                 $this->load->model('ListOfVacantPositions_model');
                 $this->ListOfVacantPositions_model->generate($arrGet);
+            break;
+            case 'PP':
+                $this->load->model('PlantillaOfPersonnel_model');
+                $this->PlantillaOfPersonnel_model->generate($arrGet);
+            break;
+            case 'PSK':
+                $this->load->model('PanunumpaSaKatungkulan_model');
+                $this->PanunumpaSaKatungkulan_model->generate($arrGet);
             break;
     		case 'SR':
     			$this->load->model('ServiceRecord_model');

@@ -369,17 +369,17 @@ jQuery(document).ready(function() {
                 $('input[name="strOldAfternoonOut"]').val($arrTime[3]);
                 $('input[name="strOldOvertimeIn"]').val($arrTime[4]);
                 $('input[name="strOldOvertimeOut"]').val($arrTime[5]);
-                $arrInAM=$arrTime[0].split(':');
+                // $arrInAM=$arrTime[0].split(':');
                 $('select[name="dtmMorningIn"]').val($arrInAM[0]);
-                $arrOutAM=$arrTime[1].split(':');
+                // $arrOutAM=$arrTime[1].split(':');
                 $('select[name="dtmMorningOut"]').val($arrOutAM[0]);
-                $arrInPM=$arrTime[2].split(':');
+                // $arrInPM=$arrTime[2].split(':');
                 $('select[name="dtmAfternoonIn"]').val($arrInPM[0]);
-                $arrOutPM=$arrTime[3].split(':');
+                // $arrOutPM=$arrTime[3].split(':');
                 $('select[name="dtmAfternoonOut"]').val($arrOutPM[0]);
-                $arrInOT=$arrTime[4].split(':');
+                // $arrInOT=$arrTime[4].split(':');
                 $('select[name="dtmOvertimeIn"]').val($arrInOT[0]);
-                $arrOutOT=$arrTime[5].split(':');
+                // $arrOutOT=$arrTime[5].split(':');
                 $('select[name="dtmOvertimeOut"]').val($arrOutOT[0]);
                 //console.log(result);
                 //$("#div1").html(result);
@@ -389,56 +389,42 @@ jQuery(document).ready(function() {
     });
 </script>
 
-<!-- <script>
+<script>
     $(document).ready(function() {
-        $('#cboYearFrom,#cboMonthFrom,#cboDayFrom').change(function() {
-            //alert($('input[name="cboYearFrom"]').val());
+        $('#dtmDTRupdate').change(function() {
+            //alert($('input[name="dtmDTRupdate"]').val());
             //console.log( $(this).val() );
-            $year=$('#cboYearFrom').val();
-            $month=$('#cboMonthFrom').val();
-            $day=$('#cboDayFrom').val();
+            $date=$('#dtmDTRupdate').val();
             $.ajax({
-                url: "getDTRUpdate.php?action=getinout&year="+$year+'&month='+$month+'&day='+$day,
+                url: "dtr_update_view.php?action=getinout&date="+$date,
             success: function(result){
                 $arrTime = result.split(';');
                 //alert(result);
-                $('input[name="t_intTimeInAM"]').val($arrTime[0]);
-                $('input[name="t_intTimeOutAM"]').val($arrTime[1]);
-                $('input[name="t_intTimeInPM"]').val($arrTime[2]);
-                $('input[name="t_intTimeOutPM"]').val($arrTime[3]);
-                $('input[name="t_intTimeInOT"]').val($arrTime[4]);
-                $('input[name="t_intTimeOutOT"]').val($arrTime[5]);
-                $arrInAM=$arrTime[0].split(':');
-                $('select[name="t_intNdtrHourInAM"]').val($arrInAM[0]);
-                $('select[name="t_intNdtrMinInAM"]').val($arrInAM[1]);
-                $('select[name="t_intNdtrSecInAM"]').val($arrInAM[2]);
-                $arrOutAM=$arrTime[1].split(':');
-                $('select[name="t_intNdtrHourOutAM"]').val($arrOutAM[0]);
-                $('select[name="t_intNdtrMinOutAM"]').val($arrOutAM[1]);
-                $('select[name="t_intNdtrSecOutAM"]').val($arrOutAM[2]);
-                $arrInPM=$arrTime[2].split(':');
-                $('select[name="t_intNdtrHourInPM"]').val($arrInPM[0]);
-                $('select[name="t_intNdtrMinInPM"]').val($arrInPM[1]);
-                $('select[name="t_intNdtrSecInPM"]').val($arrInPM[2]);
-                $arrOutPM=$arrTime[3].split(':');
-                $('select[name="t_intNdtrHourOutPM"]').val($arrOutPM[0]);
-                $('select[name="t_intNdtrMinOutPM"]').val($arrOutPM[1]);
-                $('select[name="t_intNdtrSecOutPM"]').val($arrOutPM[2]);
-                $arrInOT=$arrTime[4].split(':');
-                $('select[name="t_intNdtrHourInOT"]').val($arrInOT[0]);
-                $('select[name="t_intNdtrMinInOT"]').val($arrInOT[1]);
-                $('select[name="t_intNdtrSecInOT"]').val($arrInOT[2]);
-                $arrOutOT=$arrTime[5].split(':');
-                $('select[name="t_intNdtrHourOutOT"]').val($arrOutOT[0]);
-                $('select[name="t_intNdtrMinOutOT"]').val($arrOutOT[1]);
-                $('select[name="t_intNdtrSecOutOT"]').val($arrOutOT[2]);
+                $('input[name="strOldMorningIn"]').val($arrTime[0]);
+                $('input[name="strOldMorningOut"]').val($arrTime[1]);
+                $('input[name="strOldAfternoonIn"]').val($arrTime[2]);
+                $('input[name="strOldAfternoonOut"]').val($arrTime[3]);
+                $('input[name="strOldOvertimeIn"]').val($arrTime[4]);
+                $('input[name="strOldOvertimeOut"]').val($arrTime[5]);
+                // $arrInAM=$arrTime[0].split(':');
+                $('select[name="dtmMorningIn"]').val($arrInAM[0]);
+                // $arrOutAM=$arrTime[1].split(':');
+                $('select[name="dtmMorningOut"]').val($arrOutAM[0]);
+                // $arrInPM=$arrTime[2].split(':');
+                $('select[name="dtmAfternoonIn"]').val($arrInPM[0]);
+                // $arrOutPM=$arrTime[3].split(':');
+                $('select[name="dtmAfternoonOut"]').val($arrOutPM[0]);
+                // $arrInOT=$arrTime[4].split(':');
+                $('select[name="dtmOvertimeIn"]').val($arrInOT[0]);
+                // $arrOutOT=$arrTime[5].split(':');
+                $('select[name="dtmOvertimeOut"]').val($arrOutOT[0]);
                 //console.log(result);
                 //$("#div1").html(result);
             }});
             //console.log( $year+$month+$day );
         });
     });
-</script> -->
+</script>
 
 <?php
 // if($_GET['action']=="getinout")

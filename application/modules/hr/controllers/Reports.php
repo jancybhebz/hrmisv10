@@ -30,7 +30,8 @@ class Reports extends MY_Controller
 	public function getfields()
 	{
 		$rpt = $this->uri->segment(4);
-		
+		echo load_plugin('css', array('datepicker'));
+		echo load_plugin('js', array('datepicker'));
 		switch($rpt)
 		{
 			case 'AR':
@@ -266,6 +267,19 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
+            case 'EFDS':
+				echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
             case 'LEA':
             	echo '<div class="row">
                 	<div class="col-sm-3 text-right">
@@ -339,6 +353,30 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'LEDB':
+            	echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Appointment Status : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'LEDBA':
             	echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -483,17 +521,7 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'LET':
-            // 	echo '<div class="row">
-            //     	<div class="col-sm-3 text-right">
-	        			// <div class="form-group">
-	        			// 	<label class="control-label">Appointment Status : </label>
-	        			// </div>
-	        			// </div>
-	        			// <div class="form-group">
-	        			// 	<div class="col-sm-6">'.comboAppStatus('strAppStatus').'</div>
-	        			// </div>
-            //     	</div>
-            //     </div>';
+        
                 echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -506,7 +534,52 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
-
+            case 'LOYR':
+        		echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Cut Off From Date : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="date-picker form-control" name="dtmFromDate" maxlength="10"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Cut Off To Date : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="date-picker form-control" name="dtmToDate" maxlength="10"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Printed Date : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="date-picker form-control" name="dtmPrintedDate" maxlength="10"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
             case 'LR':
             
                 echo '<div class="row">
@@ -536,6 +609,77 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
+            case 'PP':
+            
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'PSK':
+            	echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Date : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="date-picker form-control" name="dtmDate" maxlength="10"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Nilagdaan sa : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strNilagdaan" maxlength="50"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Sedula Klase A : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strSedula" maxlength="50"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Kinuha sa : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strKinuha" maxlength="50"></div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
 
 
             case 'SR':
@@ -552,6 +696,9 @@ class Reports extends MY_Controller
                 </div>';
             break;
 		}
+		echo "<script>
+		$('.date-picker').datepicker({format: 'yyyy-mm-dd'});
+		</script>";
 	}
    
 	
