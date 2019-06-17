@@ -178,6 +178,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 window.open('<?=base_url('employee/dtr/print_preview')?>/'+$empno+'?yr='+$year+'&month='+$month,'toolbar=0');
                 return false;
             }
+             if($rpt=='PDS')
+            {
+                window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>&empNumber='+$empno,'toolbar=0');
+                return false;
+            }
             if($rpt!='')
                 window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
         });

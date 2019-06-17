@@ -123,6 +123,10 @@ class Generate extends MY_Controller
                 $this->load->model('ListOfVacantPositions_model');
                 $this->ListOfVacantPositions_model->generate($arrGet);
             break;
+            case 'PDS':
+                $this->load->model('employee/reports/ReportPDSupdate_model');
+                $this->ReportPDSupdate_model->generate($arrGet);
+            break;
             case 'PP':
                 $this->load->model('PlantillaOfPersonnel_model');
                 $this->PlantillaOfPersonnel_model->generate($arrGet);
