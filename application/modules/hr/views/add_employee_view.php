@@ -79,7 +79,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Firstname <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> First Name <span class="required"> * </span></label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
