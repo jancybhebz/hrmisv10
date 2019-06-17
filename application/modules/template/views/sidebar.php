@@ -390,7 +390,7 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave Monetization</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='dtr_update' ? 'active' : ''?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_dtr' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/update_dtr')?>">
                                 <span class="title">DTR Update</span>
                             </a>
@@ -495,7 +495,7 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave Monetization</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='dtr_update' ? 'active' : ''?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_dtr' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/update_dtr')?>">
                                 <span class="title">DTR Update</span>
                             </a>
