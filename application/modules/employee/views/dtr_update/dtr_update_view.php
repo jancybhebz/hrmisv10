@@ -427,16 +427,17 @@ jQuery(document).ready(function() {
 </script>
 
 <?php
-// if($_GET['action']=="getinout")
-// {
-//     $date=$_GET['dtmDTRupdate'];
-//     $sql= "SELECT inAM,outAM,inPM,outPM,inOT,outOT FROM tblEmpDTR
-//                 WHERE empNumber='".$_SESSION['strEmpNo']."' AND dtrDate='".$year."-".$month."-".$day."' LIMIT 0,1";
-//     $empdtr=mysql_query($sql);
+$_GET['action'] ='';
+if($_GET['action']=="getinout")
+{
+    $date=$_GET['dtmDTRupdate'];
+    $sql= "SELECT inAM,outAM,inPM,outPM,inOT,outOT FROM tblEmpDTR
+                WHERE empNumber='".$_SESSION['strEmpNo']."' AND dtrDate='".$year."-".$month."-".$day."' LIMIT 0,1";
+    $empdtr=mysql_query($sql);
     
-//     while($emp=mysql_fetch_array($empdtr)){
-//         echo $emp['inAM'].';'.$emp['outAM'].';'.$emp['inPM'].';'.$emp['outPM'].';'.$emp['inOT'].';'.$emp['outOT'];
-//     }
+    while($emp=mysql_fetch_array($empdtr)){
+        echo $emp['inAM'].';'.$emp['outAM'].';'.$emp['inPM'].';'.$emp['outPM'].';'.$emp['inOT'].';'.$emp['outOT'];
+    }
     
-// }
+}
 ?>
