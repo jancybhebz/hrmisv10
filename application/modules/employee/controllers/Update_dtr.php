@@ -23,7 +23,7 @@ class Update_dtr extends MY_Controller {
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 		$this->arrData['arrEmployees'] = $this->hr_model->getData();
-		$this->template->load('template/template_view', 'employee/update_dtr/dtr_update_view', $this->arrData);
+		$this->template->load('template/template_view', 'employee/dtr_update/dtr_update_view', $this->arrData);
 	}
 	
 	public function submit()
