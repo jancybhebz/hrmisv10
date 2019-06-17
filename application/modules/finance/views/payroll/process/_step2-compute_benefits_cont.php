@@ -1,6 +1,6 @@
 <?=load_plugin('css', array('datatables'))?>
 
-<?=form_open('finance/payroll_update/save_computation_nonperm', array('class' => 'form-horizontal', 'method' => 'post'))?>
+<?=form_open('finance/payroll_update/select_deductions_nonperm', array('class' => 'form-horizontal', 'method' => 'post'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -13,7 +13,7 @@
         </div>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
-                Payroll Date: <?=$payroll_date?> (<?=ordinal($period)?> Half) || For <?=$employment_type?> Employees || Total Calendar days: <?=$curr_period_workingdays?>
+                Payroll Date: <?=$payroll_date?> (<?=ordinal($period)?> Half) || For <?=$employment_type?> Employees || Total Calendar days: <?=$employment_type == 'JO' ? $process_data_datediff : $curr_period_workingdays?>
             </small>
         </div>
         <div class="row">
@@ -60,6 +60,8 @@
             <textarea name="txtjson_computations"><?=isset($arrEmployees) ? fixJson($arrEmployees) : ''?></textarea>
             <input type="hidden" name="txtprocess" value='<?=isset($_POST['txtprocess']) ? fixJson($_POST['txtprocess']) : ''?>'>
             <input type="hidden" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
+            <input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
+            <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
             <input type="text" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
             <a href="javascript:;" class="btn default btn-previous"> <i class="fa fa-angle-left"></i> Back </a>
             <button class="btn blue btn-submit"> Save and Continue <i class="fa fa-angle-right"></i></button>

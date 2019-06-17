@@ -1,4 +1,14 @@
-<?=form_open($_POST['selemployment'] == 'P' ? 'finance/payroll_update/compute_benefits_perm' : 'finance/payroll_update/computation_nonperm', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
+<?php 
+    switch(strtolower($_POST['txtcomputation'])):
+        case 'monthly':
+            $form = 'finance/payroll_update/compute_benefits_perm'; break;
+        case 'daily':
+            $form = 'finance/payroll_update/compute_benefits_nonperm_trc'; break;
+        default:
+            $form = 'finance/payroll_update/computation_nonperm'; break;
+    endswitch;
+ ?>
+<?=form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>

@@ -1,4 +1,11 @@
-<?=form_open('finance/payroll_update/complete_process_perm', array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmdeductions'))?>
+<?php
+switch (strtolower($this->uri->segment(3))) {
+       case 'select_deductions_nonperm':
+           $form = 'finance/payroll_update/save_computation_nonperm'; break;
+       default:
+           $form = 'finance/payroll_update/complete_process_perm'; break;
+   }   
+echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmdeductions'));?>
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
         <h3 class="block">Select Benefits</h3>
@@ -76,6 +83,8 @@
             <input type="text" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
             <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
             <input type="text" name="chkincome" value='<?=isset($_POST['chkincome']) ? fixJson($_POST['chkincome']) : ''?>'>
+            <input type="text" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
+
             <textarea name="txtjson_computations"><?=isset($_POST['txtjson_computations']) ? fixJson($_POST['txtjson_computations']) : ''?></textarea>
         </div>
     </div>

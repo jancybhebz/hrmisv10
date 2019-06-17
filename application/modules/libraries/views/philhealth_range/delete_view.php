@@ -92,7 +92,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" name="intPhId" value="<?=isset($arrPhilHealth[0]['philhealthId'])?$arrPhilHealth[0]['philhealthId']:''?>">
-                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
+                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Yes</button>
                                 <a href="<?=base_url('libraries/philhealth_range')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>

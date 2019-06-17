@@ -33,6 +33,30 @@ if ( ! function_exists('hpfactor'))
 	}
 }
 
+# Tax Amount for Non Perm
+function amt_tax_nonperm($amount)
+{
+    $tax_amt = 0;
+
+    if($amount < 10417):
+        $tax_amt = 0;
+    elseif($amount >= 10417 && $amount < 16667):
+        $tax_amt = ($amount - 10417) * 0.2;
+    elseif($amount >= 16667 && $amount < 33333):
+        $tax_amt = ($amount - 16667) * 0.25 + 1250;
+    elseif($amount >= 33333 && $amount < 83333):
+        $tax_amt = ($amount - 33333) * 0.3 + 5416.67;
+    elseif($amount >= 83333 && $amount < 333333):
+        $tax_amt = ($amount - 83333) * 0.32 + 20416.67;
+    elseif($amount >= 333333):
+        $tax_amt = ($amount - 333333) * 0.35 + 100416.67;
+    else:
+        $tax_amt = 0;
+    endif;
+
+    return $tax_amt;
+}
+
 # substistence
 if ( ! function_exists('substistence'))
 {
@@ -123,6 +147,17 @@ if ( ! function_exists('payroll_group'))
         $res = $CI->db->get('tblPayrollProcess')->result_array();
         
         return count($res) > 0 ? $res[0]['computation'] : '';
+    }
+}
+
+if ( ! function_exists('process_with'))
+{
+    function process_with($appt)
+    {
+        $CI =& get_instance();
+        $res = $CI->db->get_where('tblPayrollProcess',array('appointmentCode' => $appt))->result_array();
+        
+        return count($res) > 0 ? explode(',',$res[0]['processWith']) : array();
     }
 }
 

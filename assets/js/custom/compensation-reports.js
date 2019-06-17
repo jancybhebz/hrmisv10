@@ -14,7 +14,10 @@ $(document).ready(function() {
         window.open('?month='+$('#selmont').val()+'&yr='+$('#txtps_yr').val(),'_self');
     });
     $('#selpayrollGrp').on('change', function(){
-        $('#period-codes').html($(this).find(':selected').attr('data-codes'));
+        $('#period-codes').html('');
+        if($(this).find(':selected').attr('data-appt') == 'P'){
+            $('#period-codes').html($(this).find(':selected').attr('data-codes'));
+        }
     });
 
     $('#selrep_type').on('change',function() {

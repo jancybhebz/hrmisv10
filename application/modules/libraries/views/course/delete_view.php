@@ -62,7 +62,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" name="intCourseId" value="<?=isset($arrData[0]['courseId'])?$arrData[0]['courseId']:''?>">
-                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
+                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Yes</button>
                                 <a href="<?=base_url('libraries/course')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>

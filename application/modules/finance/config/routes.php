@@ -61,12 +61,9 @@ $route['finance/payroll_update/reports'] = 'finance/payroll_update/payrollupdate
 # Semimonthl / Bimonthly
 $route['finance/payroll_update/select_benefits_nonperm'] = 'finance/payroll_update/payrollupdate_nonperm/select_benefits_nonperm';
 $route['finance/payroll_update/computation_nonperm'] = 'finance/payroll_update/payrollupdate_nonperm/computation_nonperm';
+$route['finance/payroll_update/select_deductions_nonperm'] = 'finance/payroll_update/payrollupdate_nonperm/select_deductions_nonperm';
 $route['finance/payroll_update/save_computation_nonperm'] = 'finance/payroll_update/payrollupdate_nonperm/save_computation_nonperm';
 
-// $route['finance/payroll_update/payrollupdate/select_benefits/(:any)'] = 'finance/payroll_update/select_benefits/$1';
-
-// $route['finance/payroll_update/update_or'] = 'finance/payroll_update/Payrollupdate/update_or';
-// $route['finance/payroll_update/compute_benefits']['post'] = 'finance/payroll_update/Payrollupdate/compute_benefits';
-
-// # PROCESS HISTORY
-// $route['finance/payroll_update/process_history'] = 'finance/payroll_update/Payrollupdate/process_history';
+# daily
+$route['finance/payroll_update/select_benefits_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/select_benefits_nonperm_trc';
+$route['finance/payroll_update/compute_benefits_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/compute_benefits_nonperm_trc';

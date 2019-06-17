@@ -69,7 +69,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
                                     <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
                                     <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                     <td style="text-align: center"><?=$curr_period_workingdays?></td>
-                                    <td style="text-align: center"><?=$emp['actual_days_present']?></td>
+                                    <td style="text-align: center"><?=($curr_period_workingdays - $emp['actual_days_absent'])?></td>
                                     <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
                                     <td style="text-align: center"><?=$emp['emp_detail']['hpFactor']?> %</td>
                                     <td style="text-align: center"><?=number_format($emp['hp'], 2)?></td>

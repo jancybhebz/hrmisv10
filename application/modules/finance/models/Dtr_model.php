@@ -99,7 +99,7 @@ class Dtr_model extends CI_Model {
 
 	function getemp_todates($empid,$datefrom,$dateto,$dateonly=0)
 	{
-		$this->load->model('employee/Travel_order_model');
+		$this->load->model('employee/Travelorder_model');
 		# Travel Order
 		$to_dates = array();
 		$arremp_to = array();
