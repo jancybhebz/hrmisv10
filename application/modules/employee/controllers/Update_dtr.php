@@ -78,22 +78,23 @@ class Update_dtr extends MY_Controller {
 
     public function getinout()
     {
-    	 <?php
-			$_GET['action'] ='';
-			if($_GET['action']=="getinout")
+    	 
+		$_GET['action'] ='';
+		if($_GET['action']=="getinout")
+		{
+		    $date=$_GET['dtmDTRupdate'];
+		    $sql= "SELECT inAM,outAM,inPM,outPM,inOT,outOT FROM tblEmpDTR
+		                WHERE empNumber='".$_SESSION['strEmpNo']."' AND dtrDate='".$year."-".$month."-".$day."' LIMIT 0,1";
+			$rsDTR = $this->db->select('inAM,outAM,inPM,outPM,inOT,outOT')->where('empNumber',$_SESSION['strEmpNo'])->where('dtrDate',$date)->get('tblEmpDTR');
+		    $empdtr=mysql_query($sql);
+		    
+		    //while($emp=mysql_fetch_array($empdtr)){
+			foreach($rsDTR as $emp)
 			{
-			    $date=$_GET['dtmDTRupdate'];
-			    $sql= "SELECT inAM,outAM,inPM,outPM,inOT,outOT FROM tblEmpDTR
-			                WHERE empNumber='".$_SESSION['strEmpNo']."' AND dtrDate='".$year."-".$month."-".$day."' LIMIT 0,1";
-				$rsDTR = $this->db->select('inAM,outAM,inPM,outPM,inOT,outOT')->where('empNumber',$_SESSION['strEmpNo'])->where('dtrDate',$date)->get('tblEmpDTR');
-			    $empdtr=mysql_query($sql);
-			    
-			    //while($emp=mysql_fetch_array($empdtr)){
-				foreach($rsDTR as $emp){
-			        echo $emp['inAM'].';'.$emp['outAM'].';'.$emp['inPM'].';'.$emp['outPM'].';'.$emp['inOT'].';'.$emp['outOT'];
-			    }
-			    
-			}
-			?>
+		        echo $emp['inAM'].';'.$emp['outAM'].';'.$emp['inPM'].';'.$emp['outPM'].';'.$emp['inOT'].';'.$emp['outOT'];
+		    }
+		    
+		}
+		
     }
 }
