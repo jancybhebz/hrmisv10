@@ -128,7 +128,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" name="strCode" value="<?=isset($arrDivision[0]['group3Code'])?$arrDivision[0]['group3Code']:''?>">
-                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
+                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Yes</button>
                                 <a href="<?=base_url('libraries/org_structure')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>

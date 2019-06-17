@@ -73,7 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <input type="hidden" name="strLocalCode" value="<?=isset($arrData[0]['holidayCode'])?$arrData[0]['holidayCode']:''?>">
                                 <input type="hidden" name="strHolidayName" value="<?=isset($arrData[0]['holidayName'])?$arrData[0]['holidayName']:''?>">
                                 <input type="hidden" name="dtmHolidayDate" value="<?=isset($arrData[0]['holidayDate'])?$arrData[0]['holidayDate']:''?>">
-                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
+                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Yes</button>
                                 <a href="<?=base_url('libraries/holiday/add_local')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
