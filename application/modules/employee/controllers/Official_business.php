@@ -70,37 +70,7 @@ class Official_business extends MY_Controller {
 			}
 		}
     	$this->template->load('template/template_view','employee/official_business/official_business_view',$this->arrData);
-    }
-
- //    public function request_type()
-	// {
-	// 	$intReqId=$this->uri->segment(3);
-	// 	// $arrGet=$this->input->get();
-	// 	// $strCode=$arrGet['rpt'];
-	// 	$strCode="official_business";
-		
-	// 	switch($strCode)
-	// 	{
-	// 		case "official_business":
-	//         	echo "OB";
-	//         	break;
-	// 		case "travel_order":
-	//         	echo "TO";
-	//         	break;
-	//         case "leave":
-	//         	echo "Leave";
-	//         	break;
-	//         case "PDS_update":
-	//         	echo "PDS";
-	//         	break;
-	//         case "DTR_update":
-	//         	echo "DTR";
-	//         	break;
-			
-	// 	}
-	// }
-
-	
+    }	
 
 
 

@@ -20,7 +20,6 @@ class Update_dtr extends MY_Controller {
 
 	public function index()
 	{
-		// $this->arrData['arrOB'] = $this->dtr_update_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 		$this->arrData['arrEmployees'] = $this->hr_model->getData();
@@ -45,7 +44,7 @@ class Update_dtr extends MY_Controller {
 			$strSignatory=$arrPost['strSignatory'];
 			if(!empty($dtmDTRupdate))
 			{	
-				if( count($this->dtr_update_model->checkExist($dtmDTRupdate))==0 )
+				if( count($this->update_dtr_model->checkExist($dtmDTRupdate))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$dtmDTRupdate.';'.$dtmMorningIn.';'.$dtmMorningOut.';'.$dtmAfternoonIn.';'.$dtmAfternoonOut.';'.$dtmOvertimeIn.';'.$dtmOvertimeOut.';'.$strReason,
@@ -56,7 +55,7 @@ class Update_dtr extends MY_Controller {
 						// 'requestDate'=>$dtmOBrequestdate,
 						// 'requestStatus'=>
 					);
-					$blnReturn  = $this->dtr_update_model->submit($arrData);
+					$blnReturn  = $this->update_dtr_model->submit($arrData);
 
 					if(count($blnReturn)>0)
 					{	
