@@ -267,6 +267,19 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
+            case 'EFDS':
+				echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
             case 'LEA':
             	echo '<div class="row">
                 	<div class="col-sm-3 text-right">
