@@ -135,6 +135,10 @@ class Generate extends MY_Controller
                 $this->load->model('PanunumpaSaKatungkulan_model');
                 $this->PanunumpaSaKatungkulan_model->generate($arrGet);
             break;
+            case 'ROT':
+                $this->load->model('ReportTardiness_model');
+                $this->ReportTardiness_model->generate($arrGet);
+            break;
     		case 'SR':
     			$this->load->model('ServiceRecord_model');
 				$this->ServiceRecord_model->generate($arrGet);

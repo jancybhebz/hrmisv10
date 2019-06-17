@@ -97,11 +97,10 @@ $activetab = strtolower($activetab);
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item <?=$active == 'hr' && $activesub == 'reports' ? 'active' : '' ?> ">
                      <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
                         <i class="icon-docs"></i>
                         <span class="title">Reports</span>
-                        <span class="arrow"></span>
                     </a>                            
                 </li>
                 <li class="nav-item <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory') ?'active open':''?>">
@@ -521,16 +520,16 @@ $activetab = strtolower($activetab);
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-layers"></i>
-                    <span class="title">FAQs</span>
+                    <span class="title">Online Help</span>
                     <span class="arrow"></span>
-                </a>
+                </a>                    
             </li>
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-layers"></i>
-                    <span class="title">Online Help</span>
+                    <span class="title">FAQs</span>
                     <span class="arrow"></span>
-                </a>                    
+                </a>
             </li>
         </ul>
         <!-- END SIDEBAR MENU -->

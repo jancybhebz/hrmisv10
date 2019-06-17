@@ -28,7 +28,7 @@ class Payslip extends CI_Model {
 			$period = salary_schedule($process_details[0]['salarySchedule'],$_GET['period']);
 			$period_range = salary_schedule($process_details[0]['salarySchedule'],$_GET['period'],1);
 			$period_range = payroll_date($process_details[0]['salarySchedule'],$_GET['period']);
-
+			
 			#Period pay
 			$arrperiod_pay = $this->Payslip_model->get_employee_salary($_GET['pgroup'],$_GET['empno']);
 			$period_pay = $arrperiod_pay != '' ? $arrperiod_pay[$period] : 0;

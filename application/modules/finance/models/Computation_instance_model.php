@@ -35,12 +35,18 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function update_nonpem_computation_instance($arrData,$payrollgroup,$mon,$yr,$period)
+	function update_nonpem_computation_instance($arrData,$appt,$mon='',$yr='',$period='')
 	{
-		$this->db->where('payrollGroupCode',$payrollgroup);
-		$this->db->where('pmonth',$mon);
-		$this->db->where('pyear',$yr);
-		$this->db->where('period',$period);
+		$this->db->where('appointmentCode',$appt);
+		if($mon != ''){
+			$this->db->where('pmonth',$mon);
+		}
+		if($yr != ''){
+			$this->db->where('pyear',$yr);
+		}
+		if($period != ''){
+			$this->db->where('period',$period);
+		}
 		$this->db->update('tblNonPermComputationInstance', $arrData);
 		return $this->db->affected_rows();
 	}

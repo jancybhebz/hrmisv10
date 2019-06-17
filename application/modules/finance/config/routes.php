@@ -67,3 +67,5 @@ $route['finance/payroll_update/save_computation_nonperm'] = 'finance/payroll_upd
 # daily
 $route['finance/payroll_update/select_benefits_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/select_benefits_nonperm_trc';
 $route['finance/payroll_update/compute_benefits_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/compute_benefits_nonperm_trc';
+$route['finance/payroll_update/select_deduction_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/select_deduction_nonperm_trc';
+$route['finance/payroll_update/save_computation_nonperm_trc'] = 'finance/payroll_update/Payrollupdate_nonperm_daily/save_computation_nonperm_trc';
