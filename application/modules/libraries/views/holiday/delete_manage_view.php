@@ -74,7 +74,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <input type="hidden" name="strHolidayName" value="<?=isset($arrManageHoliday[0]['holidayName'])?$arrManageHoliday[0]['holidayName']:''?>">
                             <input type="hidden" name="dtmHolidayDate" value="<?=isset($arrManageHoliday[0]['holidayDate'])?$arrManageHoliday[0]['holidayDate']:''?>">
                                 <input type="hidden" name="intHolidayId" value="<?=isset($arrManageHoliday[0]['holidayId'])?$arrManageHoliday[0]['holidayId']:''?>">
-                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Confirm Delete</button>
+                                <button class="btn btn-danger" type="submit"><i class="icon-trash"></i> Yes</button>
                                 <a href="<?=base_url('libraries/holiday/manage_add')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
