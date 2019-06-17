@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/dtr_update/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
+            <?=form_open(base_url('employee/update_dtr/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
             <br>
                    
             <div class="row">
@@ -194,7 +194,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                  <div class="row">
                   <div class="col-sm-6 text-center">
                       <button type="submit" class="btn btn-success"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                       <a href="<?=base_url('employee/dtr_update')?>"/><button type="reset" class="btn blue">Clear</button></a>
+                       <a href="<?=base_url('employee/update_dtr')?>"/><button type="reset" class="btn blue">Clear</button></a>
                   </div>
                   <div class="col-sm-2 text-right">
                        <button type="button" id="printreport" value="reportDTRupdate" class="btn blue">Print/Preview</button>
@@ -359,7 +359,7 @@ jQuery(document).ready(function() {
             //console.log( $(this).val() );
             $date=$('#dtmDTRupdate').val();
             $.ajax({
-                url: "dtr_update_view.php?action=getinout&date="+$date,
+                url: "update_dtr.php?action=getinout&date="+$date,
             success: function(result){
                 $arrTime = result.split(';');
                 //alert(result);
@@ -396,7 +396,7 @@ jQuery(document).ready(function() {
             //console.log( $(this).val() );
             $date=$('#dtmDTRupdate').val();
             $.ajax({
-                url: "dtr_update_view.php?action=getinout&date="+$date,
+                url: "update_dtr.php?action=getinout&date="+$date,
             success: function(result){
                 $arrTime = result.split(';');
                 //alert(result);
@@ -425,19 +425,3 @@ jQuery(document).ready(function() {
         });
     });
 </script>
-
-<?php
-$_GET['action'] ='';
-if($_GET['action']=="getinout")
-{
-    $date=$_GET['dtmDTRupdate'];
-    $sql= "SELECT inAM,outAM,inPM,outPM,inOT,outOT FROM tblEmpDTR
-                WHERE empNumber='".$_SESSION['strEmpNo']."' AND dtrDate='".$year."-".$month."-".$day."' LIMIT 0,1";
-    $empdtr=mysql_query($sql);
-    
-    while($emp=mysql_fetch_array($empdtr)){
-        echo $emp['inAM'].';'.$emp['outAM'].';'.$emp['inPM'].';'.$emp['outPM'].';'.$emp['inOT'].';'.$emp['outOT'];
-    }
-    
-}
-?>
