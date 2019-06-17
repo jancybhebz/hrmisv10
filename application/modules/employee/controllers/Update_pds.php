@@ -25,23 +25,23 @@ class Update_pds extends MY_Controller {
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
-		$this->arrData['arrData'] = $this->pds_update_model->getData($strEmpNo);
-		$this->arrData['arrEduc_CMB'] = $this->pds_update_model->getEducData();	
-		$this->arrData['arrEduc'] = $this->pds_update_model->getEduc($strEmpNo);		
-		$this->arrData['arrCourse'] = $this->pds_update_model->getCourseData();
-		$this->arrData['arrScholarship'] = $this->pds_update_model->getScholarshipData();
-		$this->arrData['arrSchool'] = $this->pds_update_model->getSchoolData();
-		$this->arrData['arrTraining_CMB'] = $this->pds_update_model->getTrainingData();
-		$this->arrData['arrTraining'] = $this->pds_update_model->getTraining($strEmpNo);
-		$this->arrData['arrExamination_CMB'] = $this->pds_update_model->getExamData();
-		$this->arrData['arrExamination'] = $this->pds_update_model->getExamination($strEmpNo);
-		$this->arrData['arrReference'] = $this->pds_update_model->getRefData($strEmpNo);
-		$this->arrData['arrVoluntary'] = $this->pds_update_model->getVoluntary($strEmpNo);
-		$this->arrData['arrExperience_CMB'] = $this->pds_update_model->getExpData();
-		$this->arrData['arrExperience'] = $this->pds_update_model->getExperience($strEmpNo);
-		$this->arrData['arrAppointment'] = $this->pds_update_model->getAppointData();
-		$this->arrData['arrSeparation'] = $this->pds_update_model->getSepCauseData();
-		$this->arrData['arrDetails'] = $this->pds_update_model->getDetails();
+		$this->arrData['arrData'] = $this->update_pds_model->getData($strEmpNo);
+		$this->arrData['arrEduc_CMB'] = $this->update_pds_model->getEducData();	
+		$this->arrData['arrEduc'] = $this->update_pds_model->getEduc($strEmpNo);		
+		$this->arrData['arrCourse'] = $this->update_pds_model->getCourseData();
+		$this->arrData['arrScholarship'] = $this->update_pds_model->getScholarshipData();
+		$this->arrData['arrSchool'] = $this->update_pds_model->getSchoolData();
+		$this->arrData['arrTraining_CMB'] = $this->update_pds_model->getTrainingData();
+		$this->arrData['arrTraining'] = $this->update_pds_model->getTraining($strEmpNo);
+		$this->arrData['arrExamination_CMB'] = $this->update_pds_model->getExamData();
+		$this->arrData['arrExamination'] = $this->update_pds_model->getExamination($strEmpNo);
+		$this->arrData['arrReference'] = $this->update_pds_model->getRefData($strEmpNo);
+		$this->arrData['arrVoluntary'] = $this->update_pds_model->getVoluntary($strEmpNo);
+		$this->arrData['arrExperience_CMB'] = $this->update_pds_model->getExpData();
+		$this->arrData['arrExperience'] = $this->update_pds_model->getExperience($strEmpNo);
+		$this->arrData['arrAppointment'] = $this->update_pds_model->getAppointData();
+		$this->arrData['arrSeparation'] = $this->update_pds_model->getSepCauseData();
+		$this->arrData['arrDetails'] = $this->update_pds_model->getDetails();
 		
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
@@ -88,7 +88,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strSname))
 			{	
-				if( count($this->pds_update_model->checkExist($strSname, $strFname))==0 )
+				if( count($this->update_pds_model->checkExist($strSname, $strFname))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strSname.';'.$strFname.';'.$strMname.';'.$strExtension.';'.$dtmBirthdate.';'.$strBirthplace.';'.$strCS.';'.$intWeight.';'.$intHeight.';'.$strBlood.';'.$intGSIS.';'.$intPagibig.';'.$intPhilhealth.';'.$intTin.';'.$strBlk1.';'.$strStreet1.';'.$strSubd1.';'.$strBrgy1.';'.$strCity1.';'.$strProv1.';'.$strZipCode1.';'.$strTel1.';'.$strStreet2.';'.$strSubd2.';'.$strBrgy2.';'.$strCity2.';'.$strProv2.';'.$strZipCode2.';'.$intTel2.';'.$strEmail.';'.$strCP.';'.$strStatus.';'.$strCode,
@@ -98,19 +98,19 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitProfile($arrData);
+					$blnReturn  = $this->update_pds_model->submitProfile($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
 					//$this->session->set_flashdata('strOBtype',$strOBtype);
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -144,7 +144,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strSSurname))
 			{	
-				if( count($this->pds_update_model->checkExist($strSSurname))==0 )
+				if( count($this->update_pds_model->checkExist($strSSurname))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strSSurname.';'.$strSFirstname.';'.$strSMidname.';'.$strSNameExt.';'.$strSOccupation.';'.$strSBusname.';'.$strSBusadd.';'.$strSTel.';'.$strFSurname.';'.$strFFirstname.';'.$strFMidname.';'.$strFExtension.';'.$strMSurname.';'.$strMFirstname.';'.$strMMidname.';'.$strPaddress,
@@ -154,7 +154,7 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitFam($arrData);
+					$blnReturn  = $this->update_pds_model->submitFam($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
@@ -194,7 +194,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strLevelDesc))
 			{	
-				if( count($this->pds_update_model->checkExist($strLevelDesc))==0 )
+				if( count($this->update_pds_model->checkExist($strLevelDesc))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strLevelDesc.';'.$strSchName.';'.$strDegree.';'.$dtmFrmYr.';'.$dtmTo.';'.$intUnits.';'.$strScholarship.';'.$strHonors.';'.$strLicensed.';'.$strGraduated.';'.$strYrGraduated,
@@ -204,18 +204,18 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitEduc($arrData);
+					$blnReturn  = $this->update_pds_model->submitEduc($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -241,7 +241,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strTrainTitle))
 			{	
-				if( count($this->pds_update_model->checkExist($strTrainTitle))==0 )
+				if( count($this->update_pds_model->checkExist($strTrainTitle))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strTrainTitle.';'.$dtmStartDate.';'.$dtmEndDate.';'.$dtmHours.';'.$strTypeLD.';'.$strConduct.';'.$intCost.';'.$dtmContract,
@@ -251,18 +251,18 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitTraining($arrData);
+					$blnReturn  = $this->update_pds_model->submitTraining($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -286,7 +286,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strExamDesc))
 			{	
-				if( count($this->pds_update_model->checkExist($strExamDesc))==0 )
+				if( count($this->update_pds_model->checkExist($strExamDesc))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strExamDesc.';'.$strChildName.';'.$dtmExamDate.';'.$strPlaceExam.';'.$intLicenseNo.';'.$dtmRelease,
@@ -296,18 +296,18 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitExam($arrData);
+					$blnReturn  = $this->update_pds_model->submitExam($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -327,7 +327,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strChildName))
 			{	
-				if( count($this->pds_update_model->checkExist($strChildName))==0 )
+				if( count($this->update_pds_model->checkExist($strChildName))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strChildName.';'.$dtmChildBdate,
@@ -337,18 +337,18 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitChild($arrData);
+					$blnReturn  = $this->update_pds_model->submitChild($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -369,7 +369,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($intTaxCert))
 			{	
-				if( count($this->pds_update_model->checkExist($intTaxCert))==0 )
+				if( count($this->update_pds_model->checkExist($intTaxCert))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$intTaxCert.';'.$strIssuedAt.';'.$dtmIssuedOn,
@@ -379,18 +379,18 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitTax($arrData);
+					$blnReturn  = $this->update_pds_model->submitTax($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -411,7 +411,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strRefName))
 			{	
-				if( count($this->pds_update_model->checkExist($strRefName))==0 )
+				if( count($this->update_pds_model->checkExist($strRefName))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strRefName.';'.$strRefAdd.';'.$intRefContact,
@@ -421,18 +421,18 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitRef($arrData);
+					$blnReturn  = $this->update_pds_model->submitRef($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -456,7 +456,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($strVolName))
 			{	
-				if( count($this->pds_update_model->checkExist($strVolName))==0 )
+				if( count($this->update_pds_model->checkExist($strVolName))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strVolName.';'.$strVolAdd.';'.$dtmVolDateFrom.';'.$dtmVolDateTo.';'.$intVolHours.';'.$strNature,
@@ -466,18 +466,18 @@ class Update_pds extends MY_Controller {
 						'empNumber'=>$_SESSION['sessEmpNo']
 						
 					);
-					$blnReturn  = $this->pds_update_model->submitVol($arrData);
+					$blnReturn  = $this->update_pds_model->submitVol($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
@@ -509,7 +509,7 @@ class Update_pds extends MY_Controller {
 
 			if(!empty($dtmExpDateFrom))
 			{	
-				if( count($this->pds_update_model->checkExist($dtmExpDateFrom))==0 )
+				if( count($this->update_pds_model->checkExist($dtmExpDateFrom))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$dtmExpDateFrom.';'.$dtmExpDateTo.';'.$strPosTitle.';'.$strExpDept.';'.$strSalary.';'.$strExpPer.';'.$strCurrency.';'.$strExpSG.';'.$strAStatus.';'.$strGovn.';'.$strBranch.';'.$strSepCause.';'.$strSepDate.';'.$strLV,
@@ -518,18 +518,18 @@ class Update_pds extends MY_Controller {
 						'requestCode'=>$strCode,
 						'empNumber'=>$_SESSION['sessEmpNo']
 					);
-					$blnReturn  = $this->pds_update_model->submitWorkExp($arrData);
+					$blnReturn  = $this->update_pds_model->submitWorkExp($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strMsg','Request has been submitted.');
 					}
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
+					redirect('employee/update_pds');
 				}
 			}
 		}
