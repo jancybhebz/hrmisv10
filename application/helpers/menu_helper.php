@@ -47,7 +47,7 @@ if ( ! function_exists('get_request'))
 			'official_business'=>'Official Business',
 			'leave'=>'Leave',
 			'travelorder'=>'Travel Order',
-			'pds_update'=>'PDS Update',
+			'update_pds'=>'PDS Update',
 			'update_dtr'=>'DTR Update',
 			'reports'=>'Reports',
 			'compensatory_leave'=>'Compensatory Leave',

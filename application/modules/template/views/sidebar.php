@@ -375,8 +375,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='pds_update' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/pds_update')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_pds' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/update_pds')?>">
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
@@ -480,8 +480,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='pds_update' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/pds_update')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='update_pds' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/update_pds')?>">
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
