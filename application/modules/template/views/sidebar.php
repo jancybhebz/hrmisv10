@@ -370,8 +370,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='travel_order' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/travel_order')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='travelorder' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/travelorder')?>">
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>
@@ -475,8 +475,8 @@ $activetab = strtolower($activetab);
                                 <span class="title">Leave</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='travel_order' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/travel_order')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='travelorder' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/travelorder')?>">
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>

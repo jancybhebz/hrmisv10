@@ -46,7 +46,7 @@ if ( ! function_exists('get_request'))
 		return array(
 			'official_business'=>'Official Business',
 			'leave'=>'Leave',
-			'travel_order'=>'Travel Order',
+			'travelorder'=>'Travel Order',
 			'pds_update'=>'PDS Update',
 			'update_dtr'=>'DTR Update',
 			'reports'=>'Reports',
