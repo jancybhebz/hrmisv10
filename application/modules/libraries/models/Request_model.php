@@ -47,15 +47,15 @@ class Request_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getEmpDetails($strEmpNumber = '')
+	function getEmpDetails($intEmpNumber = '')
 	{		
-		if($strEmpNumber != "")
+	    if($intEmpNumber != "")
 		{
-			$this->db->where($this->tableid2,$strEmpNumber);
+			$this->db->where('empNumber',$intEmpNumber);
 		}
-		$this->db->join('tblEmpPersonal','tblemppersonal.empNumber = '.$this->table2.'.empNumber','left');
-
-		$objQuery = $this->db->get($this->table2);
+		$this->db->join('tblEmpPersonal','tblEmpAccount.empNumber = tblEmpPersonal.empNumber','left');
+		
+		$objQuery = $this->db->get('tblEmpAccount');
 		return $objQuery->result_array();	
 	}
 
