@@ -47,7 +47,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             <div class="form-group">
-                                <label class="control-label" ><b>Leave Credits Available as of January 2019</b></label>
+                            <?php 
+                                $permonth = date("F, Y", strtotime("last day of previous month"));
+                            ?>
+                                <label class="control-label" ><b>Leave Credits Available as of <?=$permonth?></b></label>
                             </div>
                         </div>
                     </div>
@@ -67,7 +70,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrData[0]['vlBalance']; ?>
+                                <?php echo $arrBalance[0]['vlBalance']; ?>
                             </div>
                         </div>
                     </div>
@@ -81,7 +84,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrData[0]['slBalance'];?>
+                                <?php echo $arrBalance[0]['slBalance'];?>
                             </div>
                         </div>
                     </div>
@@ -95,7 +98,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
                             <?php $sum = 0;
-                                $sum += $arrData[0]['vlBalance']+ $arrData[0]['slBalance'];
+                                $sum += $arrBalance[0]['vlBalance']+ $arrBalance[0]['slBalance'];
                                 echo $sum; ?>
                             </div>
                         </div>
@@ -116,7 +119,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrData[0]['vlBalance']; ?>
+                                <?php echo $arrBalance[0]['vlBalance']; ?>
                                 </div>
                         </div>
                     </div>
@@ -129,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrData[0]['slBalance']; ?>
+                                <?php echo $arrBalance[0]['slBalance']; ?>
                             </div>
                         </div>
                     </div>
@@ -195,7 +198,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                 <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrData[0]['vlBalance'])?$arrData[0]['vlBalance']:''?>">
+                                 <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrBalance[0]['vlBalance'])?$arrBalance[0]['vlBalance']:''?>">
                             </div>
                         </div>
                     </div>
@@ -208,7 +211,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrData[0]['slBalance'])?$arrData[0]['slBalance']:''?>">
+                                <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrBalance[0]['slBalance'])?$arrBalance[0]['slBalance']:''?>">
                             </div>
                         </div>
                     </div></br>
