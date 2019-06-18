@@ -57,19 +57,10 @@ $(document).ready(function() {
     $('#btnprint-reports').click(function() {
         var reptype = $('#selrep_type').val();
         var replink = "";
-        var getdata = "empno=" + $('#selname').val() + "&rtype=" + $('#remitType').val() + "&remitt=" + $('#selshow').val() + "&month=" + "&ps_yr=" + "&remit_fr=" + $('#remityrfrom').val() + "&remit_to=" + $('#remityrto').val() + "&pgroup=" + "&file_gen=" + $('#selgen').val() + "&period=" + "&sign=" + "&appt=" + $('#selAppoint').val();
+        var getdata = "empno=" + $('#selname').val() + "&rtype=2" + "&remitt=" + $('#remitType').val() + "&month=" + "&ps_yr=" + "&remit_fr=" + $('#remityrfrom').val() + "&remit_to=" + $('#remityrto').val() + "&pgroup=" + "&file_gen=" + $('#selgen').val() + "&period=" + "&sign=" + "&appt=" + $('#selAppoint').val();
         replink = "finance/reports/monthlyreports/remittances?"+getdata;
-        // alert(getdata);
-        // if(reptype == 2){
-        //     replink = "finance/reports/monthlyreports/remittances?"+getdata;
-        // }
         $('.modal-title').html('Remittance');
         $('#print-preview-modal').modal('show');
-        // if(reptype == 2 && $('#selgen').val() == 1){
-        //     $('#print-preview-modal').modal('show');
-        // }else{
-        //     // alert('download excel');
-        // }
         $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
     });
 
