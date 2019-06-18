@@ -70,7 +70,7 @@
                                 <?php endif; ?>
                                 <tr>
                                     <td><b>Offset Balance</b></td>
-                                    <td style="width: 75%;"> <pre>// TODO::</pre></td>
+                                    <td style="width: 75%;"></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Undertime</b></td>

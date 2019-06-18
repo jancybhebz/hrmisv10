@@ -20,7 +20,7 @@
                                             <div class="form-group col-md-12" style="padding: 0 !important;">
                                                 <label class="control-label col-md-12" style="padding: 0 !important;">Date<span class="required"> * </span></label>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
-                                                    <i class="fa fa-warning tooltips i-required"></i>
+                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <select class="form-control form-required bs-select" name="txtadjmon" id="txtadjmon" placeholder="">
                                                         <option value="null">SELECT MONTH</option>
                                                         <?php foreach (range(1, 12) as $m): ?>
@@ -30,7 +30,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
-                                                    <i class="fa fa-warning tooltips i-required"></i>
+                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <select class="form-control form-required bs-select" name="txtadjyr" id="txtadjyr" placeholder="">
                                                         <option value="null">SELECT YEAR</option>
                                                         <?php foreach (getYear($arrLeaves[0]['periodYear']) as $yr): ?>
@@ -43,7 +43,7 @@
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Vacation Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
-                                                    <i class="fa fa-warning tooltips i-required"></i>
+                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <input type="text" class="form-control form-required" name="txtvl" id="txtvl"
                                                         placeholder="<?=count($vl_monetized) > 0 ? $vl_monetized : ''?>">
                                                 </div>
@@ -51,7 +51,7 @@
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Sick Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
-                                                    <i class="fa fa-warning tooltips i-required"></i>
+<!--                                                     <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <input type="text" class="form-control form-required" name="txtsl" id="txtsl"
                                                         placeholder="<?=count($sl_monetized) > 0 ? $sl_monetized : ''?>">
                                                 </div>

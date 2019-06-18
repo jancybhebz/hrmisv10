@@ -144,15 +144,15 @@
                         <p>Total Late: <?=date('H:i', mktime(0, $total_late))?></p>
                         <p>Late/Undertime: <?=date('H:i', mktime(0, $total_undertime+$total_late))?></p>
                         <p>Total Days Late/Undertime: <?=$total_days_ut + $total_days_late?></p>
-                        <p>Total Days LWOP: =NULL</p>
+                        <p>Total Days LWOP:</p>
                     </div>
                     <div class="col-md-6">
                         <p>Total Days Absent: <?=count($date_absents)?></p>
                         <p>VL: <?=count($arrleaves) > 0 ? $arrleaves[0]['vlBalance'] : ''?></p>
                         <p>SL: <?=count($arrleaves) > 0 ? $arrleaves[0]['slBalance'] : ''?></p>
-                        <p>Offset Balance:  =00:00</p>
-                        <p>Offset for the Month:  =0</p>
-                        <p>Offset Used:  =00:00</p>
+                        <p>Offset Balance:</p>
+                        <p>Offset for the Month:</p>
+                        <p>Offset Used:</p>
                     </div>
                     <div class="col-md-12">
                         <p>Dates Absent: 

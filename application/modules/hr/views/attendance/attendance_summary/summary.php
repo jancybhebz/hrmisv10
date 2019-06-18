@@ -181,7 +181,9 @@
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Month</label>
                                                     <select class="bs-select form-control" name="month">
-                                                        <option value="all">All</option>
+                                                        <?php if($this_page!='dtr'): ?>
+                                                            <option value="all">All</option>
+                                                        <?php endif; ?>
                                                         <?php foreach (range(1, 12) as $m): ?>
                                                             <option value="<?=sprintf('%02d', $m)?>"
                                                                 <?php 

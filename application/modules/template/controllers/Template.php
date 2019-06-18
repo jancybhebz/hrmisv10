@@ -11,4 +11,11 @@ class Template extends MY_Controller {
 	{
 		$this->load->view('template_view');
 	}
+
+	public function error_default()
+	{
+		echo 'error def';
+		die();
+	}
+
 }
