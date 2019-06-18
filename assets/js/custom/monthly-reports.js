@@ -32,6 +32,7 @@ $(document).ready(function() {
     });
 
     $('table#tblmreports').on('click','a.areport', function(){
+        // var url = $(this).data.
         alert();
     });
 

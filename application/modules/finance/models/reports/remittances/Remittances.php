@@ -19,7 +19,9 @@ class Remittances extends CI_Model {
 	function generate()
 	{
 		$deduct_details = $this->Deduction_model->getData($_GET['remitt']);
-		$remittances = $this->Remittance_model->getRemittance($_GET['empno'], $_GET['remitt'], $_GET['remit_fr'], $_GET['remit_to']);
+		$empno = ($_GET['empno'] == '' || $_GET['empno'] == '0') ? '' : $_GET['empno'];
+		$appt = isset($_GET['appt'] ) ? ($_GET['appt'] == '' || $_GET['appt'] == '0') ? '' : $_GET['appt'] : '';
+		$remittances = $this->Remittance_model->getRemittance($empno, $_GET['remitt'], $_GET['remit_fr'], $_GET['remit_to'],$appt);
 		$signatory = $this->Signatory_model->getSignatories($_GET['sign']);
 
 		$this->fpdf->AddPage('P');
@@ -43,11 +45,12 @@ class Remittances extends CI_Model {
 		$this->fpdf->Cell(0, 6,"From ".$_GET['remit_fr']." to ".$_GET['remit_to'], 0, 1, "C");
 		$this->fpdf->Ln(5);
 
+		$name = strtoupper(employee_name($_GET['empno']));
 		$this->fpdf->SetFont('Arial','B');
 		$this->fpdf->SetX(34);
 		$this->fpdf->Cell(15,5,"Name :",0,0,"L");
 		$this->fpdf->SetFont('Arial','');
-		$this->fpdf->Cell(160,5,strtoupper(employee_name($_GET['empno'])),0,0,"L");
+		$this->fpdf->Cell(160,5,$name == '' ? $appt : $name,0,0,"L");
 		$this->fpdf->Ln(10);
 		# End Header
 

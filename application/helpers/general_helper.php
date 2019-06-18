@@ -33,6 +33,7 @@ if ( ! function_exists('employee_name'))
 	    	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
 	    	$mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.';
 	    	return utf8_decode($res[0]['surname'].', '.$res[0]['firstname'].' '.$mid_ini);
+            //return $res[0]['surname'].', '.$res[0]['firstname'].' '.$mid_ini;
 	    else:
 	    	return '';
 	    endif;

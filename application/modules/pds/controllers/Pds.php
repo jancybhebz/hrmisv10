@@ -1073,12 +1073,12 @@ class Pds extends MY_Controller
 		$arrPost = $this->input->post();
 		$strEmpNum = $arrPost['EmployeeId'];
 		$idTraining= $arrPost['idTraining'];
-
-		$config['upload_path']          = 'uploads/employees/attachments/trainings/'.$idTraining.'/';
-        $config['allowed_types']        = 'jpg|png|pdf';
+		// $config['upload_path']          = 'uploads/employees/attachments/trainings/'.$idTraining.'/';
+		$config['upload_path']          = 'uploads/employees/attachments/trainings/'.$strEmpNum.'/';
+        $config['allowed_types']        = 'pdf';
         // $path = $_FILES['image']['userfile'];
 		// $newName = "<Whatever name>".".".pathinfo($path, PATHINFO_EXTENSION); 
-		//$config['file_name'] = $idTraining.".".pathinfo($path, PATHINFO_EXTENSION); 
+		$config['file_name'] = $idTraining.".pdf"; 
 		$config['overwrite'] = TRUE;
 		// print_r($config);
 		// exit(1);
@@ -1092,7 +1092,7 @@ class Pds extends MY_Controller
 
 		if ( ! $this->upload->do_upload('userfile'))
 		{
-			//echo $this->upload->display_errors();
+			// echo $this->upload->display_errors();
 			$error = array('error' => $this->upload->display_errors());
 			// print_r($error);
 			// exit(1);
@@ -1121,11 +1121,11 @@ class Pds extends MY_Controller
 		$strEmpNum = $arrPost['EmployeeId'];
 		$idEduc= $arrPost['idEduc'];
 
-		$config['upload_path']          = 'uploads/employees/attachments/educ/'.$idEduc.'/';
-        $config['allowed_types']        = 'jpg|png|pdf';
-        // $path = $_FILES['image']['userfile'];
+		$config['upload_path']          = 'uploads/employees/attachments/educ/'.$strEmpNum.'/';
+        $config['allowed_types']        = 'pdf';
+  //       $path = $_FILES['image']['userfile'];
 		// $newName = "<Whatever name>".".".pathinfo($path, PATHINFO_EXTENSION); 
-		//$config['file_name'] = $idTraining.".".pathinfo($path, PATHINFO_EXTENSION); 
+		$config['file_name'] = $idEduc.".pdf"; 
 		$config['overwrite'] = TRUE;
 		// print_r($config);
 		// exit(1);
@@ -1141,8 +1141,7 @@ class Pds extends MY_Controller
 		{
 			//echo $this->upload->display_errors();
 			$error = array('error' => $this->upload->display_errors());
-			//print_r($error);
-			//exit(1);
+			
 			$this->session->set_flashdata('upload_status','Please try again!');
 		}
 		else

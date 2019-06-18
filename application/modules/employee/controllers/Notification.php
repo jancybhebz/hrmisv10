@@ -16,7 +16,7 @@ class Notification extends MY_Controller {
 		$forhr_requests = array();
 		
 		# Employee Notification
-		if($this->session->userdata('sessUserLevel') == 5):
+		if(in_array($this->session->userdata('sessUserLevel'),array(5,4,3))):
 			$strEmpNo = $_SESSION['sessEmpNo'];
 			$arrempRequest = array();
 			

@@ -133,12 +133,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Action <span class="required"> * </span></label>
                                 <div class="input-icon right">
+                                <?php //print_r($arrRequest); 
+                                    $arrSig1 = explode(':',$arrRequest[0]['Signatory1']);
+                                ?>
                                     <i class="fa"></i>
+                                    <?=$arrSig1[0];?>
                                     <select type="text" class="form-control" name="str1stSigAction" id="str1stSigAction">
                                     <option value="">Select</option>
                                     <?php foreach($arrAction as $action)
                                         {
-                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                          echo '<option value="'.$action['ActionCode'].'" '.(trim($arrSig1[0])==trim($action['ActionCode'])?'selected="selected"':'').'>'.$action['ActionDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -155,7 +159,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrSignatory as $signatory)
                                         {
-                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                          echo '<option value="'.$signatory['SignCode'].'" '.(trim($arrSig1[1])==trim($signatory['SignCode'])?'selected="selected"':'').'>'.$signatory['Signatory'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -173,7 +177,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.(trim($arrSig1[2])==trim($data['empNumber'])?'selected="selected"':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -192,12 +196,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Action</label>
                                 <div class="input-icon right">
+                                <?php //print_r($arrRequest); 
+                                    $arrSig2 = explode(':',$arrRequest[0]['Signatory2']);
+                                ?>
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="str2ndSigAction">
                                     <option value="">Select</option>
                                     <?php foreach($arrAction as $action)
                                         {
-                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                          echo '<option value="'.$action['ActionCode'].'" '.(trim($arrSig2[0])==trim($action['ActionCode'])?'selected="selected"':'').'>'.$action['ActionDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -214,7 +221,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrSignatory as $signatory)
                                         {
-                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                          echo '<option value="'.$signatory['SignCode'].'" '.(trim($arrSig2[1])==trim($signatory['SignCode'])?'selected="selected"':'').'>'.$signatory['Signatory'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -232,7 +239,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.(trim($arrSig2[2])==trim($data['empNumber'])?'selected="selected"':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -251,12 +258,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Action</label>
                                 <div class="input-icon right">
+                                <?php //print_r($arrRequest); 
+                                    $arrSig3 = explode(':',$arrRequest[0]['Signatory3']);
+                                ?>
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="str3rdSigAction">
                                     <option value="">Select</option>
                                     <?php foreach($arrAction as $action)
                                         {
-                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                          echo '<option value="'.$action['ActionCode'].'" '.(trim($arrSig3[0])==trim($action['ActionCode'])?'selected="selected"':'').'>'.$action['ActionDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -273,7 +283,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrSignatory as $signatory)
                                         {
-                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                          echo '<option value="'.$signatory['SignCode'].'" '.(trim($arrSig3[1])==trim($signatory['SignCode'])?'selected="selected"':'').'>'.$signatory['Signatory'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -290,7 +300,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrEmployees[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.(trim($arrSig3[2])==trim($data['empNumber'])?'selected="selected"':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -309,12 +319,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Action <span class="required"> * </span></label>
                                 <div class="input-icon right">
+                                <?php //print_r($arrRequest); 
+                                    $arrSig4 = explode(':',$arrRequest[0]['SignatoryFin']);
+                                ?>
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="str4thSigAction" id="str4thSigAction" value="<?=isset($arrRequest[0]['ActionCode'])?$arrRequest[0]['ActionCode']:''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrAction as $action)
                                         {
-                                          echo '<option value="'.$action['ActionCode'].'" '.($arrRequest[0]['ActionCode']==$action['ActionCode']?'selected':'').'>'.$action['ActionDesc'].'</option>';
+                                          echo '<option value="'.$action['ActionCode'].'" '.(trim($arrSig4[0])==trim($action['ActionCode'])?'selected="selected"':'').'>'.$action['ActionDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -331,7 +344,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrSignatory as $signatory)
                                         {
-                                          echo '<option value="'.$signatory['SignCode'].'" '.($arrRequest[0]['SignCode']==$signatory['SignCode']?'selected':'').'>'.$signatory['Signatory'].'</option>';
+                                          echo '<option value="'.$signatory['SignCode'].'" '.(trim($arrSig4[1])==trim($signatory['SignCode'])?'selected="selected"':'').'>'.$signatory['Signatory'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -348,7 +361,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                      <option value="">Select</option>
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrEmployees[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.(trim($arrSig4[2])==trim($data['empNumber'])?'selected="selected"':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
                                         }?>
                                     </select>
                                 </div>
