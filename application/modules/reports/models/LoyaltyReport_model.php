@@ -112,7 +112,8 @@ class LoyaltyReport_model extends CI_Model {
 		foreach($rs as $row)
 		{
 			$extension = (trim($row['nameExtension'])=="") ? "" : " ".$row['nameExtension'];		
-			$strName = $row['firstname']." ".$row['middleInitial'].". ".$row['surname'].$extension;
+			$strName = $row['firstname']." ".mi($row['middleInitial']).$row['surname'].$extension;
+			$strName = utf8_decode($strName);
 
 			// $sqlGroup = mysql_query("Select plantillaGroupName from tblPlantillaGroup WHERE plantillaGroupCode='".$row['plantillaGroupCode']."'");
 			$objplantillaRow = $this->getplantillagroupname($row['plantillaGroupCode']);

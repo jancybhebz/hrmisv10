@@ -46,6 +46,77 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $no=1;foreach($arrRequest as $request): ?>
+                            <tr>
+                                <td><?=$no++?></td>
+                                <td> <?=$request['RequestType']?> </td>
+                                <td> <?=$request['Applicant']?> </td>
+                                <?php $arrSig1 = explode(';', $request['Signatory1']);?>
+                                <td> <?php 
+                                    if (isset($arrSig1[0]))
+                                    { 
+                                        echo $arrSig1[0].' ';
+                                    } 
+                                    if(isset($arrSig1[1]))
+                                    { 
+                                        echo $arrSig1[1].' ';
+                                    } 
+                                    if(isset($arrSig1[2]))
+                                    { 
+                                         echo $arrSig2[2].' ';
+                                    } ?>
+                                <?php $arrSig2 = explode(';', $request['Signatory2']);?>
+                                <td> <?php 
+                                    if (isset($arrSig2[0]))
+                                    { 
+                                        echo $arrSig2[0].' ';
+                                    } 
+                                    if(isset($arrSig2[1]))
+                                    { 
+                                        echo $arrSig2[1].' ';
+                                    } 
+                                    if(isset($arrSig2[2]))
+                                    { 
+                                        echo $arrSig2[2].' ';
+                                    } ?>
+                                <?php $arrSig3 = explode(';', $request['Signatory3']);?>
+                                <td> <?php 
+                                    if (isset($arrSig3[0]))
+                                    { 
+                                        echo $arrSig3[0].' ';
+                                    } 
+                                    if(isset($arrSig3[1]))
+                                    { 
+                                        echo $arrSig3[1].' ';
+                                    } 
+                                    if(isset($arrSig3[2]))
+                                    { 
+                                        echo $arrSig3[2].' ';
+                                    } ?>
+                                <?php $arrSigFin = explode(';', $request['SignatoryFin']);?>
+                                <td> <?php 
+                                    if (isset($arrSigFin[0]))
+                                    { 
+                                        echo $arrSigFin[0].' ';
+                                    } 
+                                    if(isset($arrSigFin[1]))
+                                    { 
+                                        echo $arrSigFin[1].' ';
+                                    } 
+                                    if(isset($arrSigFin[2]))
+                                    { 
+                                        echo $arrSigFin[2].' ';
+                                    } ?>
+                                </td> 
+                                <td>
+                                <a href="<?=base_url('libraries/request/edit/'.$request['reqID'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/request/delete/'.$request['reqID'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                               
+                            </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <!-- <tbody>
                     <?php 
                     $i=1;
                     foreach($arrRequest as $request):?>
@@ -59,7 +130,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 { 
                                     echo $arrSig1[0].' - '.employee_name($arrSig1[2]);
                                 } 
-                                else if (count($arrSig1)==1)
+                                else if (count($arrSig1)==0)
                                 { 
                                     echo employee_name($arrSig1[0]);
                                 } ?>
@@ -103,7 +174,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <?php 
                     $i++;
                     endforeach;?>
-                    </tbody>
+                    </tbody> -->
                 </table>
             </div>
         </div>

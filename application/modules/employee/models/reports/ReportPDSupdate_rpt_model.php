@@ -33,53 +33,53 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 		$this->fpdf = new FPDF('P','mm','Legal');
 		$this->fpdf->AliasNbPages();
 		$this->fpdf->Open();
-
-		$this->fpdf->AddPage('P','Legal');
-		$this->fpdf->SetTitle('Personal Data Sheet');
-		$this->fpdf->SetLeftMargin(8);
-		$this->fpdf->SetRightMargin(6);
-		$this->fpdf->SetTopMargin(0);
-		$this->fpdf->SetAutoPageBreak("on",10);
-		//$this->fpdf->AddPage('P','Legal');
-		$this->fpdf->SetFont('Arial','B',12);
-		$this->fpdf->Ln(5);
-
-		$this->fpdf->SetFont('Arial','',7);
-		$this->fpdf->Cell(0,$InterLigne,"CS Form No. 212",'LTR',0,"L");
-		$this->fpdf->Ln(4);
-		$this->fpdf->Cell(0,$InterLigne, "(Revised 2017)","LR",0,"L");
-		$this->fpdf->Ln(2);
-
-		$this->fpdf->SetFont('Arial','B',20);
-		$this->fpdf->Cell(0,20,"PERSONAL DATA SHEET","LR",0,"C");
-		$this->fpdf->Ln(20);
-		
-		$this->fpdf->SetFont('Arial','IB',7);
-		$this->fpdf->Cell(0,$InterLigne, "WARNING: Any misrepresentation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminal case/s","LR",0,"L");
-		$this->fpdf->Ln(4);
-		$this->fpdf->SetFont('Arial','IB',7);
-		$this->fpdf->Cell(0,$InterLigne,"against the person concerned.","LR",0,"L");
-		$this->fpdf->Ln(4);
-		$this->fpdf->SetFont('Arial','IB',7);
-		$this->fpdf->Cell(0,$InterLigne,"READ THE ATTACHED GUIDE TO FILLING OUT THE PERSONAL DATA SHEET (PDS) BEFORE ACCOMPLISHING THE PDS FORM.","LR",0,"L");
-		$this->fpdf->Ln(4);
-		$this->fpdf->SetFont('Arial','',6);
-		$this->fpdf->Cell(105,$InterLigne,"Print legibly. Tick appropriate boxes (     ) and use separate sheet if necessary. Indicate N/A if not applicable. ","L",0,"L");
-		$this->fpdf->SetFont('Arial','B',6);
-		$this->fpdf->Cell(30,$InterLigne,"DO NOT ABBREVIATE.","R",0,"L");
-		$this->fpdf->SetFont('Arial','',6);
-
-		$this->fpdf->SetFillColor(200,200,200);
-		$this->fpdf->SetFont('Arial','B',7);
-		$this->fpdf->Cell(20,$InterLigne,"1.   CS ID NO.  ",1,0,'L',1);
-				
-		$this->fpdf->SetFont('Arial','',6);
-		$this->fpdf->Cell(0,$InterLigne," (Do not fill up. For CSC use only)",'TR',0,"R");
-		$this->fpdf->Ln(5);
-
-		$arrDetails=$this->empInfo($arrData['empNumber']);
+		$arrDetails=$this->empInfo(isset($arrData['empNumber'])?$arrData['empNumber']:'');
 		foreach($arrDetails as $row)
 			{
+			$this->fpdf->AddPage('P','Legal');
+			$this->fpdf->SetTitle('Personal Data Sheet');
+			$this->fpdf->SetLeftMargin(8);
+			$this->fpdf->SetRightMargin(6);
+			$this->fpdf->SetTopMargin(0);
+			$this->fpdf->SetAutoPageBreak("on",10);
+			//$this->fpdf->AddPage('P','Legal');
+			$this->fpdf->SetFont('Arial','B',12);
+			$this->fpdf->Ln(5);
+
+			$this->fpdf->SetFont('Arial','',7);
+			$this->fpdf->Cell(0,$InterLigne,"CS Form No. 212",'LTR',0,"L");
+			$this->fpdf->Ln(4);
+			$this->fpdf->Cell(0,$InterLigne, "(Revised 2017)","LR",0,"L");
+			$this->fpdf->Ln(2);
+
+			$this->fpdf->SetFont('Arial','B',20);
+			$this->fpdf->Cell(0,20,"PERSONAL DATA SHEET","LR",0,"C");
+			$this->fpdf->Ln(20);
+			
+			$this->fpdf->SetFont('Arial','IB',7);
+			$this->fpdf->Cell(0,$InterLigne, "WARNING: Any misrepresentation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminal case/s","LR",0,"L");
+			$this->fpdf->Ln(4);
+			$this->fpdf->SetFont('Arial','IB',7);
+			$this->fpdf->Cell(0,$InterLigne,"against the person concerned.","LR",0,"L");
+			$this->fpdf->Ln(4);
+			$this->fpdf->SetFont('Arial','IB',7);
+			$this->fpdf->Cell(0,$InterLigne,"READ THE ATTACHED GUIDE TO FILLING OUT THE PERSONAL DATA SHEET (PDS) BEFORE ACCOMPLISHING THE PDS FORM.","LR",0,"L");
+			$this->fpdf->Ln(4);
+			$this->fpdf->SetFont('Arial','',6);
+			$this->fpdf->Cell(105,$InterLigne,"Print legibly. Tick appropriate boxes (     ) and use separate sheet if necessary. Indicate N/A if not applicable. ","L",0,"L");
+			$this->fpdf->SetFont('Arial','B',6);
+			$this->fpdf->Cell(30,$InterLigne,"DO NOT ABBREVIATE.","R",0,"L");
+			$this->fpdf->SetFont('Arial','',6);
+
+			$this->fpdf->SetFillColor(200,200,200);
+			$this->fpdf->SetFont('Arial','B',7);
+			$this->fpdf->Cell(20,$InterLigne,"1.   CS ID NO.  ",1,0,'L',1);
+					
+			$this->fpdf->SetFont('Arial','',6);
+			$this->fpdf->Cell(0,$InterLigne," (Do not fill up. For CSC use only)",'TR',0,"R");
+			$this->fpdf->Ln(5);
+
+		
 				//  PERSONAL INFORMATION - Colors of frame, background and text
 				$this->fpdf->SetFont('Arial','IB',9);
 				$this->fpdf->SetFillColor(200,200,200);
@@ -91,13 +91,13 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"2.     SURNAME ",'LTR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(0,$InterLigne,$row['surname'],1,0,'L');
+				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['surname']),1,0,'L');
 				$this->fpdf->Ln(6);
 				//  firstname
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        FIRST NAME ",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell($Ligne,$InterLigne,$row['firstname'],'LTB',0,'L');
+				$this->fpdf->Cell($Ligne,$InterLigne,utf8_decode($row['firstname']),'LTB',0,'L');
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell(45,$InterLigne," ",'TBR',0,'L');
 				$this->fpdf->Cell(40,$InterLigne,"NAME EXTENSION (e.g. Jr., Sr.) ",1,0,'L',1);
@@ -107,7 +107,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        MIDDLE NAME ",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(0,$InterLigne,$row['middleInitial'],1,0,'L');
+				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['middlename']),1,0,'L');
 				$this->fpdf->Ln(6);
 				//  Date of Birth
 				$this->fpdf->SetFont('Arial','',8);
@@ -197,7 +197,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
 				$this->fpdf->SetFont('Arial','',7);
 				
-				$this->fpdf->Cell(0,$InterLigne,$row['subdivision1'].' '.$row['barangay1'],1,0,'L');//res address 2nd line SUBD / BRGY
+				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['subdivision1'].' '.$row['barangay1']),1,0,'L');//res address 2nd line SUBD / BRGY
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'C');
 				$this->fpdf->Ln(6);
 				
@@ -215,7 +215,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
 				$this->fpdf->SetFont('Arial','',7);
 				
-				$this->fpdf->Cell(0,$InterLigne,$row['city1'].' '.$row['province1'],1,0,'L');//res address 3rd line CITY/PROV
+				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['city1'].' '.$row['province1']),1,0,'L');//res address 3rd line CITY/PROV
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'C');
 				$this->fpdf->Ln(6);
 				//  height
@@ -243,21 +243,21 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,"18.   PERMANENT ADDRESS",'LTR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
 
-				$this->fpdf->Cell(0,$InterLigne,$row['lot2'].' '.$row['street2'],1,0,'L');//res address 1st line LOT/STREET
+				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['lot2'].' '.$row['street2']),1,0,'L');//res address 1st line LOT/STREET
 				$this->fpdf->Ln(6);
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"10.   GSIS ID NO. ",1,0,'LR',1);
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,$row['gsisNumber'],'B',0,'L');
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,$row['subdivision2'].' '.$row['barangay2'],1,0,'L');//perm address 2nd line sudb/brgy
+				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['subdivision2'].' '.$row['barangay2']),1,0,'L');//perm address 2nd line sudb/brgy
 				$this->fpdf->Ln(6);
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"11.   PAG-IBIG ID NO. ",1,0,'LR',1);
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,$row['pagibigNumber'],'B',0,'L');
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'L',1);
-				$this->fpdf->Cell(0,$InterLigne,$row['city2'].' '.$row['province2'],1,0,'L');//perm address 3rd line city2/prov2
+				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['city2'].' '.$row['province2']),1,0,'L');//perm address 3rd line city2/prov2
 				$this->fpdf->Ln(6);
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"12.   PHILHEALTH NO. ",1,0,'LR',1);
@@ -305,7 +305,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"22.   SPOUSE'S SURNAME",'LTR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['spouseSurname'],'TBRL',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['spouseSurname']),'TBRL',0,'L');
 				$this->fpdf->SetFont('Arial','',6);
 				$this->fpdf->Cell(55,$InterLigne,"23.   NAME of CHILDREN  (Write full name and list all)",1,0,'L',1);
 
@@ -329,7 +329,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        FIRST NAME",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(35,$InterLigne,$row['spouseFirstname'],'LTRB',0,'L');
+				$this->fpdf->Cell(35,$InterLigne,utf8_decode($row['spouseFirstname']),'LTRB',0,'L');
 				
 
 				$this->fpdf->SetFont('Arial','',5);
@@ -340,7 +340,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				if(count($rsChild)>0)//1st child 
 				{
 					$childIndex=0;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -353,12 +353,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);  
 				$this->fpdf->Cell($Ligne,$InterLigne,"        MIDDLE NAME",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);  
-				$this->fpdf->Cell(70,$InterLigne,$row['spouseMiddlename'],'TBRL',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['spouseMiddlename']),'TBRL',0,'L');
 				
 				if(count($rsChild)>1)//2nd child 
 				{
 					$childIndex=1;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -374,12 +374,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        OCCUPATION",'LTBR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);  
-				$this->fpdf->Cell(70,$InterLigne,$row['spouseWork'],'TBRL',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['spouseWork']),'TBRL',0,'L');
 				
 				if(count($rsChild)>2)//3rd child 
 				{
 					$childIndex=2;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -394,12 +394,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        EMPLOYER/BUSINESS NAME ",'LTBR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['spouseBusName'],'TBRL',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['spouseBusName']),'TBRL',0,'L');
 				
 				if(count($rsChild)>3)//4th child bday
 				{
 					$childIndex=3;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -413,12 +413,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        BUSINESS ADDRESS ",'LTBR',0,'LR',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['spouseBusAddress'],'TBRL',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['spouseBusAddress']),'TBRL',0,'L');
 				
 				if(count($rsChild)>4)//5th child bday
 				{
 					$childIndex=4;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -438,7 +438,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				if(count($rsChild)>5)//6th child bday
 				{
 					$childIndex=5;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -453,12 +453,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"24.   FATHER'S SURNAME ",'LTR',0,'LR',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['fatherSurname'],'TBRL',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['fatherSurname']),'TBRL',0,'L');
 				
 				if(count($rsChild)>6)//7th child bday
 				{
 					$childIndex=6;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -473,7 +473,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        FIRST NAME",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(35,$InterLigne,$row['fatherFirstname'],'LBR',0,'L');
+				$this->fpdf->Cell(35,$InterLigne,utf8_decode($row['fatherFirstname']),'LBR',0,'L');
 				$this->fpdf->SetFont('Arial','',5);
 				$this->fpdf->Cell(25,$InterLigne,"    NAME EXTENSION (JR,SR)   ",'LTBR',0,'C',1);
 				$this->fpdf->SetFont('Arial','',7);
@@ -482,7 +482,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				if(count($rsChild)>7)//8th child bday
 				{
 					$childIndex=7;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -496,12 +496,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        MIDDLE NAME",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['fatherMiddlename'],'LTRB',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['fatherMiddlename']),'LTRB',0,'L');
 				
 				if(count($rsChild)>8)//9th child bday
 				{
 					$childIndex=8;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -516,12 +516,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"25.   MOTHER'S MAIDEN NAME",'LTR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['motherName'],'LTRB',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['motherName']),'LTRB',0,'L');
 				
 				if(count($rsChild)>9)//10th child bday
 				{
 					$childIndex=9;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -535,11 +535,11 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        SURNAME",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['motherSurname'],'LTRB',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['motherSurname']),'LTRB',0,'L');
 				if(count($rsChild)>10)//11th child bday
 				{
 					$childIndex=10;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -552,12 +552,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        FIRSTNAME",'LR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['motherFirstname'],'LTRB',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['motherFirstname']),'LTRB',0,'L');
 				
 				if(count($rsChild)>11)//12th child bday
 				{
 					$childIndex=11;
-					$this->fpdf->Cell(55,$InterLigne,$rsChild[$childIndex]['childName'],'LRB',0,'C');
+					$this->fpdf->Cell(55,$InterLigne,utf8_decode($rsChild[$childIndex]['childName']),'LRB',0,'C');
 					$this->fpdf->SetFont('Arial','',7);
 					$this->fpdf->Cell(0,$InterLigne,date('m/d/Y',strtotime($rsChild[$childIndex]['childBirthDate'])),'LRB',0,'C');
 				}
@@ -571,7 +571,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',7);
 				$this->fpdf->Cell($Ligne,$InterLigne,"        MIDDLENAME",'LBR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(70,$InterLigne,$row['motherMiddlename'],'LTRB',0,'L');
+				$this->fpdf->Cell(70,$InterLigne,utf8_decode($row['motherMiddlename']),'LTRB',0,'L');
 				$this->fpdf->SetFont('Arial','I',7);
 				$this->fpdf->Cell(0,$InterLigne,"(Continue on separate sheet if necessary)",'LTRB',0,'C',1);
 				$this->fpdf->Ln(6);
@@ -656,7 +656,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 						// if($row3['graduated']=='Y')
 							$year_graduated = $row3['graduated']=='Y'?$row3['schoolToDate']:'-';
 						
-						$this->fpdf->FancyRow( array($educ_header, $row3['schoolName'], $row3['course'], $row3['schoolFromDate'], $row3['schoolToDate'], $row3['units'], $year_graduated, urldecode($row3['honors'])),array(1,1,1,1,1,1,1,1), 1);		
+						$this->fpdf->FancyRow( array($educ_header, utf8_decode($row3['schoolName']), $row3['course'], $row3['schoolFromDate'], $row3['schoolToDate'], $row3['units'], $year_graduated, urldecode($row3['honors'])),array(1,1,1,1,1,1,1,1), 1);		
 						$t_educCode=$educ['levelCode'];
 					}
 				}
@@ -718,7 +718,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetWidths(array(65, 20, 30, 50, 18, 19));
 				$align = array('L', 'L', 'L', 'L', 'L', 'L');
 				$this->fpdf->SetAligns($align);
-				$this->fpdf->SetFont('Arial','B',6);
+				$this->fpdf->SetFont('Arial','',6);
 				$exam_limit = 15;$total_exam=0;
 				$this->fpdf->SetFillColor(255,255,255);
 				foreach($rsEmpExam as $exam) {
@@ -731,7 +731,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 						$examDate = $strDate[1]."/".$strDate[2]."/".$strDate[0];
 						$strDate2 = explode('-',$exam['dateRelease']);
 						$releaseDate = $strDate2[1]."/".$strDate2[2]."/".$strDate2[0];
-						$this->fpdf->FancyRow(array($row3['examDesc'], $exam['examRating'], $examDate, $exam['examPlace'], $exam['licenseNumber'], $releaseDate), array(1,1,1,1,1,1),1);
+						$this->fpdf->FancyRow(array(utf8_decode($row3['examDesc']), $exam['examRating'], $examDate, $exam['examPlace'], $exam['licenseNumber'], $releaseDate), array(1,1,1,1,1,1),1);
 						$total_exam++;	
 					}		
 				}
@@ -908,7 +908,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					$fromDate = $strFromDate[1]."-".$strFromDate[2]."-".$strFromDate[0];
 					$strToDate = explode('-',$vol['vwDateTo']);
 					$toDate = $strToDate[1]."-".$strToDate[2]."-".$strToDate[0];		
-					$this->fpdf->FancyRow(array($vol['vwName'].", ".$vol['vwAddress'], $fromDate, $toDate, $vol['vwHours'], $vol['vwPosition']), array(1,1,1,1,1,1), 1);		
+					$this->fpdf->FancyRow(array(utf8_decode($vol['vwName'].", ".$vol['vwAddress']), $fromDate, $toDate, $vol['vwHours'], $vol['vwPosition']), array(1,1,1,1,1,1), 1);		
 				}
 				while($total_vol<$limit_vol)	
 				{
@@ -976,7 +976,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					$startDate = $strDate[1]."/".$strDate[2]."/".$strDate[0];		
 					$strDate2 = explode("-",$training['trainingEndDate']);
 					$endDate = $strDate2[1]."/".$strDate2[2]."/".$strDate2[0];		
-					$this->fpdf->FancyRow(array($training['trainingDesc'], $startDate, $endDate, $training['trainingHours'], $training['trainingTypeofLD'], $training['trainingConductedBy']),array(1,1,1,1,1,1),1);		
+					$this->fpdf->FancyRow(array(utf8_decode($training['trainingDesc']), $startDate, $endDate, $training['trainingHours'], $training['trainingTypeofLD'], utf8_decode($training['trainingConductedBy'])),array(1,1,1,1,1,1),1);		
 				}
 				while($total_training<$limit_training)
 					{
@@ -1620,7 +1620,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 
 					$j+=1;
 					$this->fpdf->setFont('Arial','',7);
-					$this->fpdf->Cell($w[0],$InterLigne,$ref['refName'],1,0,'L');
+					$this->fpdf->Cell($w[0],$InterLigne,utf8_decode($ref['refName']),1,0,'L');
 					$this->fpdf->Cell($w[1],$InterLigne,$ref['refAddress'],1,0,'L');
 					$this->fpdf->Cell($w[2],$InterLigne,$ref['refTelephone'],1,0,'C');
 					$this->fpdf->Cell($w[3],$InterLigne,"",'LR','C');
@@ -1840,7 +1840,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 		echo $this->fpdf->Output();	
 	}
 	
-	function empInfo($strEmpNmbr)
+	function empInfo($strEmpNmbr="")
 		{
 			$sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
 							tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblEmpPersonal.birthday,tblEmpPersonal.birthPlace,tblEmpPersonal.citizenship,tblEmpPersonal.sex,tblEmpPersonal.civilStatus,tblEmpPersonal.height, tblEmpPersonal.weight, tblEmpPersonal.bloodType, tblEmpPersonal.gsisNumber,tblEmpPersonal.pagibigNumber, tblEmpPersonal.pagibigNumber, tblEmpPersonal.philHealthNumber,  tblEmpPersonal.sssNumber,tblEmpPersonal.tin, tblEmpPersonal.telephone1, tblEmpPersonal.mobile, 
@@ -1860,21 +1860,21 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 							LEFT JOIN tblPlantillaGroup ON tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode
 							WHERE tblEmpPersonal.empNumber = '".$strEmpNmbr."'";
 	            		// WHERE emp_id=$empId";
-				$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
+				$this->db->select('DISTINCT(tblEmpPersonal.empNumber), tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
 							tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblEmpPersonal.birthday,tblEmpPersonal.birthPlace,tblEmpPersonal.citizenship,tblEmpPersonal.sex,tblEmpPersonal.civilStatus,tblEmpPersonal.height, tblEmpPersonal.weight, tblEmpPersonal.bloodType, tblEmpPersonal.gsisNumber,tblEmpPersonal.pagibigNumber, tblEmpPersonal.pagibigNumber, tblEmpPersonal.philHealthNumber,  tblEmpPersonal.sssNumber,tblEmpPersonal.tin, tblEmpPersonal.telephone1, tblEmpPersonal.mobile, 
 							tblEmpPersonal.lot1,tblEmpPersonal.street1,tblEmpPersonal.subdivision1,tblEmpPersonal.barangay1,tblEmpPersonal.city1,tblEmpPersonal.province1,tblEmpPersonal.zipCode1,
 							tblEmpPersonal.lot2,tblEmpPersonal.street2,tblEmpPersonal.subdivision2,tblEmpPersonal.barangay2,tblEmpPersonal.city2,tblEmpPersonal.province2,tblEmpPersonal.zipCode2,tblEmpPersonal.email,
 							tblEmpPersonal.spouseSurname,tblEmpPersonal.spouseFirstname,tblEmpPersonal.spouseMiddlename,tblEmpPersonal.spousenameExtension,tblEmpPersonal.spouseWork,tblEmpPersonal.spouseBusName,tblEmpPersonal.spouseBusAddress,tblEmpPersonal.spouseTelephone,
 							tblEmpPersonal.fatherSurname,tblEmpPersonal.fatherFirstname,tblEmpPersonal.fatherMiddlename,tblEmpPersonal.fathernameExtension,tblEmpPersonal.motherSurname,tblEmpPersonal.motherFirstname,tblEmpPersonal.motherMiddlename,tblEmpPersonal.motherName,
-							tblEmpPersonal.relatedThird,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.relatedDegreeParticularsThird,tblEmpPersonal.dateAccomplished,tblEmpPersonal.soloParentParticulars,tblEmpPersonal.soloParent,tblEmpPersonal.disabledParticulars,tblEmpPersonal.disabled,tblEmpPersonal.indigenousParticulars,tblEmpPersonal.indigenous,tblEmpPersonal.immigrantParticulars,tblEmpPersonal.immigrant,tblEmpPersonal.campaignParticulars,tblEmpPersonal.campaign,tblEmpPersonal.candidateParticulars,tblEmpPersonal.candidate,tblEmpPersonal.forcedResignParticulars,tblEmpPersonal.forcedResign,tblEmpPersonal.violateLawParticulars,tblEmpPersonal.violateLaw,tblEmpPersonal.adminCaseParticulars,tblEmpPersonal.adminCase,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.formallyCharged,tblEmpPersonal.formallyChargedParticulars,tblEmpPersonal.skills,tblEmpPersonal.nadr,tblEmpPersonal.miao,
-							tblPlantilla.plantillaGroupCode,
-						 	tblPlantillaGroup.plantillaGroupName, tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode,
-						 	tblEmpChild.childName,tblEmpChild.childBirthDate');
-				$this->db->join('tblEmpPosition','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','left');	
-				$this->db->join('tblEmpChild','tblEmpPersonal.empNumber = tblEmpChild.empNumber','left');	
-				$this->db->join('tblPlantilla','tblEmpPosition.itemNumber = tblPlantilla.itemNumber','left');
-				$this->db->join('tblPlantillaGroup','tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode','left');
-				$this->db->where('tblEmpPersonal.empNumber',$strEmpNmbr);
+							tblEmpPersonal.relatedThird,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.relatedDegreeParticularsThird,tblEmpPersonal.dateAccomplished,tblEmpPersonal.soloParentParticulars,tblEmpPersonal.soloParent,tblEmpPersonal.disabledParticulars,tblEmpPersonal.disabled,tblEmpPersonal.indigenousParticulars,tblEmpPersonal.indigenous,tblEmpPersonal.immigrantParticulars,tblEmpPersonal.immigrant,tblEmpPersonal.campaignParticulars,tblEmpPersonal.campaign,tblEmpPersonal.candidateParticulars,tblEmpPersonal.candidate,tblEmpPersonal.forcedResignParticulars,tblEmpPersonal.forcedResign,tblEmpPersonal.violateLawParticulars,tblEmpPersonal.violateLaw,tblEmpPersonal.adminCaseParticulars,tblEmpPersonal.adminCase,tblEmpPersonal.relatedDegreeParticulars,tblEmpPersonal.formallyCharged,tblEmpPersonal.formallyChargedParticulars,tblEmpPersonal.skills,tblEmpPersonal.nadr,tblEmpPersonal.miao,tblEmpPosition.group3, tblEmpPosition.groupCode, tblEmpPosition.positionCode, tblEmpPosition.payrollGroupCode');
+				$this->db->join('tblEmpPosition','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','inner');	
+				// $this->db->join('tblEmpChild','tblEmpPersonal.empNumber = tblEmpChild.empNumber','left');	
+				// $this->db->join('tblPlantilla','tblEmpPosition.itemNumber = tblPlantilla.itemNumber','inner');
+				// $this->db->join('tblPlantillaGroup','tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode','inner');
+				$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
+				$this->db->group_by('tblEmpPersonal.empNumber');
+				if($strEmpNmbr!='')
+					$this->db->where('tblEmpPersonal.empNumber',$strEmpNmbr);
 	          // echo $sql;exit(1);				
 			// $query = $this->db->query($sql);
 			$query = $this->db->get('tblEmpPersonal');

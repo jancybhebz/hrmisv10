@@ -24,7 +24,7 @@ class ServiceRecord_model extends CI_Model {
 		$this->fpdf->Cell(0,3,"Page ".$this->fpdf->PageNo(),0,0,'R');
 	}
 
-	function getSQLData($empno)
+	function getSQLData($empno="")
 	{
 		$this->db->select('DISTINCT(tblEmpPersonal.empNumber), tblEmpPersonal.surname, 
 								tblEmpPersonal.firstname, tblEmpPersonal.middlename, 
@@ -33,8 +33,9 @@ class ServiceRecord_model extends CI_Model {
 		$this->db->join('tblEmpPosition',
 			'tblEmpPersonal.empNumber = tblEmpPosition.empNumber','inner');
 		//$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
-		$this->db->where('tblEmpPersonal.empNumber',$empno);
-		
+		if($empno!='')
+			$this->db->where('tblEmpPersonal.empNumber',$empno);
+		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('tblEmpPersonal.surname asc,tblEmpPersonal.firstname asc, tblEmpPersonal.middlename asc');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		//echo $this->db->last_query();
@@ -96,13 +97,14 @@ class ServiceRecord_model extends CI_Model {
 
 	function generate($arrData)
 	{		
-		$this->fpdf->AddPage('P','A4');
+		
 		//print_r($arrData);exit(1);
 		
-		$rs=$this->getSQLData($arrData['strEmpName']);
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		for($i=0;$i<sizeof($rs);$i++) {
 		//while($rs=mysql_fetch_array($t_arrEmpInfo)){
 			//$this->AddPage();
+			$this->fpdf->AddPage('P','A4');
 			$this->fpdf->SetFont('Arial','B',12);
 			$this->fpdf->Cell(0, 5, 'S E R V I C E  R E C O R D', 0, 0, 'C');
 			$this->fpdf->Ln();
@@ -243,10 +245,43 @@ class ServiceRecord_model extends CI_Model {
 				$separationCause=$row[$j]['separationCause'];
 				$this->fpdf->FancyRow(array($fromDate,$toDate,$positionAbb,$status,$salary,$stationAgency,$branch,$lwop,$separationDate,$separationCause),1);
 			}
-			$this->fpdf->Cell(0, 1, '', 'B', 0, 'C');
-			$this->fpdf->Ln(10);
-			$this->fpdf->SetFont('Arial','B',9);
-			$this->fpdf->Cell(0, 4, 'CERTIFIED CORRECT', 0, 0, 'C');
+			$this->fpdf->Cell(0,10,"",'B',0,'L');
+			$this->fpdf->Ln(20);
+			$this->fpdf->Cell(30);
+			$this->fpdf->Cell(30);				
+			$this->fpdf->SetFont('Arial','',12);		
+			$this->fpdf->Cell(0,10,"Certified Correct:",0,0,'L');
+			
+			$this->fpdf->SetFont('Arial','B',12);	
+			$sig=getSignatories($arrData['intSignatory']);
+			//print_r($sig);
+			if(count($sig)>0)
+			{
+				$sigName = $sig[0]['signatory'];
+				$sigPos = $sig[0]['signatoryPosition'];
+			}
+			else
+			{
+				$sigName='';
+				$sigPos='';
+			}
+			$this->fpdf->Ln(20);
+			$this->fpdf->Cell(30);
+			$this->fpdf->Cell(30);				
+			$this->fpdf->SetFont('Arial','B',12);		
+			$this->fpdf->Cell(0,10,$sigName,0,0,'L');
+
+			$this->fpdf->Ln(4);
+			$this->fpdf->Cell(30);
+			$this->fpdf->Cell(30);				
+			$this->fpdf->SetFont('Arial','',12);				
+			$this->fpdf->Cell(0,10,$sigPos,0,0,'L');
+			
+			$this->fpdf->Ln(4);
+			$this->fpdf->Cell(30);
+			$this->fpdf->Cell(30);				
+			$this->fpdf->SetFont('Arial','',12);				
+			//$this->fpdf->Cell(0,10,$sig[0],0,0,'L');
 			$this->fpdf->Ln(15);
 			
 		}
@@ -257,42 +292,7 @@ class ServiceRecord_model extends CI_Model {
 			 
 		
 			
-		$this->fpdf->Ln(20);
-		$this->fpdf->Cell(30);
-		$this->fpdf->Cell(30);				
-		$this->fpdf->SetFont('Arial','B',12);		
-		$this->fpdf->Cell(0,10,"Certified Correct:",0,0,'L');
-		
 
-		$sig=getSignatories($arrData['intSignatory']);
-		if(count($sig)>0)
-		{
-			$sigName = $sig[0]['signatory'];
-			$sigPos = $sig[0]['signatoryPosition'];
-		}
-		else
-		{
-			$sigName='';
-			$sigPos='';
-		}
-		$this->fpdf->Ln(20);
-		$this->fpdf->Cell(30);
-		$this->fpdf->Cell(30);				
-		$this->fpdf->SetFont('Arial','B',12);		
-		$this->fpdf->Cell(0,10,$sigName,0,0,'L');
-
-		$this->fpdf->Ln(4);
-		$this->fpdf->Cell(30);
-		$this->fpdf->Cell(30);				
-		$this->fpdf->SetFont('Arial','',12);				
-		$this->fpdf->Cell(0,10,$sigPos,0,0,'L');
-		
-		$this->fpdf->Ln(4);
-		$this->fpdf->Cell(30);
-		$this->fpdf->Cell(30);				
-		$this->fpdf->SetFont('Arial','',12);				
-		//$this->fpdf->Cell(0,10,$sig[0],0,0,'L');
-		$this->fpdf->Ln(15);
 			
 		
 		

@@ -173,7 +173,8 @@ class ListEmployeesGender_model extends CI_Model {
 		//while($arrEmpGenderFemale = mysql_fetch_array($objEmpGenderFemale))
 		{
 			$strEmpNum = $arrEmpGenderFemale['empNumber'];
-			$strEmpName = $arrEmpGenderFemale['surname']. ",  ".$arrEmpGenderFemale['firstname']. " ".$arrEmpGenderFemale['nameExtension']." ".$arrEmpGenderFemale['middlename'];
+			$strEmpName = $arrEmpGenderFemale['surname']. ",  ".$arrEmpGenderFemale['firstname']. " ".$arrEmpGenderFemale['nameExtension']." ".mi($arrEmpGenderFemale['middlename']);
+			$strEmpName = utf8_decode($strEmpName);
 			$strSex = $arrEmpGenderFemale['sex'];
 			$strStatusOfAppointment = $arrEmpGenderFemale['statusOfAppointment'];
 			

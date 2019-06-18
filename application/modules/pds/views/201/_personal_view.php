@@ -55,32 +55,38 @@
     <tr>
         <th style="text-align:right;" nowrap>GSIS Business Partner No.</th>
         <td><?=$arrData['businessPartnerNumber']?></td>
-        <th style="text-align:right;" nowrap>Pag-ibig ID No. </th>
-        <td><?=$arrData['pagibigNumber']?></td>
+        <th style="text-align:right;" nowrap>City/Municipality, Province </th>
+        <td><?=$arrData['city2'].' '.$arrData['province2']?></td>
     </tr>
     <tr>
         <th style="text-align:right;" nowrap>PHILHEALTH ID No. </th>
         <td><?=$arrData['philHealthNumber']?></td>
-         <th style="text-align:right;" nowrap>City/Municipality, Province </th>
-        <td><?=$arrData['city2'].' '.$arrData['province2']?></td>
-       
+        <th style="text-align:right;" nowrap>Zip Code </th>
+        <td><?=$arrData['zipCode2']?></td>
+    </tr>
+    <tr>
+        <th style="text-align:right;" nowrap>Pag-ibig ID No. </th>
+        <td><?=$arrData['pagibigNumber']?></td>
+         <th style="text-align:right;" nowrap>Telephone No. </th>
+        <td><?=$arrData['telephone2']?></td>
     </tr>
     <tr>
         <th style="text-align:right;" nowrap>TIN </th>
         <td><?=$arrData['tin']?></td>
-         <th style="text-align:right;" nowrap>Zip Code </th>
-        <td><?=$arrData['zipCode2']?></td>
-        
-    </tr>
-    <tr>
-        <th style="text-align:right;" nowrap>Email Address </th>
-        <td><?=$arrData['email']?></td>
-        <th style="text-align:right;" nowrap>Telephone No. </th>
-        <td><?=$arrData['telephone2']?></td>
+        <th style="text-align:right;" nowrap></th>
+        <td></td>
     </tr>
      <tr>
+        <th style="text-align:right;" nowrap>Email Address </th>
+        <td><?=$arrData['email']?></td>
+        <th style="text-align:right;" nowrap></th>
+        <td></td>
+    </tr>
+    <tr>
         <th style="text-align:right;" nowrap>Mobile Number </th>
         <td><?=$arrData['mobile']?></td>
+        <th style="text-align:right;" nowrap></th>
+        <td></td>
     </tr>
 </table>
 

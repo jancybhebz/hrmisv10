@@ -131,7 +131,8 @@ class ListEmployeesEducationalAttainment_model extends CI_Model {
 
 				$this->fpdf->SetFont('Arial','',10);
 				
-				$name=$emp["surname"].', '.$emp["firstname"].' '.$emp["nameExtension"].' '.$emp["middlename"];
+				$name=$emp["surname"].', '.$emp["firstname"].' '.$emp["nameExtension"].' '.mi($emp["middlename"]);
+				$name = utf8_decode($name);
 				/*
 				$this->Cell(20,0,$name);
 				$this->Ln(5);

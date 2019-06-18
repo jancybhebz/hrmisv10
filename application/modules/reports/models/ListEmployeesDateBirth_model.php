@@ -107,8 +107,8 @@ class ListEmployeesDateBirth_model extends CI_Model {
 			$strEmpNum = $arrEmpBirthDay['empNumber'];
 			$strMidName = $arrEmpBirthDay['middlename'];
 			$strMiddleName = substr($strMidName, 0,1);
-			$strEmpName = $arrEmpBirthDay['surname'].",  ".$arrEmpBirthDay['firstname']."  ".$arrEmpBirthDay['nameExtension'].
-			"  ".$arrEmpBirthDay['middleInitial']."."; 
+			$strEmpName = $arrEmpBirthDay['surname'].",  ".$arrEmpBirthDay['firstname']."  ".$arrEmpBirthDay['nameExtension']."  ".mi($arrEmpBirthDay['middleInitial']); 
+			$strEmpName = utf8_decode($strEmpName);
 			$strStatusOfAppointment = $arrEmpBirthDay['statusOfAppointment'];
 			$strBirthDay = $arrEmpBirthDay['birthday'];
 			$strBirthDayEx = explode('-',$strBirthDay);

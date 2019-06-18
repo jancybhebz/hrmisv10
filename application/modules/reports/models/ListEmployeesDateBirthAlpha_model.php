@@ -119,6 +119,7 @@ class ListEmployeesDateBirthAlpha_model extends CI_Model {
 		$rs = $this->getSQLData($arrData['strAppStatus']);
 		$this->fpdf->SetFillColor(255,255,255);
 		$this->fpdf->SetFont('Arial','',11);
+		$i=1;
 		foreach($rs as $arrEmpBirthDay):
 			if($arrEmpBirthDay["birthday"]!='0000-00-00')
 			{			
@@ -126,7 +127,8 @@ class ListEmployeesDateBirthAlpha_model extends CI_Model {
 				$year = $arrDate[0];
 				$month = $arrDate[1];
 				$day = $arrDate[2];
-				$name=$arrEmpBirthDay["surname"].", ".$arrEmpBirthDay["firstname"]." ".$arrEmpBirthDay["nameExtension"]." ".$arrEmpBirthDay["middlename"];
+				$name=$arrEmpBirthDay["surname"].", ".$arrEmpBirthDay["firstname"]." ".$arrEmpBirthDay["nameExtension"]." ".mi($arrEmpBirthDay["middlename"]);
+				$name = utf8_decode($name);
 				$strOffice = office_name(employee_office($arrEmpBirthDay['empNumber']));
 				$strOfficePosition = $strOffice.' - '.$arrEmpBirthDay["positionDesc"];
 
@@ -134,8 +136,8 @@ class ListEmployeesDateBirthAlpha_model extends CI_Model {
 				$Ln = array('L','C','C');
 				$this->fpdf->SetWidths($w);
 				$this->fpdf->SetAligns($Ln);
-				$this->fpdf->FancyRow(array($name,$strOfficePosition,date('F j, Y',strtotime($month.'/'.$day.'/'.$year))),array(1,1,1));
-
+				$this->fpdf->FancyRow(array($i.'. '.$name,$strOfficePosition,date('F j, Y',strtotime($month.'/'.$day.'/'.$year))),array(1,1,1));
+				$i++;
 				//$ctr++;
 
 			}

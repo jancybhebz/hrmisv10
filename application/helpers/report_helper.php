@@ -273,3 +273,11 @@ if (! function_exists('intToMonthFull'))
 		return $arrMonths[$t_intMonth];
 	}
 }
+
+if (! function_exists('mi'))
+{
+    function mi($strMI)
+    {
+        return $strMI!=""?str_replace('.','',substr($strMI,0,1)).'. ':'';
+    }
+}

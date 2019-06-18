@@ -39,6 +39,7 @@ class CertificateNoAdministrativeCharge_model extends CI_Model {
 			'tblEmpPosition.positionCode = tblPosition.positionCode','left');
 		$this->db->join('tblAppointment',
 			'tblEmpPosition.appointmentCode = tblAppointment.appointmentCode','left');
+		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('tblEmpPersonal.surname, tblEmpPersonal.firstname');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		//echo $this->db->last_query();
@@ -48,12 +49,12 @@ class CertificateNoAdministrativeCharge_model extends CI_Model {
 	function generate($arrData)
 	{		
 		
-		$rs=$this->getSQLData($arrData['empno']);
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		
 		foreach($rs as $t_arrEmpInfo):
 			$this->fpdf->AddPage();
 			$extension = (trim($t_arrEmpInfo['nameExtension'])=="") ? "" : " ".$t_arrEmpInfo['nameExtension'];		
-			$strName = $t_arrEmpInfo['firstname']." ".$t_arrEmpInfo['middleInitial'].". ".$t_arrEmpInfo['surname'].$extension;
+			$strName = $t_arrEmpInfo['firstname']." ".mi($t_arrEmpInfo['middleInitial']).$t_arrEmpInfo['surname'].$extension;
 			$divisionName = office_name(employee_office($t_arrEmpInfo['empNumber']));
 			$strPronoun = pronoun($t_arrEmpInfo['sex']);
 			$strPronoun2= pronoun2($t_arrEmpInfo['sex']);
@@ -61,12 +62,13 @@ class CertificateNoAdministrativeCharge_model extends CI_Model {
 			$dayIssued = daySuffix($arrData['intDay']);
 			$strMonthFull = intToMonthFull($arrData['intMonth']+0);
 			//list($year,$month,$day)=split('[/,-]',$t_arrEmpInfo['firstDayAgency']);
-			$arrTmpDate = explode('-',$t_arrEmpInfo['firstDayAgency']);
-			$year = $arrTmpDate[0];
-			$month = $arrTmpDate[1];
-			$day = $arrTmpDate[2];
-			$strMonth = intToMonthFull($month+0);
-			$positionDate = $strMonth." ".$day.", ".$year;
+			// $arrTmpDate = explode('-',$t_arrEmpInfo['firstDayAgency']);
+			// $year = $arrTmpDate[0];
+			// $month = $arrTmpDate[1];
+			// $day = $arrTmpDate[2];
+			// $strMonth = intToMonthFull($month+0);
+			// $positionDate = $strMonth." ".$day.", ".$year;
+			$positionDate = date('F j, Y',strtotime($t_arrEmpInfo['firstDayAgency']));
 			$strPrgrph1 = "     This is to certify that ".strtoupper($strName)
 						.", ".$t_arrEmpInfo['positionDesc'].", ".$divisionName
 						.", is a ".strtolower($t_arrEmpInfo['appointmentDesc'])." employee of the ".getAgencyName()." and "

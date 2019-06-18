@@ -48,6 +48,7 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 	{
 		$this->db->where('periodMonth',$t_intMonth);
 		$this->db->where('periodYear',$t_intYear);
+		$this->db->where('empNumber',$t_strEmpNmbr);
 		$this->db->order_by('periodYear DESC,periodMonth DESC');
 		$this->db->Select('periodMonth,periodYear,vlBalance,slBalance');
 		$this->db->limit(1,0);
@@ -77,7 +78,7 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 		// $sig=explode('|',$PD);
 		// $sig2=explode('|',$ALS);
 		
-		$strEmployeeName = strtoupper($rs[$i]['salutation']." ".$rs[$i]['firstname']." ".($rs[$i]['middlename']!=""?substr($rs[$i]['middlename'],0,1).". ":" ").strtoupper($rs[$i]['surname'])." ".strtoupper($rs[$i]['nameExtension']));
+		$strEmployeeName = strtoupper($rs[$i]['salutation']." ".$rs[$i]['firstname']." ".($rs[$i]['middlename']!=""?mi(substr($rs[$i]['middlename'],0,1)):" ").strtoupper($rs[$i]['surname'])." ".strtoupper($rs[$i]['nameExtension']));
 		$strPosition = $rs[$i]['positionDesc'];
 
 		$this->fpdf->Cell(0,5,$strEmployeeName,0,0,'L');
@@ -229,7 +230,7 @@ class AccumulatedLeaveCredits_model extends CI_Model {
 	{		
 		
 		
-		$rs=$this->getSQLData($arrData['empno']);
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		if(count($rs)>0)
 		{
 		for($i=0;$i<sizeof($rs);$i++)		

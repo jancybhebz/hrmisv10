@@ -241,8 +241,8 @@ class PlantillaOfPersonnel_model extends CI_Model {
 								$strMN =  $arrPersonnel['middlename'];
 								$strMiddleName = substr($strMN, 0,1);
 								$strName = $arrPersonnel['surname']. ", " .$arrPersonnel['firstname']. " ".$arrPersonnel['nameExtension']." ".
-								$arrPersonnel['middleInitial'].".";
-								
+								mi($arrPersonnel['middleInitial']);
+								$strName = utf8_decode($strName);
 								$strSex = $arrPersonnel['sex'];
 								$intTin = $arrPersonnel['tin'];
 								$strBirthday = $arrPersonnel['birthday'];
