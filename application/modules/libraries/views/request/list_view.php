@@ -46,6 +46,38 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $no=1;foreach($arrRequest as $request): ?>
+                            <tr>
+                                <td><?=$no++?></td>
+                                <td><?=$request['RequestType']?></td>
+                                <td><?=$request['Applicant']?></td>
+                                <td><?=$request['Signatory1']?></td>
+                                <td><?=$request['Signatory2']?></td>
+                                <td><?=$request['Signatory3']?></td>
+                                <td><?=$request['SignatoryFin']?></td>
+                                <!-- <td>
+                                    
+                                        // $signfin = explode(';',$request['SignatoryFin']);
+                                        // if(count($signfin) == 3):
+                                        //     echo $signfin[0].' - ';
+                                        //     echo employee_name($signfin[2]);
+                                        // endif;
+
+                                        // if(count($signfin) == 2):
+                                        //     echo $signfin[0].' - ';
+                                        //     echo employee_name($signfin[1]);
+                                        // endif;
+                                    
+                                </td> -->
+                                <td>
+                                <a href="<?=base_url('libraries/request/edit/'.$request['reqID'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/request/delete/'.$request['reqID'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                               
+                            </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <!-- <tbody>
                     <?php 
                     $i=1;
                     foreach($arrRequest as $request):?>
@@ -59,7 +91,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 { 
                                     echo $arrSig1[0].' - '.employee_name($arrSig1[2]);
                                 } 
-                                else if (count($arrSig1)==1)
+                                else if (count($arrSig1)==0)
                                 { 
                                     echo employee_name($arrSig1[0]);
                                 } ?>
@@ -103,7 +135,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <?php 
                     $i++;
                     endforeach;?>
-                    </tbody>
+                    </tbody> -->
                 </table>
             </div>
         </div>

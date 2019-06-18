@@ -22,7 +22,7 @@ class Request extends MY_Controller {
 	{
 		$this->arrData['arrRequest'] = $this->request_model->getData();
 		$this->arrData['arrEmployees'] = $this->hr_model->getData();
-		//$this->arrData['arrEmp'] = $this->request_model->getEmpDetails();
+		// $this->arrData['arrEmp'] = $this->request_model->getEmpDetails();
 		$this->template->load('template/template_view', 'libraries/request/list_view', $this->arrData);
 	}
 	
