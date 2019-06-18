@@ -40,7 +40,7 @@ $(document).ready(function() {
         if(reptype == 1){
             report_name = "Payslip";
             replink = "finance/reports/monthlyreports/payslip?"+getdata;
-        }else{
+        }else if(reptype == 2){
             report_name = "Remittance";
             replink = "finance/reports/monthlyreports/remittances?"+getdata;
         }

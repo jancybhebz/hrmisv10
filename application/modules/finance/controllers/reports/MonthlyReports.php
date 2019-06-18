@@ -27,7 +27,7 @@ class MonthlyReports extends MY_Controller {
 	public function payslip()
 	{
 		$arrGet=$this->input->get();
-		$rpt=$arrGet['rpt'];
+		// $rpt=$arrGet['rpt'];
 		
 		$this->load->model('reports/payslip/Payslip');
 			$arrData=array('empno'=>$arrGet['empno']);
@@ -37,7 +37,8 @@ class MonthlyReports extends MY_Controller {
 	public function remittances()
 	{
 		$this->load->model('reports/remittances/Remittances');
-		$this->Remittances->generate();
+			$arrData=array('empno'=>$arrGet['empno']);
+		$this->Remittances->generate($arrData);
 	}
 
 }

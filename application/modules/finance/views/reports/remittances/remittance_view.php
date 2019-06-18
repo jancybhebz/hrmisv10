@@ -122,8 +122,8 @@
                                     <div class="col-md-6">
                                         <select class="form-control bs-select" name="mon">
                                             <option value="0">-- SELECT FORMAT --</option>
-                                            <option value="PDF">PDF</option>
-                                            <option value="Excel">Excel</option>
+                                            <option value='1'>PDF</option>
+                                            <option value='2'>Excel</option>
                                         </select>
                                     </div>
                                 </div>
@@ -132,6 +132,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">&nbsp;</label>
                                     <div class="col-md-9">
+                                    <a id="btnprint" href="javascript:;" class="btn btn-primary">Print Preview</a>
                                         <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </div>
@@ -144,7 +145,37 @@
     </div>
 </div>
 
-<?=load_plugin('js', array('select2','select'))?>
+<!-- begin print-preview modal -->
+<div id="print-preview-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="<?=base_url()?>" id="txtbaseurl">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed id="embed-pdf" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="link-fullsize" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end print-preview modal -->
+
+
+<?=load_plugin('js', array('datepicker','datatables','select2','select'))?>
+<script src="<?=base_url('assets/js/custom/compensation-reports.js')?>"></script>
+
 <script>
     $('select.select2').select2({
         minimumResultsForSearch: -1,
