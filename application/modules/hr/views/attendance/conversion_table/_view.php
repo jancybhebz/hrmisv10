@@ -47,13 +47,13 @@
                                     <div class="tabbable-line tabbable-full-width col-md-12">
                                         <ul class="nav nav-tabs">
                                             <li class="active">
-                                                <a href="#conv-tbl1" data-toggle="tab">Conversion Table 1</a>
+                                                <a href="#conv-tbl1" data-toggle="tab">Conversion Table 2</a>
                                             </li>
                                             <li>
-                                                <a href="#conv-tbl2" data-toggle="tab">Conversion Table 2</a>
+                                                <a href="#conv-tbl2" data-toggle="tab">Conversion Table 3</a>
                                             </li>
                                             <li>
-                                                <a href="#conv-tbl3" data-toggle="tab">Conversion Table 3</a>
+                                                <a href="#conv-tbl3" data-toggle="tab">Conversion Table 4</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
