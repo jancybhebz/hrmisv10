@@ -10,10 +10,6 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
             <span>Reports</span>
             <i class="fa fa-circle"></i>
         </li>
@@ -117,7 +113,9 @@
                                     </td>
                                     <td><?=employee_name($process['empNumber'])?></td>
                                     <td style="width: 250px; white-space: nowrap;">
-                                        <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess">
+                                        <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess"
+                                            data-procid="<?=$process['processID']?>" data-periodmon="<?=$process['processMonth']?>"
+                                            data-periodyr="<?=$process['processYear']?>" data-appt="<?=$process['employeeAppoint']?>" data-period="<?=$process['period']?>">
                                             <i class="fa fa-refresh"></i> Reprocess</a>
                                         <a href="<?=base_url('finance/reports/monthly')?>" class="btn btn-sm grey-cascade" id="btnreprocess">
                                             <i class="fa fa-file-o"></i> Reports</a>
@@ -168,6 +166,15 @@
             $('#txtpulish_val').val(1);
             $('#spanpublish').html('pulish');
             $('#publish_process').modal('show');
+        });
+
+        $('#tblprocess-history').on('click', 'a#btnreprocess', function() {
+            $('#txtreprocess_id').val($(this).data('procid'));
+            $('#txtperiodmon').val($(this).data('periodmon'));
+            $('#txtperiodyr').val($(this).data('periodyr'));
+            $('#txtappt').val($(this).data('appt'));
+            $('#txtperiod').val($(this).data('period'));
+            $('#reprocess_confirm').modal('show');
         });
 
         /* ellipsis*/

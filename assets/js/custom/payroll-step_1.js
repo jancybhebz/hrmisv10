@@ -39,17 +39,17 @@ $(document).ready(function() {
     $('select#selemployment').on('changed.bs.select', function (e) {
         var employment = e.target.value.toLowerCase();
         var computation = $(this).find(':selected').data('comp').toLowerCase();
-
         switch(computation) {
             case 'monthly':
                 $('#frmprocess').attr('action', 'select_benefits_perm');
                 break;
             case 'daily':
-                if(employment == 'JO'){
-                    $('#frmprocess').attr('action', 'select_benefits_nonperm_jo');
-                }else{
-                    $('#frmprocess').attr('action', 'select_benefits_nonperm_trc');
-                }
+                $('#frmprocess').attr('action', 'select_benefits_nonperm_trc');
+                // if(employment == 'jo'){
+                //     $('#frmprocess').attr('action', 'select_benefits_nonperm_jo');
+                // }else{
+                //     $('#frmprocess').attr('action', 'select_benefits_nonperm_trc');
+                // }
                 break;
             default:
                 $('#frmprocess').attr('action', 'select_benefits_nonperm');

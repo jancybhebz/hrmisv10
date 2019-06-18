@@ -143,7 +143,7 @@
     <div class="form-actions">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
-                <input type="text" name="txtcomputation" id="txtcomputation">
+                <input type="hidden" name="txtcomputation" id="txtcomputation">
                 <button type="submit" id="btn_step1" class="btn blue btn-submit"> Save and Continue
                     <i class="fa fa-angle-right"></i>
                 </button>

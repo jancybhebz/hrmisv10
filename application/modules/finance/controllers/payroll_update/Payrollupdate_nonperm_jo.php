@@ -8,7 +8,7 @@
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Payrollupdate_nonperm_daily extends MY_Controller {
+class Payrollupdate_nonperm_jo extends MY_Controller {
 
 	var $arrData;
 
@@ -19,9 +19,12 @@ class Payrollupdate_nonperm_daily extends MY_Controller {
         $this->arrData = array();
     }
 
-	public function select_benefits_nonperm_trc()
+	public function select_benefits_nonperm_jo()
 	{
 		$arrPost = $this->input->post();
+		echo '<pre>';
+		print_r($arrPost);
+		echo '</pre>';
 		if(empty($arrPost)):
 			redirect('finance/payroll_update/process');
 		endif;
@@ -38,9 +41,12 @@ class Payrollupdate_nonperm_daily extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
-	public function compute_benefits_nonperm_trc()
+	public function compute_benefits_nonperm_jo()
 	{
 		$arrPost = $this->input->post();
+		echo '<pre>';
+		print_r($arrPost);
+		echo '</pre>';
 		if(!empty($arrPost)):
 			if(isset($arrPost['chkbenefit'])):
 				if(gettype($arrPost['chkbenefit']) == 'string'):
@@ -71,7 +77,7 @@ class Payrollupdate_nonperm_daily extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
-	public function select_deduction_nonperm_trc()
+	public function select_deduction_nonperm_jo()
 	{
 		$arrPost = $this->input->post();
 		$arrEmployees = array();
@@ -79,6 +85,9 @@ class Payrollupdate_nonperm_daily extends MY_Controller {
 			if(gettype($arrPost['chkbenefit']) == 'string'):
 				$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
 			endif;
+			echo '<pre>';
+			print_r($arrPost);
+			echo '</pre>';
 		endif;
 
 		$this->arrData['arrEmployees'] = $arrPost['txtjson_computations'];
@@ -89,7 +98,7 @@ class Payrollupdate_nonperm_daily extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
-	public function save_computation_nonperm_trc()
+	public function save_computation_nonperm_jo()
 	{
 		$arrPost = $this->input->post();
 		

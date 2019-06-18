@@ -2,6 +2,8 @@
 switch (strtolower($this->uri->segment(3))) {
        case 'select_deductions_nonperm':
            $form = 'finance/payroll_update/save_computation_nonperm'; break;
+        case 'select_deduction_nonperm_trc':
+           $form = 'finance/payroll_update/save_computation_nonperm_trc'; break;
        default:
            $form = 'finance/payroll_update/complete_process_perm'; break;
    }   
@@ -9,7 +11,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'i
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
         <h3 class="block">Select Benefits</h3>
-        <input type="text" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
+        <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
         <div class="row form-body">
             <div class="col-md-4" id="div-loan">
                 <div class="portlet light bordered">
@@ -77,15 +79,15 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'i
                     </div>
                 </div>
             </div>
-            <pre><?php print_r($arrEmployees) ?></pre>
-            <textarea id="txtjson" name="txtjson"><?=fixJson($arrEmployees)?></textarea>
-            <input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
-            <input type="text" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
-            <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
-            <input type="text" name="chkincome" value='<?=isset($_POST['chkincome']) ? fixJson($_POST['chkincome']) : ''?>'>
-            <input type="text" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
+            <textarea id="txtjson" name="txtjson" hidden><?=fixJson($arrEmployees)?></textarea>
+            <input type="hidden" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
+            <input type="hidden" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
+            <input type="hidden" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
+            <input type="hidden" name="chkincome" value='<?=isset($_POST['chkincome']) ? fixJson($_POST['chkincome']) : ''?>'>
+            <input type="hidden" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
+            <input type="hidden" name="date_diff" value='<?=isset($_POST['date_diff']) ? $_POST['date_diff'] : ''?>'>
 
-            <textarea name="txtjson_computations"><?=isset($_POST['txtjson_computations']) ? fixJson($_POST['txtjson_computations']) : ''?></textarea>
+            <textarea name="txtjson_computations" hidden><?=isset($_POST['txtjson_computations']) ? fixJson($_POST['txtjson_computations']) : ''?></textarea>
         </div>
     </div>
 </div>

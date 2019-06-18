@@ -34,9 +34,6 @@ class Payrollupdate extends MY_Controller {
 	public function select_benefits_perm()
 	{
 		$arrPost = $this->input->post();
-		echo '<pre>';
-		print_r($arrPost);
-		echo '</pre>';
 		if(!empty($arrPost)):
 			// if($arrPost['selemployment'] != 'P'):
 			// 	redirect('finance/payroll_update/process');	
@@ -238,9 +235,6 @@ class Payrollupdate extends MY_Controller {
 			if(gettype($arrPost['chkbenefit']) == 'string'):
 				$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
 			endif;
-			echo '<pre>';
-			print_r($arrPost);
-			echo '</pre>';
 		endif;
 
 		$this->arrData['arrEmployees'] = $arrPost['txtjson'];
@@ -635,6 +629,8 @@ class Payrollupdate extends MY_Controller {
 				# Processed Employees
 				$period_amount = 0;
 				$payroll_process = $this->Payroll_process_model->process_with($process_data['selemployment']);
+				$netPayPeriod1 = 0;
+				$netPayPeriod2 = 0;
 				switch ($payroll_process['computation']):
 					case 'Monthly':
 						$period_amount = $income_salary['period1'];
@@ -703,6 +699,31 @@ class Payrollupdate extends MY_Controller {
 		$this->session->set_flashdata('strSuccessMsg','Payroll saved successfully.');
 		redirect('finance/payroll_update/reports?processid='.implode(';',array_column($arrProcess_id,'proc_id')));
 
+	}
+
+	public function reprocess()
+	{
+		$arrPost = $this->input->post();
+		$this->Computation_instance_model->del_computation_details_byPeriod($arrPost['txtperiodmon'],$arrPost['txtperiodyr']);
+		$this->Computation_instance_model->edit_computation_details(array('latest' => 'N'));
+		$comp_instance = $this->Computation_instance_model->getData($arrPost['txtperiodmon'],$arrPost['txtperiodyr'],$arrPost['txtappt']);
+		foreach($comp_instance as $comp_ins):
+			$this->Computation_instance_model->del_computation($comp_ins['id']);
+		endforeach;
+		$this->Computation_instance_model->del_computation_instance_byperiod($arrPost['txtperiodmon'],$arrPost['txtperiodyr'],$arrPost['txtappt']);
+		$this->Income_model->delete_byprocessid($arrPost['txtreprocess_id']);
+		
+		$deduction_remit = $this->Deduction_model->get_deduction_remit($arrPost['txtreprocess_id'],'Loan',$arrPost['txtperiodmon'],$arrPost['txtperiodyr']);
+		foreach($deduction_remit as $remit):
+			$this->Deduction_model->edit_empdeduction_byempnumber(array('STATUS' => 1),$remit['deductionCode'],$remit['empNumber']);
+		endforeach;
+		
+		$this->Deduction_model->del_deduction_remit($arrPost['txtreprocess_id']);
+		$this->Computation_instance_model->del_computation_nonperm_instance($arrPost['txtappt'],$arrPost['txtperiodmon'],$arrPost['txtperiodyr'],$arrPost['txtperiod']);
+		$this->Payroll_process_model->delete_payroll_process_byid($arrPost['txtreprocess_id']);
+
+		$this->session->set_flashdata('strSuccessMsg','Data removed successfully.');
+		redirect('finance/payroll_update/process');
 	}
 
 	public function reports()

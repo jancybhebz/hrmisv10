@@ -14,7 +14,7 @@
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
     </div>
     <div class="tab-pane active" id="tab-payroll">
-        <input type="text" name="txtprocess" value='<?=json_encode($_POST)?>'>
+        <input type="hidden" name="txtprocess" value='<?=json_encode($_POST)?>'>
         <h3>Select Benefits</h3>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">

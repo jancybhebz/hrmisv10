@@ -3,7 +3,6 @@
 $page = $this->uri->segment(3);
 $form = $page == 'compute_benefits_perm' ? 'finance/payroll_update/save_benefits_perm' : 'finance/payroll_update/select_deductions_perm';
 echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id'=>'frmsavebenefits'));?>
-<pre><?php print_r($_POST) ?></pre>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -119,16 +118,16 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
             </div>
         </div>
         <br><br>
-        <textarea id="txtjson" name="txtjson"><?=fixJson($arrEmployees)?></textarea>
-        <input type="text" value="<?=$process_data_workingdays?>" name="txtdata_wdays">
-        <input type="text" value="<?=$curr_period_workingdays?>" name="txtper_wdays">
-        <input type="text" value="<?=$no_empty_lb?>" name="txtno_empty_lb">
-        <input type="text" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
-        <input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
-        <input type="text" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
-        <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
-        <input type="text" name="chkincome" value='<?=isset($_POST['chkincome']) ? fixJson($_POST['chkincome']) : ''?>'>
-        <textarea name="txtjson_computations"><?=isset($arr_computations) ? fixJson($arr_computations) : ''?></textarea>
+        <textarea id="txtjson" name="txtjson" hidden><?=fixJson($arrEmployees)?></textarea>
+        <input type="hidden" value="<?=$process_data_workingdays?>" name="txtdata_wdays">
+        <input type="hidden" value="<?=$curr_period_workingdays?>" name="txtper_wdays">
+        <input type="hidden" value="<?=$no_empty_lb?>" name="txtno_empty_lb">
+        <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
+        <input type="hidden" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
+        <input type="hidden" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
+        <input type="hidden" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
+        <input type="hidden" name="chkincome" value='<?=isset($_POST['chkincome']) ? fixJson($_POST['chkincome']) : ''?>'>
+        <textarea name="txtjson_computations" hidden><?=isset($arr_computations) ? fixJson($arr_computations) : ''?></textarea>
     </div>
 </div>
 <div class="form-actions">

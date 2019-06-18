@@ -41,53 +41,60 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                 <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label"><b>Salary Grade Number:</b></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <select type="text" class="form-control" name="strSG" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSG'):''?>">
+                                        <option value="">Select</option>
+                                        <?php foreach($arrSG as $sg)
+                                        {
+                                          echo '<option value="'.$sg['salaryGradeNumber'].'" '.($sg['salaryGradeNumber']==$arrSalarySched[0]['salaryGradeNumber']?'selected':'').'>'.$sg['salaryGradeNumber'].'</option>';
+                                        }?>
+                            
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label"><b>Step Number:</b></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <select type="text" class="form-control" name="intStepNum" value="<?=!empty($this->session->userdata('intStepNum'))?$this->session->userdata('intStepNum'):''?>">
+                                        <option value="">Select</option>
+                                        <?php foreach($arrStep as $step)
+                                        {
+                                          echo '<option value="'.$step['stepNumber'].'" '.($step['stepNumber']==$arrSalarySched[0]['stepNumber']?'selected':'').'>'.$step['stepNumber'].'</option>';
+                                        }?>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label"><b>Actual Salary:</b></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <input type="text" class="form-control" name="intActualSalary" value="<?=$arrSalarySched[0]['actualSalary']?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <br>
                  
-
-                <div class="portlet-body">
-                    <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_salary_sched" style="visibility: hidden;">
-                        <thead>
-                            <tr>
-                                <th>SG</th>
-                                <?php foreach($stepNumber as $column): ?>
-                                    <th>STEP <?=$column['stepNumber']?></th>
-                                <?php endforeach; ?>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach($sggradeNumber as $row): ?>
-                            <tr>
-                                <td><?=$row['salaryGradeNumber']?></td>
-                                <?php foreach($stepNumber as $column): ?>
-                                    <td><?php
-                                            $search = ["stepNumber" => $column['stepNumber'], "salaryGradeNumber" => $row['salaryGradeNumber']];
-                                            $keys = array_keys(
-                                                array_filter(
-                                                    $arrSalarysched,
-                                                    function ($v) use ($search) { return $v['stepNumber'] == $search['stepNumber'] && $v['salaryGradeNumber'] == $search['salaryGradeNumber']; }
-                                                )
-                                            );
-                                            $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
-                                            // $version =$arrSalarysched['version'];
-                                            // echo  '<input type="text" name="intActualSalary" value="'.$arrSalarySched[0]['actualSalary'].'">';
-                                            
-                                            echo '<input type="text" name="'.$row['salaryGradeNumber'].'::'.$column['stepNumber'].']" id="'.$row['salaryGradeNumber'].'::'.$column['stepNumber'].'" value='.$actual_salary.'>';        
-                                            
-                                        ?></td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-
-                    </table>
-
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <!-- <input type="hidden" name="stepNum" value="<?=$arrSalarySched[0]['stepNumber']?>">
+                                <input type="hidden" name="stepNum" value="<?=$arrSalarySched[0]['stepNumber']?>">
                                 <input type="hidden" name="SG" value="<?=$arrSalarySched[0]['salaryGradeNumber']?>">
-                                <input type="hidden" name="ver" value="<?=$arrSalarySched[0]['version']?>"> -->
+                                <input type="hidden" name="ver" value="<?=$arrSalarySched[0]['version']?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/salary_sched')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>

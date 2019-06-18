@@ -35,12 +35,18 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function update_nonpem_computation_instance($arrData,$payrollgroup,$mon,$yr,$period)
+	function update_nonpem_computation_instance($arrData,$appt,$mon='',$yr='',$period='')
 	{
-		$this->db->where('payrollGroupCode',$payrollgroup);
-		$this->db->where('pmonth',$mon);
-		$this->db->where('pyear',$yr);
-		$this->db->where('period',$period);
+		$this->db->where('appointmentCode',$appt);
+		if($mon != ''){
+			$this->db->where('pmonth',$mon);
+		}
+		if($yr != ''){
+			$this->db->where('pyear',$yr);
+		}
+		if($period != ''){
+			$this->db->where('period',$period);
+		}
 		$this->db->update('tblNonPermComputationInstance', $arrData);
 		return $this->db->affected_rows();
 	}
@@ -64,11 +70,34 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	function del_computation_instance_byperiod($mon,$yr,$appt)
+	{
+		$this->db->where('pmonth', $mon);
+		$this->db->where('pyear', $yr);
+		$this->db->where('appointmentCode', $appt);
+		$this->db->delete('tblComputationInstance');
+		return $this->db->affected_rows();
+	}
+
 	# delete computation
 	function del_computation($id)
 	{
 		$this->db->where('fk_id', $id);
 		$this->db->delete('tblComputation');
+		return $this->db->affected_rows();
+	}
+
+	function del_computation_nonperm_instance($appt,$mon,$yr,$per)
+	{
+		if($appt == 'JO'){
+			$this->db->where('appointmentCode', $appt);
+		}else{
+			$this->db->where('payrollGroupCode', $appt);
+		}
+		$this->db->where('pmonth', $mon);
+		$this->db->where('pyear', $yr);
+		$this->db->where('period', $per);
+		$this->db->delete('tblNonPermComputationInstance');
 		return $this->db->affected_rows();
 	}
 
@@ -83,10 +112,24 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function edit_computation_details($arrData)
+	{
+		$this->db->update('tblComputationDetails', $arrData);
+		return $this->db->affected_rows();
+	}
+
 	# delete computation details
 	function del_computation_details($id)
 	{
 		$this->db->where('fk_id', $id);
+		$this->db->delete('tblComputationDetails');
+		return $this->db->affected_rows();
+	}
+
+	function del_computation_details_byPeriod($mon,$yr)
+	{
+		$this->db->where('periodMonth', $mon);
+		$this->db->where('periodYear', $yr);
 		$this->db->delete('tblComputationDetails');
 		return $this->db->affected_rows();
 	}

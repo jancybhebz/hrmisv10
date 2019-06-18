@@ -128,7 +128,8 @@ class Request extends MY_Controller {
 				endforeach;				
 			}
 			$this->arrData['arrOfficeName'] = $arrOfficeName;
-			$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			//$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			$this->arrData['arrEmployees'] = $this->request_model->getEmpDetails();
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
 			$this->template->load('template/template_view','libraries/request/edit_view', $this->arrData);

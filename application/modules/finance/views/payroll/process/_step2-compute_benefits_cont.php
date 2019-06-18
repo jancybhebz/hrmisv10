@@ -1,6 +1,12 @@
-<?=load_plugin('css', array('datatables'))?>
-
-<?=form_open('finance/payroll_update/select_deductions_nonperm', array('class' => 'form-horizontal', 'method' => 'post'))?>
+<?php
+echo load_plugin('css', array('datatables'));
+switch ($this->uri->segment(3)) {
+    case 'compute_benefits_nonperm_trc':
+        $form='finance/payroll_update/select_deduction_nonperm_trc'; break;
+    default:
+        $form='finance/payroll_update/select_deductions_nonperm'; break;
+}
+echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
@@ -36,7 +42,7 @@
                         <?php foreach($arrEmployees as $emp): ?>
                             <tr>
                                 <td><?=getfullname($emp['emp_detail']['firstname'],$emp['emp_detail']['surname'],$emp['emp_detail']['middlename'],$emp['emp_detail']['middleInitial'])?></td>
-                                <td><?=$emp['emp_detail']['empNumber']?></td>
+                                <td style="text-align: center"><?=$emp['emp_detail']['empNumber']?></td>
                                 <td style="text-align: center"><?=number_format($emp['emp_detail']['actualSalary'], 2)?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_present']?></td>
                                 <td style="text-align: center"><?=$emp['actual_days_absent']?></td>
@@ -57,12 +63,13 @@
 <div class="form-actions">
     <div class="row">
         <div class="col-md-offset-3 col-md-9">
-            <textarea name="txtjson_computations"><?=isset($arrEmployees) ? fixJson($arrEmployees) : ''?></textarea>
+            <textarea name="txtjson_computations" hidden><?=isset($arrEmployees) ? fixJson($arrEmployees) : ''?></textarea>
             <input type="hidden" name="txtprocess" value='<?=isset($_POST['txtprocess']) ? fixJson($_POST['txtprocess']) : ''?>'>
             <input type="hidden" name="chkbenefit" value='<?=isset($_POST['chkbenefit']) ? fixJson($_POST['chkbenefit']) : ''?>'>
-            <input type="text" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
-            <input type="text" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
-            <input type="text" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
+            <input type="hidden" name="chksalary" value='<?=isset($_POST['chksalary']) ? fixJson($_POST['chksalary']) : ''?>'>
+            <input type="hidden" name="chkbonus" value='<?=isset($_POST['chkbonus']) ? fixJson($_POST['chkbonus']) : ''?>'>
+            <input type="hidden" name="working_days" value='<?=isset($curr_period_workingdays) ? $curr_period_workingdays : ''?>'>
+            <input type="hidden" name="date_diff" value='<?=isset($process_data_datediff) ? $process_data_datediff : ''?>'>
             <a href="javascript:;" class="btn default btn-previous"> <i class="fa fa-angle-left"></i> Back </a>
             <button class="btn blue btn-submit"> Save and Continue <i class="fa fa-angle-right"></i></button>
         </div>

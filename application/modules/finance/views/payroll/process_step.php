@@ -7,10 +7,6 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
             <span>Reports</span>
             <i class="fa fa-circle"></i>
         </li>
@@ -40,6 +36,7 @@
                                         echo 'STEP 1 OF 4';
                                         break;
                                     case 'select_benefits_perm':
+                                    case 'select_benefits_nonperm':
                                     case 'select_benefits_nonperm_trc':
                                         echo 'STEP 2 OF 4';
                                         break;
@@ -50,6 +47,7 @@
                                         break;
                                     case 'select_deductions_perm':
                                     case 'select_deductions_nonperm':
+                                    case 'select_deduction_nonperm_trc':
                                         echo 'STEP 3 OF 4';
                                         break;
                                     case 'reports':
@@ -72,14 +70,14 @@
                                         <i class="fa fa-check"></i> Payroll Period </span>
                                 </a>
                             </li>
-                            <li class="<?=in_array($page,array('select_benefits_perm','compute_benefits_perm','save_benefits_perm','computation_nonperm','select_benefits_nonperm_trc','compute_benefits_nonperm_trc'))?'active':''?>">
+                            <li class="<?=in_array($page,array('select_benefits_perm','compute_benefits_perm','save_benefits_perm','computation_nonperm','select_benefits_nonperm','select_benefits_nonperm_trc','compute_benefits_nonperm_trc'))?'active':''?>">
                                 <a href="#tab2" data-toggle="tab" class="step">
                                     <span class="number"> 2 </span><br>
                                     <span class="desc">
                                         <i class="fa fa-check"></i> Income </span>
                                 </a>
                             </li>
-                            <li class="<?=in_array($page,array('select_deductions_perm','select_deductions_nonperm'))?'active':''?>">
+                            <li class="<?=in_array($page,array('select_deductions_perm','select_deductions_nonperm','select_deduction_nonperm_trc'))?'active':''?>">
                                 <a href="#tab3" data-toggle="tab" class="step">
                                     <span class="number"> 3 </span><br>
                                     <span class="desc">
@@ -120,6 +118,7 @@
                                     break;
                                 case 'select_deductions_perm':
                                 case 'select_deductions_nonperm':
+                                case 'select_deduction_nonperm_trc':
                                     $this->load->view('process/_step3-select_deductions_perm');
                                     break;
                                 case 'reports':

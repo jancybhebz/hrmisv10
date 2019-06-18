@@ -12,7 +12,7 @@ class Deduction_model extends CI_Model {
 			return $this->db->order_by('deductionGroupCode, deductionDesc')->get('tblDeduction')->result_array();
 		else:
 			$res = $this->db->get_where('tblDeduction', array('deductionCode' => $code))->result_array();
-			return $res[0];
+			return count($res) > 0 ? $res[0] : array();
 		endif;
 	}
 
@@ -200,6 +200,12 @@ class Deduction_model extends CI_Model {
 		$this->db->insert('tblEmpDeductionRemit', $arrData);
 		return $this->db->insert_id();
 	}
+
+	function del_deduction_remit($process_id)
+	{
+		$this->db->where('processID', $process_id);
+		$this->db->delete('tblEmpDeductionRemit');
+	}
 	
 	function getPhilHealthRange($salary)
 	{
@@ -227,6 +233,7 @@ class Deduction_model extends CI_Model {
 				$this->db->where_in('tblEmpDeductions.deductionCode',$deduct_code);
 			}
 		endif;
+
 		$this->db->join('tblDeduction', 'tblEmpDeductions.deductionCode = tblDeduction.deductionCode', 'left');
 		$res = $this->db->get_where('tblEmpDeductions',array('empNumber' => $empnumber,'status' => 1))->result_array();
 		
@@ -256,6 +263,17 @@ class Deduction_model extends CI_Model {
 
 	}
 
+	function get_deduction_remit($process_id,$deduct_type,$mon,$yr)
+	{
+		$this->db->distinct()->select('tblEmpDeductions.*');
+		$this->db->join('tblEmpDeductionRemit','tblEmpDeductionRemit.empNumber = tblEmpDeductions.empNumber','inner');
+		$this->db->join('tblDeduction','tblDeduction.deductionCode = tblEmpDeductions.deductionCode','left');
+		$this->db->where('tblEmpDeductionRemit.processID',$process_id);
+		$this->db->where('tblDeduction.deductionType',$deduct_type);
+		$this->db->where('actualEndMonth',$mon);
+		$this->db->where('actualEndYear',$yr);
+		return $this->db->get('tblEmpDeductions')->result_array();
+	}
 
 
 

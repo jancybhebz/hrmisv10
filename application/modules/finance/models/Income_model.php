@@ -33,6 +33,13 @@ class Income_model extends CI_Model {
 		return $this->db->affected_rows(); 
 	}
 
+	public function delete_byprocessid($processid)
+	{
+		$this->db->where('processID', $processid);
+		$this->db->delete('tblEmpIncome');
+		return $this->db->affected_rows(); 
+	}
+
 	function getDataByIncomeCode($code='')
 	{
 		if($code == ''):

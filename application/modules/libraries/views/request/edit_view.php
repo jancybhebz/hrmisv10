@@ -134,7 +134,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Action <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str1stSigAction">
+                                    <select type="text" class="form-control" name="str1stSigAction" id="str1stSigAction">
                                     <option value="">Select</option>
                                     <?php foreach($arrAction as $action)
                                         {
@@ -151,7 +151,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Signatory <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str1stSignatory">
+                                    <select type="text" class="form-control" name="str1stSignatory" id="str1stSignatory">
                                     <option value="">Select</option>
                                     <?php foreach($arrSignatory as $signatory)
                                         {
@@ -168,7 +168,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str1stOfficer">
+                                    <select type="text" class="form-control" name="str1stOfficer" id="str1stOfficer">
                                      <option value="">Select</option>
 
                                      <?php foreach($arrEmployees as $i=>$data)
@@ -227,7 +227,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str2ndOfficer">
+                                    <select type="text" class="form-control" name="str2ndOfficer" id="str2ndOfficer">
                                      <option value="">Select</option>
 
                                      <?php foreach($arrEmployees as $i=>$data)
@@ -286,12 +286,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str3rdOfficer">
-                                     <option value="">Select</option>
-
+                                    <select type="text" class="form-control" name="str3rdOfficer" id="str3rdOfficer">
+                                    <option value="">Select</option>
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrEmployees[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -311,7 +310,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Action <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str4thSigAction">
+                                    <select type="text" class="form-control" name="str4thSigAction" id="str4thSigAction" value="<?=isset($arrRequest[0]['ActionCode'])?$arrRequest[0]['ActionCode']:''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrAction as $action)
                                         {
@@ -328,7 +327,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Signatory <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str4thSignatory">
+                                    <select type="text" class="form-control" name="str4thSignatory" id="str4thSignatory" value="<?=isset($arrRequest[0]['SignCode'])?$arrRequest[0]['SignCode']:''?>">
                                     <option value="">Select</option>
                                     <?php foreach($arrSignatory as $signatory)
                                         {
@@ -345,12 +344,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Officer <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str4thOfficer">
+                                    <select type="text" class="form-control" name="str4thOfficer" id="str4thOfficer" value="<?=isset($arrEmployees[0]['empNumber'])?$arrEmployees[0]['empNumber']:''?>">
                                      <option value="">Select</option>
-
                                      <?php foreach($arrEmployees as $i=>$data)
                                         {
-                                          echo '<option value="'.$data['empNumber'].'" '.($arrRequest[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrEmployees[0]['empNumber']==$data['empNumber']?'selected':'').'>'.$data['surname'].', '.$data['firstname'].'</option>';
                                         }?>
                                     </select>
                                 </div>

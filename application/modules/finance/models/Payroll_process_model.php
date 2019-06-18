@@ -31,8 +31,13 @@ class Payroll_process_model extends CI_Model {
 		return array_filter(array_merge(array_column($deduction_codes,'deductionCode'),array_column($income_codes,'incomeCode')));
 	}
 
-	function get_process_by_appointment($appt,$month,$yr)
+	function get_process_by_appointment($appt,$month,$yr,$period=0)
 	{
+		if($period!=0):
+			if($appt != 'P'){
+				$this->db->where('tblProcess.period',$period);
+			}
+		endif;
 		$process = $this->db->get_where('tblProcess',array('employeeAppoint' => $appt, 'processMonth' => ltrim($month,'0'), 'processYear' => $yr))->result_array();
 		foreach($process as $key => $p):
 			$process[$key]['codes'] = $this->get_process_code($p['processID']);
@@ -41,12 +46,23 @@ class Payroll_process_model extends CI_Model {
 		return $process;
 	}
 
-	function get_payroll_process($month,$yr,$appt='')
+	function get_payroll_process($month='',$yr='',$appt='',$processid='')
 	{
+		if($month!=''):
+			$this->db->where('processMonth',ltrim($month,'0'));
+		endif;
+		if($yr!=''):
+			$this->db->where('processYear',$yr);
+		endif;
 		if($appt!=''):
 			$this->db->where('employeeAppoint',$appt);
 		endif;
-		$process = $this->db->get_where('tblProcess',array('processMonth' => ltrim($month,'0'), 'processYear' => $yr))->result_array();
+		if($processid!=''):
+			$this->db->where('processID',$processid);
+		endif;
+		$this->db->join('tblAppointment','tblAppointment.appointmentCode = tblProcess.employeeAppoint','left');
+		$process = $this->db->get('tblProcess')->result_array();
+		
 		return $process;
 	}
 
@@ -82,6 +98,11 @@ class Payroll_process_model extends CI_Model {
 	function delete_payroll_process($month,$yr)
 	{
 		$this->db->delete('tblProcess', array('processMonth' => ltrim($month,'0'), 'processYear' => $yr));
+	}
+
+	function delete_payroll_process_byid($id)
+	{
+		$this->db->delete('tblProcess', array('processID' => $id));
 	}
 
 	function getall_process($month='all',$yr)
