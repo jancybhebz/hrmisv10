@@ -55,18 +55,26 @@
                                 <!-- upload -->
                                 <td>
                                 <?php 
-                                $folder = 'uploads/employees/attachments/trainings'.$tra['TrainingIndex']; 
-                                 
-                                 if (is_dir($folder))
+                                // $folder = 'uploads/employees/attachments/trainings/'.$tra['TrainingIndex']; 
+                               
+                                //  if (is_dir($folder))
+                                //     {
+                                //         $map=directory_map($folder);
+                                //     }
+                                // else 
+                                $strFile = 'uploads/employees/attachments/trainings/'.$tra['empNumber'].'/'.$tra['TrainingIndex'].'.pdf'; 
+                                if (file_exists($strFile))
                                     {
-                                        $map=directory_map($folder);
+                                        
+                                        echo '<a class="btn blue btn-xs" href="'.base_url($strFile).'" target="new">
+                                            <i class="fa fa-file"></i> File </a>';
                                     }
                                 else 
                                 { ?>
-                                <?=form_open(base_url('pds/pds/uploadTraining/'.$this->uri->segment(4)), array('method'=> 'post', 'encrypt' => 'multipart/form-data'))?>
+                                <?=form_open_multipart(base_url('pds/pds/uploadTraining/'.$this->uri->segment(4)), array('method'=> 'post'))?>
                                     <input type ="hidden" name ="idTraining" id= "idTraining" value="<?=$tra['TrainingIndex']?>">
                                     <input type ="hidden" name ="EmployeeId" id= "EmployeeId" value="<?=$tra['empNumber']?>">
-                                    <input type ="file" name ="userfile" id= "userfile">
+                                    <input type ="file" name ="userfile" id= "userfile" accept="application/pdf">
                                     <button type="submit" name="uploadTraining" class="btn blue start">
                                         <i class="fa fa-upload"></i>
                                         <span> Start Upload </span>
