@@ -57,6 +57,18 @@ ALTER TABLE `tblOverride`
 ## pls remote default value 0000-00-00
 ALTER TABLE `tblEmpOB` CHANGE `dateFiled` `dateFiled` DATE NULL DEFAULT NULL, CHANGE `obDateFrom` `obDateFrom` DATE NULL DEFAULT NULL, CHANGE `obDateTo` `obDateTo` DATE NULL DEFAULT NULL, CHANGE `obTimeFrom` `obTimeFrom` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `obTimeTo` `obTimeTo` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 
+# FIX TABLE
+ALTER TABLE `tblEmpOB` CHANGE `dateFiled` `dateFiled` VARCHAR(11) NULL DEFAULT NULL, CHANGE `obDateFrom` `obDateFrom` VARCHAR(11) NULL DEFAULT NULL, CHANGE `obDateTo` `obDateTo` VARCHAR(11) NULL DEFAULT NULL, CHANGE `obTimeFrom` `obTimeFrom` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `obTimeTo` `obTimeTo` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+UPDATE `tblEmpOB` SET `dateFiled` = NULL where dateFiled = '0000-00-00';
+UPDATE `tblEmpOB` SET `obDateFrom` = NULL where `obDateFrom` = '0000-00-00';
+UPDATE `tblEmpOB` SET `obDateTo` = NULL where `obDateTo` = '0000-00-00';
+UPDATE `tblEmpOB` SET `obTimeFrom` = NULL where `obTimeFrom` = '00:00:00 AM' OR `obTimeFrom` = '00:00:00 PM';
+UPDATE `tblEmpOB` SET `obTimeTo` = NULL where `obTimeTo` = '00:00:00 AM' OR `obTimeTo` = '00:00:00 PM';
+
+ALTER TABLE `tblEmpOB` CHANGE `dateFiled` `dateFiled` DATE NULL DEFAULT NULL, CHANGE `obDateFrom` `obDateFrom` DATE NULL DEFAULT NULL, CHANGE `obDateTo` `obDateTo` DATE NULL DEFAULT NULL, CHANGE `obTimeFrom` `obTimeFrom` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `obTimeTo` `obTimeTo` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+#
+
 ALTER TABLE  `tblEmpOB` ADD  `is_override` INT NOT NULL DEFAULT  '0';
 ALTER TABLE  `tblEmpOB` ADD  `override_id` INT NULL ;
 
