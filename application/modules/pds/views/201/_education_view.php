@@ -73,7 +73,8 @@
                                     }
                                 else 
                                 { ?>
-                                <?=form_open_multipart(base_url('pds/pds/uploadEduc/'.$this->uri->segment(4)), array('method'=> 'post'))?>
+                                <?=form_open_multipart(base_url('pds/pds/uploadEduc/'.$this->uri->segment(4)), array('method'=> 'po
+                                    st'))?>
                                     <input type ="hidden" name ="idEduc" id= "idEduc" value="<?=$educ['SchoolIndex']?>">
                                     <input type ="hidden" name ="EmployeeId" id= "EmployeeId" value="<?=$educ['empNumber']?>">
                                     <input type ="file" name ="userfile" id= "userfile" accept="application/pdf">
