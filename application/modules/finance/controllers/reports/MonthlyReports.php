@@ -20,18 +20,14 @@ class MonthlyReports extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrProcess'] = $this->Payroll_process_model->get_payroll_process(currmo(),curryr(),isset($_GET['appt']) ? $_GET['appt'] : '');
+		$this->arrData['arrProcess'] = $this->Payroll_process_model->get_payroll_process(currmo(),curryr());
 		$this->template->load('template/template_view','finance/reports/monthly_reports/mreports_view',$this->arrData);
 	}
 
 	public function payslip()
 	{
-		$arrGet=$this->input->get();
-		$rpt=$arrGet['rpt'];
-		
 		$this->load->model('reports/payslip/Payslip');
-			$arrData=array('empno'=>$arrGet['empno']);
-		$this->Payslip->generate($arrData);
+		$this->Payslip->generate();
 	}
 
 	public function remittances()
