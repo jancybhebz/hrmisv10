@@ -116,7 +116,7 @@
                                         <select class="form-control bs-select form-required" name="selgen" id="selgen">
                                             <option value=""> </option>
                                             <option value='1'>PDF</option>
-                                            <option value='2'>EXCEL</option>
+                                            <!-- <option value='2'>EXCEL</option> -->
                                         </select>
                                         <span class="help-block"></span>
                                     </div>

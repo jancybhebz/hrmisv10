@@ -14,7 +14,7 @@ $('.date-picker').datepicker( {
 $(document).ready(function() {
     $('.loading-image').hide();
     $('#div-body').show();
-
+    var getdata = '';
     $('#selyr').on('change', function(){
         processid = $('#selappt').find(':selected').attr('data-processid');
         period = $('#selappt').find(':selected').attr('data-period');
@@ -32,8 +32,22 @@ $(document).ready(function() {
     });
 
     $('table#tblmreports').on('click','a.areport', function(){
-        // var url = $(this).data.
-        alert();
+        var link = $(this).data('link');
+        json = $('#selappt').find(':selected').attr('data-json');
+        json_data = JSON.parse(json);
+        // alert(json_data.employeeAppoint);
+        if(json_data.employeeAppoint != 'P'){
+            getdata = "?appt=" + json_data.employeeAppoint + "&pprocess=" + json_data.processID + "&yr=" + json_data.processYear + "&month=" + json_data.processMonth + "&period=" + json_data.period;
+        }
+        // alert(json.employeeAppoint);
+        $('.modal-title').html($(this).data('title'));
+        $('#print-preview-modal').modal('show');
+        $('#embed-pdf,#link-fullsize').attr('src',link+getdata);
+        // alert(url);
+    });
+
+    $('#link-fullsize').click(function() {
+        window.open($(this).attr('src'));
     });
 
 });

@@ -54,9 +54,6 @@ ALTER TABLE `tblOverride`
   MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT;
 
 ## OB Override
-## pls remote default value 0000-00-00
-ALTER TABLE `tblEmpOB` CHANGE `dateFiled` `dateFiled` DATE NULL DEFAULT NULL, CHANGE `obDateFrom` `obDateFrom` DATE NULL DEFAULT NULL, CHANGE `obDateTo` `obDateTo` DATE NULL DEFAULT NULL, CHANGE `obTimeFrom` `obTimeFrom` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `obTimeTo` `obTimeTo` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
-
 # FIX TABLE
 ALTER TABLE `tblEmpOB` CHANGE `dateFiled` `dateFiled` VARCHAR(11) NULL DEFAULT NULL, CHANGE `obDateFrom` `obDateFrom` VARCHAR(11) NULL DEFAULT NULL, CHANGE `obDateTo` `obDateTo` VARCHAR(11) NULL DEFAULT NULL, CHANGE `obTimeFrom` `obTimeFrom` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `obTimeTo` `obTimeTo` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 
@@ -71,6 +68,37 @@ ALTER TABLE `tblEmpOB` CHANGE `dateFiled` `dateFiled` DATE NULL DEFAULT NULL, CH
 
 ALTER TABLE  `tblEmpOB` ADD  `is_override` INT NOT NULL DEFAULT  '0';
 ALTER TABLE  `tblEmpOB` ADD  `override_id` INT NULL ;
+
+# FIX tblEmposition Table
+ALTER TABLE  `tblEmpPosition` CHANGE  `contractEndDate`  `contractEndDate` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `effectiveDate`  `effectiveDate` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `positionDate`  `positionDate` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `longevityDate`  `longevityDate` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `firstDayAgency`  `firstDayAgency` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `firstDayGov`  `firstDayGov` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `dateIncremented`  `dateIncremented` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `tmpDateIncremented`  `tmpDateIncremented` VARCHAR( 11 ) NULL DEFAULT NULL ,
+CHANGE  `tmpPositionDate`  `tmpPositionDate` VARCHAR( 11 ) NULL DEFAULT NULL ;
+
+UPDATE `tblEmpPosition` set contractEndDate = NULL where contractEndDate = '0000-00-00';
+UPDATE `tblEmpPosition` set effectiveDate = NULL where effectiveDate = '0000-00-00';
+UPDATE `tblEmpPosition` set positionDate = NULL where positionDate = '0000-00-00';
+UPDATE `tblEmpPosition` set longevityDate = NULL where longevityDate = '0000-00-00';
+UPDATE `tblEmpPosition` set firstDayAgency = NULL where firstDayAgency = '0000-00-00';
+UPDATE `tblEmpPosition` set firstDayGov = NULL where firstDayGov = '0000-00-00';
+UPDATE `tblEmpPosition` set dateIncremented = NULL where dateIncremented = '0000-00-00';
+UPDATE `tblEmpPosition` set tmpDateIncremented = NULL where tmpDateIncremented = '0000-00-00';
+UPDATE `tblEmpPosition` set tmpPositionDate = NULL where tmpPositionDate = '0000-00-00';
+
+ALTER TABLE  `tblEmpPosition` CHANGE  `contractEndDate`  `contractEndDate` DATE NULL DEFAULT NULL ,
+CHANGE  `effectiveDate`  `effectiveDate` DATE NULL DEFAULT NULL ,
+CHANGE  `positionDate`  `positionDate` DATE NULL DEFAULT NULL ,
+CHANGE  `longevityDate`  `longevityDate` DATE NULL DEFAULT NULL ,
+CHANGE  `firstDayAgency`  `firstDayAgency` DATE NULL DEFAULT NULL ,
+CHANGE  `firstDayGov`  `firstDayGov` DATE NULL DEFAULT NULL ,
+CHANGE  `dateIncremented`  `dateIncremented` DATE NULL DEFAULT NULL ,
+CHANGE  `tmpDateIncremented`  `tmpDateIncremented` DATE NULL DEFAULT NULL ,
+CHANGE  `tmpPositionDate`  `tmpPositionDate` DATE NULL DEFAULT NULL ;
 
 ## EXCLUDE DTR
 ALTER TABLE  `tblEmpPosition` ADD  `is_override` INT NOT NULL DEFAULT  '0', ADD  `override_id` INT NULL ;

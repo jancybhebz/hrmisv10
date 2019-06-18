@@ -45,9 +45,9 @@
                                                 <option value="">-- SELECT PAYROLL PROCESS --</option>
                                                 <?php foreach ($arrProcess as $process): ?>
                                                     <option value="<?=$process['employeeAppoint']?>" data-processid="<?=$process['processID']?>"
-                                                        data-period="<?=$process['period']?>"
+                                                        data-period="<?=$process['period']?>" data-json='<?=json_encode($process)?>'
                                                         <?=isset($_GET['processid']) ? $_GET['processid'] == $process['processID'] ? 'selected' : '' : ''?>>
-                                                        <?=$process['appointmentDesc']?> - (<?=$process['processCode']?> <?=$process['employeeAppoint'] != 'P' ? '-'.$process['period'] : ''?>)</option>
+                                                        <?=$process['appointmentDesc']?> - (<?=$process['processCode']?> <?=$process['employeeAppoint'] != 'P' ? $process['period'] : ''?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -91,57 +91,57 @@
                                 <table class="table table-bordered" id="tblmreports" >
                                     <tr>
                                         <th>Payslip</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url('finance/reports/monthlyreports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url('finance/reports/monthlyreports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Payroll Register</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Funding Requirements</th>
-                                        <td style="text-align: center;" colspan="2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Monthly</a></td>
+                                        <td style="text-align: center;" colspan="2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Monthly</a></td>
                                     </tr>
                                     <tr>
                                         <th>MC Benefit Register</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Deduction Register</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Summary of Deductions</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Lates/Abs Deductions</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Overtime -> Payroll Register</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                      <tr>
                                         <th><?=str_repeat('&nbsp;', 10)?>Funding Requirements</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Generate PACS</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Generate FINDES</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                 </table>
                                 <?php endif; ?>
@@ -163,7 +163,6 @@
                 <h4 class="modal-title bold"></h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" value="<?=base_url()?>" id="txtbaseurl">
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">

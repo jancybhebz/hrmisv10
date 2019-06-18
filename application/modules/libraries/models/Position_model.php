@@ -30,6 +30,11 @@ class Position_model extends CI_Model {
 		return $this->db->get_where('tblEmpPosition', array($fieldname => $value))->result_array();
 	}
 
+	function getEmployee_Position($appt)
+	{
+		return $this->db->get_where('tblEmpPosition', array('appointmentCode' => $appt, 'statusOfAppointment' => 'In-Service'))->result_array();
+	}
+
 	function add($arrData)
 	{
 		$this->db->insert('tblPosition', $arrData);
