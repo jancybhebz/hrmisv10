@@ -49,7 +49,7 @@
                                             <select class="form-control select2 form-required" name="appt" id="selappt">
                                                 <option value="">-- SELECT PAYROLL PROCESS --</option>
                                                 <?php foreach ($arrProcess as $process): ?>
-                                                    <option value="<?=$process['employeeAppoint']?>" <?=isset($_GET['appt']) ? $_GET['appt'] == $process['employeeAppoint'] ? 'selected' : '' : ''?>>
+                                                    <option value="<?=$process['employeeAppoint']?>" <?=isset($_GET['appt']) ? $_GET['appt'] == $process['employeeAppoint'] ? 'selected' : '' : ''?> data-processid="<?=$process['processID']?>">
                                                         <?=$process['appointmentDesc']?> - (<?=$process['processCode']?> <?=$process['employeeAppoint'] != 'P' ? '-'.$process['period'] : ''?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -174,13 +174,16 @@
         $('#div-body').show();
 
         $('#selyr').on('change', function(){
-            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val(),'_self');
+            processid = $('#selappt').find(':selected').attr('data-processid');
+            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val()+'&processid='+processid,'_self');
         });
         $('#selmon').on('change', function(){
-            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val(),'_self');
+            processid = $('#selappt').find(':selected').attr('data-processid');
+            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val()+'&processid='+processid,'_self');
         });
         $('#selappt').on('change', function(){
-            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val(),'_self');
+            processid = $('#selappt').find(':selected').attr('data-processid');
+            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val()+'&processid='+processid,'_self');
         });
 
     });
