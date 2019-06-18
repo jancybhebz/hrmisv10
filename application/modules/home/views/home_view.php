@@ -32,7 +32,7 @@
                 </div>
                 <div class="desc"> Birthday</div>
             </div>
-            <a class="more" href="javascript:;"> View more
+            <a class="more" href="<?=base_url('home/birthdays')?>"> View more
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
@@ -47,7 +47,7 @@
                     <span data-counter="counterup" data-value="37">0</span> </div>
                 <div class="desc"> Vacant Position </div>
             </div>
-            <a class="more" href="javascript:;"> View more
+            <a class="more" href="<?=base_url('home/vacantpositions')?>"> View more
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
