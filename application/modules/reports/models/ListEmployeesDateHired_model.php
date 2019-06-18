@@ -57,7 +57,7 @@ class ListEmployeesDateHired_model extends CI_Model {
 		$this->fpdf->Cell(20);		
 		$this->fpdf->Cell(10,5,"No.",1,0,'L',1);		
 		$this->fpdf->Cell(100,5,"Employee",1,0,'L',1);		
-		$this->fpdf->Cell(50,5,"Date Hired (yyyy-mm-dd)",1,0,'C',1);
+		$this->fpdf->Cell(50,5,"Date Hired ",1,0,'C',1);
 		
 		
 		$this->fpdf->Ln(5);
@@ -76,7 +76,8 @@ class ListEmployeesDateHired_model extends CI_Model {
 			$strMidName = $arrEmpDateHired['middlename'];
 			$strMiddleName = substr($strMidName, 0,1);
 			$strEmpName = $arrEmpDateHired['surname']. ",  ".$arrEmpDateHired['firstname']." ".$arrEmpDateHired['nameExtension']. 
-			" ".$arrEmpDateHired['middleInitial'].".";
+			" ".str_replace('.','',$arrEmpDateHired['middleInitial']).".";
+			$strEmpName = utf8_decode($strEmpName);
 			$strFirstDayAgency = $arrEmpDateHired['firstDayAgency'];
 		
 			//$this->SetFont(Arial,'B',10);
@@ -85,8 +86,8 @@ class ListEmployeesDateHired_model extends CI_Model {
 				$ctr=$ctr+1;
 				$this->fpdf->Cell(20);	
 				$this->fpdf->Cell(10,5,$ctr,1,0,'L');	
-				$this->fpdf->Cell(100,5,strtoupper($strEmpName),1,0,'L');		
-				$this->fpdf->Cell(50,5,$strFirstDayAgency,1,0,'C');
+				$this->fpdf->Cell(100,5,$strEmpName,1,0,'L');		
+				$this->fpdf->Cell(50,5,date('F j, Y',strtotime($strFirstDayAgency)),1,0,'C');
 				$this->fpdf->Ln(5);
 			}
 						

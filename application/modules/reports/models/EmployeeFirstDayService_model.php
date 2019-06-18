@@ -72,7 +72,7 @@ class EmployeeFirstDayService_model extends CI_Model {
 		$this->fpdf->Cell(70,5,"DATE HIRED",'LR',0,'C',1);
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(90,5,"",'LBR',0,'C',1);
-		$this->fpdf->Cell(70,5,"(yyyy-mm-dd)",'LBR',0,'C',1);
+		$this->fpdf->Cell(70,5,"",'LBR',0,'C',1);
 		$this->fpdf->Ln(5);
 
 		$i =0;
@@ -82,7 +82,7 @@ class EmployeeFirstDayService_model extends CI_Model {
 			$strMidName = $row['middlename'];
 			$strMiddleName = substr($strMidName, 0,1);			
 			$strEmpName = $row['surname']. ",  ".$row['firstname']. " ".$row['nameExtension'].
-			" ".(str_replace('.','',$row['middleInitial']).".");
+			" ".(mi($row['middleInitial']));
 			$strStatusOfAppointment = $row['statusOfAppointment'];
 			$strFirstGov = $row['firstDayGov'];					
 			//if($strStatusOfAppointment  == 'In-Service' && $strFirstGov!='0000-00-00')

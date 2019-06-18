@@ -51,7 +51,7 @@ class ListEmployeesAge_model extends CI_Model {
 		$Ln = array('L','C','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->FancyRow(array($strNumEmpName,$t_OfficePosition, $t_age),array(1,1,1));
+		$this->fpdf->FancyRow(array($strNumEmpName,$t_OfficePosition, $t_age),array(1,1,1),$Ln);
 	}
 
 	function generate($arrData)
@@ -89,8 +89,8 @@ class ListEmployeesAge_model extends CI_Model {
 			$strStatusOfAppointment = $arrEmpAge['statusOfAppointment'];
 			$strMidName = $arrEmpAge['middlename'];
 			$strMiddleName = substr($strMidName, 0,1);
-			$strEmpName = $arrEmpAge['surname']. ",  ".$arrEmpAge['firstname']." ".$arrEmpAge['nameExtension']." ".$arrEmpAge['middleInitial'].".";
-			
+			$strEmpName = $arrEmpAge['surname']. ",  ".$arrEmpAge['firstname']." ".$arrEmpAge['nameExtension']." ".str_replace('.','',$arrEmpAge['middleInitial']).".";
+			$strEmpName = utf8_decode($strEmpName);
 			$strOffice = office_name(employee_office($arrEmpAge['empNumber']));
 			$strOfficePosition = $strOffice.' - '.$arrEmpAge['positionDesc'];
 			$strBirthDay = $arrEmpAge['birthday'];

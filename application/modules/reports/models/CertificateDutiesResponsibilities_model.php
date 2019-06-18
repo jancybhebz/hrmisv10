@@ -35,6 +35,7 @@ class CertificateDutiesResponsibilities_model extends CI_Model {
 			'tblEmpPosition.positionCode = tblPosition.positionCode','left');
 		$this->db->join('tblAppointment',
 			'tblEmpPosition.appointmentCode = tblAppointment.appointmentCode','left');
+		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('tblEmpPersonal.surname, tblEmpPersonal.firstname');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		return $objQuery->result_array();
@@ -53,7 +54,7 @@ class CertificateDutiesResponsibilities_model extends CI_Model {
 	function generate($arrData)
 	{		
 		
-		$rs=$this->getSQLData($arrData['empno']);
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		
 		foreach($rs as $t_arrEmpInfo):
 		//while($t_arrEmpInfo=mysql_fetch_array($query)) {
@@ -77,11 +78,16 @@ class CertificateDutiesResponsibilities_model extends CI_Model {
 			$strMonthFull = date('F',strtotime(date('Y').'-'.$arrData['intMonth'].'-'.date('d')));
 			//list($year,$month,$day)=split('[/,-]',$t_arrEmpInfo['firstDayAgency']);
 			$arrTmpDate = explode('-',$t_arrEmpInfo['firstDayAgency']);
-			$year = $arrTmpDate[0];
-			$month = $arrTmpDate[1];
-			$day = $arrTmpDate[2];
-			$strMonth = date('F',strtotime( date('Y').'-'.($month+0).'-'.date('d') ));
-			$positionDate = $strMonth." ".($day+0).", ".$year;
+			// if($t_arrEmpInfo['firstDayAgency']!='0000-00-00')
+			// {
+			// 	print_r($arrTmpDate);exit(1);
+			// 	$year = $arrTmpDate[0];
+			// 	$month = $arrTmpDate[1];
+			// 	$day = $arrTmpDate[2];
+			// }
+
+			// $strMonth = date('F',strtotime( date('Y').'-'.($month+0).'-'.date('d') ));
+			// $positionDate = $strMonth." ".($day+0).", ".$year;
 			$divisionCode = employee_office($t_arrEmpInfo['empNumber']);
 			$divisionName = office_name($divisionCode);
 			

@@ -78,10 +78,10 @@ class ReportTardiness_model extends CI_Model {
 			$this->fpdf->SetWidths($w);
 			$this->fpdf->SetAligns($Ln);
 			$extension = (trim($arrEmpInfo['nameExtension'])=="") ? "" : " ".$arrEmpInfo['nameExtension'];		
-			$name = strtoupper($arrEmpInfo['surname'].", ".$arrEmpInfo['firstname'].$extension." ".$arrEmpInfo['middleInitial']);
-			
+			$name = $arrEmpInfo['surname'].", ".$arrEmpInfo['firstname'].$extension." ".mi($arrEmpInfo['middleInitial']);
+			$name = utf8_decode($name);
 			$vltru = $arrEmpInfo['vltrut_wpay'] + $arrEmpInfo['vltrut_wopay'];
-			$this->fpdf->FancyRow(array($ctr.'. '.strtoupper($name), $vltru, $arrEmpInfo['excess'], $arrEmpInfo['trut_notimes'], $arrEmpInfo['nodays_absent']),array(1,1,1,1,1),1);
+			$this->fpdf->FancyRow(array($ctr.'. '.$name, $vltru, $arrEmpInfo['excess'], $arrEmpInfo['trut_notimes'], $arrEmpInfo['nodays_absent']),array(1,1,1,1,1),1);
 			$ctr++;
 		}
 		

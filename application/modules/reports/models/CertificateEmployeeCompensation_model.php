@@ -35,6 +35,7 @@ class CertificateEmployeeCompensation_model extends CI_Model {
 			'tblEmpPosition.positionCode = tblPosition.positionCode','left');
 		$this->db->join('tblAppointment',
 			'tblEmpPosition.appointmentCode = tblAppointment.appointmentCode','left');
+		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('tblEmpPersonal.surname, tblEmpPersonal.firstname');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		return $objQuery->result_array();
@@ -59,6 +60,8 @@ class CertificateEmployeeCompensation_model extends CI_Model {
 		$rs = $objQuery->result_array();
 		if(count($rs)>0)
 			return $rs;
+		else
+			return array();
 		
 	}
 
@@ -95,7 +98,7 @@ class CertificateEmployeeCompensation_model extends CI_Model {
 		$this->db->where('tblIncome.incomeType','Bonus');
 		$this->db->where('tblEmpIncome.incomeYear',$bonusYear);
 		$this->db->where('tblEmpBenefits.status',1);
-		$this->db->like('tblEmpIncome.empNumber',$empno);
+		$this->db->where('tblEmpIncome.empNumber',$empno);
 		$this->db->order_by('tblEmpIncome.incomeMonth ASC');
 		$objQuery = $this->db->get('tblEmpIncome');
 		//echo $this->db->last_query();
@@ -105,7 +108,7 @@ class CertificateEmployeeCompensation_model extends CI_Model {
 	function generate($arrData)
 	{		
 		
-		$rs=$this->getSQLData($arrData['empno']);
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		
 		foreach($rs as $t_arrEmpInfo):
 		//while($t_arrEmpInfo=mysql_fetch_array($query)) {
@@ -125,14 +128,14 @@ class CertificateEmployeeCompensation_model extends CI_Model {
 			
 			$divisionName = office_name(employee_office($t_arrEmpInfo['empNumber']));;
 			
-			if (trim($t_arrEmpInfo['nameExtension'])=="")
-			{
-				$name = strtoupper($t_arrEmpInfo['firstname']." ".$t_arrEmpInfo['middleInitial'].". ".$t_arrEmpInfo['surname']);
-			}									
-			else
-			{
-				$name = strtoupper($t_arrEmpInfo['firstname']." ".$t_arrEmpInfo['middleInitial'].". ".$t_arrEmpInfo['surname']." ".$t_arrEmpInfo['nameExtension']);
-			}
+			// if (trim($t_arrEmpInfo['nameExtension'])=="")
+			// {
+			// 	$name = strtoupper($t_arrEmpInfo['firstname']." ".$t_arrEmpInfo['middleInitial'].". ".$t_arrEmpInfo['surname']);
+			// }									
+			// else
+			// {
+				$name = strtoupper($t_arrEmpInfo['firstname']." ".mi($t_arrEmpInfo['middleInitial']).$t_arrEmpInfo['surname']." ".$t_arrEmpInfo['nameExtension']);
+			//}
 			
 			// get appointment status
 			// $sqlAppointment = mysql_query("SELECT appointmentDesc FROM tblAppointment WHERE appointmentCode='".$t_arrEmpInfo['appointmentCode']."'");

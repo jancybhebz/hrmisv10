@@ -159,6 +159,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('button[name="btnPrint"]').click(function(){
             $rpt = $('select[name="strReports"]').val();
             $empno = $('select[name="strEmpName"]').val();
+            $per = $('select[name="strSelectPer"]').val();
             $form = $('#reportform').serializeArray();
             $.each($form, function(index,item){
                 //if(item.name == 'csrf_dostitd') item.value='<?=time()?>';
@@ -180,7 +181,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             }
              if($rpt=='PDS')
             {
-                window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>&empNumber='+$empno,'toolbar=0');
+                if($per==0)
+                    window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>'+,'toolbar=0');
+                else
+                    window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>&empNumber='+$empno,'toolbar=0');
                 return false;
             }
             if($rpt!='')
