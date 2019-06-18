@@ -46,12 +46,20 @@ class Payroll_process_model extends CI_Model {
 		return $process;
 	}
 
-	function get_payroll_process($month,$yr,$appt='')
+	function get_payroll_process($month='',$yr='',$appt='')
 	{
+		if($month!=''):
+			$this->db->where('processMonth',ltrim($month,'0'));
+		endif;
+		if($yr!=''):
+			$this->db->where('processYear',$yr);
+		endif;
 		if($appt!=''):
 			$this->db->where('employeeAppoint',$appt);
 		endif;
-		$process = $this->db->get_where('tblProcess',array('processMonth' => ltrim($month,'0'), 'processYear' => $yr))->result_array();
+		$this->db->join('tblAppointment','tblAppointment.appointmentCode = tblProcess.employeeAppoint','left');
+		$process = $this->db->get('tblProcess')->result_array();
+		
 		return $process;
 	}
 

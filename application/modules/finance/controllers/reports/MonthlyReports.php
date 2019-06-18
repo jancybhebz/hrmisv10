@@ -14,13 +14,13 @@ class MonthlyReports extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Process_model'));
+        $this->load->model(array('Payroll_process_model'));
         $this->arrData = array();
     }
 
 	public function index()
 	{
-		$this->arrData['arrProcess'] = $this->Process_model->getData(10,2016);
+		$this->arrData['arrProcess'] = $this->Payroll_process_model->get_payroll_process(currmo(),curryr(),isset($_GET['appt']) ? $_GET['appt'] : '');
 		$this->template->load('template/template_view','finance/reports/monthly_reports/mreports_view',$this->arrData);
 	}
 

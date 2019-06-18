@@ -46,11 +46,11 @@
                                     <div class="col-md-6">
                                         <div class="input-icon right">
                                             <i class="fa fa-warning tooltips i-required"></i>
-                                            <select class="form-control select2 form-required" name="selpprocess">
-                                                <option value="null">-- SELECT PAYROLL PROCESS --</option>
+                                            <select class="form-control select2 form-required" name="appt" id="selappt">
+                                                <option value="">-- SELECT PAYROLL PROCESS --</option>
                                                 <?php foreach ($arrProcess as $process): ?>
-                                                    <option value="<?=$process['processID']?>" <?=isset($_GET['selpprocess']) ? $_GET['selpprocess'] == $process['processID'] ? 'selected' : '' : ''?>>
-                                                        <?=$process['appointmentDesc']?> (<?=$process['processCode'].'.'.$process['payroll_period']?>) <?=$process['payrollgroup_name']?></option>
+                                                    <option value="<?=$process['employeeAppoint']?>" <?=isset($_GET['appt']) ? $_GET['appt'] == $process['employeeAppoint'] ? 'selected' : '' : ''?>>
+                                                        <?=$process['appointmentDesc']?> - (<?=$process['processCode']?> <?=$process['employeeAppoint'] != 'P' ? '-'.$process['period'] : ''?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -61,8 +61,8 @@
                                     <div class="col-md-2">
                                         <div class="input-icon right">
                                             <i class="fa fa-warning tooltips i-required"></i>
-                                            <select class="bs-select form-required" name="yr">
-                                                <option value="null">Year</option>
+                                            <select class="bs-select form-required" name="yr" id="selyr">
+                                                <option value="">Year</option>
                                                 <?php foreach (getYear() as $yr): ?>
                                                     <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
                                                         <?=$yr?></option>
@@ -73,22 +73,14 @@
                                     <div class="col-md-2">
                                         <div class="input-icon right">
                                             <i class="fa fa-warning tooltips i-required"></i>
-                                            <select class="bs-select form-required" name="mon">
-                                                <option value="null">Month</option>
+                                            <select class="bs-select form-required" name="mon" id="selmon">
+                                                <option value="">Month</option>
                                                 <?php foreach (range(1, 12) as $m): ?>
-                                                    <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
+                                                    <option value="<?=$m?>" <?=isset($_GET['month']) ? $_GET['month'] == $m ? 'selected' : '' : date('n') == $m?>>
                                                         <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">&nbsp;</label>
-                                    <div class="col-md-9">
-                                        <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +90,7 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <?php if(count($_GET) > 0): if($_GET['selpprocess'] != 0): ?>
+                                <?php if(isset($_GET['appt'])): ?>
                                 <table class="table table-bordered" id="tblmreports" >
                                     <tr>
                                         <th>Payslip</th>
@@ -159,7 +151,7 @@
                                         <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
                                     </tr>
                                 </table>
-                                <?php endif; endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -180,5 +172,16 @@
     $(document).ready(function() {
         $('.loading-image').hide();
         $('#div-body').show();
+
+        $('#selyr').on('change', function(){
+            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val(),'_self');
+        });
+        $('#selmon').on('change', function(){
+            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val(),'_self');
+        });
+        $('#selappt').on('change', function(){
+            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val(),'_self');
+        });
+
     });
 </script>
