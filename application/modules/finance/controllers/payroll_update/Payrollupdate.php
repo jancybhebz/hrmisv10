@@ -701,6 +701,35 @@ class Payrollupdate extends MY_Controller {
 
 	}
 
+	public function reprocess()
+	{
+		echo '<pre>';
+		$arrPost = $this->input->post();
+		print_r($arrPost);	
+		# DELETE FROM tblComputationDetails WHERE periodMonth='$month' AND periodYear='$year'"
+		// $this->Computation_instance_model->del_computation_details_byPeriod($arrPost['txtperiodmon'],$arrPost['txtperiodyr']);
+		# UPDATE tblComputationDetails SET latest = 'N' WHERE 1
+		// $this->Computation_instance_model->edit_computation_details(array('latest' => 'N'));
+		# DELETE tblComputation.* FROM tblComputation LEFT JOIN tblComputationInstance ON tblComputation.fk_id=tblComputationInstance.id WHERE tblComputationInstance.pmonth='$pmonth' AND tblComputationInstance.pyear='$pyear' AND tblComputationInstance.appointmentCode='$appoint';"
+		$comp_instance = $this->Computation_instance_model->getData($arrPost['txtperiodmon'],$arrPost['txtperiodyr'],$arrPost['txtappt']);
+		print_r($comp_instance);
+		foreach($comp_instance as $comp_ins):
+			// $this->Computation_instance_model->del_computation($comp_ins['id']);
+		endforeach;
+		# DELETE FROM tblComputationInstance WHERE tblComputationInstance.pmonth='$pmonth' AND tblComputationInstance.pyear='$pyear' AND tblComputationInstance.appointmentCode='$appoint';
+		// $this->Computation_instance_model->del_computation_instance_byperiod($arrPost['txtperiodmon'],$arrPost['txtperiodyr'],$arrPost['txtappt']);
+
+		# DELETE FROM tblEmpIncome WHERE processID='".$processDeleteID."'"; 
+		// $this->Income_model->delete_byprocessid($arrPost['txtreprocess_id']);
+		// SELECT DISTINCT tblEmpDeductions.* FROM tblEmpDeductions INNER JOIN tblEmpDeductionRemit ON tblEmpDeductionRemit.empNumber=tblEmpDeductions.empNumber LEFT JOIN tblDeduction ON tblDeduction.deductionCode = tblEmpDeductions.deductionCode  WHERE  tblEmpDeductionRemit.processID='$processDeleteID' AND tblDeduction.deductionType='Loan' AND actualEndMonth='$cboMonth' AND actualEndYear='$cboYear' AND status='0'"
+		# UPDATE tblEmpDeductions SET STATUS = '1' WHERE deductCode IN($deductCodeList)";
+		# DELETE FROM tblEmpDeductionRemit WHERE processID='$processDeleteID'";
+		# DELETE FROM tblNonPermComputationInstance WHERE appointmentCode ='$payrollGroupCode' AND pmonth='$cboMonth' AND pyear='$cboYear' AND period='$period'";
+		# DELETE FROM tblNonPermComputationInstance WHERE payrollGroupCode ='$payrollGroupCode' AND pmonth='$cboMonth' AND pyear='$cboYear' AND period='$period'";
+		# DELETE FROM tblProcess WHERE processID='$processDeleteID'";
+		die();
+	}
+
 	public function reports()
 	{
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);

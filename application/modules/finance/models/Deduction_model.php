@@ -256,6 +256,10 @@ class Deduction_model extends CI_Model {
 
 	}
 
+	function getDeductionRemit()
+	{
+		
+	}
 
 
 

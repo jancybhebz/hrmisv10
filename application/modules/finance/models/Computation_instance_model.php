@@ -70,6 +70,15 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	function del_computation_instance_byperiod($mon,$yr,$appt)
+	{
+		$this->db->where('pmonth', $mon);
+		$this->db->where('pyear', $yr);
+		$this->db->where('appointmentCode', $appt);
+		$this->db->delete('tblComputationInstance');
+		return $this->db->affected_rows();
+	}
+
 	# delete computation
 	function del_computation($id)
 	{
@@ -89,10 +98,24 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function edit_computation_details($arrData)
+	{
+		$this->db->update('tblComputationDetails', $arrData);
+		return $this->db->affected_rows();
+	}
+
 	# delete computation details
 	function del_computation_details($id)
 	{
 		$this->db->where('fk_id', $id);
+		$this->db->delete('tblComputationDetails');
+		return $this->db->affected_rows();
+	}
+
+	function del_computation_details_byPeriod($mon,$yr)
+	{
+		$this->db->where('periodMonth', $mon);
+		$this->db->where('periodYear', $yr);
 		$this->db->delete('tblComputationDetails');
 		return $this->db->affected_rows();
 	}
