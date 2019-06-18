@@ -3,7 +3,7 @@ function showtextbox()
 {
 	var select_leavetype=$('#strLeavetype').val();
 	//alert(select_report);
-	if(select_leavetype == 'forced')
+	if(select_leavetype == 'FL')
 	{
 		$('#wholeday_textbox').show();
 		$('#leavefrom_textbox').show();
@@ -24,7 +24,7 @@ function showtextbox()
 		
 			// $('#print_button').show();
 	}
-	else if(select_leavetype == 'special')
+	else if(select_leavetype == 'SPL')
 	{
 	 	$('#wholeday_textbox').show();
 		$('#leavefrom_textbox').show();
@@ -43,7 +43,7 @@ function showtextbox()
 		$('#submitPL').hide();
 		$('#submitSTL').hide();
 	}
-	else if(select_leavetype == 'sick')
+	else if(select_leavetype == 'SL')
 	{
 	 	$('#wholeday_textbox').show();
 		$('#leavefrom_textbox').show();
@@ -62,7 +62,7 @@ function showtextbox()
 		$('#submitPL').hide();
 		$('#submitSTL').hide();
 	}
-	else if(select_leavetype == 'vacation')
+	else if(select_leavetype == 'VL')
 	{
 	 	$('#wholeday_textbox').show();
 		$('#leavefrom_textbox').show();
@@ -81,7 +81,7 @@ function showtextbox()
 		$('#submitPL').hide();
 		$('#submitSTL').hide();
 	}
-	 else if(select_leavetype == 'maternity')
+	 else if(select_leavetype == 'MTL')
 	{
 	 	$('#wholeday_textbox').show();
 		$('#leavefrom_textbox').show();
@@ -100,7 +100,7 @@ function showtextbox()
 		$('#submitPL').hide();
 		$('#submitSTL').hide();
 	}
-	else if(select_leavetype == 'paternity')
+	else if(select_leavetype == 'PTL')
 	{
 	 	$('#wholeday_textbox').show();
 		$('#leavefrom_textbox').show();
@@ -119,7 +119,7 @@ function showtextbox()
 		$('#submitPL').show();
 		$('#submitSTL').hide();
 	}
-	else if(select_leavetype == 'study')
+	else if(select_leavetype == 'STL')
 	{
 	 	$('#wholeday_textbox').show();
 		$('#leavefrom_textbox').show();

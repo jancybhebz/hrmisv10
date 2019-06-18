@@ -45,7 +45,7 @@ class Official_business_model extends CI_Model {
 	{		
 		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
-					requestDetails ='$strOBtype' OR
+					requestDetails ='$strOBtype' AND
 					requestDate ='$dtmOBrequestdate'					
 					";
 		//echo $strSQL;exit(1);

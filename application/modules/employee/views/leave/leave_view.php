@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
                     <div class="portlet-body">
-            <?=form_open(base_url('employee/leave/submitFL'), array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open('', array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()'))?>
             <div class="row">
             <div class="col-sm-8">
                 <div class="form-group">
@@ -65,13 +65,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <i class="fa"></i>
                              <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
                             <option value="">Please select</option>
-                            <option value="forced">Forced Leave</option>
-                            <option value="special">Special Leave</option>
-                            <option value="sick">Sick Leave</option>
-                            <option value="vacation">Vacation Leave</option>
-                            <option value="maternity">Maternity Leave</option>
-                            <option value="paternity">Paternity Leave</option>
-                            <option value="study">Study Leave</option>
+                            <option value="FL">Forced Leave</option>
+                            <option value="SPL">Special Leave</option>
+                            <option value="SL">Sick Leave</option>
+                            <option value="VL">Vacation Leave</option>
+                            <option value="MTL">Maternity Leave</option>
+                            <option value="PTL">Paternity Leave</option>
+                            <option value="STL">Study Leave</option>
                             </select>
                     </div>
                 </div>
@@ -80,21 +80,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                  
              <?php  $strLeavetype = '';
                     $action = '';
-            if($strLeavetype == 'forced'){  
-                $action = base_url('employee/pds_update/submitFL'); 
-                } else if($strLeavetype == 'special'){ 
-                $action = base_url('employee/pds_update/submitSPL'); 
-                } else if($strLeavetype == 'sick'){ 
-                $action = base_url('employee/pds_update/submitSL'); 
-                } else if($strLeavetype == 'vacation'){ 
-                $action = base_url('employee/pds_update/submitVL'); 
-                } else if($strLeavetype == 'maternity'){ 
-                $action = base_url('employee/pds_update/submitML');
-                } else if($strLeavetype == 'paternity'){ 
-                $action = base_url('employee/pds_update/submitPL'); 
-                } else if($strLeavetype == 'study'){
-                $action = base_url('employee/pds_update/submitSTL'); 
-                } ?>
+            // if($strLeavetype == 'forced'){  
+            //     $action = base_url('employee/pds_update/submitFL'); 
+            //     } else if($strLeavetype == 'special'){ 
+            //     $action = base_url('employee/pds_update/submitSPL'); 
+            //     } else if($strLeavetype == 'sick'){ 
+            //     $action = base_url('employee/pds_update/submitSL'); 
+            //     } else if($strLeavetype == 'vacation'){ 
+            //     $action = base_url('employee/pds_update/submitVL'); 
+            //     } else if($strLeavetype == 'maternity'){ 
+            //     $action = base_url('employee/pds_update/submitML');
+            //     } else if($strLeavetype == 'paternity'){ 
+            //     $action = base_url('employee/pds_update/submitPL'); 
+            //     } else if($strLeavetype == 'study'){
+            //     $action = base_url('employee/pds_update/submitSTL'); 
+            //     } ?>
             
             <div class="row" id="wholeday_textbox">
                 <div class="col-sm-8">
@@ -244,6 +244,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 showMeridian: true,
                 // defaultValue: '12:00:00 a'
             });
+
+        $('#strLeavetype').on('change', function() {
+            strLeavetype = $(this).val();
+            if($(this).val() == 'FL'){  
+                $('#frmLeave').attr('action','leave/submitFL'); 
+                } else if(strLeavetype == 'SPL'){ 
+                $('#frmLeave').attr('action','leave/submitSPL'); 
+                } else if(strLeavetype == 'SL'){ 
+                $('#frmLeave').attr('action','leave/submitSL'); 
+                } else if(strLeavetype == 'VL'){ 
+                $('#frmLeave').attr('action','leave/submitVL'); 
+                } else if(strLeavetype == 'MTL'){ 
+                $('#frmLeave').attr('action','leave/submitML');
+                } else if(strLeavetype == 'PTL'){ 
+                $('#frmLeave').attr('action','leave/submitPL'); 
+                } else if(strLeavetype == 'STL'){
+                $('#frmLeave').attr('action','leave/submitSTL'); 
+                }
+        });
+
 
      $('#printreport').click(function(){
         var leavetype=$('#strLeavetype').val();

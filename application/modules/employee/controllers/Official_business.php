@@ -29,6 +29,8 @@ class Official_business extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
+			echo '<pre>';
+
 			$strOBtype=$arrPost['strOBtype'];
 			$dtmOBrequestdate=$arrPost['dtmOBrequestdate'];
 			$dtmOBdatefrom=$arrPost['dtmOBdatefrom'];
@@ -36,7 +38,7 @@ class Official_business extends MY_Controller {
 			$dtmTimeFrom=$arrPost['dtmTimeFrom'];
 			$dtmTimeTo=$arrPost['dtmTimeTo'];
 			$strDestination=$arrPost['strDestination'];
-			$strMeal=$arrPost['strMeal'];
+			$strMeal=isset($arrPost['strMeal']) ? $arrPost['strMeal'] : '';
 			$strPurpose=$arrPost['strPurpose'];
 			$strStatus=$arrPost['strStatus'];
 			$strCode=$arrPost['strCode'];

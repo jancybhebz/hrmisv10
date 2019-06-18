@@ -192,10 +192,11 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$strIncaseVL.';'.$intVL.';'.$intSL,
+						#$leavetype;$"leave";$date_from;date_to;$reason;$nodays;$vlbalance;$slbalance;$period;$signatory1;$signatory2
+						'requestDetails'=>'VL;Leave;'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$strReason.';'.$strIncaseVL.';'.$intVL.';'.$intSL.';;'.$str1stSignatory.';'.$strEmpName2,
 						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
+						'requestStatus'=>'Filed Request',
+						'requestCode'=>'Leave',
 						'empNumber'=>$_SESSION['sessEmpNo']
 					);
 					$blnReturn  = $this->leave_model->submitVL($arrData);
