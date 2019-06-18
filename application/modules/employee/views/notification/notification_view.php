@@ -38,7 +38,6 @@
                                 <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Cancelled</small> &nbsp;&nbsp;</div>
                         </div>
                         <br><br>
-                        <pre><?php print_r($arrRequest) ?></pre>
                         <table class="table table-striped table-bordered table-hover" id="table-notif" style="visibility: hidden;">
                             <thead>
                                 <tr>
@@ -61,7 +60,9 @@
                                         <td align="center"><?=$request['req_remarks']?></td>
                                         <td><?=$request['req_nextsign']?></td>
                                         <td nowrap style="vertical-align: middle;text-align: left;">
-                                            <a href="" class="btn btn-sm blue"> <i class="icon-magnifier"></i> View </a>
+                                            <a href="javascript:;" class="btn btn-sm blue" id="btnview"
+                                                data-type="<?=$request['req_type']?>" data-json='<?=json_encode($request)?>'>
+                                                <i class="icon-magnifier"></i> View </a>
                                             <?php if(!in_array(strtolower($request['req_status']), array('cancelled', 'disapproved','certified'))): ?>
                                                 <button data-id="<?=$request['req_id']?>" class="btn btn-sm red btn-cancel"> <i class="icon-close"></i> Cancel </button>
                                             <?php endif; ?>
@@ -105,10 +106,39 @@
     </div>
 </div>
 
+<!-- begin print-preview modal -->
+<div id="print-request-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="<?=base_url()?>" id="txtbaseurl">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed id="embed-pdf" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="link-fullsize" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end print-preview modal -->
+
 <?php load_plugin('js',array('datatables'));?>
 
 <script>
     $(document).ready(function() {
+        var replink = "";
+
         $('#table-notif').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
@@ -118,5 +148,51 @@
             $('#txtreqid').val($(this).data('id'));
             $('#modal-cancelRequest').modal('show');
         });
+
+        $('#table-notif').on('click', 'a#btnview', function() {
+            json = $(this).data('json');
+            console.log(json);
+            type = $(this).data('type');
+            if(json.req_code=='OB'){
+                ob_details = json.req_details.split(';');
+                replink = 'employee/reports/generate/?rpt=reportOB&obtype='+ ob_details[0] +'&reqdate='+ json.req_date +'&obdatefrom='+ ob_details[2] +'&obdateto='+ ob_details[3] +'&obtimefrom='+ ob_details[4] +'&obtimeto='+ ob_details[5] +'&desti='+ ob_details[6] +'&meal='+ ob_details[9] +'&purpose='+ ob_details[7];
+            }
+            if(json.req_code=='Leave'){
+                leave_details = json.req_details.split(';');
+                replink = 'employee/reports/generate/?rpt=reportLeave&leavetype='+ leave_details[0] +'&day='+ leave_details[8] +'&leavefrom='+ leave_details[2] +'&leaveto='+ leave_details[3] +'&daysapplied=&signatory=0315-CO0-2012&empname=undefined&reason='+ leave_details[4] +'&incaseSL=&incaseVL=&intVL='+ leave_details[9] +'&intSL='+ leave_details[10] +'';
+            }
+            if(json.req_code=='DTR'){
+                dtr_details = json.req_details.split(';');
+                replink = 'employee/reports/generate/?rpt=reportDTRupdate&dtrupdate='+ dtr_details[1] +'&oldmorin='+ dtr_details[2] +'&oldmorout='+ dtr_details[3] +'&oldafin='+ dtr_details[4] +'&oldaftout='+ dtr_details[5] +'&oldOTin='+ dtr_details[6] +'&oldOTout='+ dtr_details[7] +'&morningin=&morningout=&aftnoonin=&aftnoonout=&OTtimein=&OTtimeout=&month=sdf&evidence=asdf&reason='+ dtr_details[32] +'&signatory=JO-06-2016';
+            }
+            
+            $('.modal-title').html(type);
+            $('#print-request-modal').modal('show');
+            $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
+        });
+
+        $('#link-fullsize').click(function() {
+            window.open($(this).attr('src'));
+        });
     });
+</script>
+
+<script>
+$(document).ready(function() {
+
+    // $('#btnprint-reports').click(function() {
+    //     var reptype = $('#selrep_type').val();
+    //     var replink = "";
+    //     var getdata = "empno=" + $('#selname').val() + "&rtype=2" + "&remitt=" + $('#remitType').val() + "&month=" + "&ps_yr=" + "&remit_fr=" + $('#remityrfrom').val() + "&remit_to=" + $('#remityrto').val() + "&pgroup=" + "&file_gen=" + $('#selgen').val() + "&period=" + "&sign=" + "&appt=" + $('#selAppoint').val();
+    //     replink = "finance/reports/monthlyreports/remittances?"+getdata;
+    //     $('.modal-title').html('Remittance');
+    //     $('#print-preview-modal').modal('show');
+    //     $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
+    // });
+
+    // $('#link-fullsize').click(function() {
+    //     window.open($(this).attr('src'));
+    // });
+
+});
 </script>

@@ -40,11 +40,11 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Remittances</label>
                                     <div class="col-md-6">
-                                        <select class="form-control select2" name="remitType" id="remitType">
+                                        <select class="form-control select2 form-required" name="remitType" id="remitType">
                                             <option value="0">-- SELECT REMITTANCE --</option>
-                                            <option value="ALLGSIS">ALL GSIS Deduction(exc. Life and Ret. Prem.)</option>
-                                            <?php foreach ($arrRemittances as $remittance): ?>
-                                                <option value="<?=$remittance['deductionCode']?>"> <?=$remittance['deductionDesc']?> </option>
+                                            <?php foreach($arrRemittances as $deduct): ?>
+                                                <option value="<?=$deduct['deductionCode']?>" <?=count($_GET) > 0 ? $_GET['selpayrollGrp'] == $deduct['deductionCode'] ? 'selected' : '' : '' ?>>
+                                                    <?=$deduct['deductionDesc']?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

@@ -57,7 +57,7 @@
                                     <label class="col-md-3 control-label">Year</label>
                                     <div class="col-md-3">
                                         <input type="text" class="form-control input-large date-picker" name="yr" id="selyr"
-                                            data-date="2003" data-date-format="yyyy" data-date-viewmode="years" value="<?=date('Y')?>">
+                                            data-date="2003" data-date-format="yyyy" data-date-viewmode="years" value="<?=curryr()?>">
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
