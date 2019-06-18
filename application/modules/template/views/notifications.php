@@ -3,7 +3,7 @@
     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
     
     <!-- begin employee notification -->
-    <?php if(in_array($_SESSION['sessUserLevel'], array(5))): ?>
+    <?php if(in_array($_SESSION['sessUserLevel'], array(5,4,3))): ?>
         <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                 <i class="icon-bell"></i>
