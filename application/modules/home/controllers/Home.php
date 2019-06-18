@@ -7,7 +7,7 @@ class Home extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('hr/Hr_model','hr/chart_model','pds/pds_model'));
+        $this->load->model(array('hr/Hr_model','hr/chart_model','pds/pds_model','home_model'));
     }
 
 	public function index()
@@ -83,6 +83,52 @@ class Home extends MY_Controller {
 		$empid = $this->session->userdata('sessEmpNo');
 		$_SESSION['sessUserLevel'] = 2;
 		redirect('home');
+	}
+
+	public function birthdays()
+	{
+		$this->arrData['arrData'] = $this->home_model->getbirthdays();
+		$this->template->load('template/template_view','home/birthday_view',$this->arrData);
+	}
+
+	public function vacantpositions()
+	{
+		$arrTmpData = $this->home_model->getvacantpositions();
+		$i=0;
+		foreach($arrTmpData as $row):
+			$itemNumber = $row['itemNumber'];
+			$positionCode = $row['positionCode'];
+			$plantillaGroupCode = $row['plantillaGroupCode'];
+			// $result = mysql_query("SELECT tblEmpPersonal.empNumber, tblEmpPosition.itemNumber, tblEmpPosition.divisionCode,
+			// 					tblEmpPosition.statusOfAppointment FROM tblEmpPersonal
+			// 					INNER JOIN tblEmpPosition
+			// 					ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
+			// 					WHERE tblEmpPosition.statusOfAppointment = 'In-Service'
+			// 					AND tblEmpPosition.itemNumber = '".$itemNumber."'");
+			// $numResult = mysql_num_rows($result);
+
+			$objResult = $this->db->select('tblEmpPersonal.empNumber, tblEmpPosition.itemNumber,tblEmpPosition.statusOfAppointment')->join('tblEmpPosition','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','inner')->where('tblEmpPosition.statusOfAppointment','In-Service')->where('tblEmpPosition.itemNumber',$itemNumber)->get('tblEmpPersonal')->result_array();
+			//echo $this->db->last_query();
+			$numResult = count($objResult);
+			if($numResult==0)
+			{
+				$strPlantillaGroupName = plantilla_group($plantillaGroupCode);
+				$strPositionName = position_name($positionCode);
+				$arrData[$i] = array(
+					'itemNumber'=>$itemNumber,
+					'positionName'=>$strPositionName,
+					'plantillaGroup'=>$strPlantillaGroupName
+					);
+				$i++;
+				// echo "<tr>
+				// 		<td>&nbsp;".$itemNumber."</td>
+				// 		<td>&nbsp;".$strPositionName."</td>
+				// 		<td>&nbsp;".$strPlantillaGroupName."</td>
+				// 	  </tr>";
+			}
+		endforeach;
+		$this->arrData['arrData'] = $arrData;
+		$this->template->load('template/template_view','home/vacantposition_view',$this->arrData);
 	}
 
 	

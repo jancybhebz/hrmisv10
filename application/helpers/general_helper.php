@@ -307,3 +307,23 @@ if ( ! function_exists('getGroupOffice'))
         return $str;
     }
 }
+
+if ( ! function_exists('plantilla_group'))
+{
+    function plantilla_group($strCode)
+    {
+        $CI =& get_instance();
+        $rs = $CI->db->select('plantillaGroupName')->where('plantillaGroupCode',$strCode)->get('tblPlantillaGroup')->result_array();
+        return count($rs)>0?$rs[0]['plantillaGroupName']:'';
+    }
+}
+
+if ( ! function_exists('position_name'))
+{
+    function position_name($strCode)
+    {
+        $CI =& get_instance();
+        $rs = $CI->db->select('positionDesc')->where('positionCode',$strCode)->get('tblPosition')->result_array();
+        return count($rs)>0?$rs[0]['positionDesc']:'';
+    }
+}
