@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('select2','select'))?>
+<?=load_plugin('css', array('select2','select','datepicker'))?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -45,11 +45,12 @@
                                     <label class="col-md-3 control-label">Payroll Process</label>
                                     <div class="col-md-6">
                                         <div class="input-icon right">
-                                            <i class="fa fa-warning tooltips i-required"></i>
                                             <select class="form-control select2 form-required" name="appt" id="selappt">
                                                 <option value="">-- SELECT PAYROLL PROCESS --</option>
                                                 <?php foreach ($arrProcess as $process): ?>
-                                                    <option value="<?=$process['employeeAppoint']?>" <?=isset($_GET['appt']) ? $_GET['appt'] == $process['employeeAppoint'] ? 'selected' : '' : ''?> data-processid="<?=$process['processID']?>">
+                                                    <option value="<?=$process['employeeAppoint']?>" data-processid="<?=$process['processID']?>"
+                                                        data-period="<?=$process['period']?>"
+                                                        <?=isset($_GET['processid']) ? $_GET['processid'] == $process['processID'] ? 'selected' : '' : ''?>>
                                                         <?=$process['appointmentDesc']?> - (<?=$process['processCode']?> <?=$process['employeeAppoint'] != 'P' ? '-'.$process['period'] : ''?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -57,30 +58,30 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Payroll Process</label>
-                                    <div class="col-md-2">
-                                        <div class="input-icon right">
-                                            <i class="fa fa-warning tooltips i-required"></i>
-                                            <select class="bs-select form-required" name="yr" id="selyr">
-                                                <option value="">Year</option>
-                                                <?php foreach (getYear() as $yr): ?>
-                                                    <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
-                                                        <?=$yr?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                    <label class="col-md-3 control-label">Year</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control input-large date-picker" name="yr" id="selyr"
+                                            data-date="2003" data-date-format="yyyy" data-date-viewmode="years" value="<?=date('Y')?>">
+                                        <span class="help-block"></span>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="input-icon right">
-                                            <i class="fa fa-warning tooltips i-required"></i>
-                                            <select class="bs-select form-required" name="mon" id="selmon">
-                                                <option value="">Month</option>
-                                                <?php foreach (range(1, 12) as $m): ?>
-                                                    <option value="<?=$m?>" <?=isset($_GET['month']) ? $_GET['month'] == $m ? 'selected' : '' : date('n') == $m?>>
-                                                        <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Month</label>
+                                    <div class="col-md-3" style="width: 23% !important;">
+                                        <select class="bs-select form-control" name="mon" id="selmon">
+                                            <?php foreach (range(1, 12) as $m): ?>
+                                                <option value="<?=sprintf('%02d', $m)?>"
+                                                    <?php 
+                                                        if(isset($_GET['month'])):
+                                                            echo $_GET['month'] == $m ? 'selected' : '';
+                                                        else:
+                                                            echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                        endif;
+                                                     ?> >
+                                                    <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="help-block"></span>
                                     </div>
                                 </div>
                             </div>
@@ -94,61 +95,57 @@
                                 <table class="table table-bordered" id="tblmreports" >
                                     <tr>
                                         <th>Payslip</th>
-                                        <td style="text-align: center;">
-                                            <a href="<?=base_url('finance/reports/MonthlyReports/payslip')?>" target="_blank" class="btn green btn-sm btn-circle">
-                                                <i class="fa fa-money"></i> First Half</a>
-                                        </td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Payroll Register</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Funding Requirements</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Monthly</button></td>
-                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;" colspan="2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Monthly</a></td>
                                     </tr>
                                     <tr>
                                         <th>MC Benefit Register</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Deduction Register</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Summary of Deductions</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Lates/Abs Deductions</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Overtime -> Payroll Register</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                      <tr>
                                         <th><?=str_repeat('&nbsp;', 10)?>Funding Requirements</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Generate PACS</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Generate FINDES</th>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> First Half</button></td>
-                                        <td style="text-align: center;"><button type="button" class="btn green btn-sm btn-circle"><i class="fa fa-money"></i> Second Half</button></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-url="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                 </table>
                                 <?php endif; ?>
@@ -161,30 +158,53 @@
     </div>
 </div>
 
-<?=load_plugin('js', array('select2','select','form_validation'))?>
+<!-- begin print-preview modal -->
+<div id="print-preview-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="<?=base_url()?>" id="txtbaseurl">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed id="embed-pdf" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="link-fullsize" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end print-preview modal -->
+
+<?=load_plugin('js', array('select2','select','form_validation','datepicker'))?>
+<script src="<?=base_url('assets/js/custom/monthly-reports.js')?>"></script>
 <script>
-    $('select.select2').select2({
-        minimumResultsForSearch: -1,
-        placeholder: function(){
-            $(this).data('placeholder');
+$(document).ready(function() {
+
+    if("<?=isset($_GET['appt']) ? 1 : 0?>" == "1"){
+        if("<?=$_GET['appt'] != 'P' ? 1 : 0?>" == "1"){
+            $('td.half1,td.half2').hide();
         }
-    });
-    $(document).ready(function() {
-        $('.loading-image').hide();
-        $('#div-body').show();
+    }
 
-        $('#selyr').on('change', function(){
-            processid = $('#selappt').find(':selected').attr('data-processid');
-            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val()+'&processid='+processid,'_self');
-        });
-        $('#selmon').on('change', function(){
-            processid = $('#selappt').find(':selected').attr('data-processid');
-            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val()+'&processid='+processid,'_self');
-        });
-        $('#selappt').on('change', function(){
-            processid = $('#selappt').find(':selected').attr('data-processid');
-            window.open('?month='+$('#selmon').val()+'&yr='+$('#selyr').val()+'&appt='+$('#selappt').val()+'&processid='+processid,'_self');
-        });
+    if("<?=isset($_GET['period']) ? $_GET['period'] : ''?>" == 1){
+        $('td.half1').show();
+        $('td.half2').hide();
+    }
 
-    });
+    if("<?=isset($_GET['period']) ? $_GET['period'] : ''?>" == 2){
+        $('td.half2').show();
+        $('td.half1').hide();
+    }
+
+});
 </script>
