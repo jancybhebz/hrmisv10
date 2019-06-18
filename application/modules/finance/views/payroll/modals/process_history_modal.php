@@ -43,6 +43,7 @@
                             <input type="hidden" name="txtperiodmon" id="txtperiodmon">
                             <input type="hidden" name="txtperiodyr" id="txtperiodyr">
                             <input type="hidden" name="txtappt" id="txtappt">
+                            <input type="hidden" name="txtperiod" id="txtperiod">
                             <div class="form-group">
                                 <label>Are you sure you want to reprocess this data?</label>
                             </div>
