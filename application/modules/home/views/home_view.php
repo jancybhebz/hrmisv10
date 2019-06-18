@@ -21,14 +21,14 @@
 <div class="clearfix"></div>
 <!-- BEGIN DASHBOARD STATS -->
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat blue">
             <div class="visual">
                 <i class="fa fa-birthday-cake"></i>
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="58">0</span>
+                    <span data-counter="counterup" data-value="<?=$intBirthday?>">0</span>
                 </div>
                 <div class="desc"> Birthday</div>
             </div>
@@ -37,14 +37,14 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat red">
             <div class="visual">
                 <i class="fa fa-child"></i>
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="37">0</span> </div>
+                    <span data-counter="counterup" data-value="<?=$intVacant?>">0</span> </div>
                 <div class="desc"> Vacant Position </div>
             </div>
             <a class="more" href="<?=base_url('home/vacantpositions')?>"> View more
@@ -52,23 +52,23 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat green">
             <div class="visual">
                 <i class="fa fa-gift"></i>
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="1">0</span>
+                    <span data-counter="counterup" data-value="<?=$intRetiree?>">0</span>
                 </div>
                 <div class="desc"> Retiree </div>
             </div>
-            <a class="more" href="javascript:;"> View more
+            <a class="more" href="<?=base_url('home/retirees')?>"> View more
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <!--div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="dashboard-stat purple">
             <div class="visual">
                 <i class="fa fa-user-plus"></i>
@@ -82,60 +82,60 @@
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
-    </div>
+    </div-->
 </div>
 <div class="clearfix"></div>
 <!-- END DASHBOARD STATS -->
 <!-- BEGIN APPOINTMENT STATS -->
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat blue-sharp">
             <div class="visual">
                 <i class="fa fa-group"></i>
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="127">0</span>
+                    <span data-counter="counterup" data-value="<?=$intP?>">0</span>
                 </div>
                 <div class="desc"> PERMANENT</div>
             </div>
-            <a class="more" href="javascript:;"> View more
+            <a class="more" href="<?=base_url('home/employees/p')?>"> View more
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat red-pink">
             <div class="visual">
                 <i class="fa fa-group"></i>
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="90">0</span> </div>
+                    <span data-counter="counterup" data-value="<?=$intGIA?>">0</span> </div>
                 <div class="desc"> GIA </div>
             </div>
-            <a class="more" href="javascript:;"> View more
+            <a class="more" href="<?=base_url('home/employees/gia')?>"> View more
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat green-meadow">
             <div class="visual">
                 <i class="fa fa-group"></i>
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="34">0</span>
+                    <span data-counter="counterup" data-value="<?=$intJO?>">0</span>
                 </div>
                 <div class="desc"> Job Order </div>
             </div>
-            <a class="more" href="javascript:;"> View more
+            <a class="more" href="<?=base_url('home/employees/jo')?>"> View more
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <!--div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="dashboard-stat purple-plum">
             <div class="visual">
                 <i class="fa fa-group"></i>
@@ -149,7 +149,7 @@
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
-    </div>
+    </div-->
 </div>
 <div class="clearfix"></div>
 <!-- END APPOINTMENT STATS -->

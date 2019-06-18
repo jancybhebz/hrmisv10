@@ -54,6 +54,15 @@ class Home extends MY_Controller {
 		$this->arrData['arrASFull'] = $arrASFull;
 		$this->arrData['arrGender'] = $arrGender;
 		$this->arrData['arrGenderChart'] = $arrGenderChart;
+
+		/*dashboard*/
+		$this->arrData['intBirthday'] = count($this->home_model->getbirthdays());
+		$this->arrData['intVacant'] = count($this->vacantpositions(1));
+		$this->arrData['intRetiree'] = count($this->retirees(1));
+		$this->arrData['intP'] = count($this->home_model->getemployeesbyappointment('P'));
+		$this->arrData['intGIA'] = count($this->home_model->getemployeesbyappointment('GIA'));
+		$this->arrData['intJO'] = count($this->home_model->getemployeesbyappointment('JO'));
+
 		$this->template->load('template/template_view','home/home_view',$this->arrData);
 	}
 
@@ -91,7 +100,7 @@ class Home extends MY_Controller {
 		$this->template->load('template/template_view','home/birthday_view',$this->arrData);
 	}
 
-	public function vacantpositions()
+	public function vacantpositions($count=0)
 	{
 		$arrTmpData = $this->home_model->getvacantpositions();
 		$i=0;
@@ -99,13 +108,6 @@ class Home extends MY_Controller {
 			$itemNumber = $row['itemNumber'];
 			$positionCode = $row['positionCode'];
 			$plantillaGroupCode = $row['plantillaGroupCode'];
-			// $result = mysql_query("SELECT tblEmpPersonal.empNumber, tblEmpPosition.itemNumber, tblEmpPosition.divisionCode,
-			// 					tblEmpPosition.statusOfAppointment FROM tblEmpPersonal
-			// 					INNER JOIN tblEmpPosition
-			// 					ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
-			// 					WHERE tblEmpPosition.statusOfAppointment = 'In-Service'
-			// 					AND tblEmpPosition.itemNumber = '".$itemNumber."'");
-			// $numResult = mysql_num_rows($result);
 
 			$objResult = $this->db->select('tblEmpPersonal.empNumber, tblEmpPosition.itemNumber,tblEmpPosition.statusOfAppointment')->join('tblEmpPosition','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','inner')->where('tblEmpPosition.statusOfAppointment','In-Service')->where('tblEmpPosition.itemNumber',$itemNumber)->get('tblEmpPersonal')->result_array();
 			//echo $this->db->last_query();
@@ -120,16 +122,63 @@ class Home extends MY_Controller {
 					'plantillaGroup'=>$strPlantillaGroupName
 					);
 				$i++;
-				// echo "<tr>
-				// 		<td>&nbsp;".$itemNumber."</td>
-				// 		<td>&nbsp;".$strPositionName."</td>
-				// 		<td>&nbsp;".$strPlantillaGroupName."</td>
-				// 	  </tr>";
+				
 			}
 		endforeach;
+		if($count) return $arrData;
 		$this->arrData['arrData'] = $arrData;
 		$this->template->load('template/template_view','home/vacantposition_view',$this->arrData);
 	}
 
-	
+	public function retirees($count=0)
+	{
+		$arrTmpData = $this->home_model->getretirees();
+		$i=0;$dtmCurYear = date("Y");$intYear = $dtmCurYear;
+		foreach($arrTmpData as $row)
+		{
+			$strEmpNum = $row['empNumber'];
+			$strEmpName = strtoupper($row['surname']. ", " .$row['firstname']);
+			$strBirthday = $row['birthday'];
+			$strStatusOfEmployment = $row['statusOfAppointment'];
+			$strPositionCode =  $row['positionCode'];
+			
+			$strGroupCode =  $row['groupCode'];
+			$strGroup1 =  $row['group1'];
+			$strGroup2 =  $row['group2'];
+			$strGroup3 =  $row['group3'];
+			$strGroup4 =  $row['group4'];
+			$strGroup5 =  $row['group5'];
+			//$strOfficeCode =  $row['officeCode'];
+			$strBirthdayEx = explode('-', $strBirthday);
+			$arrBdayYear = $strBirthdayEx[0];
+			$arrBdayMonth = $strBirthdayEx[1];
+			$arrBdayDay = $strBirthdayEx[2];
+			$intBdayYear = intval($arrBdayYear);
+
+			$intRetireeAge = $intYear - $intBdayYear;
+
+			if (($intRetireeAge >= 65)&&($strStatusOfEmployment == 'In-Service'))
+			{	
+				$strOffice = office_name(employee_office($row['empNumber']));
+				$strPositionName = position_name($strPositionCode);
+				$arrData[$i] = array(
+					'name' => $strEmpName,
+					'office' => $strOffice,
+					'position' => $strPositionName
+					);	
+				$i++;
+				
+			}
+		}
+		if($count) return $arrData;
+		$this->arrData['arrData'] = $arrData;	
+		$this->template->load('template/template_view','home/retiree_view',$this->arrData);
+	}
+
+	public function employees()
+	{
+		$strAppStatus = $this->uri->segment(3);
+		$this->arrData['arrData'] = $this->home_model->getemployeesbyappointment($strAppStatus);
+		$this->template->load('template/template_view','home/employee_view',$this->arrData);
+	}
 }
