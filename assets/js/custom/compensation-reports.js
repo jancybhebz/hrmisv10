@@ -36,11 +36,12 @@ $(document).ready(function() {
     $('#btnprint').click(function() {
         var reptype = $('#selrep_type').val();
         var replink = "";
-        var getdata = "empno=" + $('#txtempnumber').val() + "&rtype=" + $('#selrep_type').val() + "&remitt=" + $('#selrep_remitt').val() + "&month=" + $('#selmont').val() + "&ps_yr=" + $('#txtps_yr').val() + "&remit_fr=" + $('#txtremit_from').val() + "&remit_to=" + $('#txtremit_to').val() + "&pgroup=" + $('#selpayrollGrp').val() + "&file_gen=" + $('#selgen').val() + "&period=" + $('#selpayrollGrp').find(':selected').attr('data-period') + "&sign=" + $('#selsign').val();
+        var getdata = "empno=" + $('#txtempnumber').val() + "&rtype=" + $('#selrep_type').val() + "&remitt=" + $('#selrep_remitt').val() + "&month=" + $('#selmont').val() + "&ps_yr=" + $('#txtps_yr').val() + "&remit_fr=" + $('#txtremit_from').val() + "&remit_to=" + $('#txtremit_to').val() + "&pgroup=" + $('#selpayrollGrp').val() + "&file_gen=" + $('#selgen').val() + "&period=" + $('#selpayrollGrp').find(':selected').attr('data-period') + "&sign=" + $('#selsign').val() + "&appt=";
+        alert(getdata);
         if(reptype == 1){
             report_name = "Payslip";
             replink = "finance/reports/monthlyreports/payslip?"+getdata;
-        }else{
+        }else if(reptype == 2){
             report_name = "Remittance";
             replink = "finance/reports/monthlyreports/remittances?"+getdata;
         }
@@ -48,8 +49,27 @@ $(document).ready(function() {
         if(reptype == 1 || (reptype == 2 && $('#selgen').val() == 1)){
             $('#print-preview-modal').modal('show');
         }else{
-            alert('download excel');
+            // alert('download excel');
         }
+        $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
+    });
+
+    $('#btnprint-reports').click(function() {
+        var reptype = $('#selrep_type').val();
+        var replink = "";
+        var getdata = "empno=" + $('#selname').val() + "&rtype=" + $('#remitType').val() + "&remitt=" + $('#selshow').val() + "&month=" + "&ps_yr=" + "&remit_fr=" + $('#remityrfrom').val() + "&remit_to=" + $('#remityrto').val() + "&pgroup=" + "&file_gen=" + $('#selgen').val() + "&period=" + "&sign=" + "&appt=" + $('#selAppoint').val();
+        replink = "finance/reports/monthlyreports/remittances?"+getdata;
+        // alert(getdata);
+        // if(reptype == 2){
+        //     replink = "finance/reports/monthlyreports/remittances?"+getdata;
+        // }
+        $('.modal-title').html('Remittance');
+        $('#print-preview-modal').modal('show');
+        // if(reptype == 2 && $('#selgen').val() == 1){
+        //     $('#print-preview-modal').modal('show');
+        // }else{
+        //     // alert('download excel');
+        // }
         $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
     });
 

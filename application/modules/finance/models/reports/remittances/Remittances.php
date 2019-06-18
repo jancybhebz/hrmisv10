@@ -39,7 +39,7 @@ class Remittances extends CI_Model {
 		$this->fpdf->Ln(15);
 		$this->fpdf->Cell(0, 6,"Remittance List", 0, 1, "C");
 		$this->fpdf->SetFont('Arial','B',11);
-		$this->fpdf->Cell(0, 6,$deduct_details['deductionDesc'], 0, 1, "C");
+		$this->fpdf->Cell(0, 6,count($deduct_details) > 0 ? $deduct_details['deductionDesc'] : '', 0, 1, "C");
 		$this->fpdf->Cell(0, 6,"From ".$_GET['remit_fr']." to ".$_GET['remit_to'], 0, 1, "C");
 		$this->fpdf->Ln(5);
 

@@ -12,7 +12,7 @@ class Deduction_model extends CI_Model {
 			return $this->db->order_by('deductionGroupCode, deductionDesc')->get('tblDeduction')->result_array();
 		else:
 			$res = $this->db->get_where('tblDeduction', array('deductionCode' => $code))->result_array();
-			return $res[0];
+			return count($res) > 0 ? $res[0] : array();
 		endif;
 	}
 

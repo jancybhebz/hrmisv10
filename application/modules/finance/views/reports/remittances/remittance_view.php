@@ -1,4 +1,4 @@
-<?=load_plugin('css', array('select2','select'))?>
+<?=load_plugin('css', array('select2','select','datepicker'))?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Remittances</label>
                                     <div class="col-md-6">
-                                        <select class="form-control select2" name="mon">
+                                        <select class="form-control select2" name="remitType" id="remitType">
                                             <option value="0">-- SELECT REMITTANCE --</option>
                                             <option value="ALLGSIS">ALL GSIS Deduction(exc. Life and Ret. Prem.)</option>
                                             <?php foreach ($arrRemittances as $remittance): ?>
@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Show</label>
                                     <div class="col-md-6">
-                                        <select class="form-control bs-select" name="mon" id="selshow">
+                                        <select class="form-control bs-select" name="selshow" id="selshow">
                                             <option value="0">-- SELECT SHOW --</option>
                                             <option value="1"> All Employees</option>
                                             <option value="2">Per Employee</option>
@@ -71,7 +71,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Appointment</label>
                                     <div class="col-md-6">
-                                        <select class="form-control select2" name="mon">
+                                        <select class="form-control select2" name="selAppoint" id="selAppoint">
                                             <option value="0">-- SELECT APPOINTMENT --</option>
                                             <?php foreach ($arrAppointments as $appt): ?>
                                                 <option value="<?=$appt['appointmentCode']?>"> <?=$appt['appointmentDesc']?></option>
@@ -85,7 +85,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Name</label>
                                     <div class="col-md-6">
-                                        <select class="form-control select2" name="mon">
+                                        <select class="form-control select2" name="selname" id="selname">
                                             <option value="0">-- SELECT EMPLOYEE --</option>
                                             <?php foreach ($arrEmployees as $emp): ?>
                                                 <option value="<?=$emp['empNumber']?>">
@@ -95,35 +95,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">YEAR</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control bs-select input-inline input-medium" name="yr">
-                                            <option value="0">FROM</option>
-                                            <?php foreach (getYear() as $yr): ?>
-                                                <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
-                                                    <?=$yr?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <select class="form-control bs-select input-inline input-medium" name="yr">
-                                            <option value="0">TO</option>
-                                            <?php foreach (getYear() as $yr): ?>
-                                                <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
-                                                    <?=$yr?></option>
-                                            <?php endforeach; ?>
-                                        </select>
+                            <div class="form-group div-yrrange">
+                                <label class="col-md-3 control-label">Year</label>
+                                <div class="col-md-9">
+                                    <div class="input-group input-large date-picker input-daterange" data-date="2003" data-date-format="yyyy" data-date-viewmode="years" id="dateRange">
+                                        <input type="text" class="form-control" name="remityrfrom" id="remityrfrom" value="<?=date('Y')?>">
+                                        <span class="input-group-addon"> to </span>
+                                        <input type="text" class="form-control" name="remityrto" id="remityrto" value="<?=date('Y')?>">
                                     </div>
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-body">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Generate</label>
                                     <div class="col-md-6">
-                                        <select class="form-control bs-select" name="mon">
+                                        <select class="form-control bs-select" name="selgen" id="selgen">
                                             <option value="0">-- SELECT FORMAT --</option>
-                                            <option value="PDF">PDF</option>
-                                            <option value="Excel">Excel</option>
+                                            <option value='1'>PDF</option>
+                                            <!-- <option value='2'>Excel</option> -->
                                         </select>
                                     </div>
                                 </div>
@@ -132,6 +122,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">&nbsp;</label>
                                     <div class="col-md-9">
+                                    <a id="btnprint-reports" href="javascript:;" class="btn btn-primary">Print Preview</a>
                                         <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </div>
@@ -144,7 +135,37 @@
     </div>
 </div>
 
-<?=load_plugin('js', array('select2','select'))?>
+<!-- begin print-preview modal -->
+<div id="print-preview-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold"></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="<?=base_url()?>" id="txtbaseurl">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed id="embed-pdf" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="link-fullsize" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end print-preview modal -->
+
+
+<?=load_plugin('js', array('datepicker','datatables','select2','select'))?>
+<script src="<?=base_url('assets/js/custom/compensation-reports.js')?>"></script>
+
 <script>
     $('select.select2').select2({
         minimumResultsForSearch: -1,
