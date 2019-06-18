@@ -189,9 +189,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="row">
                                 <label class="col-md-2 control-label right"> Citizenship <span class="required"> * </span></label>
                                 <div class="col-md-9">
-                                    <input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Filipino") echo "checked";?> value="female"> &nbsp;Filipino
-                                    <input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Dual") echo "checked";?> value="dual"> &nbsp;Dual Citizenship
-                                </div>
+                                    <label><input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Filipino") echo "checked";?> value="female"> &nbsp;Filipino</label>
+                                    <label><input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Dual") echo "checked";?> value="dual"> &nbsp;Dual Citizenship</label>
+                                </div>  
                             </div>
                         </div>
 
@@ -752,10 +752,3 @@ jQuery(document).ready(function() {
 });
 </script>
 
-<!-- <script>
-var validateEmail = function(email){
-  if(strEmail.includes(' ')){return false};
-  if(!strEmail.includes('@')){return false};
-  return true;
-}
-</script> -->
