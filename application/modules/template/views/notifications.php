@@ -233,7 +233,14 @@
     <!-- BEGIN CONTROL PANEL -->
     <li class="dropdown dropdown-user">
         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-            <img alt="" class="img-circle" src="<?=base_url('assets/images/user-default.jpg')?>" />
+            <?php 
+                $strImgUrl = 'uploads/employees/'.$this->session->userdata('sessEmpNo').'.jpg';
+                if(file_exists($strImgUrl))
+                    $strImg = base_url($strImgUrl);
+                else
+                    $strImg = base_url('assets/images/user-default.jpg');
+            ?>
+            <img alt="" class="img-circle" src="<?=$strImg?>" />
             <span class="username username-hide-on-mobile"> <?=$this->session->userdata('sessName')?> </span>
             <i class="fa fa-angle-down"></i>
         </a>

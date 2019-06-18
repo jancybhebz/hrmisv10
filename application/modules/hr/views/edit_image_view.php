@@ -53,7 +53,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="input-icon left">
                                     <i class="fa"></i>
                                     <div class="form-group left">
-                                        <input type="file" id="userfile" name="userfile">               
+                                        <input type="file" id="userfile" name="userfile" accept="image/jpeg">               
                                     </div>
                                 </div>
                             </div>
