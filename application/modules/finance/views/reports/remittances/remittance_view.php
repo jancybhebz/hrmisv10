@@ -7,10 +7,6 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Finance Module</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
             <span>Reports</span>
             <i class="fa fa-circle"></i>
         </li>

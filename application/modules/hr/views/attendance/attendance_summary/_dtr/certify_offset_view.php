@@ -23,7 +23,7 @@
                                 <th>Out</th>
                                 <th>In</th>
                                 <th>Out</th>
-                                <th>Rem</th>
+                                <th>Remarks</th>
                                 <th>OT</th>
                             </thead>
                             <tbody>
