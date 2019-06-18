@@ -89,6 +89,11 @@ class Payroll_process_model extends CI_Model {
 		$this->db->delete('tblProcess', array('processMonth' => ltrim($month,'0'), 'processYear' => $yr));
 	}
 
+	function delete_payroll_process_byid($id)
+	{
+		$this->db->delete('tblProcess', array('processID' => $id));
+	}
+
 	function getall_process($month='all',$yr)
 	{
 		if($month == 'all'):

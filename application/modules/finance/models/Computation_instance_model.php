@@ -87,6 +87,20 @@ class Computation_instance_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	function del_computation_nonperm_instance($appt,$mon,$yr,$per)
+	{
+		if($appt == 'JO'){
+			$this->db->where('appointmentCode', $appt);
+		}else{
+			$this->db->where('payrollGroupCode', $appt);
+		}
+		$this->db->where('pmonth', $mon);
+		$this->db->where('pyear', $yr);
+		$this->db->where('period', $per);
+		$this->db->delete('tblNonPermComputationInstance');
+		return $this->db->affected_rows();
+	}
+
 	function get_computation_details($arrData)
 	{
 		return $this->db->get_where('tblComputationDetails',array('latest' => 'Y'))->result_array();

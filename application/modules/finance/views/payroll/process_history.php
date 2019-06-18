@@ -119,7 +119,7 @@
                                     <td style="width: 250px; white-space: nowrap;">
                                         <a href="javascript:;" class="btn btn-sm blue" id="btnreprocess"
                                             data-procid="<?=$process['processID']?>" data-periodmon="<?=$process['processMonth']?>"
-                                            data-periodyr="<?=$process['processYear']?>" data-appt="<?=$process['employeeAppoint']?>">
+                                            data-periodyr="<?=$process['processYear']?>" data-appt="<?=$process['employeeAppoint']?>" data-period="<?=$process['period']?>">
                                             <i class="fa fa-refresh"></i> Reprocess</a>
                                         <a href="<?=base_url('finance/reports/monthly')?>" class="btn btn-sm grey-cascade" id="btnreprocess">
                                             <i class="fa fa-file-o"></i> Reports</a>
@@ -177,6 +177,7 @@
             $('#txtperiodmon').val($(this).data('periodmon'));
             $('#txtperiodyr').val($(this).data('periodyr'));
             $('#txtappt').val($(this).data('appt'));
+            $('#txtperiod').val($(this).data('period'));
             $('#reprocess_confirm').modal('show');
         });
 
