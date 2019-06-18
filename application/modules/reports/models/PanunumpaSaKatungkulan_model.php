@@ -57,8 +57,8 @@ class PanunumpaSaKatungkulan_model extends CI_Model {
 		//print_r($t_arrEmpInfo);exit(1);
 		if(count($t_arrEmpInfo)):
 			$extension = (trim($t_arrEmpInfo[0]['nameExtension'])=="") ? "" : " ".$t_arrEmpInfo[0]['nameExtension'];		
-			$strName = $t_arrEmpInfo[0]['firstname']." ".$t_arrEmpInfo[0]['middleInitial']." ".$t_arrEmpInfo[0]['surname'].$extension;	
-		
+			$strName = $t_arrEmpInfo[0]['firstname']." ".mi($t_arrEmpInfo[0]['middleInitial']).$t_arrEmpInfo[0]['surname'].$extension;	
+			$strName = utf8_decode($strName);
 		
 		$strPrgrph1 = "     Ako, si ".strtoupper($strName)
 					." ng ".strtoupper(getAgencyName())." na (hinirang/itinalaga) sa katungkulan bilang ".$t_arrEmpInfo[0]['positionDesc']." ay taimtim na nanunumpa na tutuparin"

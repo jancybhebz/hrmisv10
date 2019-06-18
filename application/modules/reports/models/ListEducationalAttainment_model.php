@@ -125,7 +125,7 @@ class ListEducationalAttainment_model extends CI_Model {
 		$this->fpdf->SetTextColor(0,0,0);
 		$this->fpdf->Ln();
 		$this->fpdf->SetFont('Arial','B',10);
-		$this->fpdf->Cell(0,2,'Lidt of Educational Attainment', 0, 0, 'C');
+		$this->fpdf->Cell(0,2,'List of Educational Attainment', 0, 0, 'C');
 
 //		$this->Cell(0,2,strtoupper('Employees by Educational Attainment'), 0, 0, 'C');
 		$this->fpdf->Ln(6);
@@ -152,7 +152,7 @@ class ListEducationalAttainment_model extends CI_Model {
 			$strEmpNumber = $arrPersonnelInfo['empNumber'];
 			$strMidName = $arrPersonnelInfo['middlename'];
 			$strMiddleName = substr($strMidName,0,1);			
-			$strEmpName = $arrPersonnelInfo['firstname']. " ".$arrPersonnelInfo['middleInitial']."."." ".$arrPersonnelInfo['surname']." ".$arrPersonnelInfo['nameExtension'];
+			$strEmpName = $arrPersonnelInfo['firstname']. " ".mi($arrPersonnelInfo['middleInitial']).$arrPersonnelInfo['surname']." ".$arrPersonnelInfo['nameExtension'];
 			$strPositionCode = $arrPersonnelInfo['positionCode'];
 			$strPositionDesc = $arrPersonnelInfo['positionDesc'];
 			$strStatusOfAppointment = $arrPersonnelInfo['statusOfAppointment'];

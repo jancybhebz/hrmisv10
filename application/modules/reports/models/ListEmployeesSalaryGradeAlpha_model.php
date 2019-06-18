@@ -63,13 +63,14 @@ class ListEmployeesSalaryGradeAlpha_model extends CI_Model {
 		$this->fpdf->SetFillColor(255,255,255);
 		$this->fpdf->SetDrawColor(0,0,0);
 		$this->fpdf->SetFont('Arial','',10);
+		$i=1;
 		foreach($objQuery as $arrEmp)
 		//while($arrSalaryGrade = mysql_fetch_array($objSalaryGrade))
 		{
 			
 			$extension = (trim($arrEmp['nameExtension'])=="") ? "" : " ".$arrEmp['nameExtension'];		
 			//$name = $arrEmp['firstname']." ".$arrEmp['middleInitial'].". ".$arrEmp['surname']." ".$extension;
-			$name=$arrEmp["surname"].', '.$arrEmp["firstname"].$extension.' '.$arrEmp["middlename"];
+			$name=$arrEmp["surname"].', '.$arrEmp["firstname"].$extension.' '.mi($arrEmp["middlename"]);
 
 	/*			
 			$this->Cell(100,0,$name,0,0,L);
@@ -85,7 +86,8 @@ class ListEmployeesSalaryGradeAlpha_model extends CI_Model {
 			$Ln = array('L','C','C');
 			$this->fpdf->SetWidths($w);
 			$this->fpdf->SetAligns($Ln);
-			$this->fpdf->FancyRow(array($name,$strOfficePosition,$arrEmp["salaryGradeNumber"]),array(1,1,1));
+			$this->fpdf->FancyRow(array($i.'. '.$name,$strOfficePosition,$arrEmp["salaryGradeNumber"]),array(1,1,1),$Ln);
+			$i++;
 		}
 
 		/* Signatory */

@@ -39,6 +39,7 @@ class CertificateNoAdministrativeChargeLegalPurpose_model extends CI_Model {
 			'tblEmpPosition.positionCode = tblPosition.positionCode','left');
 		$this->db->join('tblAppointment',
 			'tblEmpPosition.appointmentCode = tblAppointment.appointmentCode','left');
+		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('tblEmpPersonal.surname, tblEmpPersonal.firstname');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		//echo $this->db->last_query();
@@ -48,23 +49,25 @@ class CertificateNoAdministrativeChargeLegalPurpose_model extends CI_Model {
 	function generate($arrData)
 	{		
 		
-		$rs=$this->getSQLData($arrData['empno']);
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		
 		foreach($rs as $t_arrEmpInfo):
 			$this->fpdf->AddPage();
 			$extension = (trim($t_arrEmpInfo['nameExtension'])=="") ? "" : " ".$t_arrEmpInfo['nameExtension'];		
-			$strName = $t_arrEmpInfo['firstname']." ".$t_arrEmpInfo['middleInitial'].". ".$t_arrEmpInfo['surname'].$extension;
+			$strName = $t_arrEmpInfo['firstname']." ".mi($t_arrEmpInfo['middleInitial']).$t_arrEmpInfo['surname'].$extension;
 			//$name = strtoupper($t_arrEmpInfo['surname'].", ".$t_arrEmpInfo['firstname'].$extension." ".$t_arrEmpInfo['middleInitial']);
 	
 			$strPronoun = pronoun($t_arrEmpInfo['sex']);
 			$strPronoun2= pronoun2($t_arrEmpInfo['sex']);
 			$title = titleOfCourtesy($t_arrEmpInfo['sex']);
 			//list($year,$month,$day)=split('[/,-]',$t_arrEmpInfo['firstDayAgency']);
-			$arrTmpDate = explode('-',$t_arrEmpInfo['firstDayAgency']);
-			$year = $arrTmpDate[0];
-			$month = $arrTmpDate[1];
-			$day = $arrTmpDate[2];
-			$positionDate = intToMonthFull($month)." ".$day.", ".$year;
+			// $arrTmpDate = explode('-',$t_arrEmpInfo['firstDayAgency']);
+			// $year = $arrTmpDate[0];
+			// $month = $arrTmpDate[1];
+			// $day = $arrTmpDate[2];
+			// $positionDate = intToMonthFull($month)." ".$day.", ".$year;
+			$positionDate = date('F j, Y',strtotime($t_arrEmpInfo['firstDayAgency']));
+			$year = date('Y',strtotime($t_arrEmpInfo['firstDayAgency']));
 			$currYear=date("Y");
 			$totalYear=$currYear-$year;
 			$tmpYear=$currYear-$year;

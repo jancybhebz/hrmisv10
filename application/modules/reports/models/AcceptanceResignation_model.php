@@ -29,7 +29,7 @@ class AcceptanceResignation_model extends CI_Model {
 		$this->fpdf->SetRightMargin(25);
 		$this->fpdf->SetTopMargin(10);
 		$this->fpdf->SetAutoPageBreak("on",10);
-		$this->fpdf->AddPage('P','','A4');
+		
 		
 		
 		$this->fpdf->SetFont('Arial','B',12);
@@ -41,10 +41,11 @@ class AcceptanceResignation_model extends CI_Model {
 		$t_dtmRcvDate = $arrData['dtReceivedDay']." ".date('F',strtotime(date('Y').'-'.$arrData['dtReceivedMonth'].'-'.date('d')))." ".$arrData['dtReceivedYear'];
 		$t_dtmAcptDate = $arrData['dtAcceptedDay']." ".date('F',strtotime(date('Y').'-'.$arrData['dtAcceptedMonth'].'-'.date('d')))." ".$arrData['dtAcceptedYear'];
 
-		$rs = $this->getSQLData($arrData['empno']);
+		$rs = $this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		foreach($rs as $t_arrEmpInfo):
+			$this->fpdf->AddPage('P','','A4');
 			$extension = (trim($t_arrEmpInfo['nameExtension'])=="") ? "" : " ".$t_arrEmpInfo['nameExtension'];		
-			$strName = $t_arrEmpInfo['firstname']." ".$t_arrEmpInfo['middleInitial'].". ".$t_arrEmpInfo['surname'].$extension;
+			$strName = $t_arrEmpInfo['firstname']." ".mi($t_arrEmpInfo['middleInitial']).". ".$t_arrEmpInfo['surname'].$extension;
 			$this->fpdf->Ln(30);
 			$this->fpdf->SetFont('Arial', "BU", 16);
 			//$this->Cell(0, 5, "A C C E P T A N C E  O F  R E S I G N A T I O N", 0, 0, "C");

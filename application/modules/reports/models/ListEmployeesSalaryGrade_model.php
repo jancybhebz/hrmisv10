@@ -83,7 +83,13 @@ class ListEmployeesSalaryGrade_model extends CI_Model {
 		$Ln = array('C','C','C');
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
-		$this->fpdf->FancyRow(array("EMPLOYEE NUMBER","EMPLOYEE NAME","OFFICE - POSITION"),array(1,1,1));
+		$this->fpdf->SetFillColor(225,225,225);
+		$this->fpdf->Cell($w[0],10,"EMPLOYEE NUMBER",1,0,'C',1);
+		$this->fpdf->Cell($w[1],10,"EMPLOYEE NAME",1,0,'C',1);
+		$this->fpdf->Cell($w[2],10,"OFFICE - POSITION",1,0,'C',1);
+		$this->fpdf->Ln();
+		//$this->fpdf->FancyRow(array("EMPLOYEE NUMBER","EMPLOYEE NAME","OFFICE - POSITION"),array(1,1,1),1,1);
+		$this->fpdf->SetFillColor(255,255,25);
 	}
 
 	function get_salarygrade()
@@ -127,7 +133,7 @@ class ListEmployeesSalaryGrade_model extends CI_Model {
 					$strMiddleName = substr($strMidName,0,1);
 					
 					$extension = (trim($arrEmpSalaryGrade['nameExtension'])=="") ? "" : " ".$arrEmpSalaryGrade['nameExtension'];		
-					$strEmpName=$arrEmpSalaryGrade["surname"].', '.$arrEmpSalaryGrade["firstname"].$extension.' '.$arrEmpSalaryGrade["middleInitial"].'.';
+					$strEmpName=$arrEmpSalaryGrade["surname"].', '.$arrEmpSalaryGrade["firstname"].$extension.' '.mi($arrEmpSalaryGrade["middleInitial"]);
 
 					
 					//$strEmpName = $arrEmpSalaryGrade['surname'].",  ".$arrEmpSalaryGrade['firstname']." ".

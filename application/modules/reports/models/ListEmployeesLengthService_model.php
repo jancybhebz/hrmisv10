@@ -84,7 +84,7 @@ class ListEmployeesLengthService_model extends CI_Model {
 		foreach($query as $row)
 		//while ($row = mysql_fetch_array($query))
 		{
-			$name = strtoupper($row['surname'].", ".$row['firstname']." ".$row['nameExtension']." ".$row['middlename']);
+			$name = $row['surname'].", ".$row['firstname']." ".$row['nameExtension']." ".mi($row['middlename']);
 			//list($year,$month,$day)=split('[/,-]',$row['firstDayGov']);
 			$arrTmpDate = explode('-',$row['firstDayGov']);
 			$year=$arrTmpDate[0];

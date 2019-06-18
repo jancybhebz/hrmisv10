@@ -39,6 +39,7 @@ class CertificateServiceLoyaltyAward_model extends CI_Model {
 			'tblEmpPosition.positionCode = tblPosition.positionCode','left');
 		$this->db->join('tblAppointment',
 			'tblEmpPosition.appointmentCode = tblAppointment.appointmentCode','left');
+		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('tblEmpPersonal.surname, tblEmpPersonal.firstname');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		//echo $this->db->last_query();
@@ -48,12 +49,12 @@ class CertificateServiceLoyaltyAward_model extends CI_Model {
 	function generate($arrData)
 	{		
 		
-		$rs=$this->getSQLData($arrData['empno']);
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
 		
 		foreach($rs as $t_arrEmpInfo):
 			$this->fpdf->AddPage();
 			$extension = (trim($t_arrEmpInfo['nameExtension'])=="") ? "" : " ".$t_arrEmpInfo['nameExtension'];		
-			$name = $t_arrEmpInfo['firstname']." ".$t_arrEmpInfo['middleInitial'].". ".$t_arrEmpInfo['surname'].$extension;			
+			$name = $t_arrEmpInfo['firstname']." ".mi($t_arrEmpInfo['middleInitial']).$t_arrEmpInfo['surname'].$extension;			
 			$strPronoun = pronoun($t_arrEmpInfo['sex']);
 			$strPronoun2= pronoun2($t_arrEmpInfo['sex']);
 			$title = titleOfCourtesy($t_arrEmpInfo['sex']);

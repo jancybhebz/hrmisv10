@@ -112,7 +112,10 @@ class Reports extends MY_Controller {
 			break;
 			case 'reportPDSupdate': 
 				$this->load->model(array('reports/ReportPDSupdate_rpt_model'));
-				$arrData=array('empNumber'=>$arrGet['empNumber']);			
+				if(isset($arrGet['empNumber']))
+					$arrData=array('empNumber'=>$arrGet['empNumber']);
+				else
+					$arrData=array();			
 				$this->ReportPDSupdate_rpt_model->generate($arrData);
 				echo $this->fpdf->Output();	
 			break;

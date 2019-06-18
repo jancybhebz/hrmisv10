@@ -70,6 +70,8 @@ class ListOfRetirees_model extends CI_Model {
 		$this->fpdf->SetWidths($w);
 		$this->fpdf->SetAligns($Ln);
 		$this->fpdf->SetFillColor(255,255,255);
+		$this->fpdf->SetFont('Arial','',8);
+		$i=1;
 		foreach($objQuery as $rs)
 		//while($arrSalaryGrade = mysql_fetch_array($objSalaryGrade))
 		{
@@ -83,7 +85,8 @@ class ListOfRetirees_model extends CI_Model {
 			$resignDate = date("Y")."-".$month."-".$day;			
 			$strOffice = office_name(employee_office($rs['empNumber']));
 			$strOfficePosition = $strOffice.' - '.$rs["positionDesc"];
-			$this->fpdf->Row(array($name,$strOfficePosition,date('F j, Y',strtotime($rs['birthday'])), date('F j, Y',strtotime($resignDate))),1);
+			$this->fpdf->FancyRow(array($i.'. '.$name,$strOfficePosition,date('F j, Y',strtotime($rs['birthday'])), date('F j, Y',strtotime($resignDate))),array(1,1,1,1),1);
+			$i++;
 		}
 		
 		/* Signatory */
