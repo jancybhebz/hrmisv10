@@ -45,7 +45,8 @@ class AcceptanceResignation_model extends CI_Model {
 		foreach($rs as $t_arrEmpInfo):
 			$this->fpdf->AddPage('P','','A4');
 			$extension = (trim($t_arrEmpInfo['nameExtension'])=="") ? "" : " ".$t_arrEmpInfo['nameExtension'];		
-			$strName = $t_arrEmpInfo['firstname']." ".mi($t_arrEmpInfo['middleInitial']).". ".$t_arrEmpInfo['surname'].$extension;
+			$strName = $t_arrEmpInfo['firstname']." ".mi($t_arrEmpInfo['middleInitial']).$t_arrEmpInfo['surname'].$extension;
+			$strName = utf8_decode($strName);
 			$this->fpdf->Ln(30);
 			$this->fpdf->SetFont('Arial', "BU", 16);
 			//$this->Cell(0, 5, "A C C E P T A N C E  O F  R E S I G N A T I O N", 0, 0, "C");
