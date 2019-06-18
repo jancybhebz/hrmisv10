@@ -432,10 +432,10 @@ class Payrollupdate_nonperm extends MY_Controller {
 											   'officeCode' 	 => $emp['emp_detail']['officeCode'],
 											   'incomeAmount' 	 => $emp_income[0]['incomeAmount'] == '' ? 0 : $emp_income[0]['incomeAmount'],
 											   'appointmentCode' => $emp['emp_detail']['appointmentCode'],
-											   'period1' 		 => $emp_income[0]['period1'],
-											   'period2' 		 => $emp_income[0]['period2'],
-											   'period3' 		 => $emp_income[0]['period3'],
-											   'period4' 		 => $emp_income[0]['period4']);
+											   'period1' 		 => $process_data['period'] == 1 ? $emp['emp_detail']['actualSalary'] / 2 : 0,
+											   'period2' 		 => $process_data['period'] == 2 ? $emp['emp_detail']['actualSalary'] / 2 : 0,
+											   'period3' 		 => $process_data['period'] == 3 ? $emp['emp_detail']['actualSalary'] / 2 : 0,
+											   'period4' 		 => $process_data['period'] == 4 ? $emp['emp_detail']['actualSalary'] / 2 : 0);
 					$this->Income_model->add_emp_income($arrData_empincome);
 					$income_salary['period1'] = $emp_income[0]['period1'];
 					$income_salary['period2'] = $emp_income[0]['period2'];

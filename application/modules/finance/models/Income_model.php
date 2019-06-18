@@ -93,18 +93,20 @@ class Income_model extends CI_Model {
 
 	function get_employee_income($empnumber,$income_code,$type='')
 	{
-		if($type!=''):
-			if($type=='Others'):
-				$this->db->where("(tblIncome.incomeType='Monthly' OR tblIncome.incomeType='Additional')");
-			else:
-				$this->db->where('incomeType',$type);
+		if(count($income_code) > 0):
+			if($type!=''):
+				if($type=='Others'):
+					$this->db->where("(tblIncome.incomeType='Monthly' OR tblIncome.incomeType='Additional')");
+				else:
+					$this->db->where('incomeType',$type);
+				endif;
 			endif;
+			$this->db->join('tblIncome', 'tblIncome.incomeCode = tblEmpBenefits.incomeCode', 'left');
+			$this->db->where_in('tblEmpBenefits.incomeCode',$income_code);
+			$res = $this->db->get_where('tblEmpBenefits',array('empNumber' => $empnumber,'status' => 1))->result_array();
+			
+			return $res;
 		endif;
-		$this->db->join('tblIncome', 'tblIncome.incomeCode = tblEmpBenefits.incomeCode', 'left');
-		$this->db->where_in('tblEmpBenefits.incomeCode',$income_code);
-		$res = $this->db->get_where('tblEmpBenefits',array('empNumber' => $empnumber,'status' => 1))->result_array();
-		
-		return $res;
 	}
 
 

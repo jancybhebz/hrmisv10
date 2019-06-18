@@ -38,7 +38,6 @@
                                 <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Cancelled</small> &nbsp;&nbsp;</div>
                         </div>
                         <br><br>
-                        <pre><?php print_r($arrRequest) ?></pre>
                         <table class="table table-striped table-bordered table-hover" id="table-notif" style="visibility: hidden;">
                             <thead>
                                 <tr>

@@ -40,14 +40,6 @@ class Payslip extends CI_Model {
 			$ot = $arrot != '' ? $arrot[$period] : 0;
 
 			$process_codes = $this->Payroll_process_model->get_process_code($_GET['pgroup']);
-			// echo '<pre>';
-			// echo '<br>period_range = ';print_r($period_range);
-			// echo '<br>period = ';print_r($period);
-			// echo '<br>_GET<br>';print_r($_GET);
-			// echo '<br>process_details<br>';print_r($process_details);
-			// echo '<br>benefits<br>';print_r($benefits);
-			// echo '<br>deductions<br>';print_r($deductions);
-			// die();
 			$this->fpdf->AddPage('P');
 			$this->payslip_header($copy);
 			$this->fpdf->SetFont('Arial','',9);

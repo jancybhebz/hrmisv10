@@ -10,7 +10,7 @@ switch (strtolower($this->uri->segment(3))) {
 echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmdeductions'));?>
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
-        <h3 class="block">Select Benefits</h3>
+        <h3 class="block">Select Deduction</h3>
         <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
         <div class="row form-body">
             <div class="col-md-4" id="div-loan">
