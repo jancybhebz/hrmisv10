@@ -32,7 +32,7 @@ class Signatory_model extends CI_Model {
 			return $this->db->order_by('signatory','ASC')->get('tblSignatory')->result_array();
 		else:
 			$result = $this->db->get_where('tblSignatory', array('signatoryId' => $id))->result_array();
-			return $result[0];
+			return count($result) > 0 ? $result[0] : array();
 		endif;
 	}	
 

@@ -37,8 +37,7 @@ class MonthlyReports extends MY_Controller {
 	public function remittances()
 	{
 		$this->load->model('reports/remittances/Remittances');
-			$arrData=array('empno'=>$arrGet['empno']);
-		$this->Remittances->generate($arrData);
+		$this->Remittances->generate();
 	}
 
 }
