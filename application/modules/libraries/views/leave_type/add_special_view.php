@@ -7,6 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?php load_plugin('css',array('validation','datatables'));?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -88,7 +90,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_leave_type">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_specific_leave">
                     <thead>
                         <tr>
                             <th> No. </th>
@@ -116,7 +118,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </tbody>
                 </table>
 
-<?php load_plugin('js',array('validation'));?>
+<?php load_plugin('js',array('validation','datatables'));?>
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
   return value.indexOf(" ") < 0 && value != ""; 
@@ -204,6 +206,7 @@ jQuery(document).ready(function() {
 
 <script>
     $(document).ready(function() {
-        Datatables.init('libraries_leave_type');
+        Datatables.init('libraries_specific_leave');
   });
 </script>
+
