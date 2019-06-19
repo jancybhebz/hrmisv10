@@ -94,8 +94,8 @@
                                         foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
                                             echo '<td> '.number_format($loan['period'.$p], 2).' </td>';
                                         endforeach; ?>
-                                    <td><?=date("M", strtotime($loan['actualStartMonth'])).' '.$loan['actualStartYear']?></td>
-                                    <td><?=date("M", strtotime($loan['actualEndMonth'])).' '.$loan['actualEndYear']?></td>
+                                    <td><?=date("M", mktime(0,0,0,$loan['actualStartMonth'],10)).' '.$loan['actualStartYear']?></td>
+                                    <td><?=date("M", mktime(0,0,0,$loan['actualEndMonth'],10)).' '.$loan['actualEndYear']?></td>
                                     <td><?=getincome_status($loan['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">
@@ -104,6 +104,11 @@
                                                     data-period2="<?=$loan['period2'] == '' ? '0.00' : $loan['period2']?>"
                                                     data-period3="<?=$loan['period3'] == '' ? '0.00' : $loan['period3']?>"
                                                     data-period4="<?=$loan['period4'] == '' ? '0.00' : $loan['period4']?>"
+
+                                                    data-syr="<?=$loan['actualStartYear'] == '0000' ? date('Y') : $loan['actualStartYear']?>"
+                                                    data-smon="<?=$loan['actualStartMonth'] == '0' ? date('n') : sprintf('%02d',$loan['actualStartMonth'])?>"
+                                                    data-eyr="<?=$loan['actualEndYear'] == '0000' ? date('Y') : $loan['actualEndYear']?>"
+                                                    data-emon="<?=$loan['actualEndMonth'] == '0' ? date('n') : sprintf('%02d',$loan['actualEndMonth'])?>"
 
                                                     data-deductioncode="<?=$loan['deductionCode']?>" data-stat="loan"
                                                     data-deductcode="<?=$loan['deductCode']?>"
@@ -199,6 +204,10 @@
             $('#txtperiod4-bl').val(el.data('period4'));
             $('#selstatus-bl').val(el.data("statusval"));
             $('#selstatus-bl').selectpicker('refresh');
+            $('#selsyr-bl').val(el.data("syr")).selectpicker('refresh');
+            $('#selsmonth-bl').val(el.data("smon")).selectpicker('refresh');
+            $('#seleyr-bl').val(el.data("eyr")).selectpicker('refresh');
+            $('#selemonth-bl').val(el.data("emon")).selectpicker('refresh');
             $('#txtdeductcode').val(el.data("deductcode"));
             $('#txtdeductioncode').val(el.data("deductioncode"));
             $('#txtdeductionType').val(el.closest('table').data("title"));

@@ -437,6 +437,10 @@ class Personnel_profile extends MY_Controller {
 							 'period2' => isset($arrPost['txtperiod2']) ? str_replace(',', '', $arrPost['txtperiod2']) : '',
 							 'period3' => isset($arrPost['txtperiod3']) ? str_replace(',', '', $arrPost['txtperiod3']) : '',
 							 'period4' => isset($arrPost['txtperiod4']) ? str_replace(',', '', $arrPost['txtperiod4']) : '',
+							 'actualStartYear' => $arrPost['selsyr'],
+							 'actualStartMonth' => $arrPost['selsmonth'],
+							 'actualEndYear' => $arrPost['seleyr'],
+							 'actualEndMonth' => $arrPost['selemonth'],
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->editDeduction($arrData, $arrPost['txtdeductcode'], $empid);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' updated successfully.');
@@ -448,6 +452,10 @@ class Personnel_profile extends MY_Controller {
 							 'period2' => isset($arrPost['txtperiod2']) ? str_replace(',', '', $arrPost['txtperiod2']) : '',
 							 'period3' => isset($arrPost['txtperiod3']) ? str_replace(',', '', $arrPost['txtperiod3']) : '',
 							 'period4' => isset($arrPost['txtperiod4']) ? str_replace(',', '', $arrPost['txtperiod4']) : '',
+							 'actualStartYear' => $arrPost['selsyr'],
+							 'actualStartMonth' => $arrPost['selsmonth'],
+							 'actualEndYear' => $arrPost['seleyr'],
+							 'actualEndMonth' => $arrPost['selemonth'],
 							 'status' => $arrPost['selstatus']);
 			$this->Compensation_model->addDeduction($arrData);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' added successfully.');

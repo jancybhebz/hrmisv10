@@ -57,7 +57,7 @@
                                 <label class="control-label">Start Year<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                    <select class="form-control bs-select form-required" name="selsyr" id="selsyr-bl">
                                         <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>"
                                                 <?php 
@@ -76,7 +76,7 @@
                                 <label class="control-label">Start Month<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                    <select class="form-control bs-select form-required" name="selsmonth" id="selsmonth-bl">
                                         <option value="">SELECT STATUS</option>
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=sprintf('%02d', $m)?>"
@@ -96,7 +96,7 @@
                                 <label class="control-label">End Year<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                    <select class="form-control bs-select form-required" name="seleyr" id="seleyr-bl">
                                         <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>"
                                                 <?php 
@@ -115,7 +115,7 @@
                                 <label class="control-label">End Month<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                    <select class="form-control bs-select form-required" name="selemonth" id="selemonth-bl">
                                         <option value="">SELECT STATUS</option>
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=sprintf('%02d', $m)?>"
@@ -286,6 +286,7 @@
             $('#txtallperiod2').val($('#txtperiod2-bl').val());
             $('#txtallperiod3').val($('#txtperiod3-bl').val());
             $('#txtallperiod4').val($('#txtperiod4-bl').val());
+            
             $('#selallstatus').val($('#selstatus-bl').val());
         });
 
