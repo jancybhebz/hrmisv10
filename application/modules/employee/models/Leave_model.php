@@ -61,6 +61,12 @@ class Leave_model extends CI_Model {
 		return $res;
 	}
 
+	function add_employeeLeave($arrData)
+	{
+		$this->db->insert('tblEmpLeave', $arrData);
+		return $this->db->insert_id();		
+	}
+
 	function submitFL($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);

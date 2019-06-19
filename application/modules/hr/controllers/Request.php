@@ -7,60 +7,45 @@ class Request extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model'));
     }
 
 	public function leave_request()
 	{
+		$emp_session = $_SESSION;
 		$arrPost = $this->input->post();
-		echo '<pre>';
-		print_r($arrPost);
+
 		if(!empty($arrPost)):
 			$leave_details = json_decode($arrPost['txtleave_json'],true);
-			print_r($leave_details);
 			$request_details = explode(';',$leave_details['req_details']);
 
-			print_r($request_details);
-			echo 'here';
-			die();
 			$arrLeave_details = array(
 							'dateFiled'	 	=> $leave_details['req_date'],
 							'empNumber'	 	=> $leave_details['req_emp'],
 							'requestID' 	=> $leave_details['req_id'],
 							'leaveCode' 	=> $leave_details['req_type'],
-							'specificLeave' => $leave_details['ob_datefrom'],
-							'reason'		=> $leave_details['ob_datefrom'],
-							'leaveFrom' 	=> $leave_details['ob_datefrom'],
-							'leaveTo' 		=> $leave_details['ob_datefrom'],
-							'certifyHR' 	=> $leave_details['ob_datefrom'],
-							'remarks' 		=> $leave_details['ob_datefrom'],
-							'inoutpatient'	=> $leave_details['ob_datefrom'],
-							'vllocation'	=> $leave_details['ob_datefrom'],
-							'commutation'	=> $leave_details['ob_datefrom']);
-			if($sign == ''):
-				$arrsignatory = array(
-							'Signatory1'	 => date('Y-m-d'),
-							'Sig1DateTime'	 => $emps);
-			elseif($sign == ''):
-				$arrsignatory = array(
-							'Signatory2'	 => date('Y-m-d'),
-							'Sig2DateTime'	 => $emps);
-			elseif($sign == ''):
-				$arrsignatory = array(
-							'Signatory3'	 => date('Y-m-d'),
-							'Sig3DateTime'	 => $emps);
-			else:
-				$arrsignatory = array(
-							'SignatoryFin'	 => date('Y-m-d'),
-							'SigFinDateTime' => $emps);
-			endif;
+							'specificLeave' => $arrPost['txtreq_patient'],
+							'reason'		=> $request_details[4],
+							'leaveFrom' 	=> $request_details[2],
+							'leaveTo' 		=> $request_details[3],
+							'certifyHR' 	=> (strpos($leave_details['req_nextsign'], 'HR') !== false) ? 'Y' : '',
+							'remarks' 		=> $leave_details['req_remarks'],
+							'inoutpatient'	=> $arrPost['txtreq_patient'],
+							'vllocation'	=> $request_details[9],
+							'commutation'	=> $request_details[10]);
+			# add in empleave
+			$this->Leave_model->add_employeeLeave($arrLeave_details);
 
-			die();
-			// $this->Attendance_summary_model->add_ob($arrData);
-			// $this->session->set_flashdata('strSuccessMsg','Override OB added successfully.');
+			$arrsignatory = array(
+							'SignatoryFin'	 => $arrPost['selreq_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
+							'SigFinDateTime' => date('Y-m-d H:i:s'));
+			# update request
+			$this->Leave_model->save($arrsignatory, $leave_details['req_id']);
+
+			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selreq_stat']));
+			redirect('hr/notification');
 		endif;
 
-		redirect('hr/attendance/override/ob');
 	}
 
 
