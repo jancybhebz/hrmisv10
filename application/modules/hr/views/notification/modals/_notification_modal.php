@@ -115,7 +115,7 @@
             </div>
             <?=form_open('hr/request/ob_request', array('class' => 'form-horizontal'))?>
                 <div class="modal-body">
-                    <input type="text" name="txtob_json" id="txtob_json">
+                    <input type="hidden" name="txtob_json" id="txtob_json">
                     <div class="form-body">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Request ID</label>

@@ -83,6 +83,15 @@ $(document).ready(function() {
             $('select#selob_stat').selectpicker('refresh');
             $('#txtob_json').val(JSON.stringify(data));
             $('#request_ob').modal('show');
+            
+            if(data['req_status'] == 'Cancelled'){
+                $('#btnobcertify').hide();
+                $('select#selob_stat,#txtreq_remarks').attr('disabled','disabled');
+            }else{
+                $('#btnobcertify').show();
+                $('select#selob_stat,#txtreq_remarks').removeAttr('disabled');
+                $('select#selob_stat').selectpicker('refresh');
+            }
         }
 
         if(data['req_code'] == "TO") {
