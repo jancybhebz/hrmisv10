@@ -102,6 +102,7 @@ class Home extends MY_Controller {
 
 	public function vacantpositions($count=0)
 	{
+		$arrData = array();
 		$arrTmpData = $this->home_model->getvacantpositions();
 		$i=0;
 		foreach($arrTmpData as $row):
@@ -132,6 +133,7 @@ class Home extends MY_Controller {
 
 	public function retirees($count=0)
 	{
+		$arrData = array();
 		$arrTmpData = $this->home_model->getretirees();
 		$i=0;$dtmCurYear = date("Y");$intYear = $dtmCurYear;
 		foreach($arrTmpData as $row)
