@@ -143,3 +143,5 @@ INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES 
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPL', 'Half Special Leave', '0.5', '0');
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HMTL', 'Half Maternity Leave', '0.5', '0');
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPTL', 'Half Paternity Leave', '0.5', '0');
+
+UPDATE  `rollout`.`tblEmpAccount` SET  `userPassword` =  '$2y$10$n.QQrx3mdXY4EJ7VpYwUyeJ7Br7QAxo4E672pwPq7.5yrd5U4O1hm' WHERE `tblEmpAccount`.`empNumber` =  '1111';
