@@ -31,7 +31,7 @@ uploads/qr/*.png
 vendor/*
 
 .env
-
+index.php
 
 
 
