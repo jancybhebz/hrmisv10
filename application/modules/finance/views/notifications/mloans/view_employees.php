@@ -33,7 +33,6 @@
                             <span class="caption-subject bold uppercase"> Employees with Maturing Loan(s) for the month of <?=date('F')?></span>
                         </div>
                     </div>
-                
                     <div class="portlet-body">
                         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-mloans" style="display: none">
@@ -58,14 +57,14 @@
                                     <tr>
                                         <td> <?=$no++?> </td>
                                         <td> <?=$employee['empNumber']?> </td>
-                                        <td> <?=getfullname($employee['surname'], $employee['firstname'], $employee['middlename'], $employee['middleInitial'])?> </td>
+                                        <td> <?=employee_name($employee['empNumber'])?> </td>
                                         <td> <?=$employee['deductionDesc']?> </td>
                                         <td> <?=number_format($employee['amountGranted'],2)?> </td>
                                         <td> <?=number_format($employee['monthly'],2)?> </td>
                                         <td> <?=number_format($employee['total_remit'],2)?> </td>
                                         <td> <?=number_format(($employee['amountGranted'] - $employee['total_remit']),2)?> </td>
                                         <td> <?=date("F", mktime(0, 0, 0, $employee['actualEndMonth'], 10)).' '.$employee['actualEndYear']?> </td>
-                                        <td style="text-align: center;">
+                                        <td style="text-align: center;" nowrap>
                                             <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$employee['empNumber']?>" class="btn btn-sm blue">
                                                 <i class="fa fa-eye"></i>  View</a>
                                             <a data-toggle="modal" href="#editmaturingLoan" id="btnupdatemloans" class="btn btn-sm green"
@@ -88,14 +87,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Deduction update</h4>
+                <h4 class="bold modal-title">Deduction update</h4>
                 <label class="control-label" id="loan-title"></label>
             </div>
             <?=form_open('finance/notifications/notifications/updatematuringLoans', array('id' => 'frmmloans', 'method' => 'post'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="text" name="txtid" id="txtid">
+                            <input type="hidden" name="txtid" id="txtid">
                             <h4>Loan Details</h4>
                             <div class="form-group">
                                 <label class="control-label">Date Granted<span class="required"> * </span></label>

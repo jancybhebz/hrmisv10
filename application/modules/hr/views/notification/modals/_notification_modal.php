@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?=form_open('hr/request/leave_request', array('class' => 'form-horizontal'))?>
+            <?=form_open('hr/request/leave_request', array('class' => 'form-horizontal', 'method' => 'post'))?>
                 <div class="modal-body">
                     <div class="form-body">
                         <input type="hidden" name="txtleave_json" id="txtleave_json">
@@ -115,6 +115,7 @@
             </div>
             <?=form_open('hr/request/ob_request', array('class' => 'form-horizontal'))?>
                 <div class="modal-body">
+                    <input type="text" name="txtob_json" id="txtob_json">
                     <div class="form-body">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Request ID</label>

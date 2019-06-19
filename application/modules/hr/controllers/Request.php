@@ -45,8 +45,18 @@ class Request extends MY_Controller {
 			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selreq_stat']));
 			redirect('hr/notification');
 		endif;
-
 	}
+
+	public function ob_request()
+	{
+		$emp_session = $_SESSION;
+		$arrPost = $this->input->post();
+
+		if(!empty($arrPost)):
+			print_r($arrPost);
+		endif;
+	}
+
 
 
 }

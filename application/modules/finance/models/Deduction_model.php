@@ -154,6 +154,15 @@ class Deduction_model extends CI_Model {
 		return $objQuery->result_array();
 	}
 
+	function getMatureDeductions($month,$yr)
+	{
+		$this->db->select('tblDeduction.*,tblEmpDeductions.*,IFNULL((SELECT SUM(deductAmount)
+						FROM tblEmpDeductionRemit
+						WHERE tblEmpDeductionRemit.code=tblEmpDeductions.deductCode),0)  AS total_remit');
+		$this->db->join('tblDeduction', 'tblDeduction.deductionCode = tblEmpDeductions.deductionCode');
+		return $this->db->get_where('tblEmpDeductions',array('actualEndYear' => $yr, 'actualEndMonth' => $month))->result_array();
+	}
+
 	function getAgencyDeductionShare()
 	{
 		$res = $this->db->get_where('tblAgency')->result_array();

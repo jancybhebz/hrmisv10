@@ -33,12 +33,13 @@ $(document).ready(function() {
 
     $('table#tblmreports').on('click','a.areport', function(){
         var link = $(this).data('link');
+        var linkper = $(linkper).data('linkper');
         json = $('#selappt').find(':selected').attr('data-json');
         json_data = JSON.parse(json);
-        // alert(json_data.employeeAppoint);
-        if(json_data.employeeAppoint != 'P'){
-            getdata = "?appt=" + json_data.employeeAppoint + "&pprocess=" + json_data.processID + "&yr=" + json_data.processYear + "&month=" + json_data.processMonth + "&period=" + json_data.period;
-        }
+        // appt = json_data.employeeAppoint;
+        // if(json_data.employeeAppoint != 'P'){
+            getdata = "?appt=" + json_data.employeeAppoint + "&pprocess=" + json_data.processID + "&yr=" + json_data.processYear + "&month=" + json_data.processMonth + "&period=" + json_data.period + "&linkper=" + linkper;
+        // }
         // alert(json.employeeAppoint);
         $('.modal-title').html($(this).data('title'));
         $('#print-preview-modal').modal('show');

@@ -54,6 +54,84 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label">Start Year<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa fa-warning tooltips i-required"></i>
+                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                        <?php foreach (getYear() as $yr): ?>
+                                            <option value="<?=$yr?>"
+                                                <?php 
+                                                    if(isset($_GET['yr'])):
+                                                        echo $_GET['yr'] == $yr ? 'selected' : '';
+                                                    else:
+                                                        echo $yr == date('Y') ? 'selected' : '';
+                                                    endif;
+                                                    ?> >  
+                                            <?=$yr?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Start Month<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa fa-warning tooltips i-required"></i>
+                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                        <option value="">SELECT STATUS</option>
+                                        <?php foreach (range(1, 12) as $m): ?>
+                                            <option value="<?=sprintf('%02d', $m)?>"
+                                                <?php 
+                                                    if(isset($_GET['month'])):
+                                                        echo $_GET['month'] == $m ? 'selected' : '';
+                                                    else:
+                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                    endif;
+                                                    ?> >
+                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">End Year<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa fa-warning tooltips i-required"></i>
+                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                        <?php foreach (getYear() as $yr): ?>
+                                            <option value="<?=$yr?>"
+                                                <?php 
+                                                    if(isset($_GET['yr'])):
+                                                        echo $_GET['yr'] == $yr ? 'selected' : '';
+                                                    else:
+                                                        echo $yr == date('Y') ? 'selected' : '';
+                                                    endif;
+                                                    ?> >  
+                                            <?=$yr?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">End Month<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa fa-warning tooltips i-required"></i>
+                                    <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
+                                        <option value="">SELECT STATUS</option>
+                                        <?php foreach (range(1, 12) as $m): ?>
+                                            <option value="<?=sprintf('%02d', $m)?>"
+                                                <?php 
+                                                    if(isset($_GET['month'])):
+                                                        echo $_GET['month'] == $m ? 'selected' : '';
+                                                    else:
+                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                    endif;
+                                                    ?> >
+                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label">Status<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-warning tooltips i-required"></i>

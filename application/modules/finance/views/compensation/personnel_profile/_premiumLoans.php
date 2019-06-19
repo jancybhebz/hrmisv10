@@ -77,6 +77,8 @@
                                         foreach(setPeriods($empPayrollProcess) as $period):
                                             echo '<th> '.$period.' </th>';
                                         endforeach; ?>
+                                    <th>Start</th>
+                                    <th>End</th>
                                     <th> Status </th>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <th style="text-align: center;width: 10px;"> Actions </th>
@@ -92,6 +94,8 @@
                                         foreach(range(1, count(setPeriods($empPayrollProcess))) as $p):
                                             echo '<td> '.number_format($loan['period'.$p], 2).' </td>';
                                         endforeach; ?>
+                                    <td><?=date("M", strtotime($loan['actualStartMonth'])).' '.$loan['actualStartYear']?></td>
+                                    <td><?=date("M", strtotime($loan['actualEndMonth'])).' '.$loan['actualEndYear']?></td>
                                     <td><?=getincome_status($loan['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">

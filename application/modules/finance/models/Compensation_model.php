@@ -168,7 +168,7 @@ class Compensation_model extends CI_Model {
 
 	function getPremiumDeduction($empid, $deductionType)
 	{
-		$sql = "SELECT tblDeduction.`deductionCode`, `amountGranted`,`annual`,`deductionDesc`, `monthly`,`period1`,`period2`,`period3`,`period4`, empNumber, tblDeduction.`deductionType`, `deductCode`,`status`, tblDeduction2.deductCode
+		$sql = "SELECT tblDeduction.`deductionCode`, `amountGranted`,`annual`,`deductionDesc`, `monthly`,`period1`,`period2`,`period3`,`period4`, empNumber, tblDeduction.`deductionType`, `deductCode`,`status`, `actualStartMonth`, `actualStartYear`, `actualEndMonth`, `actualEndYear`, tblDeduction2.deductCode
 					FROM (SELECT * FROM tblEmpDeductions WHERE empNumber='$empid') AS tblDeduction2
 					RIGHT JOIN tblDeduction ON   tblDeduction2.deductionCode =tblDeduction.deductionCode  WHERE deductionType='$deductionType' AND hidden='0' 
 					ORDER BY status desc, deductionDesc ASC";

@@ -62,7 +62,7 @@ class Notifications extends MY_Controller {
 	{
 		$this->load->model('Deduction_model');
 		$arrEmployees = array();
-		$this->arrData['arrEmployees'] = $this->Deduction_model->getMaturingLoans(date('n'), date('Y'));
+		$this->arrData['arrEmployees'] = $this->Deduction_model->getMatureDeductions(date('n'), date('Y'));
 		$this->template->load('template/template_view','finance/notifications/mloans/view_employees',$this->arrData);
 	}
 

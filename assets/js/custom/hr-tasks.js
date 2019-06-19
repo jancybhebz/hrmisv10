@@ -81,7 +81,7 @@ $(document).ready(function() {
             $('select#selob_stat').empty().append('<option value="'+status[0]+'">'+getrequest_status(status[0])+'</option>');
             $('select#selob_stat').append('<option value="Disapproved">Disapprove</option>');
             $('select#selob_stat').selectpicker('refresh');
-
+            $('#txtob_json').val(JSON.stringify(data));
             $('#request_ob').modal('show');
         }
 
