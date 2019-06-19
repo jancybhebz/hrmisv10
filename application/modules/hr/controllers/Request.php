@@ -7,7 +7,7 @@ class Request extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model'));
     }
 
 	public function leave_request()
@@ -38,6 +38,7 @@ class Request extends MY_Controller {
 
 			$arrsignatory = array(
 							'SignatoryFin'	 => $arrPost['selreq_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
+							'requestStatus' => $arrPost['selreq_stat'],
 							'SigFinDateTime' => date('Y-m-d H:i:s'));
 			# update request
 			$this->Leave_model->save($arrsignatory, $leave_details['req_id']);
@@ -51,10 +52,39 @@ class Request extends MY_Controller {
 	{
 		$emp_session = $_SESSION;
 		$arrPost = $this->input->post();
-
+		echo '<pre>';
 		if(!empty($arrPost)):
-			print_r($arrPost);
+			$request_details = fixArray($arrPost['txtob_json']);
+			$ob_details = explode(';',$request_details['req_details']);
+			print_r($request_details);
+			print_r($ob_details);
+			$arrData=array(
+				'dateFiled' 	 => date('Y-m-d'),
+				'empNumber'	  	 => $request_details['req_emp'],
+				'requestID' 	 => $request_details['req_id'],
+				'obDateFrom' 	 => $ob_details[1],
+				'obDateTo' 		 => $ob_details[2],
+				'obTimeFrom' 	 => $ob_details[3],
+				'obTimeTo' 		 => $ob_details[4],
+				'obPlace' 		 => $ob_details[5],
+				'obMeal' 		 => $ob_details[6] == '' ? 'Y' : 'N',
+				'purpose' 		 => $ob_details[7],
+				'official' 		 => $ob_details[0],
+				'approveRequest' => 'Y',
+				'approveChief' 	 => 'Y',
+				'approveHR' 	 => 'Y');
+			
+			$this->Attendance_summary_model->add_ob($arrData);
+			$arrsignatory = array(
+							'SignatoryFin' => $arrPost['selob_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
+							'requestStatus' => $arrPost['selob_stat'],
+							'SigFinDateTime' => date('Y-m-d H:i:s'));
+			# update request
+
+			$this->Leave_model->save($arrsignatory, $request_details['req_id']);
+			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selob_stat']));
 		endif;
+		redirect('hr/notification');
 	}
 
 
