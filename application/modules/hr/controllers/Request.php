@@ -87,6 +87,48 @@ class Request extends MY_Controller {
 		redirect('hr/notification');
 	}
 
+	public function dtr_request()
+	{
+		$emp_session = $_SESSION;
+		$arrPost = $this->input->post();
+		
+		if(!empty($arrPost)):
+			$request_details = fixArray($arrPost['txtdtr_json']);
+			$dtr_details = explode(';',$request_details['req_details']);
+			$empdtr = $this->Attendance_summary_model->getEmployee_dtr($request_details['req_emp'],$dtr_details[0],$dtr_details[0]);
+
+			$arrData = array('empNumber'	=> $request_details['req_emp'],
+							 'dtrDate'		=> $request_details['req_date'],
+							 'inAM' 		=> $dtr_details[8],
+							 'outAM' 		=> $dtr_details[9],
+							 'inPM' 		=> $dtr_details[10],
+							 'outPM' 		=> $dtr_details[11],
+							 'inOT' 		=> $dtr_details[12],
+							 'outOT' 		=> $dtr_details[13],
+							 // TODO:: FIND PREVIOUS DATA
+							 'name' 		=> $emp_session['sessEmpNo'],
+							 'ip'			=> $this->input->ip_address(),
+							 'editdate'		=> date('Y-m-d h:i:s A'),
+							 'oldValue' 	=> '');
+			
+			if(count($empdtr) > 0):
+				$this->Attendance_summary_model->edit_dtr($arrData, $request_details['req_emp']);
+			else:
+				$this->Attendance_summary_model->add_dtr($arrData);
+			endif;
+
+			$arrsignatory = array(
+							'SignatoryFin' => $arrPost['seldtr_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
+							'requestStatus' => $arrPost['seldtr_stat'],
+							'SigFinDateTime' => date('Y-m-d H:i:s'));
+			# update request
+
+			$this->Leave_model->save($arrsignatory, $request_details['req_id']);
+			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selob_stat']));
+		endif;
+		redirect('hr/notification');
+	}
+
 
 
 }

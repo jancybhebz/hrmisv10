@@ -83,7 +83,7 @@ $(document).ready(function() {
             $('select#selob_stat').selectpicker('refresh');
             $('#txtob_json').val(JSON.stringify(data));
             $('#request_ob').modal('show');
-            
+
             if(data['req_status'] == 'Cancelled'){
                 $('#btnobcertify').hide();
                 $('select#selob_stat,#txtreq_remarks').attr('disabled','disabled');
@@ -92,6 +92,36 @@ $(document).ready(function() {
                 $('select#selob_stat,#txtreq_remarks').removeAttr('disabled');
                 $('select#selob_stat').selectpicker('refresh');
             }
+        }
+        if(data['req_code'] == "DTR") {
+            console.log(data);
+            $('#txtdtr_id').val(data['req_id']);
+            $('#txtdtr_empno').val(data['req_emp']);
+            $('#txtdtr_empname').val(data['req_empname']);
+            $('#txtdtr_json').val(JSON.stringify(data));
+
+            $('#txtdtr_date').val(details[0]);
+            $('#txtdtr_old_amin').val(details[2]);
+            $('#txtdtr_old_amout').val(details[3]);
+            $('#txtdtr_old_pmin').val(details[4]);
+            $('#txtdtr_old_pmout').val(details[5]);
+            $('#txtdtr_old_otin').val(details[6]);
+            $('#txtdtr_old_otout').val(details[7]);
+            $('#txtdtr_new_amin').val(details[8]);
+            $('#txtdtr_new_amout').val(details[9]);
+            $('#txtdtr_new_pmin').val(details[10]);
+            $('#txtdtr_new_pmout').val(details[11]);
+            $('#txtdtr_new_otin').val(details[12]);
+            $('#txtdtr_new_otout').val(details[13]);
+
+            $('#txtdtr_reason').val(details[14]);
+            $('#txtdtr_evi').val(details[15]);
+
+            $('select#seldtr_stat').empty().append('<option value="'+status[0]+'">'+getrequest_status(status[0])+'</option>');
+            $('select#seldtr_stat').append('<option value="Disapproved">Disapprove</option>');
+            $('select#seldtr_stat').selectpicker('refresh');
+
+            $('#request_dtr').modal('show');
         }
 
         if(data['req_code'] == "TO") {

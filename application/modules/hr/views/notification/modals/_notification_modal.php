@@ -219,6 +219,172 @@
     </div>
 </div>
 
+<!-- request dtr -->
+
+<div id="request_dtr" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <?=form_open('hr/request/dtr_request', array('class' => 'form-horizontal'))?>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <input type="hidden" name="txtdtr_json" id="txtdtr_json">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Request ID</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_id" name="txtdtr_id" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Employee Number</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_empno" name="txtdtr_empno" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Employee Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_empname" name="txtdtr_empname" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Dtr Date </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_date" name="txtdtr_date" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Old Time in (AM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_old_amin" name="txtdtr_old_amin" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Old Time out (AM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_old_amout" name="txtdtr_old_amout" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Old Time in (PM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_old_pmin" name="txtdtr_old_pmin" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Old Time out (PM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_old_pmout" name="txtdtr_old_pmout" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Old Overtime in </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_old_otin" name="txtdtr_old_otin" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Old Overtime out </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_old_otout" name="txtdtr_old_otout" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">New Time in (AM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_new_amin" name="txtdtr_new_amin" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">New Time out (AM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_new_amout" name="txtdtr_new_amout" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">New Time in (PM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_new_pmin" name="txtdtr_new_pmin" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">New Time out (PM) </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_new_pmout" name="txtdtr_new_pmout" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">New Overtime in </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_new_otin" name="txtdtr_new_otin" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">New Overtime out </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txtdtr_new_otout" name="txtdtr_new_otout" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Reason</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="txtdtr_reason" name="txtdtr_reason" disabled></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Supporting Evidence</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="txtdtr_evi" name="txtdtr_evi" disabled></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Status of Request</label>
+                            <div class="col-md-8">
+                                <select class="bs-select form-control" name="seldtr_stat" id="seldtr_stat"></select>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Remarks</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="txtdtr_remarks" name="txtdtr_remarks"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btndtrcertify" class="btn btn-sm green"><i class="icon-check"> </i> Certify</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+                </div>
+            <?=form_close()?>
+        </div>
+    </div>
+</div>
+
 <div id="request_to" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -28,6 +28,7 @@ class Update_dtr extends MY_Controller {
 	
 	public function submit()
     {
+    	echo '<pre>';
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
@@ -47,10 +48,11 @@ class Update_dtr extends MY_Controller {
 				if( count($this->update_dtr_model->checkExist($dtmDTRupdate))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$dtmDTRupdate.';'.$dtmMorningIn.';'.$dtmMorningOut.';'.$dtmAfternoonIn.';'.$dtmAfternoonOut.';'.$dtmOvertimeIn.';'.$dtmOvertimeOut.';'.$strReason,
+						// 'requestDetails'=>$dtmDTRupdate.';'.$dtmMorningIn.';'.$dtmMorningOut.';'.$dtmAfternoonIn.';'.$dtmAfternoonOut.';'.$dtmOvertimeIn.';'.$dtmOvertimeOut.';'.$strReason,
+						'requestDetails'=>implode(';',$arrPost),
 						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
+						'requestStatus'=>'Filed Request',
+						'requestCode'=>'DTR',
 						'empNumber'=>$_SESSION['sessEmpNo']
 						// 'requestDate'=>$dtmOBrequestdate,
 						// 'requestStatus'=>
@@ -60,7 +62,7 @@ class Update_dtr extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmDTRupdate.' Official Business',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/update_dtr');
 				}

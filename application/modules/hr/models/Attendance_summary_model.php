@@ -22,8 +22,13 @@ class Attendance_summary_model extends CI_Model {
 	function getEmployee_dtr($empid,$sdate,$edate)
 	{
 		$this->db->where('empNumber', $empid);
-		$this->db->where("dtrDate BETWEEN '".$sdate."' AND '".$edate."'");
+		if($sdate == $edate){
+			$this->db->where("dtrDate",$sdate);
+		}else{
+			$this->db->where("dtrDate BETWEEN '".$sdate."' AND '".$edate."'");
+		}
 		$res = $this->db->get('tblEmpDTR')->result_array();
+		echo $this->db->last_query();
 		if(count($res) > 0){
 			return $res;
 		}else{

@@ -63,7 +63,7 @@ class Leave extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDay.' Leave',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Leave has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Leave has been submitted.');
 					}
 					redirect('employee/leave');
 				}
