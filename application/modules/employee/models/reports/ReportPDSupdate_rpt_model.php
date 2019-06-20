@@ -91,7 +91,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial','',8);
 				$this->fpdf->Cell($Ligne,$InterLigne,"2.     SURNAME ",'LTR',0,'L',1);
 				$this->fpdf->SetFont('Arial','',7);
-				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['surname']),1,0,'L');
+				$this->fpdf->Cell(0,$InterLigne,$row['surname'],1,0,'L');
 				$this->fpdf->Ln(6);
 				//  firstname
 				$this->fpdf->SetFont('Arial','',8);
