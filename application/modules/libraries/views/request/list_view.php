@@ -55,57 +55,57 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <td> <?php 
                                     if (isset($arrSig1[0]))
                                     { 
-                                        echo $arrSig1[0].' ';
+                                        echo $arrSig1[0].' : ';
                                     } 
                                     if(isset($arrSig1[1]))
                                     { 
-                                        echo $arrSig1[1].' ';
+                                        echo $arrSig1[1].' : ';
                                     } 
                                     if(isset($arrSig1[2]))
                                     { 
-                                         echo $arrSig2[2].' ';
+                                         echo employee_name(trim($arrSig1[2]));
                                     } ?>
-                                <?php $arrSig2 = explode(';', $request['Signatory2']);?>
+                                <?php $arrSig2 = explode(':', $request['Signatory2']);?>
                                 <td> <?php 
                                     if (isset($arrSig2[0]))
                                     { 
-                                        echo $arrSig2[0].' ';
+                                        echo $arrSig2[0].' : ';
                                     } 
                                     if(isset($arrSig2[1]))
                                     { 
-                                        echo $arrSig2[1].' ';
+                                        echo $arrSig2[1].' : ';
                                     } 
                                     if(isset($arrSig2[2]))
                                     { 
-                                        echo $arrSig2[2].' ';
+                                        echo employee_name(trim($arrSig2[2]));
                                     } ?>
                                 <?php $arrSig3 = explode(';', $request['Signatory3']);?>
                                 <td> <?php 
                                     if (isset($arrSig3[0]))
                                     { 
-                                        echo $arrSig3[0].' ';
+                                        echo $arrSig3[0].' : ';
                                     } 
                                     if(isset($arrSig3[1]))
                                     { 
-                                        echo $arrSig3[1].' ';
+                                        echo $arrSig3[1].' : ';
                                     } 
                                     if(isset($arrSig3[2]))
                                     { 
-                                        echo $arrSig3[2].' ';
+                                        echo employee_name(trim($arrSig3[2]));
                                     } ?>
                                 <?php $arrSigFin = explode(';', $request['SignatoryFin']);?>
                                 <td> <?php 
                                     if (isset($arrSigFin[0]))
                                     { 
-                                        echo $arrSigFin[0].' ';
+                                        echo $arrSigFin[0].' : ';
                                     } 
                                     if(isset($arrSigFin[1]))
                                     { 
-                                        echo $arrSigFin[1].' ';
+                                        echo $arrSigFin[1].' : ';
                                     } 
                                     if(isset($arrSigFin[2]))
                                     { 
-                                        echo $arrSigFin[2].' ';
+                                        echo employee_name(trim($arrSigFin[2]));
                                     } ?>
                                 </td> 
                                 <td>

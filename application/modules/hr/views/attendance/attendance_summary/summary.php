@@ -92,21 +92,22 @@
                                 </ul>
                                 <div class="tab-content">
                                     <!-- BEGIN OFFICER / EXECUTIVE MODULE -->
+
                                     <?php if(in_array(check_module(),array('officer','executive'))): ?>
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             <ul class="list-unstyled profile-nav">
                                                 <li>
-                                                    <?php  $strImageUrl = '';
-                                                      if(@getimagesize($strImageUrl))
+                                                    <?php  $strImageUrl = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
+                                                      if(file_exists($strImageUrl))
                                                         { 
-                                                            $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
+                                                            $strImage = $strImageUrl;
                                                         } 
                                                         else 
                                                         {
                                                           $strImage = base_url('assets/images/logo.png');
                                                         }   
-                                                        $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
+                                                        // $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
                                                     <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
                                                 </li>
                                             </ul>

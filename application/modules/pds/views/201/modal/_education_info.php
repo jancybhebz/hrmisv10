@@ -150,12 +150,6 @@
 <?=load_plugin('js',array('select','select2','datepicker'));?>
 
 <script>
-    $('select.select2').select2({
-        minimumResultsForSearch: -1,
-        placeholder: function(){
-            $(this).data('placeholder');
-        }
-    });
     $(document).ready(function() {
         $('#attperiod,#txtyrgraduate').datepicker( {
             format: ' yyyy',

@@ -53,16 +53,17 @@ $arrData = $arrData[0];?>
                                     <div class="col-md-2">
                                         <ul class="list-unstyled profile-nav">
                                             <li>
-                                                <?php  $strImageUrl = '';
-                                                  if(@getimagesize($strImageUrl))
-                                                    { 
+                                                <?php
+                                                $strImageUrl = 'uploads/employees/'.$arrData['empNumber'].'.jpg';
+                                                    if(file_exists($strImageUrl))
+                                                    {
                                                         $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
-                                                    } 
+                                                    }
                                                     else 
                                                     {
                                                       $strImage = base_url('assets/images/logo.png');
                                                     }   
-                                                    $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
+                                                    // $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
                                                 <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
                                                 
                                                 <?php if(check_module() == 'hr'): ?>
