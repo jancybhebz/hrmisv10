@@ -197,7 +197,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
 				$this->fpdf->SetFont('Arial','',7);
 				
-				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['subdivision1'].' '.$row['barangay1']),1,0,'L');//res address 2nd line SUBD / BRGY
+				$this->fpdf->Cell(0,$InterLigne,$row['subdivision1'].' '.$row['barangay1'],1,0,'L');//res address 2nd line SUBD / BRGY
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'C');
 				$this->fpdf->Ln(6);
 				
@@ -215,7 +215,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 				$this->fpdf->Cell($Ligne,$InterLigne,'','LR',0,'L',1);  // Residential 2nd blank
 				$this->fpdf->SetFont('Arial','',7);
 				
-				$this->fpdf->Cell(0,$InterLigne,utf8_decode($row['city1'].' '.$row['province1']),1,0,'L');//res address 3rd line CITY/PROV
+				$this->fpdf->Cell(0,$InterLigne,$row['city1'].' '.$row['province1'],1,0,'L');//res address 3rd line CITY/PROV
 				$this->fpdf->Cell($Ligne,$InterLigne,"",'LR',0,'C');
 				$this->fpdf->Ln(6);
 				//  height
