@@ -640,7 +640,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Scholarship :  </label>
-                    <select type="text" class="form-control" name="strScholarship" value="<?=!empty($this->session->userdata('strScholarship'))?$this->session->userdata('strScholarship'):''?>" required>
+                    <select type="text" class="form-control" name="strScholarship" value="<?=!empty($this->session->userdata('strScholarship'))?$this->session->userdata('strScholarship'):''?>">
                              <option value="">Select</option>
                             <?php foreach($arrScholarship as $scholar)
                             {
