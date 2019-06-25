@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Controller for Compensatory leave
+Purpose of file:    Controller for Compensatory Time Off
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division

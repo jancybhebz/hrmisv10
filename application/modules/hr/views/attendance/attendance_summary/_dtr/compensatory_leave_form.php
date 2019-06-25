@@ -4,7 +4,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> <?=$action?> Compensatory Leave</span>
+                    <span class="caption-subject bold uppercase"> <?=$action?> Compensatory Time Off</span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -93,7 +93,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h5 class="modal-title bold">Attendance - Compensatory leave</h5>
+                <h5 class="modal-title bold">Attendance - Compensatory Time Off</h5>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
