@@ -147,7 +147,7 @@ $arrData = $arrData[0];?>
                                                     <a href="#education" data-toggle="tab"> Education </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#examination" data-toggle="tab"> Examination </a>
+                                                    <a href="#examination" data-toggle="tab"> Eligibility </a>
                                                 </li>
                                                 <li>
                                                     <a href="#work_experience" data-toggle="tab"> Work Experience </a>
