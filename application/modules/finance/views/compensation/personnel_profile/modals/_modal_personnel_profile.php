@@ -218,11 +218,11 @@
                                 id="txtposdate" type="text" value="<?=isset($arrData) ? $arrData['positionDate'] == '0000-00-00' ? '' : $arrData['positionDate'] : ''?>">
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Mode of Separation<span class="required"> * </span></label>
+                            <label class="control-label">Employment Status<span class="required"> * </span></label>
                             <div class="input-icon right">
                                 <i class="fa fa-warning tooltips i-required"></i>
                                 <select class="form-control select2 form-required" name="selmodeofseparation" placeholder="">
-                                    <option value="NULL">SELECT MODE</option>
+                                    <option value="NULL">SELECT STATUS</option>
                                     <option value="In-Service" <?='In-Service' == $arrData['statusOfAppointment'] ? 'selected' : ''?>>
                                     In Service</option>
                                     <?php foreach($arrSeparationModes as $mode): ?>

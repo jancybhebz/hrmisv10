@@ -26,7 +26,7 @@
             <td><?=$arrPosition[0]['employmentBasis']?></td>
         </tr>
         <tr>
-            <th style="text-align: right;">Mode of Separation :</th>
+            <th style="text-align: right;">Employment Status :</th>
             <td><?=$arrPosition[0]['statusOfAppointment']?></td>
             <th style="text-align: right;">Category Service :</th>
             <td><?=$arrPosition[0]['categoryService']?></td>

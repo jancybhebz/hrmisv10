@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Mode of Separation</label>
+                                <label class="col-md-4 control-label">Employment Status</label>
                                 <div class="col-md-8">
                                     <select class="form-control select2" name="selmode_separation" id="selmode_separation">
                                         <option value=""> </option>

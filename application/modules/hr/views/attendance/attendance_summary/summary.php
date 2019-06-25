@@ -125,7 +125,7 @@
                                                                 <tr>
                                                                     <td width="25%"><b>Employee Number</b></td>
                                                                     <td width="25%"><?=$arrData['empNumber']?></td>
-                                                                    <td width="25%"><b>Mode of Separation</b></td>
+                                                                    <td width="25%"><b>Employment Status</b></td>
                                                                     <td width="25%"><?=$arrData['statusOfAppointment']?></td>
                                                                 </tr>
                                                                 <tr>
