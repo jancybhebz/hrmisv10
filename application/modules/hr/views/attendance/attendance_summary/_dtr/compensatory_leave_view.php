@@ -4,7 +4,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Compensatory Leave</span>
+                    <span class="caption-subject bold uppercase"> Compensatory Time Off</span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -13,7 +13,7 @@
                         <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber']?>" class="btn grey-cascade">
                             <i class="icon-calendar"></i> DTR </a>
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave_add/').$arrData['empNumber']?>">
-                            <i class="fa fa-plus"></i> Add Compensatory Leave</a>
+                            <i class="fa fa-plus"></i> Add Compensatory Time Off</a>
                         <br><br>
                         
                         <table class="table table-striped table-bordered table-hover" id="table-comp_leaves">

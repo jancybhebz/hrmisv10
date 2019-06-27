@@ -26,7 +26,7 @@
                     <td><?=$row['employmentBasis']?></td>
                 </tr>
                 <tr>
-                    <td>Mode of Separation :</td>
+                    <td>Employment Status :</td>
                     <td><?=$row['statusOfAppointment']?></td>
                     <td>Category Service :</td>
                     <td><?=$row['categoryService']?></td>
@@ -342,7 +342,7 @@
                                 </div>
                                 <div class="col-sm-1 text-left">
                                     <div class="form-group">
-                                        <label class="control-label">Mode of Separation :<span class="required"> * </span></label>
+                                        <label class="control-label">Employment Status :<span class="required"> * </span></label>
                                     </div>
                                 </div>
                                 <div class="col-sm-2" text-left>

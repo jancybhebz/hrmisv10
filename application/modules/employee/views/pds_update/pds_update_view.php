@@ -53,7 +53,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option value="Family">Family Background</option>
                                 <option value="Educational">Educational Attainment</option>
                                 <option value="Trainings">Trainings</option>
-                                <option value="Examinations">Examinations</option>
+                                <option value="Examinations">Eligibility</option>
                                 <option value="Children">Children</option>
                                 <option value="Community">Community Tax Certification</option>
                                 <option value="References">References</option>

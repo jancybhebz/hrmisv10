@@ -245,7 +245,7 @@ load_plugin('css',array('select','select2'));?>
                                 <label class="control-label">Employee Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" required>
+                                    <select type="text" class="form-control" name="strEmpName" id="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" required>
                                         <option value="">Select Employee Name</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -261,7 +261,7 @@ load_plugin('css',array('select','select2'));?>
                                 <label class="control-label">Username <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strUsername" value="<?=!empty($this->session->userdata('strUsername'))?$this->session->userdata('strUsername'):''?>" required>
+                                    <input type="text" class="form-control" name="strUsername" id="strUsername" value="<?=!empty($this->session->userdata('strUsername'))?$this->session->userdata('strUsername'):''?>" required>
                                 </div>
                             </div>
                         </div>
@@ -272,7 +272,7 @@ load_plugin('css',array('select','select2'));?>
                                 <label class="control-label">Password <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="password" class="form-control" name="strPassword" maxlength="20" value="<?=!empty($this->session->userdata('strPassword'))?$this->session->userdata('strPassword'):''?>" required>
+                                    <input type="password" class="form-control" name="strPassword" id="strPassword" maxlength="20" value="<?=!empty($this->session->userdata('strPassword'))?$this->session->userdata('strPassword'):''?>" required>
                                 </div>
                             </div>
                         </div>

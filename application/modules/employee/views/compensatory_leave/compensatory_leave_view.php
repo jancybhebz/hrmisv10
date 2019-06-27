@@ -19,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Compensatory Leave</span>
+            <span>Compensatory Time off</span>
         </li>
     </ul>
 </div>
@@ -37,7 +37,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Compensatory Leave</span>
+                    <span class="caption-subject bold uppercase">Compensatory Time off</span>
                 </div>
             </div>
             <div class="portlet-body">

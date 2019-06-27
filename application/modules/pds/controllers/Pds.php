@@ -311,7 +311,7 @@ class Pds extends MY_Controller
 				'reviewer'		=> $arrPost['txtreviewer']);
 
 			$this->pds_model->add_exam($arrData);
-			$this->session->set_flashdata('strSuccessMsg','Examination information added successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Eligibility information added successfully.');
 
 			redirect('hr/profile/'.$empid);
 		endif;
@@ -333,7 +333,7 @@ class Pds extends MY_Controller
 				'reviewer'		=> $arrPost['txtreviewer']);
 
 			$this->pds_model->save_exam($arrData, $arrPost['txtexamid']);
-			$this->session->set_flashdata('strSuccessMsg','Examination information updated successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Eligibility information updated successfully.');
 
 			redirect('hr/profile/'.$empid);
 		endif;
@@ -348,7 +348,7 @@ class Pds extends MY_Controller
 		{
 			$this->pds_model->delete_exam($arrPost['txtdel_exam']);
 
-			$this->session->set_flashdata('strSuccessMsg','Exam deleted successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Eligibility deleted successfully.');
 			redirect('hr/profile/'.$empid);
 		}
 	}
@@ -1060,7 +1060,7 @@ class Pds extends MY_Controller
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPosition','Edited '.$strServiceCode.' Personal',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Examination information updated successfully.');
+					$this->session->set_flashdata('strMsg','Eligibility information updated successfully.');
 				}
 				redirect('hr/profile/'.$strEmpNumber);
 			}

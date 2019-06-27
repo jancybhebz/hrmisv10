@@ -50,7 +50,7 @@ if ( ! function_exists('get_request'))
 			'update_pds'=>'PDS Update',
 			'update_dtr'=>'DTR Update',
 			'reports'=>'Reports',
-			'compensatory_leave'=>'Compensatory Leave',
+			'compensatory_leave'=>'Compensatory Time Off',
 			
 		);
 	}

@@ -396,7 +396,7 @@ $activetab = strtolower($activetab);
                         </li>
                         <li class="nav-item <?=$active=='employee' && $activesub=='compensatory_leave' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/compensatory_leave')?>">
-                                <span class="title">Compensatory Leave</span>
+                                <span class="title">Compensatory Time Off</span>
                             </a>
                         </li>
                     </ul>
@@ -501,7 +501,7 @@ $activetab = strtolower($activetab);
                         </li>
                         <li class="nav-item <?=$active=='employee' && $activesub=='compensatory_leave' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/compensatory_leave')?>">
-                                <span class="title">Compensatory Leave</span>
+                                <span class="title">Compensatory Time Off</span>
                             </a>
                         </li>
                     </ul>

@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+Time off<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class ReportCL_rpt_model extends CI_Model {
 
 	public function __construct()
@@ -45,7 +45,7 @@ class ReportCL_rpt_model extends CI_Model {
 		$dtmAfternoonOut=$arrData['dtmAfternoonOut'];
 		$year= date("Y");
 
-		$this->fpdf->SetTitle('Compensatory Leave');
+		$this->fpdf->SetTitle('Compensatory Time Off');
 		$this->fpdf->SetLeftMargin(10);
 		$this->fpdf->SetRightMargin(10);
 		$this->fpdf->SetTopMargin(10);

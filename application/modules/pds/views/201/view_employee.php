@@ -84,7 +84,7 @@ $arrData = $arrData[0];?>
                                                             <tr>
                                                                 <td width="25%"><b>Employee Number</b></td>
                                                                 <td width="25%"><?=$arrData['empNumber']?></td>
-                                                                <td width="25%"><b>Mode of Separation</b></td>
+                                                                <td width="25%"><b>Employment Status</b></td>
                                                                 <td width="25%"><?=$arrData['statusOfAppointment']?></td>
                                                             </tr>
                                                             <tr>
@@ -147,7 +147,7 @@ $arrData = $arrData[0];?>
                                                     <a href="#education" data-toggle="tab"> Education </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#examination" data-toggle="tab"> Examination </a>
+                                                    <a href="#examination" data-toggle="tab"> Eligibility </a>
                                                 </li>
                                                 <li>
                                                     <a href="#work_experience" data-toggle="tab"> Work Experience </a>
