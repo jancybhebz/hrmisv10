@@ -35,7 +35,7 @@
             <div class="portlet-body" id="div-body" style="display: none">
                 <div class="portlet light bordered">
                     <div class="col-md-9">
-                        <form class="form-horizontal" action="<?=base_url('finance/compensation/personnel_profile/remittances/'.$this->uri->segment(5))?>" method="post">
+                        <form class="form-horizontal" action="<?=base_url('finance/reports/loanbalance')?>" method="get">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Employee Loans</label>
                                 <div class="col-md-9">
@@ -74,15 +74,6 @@
                                             <th> Actions </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>

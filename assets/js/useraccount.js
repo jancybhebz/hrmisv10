@@ -1,111 +1,23 @@
+$(document).ready(function() {
+    // FormValidation.init();
+    $('#HR1,#HR2,#HR3,#HR4,#HR5,#HR6,#HR7,#HR8,#HR9').css('display','none');
+    $('#Finance1,#Finance2,#Finance3,#Finance4,#Finance5,#Finance6,#Finance7,#Finance8,#Finance9').css('display','none');
 
-function showtextbox()
-{
-	
-	var select_access=$('#strAccessLevel').val();
-	// alert(select_access);
-	if(select_access == '1')
-	{
-		$('#HR1').show();
-		$('#HR2').show();
-		$('#HR3').show();
-		$('#HR4').show();
-		$('#HR5').show();
-		$('#HR6').show();
-		$('#HR7').show();
-		$('#HR8').show();
-		$('#HR9').show();
-		$('#Finance1').hide();
-		$('#Finance2').hide();
-		$('#Finance3').hide();
-		$('#Finance4').hide();
-		$('#Finance5').hide();
-		$('#Finance6').hide();
-		$('#Finance7').hide();
-		$('#Finance8').hide();
-		$('#Finance9').hide();
-	}
+    $('#strAccessLevel').on('change',function() {
+    	var select_access = $(this).val();
 
-	else if(select_access == '2')
-	{
-		$('#HR1').hide();
-		$('#HR2').hide();
-		$('#HR3').hide();
-		$('#HR4').hide();
-		$('#HR5').hide();
-		$('#HR6').hide();
-		$('#HR7').hide();
-		$('#HR8').hide();
-		$('#HR9').hide();
-		$('#Finance1').show();
-		$('#Finance2').show();
-		$('#Finance3').show();
-		$('#Finance4').show();
-		$('#Finance5').show();
-		$('#Finance6').show();
-		$('#Finance7').show();
-		$('#Finance8').show();
-		$('#Finance9').show();
-	}
-	
-	else if(select_access == '3')
-	{
-		$('#HR1').hide();
-		$('#HR2').hide();
-		$('#HR3').hide();
-		$('#HR4').hide();
-		$('#HR5').hide();
-		$('#HR6').hide();
-		$('#HR7').hide();
-		$('#HR8').hide();
-		$('#HR9').hide();
-		$('#Finance1').hide();
-		$('#Finance2').hide();
-		$('#Finance3').hide();
-		$('#Finance4').hide();
-		$('#Finance5').hide();
-		$('#Finance6').hide();
-		$('#Finance7').hide();
-		$('#Finance8').hide();
-		$('#Finance9').hide();
-	}
+    	if(select_access == 1){
+    		$('#HR1 ,#HR2 ,#HR3 ,#HR4 ,#HR5 ,#HR6 ,#HR7 ,#HR8 ,#HR9').show();
+    		$('#Finance1,#Finance2,#Finance3,#Finance4,#Finance5,#Finance6,#Finance7,#Finance8,#Finance9').hide();
+    	}else if(select_access == 2){
+    		$('#Finance1,#Finance2,#Finance3,#Finance4,#Finance5,#Finance6,#Finance7,#Finance8,#Finance9').show();
+    		$('#HR1,#HR2,#HR3,#HR4,#HR5,#HR6,#HR7,#HR8,#HR9').hide();
+    	}else if(select_access == 3){
+    		$('#HR1,#HR2,#HR3,#HR4,#HR5,#HR6,#HR7,#HR8,#HR9').hide();
+    		$('#Finance1,#Finance2,#Finance3,#Finance4,#Finance5,#Finance6,#Finance7,#Finance8,#Finance9').hide();
+    	}else{
+    		$('#Finance1,#Finance2,#Finance3,#Finance4,#Finance5,#Finance6,#Finance7,#Finance8,#Finance9').hide();
+    	}
 
-	else 
-	{
-		
-		$('#Finance1').hide();
-		$('#Finance2').hide();
-		$('#Finance3').hide();
-		$('#Finance4').hide();
-		$('#Finance5').hide();
-		$('#Finance6').hide();
-		$('#Finance7').hide();
-		$('#Finance8').hide();
-		$('#Finance9').hide();
-
-	}
-	
-}
-$(document).ready(function() 
-	{ 
-			$('#HR1').hide();
-			$('#HR2').hide();
-			$('#HR3').hide();
-			$('#HR4').hide();
-			$('#HR5').hide();
-			$('#HR6').hide();
-			$('#HR7').hide();
-			$('#HR8').hide();
-			$('#HR9').hide();
-			$('#Finance1').hide();
-			$('#Finance2').hide();
-			$('#Finance3').hide();
-			$('#Finance4').hide();
-			$('#Finance5').hide();
-			$('#Finance6').hide();
-			$('#Finance7').hide();
-			$('#Finance8').hide();
-			$('#Finance9').hide();
-	});
-
-	
+    });
+});

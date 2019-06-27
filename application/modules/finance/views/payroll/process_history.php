@@ -117,8 +117,8 @@
                                             data-procid="<?=$process['processID']?>" data-periodmon="<?=$process['processMonth']?>"
                                             data-periodyr="<?=$process['processYear']?>" data-appt="<?=$process['employeeAppoint']?>" data-period="<?=$process['period']?>">
                                             <i class="fa fa-refresh"></i> Reprocess</a>
-                                        <a href="<?=base_url('finance/reports/monthly')?>" class="btn btn-sm grey-cascade" id="btnreprocess">
-                                            <i class="fa fa-file-o"></i> Reports</a>
+                                        <!-- <a href="<?=base_url('finance/reports/monthly')?>" class="btn btn-sm grey-cascade" id="btnreprocess">
+                                            <i class="fa fa-file-o"></i> Reports</a> -->
                                         <?php if($process['publish'] == 1): ?>
                                             <a href="javascript:;" class="btn btn-sm green-meadow" id="btnunpublish" data-procid="<?=$process['processID']?>">
                                                 <i class="fa fa-check"></i> Unpublish</a>

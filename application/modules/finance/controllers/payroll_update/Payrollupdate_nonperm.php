@@ -22,9 +22,6 @@ class Payrollupdate_nonperm extends MY_Controller {
 	public function select_benefits_nonperm()
 	{
 		$arrPost = $this->input->post();
-		echo '<pre>';
-		print_r($arrPost);
-		echo '</pre>';
 		if(empty($arrPost)):
 			redirect('finance/payroll_update/process');
 		endif;
@@ -44,9 +41,6 @@ class Payrollupdate_nonperm extends MY_Controller {
 	public function computation_nonperm()
 	{
 		$arrPost = $this->input->post();
-		echo '<pre>';
-		print_r($arrPost);
-		echo '</pre>';
 		if(!empty($arrPost)):
 			if(isset($arrPost['chkbenefit'])):
 				if(gettype($arrPost['chkbenefit']) == 'string'):
@@ -84,9 +78,6 @@ class Payrollupdate_nonperm extends MY_Controller {
 			if(gettype($arrPost['chkbenefit']) == 'string'):
 				$arrPost['chkbenefit'] = json_decode($arrPost['chkbenefit'],true);
 			endif;
-			echo '<pre>';
-			print_r($arrPost);
-			echo '</pre>';
 		endif;
 
 		$this->arrData['arrEmployees'] = $arrPost['txtjson_computations'];
@@ -619,7 +610,8 @@ class Payrollupdate_nonperm extends MY_Controller {
 		endforeach;
 		
 		$this->session->set_flashdata('strSuccessMsg','Payroll saved successfully.');
-		redirect('finance/payroll_update/reports?processid='.implode(';',array_column($arrProcess_id,'proc_id')));
+		// redirect('finance/payroll_update/reports?processid='.implode(';',array_column($arrProcess_id,'proc_id')));
+		redirect('finance/reports/monthly?month='.$process_data['mon'].'&yr='.$process_data['yr'].'&appt='.$process_data['selemployment'].'&processid='.$arrProcess_id[0]['proc_id'].'&period='.$process_data['period']);
 	}
 
 

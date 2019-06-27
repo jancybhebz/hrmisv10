@@ -121,7 +121,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <pre><?php print_r($deduction_list) ?></pre>
                                     <label class="control-label">Deduction List <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>

@@ -1,13 +1,29 @@
 .clock {
     width: 100%;
     text-align: center;
-    color: #48b4c1;
-    top: 450px;
-    position: absolute;
-    font-size: 3em;
+    color: #fff;
+    /*top: 450px;*/
+    /*position: absolute;*/
+    font-size: 4.5em;
     font-weight: 900;
-    right: 77px;
-    text-shadow: -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
+    /*right: 38px;*/
+    text-shadow: 0px 0 #48b4c1, 0 1px #48b4c1, 1px 0 #48b4c1, 0 -1px #48b4c1;
+}
+
+.datenow {
+    width: 100%;
+    text-align: center;
+    color: #48b4c1;
+    /*top: 450px;*/
+    /*position: absolute;*/
+    font-size: 2em;
+    font-weight: 900;
+    /*right: 38px;*/
+    /*text-shadow: 0px 0 #48b4c1, 0 1px #48b4c1, 1px 0 #48b4c1, 0 -1px #48b4c1;*/
+}
+
+.login .content .form-actions .btn {
+    margin-top: -9px;
 }
 
 .content {
@@ -18,6 +34,7 @@
 .bold {
     font-weight: bolder !important;
 }
+
 .right {
     text-align: right;
 }

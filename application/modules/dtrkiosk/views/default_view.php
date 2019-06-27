@@ -17,6 +17,11 @@
         <link href="<?=base_url('assets/plugins/simple-line-icons/simple-line-icons.min.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/plugins/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet" type="text/css" />
         
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="<?=base_url('assets/global/plugins/datatables/datatables.min.css')?>" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css')?>" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+
         <link href="<?=base_url('assets/css/components.min.css')?>" rel="stylesheet" id="style_components" type="text/css" />
         <link href="<?=base_url('assets/css/plugins.min.css')?>" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
@@ -24,11 +29,32 @@
         <link href="<?=base_url('assets/css/login.min.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/css/custom-dtr.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/plugins/bootstrap-toastr/toastr.min.css')?>" rel="stylesheet" type="text/css" />
-        
 
         <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> </head>
     
         <body class=" login">
+
+            <style type="text/css">
+                a.btn-lg {
+                    border: 2px solid #d1d1d1;
+                    border-radius: 20px !important;
+                    margin-left: 40px;
+                }
+                a.btn-lg:hover {
+                    border: 2px solid #fff;
+                    background-color: #42638e;
+                }
+                h1 {
+                    color: #32c5d2;
+                }
+                .tooltip {
+                    font-size: 18px !important;
+                }
+                .logo {
+                    margin: 0 !important;
+                }
+            </style>
+
             <div class="menu-toggler sidebar-toggler"></div>
             <div class="logo"></div>
 
@@ -43,28 +69,23 @@
             <!-- end logo -->
 
             <div class="col-md-12">
-                <div class="col-md-3">
-                    <center>
-                        <!-- <button href="javascript:;" class="icon-btn btn-lg pull-right">
-                            <i class="fa fa-group"></i>
-                            <div> Users </div>
-                        </button> -->
-                    </center>
-                </div>
+                <div class="col-md-3"></div>
                 <div class="col-md-3">
                     <div class="content pull-right">
                         <canvas id="canvas" width="400" height="400" style="background-color:#333"></canvas>
                     </div>
-                    <div class="clock"></div>
                 </div>
                 <div class="col-md-6">
                     <div class="content pull-left">
-                        <h3 class="form-title font-green">Log In</h3>
+                        <div class="datenow"><?=date('F d, Y')?></div>
+                        <div class="clock"></div>
+                        <br><br>
+                        <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
                         <div class="alert alert-danger display-hide">
                             <button class="close" data-close="alert"></button>
                             <span> Enter any username and password. </span>
                         </div>
-                        <?=form_open(base_url('login'), array('method' => 'post'))?>
+                        <?=form_open('dtr', array('method' => 'post'))?>
                             <div class="form-group">
                                 <label class="control-label visible-ie8 visible-ie9">Username</label>
                                 <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" /> </div>
@@ -79,8 +100,27 @@
                 </div>
             </div>
 
+            <div class="footer">
+                <center>
+                    <div class="col-md-12" style="padding-bottom: 30px;">
+                        <a href="javascript:;" id="btn-present" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Present Employees">
+                            <h1><i class="fa fa-check"></i> <i class="fa fa-user"></i></h1>
+                        </a>
+                        <a href="javascript:;" id="btn-absent" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Absent Employees">
+                            <h1><i class="fa fa-remove"></i> <i class="fa fa-user"></i></h1>
+                        </a>
+                        <a href="javascript:;" id="btn-ob" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Official Business Employees">
+                            <h1><i class="fa fa-subway"></i> <i class="fa fa-user"></i></h1>
+                        </a>
+                        <a href="javascript:;" id="btn-leave" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Leave Employees">
+                            <h1><i class="fa fa-plane"></i> <i class="fa fa-user"></i></h1>
+                        </a>
+                    </div>
+                    <?php include('_dtr_modal.php'); ?>
+                </center>
 
-            <div class="copyright"> 2018 © DOST ITD. </div>
+                <div class="copyright"> 2018 © DOST ITD. </div>
+            </div>
 
             <script>
                 var canvas = document.getElementById("canvas");
@@ -191,35 +231,42 @@
                 setInterval(clock, 1000);
 
             </script>
-            <script src="<?=base_url('assets/js/jquery.min.js')?>" type="text/javascript"></script>
-            <script src="<?=base_url('assets/plugins/bootstrap/js/bootstrap.min.js')?>" type="text/javascript"></script>
-            <!--script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script-->
-            <!--script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script-->
-            <script src="<?=base_url('assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js')?>" type="text/javascript"></script>
-            <script src="<?=base_url('assets/plugins/jquery.blockui.min.js')?>" type="text/javascript"></script>
-            <script src="<?=base_url('assets/plugins/uniform/jquery.uniform.min.js')?>" type="text/javascript"></script>
-            <!--script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script-->
+            <!-- BEGIN CORE PLUGINS -->
+            <script src="<?=base_url('assets/global/plugins/jquery.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/bootstrap/js/bootstrap.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/js.cookie.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/jquery.blockui.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/uniform/jquery.uniform.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>" type="text/javascript"></script>
             <!-- END CORE PLUGINS -->
             <!-- BEGIN PAGE LEVEL PLUGINS -->
-            <script src="<?=base_url('assets/plugins/jquery-validation/js/jquery.validate.min.js')?>" type="text/javascript"></script>
-            <script src="<?=base_url('assets/plugins/jquery-validation/js/additional-methods.min.js')?>" type="text/javascript"></script>
-            <script src="<?=base_url('assets/plugins/bootstrap-toastr/toastr.min.js')?>" type="text/javascript"></script>
-            <?php load_plugin('js',array('toaster'));?>
-            <!--script src="../assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script-->
+            <script src="<?=base_url('assets/global/plugins/jquery.pulsate.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/jquery-bootpag/jquery.bootpag.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/holder.js')?>" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="<?=base_url('assets/global/scripts/datatable.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/datatables/datatables.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')?>" type="text/javascript"></script>
             <!-- END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
-            <script src="<?=base_url('assets/js/app.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/global/scripts/app.min.js')?>" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
-            <script src="<?=base_url('assets/js/login.min.js')?>" type="text/javascript"></script>
-            <script>
-                $(document).ready(function(){
-
-                });  
-            </script>
+            <script src="<?=base_url('assets/pages/scripts/table-datatables-scroller.min.js')?>" type="text/javascript"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="<?=base_url('assets/pages/scripts/ui-general.min.js')?>" type="text/javascript"></script>
             <!-- END PAGE LEVEL SCRIPTS -->
             <!-- BEGIN THEME LAYOUT SCRIPTS -->
+            <script src="<?=base_url('assets/layouts/layout/scripts/layout.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/layouts/layout/scripts/demo.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/layouts/global/scripts/quick-sidebar.min.js')?>" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
+            <script src="<?=base_url('assets/js/custom-dtr.js')?>"></script>
+
         </body>
 
 </html>

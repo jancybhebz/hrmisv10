@@ -709,7 +709,8 @@ class Payrollupdate extends MY_Controller {
 		endforeach;
 		
 		$this->session->set_flashdata('strSuccessMsg','Payroll saved successfully.');
-		redirect('finance/payroll_update/reports?processid='.implode(';',array_column($arrProcess_id,'proc_id')));
+		// redirect('finance/payroll_update/reports?processid='.implode(';',array_column($arrProcess_id,'proc_id')));
+		redirect('finance/reports/monthly?month='.$process_data['mon'].'&yr='.$process_data['yr'].'&appt='.$process_data['selemployment'].'&processid='.$arrProcess_id[0]['proc_id']);
 
 	}
 

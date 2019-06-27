@@ -8,6 +8,9 @@ switch (strtolower($this->uri->segment(3))) {
            $form = 'finance/payroll_update/complete_process_perm'; break;
    }   
 echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmdeductions'));?>
+<div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
+    <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
+</div>
 <div class="tab-content">
     <div class="tab-pane active" id="tab-payroll">
         <h3 class="block">Select Deduction</h3>
@@ -96,7 +99,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'i
         <div class="col-md-offset-3 col-md-9">
             <a href="javascript:;" class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
-            <button type="submit" class="btn blue btn-submit"> Process </button>
+            <button type="submit" class="btn blue btn-submit" id="btnprocess"> Process </button>
         </div>
     </div>
 </div>
@@ -104,9 +107,9 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'i
 
 <script>
     $(document).ready(function() {
-        // $('button#btncompute').on('click', function() {
-        //     $('.loading-fade').show();
-        // });
+        $('button#btnprocess').on('click', function() {
+            $('.loading-fade').show();
+        });
         // Loan
         $('#chkall-loan').click(function() {
             if($(this).prop('checked')){
