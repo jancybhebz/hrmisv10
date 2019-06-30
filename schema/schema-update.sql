@@ -146,3 +146,117 @@ INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES 
 
 # INITIAL DATA
 UPDATE  `tblEmpAccount` SET  `userPassword` =  '$2y$10$n.QQrx3mdXY4EJ7VpYwUyeJ7Br7QAxo4E672pwPq7.5yrd5U4O1hm';
+
+## BEGIN Update DTR
+# Fix dtrDate
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` VARCHAR( 20 ) NULL DEFAULT NULL;
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate = '0000-00-00';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00-%';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '0000-%';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00';
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` DATE NULL DEFAULT NULL;
+
+# change inPM to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `inPM`  `inPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `inPM` TIME NULL AFTER  `inPM_old_data`;
+UPDATE `tblEmpDTR` SET `inPM` =  
+  CASE
+    WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`inPM_old_data` = '00:00:00') THEN NULL
+    ELSE `inPM_old_data`
+  END;
+
+# change outPM to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL AFTER  `outPM_old_data`;
+UPDATE `tblEmpDTR` SET `outPM` =  
+  CASE
+    WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`outPM_old_data` = '00:00:00') THEN NULL
+    ELSE `outPM_old_data`
+  END;
+
+# change inOT to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL AFTER  `inOT_old_data`;
+UPDATE `tblEmpDTR` SET `inOT` =  
+  CASE
+    WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`inOT_old_data` = '00:00:00') THEN NULL
+    ELSE `inOT_old_data`
+  END;
+
+# change outOT to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL AFTER  `outOT_old_data`;
+UPDATE `tblEmpDTR` SET `outOT` =  
+  CASE
+    WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`outOT_old_data` = '00:00:00') THEN NULL
+    ELSE `outOT_old_data`
+  END;
+
+# drop old field with old data
+ALTER TABLE `tblEmpDTR` DROP `inPM_old_data`, DROP `outPM_old_data`, DROP `inOT_old_data`, DROP `outOT_old_data`;
+
+## END Update DTR
+
+## Begin Update Attendance Schema
+# change to Military Time
+ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeinTo`  `nnTimeinTo_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeinTo` TIME NULL AFTER  `nnTimeinTo_old_data`;
+UPDATE `tblAttendanceScheme` SET `nnTimeinTo` =  
+  CASE
+    WHEN (`nnTimeinTo_old_data` > '00:59:59' AND `nnTimeinTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeinTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeinTo_old_data` = '00:00:00') THEN NULL
+    ELSE `nnTimeinTo_old_data`
+  END;
+
+ALTER TABLE  `tblAttendanceScheme` CHANGE  `pmTimeoutFrom`  `pmTimeoutFrom_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblAttendanceScheme` ADD  `pmTimeoutFrom` TIME NULL AFTER  `pmTimeoutFrom_old_data`;
+UPDATE `tblAttendanceScheme` SET `pmTimeoutFrom` =  
+  CASE
+    WHEN (`pmTimeoutFrom_old_data` > '00:59:59' AND `pmTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`pmTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`pmTimeoutFrom_old_data` = '00:00:00') THEN NULL
+    ELSE `pmTimeoutFrom_old_data`
+  END;
+
+ALTER TABLE  `tblAttendanceScheme` CHANGE  `pmTimeoutTo`  `pmTimeoutTo_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblAttendanceScheme` ADD  `pmTimeoutTo` TIME NULL AFTER  `pmTimeoutTo_old_data`;
+UPDATE `tblAttendanceScheme` SET `pmTimeoutTo` =  
+  CASE
+    WHEN (`pmTimeoutTo_old_data` > '00:59:59' AND `pmTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`pmTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`pmTimeoutTo_old_data` = '00:00:00') THEN NULL
+    ELSE `pmTimeoutTo_old_data`
+  END;
+
+ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeoutFrom`  `nnTimeoutFrom_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeoutFrom` TIME NULL AFTER  `nnTimeoutFrom_old_data`;
+UPDATE `tblAttendanceScheme` SET `nnTimeoutFrom` =  
+  CASE
+    WHEN (`nnTimeoutFrom_old_data` > '00:59:59' AND `nnTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeoutFrom_old_data` = '00:00:00') THEN NULL
+    ELSE `nnTimeoutFrom_old_data`
+  END;
+
+ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeoutTo`  `nnTimeoutTo_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeoutTo` TIME NULL AFTER  `nnTimeoutTo_old_data`;
+UPDATE `tblAttendanceScheme` SET `nnTimeoutTo` =  
+  CASE
+    WHEN (`nnTimeoutTo_old_data` > '00:59:59' AND `nnTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeoutTo_old_data` = '00:00:00') THEN NULL
+    ELSE `nnTimeoutTo_old_data`
+  END;
+
+ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeinFrom`  `nnTimeinFrom_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeinFrom` TIME NULL AFTER  `nnTimeinFrom_old_data`;
+UPDATE `tblAttendanceScheme` SET `nnTimeinFrom` =  
+  CASE
+    WHEN (`nnTimeinFrom_old_data` > '00:59:59' AND `nnTimeinFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeinFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeinFrom_old_data` = '00:00:00') THEN NULL
+    ELSE `nnTimeinFrom_old_data`
+  END;
+
+ALTER TABLE `tblAttendanceScheme` DROP `pmTimeoutFrom_old_data`, DROP `pmTimeoutTo_old_data`, DROP `nnTimeoutFrom_old_data`, DROP `nnTimeoutTo_old_data`, DROP `nnTimeinFrom_old_data`, DROP `nnTimeinTo_old_data`;
+## End Update Attendance Schema
+

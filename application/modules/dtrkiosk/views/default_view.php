@@ -78,7 +78,7 @@
                 <div class="col-md-6">
                     <div class="content pull-left">
                         <div class="datenow"><?=date('F d, Y')?></div>
-                        <div class="clock"></div>
+                        <div class="clock"><?=date('h:i:s A')?></div>
                         <br><br>
                         <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
                         <div class="alert alert-danger display-hide">
@@ -215,7 +215,10 @@
                         } return i;
                     }
 
-                    if ( hour > 12 ) {
+                    console.log(hour);
+                    if(hour == 12) {
+                        document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" PM";
+                    } else if ( hour > 12 ) {
                         hour = hour - 12;
                         if ( hour == 12 ) {
                             hour = checkTime(hour);
@@ -251,6 +254,8 @@
             <script src="<?=base_url('assets/global/plugins/datatables/datatables.min.js')?>" type="text/javascript"></script>
             <script src="<?=base_url('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')?>" type="text/javascript"></script>
             <!-- END PAGE LEVEL PLUGINS -->
+            <script src="<?=base_url('assets/plugins/bootstrap-toastr/toastr.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/js/ui-toastr.js')?>" type="text/javascript"></script>
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="<?=base_url('assets/global/scripts/app.min.js')?>" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
@@ -267,6 +272,35 @@
             <!-- END THEME LAYOUT SCRIPTS -->
             <script src="<?=base_url('assets/js/custom-dtr.js')?>"></script>
 
+            <script>
+                $(document).ready(function(){
+                    /* Set flash message */
+                    <?php if($this->session->flashdata('strMsg')!=''):?>
+                        toastr.warning('<?=$this->session->flashdata('strMsg')?>')
+                    <?php endif;?>
+
+                    <?php if($this->session->flashdata('strSuccessMsg')!=''):?>
+                        toastr.success('<?=$this->session->flashdata('strSuccessMsg')?>', 'Success')
+                    <?php endif;?>
+
+                    <?php if($this->session->flashdata('strErrorMsg')!=''):?>
+                        toastr.error('<?=$this->session->flashdata('strErrorMsg')?>')
+                    <?php endif;?>
+                    /* set session timeout */
+                    // $.sessionTimeout({
+                    //     title: 'Session Timeout Notification',
+                    //     message: 'Your session is about to expire.',
+                    //     keepAliveUrl: '<?=base_url('login/timeoutkeepalive')?>',
+                    //     redirUrl: '<?=base_url('logout')?>',
+                    //     logoutUrl: '<?=base_url('logout')?>',
+                    //     warnAfter: 600000, //warn after 5 seconds
+                    //     redirAfter: 700000, //redirect after 10 secons, (1500/second)
+                    //     ignoreUserActivity: true,
+                    //     countdownMessage: 'Redirecting in {timer} seconds.',
+                    //     countdownBar: true
+                    // });
+                });  
+            </script>
         </body>
 
 </html>

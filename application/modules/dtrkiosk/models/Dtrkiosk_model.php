@@ -13,7 +13,7 @@ class Dtrkiosk_model extends CI_Model {
 		$this->db->order_by('surname');
 		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial,inAM,outAM,inPM,outPM');
 		$this->db->join('tblEmpPersonal',' tblEmpPersonal.empNumber = tblEmpDTR.empNumber','left');
-		$res = $this->db->get_where('tblEmpDTR', array('dtrDate' => 'NOW()'))->result_array();
+		$res = $this->db->get_where('tblEmpDTR', array('dtrDate' => date('Y-m-d')))->result_array();
 		
 		return $res;
 	}
@@ -21,7 +21,7 @@ class Dtrkiosk_model extends CI_Model {
 	function get_absent_employees()
 	{
 		$employees = array();
-		$emp_dtr = $this->db->select('empNumber')->get_where('tblEmpDTR', array('dtrDate' => 'NOW()'))->result_array();
+		$emp_dtr = $this->db->select('empNumber')->get_where('tblEmpDTR', array('dtrDate' => date('Y-m-d')))->result_array();
 
 		$this->db->order_by('surname');
 		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial');
@@ -39,8 +39,8 @@ class Dtrkiosk_model extends CI_Model {
 		$this->db->group_by('tblEmpOB.empNumber');
 		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial');
 		$this->db->join('tblEmpPersonal',' tblEmpPersonal.empNumber = tblEmpOB.empNumber','left');
-		$this->db->where("NOW() >= obDateFrom");
-		$this->db->where("NOW() <= obDateTo");
+		$this->db->where("'".date('Y-m-d')."' >= obDateFrom");
+		$this->db->where("'".date('Y-m-d')."' <= obDateTo");
 		$employees = $this->db->get('tblEmpOB')->result_array();
 		
 		return $employees;
@@ -51,12 +51,12 @@ class Dtrkiosk_model extends CI_Model {
 		$this->db->group_by('tblEmpLeave.empNumber');
 		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial');
 		$this->db->join('tblEmpPersonal',' tblEmpPersonal.empNumber = tblEmpLeave.empNumber','left');
-		$this->db->where("NOW() >= leaveFrom");
-		$this->db->where("NOW() <= leaveTo");
+		$this->db->where("'".date('Y-m-d')."' >= leaveFrom");
+		$this->db->where("'".date('Y-m-d')."' <= leaveTo");
 		$employees = $this->db->get('tblEmpLeave')->result_array();
 		
 		return $employees;
 	}
-
+	
 
 }

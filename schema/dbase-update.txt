@@ -110,7 +110,7 @@ ALTER TABLE  `tblCourse` ADD  `courseId` INT NULL FIRST , ADD UNIQUE ( `courseId
 ALTER TABLE  `tblPayrollProcess` ADD INDEX (  `appointmentCode` );
 ALTER TABLE  `tblPayrollProcess` ADD  `appointment_id` INT NOT NULL AUTO_INCREMENT FIRST ,
 ADD PRIMARY KEY (  `appointment_id` ) ;
-	
+  
 ALTER TABLE  `tblEmpBenefits` ADD  `incomeYear` INT NULL AFTER  `incomeMonth`;
 
 ALTER TABLE  `tblIncome` ADD INDEX (  `incomeCode` ) ;
@@ -143,3 +143,60 @@ INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES 
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPL', 'Half Special Leave', '0.5', '0');
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HMTL', 'Half Maternity Leave', '0.5', '0');
 INSERT INTO `tblLeave` (`leaveCode`, `leaveType`, `numOfDays`, `system`) VALUES ('HPTL', 'Half Paternity Leave', '0.5', '0');
+
+# INITIAL DATA
+UPDATE  `tblEmpAccount` SET  `userPassword` =  '$2y$10$n.QQrx3mdXY4EJ7VpYwUyeJ7Br7QAxo4E672pwPq7.5yrd5U4O1hm';
+
+## BEGIN Update DTR
+# Fix dtrDate
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` VARCHAR( 20 ) NULL DEFAULT NULL;
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate = '0000-00-00';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00-%';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '0000-%';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00';
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` DATE NULL DEFAULT NULL;
+
+# change inPM to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `inPM`  `inPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `inPM` TIME NULL AFTER  `inPM_old_data`;
+UPDATE `tblEmpDTR` SET `inPM` =  
+  CASE
+    WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`inPM_old_data` = '00:00:00') THEN NULL
+    ELSE `inPM_old_data`
+  END;
+
+# change outPM to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL AFTER  `outPM_old_data`;
+UPDATE `tblEmpDTR` SET `outPM` =  
+  CASE
+    WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`outPM_old_data` = '00:00:00') THEN NULL
+    ELSE `outPM_old_data`
+  END;
+
+# change inOT to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL AFTER  `inOT_old_data`;
+UPDATE `tblEmpDTR` SET `inOT` =  
+  CASE
+    WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`inOT_old_data` = '00:00:00') THEN NULL
+    ELSE `inOT_old_data`
+  END;
+
+# change outOT to Military Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL AFTER  `outOT_old_data`;
+UPDATE `tblEmpDTR` SET `outOT` =  
+  CASE
+    WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`outOT_old_data` = '00:00:00') THEN NULL
+    ELSE `outOT_old_data`
+  END;
+
+# drop old field with old data
+ALTER TABLE `tblEmpDTR` DROP `inPM_old_data`, DROP `outPM_old_data`, DROP `inOT_old_data`, DROP `outOT_old_data`;
+
+## END Update DTR
