@@ -207,7 +207,7 @@ ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeinTo`  `nnTimeinTo_old_data` T
 ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeinTo` TIME NULL AFTER  `nnTimeinTo_old_data`;
 UPDATE `tblAttendanceScheme` SET `nnTimeinTo` =  
   CASE
-    WHEN (`nnTimeinTo_old_data` > '00:59:59' AND `nnTimeinTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeinTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeinTo_old_data` > '00:59:59' AND `nnTimeinTo_old_data` <= '11:59:59') THEN DATE_ADD(`nnTimeinTo_old_data`, INTERVAL 12 HOUR)
     WHEN (`nnTimeinTo_old_data` = '00:00:00') THEN NULL
     ELSE `nnTimeinTo_old_data`
   END;
@@ -216,7 +216,7 @@ ALTER TABLE  `tblAttendanceScheme` CHANGE  `pmTimeoutFrom`  `pmTimeoutFrom_old_d
 ALTER TABLE  `tblAttendanceScheme` ADD  `pmTimeoutFrom` TIME NULL AFTER  `pmTimeoutFrom_old_data`;
 UPDATE `tblAttendanceScheme` SET `pmTimeoutFrom` =  
   CASE
-    WHEN (`pmTimeoutFrom_old_data` > '00:59:59' AND `pmTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`pmTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`pmTimeoutFrom_old_data` > '00:59:59' AND `pmTimeoutFrom_old_data` <= '11:59:59') THEN DATE_ADD(`pmTimeoutFrom_old_data`, INTERVAL 12 HOUR)
     WHEN (`pmTimeoutFrom_old_data` = '00:00:00') THEN NULL
     ELSE `pmTimeoutFrom_old_data`
   END;
@@ -225,7 +225,7 @@ ALTER TABLE  `tblAttendanceScheme` CHANGE  `pmTimeoutTo`  `pmTimeoutTo_old_data`
 ALTER TABLE  `tblAttendanceScheme` ADD  `pmTimeoutTo` TIME NULL AFTER  `pmTimeoutTo_old_data`;
 UPDATE `tblAttendanceScheme` SET `pmTimeoutTo` =  
   CASE
-    WHEN (`pmTimeoutTo_old_data` > '00:59:59' AND `pmTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`pmTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`pmTimeoutTo_old_data` > '00:59:59' AND `pmTimeoutTo_old_data` <= '11:59:59') THEN DATE_ADD(`pmTimeoutTo_old_data`, INTERVAL 12 HOUR)
     WHEN (`pmTimeoutTo_old_data` = '00:00:00') THEN NULL
     ELSE `pmTimeoutTo_old_data`
   END;
@@ -234,7 +234,7 @@ ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeoutFrom`  `nnTimeoutFrom_old_d
 ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeoutFrom` TIME NULL AFTER  `nnTimeoutFrom_old_data`;
 UPDATE `tblAttendanceScheme` SET `nnTimeoutFrom` =  
   CASE
-    WHEN (`nnTimeoutFrom_old_data` > '00:59:59' AND `nnTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeoutFrom_old_data` > '00:59:59' AND `nnTimeoutFrom_old_data` <= '11:59:59') THEN DATE_ADD(`nnTimeoutFrom_old_data`, INTERVAL 12 HOUR)
     WHEN (`nnTimeoutFrom_old_data` = '00:00:00') THEN NULL
     ELSE `nnTimeoutFrom_old_data`
   END;
@@ -243,7 +243,7 @@ ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeoutTo`  `nnTimeoutTo_old_data`
 ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeoutTo` TIME NULL AFTER  `nnTimeoutTo_old_data`;
 UPDATE `tblAttendanceScheme` SET `nnTimeoutTo` =  
   CASE
-    WHEN (`nnTimeoutTo_old_data` > '00:59:59' AND `nnTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeoutTo_old_data` > '00:59:59' AND `nnTimeoutTo_old_data` <= '11:59:59') THEN DATE_ADD(`nnTimeoutTo_old_data`, INTERVAL 12 HOUR)
     WHEN (`nnTimeoutTo_old_data` = '00:00:00') THEN NULL
     ELSE `nnTimeoutTo_old_data`
   END;
@@ -252,7 +252,7 @@ ALTER TABLE  `tblAttendanceScheme` CHANGE  `nnTimeinFrom`  `nnTimeinFrom_old_dat
 ALTER TABLE  `tblAttendanceScheme` ADD  `nnTimeinFrom` TIME NULL AFTER  `nnTimeinFrom_old_data`;
 UPDATE `tblAttendanceScheme` SET `nnTimeinFrom` =  
   CASE
-    WHEN (`nnTimeinFrom_old_data` > '00:59:59' AND `nnTimeinFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(str_to_date(NOW(),'%Y-%m-%d'),' ',`nnTimeinFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p')))
+    WHEN (`nnTimeinFrom_old_data` > '00:59:59' AND `nnTimeinFrom_old_data` <= '11:59:59') THEN DATE_ADD(`nnTimeinFrom_old_data`, INTERVAL 12 HOUR)
     WHEN (`nnTimeinFrom_old_data` = '00:00:00') THEN NULL
     ELSE `nnTimeinFrom_old_data`
   END;

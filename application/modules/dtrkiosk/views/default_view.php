@@ -299,6 +299,10 @@
                     //     countdownMessage: 'Redirecting in {timer} seconds.',
                     //     countdownBar: true
                     // });
+
+                    setTimeout(function() {
+                        $(".alert").alert('close');
+                    }, 2000);
                 });  
             </script>
         </body>

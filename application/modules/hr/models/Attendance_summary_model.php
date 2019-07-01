@@ -10,6 +10,7 @@ class Attendance_summary_model extends CI_Model {
 	{
 		$this->db->where('id', $dtrid);
 		$this->db->update('tblEmpDTR', $arrData);
+		
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
