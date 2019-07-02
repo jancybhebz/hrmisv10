@@ -52,7 +52,32 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middlename']?> </td>
                             <td> <?=$row['userName']?> </td>
                             <td> <?=$row['userLevel']?> </td>
-                            <td> <?=$row['userPermission']?> </td>
+                            <td> 
+                            <?php if ($row['userLevel'] == 1) 
+                                { 
+                                 echo 'HR';
+                                } 
+                                else if ($row['userLevel'] == 2) 
+                                { 
+                                 echo 'Finance';
+                                } 
+                                else if ($row['userLevel'] == 3) 
+                                { 
+                                 echo 'Officer';
+                                }
+                                else if ($row['userLevel'] == 4) 
+                                { 
+                                 echo 'Executive';
+                                }
+                                else if ($row['userLevel'] == 5) 
+                                { 
+                                 echo 'Employee';
+                                }
+                                else
+                                {  echo '';
+                                }
+                            ?>
+                            </td>
                             <td>
                                 <a href="<?=base_url('libraries/user_account/edit/'.$row['empNumber'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/user_account/delete/'.$row['empNumber'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>

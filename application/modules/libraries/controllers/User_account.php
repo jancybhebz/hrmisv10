@@ -46,23 +46,62 @@ class User_account extends MY_Controller {
 			$strEmpName = $arrPost['strEmpName'];
 			$strUsername = $arrPost['strUsername'];
 			$strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
+			// HR tabs
+			$radio1 = isset($arrPost['radio1']) ? $arrPost['radio1'] : '0';
+			$chkNotif = isset($arrPost['chkNotif']) ? $arrPost['chkNotif'] : '';
+			$chkAttdnce = isset($arrPost['chkAttdnce']) ? $arrPost['chkAttdnce'] : '';
+			$chkLib = isset($arrPost['chkLib']) ? $arrPost['chkLib'] : '';
+			$chk201 = isset($arrPost['chk201']) ? $arrPost['chk201'] : '';
+			$chkReports = isset($arrPost['chkReports']) ? $arrPost['chkReports'] : '';
+			$chkCompen = isset($arrPost['chkCompen']) ? $arrPost['chkCompen'] : '';
+			$radioHRMO = isset($arrPost['radioHRMO']) ? $arrPost['radioHRMO'] : '';
+			$chkALL = isset($arrPost['chkALL']) ? $arrPost['chkALL'] : '';
+			// Finance tabs
+			$radio1 = isset($arrPost['radio1']) ? $arrPost['radio1'] : '0';
+			$chkNotif2 = isset($arrPost['chkNotif2']) ? $arrPost['chkNotif2'] : '';
+			$chkCompen2 = isset($arrPost['chkCompen2']) ? $arrPost['chkCompen2'] : '';
+			$chkUpdate = isset($arrPost['chkUpdate']) ? $arrPost['chkUpdate'] : '';
+			$chkReports2 = isset($arrPost['chkReports2']) ? $arrPost['chkReports2'] : '';
+			$chkLib2 = isset($arrPost['chkLib2']) ? $arrPost['chkLib2'] : '';
 			if(!empty($strAccessLevel) && !empty($strEmpName) && !empty($strUsername) && !empty($strPassword))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->user_account_model->checkExist($strAccessLevel, $strUsername))==0)
 				{
-					$arrData = array(
-						'userLevel'=>$strAccessLevel,
-						'empNumber'=>$strEmpName,
-						'userName'=>$strUsername,
-						'userPassword'=>$strPassword
-					);
+					if ($strAccessLevel =='1')
+					{
+						$arrData = array(
+							'userLevel'=>$strAccessLevel,
+							'empNumber'=>$strEmpName,
+							'userName'=>$strUsername,
+							'userPassword'=>$strPassword,
+							'accessPermission'=>$radio1.';'.$chkNotif.';'.$chkAttdnce.';'.$chkLib.';'.$chk201.';'.$chkReports.';'.$chkCompen.';'.$radioHRMO.';'.$chkALL 
+					 );
+					}
+					if ($strAccessLevel =='2')
+					{
+						$arrData = array(
+							'userLevel'=>$strAccessLevel,
+							'empNumber'=>$strEmpName,
+							'userName'=>$strUsername,
+							'userPassword'=>$strPassword,
+							'accessPermission'=>$radio1.';'.$chkNotif2.';'.$chkCompen2.';'.$chkUpdate.';'.$chkReports2.';'.$chkLib2
+					 );
+					}
+					else 
+					{
+						$arrData = array(
+							'userLevel'=>$strAccessLevel,
+							'empNumber'=>$strEmpName,
+							'userName'=>$strUsername,
+							'userPassword'=>$strPassword,
+							'accessPermission'=>''
+					 );
+					}
 					$blnReturn  = $this->user_account_model->add($arrData);
-
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Added '.$strUsername.' User_account',implode(';',$arrData),'');
-					
 						$this->session->set_flashdata('strSuccessMsg','User Account added successfully.');
 					}
 					redirect('libraries/user_account');
@@ -89,6 +128,7 @@ class User_account extends MY_Controller {
 		{
 			$intEmpNumber = urldecode($this->uri->segment(4));
 			$this->arrData['arrUser']=$this->user_account_model->getData($intEmpNumber);
+			// $this->arrData['arrUserLevel']=$this->user_account_model->getUserLevel();
 			$this->arrData['arrUserLevel']=$this->user_account_model->getUserLevel();
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/edit_view', $this->arrData);
@@ -99,14 +139,54 @@ class User_account extends MY_Controller {
 			$strAccessLevel = $arrPost['strAccessLevel'];
 			$strEmpName = $arrPost['strEmpName'];
 			$strUsername = $arrPost['strUsername'];
+			// HR tabs
+			$radio1 = isset($arrPost['radio1']) ? $arrPost['radio1'] : '0';
+			$chkNotif = isset($arrPost['chkNotif']) ? $arrPost['chkNotif'] : '';
+			$chkAttdnce = isset($arrPost['chkAttdnce']) ? $arrPost['chkAttdnce'] : '';
+			$chkLib = isset($arrPost['chkLib']) ? $arrPost['chkLib'] : '';
+			$chk201 = isset($arrPost['chk201']) ? $arrPost['chk201'] : '';
+			$chkReports = isset($arrPost['chkReports']) ? $arrPost['chkReports'] : '';
+			$chkCompen = isset($arrPost['chkCompen']) ? $arrPost['chkCompen'] : '';
+			$radioHRMO = isset($arrPost['radioHRMO']) ? $arrPost['radioHRMO'] : '';
+			$chkALL = isset($arrPost['chkALL']) ? $arrPost['chkALL'] : '';
+			// Finance tabs
+			$radio1 = isset($arrPost['radio1']) ? $arrPost['radio1'] : '0';
+			$chkNotif2 = isset($arrPost['chkNotif2']) ? $arrPost['chkNotif2'] : '';
+			$chkCompen2 = isset($arrPost['chkCompen2']) ? $arrPost['chkCompen2'] : '';
+			$chkUpdate = isset($arrPost['chkUpdate']) ? $arrPost['chkUpdate'] : '';
+			$chkReports2 = isset($arrPost['chkReports2']) ? $arrPost['chkReports2'] : '';
+			$chkLib2 = isset($arrPost['chkLib2']) ? $arrPost['chkLib2'] : '';
 			if(!empty($strAccessLevel) AND !empty($strEmpName) AND !empty($strUsername))
 			{
-				$arrData = array(
-					'userLevel'=>$strAccessLevel,
-					'empNumber'=>$strEmpName,
-					'userName'=>$strUsername
-				);
-
+				if ($strAccessLevel =='1')
+				{
+					$arrData = array(
+						'userLevel'=>$strAccessLevel,
+						'empNumber'=>$strEmpName,
+						'userName'=>$strUsername,
+						'accessPermission'=>$radio1.';'.$chkNotif.';'.$chkAttdnce.';'.$chkLib.';'.$chk201.';'.$chkReports.';'.$chkCompen.';'.$radioHRMO.';'.$chkALL 
+				 );
+				}
+				if ($strAccessLevel =='2')
+				{
+					$arrData = array(
+						'userLevel'=>$strAccessLevel,
+						'empNumber'=>$strEmpName,
+						'userName'=>$strUsername,
+						'accessPermission'=>$radio1.';'.$chkNotif2.';'.$chkCompen2.';'.$chkUpdate.';'.$chkReports2.';'.$chkLib2
+				 );
+				}
+				else 
+				{
+					$arrData = array(
+						'userLevel'=>$strAccessLevel,
+						'empNumber'=>$strEmpName,
+						'userName'=>$strUsername,
+						'accessPermission'=>''
+				 );
+				}
+				// print_r($arrPost);
+				// exit(1);
 				$blnReturn = $this->user_account_model->save($arrData, $intEmpNumber);
 				if(count($blnReturn)>0)
 				{
