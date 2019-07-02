@@ -89,23 +89,23 @@
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <label>Host</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" id="txthost" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Port</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" id="txtport" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Database name</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" id="txtdbname" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Username</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" id="txtuname" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Password</label>
-                                                    <input type="password" class="form-control">
+                                                    <input type="password" id="txtpass" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="note note-danger" style="text-align: justify;">
                                                     <small>
@@ -115,7 +115,7 @@
                                                         There is no undo command to reverse the changes. Click <b>Submit</b> to continue.
                                                     </small>
                                                 </div>
-                                                <button type="submit" class="btn green">Submit</button>
+                                                <button type="submit" class="btn green" id="btnmigrate">Submit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -126,11 +126,7 @@
                                 <div class="col-md-6">
                                     <div class="portlet light">
                                         <div class="portlet-body form" style="margin-top: 100px;">
-                                            <div class="code">
-                                                setting up.. <br>
-                                                setting up.. <br>
-                                                setting up.. <br>
-                                                setting up..
+                                            <div class="code" style="display: none;">
                                             </div>
                                         </div>
                                     </div>
@@ -147,6 +143,34 @@
                 <div class="copyright"> 2018 © DOST ITD. </div>
             </div>
 
+            <!-- start modal -->
+            <div id="confirmation-modal" class="modal fade" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"><b>Update Database</b></h4>
+                        </div>
+                        <?=form_open('', array('id' => 'confirm'))?>
+                            <div class="modal-body">
+                                <div class="row form-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Are you sure you want to alter your current database?
+                                                <br>If you wish to do it manually, the updated database sql schema is added in <i>schema/hrmisv10/hrmis-schema-upt.sql</i></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+                            </div>
+                        <?=form_close()?>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal -->
             
             <!-- BEGIN CORE PLUGINS -->
             <script src="<?=base_url('assets/global/plugins/jquery.min.js')?>" type="text/javascript"></script>
@@ -184,7 +208,7 @@
             <script src="<?=base_url('assets/layouts/layout/scripts/demo.min.js')?>" type="text/javascript"></script>
             <script src="<?=base_url('assets/layouts/global/scripts/quick-sidebar.min.js')?>" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
-            <script src="<?=base_url('assets/js/custom-dtr.js')?>"></script>
+            <script src="<?=base_url('assets/js/migrate.js')?>"></script>
 
             <script>
                 $(document).ready(function(){
