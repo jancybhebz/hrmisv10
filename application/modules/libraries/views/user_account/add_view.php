@@ -66,7 +66,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="radio" name="radioAsst" class="icheck" value="Assistant" checked> Assistant </label>
+                                        <label><input type="radio" name="radio1" class="icheck" value="1"> Assistant </label>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkNotif" class="icheck" value="Notification" checked> Notification </label>
+                                        <label><input type="checkbox" name="chkNotif" class="icheck" value="2"> Notification </label>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkAttdnce" class="icheck" value="Attendance"> Attendance </label>
+                                        <label><input type="checkbox" name="chkAttdnce" class="icheck" value="3"> Attendance </label>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkLib" class="icheck" value="Libraries"> Libraries </label>
+                                        <label><input type="checkbox" name="chkLib" class="icheck" value="4"> Libraries </label>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chk201" class="icheck" value="201" checked> 201 Section </label>
+                                        <label><input type="checkbox" name="chk201" class="icheck" value="5"> 201 Section </label>
                                     </div>
                                 </div>
                             </div>
@@ -110,15 +110,15 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkReports" class="icheck" value="Reports" > Reports </label>
+                                        <label><input type="checkbox" name="chkReports" class="icheck" value="6" > Reports </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-1" id="HR7">
+                            <div class="col-sm-2" id="HR7">
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkCompen" class="icheck" value="Compensation"> Compensation </label>
+                                        <label><input type="checkbox" name="chkCompen" class="icheck" value="7"> Compensation </label>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="radio" name="radioHRMO" class="icheck" value="HRMO">HRMO (Access all sections) </label>
+                                        <label><input type="radio" name="radio1" checked class="icheck" value="8"> HRMO (Access all sections) </label>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkALL" class="icheck" value="All" checked> all sections </label>
+                                        <label><input type="checkbox" name="chkALL" class="icheck" value="8" checked> all sections </label>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="radio" name="radioAsst2" class="icheck" value="Assistant" checked> Assistant </label>
+                                        <label><input type="radio" name="radioAsst2" class="icheck" value="1" checked> Assistant </label>
                                     </div>
                                 </div>
                             </div>
@@ -162,15 +162,15 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkNotif2" class="icheck" value="Notification" > Notification </label>
+                                        <label><input type="checkbox" name="chkNotif2" class="icheck" value="2" > Notification </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-1" id="Finance3">
+                            <div class="col-sm-2" id="Finance3">
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkCompen2" class="icheck" value="Compensation" checked> Compensation </label>
+                                        <label><input type="checkbox" name="chkCompen2" class="icheck" value="3" checked> Compensation </label>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkUpdate" class="icheck" value="Update" checked> Update </label>
+                                        <label><input type="checkbox" name="chkUpdate" class="icheck" value="4" checked> Update </label>
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkReports2" class="icheck" value="Reports"> Reports </label>
+                                        <label><input type="checkbox" name="chkReports2" class="icheck" value="5"> Reports </label>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkLib2" class="icheck" value="Library"> Library </label>
+                                        <label><input type="checkbox" name="chkLib2" class="icheck" value="6"> Library </label>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                         <i class="fa"></i>
                                         <label>Assigned Payroll Group </label>
-                                         <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="">
+                                         <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="" value="7">
                                             <option value="">Select</option>
                                             <?php foreach($arrGroups as $group)
                                             {
@@ -221,7 +221,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon left">
                                         <i class="fa"></i>
-                                        <label><input type="radio" name="radioFinance" class="icheck" value="ALL Access">Finance Officer (Access all sections) </label>
+                                        <label><input type="radio" name="radioFinance" class="icheck" value="8">Finance Officer (Access all sections) </label>
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +231,7 @@ load_plugin('css',array('select','select2'));?>
                                 <div class="form-group">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkAll2" class="icheck" checked> all sections </label>
+                                        <label><input type="checkbox" name="chkAll2" class="icheck" value="8" checked> all sections </label>
                                     </div>
                                 </div>
                             </div>
