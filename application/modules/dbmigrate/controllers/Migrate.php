@@ -28,9 +28,9 @@ class Migrate extends MY_Controller
         echo '<br>dbname: '.$dbname;
         echo '<br>uname: '.$uname;
         echo '<br>pass: '.$pass;
-
+        echo '<br>';
         $db_diff = $this->Migrate_model->get_table_list();
-
+        print_r($db_diff);
         echo '<hr>';
         echo 'Comparing Databases...';
     }

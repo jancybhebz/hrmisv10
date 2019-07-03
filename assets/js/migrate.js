@@ -5,9 +5,9 @@ $(document).ready(function(){
 		var dbname 	= $('#txtdbname').val();
 		var uname 	= $('#txtuname').val();
 		var pass 	= $('#txtpass').val();
-		console.log("dbmigrate/migrate/comparing_db?host="+host+"&port="+port+"&dbname="+dbname+"&uname="+uname+"&pass="+pass);
+		console.log("dbmigrate/migrate/comparing_tables?host="+host+"&port="+port+"&dbname="+dbname+"&uname="+uname+"&pass="+pass);
 		$('.code').show();
-		$('.code').append($("<div>").load("dbmigrate/migrate/comparing_db?host="+host+"&port="+port+"&dbname="+dbname+"&uname="+uname+"&pass="+pass));
+		$('.code').append($("<div>").load("dbmigrate/migrate/comparing_tables?host="+host+"&port="+port+"&dbname="+dbname+"&uname="+uname+"&pass="+pass));
 		$('.code').append($("<div>").load("dbmigrate/migrate/fix_datetime_fields"));
 		$('.code').append($("<div>").load("dbmigrate/migrate/check_tables"));
 		$('.code').append($("<div>").load("dbmigrate/migrate/create_sql", function() {

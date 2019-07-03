@@ -60,7 +60,7 @@
 
             <!-- begin logo -->
             <div class="col-md-12">
-                <div style="margin-left: 250px;">
+                <div style="margin-left: 264px;">
                     <br><img style="height: 70px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
                     <h1 class="hrmisLogo" style="color: #fff!important;">HRMIS</h1>
                     <div class="small" style="color: #fff!important;">Human Resource Management Information System</div>

@@ -95,12 +95,14 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 
+// print_r(FCPATH . 'schema/data/migration/schema/hrmis-schema-upt.sql');
+// die();
 $db['hrmisv10_upt'] = array(
     'dsn'      => '',
     'hostname' => '',
     'username' => '',
     'password' => '',
-    'database' => './schema/data/migration/schema/hrmis-schema-upt.sql',
+    'database' => 'schema/data/migration/schema/hrmis-schema-upt.sql',
     'dbdriver' => 'sqlite3',
     'dbprefix' => '',
     'pconnect' => FALSE,
