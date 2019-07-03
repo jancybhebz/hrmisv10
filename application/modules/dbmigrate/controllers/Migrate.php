@@ -29,22 +29,21 @@ class Migrate extends MY_Controller
         echo '<br>uname: '.$uname;
         echo '<br>pass: '.$pass;
         echo '<br>';
-        $db_diff = $this->Migrate_model->get_table_list();
-        print_r($db_diff);
-        echo '<hr>';
+        $this->Migrate_model->get_table_list();
         echo 'Comparing Databases...';
     }
 
     function fix_datetime_fields()
     {
         echo 'Fixed datetime fields...';
+        $this->Migrate_model->fix_datetime_fields();
     }
 
-    function check_tables()
+    function update_fields()
     {
-        echo 'Checking Tables...';
-        echo '<br>Remove unused Tables...';
-        echo '<br>Add necessary Tables...';
+        echo 'Update Fields...';
+        $this->Migrate_model->update_fields();
+
     }
 
     function create_sql()
