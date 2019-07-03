@@ -38,7 +38,7 @@ class Travelorder extends MY_Controller {
 			$strCode=$arrPost['strCode'];
 			if(!empty($strDestination) && !empty($dtmTOdatefrom))
 			{	
-				if( count($this->travelorder_model->checkExist($strDestination, $dtmTOdatefrom))==0 )
+				if( count($this->travelorder_model->checkExist($dtmTOdatefrom))==0 )
 				{
 					$arrData = array(
 						'requestDetails'=>$strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.$strMeal,
@@ -53,7 +53,7 @@ class Travelorder extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDestination.' Travel Order',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/travelorder');
 				}

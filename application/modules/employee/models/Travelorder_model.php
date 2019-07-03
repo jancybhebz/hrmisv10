@@ -41,12 +41,12 @@ class Travelorder_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 	
-	function checkExist($strDestination = '', $dtmTOdatefrom = '')
+	function checkExist($dtmTOdatefrom = '')
 	{		
 		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
-					requestDetails ='$strDestination' OR
-					requestDate ='$dtmTOdatefrom'					
+					-- requestDetails ='' AND
+					requestDetails ='$dtmTOdatefrom'					
 					";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
