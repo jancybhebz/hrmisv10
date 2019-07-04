@@ -7,7 +7,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css',array('datepicker'));?>
+<?=load_plugin('css',array('datepicker','timepicker'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -120,6 +120,42 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <label class="col-md-2 control-label">Salary Schedule <span class="required"> * </span></label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="strSalarySched" value="<?=!empty($arrAgency[0]['salarySchedule'])?$arrAgency[0]['salarySchedule']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">No. of Min before OT <span class="required"> * </span></label>
+                            <div class="col-md-1">
+                                <input type="time" class="form-control timepicker timepicker-no-seconds" name="intBeforeOT" id="intBeforeOT" value="<?=!empty($arrAgency[0]['minOT'])?$arrAgency[0]['minOT']:''?>">
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="col-md-2 control-label">Max of OT Hours <span class="required"> * </span></label>
+                            <div class="col-md-1">
+                                <input type="time" class="form-control timepicker timepicker-no-seconds" name="intMaxOT" id="intMaxOT" value="<?=!empty($arrAgency[0]['maxOT'])?$arrAgency[0]['maxOT']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Expiration of CTO<span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                <input class="form-control form-control-inline input-medium date-picker" name="intExpryOT" id="intExpryOT" autocomplete="off" size="16" type="text" value="<?=!empty($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Flag Ceremony Time<span class="required"> * </span></label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control timepicker timepicker-default" name="intFlagTime" id="intFlagTime" value="<?=!empty($arrAgency[0]['flagTime'])?$arrAgency[0]['flagTime']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                             <label class="col-md-2 control-label">Auto Computation of Tax <span class="required"> * </span></label>
+                            <div class="col-md-9">
+                                    <label><input type="radio" name="intAutoComputeTax" <?php if (isset($intAutoComputeTax) && $intAutoComputeTax=="Yes") echo "checked";?> value="Yes"> &nbsp;Yes</label>
+                                    <label><input type="radio" name="intAutoComputeTax" <?php if (isset($intAutoComputeTax) && $intAutoComputeTax=="No") echo "checked";?> value="No"> &nbsp;No</label>
                             </div>
                         </div>
                         <hr>
@@ -249,7 +285,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('validation'));?>
+<?php load_plugin('js',array('validation','datepicker','timepicker'));?>
+<script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+<script>
+
+    $('#intExpryOT').datepicker({dateFormat: 'dd-mm-yyyy'});
+
+</script>
+
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
   return value.indexOf(" ") < 0 && value != ""; 
