@@ -9,7 +9,7 @@ $(document).ready(function(){
 		$('.code').show();
 		$('.code').append($("<div>").load("dbmigrate/migrate/comparing_tables?host="+host+"&port="+port+"&dbname="+dbname+"&uname="+uname+"&pass="+pass));
 		$('.code').append($("<div>").load("dbmigrate/migrate/fix_datetime_fields"));
-		$('.code').append($("<div>").load("dbmigrate/migrate/check_tables"));
+		$('.code').append($("<div>").load("dbmigrate/migrate/update_fields"));
 		$('.code').append($("<div>").load("dbmigrate/migrate/create_sql", function() {
 			// show confirmation modal altering database schema
 			$('#confirmation-modal').modal('show');
