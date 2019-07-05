@@ -155,16 +155,34 @@ class Migrate_model extends CI_Model {
     		die();
     	else:
 	    	foreach($hrmisv10_table_list as $tbl):
-	    		echo '<br>fields from currdb, tablename = '.$tbl;
 	    		$field_list_hrmisv10 = $this->hrmisv10->query('DESCRIBE '.$tbl.';')->result_array();
 	    		$field_list = $this->db->query('DESCRIBE '.$tbl.';')->result_array();
 	    		$field_diff = array_diff(array_column($field_list_hrmisv10,'Field'),array_column($field_list,'Field'));
+	    		$arr_new_fields = array();
+	    		$arr_new_primary = '';
+	    		if(count($field_diff) > 0):
+	    			$new_fields = $this->hrmisv10->query("SHOW COLUMNS FROM ".$tbl." WHERE FIELD IN ('".implode("','",$field_diff)."');")->result_array();
+		    		foreach($new_fields as $field):
+		    			// echo '<br>';
+		    			// print_r($field);
+		    			# check if field is primary, then check if primary key exist in currentdb
+		    			if($field['Key'] == 'PRI'):
+		    				$primary = $this->db->query("SHOW KEYS FROM ".$tbl." WHERE Key_name = 'PRIMARY';")->result_array();
+		    				if(count($primary)):
+		    					$this->write_sqlstmt("# Drop index for ".$tbl."  \nDROP INDEX `PRIMARY` ON ".$tbl.";");
+		    				endif;
+		    				$arr_new_primary = ", ADD PRIMARY KEY (`".$field['Field']."`)";
+		    			endif;
 
-	    		foreach($field_diff as $field):
-	    			echo '<br>';
-	    			print_r($field);
-	    		endforeach;
-	    		echo '<hr>';
+		    			$isnull = $field['Null'] == 'NO' ? 'NOT NULL' : 'NULL';
+		    			$default = $field['Default'] != '' ? "default '".$field['Default']."'" : '';
+		    			array_push($arr_new_fields,"ADD `".$field['Field']."` ".$field['Type']." ".$isnull." ".$default." ".$field['Extra']);
+		    		endforeach;
+		    	endif;
+		    	$this->write_sqlstmt("# Add new field/s for table ".$tbl);
+		    	$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(",",$arr_new_fields).$arr_new_primary.";");
+		    	// print_r($arr_new_fields);
+	    		// echo '<hr>';
 	    	endforeach;
 	    endif;
 
