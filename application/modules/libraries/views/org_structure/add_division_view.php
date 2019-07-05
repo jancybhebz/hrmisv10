@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Division Name</span>
+            <span>Add <?=$_ENV['Group2']?> Name</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Division Name</span>
+                    <span class="caption-subject bold uppercase"> Add <?=$_ENV['Group2']?> Name</span>
                 </div>
                 
             </div>
@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group1']?><span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                   <select type="text" class="form-control" name="strExecDivision" value="<?=!empty($this->session->userdata('strExecDivision'))?$this->session->userdata('strExecDivision'):''?>" required>
@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group3']?><span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strSerDivision" value="<?=!empty($this->session->userdata('strSerDivision'))?$this->session->userdata('strSerDivision'):''?>" required>
@@ -83,7 +83,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Code <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?> Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <input type="text" class="form-control" name="strDivCode" value="<?=!empty($this->session->userdata('strDivCode'))?$this->session->userdata('strDivCode'):''?>">
@@ -94,7 +94,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Name <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?> Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strDivName" value="<?=!empty($this->session->userdata('strDivName'))?$this->session->userdata('strDivName'):''?>">
@@ -105,7 +105,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Head<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?> Head<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                       <select type="text" class="form-control" name="strDivHead" value="<?=!empty($this->session->userdata('strDivHead'))?$this->session->userdata('strDivHead'):''?>" required>
@@ -121,7 +121,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Head Title<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?> Head Title<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strDivHeadTitle" value="<?=!empty($this->session->userdata('strDivHeadTitle'))?$this->session->userdata('strDivHeadTitle'):''?>">
@@ -132,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Secretary<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?> Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                   <select type="text" class="form-control" name="strDivSecretary" value="<?=!empty($this->session->userdata('strDivSecretary'))?$this->session->userdata('strDivSecretary'):''?>" required>
@@ -160,7 +160,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_org_structure">
+            <!-- <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_org_structure">
                     <thead>
                         <tr>
                             <th> No. </th>
@@ -196,7 +196,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     $i++;
                     endforeach;?>
                     </tbody>
-            </table>
+            </table> -->
 
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
