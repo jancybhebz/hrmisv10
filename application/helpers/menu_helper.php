@@ -29,7 +29,7 @@ if ( ! function_exists('get_libraries'))
 			'request'=>'Request',
 			'salary_sched'=>'Salary Schedule',
 			'scholarship'=>'Scholarship',
-			'separation_mode'=>'Separation Mode',
+			'separation_mode'=>'Employment Status',
 			'service_code'=>'Service Code',
 			'signatories'=>'Signatory',
 			'user_account'=>'User Account'
