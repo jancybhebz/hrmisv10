@@ -39,7 +39,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Atttendance Scheme</span>
+                    <span class="caption-subject bold uppercase"> Edit Attendance Scheme</span>
                 </div>
                 
             </div>
@@ -154,6 +154,33 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                    <div class="row sch-fixed">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Allow 30 mins (noon log) :  <span class="required"> * </span></label>
+                                <?php if ($arrAttendance[0]['allow30']=="Y") {
+                                    echo '<input type="checkbox" class="icheck"  name="strAllow" id="strAllow" checked>'; }?>
+                                <?php if ($arrAttendance[0]['allow30']=="") {
+                                    echo '<input type="checkbox" class="icheck"  name="strAllow" id="strAllow" >'; }?>
+                                <div class="input-icon left">
+                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row sch-fixed">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Strict (noon log) : <span class="required"> * </span></label>
+                                <?php if ($arrAttendance[0]['strict']=="Y") {
+                                    echo '<input type="checkbox" class="icheck"  name="strStrict" id="strStrict" checked>'; }?>
+                                <?php if ($arrAttendance[0]['strict']=="") {
+                                    echo '<input type="checkbox" class="icheck"  name="strStrict" id="strStrict" >'; }?>
+                                <div class="input-icon left">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                    
                     <!-- sliding -->
                      <div class="row sch-sliding">
@@ -233,7 +260,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row sch-sliding">
+                     <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out To : <span class="required"> * </span></label>
@@ -244,7 +271,33 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-
+                    <div class="row sch-sliding">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Allow 30 mins (noon log) :  <span class="required"> * </span></label>
+                                <?php if ($arrAttendance[0]['allow30']=="Y") {
+                                    echo '<input type="checkbox" class="icheck"  name="strAllow" id="strAllow" checked>'; }?>
+                                <?php if ($arrAttendance[0]['allow30']=="") {
+                                    echo '<input type="checkbox" class="icheck"  name="strAllow" id="strAllow" >'; }?>
+                                <div class="input-icon left">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php //print_r($arrAttendance[0]['strict']);?>
+                    <div class="row sch-sliding">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Strict (noon log)  :  <span class="required"> * </span></label>
+                                <?php if ($arrAttendance[0]['strict']=="Y") {
+                                    echo '<input type="checkbox" class="icheck"  name="strStrict" id="strStrict" checked>'; }?>
+                                <?php if ($arrAttendance[0]['strict']=="") {
+                                    echo '<input type="checkbox" class="icheck"  name="strStrict" id="strStrict" >'; }?>
+                                <div class="input-icon left">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">

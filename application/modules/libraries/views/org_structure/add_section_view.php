@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Section Name</span>
+            <span>Add <?=$_ENV['Group4']?> Name</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Section Name</span>
+                    <span class="caption-subject bold uppercase"> Add <?=$_ENV['Group4']?> Name</span>
                 </div>
                 
             </div>
@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group1']?> <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                   <select type="text" class="form-control" name="strExec" value="<?=!empty($this->session->userdata('strExec'))?$this->session->userdata('strExec'):''?>" required>
@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group3']?><span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strService" value="<?=!empty($this->session->userdata('strService'))?$this->session->userdata('strService'):''?>" required>
@@ -83,7 +83,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?> <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strDivision" value="<?=!empty($this->session->userdata('strDivision'))?$this->session->userdata('strDivision'):''?>" required>
@@ -101,7 +101,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Code <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group4']?> Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strSecCode" value="<?=!empty($this->session->userdata('strSecCode'))?$this->session->userdata('strSecCode'):''?>">
@@ -112,7 +112,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Name <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group4']?> Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strSecName" value="<?=!empty($this->session->userdata('strSecName'))?$this->session->userdata('strSecName'):''?>">
@@ -123,7 +123,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Head<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group4']?> Head<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                       <select type="text" class="form-control" name="strSecHead" value="<?=!empty($this->session->userdata('strSecHead'))?$this->session->userdata('strSecHead'):''?>" required>
@@ -139,7 +139,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Head Title<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group4']?> Head Title<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strSecHeadTitle" value="<?=!empty($this->session->userdata('strSecHeadTitle'))?$this->session->userdata('strSecHeadTitle'):''?>">
@@ -150,7 +150,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Secretary<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group4']?> Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                   <select type="text" class="form-control" name="strSecSecretary" value="<?=!empty($this->session->userdata('strSecSecretary'))?$this->session->userdata('strSecSecretary'):''?>" required>
@@ -178,7 +178,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_org_structure">
+            <!-- <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_org_structure">
                     <thead>
                         <tr>
                             <th> No. </th>
@@ -217,7 +217,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     endforeach;?>
                     </tbody>
             </table>
-
+ -->
 <?php load_plugin('js',array('validation'));?>
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 

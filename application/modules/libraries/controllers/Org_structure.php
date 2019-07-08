@@ -21,6 +21,9 @@ class Org_structure extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrOrganization'] = $this->org_structure_model->getData();
+		$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+		$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+		$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
 		$this->template->load('template/template_view', 'libraries/org_structure/list_view', $this->arrData);
 	}
 	

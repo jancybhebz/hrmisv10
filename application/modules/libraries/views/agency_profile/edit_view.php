@@ -7,7 +7,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css',array('datepicker'));?>
+<?=load_plugin('css',array('datepicker','timepicker'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -120,6 +120,44 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <label class="col-md-2 control-label">Salary Schedule <span class="required"> * </span></label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="strSalarySched" value="<?=!empty($arrAgency[0]['salarySchedule'])?$arrAgency[0]['salarySchedule']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">No. of Min before OT </label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control timepicker timepicker-default" name="intBeforeOT" id="intBeforeOT" value="<?=!empty($arrAgency[0]['minOT'])?$arrAgency[0]['minOT']:''?>" format="12:00"  autocomplete="off">   
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Max of OT Hours </label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control timepicker timepicker-default" name="intMaxOT" id="intMaxOT" value="<?=!empty($arrAgency[0]['maxOT'])?$arrAgency[0]['maxOT']:''?>" format="12:00"  autocomplete="off">   
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Expiration of CTO </label>
+                            <div class="col-md-9">
+                                <input class="form-control form-control-inline input-medium date-picker" name="intExpryOT" id="intExpryOT" autocomplete="off" size="16" type="text" value="<?=!empty($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+
+                        <div class="form-group timepicker">
+                            <label class="col-md-2 control-label">Flag Ceremony Time </label>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control timepicker timepicker-default" name="intFlagTime" id="intFlagTime" value="<?=!empty($arrAgency[0]['flagTime'])?$arrAgency[0]['flagTime']:''?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                             <label class="col-md-2 control-label">Auto Computation of Tax </label>
+                            <div class="col-md-9">
+                                <label class="radio-inline">
+                                    <input type="radio" name="intAutoComputeTax" value="1" <?=isset($arrAgency) ? $arrAgency[0]['autoComputeTax'] == '1' ? 'checked' : '' : ''?>> Yes </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="intAutoComputeTax" value="0" <?=isset($arrAgency) ? $arrAgency[0]['autoComputeTax'] == '0' ? 'checked' : '' : ''?>> No </label>
                             </div>
                         </div>
                         <hr>
@@ -249,7 +287,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('validation'));?>
+<?php load_plugin('js',array('validation','datepicker','timepicker'));?>
+<script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
   return value.indexOf(" ") < 0 && value != ""; 
@@ -278,7 +318,7 @@ var FormValidation = function () {
                     strAgencyCode: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strRegion: {
                         minlength: 1,
                         required: true
@@ -286,7 +326,7 @@ var FormValidation = function () {
                     intTinNum: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strAddress: {
                         minlength: 1,
                         required: true
@@ -294,7 +334,7 @@ var FormValidation = function () {
                     intZipCode: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     intTelephone: {
                         minlength: 1,
                         required: true
@@ -302,7 +342,7 @@ var FormValidation = function () {
                     intFax: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strEmail: {
                         minlength: 1,
                         required: true
@@ -310,75 +350,75 @@ var FormValidation = function () {
                     strWebsite: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strSalarySched: {
                         minlength: 1,
                         required: true
-                    },
-                    intGSISNum: {
-                        minlength: 1,
-                        required: true,
                     }
-                    intGSISEmpShare: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intGSISEmprShare: {
-                        minlength: 1,
-                        required: true,
-                    }
-                    intPagibigNum: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intPagibigEmpShare: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intPagibigEmprShare: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intProvidentEmpShare: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intProvidentEmprShare: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intPhilhealthEmpShare: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intPhilhealthEmprShare: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intPhilhealthPercentage: {
-                        minlength: 1,
-                        required: true
-                    },
-                    intPhilhealthNum: {
-                        minlength: 1,
-                        required: true
-                    },
-                    strMission: {
-                        minlength: 1,
-                        required: true
-                    },
-                    strVision: {
-                        minlength: 1,
-                        required: true
-                    },
-                    strMandate: {
-                        minlength: 1,
-                        required: true
-                    },
-                    strAccountNum: {
-                        minlength: 1,
-                        required: true
-                    },
+                    // intGSISNum: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // intGSISEmpShare: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intGSISEmprShare: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // intPagibigNum: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intPagibigEmpShare: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intPagibigEmprShare: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intProvidentEmpShare: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intProvidentEmprShare: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intPhilhealthEmpShare: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intPhilhealthEmprShare: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intPhilhealthPercentage: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // intPhilhealthNum: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // strMission: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // strVision: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // strMandate: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
+                    // strAccountNum: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
