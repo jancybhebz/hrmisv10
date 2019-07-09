@@ -84,8 +84,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group3']?> Code <span class="required"> * </span></label>
-                                     <input type="text" class="form-control" name="strDivCode" id="strDivCode" value="<?=!empty($this->session->userdata('strDivCode'))?$this->session->userdata('strDivCode'):''?>">
-                                     <font color='red'> <span id="errorCode"></span></font>
+                                     <input type="text" class="form-control" name="strDivCode"  id="strDivCode" value="<?=!empty($this->session->userdata('strDivCode'))?$this->session->userdata('strDivCode'):''?>">
+                                      <font color='red'> <span id="errorCode"></span></font>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group3']?> Name <span class="required"> * </span></label>
                                     <input type="text" class="form-control" name="strDivName" id="strDivName" value="<?=!empty($this->session->userdata('strDivName'))?$this->session->userdata('strDivName'):''?>">
-                                    <font color='red'> <span id="errorName"></span></font>
+                                     <font color='red'> <span id="errorName"></span></font>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group3']?> Head Title<span class="required"> * </span></label>
                                     <input type="text" class="form-control" name="strDivHeadTitle" id="strDivHeadTitle" value="<?=!empty($this->session->userdata('strDivHeadTitle'))?$this->session->userdata('strDivHeadTitle'):''?>">
-                                    <font color='red'> <span id="errorHead"></span></font>
+                                     <font color='red'> <span id="errorTitle"></span></font>
                             </div>
                         </div>
                     </div>
@@ -307,28 +307,36 @@ function checkForBlank()
     $name= $('#strDivName').val();
     $title= $('#strDivHeadTitle').val();
 
-    $('#errorCode','errorName','errorHead').html('');
-    
-    if($code=="" && $name=="" && $title=="")
+    $('#errorCode','#errorName','#errorTitle').html('');
+
+    if($code=="")
     {
-        $('#errorCode').html('This field is required!');
-        $('#errorName').html('This field is required!');
-        $('#errorHead').html('This field is required!');
+      $('#errorCode').html('This field is required!');
       return false;
     }
-   else if($code==0)
+    else if($code==0)
     {
-      $('#errorCode').html('Invalid input!');
+      $('#errorCode').html('Invalid Input!');
+      return false;
+    }
+    if($name=="")
+    {
+      $('#errorName').html('This field is required!');
       return false;
     }
     else if($name==0)
     {
-      $('#errorName').html('Invalid input!');
+      $('#errorName').html('Invalid Input!');
+      return false;
+    }
+    if($title=="")
+    {
+      $('#errorTitle').html('This field is required!');
       return false;
     }
     else if($title==0)
     {
-      $('#errorHead').html('Invalid input!');
+      $('#errorTitle').html('Invalid Input!');
       return false;
     }
     else

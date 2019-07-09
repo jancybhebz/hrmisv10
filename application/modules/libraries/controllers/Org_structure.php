@@ -178,7 +178,7 @@ class Org_structure extends MY_Controller {
 						'group2Name'=>$strServiceName,
 						'empNumber'=>$strServiceHead,
 						'group2HeadTitle'=>$strServiceTitle,	
-						'group2Secretary'=>$strServiceSecretary	
+						'group2Secretary'=>$strServiceSecretary
 					);
 					$blnReturn  = $this->org_structure_model->add_service($arrData);
 
@@ -187,14 +187,14 @@ class Org_structure extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Added '.$strServiceCode.' Org_structure',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Service Name added successfully.');
 					}
-					redirect('libraries/org_structure/add_service');
+					redirect('libraries/org_structure');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Service Name already exists.');
 					$this->session->set_flashdata('strExecutive',$strExecutive);
 					$this->session->set_flashdata('strServiceCode',$strServiceCode);
-					redirect('libraries/org_structure/add_service');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	
@@ -238,7 +238,7 @@ class Org_structure extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Edited '.$strServiceCode.' Org_structure',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Service Name saved successfully.');
 				}
-				redirect('libraries/org_structure/add_service');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
@@ -309,6 +309,8 @@ class Org_structure extends MY_Controller {
 						'group3HeadTitle'=>$strDivHeadTitle,
 						'group3Secretary'=>$strDivSecretary
 					);
+					// print_r($arrPost);
+					// exit(1);
 					$blnReturn  = $this->org_structure_model->add_division($arrData);
 
 					if(count($blnReturn)>0)
@@ -316,14 +318,14 @@ class Org_structure extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Added '.$strDivCode.' Org_structure',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Division Name added successfully.');
 					}
-					redirect('libraries/org_structure/add_division');
+					redirect('libraries/org_structure');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Division Name already exists.');
 					$this->session->set_flashdata('strDivCode',$strDivCode);
 					$this->session->set_flashdata('strDivName',$strDivName);
-					redirect('libraries/org_structure/add_division');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	
@@ -372,7 +374,7 @@ class Org_structure extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Edited '.$strDivCode.' Org_structure',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Division name saved successfully.');
 				}
-				redirect('libraries/org_structure/add_division');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
@@ -452,14 +454,14 @@ class Org_structure extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Added '.$strSecCode.' Org_structure',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Section Name added successfully.');
 					}
-					redirect('libraries/org_structure/');
+					redirect('libraries/org_structure');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Section Name already exists.');
 					$this->session->set_flashdata('strSecCode',$strSecCode);
 					$this->session->set_flashdata('strSecName',$strSecName);
-					redirect('libraries/org_structure/add_section');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	
@@ -509,7 +511,7 @@ class Org_structure extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Edited '.$strSecCode.' Org_structure',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Section name saved successfully.');
 				}
-				redirect('libraries/org_structure/add_section');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
@@ -543,7 +545,7 @@ class Org_structure extends MY_Controller {
 	
 					$this->session->set_flashdata('strMsg','Section name deleted successfully.');
 				}
-				redirect('libraries/org_structure/');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
