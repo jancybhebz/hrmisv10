@@ -376,7 +376,7 @@ class Org_structure extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Edited '.$strDivCode.' Org_structure',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Division name saved successfully.');
 				}
-				redirect('libraries/org_structure/add_division');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
@@ -434,7 +434,6 @@ class Org_structure extends MY_Controller {
 			$strSecHead = $arrPost['strSecHead'];
 			$strSecHeadTitle = $arrPost['strSecHeadTitle'];
 			$strSecSecretary = $arrPost['strSecSecretary'];
-			$strCustodian4 = $arrPost['strCustodian4'];
 			if(!empty($strExec) && !empty($strService) && !empty($strDivision) && !empty($strSecCode) && !empty($strSecName) && !empty($strSecHead) && !empty($strSecSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -448,8 +447,7 @@ class Org_structure extends MY_Controller {
 						'group4Name'=>$strSecName,	
 						'empNumber'=>$strSecHead,
 						'group4HeadTitle'=>$strSecHeadTitle,
-						'group4Secretary'=>$strSecSecretary,
-						'group4Custodian'=>$strCustodian4
+						'group4Secretary'=>$strSecSecretary
 					);
 					$blnReturn  = $this->org_structure_model->add_section($arrData);
 
@@ -458,14 +456,14 @@ class Org_structure extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Added '.$strSecCode.' Org_structure',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Section Name added successfully.');
 					}
-					redirect('libraries/org_structure/');
+					redirect('libraries/org_structure');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Section Name already exists.');
 					$this->session->set_flashdata('strSecCode',$strSecCode);
 					$this->session->set_flashdata('strSecName',$strSecName);
-					redirect('libraries/org_structure/add_section');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	
@@ -496,7 +494,6 @@ class Org_structure extends MY_Controller {
 			$strSecHead= $arrPost['strSecHead'];
 			$strSecHeadTitle= $arrPost['strSecHeadTitle'];
 			$strSecSecretary= $arrPost['strSecSecretary'];
-			$strCustodian4= $arrPost['strCustodian4'];
 			if(!empty($strExec) AND !empty($strService) AND !empty($strDivision) AND !empty($strSecCode) AND !empty($strSecName) AND !empty($strSecHead) AND !empty($strSecHeadTitle)  AND !empty($strSecSecretary)) 
 			{
 				$arrData = array(
@@ -507,8 +504,7 @@ class Org_structure extends MY_Controller {
 					'group4Name'=>$strSecName,	
 					'empNumber'=>$strSecHead,
 					'group4HeadTitle'=>$strSecHeadTitle,
-					'group4Secretary'=>$strSecSecretary,
-					'group4Custodian'=>$strCustodian4,
+					'group4Secretary'=>$strSecSecretary
 					
 				);
 				$blnReturn = $this->org_structure_model->save_section($arrData, $strCode);
@@ -517,7 +513,7 @@ class Org_structure extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup4','Edited '.$strSecCode.' Org_structure',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Section name saved successfully.');
 				}
-				redirect('libraries/org_structure/add_section');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
@@ -551,7 +547,7 @@ class Org_structure extends MY_Controller {
 	
 					$this->session->set_flashdata('strMsg','Section name deleted successfully.');
 				}
-				redirect('libraries/org_structure/add_section');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
