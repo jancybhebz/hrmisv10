@@ -7,6 +7,8 @@ function showtextbox()
 	{
 		$('#schemecode').show();
 		$('#schemename').show();
+		$('#allow').show();
+		$('#strict').show();
 		// fixed
 		$('#FtimeIn').show();
 		$('#FtimeOutFrom').show();
@@ -29,6 +31,8 @@ function showtextbox()
 	{
 		$('#schemecode').show();
 		$('#schemename').show();
+		$('#allow').show();
+		$('#strict').show();
 		// fixed
 		$('#FtimeIn').hide();
 		$('#FtimeOutFrom').hide();
@@ -52,6 +56,8 @@ function showtextbox()
 	{
 		$('#schemecode').show();
 		$('#schemename').show();
+		$('#allow').show();
+		$('#strict').show();
 		// fixed
 		$('#FtimeIn').hide();
 		$('#FtimeOutFrom').hide();
@@ -78,6 +84,8 @@ $(document).ready(function()
 	{ 
 		$('#schemecode').hide();
 		$('#schemename').hide();
+		$('#allow').hide();
+		$('#strict').hide();
 		// fixed
 		$('#FtimeIn').hide();
 		$('#FtimeOutFrom').hide();

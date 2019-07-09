@@ -94,9 +94,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Executive Office Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <?php foreach($arrOrganization as $org):?>
+                                    <?php foreach($arrOrganization as $org):?>
                                     <input  type="text" class="form-control"  value="<?php $arrCust=employee_details($org['group1Secretary']); echo count($arrCust)>0?$arrCust[0]['surname'].' '.$arrCust[0]['firstname']:''?>" disabled>      
-                                    <?php endforeach;?> 
+                                    <?php endforeach;?>
                                 </div>
                             </div>
                         </div>

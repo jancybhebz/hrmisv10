@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h5 class="modal-title uppercase"><b><span class="action"></span> Examination Information</b></h5>
+                <h5 class="modal-title uppercase"><b><span class="action"></span> Eligibility Information</b></h5>
             </div>
             <?=form_open('', array('method' => 'post', 'id' => 'frmexam','class' => 'form-horizontal'))?>
             <input type="hidden" name="txtexamid" id="txtexamid">
@@ -88,7 +88,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete Examination</h4>
+                <h4 class="modal-title">Delete Eligibility</h4>
             </div>
             <?=form_open('pds/delete_exam/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdelexam','class' => 'form-horizontal'))?>
                 <input type="hidden" name="txtdel_exam" id="txtdel_exam">

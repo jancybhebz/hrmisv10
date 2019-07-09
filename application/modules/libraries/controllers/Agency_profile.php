@@ -141,6 +141,13 @@ class Agency_profile extends MY_Controller {
 			$strEmail = $arrPost['strEmail'];
 			$strWebsite = $arrPost['strWebsite'];
 			$strSalarySched = $arrPost['strSalarySched'];
+
+			$intBeforeOT = $arrPost['intBeforeOT'];
+			$intMaxOT = $arrPost['intMaxOT'];
+			$intExpryOT = $arrPost['intExpryOT'];
+			$intFlagTime = $arrPost['intFlagTime'];
+			$intAutoComputeTax = $arrPost['intAutoComputeTax'];
+
 			$intGSISNum = $arrPost['intGSISNum'];
 			$intGSISEmpShare = $arrPost['intGSISEmpShare'];
 			$intGSISEmprShare = $arrPost['intGSISEmprShare'];
@@ -171,6 +178,11 @@ class Agency_profile extends MY_Controller {
 						'email'=>$strEmail,
 						'website'=>$strWebsite,
 						'salarySchedule'=>$strSalarySched,
+						'minOT'=>$intBeforeOT,
+						'maxOT'=>$intMaxOT,
+						'expirationCTO'=>$intExpryOT,
+						'flagTime'=>$intFlagTime,
+						'autoComputeTax'=>$intAutoComputeTax,
 						'gsisId'=>$intGSISNum,
 						'gsisEmpShare'=>$intGSISEmpShare,
 						'gsisEmprShare'=>$intGSISEmprShare,

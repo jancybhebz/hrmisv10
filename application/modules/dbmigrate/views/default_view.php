@@ -59,181 +59,119 @@
             <div class="logo"></div>
 
             <!-- begin logo -->
-            <div class="col-md-12" style="right: 400px;">
-                <center>
+            <div class="col-md-12">
+                <div style="margin-left: 264px;">
                     <br><img style="height: 70px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
                     <h1 class="hrmisLogo" style="color: #fff!important;">HRMIS</h1>
                     <div class="small" style="color: #fff!important;">Human Resource Management Information System</div>
-                </center>
+                </div>
+
+                <div class="col-md-12">
+                    <div style="margin-left: 250px;margin-top:5px;">
+                        <h3 class="form-title font-green pull-left bold">Database Migration</h3>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-left: 250px;">
+                    <div class="col-md-10">
+                        <div class="portlet light bordered">
+                            <div class="row">
+                                <!-- begin previous database setup-->
+                                <div class="col-md-6">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption font-blue">
+                                                <i class="fa fa-database font-blue"></i>
+                                                <span class="caption-subject bold uppercase"> Database Settings</span>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body form">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label>Host</label>
+                                                    <input type="text" id="txthost" class="form-control" autocomplete="off">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Port</label>
+                                                    <input type="text" id="txtport" class="form-control" autocomplete="off">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Database name</label>
+                                                    <input type="text" id="txtdbname" class="form-control" autocomplete="off">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Username</label>
+                                                    <input type="text" id="txtuname" class="form-control" autocomplete="off">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Password</label>
+                                                    <input type="password" id="txtpass" class="form-control" autocomplete="off">
+                                                </div>
+                                                <div class="note note-danger" style="text-align: justify;">
+                                                    <small>
+                                                        <span class="label label-danger">REMINDER!</span>
+                                                        <span class="bold">You are about to update your current database.</span> 
+                                                        We recommend to create backup before you proceed.
+                                                        There is no undo command to reverse the changes. Click <b>Submit</b> to continue.
+                                                    </small>
+                                                </div>
+                                                <button type="submit" class="btn green" id="btnmigrate">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end previous database setup -->
+
+                                <!-- begin logs -->
+                                <div class="col-md-6">
+                                    <div class="portlet light">
+                                        <div class="portlet-body form" style="margin-top: 100px;">
+                                            <div class="code" style="display: none;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end logs -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- end logo -->
 
-            <div class="col-md-12">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <div class="content pull-right">
-                        <canvas id="canvas" width="400" height="400" style="background-color:#333"></canvas>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="content pull-left">
-                        <div class="datenow"><?=date('F d, Y')?></div>
-                        <div class="clock"><?=date('h:i:s A')?></div>
-                        <br><br>
-                        <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
-                        <div class="alert alert-danger display-hide">
-                            <button class="close" data-close="alert"></button>
-                            <span> Enter any username and password. </span>
+            <div class="footer">
+                <div class="copyright"> 2018 © DOST ITD. </div>
+            </div>
+
+            <!-- start modal -->
+            <div id="confirmation-modal" class="modal fade" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"><b>Update Database</b></h4>
                         </div>
-                        <?=form_open('dtr', array('method' => 'post'))?>
-                            <div class="form-group">
-                                <label class="control-label visible-ie8 visible-ie9">Username</label>
-                                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" /> </div>
-                            <div class="form-group">
-                                <label class="control-label visible-ie8 visible-ie9">Password</label>
-                                <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" /> </div>
-                            <div class="form-actions" style="border: none;text-align: right;">
-                                <button type="submit" class="btn green uppercase">Submit</button>
-                            </div> 
+                        <?=form_open('', array('id' => 'confirm'))?>
+                            <div class="modal-body">
+                                <div class="row form-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Are you sure you want to alter your current database?
+                                                <br>If you wish to do it manually, the updated database sql schema is added in <i>schema/hrmisv10/hrmis-schema-upt.sql</i></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+                            </div>
                         <?=form_close()?>
                     </div>
                 </div>
             </div>
-
-            <div class="footer">
-                <center>
-                    <div class="col-md-12" style="padding-bottom: 30px;">
-                        <a href="javascript:;" id="btn-present" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Present Employees">
-                            <h1><i class="fa fa-check"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                        <a href="javascript:;" id="btn-absent" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Absent Employees">
-                            <h1><i class="fa fa-remove"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                        <a href="javascript:;" id="btn-ob" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Official Business Employees">
-                            <h1><i class="fa fa-subway"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                        <a href="javascript:;" id="btn-leave" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Leave Employees">
-                            <h1><i class="fa fa-plane"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                    </div>
-                    <?php include('_dtr_modal.php'); ?>
-                </center>
-
-                <div class="copyright"> 2018 © DOST ITD. </div>
-            </div>
-
-            <script>
-                var canvas = document.getElementById("canvas");
-                var ctx = canvas.getContext("2d");
-                var radius = canvas.height / 2;
-                ctx.translate(radius, radius);
-                radius = radius * 0.90
-                setInterval(drawClock, 1000);
-
-                function drawClock() {
-                  drawFace(ctx, radius);
-                  drawNumbers(ctx, radius);
-                  drawTime(ctx, radius);
-                }
-
-                function drawFace(ctx, radius) {
-                  var grad;
-                  ctx.beginPath();
-                  ctx.arc(0, 0, radius, 0, 2*Math.PI);
-                  ctx.fillStyle = 'white';
-                  ctx.fill();
-                  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
-                  grad.addColorStop(0, '#333');
-                  grad.addColorStop(0.5, 'white');
-                  grad.addColorStop(1, '#333');
-                  ctx.strokeStyle = grad;
-                  ctx.lineWidth = radius*0.1;
-                  ctx.stroke();
-                  ctx.beginPath();
-                  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
-                  ctx.fillStyle = '#333';
-                  ctx.fill();
-                }
-
-                function drawNumbers(ctx, radius) {
-                  var ang;
-                  var num;
-                  ctx.font = radius*0.15 + "px arial";
-                  ctx.textBaseline="middle";
-                  ctx.textAlign="center";
-                  for(num = 1; num < 13; num++){
-                    ang = num * Math.PI / 6;
-                    ctx.rotate(ang);
-                    ctx.translate(0, -radius*0.85);
-                    ctx.rotate(-ang);
-                    ctx.fillText(num.toString(), 0, 0);
-                    ctx.rotate(ang);
-                    ctx.translate(0, radius*0.85);
-                    ctx.rotate(-ang);
-                  }
-                }
-
-                function drawTime(ctx, radius){
-                    var now = new Date();
-                    var hour = now.getHours();
-                    var minute = now.getMinutes();
-                    var second = now.getSeconds();
-                    //hour
-                    hour=hour%12;
-                    hour=(hour*Math.PI/6)+
-                    (minute*Math.PI/(6*60))+
-                    (second*Math.PI/(360*60));
-                    drawHand(ctx, hour, radius*0.5, radius*0.07);
-                    //minute
-                    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-                    drawHand(ctx, minute, radius*0.8, radius*0.07);
-                    // second
-                    second=(second*Math.PI/30);
-                    drawHand(ctx, second, radius*0.9, radius*0.02);
-                }
-
-                function drawHand(ctx, pos, length, width) {
-                    ctx.beginPath();
-                    ctx.lineWidth = width;
-                    ctx.lineCap = "round";
-                    ctx.moveTo(0,0);
-                    ctx.rotate(pos);
-                    ctx.lineTo(0, -length);
-                    ctx.stroke();
-                    ctx.rotate(-pos);
-                }
-
-                function clock() {
-                    var date = new Date(),
-                    hour = date.getHours(),
-                    minute = checkTime(date.getMinutes()),
-                    ss = checkTime(date.getSeconds());
-
-                    function checkTime(i) {
-                        if( i < 10 ) {
-                            i = "0" + i;
-                        } return i;
-                    }
-
-                    console.log(hour);
-                    if(hour == 12) {
-                        document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" PM";
-                    } else if ( hour > 12 ) {
-                        hour = hour - 12;
-                        if ( hour == 12 ) {
-                            hour = checkTime(hour);
-                            document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" AM";
-                        } else {
-                            hour = checkTime(hour);
-                            document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" PM";
-                        }
-                    } else {
-                        document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" AM";
-                    }
-                }
-                setInterval(clock, 1000);
-
-            </script>
+            <!-- end modal -->
+            
             <!-- BEGIN CORE PLUGINS -->
             <script src="<?=base_url('assets/global/plugins/jquery.min.js')?>" type="text/javascript"></script>
             <script src="<?=base_url('assets/global/plugins/bootstrap/js/bootstrap.min.js')?>" type="text/javascript"></script>
@@ -270,7 +208,7 @@
             <script src="<?=base_url('assets/layouts/layout/scripts/demo.min.js')?>" type="text/javascript"></script>
             <script src="<?=base_url('assets/layouts/global/scripts/quick-sidebar.min.js')?>" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
-            <script src="<?=base_url('assets/js/custom-dtr.js')?>"></script>
+            <script src="<?=base_url('assets/js/migrate.js')?>"></script>
 
             <script>
                 $(document).ready(function(){
@@ -299,10 +237,6 @@
                     //     countdownMessage: 'Redirecting in {timer} seconds.',
                     //     countdownBar: true
                     // });
-
-                    setTimeout(function() {
-                        $(".alert").alert('close');
-                    }, 2000);
                 });  
             </script>
         </body>

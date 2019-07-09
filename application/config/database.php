@@ -94,3 +94,28 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+// print_r(FCPATH . 'schema/data/migration/schema/hrmis-schema-upt.sql');
+// die();
+$db['hrmisv10_upt'] = array(
+    'dsn'      => '',
+    'hostname' => $_ENV['DB_HOST'],
+    'username' => $_ENV['DB_USER'],
+    'password' => $_ENV['DB_PASS'],
+    'database' => 'hrmisv10_upt',
+    'dbdriver' => 'mysqli',
+    'dbprefix' => '',
+    'pconnect' => FALSE,
+    'db_debug' => FALSE,
+    'autoinit' => FALSE,
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt'  => FALSE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE
+);

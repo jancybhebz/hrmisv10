@@ -5,6 +5,7 @@ Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
+load_plugin('js',array('validation'));
 ?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
@@ -41,17 +42,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/org_structure/edit_exec/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
+            <?=form_open(base_url('libraries/org_structure/edit_exec/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmOrgStructure', 'onsubmit' => 'return checkForBlank()'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Executive Office Code <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
-                                </div>
+                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" id="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
+                                    <font color='red'> <span id="errorCode"></span></font>
                             </div>
                         </div>
                     </div>
@@ -59,10 +58,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Executive Office Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strExecName" value="<?=!empty($arrOrganization[0]['group1Name'])?$arrOrganization[0]['group1Name']:''?>">
-                                </div>
+                                    <input type="text" class="form-control" name="strExecName" id="strExecName" value="<?=!empty($arrOrganization[0]['group1Name'])?$arrOrganization[0]['group1Name']:''?>">
+                                    <font color='red'> <span id="errorName"></span></font>
                             </div>
                         </div>
                     </div>
@@ -88,10 +85,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Executive Office Head Title<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strHeadTitle" value="<?=!empty($arrOrganization[0]['group1HeadTitle'])?$arrOrganization[0]['group1HeadTitle']:''?>">
-                                </div>
+                                    <input type="text" class="form-control" name="strHeadTitle" id="strHeadTitle"  value="<?=!empty($arrOrganization[0]['group1HeadTitle'])?$arrOrganization[0]['group1HeadTitle']:''?>">
+                                    <font color='red'> <span id="errorHead"></span></font>
                             </div>
                         </div>
                     </div>
@@ -112,12 +107,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    
-                 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="strCode" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
+                                <input type="hidden" name="strCode" value="<?=!empty($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/org_structure')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -153,20 +146,20 @@ var FormValidation = function () {
                 rules: {
                     strExecOffice: {
                         minlength: 1,
-                        required: true
+                        required: true,
                     },
                     strExecName: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strExecHead: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strHeadTitle: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strSecretary: {
                         minlength: 1,
                         required: true,
@@ -225,4 +218,38 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
+</script>
+<script>
+
+function checkForBlank()
+{
+   var spaceCount = 0;
+
+    $code= $('#strExecOffice').val();
+    $name= $('#strExecName').val();
+    $title= $('#strHeadTitle').val();
+
+    $('#errorCode','#errorName','#errorHead').html('');
+
+   if($code==0)
+    {
+      $('#errorCode').html('Invalid input!');
+      return false;
+    }
+    else if($name==0)
+    {
+      $('#errorName').html('Invalid input!');
+      return false;
+    }
+    else if($title==0)
+    {
+      $('#errorHead').html('Invalid input!');
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+
+}
 </script>

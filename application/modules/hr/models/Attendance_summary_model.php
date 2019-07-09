@@ -10,6 +10,7 @@ class Attendance_summary_model extends CI_Model {
 	{
 		$this->db->where('id', $dtrid);
 		$this->db->update('tblEmpDTR', $arrData);
+		
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -28,7 +29,7 @@ class Attendance_summary_model extends CI_Model {
 			$this->db->where("dtrDate BETWEEN '".$sdate."' AND '".$edate."'");
 		}
 		$res = $this->db->get('tblEmpDTR')->result_array();
-		echo $this->db->last_query();
+		
 		if(count($res) > 0){
 			return $res;
 		}else{
@@ -38,7 +39,7 @@ class Attendance_summary_model extends CI_Model {
 
 	function getcurrent_dtr($empid)
 	{
-		$res = $this->db->get_where('tblEmpDTR' ,array('empNumber' => $empid, 'dtrDate' => 'NOW()'))->result_array();
+		$res = $this->db->get_where('tblEmpDTR' ,array('empNumber' => $empid, 'dtrDate' => date('Y-m-d')))->result_array();
 		if(count($res) > 0){
 			return $res[0];
 		}else{

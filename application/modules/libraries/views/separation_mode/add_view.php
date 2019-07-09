@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Add page for Separation Mode Library
+Purpose of file:    Add page for Employment Status Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Separation Mode</span>
+            <span>Add Employment Status</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Separation Mode</span>
+                    <span class="caption-subject bold uppercase"> Add Employment Status</span>
                 </div>
                 
             </div>
@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Separation Mode <span class="required"> * </span></label>
+                                <label class="control-label">Employment Status <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strSeparationMode" value="<?=!empty($this->session->userdata('strSeparationMode'))?$this->session->userdata('strSeparationMode'):''?>">

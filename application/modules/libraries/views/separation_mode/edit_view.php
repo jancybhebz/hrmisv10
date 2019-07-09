@@ -10,7 +10,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Separation Cause</span>
+            <span>Edit Employment Status</span>
         </li>
     </ul>
 </div>
@@ -28,7 +28,7 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Separation Cause</span>
+                    <span class="caption-subject bold uppercase"> Edit Employment Status</span>
                 </div>
                 
             </div>
@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Separation Mode <span class="required"> * </span></label>
+                                <label class="control-label">Employment Status <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strMode" id="strMode" value="<?=isset($arrSeparation[0]['separationCause'])?$arrSeparation[0]['separationCause']:''?>" >

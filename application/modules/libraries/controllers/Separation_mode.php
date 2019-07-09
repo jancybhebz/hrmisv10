@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Controller for Separation Mode Library
+Purpose of file:    Controller for Employment Status Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -50,15 +50,15 @@ class Separation_mode extends MY_Controller
 
 					if(count($blnReturn)>0)
 					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Added '.$strSeparationMode.' Separation_mode',implode(';',$arrData),'');
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Added '.$strSeparationMode.' Employment Status',implode(';',$arrData),'');
 					
-						$this->session->set_flashdata('strSuccessMsg','Separation mode added successfully.');
+						$this->session->set_flashdata('strSuccessMsg','Employment Status added successfully.');
 					}
 					redirect('libraries/separation_mode');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Separation mode already exists.');
+					$this->session->set_flashdata('strErrorMsg','Employment Status already exists.');
 					$this->session->set_flashdata('separationCause',$strSeparationMode);
 					redirect('libraries/separation_mode/add');
 				}
@@ -89,9 +89,9 @@ class Separation_mode extends MY_Controller
 				$blnReturn = $this->separation_mode_model->save($arrData, $strSepCause);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Edited '.$strMode.' Separation Mode',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Edited '.$strMode.' Employment Status',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Separation saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Employment Status saved successfully.');
 				}
 				redirect('libraries/separation_mode');
 			}
@@ -120,8 +120,8 @@ class Separation_mode extends MY_Controller
 				$blnReturn = $this->separation_mode_model->delete($strSepCause);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Deleted '.$strCode.' Separation Mode',implode(';',$arrSeparation[0]),'');
-					$this->session->set_flashdata('strMsg','Separation cause deleted successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Deleted '.$strCode.' Employment Status',implode(';',$arrSeparation[0]),'');
+					$this->session->set_flashdata('strMsg','Employment Status deleted successfully.');
 				}
 				redirect('libraries/separation_mode');
 			}
