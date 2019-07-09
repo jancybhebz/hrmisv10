@@ -137,11 +137,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group4']?> Head Title<span class="required"> * </span></label>
                                     <input type="text" class="form-control" name="strSecHeadTitle" id="strSecHeadTitle"  value="<?=!empty($this->session->userdata('strSecHeadTitle'))?$this->session->userdata('strSecHeadTitle'):''?>">
-<<<<<<< HEAD
-                                    <font color='red'> <span id="errorHead"></span></font>
-=======
                                     <font color='red'> <span id="errorTitle"></span></font>
->>>>>>> a421dc0500593a1dfdc153504340e62c90601a3b
                             </div>
                         </div>
                     </div>
@@ -238,32 +234,14 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strExec: {
+                    strExecDivision: {
                         minlength: 1,
                         required: true
                     },
-                    strService: {
+                    strSerDivision: {
                         minlength: 1,
                         required: true,
                     },
-<<<<<<< HEAD
-                    strDivision: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strSecCode: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strSecName: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strSecHead: {
-                        required: true,
-                    },
-                    strSecHeadTitle: {
-=======
                     strSecCode: {
                         minlength: 1,
                         required: true,
@@ -282,13 +260,8 @@ var FormValidation = function () {
                     },
                     strSecSecretary: {
                         minlength: 1,
->>>>>>> a421dc0500593a1dfdc153504340e62c90601a3b
                         required: true,
                     },
-                    strSecSecretary: {
-                        minlength: 1,
-                        required: true,
-                    }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -354,58 +327,36 @@ function checkForBlank()
     $name= $('#strSecName').val();
     $title= $('#strSecHeadTitle').val();
 
-<<<<<<< HEAD
-    $('#errorCode','#errorName','#errorHead').html('');
-
-    if($code=="" && $name=="" && $title=="")
-    {
-        $('#errorCode').html('This field is required!');
-        $('#errorName').html('This field is required!');
-        $('#errorHead').html('This field is required!');
-=======
     $('#errorCode','#errorName','#errorTitle').html('');
 
     if($code=="")
     {
       $('#errorCode').html('This field is required!');
->>>>>>> a421dc0500593a1dfdc153504340e62c90601a3b
       return false;
     }
     else if($code==0)
     {
-<<<<<<< HEAD
-      $('#errorCode').html('Invalid input!');
-=======
       $('#errorCode').html('Invalid Input!');
       return false;
     }
     if($name=="")
     {
       $('#errorName').html('This field is required!');
->>>>>>> a421dc0500593a1dfdc153504340e62c90601a3b
       return false;
     }
     else if($name==0)
     {
-<<<<<<< HEAD
-      $('#errorName').html('Invalid input!');
-=======
       $('#errorName').html('Invalid Input!');
       return false;
     }
     if($title=="")
     {
       $('#errorTitle').html('This field is required!');
->>>>>>> a421dc0500593a1dfdc153504340e62c90601a3b
       return false;
     }
     else if($title==0)
     {
-<<<<<<< HEAD
-      $('#errorHead').html('Invalid input!');
-=======
       $('#errorTitle').html('Invalid Input!');
->>>>>>> a421dc0500593a1dfdc153504340e62c90601a3b
       return false;
     }
     else

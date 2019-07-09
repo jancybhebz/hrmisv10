@@ -6,17 +6,15 @@ class Migrate_model extends CI_Model {
 	{
 		$this->load->database();
 		$this->db->initialize();
-		$this->path = 'schema/data/migration/schema/';
+		$this->path = 'schema/data/migration/schema/hrmis-schema-upt.sql';
 		$this->created_sys_sql = 'schema/hrmisv10/hrmis-schema-upt.sql';
 	}
 	
-	function get_table_list()
+	function comparing_tables()
 	{
 		$this->hrmisv10 = null;
 		$tbldb_hrmisv10 = array();
 		$tbldb_hrmis = array();
-
-		echo '<pre>';
 
 		echo '<br>Create database hrmisv10_upt..';
 		$check_db_exist = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'hrmisv10_upt'";
@@ -36,7 +34,7 @@ class Migrate_model extends CI_Model {
 			$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
 			if(count($this->hrmisv10->list_tables()) < 1):
 				echo '<br>Importing database...';
-				$this->import_database($this->hrmisv10);
+				$this->import_database($this->hrmisv10,$this->path);
 			endif;
 			# get the table list from hrmisv10 schema
 			$tbldb_hrmisv10 = $this->hrmisv10->list_tables();
@@ -47,29 +45,42 @@ class Migrate_model extends CI_Model {
 		# get the table list from current database
 		$tbldb_hrmis = $this->db->list_tables();
 
+		# create file and start writing sql content
+		fopen($this->created_sys_sql, "w") or die("Unable to open file!");
+
 		# call check_tables
 		$this->check_tables($tbldb_hrmisv10, $tbldb_hrmis);
 	}
 
 	function check_tables($tbldb_hrmisv10, $tbldb_hrmis)
     {
+    	$table_removed = 0;
+    	$table_added = 0;
+    	$sql_file = 'schema/hrmisv10/hrmis-schema-upt_001.sql';
+    	# remove file contents
+    	if(file_exists($sql_file)):
+	    	unlink($sql_file);
+	    endif;
+
     	echo '<br>Start creating sql file...';
         echo '<br>Checking Tables...';
 
         # get tables that does not exist in updated schema
-        $this->write_sqlstmt('# Remove unused Tables that does not exist in updated schema');
-        $this->write_sqlstmt("# Remove unused Tables...");
+        $this->write_sqlstmt('# Remove unused Tables that does not exist in updated schema',$sql_file);
+        $this->write_sqlstmt("# Remove unused Tables...",$sql_file);
         $tbl_toremove = array_diff($tbldb_hrmis,$tbldb_hrmisv10);
         foreach($tbl_toremove as $tbldel):
-        	$this->write_sqlstmt("# Remove table <i>".$tbldel."</i>...");
-        	$this->write_sqlstmt('DROP TABLE `'.$tbldel.'`;');
+        	$table_removed++;
+        	$this->write_sqlstmt("# Remove table ".$tbldel."...",$sql_file);
+        	$this->write_sqlstmt('DROP TABLE `'.$tbldel.'`;',$sql_file);
         endforeach;
         
         # get tables that exist in updated schema and not exist in current database, then create
-        $this->write_sqlstmt("# Add necessary Tables...");
+        $this->write_sqlstmt("# Add necessary Tables...",$sql_file);
         $tbl_toadd = array_diff($tbldb_hrmisv10,$tbldb_hrmis);
         foreach($tbl_toadd as $tbladd):
-        	$this->write_sqlstmt("# Add table <i>".$tbladd."</i>...");
+        	$table_added++;
+        	$this->write_sqlstmt("# Add table ".$tbladd."...",$sql_file);
         	$desc_tbl = $this->hrmisv10->query('DESCRIBE '.$tbladd.';')->result_array();
         	# populate fields
         	$arr_fields = array();
@@ -86,15 +97,23 @@ class Migrate_model extends CI_Model {
 
         	$new_tbl = "CREATE TABLE IF NOT EXISTS `".$tbladd."` (".implode(",",$arr_fields).(count($arr_primary) > 0 ? ','.implode(",",$arr_primary) : '').");";
         	echo $new_tbl;
-			$this->write_sqlstmt('# Add table '.$tbldel);
-			$this->write_sqlstmt($new_tbl);
+			$this->write_sqlstmt('# Add table '.$tbladd,$sql_file);
+			$this->write_sqlstmt($new_tbl,$sql_file);
         endforeach;
+        if(($table_removed + $table_added) > 0):
+        	$this->sql_initial_statement($sql_file);
+        endif;
+
     }
 
     function fix_datetime_fields()
     {
-    	echo '<pre>';
-    	// $this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
+    	$sql_file = 'schema/hrmisv10/hrmis-schema-upt_002.sql';
+    	# remove file contents
+    	if(file_exists($sql_file)):
+	    	unlink($sql_file);
+	    endif;
+
     	$tbldb_hrmis = $this->db->list_tables();
     	foreach($tbldb_hrmis as $tbl):
     		$desc_tbl = $this->db->query('DESCRIBE '.$tbl.';')->result_array();
@@ -115,7 +134,7 @@ class Migrate_model extends CI_Model {
     		endif;
 
     		if(in_array('date',$arr_datatype)):
-    			$this->write_sqlstmt("# Fix Date Value.");
+    			$this->write_sqlstmt("# Fix Date Value.",$sql_file);
     			foreach($arr_datatype as $key => $dttype):
     				if($dttype == 'date'):
     					array_push($fields_ddtime_to_varchar, "CHANGE `".$desc_tbl[$key]['Field']."` `".$desc_tbl[$key]['Field']."` VARCHAR(20) DEFAULT NULL");
@@ -126,25 +145,22 @@ class Migrate_model extends CI_Model {
     		endif;
 
     		if(count($fields_alter) > 0):
-	    		$this->write_sqlstmt("# Fix date_time field in table '.$tbl");
+	    		$this->write_sqlstmt("# Fix date_time field in table '.$tbl",$sql_file);
 	    		# Alter table, change date/datetime to varchar
-	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_ddtime_to_varchar).";");
+	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_ddtime_to_varchar).";",$sql_file);
 	    		foreach($fields_alter as $field):
 	    			# the update table, set null to datetime field with 0000-00-00 value
-	    			$this->write_sqlstmt("UPDATE `".$tbl."` SET `".$field."` = NULL WHERE `".$field."` LIKE '0000%' OR `".$field."` LIKE '%-00-%' OR `".$field."` LIKE '%-00';");
+	    			$this->write_sqlstmt("UPDATE `".$tbl."` SET `".$field."` = NULL WHERE `".$field."` LIKE '0000%' OR `".$field."` LIKE '%-00-%' OR `".$field."` LIKE '%-00';",$sql_file);
 	    			# back the field to its field date/datetime
 	    		endforeach;
 	    		# Alter table, change varchar to date/datetime
-	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_varchar_to_ddtime).";");
+	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_varchar_to_ddtime).";",$sql_file);
 	    	endif;
     	endforeach;
     }
 
     function update_fields()
     {
-    	echo '<pre>';
-    	// $this->sql_initial_statement();
-    	
     	$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
     	$hrmisv10_table_list = $this->hrmisv10->list_tables();
     	$hrmis_table_list = $this->db->list_tables();
@@ -163,76 +179,50 @@ class Migrate_model extends CI_Model {
 	    		if(count($field_diff) > 0):
 	    			$new_fields = $this->hrmisv10->query("SHOW COLUMNS FROM ".$tbl." WHERE FIELD IN ('".implode("','",$field_diff)."');")->result_array();
 		    		foreach($new_fields as $field):
-		    			// echo '<br>';
-		    			// print_r($field);
 		    			# check if field is primary, then check if primary key exist in currentdb
-		    			if($field['Key'] == 'PRI'):
+		    			$isnull = $field['Null'] == 'NO' ? 'NOT NULL' : 'NULL';
+		    			$default = $field['Default'] != '' ? "default '".$field['Default']."'" : '';
+		    			if(in_array($field['Key'], array('PRI','UNI'))):
 		    				$primary = $this->db->query("SHOW KEYS FROM ".$tbl." WHERE Key_name = 'PRIMARY';")->result_array();
 		    				if(count($primary)):
 		    					$this->write_sqlstmt("# Drop index for ".$tbl."  \nDROP INDEX `PRIMARY` ON ".$tbl.";");
 		    				endif;
 		    				$arr_new_primary = ", ADD PRIMARY KEY (`".$field['Field']."`)";
+		    				$isnull = 'NOT NULL';
 		    			endif;
-
-		    			$isnull = $field['Null'] == 'NO' ? 'NOT NULL' : 'NULL';
-		    			$default = $field['Default'] != '' ? "default '".$field['Default']."'" : '';
 		    			array_push($arr_new_fields,"ADD `".$field['Field']."` ".$field['Type']." ".$isnull." ".$default." ".$field['Extra']);
 		    		endforeach;
 		    	endif;
 		    	$this->write_sqlstmt("# Add new field/s for table ".$tbl);
 		    	$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(",",$arr_new_fields).$arr_new_primary.";");
-		    	// print_r($arr_new_fields);
-	    		// echo '<hr>';
 	    	endforeach;
 	    endif;
 
-    	// // print_r($hrmisv10_table_list);
-    	// // print_r($hrmis_table_list);
-
-    	// if(count($hrmisv10_table_list) != count($hrmis_table_list)):
-    	// 	# check if table list from both database is equal
-    	// 	echo 'There is error in migrating table, please try again.';
-    	// 	die();
-    	// else:
-    	// 	foreach($hrmis_table_list as $tbl):
-    	// 		$field_list_hrmisv10 = $this->hrmisv10->query('DESCRIBE '.$tbl.';')->result_array();
-    	// 		$field_list = $this->db->query('DESCRIBE '.$tbl.';')->result_array();
-    	// 		$field_diff = array_diff(array_column($field_list_hrmisv10,'Field'),array_column($field_list,'Field'));
-    	// 		if(count($field_diff) > 0):
-    	// 			$new_fields = $this->hrmisv10->query("SHOW COLUMNS FROM ".$tbl." WHERE FIELD IN ('".implode("','",$field_diff)."');")->result_array();
-    	// 			$arr_new_fields = array();
-    	// 			foreach($new_fields as $newf):
-    	// 				$isnull = $newf['Null'] == 'NO' ? 'NOT NULL' : 'NULL';
-		   //      		$default = $newf['Default'] != '' ? "default '".$newf['Default']."'" : '';
-		   //      		array_push($arr_new_fields,"ADD `".$newf['Field']."` ".$newf['Type']." ".$isnull." ".$default." ".$newf['Extra']);
-		   //      		# add primary
-		   //      		if($newf['Key'] == 'PRI'):
-		   //      			print_r($newf);
-		   //      			// $this->write_sqlstmt("# Drop index for ".$tbl."  \nDROP INDEX `PRIMARY` ON ".$tbl.";");
-		   //      			array_push($arr_new_fields,"ADD PRIMARY KEY (`".$newf['Field']."`)");
-		   //      		endif;
-    	// 			endforeach;
-    	// 			$this->write_sqlstmt("# Add new field/s for table ".$tbl);
-    	// 			$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(",",$arr_new_fields).";");
-    	// 		endif;
-    	// 	endforeach;
-    	// endif;
-
-    	# get all table list
-
     }
 
-	function import_database($dbconn) 
-	{
-		$sql_filename = 'hrmis-schema-upt.sql';
+    function update_database($path='')
+    {
+    	echo $path;
+    	if($path == ''):
+    		$path = $this->created_sys_sql;
+    	endif;
+    	$this->import_database($this->db,$path);
+    }
 
-		$sql_contents = file_get_contents($this->path.$sql_filename);
+	function import_database($dbconn,$path) 
+	{
+		$sql_contents = file_get_contents($path);
 		$sql_contents = explode(";", $sql_contents);
 
 		foreach($sql_contents as $query):
 			$pos = strpos($query,'ci_sessions');
 			if($pos == false):
-				$result = $dbconn->query($query);
+				// if($query!='' || $query!=' '):
+				// if(str_replace(' ','',$query) != ''):
+					// echo "|".str_replace(' ','',$query)."|";
+					// echo '<hr>';
+				// endif;
+				// $result = $dbconn->query($query);
 			else:
 				continue;
 			endif;
@@ -240,17 +230,20 @@ class Migrate_model extends CI_Model {
 		echo '<br>Database Import Successfully!!...';
 	}
 
-	function write_sqlstmt($txt)
+	function write_sqlstmt($txt,$path='')
 	{
-		// file_put_contents($this->created_sys_sql, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+		if($path == ''):
+			$path = $this->created_sys_sql;
+		endif;
+		file_put_contents($path, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 		echo '<br>';echo $txt;
 	}
 
-	function sql_initial_statement()
+	function sql_initial_statement($path='')
 	{
-		$this->write_sqlstmt("# Set Global Variable");
-		$this->write_sqlstmt("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
-		$this->write_sqlstmt("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+		$this->write_sqlstmt("# Set Global Variable",$path);
+		$this->write_sqlstmt("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';",$path);
+		$this->write_sqlstmt("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';",$path);
 
 		# check if tblAppointment is exists, if yes, drop primary key
 		// foreach(array('tblAppointment','tblDeduction','tblLeave') as $table):

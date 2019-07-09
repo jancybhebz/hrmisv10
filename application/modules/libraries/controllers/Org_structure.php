@@ -80,10 +80,10 @@ class Org_structure extends MY_Controller {
 	public function edit_exec()
 	{
 		$arrPost = $this->input->post();
-		$strCode = $this->uri->segment(4);
+		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			// $strCode = urldecode($this->uri->segment(4));
+			$strCode = urldecode($this->uri->segment(4));
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData($strCode);
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/edit_exec_view', $this->arrData);
@@ -96,6 +96,7 @@ class Org_structure extends MY_Controller {
 			$strExecHead = $arrPost['strExecHead'];
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary= $arrPost['strSecretary'];
+			
 			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
 			{
 				$arrData = array(
@@ -105,13 +106,14 @@ class Org_structure extends MY_Controller {
 					'group1HeadTitle'=>$strHeadTitle,
 					'group1Secretary'=>$strSecretary
 					
+					
 				);
 				$blnReturn = $this->org_structure_model->save_exec($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Edited '.$strExecOffice.' Org_structure',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Executive Office details saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Executive name saved successfully.');
 				}
 				redirect('libraries/org_structure');
 			}
@@ -141,7 +143,7 @@ class Org_structure extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strExecOffice.' Org_structure',implode(';',$arrOrganization[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Executive Office details deleted successfully.');
+					$this->session->set_flashdata('strMsg','Executive name deleted successfully.');
 				}
 				redirect('libraries/org_structure');
 			}
@@ -366,8 +368,6 @@ class Org_structure extends MY_Controller {
 					'group3Secretary'=>$strDivSecretary,
 					
 				);
-				print_r($arrPost);
-				exit(1);
 				$blnReturn = $this->org_structure_model->save_division($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{

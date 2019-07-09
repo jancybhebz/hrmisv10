@@ -126,8 +126,7 @@
                                 <div class="col-md-6">
                                     <div class="portlet light">
                                         <div class="portlet-body form" style="margin-top: 100px;">
-                                            <div class="code" style="display: none;">
-                                            </div>
+                                            <div class="scroller code" style="display: none;height:450px;" data-always-visible="0" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
                                         </div>
                                     </div>
                                 </div>
@@ -144,32 +143,7 @@
             </div>
 
             <!-- start modal -->
-            <div id="confirmation-modal" class="modal fade" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title"><b>Update Database</b></h4>
-                        </div>
-                        <?=form_open('', array('id' => 'confirm'))?>
-                            <div class="modal-body">
-                                <div class="row form-body">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Are you sure you want to alter your current database?
-                                                <br>If you wish to do it manually, the updated database sql schema is added in <i>schema/hrmisv10/hrmis-schema-upt.sql</i></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
-                                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
-                            </div>
-                        <?=form_close()?>
-                    </div>
-                </div>
-            </div>
+            <?php include('_modal_migrate.php'); ?>
             <!-- end modal -->
             
             <!-- BEGIN CORE PLUGINS -->

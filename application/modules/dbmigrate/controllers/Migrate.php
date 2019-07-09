@@ -23,58 +23,76 @@ class Migrate extends MY_Controller
         $uname = $_GET['uname'];
         $pass = $_GET['pass'];
 
-        echo '<br>host: '.$host;
+        echo 'host: '.$host;
         echo '<br>port: '.$port;
         echo '<br>dbname: '.$dbname;
         echo '<br>uname: '.$uname;
-        echo '<br>pass: '.$pass;
-        echo '<br>';
-        $this->Migrate_model->get_table_list();
+        $this->Migrate_model->comparing_tables();
         echo 'Comparing Databases...';
     }
 
     function fix_datetime_fields()
     {
+        $path = 'schema/hrmisv10/hrmis-schema-upt_001.sql';
+        
+        $total_line = 0;
+        $ctrcomment = 0;
+        if(file_exists($path)):
+            $sql_contents = file_get_contents($path);
+            $file = fopen($path,"r");
+            while(! feof($file)):
+                $line = fgets($file);
+                $total_line++;
+                if($line[0] == '#' || $line == '') { $ctrcomment++; }
+            endwhile;
+            fclose($file);
+
+            if($total_line != $ctrcomment):
+                $this->Migrate_model->update_database($path);
+            endif;
+            unlink($path);
+        endif;
+
         echo 'Fixed datetime fields...';
         $this->Migrate_model->fix_datetime_fields();
     }
 
     function update_fields()
     {
+        $path = 'schema/hrmisv10/hrmis-schema-upt_002.sql';
+        
+        $total_line = 0;
+        $ctrcomment = 0;
+        if(file_exists($path)):
+            echo 'exists';
+            $sql_contents = file_get_contents($path);
+            $file = fopen($path,"r");
+            while(! feof($file)):
+                $line = fgets($file);
+                $total_line++;
+                if($line[0] == '#' || $line == '') { $ctrcomment++; }
+            endwhile;
+            fclose($file);
+
+            if($total_line != $ctrcomment):
+                echo 'migrate';
+                $this->Migrate_model->update_database($path);
+            endif;
+            // unlink($path);
+        endif;
+
+        // echo 'Fixed datetime fields...';
+        // $this->Migrate_model->fix_datetime_fields();
         echo 'Update Fields...';
-        $this->Migrate_model->update_fields();
+        // $this->Migrate_model->update_fields();
 
     }
 
-    function create_sql()
+    function update_database()
     {
-        echo 'create sql file...';
+        # update Database
+        $this->Migrate_model->update_database();
     }
-
-
-    // function migration()
-    // {
-    // 	echo '<pre>';
-    // 	$msg_log = array();
-
-    // 	echo 'Comparing Databases...';
-    // 	echo '<br>';
-    // 	echo 'Checking Tables...';
-    // 	echo '<br>';
-    // 	echo 'Remove unused Tables...';
-    // 	echo '<br>';
-    // 	echo 'Add necessary Tables...';
-    // 	echo '<br>';
-    // 	echo 'Scanning Tables...';
-    // 	echo '<br>';
-    // 	echo 'Comparing Fields...';
-    // 	echo '<br>';
-    // 	echo 'Creating SQL File...';
-    // 	echo '<br>';
-
-    // 	print_r($msg_log);
-    // 	echo 'migrate';
-    // }
 
 
 
