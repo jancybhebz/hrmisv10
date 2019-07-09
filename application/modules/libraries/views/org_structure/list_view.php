@@ -311,7 +311,6 @@
     <!--end col-md-9-->
 </div>
 
-\
 
 <?=load_plugin('js',array('datatables'));?>
 

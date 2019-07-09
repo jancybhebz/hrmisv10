@@ -7,7 +7,28 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <?php load_plugin('css',array('datepicker','datatables'));?>
-
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?=base_url('home')?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Libraries</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Appointment Status</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+       &nbsp;
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -17,9 +38,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <i class="icon-settings font-dark"></i>
                     <span class="caption-subject bold uppercase"> Appointment Status</span>
                 </div>
-                
             </div>
-            <div class="portlet-body">
+            <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+            <div class="portlet-body" id="appt_stat_view" style="display: none">
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-6">
@@ -84,6 +105,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script>
     $(document).ready(function() {
-        Datatables.init('libraries_appointment_status');
-  });
+        $('#libraries_appointment_status').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#appt_stat_view').show();
+            }} );
+    });
 </script>
