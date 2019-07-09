@@ -331,7 +331,14 @@ function checkForBlank()
 
     $('#errorCode','#errorName','#errorHead').html('');
 
-   if($code==0)
+    if($code=="" && $name=="" && $title=="")
+    {
+        $('#errorCode').html('This field is required!');
+        $('#errorName').html('This field is required!');
+        $('#errorHead').html('This field is required!');
+      return false;
+    }
+    else if($code==0)
     {
       $('#errorCode').html('Invalid input!');
       return false;

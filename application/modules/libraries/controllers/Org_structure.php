@@ -80,10 +80,10 @@ class Org_structure extends MY_Controller {
 	public function edit_exec()
 	{
 		$arrPost = $this->input->post();
-		//print_r($arrPost);
+		$strCode = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$strCode = urldecode($this->uri->segment(4));
+			// $strCode = urldecode($this->uri->segment(4));
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData($strCode);
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/edit_exec_view', $this->arrData);
@@ -96,7 +96,6 @@ class Org_structure extends MY_Controller {
 			$strExecHead = $arrPost['strExecHead'];
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary= $arrPost['strSecretary'];
-			
 			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
 			{
 				$arrData = array(
@@ -105,7 +104,6 @@ class Org_structure extends MY_Controller {
 					'empNumber'=>$strExecHead,
 					'group1HeadTitle'=>$strHeadTitle,
 					'group1Secretary'=>$strSecretary
-					
 					
 				);
 				$blnReturn = $this->org_structure_model->save_exec($arrData, $strCode);
@@ -366,6 +364,8 @@ class Org_structure extends MY_Controller {
 					'group3Secretary'=>$strDivSecretary
 					
 				);
+				print_r($arrPost);
+				exit(1);
 				$blnReturn = $this->org_structure_model->save_division($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{

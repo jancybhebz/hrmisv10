@@ -100,11 +100,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Service Head Title<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
                                      <input type="text" class="form-control" name="strServiceTitle" id="strServiceTitle"  value="<?=!empty($this->session->userdata('strServiceTitle'))?$this->session->userdata('strServiceTitle'):''?>">
                                      <font color='red'> <span id="errorHead"></span></font>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -293,7 +290,14 @@ function checkForBlank()
 
     $('#errorCode','errorName','errorHead').html('');
 
-   if($code==0)
+   if($code=="" && $name=="" && $title=="")
+    {
+        $('#errorCode').html('This field is required!');
+        $('#errorName').html('This field is required!');
+        $('#errorHead').html('This field is required!');
+      return false;
+    }
+    else if($code==0)
     {
       $('#errorCode').html('Invalid input!');
       return false;
