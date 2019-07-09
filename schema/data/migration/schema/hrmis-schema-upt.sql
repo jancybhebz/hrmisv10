@@ -1,27 +1,31 @@
--- MySQL dump 10.13  Distrib 5.5.62, for debian-linux-gnu (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: hrmis-schema-upt
--- ------------------------------------------------------
--- Server version	5.5.62-0ubuntu0.14.04.1
+-- Host: localhost:3306
+-- Generation Time: Jul 08, 2019 at 10:04 PM
+-- Server version: 5.7.26-0ubuntu0.18.04.1
+-- PHP Version: 7.1.30-1+ubuntu18.04.1+deb.sury.org+1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `hrmisv10_upt`
+--
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblAgency`
 --
 
-DROP TABLE IF EXISTS `tblAgency`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblAgency` (
   `agencyName` varchar(100) NOT NULL DEFAULT '',
   `abbreviation` varchar(10) NOT NULL DEFAULT '',
@@ -59,70 +63,58 @@ CREATE TABLE `tblAgency` (
   `Mandate` text NOT NULL,
   `zonecode` varchar(20) NOT NULL DEFAULT '',
   `region` varchar(20) NOT NULL DEFAULT '',
-  `AccountNum` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`agencyName`)
+  `AccountNum` varchar(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblAgencyImages`
 --
 
-DROP TABLE IF EXISTS `tblAgencyImages`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblAgencyImages` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `id` int(4) NOT NULL,
   `agencyLogo` longblob NOT NULL,
   `agencyName` varchar(70) NOT NULL DEFAULT '',
   `filename` varchar(50) NOT NULL DEFAULT '',
   `filesize` varchar(50) NOT NULL DEFAULT '',
-  `filetype` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `filetype` varchar(50) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblAppointment`
 --
 
-DROP TABLE IF EXISTS `tblAppointment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblAppointment` (
-  `appointmentId` int(11) NOT NULL AUTO_INCREMENT,
+  `appointmentId` int(11) NOT NULL,
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `appointmentDesc` varchar(50) NOT NULL DEFAULT '',
   `header` varchar(255) NOT NULL DEFAULT '',
   `leaveEntitled` char(1) NOT NULL DEFAULT '',
   `paymentBasis` varchar(5) NOT NULL DEFAULT '',
   `system` tinyint(1) NOT NULL DEFAULT '0',
-  `incPlantilla` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`appointmentId`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `incPlantilla` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblAttendanceCode`
 --
 
-DROP TABLE IF EXISTS `tblAttendanceCode`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblAttendanceCode` (
   `code` varchar(5) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`code`)
+  `name` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblAttendanceScheme`
 --
 
-DROP TABLE IF EXISTS `tblAttendanceScheme`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblAttendanceScheme` (
   `schemeCode` varchar(5) NOT NULL DEFAULT '',
   `schemeName` varchar(255) NOT NULL DEFAULT '',
@@ -142,54 +134,30 @@ CREATE TABLE `tblAttendanceScheme` (
   `gpLate` char(1) NOT NULL DEFAULT 'N',
   `wrkhrLeave` int(2) NOT NULL DEFAULT '0',
   `hlfLateUnd` char(1) NOT NULL DEFAULT 'N',
-  `fixMonday` char(1) NOT NULL,
-  PRIMARY KEY (`schemeCode`),
-  KEY `schemeName` (`schemeName`)
+  `fixMonday` char(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `tblBackUpScheduler`
---
-
-DROP TABLE IF EXISTS `tblBackUpScheduler`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblBackUpScheduler` (
-  `id` int(10) NOT NULL DEFAULT '0',
-  `scriptpath` varchar(100) NOT NULL DEFAULT '',
-  `time_interval` int(10) DEFAULT NULL,
-  `fire_time` int(10) NOT NULL DEFAULT '0',
-  `time_last_fired` int(10) DEFAULT NULL,
-  `name` varchar(50) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblBackup`
 --
 
-DROP TABLE IF EXISTS `tblBackup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblBackup` (
   `id` int(11) NOT NULL DEFAULT '0',
   `db_backup_name` varchar(100) NOT NULL DEFAULT '',
   `time_last_run` int(11) NOT NULL DEFAULT '0',
   `next_run_time` int(11) NOT NULL DEFAULT '0',
   `status` varchar(10) NOT NULL DEFAULT '',
-  `xversion` varchar(6) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  `xversion` varchar(6) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblBackupConfig`
 --
 
-DROP TABLE IF EXISTS `tblBackupConfig`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblBackupConfig` (
   `id` int(10) NOT NULL DEFAULT '0',
   `time_interval` int(10) DEFAULT NULL,
@@ -202,71 +170,75 @@ CREATE TABLE `tblBackupConfig` (
   `xtable` text NOT NULL,
   `xstatus` varchar(50) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblBackUpScheduler`
+--
+
+CREATE TABLE `tblBackUpScheduler` (
+  `id` int(10) NOT NULL DEFAULT '0',
+  `scriptpath` varchar(100) NOT NULL DEFAULT '',
+  `time_interval` int(10) DEFAULT NULL,
+  `fire_time` int(10) NOT NULL DEFAULT '0',
+  `time_last_fired` int(10) DEFAULT NULL,
+  `name` varchar(50) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblBrokenSched`
 --
 
-DROP TABLE IF EXISTS `tblBrokenSched`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblBrokenSched` (
-  `rec_ID` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `rec_ID` int(10) UNSIGNED ZEROFILL NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '',
   `schemeCode` varchar(5) NOT NULL DEFAULT '',
-  `dateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `dateTo` date NOT NULL DEFAULT '0000-00-00',
-  PRIMARY KEY (`rec_ID`)
+  `dateFrom` date DEFAULT NULL,
+  `dateTo` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblChangeLog`
 --
 
-DROP TABLE IF EXISTS `tblChangeLog`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblChangeLog` (
-  `changeLogId` int(10) NOT NULL AUTO_INCREMENT,
+  `changeLogId` int(10) NOT NULL,
   `empNumber` varchar(30) NOT NULL DEFAULT '',
   `module` varchar(20) NOT NULL DEFAULT '',
   `tablename` varchar(30) NOT NULL DEFAULT '',
   `databaseevent` varchar(15) NOT NULL DEFAULT '',
-  `date_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_time` datetime DEFAULT NULL,
   `description` longtext NOT NULL,
   `data` longtext NOT NULL,
   `data2` longtext NOT NULL,
-  `ip` varchar(30) NOT NULL DEFAULT '',
-  PRIMARY KEY (`changeLogId`)
-) ENGINE=MyISAM AUTO_INCREMENT=159450 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `ip` varchar(30) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblComputation`
 --
 
-DROP TABLE IF EXISTS `tblComputation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblComputation` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id` int(5) NOT NULL,
   `fk_id` int(5) NOT NULL DEFAULT '0',
   `empNumber` varchar(30) NOT NULL DEFAULT '',
   `code` varchar(20) NOT NULL DEFAULT '0',
-  `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4398741 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `amount` decimal(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblComputationDetails`
 --
 
-DROP TABLE IF EXISTS `tblComputationDetails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblComputationDetails` (
   `fk_id` int(5) NOT NULL DEFAULT '0',
   `empNumber` varchar(20) NOT NULL DEFAULT '',
@@ -302,17 +274,15 @@ CREATE TABLE `tblComputationDetails` (
   `taPercent` int(2) NOT NULL DEFAULT '0',
   `latest` enum('Y','N') NOT NULL DEFAULT 'N'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblComputationInstance`
 --
 
-DROP TABLE IF EXISTS `tblComputationInstance`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblComputationInstance` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id` int(5) NOT NULL,
   `month` int(2) NOT NULL DEFAULT '0',
   `year` int(4) NOT NULL DEFAULT '0',
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
@@ -320,18 +290,15 @@ CREATE TABLE `tblComputationInstance` (
   `pyear` int(4) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '0',
   `totalNumDays` int(11) NOT NULL DEFAULT '0',
-  `processed` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5108 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `processed` int(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblContact`
 --
 
-DROP TABLE IF EXISTS `tblContact`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblContact` (
   `agencyCode` varchar(10) NOT NULL DEFAULT '',
   `agency` varchar(255) NOT NULL DEFAULT '',
@@ -342,80 +309,64 @@ CREATE TABLE `tblContact` (
   `position` varchar(255) NOT NULL DEFAULT '',
   `address` text NOT NULL,
   `phone` varchar(15) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`agencyCode`)
+  `email` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblCountry`
 --
 
-DROP TABLE IF EXISTS `tblCountry`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblCountry` (
-  `countryId` int(11) NOT NULL AUTO_INCREMENT,
+  `countryId` int(11) NOT NULL,
   `countryName` varchar(100) NOT NULL,
-  `countryCode` varchar(80) NOT NULL,
-  PRIMARY KEY (`countryId`)
-) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `countryCode` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblCourse`
 --
 
-DROP TABLE IF EXISTS `tblCourse`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblCourse` (
-  `courseId` int(11) DEFAULT NULL,
+  `courseId` int(11) NOT NULL,
   `courseCode` varchar(10) NOT NULL DEFAULT '',
-  `courseDesc` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`courseCode`),
-  UNIQUE KEY `courseId` (`courseId`)
+  `courseDesc` varchar(50) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblCustodian`
 --
 
-DROP TABLE IF EXISTS `tblCustodian`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblCustodian` (
-  `custodianId` int(5) NOT NULL AUTO_INCREMENT,
+  `custodianId` int(5) NOT NULL,
   `officeCode` varchar(20) NOT NULL DEFAULT '',
-  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`custodianId`)
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblDailyQuote`
 --
 
-DROP TABLE IF EXISTS `tblDailyQuote`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblDailyQuote` (
   `day` int(2) NOT NULL DEFAULT '0',
-  `quote` text NOT NULL,
-  PRIMARY KEY (`day`)
+  `quote` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblDeduction`
 --
 
-DROP TABLE IF EXISTS `tblDeduction`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblDeduction` (
-  `deduction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `deduction_id` int(11) NOT NULL,
   `deductionCode` varchar(20) NOT NULL DEFAULT '',
   `deductionDesc` varchar(50) NOT NULL DEFAULT '',
   `deductionType` varchar(20) NOT NULL DEFAULT '',
@@ -423,68 +374,55 @@ CREATE TABLE `tblDeduction` (
   `deductionAccountCode` varchar(50) NOT NULL DEFAULT '0',
   `agency_field` varchar(50) DEFAULT NULL,
   `is_mandatory` int(11) NOT NULL DEFAULT '0',
-  `hidden` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`deduction_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `hidden` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblDeductionGroup`
 --
 
-DROP TABLE IF EXISTS `tblDeductionGroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblDeductionGroup` (
   `deductionGroupCode` varchar(20) DEFAULT NULL,
   `deductionGroupDesc` varchar(50) DEFAULT NULL,
   `deductionGroupAccountCode` varchar(50) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblDuties`
 --
 
-DROP TABLE IF EXISTS `tblDuties`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblDuties` (
-  `duties_index` int(11) NOT NULL AUTO_INCREMENT,
+  `duties_index` int(11) NOT NULL,
   `positionCode` varchar(20) NOT NULL DEFAULT '',
   `duties` text NOT NULL,
   `percentWork` int(5) NOT NULL DEFAULT '0',
-  `dutyNumber` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`duties_index`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `dutyNumber` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEducationalLevel`
 --
 
-DROP TABLE IF EXISTS `tblEducationalLevel`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEducationalLevel` (
-  `levelId` int(11) NOT NULL AUTO_INCREMENT,
+  `levelId` int(11) NOT NULL,
   `level` int(11) NOT NULL DEFAULT '0',
   `levelCode` varchar(30) NOT NULL DEFAULT '',
   `levelDesc` varchar(50) NOT NULL DEFAULT '',
-  `system` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`levelCode`),
-  UNIQUE KEY `levelId` (`levelId`),
-  KEY `levelDesc` (`levelDesc`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `system` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpAccount`
 --
 
-DROP TABLE IF EXISTS `tblEmpAccount`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpAccount` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `userName` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
@@ -494,19 +432,15 @@ CREATE TABLE `tblEmpAccount` (
   `accessPermission` varchar(15) NOT NULL DEFAULT '1234',
   `assignedGroup` varchar(20) NOT NULL DEFAULT '',
   `signatory` text NOT NULL,
-  `signatoryPosition` text NOT NULL,
-  PRIMARY KEY (`empNumber`),
-  KEY `Emp_No` (`empNumber`)
+  `signatoryPosition` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpAddIncome`
 --
 
-DROP TABLE IF EXISTS `tblEmpAddIncome`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpAddIncome` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `incomeCode` varchar(20) NOT NULL DEFAULT '',
@@ -515,37 +449,32 @@ CREATE TABLE `tblEmpAddIncome` (
   `incomeAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `incomeTaxAmount` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpAppointment`
 --
 
-DROP TABLE IF EXISTS `tblEmpAppointment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpAppointment` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `positionCode` varchar(20) NOT NULL DEFAULT '',
-  `dateIssued` date NOT NULL DEFAULT '0000-00-00',
-  `datePublished` date NOT NULL DEFAULT '0000-00-00',
+  `dateIssued` date DEFAULT NULL,
+  `datePublished` date DEFAULT NULL,
   `placePublished` varchar(100) NOT NULL DEFAULT '',
   `relevantExperience` text NOT NULL,
   `relevantTraining` text NOT NULL,
-  `appointmentissuedcode` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`appointmentissuedcode`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `appointmentissuedcode` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpBenefits`
 --
 
-DROP TABLE IF EXISTS `tblEmpBenefits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpBenefits` (
-  `benefitCode` int(10) NOT NULL AUTO_INCREMENT,
+  `benefitCode` int(10) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `incomeCode` varchar(20) NOT NULL DEFAULT '',
   `incomeMonth` int(2) NOT NULL DEFAULT '0',
@@ -556,129 +485,28 @@ CREATE TABLE `tblEmpBenefits` (
   `period2` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period3` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period4` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `status` char(1) NOT NULL DEFAULT '',
-  PRIMARY KEY (`benefitCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=707422 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `status` char(1) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpChild`
 --
 
-DROP TABLE IF EXISTS `tblEmpChild`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpChild` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `childCode` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `childCode` mediumint(9) NOT NULL,
   `childName` varchar(80) NOT NULL DEFAULT '',
-  `childBirthDate` date NOT NULL DEFAULT '0000-00-00',
-  PRIMARY KEY (`childCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=737 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tblEmpDTR`
---
-
-DROP TABLE IF EXISTS `tblEmpDTR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblEmpDTR` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `empNumber` varchar(50) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dtrDate` date DEFAULT NULL,
-  `inAM` time NOT NULL DEFAULT '00:00:00',
-  `outAM` time NOT NULL DEFAULT '00:00:00',
-  `inPM` time DEFAULT NULL,
-  `outPM` time DEFAULT NULL,
-  `inOT` time DEFAULT NULL,
-  `outOT` time DEFAULT NULL,
-  `DTRreason` varchar(100) NOT NULL,
-  `remarks` varchar(255) NOT NULL DEFAULT '',
-  `otherInfo` varchar(255) NOT NULL DEFAULT '',
-  `OT` int(1) NOT NULL DEFAULT '0',
-  `name` text NOT NULL,
-  `ip` text NOT NULL,
-  `editdate` text NOT NULL,
-  `perdiem` char(1) NOT NULL DEFAULT '',
-  `oldValue` text,
-  PRIMARY KEY (`id`),
-  KEY `idx_dtrDate` (`dtrDate`),
-  KEY `idx_empNumber` (`empNumber`)
-) ENGINE=MyISAM AUTO_INCREMENT=374552 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tblEmpDTR_log`
---
-
-DROP TABLE IF EXISTS `tblEmpDTR_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblEmpDTR_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `empNumber` varchar(20) NOT NULL,
-  `log_date` datetime NOT NULL,
-  `log_sql` text NOT NULL,
-  `log_notify` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=230653 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tblEmpDeductLoan`
---
-
-DROP TABLE IF EXISTS `tblEmpDeductLoan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblEmpDeductLoan` (
-  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `deductionCode` varchar(20) NOT NULL DEFAULT '',
-  `loanCode` int(100) NOT NULL AUTO_INCREMENT,
-  `amountGranted` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `dateGranted` date DEFAULT NULL,
-  `deductAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `actualStartYear` year(4) NOT NULL DEFAULT '0000',
-  `actualStartMonth` int(2) NOT NULL DEFAULT '0',
-  `actualEndYear` year(4) NOT NULL DEFAULT '0000',
-  `actualEndMonth` int(2) NOT NULL DEFAULT '0',
-  `status` char(1) NOT NULL DEFAULT '',
-  PRIMARY KEY (`loanCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tblEmpDeductLoanConAdjust`
---
-
-DROP TABLE IF EXISTS `tblEmpDeductLoanConAdjust`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblEmpDeductLoanConAdjust` (
-  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `code` int(100) NOT NULL DEFAULT '0',
-  `deductionCode` varchar(20) NOT NULL DEFAULT '',
-  `deductMonth` varchar(10) NOT NULL DEFAULT '',
-  `deductYear` year(4) NOT NULL DEFAULT '0000',
-  `deductAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `type` varchar(20) NOT NULL DEFAULT '',
-  `adjustSwitch` char(1) NOT NULL DEFAULT '',
-  `adjustMonth` varchar(10) NOT NULL DEFAULT '0',
-  `adjustYear` year(4) NOT NULL DEFAULT '0000',
-  `adjustPeriod` int(4) NOT NULL DEFAULT '0',
-  `xappointmentCode` varchar(20) NOT NULL DEFAULT ''
+  `childBirthDate` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpDeductionRemit`
 --
 
-DROP TABLE IF EXISTS `tblEmpDeductionRemit`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpDeductionRemit` (
   `processID` int(11) NOT NULL DEFAULT '0',
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
@@ -697,21 +525,19 @@ CREATE TABLE `tblEmpDeductionRemit` (
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `employerAmount` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpDeductions`
 --
 
-DROP TABLE IF EXISTS `tblEmpDeductions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpDeductions` (
-  `deductCode` int(10) NOT NULL AUTO_INCREMENT,
+  `deductCode` int(10) NOT NULL,
   `empNumber` varchar(20) DEFAULT NULL,
   `deductionCode` varchar(20) NOT NULL DEFAULT '',
   `amountGranted` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `dateGranted` date NOT NULL DEFAULT '0000-00-00',
+  `dateGranted` date DEFAULT NULL,
   `actualStartYear` year(4) NOT NULL DEFAULT '0000',
   `actualStartMonth` int(2) NOT NULL DEFAULT '0',
   `actualEndYear` year(4) NOT NULL DEFAULT '0000',
@@ -722,61 +548,133 @@ CREATE TABLE `tblEmpDeductions` (
   `period2` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period3` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period4` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `status` char(1) NOT NULL DEFAULT '',
-  PRIMARY KEY (`deductCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=6445 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `status` char(1) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblEmpDeductLoan`
+--
+
+CREATE TABLE `tblEmpDeductLoan` (
+  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
+  `deductionCode` varchar(20) NOT NULL DEFAULT '',
+  `loanCode` int(100) NOT NULL,
+  `amountGranted` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `dateGranted` date DEFAULT NULL,
+  `deductAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `actualStartYear` year(4) NOT NULL DEFAULT '0000',
+  `actualStartMonth` int(2) NOT NULL DEFAULT '0',
+  `actualEndYear` year(4) NOT NULL DEFAULT '0000',
+  `actualEndMonth` int(2) NOT NULL DEFAULT '0',
+  `status` char(1) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblEmpDeductLoanConAdjust`
+--
+
+CREATE TABLE `tblEmpDeductLoanConAdjust` (
+  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
+  `code` int(100) NOT NULL DEFAULT '0',
+  `deductionCode` varchar(20) NOT NULL DEFAULT '',
+  `deductMonth` varchar(10) NOT NULL DEFAULT '',
+  `deductYear` year(4) NOT NULL DEFAULT '0000',
+  `deductAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `type` varchar(20) NOT NULL DEFAULT '',
+  `adjustSwitch` char(1) NOT NULL DEFAULT '',
+  `adjustMonth` varchar(10) NOT NULL DEFAULT '0',
+  `adjustYear` year(4) NOT NULL DEFAULT '0000',
+  `adjustPeriod` int(4) NOT NULL DEFAULT '0',
+  `xappointmentCode` varchar(20) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblEmpDTR`
+--
+
+CREATE TABLE `tblEmpDTR` (
+  `id` int(11) NOT NULL,
+  `empNumber` varchar(50) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
+  `dtrDate` date DEFAULT NULL,
+  `inAM` time NOT NULL DEFAULT '00:00:00',
+  `outAM` time NOT NULL DEFAULT '00:00:00',
+  `inPM` time DEFAULT NULL,
+  `outPM` time DEFAULT NULL,
+  `inOT` time DEFAULT NULL,
+  `outOT` time DEFAULT NULL,
+  `DTRreason` varchar(100) NOT NULL,
+  `remarks` varchar(255) NOT NULL DEFAULT '',
+  `otherInfo` varchar(255) NOT NULL DEFAULT '',
+  `OT` int(1) NOT NULL DEFAULT '0',
+  `name` text NOT NULL,
+  `ip` text NOT NULL,
+  `editdate` text NOT NULL,
+  `perdiem` char(1) NOT NULL DEFAULT '',
+  `oldValue` text
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblEmpDTR_log`
+--
+
+CREATE TABLE `tblEmpDTR_log` (
+  `id` int(11) NOT NULL,
+  `empNumber` varchar(20) NOT NULL,
+  `log_date` datetime NOT NULL,
+  `log_sql` text NOT NULL,
+  `log_notify` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpDuties`
 --
 
-DROP TABLE IF EXISTS `tblEmpDuties`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpDuties` (
-  `empduties_index` int(11) NOT NULL AUTO_INCREMENT,
+  `empduties_index` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `percentWork` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `duties` text NOT NULL,
-  PRIMARY KEY (`empduties_index`)
-) ENGINE=MyISAM AUTO_INCREMENT=1567 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `duties` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpExam`
 --
 
-DROP TABLE IF EXISTS `tblEmpExam`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpExam` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `examCode` varchar(20) NOT NULL DEFAULT '',
-  `examDate` date NOT NULL DEFAULT '0000-00-00',
+  `examDate` date DEFAULT NULL,
   `examRating` decimal(4,2) NOT NULL DEFAULT '0.00',
   `examPlace` varchar(100) NOT NULL DEFAULT '',
   `licenseNumber` varchar(15) DEFAULT NULL,
-  `dateRelease` date NOT NULL DEFAULT '0000-00-00',
-  `ExamIndex` int(10) NOT NULL AUTO_INCREMENT,
+  `dateRelease` date DEFAULT NULL,
+  `ExamIndex` int(10) NOT NULL,
   `verifier` varchar(50) NOT NULL,
-  `reviewer` varchar(50) NOT NULL,
-  PRIMARY KEY (`ExamIndex`),
-  KEY `Emp_No` (`empNumber`)
-) ENGINE=MyISAM AUTO_INCREMENT=744 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `reviewer` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpIncome`
 --
 
-DROP TABLE IF EXISTS `tblEmpIncome`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpIncome` (
   `processID` int(11) NOT NULL DEFAULT '0',
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `code` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(11) NOT NULL,
   `incomeCode` varchar(20) NOT NULL DEFAULT '',
   `incomeYear` year(4) NOT NULL DEFAULT '0000',
   `incomeMonth` int(2) NOT NULL DEFAULT '0',
@@ -791,20 +689,17 @@ CREATE TABLE `tblEmpIncome` (
   `period1` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period2` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period3` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `period4` decimal(10,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`code`)
-) ENGINE=MyISAM AUTO_INCREMENT=166475 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `period4` decimal(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpIncomeAdjust`
 --
 
-DROP TABLE IF EXISTS `tblEmpIncomeAdjust`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpIncomeAdjust` (
-  `code` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `incomeCode` varchar(20) NOT NULL DEFAULT '',
   `incomeMonth` varchar(10) NOT NULL DEFAULT '',
@@ -815,62 +710,54 @@ CREATE TABLE `tblEmpIncomeAdjust` (
   `adjustMonth` varchar(10) NOT NULL DEFAULT '0',
   `adjustYear` year(4) NOT NULL DEFAULT '0000',
   `adjustPeriod` int(4) NOT NULL DEFAULT '0',
-  `appointmentCode` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`code`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `appointmentCode` varchar(20) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpIncomeRATA`
 --
 
-DROP TABLE IF EXISTS `tblEmpIncomeRATA`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpIncomeRATA` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `incRAAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `incTAAmount` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpLeave`
 --
 
-DROP TABLE IF EXISTS `tblEmpLeave`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpLeave` (
-  `leaveID` int(11) NOT NULL AUTO_INCREMENT,
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `leaveID` int(11) NOT NULL,
+  `dateFiled` date DEFAULT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `requestID` varchar(10) NOT NULL DEFAULT '',
   `leaveCode` char(3) NOT NULL DEFAULT '',
   `specificLeave` varchar(20) NOT NULL DEFAULT '',
   `reason` varchar(50) DEFAULT NULL,
-  `leaveFrom` date NOT NULL DEFAULT '0000-00-00',
-  `leaveTo` date NOT NULL DEFAULT '0000-00-00',
+  `leaveFrom` date DEFAULT NULL,
+  `leaveTo` date DEFAULT NULL,
   `certifyHR` char(1) NOT NULL DEFAULT 'N',
   `approveChief` char(1) NOT NULL DEFAULT 'N',
   `approveRequest` char(1) NOT NULL DEFAULT 'N',
   `remarks` varchar(50) DEFAULT NULL,
   `inoutpatient` varchar(20) NOT NULL DEFAULT '',
   `vllocation` varchar(20) NOT NULL DEFAULT '',
-  `commutation` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`leaveID`)
-) ENGINE=MyISAM AUTO_INCREMENT=5015 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `commutation` varchar(20) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpLeaveBalance`
 --
 
-DROP TABLE IF EXISTS `tblEmpLeaveBalance`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpLeaveBalance` (
-  `lb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `lb_id` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '0',
   `periodMonth` int(2) NOT NULL DEFAULT '0',
   `periodYear` year(4) NOT NULL DEFAULT '0000',
@@ -926,51 +813,42 @@ CREATE TABLE `tblEmpLeaveBalance` (
   `ctr_laundry` int(11) NOT NULL,
   `processBy` varchar(20) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
-  `processDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`lb_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9708 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `processDate` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpLocalHoliday`
 --
 
-DROP TABLE IF EXISTS `tblEmpLocalHoliday`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpLocalHoliday` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `holidayCode` varchar(20) NOT NULL DEFAULT '',
-  `empNumber` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `empNumber` varchar(20) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpLongevity`
 --
 
-DROP TABLE IF EXISTS `tblEmpLongevity`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpLongevity` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '',
-  `longiDate` date NOT NULL DEFAULT '0000-00-00',
+  `longiDate` date DEFAULT NULL,
   `longiAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `longiPercent` int(2) NOT NULL DEFAULT '0',
-  `longiPay` decimal(10,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=272 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `longiPay` decimal(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpMealDetails`
 --
 
-DROP TABLE IF EXISTS `tblEmpMealDetails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpMealDetails` (
   `processID` int(11) NOT NULL DEFAULT '0',
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
@@ -982,34 +860,29 @@ CREATE TABLE `tblEmpMealDetails` (
   `datesCovered` text NOT NULL,
   `incomeAmount` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpMeeting`
 --
 
-DROP TABLE IF EXISTS `tblEmpMeeting`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpMeeting` (
-  `meetingID` int(11) NOT NULL AUTO_INCREMENT,
+  `meetingID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date DEFAULT NULL,
   `meetingTitle` text NOT NULL,
-  `meetingDate` date NOT NULL DEFAULT '0000-00-00',
-  PRIMARY KEY (`meetingID`)
+  `meetingDate` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpMonetization`
 --
 
-DROP TABLE IF EXISTS `tblEmpMonetization`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpMonetization` (
-  `mon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mon_id` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `vlMonetize` decimal(5,3) NOT NULL DEFAULT '0.000',
   `slMonetize` decimal(5,3) NOT NULL DEFAULT '0.000',
@@ -1020,18 +893,15 @@ CREATE TABLE `tblEmpMonetization` (
   `monetizeAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `processBy` varchar(20) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
-  `processDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`mon_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=153 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `processDate` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpNetPay`
 --
 
-DROP TABLE IF EXISTS `tblEmpNetPay`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpNetPay` (
   `periodMonth` int(11) NOT NULL DEFAULT '0',
   `periodYear` int(11) NOT NULL DEFAULT '0',
@@ -1039,20 +909,17 @@ CREATE TABLE `tblEmpNetPay` (
   `period1` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period2` decimal(10,2) NOT NULL DEFAULT '0.00',
   `period3` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `period4` decimal(10,2) NOT NULL DEFAULT '0.00',
-  UNIQUE KEY `uid` (`periodMonth`,`periodYear`,`empNumber`)
+  `period4` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpOB`
 --
 
-DROP TABLE IF EXISTS `tblEmpOB`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpOB` (
-  `obID` int(11) NOT NULL AUTO_INCREMENT,
+  `obID` int(11) NOT NULL,
   `dateFiled` date DEFAULT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `requestID` varchar(10) NOT NULL DEFAULT '',
@@ -1068,21 +935,15 @@ CREATE TABLE `tblEmpOB` (
   `approveChief` char(1) NOT NULL DEFAULT 'N',
   `approveHR` char(1) NOT NULL DEFAULT 'N',
   `is_override` int(11) NOT NULL DEFAULT '0',
-  `override_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`obID`),
-  KEY `obDateFrom` (`obDateFrom`),
-  KEY `obDateTo` (`obDateTo`),
-  KEY `empNumber` (`empNumber`)
-) ENGINE=MyISAM AUTO_INCREMENT=25201 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `override_id` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpOTDetails`
 --
 
-DROP TABLE IF EXISTS `tblEmpOTDetails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpOTDetails` (
   `processID` int(11) NOT NULL DEFAULT '0',
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
@@ -1105,57 +966,48 @@ CREATE TABLE `tblEmpOTDetails` (
   `adjustment` decimal(10,2) NOT NULL DEFAULT '0.00',
   `incomeAmount` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpOtherSched`
 --
 
-DROP TABLE IF EXISTS `tblEmpOtherSched`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpOtherSched` (
-  `rec_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `rec_ID` int(11) UNSIGNED NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '0',
-  `fromDate` date NOT NULL DEFAULT '0000-00-00',
-  `toDate` date NOT NULL DEFAULT '0000-00-00',
-  `schemeCode` varchar(5) NOT NULL DEFAULT '',
-  PRIMARY KEY (`rec_ID`),
-  KEY `idx_empNumber` (`empNumber`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `fromDate` date NOT NULL,
+  `toDate` date NOT NULL,
+  `schemeCode` varchar(5) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpOvertime`
 --
 
-DROP TABLE IF EXISTS `tblEmpOvertime`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpOvertime` (
-  `otID` int(11) NOT NULL AUTO_INCREMENT,
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `otID` int(11) NOT NULL,
+  `dateFiled` date NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `otPurpose` text NOT NULL,
   `otOutput` text NOT NULL,
   `docNumber` varchar(15) NOT NULL DEFAULT '',
-  `otDateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `otDateTo` date NOT NULL DEFAULT '0000-00-00',
+  `otDateFrom` date NOT NULL,
+  `otDateTo` date NOT NULL,
   `otTimeFrom` varchar(11) NOT NULL DEFAULT '00:00:00 AM',
-  `otTimeTo` varchar(11) NOT NULL DEFAULT '00:00:00 AM',
-  PRIMARY KEY (`otID`)
+  `otTimeTo` varchar(11) NOT NULL DEFAULT '00:00:00 AM'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpPersonal`
 --
 
-DROP TABLE IF EXISTS `tblEmpPersonal`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpPersonal` (
-  `empID` int(11) NOT NULL AUTO_INCREMENT,
+  `empID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `surname` varchar(50) NOT NULL DEFAULT '',
   `firstname` varchar(50) NOT NULL DEFAULT '',
@@ -1178,7 +1030,7 @@ CREATE TABLE `tblEmpPersonal` (
   `citizenship` varchar(10) NOT NULL DEFAULT '',
   `dualCitizenshipType` varchar(20) NOT NULL,
   `dualCitizenshipCountryId` int(11) NOT NULL,
-  `birthday` date NOT NULL DEFAULT '0000-00-00',
+  `birthday` date NOT NULL,
   `birthPlace` varchar(80) NOT NULL DEFAULT '',
   `bloodType` varchar(6) DEFAULT NULL,
   `height` decimal(5,2) NOT NULL DEFAULT '0.00',
@@ -1241,30 +1093,24 @@ CREATE TABLE `tblEmpPersonal` (
   `soloParent` char(1) DEFAULT NULL,
   `soloParentParticulars` text,
   `signature` varchar(50) NOT NULL DEFAULT '',
-  `dateAccomplished` date DEFAULT '0000-00-00',
+  `dateAccomplished` date NOT NULL,
   `comTaxNumber` varchar(10) NOT NULL DEFAULT '',
   `issuedAt` varchar(50) DEFAULT NULL,
-  `issuedOn` date NOT NULL DEFAULT '0000-00-00',
+  `issuedOn` date NOT NULL,
   `gsisNumber` varchar(25) DEFAULT NULL,
   `businessPartnerNumber` varchar(25) NOT NULL,
   `philHealthNumber` varchar(14) DEFAULT NULL,
   `sssNumber` varchar(20) DEFAULT '',
   `pagibigNumber` varchar(14) DEFAULT NULL,
-  `AccountNum` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`empNumber`),
-  KEY `Emp_No` (`empNumber`),
-  KEY `empID` (`empID`),
-  FULLTEXT KEY `surname` (`surname`)
-) ENGINE=MyISAM AUTO_INCREMENT=663 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `AccountNum` varchar(20) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpPosition`
 --
 
-DROP TABLE IF EXISTS `tblEmpPosition`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpPosition` (
   `empNumber` varchar(30) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
@@ -1346,52 +1192,37 @@ CREATE TABLE `tblEmpPosition` (
   `taxRate` int(2) DEFAULT NULL,
   `taxSwitch` char(1) NOT NULL,
   `is_override` int(11) NOT NULL DEFAULT '0',
-  `override_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`empNumber`),
-  KEY `AppointmentCode` (`appointmentCode`),
-  KEY `DivisionCode` (`divisionCode`),
-  KEY `Emp_No` (`empNumber`),
-  KEY `PositionCode` (`positionCode`),
-  KEY `SectionCode` (`sectionCode`),
-  KEY `ServiceCode` (`serviceCode`),
-  KEY `TaxStatusCode` (`taxStatCode`),
-  KEY `idx_empNumber` (`empNumber`),
-  FULLTEXT KEY `assignPlace` (`assignPlace`)
+  `override_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpReference`
 --
 
-DROP TABLE IF EXISTS `tblEmpReference`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpReference` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `refName` varchar(80) NOT NULL DEFAULT '',
   `refAddress` varchar(255) NOT NULL DEFAULT '',
   `refTelephone` varchar(20) DEFAULT NULL,
-  `ReferenceIndex` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`ReferenceIndex`)
-) ENGINE=MyISAM AUTO_INCREMENT=1302 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `ReferenceIndex` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpRequest`
 --
 
-DROP TABLE IF EXISTS `tblEmpRequest`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpRequest` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `requestID` int(6) NOT NULL AUTO_INCREMENT,
+  `requestID` int(6) NOT NULL,
   `requestCode` varchar(20) NOT NULL DEFAULT '',
-  `requestDate` date NOT NULL DEFAULT '0000-00-00',
+  `requestDate` date NOT NULL,
   `requestDetails` text,
   `requestStatus` varchar(30) NOT NULL DEFAULT '',
-  `statusDate` date DEFAULT '0000-00-00',
+  `statusDate` date DEFAULT NULL,
   `remarks` varchar(50) DEFAULT NULL,
   `signatory` varchar(50) NOT NULL DEFAULT '',
   `listDisplay` int(1) NOT NULL DEFAULT '1',
@@ -1402,34 +1233,28 @@ CREATE TABLE `tblEmpRequest` (
   `Signatory3` text NOT NULL,
   `Sig3DateTime` datetime NOT NULL,
   `SignatoryFin` text NOT NULL,
-  `SigFinDateTime` datetime NOT NULL,
-  PRIMARY KEY (`requestID`)
-) ENGINE=MyISAM AUTO_INCREMENT=6846 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `SigFinDateTime` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpScholarship`
 --
 
-DROP TABLE IF EXISTS `tblEmpScholarship`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpScholarship` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `empSchoolCode` int(10) NOT NULL DEFAULT '0',
   `empNumber` varchar(20) NOT NULL DEFAULT '',
-  `ScholarshipCode` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1204 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `ScholarshipCode` varchar(50) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpSchool`
 --
 
-DROP TABLE IF EXISTS `tblEmpSchool`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpSchool` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `levelCode` varchar(20) NOT NULL DEFAULT '',
@@ -1442,163 +1267,135 @@ CREATE TABLE `tblEmpSchool` (
   `ScholarshipCode` varchar(50) NOT NULL,
   `honors` text,
   `courseCode` varchar(10) NOT NULL DEFAULT '',
-  `SchoolIndex` int(11) NOT NULL AUTO_INCREMENT,
+  `SchoolIndex` int(11) NOT NULL,
   `licensed` char(1) NOT NULL DEFAULT '',
-  `graduated` char(1) NOT NULL DEFAULT 'Y',
-  PRIMARY KEY (`SchoolIndex`),
-  KEY `SchoolType` (`levelCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=2308 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `graduated` char(1) NOT NULL DEFAULT 'Y'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpTraining`
 --
 
-DROP TABLE IF EXISTS `tblEmpTraining`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpTraining` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `XtrainingCode` varchar(10) NOT NULL DEFAULT '',
   `trainingTitle` text NOT NULL,
-  `trainingContractDate` date DEFAULT '0000-00-00',
-  `trainingStartDate` date NOT NULL DEFAULT '0000-00-00',
-  `trainingEndDate` date NOT NULL DEFAULT '0000-00-00',
+  `trainingContractDate` date DEFAULT NULL,
+  `trainingStartDate` date NOT NULL,
+  `trainingEndDate` date NOT NULL,
   `trainingHours` decimal(5,2) NOT NULL DEFAULT '0.00',
   `trainingTypeofLD` varchar(100) NOT NULL,
   `trainingConductedBy` varchar(100) NOT NULL DEFAULT '',
   `trainingVenue` varchar(100) NOT NULL DEFAULT '',
   `trainingCost` decimal(10,2) NOT NULL DEFAULT '0.00',
   `trainingDesc` varchar(200) NOT NULL DEFAULT '',
-  `TrainingIndex` int(10) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`TrainingIndex`),
-  KEY `Emp_No` (`empNumber`),
-  KEY `TrainingID` (`XtrainingCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=6525 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `TrainingIndex` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpTravelOrder`
 --
 
-DROP TABLE IF EXISTS `tblEmpTravelOrder`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpTravelOrder` (
-  `toID` int(10) NOT NULL AUTO_INCREMENT,
+  `toID` int(10) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
-  `toDateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `toDateTo` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date NOT NULL,
+  `toDateFrom` date NOT NULL,
+  `toDateTo` date NOT NULL,
   `destination` text NOT NULL,
   `purpose` text NOT NULL,
   `fund` varchar(30) NOT NULL DEFAULT '',
   `transportation` varchar(30) NOT NULL DEFAULT '',
   `perdiem` char(1) NOT NULL DEFAULT '',
-  `wmeal` char(1) NOT NULL,
-  PRIMARY KEY (`toID`)
-) ENGINE=MyISAM AUTO_INCREMENT=1112 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `wmeal` char(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpTripTicket`
 --
 
-DROP TABLE IF EXISTS `tblEmpTripTicket`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpTripTicket` (
-  `ttID` int(11) NOT NULL AUTO_INCREMENT,
+  `ttID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date NOT NULL,
   `destination` text NOT NULL,
   `purpose` text NOT NULL,
-  `ttDateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `ttDateTo` date NOT NULL DEFAULT '0000-00-00',
-  `perdiem` char(1) NOT NULL DEFAULT '',
-  PRIMARY KEY (`ttID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `ttDateFrom` date NOT NULL,
+  `ttDateTo` date NOT NULL,
+  `perdiem` char(1) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblEmpVoluntaryWork`
 --
 
-DROP TABLE IF EXISTS `tblEmpVoluntaryWork`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblEmpVoluntaryWork` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `vwName` varchar(50) DEFAULT NULL,
   `vwAddress` text,
-  `vwDateFrom` date DEFAULT '0000-00-00',
-  `vwDateTo` date DEFAULT '0000-00-00',
+  `vwDateFrom` date DEFAULT NULL,
+  `vwDateTo` date DEFAULT NULL,
   `vwHours` decimal(4,2) DEFAULT '0.00',
   `vwPosition` varchar(50) DEFAULT NULL,
-  `VoluntaryIndex` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`VoluntaryIndex`)
-) ENGINE=MyISAM AUTO_INCREMENT=325 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `VoluntaryIndex` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblExamType`
 --
 
-DROP TABLE IF EXISTS `tblExamType`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblExamType` (
-  `examId` int(11) NOT NULL AUTO_INCREMENT,
+  `examId` int(11) NOT NULL,
   `examCode` varchar(20) NOT NULL DEFAULT '',
   `examDesc` varchar(50) NOT NULL DEFAULT '',
-  `csElligible` char(1) NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`examCode`),
-  UNIQUE KEY `ExamId` (`examId`)
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `csElligible` char(1) NOT NULL DEFAULT 'N'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblFlagCeremony`
 --
 
-DROP TABLE IF EXISTS `tblFlagCeremony`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblFlagCeremony` (
-  `flag_id` int(11) NOT NULL AUTO_INCREMENT,
+  `flag_id` int(11) NOT NULL,
   `flag_empNumber` varchar(35) NOT NULL,
   `flag_datetime` datetime NOT NULL,
   `flag_added_by` varchar(35) NOT NULL,
-  `flag_added_by_ip` varchar(35) NOT NULL,
-  PRIMARY KEY (`flag_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2493 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `flag_added_by_ip` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblGroup`
 --
 
-DROP TABLE IF EXISTS `tblGroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblGroup` (
   `groupcode` varchar(10) NOT NULL DEFAULT '',
   `officecode` varchar(10) NOT NULL DEFAULT '',
   `groupname` varchar(255) NOT NULL DEFAULT '',
   `grouphead` varchar(50) NOT NULL DEFAULT '',
   `groupheadtitle` varchar(50) NOT NULL DEFAULT '',
-  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`groupcode`)
+  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblGroup1`
 --
 
-DROP TABLE IF EXISTS `tblGroup1`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblGroup1` (
   `group1Code` varchar(20) NOT NULL DEFAULT '',
   `group1Name` text NOT NULL,
@@ -1607,15 +1404,13 @@ CREATE TABLE `tblGroup1` (
   `group1Secretary` varchar(20) NOT NULL DEFAULT '',
   `group1Custodian` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblGroup2`
 --
 
-DROP TABLE IF EXISTS `tblGroup2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblGroup2` (
   `group1Code` varchar(20) NOT NULL DEFAULT '',
   `group2Code` varchar(20) NOT NULL DEFAULT '',
@@ -1625,15 +1420,13 @@ CREATE TABLE `tblGroup2` (
   `group2Secretary` varchar(20) NOT NULL DEFAULT '',
   `group2Custodian` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblGroup3`
 --
 
-DROP TABLE IF EXISTS `tblGroup3`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblGroup3` (
   `group1Code` varchar(20) NOT NULL DEFAULT '',
   `group2Code` varchar(20) NOT NULL DEFAULT '',
@@ -1644,15 +1437,13 @@ CREATE TABLE `tblGroup3` (
   `group3Secretary` varchar(20) NOT NULL DEFAULT '',
   `group3Custodian` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblGroup4`
 --
 
-DROP TABLE IF EXISTS `tblGroup4`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblGroup4` (
   `group1Code` varchar(20) NOT NULL DEFAULT '',
   `group2Code` varchar(20) NOT NULL DEFAULT '',
@@ -1664,15 +1455,13 @@ CREATE TABLE `tblGroup4` (
   `group4Secretary` varchar(20) NOT NULL DEFAULT '',
   `group4Custodian` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblGroup5`
 --
 
-DROP TABLE IF EXISTS `tblGroup5`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblGroup5` (
   `group1Code` varchar(20) NOT NULL DEFAULT '',
   `group2Code` varchar(20) NOT NULL DEFAULT '',
@@ -1685,63 +1474,51 @@ CREATE TABLE `tblGroup5` (
   `group5Secretary` varchar(20) NOT NULL DEFAULT '',
   `group5Custodian` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblHoliday`
 --
 
-DROP TABLE IF EXISTS `tblHoliday`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblHoliday` (
   `holidayCode` varchar(20) NOT NULL DEFAULT '',
   `holidayName` varchar(30) NOT NULL DEFAULT '',
   `holidayMonth` varchar(10) DEFAULT NULL,
   `holidayDay` char(2) DEFAULT NULL,
-  `fixedHoliday` char(1) NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`holidayCode`)
+  `fixedHoliday` char(1) NOT NULL DEFAULT 'N'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblHolidayYear`
 --
 
-DROP TABLE IF EXISTS `tblHolidayYear`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblHolidayYear` (
-  `holidayId` int(11) NOT NULL AUTO_INCREMENT,
+  `holidayId` int(11) NOT NULL,
   `holidayCode` varchar(20) NOT NULL DEFAULT '',
-  `holidayDate` date NOT NULL DEFAULT '0000-00-00',
-  `holidayTime` varchar(15) NOT NULL,
-  PRIMARY KEY (`holidayId`),
-  KEY `idx_holidayDate` (`holidayDate`)
-) ENGINE=MyISAM AUTO_INCREMENT=286 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `holidayDate` date NOT NULL,
+  `holidayTime` varchar(15) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblID`
 --
 
-DROP TABLE IF EXISTS `tblID`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblID` (
-  `ID` int(5) NOT NULL AUTO_INCREMENT,
-  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2147483647 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `ID` int(5) NOT NULL,
+  `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblIncome`
 --
 
-DROP TABLE IF EXISTS `tblIncome`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblIncome` (
   `incomeCode` varchar(15) NOT NULL DEFAULT '',
   `incomeDesc` varchar(50) NOT NULL DEFAULT '',
@@ -1749,69 +1526,58 @@ CREATE TABLE `tblIncome` (
   `incomeAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `incomeType` varchar(20) NOT NULL DEFAULT '0',
   `recipient` varchar(150) NOT NULL DEFAULT 'ALL',
-  `hidden` tinyint(1) NOT NULL DEFAULT '0',
-  KEY `incomeCode` (`incomeCode`)
+  `hidden` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblLeave`
 --
 
-DROP TABLE IF EXISTS `tblLeave`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblLeave` (
-  `leave_id` int(11) NOT NULL AUTO_INCREMENT,
+  `leave_id` int(11) NOT NULL,
   `leaveCode` char(5) NOT NULL DEFAULT '',
   `leaveType` varchar(50) NOT NULL DEFAULT '',
   `numOfDays` float NOT NULL DEFAULT '0',
-  `system` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`leave_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `system` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblLocalHoliday`
 --
 
-DROP TABLE IF EXISTS `tblLocalHoliday`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblLocalHoliday` (
   `holidayCode` varchar(20) NOT NULL DEFAULT '',
   `holidayName` varchar(30) NOT NULL DEFAULT '',
   `holidayMonth` varchar(10) NOT NULL DEFAULT '',
   `holidayDay` char(2) NOT NULL DEFAULT '',
   `holidayYear` varchar(10) NOT NULL DEFAULT '',
-  `holidayDate` date NOT NULL DEFAULT '0000-00-00'
+  `holidayDate` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblManualDTR`
 --
 
-DROP TABLE IF EXISTS `tblManualDTR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblManualDTR` (
-  `dtr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dtr_id` int(11) NOT NULL,
   `dtr_name` varchar(50) NOT NULL,
-  `dtr_ip` varchar(30) NOT NULL,
-  PRIMARY KEY (`dtr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `dtr_ip` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblNonPermComputation`
 --
 
-DROP TABLE IF EXISTS `tblNonPermComputation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblNonPermComputation` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id` int(5) NOT NULL,
   `fk_id` int(5) NOT NULL DEFAULT '0',
   `empNumber` varchar(30) NOT NULL DEFAULT '',
   `salary` decimal(10,2) NOT NULL DEFAULT '0.00',
@@ -1829,41 +1595,35 @@ CREATE TABLE `tblNonPermComputation` (
   `minuteOTamount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `tardyhouramount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `tardyminuteamount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `lateamount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=144295 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `lateamount` decimal(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblNonPermComputationInstance`
 --
 
-DROP TABLE IF EXISTS `tblNonPermComputationInstance`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblNonPermComputationInstance` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `startDate` date NOT NULL DEFAULT '0000-00-00',
-  `endDate` date NOT NULL DEFAULT '0000-00-00',
+  `id` int(5) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `pmonth` int(2) NOT NULL DEFAULT '0',
   `pyear` int(4) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '0',
   `period` int(2) NOT NULL DEFAULT '0',
-  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10392 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `payrollGroupCode` varchar(20) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblOTComputation`
 --
 
-DROP TABLE IF EXISTS `tblOTComputation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblOTComputation` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id` int(5) NOT NULL,
   `fk_id` int(5) NOT NULL DEFAULT '0',
   `empNumber` varchar(30) NOT NULL DEFAULT '',
   `salary` decimal(10,2) NOT NULL DEFAULT '0.00',
@@ -1873,59 +1633,72 @@ CREATE TABLE `tblOTComputation` (
   `hourOTamount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `minuteOTamount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `taxOTAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `creditableAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1074 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `creditableAmount` decimal(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblOTComputationInstance`
 --
 
-DROP TABLE IF EXISTS `tblOTComputationInstance`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblOTComputationInstance` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `startDate` date NOT NULL DEFAULT '0000-00-00',
-  `endDate` date NOT NULL DEFAULT '0000-00-00',
+  `id` int(11) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `pmonth` int(2) NOT NULL DEFAULT '0',
   `pyear` int(4) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '0',
-  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `payrollGroupCode` varchar(20) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `tblOverride`
+-- Table structure for table `tblPayrollGroup`
 --
 
-DROP TABLE IF EXISTS `tblOverride`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblOverride` (
-  `override_id` int(11) NOT NULL AUTO_INCREMENT,
-  `override_type` int(11) NOT NULL COMMENT '1=ob;2=exdtr;3=gendtr',
-  `office_type` varchar(20) NOT NULL,
-  `office` varchar(20) NOT NULL,
-  `appt_status` varchar(20) NOT NULL,
-  `created_date` datetime NOT NULL,
-  `created_by` varchar(20) NOT NULL,
-  `lastupdated_date` datetime DEFAULT NULL,
-  `lastupdate_dby` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`override_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE `tblPayrollGroup` (
+  `payrollGroupId` int(11) NOT NULL,
+  `payrollGroupCode` varchar(20) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `payrollGroupName` varchar(200) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `projectCode` varchar(20) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `payrollGroupOrder` int(11) NOT NULL DEFAULT '0',
+  `payrollGroupRC` varchar(30) COLLATE latin1_general_ci NOT NULL DEFAULT '-'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblPayrollOfficer`
+--
+
+CREATE TABLE `tblPayrollOfficer` (
+  `poID` int(11) NOT NULL,
+  `empNumber` varchar(20) NOT NULL DEFAULT '',
+  `payrollGroupCode` varchar(20) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblPayrollProcess`
+--
+
+CREATE TABLE `tblPayrollProcess` (
+  `appointment_id` int(11) NOT NULL,
+  `appointmentCode` varchar(20) NOT NULL DEFAULT '',
+  `processWith` varchar(200) NOT NULL DEFAULT '',
+  `computation` varchar(30) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblPayrolRegister`
 --
 
-DROP TABLE IF EXISTS `tblPayrolRegister`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblPayrolRegister` (
   `period` int(1) NOT NULL DEFAULT '0',
   `employeeAppoint` varchar(20) NOT NULL DEFAULT '',
@@ -1949,15 +1722,13 @@ CREATE TABLE `tblPayrolRegister` (
   `payRegYear` year(4) NOT NULL DEFAULT '0000',
   `dateTime` varchar(30) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblPayrolRegisterZone`
 --
 
-DROP TABLE IF EXISTS `tblPayrolRegisterZone`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblPayrolRegisterZone` (
   `period` int(1) NOT NULL DEFAULT '0',
   `employeeAppoint` varchar(20) NOT NULL DEFAULT '',
@@ -1981,85 +1752,29 @@ CREATE TABLE `tblPayrolRegisterZone` (
   `payRegYear` year(4) NOT NULL DEFAULT '0000',
   `dateTime` varchar(30) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `tblPayrollGroup`
---
-
-DROP TABLE IF EXISTS `tblPayrollGroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblPayrollGroup` (
-  `payrollGroupId` int(11) NOT NULL AUTO_INCREMENT,
-  `payrollGroupCode` varchar(20) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `payrollGroupName` varchar(200) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `projectCode` varchar(20) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `payrollGroupOrder` int(11) NOT NULL DEFAULT '0',
-  `payrollGroupRC` varchar(30) COLLATE latin1_general_ci NOT NULL DEFAULT '-',
-  PRIMARY KEY (`payrollGroupCode`),
-  UNIQUE KEY `payrollGroupId` (`payrollGroupId`)
-) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tblPayrollOfficer`
---
-
-DROP TABLE IF EXISTS `tblPayrollOfficer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblPayrollOfficer` (
-  `poID` int(11) NOT NULL AUTO_INCREMENT,
-  `empNumber` varchar(20) NOT NULL DEFAULT '',
-  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`poID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tblPayrollProcess`
---
-
-DROP TABLE IF EXISTS `tblPayrollProcess`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblPayrollProcess` (
-  `appointment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `appointmentCode` varchar(20) NOT NULL DEFAULT '',
-  `processWith` varchar(200) NOT NULL DEFAULT '',
-  `computation` varchar(30) NOT NULL DEFAULT '',
-  PRIMARY KEY (`appointment_id`),
-  KEY `appointmentCode` (`appointmentCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblPhilhealthRange`
 --
 
-DROP TABLE IF EXISTS `tblPhilhealthRange`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblPhilhealthRange` (
-  `philHealthId` int(11) NOT NULL AUTO_INCREMENT,
+  `philHealthId` int(11) NOT NULL,
   `philhealthFrom` decimal(10,2) NOT NULL DEFAULT '0.00',
   `philhealthTo` decimal(10,2) NOT NULL DEFAULT '0.00',
   `philSalaryBase` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `philMonthlyContri` decimal(10,2) NOT NULL DEFAULT '0.00',
-  UNIQUE KEY `payrollGroupId` (`philHealthId`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `philMonthlyContri` decimal(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblPlantilla`
 --
 
-DROP TABLE IF EXISTS `tblPlantilla`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblPlantilla` (
-  `plantillaID` int(11) NOT NULL AUTO_INCREMENT,
+  `plantillaID` int(11) NOT NULL,
   `itemNumber` varchar(50) NOT NULL DEFAULT '',
   `positionCode` varchar(20) NOT NULL DEFAULT '',
   `authorizeSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
@@ -2080,54 +1795,44 @@ CREATE TABLE `tblPlantilla` (
   `examCode2` varchar(20) NOT NULL DEFAULT '',
   `educational` varchar(100) NOT NULL,
   `experience` varchar(100) NOT NULL,
-  `training` varchar(100) NOT NULL,
-  PRIMARY KEY (`plantillaID`),
-  KEY `itemNumber` (`itemNumber`)
-) ENGINE=MyISAM AUTO_INCREMENT=214 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `training` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblPlantillaDuties`
 --
 
-DROP TABLE IF EXISTS `tblPlantillaDuties`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblPlantillaDuties` (
-  `plantilla_duties_index` int(11) NOT NULL AUTO_INCREMENT,
+  `plantilla_duties_index` int(11) NOT NULL,
   `itemNumber` varchar(50) NOT NULL DEFAULT '',
   `percentWork` int(5) NOT NULL DEFAULT '0',
   `itemDuties` text,
-  `dutyNumber` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`plantilla_duties_index`)
-) ENGINE=MyISAM AUTO_INCREMENT=743 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `dutyNumber` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblPlantillaGroup`
 --
 
-DROP TABLE IF EXISTS `tblPlantillaGroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblPlantillaGroup` (
-  `plantillaGroupId` int(11) NOT NULL AUTO_INCREMENT,
+  `plantillaGroupId` int(11) NOT NULL,
   `plantillaGroupCode` varchar(20) NOT NULL DEFAULT '',
   `plantillaGroupName` varchar(255) NOT NULL DEFAULT '',
-  `plantillaGroupOrder` int(11) NOT NULL DEFAULT '0',
-  UNIQUE KEY `plantillaGroupId` (`plantillaGroupId`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `plantillaGroupOrder` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblPosition`
 --
 
-DROP TABLE IF EXISTS `tblPosition`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblPosition` (
-  `positionId` int(11) NOT NULL AUTO_INCREMENT,
+  `positionId` int(11) NOT NULL,
   `positionCode` varchar(20) NOT NULL DEFAULT '',
   `positionAbb` varchar(50) NOT NULL DEFAULT '',
   `positionDesc` varchar(70) NOT NULL DEFAULT '',
@@ -2135,21 +1840,17 @@ CREATE TABLE `tblPosition` (
   `experience` varchar(100) NOT NULL DEFAULT '',
   `eligibility` varchar(100) NOT NULL DEFAULT '',
   `training` varchar(200) NOT NULL DEFAULT '',
-  `level` varchar(5) NOT NULL DEFAULT '',
-  PRIMARY KEY (`positionCode`),
-  UNIQUE KEY `positionId` (`positionId`)
-) ENGINE=MyISAM AUTO_INCREMENT=584 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `level` varchar(5) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblProcess`
 --
 
-DROP TABLE IF EXISTS `tblProcess`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblProcess` (
-  `processID` int(11) NOT NULL AUTO_INCREMENT,
+  `processID` int(11) NOT NULL,
   `employeeAppoint` varchar(20) NOT NULL DEFAULT '',
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
   `processDate` date DEFAULT NULL,
@@ -2159,18 +1860,15 @@ CREATE TABLE `tblProcess` (
   `payrollGroupCode` varchar(50) NOT NULL DEFAULT '',
   `salarySchedule` varchar(10) NOT NULL DEFAULT '',
   `period` int(11) NOT NULL DEFAULT '0',
-  `publish` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`processID`)
-) ENGINE=MyISAM AUTO_INCREMENT=5603 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `publish` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblProcessedEmployees`
 --
 
-DROP TABLE IF EXISTS `tblProcessedEmployees`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblProcessedEmployees` (
   `processID` int(11) NOT NULL DEFAULT '0',
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
@@ -2196,15 +1894,13 @@ CREATE TABLE `tblProcessedEmployees` (
   `salarySchedule` varchar(10) NOT NULL DEFAULT '',
   `period` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblProcessedPayrollGroup`
 --
 
-DROP TABLE IF EXISTS `tblProcessedPayrollGroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblProcessedPayrollGroup` (
   `processID` int(11) NOT NULL DEFAULT '0',
   `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
@@ -2212,299 +1908,255 @@ CREATE TABLE `tblProcessedPayrollGroup` (
   `projectCode` varchar(20) NOT NULL DEFAULT '',
   `payrollGroupOrder` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblProcessedProject`
 --
 
-DROP TABLE IF EXISTS `tblProcessedProject`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblProcessedProject` (
   `processID` int(11) NOT NULL DEFAULT '0',
   `projectCode` varchar(100) NOT NULL DEFAULT '',
   `projectDesc` text NOT NULL,
   `projectOrder` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblProject`
 --
 
-DROP TABLE IF EXISTS `tblProject`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblProject` (
-  `projectId` int(11) NOT NULL AUTO_INCREMENT,
+  `projectId` int(11) NOT NULL,
   `projectCode` varchar(100) NOT NULL DEFAULT '',
   `projectDesc` text NOT NULL,
-  `projectOrder` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`projectCode`),
-  UNIQUE KEY `projectId` (`projectId`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `projectOrder` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblraffle`
+--
+
+CREATE TABLE `tblraffle` (
+  `name` text NOT NULL,
+  `amount` double(15,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblRATA`
 --
 
-DROP TABLE IF EXISTS `tblRATA`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblRATA` (
   `RATACode` char(3) NOT NULL DEFAULT '',
-  `RATAAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`RATACode`)
+  `RATAAmount` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `tblReportType`
---
-
-DROP TABLE IF EXISTS `tblReportType`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblReportType` (
-  `reportCode` varchar(10) NOT NULL DEFAULT '',
-  `reportDesc` text NOT NULL,
-  `reportType` varchar(255) NOT NULL DEFAULT '',
-  `reportModule` varchar(4) NOT NULL DEFAULT '',
-  `numberOfSignatory` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`reportCode`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblReports`
 --
 
-DROP TABLE IF EXISTS `tblReports`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblReports` (
   `reportCode` varchar(10) NOT NULL DEFAULT '',
   `reportDesc` text NOT NULL,
   `reportType` varchar(255) NOT NULL DEFAULT '',
   `reportModule` varchar(4) NOT NULL DEFAULT '',
-  `reportStatus` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`reportCode`)
+  `reportStatus` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblReportType`
+--
+
+CREATE TABLE `tblReportType` (
+  `reportCode` varchar(10) NOT NULL DEFAULT '',
+  `reportDesc` text NOT NULL,
+  `reportType` varchar(255) NOT NULL DEFAULT '',
+  `reportModule` varchar(4) NOT NULL DEFAULT '',
+  `numberOfSignatory` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblRequestApplicant`
 --
 
-DROP TABLE IF EXISTS `tblRequestApplicant`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblRequestApplicant` (
   `AppliCode` varchar(100) NOT NULL DEFAULT '',
-  `Applicant` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`AppliCode`)
+  `Applicant` varchar(100) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblRequestFlow`
 --
 
-DROP TABLE IF EXISTS `tblRequestFlow`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblRequestFlow` (
-  `reqID` int(2) NOT NULL AUTO_INCREMENT,
+  `reqID` int(2) NOT NULL,
   `RequestType` varchar(100) NOT NULL DEFAULT '',
   `Applicant` varchar(100) NOT NULL DEFAULT '',
   `Signatory1` varchar(100) NOT NULL DEFAULT '',
   `Signatory2` varchar(100) NOT NULL DEFAULT '',
   `Signatory3` varchar(100) NOT NULL DEFAULT '',
-  `SignatoryFin` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`reqID`)
-) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `SignatoryFin` varchar(100) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblRequestSignatory`
 --
 
-DROP TABLE IF EXISTS `tblRequestSignatory`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblRequestSignatory` (
   `SignCode` varchar(50) NOT NULL DEFAULT '',
   `Signatory` varchar(100) NOT NULL DEFAULT '',
-  `SignHead` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`SignCode`)
+  `SignHead` varchar(50) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblRequestSignatoryAction`
 --
 
-DROP TABLE IF EXISTS `tblRequestSignatoryAction`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblRequestSignatoryAction` (
-  `ID` int(2) NOT NULL AUTO_INCREMENT,
+  `ID` int(2) NOT NULL,
   `ActionDesc` varchar(50) NOT NULL DEFAULT '',
-  `ActionCode` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `ActionCode` varchar(50) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblRequestType`
 --
 
-DROP TABLE IF EXISTS `tblRequestType`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblRequestType` (
   `requestCode` varchar(20) NOT NULL DEFAULT '',
-  `requestDesc` text NOT NULL,
-  PRIMARY KEY (`requestCode`)
+  `requestDesc` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblSalarySched`
 --
 
-DROP TABLE IF EXISTS `tblSalarySched`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblSalarySched` (
   `stepNumber` int(2) NOT NULL DEFAULT '0',
   `salaryGradeNumber` int(2) NOT NULL DEFAULT '0',
   `actualSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
   `version` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblSalarySchedVersion`
 --
 
-DROP TABLE IF EXISTS `tblSalarySchedVersion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblSalarySchedVersion` (
-  `version` int(10) NOT NULL AUTO_INCREMENT,
+  `version` int(10) NOT NULL,
   `title` varchar(50) NOT NULL DEFAULT '',
   `description` varchar(50) NOT NULL DEFAULT '',
-  `effectivity` date NOT NULL DEFAULT '0000-00-00',
+  `effectivity` date NOT NULL,
   `unused` tinyint(1) NOT NULL DEFAULT '0',
-  `active` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`version`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `active` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblScheduler_Logs`
 --
 
-DROP TABLE IF EXISTS `tblScheduler_Logs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblScheduler_Logs` (
   `id` int(10) NOT NULL DEFAULT '0',
   `script` varchar(130) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `output` text CHARACTER SET latin1 COLLATE latin1_general_ci,
   `execution_time` varchar(130) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblScholarship`
 --
 
-DROP TABLE IF EXISTS `tblScholarship`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblScholarship` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `description` varchar(100) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblSecurityCode`
 --
 
-DROP TABLE IF EXISTS `tblSecurityCode`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblSecurityCode` (
-  `securityID` int(11) NOT NULL AUTO_INCREMENT,
+  `securityID` int(11) NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '',
   `securityQuestion` varchar(30) NOT NULL DEFAULT '',
-  `securityAnswer` varchar(30) NOT NULL DEFAULT '',
-  PRIMARY KEY (`securityID`)
-) ENGINE=MyISAM AUTO_INCREMENT=245 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `securityAnswer` varchar(30) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblSecurityQuestion`
 --
 
-DROP TABLE IF EXISTS `tblSecurityQuestion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblSecurityQuestion` (
-  `securityCode` int(11) NOT NULL AUTO_INCREMENT,
-  `securityQuestion` varchar(200) NOT NULL DEFAULT '',
-  PRIMARY KEY (`securityCode`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `securityCode` int(11) NOT NULL,
+  `securityQuestion` varchar(200) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblSeparationCause`
 --
 
-DROP TABLE IF EXISTS `tblSeparationCause`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblSeparationCause` (
   `separationCause` varchar(50) NOT NULL DEFAULT '',
-  `system` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`separationCause`)
+  `system` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblServiceCode`
 --
 
-DROP TABLE IF EXISTS `tblServiceCode`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblServiceCode` (
-  `serviceId` int(11) NOT NULL AUTO_INCREMENT,
+  `serviceId` int(11) NOT NULL,
   `serviceCode` varchar(20) NOT NULL DEFAULT '',
   `serviceDesc` varchar(50) NOT NULL DEFAULT '',
-  `system` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`serviceCode`),
-  UNIQUE KEY `serviceId` (`serviceId`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `system` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblServiceRecord`
 --
 
-DROP TABLE IF EXISTS `tblServiceRecord`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblServiceRecord` (
-  `serviceRecID` int(11) NOT NULL AUTO_INCREMENT,
+  `serviceRecID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `serviceFromDate` date NOT NULL DEFAULT '0000-00-00',
+  `serviceFromDate` date NOT NULL,
   `serviceToDate` varchar(10) NOT NULL DEFAULT '0000-00-00',
   `tmpServiceToDate` varchar(25) NOT NULL DEFAULT 'Present',
   `positionCode` varchar(10) NOT NULL DEFAULT '',
@@ -2523,67 +2175,40 @@ CREATE TABLE `tblServiceRecord` (
   `remarks` varchar(50) NOT NULL DEFAULT '',
   `lwop` int(3) NOT NULL DEFAULT '0',
   `processor` varchar(50) NOT NULL,
-  `signee` varchar(50) NOT NULL,
-  PRIMARY KEY (`serviceRecID`),
-  KEY `empNumber` (`empNumber`)
-) ENGINE=MyISAM AUTO_INCREMENT=8609 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `signee` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Table structure for table `tblSignatory`
---
-
-DROP TABLE IF EXISTS `tblSignatory`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblSignatory` (
-  `signatoryId` int(11) NOT NULL AUTO_INCREMENT,
-  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
-  `signatory` text NOT NULL,
-  `signatoryPosition` text NOT NULL,
-  `signatoryOrder` int(11) NOT NULL DEFAULT '0',
-  `sig_module` tinyint(4) DEFAULT NULL COMMENT '1=hr;0=payroll',
-  PRIMARY KEY (`signatoryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=168 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblSignatory_edited`
 --
 
-DROP TABLE IF EXISTS `tblSignatory_edited`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblSignatory_edited` (
-  `signatoryId` int(11) NOT NULL AUTO_INCREMENT,
+  `signatoryId` int(11) NOT NULL,
   `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
   `signatory` text NOT NULL,
   `signatoryPosition` text NOT NULL,
-  `signatoryOrder` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`signatoryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=168 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `signatoryOrder` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblSpecificLeave`
 --
 
-DROP TABLE IF EXISTS `tblSpecificLeave`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblSpecificLeave` (
   `leaveCode` char(3) NOT NULL DEFAULT '',
   `specifyLeave` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblTaxDetails`
 --
 
-DROP TABLE IF EXISTS `tblTaxDetails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblTaxDetails` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `otherDependent` varchar(50) DEFAULT NULL,
@@ -2604,29 +2229,24 @@ CREATE TABLE `tblTaxDetails` (
   `pTaxComp` decimal(10,2) NOT NULL DEFAULT '0.00',
   `pTaxWheld` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblTaxExempt`
 --
 
-DROP TABLE IF EXISTS `tblTaxExempt`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblTaxExempt` (
   `taxStatus` varchar(20) NOT NULL DEFAULT '',
-  `exemptAmount` float(10,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`taxStatus`)
+  `exemptAmount` float(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblTaxRange`
 --
 
-DROP TABLE IF EXISTS `tblTaxRange`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblTaxRange` (
   `taxableFrom` decimal(10,2) NOT NULL DEFAULT '0.00',
   `taxableTo` decimal(10,2) NOT NULL DEFAULT '0.00',
@@ -2635,45 +2255,24 @@ CREATE TABLE `tblTaxRange` (
   `taxDeduct` decimal(10,2) NOT NULL DEFAULT '0.00',
   `orderNumber` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `tblTempNotification`
---
-
-DROP TABLE IF EXISTS `tblTempNotification`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblTempNotification` (
-  `tmpDate` date NOT NULL DEFAULT '0000-00-00',
-  `tmpStepIncrement` int(11) NOT NULL DEFAULT '0',
-  `tmpBirthday` int(11) NOT NULL DEFAULT '0',
-  `tmpEmployeesMovement` int(11) NOT NULL DEFAULT '0',
-  `tmpVacantPosition` int(11) NOT NULL DEFAULT '0',
-  `tmpRetiree` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblWorkZone`
 --
 
-DROP TABLE IF EXISTS `tblWorkZone`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblWorkZone` (
   `currentWorkZone` varchar(20) DEFAULT NULL,
   `currentchiefworkzone` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='stores the current working zone. 201 display depend on which';
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tblZone`
 --
 
-DROP TABLE IF EXISTS `tblZone`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblZone` (
   `zonecode` varchar(20) NOT NULL DEFAULT '',
   `zonedesc` varchar(255) NOT NULL DEFAULT '',
@@ -2682,28 +2281,941 @@ CREATE TABLE `tblZone` (
   `password` varchar(30) NOT NULL DEFAULT '',
   `databaseName` varchar(30) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `tblraffle`
+-- Indexes for dumped tables
 --
 
-DROP TABLE IF EXISTS `tblraffle`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblraffle` (
-  `name` text NOT NULL,
-  `amount` double(15,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+--
+-- Indexes for table `tblAgency`
+--
+ALTER TABLE `tblAgency`
+  ADD PRIMARY KEY (`agencyName`);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Indexes for table `tblAgencyImages`
+--
+ALTER TABLE `tblAgencyImages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblAppointment`
+--
+ALTER TABLE `tblAppointment`
+  ADD PRIMARY KEY (`appointmentId`);
+
+--
+-- Indexes for table `tblAttendanceCode`
+--
+ALTER TABLE `tblAttendanceCode`
+  ADD PRIMARY KEY (`code`);
+
+--
+-- Indexes for table `tblAttendanceScheme`
+--
+ALTER TABLE `tblAttendanceScheme`
+  ADD PRIMARY KEY (`schemeCode`),
+  ADD KEY `schemeName` (`schemeName`);
+
+--
+-- Indexes for table `tblBackup`
+--
+ALTER TABLE `tblBackup`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblBrokenSched`
+--
+ALTER TABLE `tblBrokenSched`
+  ADD PRIMARY KEY (`rec_ID`);
+
+--
+-- Indexes for table `tblChangeLog`
+--
+ALTER TABLE `tblChangeLog`
+  ADD PRIMARY KEY (`changeLogId`);
+
+--
+-- Indexes for table `tblComputation`
+--
+ALTER TABLE `tblComputation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblComputationInstance`
+--
+ALTER TABLE `tblComputationInstance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblContact`
+--
+ALTER TABLE `tblContact`
+  ADD PRIMARY KEY (`agencyCode`);
+
+--
+-- Indexes for table `tblCountry`
+--
+ALTER TABLE `tblCountry`
+  ADD PRIMARY KEY (`countryId`);
+
+--
+-- Indexes for table `tblCourse`
+--
+ALTER TABLE `tblCourse`
+  ADD PRIMARY KEY (`courseCode`),
+  ADD UNIQUE KEY `courseId` (`courseId`);
+
+--
+-- Indexes for table `tblCustodian`
+--
+ALTER TABLE `tblCustodian`
+  ADD PRIMARY KEY (`custodianId`);
+
+--
+-- Indexes for table `tblDailyQuote`
+--
+ALTER TABLE `tblDailyQuote`
+  ADD PRIMARY KEY (`day`);
+
+--
+-- Indexes for table `tblDeduction`
+--
+ALTER TABLE `tblDeduction`
+  ADD PRIMARY KEY (`deduction_id`);
+
+--
+-- Indexes for table `tblDuties`
+--
+ALTER TABLE `tblDuties`
+  ADD PRIMARY KEY (`duties_index`);
+
+--
+-- Indexes for table `tblEducationalLevel`
+--
+ALTER TABLE `tblEducationalLevel`
+  ADD PRIMARY KEY (`levelCode`),
+  ADD UNIQUE KEY `levelId` (`levelId`),
+  ADD KEY `levelDesc` (`levelDesc`);
+
+--
+-- Indexes for table `tblEmpAccount`
+--
+ALTER TABLE `tblEmpAccount`
+  ADD PRIMARY KEY (`empNumber`),
+  ADD KEY `Emp_No` (`empNumber`);
+
+--
+-- Indexes for table `tblEmpAppointment`
+--
+ALTER TABLE `tblEmpAppointment`
+  ADD PRIMARY KEY (`appointmentissuedcode`);
+
+--
+-- Indexes for table `tblEmpBenefits`
+--
+ALTER TABLE `tblEmpBenefits`
+  ADD PRIMARY KEY (`benefitCode`);
+
+--
+-- Indexes for table `tblEmpChild`
+--
+ALTER TABLE `tblEmpChild`
+  ADD PRIMARY KEY (`childCode`);
+
+--
+-- Indexes for table `tblEmpDeductions`
+--
+ALTER TABLE `tblEmpDeductions`
+  ADD PRIMARY KEY (`deductCode`);
+
+--
+-- Indexes for table `tblEmpDeductLoan`
+--
+ALTER TABLE `tblEmpDeductLoan`
+  ADD PRIMARY KEY (`loanCode`);
+
+--
+-- Indexes for table `tblEmpDTR`
+--
+ALTER TABLE `tblEmpDTR`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_dtrDate` (`dtrDate`),
+  ADD KEY `idx_empNumber` (`empNumber`);
+
+--
+-- Indexes for table `tblEmpDTR_log`
+--
+ALTER TABLE `tblEmpDTR_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblEmpDuties`
+--
+ALTER TABLE `tblEmpDuties`
+  ADD PRIMARY KEY (`empduties_index`);
+
+--
+-- Indexes for table `tblEmpExam`
+--
+ALTER TABLE `tblEmpExam`
+  ADD PRIMARY KEY (`ExamIndex`),
+  ADD KEY `Emp_No` (`empNumber`);
+
+--
+-- Indexes for table `tblEmpIncome`
+--
+ALTER TABLE `tblEmpIncome`
+  ADD PRIMARY KEY (`code`);
+
+--
+-- Indexes for table `tblEmpIncomeAdjust`
+--
+ALTER TABLE `tblEmpIncomeAdjust`
+  ADD PRIMARY KEY (`code`);
+
+--
+-- Indexes for table `tblEmpLeave`
+--
+ALTER TABLE `tblEmpLeave`
+  ADD PRIMARY KEY (`leaveID`);
+
+--
+-- Indexes for table `tblEmpLeaveBalance`
+--
+ALTER TABLE `tblEmpLeaveBalance`
+  ADD PRIMARY KEY (`lb_id`);
+
+--
+-- Indexes for table `tblEmpLocalHoliday`
+--
+ALTER TABLE `tblEmpLocalHoliday`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblEmpLongevity`
+--
+ALTER TABLE `tblEmpLongevity`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblEmpMeeting`
+--
+ALTER TABLE `tblEmpMeeting`
+  ADD PRIMARY KEY (`meetingID`);
+
+--
+-- Indexes for table `tblEmpMonetization`
+--
+ALTER TABLE `tblEmpMonetization`
+  ADD PRIMARY KEY (`mon_id`);
+
+--
+-- Indexes for table `tblEmpNetPay`
+--
+ALTER TABLE `tblEmpNetPay`
+  ADD UNIQUE KEY `uid` (`periodMonth`,`periodYear`,`empNumber`);
+
+--
+-- Indexes for table `tblEmpOB`
+--
+ALTER TABLE `tblEmpOB`
+  ADD PRIMARY KEY (`obID`),
+  ADD KEY `obDateFrom` (`obDateFrom`),
+  ADD KEY `obDateTo` (`obDateTo`),
+  ADD KEY `empNumber` (`empNumber`);
+
+--
+-- Indexes for table `tblEmpOtherSched`
+--
+ALTER TABLE `tblEmpOtherSched`
+  ADD PRIMARY KEY (`rec_ID`),
+  ADD KEY `idx_empNumber` (`empNumber`);
+
+--
+-- Indexes for table `tblEmpOvertime`
+--
+ALTER TABLE `tblEmpOvertime`
+  ADD PRIMARY KEY (`otID`);
+
+--
+-- Indexes for table `tblEmpPersonal`
+--
+ALTER TABLE `tblEmpPersonal`
+  ADD PRIMARY KEY (`empNumber`),
+  ADD KEY `Emp_No` (`empNumber`),
+  ADD KEY `empID` (`empID`);
+ALTER TABLE `tblEmpPersonal` ADD FULLTEXT KEY `surname` (`surname`);
+
+--
+-- Indexes for table `tblEmpPosition`
+--
+ALTER TABLE `tblEmpPosition`
+  ADD PRIMARY KEY (`empNumber`),
+  ADD KEY `AppointmentCode` (`appointmentCode`),
+  ADD KEY `DivisionCode` (`divisionCode`),
+  ADD KEY `Emp_No` (`empNumber`),
+  ADD KEY `PositionCode` (`positionCode`),
+  ADD KEY `SectionCode` (`sectionCode`),
+  ADD KEY `ServiceCode` (`serviceCode`),
+  ADD KEY `TaxStatusCode` (`taxStatCode`),
+  ADD KEY `idx_empNumber` (`empNumber`);
+ALTER TABLE `tblEmpPosition` ADD FULLTEXT KEY `assignPlace` (`assignPlace`);
+
+--
+-- Indexes for table `tblEmpReference`
+--
+ALTER TABLE `tblEmpReference`
+  ADD PRIMARY KEY (`ReferenceIndex`);
+
+--
+-- Indexes for table `tblEmpRequest`
+--
+ALTER TABLE `tblEmpRequest`
+  ADD PRIMARY KEY (`requestID`);
+
+--
+-- Indexes for table `tblEmpScholarship`
+--
+ALTER TABLE `tblEmpScholarship`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblEmpSchool`
+--
+ALTER TABLE `tblEmpSchool`
+  ADD PRIMARY KEY (`SchoolIndex`),
+  ADD KEY `SchoolType` (`levelCode`);
+
+--
+-- Indexes for table `tblEmpTraining`
+--
+ALTER TABLE `tblEmpTraining`
+  ADD PRIMARY KEY (`TrainingIndex`),
+  ADD KEY `Emp_No` (`empNumber`),
+  ADD KEY `TrainingID` (`XtrainingCode`);
+
+--
+-- Indexes for table `tblEmpTravelOrder`
+--
+ALTER TABLE `tblEmpTravelOrder`
+  ADD PRIMARY KEY (`toID`);
+
+--
+-- Indexes for table `tblEmpTripTicket`
+--
+ALTER TABLE `tblEmpTripTicket`
+  ADD PRIMARY KEY (`ttID`);
+
+--
+-- Indexes for table `tblEmpVoluntaryWork`
+--
+ALTER TABLE `tblEmpVoluntaryWork`
+  ADD PRIMARY KEY (`VoluntaryIndex`);
+
+--
+-- Indexes for table `tblExamType`
+--
+ALTER TABLE `tblExamType`
+  ADD PRIMARY KEY (`examCode`),
+  ADD UNIQUE KEY `ExamId` (`examId`);
+
+--
+-- Indexes for table `tblFlagCeremony`
+--
+ALTER TABLE `tblFlagCeremony`
+  ADD PRIMARY KEY (`flag_id`);
+
+--
+-- Indexes for table `tblGroup`
+--
+ALTER TABLE `tblGroup`
+  ADD PRIMARY KEY (`groupcode`);
+
+--
+-- Indexes for table `tblHoliday`
+--
+ALTER TABLE `tblHoliday`
+  ADD PRIMARY KEY (`holidayCode`);
+
+--
+-- Indexes for table `tblHolidayYear`
+--
+ALTER TABLE `tblHolidayYear`
+  ADD PRIMARY KEY (`holidayId`),
+  ADD KEY `idx_holidayDate` (`holidayDate`);
+
+--
+-- Indexes for table `tblID`
+--
+ALTER TABLE `tblID`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `tblIncome`
+--
+ALTER TABLE `tblIncome`
+  ADD KEY `incomeCode` (`incomeCode`);
+
+--
+-- Indexes for table `tblLeave`
+--
+ALTER TABLE `tblLeave`
+  ADD PRIMARY KEY (`leave_id`);
+
+--
+-- Indexes for table `tblManualDTR`
+--
+ALTER TABLE `tblManualDTR`
+  ADD PRIMARY KEY (`dtr_id`);
+
+--
+-- Indexes for table `tblNonPermComputation`
+--
+ALTER TABLE `tblNonPermComputation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblNonPermComputationInstance`
+--
+ALTER TABLE `tblNonPermComputationInstance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblOTComputation`
+--
+ALTER TABLE `tblOTComputation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblOTComputationInstance`
+--
+ALTER TABLE `tblOTComputationInstance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblPayrollGroup`
+--
+ALTER TABLE `tblPayrollGroup`
+  ADD PRIMARY KEY (`payrollGroupCode`),
+  ADD UNIQUE KEY `payrollGroupId` (`payrollGroupId`);
+
+--
+-- Indexes for table `tblPayrollOfficer`
+--
+ALTER TABLE `tblPayrollOfficer`
+  ADD PRIMARY KEY (`poID`);
+
+--
+-- Indexes for table `tblPayrollProcess`
+--
+ALTER TABLE `tblPayrollProcess`
+  ADD PRIMARY KEY (`appointment_id`),
+  ADD KEY `appointmentCode` (`appointmentCode`);
+
+--
+-- Indexes for table `tblPhilhealthRange`
+--
+ALTER TABLE `tblPhilhealthRange`
+  ADD UNIQUE KEY `payrollGroupId` (`philHealthId`);
+
+--
+-- Indexes for table `tblPlantilla`
+--
+ALTER TABLE `tblPlantilla`
+  ADD PRIMARY KEY (`plantillaID`),
+  ADD KEY `itemNumber` (`itemNumber`);
+
+--
+-- Indexes for table `tblPlantillaDuties`
+--
+ALTER TABLE `tblPlantillaDuties`
+  ADD PRIMARY KEY (`plantilla_duties_index`);
+
+--
+-- Indexes for table `tblPlantillaGroup`
+--
+ALTER TABLE `tblPlantillaGroup`
+  ADD UNIQUE KEY `plantillaGroupId` (`plantillaGroupId`);
+
+--
+-- Indexes for table `tblPosition`
+--
+ALTER TABLE `tblPosition`
+  ADD PRIMARY KEY (`positionCode`),
+  ADD UNIQUE KEY `positionId` (`positionId`);
+
+--
+-- Indexes for table `tblProcess`
+--
+ALTER TABLE `tblProcess`
+  ADD PRIMARY KEY (`processID`);
+
+--
+-- Indexes for table `tblProject`
+--
+ALTER TABLE `tblProject`
+  ADD PRIMARY KEY (`projectCode`),
+  ADD UNIQUE KEY `projectId` (`projectId`);
+
+--
+-- Indexes for table `tblRATA`
+--
+ALTER TABLE `tblRATA`
+  ADD PRIMARY KEY (`RATACode`);
+
+--
+-- Indexes for table `tblReports`
+--
+ALTER TABLE `tblReports`
+  ADD PRIMARY KEY (`reportCode`);
+
+--
+-- Indexes for table `tblReportType`
+--
+ALTER TABLE `tblReportType`
+  ADD PRIMARY KEY (`reportCode`);
+
+--
+-- Indexes for table `tblRequestApplicant`
+--
+ALTER TABLE `tblRequestApplicant`
+  ADD PRIMARY KEY (`AppliCode`);
+
+--
+-- Indexes for table `tblRequestFlow`
+--
+ALTER TABLE `tblRequestFlow`
+  ADD PRIMARY KEY (`reqID`);
+
+--
+-- Indexes for table `tblRequestSignatory`
+--
+ALTER TABLE `tblRequestSignatory`
+  ADD PRIMARY KEY (`SignCode`);
+
+--
+-- Indexes for table `tblRequestSignatoryAction`
+--
+ALTER TABLE `tblRequestSignatoryAction`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `tblRequestType`
+--
+ALTER TABLE `tblRequestType`
+  ADD PRIMARY KEY (`requestCode`);
+
+--
+-- Indexes for table `tblSalarySchedVersion`
+--
+ALTER TABLE `tblSalarySchedVersion`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `tblScholarship`
+--
+ALTER TABLE `tblScholarship`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblSecurityCode`
+--
+ALTER TABLE `tblSecurityCode`
+  ADD PRIMARY KEY (`securityID`);
+
+--
+-- Indexes for table `tblSecurityQuestion`
+--
+ALTER TABLE `tblSecurityQuestion`
+  ADD PRIMARY KEY (`securityCode`);
+
+--
+-- Indexes for table `tblSeparationCause`
+--
+ALTER TABLE `tblSeparationCause`
+  ADD PRIMARY KEY (`separationCause`);
+
+--
+-- Indexes for table `tblServiceCode`
+--
+ALTER TABLE `tblServiceCode`
+  ADD PRIMARY KEY (`serviceCode`),
+  ADD UNIQUE KEY `serviceId` (`serviceId`);
+
+--
+-- Indexes for table `tblServiceRecord`
+--
+ALTER TABLE `tblServiceRecord`
+  ADD PRIMARY KEY (`serviceRecID`),
+  ADD KEY `empNumber` (`empNumber`);
+
+--
+-- Indexes for table `tblSignatory_edited`
+--
+ALTER TABLE `tblSignatory_edited`
+  ADD PRIMARY KEY (`signatoryId`);
+
+--
+-- Indexes for table `tblTaxExempt`
+--
+ALTER TABLE `tblTaxExempt`
+  ADD PRIMARY KEY (`taxStatus`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tblAgencyImages`
+--
+ALTER TABLE `tblAgencyImages`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+--
+-- AUTO_INCREMENT for table `tblAppointment`
+--
+ALTER TABLE `tblAppointment`
+  MODIFY `appointmentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+--
+-- AUTO_INCREMENT for table `tblBrokenSched`
+--
+ALTER TABLE `tblBrokenSched`
+  MODIFY `rec_ID` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tblChangeLog`
+--
+ALTER TABLE `tblChangeLog`
+  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159450;
+--
+-- AUTO_INCREMENT for table `tblComputation`
+--
+ALTER TABLE `tblComputation`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4398741;
+--
+-- AUTO_INCREMENT for table `tblComputationInstance`
+--
+ALTER TABLE `tblComputationInstance`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5108;
+--
+-- AUTO_INCREMENT for table `tblCountry`
+--
+ALTER TABLE `tblCountry`
+  MODIFY `countryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
+--
+-- AUTO_INCREMENT for table `tblCourse`
+--
+ALTER TABLE `tblCourse`
+  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tblCustodian`
+--
+ALTER TABLE `tblCustodian`
+  MODIFY `custodianId` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+--
+-- AUTO_INCREMENT for table `tblDeduction`
+--
+ALTER TABLE `tblDeduction`
+  MODIFY `deduction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+--
+-- AUTO_INCREMENT for table `tblDuties`
+--
+ALTER TABLE `tblDuties`
+  MODIFY `duties_index` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT for table `tblEducationalLevel`
+--
+ALTER TABLE `tblEducationalLevel`
+  MODIFY `levelId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `tblEmpAppointment`
+--
+ALTER TABLE `tblEmpAppointment`
+  MODIFY `appointmentissuedcode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT for table `tblEmpBenefits`
+--
+ALTER TABLE `tblEmpBenefits`
+  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=707422;
+--
+-- AUTO_INCREMENT for table `tblEmpChild`
+--
+ALTER TABLE `tblEmpChild`
+  MODIFY `childCode` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=737;
+--
+-- AUTO_INCREMENT for table `tblEmpDeductions`
+--
+ALTER TABLE `tblEmpDeductions`
+  MODIFY `deductCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6445;
+--
+-- AUTO_INCREMENT for table `tblEmpDeductLoan`
+--
+ALTER TABLE `tblEmpDeductLoan`
+  MODIFY `loanCode` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+--
+-- AUTO_INCREMENT for table `tblEmpDTR`
+--
+ALTER TABLE `tblEmpDTR`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=374552;
+--
+-- AUTO_INCREMENT for table `tblEmpDTR_log`
+--
+ALTER TABLE `tblEmpDTR_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230653;
+--
+-- AUTO_INCREMENT for table `tblEmpDuties`
+--
+ALTER TABLE `tblEmpDuties`
+  MODIFY `empduties_index` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1567;
+--
+-- AUTO_INCREMENT for table `tblEmpExam`
+--
+ALTER TABLE `tblEmpExam`
+  MODIFY `ExamIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=744;
+--
+-- AUTO_INCREMENT for table `tblEmpIncome`
+--
+ALTER TABLE `tblEmpIncome`
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166475;
+--
+-- AUTO_INCREMENT for table `tblEmpIncomeAdjust`
+--
+ALTER TABLE `tblEmpIncomeAdjust`
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tblEmpLeave`
+--
+ALTER TABLE `tblEmpLeave`
+  MODIFY `leaveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5015;
+--
+-- AUTO_INCREMENT for table `tblEmpLeaveBalance`
+--
+ALTER TABLE `tblEmpLeaveBalance`
+  MODIFY `lb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9708;
+--
+-- AUTO_INCREMENT for table `tblEmpLocalHoliday`
+--
+ALTER TABLE `tblEmpLocalHoliday`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+--
+-- AUTO_INCREMENT for table `tblEmpLongevity`
+--
+ALTER TABLE `tblEmpLongevity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=272;
+--
+-- AUTO_INCREMENT for table `tblEmpMeeting`
+--
+ALTER TABLE `tblEmpMeeting`
+  MODIFY `meetingID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tblEmpMonetization`
+--
+ALTER TABLE `tblEmpMonetization`
+  MODIFY `mon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+--
+-- AUTO_INCREMENT for table `tblEmpOB`
+--
+ALTER TABLE `tblEmpOB`
+  MODIFY `obID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25201;
+--
+-- AUTO_INCREMENT for table `tblEmpOtherSched`
+--
+ALTER TABLE `tblEmpOtherSched`
+  MODIFY `rec_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `tblEmpOvertime`
+--
+ALTER TABLE `tblEmpOvertime`
+  MODIFY `otID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tblEmpPersonal`
+--
+ALTER TABLE `tblEmpPersonal`
+  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=663;
+--
+-- AUTO_INCREMENT for table `tblEmpReference`
+--
+ALTER TABLE `tblEmpReference`
+  MODIFY `ReferenceIndex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1302;
+--
+-- AUTO_INCREMENT for table `tblEmpRequest`
+--
+ALTER TABLE `tblEmpRequest`
+  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6846;
+--
+-- AUTO_INCREMENT for table `tblEmpScholarship`
+--
+ALTER TABLE `tblEmpScholarship`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1204;
+--
+-- AUTO_INCREMENT for table `tblEmpSchool`
+--
+ALTER TABLE `tblEmpSchool`
+  MODIFY `SchoolIndex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2308;
+--
+-- AUTO_INCREMENT for table `tblEmpTraining`
+--
+ALTER TABLE `tblEmpTraining`
+  MODIFY `TrainingIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6525;
+--
+-- AUTO_INCREMENT for table `tblEmpTravelOrder`
+--
+ALTER TABLE `tblEmpTravelOrder`
+  MODIFY `toID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1112;
+--
+-- AUTO_INCREMENT for table `tblEmpTripTicket`
+--
+ALTER TABLE `tblEmpTripTicket`
+  MODIFY `ttID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tblEmpVoluntaryWork`
+--
+ALTER TABLE `tblEmpVoluntaryWork`
+  MODIFY `VoluntaryIndex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=325;
+--
+-- AUTO_INCREMENT for table `tblExamType`
+--
+ALTER TABLE `tblExamType`
+  MODIFY `examId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+--
+-- AUTO_INCREMENT for table `tblFlagCeremony`
+--
+ALTER TABLE `tblFlagCeremony`
+  MODIFY `flag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2493;
+--
+-- AUTO_INCREMENT for table `tblHolidayYear`
+--
+ALTER TABLE `tblHolidayYear`
+  MODIFY `holidayId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
+--
+-- AUTO_INCREMENT for table `tblID`
+--
+ALTER TABLE `tblID`
+  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483647;
+--
+-- AUTO_INCREMENT for table `tblLeave`
+--
+ALTER TABLE `tblLeave`
+  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `tblManualDTR`
+--
+ALTER TABLE `tblManualDTR`
+  MODIFY `dtr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT for table `tblNonPermComputation`
+--
+ALTER TABLE `tblNonPermComputation`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144295;
+--
+-- AUTO_INCREMENT for table `tblNonPermComputationInstance`
+--
+ALTER TABLE `tblNonPermComputationInstance`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10392;
+--
+-- AUTO_INCREMENT for table `tblOTComputation`
+--
+ALTER TABLE `tblOTComputation`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1074;
+--
+-- AUTO_INCREMENT for table `tblOTComputationInstance`
+--
+ALTER TABLE `tblOTComputationInstance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT for table `tblPayrollGroup`
+--
+ALTER TABLE `tblPayrollGroup`
+  MODIFY `payrollGroupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+--
+-- AUTO_INCREMENT for table `tblPayrollOfficer`
+--
+ALTER TABLE `tblPayrollOfficer`
+  MODIFY `poID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tblPayrollProcess`
+--
+ALTER TABLE `tblPayrollProcess`
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `tblPhilhealthRange`
+--
+ALTER TABLE `tblPhilhealthRange`
+  MODIFY `philHealthId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT for table `tblPlantilla`
+--
+ALTER TABLE `tblPlantilla`
+  MODIFY `plantillaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
+--
+-- AUTO_INCREMENT for table `tblPlantillaDuties`
+--
+ALTER TABLE `tblPlantillaDuties`
+  MODIFY `plantilla_duties_index` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=743;
+--
+-- AUTO_INCREMENT for table `tblPlantillaGroup`
+--
+ALTER TABLE `tblPlantillaGroup`
+  MODIFY `plantillaGroupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT for table `tblPosition`
+--
+ALTER TABLE `tblPosition`
+  MODIFY `positionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=584;
+--
+-- AUTO_INCREMENT for table `tblProcess`
+--
+ALTER TABLE `tblProcess`
+  MODIFY `processID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5603;
+--
+-- AUTO_INCREMENT for table `tblProject`
+--
+ALTER TABLE `tblProject`
+  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `tblRequestFlow`
+--
+ALTER TABLE `tblRequestFlow`
+  MODIFY `reqID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+--
+-- AUTO_INCREMENT for table `tblRequestSignatoryAction`
+--
+ALTER TABLE `tblRequestSignatoryAction`
+  MODIFY `ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `tblSalarySchedVersion`
+--
+ALTER TABLE `tblSalarySchedVersion`
+  MODIFY `version` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `tblScholarship`
+--
+ALTER TABLE `tblScholarship`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `tblSecurityCode`
+--
+ALTER TABLE `tblSecurityCode`
+  MODIFY `securityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
+--
+-- AUTO_INCREMENT for table `tblSecurityQuestion`
+--
+ALTER TABLE `tblSecurityQuestion`
+  MODIFY `securityCode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `tblServiceCode`
+--
+ALTER TABLE `tblServiceCode`
+  MODIFY `serviceId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `tblServiceRecord`
+--
+ALTER TABLE `tblServiceRecord`
+  MODIFY `serviceRecID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8609;
+--
+-- AUTO_INCREMENT for table `tblSignatory_edited`
+--
+ALTER TABLE `tblSignatory_edited`
+  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-07-02  9:17:57
