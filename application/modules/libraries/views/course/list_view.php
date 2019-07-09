@@ -1,5 +1,26 @@
 <?php load_plugin('css',array('datepicker','datatables'));?>
-
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?=base_url('home')?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Libraries</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Attendance Scheme</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+       &nbsp;
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -11,7 +32,8 @@
                 </div>
                 
             </div>
-            <div class="portlet-body">
+            <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+            <div class="portlet-body" id="div-course" style="display: none">
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-6">
@@ -21,16 +43,15 @@
                                 </button></a>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_course">
                     <thead>
                         <tr>
-                            <th> No. </th>
+                            <th style="width: 85px;text-align:center;"> No. </th>
                             <th> Course Code </th>
                             <th> Course Description </th>
-                            <th> Action </th>
+                            <th style="width: 150px;text-align:center;"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +60,7 @@
                             <td> <?=$i?> </td>
                             <td> <?=$row['courseCode']?> </td>
                             <td class="center"> <?=$row['courseDesc']?> </td>
-                            <td>
+                            <td style="white-space: nowrap;text-align:center;">
                                 <a href="<?=base_url('libraries/course/edit/'.$row['courseId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/course/delete/'.$row['courseId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                             </td>
@@ -57,6 +78,10 @@
 
 <script>
     $(document).ready(function() {
-        Datatables.init('libraries_course');
-  });
+        $('#libraries_course').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#div-course').show();
+            }} );
+    });
 </script>
