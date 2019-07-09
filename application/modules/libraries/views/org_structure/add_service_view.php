@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/org_structure/add_service'), array('method' => 'post', 'id' => 'frmOrgStructure', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open(base_url('libraries/org_structure/add_service'), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -66,8 +66,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Service Code<span class="required"> * </span></label>
-                                    <input type="text" class="form-control" name="strServiceCode" id="strServiceCode" value="<?=!empty($this->session->userdata('strServiceCode'))?$this->session->userdata('strServiceCode'):''?>">
-                                     <font color='red'> <span id="errorCode"></span></font>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strServiceCode" value="<?=!empty($this->session->userdata('strServiceCode'))?$this->session->userdata('strServiceCode'):''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,8 +77,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Service Name <span class="required"> * </span></label>
-                                     <input type="text" class="form-control" name="strServiceName" id="strServiceName"  value="<?=!empty($this->session->userdata('strServiceName'))?$this->session->userdata('strServiceName'):''?>">
-                                     <font color='red'> <span id="errorName"></span></font>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <input type="text" class="form-control" name="strServiceName" value="<?=!empty($this->session->userdata('strServiceName'))?$this->session->userdata('strServiceName'):''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -100,8 +104,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Service Head Title<span class="required"> * </span></label>
-                                     <input type="text" class="form-control" name="strServiceTitle" id="strServiceTitle"  value="<?=!empty($this->session->userdata('strServiceTitle'))?$this->session->userdata('strServiceTitle'):''?>">
-                                     <font color='red'> <span id="errorHead"></span></font>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                     <input type="text" class="form-control" name="strServiceTitle" value="<?=!empty($this->session->userdata('strServiceTitle'))?$this->session->userdata('strServiceTitle'):''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -276,46 +282,4 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
-</script>
-
-<script>
-
-function checkForBlank()
-{
-   var spaceCount = 0;
-
-    $code= $('#strServiceCode').val();
-    $name= $('#strServiceName').val();
-    $title= $('#strServiceTitle').val();
-
-    $('#errorCode','errorName','errorHead').html('');
-
-   if($code=="" && $name=="" && $title=="")
-    {
-        $('#errorCode').html('This field is required!');
-        $('#errorName').html('This field is required!');
-        $('#errorHead').html('This field is required!');
-      return false;
-    }
-    else if($code==0)
-    {
-      $('#errorCode').html('Invalid input!');
-      return false;
-    }
-    else if($name==0)
-    {
-      $('#errorName').html('Invalid input!');
-      return false;
-    }
-    else if($title==0)
-    {
-      $('#errorHead').html('Invalid input!');
-      return false;
-    }
-    else
-    {
-      return true;
-    }
-
-}
 </script>

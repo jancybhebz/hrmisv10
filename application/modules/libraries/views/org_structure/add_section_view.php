@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/org_structure/add_section'), array('method' => 'post', 'id' => 'frmOrgStructure', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open(base_url('libraries/org_structure/add_section'), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group2']?><span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group3']?><span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strService" value="<?=!empty($this->session->userdata('strService'))?$this->session->userdata('strService'):''?>" required>
@@ -83,7 +83,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group3']?> <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?> <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strDivision" value="<?=!empty($this->session->userdata('strDivision'))?$this->session->userdata('strDivision'):''?>" required>
@@ -102,8 +102,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group4']?> Code <span class="required"> * </span></label>
-                                    <input type="text" class="form-control" name="strSecCode" id="strSecCode" value="<?=!empty($this->session->userdata('strSecCode'))?$this->session->userdata('strSecCode'):''?>">
-                                    <font color='red'> <span id="errorCode"></span></font>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strSecCode" value="<?=!empty($this->session->userdata('strSecCode'))?$this->session->userdata('strSecCode'):''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -111,8 +113,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group4']?> Name <span class="required"> * </span></label>
-                                    <input type="text" class="form-control" name="strSecName" id="strSecName" value="<?=!empty($this->session->userdata('strSecName'))?$this->session->userdata('strSecName'):''?>">
-                                    <font color='red'> <span id="errorName"></span></font>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strSecName" value="<?=!empty($this->session->userdata('strSecName'))?$this->session->userdata('strSecName'):''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,8 +140,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group4']?> Head Title<span class="required"> * </span></label>
-                                    <input type="text" class="form-control" name="strSecHeadTitle" id="strSecHeadTitle"  value="<?=!empty($this->session->userdata('strSecHeadTitle'))?$this->session->userdata('strSecHeadTitle'):''?>">
-                                    <font color='red'> <span id="errorHead"></span></font>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="strSecHeadTitle" value="<?=!empty($this->session->userdata('strSecHeadTitle'))?$this->session->userdata('strSecHeadTitle'):''?>">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -234,36 +240,34 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strExec: {
+                    strExecDivision: {
                         minlength: 1,
                         required: true
                     },
-                    strService: {
+                    strSerDivision: {
                         minlength: 1,
                         required: true,
                     },
-                    strDivision: {
+                    strDivCode: {
                         minlength: 1,
                         required: true,
                     },
-                    strSecCode: {
+                    strDivName: {
                         minlength: 1,
                         required: true,
                     },
-                    strSecName: {
+                    strDivHead: {
                         minlength: 1,
                         required: true,
                     },
-                    strSecHead: {
-                        required: true,
-                    },
-                    strSecHeadTitle: {
-                        required: true,
-                    },
-                    strSecSecretary: {
+                    strDivHeadTitle: {
                         minlength: 1,
                         required: true,
-                    }
+                    },
+                    strDivSecretary: {
+                        minlength: 1,
+                        required: true,
+                    },
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -317,46 +321,4 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
-</script>
-
-<script>
-
-function checkForBlank()
-{
-   var spaceCount = 0;
-
-    $code= $('#strSecCode').val();
-    $name= $('#strSecName').val();
-    $title= $('#strSecHeadTitle').val();
-
-    $('#errorCode','#errorName','#errorHead').html('');
-
-    if($code=="" && $name=="" && $title=="")
-    {
-        $('#errorCode').html('This field is required!');
-        $('#errorName').html('This field is required!');
-        $('#errorHead').html('This field is required!');
-      return false;
-    }
-    else if($code==0)
-    {
-      $('#errorCode').html('Invalid input!');
-      return false;
-    }
-    else if($name==0)
-    {
-      $('#errorName').html('Invalid input!');
-      return false;
-    }
-    else if($title==0)
-    {
-      $('#errorHead').html('Invalid input!');
-      return false;
-    }
-    else
-    {
-      return true;
-    }
-
-}
 </script>

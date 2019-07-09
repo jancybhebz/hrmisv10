@@ -80,10 +80,10 @@ class Org_structure extends MY_Controller {
 	public function edit_exec()
 	{
 		$arrPost = $this->input->post();
-		$strCode = $this->uri->segment(4);
+		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			// $strCode = urldecode($this->uri->segment(4));
+			$strCode = urldecode($this->uri->segment(4));
 			$this->arrData['arrOrganization']=$this->org_structure_model->getData($strCode);
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/org_structure/edit_exec_view', $this->arrData);
@@ -96,6 +96,7 @@ class Org_structure extends MY_Controller {
 			$strExecHead = $arrPost['strExecHead'];
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary= $arrPost['strSecretary'];
+			
 			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
 			{
 				$arrData = array(
@@ -105,13 +106,14 @@ class Org_structure extends MY_Controller {
 					'group1HeadTitle'=>$strHeadTitle,
 					'group1Secretary'=>$strSecretary
 					
+					
 				);
 				$blnReturn = $this->org_structure_model->save_exec($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Edited '.$strExecOffice.' Org_structure',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Executive Office details saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Executive name saved successfully.');
 				}
 				redirect('libraries/org_structure');
 			}
@@ -141,7 +143,7 @@ class Org_structure extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strExecOffice.' Org_structure',implode(';',$arrOrganization[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Executive Office details deleted successfully.');
+					$this->session->set_flashdata('strMsg','Executive name deleted successfully.');
 				}
 				redirect('libraries/org_structure');
 			}
@@ -167,6 +169,7 @@ class Org_structure extends MY_Controller {
 			$strServiceHead = $arrPost['strServiceHead'];
 			$strServiceTitle = $arrPost['strServiceTitle'];
 			$strServiceSecretary = $arrPost['strServiceSecretary'];
+			$strCustodian2 = $arrPost['strCustodian2'];
 			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -178,7 +181,8 @@ class Org_structure extends MY_Controller {
 						'group2Name'=>$strServiceName,
 						'empNumber'=>$strServiceHead,
 						'group2HeadTitle'=>$strServiceTitle,	
-						'group2Secretary'=>$strServiceSecretary	
+						'group2Secretary'=>$strServiceSecretary,	
+						'group2Custodian'=>$strCustodian2,	
 					);
 					$blnReturn  = $this->org_structure_model->add_service($arrData);
 
@@ -221,6 +225,7 @@ class Org_structure extends MY_Controller {
 			$strServiceHead = $arrPost['strServiceHead'];
 			$strServiceTitle = $arrPost['strServiceTitle'];
 			$strServiceSecretary = $arrPost['strServiceSecretary'];
+			$strCustodian2 = $arrPost['strCustodian2'];
 			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
 			{	
 				$arrData = array(
@@ -229,7 +234,8 @@ class Org_structure extends MY_Controller {
 					'group2Name'=>$strServiceName,
 					'empNumber'=>$strServiceHead,
 					'group2HeadTitle'=>$strServiceTitle,
-					'group2Secretary'=>$strServiceSecretary
+					'group2Secretary'=>$strServiceSecretary,	
+					'group2Custodian'=>$strCustodian2
 					
 				);
 				$blnReturn = $this->org_structure_model->save_service($arrData, $strCode);
@@ -295,6 +301,7 @@ class Org_structure extends MY_Controller {
 			$strDivHead = $arrPost['strDivHead'];
 			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
 			$strDivSecretary = $arrPost['strDivSecretary'];
+			$strCustodian3 = $arrPost['strCustodian3'];
 			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -307,7 +314,8 @@ class Org_structure extends MY_Controller {
 						'group3Name'=>$strDivName,
 						'empNumber'=>$strDivHead,	
 						'group3HeadTitle'=>$strDivHeadTitle,
-						'group3Secretary'=>$strDivSecretary
+						'group3Secretary'=>$strDivSecretary,	
+						'group3Custodian'=>$strCustodian3
 					);
 					$blnReturn  = $this->org_structure_model->add_division($arrData);
 
@@ -352,6 +360,7 @@ class Org_structure extends MY_Controller {
 			$strDivHead = $arrPost['strDivHead'];
 			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
 			$strDivSecretary = $arrPost['strDivSecretary'];
+			$strCustodian3 = $arrPost['strCustodian3'];
 			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
 			{
 				$arrData = array(
@@ -361,11 +370,10 @@ class Org_structure extends MY_Controller {
 					'group3Name'=>$strDivName,
 					'empNumber'=>$strDivHead,	
 					'group3HeadTitle'=>$strDivHeadTitle,	
-					'group3Secretary'=>$strDivSecretary
+					'group3Secretary'=>$strDivSecretary,
+					'group3Custodian'=>$strCustodian3
 					
 				);
-				print_r($arrPost);
-				exit(1);
 				$blnReturn = $this->org_structure_model->save_division($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
@@ -430,6 +438,7 @@ class Org_structure extends MY_Controller {
 			$strSecHead = $arrPost['strSecHead'];
 			$strSecHeadTitle = $arrPost['strSecHeadTitle'];
 			$strSecSecretary = $arrPost['strSecSecretary'];
+			$strCustodian4 = $arrPost['strCustodian4'];
 			if(!empty($strExec) && !empty($strService) && !empty($strDivision) && !empty($strSecCode) && !empty($strSecName) && !empty($strSecHead) && !empty($strSecSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -443,7 +452,8 @@ class Org_structure extends MY_Controller {
 						'group4Name'=>$strSecName,	
 						'empNumber'=>$strSecHead,
 						'group4HeadTitle'=>$strSecHeadTitle,
-						'group4Secretary'=>$strSecSecretary
+						'group4Secretary'=>$strSecSecretary,
+						'group4Custodian'=>$strCustodian4
 					);
 					$blnReturn  = $this->org_structure_model->add_section($arrData);
 
@@ -490,6 +500,7 @@ class Org_structure extends MY_Controller {
 			$strSecHead= $arrPost['strSecHead'];
 			$strSecHeadTitle= $arrPost['strSecHeadTitle'];
 			$strSecSecretary= $arrPost['strSecSecretary'];
+			$strCustodian4= $arrPost['strCustodian4'];
 			if(!empty($strExec) AND !empty($strService) AND !empty($strDivision) AND !empty($strSecCode) AND !empty($strSecName) AND !empty($strSecHead) AND !empty($strSecHeadTitle)  AND !empty($strSecSecretary)) 
 			{
 				$arrData = array(
@@ -500,7 +511,8 @@ class Org_structure extends MY_Controller {
 					'group4Name'=>$strSecName,	
 					'empNumber'=>$strSecHead,
 					'group4HeadTitle'=>$strSecHeadTitle,
-					'group4Secretary'=>$strSecSecretary
+					'group4Secretary'=>$strSecSecretary,
+					'group4Custodian'=>$strCustodian4,
 					
 				);
 				$blnReturn = $this->org_structure_model->save_section($arrData, $strCode);
@@ -543,7 +555,7 @@ class Org_structure extends MY_Controller {
 	
 					$this->session->set_flashdata('strMsg','Section name deleted successfully.');
 				}
-				redirect('libraries/org_structure/');
+				redirect('libraries/org_structure/add_section');
 			}
 		}	
 	}
