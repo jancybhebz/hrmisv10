@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                    <div class="portlet-body"  id="employee_view" style="display: none">
+                    <div class="portlet-body" id="employee_view" style="display: none">
                         <div class="row">
                             <div class="col-md-12" style="margin-bottom: 20px;">
                                 <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
