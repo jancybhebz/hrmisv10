@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
+# UPDATE Label for Library menu
 if ( ! function_exists('get_libraries'))
 {
     function get_libraries()
