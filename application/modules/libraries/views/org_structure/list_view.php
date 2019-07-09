@@ -1,7 +1,22 @@
 <?=load_plugin('css',array('datatables'));?>
 <!-- BEGIN PAGE BAR -->
-
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?=base_url('home')?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Libraries</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Organizational Structure</span>
+        </li>
+    </ul>
+</div>
 <!-- END PAGE BAR -->
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
        &nbsp;
