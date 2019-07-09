@@ -41,17 +41,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/org_structure/add_exec'), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
+            <?=form_open(base_url('libraries/org_structure/add_exec'), array('method' => 'post', 'id' => 'frmOrgStructure', 'onsubmit' => 'return checkForBlank()'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group1']?> Code <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" value="<?=!empty($this->session->userdata('strExecOffice'))?$this->session->userdata('strExecOffice'):''?>">
-                                </div>
+                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" id="strExecOffice"  value="<?=!empty($this->session->userdata('strExecOffice'))?$this->session->userdata('strExecOffice'):''?>">
+                                    <font color='red'> <span id="errorCode"></span></font>
                             </div>
                         </div>
                     </div>
@@ -59,10 +57,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group1']?> Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strExecName" value="<?=!empty($this->session->userdata('strExecName'))?$this->session->userdata('strExecName'):''?>">
-                                </div>
+                                    <input type="text" class="form-control" name="strExecName" id="strExecName" value="<?=!empty($this->session->userdata('strExecName'))?$this->session->userdata('strExecName'):''?>">
+                                    <font color='red'> <span id="errorName"></span></font>
                             </div>
                         </div>
                     </div>
@@ -86,10 +82,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group1']?> Head Title <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                       <input type="text" class="form-control" name="strHeadTitle" autocomplete="off" value="<?=!empty($this->session->userdata('strHeadTitle'))?$this->session->userdata('strHeadTitle'):''?>">
-                                </div>
+                                       <input type="text" class="form-control" name="strHeadTitle" id="strHeadTitle" autocomplete="off" value="<?=!empty($this->session->userdata('strHeadTitle'))?$this->session->userdata('strHeadTitle'):''?>">
+                                       <font color='red'> <span id="errorCode"></span></font>
                             </div>
                         </div>
                     </div>
@@ -224,4 +218,54 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
+</script>
+
+<script>
+
+function checkForBlank()
+{
+   var spaceCount = 0;
+
+    $code= $('#strExecOffice').val();
+    $name= $('#strExecName').val();
+    $title= $('#strHeadTitle').val();
+
+    $('#errorCode','#errorName','#errorTitle').html('');
+
+    if($code=="")
+    {
+      $('#errorCode').html('This field is required!');
+      return false;
+    }
+    else if($code==0)
+    {
+      $('#errorCode').html('Invalid Input!');
+      return false;
+    }
+    if($name=="")
+    {
+      $('#errorName').html('This field is required!');
+      return false;
+    }
+    else if($name==0)
+    {
+      $('#errorName').html('Invalid Input!');
+      return false;
+    }
+    if($title=="")
+    {
+      $('#errorTitle').html('This field is required!');
+      return false;
+    }
+    else if($title==0)
+    {
+      $('#errorTitle').html('Invalid Input!');
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+
+}
 </script>

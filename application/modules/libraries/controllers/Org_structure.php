@@ -71,7 +71,7 @@ class Org_structure extends MY_Controller {
 					$this->session->set_flashdata('strErrorMsg','Organization Executive Office already exists.');
 					$this->session->set_flashdata('strExecOffice',$strExecOffice);
 					$this->session->set_flashdata('strExecName',$strExecName);
-					redirect('libraries/org_structure/add_exec');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	
@@ -363,7 +363,7 @@ class Org_structure extends MY_Controller {
 					'group3Name'=>$strDivName,
 					'empNumber'=>$strDivHead,	
 					'group3HeadTitle'=>$strDivHeadTitle,	
-					'group3Secretary'=>$strDivSecretary
+					'group3Secretary'=>$strDivSecretary,
 					
 				);
 				print_r($arrPost);
