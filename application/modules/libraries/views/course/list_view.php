@@ -11,7 +11,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Attendance Scheme</span>
+            <span>Course</span>
         </li>
     </ul>
 </div>
@@ -28,7 +28,7 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Courses</span>
+                    <span class="caption-subject bold uppercase"> Course</span>
                 </div>
                 
             </div>
@@ -74,7 +74,6 @@
     </div>
 </div>
 <?php load_plugin('js',array('datatables'));?>
-
 
 <script>
     $(document).ready(function() {

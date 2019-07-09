@@ -7,7 +7,28 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <?php load_plugin('css',array('datepicker','datatables'));?>
-
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?=base_url('home')?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Libraries</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Country</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+       &nbsp;
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -15,11 +36,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Countries</span>
+                    <span class="caption-subject bold uppercase"> Country</span>
                 </div>
                 
             </div>
-            <div class="portlet-body">
+            <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+            <div class="portlet-body" id="div-country" style="display: none">
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-6">
@@ -29,16 +51,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </button></a>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_country">
                     <thead>
                         <tr>
-                            <th> No. </th>
+                            <th style="width: 100px;text-align:center;"> No. </th>
                             <th> Country Code </th>
                             <th> Country Name </th>
-                            <th> Action </th>
+                            <th style="width: 180px;text-align:center;"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +70,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$i?> </td>
                             <td class="center"> <?=$row['countryCode']?> </td>
                             <td> <?=$row['countryName']?> </td>
-                            <td>
+                            <td style="white-space: nowrap;text-align:center;">
                                 <a href="<?=base_url('libraries/country/edit/'.$row['countryId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/country/delete/'.$row['countryId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                             </td>
@@ -66,9 +87,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <?php load_plugin('js',array('datatables'));?>
 
-
 <script>
     $(document).ready(function() {
-        Datatables.init('libraries_country');
-  });
+        $('#libraries_country').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#div-country').show();
+            }} );
+    });
 </script>
