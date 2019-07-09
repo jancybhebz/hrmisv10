@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add <?=$_ENV['Group2']?> Name</span>
+            <span>Add <?=$_ENV['Group3']?> Name</span>
         </li>
     </ul>
 </div>
@@ -36,12 +36,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add <?=$_ENV['Group2']?> Name</span>
+                    <span class="caption-subject bold uppercase"> Add <?=$_ENV['Group3']?> Name</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-             <?=form_open(base_url('libraries/org_structure/add_division'), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
+             <?=form_open(base_url('libraries/org_structure/add_division'), array('method' => 'post', 'id' => 'frmOrgStructure', 'onsubmit' => 'return checkForBlank()'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -83,29 +83,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group2']?> Code <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strDivCode" value="<?=!empty($this->session->userdata('strDivCode'))?$this->session->userdata('strDivCode'):''?>">
-                                </div>
+                                <label class="control-label"><?=$_ENV['Group3']?> Code <span class="required"> * </span></label>
+                                     <input type="text" class="form-control" name="strDivCode"  id="strDivCode" value="<?=!empty($this->session->userdata('strDivCode'))?$this->session->userdata('strDivCode'):''?>">
+                                      <font color='red'> <span id="errorCode"></span></font>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group2']?> Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strDivName" value="<?=!empty($this->session->userdata('strDivName'))?$this->session->userdata('strDivName'):''?>">
-                                </div>
+                                <label class="control-label"><?=$_ENV['Group3']?> Name <span class="required"> * </span></label>
+                                    <input type="text" class="form-control" name="strDivName" id="strDivName" value="<?=!empty($this->session->userdata('strDivName'))?$this->session->userdata('strDivName'):''?>">
+                                     <font color='red'> <span id="errorName"></span></font>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group2']?> Head<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group3']?> Head<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                       <select type="text" class="form-control" name="strDivHead" value="<?=!empty($this->session->userdata('strDivHead'))?$this->session->userdata('strDivHead'):''?>" required>
@@ -121,18 +117,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group2']?> Head Title<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strDivHeadTitle" value="<?=!empty($this->session->userdata('strDivHeadTitle'))?$this->session->userdata('strDivHeadTitle'):''?>">
-                                </div>
+                                <label class="control-label"><?=$_ENV['Group3']?> Head Title<span class="required"> * </span></label>
+                                    <input type="text" class="form-control" name="strDivHeadTitle" id="strDivHeadTitle" value="<?=!empty($this->session->userdata('strDivHeadTitle'))?$this->session->userdata('strDivHeadTitle'):''?>">
+                                     <font color='red'> <span id="errorTitle"></span></font>
                             </div>
                         </div>
                     </div>
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group2']?> Secretary<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group3']?> Secretary<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                   <select type="text" class="form-control" name="strDivSecretary" value="<?=!empty($this->session->userdata('strDivSecretary'))?$this->session->userdata('strDivSecretary'):''?>" required>
@@ -301,4 +295,54 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
+</script>
+
+<script>
+
+function checkForBlank()
+{
+   var spaceCount = 0;
+
+    $code= $('#strDivCode').val();
+    $name= $('#strDivName').val();
+    $title= $('#strDivHeadTitle').val();
+
+    $('#errorCode','#errorName','#errorTitle').html('');
+
+    if($code=="")
+    {
+      $('#errorCode').html('This field is required!');
+      return false;
+    }
+    else if($code==0)
+    {
+      $('#errorCode').html('Invalid Input!');
+      return false;
+    }
+    if($name=="")
+    {
+      $('#errorName').html('This field is required!');
+      return false;
+    }
+    else if($name==0)
+    {
+      $('#errorName').html('Invalid Input!');
+      return false;
+    }
+    if($title=="")
+    {
+      $('#errorTitle').html('This field is required!');
+      return false;
+    }
+    else if($title==0)
+    {
+      $('#errorTitle').html('Invalid Input!');
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+
+}
 </script>

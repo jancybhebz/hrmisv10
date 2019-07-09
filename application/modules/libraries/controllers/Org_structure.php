@@ -297,7 +297,6 @@ class Org_structure extends MY_Controller {
 			$strDivHead = $arrPost['strDivHead'];
 			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
 			$strDivSecretary = $arrPost['strDivSecretary'];
-			$strCustodian3 = $arrPost['strCustodian3'];
 			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -310,9 +309,10 @@ class Org_structure extends MY_Controller {
 						'group3Name'=>$strDivName,
 						'empNumber'=>$strDivHead,	
 						'group3HeadTitle'=>$strDivHeadTitle,
-						'group3Secretary'=>$strDivSecretary,	
-						'group3Custodian'=>$strCustodian3
+						'group3Secretary'=>$strDivSecretary
 					);
+					// print_r($arrPost);
+					// exit(1);
 					$blnReturn  = $this->org_structure_model->add_division($arrData);
 
 					if(count($blnReturn)>0)
@@ -320,14 +320,14 @@ class Org_structure extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Added '.$strDivCode.' Org_structure',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Division Name added successfully.');
 					}
-					redirect('libraries/org_structure/add_division');
+					redirect('libraries/org_structure');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Division Name already exists.');
 					$this->session->set_flashdata('strDivCode',$strDivCode);
 					$this->session->set_flashdata('strDivName',$strDivName);
-					redirect('libraries/org_structure/add_division');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	

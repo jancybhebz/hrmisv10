@@ -80,6 +80,7 @@ class Org_structure_model extends CI_Model {
 	function add_division($arrData)
 	{
 		$this->db->insert($this->table3, $arrData);
+		$this->db->last_query();
 		return $this->db->insert_id();		
 	}
 	function add_section($arrData)

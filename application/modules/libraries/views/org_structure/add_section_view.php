@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group3']?><span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group2']?><span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strService" value="<?=!empty($this->session->userdata('strService'))?$this->session->userdata('strService'):''?>" required>
@@ -83,7 +83,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group2']?> <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group3']?> <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strDivision" value="<?=!empty($this->session->userdata('strDivision'))?$this->session->userdata('strDivision'):''?>" required>
@@ -104,7 +104,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label"><?=$_ENV['Group4']?> Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSecCode" value="<?=!empty($this->session->userdata('strSecCode'))?$this->session->userdata('strSecCode'):''?>">
+                                    <input type="text" class="form-control" name="strSecCode" id="strSecCode" value="<?=!empty($this->session->userdata('strSecCode'))?$this->session->userdata('strSecCode'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label"><?=$_ENV['Group4']?> Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSecName" value="<?=!empty($this->session->userdata('strSecName'))?$this->session->userdata('strSecName'):''?>">
+                                    <input type="text" class="form-control" name="strSecName" id="strSecName"  value="<?=!empty($this->session->userdata('strSecName'))?$this->session->userdata('strSecName'):''?>">
                                 </div>
                             </div>
                         </div>
