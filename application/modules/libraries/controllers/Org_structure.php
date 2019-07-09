@@ -71,7 +71,7 @@ class Org_structure extends MY_Controller {
 					$this->session->set_flashdata('strErrorMsg','Organization Executive Office already exists.');
 					$this->session->set_flashdata('strExecOffice',$strExecOffice);
 					$this->session->set_flashdata('strExecName',$strExecName);
-					redirect('libraries/org_structure/add_exec');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	
@@ -356,7 +356,6 @@ class Org_structure extends MY_Controller {
 			$strDivHead = $arrPost['strDivHead'];
 			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
 			$strDivSecretary = $arrPost['strDivSecretary'];
-			$strCustodian3 = $arrPost['strCustodian3'];
 			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
 			{
 				$arrData = array(
@@ -367,7 +366,6 @@ class Org_structure extends MY_Controller {
 					'empNumber'=>$strDivHead,	
 					'group3HeadTitle'=>$strDivHeadTitle,	
 					'group3Secretary'=>$strDivSecretary,
-					'group3Custodian'=>$strCustodian3
 					
 				);
 				$blnReturn = $this->org_structure_model->save_division($arrData, $strCode);
