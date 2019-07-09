@@ -15,6 +15,7 @@ if ( ! function_exists('get_libraries'))
 			'country'=>'Country',
 			'duties_responsibilities'=>'Duties and Responsibilities',
 			'educ_level'=>'Educational Level',
+			'separation_mode'=>'Employment Status',
 			'exam_type'=>'Exam Type',
 			'holiday'=>'Holiday',
 			'leave_type'=>'Leave Type',
@@ -29,7 +30,6 @@ if ( ! function_exists('get_libraries'))
 			'request'=>'Request',
 			'salary_sched'=>'Salary Schedule',
 			'scholarship'=>'Scholarship',
-			'separation_mode'=>'Separation Mode',
 			'service_code'=>'Service Code',
 			'signatories'=>'Signatory',
 			'user_account'=>'User Account'
