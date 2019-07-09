@@ -169,7 +169,6 @@ class Org_structure extends MY_Controller {
 			$strServiceHead = $arrPost['strServiceHead'];
 			$strServiceTitle = $arrPost['strServiceTitle'];
 			$strServiceSecretary = $arrPost['strServiceSecretary'];
-			$strCustodian2 = $arrPost['strCustodian2'];
 			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -181,8 +180,7 @@ class Org_structure extends MY_Controller {
 						'group2Name'=>$strServiceName,
 						'empNumber'=>$strServiceHead,
 						'group2HeadTitle'=>$strServiceTitle,	
-						'group2Secretary'=>$strServiceSecretary,	
-						'group2Custodian'=>$strCustodian2,	
+						'group2Secretary'=>$strServiceSecretary
 					);
 					$blnReturn  = $this->org_structure_model->add_service($arrData);
 
@@ -191,14 +189,14 @@ class Org_structure extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Added '.$strServiceCode.' Org_structure',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Service Name added successfully.');
 					}
-					redirect('libraries/org_structure/add_service');
+					redirect('libraries/org_structure');
 				}
 				else
 				{	
 					$this->session->set_flashdata('strErrorMsg','Service Name already exists.');
 					$this->session->set_flashdata('strExecutive',$strExecutive);
 					$this->session->set_flashdata('strServiceCode',$strServiceCode);
-					redirect('libraries/org_structure/add_service');
+					redirect('libraries/org_structure');
 				}
 			}
 		}    	
@@ -225,7 +223,6 @@ class Org_structure extends MY_Controller {
 			$strServiceHead = $arrPost['strServiceHead'];
 			$strServiceTitle = $arrPost['strServiceTitle'];
 			$strServiceSecretary = $arrPost['strServiceSecretary'];
-			$strCustodian2 = $arrPost['strCustodian2'];
 			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
 			{	
 				$arrData = array(
@@ -234,8 +231,7 @@ class Org_structure extends MY_Controller {
 					'group2Name'=>$strServiceName,
 					'empNumber'=>$strServiceHead,
 					'group2HeadTitle'=>$strServiceTitle,
-					'group2Secretary'=>$strServiceSecretary,	
-					'group2Custodian'=>$strCustodian2
+					'group2Secretary'=>$strServiceSecretary
 					
 				);
 				$blnReturn = $this->org_structure_model->save_service($arrData, $strCode);
@@ -244,7 +240,7 @@ class Org_structure extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Edited '.$strServiceCode.' Org_structure',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Service Name saved successfully.');
 				}
-				redirect('libraries/org_structure/add_service');
+				redirect('libraries/org_structure');
 			}
 		}	
 	}
