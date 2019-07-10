@@ -64,7 +64,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Leave Code </th>
                             <th> Leave Type </th>
                             <th> Number of Days </th>
-                            <th> Action </th>
+                            <th style="width: 180px;text-align:center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +76,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$leave['leaveCode']?> </td>
                             <td> <?=$leave['leaveType']?> </td>   
                             <td> <?=$leave['numOfDays']?> </td>                            
-                            <td>
+                            <td style="width: 150px;text-align:center;" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/leave_type/edit/'.$leave['leaveCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                             </td>
                         </tr>

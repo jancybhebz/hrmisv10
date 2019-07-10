@@ -71,7 +71,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$i?> </td>
                             <td> <?=$row['levelCode']?> </td>
                             <td class="center"> <?=$row['levelDesc']?> </td>
-                            <td>
+                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                 <?php if ($row['system'] != 1) 
                                 { ?>
                                 <a href="<?=base_url('libraries/educ_level/edit/'.$row['levelId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>

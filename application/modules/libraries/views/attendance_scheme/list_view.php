@@ -56,11 +56,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_attendance_scheme">
                     <thead>
                         <tr>
-                            <th> No. </th>
+                            <th style="width: 85px;text-align:center;"> No. </th>
                             <th> Code </th>
                             <th> Scheme Name </th>
                             <th> Scheme Type </th>
-                            <th> Action </th>
+                            <th style="width: 180px;text-align:center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$scheme['schemeCode']?> </td>
                             <td> <?=$scheme['schemeName']?> </td>
                             <td> <?=$scheme['schemeType']?> </td>
-                            <td>
+                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/attendance_scheme/edit/'.$scheme['schemeCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/attendance_scheme/delete/'.$scheme['schemeCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                

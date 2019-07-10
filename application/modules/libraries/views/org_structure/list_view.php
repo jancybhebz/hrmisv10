@@ -98,12 +98,12 @@
                                   <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table_executive">
                                     <thead>
                                         <tr>
-                                            <th> No. </th>
+                                            <th style="width: 85px;text-align:center;"> No. </th>
                                             <th> <?=$_ENV['Group1']?> Code </th>
                                             <th> <?=$_ENV['Group1']?> Name </th>
                                             <th> <?=$_ENV['Group1']?> Head Title </th>
                                             <th> <?=$_ENV['Group1']?> Head </th>
-                                            <th> Action </th>
+                                            <th style="width: 180px;text-align:center;"> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -116,8 +116,7 @@
                                             <td> <?=$org['group1Name']?> </td>   
                                             <td> <?=$org['group1HeadTitle']?> </td>   
                                             <td> <?=$org['surname'].', '.$org['firstname']?> </td>                 
-                                           
-                                            <td>
+                                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                                 <a href="<?=base_url('libraries/org_structure/edit_exec/'.$org['group1Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a href="<?=base_url('libraries/org_structure/delete_exec/'.$org['group1Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                                             </td>
