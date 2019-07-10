@@ -15,16 +15,16 @@ class Dtr_kiosk extends MY_Controller
 		$arrPost = $this->input->post();
 		
 		if(!empty($arrPost)):
-			echo '<pre>';
+			// echo '<pre>';
 			$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
 			if(count($arrUser) > 0):
 				$empno = $arrUser[0]['empNumber'];
 				$dtrdate = date('Y-m-d');
-				// $dtrlog = date('H:i:s');
-				$dtrlog = date('H:i:s',strtotime('06:30:00'));
-				$dtrlog = date('H:i:s',strtotime('12:30:00'));
-				$dtrlog = date('H:i:s',strtotime('13:00:00'));
-				$dtrlog = date('H:i:s',strtotime('16:00:00'));
+				$dtrlog = date('H:i:s');
+				// $dtrlog = date('H:i:s',strtotime('06:30:00'));
+				// $dtrlog = date('H:i:s',strtotime('12:30:00'));
+				// $dtrlog = date('H:i:s',strtotime('13:00:00'));
+				// $dtrlog = date('H:i:s',strtotime('16:00:00'));
 
 				// $dtrlog = date('H:i:s',strtotime('07:00:00'));
 				// $dtrlog = date('H:i:s',strtotime('12:15:00'));

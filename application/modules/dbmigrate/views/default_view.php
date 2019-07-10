@@ -89,23 +89,19 @@
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <label>Host</label>
-                                                    <input type="text" id="txthost" class="form-control" autocomplete="off">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Port</label>
-                                                    <input type="text" id="txtport" class="form-control" autocomplete="off">
+                                                    <input type="text" id="txthost" class="form-control" autocomplete="off" value="<?=$_ENV['DB_HOST']?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Database name</label>
-                                                    <input type="text" id="txtdbname" class="form-control" autocomplete="off">
+                                                    <input type="text" id="txtdbname" class="form-control" autocomplete="off" value="<?=$_ENV['DB_NAME']?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Username</label>
-                                                    <input type="text" id="txtuname" class="form-control" autocomplete="off">
+                                                    <input type="text" id="txtuname" class="form-control" autocomplete="off" value="<?=$_ENV['DB_USER']?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Password</label>
-                                                    <input type="password" id="txtpass" class="form-control" autocomplete="off">
+                                                    <input type="password" id="txtpass" class="form-control" autocomplete="off" value="<?=$_ENV['DB_PASS']?>">
                                                 </div>
                                                 <div class="note note-danger" style="text-align: justify;">
                                                     <small>
