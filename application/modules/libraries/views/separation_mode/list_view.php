@@ -59,7 +59,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr>
                             <th style="width: 85px;text-align:center;"> No. </th>
                             <th> Employment Status </th>
-                            <th> Action </th>
+                            <th style="width: 180px;text-align:center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['separationCause']?> </td>
-                            <td>
+                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                 <?php if ($row['system'] != 1) 
                                 { ?>
                                 <a href="<?=base_url('libraries/separation_mode/edit/'.$row['separationCause'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>

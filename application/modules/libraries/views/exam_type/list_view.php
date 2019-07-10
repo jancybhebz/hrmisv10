@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Exam Code </th>
                             <th> Exam Description </th>
                             <th> CSC Eligibility? </th>
-                            <th> Action </th>
+                            <th style="width: 180px;text-align:center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,7 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$row['examCode']?> </td>
                             <td> <?=$row['examDesc']?> </td>
                             <td> <?=$row['csElligible']?> </td>
-                            <td>
+                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/exam_type/edit/'.$row['examId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/exam_type/delete/'.$row['examId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                

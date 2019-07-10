@@ -66,7 +66,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th style="width: 85px;text-align:center;"> No. </th>
                             <th> Holiday Code </th>
                             <th> Holiday Name </th>
-                            <th> Action </th>
+                            <th style="width: 180px;text-align:center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +76,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['holidayCode']?> </td>
-                            <td> <?=$row['holidayName']?> </td>                            <td>
+                            <td> <?=$row['holidayName']?> </td>                            
+                            <td style="width: 150px;text-align:center;" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/holiday/edit/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/holiday/delete/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                

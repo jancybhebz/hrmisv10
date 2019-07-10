@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Appointment Description </th>
                             <th> Leave Entitled? </th>
                             <th> Included in Plantilla? </th>
-                            <th> Action </th>
+                            <th style="width: 180px;text-align:center;"> Actions </th
                         </tr>
                     </thead>
                     <tbody>
@@ -74,7 +74,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$row['appointmentDesc']?> </td>
                             <td> <?=$row['leaveEntitled']?> </td>
                             <td> <?= ($row['incPlantilla']==1) ? 'Y' : 'N' ?> </td>
-                            <td>
+                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                 <?php if ($row['system'] != 1) 
                                 { ?>
                                 <a href="<?=base_url('libraries/appointment_status/edit/'.$row['appointmentId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
