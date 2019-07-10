@@ -57,7 +57,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_separation_mode">
                     <thead>
                         <tr>
-                            <th> No. </th>
+                            <th style="width: 85px;text-align:center;"> No. </th>
                             <th> Employment Status </th>
                             <th> Action </th>
                         </tr>
