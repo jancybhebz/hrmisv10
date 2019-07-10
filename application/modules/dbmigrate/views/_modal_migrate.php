@@ -73,6 +73,30 @@
     </div>
 </div>
 
+<div id="update_data_type-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><b>Update Field Data Type</b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Are you sure you want to alter your current database?
+                                <br>If you wish to do it manually, the updated database sql schema is added to <i>schema/hrmisv10/hrmis-schema-upt_004.sql</i> Click Okay to continue.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btn-update-data-type" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="modal" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">

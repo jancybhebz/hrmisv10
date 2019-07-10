@@ -1,25 +1,24 @@
-$(document).ready(function(){
-	$(".code").animate({ scrollTop: $('.code').prop("scrollHeight")}, 1000);
+function divset_bottom() {
+	var objDiv = $(".code");
+	var h = objDiv.get(0).scrollHeight;
+	objDiv.animate({scrollTop: h});
+}
 
+$(document).ready(function(){
 	$('#btnmigrate').click(function() {
+		divset_bottom();
 		var host 	= $('#txthost').val();
-		var port 	= $('#txtport').val();
 		var dbname 	= $('#txtdbname').val();
 		var uname 	= $('#txtuname').val();
 		var pass 	= $('#txtpass').val();
 		$('.code').show();
-		$('.code').append($("<div>").load("dbmigrate/migrate/comparing_tables?host="+host+"&port="+port+"&dbname="+dbname+"&uname="+uname+"&pass="+pass, function() {
+		$('.code').append($("<div>").load("dbmigrate/migrate/comparing_tables?host="+host+"&dbname="+dbname+"&uname="+uname+"&pass="+pass, function() {
 			$('#update_table-modal').modal('show');
 		}));
-		// $('.code').append($("<div>").load("dbmigrate/migrate/fix_datetime_fields"));
-		// $('.code').append($("<div>").load("dbmigrate/migrate/update_fields"));
-		// $('.code').append($("<div>").load("dbmigrate/migrate/update_sql", function() {
-		// 	// show confirmation modal altering database schema
-		// 	$('#confirmation-modal').modal('show');
-		// }));
 	});
 
 	$('#btn-update-tables').click(function(e) {
+		divset_bottom();
 		e.preventDefault();
 		$('#update_table-modal').modal('hide');
 		$('.code').append($("<div>").load("dbmigrate/migrate/fix_datetime_fields", function() {
@@ -28,6 +27,7 @@ $(document).ready(function(){
 	});
 
 	$('#btn-fix-date-fields').click(function(e) {
+		divset_bottom();
 		e.preventDefault();
 		$('#fix_datetime_fields-modal').modal('hide');
 		$('.code').append($("<div>").load("dbmigrate/migrate/update_fields", function() {
@@ -36,10 +36,20 @@ $(document).ready(function(){
 	});
 
 	$('#btn-update-fields').click(function(e) {
+		divset_bottom();
 		e.preventDefault();
 		$('#update_fields-modal').modal('hide');
+		$('.code').append($("<div>").load("dbmigrate/migrate/update_data_type", function() {
+			$('#update_data_type-modal').modal('show');
+		}));
+	});
+
+	$('#btn-update-data-type').click(function(e) {
+		divset_bottom();
+		e.preventDefault();
+		$('#update_data_type-modal').modal('hide');
 		$('.code').append($("<div>").load("dbmigrate/migrate/update_database", function() {
-			// $('#update_fields-modal').modal('show');
+			// $('#update_data_type-modal').modal('show');
 		}));
 	});
 

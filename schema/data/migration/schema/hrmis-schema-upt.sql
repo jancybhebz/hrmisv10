@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Jul 08, 2019 at 10:04 PM
--- Server version: 5.7.26-0ubuntu0.18.04.1
--- PHP Version: 7.1.30-1+ubuntu18.04.1+deb.sury.org+1
+-- Host: localhost
+-- Generation Time: Jul 10, 2019 at 11:38 AM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hrmisv10_upt`
+-- Database: `hrmis_new_version`
 --
 
 -- --------------------------------------------------------
@@ -43,6 +43,11 @@ CREATE TABLE `tblAgency` (
   `afternoonFrom` time DEFAULT '00:00:00',
   `afternoonTo` time DEFAULT '00:00:00',
   `salarySchedule` varchar(10) NOT NULL DEFAULT '',
+  `minOT` time NOT NULL,
+  `maxOT` time NOT NULL,
+  `expirationCTO` datetime DEFAULT NULL,
+  `flagTime` time NOT NULL,
+  `autoComputeTax` tinyint(4) NOT NULL,
   `pagibigId` varchar(20) NOT NULL DEFAULT '',
   `gsisId` varchar(20) NOT NULL DEFAULT '',
   `gsisEmpShare` int(4) NOT NULL DEFAULT '0',
@@ -121,12 +126,12 @@ CREATE TABLE `tblAttendanceScheme` (
   `schemeType` varchar(20) NOT NULL DEFAULT '',
   `amTimeinFrom` time NOT NULL DEFAULT '00:00:00',
   `amTimeinTo` time NOT NULL DEFAULT '00:00:00',
-  `pmTimeoutFrom` time DEFAULT NULL,
-  `pmTimeoutTo` time DEFAULT NULL,
-  `nnTimeoutFrom` time DEFAULT NULL,
-  `nnTimeoutTo` time DEFAULT NULL,
-  `nnTimeinFrom` time DEFAULT NULL,
-  `nnTimeinTo` time DEFAULT NULL,
+  `pmTimeoutFrom` time NOT NULL DEFAULT '00:00:00',
+  `pmTimeoutTo` time NOT NULL DEFAULT '00:00:00',
+  `nnTimeoutFrom` time NOT NULL DEFAULT '00:00:00',
+  `nnTimeoutTo` time NOT NULL DEFAULT '00:00:00',
+  `nnTimeinFrom` time NOT NULL DEFAULT '00:00:00',
+  `nnTimeinTo` time NOT NULL DEFAULT '00:00:00',
   `overtimeStarts` time NOT NULL DEFAULT '00:00:00',
   `overtimeEnds` time NOT NULL DEFAULT '00:00:00',
   `gracePeriod` int(2) NOT NULL DEFAULT '0',
@@ -134,7 +139,9 @@ CREATE TABLE `tblAttendanceScheme` (
   `gpLate` char(1) NOT NULL DEFAULT 'N',
   `wrkhrLeave` int(2) NOT NULL DEFAULT '0',
   `hlfLateUnd` char(1) NOT NULL DEFAULT 'N',
-  `fixMonday` char(1) NOT NULL
+  `fixMonday` char(1) NOT NULL,
+  `allow30` char(1) NOT NULL,
+  `strict` char(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -196,8 +203,8 @@ CREATE TABLE `tblBrokenSched` (
   `rec_ID` int(10) UNSIGNED ZEROFILL NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '',
   `schemeCode` varchar(5) NOT NULL DEFAULT '',
-  `dateFrom` date DEFAULT NULL,
-  `dateTo` date DEFAULT NULL
+  `dateFrom` date NOT NULL DEFAULT '0000-00-00',
+  `dateTo` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -212,7 +219,7 @@ CREATE TABLE `tblChangeLog` (
   `module` varchar(20) NOT NULL DEFAULT '',
   `tablename` varchar(30) NOT NULL DEFAULT '',
   `databaseevent` varchar(15) NOT NULL DEFAULT '',
-  `date_time` datetime DEFAULT NULL,
+  `date_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `description` longtext NOT NULL,
   `data` longtext NOT NULL,
   `data2` longtext NOT NULL,
@@ -459,8 +466,8 @@ CREATE TABLE `tblEmpAddIncome` (
 CREATE TABLE `tblEmpAppointment` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `positionCode` varchar(20) NOT NULL DEFAULT '',
-  `dateIssued` date DEFAULT NULL,
-  `datePublished` date DEFAULT NULL,
+  `dateIssued` date NOT NULL DEFAULT '0000-00-00',
+  `datePublished` date NOT NULL DEFAULT '0000-00-00',
   `placePublished` varchar(100) NOT NULL DEFAULT '',
   `relevantExperience` text NOT NULL,
   `relevantTraining` text NOT NULL,
@@ -498,7 +505,7 @@ CREATE TABLE `tblEmpChild` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `childCode` mediumint(9) NOT NULL,
   `childName` varchar(80) NOT NULL DEFAULT '',
-  `childBirthDate` date DEFAULT NULL
+  `childBirthDate` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -537,7 +544,7 @@ CREATE TABLE `tblEmpDeductions` (
   `empNumber` varchar(20) DEFAULT NULL,
   `deductionCode` varchar(20) NOT NULL DEFAULT '',
   `amountGranted` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `dateGranted` date DEFAULT NULL,
+  `dateGranted` date NOT NULL DEFAULT '0000-00-00',
   `actualStartYear` year(4) NOT NULL DEFAULT '0000',
   `actualStartMonth` int(2) NOT NULL DEFAULT '0',
   `actualEndYear` year(4) NOT NULL DEFAULT '0000',
@@ -655,11 +662,11 @@ CREATE TABLE `tblEmpDuties` (
 CREATE TABLE `tblEmpExam` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `examCode` varchar(20) NOT NULL DEFAULT '',
-  `examDate` date DEFAULT NULL,
+  `examDate` date NOT NULL DEFAULT '0000-00-00',
   `examRating` decimal(4,2) NOT NULL DEFAULT '0.00',
   `examPlace` varchar(100) NOT NULL DEFAULT '',
   `licenseNumber` varchar(15) DEFAULT NULL,
-  `dateRelease` date DEFAULT NULL,
+  `dateRelease` date NOT NULL DEFAULT '0000-00-00',
   `ExamIndex` int(10) NOT NULL,
   `verifier` varchar(50) NOT NULL,
   `reviewer` varchar(50) NOT NULL
@@ -733,14 +740,14 @@ CREATE TABLE `tblEmpIncomeRATA` (
 
 CREATE TABLE `tblEmpLeave` (
   `leaveID` int(11) NOT NULL,
-  `dateFiled` date DEFAULT NULL,
+  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `requestID` varchar(10) NOT NULL DEFAULT '',
   `leaveCode` char(3) NOT NULL DEFAULT '',
   `specificLeave` varchar(20) NOT NULL DEFAULT '',
   `reason` varchar(50) DEFAULT NULL,
-  `leaveFrom` date DEFAULT NULL,
-  `leaveTo` date DEFAULT NULL,
+  `leaveFrom` date NOT NULL DEFAULT '0000-00-00',
+  `leaveTo` date NOT NULL DEFAULT '0000-00-00',
   `certifyHR` char(1) NOT NULL DEFAULT 'N',
   `approveChief` char(1) NOT NULL DEFAULT 'N',
   `approveRequest` char(1) NOT NULL DEFAULT 'N',
@@ -813,7 +820,7 @@ CREATE TABLE `tblEmpLeaveBalance` (
   `ctr_laundry` int(11) NOT NULL,
   `processBy` varchar(20) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
-  `processDate` datetime DEFAULT NULL
+  `processDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -837,7 +844,7 @@ CREATE TABLE `tblEmpLocalHoliday` (
 CREATE TABLE `tblEmpLongevity` (
   `id` int(11) NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '',
-  `longiDate` date DEFAULT NULL,
+  `longiDate` date NOT NULL DEFAULT '0000-00-00',
   `longiAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `longiPercent` int(2) NOT NULL DEFAULT '0',
   `longiPay` decimal(10,2) NOT NULL DEFAULT '0.00'
@@ -870,9 +877,9 @@ CREATE TABLE `tblEmpMealDetails` (
 CREATE TABLE `tblEmpMeeting` (
   `meetingID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date DEFAULT NULL,
+  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
   `meetingTitle` text NOT NULL,
-  `meetingDate` date DEFAULT NULL
+  `meetingDate` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -893,7 +900,7 @@ CREATE TABLE `tblEmpMonetization` (
   `monetizeAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `processBy` varchar(20) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
-  `processDate` datetime DEFAULT NULL
+  `processDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -976,8 +983,8 @@ CREATE TABLE `tblEmpOTDetails` (
 CREATE TABLE `tblEmpOtherSched` (
   `rec_ID` int(11) UNSIGNED NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '0',
-  `fromDate` date NOT NULL,
-  `toDate` date NOT NULL,
+  `fromDate` date NOT NULL DEFAULT '0000-00-00',
+  `toDate` date NOT NULL DEFAULT '0000-00-00',
   `schemeCode` varchar(5) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -989,13 +996,13 @@ CREATE TABLE `tblEmpOtherSched` (
 
 CREATE TABLE `tblEmpOvertime` (
   `otID` int(11) NOT NULL,
-  `dateFiled` date NOT NULL,
+  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `otPurpose` text NOT NULL,
   `otOutput` text NOT NULL,
   `docNumber` varchar(15) NOT NULL DEFAULT '',
-  `otDateFrom` date NOT NULL,
-  `otDateTo` date NOT NULL,
+  `otDateFrom` date NOT NULL DEFAULT '0000-00-00',
+  `otDateTo` date NOT NULL DEFAULT '0000-00-00',
   `otTimeFrom` varchar(11) NOT NULL DEFAULT '00:00:00 AM',
   `otTimeTo` varchar(11) NOT NULL DEFAULT '00:00:00 AM'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -1030,7 +1037,7 @@ CREATE TABLE `tblEmpPersonal` (
   `citizenship` varchar(10) NOT NULL DEFAULT '',
   `dualCitizenshipType` varchar(20) NOT NULL,
   `dualCitizenshipCountryId` int(11) NOT NULL,
-  `birthday` date NOT NULL,
+  `birthday` date NOT NULL DEFAULT '0000-00-00',
   `birthPlace` varchar(80) NOT NULL DEFAULT '',
   `bloodType` varchar(6) DEFAULT NULL,
   `height` decimal(5,2) NOT NULL DEFAULT '0.00',
@@ -1093,10 +1100,10 @@ CREATE TABLE `tblEmpPersonal` (
   `soloParent` char(1) DEFAULT NULL,
   `soloParentParticulars` text,
   `signature` varchar(50) NOT NULL DEFAULT '',
-  `dateAccomplished` date NOT NULL,
+  `dateAccomplished` date DEFAULT '0000-00-00',
   `comTaxNumber` varchar(10) NOT NULL DEFAULT '',
   `issuedAt` varchar(50) DEFAULT NULL,
-  `issuedOn` date NOT NULL,
+  `issuedOn` date NOT NULL DEFAULT '0000-00-00',
   `gsisNumber` varchar(25) DEFAULT NULL,
   `businessPartnerNumber` varchar(25) NOT NULL,
   `philHealthNumber` varchar(14) DEFAULT NULL,
@@ -1125,16 +1132,16 @@ CREATE TABLE `tblEmpPosition` (
   `salaryGradeNumber` int(2) NOT NULL DEFAULT '0',
   `authorizeSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
   `actualSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `contractEndDate` date DEFAULT NULL,
-  `effectiveDate` date DEFAULT NULL,
-  `positionDate` date DEFAULT NULL,
-  `longevityDate` date DEFAULT NULL,
+  `contractEndDate` date DEFAULT '0000-00-00',
+  `effectiveDate` date NOT NULL DEFAULT '0000-00-00',
+  `positionDate` date NOT NULL DEFAULT '0000-00-00',
+  `longevityDate` date NOT NULL DEFAULT '0000-00-00',
   `longevityGap` decimal(4,2) DEFAULT '0.00',
-  `firstDayAgency` date DEFAULT NULL,
-  `firstDayGov` date DEFAULT NULL,
+  `firstDayAgency` date NOT NULL DEFAULT '0000-00-00',
+  `firstDayGov` date NOT NULL DEFAULT '0000-00-00',
   `assignPlace` varchar(50) DEFAULT NULL,
   `stepNumber` int(2) NOT NULL DEFAULT '0',
-  `dateIncremented` date DEFAULT NULL,
+  `dateIncremented` date NOT NULL DEFAULT '0000-00-00',
   `personnelAction` varchar(20) NOT NULL DEFAULT '',
   `employmentBasis` varchar(20) NOT NULL DEFAULT 'Fulltime',
   `categoryService` varchar(20) NOT NULL DEFAULT 'Career',
@@ -1159,8 +1166,8 @@ CREATE TABLE `tblEmpPosition` (
   `healthProvider` char(1) NOT NULL DEFAULT 'N',
   `tmpStepNumber` int(2) NOT NULL DEFAULT '0',
   `tmpActualSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `tmpDateIncremented` date DEFAULT NULL,
-  `tmpPositionDate` date DEFAULT NULL,
+  `tmpDateIncremented` date NOT NULL DEFAULT '0000-00-00',
+  `tmpPositionDate` date NOT NULL DEFAULT '0000-00-00',
   `regularDedSwitch` char(1) NOT NULL DEFAULT '',
   `contriDedSwitch` char(1) NOT NULL DEFAULT '',
   `loanDedSwitch` char(1) NOT NULL DEFAULT '',
@@ -1190,9 +1197,7 @@ CREATE TABLE `tblEmpPosition` (
   `RATACode` char(3) DEFAULT NULL,
   `RATAVehicle` char(1) DEFAULT NULL,
   `taxRate` int(2) DEFAULT NULL,
-  `taxSwitch` char(1) NOT NULL,
-  `is_override` int(11) NOT NULL DEFAULT '0',
-  `override_id` int(11) DEFAULT NULL
+  `taxSwitch` char(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1219,10 +1224,10 @@ CREATE TABLE `tblEmpRequest` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `requestID` int(6) NOT NULL,
   `requestCode` varchar(20) NOT NULL DEFAULT '',
-  `requestDate` date NOT NULL,
+  `requestDate` date NOT NULL DEFAULT '0000-00-00',
   `requestDetails` text,
   `requestStatus` varchar(30) NOT NULL DEFAULT '',
-  `statusDate` date DEFAULT NULL,
+  `statusDate` date DEFAULT '0000-00-00',
   `remarks` varchar(50) DEFAULT NULL,
   `signatory` varchar(50) NOT NULL DEFAULT '',
   `listDisplay` int(1) NOT NULL DEFAULT '1',
@@ -1282,9 +1287,9 @@ CREATE TABLE `tblEmpTraining` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `XtrainingCode` varchar(10) NOT NULL DEFAULT '',
   `trainingTitle` text NOT NULL,
-  `trainingContractDate` date DEFAULT NULL,
-  `trainingStartDate` date NOT NULL,
-  `trainingEndDate` date NOT NULL,
+  `trainingContractDate` date DEFAULT '0000-00-00',
+  `trainingStartDate` date NOT NULL DEFAULT '0000-00-00',
+  `trainingEndDate` date NOT NULL DEFAULT '0000-00-00',
   `trainingHours` decimal(5,2) NOT NULL DEFAULT '0.00',
   `trainingTypeofLD` varchar(100) NOT NULL,
   `trainingConductedBy` varchar(100) NOT NULL DEFAULT '',
@@ -1303,9 +1308,9 @@ CREATE TABLE `tblEmpTraining` (
 CREATE TABLE `tblEmpTravelOrder` (
   `toID` int(10) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL,
-  `toDateFrom` date NOT NULL,
-  `toDateTo` date NOT NULL,
+  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `toDateFrom` date NOT NULL DEFAULT '0000-00-00',
+  `toDateTo` date NOT NULL DEFAULT '0000-00-00',
   `destination` text NOT NULL,
   `purpose` text NOT NULL,
   `fund` varchar(30) NOT NULL DEFAULT '',
@@ -1323,11 +1328,11 @@ CREATE TABLE `tblEmpTravelOrder` (
 CREATE TABLE `tblEmpTripTicket` (
   `ttID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL,
+  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
   `destination` text NOT NULL,
   `purpose` text NOT NULL,
-  `ttDateFrom` date NOT NULL,
-  `ttDateTo` date NOT NULL,
+  `ttDateFrom` date NOT NULL DEFAULT '0000-00-00',
+  `ttDateTo` date NOT NULL DEFAULT '0000-00-00',
   `perdiem` char(1) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1341,8 +1346,8 @@ CREATE TABLE `tblEmpVoluntaryWork` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `vwName` varchar(50) DEFAULT NULL,
   `vwAddress` text,
-  `vwDateFrom` date DEFAULT NULL,
-  `vwDateTo` date DEFAULT NULL,
+  `vwDateFrom` date DEFAULT '0000-00-00',
+  `vwDateTo` date DEFAULT '0000-00-00',
   `vwHours` decimal(4,2) DEFAULT '0.00',
   `vwPosition` varchar(50) DEFAULT NULL,
   `VoluntaryIndex` int(11) NOT NULL
@@ -1498,7 +1503,7 @@ CREATE TABLE `tblHoliday` (
 CREATE TABLE `tblHolidayYear` (
   `holidayId` int(11) NOT NULL,
   `holidayCode` varchar(20) NOT NULL DEFAULT '',
-  `holidayDate` date NOT NULL,
+  `holidayDate` date NOT NULL DEFAULT '0000-00-00',
   `holidayTime` varchar(15) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1555,7 +1560,7 @@ CREATE TABLE `tblLocalHoliday` (
   `holidayMonth` varchar(10) NOT NULL DEFAULT '',
   `holidayDay` char(2) NOT NULL DEFAULT '',
   `holidayYear` varchar(10) NOT NULL DEFAULT '',
-  `holidayDate` date NOT NULL
+  `holidayDate` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1606,8 +1611,8 @@ CREATE TABLE `tblNonPermComputation` (
 
 CREATE TABLE `tblNonPermComputationInstance` (
   `id` int(5) NOT NULL,
-  `startDate` date NOT NULL,
-  `endDate` date NOT NULL,
+  `startDate` date NOT NULL DEFAULT '0000-00-00',
+  `endDate` date NOT NULL DEFAULT '0000-00-00',
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `pmonth` int(2) NOT NULL DEFAULT '0',
   `pyear` int(4) NOT NULL DEFAULT '0',
@@ -1644,14 +1649,32 @@ CREATE TABLE `tblOTComputation` (
 
 CREATE TABLE `tblOTComputationInstance` (
   `id` int(11) NOT NULL,
-  `startDate` date NOT NULL,
-  `endDate` date NOT NULL,
+  `startDate` date NOT NULL DEFAULT '0000-00-00',
+  `endDate` date NOT NULL DEFAULT '0000-00-00',
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `pmonth` int(2) NOT NULL DEFAULT '0',
   `pyear` int(4) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '0',
   `payrollGroupCode` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblOverride`
+--
+
+CREATE TABLE `tblOverride` (
+  `override_id` int(11) NOT NULL,
+  `override_type` int(11) NOT NULL COMMENT '1=ob;2=exdtr;3=gendtr',
+  `office_type` varchar(20) NOT NULL,
+  `office` varchar(20) NOT NULL,
+  `appt_status` varchar(20) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `created_by` varchar(20) NOT NULL,
+  `lastupdated_date` datetime DEFAULT NULL,
+  `lastupdate_dby` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1687,7 +1710,6 @@ CREATE TABLE `tblPayrollOfficer` (
 --
 
 CREATE TABLE `tblPayrollProcess` (
-  `appointment_id` int(11) NOT NULL,
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `processWith` varchar(200) NOT NULL DEFAULT '',
   `computation` varchar(30) NOT NULL DEFAULT ''
@@ -1760,7 +1782,6 @@ CREATE TABLE `tblPayrolRegisterZone` (
 --
 
 CREATE TABLE `tblPhilhealthRange` (
-  `philHealthId` int(11) NOT NULL,
   `philhealthFrom` decimal(10,2) NOT NULL DEFAULT '0.00',
   `philhealthTo` decimal(10,2) NOT NULL DEFAULT '0.00',
   `philSalaryBase` decimal(10,2) NOT NULL DEFAULT '0.00',
@@ -2070,7 +2091,7 @@ CREATE TABLE `tblSalarySchedVersion` (
   `version` int(10) NOT NULL,
   `title` varchar(50) NOT NULL DEFAULT '',
   `description` varchar(50) NOT NULL DEFAULT '',
-  `effectivity` date NOT NULL,
+  `effectivity` date NOT NULL DEFAULT '0000-00-00',
   `unused` tinyint(1) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -2156,7 +2177,7 @@ CREATE TABLE `tblServiceCode` (
 CREATE TABLE `tblServiceRecord` (
   `serviceRecID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `serviceFromDate` date NOT NULL,
+  `serviceFromDate` date NOT NULL DEFAULT '0000-00-00',
   `serviceToDate` varchar(10) NOT NULL DEFAULT '0000-00-00',
   `tmpServiceToDate` varchar(25) NOT NULL DEFAULT 'Present',
   `positionCode` varchar(10) NOT NULL DEFAULT '',
@@ -2176,6 +2197,21 @@ CREATE TABLE `tblServiceRecord` (
   `lwop` int(3) NOT NULL DEFAULT '0',
   `processor` varchar(50) NOT NULL,
   `signee` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblSignatory`
+--
+
+CREATE TABLE `tblSignatory` (
+  `signatoryId` int(11) NOT NULL,
+  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
+  `signatory` text NOT NULL,
+  `signatoryPosition` text NOT NULL,
+  `signatoryOrder` int(11) NOT NULL DEFAULT '0',
+  `sig_module` tinyint(4) DEFAULT NULL COMMENT '1=hr;0=payroll'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2254,6 +2290,21 @@ CREATE TABLE `tblTaxRange` (
   `taxBase` decimal(10,2) NOT NULL DEFAULT '0.00',
   `taxDeduct` decimal(10,2) NOT NULL DEFAULT '0.00',
   `orderNumber` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblTempNotification`
+--
+
+CREATE TABLE `tblTempNotification` (
+  `tmpDate` date NOT NULL DEFAULT '0000-00-00',
+  `tmpStepIncrement` int(11) NOT NULL DEFAULT '0',
+  `tmpBirthday` int(11) NOT NULL DEFAULT '0',
+  `tmpEmployeesMovement` int(11) NOT NULL DEFAULT '0',
+  `tmpVacantPosition` int(11) NOT NULL DEFAULT '0',
+  `tmpRetiree` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2694,6 +2745,12 @@ ALTER TABLE `tblOTComputationInstance`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tblOverride`
+--
+ALTER TABLE `tblOverride`
+  ADD PRIMARY KEY (`override_id`);
+
+--
 -- Indexes for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
@@ -2710,14 +2767,7 @@ ALTER TABLE `tblPayrollOfficer`
 -- Indexes for table `tblPayrollProcess`
 --
 ALTER TABLE `tblPayrollProcess`
-  ADD PRIMARY KEY (`appointment_id`),
   ADD KEY `appointmentCode` (`appointmentCode`);
-
---
--- Indexes for table `tblPhilhealthRange`
---
-ALTER TABLE `tblPhilhealthRange`
-  ADD UNIQUE KEY `payrollGroupId` (`philHealthId`);
 
 --
 -- Indexes for table `tblPlantilla`
@@ -2851,6 +2901,12 @@ ALTER TABLE `tblServiceRecord`
   ADD KEY `empNumber` (`empNumber`);
 
 --
+-- Indexes for table `tblSignatory`
+--
+ALTER TABLE `tblSignatory`
+  ADD PRIMARY KEY (`signatoryId`);
+
+--
 -- Indexes for table `tblSignatory_edited`
 --
 ALTER TABLE `tblSignatory_edited`
@@ -2885,17 +2941,17 @@ ALTER TABLE `tblBrokenSched`
 -- AUTO_INCREMENT for table `tblChangeLog`
 --
 ALTER TABLE `tblChangeLog`
-  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159450;
+  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157060;
 --
 -- AUTO_INCREMENT for table `tblComputation`
 --
 ALTER TABLE `tblComputation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4398741;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4286223;
 --
 -- AUTO_INCREMENT for table `tblComputationInstance`
 --
 ALTER TABLE `tblComputationInstance`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5108;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4994;
 --
 -- AUTO_INCREMENT for table `tblCountry`
 --
@@ -2905,7 +2961,7 @@ ALTER TABLE `tblCountry`
 -- AUTO_INCREMENT for table `tblCourse`
 --
 ALTER TABLE `tblCourse`
-  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 --
 -- AUTO_INCREMENT for table `tblCustodian`
 --
@@ -2935,17 +2991,17 @@ ALTER TABLE `tblEmpAppointment`
 -- AUTO_INCREMENT for table `tblEmpBenefits`
 --
 ALTER TABLE `tblEmpBenefits`
-  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=707422;
+  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=696797;
 --
 -- AUTO_INCREMENT for table `tblEmpChild`
 --
 ALTER TABLE `tblEmpChild`
-  MODIFY `childCode` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=737;
+  MODIFY `childCode` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=739;
 --
 -- AUTO_INCREMENT for table `tblEmpDeductions`
 --
 ALTER TABLE `tblEmpDeductions`
-  MODIFY `deductCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6445;
+  MODIFY `deductCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6428;
 --
 -- AUTO_INCREMENT for table `tblEmpDeductLoan`
 --
@@ -2955,12 +3011,12 @@ ALTER TABLE `tblEmpDeductLoan`
 -- AUTO_INCREMENT for table `tblEmpDTR`
 --
 ALTER TABLE `tblEmpDTR`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=374552;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372075;
 --
 -- AUTO_INCREMENT for table `tblEmpDTR_log`
 --
 ALTER TABLE `tblEmpDTR_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230653;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225051;
 --
 -- AUTO_INCREMENT for table `tblEmpDuties`
 --
@@ -2970,27 +3026,27 @@ ALTER TABLE `tblEmpDuties`
 -- AUTO_INCREMENT for table `tblEmpExam`
 --
 ALTER TABLE `tblEmpExam`
-  MODIFY `ExamIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=744;
+  MODIFY `ExamIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=746;
 --
 -- AUTO_INCREMENT for table `tblEmpIncome`
 --
 ALTER TABLE `tblEmpIncome`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166475;
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153805;
 --
 -- AUTO_INCREMENT for table `tblEmpIncomeAdjust`
 --
 ALTER TABLE `tblEmpIncomeAdjust`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tblEmpLeave`
 --
 ALTER TABLE `tblEmpLeave`
-  MODIFY `leaveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5015;
+  MODIFY `leaveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4905;
 --
 -- AUTO_INCREMENT for table `tblEmpLeaveBalance`
 --
 ALTER TABLE `tblEmpLeaveBalance`
-  MODIFY `lb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9708;
+  MODIFY `lb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9557;
 --
 -- AUTO_INCREMENT for table `tblEmpLocalHoliday`
 --
@@ -3000,7 +3056,7 @@ ALTER TABLE `tblEmpLocalHoliday`
 -- AUTO_INCREMENT for table `tblEmpLongevity`
 --
 ALTER TABLE `tblEmpLongevity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=272;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 --
 -- AUTO_INCREMENT for table `tblEmpMeeting`
 --
@@ -3015,7 +3071,7 @@ ALTER TABLE `tblEmpMonetization`
 -- AUTO_INCREMENT for table `tblEmpOB`
 --
 ALTER TABLE `tblEmpOB`
-  MODIFY `obID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25201;
+  MODIFY `obID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24624;
 --
 -- AUTO_INCREMENT for table `tblEmpOtherSched`
 --
@@ -3030,7 +3086,7 @@ ALTER TABLE `tblEmpOvertime`
 -- AUTO_INCREMENT for table `tblEmpPersonal`
 --
 ALTER TABLE `tblEmpPersonal`
-  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=663;
+  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=664;
 --
 -- AUTO_INCREMENT for table `tblEmpReference`
 --
@@ -3040,7 +3096,7 @@ ALTER TABLE `tblEmpReference`
 -- AUTO_INCREMENT for table `tblEmpRequest`
 --
 ALTER TABLE `tblEmpRequest`
-  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6846;
+  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6759;
 --
 -- AUTO_INCREMENT for table `tblEmpScholarship`
 --
@@ -3055,12 +3111,12 @@ ALTER TABLE `tblEmpSchool`
 -- AUTO_INCREMENT for table `tblEmpTraining`
 --
 ALTER TABLE `tblEmpTraining`
-  MODIFY `TrainingIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6525;
+  MODIFY `TrainingIndex` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6521;
 --
 -- AUTO_INCREMENT for table `tblEmpTravelOrder`
 --
 ALTER TABLE `tblEmpTravelOrder`
-  MODIFY `toID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1112;
+  MODIFY `toID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1074;
 --
 -- AUTO_INCREMENT for table `tblEmpTripTicket`
 --
@@ -3070,7 +3126,7 @@ ALTER TABLE `tblEmpTripTicket`
 -- AUTO_INCREMENT for table `tblEmpVoluntaryWork`
 --
 ALTER TABLE `tblEmpVoluntaryWork`
-  MODIFY `VoluntaryIndex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=325;
+  MODIFY `VoluntaryIndex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
 --
 -- AUTO_INCREMENT for table `tblExamType`
 --
@@ -3080,12 +3136,12 @@ ALTER TABLE `tblExamType`
 -- AUTO_INCREMENT for table `tblFlagCeremony`
 --
 ALTER TABLE `tblFlagCeremony`
-  MODIFY `flag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2493;
+  MODIFY `flag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2400;
 --
 -- AUTO_INCREMENT for table `tblHolidayYear`
 --
 ALTER TABLE `tblHolidayYear`
-  MODIFY `holidayId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
+  MODIFY `holidayId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
 --
 -- AUTO_INCREMENT for table `tblID`
 --
@@ -3100,17 +3156,17 @@ ALTER TABLE `tblLeave`
 -- AUTO_INCREMENT for table `tblManualDTR`
 --
 ALTER TABLE `tblManualDTR`
-  MODIFY `dtr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `dtr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `tblNonPermComputation`
 --
 ALTER TABLE `tblNonPermComputation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144295;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143792;
 --
 -- AUTO_INCREMENT for table `tblNonPermComputationInstance`
 --
 ALTER TABLE `tblNonPermComputationInstance`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10392;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10379;
 --
 -- AUTO_INCREMENT for table `tblOTComputation`
 --
@@ -3122,6 +3178,11 @@ ALTER TABLE `tblOTComputation`
 ALTER TABLE `tblOTComputationInstance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
+-- AUTO_INCREMENT for table `tblOverride`
+--
+ALTER TABLE `tblOverride`
+  MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
@@ -3131,16 +3192,6 @@ ALTER TABLE `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollOfficer`
   MODIFY `poID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tblPayrollProcess`
---
-ALTER TABLE `tblPayrollProcess`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `tblPhilhealthRange`
---
-ALTER TABLE `tblPhilhealthRange`
-  MODIFY `philHealthId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `tblPlantilla`
 --
@@ -3165,7 +3216,7 @@ ALTER TABLE `tblPosition`
 -- AUTO_INCREMENT for table `tblProcess`
 --
 ALTER TABLE `tblProcess`
-  MODIFY `processID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5603;
+  MODIFY `processID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5575;
 --
 -- AUTO_INCREMENT for table `tblProject`
 --
@@ -3175,7 +3226,7 @@ ALTER TABLE `tblProject`
 -- AUTO_INCREMENT for table `tblRequestFlow`
 --
 ALTER TABLE `tblRequestFlow`
-  MODIFY `reqID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `reqID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 --
 -- AUTO_INCREMENT for table `tblRequestSignatoryAction`
 --
@@ -3185,7 +3236,7 @@ ALTER TABLE `tblRequestSignatoryAction`
 -- AUTO_INCREMENT for table `tblSalarySchedVersion`
 --
 ALTER TABLE `tblSalarySchedVersion`
-  MODIFY `version` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `version` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tblScholarship`
 --
@@ -3210,7 +3261,12 @@ ALTER TABLE `tblServiceCode`
 -- AUTO_INCREMENT for table `tblServiceRecord`
 --
 ALTER TABLE `tblServiceRecord`
-  MODIFY `serviceRecID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8609;
+  MODIFY `serviceRecID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8606;
+--
+-- AUTO_INCREMENT for table `tblSignatory`
+--
+ALTER TABLE `tblSignatory`
+  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 --
 -- AUTO_INCREMENT for table `tblSignatory_edited`
 --

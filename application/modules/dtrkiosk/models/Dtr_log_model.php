@@ -12,9 +12,13 @@ class Dtr_log_model extends CI_Model {
 	function chekdtr_log($empid,$dtrdate,$dtrlog)
 	{
 		# initialization
+		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
+		$att_scheme_ini = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
+		
 		$err_message = array();
-		$is_strict = 1;
-		$has_30mins_allow = 1;
+		$is_strict = $att_scheme_ini[0]['strict'] == 'Y' ? 1 : 0;
+		$has_30mins_allow = $att_scheme_ini[0]['allow30'] == 'Y' ? 1 : 0;
+		
 		$nn_out_from = '';$nn_out_to = '';$nn_in_from = '';$nn_in_to = '';
 		$dtrid = '';$am_timein = '';$am_timeout = '';$pm_timein = '';$pm_timeout = '';$ot_timein = '';$ot_timeout = '';
 
