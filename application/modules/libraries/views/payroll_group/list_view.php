@@ -7,7 +7,28 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <?php load_plugin('css',array('datepicker','datatables'));?>
-
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?=base_url('home')?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Libraries</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Payroll Group</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+       &nbsp;
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -19,7 +40,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 
             </div>
-            <div class="portlet-body">
+            <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+            <div class="portlet-body" id="div-paygroup" style="display: none">
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-6">
@@ -33,10 +55,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_payroll_group" style="display: none">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_payroll_group">
                     <thead>
                         <tr>
-                            <th style="text-align: center;width: 75px;"> No. </th>
+                            <th style="width: 100px;text-align:center;"> No. </th>
                             <th style="text-align: center;"> Project </th>
                             <th style="text-align: center;"> Payroll Group Code </th>
                             <th style="text-align: center;"> Payroll Group Description </th>
@@ -80,8 +102,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('#libraries_payroll_group').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
-                $('#libraries_payroll_group').show();},
-            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
-        });
-  });
+                $('#div-paygroup').show();
+            }} );
+    });
 </script>

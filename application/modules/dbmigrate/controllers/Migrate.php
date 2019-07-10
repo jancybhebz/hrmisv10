@@ -64,7 +64,6 @@ class Migrate extends MY_Controller
         $total_line = 0;
         $ctrcomment = 0;
         if(file_exists($path)):
-            echo 'exists';
             $sql_contents = file_get_contents($path);
             $file = fopen($path,"r");
             while(! feof($file)):
@@ -75,23 +74,37 @@ class Migrate extends MY_Controller
             fclose($file);
 
             if($total_line != $ctrcomment):
-                echo 'migrate';
                 $this->Migrate_model->update_database($path);
             endif;
-            // unlink($path);
+            unlink($path);
         endif;
 
-        // echo 'Fixed datetime fields...';
-        // $this->Migrate_model->fix_datetime_fields();
         echo 'Update Fields...';
-        // $this->Migrate_model->update_fields();
-
+        $this->Migrate_model->update_fields();
     }
 
     function update_database()
     {
-        # update Database
-        $this->Migrate_model->update_database();
+        $path = 'schema/hrmisv10/hrmis-schema-upt_003.sql';
+        
+        $total_line = 0;
+        $ctrcomment = 0;
+        if(file_exists($path)):
+            $sql_contents = file_get_contents($path);
+            $file = fopen($path,"r");
+            while(! feof($file)):
+                $line = fgets($file);
+                $total_line++;
+                if($line[0] == '#' || $line == '') { $ctrcomment++; }
+            endwhile;
+            fclose($file);
+
+            if($total_line != $ctrcomment):
+                $this->Migrate_model->update_database($path);
+            endif;
+            unlink($path);
+        endif;
+        echo 'Database successfully updated...';
     }
 
 

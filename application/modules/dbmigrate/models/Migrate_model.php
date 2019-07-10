@@ -34,7 +34,7 @@ class Migrate_model extends CI_Model {
 			$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
 			if(count($this->hrmisv10->list_tables()) < 1):
 				echo '<br>Importing database...';
-				$this->import_database($this->hrmisv10,$this->path);
+				$this->import_database($this->hrmisv10,$this->path,1);
 			endif;
 			# get the table list from hrmisv10 schema
 			$tbldb_hrmisv10 = $this->hrmisv10->list_tables();
@@ -161,6 +161,12 @@ class Migrate_model extends CI_Model {
 
     function update_fields()
     {
+    	$sql_file = 'schema/hrmisv10/hrmis-schema-upt_003.sql';
+    	# remove file contents
+    	if(file_exists($sql_file)):
+	    	unlink($sql_file);
+	    endif;
+
     	$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
     	$hrmisv10_table_list = $this->hrmisv10->list_tables();
     	$hrmis_table_list = $this->db->list_tables();
@@ -173,6 +179,7 @@ class Migrate_model extends CI_Model {
 	    	foreach($hrmisv10_table_list as $tbl):
 	    		$field_list_hrmisv10 = $this->hrmisv10->query('DESCRIBE '.$tbl.';')->result_array();
 	    		$field_list = $this->db->query('DESCRIBE '.$tbl.';')->result_array();
+	    		# compare field that does not exists in current db
 	    		$field_diff = array_diff(array_column($field_list_hrmisv10,'Field'),array_column($field_list,'Field'));
 	    		$arr_new_fields = array();
 	    		$arr_new_primary = '';
@@ -185,49 +192,94 @@ class Migrate_model extends CI_Model {
 		    			if(in_array($field['Key'], array('PRI','UNI'))):
 		    				$primary = $this->db->query("SHOW KEYS FROM ".$tbl." WHERE Key_name = 'PRIMARY';")->result_array();
 		    				if(count($primary)):
-		    					$this->write_sqlstmt("# Drop index for ".$tbl."  \nDROP INDEX `PRIMARY` ON ".$tbl.";");
+		    					$this->write_sqlstmt("# Drop index for ".$tbl."  \nDROP INDEX `PRIMARY` ON ".$tbl.";",$sql_file);
 		    				endif;
 		    				$arr_new_primary = ", ADD PRIMARY KEY (`".$field['Field']."`)";
 		    				$isnull = 'NOT NULL';
 		    			endif;
 		    			array_push($arr_new_fields,"ADD `".$field['Field']."` ".$field['Type']." ".$isnull." ".$default." ".$field['Extra']);
 		    		endforeach;
+		    		$this->write_sqlstmt("# Add new field/s for table ".$tbl,$sql_file);
+		    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(",",$arr_new_fields).$arr_new_primary.";",$sql_file);
 		    	endif;
-		    	$this->write_sqlstmt("# Add new field/s for table ".$tbl);
-		    	$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(",",$arr_new_fields).$arr_new_primary.";");
 	    	endforeach;
+
+	    	echo '<hr>';
+	    	# compare field type
+	    	foreach($hrmisv10_table_list as $tbl):
+	    		$field_list_hrmisv10 = $this->hrmisv10->query('DESCRIBE '.$tbl.';')->result_array();
+	    		$field_list = $this->db->query('DESCRIBE '.$tbl.';')->result_array();
+	    		$common_fields = array_intersect(array_column($field_list_hrmisv10,'Field'),array_column($field_list,'Field'));
+	    		$newdb_fields = array_column($field_list_hrmisv10,'Type','Field');
+	    		$currdb_fields = array_column($field_list,'Type','Field');
+	    		$arr_update_type = array();
+	    		
+	    		foreach(array_column($field_list_hrmisv10,'Type','Field') as $key => $hrmisv10_type):
+	    			// if($newdb_fields[$key] != $currdb_fields[$key]):
+	    			// 	$field_key = array_search($key, array_column($field_list_hrmisv10, 'Field'));
+	    			// 	$desc_field = $field_list_hrmisv10[$field_key];
+	    			// 	$isnull = $desc_field['Null'] == 'NO' ? 'NOT NULL' : 'NULL';
+	    			// 	$default = $desc_field['Default'] != '' ? "default '".$desc_field['Default']."'" : '';
+	    			// 	array_push($arr_update_type,"CHANGE `".$key."` `".$key."` ".$desc_field['Type']." ".$isnull." ".$default);
+	    			// endif;
+	    		endforeach;
+
+	    		// if(count($arr_update_type) > 0):
+	    		// 	$this->write_sqlstmt("# Update field/s for table ".$tbl,$sql_file);
+	    		// 	$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(",",$arr_update_type).";",$sql_file);
+	    		// endif;
+	    	endforeach;
+
+	    	$this->sql_final_statement($sql_file);
 	    endif;
 
     }
 
     function update_database($path='')
     {
-    	echo $path;
     	if($path == ''):
     		$path = $this->created_sys_sql;
     	endif;
     	$this->import_database($this->db,$path);
     }
 
-	function import_database($dbconn,$path) 
+	function import_database($dbconn,$path,$set=0) 
 	{
-		$sql_contents = file_get_contents($path);
-		$sql_contents = explode(";", $sql_contents);
-
-		foreach($sql_contents as $query):
-			$pos = strpos($query,'ci_sessions');
-			if($pos == false):
-				// if($query!='' || $query!=' '):
-				// if(str_replace(' ','',$query) != ''):
-					// echo "|".str_replace(' ','',$query)."|";
-					// echo '<hr>';
-				// endif;
-				// $result = $dbconn->query($query);
-			else:
-				continue;
+		if($set == 0):
+			if(file_exists($path)):
+			    echo 'exists<br>';
+			    $sql_contents = file_get_contents($path);
+			    $file = fopen($path,"r");
+			    while(! feof($file)):
+			        $query = fgets($file);
+			        echo $query;'<br>';
+			        if($query != ''):
+			        	$pos = strpos($query,'ci_sessions');
+			        	if($pos == false):
+			        		$result = $dbconn->query($query);
+			        	else:
+			        		continue;
+			        	endif;
+			        endif;
+			    endwhile;
+			    fclose($file);
 			endif;
-		endforeach;
-		echo '<br>Database Import Successfully!!...';
+			echo '<br>Database Import Successfully!!...';
+		else:
+			$sql_contents = file_get_contents($path);
+			$sql_contents = explode(";", $sql_contents);
+
+			foreach($sql_contents as $query):
+				$pos = strpos($query,'ci_sessions');
+				if($pos == false):
+					$result = $dbconn->query($query);
+				else:
+					continue;
+				endif;
+			endforeach;
+			echo '<br>Database Initialized Successfully!!...';
+		endif;
+		
 	}
 
 	function write_sqlstmt($txt,$path='')
@@ -263,10 +315,10 @@ class Migrate_model extends CI_Model {
 		// $this->write_sqlstmt("");
 	}
 
-	function sql_final_statement()
+	function sql_final_statement($path='')
 	{
-		$this->write_sqlstmt("# Initial data for password: dost");
-		$this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '$2y$10\$n.QQrx3mdXY4EJ7VpYwUyeJ7Br7QAxo4E672pwPq7.5yrd5U4O1hm';");
+		$this->write_sqlstmt("# Initial data for password: dost",$path);
+		$this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '$2y$10\$n.QQrx3mdXY4EJ7VpYwUyeJ7Br7QAxo4E672pwPq7.5yrd5U4O1hm';",$path);
 	}
 
 

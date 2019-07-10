@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$(".code").animate({ scrollTop: $('.code').prop("scrollHeight")}, 1000);
+
 	$('#btnmigrate').click(function() {
 		var host 	= $('#txthost').val();
 		var port 	= $('#txtport').val();
@@ -19,17 +21,25 @@ $(document).ready(function(){
 
 	$('#btn-update-tables').click(function(e) {
 		e.preventDefault();
+		$('#update_table-modal').modal('hide');
 		$('.code').append($("<div>").load("dbmigrate/migrate/fix_datetime_fields", function() {
-			$('#update_table-modal').modal('hide');
 			$('#fix_datetime_fields-modal').modal('show');
 		}));
 	});
 
 	$('#btn-fix-date-fields').click(function(e) {
 		e.preventDefault();
+		$('#fix_datetime_fields-modal').modal('hide');
 		$('.code').append($("<div>").load("dbmigrate/migrate/update_fields", function() {
-			$('#fix_datetime_fields-modal').modal('hide');
-			// $('#fix_datetime_fields-modal').modal('show');
+			$('#update_fields-modal').modal('show');
+		}));
+	});
+
+	$('#btn-update-fields').click(function(e) {
+		e.preventDefault();
+		$('#update_fields-modal').modal('hide');
+		$('.code').append($("<div>").load("dbmigrate/migrate/update_database", function() {
+			// $('#update_fields-modal').modal('show');
 		}));
 	});
 

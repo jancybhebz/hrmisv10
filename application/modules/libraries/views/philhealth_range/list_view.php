@@ -7,7 +7,28 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <?php load_plugin('css',array('datepicker','datatables'));?>
-
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?=base_url('home')?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Libraries</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Philhealth Range</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+       &nbsp;
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -19,7 +40,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
                 
             </div>
-            <div class="portlet-body">
+             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+            <div class="portlet-body" id="div-philhealth style="display: none">
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-6">
@@ -35,11 +57,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_philhealth_range">
                     <thead>
                         <tr>
-                            <th> No. </th>
+                            <th style="width: 100px;text-align:center;"> No. </th>
                             <th> PhilHealth Range </th>
                             <th> Salary Base </th>
                             <th> Total Monthly Contribution </th>
-                            <th> Action </th>
+                            <th class="no-sort" style="width: 200px;text-align:center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +73,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td><?=$row['philhealthFrom'].' to '.$row['philhealthTo']?></td>
                             <td><?=$row['philSalaryBase']?></td>
                             <td><?=$row['philMonthlyContri']?></td>
-                            <td>
+                            <td style="text-align: center;">
                                 <a href="<?=base_url('libraries/philhealth_range/edit/'.$row['philHealthId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/philhealth_range/delete/'.$row['philHealthId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                             </td>
@@ -71,6 +93,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script>
     $(document).ready(function() {
-        Datatables.init('libraries_philhealth_range');
-  });
+        $('#libraries_philhealth_range').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#div-philhealth').show();
+            }} );
+    });
 </script>
