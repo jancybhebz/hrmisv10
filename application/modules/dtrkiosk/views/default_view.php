@@ -175,10 +175,11 @@
 
                 function drawTime(ctx, radius){
                     var now = new Date();
-                    var hour = now.getHours();
+
+                    var hour = "<?=date('H')?>";
                     var minute = now.getMinutes();
                     var second = now.getSeconds();
-                    //hour
+
                     hour=hour%12;
                     hour=(hour*Math.PI/6)+
                     (minute*Math.PI/(6*60))+
@@ -203,34 +204,42 @@
                     ctx.rotate(-pos);
                 }
 
-                function clock() {
-                    var date = new Date(),
-                    hour = date.getHours(),
-                    minute = checkTime(date.getMinutes()),
-                    ss = checkTime(date.getSeconds());
-
-                    function checkTime(i) {
-                        if( i < 10 ) {
-                            i = "0" + i;
-                        } return i;
-                    }
-
-                    console.log(hour);
-                    if(hour == 12) {
-                        document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" PM";
-                    } else if ( hour > 12 ) {
-                        hour = hour - 12;
-                        if ( hour == 12 ) {
-                            hour = checkTime(hour);
-                            document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" AM";
-                        } else {
-                            hour = checkTime(hour);
-                            document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" PM";
-                        }
-                    } else {
-                        document.querySelectorAll('.clock')[0].innerHTML = hour+":"+minute+":"+ss+" AM";
-                    }
+                function pad(num, size) {
+                    var s = num+"";
+                    while (s.length < size) s = "0" + s;
+                    return s;
                 }
+
+                var new_date = Date.parse("<?=date('m/d/Y H:i:s')?>");
+                var d = new Date(new_date);
+
+                function clock() {
+                  // Increment the date
+                  d.setTime(d.getTime() + 1000);
+
+                  // Translate time to pieces
+                  var currentHours = d.getHours();
+                  var currentMinutes = d.getMinutes();
+                  var currentSeconds = d.getSeconds();
+
+                  // Add the beginning zero to minutes and seconds if needed
+                  currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+                  currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+                  // Add either "AM" or "PM"
+                  var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+
+                  // Convert the hours our of 24-hour time
+                  currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
+                  currentHours = (currentHours == 0) ? 12 : currentHours;
+
+                  // Generate the display string
+                  var currentTimeString = pad(currentHours, 2) + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+
+                  // Update the time
+                  document.querySelectorAll('.clock')[0].innerHTML = currentTimeString;
+                }
+
                 setInterval(clock, 1000);
 
             </script>

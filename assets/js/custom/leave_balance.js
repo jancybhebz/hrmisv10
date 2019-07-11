@@ -11,6 +11,7 @@ function numberformat(num)
 
 function number_to_month(num,word=0) 
 {
+    num = Number(num);
     var array_month = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     var array_month_word = ['','January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     if(word==0){

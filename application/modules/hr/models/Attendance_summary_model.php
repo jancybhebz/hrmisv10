@@ -52,6 +52,7 @@ class Attendance_summary_model extends CI_Model {
 		$this->load->helper('dtr_helper');
 		$this->load->model('finance/Dtr_model');
 		$month = sprintf('%02d', $month);
+
 		# DTR Data
 		// $this->db->order_by('dtrDate', 'asc');
 		// $this->db->where('empNumber', $empid);
@@ -210,7 +211,7 @@ class Attendance_summary_model extends CI_Model {
 		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
 		if(count($emp_scheme) > 0):
 			$att_scheme_ini = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
-			$att_scheme_ini = $att_scheme_ini[0];
+			$att_scheme_ini = count($att_scheme_ini) > 0 ? $att_scheme_ini[0] : array();
 		endif;
 
 		$date_absents = array();

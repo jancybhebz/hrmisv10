@@ -1,11 +1,16 @@
-<?php $month = isset($_GET['month']) ? $_GET['month'] == 'all' ? date('m') : $_GET['month'] : date('m'); $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y'); ?>
+<?php
+    $month = isset($_GET['month']) ? $_GET['month'] == 'all' ? date('m') : $_GET['month'] : date('m');
+    $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');?>
 <div class="tab-pane active" id="tab_1_3">
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <span class="caption-subject bold uppercase"> Leave Balance
-                        <?=$_GET['month']=='all' ? 'from '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, end($arrLeaveBalance)['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' to '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLeaveBalance[0]['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' ':'for the Month of '.date('F', mktime(0, 0, 0, $month, 10))?> <?=$yr?></span>
+                        <?php if(count($arrLeaveBalance) > 0): ?>
+                            <?=$_GET['month']=='all' ? 'from '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, end($arrLeaveBalance)['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' to '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLeaveBalance[0]['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' ':'for the Month of '.date('F', mktime(0, 0, 0, $month, 10))?> <?=$yr?>
+                        <?php endif; ?>
+                    </span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -60,14 +65,14 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of <?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?></span>
+                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of <?=date('F', mktime(0, 0, 0, count($arrLatestBalance) > 0 ? $arrLatestBalance['periodMonth']+1 : date('m'), 10)).' '.count($arrLatestBalance) > 0 ? $arrLatestBalance['periodYear'] : date('Y')?></span>
                 </div>
             </div>
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <small>"If the employee reach the compulsory retirement age of 65 but the service has been extended, the employee will NO LONGER EARN leave credits."</small><br>
-                        <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of <?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.$arrLatestBalance['periodYear']?>. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
+                        <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of <?=date('F', mktime(0, 0, 0, count($arrLatestBalance) > 0 ? $arrLatestBalance['periodMonth']+1 : date('m'), 10)).' '.count($arrLatestBalance) > 0 ? $arrLatestBalance['periodYear'] : date('Y')?>. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
                         <br>
                         <p style="text-align: center;">
                             <button class="btn red" id="btn-update-leavebal" data-latest_lb='<?=json_encode($arrLatestBalance,0)?>' data-json='<?=json_encode($arrLeave_data,0)?>' data-leave_earned="<?=$_ENV['leave_earned']?>">
