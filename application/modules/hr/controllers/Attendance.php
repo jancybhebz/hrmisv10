@@ -271,6 +271,7 @@ class Attendance extends MY_Controller {
 		$arrLeaves = $this->Leave_model->getleave($empid);
 		
 		$total_monetize = $this->Leave_monetization_model->getemp_total_monetized($empid, date('n'), date('Y'));
+
 		$sl_monetized = 0;
 		if(count($arrLeaves) > 0):
 			if(count($total_monetize) > 0):
@@ -285,9 +286,9 @@ class Attendance extends MY_Controller {
 			$vl_monetized = '0.0000';
 		endif;
 
-		$approved_vl = $this->Leave_model->approved_vl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1));
-		$approved_sl = $this->Leave_model->approved_sl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1));
-
+		$approved_vl = count($arrLeaves) > 0 ? $this->Leave_model->approved_vl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1)) : 0;
+		$approved_sl = count($arrLeaves) > 0 ? $this->Leave_model->approved_sl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1)) : 0;
+		
 		$this->arrData['total_monetize'] = $total_monetize;
 		$this->arrData['sl_monetized'] = $sl_monetized;
 		$this->arrData['vl_monetized'] = $vl_monetized;
