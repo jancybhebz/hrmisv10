@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 10, 2019 at 11:38 AM
+-- Generation Time: Jul 11, 2019 at 10:40 AM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -151,12 +151,11 @@ CREATE TABLE `tblAttendanceScheme` (
 --
 
 CREATE TABLE `tblBackup` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL,
   `db_backup_name` varchar(100) NOT NULL DEFAULT '',
   `time_last_run` int(11) NOT NULL DEFAULT '0',
   `next_run_time` int(11) NOT NULL DEFAULT '0',
-  `status` varchar(10) NOT NULL DEFAULT '',
-  `xversion` varchar(6) NOT NULL DEFAULT ''
+  `status` varchar(10) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -166,16 +165,14 @@ CREATE TABLE `tblBackup` (
 --
 
 CREATE TABLE `tblBackupConfig` (
-  `id` int(10) NOT NULL DEFAULT '0',
+  `id` int(10) NOT NULL,
   `time_interval` int(10) DEFAULT NULL,
   `fire_time` int(11) NOT NULL DEFAULT '0',
   `time_last_fired` int(11) NOT NULL DEFAULT '0',
   `email` varchar(50) NOT NULL DEFAULT '',
   `ftpadd` varchar(50) NOT NULL DEFAULT '',
   `ftpuname` varchar(20) NOT NULL DEFAULT '',
-  `ftppass` varchar(20) NOT NULL DEFAULT '',
-  `xtable` text NOT NULL,
-  `xstatus` varchar(50) NOT NULL DEFAULT ''
+  `ftppass` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -185,7 +182,7 @@ CREATE TABLE `tblBackupConfig` (
 --
 
 CREATE TABLE `tblBackUpScheduler` (
-  `id` int(10) NOT NULL DEFAULT '0',
+  `id` int(10) NOT NULL,
   `scriptpath` varchar(100) NOT NULL DEFAULT '',
   `time_interval` int(10) DEFAULT NULL,
   `fire_time` int(10) NOT NULL DEFAULT '0',
@@ -203,8 +200,8 @@ CREATE TABLE `tblBrokenSched` (
   `rec_ID` int(10) UNSIGNED ZEROFILL NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '',
   `schemeCode` varchar(5) NOT NULL DEFAULT '',
-  `dateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `dateTo` date NOT NULL DEFAULT '0000-00-00'
+  `dateFrom` date DEFAULT NULL,
+  `dateTo` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -219,7 +216,7 @@ CREATE TABLE `tblChangeLog` (
   `module` varchar(20) NOT NULL DEFAULT '',
   `tablename` varchar(30) NOT NULL DEFAULT '',
   `databaseevent` varchar(15) NOT NULL DEFAULT '',
-  `date_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_time` datetime DEFAULT NULL,
   `description` longtext NOT NULL,
   `data` longtext NOT NULL,
   `data2` longtext NOT NULL,
@@ -466,8 +463,8 @@ CREATE TABLE `tblEmpAddIncome` (
 CREATE TABLE `tblEmpAppointment` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `positionCode` varchar(20) NOT NULL DEFAULT '',
-  `dateIssued` date NOT NULL DEFAULT '0000-00-00',
-  `datePublished` date NOT NULL DEFAULT '0000-00-00',
+  `dateIssued` date DEFAULT NULL,
+  `datePublished` date DEFAULT NULL,
   `placePublished` varchar(100) NOT NULL DEFAULT '',
   `relevantExperience` text NOT NULL,
   `relevantTraining` text NOT NULL,
@@ -505,7 +502,7 @@ CREATE TABLE `tblEmpChild` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `childCode` mediumint(9) NOT NULL,
   `childName` varchar(80) NOT NULL DEFAULT '',
-  `childBirthDate` date NOT NULL DEFAULT '0000-00-00'
+  `childBirthDate` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -544,7 +541,7 @@ CREATE TABLE `tblEmpDeductions` (
   `empNumber` varchar(20) DEFAULT NULL,
   `deductionCode` varchar(20) NOT NULL DEFAULT '',
   `amountGranted` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `dateGranted` date NOT NULL DEFAULT '0000-00-00',
+  `dateGranted` date DEFAULT NULL,
   `actualStartYear` year(4) NOT NULL DEFAULT '0000',
   `actualStartMonth` int(2) NOT NULL DEFAULT '0',
   `actualEndYear` year(4) NOT NULL DEFAULT '0000',
@@ -635,7 +632,7 @@ CREATE TABLE `tblEmpDTR` (
 CREATE TABLE `tblEmpDTR_log` (
   `id` int(11) NOT NULL,
   `empNumber` varchar(20) NOT NULL,
-  `log_date` datetime NOT NULL,
+  `log_date` datetime DEFAULT NULL,
   `log_sql` text NOT NULL,
   `log_notify` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -662,11 +659,11 @@ CREATE TABLE `tblEmpDuties` (
 CREATE TABLE `tblEmpExam` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `examCode` varchar(20) NOT NULL DEFAULT '',
-  `examDate` date NOT NULL DEFAULT '0000-00-00',
+  `examDate` date DEFAULT NULL,
   `examRating` decimal(4,2) NOT NULL DEFAULT '0.00',
   `examPlace` varchar(100) NOT NULL DEFAULT '',
   `licenseNumber` varchar(15) DEFAULT NULL,
-  `dateRelease` date NOT NULL DEFAULT '0000-00-00',
+  `dateRelease` date DEFAULT NULL,
   `ExamIndex` int(10) NOT NULL,
   `verifier` varchar(50) NOT NULL,
   `reviewer` varchar(50) NOT NULL
@@ -740,14 +737,14 @@ CREATE TABLE `tblEmpIncomeRATA` (
 
 CREATE TABLE `tblEmpLeave` (
   `leaveID` int(11) NOT NULL,
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date DEFAULT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `requestID` varchar(10) NOT NULL DEFAULT '',
   `leaveCode` char(3) NOT NULL DEFAULT '',
   `specificLeave` varchar(20) NOT NULL DEFAULT '',
   `reason` varchar(50) DEFAULT NULL,
-  `leaveFrom` date NOT NULL DEFAULT '0000-00-00',
-  `leaveTo` date NOT NULL DEFAULT '0000-00-00',
+  `leaveFrom` date DEFAULT NULL,
+  `leaveTo` date DEFAULT NULL,
   `certifyHR` char(1) NOT NULL DEFAULT 'N',
   `approveChief` char(1) NOT NULL DEFAULT 'N',
   `approveRequest` char(1) NOT NULL DEFAULT 'N',
@@ -820,7 +817,7 @@ CREATE TABLE `tblEmpLeaveBalance` (
   `ctr_laundry` int(11) NOT NULL,
   `processBy` varchar(20) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
-  `processDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `processDate` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -844,7 +841,7 @@ CREATE TABLE `tblEmpLocalHoliday` (
 CREATE TABLE `tblEmpLongevity` (
   `id` int(11) NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '',
-  `longiDate` date NOT NULL DEFAULT '0000-00-00',
+  `longiDate` date DEFAULT NULL,
   `longiAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `longiPercent` int(2) NOT NULL DEFAULT '0',
   `longiPay` decimal(10,2) NOT NULL DEFAULT '0.00'
@@ -877,9 +874,9 @@ CREATE TABLE `tblEmpMealDetails` (
 CREATE TABLE `tblEmpMeeting` (
   `meetingID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date DEFAULT NULL,
   `meetingTitle` text NOT NULL,
-  `meetingDate` date NOT NULL DEFAULT '0000-00-00'
+  `meetingDate` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -900,7 +897,7 @@ CREATE TABLE `tblEmpMonetization` (
   `monetizeAmount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `processBy` varchar(20) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
-  `processDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `processDate` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -983,8 +980,8 @@ CREATE TABLE `tblEmpOTDetails` (
 CREATE TABLE `tblEmpOtherSched` (
   `rec_ID` int(11) UNSIGNED NOT NULL,
   `empNumber` varchar(20) NOT NULL DEFAULT '0',
-  `fromDate` date NOT NULL DEFAULT '0000-00-00',
-  `toDate` date NOT NULL DEFAULT '0000-00-00',
+  `fromDate` date DEFAULT NULL,
+  `toDate` date DEFAULT NULL,
   `schemeCode` varchar(5) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -996,13 +993,13 @@ CREATE TABLE `tblEmpOtherSched` (
 
 CREATE TABLE `tblEmpOvertime` (
   `otID` int(11) NOT NULL,
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date DEFAULT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `otPurpose` text NOT NULL,
   `otOutput` text NOT NULL,
   `docNumber` varchar(15) NOT NULL DEFAULT '',
-  `otDateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `otDateTo` date NOT NULL DEFAULT '0000-00-00',
+  `otDateFrom` date DEFAULT NULL,
+  `otDateTo` date DEFAULT NULL,
   `otTimeFrom` varchar(11) NOT NULL DEFAULT '00:00:00 AM',
   `otTimeTo` varchar(11) NOT NULL DEFAULT '00:00:00 AM'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -1037,7 +1034,7 @@ CREATE TABLE `tblEmpPersonal` (
   `citizenship` varchar(10) NOT NULL DEFAULT '',
   `dualCitizenshipType` varchar(20) NOT NULL,
   `dualCitizenshipCountryId` int(11) NOT NULL,
-  `birthday` date NOT NULL DEFAULT '0000-00-00',
+  `birthday` date DEFAULT NULL,
   `birthPlace` varchar(80) NOT NULL DEFAULT '',
   `bloodType` varchar(6) DEFAULT NULL,
   `height` decimal(5,2) NOT NULL DEFAULT '0.00',
@@ -1100,10 +1097,10 @@ CREATE TABLE `tblEmpPersonal` (
   `soloParent` char(1) DEFAULT NULL,
   `soloParentParticulars` text,
   `signature` varchar(50) NOT NULL DEFAULT '',
-  `dateAccomplished` date DEFAULT '0000-00-00',
+  `dateAccomplished` date DEFAULT NULL,
   `comTaxNumber` varchar(10) NOT NULL DEFAULT '',
   `issuedAt` varchar(50) DEFAULT NULL,
-  `issuedOn` date NOT NULL DEFAULT '0000-00-00',
+  `issuedOn` date DEFAULT NULL,
   `gsisNumber` varchar(25) DEFAULT NULL,
   `businessPartnerNumber` varchar(25) NOT NULL,
   `philHealthNumber` varchar(14) DEFAULT NULL,
@@ -1132,16 +1129,16 @@ CREATE TABLE `tblEmpPosition` (
   `salaryGradeNumber` int(2) NOT NULL DEFAULT '0',
   `authorizeSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
   `actualSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `contractEndDate` date DEFAULT '0000-00-00',
-  `effectiveDate` date NOT NULL DEFAULT '0000-00-00',
-  `positionDate` date NOT NULL DEFAULT '0000-00-00',
-  `longevityDate` date NOT NULL DEFAULT '0000-00-00',
+  `contractEndDate` date DEFAULT NULL,
+  `effectiveDate` date DEFAULT NULL,
+  `positionDate` date DEFAULT NULL,
+  `longevityDate` date DEFAULT NULL,
   `longevityGap` decimal(4,2) DEFAULT '0.00',
-  `firstDayAgency` date NOT NULL DEFAULT '0000-00-00',
-  `firstDayGov` date NOT NULL DEFAULT '0000-00-00',
+  `firstDayAgency` date DEFAULT NULL,
+  `firstDayGov` date DEFAULT NULL,
   `assignPlace` varchar(50) DEFAULT NULL,
   `stepNumber` int(2) NOT NULL DEFAULT '0',
-  `dateIncremented` date NOT NULL DEFAULT '0000-00-00',
+  `dateIncremented` date DEFAULT NULL,
   `personnelAction` varchar(20) NOT NULL DEFAULT '',
   `employmentBasis` varchar(20) NOT NULL DEFAULT 'Fulltime',
   `categoryService` varchar(20) NOT NULL DEFAULT 'Career',
@@ -1166,8 +1163,8 @@ CREATE TABLE `tblEmpPosition` (
   `healthProvider` char(1) NOT NULL DEFAULT 'N',
   `tmpStepNumber` int(2) NOT NULL DEFAULT '0',
   `tmpActualSalary` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `tmpDateIncremented` date NOT NULL DEFAULT '0000-00-00',
-  `tmpPositionDate` date NOT NULL DEFAULT '0000-00-00',
+  `tmpDateIncremented` date DEFAULT NULL,
+  `tmpPositionDate` date DEFAULT NULL,
   `regularDedSwitch` char(1) NOT NULL DEFAULT '',
   `contriDedSwitch` char(1) NOT NULL DEFAULT '',
   `loanDedSwitch` char(1) NOT NULL DEFAULT '',
@@ -1224,21 +1221,21 @@ CREATE TABLE `tblEmpRequest` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `requestID` int(6) NOT NULL,
   `requestCode` varchar(20) NOT NULL DEFAULT '',
-  `requestDate` date NOT NULL DEFAULT '0000-00-00',
+  `requestDate` date DEFAULT NULL,
   `requestDetails` text,
   `requestStatus` varchar(30) NOT NULL DEFAULT '',
-  `statusDate` date DEFAULT '0000-00-00',
+  `statusDate` date DEFAULT NULL,
   `remarks` varchar(50) DEFAULT NULL,
   `signatory` varchar(50) NOT NULL DEFAULT '',
   `listDisplay` int(1) NOT NULL DEFAULT '1',
   `Signatory1` text NOT NULL,
-  `Sig1DateTime` datetime NOT NULL,
+  `Sig1DateTime` datetime DEFAULT NULL,
   `Signatory2` text NOT NULL,
-  `Sig2DateTime` datetime NOT NULL,
+  `Sig2DateTime` datetime DEFAULT NULL,
   `Signatory3` text NOT NULL,
-  `Sig3DateTime` datetime NOT NULL,
+  `Sig3DateTime` datetime DEFAULT NULL,
   `SignatoryFin` text NOT NULL,
-  `SigFinDateTime` datetime NOT NULL
+  `SigFinDateTime` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1287,9 +1284,9 @@ CREATE TABLE `tblEmpTraining` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `XtrainingCode` varchar(10) NOT NULL DEFAULT '',
   `trainingTitle` text NOT NULL,
-  `trainingContractDate` date DEFAULT '0000-00-00',
-  `trainingStartDate` date NOT NULL DEFAULT '0000-00-00',
-  `trainingEndDate` date NOT NULL DEFAULT '0000-00-00',
+  `trainingContractDate` date DEFAULT NULL,
+  `trainingStartDate` date DEFAULT NULL,
+  `trainingEndDate` date DEFAULT NULL,
   `trainingHours` decimal(5,2) NOT NULL DEFAULT '0.00',
   `trainingTypeofLD` varchar(100) NOT NULL,
   `trainingConductedBy` varchar(100) NOT NULL DEFAULT '',
@@ -1308,9 +1305,9 @@ CREATE TABLE `tblEmpTraining` (
 CREATE TABLE `tblEmpTravelOrder` (
   `toID` int(10) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
-  `toDateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `toDateTo` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date DEFAULT NULL,
+  `toDateFrom` date DEFAULT NULL,
+  `toDateTo` date DEFAULT NULL,
   `destination` text NOT NULL,
   `purpose` text NOT NULL,
   `fund` varchar(30) NOT NULL DEFAULT '',
@@ -1328,11 +1325,11 @@ CREATE TABLE `tblEmpTravelOrder` (
 CREATE TABLE `tblEmpTripTicket` (
   `ttID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `dateFiled` date NOT NULL DEFAULT '0000-00-00',
+  `dateFiled` date DEFAULT NULL,
   `destination` text NOT NULL,
   `purpose` text NOT NULL,
-  `ttDateFrom` date NOT NULL DEFAULT '0000-00-00',
-  `ttDateTo` date NOT NULL DEFAULT '0000-00-00',
+  `ttDateFrom` date DEFAULT NULL,
+  `ttDateTo` date DEFAULT NULL,
   `perdiem` char(1) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1346,8 +1343,8 @@ CREATE TABLE `tblEmpVoluntaryWork` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `vwName` varchar(50) DEFAULT NULL,
   `vwAddress` text,
-  `vwDateFrom` date DEFAULT '0000-00-00',
-  `vwDateTo` date DEFAULT '0000-00-00',
+  `vwDateFrom` date DEFAULT NULL,
+  `vwDateTo` date DEFAULT NULL,
   `vwHours` decimal(4,2) DEFAULT '0.00',
   `vwPosition` varchar(50) DEFAULT NULL,
   `VoluntaryIndex` int(11) NOT NULL
@@ -1375,7 +1372,7 @@ CREATE TABLE `tblExamType` (
 CREATE TABLE `tblFlagCeremony` (
   `flag_id` int(11) NOT NULL,
   `flag_empNumber` varchar(35) NOT NULL,
-  `flag_datetime` datetime NOT NULL,
+  `flag_datetime` datetime DEFAULT NULL,
   `flag_added_by` varchar(35) NOT NULL,
   `flag_added_by_ip` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1503,7 +1500,7 @@ CREATE TABLE `tblHoliday` (
 CREATE TABLE `tblHolidayYear` (
   `holidayId` int(11) NOT NULL,
   `holidayCode` varchar(20) NOT NULL DEFAULT '',
-  `holidayDate` date NOT NULL DEFAULT '0000-00-00',
+  `holidayDate` date DEFAULT NULL,
   `holidayTime` varchar(15) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1560,7 +1557,7 @@ CREATE TABLE `tblLocalHoliday` (
   `holidayMonth` varchar(10) NOT NULL DEFAULT '',
   `holidayDay` char(2) NOT NULL DEFAULT '',
   `holidayYear` varchar(10) NOT NULL DEFAULT '',
-  `holidayDate` date NOT NULL DEFAULT '0000-00-00'
+  `holidayDate` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1611,8 +1608,8 @@ CREATE TABLE `tblNonPermComputation` (
 
 CREATE TABLE `tblNonPermComputationInstance` (
   `id` int(5) NOT NULL,
-  `startDate` date NOT NULL DEFAULT '0000-00-00',
-  `endDate` date NOT NULL DEFAULT '0000-00-00',
+  `startDate` date DEFAULT NULL,
+  `endDate` date DEFAULT NULL,
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `pmonth` int(2) NOT NULL DEFAULT '0',
   `pyear` int(4) NOT NULL DEFAULT '0',
@@ -1649,32 +1646,14 @@ CREATE TABLE `tblOTComputation` (
 
 CREATE TABLE `tblOTComputationInstance` (
   `id` int(11) NOT NULL,
-  `startDate` date NOT NULL DEFAULT '0000-00-00',
-  `endDate` date NOT NULL DEFAULT '0000-00-00',
+  `startDate` date DEFAULT NULL,
+  `endDate` date DEFAULT NULL,
   `appointmentCode` varchar(20) NOT NULL DEFAULT '',
   `pmonth` int(2) NOT NULL DEFAULT '0',
   `pyear` int(4) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '0',
   `payrollGroupCode` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblOverride`
---
-
-CREATE TABLE `tblOverride` (
-  `override_id` int(11) NOT NULL,
-  `override_type` int(11) NOT NULL COMMENT '1=ob;2=exdtr;3=gendtr',
-  `office_type` varchar(20) NOT NULL,
-  `office` varchar(20) NOT NULL,
-  `appt_status` varchar(20) NOT NULL,
-  `created_date` datetime NOT NULL,
-  `created_by` varchar(20) NOT NULL,
-  `lastupdated_date` datetime DEFAULT NULL,
-  `lastupdate_dby` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2091,7 +2070,7 @@ CREATE TABLE `tblSalarySchedVersion` (
   `version` int(10) NOT NULL,
   `title` varchar(50) NOT NULL DEFAULT '',
   `description` varchar(50) NOT NULL DEFAULT '',
-  `effectivity` date NOT NULL DEFAULT '0000-00-00',
+  `effectivity` date DEFAULT NULL,
   `unused` tinyint(1) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -2177,7 +2156,7 @@ CREATE TABLE `tblServiceCode` (
 CREATE TABLE `tblServiceRecord` (
   `serviceRecID` int(11) NOT NULL,
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `serviceFromDate` date NOT NULL DEFAULT '0000-00-00',
+  `serviceFromDate` date DEFAULT NULL,
   `serviceToDate` varchar(10) NOT NULL DEFAULT '0000-00-00',
   `tmpServiceToDate` varchar(25) NOT NULL DEFAULT 'Present',
   `positionCode` varchar(10) NOT NULL DEFAULT '',
@@ -2212,20 +2191,6 @@ CREATE TABLE `tblSignatory` (
   `signatoryPosition` text NOT NULL,
   `signatoryOrder` int(11) NOT NULL DEFAULT '0',
   `sig_module` tinyint(4) DEFAULT NULL COMMENT '1=hr;0=payroll'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblSignatory_edited`
---
-
-CREATE TABLE `tblSignatory_edited` (
-  `signatoryId` int(11) NOT NULL,
-  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
-  `signatory` text NOT NULL,
-  `signatoryPosition` text NOT NULL,
-  `signatoryOrder` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2295,21 +2260,6 @@ CREATE TABLE `tblTaxRange` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblTempNotification`
---
-
-CREATE TABLE `tblTempNotification` (
-  `tmpDate` date NOT NULL DEFAULT '0000-00-00',
-  `tmpStepIncrement` int(11) NOT NULL DEFAULT '0',
-  `tmpBirthday` int(11) NOT NULL DEFAULT '0',
-  `tmpEmployeesMovement` int(11) NOT NULL DEFAULT '0',
-  `tmpVacantPosition` int(11) NOT NULL DEFAULT '0',
-  `tmpRetiree` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tblWorkZone`
 --
 
@@ -2372,6 +2322,18 @@ ALTER TABLE `tblAttendanceScheme`
 -- Indexes for table `tblBackup`
 --
 ALTER TABLE `tblBackup`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblBackupConfig`
+--
+ALTER TABLE `tblBackupConfig`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblBackUpScheduler`
+--
+ALTER TABLE `tblBackUpScheduler`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2745,12 +2707,6 @@ ALTER TABLE `tblOTComputationInstance`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tblOverride`
---
-ALTER TABLE `tblOverride`
-  ADD PRIMARY KEY (`override_id`);
-
---
 -- Indexes for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
@@ -2907,12 +2863,6 @@ ALTER TABLE `tblSignatory`
   ADD PRIMARY KEY (`signatoryId`);
 
 --
--- Indexes for table `tblSignatory_edited`
---
-ALTER TABLE `tblSignatory_edited`
-  ADD PRIMARY KEY (`signatoryId`);
-
---
 -- Indexes for table `tblTaxExempt`
 --
 ALTER TABLE `tblTaxExempt`
@@ -2932,6 +2882,21 @@ ALTER TABLE `tblAgencyImages`
 --
 ALTER TABLE `tblAppointment`
   MODIFY `appointmentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+--
+-- AUTO_INCREMENT for table `tblBackup`
+--
+ALTER TABLE `tblBackup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tblBackupConfig`
+--
+ALTER TABLE `tblBackupConfig`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tblBackUpScheduler`
+--
+ALTER TABLE `tblBackUpScheduler`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblBrokenSched`
 --
@@ -3011,7 +2976,7 @@ ALTER TABLE `tblEmpDeductLoan`
 -- AUTO_INCREMENT for table `tblEmpDTR`
 --
 ALTER TABLE `tblEmpDTR`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372075;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372076;
 --
 -- AUTO_INCREMENT for table `tblEmpDTR_log`
 --
@@ -3178,11 +3143,6 @@ ALTER TABLE `tblOTComputation`
 ALTER TABLE `tblOTComputationInstance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
--- AUTO_INCREMENT for table `tblOverride`
---
-ALTER TABLE `tblOverride`
-  MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
@@ -3266,12 +3226,7 @@ ALTER TABLE `tblServiceRecord`
 -- AUTO_INCREMENT for table `tblSignatory`
 --
 ALTER TABLE `tblSignatory`
-  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
---
--- AUTO_INCREMENT for table `tblSignatory_edited`
---
-ALTER TABLE `tblSignatory_edited`
-  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
