@@ -52,6 +52,7 @@ class Attendance_summary_model extends CI_Model {
 		$this->load->helper('dtr_helper');
 		$this->load->model('finance/Dtr_model');
 		$month = sprintf('%02d', $month);
+
 		# DTR Data
 		// $this->db->order_by('dtrDate', 'asc');
 		// $this->db->where('empNumber', $empid);
