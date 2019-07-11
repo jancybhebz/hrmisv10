@@ -6,6 +6,7 @@
 -- Generation Time: Jul 11, 2019 at 10:40 AM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
+-- Copyright: DOSTCO - ITD
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
