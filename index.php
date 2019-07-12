@@ -1,5 +1,5 @@
 <?php
-// date_default_timezone_set("Asia/Manila");
+date_default_timezone_set("Asia/Manila");
 if ($_SERVER['SERVER_NAME'] == 'local_server_name') {
     define('ENVIRONMENT', 'development');
 } else {
