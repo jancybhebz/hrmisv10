@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 10, 2019 at 08:39 PM
+-- Generation Time: Jul 11, 2019 at 06:28 PM
 -- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.1.30-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hrmis-schema-upt`
+-- Database: `hrmisv10_upt`
 --
 
 -- --------------------------------------------------------
@@ -1575,21 +1575,6 @@ CREATE TABLE `tblManualDTR` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblModuleSignatory`
---
-
-CREATE TABLE `tblSignatory` (
-  `signatoryId` int(11) NOT NULL,
-  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
-  `signatory` text NOT NULL,
-  `signatoryPosition` text NOT NULL,
-  `signatoryOrder` int(11) NOT NULL DEFAULT '0',
-  `sig_module` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tblNonPermComputation`
 --
 
@@ -2191,6 +2176,21 @@ CREATE TABLE `tblServiceRecord` (
   `lwop` int(3) NOT NULL DEFAULT '0',
   `processor` varchar(50) NOT NULL,
   `signee` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblSignatory`
+--
+
+CREATE TABLE `tblSignatory` (
+  `signatoryId` int(11) NOT NULL,
+  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
+  `signatory` text NOT NULL,
+  `signatoryPosition` text NOT NULL,
+  `signatoryOrder` int(11) NOT NULL DEFAULT '0',
+  `sig_module` tinyint(4) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2857,6 +2857,12 @@ ALTER TABLE `tblServiceRecord`
   ADD KEY `empNumber` (`empNumber`);
 
 --
+-- Indexes for table `tblSignatory`
+--
+ALTER TABLE `tblSignatory`
+  ADD PRIMARY KEY (`signatoryId`);
+
+--
 -- Indexes for table `tblTaxExempt`
 --
 ALTER TABLE `tblTaxExempt`
@@ -2915,7 +2921,7 @@ ALTER TABLE `tblComputationInstance`
 -- AUTO_INCREMENT for table `tblCountry`
 --
 ALTER TABLE `tblCountry`
-  MODIFY `countryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
+  MODIFY `countryId` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblCourse`
 --
@@ -2975,7 +2981,7 @@ ALTER TABLE `tblEmpDTR`
 -- AUTO_INCREMENT for table `tblEmpDTR_log`
 --
 ALTER TABLE `tblEmpDTR_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225051;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblEmpDuties`
 --
@@ -3095,7 +3101,7 @@ ALTER TABLE `tblExamType`
 -- AUTO_INCREMENT for table `tblFlagCeremony`
 --
 ALTER TABLE `tblFlagCeremony`
-  MODIFY `flag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2400;
+  MODIFY `flag_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblHolidayYear`
 --
@@ -3115,7 +3121,7 @@ ALTER TABLE `tblLeave`
 -- AUTO_INCREMENT for table `tblManualDTR`
 --
 ALTER TABLE `tblManualDTR`
-  MODIFY `dtr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `dtr_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblNonPermComputation`
 --
@@ -3216,6 +3222,11 @@ ALTER TABLE `tblServiceCode`
 --
 ALTER TABLE `tblServiceRecord`
   MODIFY `serviceRecID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8606;
+--
+-- AUTO_INCREMENT for table `tblSignatory`
+--
+ALTER TABLE `tblSignatory`
+  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
