@@ -1,5 +1,5 @@
 <div class="tab-pane active" id="tab_1_3">
-    <div class="col-md-12" hidden>
+    <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
