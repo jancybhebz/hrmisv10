@@ -673,7 +673,16 @@ class Pds extends MY_Controller
 							'employmentBasis' 	  => isset($arrPost['optemp_basis']) ? $arrPost['optemp_basis'] : '',
 							'categoryService' 	  => isset($arrPost['optcateg_srv']) ? $arrPost['optcateg_srv'] : '',
 							'taxStatCode' 		  => $arrPost['sel_tax_stat'],
-							'dependents' 		  => $arrPost['txtno_dependents']);
+							'dependents' 		  => $arrPost['txtno_dependents'],
+					// plantilla details							
+							'uniqueItemNumber' => $arrPost['txtunique_itemno'],
+							'itemNumber' 	   => $arrPost['sel_plantilla'],
+							// 'actualSalary' 	   => $arrPost['txtactual_salary'],
+							// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
+							'positionDate' 	   => $arrPost['txtposition_date'],
+							'salaryGradeNumber'=> $arrPost['txtsalary_grade'],
+							'stepNumber' 	   => $arrPost['selStep_number'],
+							'dateIncremented'  => $arrPost['txt_date_inc']);
 
 			$this->pds_model->save_position($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Position details updated successfully.');
@@ -702,26 +711,26 @@ class Pds extends MY_Controller
 		endif;
 	}
 
-	public function edit_plantilla_details()
-	{
-	    $empid = $this->uri->segment(3);
-		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
-			$arrData = array(
-							'uniqueItemNumber' => $arrPost['txtunique_itemno'],
-							'itemNumber' 	   => $arrPost['sel_plantilla'],
-							// 'actualSalary' 	   => $arrPost['txtactual_salary'],
-							// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
-							'positionDate' 	   => $arrPost['txtposition_date'],
-							'salaryGradeNumber'=> $arrPost['txtsalary_grade'],
-							'stepNumber' 	   => $arrPost['selStep_number'],
-							'dateIncremented'  => $arrPost['txt_date_inc']);
+	// public function edit_plantilla_details()
+	// {
+	//     $empid = $this->uri->segment(3);
+	// 	$arrPost = $this->input->post();
+	// 	if(!empty($arrPost)):
+	// 		$arrData = array(
+	// 						'uniqueItemNumber' => $arrPost['txtunique_itemno'],
+	// 						'itemNumber' 	   => $arrPost['sel_plantilla'],
+	// 						// 'actualSalary' 	   => $arrPost['txtactual_salary'],
+	// 						// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
+	// 						'positionDate' 	   => $arrPost['txtposition_date'],
+	// 						'salaryGradeNumber'=> $arrPost['txtsalary_grade'],
+	// 						'stepNumber' 	   => $arrPost['selStep_number'],
+	// 						'dateIncremented'  => $arrPost['txt_date_inc']);
 
-			$this->pds_model->save_position($arrData, $empid);
-			$this->session->set_flashdata('strSuccessMsg','Plantilla details updated successfully.');
-			redirect('hr/profile/'.$empid);
-		endif;
-	}
+	// 		$this->pds_model->save_position($arrData, $empid);
+	// 		$this->session->set_flashdata('strSuccessMsg','Plantilla details updated successfully.');
+	// 		redirect('hr/profile/'.$empid);
+	// 	endif;
+	// }
 	# END POSITION DETAILS
 
 	# BEGIN DUTIES & RESPONSIBILITIES
@@ -937,6 +946,7 @@ class Pds extends MY_Controller
 		{
 			$strEmpNumber = urldecode($this->uri->segment(4));
 			$this->arrData['arrPosition']=$this->pds_model->getData($strEmpNumber);
+			// $this->arrData['arrProcesswith']=$this->pds_model->getpayrollprocess($appt);
 			$this->template->load('template/template_view','pds/position_details_view', $this->arrData);
 		}
 		else
@@ -1161,7 +1171,6 @@ class Pds extends MY_Controller
 		
 	}
  
- 
-
+ 	
    
 }

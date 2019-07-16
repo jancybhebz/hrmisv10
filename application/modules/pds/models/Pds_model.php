@@ -465,5 +465,16 @@ class Pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	// function getpayrollprocess($appt='')
+ // 	{
+ // 		// $arrProcesswith = $this->db->select('appointmentCode')->get_where('tblPayrollProcess',array('appointmentCode' => $appt,'processWith' =>'CT,PC1,PC2,PC3,PC4,PC5,CTI,E,O,PA,SE,SU,T,P'))->result_array();
+ 		
+	// 	$sql ="SELECT `processWith` FROM `tblPayrollProcess` WHERE `appointmentCode`="P"";
+	// 	echo $this->db->last_query();
+ 		
+	// 	$objQuery = $this->db->query($sql);
+	// 	return $objQuery->result_array();	
+
+ // 	}
 
 }

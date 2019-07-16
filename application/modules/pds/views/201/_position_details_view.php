@@ -1,8 +1,8 @@
 <div class="portlet-body">
     <ul class="nav nav-pills tabs-reversed">
-        <li>
+        <!-- <li>
             <a href="#tabl_plantilla_details" data-toggle="tab"> <small>Plantilla Details</small> </a>
-        </li>
+        </li> -->
         <li>
             <a href="#tab_payroll_details" data-toggle="tab"> <small>Payroll Details</small> </a>
         </li>
@@ -59,39 +59,94 @@
                 <tr>
                     <th style="text-align: right;">Executive Office :</th>
                     <td><?=$arrPosition[0]['officecode']?></td>
-                    <th style="text-align: right;"></th>
-                    <td></td>
-                </tr>
-                <tr>
                     <th style="text-align: right;">Service :</th>
                     <td><?=$arrPosition[0]['service']?></td>
-                    <th style="text-align: right;"></th>
-                    <td></td>
                 </tr>
                 <tr>
                     <th style="text-align: right;">Division :</th>
                     <td><?=$arrPosition[0]['divisionCode']?></td>
-                    <th style="text-align: right;"></th>
-                    <td></td>
-                </tr>
-                <tr>
                     <th style="text-align: right;">Section :</th>
                     <td><?=$arrPosition[0]['sectionCode']?></td>
-                    <th style="text-align: right;"></th>
-                    <td></td>
                 </tr>
                 <tr>
                     <th style="text-align: right;">Personnel Action :</th>
                     <td><?=$arrPosition[0]['personnelAction']?></td>
-                    <th style="text-align: right;"></th>
-                    <td></td>
-                </tr>
-                <tr>
                     <th style="text-align: right;">Place of Assignment :</th>
                     <td><?=$arrPosition[0]['assignPlace']?></td>
+                </tr>
+                <tr>
+                <?php   $arrPerm = explode(',',$arrProcessWith[0]['processWith']);
+                    if(in_array($arrPosition[0]['appointmentCode'],$arrPerm))
+                    {   ?>
+                        <th width="25%" style="text-align: right;">Item Number :</th>
+                        <td width="25%"><?=$arrPosition[0]['itemNumber']?></td>
+                    <?php } ?>
+                    <th width="25%" style="text-align: right;">Head of the Agency :</th>
+                    <td width="25%"><?=count($agencyHead) > 0 ? $agencyHead['agencyHead'] == 1 ? 'Y' : 'N' : ''?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Actual Salary :</th>
+                    <td><?=$arrPosition[0]['actualSalary']?></td>
+                    <th style="text-align: right;">Salary Grade :</th>
+                    <td><?=$arrPosition[0]['salaryGradeNumber']?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Authorize Salary :</th>
+                    <td><?=$arrPosition[0]['authorizeSalary']?></td>
+                    <th style="text-align: right;">Step Number :</th>
+                    <td><?=$arrPosition[0]['stepNumber']?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Position :</th>
+                    <td><?=$arrData[0]['positionDesc']?></td>
+                    <th style="text-align: right;">Date Increment :</th>
+                    <td><?=$arrPosition[0]['dateIncremented']?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Position Date :</th>
+                    <td><?=$arrPosition[0]['positionDate']?></td>
                     <th style="text-align: right;"></th>
                     <td></td>
                 </tr>
+            </table>
+            <table class="table table-bordered">
+                <tr class="active">
+                    <!-- <th style="line-height: 2;" colspan="4">PLANTILLA POSITION DETAILS -->
+                        <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
+                            <!-- <a class="btn green btn-sm pull-right" id="btnedit_information" data-toggle="modal" href="#edit_plantilla_details"> <i class="icon-pencil"></i> Edit </a> -->
+                        <?php endif; ?>
+                    </th>
+                </tr>
+                <!-- <tr>
+                    <th width="25%" style="text-align: right;">Item Number :</th>
+                    <td width="25%"><?=$arrPosition[0]['itemNumber']?></td>
+                    <th width="25%" style="text-align: right;">Head of the Agency :</th>
+                    <td width="25%"><?=count($agencyHead) > 0 ? $agencyHead['agencyHead'] == 1 ? 'Y' : 'N' : ''?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Actual Salary :</th>
+                    <td><?=$arrPosition[0]['actualSalary']?></td>
+                    <th style="text-align: right;">Salary Grade :</th>
+                    <td><?=$arrPosition[0]['salaryGradeNumber']?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Authorize Salary :</th>
+                    <td><?=$arrPosition[0]['authorizeSalary']?></td>
+                    <th style="text-align: right;">Step Number :</th>
+                    <td><?=$arrPosition[0]['stepNumber']?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Position :</th>
+                    <td><?=$arrData[0]['positionDesc']?></td>
+                    <th style="text-align: right;">Date Increment :</th>
+                    <td><?=$arrPosition[0]['dateIncremented']?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Position Date :</th>
+                    <td><?=$arrPosition[0]['positionDate']?></td>
+                    <th style="text-align: right;"></th>
+                    <td></td>
+                </tr> -->
             </table>
         </div>
         <div class="tab-pane fade" id="tab_payroll_details">
@@ -136,7 +191,7 @@
             </table>
         </div>
         <div class="tab-pane fade" id="tabl_plantilla_details">
-            <table class="table table-bordered">
+            <!-- <table class="table table-bordered">
                 <tr class="active">
                     <th style="line-height: 2;" colspan="4">PLANTILLA POSITION DETAILS
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
@@ -174,7 +229,7 @@
                     <th style="text-align: right;"></th>
                     <td></td>
                 </tr>
-            </table>
+            </table> -->
         </div>
     </div>
 </div>
