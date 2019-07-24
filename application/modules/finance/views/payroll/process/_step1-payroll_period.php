@@ -11,6 +11,7 @@
                 <div class="col-md-4">
                     <div class="input-icon right">
                         <i class="fa fa-warning tooltips i-required"></i>
+                        <textarea id="txtprocess_details"></textarea>
                         <select class="bs-select form-control form-required" name="selemployment" id="selemployment" onchange="validate_bsselect($(this))">
                             <option value="">-- SELECT EMPLOYEE --</option>
                             <?php

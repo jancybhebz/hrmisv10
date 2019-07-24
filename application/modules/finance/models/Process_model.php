@@ -72,6 +72,11 @@ class Process_model extends CI_Model {
 		return false;
 	}
 
+	function getPayrollProcessed($emp)
+	{
+		return $this->db->get_where('tblProcess',array('employeeAppoint' => $emp, 'processCode' => 'SALARY'))->result_array();
+	}
+
 	function deleteProcess($processid,$appt)
 	{
 		# delete tblEmpIncome where processid

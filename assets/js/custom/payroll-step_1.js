@@ -45,28 +45,30 @@ $(document).ready(function() {
                 break;
             case 'daily':
                 $('#frmprocess').attr('action', 'select_benefits_nonperm_trc');
-                // if(employment == 'jo'){
-                //     $('#frmprocess').attr('action', 'select_benefits_nonperm_jo');
-                // }else{
-                //     $('#frmprocess').attr('action', 'select_benefits_nonperm_trc');
-                // }
                 break;
             default:
                 $('#frmprocess').attr('action', 'select_benefits_nonperm');
                 break;
         }
+
+        $.get( "payrollupdate/check_processed_payroll?selemployment="+employment, function( data ) {
+          $('#txtprocess_details').val(data);
+        });
+
         $('#txtcomputation').val(computation);
         if(employment != 'p'){
-            // $('#frmprocess').attr('action', 'compute_benefits');
             $('.div-datause').hide();
             $('.div-date').show();
         }else{
             $('.div-datause').show();
-            $('.div-date').hide();
+            $('.div-date,.div-period').hide();
         }
     });
 
     $('select#selmon').on('changed.bs.select', function (e) {
+        var process_details = $('#txtprocess_details').val();
+        console.log(process_details);
+
         var selmonth = e.target.value;
         var selyr = $('select#selyr').val();
         if(selmonth == 1){
