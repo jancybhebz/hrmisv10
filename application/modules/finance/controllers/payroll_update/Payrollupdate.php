@@ -39,11 +39,6 @@ class Payrollupdate extends MY_Controller {
 		$selmonth = isset($_GET['selmonth']) ? $_GET['selmonth'] : currmo();
 		$selyr = isset($_GET['selyr']) ? $_GET['selyr'] : curryr();
 		$selcode = isset($_GET['selcode']) ? $_GET['selcode'] : 'SALARY';
-		echo 'selemployment = '.$selemployment;
-		echo '<br>selcode = '.$selcode;
-		echo '<br>selmonth = '.$selmonth;
-		echo '<br>selyr = '.$selyr;
-		echo '<hr>';
 		$processes = $this->Process_model->getPayrollProcessed(strtoupper($selemployment),strtoupper($selcode),$selmonth,$selyr);
 		echo json_encode($processes);
 	}
