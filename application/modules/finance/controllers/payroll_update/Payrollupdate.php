@@ -26,15 +26,25 @@ class Payrollupdate extends MY_Controller {
 		$_GET['mon'] = isset($_GET['mon']) ? $_GET['mon'] : date('n');
 		$_GET['yr'] = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$_GET['period'] = isset($_GET['period']) ? $_GET['period'] : 'Period 1';
+		$_GET['selcode'] = isset($_GET['selcode']) ? $_GET['selcode'] : 'SALARY';
 		
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
+		$this->arrData['arrProcesses'] = $this->Process_model->getPayrollProcessed('*','*',$_GET['mon'],$_GET['yr']);
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
 	public function check_processed_payroll()
 	{
 		$selemployment = isset($_GET['selemployment']) ? $_GET['selemployment'] : 'P';
-		$processes = $this->Process_model->getPayrollProcessed($selemployment);
+		$selmonth = isset($_GET['selmonth']) ? $_GET['selmonth'] : currmo();
+		$selyr = isset($_GET['selyr']) ? $_GET['selyr'] : curryr();
+		$selcode = isset($_GET['selcode']) ? $_GET['selcode'] : 'SALARY';
+		echo 'selemployment = '.$selemployment;
+		echo '<br>selcode = '.$selcode;
+		echo '<br>selmonth = '.$selmonth;
+		echo '<br>selyr = '.$selyr;
+		echo '<hr>';
+		$processes = $this->Process_model->getPayrollProcessed(strtoupper($selemployment),strtoupper($selcode),$selmonth,$selyr);
 		echo json_encode($processes);
 	}
 

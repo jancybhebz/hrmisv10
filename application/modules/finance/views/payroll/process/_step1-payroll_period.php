@@ -11,7 +11,8 @@
                 <div class="col-md-4">
                     <div class="input-icon right">
                         <i class="fa fa-warning tooltips i-required"></i>
-                        <textarea id="txtprocess_details"></textarea>
+                        <textarea id="txtdefault" hidden><?=json_encode($arrProcesses)?></textarea>
+                        <textarea id="txtprocess_details" hidden></textarea>
                         <select class="bs-select form-control form-required" name="selemployment" id="selemployment" onchange="validate_bsselect($(this))">
                             <option value="">-- SELECT EMPLOYEE --</option>
                             <?php
@@ -32,6 +33,20 @@
                                         endif;
                                     endif;
                                 endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Process <span class="required"> * </span></label>
+                <div class="col-md-4">
+                    <div class="input-icon right">
+                        <i class="fa fa-warning tooltips i-required"></i>
+                        <select class="bs-select form-control form-required" name="selcode" id="selcode" onchange="validate_bsselect($(this))">
+                            <option value="">-- SELECT PROCESS --</option>
+                            <?php foreach (get_process_code() as $process_code):?>
+                                    <option value="<?=$process_code['code']?>" <?=$process_code['code'] == 'SALARY' ? 'selected' : ''?>><?=$process_code['desc']?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
