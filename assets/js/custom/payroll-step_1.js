@@ -16,35 +16,16 @@ function check_default_process(employment,selcode,selmonth,selyr)
     }
 }
 
-function check_ifprocess_exists(employment,selcode,selmonth,selyr)
-{
-    console.log('employment = ' + employment);
-    console.log('selcode = ' + selcode);
-    console.log('selmonth = ' + selmonth);
-    console.log('selyr = ' + selyr);
-    var process_details = $('#txtprocess_details').val();
-    var disabled_button = 0;
-    $.each(JSON.parse(process_details), function(index,item) {
-        console.log(item);
-        if(item.employeeAppoint == employment.toUpperCase() && item.processCode == selcode.toUpperCase() && item.processMonth == selmonth && item.processYear == selyr){
-            disabled_button = 1;
-            return false;
-        }
-    });
-    
-    if(disabled_button){
-        $('#btn_step1').attr('disabled',true);
-    }else{
-        $('#btn_step1').attr('disabled',false);
-    }
-}
-
 $(document).ready(function() {
 	$('.loading-image').hide();
 	$('#div-body').show();
     $('.i-required').hide();
-    $('.div-date').hide();
-    $('#btn_step1').attr('disabled',true);
+    if($('#txtform_data').val() == ''){
+        $('#btn_step1').attr('disabled',true);
+        // $('.div-date').hide();
+    }else{
+        $('#btn_step1').attr('disabled',false);
+    }
     /* BEGIN PROCESSS 1 */
     $('button#btn_step1').on('click', function(e) {
         var step2 = 0;
@@ -78,6 +59,7 @@ $(document).ready(function() {
     });
 
     $('select#selemployment').on('changed.bs.select', function (e) {
+        $('#btn_step1').attr('disabled',false);
         var employment = e.target.value.toLowerCase();
         var selcode = $('select#selcode').val();
         var selmonth = $('select#selmon').val();
@@ -94,10 +76,6 @@ $(document).ready(function() {
                 $('#frmprocess').attr('action', 'select_benefits_nonperm');
                 break;
         }
-        console.log("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr);
-        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
-          $('#txtprocess_details').val(data);
-        });
 
         $('#txtcomputation').val(computation);
         if(employment != 'p'){
@@ -108,25 +86,24 @@ $(document).ready(function() {
             $('.div-date,.div-period').hide();
         }
 
-        var process_data = $('#txtprocess_details').val();
-
         check_default_process(employment,selcode,selmonth,selyr);
-        if($('#txtprocess_details').val().length > 0){
-            check_ifprocess_exists(employment,selcode,selmonth,selyr);
-        }
+        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
+            $.each(JSON.parse(data), function(index,item) {
+                if(item.employeeAppoint == employment.toUpperCase() && item.processCode == selcode.toUpperCase() && item.processMonth == selmonth && item.processYear == selyr){
+                    $('#btn_step1').attr('disabled',true);
+                    return false;
+                }
+            });
+        });
 
     });
 
     $('select#selmon').on('changed.bs.select', function (e) {
+        $('#btn_step1').attr('disabled',false);
         var employment = $('select#selemployment').val();
         var selcode = $('select#selcode').val();
         var selmonth = e.target.value;
         var selyr = $('select#selyr').val();
-
-        console.log("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr);
-        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
-          $('#txtprocess_details').val(data);
-        });
 
         if(selmonth == 1){
             selmonth = 13;
@@ -137,43 +114,52 @@ $(document).ready(function() {
         $('select#data_fr_mon').selectpicker('val',(selmonth-1));
 
         check_default_process(employment,selcode,selmonth,selyr);
-        if($('#txtprocess_details').val().length > 0){
-            check_ifprocess_exists(employment,selcode,selmonth,selyr);
-        }
+        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
+            $.each(JSON.parse(data), function(index,item) {
+                if(item.employeeAppoint == employment.toUpperCase() && item.processCode == selcode.toUpperCase() && item.processMonth == selmonth && item.processYear == selyr){
+                    $('#btn_step1').attr('disabled',true);
+                    return false;
+                }
+            });
+        });
     });
 
     $('select#selyr').on('changed.bs.select', function (e) {
+        $('#btn_step1').attr('disabled',false);
         var employment = $('select#selemployment').val();
         var selcode = $('select#selcode').val();
         var selmonth = $('select#selmon').val();
         var selyr = e.target.value;
 
-        console.log("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr);
-        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
-          $('#txtprocess_details').val(data);
-        });
-
         check_default_process(employment,selcode,selmonth,selyr);
-        if($('#txtprocess_details').val().length > 0){
-            check_ifprocess_exists(employment,selcode,selmonth,selyr);
-        }
+        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
+            $.each(JSON.parse(data), function(index,item) {
+                if(item.employeeAppoint == employment.toUpperCase() && item.processCode == selcode.toUpperCase() && item.processMonth == selmonth && item.processYear == selyr){
+                    $('#btn_step1').attr('disabled',true);
+                    return false;
+                }
+            });
+        });
     });
 
     $('select#selcode').on('changed.bs.select', function (e) {
+        $('#btn_step1').attr('disabled',false);
         var employment = $('select#selemployment').val();
         var selcode = e.target.value;
         var selmonth = $('select#selmon').val();
         var selyr = $('select#selyr').val();
 
-        console.log("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr);
-        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
-          $('#txtprocess_details').val(data);
-        });
-        
         check_default_process(employment,selcode,selmonth,selyr);
-        if($('#txtprocess_details').val().length > 0){
-            check_ifprocess_exists(employment,selcode,selmonth,selyr);
-        }
+        
+        $.get("payrollupdate/check_processed_payroll?selemployment="+employment+"&selcode="+selcode+"&selmonth="+selmonth+"&selyr="+selyr, function( data ) {
+            $.each(JSON.parse(data), function(index,item) {
+                if(item.employeeAppoint == employment.toUpperCase() && item.processCode == selcode.toUpperCase() && item.processMonth == selmonth && item.processYear == selyr){
+                    $('#btn_step1').attr('disabled',true);
+                    return false;
+                }
+            });
+        });
+
     });
 
     $('.date-picker').datepicker({autoclose: true});

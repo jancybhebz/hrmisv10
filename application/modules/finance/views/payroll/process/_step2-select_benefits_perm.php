@@ -80,7 +80,7 @@
 <div class="form-actions">
     <div class="row">
         <div class="col-md-offset-3 col-md-9">
-            <a href="<?=base_url('finance/payroll_update/process/index?appt='.$_POST['selemployment'].'&month='.$_POST['mon'].'&yr='.$_POST['yr'].'&datefrom='.(isset($_POST['datefrom'])?$_POST['datefrom']:'').'&dateto='.(isset($_POST['dateto'])?$_POST['dateto']:''))?>" class="btn default btn-previous">
+            <a href='<?=base_url("finance/payroll_update/process?data=".json_encode($_POST))?>' class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
             <button type="submit" class="btn blue btn-submit" id="btncompute"> Compute </button>
         </div>

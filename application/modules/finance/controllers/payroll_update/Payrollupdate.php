@@ -19,6 +19,7 @@ class Payrollupdate extends MY_Controller {
         $this->arrData = array();
     }
 
+    ## PROCESS - STEP 1
 	public function index()
 	{
 		$process_name = $this->uri->segment(4);
@@ -28,6 +29,8 @@ class Payrollupdate extends MY_Controller {
 		$_GET['period'] = isset($_GET['period']) ? $_GET['period'] : 'Period 1';
 		$_GET['selcode'] = isset($_GET['selcode']) ? $_GET['selcode'] : 'SALARY';
 		
+		$this->arrData['arr_form_data'] = json_decode($_GET['data'],1);
+
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
 		$this->arrData['arrProcesses'] = $this->Process_model->getPayrollProcessed('*','*',$_GET['mon'],$_GET['yr']);
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
@@ -43,14 +46,11 @@ class Payrollupdate extends MY_Controller {
 		echo json_encode($processes);
 	}
 
+	## PROCESS - STEP 2
 	public function select_benefits_perm()
 	{
 		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
-			// if($arrPost['selemployment'] != 'P'):
-			// 	redirect('finance/payroll_update/process');	
-			// endif;
-		else:
+		if(empty($arrPost)):
 			redirect('finance/payroll_update/process');
 		endif;
 
