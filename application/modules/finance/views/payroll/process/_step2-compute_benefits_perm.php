@@ -7,6 +7,8 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
     </div>
+    <pre><?php print_r($_POST);
+     ?></pre>
     <div class="tab-pane active">
         <div class="block">
             <h3 style="display: inline-block;">Compute Benefits</h3>
@@ -27,7 +29,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
         <div class="row">
             <div class="col-md-12 scroll">
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                <!-- Pls be careful in using colspan and colrow, table details will be use in saving payroll process in json form -->
+                <!-- Pls be careful in using colspan and colrow, table details will be use in saving payroll process in json format -->
                 <table class="table table-striped table-bordered order-column" id="tblemployee-list" style="visibility: hidden;">
                     <thead>
                         <tr>
@@ -133,7 +135,14 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
 <div class="form-actions">
     <div class="row">
         <div class="col-md-offset-3 col-md-9">
-            <a href="javascript:;" class="btn default btn-previous">
+            <?php 
+                $back_url = 'javascript:;';
+                if(isset($_POST)):
+                    $_POST['txtprocess'] = json_decode($_POST['txtprocess'],true);
+                    $back_url = 'select_benefits_perm?data='.json_encode($_POST);
+                endif;
+             ?>
+            <a href='<?=$back_url?>' class="btn default btn-previous">
                 <i class="fa fa-angle-left"></i> Back </a>
             <?php if($this->uri->segment(3) == 'save_benefits_perm'): ?>
                 <button type="submit" id="btnprocess" class="btn blue btn-submit"> Proceed and Continue
@@ -148,10 +157,3 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
 <?=form_close()?>
 <?=load_plugin('js', array('datatables'))?>
 <script src="<?=base_url('assets/js/custom/payroll-compute_benefits.js')?>"></script>
-<script>
-    // $(document).ready(function() {
-    //     $('button#btnprocess').click(function(e) {
-    //         $('#frmsavebenefits').attr("action","<?=base_url('finance/payroll_update/save_benefits_perm')?>");
-    //     });
-    // });
-</script>

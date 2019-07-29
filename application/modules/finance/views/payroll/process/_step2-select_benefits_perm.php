@@ -7,6 +7,11 @@
         default:
             $form = 'finance/payroll_update/computation_nonperm'; break;
     endswitch;
+
+    if(isset($_GET['data'])):
+        $_GET['data'] = json_decode($_GET['data'],true);
+    endif;
+
  ?>
 <?=form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
@@ -33,10 +38,17 @@
                             <input type="checkbox" class="chkbenefit" name="chksalary" value="psalary" <?=in_array('SALARY',array_column($process,'processCode'))?'':'checked'?>>
                             Monthly Salary
                         </label>
-                        <?php foreach($arrBenefit as $benefit):?>
+                        <?php foreach($arrBenefit as $benefit):
+                                $isselect = 0;
+                                if(isset($_GET['data']['chkbenefit'])):
+                                    $isselect = in_array($benefit['incomeCode'],$_GET['data']['chkbenefit']) ? 1 : 0;
+                                else:
+                                    $isselect = isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 1 : 0 : 0;
+                                endif;?>
                                 <label class="checkbox col-md-3">
                                     <input type="checkbox" class="chkbenefit" name="chkbenefit[]" value="<?=$benefit['incomeCode']?>"
-                                        <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> <?=ucwords($benefit['incomeDesc'])?>
+                                        <?=$isselect ? 'checked' : '' ?>>
+                                        <?=ucwords($benefit['incomeDesc'])?>
                                 </label>
                         <?php endforeach; ?>
                     </div>

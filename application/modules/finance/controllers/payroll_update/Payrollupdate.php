@@ -50,9 +50,6 @@ class Payrollupdate extends MY_Controller {
 	public function select_benefits_perm()
 	{
 		$arrPost = $this->input->post();
-		if(empty($arrPost)):
-			redirect('finance/payroll_update/process');
-		endif;
 
 		$this->arrData['arrBenefit'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Benefit');
 		$this->arrData['arrBonus'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Bonus');
