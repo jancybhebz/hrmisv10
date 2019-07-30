@@ -1,25 +1,10 @@
-<?php 
-    switch(strtolower($_POST['txtcomputation'])):
-        case 'monthly':
-            $form = 'finance/payroll_update/compute_benefits_perm'; break;
-        case 'daily':
-            $form = 'finance/payroll_update/compute_benefits_nonperm_trc'; break;
-        default:
-            $form = 'finance/payroll_update/computation_nonperm'; break;
-    endswitch;
-
-    if(isset($_GET['data'])):
-        $_GET['data'] = json_decode($_GET['data'],true);
-    endif;
-
- ?>
 <?=form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'id' => 'frmcompute'))?>
 <div class="tab-content">
     <div class="loading-fade" style="display: none;width: 80%;height: 100%;top: 150px;">
         <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
     </div>
     <div class="tab-pane active" id="tab-payroll">
-        <input type="hidden" name="txtprocess" value='<?=json_encode($_POST)?>'>
+        <input type="hidden" name="txtprocess" value='<?=$process_details?>'>
         <h3>Select Benefits</h3>
         <div class="block" style="margin-bottom: 10px;">
             <small style="margin-left: 10px;">
@@ -32,7 +17,8 @@
             <!-- Monthly Benefits -->
             <div class="row" id="row-benefit">
                 <div class="col-md-11" style="margin-left: 40px;">
-                    <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall" <?=isset($_POST['selemployment']) ? strtolower($_POST['selemployment']) == 'p' ? 'checked' : '' : ''?>> Check All </label>
+                    <label class="checkbox"><input type="checkbox" id="chkall-benefit" value="chkall"
+                        <?=$chk_all_benefits ? 'checked' : ''?>> Check All </label>
                     <div class="portlet-body" id="div-benefit">
                         <label class="checkbox col-md-3" <?=in_array('SALARY',array_column($process,'processCode'))?'style="display:none"':''?>>
                             <input type="checkbox" class="chkbenefit" name="chksalary" value="psalary" <?=in_array('SALARY',array_column($process,'processCode'))?'':'checked'?>>
@@ -58,11 +44,16 @@
             <!-- Bonus -->
             <div class="row" id="row-bonus">
                 <div class="col-md-11" style="margin-left: 40px;">
-                    <label class="checkbox"><input type="checkbox" id="chkall-bonus" value="chkall"> Check All </label>
+                    <label class="checkbox"><input type="checkbox" id="chkall-bonus" value="chkall" <?=$chk_all_bonus ? 'checked' : ''?>> Check All </label>
                     <div class="portlet-body" id="div-bonus">
-                        <?php foreach($arrBonus as $bonus): ?>
+                        <?php foreach($arrBonus as $bonus):
+                                $isselect = 0;
+                                if(isset($_GET['data']['chkbonus'])):
+                                    $isselect = in_array($bonus['incomeCode'],$_GET['data']['chkbonus']) ? 1 : 0;
+                                endif;?>
                                 <label class="checkbox col-md-3">
-                                    <input type="checkbox" class="chkbonus" name="chkbonus[]" value="<?=$bonus['incomeCode']?>"> <?=ucwords($bonus['incomeDesc'])?>
+                                    <input type="checkbox" class="chkbonus" name="chkbonus[]" value="<?=$bonus['incomeCode']?>"
+                                        <?=$isselect ? 'checked' : '' ?>> <?=ucwords($bonus['incomeDesc'])?>
                                 </label>
                         <?php endforeach; ?>
                     </div>
@@ -73,11 +64,16 @@
             <!-- Income -->
             <div class="row" id="row-income">
                 <div class="col-md-11" style="margin-left: 40px;">
-                    <label class="checkbox"><input type="checkbox" id="chkall-income" value="chkall"> Check All </label>
+                    <label class="checkbox"><input type="checkbox" id="chkall-income" value="chkall" <?=$chk_all_income ? 'checked' : ''?>> Check All </label>
                     <div class="portlet-body" id="div-income">
-                        <?php foreach($arrIncome as $income): ?>
+                        <?php foreach($arrIncome as $income):
+                                $isselect = 0;
+                                if(isset($_GET['data']['chkincome'])):
+                                    $isselect = in_array($income['incomeCode'],$_GET['data']['chkincome']) ? 1 : 0;
+                                endif;?>
                                 <label class="checkbox col-md-3">
-                                    <input type="checkbox" name="chkincome[]" class="chkincome" value="<?=$income['incomeCode']?>"> <?=ucwords($income['incomeDesc'])?>
+                                    <input type="checkbox" name="chkincome[]" class="chkincome" value="<?=$income['incomeCode']?>"
+                                        <?=$isselect ? 'checked' : '' ?>> <?=ucwords($income['incomeDesc'])?>
                                 </label>
                         <?php endforeach; ?>
                     </div>

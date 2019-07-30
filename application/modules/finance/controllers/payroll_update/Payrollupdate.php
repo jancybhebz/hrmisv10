@@ -60,6 +60,41 @@ class Payrollupdate extends MY_Controller {
 		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
 		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
 
+		if(isset($_GET['data'])):
+		    $_GET['data'] = json_decode($_GET['data'],true);
+		    $process_details = json_encode($_GET['data']['txtprocess']);
+		else:
+			$process_details = json_encode($_POST);
+		endif;
+		$this->arrData['process_details'] = $process_details;
+		
+		$computation = isset($_GET['data']['txtprocess']) ? $_GET['data']['txtprocess']['txtcomputation'] : strtolower($_POST['txtcomputation']);
+		switch($computation):
+		    case 'monthly':
+		        $form = 'finance/payroll_update/compute_benefits_perm'; break;
+		    case 'daily':
+		        $form = 'finance/payroll_update/compute_benefits_nonperm_trc'; break;
+		    default:
+		        $form = 'finance/payroll_update/computation_nonperm'; break;
+		endswitch;
+		$this->arrData['form'] = $form;
+		
+		# check all benefits
+		$chk_all_benefits = 0;
+		$chk_all_bonus = 0;
+		$chk_all_income = 0;
+		if(isset($_GET['data'])):
+		    $chk_all_benefits = isset($_GET['data']['chkbenefit']) ? count($_GET['data']['chkbenefit']) == count($this->arrData['arrBenefit']) ? 1 : 0 : 0;
+		    $chk_all_bonus    = isset($_GET['data']['chkbonus']) ? count($_GET['data']['chkbonus']) == count($this->arrData['arrBonus']) ? 1 : 0 : 0;
+		    $chk_all_income   = isset($_GET['data']['chkincome']) ? count($_GET['data']['chkincome']) == count($this->arrData['arrIncome']) ? 1 : 0 : 0;
+		else:
+			$chk_all_benefits = strtoupper($_POST['selemployment']) == 'P' ? 1 : 0;
+		endif;
+		
+		$this->arrData['chk_all_benefits'] = $chk_all_benefits;
+		$this->arrData['chk_all_bonus'] = $chk_all_bonus;
+		$this->arrData['chk_all_income'] = $chk_all_income;
+
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
