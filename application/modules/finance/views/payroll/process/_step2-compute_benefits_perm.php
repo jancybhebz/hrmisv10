@@ -137,7 +137,11 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
                 $back_url = 'javascript:;';
                 if(isset($_POST)):
                     $_POST['txtprocess'] = json_decode($_POST['txtprocess'],true);
-                    $back_url = 'select_benefits_perm?data='.json_encode($_POST);
+                    if(isset($_POST['txtjson'])):
+                        $_POST['txtjson'] = "";
+                    endif;
+                    $_POST['chkbenefit'] = fixArray($_POST['chkbenefit']);
+                    $back_url = 'select_benefits_perm?data='.fixJson($_POST);
                 endif;
              ?>
             <a href='<?=$back_url?>' class="btn default btn-previous">

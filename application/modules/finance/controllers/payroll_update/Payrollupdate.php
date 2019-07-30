@@ -90,7 +90,7 @@ class Payrollupdate extends MY_Controller {
 		else:
 			$chk_all_benefits = strtoupper($_POST['selemployment']) == 'P' ? 1 : 0;
 		endif;
-		
+
 		$this->arrData['chk_all_benefits'] = $chk_all_benefits;
 		$this->arrData['chk_all_bonus'] = $chk_all_bonus;
 		$this->arrData['chk_all_income'] = $chk_all_income;
@@ -259,6 +259,7 @@ class Payrollupdate extends MY_Controller {
 								'arrEmployees'		 => $computed_benefits['arremployees'],
 								'no_empty_lb'		 => $computed_benefits['no_empty_lb']);
 
+		
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
