@@ -133,6 +133,16 @@ class Hr_model extends CI_Model {
 		$res = $this->db->get_where($this->table,array('statusOfAppointment' => 'In-Service','dtrSwitch' => $dtrswitch))->result_array();
 		return $res;
 	}			
+
+	public function getpayrollprocess($appt='')
+ 	{
+		$sql ="SELECT `processWith` FROM `tblPayrollProcess` WHERE `appointmentCode`='P'";
+		 // echo $this->db->last_query();
+ 		
+		$objQuery = $this->db->query($sql);
+		return $objQuery->result_array();	
+ 	}
+
 		
 	public function savePersonal($arrData, $strEmpNo)
 	{
@@ -318,6 +328,8 @@ class Hr_model extends CI_Model {
 		return $this->db->get_where('tblEmpDuties', array('empNumber' => $empid))->result_array();
 	}
 	# END DUTIES AND RESPONSIBILITIES
+
+
 
 }
 /* End of file Hr_model.php */

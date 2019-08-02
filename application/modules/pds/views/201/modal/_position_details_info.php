@@ -89,37 +89,55 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div>
+                            <?php //print_r($arrProcessWith);
+                            $arrPerm = explode(',',$arrProcessWith[0]['processWith']);
+                            // print_r($arrPerm);
+                            if(in_array($arrPosition[0]['appointmentCode'],$arrPerm)){
+                            ?>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Division</label>
+                                <label class="col-md-3 control-label">Item Number</label>
+                                <input type="hidden" id="txtunique_itemno" name="txtunique_itemno" value="<?=$arrPosition[0]['uniqueItemNumber']?>">
                                 <div class="col-md-8">
-                                    <input type="text" name="" class="form-control" value="">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Section</label>
-                                <div class="col-md-8">
-                                    <input type="text" name="" class="form-control" value="">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Personnel Action</label>
-                                <div class="col-md-8">
-                                    <select class="form-control bs-select" name="selper_action">
+                                    <select class="form-control select2" id="sel_plantilla" name="sel_plantilla">
                                         <option value=""> </option>
-                                        <?php foreach($personnel_action as $action):
-                                                $selected = $action['personnelAction'] == $arrPosition[0]['personnelAction'] ? 'selected' : '';
-                                                echo '<option value="'.$action['personnelAction'].'" '.$selected.'>'.$action['personnelAction'].'</option>';
+                                        <?php foreach($arrplantilla as $plantilla):
+                                                $selected = $plantilla['itemNumber'] == $arrPosition[0]['itemNumber'] ? 'selected' : '';
+                                                echo '<option id="'.$plantilla['uniqueItemNumber'].'" value="'.$plantilla['itemNumber'].'" '.$selected.'>'.$plantilla['itemNumber'].'</option>';
                                               endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Place of Assignment</label>
+                            <?php } ?>
+                            
+                             <div class="form-group">
+                                <label class="col-md-3 control-label">Actual Salary</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control" value="">
+                                    <input type="text" name="txtactual_salary" class="form-control" 
+                                        value="<?=isset($arrPosition) ? number_format($arrPosition[0]['actualSalary'],2) : ''?>" >
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Authorize Salary</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="txtauthorized_salary" class="form-control" 
+                                        value="<?=isset($arrPosition) ? number_format($arrPosition[0]['authorizeSalary'],2) : ''?>" >
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Position</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="txtplant_pos" class="form-control" value="<?=$arrData[0]['positionDesc']?>" >
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Position Date</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="txtposition_date" class="form-control date-picker"
+                                        value="<?=$arrPosition[0]['positionDate']?>" data-date-format="yyyy-mm-dd">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -178,6 +196,71 @@
                                 <label class="col-md-3 control-label">No. of Dependents</label>
                                 <div class="col-md-8">
                                     <input type="text" name="txtno_dependents" class="form-control" value="<?=isset($arrPosition) ? $arrPosition[0]['dependents'] : ''?>">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Division</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="" class="form-control" value="">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Section</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="" class="form-control" value="">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Place of Assignment</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control" value="">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Personnel Action</label>
+                                <div class="col-md-8">
+                                    <select class="form-control bs-select" name="selper_action">
+                                        <option value=""> </option>
+                                        <?php foreach($personnel_action as $action):
+                                                $selected = $action['personnelAction'] == $arrPosition[0]['personnelAction'] ? 'selected' : '';
+                                                echo '<option value="'.$action['personnelAction'].'" '.$selected.'>'.$action['personnelAction'].'</option>';
+                                              endforeach; ?>
+                                    </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Salary Grade</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="txtsalary_grade" class="form-control" value="<?=$arrPosition[0]['salaryGradeNumber']?>">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Step Number</label>
+                                <div class="col-md-8">
+                                    <select class="form-control bs-select" name="selStep_number" placeholder="">
+                                        <option value=""></option>
+                                        <?php foreach (range(1, 8) as $step): ?>
+                                            <option value="<?=$step?>" <?=$step == $arrPosition[0]['stepNumber'] ? 'selected' : ''?>>
+                                                <?=$step?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Date Increment</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="txt_date_inc" class="form-control date-picker" 
+                                        value="<?=$arrPosition[0]['dateIncremented']?>" data-date-format="yyyy-mm-dd">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -340,7 +423,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="col-md-3 control-label">Item Number</label>
                                 <input type="hidden" id="txtunique_itemno" name="txtunique_itemno" value="<?=$arrPosition[0]['uniqueItemNumber']?>">
                                 <div class="col-md-8">
@@ -414,7 +497,7 @@
                                         value="<?=$arrPosition[0]['dateIncremented']?>" data-date-format="yyyy-mm-dd">
                                     <span class="help-block"></span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
