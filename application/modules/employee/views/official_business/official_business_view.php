@@ -288,11 +288,9 @@ var FormValidation = function () {
                     },
                     strDestination: {
                         required: true,
-                        noSpace: true
                     },
                     strPurpose: {
-                        required: true,
-                        noSpace: true
+                        required: true
                     }
 
                 },

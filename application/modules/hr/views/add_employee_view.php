@@ -399,7 +399,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intZipCode1" id="intZipCode1" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intZipCode1'))?$this->session->userdata('intZipCode1'):''?>">
+                                        <input name="intZipCode1" id="intZipCode1" type="number" size="20" maxlength="4" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intZipCode1'))?$this->session->userdata('intZipCode1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -501,7 +501,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="intZipCode2" id="intZipCode2" type="text" size="20" maxlength="255" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intZipCode2'))?$this->session->userdata('intZipCode2'):''?>">
+                                        <input name="intZipCode2" id="intZipCode2" type="number" size="20" maxlength="4" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('intZipCode2'))?$this->session->userdata('intZipCode2'):''?>">
                                     </div>
                                 </div>
                             </div>
