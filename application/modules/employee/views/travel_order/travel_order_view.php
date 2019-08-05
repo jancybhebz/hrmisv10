@@ -167,7 +167,6 @@ var FormValidation = function () {
                 rules: {
                     strDestination: {
                         required: true,
-                        noSpace: true
                     },
                     dtmTOdatefrom: {
                         required: true,
@@ -176,8 +175,7 @@ var FormValidation = function () {
                         required: true,
                     },
                     strPurpose: {
-                        required: true,
-                        noSpace: true
+                        required: true
                     }
 
                 },
