@@ -14,7 +14,7 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model','finance/Benefit_model','hr/Hr_model','Computation_instance_model'));
+        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model','finance/Benefit_model','hr/Hr_model','Computation_instance_model','finance/Process_model'));
         $this->load->helper('payroll_helper');
         $this->arrData = array();
     }
@@ -29,6 +29,13 @@ class Payrollupdate extends MY_Controller {
 		
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
+	}
+
+	public function check_processed_payroll()
+	{
+		$selemployment = isset($_GET['selemployment']) ? $_GET['selemployment'] : 'P';
+		$processes = $this->Process_model->getPayrollProcessed($selemployment);
+		echo json_encode($processes);
 	}
 
 	public function select_benefits_perm()

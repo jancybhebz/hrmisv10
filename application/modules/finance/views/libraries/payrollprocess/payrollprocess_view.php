@@ -61,7 +61,14 @@
                                     <tr class="odd gradeX">
                                         <td><?=$no++?></td>
                                         <td><?=$proc['appointmentDesc']?></td>
-                                        <td><?=$proc['process_with']?></td>
+                                        <td><?php 
+                                                $processwith = explode(',',$proc['processWith']);
+                                                foreach($processwith as $pw):
+                                                    $key = array_search($pw, array_column($arrAppointments, 'appointmentCode'));
+                                                    echo '<li>'.$arrAppointments[$key]['appointmentDesc'].'</li>';
+                                                endforeach;
+                                             ?>
+                                        </td>
                                         <td><?=$proc['computation']?></td>
                                         <td align="center" nowrap>
                                             <a href="<?=base_url('finance/libraries/payrollprocess/edit/'.$proc['appointmentCode'])?>" class="btn btn-sm green">
