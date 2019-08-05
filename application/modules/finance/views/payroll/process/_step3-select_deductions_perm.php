@@ -12,6 +12,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post', 'i
     <center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center>
 </div>
 <div class="tab-content">
+    <pre><?php print_r($_POST); print_r($_GET); ?></pre>
     <div class="tab-pane active" id="tab-payroll">
         <h3 class="block">Select Deduction</h3>
         <input type="hidden" name="txtprocess" value='<?=$_POST['txtprocess']?>'>
