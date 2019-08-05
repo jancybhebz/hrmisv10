@@ -138,6 +138,3 @@
 </div>
 
 <?=load_plugin('js', array('select','select2','form-wizard','datepicker','form_validation'))?>
-<?php # $this->load->view('_modal'); ?>
-
-<!-- <script src="<?=base_url('assets/js/custom/payroll.js')?>" type="text/javascript"></script> -->

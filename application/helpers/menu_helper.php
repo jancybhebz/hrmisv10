@@ -79,6 +79,20 @@ if ( ! function_exists('get_leave'))
 
 }
 
+if ( ! function_exists('get_process_code'))
+{
+	function get_process_code()
+    {
+		return array(
+			array('code' => 'BENEFITS', 'desc'=>'Benefits'),
+			array('code' => 'BONUS', 	'desc'=>'Bonus'),
+			// array('code' => 'CONTRI', 	'desc'=>'Contribution'),
+			// array('code' => 'LOAN', 	'desc'=>'Loan'),
+			// array('code' => 'PAYROLL', 	'desc'=>'Payroll'),
+			array('code' => 'SALARY', 	'desc'=>'Salary')
+		);
+	}
+}
 
 if ( ! function_exists('deduction_type'))
 {

@@ -24,6 +24,7 @@ class PayrollProcess extends MY_Controller {
 			$arrPayroll[$key]['process_with'] = implode(', ', $pprocess);
 		endforeach;
 		
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrPayrollProc'] = $arrPayroll;
 		$this->template->load('template/template_view','finance/libraries/payrollprocess/payrollprocess_view',$this->arrData);
 	}

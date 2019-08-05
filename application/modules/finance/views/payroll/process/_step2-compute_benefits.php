@@ -144,10 +144,3 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
 <?=form_close()?>
 <?=load_plugin('js', array('datatables'))?>
 <script src="<?=base_url('assets/js/custom/payroll-compute_benefits.js')?>"></script>
-<script>
-    // $(document).ready(function() {
-    //     $('button#btnprocess').click(function(e) {
-    //         $('#frmsavebenefits').attr("action","<?=base_url('finance/payroll_update/save_compute_benefits')?>");
-    //     });
-    // });
-</script>

@@ -72,6 +72,21 @@ class Process_model extends CI_Model {
 		return false;
 	}
 
+	function getPayrollProcessed($emp,$process,$pmont,$pyear)
+	{
+		if($process != '*'){
+			$condition['processCode'] = $process;	
+		}
+		if($emp != '*'){
+			$condition['employeeAppoint'] = $emp;
+		}
+		
+		$condition['processMonth'] = $pmont;
+		$condition['processYear'] = $pyear;
+		$res = $this->db->get_where('tblProcess',$condition)->result_array();
+		return $res;
+	}
+
 	function deleteProcess($processid,$appt)
 	{
 		# delete tblEmpIncome where processid

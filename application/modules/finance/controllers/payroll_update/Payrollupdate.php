@@ -14,11 +14,12 @@ class Payrollupdate extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model','finance/Benefit_model','hr/Hr_model','Computation_instance_model'));
+        $this->load->model(array('Payrollupdate_model','Deduction_model','libraries/Appointment_status_model','pds/Pds_model','Payroll_process_model','hr/Attendance_summary_model','employee/Leave_model','finance/Income_model','finance/Benefit_model','hr/Hr_model','Computation_instance_model','finance/Process_model'));
         $this->load->helper('payroll_helper');
         $this->arrData = array();
     }
 
+    ## PROCESS - STEP 1
 	public function index()
 	{
 		$process_name = $this->uri->segment(4);
@@ -26,21 +27,29 @@ class Payrollupdate extends MY_Controller {
 		$_GET['mon'] = isset($_GET['mon']) ? $_GET['mon'] : date('n');
 		$_GET['yr'] = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 		$_GET['period'] = isset($_GET['period']) ? $_GET['period'] : 'Period 1';
+		$_GET['selcode'] = isset($_GET['selcode']) ? $_GET['selcode'] : 'SALARY';
 		
+		$this->arrData['arr_form_data'] = json_decode($_GET['data'],1);
+
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
+		$this->arrData['arrProcesses'] = $this->Process_model->getPayrollProcessed('*','*',$_GET['mon'],$_GET['yr']);
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
+	public function check_processed_payroll()
+	{
+		$selemployment = isset($_GET['selemployment']) ? $_GET['selemployment'] : 'P';
+		$selmonth = isset($_GET['selmonth']) ? $_GET['selmonth'] : currmo();
+		$selyr = isset($_GET['selyr']) ? $_GET['selyr'] : curryr();
+		$selcode = isset($_GET['selcode']) ? $_GET['selcode'] : 'SALARY';
+		$processes = $this->Process_model->getPayrollProcessed(strtoupper($selemployment),strtoupper($selcode),$selmonth,$selyr);
+		echo json_encode($processes);
+	}
+
+	## PROCESS - STEP 2
 	public function select_benefits_perm()
 	{
 		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
-			// if($arrPost['selemployment'] != 'P'):
-			// 	redirect('finance/payroll_update/process');	
-			// endif;
-		else:
-			redirect('finance/payroll_update/process');
-		endif;
 
 		$this->arrData['arrBenefit'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Benefit');
 		$this->arrData['arrBonus'] = $this->Payrollupdate_model->payroll_select_income_process($arrPost['mon'],$arrPost['yr'],$arrPost['selemployment'],'Bonus');
@@ -50,6 +59,41 @@ class Payrollupdate extends MY_Controller {
 		$this->arrData['arrLoan'] = $this->Deduction_model->getDeductionsByType('Loan');
 		$this->arrData['arrContrib'] = $this->Deduction_model->getDeductionsByType('Contribution');
 		$this->arrData['arrOthers'] = $this->Deduction_model->getDeductionsByType('Others');
+
+		if(isset($_GET['data'])):
+		    $_GET['data'] = json_decode($_GET['data'],true);
+		    $process_details = json_encode($_GET['data']['txtprocess']);
+		else:
+			$process_details = json_encode($_POST);
+		endif;
+		$this->arrData['process_details'] = $process_details;
+		
+		$computation = isset($_GET['data']['txtprocess']) ? $_GET['data']['txtprocess']['txtcomputation'] : strtolower($_POST['txtcomputation']);
+		switch($computation):
+		    case 'monthly':
+		        $form = 'finance/payroll_update/compute_benefits_perm'; break;
+		    case 'daily':
+		        $form = 'finance/payroll_update/compute_benefits_nonperm_trc'; break;
+		    default:
+		        $form = 'finance/payroll_update/computation_nonperm'; break;
+		endswitch;
+		$this->arrData['form'] = $form;
+		
+		# check all benefits
+		$chk_all_benefits = 0;
+		$chk_all_bonus = 0;
+		$chk_all_income = 0;
+		if(isset($_GET['data'])):
+		    $chk_all_benefits = isset($_GET['data']['chkbenefit']) ? count($_GET['data']['chkbenefit']) == count($this->arrData['arrBenefit']) ? 1 : 0 : 0;
+		    $chk_all_bonus    = isset($_GET['data']['chkbonus']) ? count($_GET['data']['chkbonus']) == count($this->arrData['arrBonus']) ? 1 : 0 : 0;
+		    $chk_all_income   = isset($_GET['data']['chkincome']) ? count($_GET['data']['chkincome']) == count($this->arrData['arrIncome']) ? 1 : 0 : 0;
+		else:
+			$chk_all_benefits = strtoupper($_POST['selemployment']) == 'P' ? 1 : 0;
+		endif;
+
+		$this->arrData['chk_all_benefits'] = $chk_all_benefits;
+		$this->arrData['chk_all_bonus'] = $chk_all_bonus;
+		$this->arrData['chk_all_income'] = $chk_all_income;
 
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
@@ -215,6 +259,7 @@ class Payrollupdate extends MY_Controller {
 								'arrEmployees'		 => $computed_benefits['arremployees'],
 								'no_empty_lb'		 => $computed_benefits['no_empty_lb']);
 
+		
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 

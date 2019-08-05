@@ -199,7 +199,7 @@ $activetab = strtolower($activetab);
                         <span class="arrow <?=$activesub=='payroll_update'?'open':''?>"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item start <?=$activetab=='process'?'active open':''?>">
+                        <li class="nav-item start <?=$activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')?'active open':''?>">
                             <a href="<?=base_url('finance/payroll_update/process')?>">
                                 <span class="title">Process Payroll</span>
                             </a>
