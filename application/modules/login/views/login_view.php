@@ -31,7 +31,7 @@
             <!-- BEGIN LOGIN FORM -->
             <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
             <h1 class="hrmisLogo">HRMIS</h1>
-            <div class="small">Human Resource Management Informatiosdfn System</div>
+            <div class="small">Human Resource Management Information System</div>
             <h3 class="form-title font-green">Sign In</h3>
             <div class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
