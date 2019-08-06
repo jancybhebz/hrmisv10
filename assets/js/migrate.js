@@ -11,8 +11,15 @@ $(document).ready(function(){
 		var dbname 	= $('#txtdbname').val();
 		var uname 	= $('#txtuname').val();
 		var pass 	= $('#txtpass').val();
+		pass = pass.replace(/\&/g,'^amp;');
+		pass = pass.replace(/\*/g,'^atrsk;');
+		pass = pass.replace(/\+/g,'^pls;');
+		pass = pass.replace(/\+/g,'^pls;');
+		pass = pass.replace(/\#/g,'^hash;');
+		// check "" and ''
+		
 		$('.code').show();
-		$('.code').append($("<div>").load("dbmigrate/migrate/comparing_tables?host="+host+"&dbname="+dbname+"&uname="+uname+"&pass="+pass, function() {
+		$('.code').append($("<div>").load(encodeURI("dbmigrate/migrate/comparing_tables?host="+host+"&dbname="+dbname+"&uname="+uname+"&pass="+pass), function() {
 			$('#update_table-modal').modal('show');
 		}));
 	});
