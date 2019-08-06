@@ -38,7 +38,7 @@ class Migrate extends MY_Controller
         # replace something in the file string
         $str=str_replace('DB_HOST = "'.$_ENV['DB_HOST'].'"', 'DB_HOST = "'.$host.'"',$str);
         $str=str_replace('DB_USER = "'.$_ENV['DB_USER'].'"', 'DB_USER = "'.$uname.'"',$str);
-        $str=str_replace('DB_PASS = "'.$_ENV['DB_PASS'].'"', 'DB_PASS = "'.$pass.'"',$str);
+        // $str=str_replace('DB_PASS = "'.$_ENV['DB_PASS'].'"', 'DB_PASS = "'.$pass.'"',$str);
         $str=str_replace('DB_NAME = "'.$_ENV['DB_NAME'].'"', 'DB_NAME = "'.$dbname.'"',$str);
 
         # write the entire string

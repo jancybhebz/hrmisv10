@@ -116,6 +116,7 @@ class Payroll_process_model extends CI_Model {
 		$this->db->order_by('processDate');
 		$this->db->join('tblAppointment','tblAppointment.appointmentCode = tblProcess.employeeAppoint','left');
 		$process = $this->db->get_where('tblProcess', $condition)->result_array();
+
 		foreach($process as $key => $proc):
 			$process[$key]['details'] = implode(', ',$this->getprocess_details($proc['processID']));
 		endforeach;
@@ -125,8 +126,7 @@ class Payroll_process_model extends CI_Model {
 
 	function getprocess_details($process_id)
 	{
-		$this->db->group_by('deductionCode');
-		$process_details = $this->db->get_where('tblEmpDeductionRemit', array('processID' => $process_id))->result_array();
+		$process_details = $this->db->distinct()->select('deductionCode')->get_where('tblEmpDeductionRemit', array('processID' => $process_id))->result_array();
 		return array_column($process_details,'deductionCode');
 	}
 
