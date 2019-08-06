@@ -36,6 +36,23 @@
                             <i class="icon-users font-dark"></i>
                             <span class="caption-subject bold uppercase"> List of Employees</span>
                         </div>
+                        <div class="page-toolbar">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> All Employees
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a href="<?=base_url('hr/attendance/view_all?status=all-employees')?>"> All Employees</a>
+                                    </li>
+                                    <?php foreach($arrStatus as $status): if($status!=''): ?>
+                                        <li>
+                                            <a href="<?=base_url('hr/attendance/view_all?status='.strtolower(str_replace(' ','-',$status)))?>"> <?=ucwords(str_replace('-',' ',strtolower($status)))?></a>
+                                        </li>
+                                    <?php endif; endforeach; ?>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="portlet-body">
                         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
@@ -45,6 +62,7 @@
                                     <th> No. </th>
                                     <th> Employee Number </th>
                                     <th> Name </th>
+                                    <th> Status </th>
                                     <th> Office </th>
                                     <th> Position </th>
                                     <th style="text-align: center;"> Action </th>
@@ -56,6 +74,7 @@
                                         <td><?=$no++?> </td>
                                         <td> <?=$row['empNumber']?></a> </td>
                                         <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
+                                        <td> <?=$row['statusOfAppointment']?> </td>
                                         <td> <?=employee_office($row['empNumber'])?> </td>
                                         <td> <?=$row['positionDesc']?></td>
                                         <td style="text-align: center;"> <a href="<?=base_url('hr/attendance_summary/index').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
