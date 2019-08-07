@@ -9,7 +9,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Philhealth_range extends MY_Controller {
+class philhealth_range extends MY_Controller {
 
 	var $arrData;
 
@@ -21,7 +21,7 @@ class Philhealth_range extends MY_Controller {
 	public function index()
 	{
 		$this->arrData['arrPhilHealth'] = $this->philhealth_range_model->getPhilhealth();
-		$this->template->load('template/template_view', 'libraries/philHealth_Range/list_view', $this->arrData);
+		$this->template->load('template/template_view', 'libraries/philhealth_range/list_view', $this->arrData);
 	}
 	
 	public function add()
@@ -29,7 +29,7 @@ class Philhealth_range extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
-			$this->template->load('template/template_view','libraries/philHealth_Range/add_view',$this->arrData);	
+			$this->template->load('template/template_view','libraries/philhealth_range/add_view',$this->arrData);	
 		}
 		else
 		{	
@@ -99,7 +99,7 @@ class Philhealth_range extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Edited '.$strRangeFrom.' PhilHealth Range',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','PhilHealth Range saved successfully.');
 				}
-				redirect('libraries/philHealth_range');
+				redirect('libraries/philhealth_range');
 			}
 		}
 		
@@ -111,7 +111,7 @@ class Philhealth_range extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$this->arrData['arrPhilHealth'] = $this->philhealth_range_model->getPhilhealth($intPhId);
-			$this->template->load('template/template_view','libraries/philHealth_range/delete_view',$this->arrData);
+			$this->template->load('template/template_view','libraries/philhealth_range/delete_view',$this->arrData);
 		}
 		else
 		{
@@ -127,7 +127,7 @@ class Philhealth_range extends MY_Controller {
 	
 					$this->session->set_flashdata('strMsg','PhilHealth Range deleted successfully.');
 				}
-				redirect('libraries/philHealth_range');
+				redirect('libraries/philhealth_range');
 			}
 		}
 		
