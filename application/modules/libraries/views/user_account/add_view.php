@@ -7,6 +7,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 load_plugin('css',array('select','select2'));?>
 <!-- BEGIN PAGE BAR -->
+<style type="text/css">
+    select.bs-select-hidden, select.selectpicker { display: block !important; }
+    select#strAccessLevel { position: absolute; }
+</style>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -47,9 +51,8 @@ load_plugin('css',array('select','select2'));?>
                         <div class="col-md-12">
                             <div class="form-group col-md-12" style="padding: 0 !important;">
                                 <label class="control-label col-md-12" style="padding: 0 !important;">Access Level<span class="required"> * </span></label>
-                                <div class="input-icon right col-md-5" style="padding: 0 !important;">
-                                    <i class="fa fa-warning tooltips i-required"></i>
-                                    <select class="form-control form-required bs-select" name="strAccessLevel" id="strAccessLevel" placeholder="">
+                                <div class="input-icon right col-md-6" style="padding: 0 !important;">
+                                    <select class="form-control form-required bs-select" name="strAccessLevel" id="strAccessLevel" required>
                                         <option value=""> </option>
                                         <?php foreach(userlevel() as $level):
                                                 echo '<option value="'.$level['id'].'">'.strtoupper($level['desc']).' Account User</option>';
@@ -59,87 +62,56 @@ load_plugin('css',array('select','select2'));?>
                             </div>
                         </div>
                     </div>
+
                     <!-- start of HR Officer access-->
                     <div class="hr-officer">
                         <div class="row" id="HR1">
-                            <div class="col-sm-12">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="radio" name="radio1" class="icheck" value="1"> Assistant </label>
-                                    </div>
+                                    <label><input type="radio" name="hrmodule" id="chkassistant" value="1"> Assistant</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row" id="HR2">
-                            <div class="col-sm-1">
-                                <div class="form-group">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkNotif" class="icheck" value="2"> Notification </label>
+                            <div class="form-group">
+                                <div class="col-md-9">
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkNotif" value="2"> Notification </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkAttdnce" value="3"> Attendance </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkLib" value="4"> Libraries </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-1" id="HR3">
-                                <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkAttdnce" class="icheck" value="3"> Attendance </label>
+                            <br>
+                            <div class="form-group">
+                                <div class="col-md-9">
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chk201" value="5"> 201 Section </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkReports" value="6"> Reports </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkCompen" value="7"> Compensation </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-1" id="HR4">
-                                <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkLib" class="icheck" value="4"> Libraries </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="HR5">
-                            <div class="col-sm-1">
-                                <div class="form-group">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chk201" class="icheck" value="5"> 201 Section </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-1" id="HR6">
-                                <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkReports" class="icheck" value="6" > Reports </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2" id="HR7">
-                                <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkCompen" class="icheck" value="7"> Compensation </label>
-                                    </div>
-                                </div>
-                            </div>
+                            <br><br>
                         </div>
                         <div class="row" id="HR8">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="radio" name="radio1" checked class="icheck" value="8"> HRMO (Access all sections) </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="HR9">
-                            <div class="col-sm-1">
-                                <div class="form-group">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkALL" class="icheck" value="8" checked> all sections </label>
-                                    </div>
+                                    <label><input type="radio" name="hrmodule" id="chkhrmo" value="8"> HR Officer (Access all sections)</label>
                                 </div>
                             </div>
                         </div>
@@ -150,89 +122,62 @@ load_plugin('css',array('select','select2'));?>
                         <div class="row" id="Finance1">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="radio" name="radioAsst2" class="icheck" value="1" checked> Assistant </label>
-                                    </div>
+                                    <label><input type="radio" name="financemodule" id="chkfoass" value="1"> Assistant</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row" id="Finance2">
-                            <div class="col-sm-1">
-                                <div class="form-group">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkNotif2" class="icheck" value="2" > Notification </label>
+                            <div class="form-group">
+                                <div class="col-md-9">
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkNotif2" value="2"> Notification </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkCompen2" value="3"> Compensation </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkUpdate" value="4"> Update </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-2" id="Finance3">
-                                <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkCompen2" class="icheck" value="3" checked> Compensation </label>
+                            <br>
+                            <div class="form-group">
+                                <div class="col-md-9">
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkReports2" value="5"> Reports </label>
                                     </div>
+                                    <div class="col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="chkLib2" value="6"> Library </label>
+                                    </div>
+                                    <div class="col-md-3">&nbsp;</div>
                                 </div>
                             </div>
-                            <div class="col-sm-1" id="Finance4">
-                                <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkUpdate" class="icheck" value="4" checked> Update </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="Finance5">
-                            <div class="col-sm-1">
-                                <div class="form-group">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkReports2" class="icheck" value="5"> Reports </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-1" id="Finance6">
-                                <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkLib2" class="icheck" value="6"> Library </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="Finance7">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                        <i class="fa"></i>
+                            <br>
+                            <div class="form-group">
+                                <div class="col-md-9">
+                                    <div class="col-md-8" style="margin-bottom: 20px;">
                                         <label>Assigned Payroll Group </label>
-                                         <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="" value="7">
+                                        <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="" value="7">
                                             <option value="">Select</option>
                                             <?php foreach($arrGroups as $group)
                                             {
                                                echo '<option value="'.$group['payrollGroupId'].'" '.($arrData[0]['payrollGroupId']==$group['payrollGroupId']?'selected':'').'>'.$group['payrollGroupName'].'</option>';
                                             } ?>
                                         </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row" id="Finance8">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <div class="input-icon left">
-                                        <i class="fa"></i>
-                                        <label><input type="radio" name="radioFinance" class="icheck" value="8">Finance Officer (Access all sections) </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="Finance9">
-                            <div class="col-sm-1">
-                                <div class="form-group">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <label><input type="checkbox" name="chkAll2" class="icheck" value="8" checked> all sections </label>
-                                    </div>
+                                    <label><input type="radio" name="financemodule" id="chkfoall" value="8"> Finance Officer (Access all sections)</label>
                                 </div>
                             </div>
                         </div>
@@ -240,12 +185,11 @@ load_plugin('css',array('select','select2'));?>
                     <!-- end of Finance Module access-->
                     
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Employee Name <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strEmpName" id="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" required>
+                        <div class="col-md-12">
+                            <div class="form-group col-md-12" style="padding: 0 !important;">
+                                <label class="control-label col-md-12" style="padding: 0 !important;">Employee Name<span class="required"> * </span></label>
+                                <div class="input-icon right col-md-6" style="padding: 0 !important;">
+                                    <select class="form-control form-required select2" name="strEmpName" id="strEmpName" required>
                                         <option value="">Select Employee Name</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -255,32 +199,35 @@ load_plugin('css',array('select','select2'));?>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Username <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
+                        <div class="col-md-12">
+                            <div class="form-group col-md-12" style="padding: 0 !important;">
+                                <label class="control-label col-md-12" style="padding: 0 !important;">Username<span class="required"> * </span></label>
+                                <div class="input-icon right col-md-6" style="padding: 0 !important;">
+                                    <i class="fa fa-warning tooltips i-required"></i>
                                     <input type="text" class="form-control" name="strUsername" id="strUsername" value="<?=!empty($this->session->userdata('strUsername'))?$this->session->userdata('strUsername'):''?>" required>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Password <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
+                        <div class="col-md-12">
+                            <div class="form-group col-md-12" style="padding: 0 !important;">
+                                <label class="control-label col-md-12" style="padding: 0 !important;">Password<span class="required"> * </span></label>
+                                <div class="input-icon right col-md-6" style="padding: 0 !important;">
+                                    <i class="fa fa-warning tooltips i-required"></i>
                                     <input type="password" class="form-control" name="strPassword" id="strPassword" maxlength="20" value="<?=!empty($this->session->userdata('strPassword'))?$this->session->userdata('strPassword'):''?>" required>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
+                                <button class="btn btn-success" type="submit" id="btn-add-user"><i class="fa fa-plus"></i> Add</button>
                                 <a href="<?=base_url('libraries/user_account')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>

@@ -43,16 +43,15 @@ load_plugin('css',array('select','select2'));?>
             <div class="portlet-body">
              <?=form_open(base_url('libraries/user_account/edit'), array('method' => 'post', 'id' => 'frmUserAccount'))?>
                 <div class="form-body">
-                   <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                            <?php //echo $arrUser[0]['userLevel'];
-                            //print_r($arrUser);?>
-                                <label class="control-label">Access Level <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <select type="text" class="form-control" name="strAccessLevel" id="strAccessLevel" value="<?=isset($arrUser[0]['userlevel'])?$arrUser[0]['userlevel']:''?>">
-                                    <option value="">Select Access Level</option>
-                                    <?php $arrAccessLevel = userlevel();foreach( $arrAccessLevel as $level):
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group col-md-12" style="padding: 0 !important;">
+                                <label class="control-label col-md-12" style="padding: 0 !important;">Access Level<span class="required"> * </span></label>
+                                <div class="input-icon right col-md-5" style="padding: 0 !important;">
+                                    <i class="fa fa-warning tooltips i-required"></i>
+                                    <select class="form-control form-required bs-select" name="strAccessLevel" id="strAccessLevel" value="<?=isset($arrUser[0]['userlevel'])?$arrUser[0]['userlevel']:''?>">
+                                        <option value=""> </option>
+                                        <?php $arrAccessLevel = userlevel();foreach( $arrAccessLevel as $level):
                                             echo '<option value="'.$level['id'].'" '.($arrUser[0]['userLevel']==$level['id']?'selected':'').'>'.(strtoupper($level['desc'])). ' Account User</option>';
                                           endforeach; ?>
                                     </select>
@@ -240,13 +239,13 @@ load_plugin('css',array('select','select2'));?>
                     </div>
                     <!-- end of Finance Module access-->
                     
-                    <div class="row">
-                        <div class="col-sm-12">
+                    <!-- <div class="row">
+                        <div class="col-md-7">
                             <div class="form-group">
                                 <label class="control-label">Employee Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strEmpName" id="strEmpName"  value="<?=isset($arrUser[0]['empNumber'])?$arrUser[0]['empNumber']:''?>">
+                                   <select type="text" class="form-control" name="strEmpName" id="strEmpName"  value="<?=isset($arrUser[0]['empNumber'])?$arrUser[0]['empNumber']:''?>" disabled>
                                      <option value="">Select</option>
 
                                      <?php foreach($arrEmployees as $i=>$data)
@@ -258,18 +257,36 @@ load_plugin('css',array('select','select2'));?>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Username <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                   <input type="text" class="form-control" name="strUsername" value="<?=!empty($arrUser[0]['userName'])?$arrUser[0]['userName']:''?>">
+                        <div class="col-md-12">
+                            <div class="form-group col-md-12" style="padding: 0 !important;">
+                                <label class="control-label col-md-12" style="padding: 0 !important;">Employee Name</label>
+                                <div class="input-icon right col-md-5" style="padding: 0 !important;">
+                                    <select class="form-control form-required" name="strEmpName" id="strEmpName"  value="<?=isset($arrUser[0]['empNumber'])?$arrUser[0]['empNumber']:''?>" disabled>
+                                        <option value=""> </option>
+                                        <?php foreach($arrEmployees as $i=>$data)
+                                        {
+                                          echo '<option value="'.$data['empNumber'].'" '.($arrUser[0]['empNumber']==$data['empNumber']?'selected':'').'>'.(strtoupper($data['surname']).', '.(strtoupper($data['firstname']))).'</option>';
+                                        }?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group col-md-12" style="padding: 0 !important;">
+                                <label class="control-label col-md-12" style="padding: 0 !important;">Username <span class="required"> * </span></label>
+                                <div class="input-icon right col-md-5" style="padding: 0 !important;">
+                                    <input type="text" class="form-control" name="strUsername" value="<?=!empty($arrUser[0]['userName'])?$arrUser[0]['userName']:''?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">

@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
              <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-            <div class="portlet-body" id="div-philhealth style="display: none">
+            <div class="portlet-body" id="div-philhealth" style="display: none">
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-6">
