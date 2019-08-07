@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Jul 11, 2019 at 06:28 PM
--- Server version: 5.7.26-0ubuntu0.18.04.1
--- PHP Version: 7.1.30-1+ubuntu18.04.1+deb.sury.org+1
+-- Host: localhost
+-- Generation Time: Aug 07, 2019 at 10:43 AM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hrmisv10_upt`
+-- Database: `hrmis_new_version`
 --
 
 -- --------------------------------------------------------
@@ -155,7 +155,8 @@ CREATE TABLE `tblBackup` (
   `db_backup_name` varchar(100) NOT NULL DEFAULT '',
   `time_last_run` int(11) NOT NULL DEFAULT '0',
   `next_run_time` int(11) NOT NULL DEFAULT '0',
-  `status` varchar(10) NOT NULL DEFAULT ''
+  `status` varchar(10) NOT NULL DEFAULT '',
+  `xversion` varchar(6) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -172,7 +173,9 @@ CREATE TABLE `tblBackupConfig` (
   `email` varchar(50) NOT NULL DEFAULT '',
   `ftpadd` varchar(50) NOT NULL DEFAULT '',
   `ftpuname` varchar(20) NOT NULL DEFAULT '',
-  `ftppass` varchar(20) NOT NULL DEFAULT ''
+  `ftppass` varchar(20) NOT NULL DEFAULT '',
+  `xtable` text NOT NULL,
+  `xstatus` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1761,6 +1764,7 @@ CREATE TABLE `tblPayrolRegisterZone` (
 --
 
 CREATE TABLE `tblPhilhealthRange` (
+  `philHealthId` int(11) NOT NULL,
   `philhealthFrom` decimal(10,2) NOT NULL DEFAULT '0.00',
   `philhealthTo` decimal(10,2) NOT NULL DEFAULT '0.00',
   `philSalaryBase` decimal(10,2) NOT NULL DEFAULT '0.00',
@@ -2186,12 +2190,12 @@ CREATE TABLE `tblServiceRecord` (
 
 CREATE TABLE `tblSignatory` (
   `signatoryId` int(11) NOT NULL,
-  `payrollGroupCode` varchar(20) NOT NULL DEFAULT '',
+  `payrollGroupCode` varchar(20) NOT NULL,
   `signatory` text NOT NULL,
   `signatoryPosition` text NOT NULL,
   `signatoryOrder` int(11) NOT NULL DEFAULT '0',
   `sig_module` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2726,6 +2730,12 @@ ALTER TABLE `tblPayrollProcess`
   ADD KEY `appointmentCode` (`appointmentCode`);
 
 --
+-- Indexes for table `tblPhilhealthRange`
+--
+ALTER TABLE `tblPhilhealthRange`
+  ADD PRIMARY KEY (`philHealthId`);
+
+--
 -- Indexes for table `tblPlantilla`
 --
 ALTER TABLE `tblPlantilla`
@@ -2906,22 +2916,22 @@ ALTER TABLE `tblBrokenSched`
 -- AUTO_INCREMENT for table `tblChangeLog`
 --
 ALTER TABLE `tblChangeLog`
-  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157060;
+  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157082;
 --
 -- AUTO_INCREMENT for table `tblComputation`
 --
 ALTER TABLE `tblComputation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4286223;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4287217;
 --
 -- AUTO_INCREMENT for table `tblComputationInstance`
 --
 ALTER TABLE `tblComputationInstance`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4994;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4995;
 --
 -- AUTO_INCREMENT for table `tblCountry`
 --
 ALTER TABLE `tblCountry`
-  MODIFY `countryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `countryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 --
 -- AUTO_INCREMENT for table `tblCourse`
 --
@@ -2956,7 +2966,7 @@ ALTER TABLE `tblEmpAppointment`
 -- AUTO_INCREMENT for table `tblEmpBenefits`
 --
 ALTER TABLE `tblEmpBenefits`
-  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=696797;
+  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=697791;
 --
 -- AUTO_INCREMENT for table `tblEmpChild`
 --
@@ -2976,12 +2986,12 @@ ALTER TABLE `tblEmpDeductLoan`
 -- AUTO_INCREMENT for table `tblEmpDTR`
 --
 ALTER TABLE `tblEmpDTR`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372076;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372078;
 --
 -- AUTO_INCREMENT for table `tblEmpDTR_log`
 --
 ALTER TABLE `tblEmpDTR_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225051;
 --
 -- AUTO_INCREMENT for table `tblEmpDuties`
 --
@@ -2996,7 +3006,7 @@ ALTER TABLE `tblEmpExam`
 -- AUTO_INCREMENT for table `tblEmpIncome`
 --
 ALTER TABLE `tblEmpIncome`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153805;
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160885;
 --
 -- AUTO_INCREMENT for table `tblEmpIncomeAdjust`
 --
@@ -3051,7 +3061,7 @@ ALTER TABLE `tblEmpOvertime`
 -- AUTO_INCREMENT for table `tblEmpPersonal`
 --
 ALTER TABLE `tblEmpPersonal`
-  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=664;
+  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=675;
 --
 -- AUTO_INCREMENT for table `tblEmpReference`
 --
@@ -3061,7 +3071,7 @@ ALTER TABLE `tblEmpReference`
 -- AUTO_INCREMENT for table `tblEmpRequest`
 --
 ALTER TABLE `tblEmpRequest`
-  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6759;
+  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6767;
 --
 -- AUTO_INCREMENT for table `tblEmpScholarship`
 --
@@ -3101,12 +3111,12 @@ ALTER TABLE `tblExamType`
 -- AUTO_INCREMENT for table `tblFlagCeremony`
 --
 ALTER TABLE `tblFlagCeremony`
-  MODIFY `flag_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `flag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2400;
 --
 -- AUTO_INCREMENT for table `tblHolidayYear`
 --
 ALTER TABLE `tblHolidayYear`
-  MODIFY `holidayId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
+  MODIFY `holidayId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=289;
 --
 -- AUTO_INCREMENT for table `tblID`
 --
@@ -3121,7 +3131,7 @@ ALTER TABLE `tblLeave`
 -- AUTO_INCREMENT for table `tblManualDTR`
 --
 ALTER TABLE `tblManualDTR`
-  MODIFY `dtr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `dtr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `tblNonPermComputation`
 --
@@ -3153,6 +3163,11 @@ ALTER TABLE `tblPayrollGroup`
 ALTER TABLE `tblPayrollOfficer`
   MODIFY `poID` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `tblPhilhealthRange`
+--
+ALTER TABLE `tblPhilhealthRange`
+  MODIFY `philHealthId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
 -- AUTO_INCREMENT for table `tblPlantilla`
 --
 ALTER TABLE `tblPlantilla`
@@ -3176,7 +3191,7 @@ ALTER TABLE `tblPosition`
 -- AUTO_INCREMENT for table `tblProcess`
 --
 ALTER TABLE `tblProcess`
-  MODIFY `processID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5575;
+  MODIFY `processID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5578;
 --
 -- AUTO_INCREMENT for table `tblProject`
 --
