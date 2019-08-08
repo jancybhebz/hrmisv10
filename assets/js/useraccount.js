@@ -34,9 +34,14 @@ $(document).ready(function() {
         $('#Finance2').show();
     });
 
-    // $('#btn-add-user').click(function(e) {
-    //     e.preventDefault();
-    //     alert("'"+$('#strAccessLevel').val()+"'");
-    // });
+    $('#chkchangePassword').click(function(e) {
+        if($(this).prop('checked')){
+            $('#divchangePassword').css('display','block');
+            $('#strPassword').attr('required', 'required');
+        }else{
+            $('#divchangePassword').css('display','none');
+            $('#strPassword').removeAttr('required');
+        }
+    });
 
 });
