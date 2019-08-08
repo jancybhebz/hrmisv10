@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // FormValidation.init();
-    $('div.hr-officer,div.finance-officer').css('display','none');
-    $('#HR2,#Finance2').hide();
+    // $('div.hr-officer,div.finance-officer').css('display','none');
+    // $('#HR2,#Finance2').hide();
 
     $('#strAccessLevel').on('change',function() {
     	var select_access = $(this).val();

@@ -31,93 +31,86 @@ class User_account extends MY_Controller {
 	public function add()
     {
     	$arrPost = $this->input->post();
-		if(empty($arrPost))
-		{	
+		if(empty($arrPost)):
+
 			$this->load->model(array('hr/hr_model','finance/payroll_group_model'));
 			// $this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			// $this->arrData['pGroups'] = $this->payroll_group_model->getData();
 			$this->arrData['arrGroups'] = $this->user_account_model->getPayrollGroup();
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);	
-		}
-		else
-		{	
-			$strAccessLevel = $arrPost['strAccessLevel'];
-			$strEmpName = $arrPost['strEmpName'];
-			$strUsername = $arrPost['strUsername'];
-			$strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
-			// HR tabs
-			$radio1 = isset($arrPost['radio1']) ? $arrPost['radio1'] : '0';
-			$chkNotif = isset($arrPost['chkNotif']) ? $arrPost['chkNotif'] : '';
-			$chkAttdnce = isset($arrPost['chkAttdnce']) ? $arrPost['chkAttdnce'] : '';
-			$chkLib = isset($arrPost['chkLib']) ? $arrPost['chkLib'] : '';
-			$chk201 = isset($arrPost['chk201']) ? $arrPost['chk201'] : '';
-			$chkReports = isset($arrPost['chkReports']) ? $arrPost['chkReports'] : '';
-			$chkCompen = isset($arrPost['chkCompen']) ? $arrPost['chkCompen'] : '';
-			$radioHRMO = isset($arrPost['radioHRMO']) ? $arrPost['radioHRMO'] : '';
-			$chkALL = isset($arrPost['chkALL']) ? $arrPost['chkALL'] : '';
-			// Finance tabs
-			$radio1 = isset($arrPost['radio1']) ? $arrPost['radio1'] : '0';
-			$chkNotif2 = isset($arrPost['chkNotif2']) ? $arrPost['chkNotif2'] : '';
-			$chkCompen2 = isset($arrPost['chkCompen2']) ? $arrPost['chkCompen2'] : '';
-			$chkUpdate = isset($arrPost['chkUpdate']) ? $arrPost['chkUpdate'] : '';
-			$chkReports2 = isset($arrPost['chkReports2']) ? $arrPost['chkReports2'] : '';
-			$chkLib2 = isset($arrPost['chkLib2']) ? $arrPost['chkLib2'] : '';
-			if(!empty($strAccessLevel) && !empty($strEmpName) && !empty($strUsername) && !empty($strPassword))
-			{	
-				// check if exam code and/or exam desc already exist
-				if(count($this->user_account_model->checkExist($strAccessLevel, $strUsername))==0)
-				{
-					if ($strAccessLevel =='1')
-					{
-						$arrData = array(
-							'userLevel'=>$strAccessLevel,
-							'empNumber'=>$strEmpName,
-							'userName'=>$strUsername,
-							'userPassword'=>$strPassword,
-							'accessPermission'=>$radio1.';'.$chkNotif.';'.$chkAttdnce.';'.$chkLib.';'.$chk201.';'.$chkReports.';'.$chkCompen.';'.$radioHRMO.';'.$chkALL 
-					 );
-					}
-					if ($strAccessLevel =='2')
-					{
-						$arrData = array(
-							'userLevel'=>$strAccessLevel,
-							'empNumber'=>$strEmpName,
-							'userName'=>$strUsername,
-							'userPassword'=>$strPassword,
-							'accessPermission'=>$radio1.';'.$chkNotif2.';'.$chkCompen2.';'.$chkUpdate.';'.$chkReports2.';'.$chkLib2
-					 );
-					}
-					else 
-					{
-						$arrData = array(
-							'userLevel'=>$strAccessLevel,
-							'empNumber'=>$strEmpName,
-							'userName'=>$strUsername,
-							'userPassword'=>$strPassword,
-							'accessPermission'=>''
-					 );
-					}
-					$blnReturn  = $this->user_account_model->add($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Added '.$strUsername.' User_account',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','User Account added successfully.');
-					}
-					redirect('libraries/user_account');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Username/password already exists.');
-					$this->session->set_flashdata('strAccessLevel',$strAccessLevel);
-					$this->session->set_flashdata('strEmpName',$strEmpName);
-					$this->session->set_flashdata('strUsername',$strUsername);
-					$this->session->set_flashdata('strPassword',$strPassword);					//echo $this->session->flashdata('strErrorMsg');
-					redirect('libraries/user_account/add');
-				}
-			}
-		}
-    	
+		
+		else:
+
+			$empNumber = $arrPost['strEmpName'];
+			$userName = $arrPost['strUsername'];
+			$userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
+			$userLevel = $arrPost['strAccessLevel'];
+			$userPermission = ucwords(userlevel($userLevel));
+			$oth_access = '';
+			$is_assistant = 0;
+			$access = '';
+			switch ($userLevel):
+				case 1:
+					if($arrPost['hrmodule'] == 'hrassistant'):
+						$notif 	= isset($arrPost['chkNotif']) ? $arrPost['chkNotif'] : '';
+						$att 	= isset($arrPost['chkAttdnce']) ? $arrPost['chkAttdnce'] : '';
+						$libs 	= isset($arrPost['chkLib']) ? $arrPost['chkLib'] : '';
+						$sect	= isset($arrPost['chk201']) ? $arrPost['chk201'] : '';
+						$rep 	= isset($arrPost['chkReports']) ? $arrPost['chkReports'] : '';
+						$comp 	= isset($arrPost['chkCompen']) ? $arrPost['chkCompen'] : '';
+						$access = implode('',array($notif,$sect,$att,$rep,$libs,$comp));
+					else:
+						$access = '123456';
+						$is_assistant = 1;
+					endif;
+					$oth_access = $arrPost['hrmodule'];
+
+					break;
+				case 2:
+					if($arrPost['financemodule'] == 'fassistant'):
+						$notif 	= isset($arrPost['chkNotif2']) ? $arrPost['chkNotif2'] : '';
+						$compen	= isset($arrPost['chkCompen2']) ? $arrPost['chkCompen2'] : '';
+						$update	= isset($arrPost['chkUpdate']) ? $arrPost['chkUpdate'] : '';
+						$rep 	= isset($arrPost['chkReports2']) ? $arrPost['chkReports2'] : '';
+						$lib 	= isset($arrPost['chkLib2']) ? $arrPost['chkLib2'] : '';
+						$access = implode('',array($notif,$compen,$update,$rep,$lib));
+					else:
+						$access = '01234';
+						$is_assistant = 1;
+					endif;
+					$oth_access = $arrPost['financemodule'];
+
+					break;
+			endswitch;
+
+			$arrData = array('empNumber' 		=> $empNumber,
+							 'userName'			=> $userName,
+							 'userPassword' 	=> $userPassword,
+							 'userLevel' 		=> $userLevel,
+							 'userLevel' 		=> $userLevel,
+							 'is_assistant' 	=> $userPermission,
+							 'accessPermission' => $access);
+			
+			if(count($this->user_account_model->check_user_exists($userName,$empNumber)) > 0):
+				$this->session->set_flashdata('strErrorMsg','Username / Employee already exists.');
+				$this->session->set_flashdata('empNumber',$empNumber);
+				$this->session->set_flashdata('userName',$userName);
+				$this->session->set_flashdata('userPassword',$userPassword);
+				$this->session->set_flashdata('userLevel',$userLevel);
+				$this->session->set_flashdata('userPermission',$userPermission);
+				$this->session->set_flashdata('accessPermission',$access);
+				$this->session->set_flashdata('oth_access',$oth_access);
+				redirect('libraries/user_account/add');
+			else:
+				$new_employee = $this->user_account_model->add($arrData);
+
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Added '.$userName.' User_account',implode(';',$arrData),'');
+				$this->session->set_flashdata('strSuccessMsg','User Account added successfully.');
+				redirect('libraries/user_account');
+			endif;
+		endif;
+
     }
 
 	public function edit()

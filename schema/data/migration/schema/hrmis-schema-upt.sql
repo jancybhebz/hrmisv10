@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 07, 2019 at 10:43 AM
+-- Generation Time: Aug 08, 2019 at 01:24 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -435,11 +435,12 @@ CREATE TABLE `tblEmpAccount` (
   `userName` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `userPassword` varchar(255) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `userLevel` int(2) NOT NULL DEFAULT '5',
+  `is_assistant` int(11) NOT NULL DEFAULT '0',
   `userPermission` varchar(20) NOT NULL DEFAULT 'Employee',
   `accessPermission` varchar(15) NOT NULL DEFAULT '1234',
-  `assignedGroup` varchar(20) NOT NULL DEFAULT '',
-  `signatory` text NOT NULL,
-  `signatoryPosition` text NOT NULL
+  `assignedGroup` varchar(20) DEFAULT '',
+  `signatory` text,
+  `signatoryPosition` text
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2916,7 +2917,7 @@ ALTER TABLE `tblBrokenSched`
 -- AUTO_INCREMENT for table `tblChangeLog`
 --
 ALTER TABLE `tblChangeLog`
-  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157082;
+  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157085;
 --
 -- AUTO_INCREMENT for table `tblComputation`
 --
