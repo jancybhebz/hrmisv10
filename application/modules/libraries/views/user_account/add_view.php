@@ -52,7 +52,7 @@ load_plugin('css',array('select','select2'));?>
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add User Account</span>
+                    <span class="caption-subject bold uppercase"> <?=ucfirst($action)?> User Account</span>
                 </div>
             </div>
             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
@@ -184,16 +184,18 @@ load_plugin('css',array('select','select2'));?>
                                     <div class="col-md-3">&nbsp;</div>
                                 </div>
                             </div>
+                            <br><br>
+
                             <div class="form-group">
                                 <div class="col-md-9">
                                     <div class="col-md-8" style="margin-bottom: 20px;">
                                         <label>Assigned Payroll Group </label>
                                         <select class="form-control select2 form-required" name="selpayrollGrp" placeholder="" value="7">
                                             <option value="">Select</option>
-                                            <?php foreach($arrGroups as $group)
-                                            {
-                                               echo '<option value="'.$group['payrollGroupId'].'" '.($arrData[0]['payrollGroupId']==$group['payrollGroupId']?'selected':'').'>'.$group['payrollGroupName'].'</option>';
-                                            } ?>
+                                            <?php foreach($arrGroups as $group):
+                                                    $selected = count($flash_data) > 0 ? $group['payrollGroupId'] == $flash_data['assignedGroup'] ? 'selected' : '' : '';
+                                                    echo '<option value="'.$group['payrollGroupId'].'" '.$selected.'>'.$group['payrollGroupName'].'</option>';
+                                                  endforeach;?>
                                         </select>
                                     </div>
                                 </div>
