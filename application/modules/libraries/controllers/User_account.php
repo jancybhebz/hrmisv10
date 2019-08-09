@@ -47,6 +47,7 @@ class User_account extends MY_Controller {
 			$userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			$userLevel = $arrPost['strAccessLevel'];
 			$userPermission = ucwords(userlevel($userLevel));
+			$assignedGroup = $arrPost['selpayrollGrp'];
 			$is_assistant = 0;
 			$access = '';
 			switch ($userLevel):
@@ -86,6 +87,7 @@ class User_account extends MY_Controller {
 							 'userPassword' 	=> $userPassword,
 							 'userLevel' 		=> $userLevel,
 							 'is_assistant' 	=> $is_assistant,
+							 'assignedGroup' 	=> $assignedGroup,
 							 'accessPermission' => $access);
 			
 			if(count($this->user_account_model->check_user_exists($userName,$empNumber)) > 0):
@@ -118,6 +120,7 @@ class User_account extends MY_Controller {
 			$intEmpNumber = urldecode($this->uri->segment(4));
 			$this->arrData['arrUser']=$this->user_account_model->getData($intEmpNumber);
 			$this->arrData['arrUserLevel']=$this->user_account_model->getUserLevel();
+			$this->arrData['arrGroups'] = $this->user_account_model->getPayrollGroup();
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);
 		
@@ -128,6 +131,7 @@ class User_account extends MY_Controller {
 			$userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			$userLevel = $arrPost['strAccessLevel'];
 			$userPermission = ucwords(userlevel($userLevel));
+			$assignedGroup = $arrPost['selpayrollGrp'];
 			$is_assistant = 0;
 			$access = '';
 			switch ($userLevel):
@@ -166,6 +170,7 @@ class User_account extends MY_Controller {
 							 'userName'			=> $userName,
 							 'userLevel' 		=> $userLevel,
 							 'is_assistant' 	=> $is_assistant,
+							 'assignedGroup' 	=> $assignedGroup,
 							 'accessPermission' => $access);
 			
 			if(isset($arrPost['chkchangePassword'])):
@@ -186,12 +191,13 @@ class User_account extends MY_Controller {
 		$intEmpNumber = $this->uri->segment(4);
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->user_account_model->getData($intEmpNumber);
+			$arrData = $this->user_account_model->getData($intEmpNumber);
+			$this->arrData['arrData'] = count($arrData) > 0 ? $arrData[0] : $arrData;
+			$this->arrData['arrGroups'] = $this->user_account_model->getPayrollGroup();
 			$this->template->load('template/template_view','libraries/user_account/delete_view',$this->arrData);
 		}
 		else
 		{
-			$intEmpNumber = $arrPost['intEmpNumber'];
 			//add condition for checking dependencies from other tables
 			if(!empty($intEmpNumber))
 			{
@@ -202,7 +208,7 @@ class User_account extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Deleted '.$strUsername.' User_account',implode(';',$arrUser[0]),'');
 	
-					$this->session->set_flashdata('strMsg','User Account deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','User Account deleted successfully.');
 				}
 				redirect('libraries/user_account');
 			}
