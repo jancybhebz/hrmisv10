@@ -133,6 +133,32 @@ if ( ! function_exists('userlevel'))
 
     }
 }
+# HR Permissions
+if ( ! function_exists('hrPermission'))
+{
+    function hrPermission($permission_id)
+    {
+        $arrpermissions = array(
+                array('id' => 1, 'desc' => 'Notification'),
+                array('id' => 2, 'desc' => '201 Section'),
+                array('id' => 3, 'desc' => 'Attendance'),
+                array('id' => 4, 'desc' => 'Reports'),
+                array('id' => 5, 'desc' => 'Libraries'),
+                array('id' => 6, 'desc' => 'Compensation'));
+
+        $arruser_permissions = array();
+        
+        for($l=1;$l<=strlen($permission_id);$l++):
+            $key = array_search($l, array_column($arrpermissions, 'id'));
+            array_push($arruser_permissions, $arrpermissions[$key]['desc']);
+        endfor;
+
+        return $arruser_permissions;
+
+    }
+}
+
+
 
 # salary periods
 if ( ! function_exists('salary_period'))
