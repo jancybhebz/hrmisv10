@@ -66,6 +66,7 @@ class User_account_model extends CI_Model {
 	function add($arrData)
 	{			
 		$this->db->insert($this->table, $arrData);
+		echo $this->db->last_query();
 		return $this->db->insert_id();	
 	}
 	
@@ -77,6 +78,13 @@ class User_account_model extends CI_Model {
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
+	}
+
+	function check_user_exists($username,$empnumber)
+	{
+		$this->db->where('userName',$username);
+		$this->db->or_where('empNumber',$empnumber);
+		return $this->db->get('tblEmpAccount')->result_array();
 	}
 
 	function save($arrData, $intEmpNumber)
