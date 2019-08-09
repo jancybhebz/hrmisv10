@@ -38,7 +38,7 @@ class Attendance extends MY_Controller {
 		$status = array_unique(array_column($employees, 'statusOfAppointment'));
 		asort($status);
 		$this->arrData['arrStatus'] = $status;
-		
+
 		$this->template->load('template/template_view','attendance/attendance_summary/_viewall',$this->arrData);
 	}
 
