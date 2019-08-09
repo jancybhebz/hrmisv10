@@ -76,8 +76,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$row['userName']?> </td>
                             <td> <?=ucwords(userlevel($row['userLevel'])).' Account'?></td>
                             <td> <?php 
-                                    if(in_array($row['userLevel'],array('1','2'))):
+                                    if($row['userLevel'] == 1):
                                         foreach(hrPermission($row['accessPermission']) as $permission):
+                                            echo '<small><li>'.$permission.'</li></small>';
+                                        endforeach;
+                                    endif;
+
+                                    if($row['userLevel'] == 2):
+                                        foreach(financePermission($row['accessPermission']) as $permission):
                                             echo '<small><li>'.$permission.'</li></small>';
                                         endforeach;
                                     endif;

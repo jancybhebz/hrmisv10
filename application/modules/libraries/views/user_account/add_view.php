@@ -92,17 +92,17 @@ load_plugin('css',array('select','select2'));?>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkNotif" value="1"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '1') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Notification </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '1') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=hrPermission(1,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkAttdnce" value="3"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '3') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Attendance </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '3') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=hrPermission(3,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkLib" value="5"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '5') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Libraries </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '5') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=hrPermission(5,1)?> </label>
                                     </div>
                                 </div>
                             </div>
@@ -112,17 +112,17 @@ load_plugin('css',array('select','select2'));?>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chk201" value="2"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '2') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> 201 Section </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '2') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=hrPermission(2,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkReports" value="4"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '4') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Reports </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '4') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=hrPermission(4,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkCompen" value="6"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '6') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Compensation </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '6') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=hrPermission(6,1)?> </label>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@ load_plugin('css',array('select','select2'));?>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label><input type="radio" name="hrmodule" id="chkhrmo" value="hr"
-                                                <?=count($flash_data) > 0 ? $flash_data['is_assistant'] == 0 ? 'checked' : '' : ''?>> HR Officer (Access all sections)</label>
+                                                <?=count($flash_data) > 0 ? $flash_data['is_assistant'] == 0 ? 'checked' : '' : ''?>> <?=hrPermission(-1,1)?></label>
                                 </div>
                             </div>
                         </div>
@@ -154,17 +154,17 @@ load_plugin('css',array('select','select2'));?>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkNotif2" value="0"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '0') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Notification </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '0') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=financePermission(0,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkCompen2" value="1"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '1') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Compensation </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '1') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=financePermission(1,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkUpdate" value="2"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '2') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Update </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '2') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=financePermission(2,1)?> </label>
                                     </div>
                                 </div>
                             </div>
@@ -174,12 +174,12 @@ load_plugin('css',array('select','select2'));?>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkReports2" value="3"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '3') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Reports </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '3') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=financePermission(3,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkLib2" value="4"
-                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '4') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> Library </label>
+                                                <?=count($flash_data) > 0 ? (strpos($flash_data['accessPermission'], '4') !== false) && $flash_data['is_assistant'] == '1' ? 'checked' : '' : ''?>> <?=financePermission(4,1)?> </label>
                                     </div>
                                     <div class="col-md-3">&nbsp;</div>
                                 </div>
@@ -206,7 +206,7 @@ load_plugin('css',array('select','select2'));?>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label><input type="radio" name="financemodule" id="chkfoall" value="f"
-                                                <?=count($flash_data) > 0 ? $flash_data['is_assistant'] == 0 ? 'checked' : '' : ''?>> Finance Officer (Access all sections)</label>
+                                                <?=count($flash_data) > 0 ? $flash_data['is_assistant'] == 0 ? 'checked' : '' : ''?>> <?=financePermission(-1,1)?></label>
                                 </div>
                             </div>
                         </div>
