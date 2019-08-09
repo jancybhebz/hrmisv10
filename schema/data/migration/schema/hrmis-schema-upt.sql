@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 09, 2019 at 02:03 PM
+-- Generation Time: Aug 09, 2019 at 02:15 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -1667,7 +1667,7 @@ CREATE TABLE `tblOTComputationInstance` (
 
 CREATE TABLE `tblOverride` (
   `override_id` int(11) NOT NULL,
-  `override_type` int(11) NOT NULL COMMENT '1=ob;2=exdtr;3=gendtr',
+  `override_type` int(11) NOT NULL,
   `office_type` varchar(20) NOT NULL,
   `office` varchar(20) NOT NULL,
   `appt_status` varchar(20) NOT NULL,
@@ -2730,12 +2730,6 @@ ALTER TABLE `tblOTComputationInstance`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tblOverride`
---
-ALTER TABLE `tblOverride`
-  ADD PRIMARY KEY (`override_id`);
-
---
 -- Indexes for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
@@ -3177,11 +3171,6 @@ ALTER TABLE `tblOTComputation`
 --
 ALTER TABLE `tblOTComputationInstance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
---
--- AUTO_INCREMENT for table `tblOverride`
---
-ALTER TABLE `tblOverride`
-  MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblPayrollGroup`
 --
