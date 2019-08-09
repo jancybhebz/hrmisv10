@@ -77,17 +77,17 @@ $key = array_search($arrData['assignedGroup'], array_column($arrGroups, 'payroll
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkNotif" value="1"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '1') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Notification </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '1') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=hrPermission(1,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkAttdnce" value="3"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '3') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Attendance </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '3') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=hrPermission(3,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkLib" value="5"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '5') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Libraries </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '5') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=hrPermission(5,1)?> </label>
                                     </div>
                                 </div>
                             </div>
@@ -97,17 +97,17 @@ $key = array_search($arrData['assignedGroup'], array_column($arrGroups, 'payroll
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chk201" value="2"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '2') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> 201 Section </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '2') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=hrPermission(2,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkReports" value="4"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '4') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Reports </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '4') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=hrPermission(4,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkCompen" value="6"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '6') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Compensation </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '6') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=hrPermission(6,1)?> </label>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@ $key = array_search($arrData['assignedGroup'], array_column($arrGroups, 'payroll
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label><input type="radio" name="hrmodule" id="chkhrmo" value="hr"
-                                                <?=count($arrData) > 0 ? $arrData['is_assistant'] == 0 ? 'checked' : '' : ''?> disabled> HR Officer (Access all sections)</label>
+                                                <?=count($arrData) > 0 ? $arrData['is_assistant'] == 0 ? 'checked' : '' : ''?> disabled> <?=hrPermission(-1,1)?></label>
                                 </div>
                             </div>
                         </div>
@@ -140,17 +140,17 @@ $key = array_search($arrData['assignedGroup'], array_column($arrGroups, 'payroll
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkNotif2" value="0"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '0') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Notification </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '0') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=financePermission(0,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkCompen2" value="1"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '1') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Compensation </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '1') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=financePermission(1,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkUpdate" value="2"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '2') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Update </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '2') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=financePermission(2,1)?> </label>
                                     </div>
                                 </div>
                             </div>
@@ -160,12 +160,12 @@ $key = array_search($arrData['assignedGroup'], array_column($arrGroups, 'payroll
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkReports2" value="3"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '3') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Reports </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '3') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=financePermission(3,1)?> </label>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="chkLib2" value="4"
-                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '4') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> Library </label>
+                                                <?=count($arrData) > 0 ? (strpos($arrData['accessPermission'], '4') !== false) && $arrData['is_assistant'] == '1' ? 'checked' : '' : ''?> disabled> <?=financePermission(4,1)?> </label>
                                     </div>
                                     <div class="col-md-3">&nbsp;</div>
                                 </div>
@@ -187,7 +187,7 @@ $key = array_search($arrData['assignedGroup'], array_column($arrGroups, 'payroll
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label><input type="radio" name="financemodule" id="chkfoall" value="f"
-                                                <?=count($arrData) > 0 ? $arrData['is_assistant'] == 0 ? 'checked' : '' : ''?> disabled> Finance Officer (Access all sections)</label>
+                                                <?=count($arrData) > 0 ? $arrData['is_assistant'] == 0 ? 'checked' : '' : ''?> disabled> <?=financePermission(-1,1)?></label>
                                 </div>
                             </div>
                         </div>
