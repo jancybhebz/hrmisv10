@@ -7,7 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
-<?=load_plugin('css', array('datepicker','timepicker','select2'))?>
+<?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -225,7 +226,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>">
 
-<?=load_plugin('js',array('validation','datepicker','select2'));?>
+<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
 <script>
     $(document).ready(function() 
     {

@@ -7,6 +7,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
+<?=load_plugin('css',array('select','select2'));?>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -125,7 +126,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-
+<?=load_plugin('js',array('select','select2','form_validation'));?>
 
 <script>
 $(document).ready(function()
