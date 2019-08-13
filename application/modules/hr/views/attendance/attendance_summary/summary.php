@@ -1,4 +1,4 @@
-<?php load_plugin('css',array('select'));
+<?php load_plugin('css',array('select','datepicker'));
       if($_SESSION['sessUserLevel'] != 1):?>
         <style> ul.nav.nav-tabs { display: none;} .tab-content { border-top: none !important;} </style>
 <?php endif;
@@ -180,40 +180,14 @@
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
                                                 <div class="form-group" style="display: inline-flex;">
-                                                    <label style="padding: 6px;">Month</label>
-                                                    <select class="bs-select form-control" name="month">
-                                                        <?php if($this_page!='dtr'): ?>
-                                                            <option value="all">All</option>
-                                                        <?php endif; ?>
-                                                        <?php foreach (range(1, 12) as $m): ?>
-                                                            <option value="<?=sprintf('%02d', $m)?>"
-                                                                <?php 
-                                                                    if(isset($_GET['month'])):
-                                                                        echo $_GET['month'] == $m ? 'selected' : '';
-                                                                    else:
-                                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
-                                                                    endif;
-                                                                 ?> >
-                                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                    <label style="padding: 6px;">Date From</label>
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_datefrom" type="text"  style="width: 140px !important;">
                                                 </div>
                                                 <div class="form-group" style="display: inline-flex;margin-left: 10px;">
-                                                    <label style="padding: 6px;">Year</label>
-                                                    <select class="bs-select form-control" name="yr">
-                                                        <?php foreach (getYear() as $yr): ?>
-                                                            <option value="<?=$yr?>"
-                                                                <?php 
-                                                                    if(isset($_GET['yr'])):
-                                                                        echo $_GET['yr'] == $yr ? 'selected' : '';
-                                                                    else:
-                                                                        echo $yr == date('Y') ? 'selected' : '';
-                                                                    endif;
-                                                                 ?> >  
-                                                            <?=$yr?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                    <label style="padding: 6px;">Date To</label>
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_dateto" type="text" style="width: 140px !important;">
                                                 </div>
+                                                &nbsp;
                                                 <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
                                             <?=form_close()?>
                                         </center>
@@ -319,10 +293,15 @@
     </div>
 </div>
 
-<?php load_plugin('js',array('select'));?>
+<?php load_plugin('js',array('select','datepicker'));?>
 <script>
     $(document).ready(function() {
         $('.loading-image, #div_hide').hide();
         $('#employee_view').show();
+
+        $('.date-picker').datepicker();
+        $('.date-picker').on('changeDate', function(){
+            $(this).datepicker('hide');
+        });
     });
 </script>

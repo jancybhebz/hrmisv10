@@ -63,3 +63,12 @@ if ( ! function_exists('get_weekdays'))
 
 }
 
+# convert12 hr time; 24-time required
+if ( ! function_exists('convert_12'))
+{
+    function convert_12($time)
+    {
+        return date('h:i', strtotime($time));
+    }
+
+}

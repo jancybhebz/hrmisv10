@@ -1,7 +1,7 @@
-<?=load_plugin('css', array('profile-2','datatables','select2'))?>
+<?=load_plugin('css', array('profile-2','datatables'))?>
 <?php 
-    $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-    $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+    $datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m-d');
+    $dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m-d');
  ?>
 
 <div class="tab-pane active" id="tab_1_4">
@@ -20,7 +20,7 @@
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?yr='.$yr.'&month='.$month?>">Edit Mode</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Edit Mode</a></li>
                             <li>
                                 <a href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a></li>
                             <li>
@@ -93,12 +93,12 @@
                             <td style="display: none;"></td>
                             <td style="display: none;"></td>
                         <?php else: ?>
-                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inAM'])) : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outAM'])) : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inPM'])) : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outPM'])) : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inOT'])) : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ''?></td>
+                            <td><?=isset($dtr['dtrdata']['inAM'])  > 0 ? convert_12($dtr['dtrdata']['inAM'])  : ''?></td>
+                            <td><?=isset($dtr['dtrdata']['outAM']) > 0 ? convert_12($dtr['dtrdata']['outAM']) : ''?></td>
+                            <td><?=isset($dtr['dtrdata']['inPM'])  > 0 ? convert_12($dtr['dtrdata']['inPM'])  : ''?></td>
+                            <td><?=isset($dtr['dtrdata']['outPM']) > 0 ? convert_12($dtr['dtrdata']['outPM']) : ''?></td>
+                            <td><?=isset($dtr['dtrdata']['inOT'])  > 0 ? convert_12($dtr['dtrdata']['inOT'])  : ''?></td>
+                            <td><?=isset($dtr['dtrdata']['outOT']) > 0 ? convert_12($dtr['dtrdata']['outOT']) : ''?></td>
                             <td><?php 
                                     echo count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
                                     if($dtr['obremarks']!=''):
@@ -180,7 +180,7 @@
 
 <?php include('modals/_dtr_modal.php') ?>
 
-<?=load_plugin('js', array('datatables','select2','datatables-scroller'))?>
+<?=load_plugin('js', array('datatables','datatables-scroller'))?>
 <script src="<?=base_url('assets/js/custom/dtr_view-js.js')?>"></script>
 
 <script>
