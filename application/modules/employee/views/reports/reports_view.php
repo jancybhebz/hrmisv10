@@ -47,8 +47,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label"><strong>Type of Reports : </strong><span class="required"> * </span></label>
-                                 <select name="strReporttype" id="strReporttype" type="text" class="form-control" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
-                                <option value="">Select Report Type</option>
+                                 <select name="strReporttype" id="strReporttype" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strReporttype'))?$this->session->userdata('strReporttype'):''?>">
+                                <option value="">-- SELECT REPORT TYPE --</option>
                                 <option>Daily Time Record</option>
                                 <option>Service Record</option>
                                 <option>Remittances</option>
@@ -63,8 +63,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group remit">
                            <label class="control-label">Type of Remittances : </label>
-                                 <select name="strRemittype" id="strRemittype" type="text" class="form-control"  value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
-                                <option value="">Select Remittance</option>
+                                 <select name="strRemittype" id="strRemittype" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strRemittype'))?$this->session->userdata('strRemittype'):''?>">
+                                <option value="">-- SELECT REMITTANCE --</option>
                                 <option>Conso Loan</option>
                                 <option>E-Cash</option>
                                 <option>GSIS Educational</option>
@@ -78,8 +78,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-5">
                         <div class="form-group">
                            <label class="control-label">Month : <span class="required"> * </span></label>
-                                 <select id="month" name="month" class="form-control select2" style="width: 40%;">
-                                    <option value="">Select Month</option>
+                                 <select id="month" name="month" class="form-control bs-select form-required" style="width: 40%;">
+                                    <option value="">-- SELECT MONTH --</option>
                                     <?php
                                     $monthArray = range(1, 12);
                                     foreach ($monthArray as $month) {
@@ -93,14 +93,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
                  <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-1">
                         <div class="form-group">
                             <label class="control-label">Date : <span class="required"> * </span></label>
                                   <?php
                                 $already_selected_value = date("Y");
                                 $earliest_year = 2003;
 
-                                print '<select name="date" id="date">';
+                                print '<select name="date" id="date" class="form-control bs-select form-required">';
                                 foreach (range(date('Y'), $earliest_year) as $x) {
                                     print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
                                 }
