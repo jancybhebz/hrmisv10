@@ -111,12 +111,17 @@ class Migrate_model extends CI_Model {
 
     }
 
+    /* STEP 2; Fix Date*/
     function fix_datetime_fields()
     {
     	$sql_file = 'schema/hrmisv10/hrmis-schema-upt_002.sql';
+    	$sql_file_S3 = 'schema/hrmisv10/hrmis-schema-upt_002-s3.sql';
     	# remove file contents
     	if(file_exists($sql_file)):
 	    	unlink($sql_file);
+	    endif;
+	    if(file_exists($sql_file_S3)):
+	    	unlink($sql_file_S3);
 	    endif;
 
     	$tbldb_hrmis = $this->db->list_tables();
@@ -150,19 +155,28 @@ class Migrate_model extends CI_Model {
     		endif;
 
     		if(count($fields_alter) > 0):
-	    		$this->write_sqlstmt("# Fix DateTime field in table ".$tbl,$sql_file);
+	    		$this->write_sqlstmt("# Fix DateTime field in table ".$tbl,$sql_file_S3);
 	    		# Alter table, change date/datetime to varchar
-	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_ddtime_to_varchar).";",$sql_file);
+	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_ddtime_to_varchar).";",$sql_file_S3);
 	    		foreach($fields_alter as $field):
 	    			# the update table, set null to datetime field with 0000-00-00 value
-	    			$this->write_sqlstmt("UPDATE `".$tbl."` SET `".$field."` = NULL WHERE `".$field."` LIKE '0000%' OR `".$field."` LIKE '%-00-%' OR `".$field."` LIKE '%-00';",$sql_file);
+	    			$this->write_sqlstmt("UPDATE `".$tbl."` SET `".$field."` = NULL WHERE `".$field."` LIKE '0000%' OR `".$field."` LIKE '%-00-%' OR `".$field."` LIKE '%-00';",$sql_file_S3);
 	    			# back the field to its field date/datetime
 	    		endforeach;
 	    		# Alter table, change varchar to date/datetime
-	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_varchar_to_ddtime).";",$sql_file);
+	    		$this->write_sqlstmt("ALTER TABLE `".$tbl."` ".implode(',',$fields_varchar_to_ddtime).";",$sql_file_S3);
 	    	endif;
+
     	endforeach;
     }
+
+    /* STEP 3; Fix Time*/
+    /* STEP 4; fix DateTime field in table tblEmpDTR*/
+    /* STEP 5; Change inPM to Military Time*/
+    /* STEP 6; Change outPM to Military Time*/
+    /* STEP 7; Change inOT to Military Time*/
+    /* STEP 8; Change outOT to Military Time*/
+    /* STEP 9; Drop old field with old data */
 
     function update_fields()
     {
