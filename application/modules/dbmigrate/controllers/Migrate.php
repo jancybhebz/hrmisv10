@@ -79,7 +79,7 @@ class Migrate extends MY_Controller
             endif;
             # append file in schema update
             $str=file_get_contents($path);
-            file_put_contents('schema/hrmisv10/hrmis-schema-upt.sql', $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+            file_put_contents($path, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
 
             unlink($path);
         endif;
@@ -110,7 +110,7 @@ class Migrate extends MY_Controller
             endif;
             # append file in schema update
             $str=file_get_contents($path);
-            file_put_contents('schema/hrmisv10/hrmis-schema-upt_002-s3.sql', $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+            file_put_contents($path, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
 
             unlink($path);
         endif;
@@ -161,18 +161,14 @@ class Migrate extends MY_Controller
     /* STEP 5; Change inPM to Military Time*/
     function fix_dtr_inpm_military_time()
     {
+        echo '<br>Fix DTR inPM to Military Time..';
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s5.sql';
 
         # change inPM to Military Time 
         $this->Migrate_model->write_sqlstmt("# Change inPM to Military Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inPM`  `inPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inPM` TIME NULL AFTER  `inPM_old_data`;",$path);
-        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inPM` = 
-                                                CASE
-                                                    WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) 
-                                                    WHEN (`inPM_old_data` = '00:00:00') THEN NULL 
-                                                    ELSE `inPM_old_data` 
-                                                END;",$path);
+        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inPM` = CASE WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inPM_old_data` = '00:00:00') THEN NULL ELSE `inPM_old_data` END;",$path);
 
         $total_line = 0;
         $ctrcomment = 0;
@@ -208,12 +204,7 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("# Change outPM to Military Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL AFTER  `outPM_old_data`;",$path);
-        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outPM` =   
-                                                CASE 
-                                                    WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) 
-                                                    WHEN (`outPM_old_data` = '00:00:00') THEN NULL 
-                                                    ELSE `outPM_old_data` 
-                                                END;",$path);
+        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outPM` = CASE WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outPM_old_data` = '00:00:00') THEN NULL ELSE `outPM_old_data` END;",$path);
 
         $total_line = 0;
         $ctrcomment = 0;
@@ -249,12 +240,7 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("# Change inOT to Military Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL AFTER  `inOT_old_data`;",$path);
-        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inOT` =   
-                                                 CASE 
-                                                     WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) 
-                                                     WHEN (`inOT_old_data` = '00:00:00') THEN NULL 
-                                                     ELSE `inOT_old_data` 
-                                                 END;",$path);
+        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inOT` = CASE WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inOT_old_data` = '00:00:00') THEN NULL ELSE `inOT_old_data` END;",$path);
 
         $total_line = 0;
         $ctrcomment = 0;
@@ -290,12 +276,7 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("# Change outOT to Military Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL AFTER  `outOT_old_data`;",$path);
-        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outOT` =   
-                                                 CASE 
-                                                     WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) 
-                                                     WHEN (`outOT_old_data` = '00:00:00') THEN NULL 
-                                                     ELSE `outOT_old_data` 
-                                                 END;",$path);
+        $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outOT` = CASE WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outOT_old_data` = '00:00:00') THEN NULL ELSE `outOT_old_data` END;",$path);
 
         $total_line = 0;
         $ctrcomment = 0;
@@ -378,7 +359,7 @@ class Migrate extends MY_Controller
             endif;
             # append file in schema update
             $str=file_get_contents($path);
-            file_put_contents('schema/hrmisv10/hrmis-schema-upt.sql', $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+            file_put_contents($path, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
 
             unlink($path);
         endif;
@@ -408,7 +389,7 @@ class Migrate extends MY_Controller
             endif;
             # append file in schema update
             $str=file_get_contents($path);
-            file_put_contents('schema/hrmisv10/hrmis-schema-upt.sql', $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+            file_put_contents($path, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
 
             unlink($path);
         endif;
@@ -439,13 +420,13 @@ class Migrate extends MY_Controller
             endif;
             # append file in schema update
             $str=file_get_contents($path);
-            file_put_contents('schema/hrmisv10/hrmis-schema-upt.sql', $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+            file_put_contents($path, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
 
             unlink($path);
         endif;
 
         $this->Migrate_model->drop_dbase();
-        echo 'Database successfully updated... Migration log is added in schema/hrmisv10/hrmis-schema-upt.sql.. Click here to <a class="btn btn-xs" href="login"> Login </a>';
+        echo 'Database successfully updated... Migration log is added in schema/hrmisv10/hrmis-schema-upt.sql.. Click here to <u><b><a class="btn btn-xs" href="login"> Login </a></b></u>';
     }
 
 

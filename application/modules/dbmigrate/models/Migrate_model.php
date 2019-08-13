@@ -287,7 +287,7 @@ class Migrate_model extends CI_Model {
 			    $file = fopen($path,"r");
 			    while(! feof($file)):
 			        $query = fgets($file);
-			        echo $query;'<br>';
+			        echo $query.'<br>';
 			        if($query != ''):
 			        	$pos = strpos($query,'ci_sessions');
 			        	if($pos == false):
@@ -299,7 +299,7 @@ class Migrate_model extends CI_Model {
 			    endwhile;
 			    fclose($file);
 			endif;
-			echo '<br>Database Import Successfully!!...';
+			echo '<br>Database Modified Successfully!!...';
 		else:
 			$sql_contents = file_get_contents($path);
 			$sql_contents = explode(";", $sql_contents);
