@@ -6,7 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css', array('datepicker','timepicker'))?>
+<?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -46,9 +46,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                            <label class="control-label"><strong>Type of Profile : </strong><span class="required"> * </span></label>
-                                <select name="strProfileType" id="strProfileType" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strProfileType'))?$this->session->userdata('strProfileType'):''?>" onchange="showtextbox()">
-                                <option value="">Select Personal Data</option>
-                                <option value=""></option>
+                                <select name="strProfileType" id="strProfileType" type="text" class="form-control bs-select form-required" required="" value="<?=!empty($this->session->userdata('strProfileType'))?$this->session->userdata('strProfileType'):''?>" onchange="showtextbox()">
+                                <option value="">-- SELECT PERSONAL DATA --</option>
                                 <option value="Profile">Profile</option>
                                 <option value="Family">Family Background</option>
                                 <option value="Educational">Educational Attainment</option>
@@ -1310,7 +1309,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script type="text/javascript" src="<?=base_url('assets/js/pds_update.js')?>">
 
-<?=load_plugin('js',array('validation','datepicker'));?>
+<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
 <script>
     $(document).ready(function() 
     {

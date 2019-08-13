@@ -7,7 +7,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
-<?=load_plugin('css', array('datepicker','timepicker'))?>
+<?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
 
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -180,8 +180,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Authorized Official (Signatory) :</label>
-                            <select name="strSignatory" id="strSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
-                                    <option value="">Select</option>
+                            <select name="strSignatory" id="strSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
+                                    <option value="">-- SELECT SIGNATORY --</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
@@ -206,7 +206,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 
-<?=load_plugin('js',array('validation','datepicker'));?>
+<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
 <script>
     $(document).ready(function() 
     {
