@@ -186,8 +186,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                        <label class="control-label">In Case of Vacation Leave : </label>
-                              <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
-                                 <option value="">Select</option>
+                              <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
+                                 <option value="">-- Select --</option>
                                  <option value="within the country">within the country</option>
                                  <option value="abroad">abroad</option>
                              </select>
