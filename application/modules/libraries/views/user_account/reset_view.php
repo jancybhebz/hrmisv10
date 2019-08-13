@@ -59,7 +59,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                             <input type="hidden" name="intEmpNumber" value="<?=$this->uri->segment(4)?>">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Save</button>
+                                <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/user_account')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>

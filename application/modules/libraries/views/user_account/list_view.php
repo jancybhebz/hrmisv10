@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Employee Name </th>
                             <th> Username </th>
                             <th> Access Level </th>
-                            <th> User Permission </th>
+                            <th> Access Permission </th>
                             <th class="no-sort" style="text-align: center;"> Actions </th>
                         </tr>
                     </thead>
@@ -74,32 +74,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$row['empNumber']?> </td>
                             <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middlename']?> </td>
                             <td> <?=$row['userName']?> </td>
-                            <td> <?=$row['userLevel']?> </td>
-                            <td> 
-                            <?php if ($row['userLevel'] == 1) 
-                                { 
-                                 echo 'HR';
-                                } 
-                                else if ($row['userLevel'] == 2) 
-                                { 
-                                 echo 'Finance';
-                                } 
-                                else if ($row['userLevel'] == 3) 
-                                { 
-                                 echo 'Officer';
-                                }
-                                else if ($row['userLevel'] == 4) 
-                                { 
-                                 echo 'Executive';
-                                }
-                                else if ($row['userLevel'] == 5) 
-                                { 
-                                 echo 'Employee';
-                                }
-                                else
-                                {  echo '';
-                                }
-                            ?>
+                            <td> <?=ucwords(userlevel($row['userLevel'])).' Account'?></td>
+                            <td> <?php 
+                                    if($row['userLevel'] == 1):
+                                        foreach(hrPermission($row['accessPermission']) as $permission):
+                                            echo '<small><li>'.$permission.'</li></small>';
+                                        endforeach;
+                                    endif;
+
+                                    if($row['userLevel'] == 2):
+                                        foreach(financePermission($row['accessPermission']) as $permission):
+                                            echo '<small><li>'.$permission.'</li></small>';
+                                        endforeach;
+                                    endif;
+                                 ?>
                             </td>
                             <td width="150px" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/user_account/edit/'.$row['empNumber'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>

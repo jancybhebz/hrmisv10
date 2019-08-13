@@ -1,4 +1,6 @@
-<?php load_plugin('css',array('datatables'));?>
+<?php
+    $_GET['status'] = isset($_GET['status']) ? $_GET['status'] : 'all-employees';
+    load_plugin('css',array('datatables'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -36,6 +38,23 @@
                             <i class="icon-users font-dark"></i>
                             <span class="caption-subject bold uppercase"> List of Employees</span>
                         </div>
+                        <div class="page-toolbar">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> <?=ucwords(str_replace('-',' ',strtolower($_GET['status'])))?>
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a href="<?=base_url('hr/attendance/view_all?status=all-employees')?>"> All Employees</a>
+                                    </li>
+                                    <?php foreach($arrStatus as $status): if($status!='' && strtolower(str_replace(' ','-',$status)) != $_GET['status']): ?>
+                                        <li>
+                                            <a href="<?=base_url('hr/attendance/view_all?status='.strtolower(str_replace(' ','-',$status)))?>"> <?=ucwords(str_replace('-',' ',strtolower($status)))?></a>
+                                        </li>
+                                    <?php endif; endforeach; ?>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="portlet-body">
                         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
@@ -45,22 +64,29 @@
                                     <th> No. </th>
                                     <th> Employee Number </th>
                                     <th> Name </th>
+                                    <th> Status </th>
                                     <th> Office </th>
                                     <th> Position </th>
                                     <th style="text-align: center;"> Action </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no=1; foreach($arrEmployees as $row): ?>
-                                    <tr class="odd gradeX ">
-                                        <td><?=$no++?> </td>
-                                        <td> <?=$row['empNumber']?></a> </td>
-                                        <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
-                                        <td> <?=employee_office($row['empNumber'])?> </td>
-                                        <td> <?=$row['positionDesc']?></td>
-                                        <td style="text-align: center;"> <a href="<?=base_url('hr/attendance_summary/index').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                <?php   $no=1;
+                                        foreach($arrEmployees as $row):
+
+                                            if((strtolower(str_replace(' ','-',$row['statusOfAppointment'])) == strtolower(str_replace(' ','-',$_GET['status']))) || $_GET['status'] == 'all-employees'): ?>
+                                                <tr class="odd gradeX ">
+                                                    <td><?=$no++?> </td>
+                                                    <td> <?=$row['empNumber']?></a> </td>
+                                                    <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
+                                                    <td> <?=$row['statusOfAppointment']?> </td>
+                                                    <td> <?=employee_office($row['empNumber'])?> </td>
+                                                    <td> <?=$row['positionDesc']?></td>
+                                                    <td style="text-align: center;"> <a href="<?=base_url('hr/attendance_summary/index').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
+                                                </tr>
+                                <?php
+                                            endif;
+                                        endforeach; ?>
                             </tbody>
                         </table>
                     </div>

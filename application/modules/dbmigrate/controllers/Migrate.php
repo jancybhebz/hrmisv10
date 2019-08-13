@@ -21,10 +21,15 @@ class Migrate extends MY_Controller
         $dbname = $_GET['dbname'];
         $uname = $_GET['uname'];
         $pass = $_GET['pass'];
+        $pass = str_replace('^amp;','&',$pass);
+        $pass = str_replace('^atrsk;','*',$pass);
+        $pass = str_replace('^pls;','+',$pass);
+        $pass = str_replace('^hash;','#',$pass);
 
         echo 'host: '.$host;
         echo '<br>dbname: '.$dbname;
         echo '<br>uname: '.$uname;
+        echo '<br>pass: '.$pass;
 
         # update .env file
         # read the entire string

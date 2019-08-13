@@ -134,6 +134,82 @@ if ( ! function_exists('userlevel'))
     }
 }
 
+# HR Permissions
+if ( ! function_exists('hrPermission'))
+{
+    function hrPermission($permission_id,$desc=0)
+    {
+        $arrpermissions = array(
+                array('id' => 1, 'desc' => 'Notification'),
+                array('id' => 2, 'desc' => '201 Section'),
+                array('id' => 3, 'desc' => 'Attendance'),
+                array('id' => 4, 'desc' => 'Reports'),
+                array('id' => 5, 'desc' => 'Libraries'),
+                array('id' => 6, 'desc' => 'Compensation'));
+
+        $arruser_permissions = array();
+
+        for($l=1;$l<=strlen($permission_id);$l++):
+            $key = array_search($l, array_column($arrpermissions, 'id'));
+            array_push($arruser_permissions, $arrpermissions[$key]['desc']);
+        endfor;
+
+        if($desc):
+            if($permission_id == -1):
+                return 'HR Officer (Access All sections)';
+            else:
+                $key = array_search($permission_id, array_column($arrpermissions, 'id'));
+                return $arrpermissions[$key]['desc'];
+            endif;
+        else:
+            if(strlen($permission_id) == count($arrpermissions) || $permission_id == -1):
+                return array('HR Officer (Access All sections)');
+            else:
+                return $arruser_permissions;
+            endif;
+        endif;
+
+    }
+}
+
+# Finance Permissions
+if ( ! function_exists('financePermission'))
+{
+    function financePermission($permission_id,$desc=0)
+    {
+        $arrpermissions = array(
+                array('id' => 0, 'desc' => 'Notification'),
+                array('id' => 1, 'desc' => 'Compensation'),
+                array('id' => 2, 'desc' => 'Update'),
+                array('id' => 3, 'desc' => 'Reports'),
+                array('id' => 4, 'desc' => 'Library'));
+
+        $arruser_permissions = array();
+
+        for($l=1;$l<=strlen($permission_id);$l++):
+            $key = array_search($l, array_column($arrpermissions, 'id'));
+            array_push($arruser_permissions, $arrpermissions[$key]['desc']);
+        endfor;
+
+        if($desc):
+            if($permission_id == -1):
+                return 'Finance Officer (Access All sections)';
+            else:
+                $key = array_search($permission_id, array_column($arrpermissions, 'id'));
+                return $arrpermissions[$key]['desc'];
+            endif;
+        else:
+            if(strlen($permission_id) == count($arrpermissions) || $permission_id == -1):
+                return array('Finance Officer (Access All sections)');
+            else:
+                return $arruser_permissions;
+            endif;
+        endif;
+
+    }
+}
+
+
 # salary periods
 if ( ! function_exists('salary_period'))
 {
