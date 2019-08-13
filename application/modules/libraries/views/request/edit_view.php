@@ -89,7 +89,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Office Name <span class="required"> * </span></label>
+                                <label class="control-label">Office Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strOfficeName">
@@ -106,7 +106,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Employee Name <span class="required"> * </span></label>
+                                <label class="control-label">Employee Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strName">
@@ -124,14 +124,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>1ST SIGNATORY </strong> <span class="required"> * </span></label>
+                                <label class="control-label"><strong>1ST SIGNATORY </strong> </label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Action <span class="required"> * </span></label>
+                                <label class="control-label">Action </label>
                                 <div class="input-icon right">
                                 <?php //print_r($arrRequest); 
                                     $arrSig1 = explode(':',$arrRequest[0]['Signatory1']);
@@ -152,7 +152,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Signatory <span class="required"> * </span></label>
+                                <label class="control-label">Signatory </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="str1stSignatory" id="str1stSignatory">
@@ -169,7 +169,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Officer <span class="required"> * </span></label>
+                                <label class="control-label">Officer </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="str1stOfficer" id="str1stOfficer">
@@ -187,7 +187,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>2ND SIGNATORY </strong> <span class="required"> * </span></label>
+                                <label class="control-label"><strong>2ND SIGNATORY </strong> </label>
                             </div>
                         </div>
                     </div>
@@ -249,7 +249,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>3RD SIGNATORY </strong> <span class="required"> * </span></label>
+                                <label class="control-label"><strong>3RD SIGNATORY </strong> </label>
                             </div>
                         </div>
                     </div>
@@ -413,50 +413,6 @@ var FormValidation = function () {
                         minlength: 1,
                         required: true,
                     },
-                    strOfficeName: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strName: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    str1stSigAction: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    str1stSignatory: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    str1stOfficer: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    // str2ndSigAction: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str2ndSignatory: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str2ndOfficer: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str3rdSigAction: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str3rdSignatory: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str3rdOfficer: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
                     str4thSigAction: {
                         minlength: 1,
                         required: true,
