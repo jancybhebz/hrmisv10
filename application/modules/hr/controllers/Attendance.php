@@ -76,10 +76,10 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
-		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
 
 		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
 		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
@@ -88,7 +88,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
 		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
 		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
-		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
+		// $this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
 		if(in_array(check_module(),array('officer','executive'))):
 			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
 		endif;

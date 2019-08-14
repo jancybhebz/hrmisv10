@@ -47,25 +47,25 @@ class Attendance_summary_model extends CI_Model {
 		}
 	}
 
-	public function getemp_dtr($empid, $month, $yr)
+	public function getemp_dtr($empid, $datefrom, $dateto)
 	{
-		// echo '<pre>';
+		$this->load->model('libraries/Holiday_model');
+		echo '<pre>';
 		$this->load->helper('dtr_helper');
 		$this->load->model('finance/Dtr_model');
-		$month = sprintf('%02d', $month);
 
+		echo '<br>txtdtr_datefrom '.$datefrom;
+		echo '<br>txtdtr_dateto '.$dateto;
+		
 		# DTR Data
-		// $this->db->order_by('dtrDate', 'asc');
-		// $this->db->where('empNumber', $empid);
-		// $this->db->like('dtrDate', $yr.'-'.$month, 'after');
-		// $arrData = $this->db->get('tblEmpDTR')->result_array();
-
-		$arrData = $this->Dtr_model->getData($empid,$yr,$month);
-
+		
+		$arrData = $this->Dtr_model->getData($empid,0,0,$datefrom,$dateto);
+		$reg_holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		
+		print_r($reg_holidays);
+		die();
 		# Regular Holiday
-		$this->db->join('tblHolidayYear','tblHolidayYear.holidayCode = tblHoliday.holidayCode','inner');
-		$this->db->like('holidayDate', $yr.'-'.$month, 'after');
-		$reg_holidays = $this->db->get('tblHoliday')->result_array();
+		
 
 		# Local Holiday
 		$emplocholiday = $this->getLocalHolidays($empid,$month,$yr);
@@ -230,7 +230,11 @@ class Attendance_summary_model extends CI_Model {
 		$total_days_present = 0;
 
 		$arrdtrData = array();
+
+		
 		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
+			echo '<br>day '.$day;
+			echo '<br>';
 			$bsremarks = '';
 			$obremarks = '';
 			$toremarks = '';
@@ -529,9 +533,9 @@ class Attendance_summary_model extends CI_Model {
 			# Total undertime
 			$total_undertime = $total_undertime + $undertime;
 
-			// print_r($emp_dtrdata);
+			print_r($emp_dtrdata);
 
-			// echo '<hr>';
+			echo '<hr>';
 		endforeach;
 		
 		$arrdtrData = array('dtr' 			 	 => $arrdtrData,
@@ -549,11 +553,11 @@ class Attendance_summary_model extends CI_Model {
 							'total_days_lwop'	 => $total_days_lwop,
 							'total_days_present' => $total_days_present);
 
-		return $arrdtrData;
+		// return $arrdtrData;
 		
 		# PRINTDIE
 		// print_r($arrdtrData);
-		// die();
+		die();
 	}
 
 	# Begin Broken Sched
