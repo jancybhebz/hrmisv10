@@ -8,7 +8,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
-
+<?php
+    
+    $month = isset($_GET['month']) ? $_GET['month'] : date('F');
+    
+?>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -56,8 +60,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label class="control-label">For the month of : <span class="required"> * </span></label>
-                              <input name="dtmMonthOf" id="dtmMonthOf" class="form-control" size="10" type="text" value="" autocomplete="off">
+                        <label style="padding: 6px;">For the Month of : <span class="required"> * </span></label>
+                            <select class="bs-select form-control" name="dtmMonthOf" id="dtmMonthOf" >
+                                <?php foreach (range(1, 12) as $m): ?>
+                                    <option value="<?=sprintf('%02d', $m)?>"
+                                        <?php 
+                                            if(isset($_GET['month'])):
+                                                echo $_GET['month'] == $m ? 'selected' : '';
+                                            else:
+                                                echo $m == sprintf('%02d', date('m')) ? 'selected' : '';
+                                            endif;
+                                         ?> >
+                                        <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                <?php endforeach; ?>
+                            </select>
                     </div>
                 </div>
             </div>
