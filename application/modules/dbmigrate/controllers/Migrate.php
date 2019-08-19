@@ -158,14 +158,14 @@ class Migrate extends MY_Controller
         echo 'DateTime field in table Dtr successfully fixed...';
     }
 
-    /* STEP 5; Change inPM to Military Time*/
+    /* STEP 5; Change inPM to 24-H Time*/
     function fix_dtr_inpm_military_time()
     {
-        echo '<br>Fix DTR inPM to Military Time..';
+        echo '<br>Fix DTR inPM to 24-H Time..';
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s5.sql';
 
-        # change inPM to Military Time 
-        $this->Migrate_model->write_sqlstmt("# Change inPM to Military Time",$path);
+        # change inPM to 24-H Time 
+        $this->Migrate_model->write_sqlstmt("# Change inPM to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inPM`  `inPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inPM` TIME NULL AFTER  `inPM_old_data`;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inPM` = CASE WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inPM_old_data` = '00:00:00') THEN NULL ELSE `inPM_old_data` END;",$path);
@@ -192,16 +192,16 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.inPM to Military Time...';
+        echo 'Change tblEmpDTR.inPM to 24-H Time...';
     }
 
-    /* STEP 6; Change outPM to Military Time*/
+    /* STEP 6; Change outPM to 24-H Time*/
     function fix_dtr_outpm_military_time()
     {
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s6.sql';
 
-        # change outPM to Military Time 
-        $this->Migrate_model->write_sqlstmt("# Change outPM to Military Time",$path);
+        # change outPM to 24-H Time 
+        $this->Migrate_model->write_sqlstmt("# Change outPM to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL AFTER  `outPM_old_data`;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outPM` = CASE WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outPM_old_data` = '00:00:00') THEN NULL ELSE `outPM_old_data` END;",$path);
@@ -228,16 +228,16 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.outPM to Military Time...';
+        echo 'Change tblEmpDTR.outPM to 24-H Time...';
     }
 
-    /* STEP 7; Change inOT to Military Time*/
+    /* STEP 7; Change inOT to 24-H Time*/
     function fix_dtr_inot_military_time()
     {
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s7.sql';
 
-        # change inOT to Military Time 
-        $this->Migrate_model->write_sqlstmt("# Change inOT to Military Time",$path);
+        # change inOT to 24-H Time 
+        $this->Migrate_model->write_sqlstmt("# Change inOT to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL AFTER  `inOT_old_data`;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inOT` = CASE WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inOT_old_data` = '00:00:00') THEN NULL ELSE `inOT_old_data` END;",$path);
@@ -264,16 +264,16 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.inOT to Military Time...';
+        echo 'Change tblEmpDTR.inOT to 24-H Time...';
     }
 
-    /* STEP 8; Change outOT to Military Time*/
+    /* STEP 8; Change outOT to 24-H Time*/
     function fix_dtr_outot_military_time()
     {
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s8.sql';
 
-        # change outOT to Military Time 
-        $this->Migrate_model->write_sqlstmt("# Change outOT to Military Time",$path);
+        # change outOT to 24-H Time 
+        $this->Migrate_model->write_sqlstmt("# Change outOT to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL AFTER  `outOT_old_data`;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outOT` = CASE WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outOT_old_data` = '00:00:00') THEN NULL ELSE `outOT_old_data` END;",$path);
@@ -300,7 +300,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.outOT to Military Time...';
+        echo 'Change tblEmpDTR.outOT to 24-H Time...';
     }
 
     /* STEP 9; Drop old field with old data */

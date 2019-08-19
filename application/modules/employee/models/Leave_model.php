@@ -131,14 +131,18 @@ class Leave_model extends CI_Model {
 
 	# get Leaves
 	// TODO:: SURE FOR THIS FUNCTION
-	function getleave($empid, $month=0, $yr=0)
+	function getleave($empid,$datefrom,$dateto)
 	{
-		$arrcond = array('empNumber' => $empid);
-		if($month != 0) : $arrcond['periodMonth']=$month; endif;
-		if($yr != 0) : $arrcond['periodYear']=$yr; endif;
+		// $arrcond = array('empNumber' => $empid);
+		// if($month != 0) : $arrcond['periodMonth']=$month; endif;
+		// if($yr != 0) : $arrcond['periodYear']=$yr; endif;
 
-		$this->db->order_by('lb_id' , 'desc');
-		return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
+		// $this->db->order_by('lb_id' , 'desc');
+		// return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
+
+		$this->db->where('empNumber', $empid);
+		$this->db->where("(leaveFrom between '".$datefrom."' and '".$dateto."' or leaveTo between '".$datefrom."' and '".$dateto."')");
+		return $this->db->get('tblEmpLeave')->result_array();
 	}
 
 	# add leave

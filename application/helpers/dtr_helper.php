@@ -13,6 +13,18 @@ if ( ! function_exists('toMinutes'))
 
 }
 
+# get Flag Ceremony Time
+if ( ! function_exists('flag_ceremony_time'))
+{
+    function flag_ceremony_time()
+    {
+        $CI =& get_instance();
+        $res = $CI->db->get('tblAgency')->result_array();
+        
+        return count($res) > 0 ? $res[0]['flagTime'] : '';
+    }
+}
+
 # get all weekends in a month
 if ( ! function_exists('get_workingdays'))
 {
@@ -71,4 +83,47 @@ if ( ! function_exists('convert_12'))
         return date('h:i', strtotime($time));
     }
 
+}
+
+if ( ! function_exists('dateRange'))
+{
+    function dateRange($datefrom,$dateto)
+    {
+        $arrdates = array($datefrom);
+        while($datefrom < $dateto):
+            $datefrom = strtotime($datefrom);
+            $datefrom = date('Y-m-d', strtotime('+1 day', $datefrom));
+            array_push($arrdates,$datefrom);
+        endwhile;
+
+        return $arrdates;
+    }
+
+}
+
+# Get all days
+if ( ! function_exists('get_day'))
+{
+    # day: Mon = 1, Tue = 2, Wed = 3, Thu = 4, Fri = 5, Sat = 6, Sun = 0
+    function get_day($datefrom,$dateto,$day)
+    {
+        $arrdates = array($datefrom);
+        while($datefrom < $dateto):
+            $datefrom = strtotime($datefrom);
+            $datefrom = date('Y-m-d', strtotime('+1 day', $datefrom));
+            if(date('N',strtotime($datefrom)) == $day):
+                array_push($arrdates,$datefrom);
+            endif;
+        endwhile;
+
+        return $arrdates;
+    }
+}
+
+if ( ! function_exists('date_sort'))
+{
+    function date_sort($a,$b)
+    {
+        return strtotime($a) - strtotime($b);
+    }
 }

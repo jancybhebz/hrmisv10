@@ -379,11 +379,11 @@ $activetab = strtolower($activetab);
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='reports' ? 'active' : ''?>">
+                        <!-- <li class="nav-item <?=$active=='employee' && $activesub=='reports' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/reports')?>">
                                 <span class="title">Reports</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item <?=$active=='employee' && $activesub=='leave_monetization' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/leave_monetization')?>">
                                 <span class="title">Leave Monetization</span>
@@ -484,11 +484,11 @@ $activetab = strtolower($activetab);
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='reports' ? 'active' : ''?>">
+                        <!-- <li class="nav-item <?=$active=='employee' && $activesub=='reports' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/reports')?>">
                                 <span class="title">Reports</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item <?=$active=='employee' && $activesub=='leave_monetization' ? 'active' : ''?>">
                             <a href="<?=base_url('employee/leave_monetization')?>">
                                 <span class="title">Leave Monetization</span>

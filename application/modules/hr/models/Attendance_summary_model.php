@@ -49,514 +49,105 @@ class Attendance_summary_model extends CI_Model {
 
 	public function getemp_dtr($empid, $datefrom, $dateto)
 	{
-		$this->load->model('libraries/Holiday_model');
+		$this->load->model(array('libraries/Holiday_model','employee/Official_business_model','finance/Dtr_model','employee/Travelorder_model','employee/Leave_model','libraries/Attendance_scheme_model'));
 		echo '<pre>';
 		$this->load->helper('dtr_helper');
-		$this->load->model('finance/Dtr_model');
 
 		echo '<br>txtdtr_datefrom '.$datefrom;
 		echo '<br>txtdtr_dateto '.$dateto;
-		
+		echo '<br><br>';
+
+		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
+
 		# DTR Data
-		
 		$arrData = $this->Dtr_model->getData($empid,0,0,$datefrom,$dateto);
 		$reg_holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
 		
-		print_r($reg_holidays);
-		die();
-		# Regular Holiday
-		
+		$arr_first_days = $this->get_the_firstday_ofthe_week($datefrom,$dateto,$reg_holidays);
+		print_r($arr_first_days);
 
-		# Local Holiday
-		$emplocholiday = $this->getLocalHolidays($empid,$month,$yr);
 
-		# Local Holiday
-		$arremp_leaves = array();
-		$empleaves = $this->getleaves($empid);
-		foreach($empleaves as $leave):
-			$leavedate = $leave['leaveFrom'];
-			$leave_to = $leave['leaveTo'];
-			while (strtotime($leavedate) <= strtotime($leave_to))
-			{
-				$leavedatekey = array_search($leavedate, array_column($arremp_leaves, 'date'));
-				$arrleavedata = array('leaveID'		  => $leave['leaveID'],
-									  'dateFiled'	  => $leave['dateFiled'],
-									  'date'		  => $leavedate,
-									  'leaveCode'     => $leave['leaveCode'],
-									  'specificLeave' => $leave['specificLeave'],
-									  'reason'    	  => $leave['reason'],
-									  'leaveFrom'     => $leave['leaveFrom'],
-									  'leaveTo'		  => $leave['leaveTo'],
-									  'certifyHR'     => $leave['certifyHR'],
-									  'approveChief'  => $leave['approveChief'],
-									  'approveRequest'=> $leave['approveRequest'],
-									  'remarks'		  => $leave['remarks'],
-									  'inoutpatient'  => $leave['inoutpatient'],
-									  'vllocation'    => $leave['vllocation'],
-									  'commutation'   => $leave['commutation'],
-									  'leaveType'     => $leave['leaveType'],
-									  'numOfDays'     => $leave['numOfDays'],
-									  'system'    	  => $leave['system']);
-				if(is_numeric($leavedatekey)):
-					$arremp_leaves[$leavedatekey] = $arrleavedata;
-				else:
-					$arremp_leaves[] = $arrleavedata;
-				endif;
-				
-				$leavedate = date('Y-m-d', strtotime($leavedate . ' +1 day'));
-			}
-		endforeach;
-		
-		# Travel Order
-		$arremp_to = array();
-		$empto = $this->gettos($empid);
-		foreach($empto as $to):
-			$todate = $to['toDateFrom'];
-			$to_to = $to['toDateTo'];
-			while (strtotime($todate) <= strtotime($to_to))
-			{
-				$todatekey = array_search($todate, array_column($arremp_to, 'date'));
-				$arrtodata = array( 'toID'			=> $to['toID'],
-									'dateFiled'		=> $to['dateFiled'],
-									'date'			=> $todate,
-									'toDateFrom'    => $to['toDateFrom'],
-									'toDateTo'    	=> $to['toDateTo'],
-									'destination'   => $to['destination'],
-									'purpose'  		=> $to['purpose'],
-									'fund'    		=> $to['fund'],
-									'transportation'=> $to['transportation'],
-									'perdiem'		=> $to['perdiem'],
-									'wmeal'  		=> $to['wmeal']);
-				if(is_numeric($todatekey)):
-					$arremp_to[$todatekey] = $arrtodata;
-				else:
-					$arremp_to[] = $arrtodata;
-				endif;
-				
-				$todate = date('Y-m-d', strtotime($todate . ' +1 day'));
-			}
-		endforeach;
-		
-		# OB
-		$arremp_ob = array();
-		$empob = $this->getobs($empid);
-		foreach($empob as $ob):
-			$obdate = $ob['obDateFrom'];
-			$schedto = $ob['obDateTo'];
-			while (strtotime($obdate) <= strtotime($schedto))
-			{
-				$obdatekey = array_search($obdate, array_column($arremp_ob, 'date'));
-				$arrobdata = array( 'obid'			=> $ob['obID'],
-									'dateFiled'		=> $ob['dateFiled'],
-									'date'			=> $obdate,
-									'obTimeFrom'    => $ob['obTimeFrom'],
-									'obTimeTo'    	=> $ob['obTimeTo'],
-									'obPlace'   	=> $ob['obPlace'],
-									'obMeal'  		=> $ob['obMeal'],
-									'purpose'    	=> $ob['purpose'],
-									'official' 		=> $ob['official'],
-									'approveRequest'=> $ob['approveRequest'],
-									'approveChief'  => $ob['approveChief'],
-									'approveHR'  	=> $ob['approveHR']);
-				if(is_numeric($obdatekey)):
-					$arremp_ob[$obdatekey] = $arrobdata;
-				else:
-					$arremp_ob[] = $arrobdata;
-				endif;
-				
-				$obdate = date('Y-m-d', strtotime($obdate . ' +1 day'));
-			}
+		$arrDataOb = $this->Official_business_model->getEmployeeOB($empid,$datefrom,$dateto);
+		$arrOb = array();
+		foreach($arrDataOb as $data_ob):
+			foreach(dateRange($data_ob['obDateFrom'],$data_ob['obDateTo']) as $ob_date):
+				$arrOb[] = array_merge($data_ob,array('obdate' => $ob_date));
+			endforeach;
 		endforeach;
 
-		# Broken Sched
-		$arrbrokensched = array();
-		$brokensched = $this->getBrokenschedules($empid);
-		foreach($brokensched as $bs):
-			$bsdate = $bs['dateFrom'];
-			$schedto = $bs['dateTo'];
-			while (strtotime($bsdate) <= strtotime($bs['dateTo']))
-			{
-				$bsdatekey = array_search($bsdate, array_column($arrbrokensched, 'date'));
-				$arrbsdata  = array('recid'			=> $bs['rec_ID'],
-									'date'			=> $bsdate,
-									'schemeCode'    => $bs['schemeCode'],
-									'schemeName'    => $bs['schemeName'],
-									'schemeType'    => $bs['schemeType'],
-									'amTimeinFrom'  => $bs['amTimeinFrom'],
-									'amTimeinTo'    => $bs['amTimeinTo'],
-									'pmTimeoutFrom' => $bs['pmTimeoutFrom'],
-									'pmTimeoutTo'   => $bs['pmTimeoutTo'],
-									'nnTimeoutFrom' => $bs['nnTimeoutFrom'],
-									'nnTimeoutTo'   => $bs['nnTimeoutTo'],
-									'nnTimeinFrom'  => $bs['nnTimeinFrom'],
-									'nnTimeinTo' 	=> $bs['nnTimeinTo'],
-									'overtimeStarts'=> $bs['overtimeStarts'],
-									'overtimeEnds'  => $bs['overtimeEnds'],
-									'gracePeriod'	=> $bs['gracePeriod'],
-									'gpLeaveCredits'=> $bs['gpLeaveCredits'],
-									'gpLate'	  	=> $bs['gpLate'],
-									'wrkhrLeave'	=> $bs['wrkhrLeave'],
-									'hlfLateUnd'	=> $bs['hlfLateUnd'],
-									'fixMonday'		=> $bs['fixMonday']);
-				if(is_numeric($bsdatekey)):
-					$arrbrokensched[$bsdatekey] = $arrbsdata;
-				else:
-					$arrbrokensched[] = $arrbsdata;
-				endif;
-				
-				$bsdate = date('Y-m-d', strtotime($bsdate . ' +1 day'));
-			}
+		$arrDataTo = $this->Travelorder_model->getEmployeeTO($empid,$datefrom,$dateto);
+		$arrTo = array();
+		foreach($arrDataTo as $data_to):
+			foreach(dateRange($data_to['toDateFrom'],$data_to['toDateTo']) as $to_date):
+				$arrTo[] = array_merge($data_to,array('todate' => $to_date));
+			endforeach;
+		endforeach;
+
+		$arrDataLeaves = $this->Leave_model->getleave($empid,$datefrom,$dateto);
+		$arrLeaves = array();
+		foreach($arrDataLeaves as $data_leave):
+			foreach(dateRange($data_leave['leaveFrom'],$data_leave['leaveTo']) as $leave_date):
+				$arrLeaves[] = array_merge($data_leave,array('leavedate' => $leave_date));
+			endforeach;
 		endforeach;
 		
-		# Attendance Scheme
-		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
-		if(count($emp_scheme) > 0):
-			$att_scheme_ini = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
-			$att_scheme_ini = count($att_scheme_ini) > 0 ? $att_scheme_ini[0] : array();
-		endif;
+		$emp_dtr = array();
+		foreach(dateRange($datefrom,$dateto) as $dtrdate):
+			# Begin DTR
+			$dtr = array();
+			if(in_array($dtrdate,array_column($arrData,'dtrDate'))):
+				$dtr = $arrData[array_search($dtrdate, array_column($arrData, 'dtrDate'))];
+			endif;
+			# End DTR
 
-		$date_absents = array();
-		$total_undertime = 0;
-		$total_late = 0;
-		$total_ot_wkdays = 0;
-		$total_ot_wkendsholi = 0;
-		$total_workingdays = 0;
-		$total_days_ut = 0;
-		$total_days_late = 0;
-		$total_days_sl = 0;
-		$total_days_vl = 0;
-		$total_days_fl = 0;
-		$total_days_lwop = 0;
-		$total_days_present = 0;
+			# Begin OB
+			$obs = array();
+			if(in_array($dtrdate,array_column($arrOb,'obdate'))):
+				$obs = $arrOb[array_search($dtrdate, array_column($arrOb, 'obdate'))];
+			endif;
+			# End OB
 
-		$arrdtrData = array();
+			# Begin TO
+			$tos = array();
+			if(in_array($dtrdate,array_column($arrTo,'todate'))):
+				$tos = $arrTo[array_search($dtrdate, array_column($arrTo, 'todate'))];
+			endif;
+			# End TO
 
-		
-		foreach(range(1, cal_days_in_month(CAL_GREGORIAN, $month, $yr)) as $day):
-			echo '<br>day '.$day;
-			echo '<br>';
-			$bsremarks = '';
-			$obremarks = '';
-			$toremarks = '';
-			$leaveremarks = '';
-			$lunchremarks = '';
+			# Begin Leave
+			$leaves = array();
+			if(in_array($dtrdate,array_column($arrLeaves,'leavedate'))):
+				$leaves = $arrLeaves[array_search($dtrdate, array_column($arrLeaves, 'leavedate'))];
+			endif;
+			# End Leave
 
-			$late = 0;
-			$late_am = 0;
-			$late_pm = 0;
-			$undertime = 0;
-			$undertime_am = 0;
-			$undertime_pm = 0;
-			$overtime = 0;
+			# Begin Compensatory Leave
+			$cto = '';
+			if(!empty($dtr)):
+				$cto = $dtr['remarks'] == 'CL' ? 1 : 0;
+			endif;
+			# End Compensatory Leave
 
-			$mins_timein = 0;
-			$expected_timein = '';
-			$expected_timeout = '';
-
-			$dtrin_out = array();
-
-			$ddate = $yr.'-'.$month.'-'.sprintf('%02d', $day);
-			$dday = date('D', strtotime($ddate));
-
-			# Dtr data
-			$dtrkey = array_search($ddate, array_column($arrData, 'dtrDate'));
-			$dtrdata = is_numeric($dtrkey) ? $arrData[$dtrkey] : array();
-
-			# Holiday
-			$holikey = array_search($ddate, array_column($reg_holidays, 'holidayDate'));
-			$holiday = is_numeric($holikey) ? $reg_holidays[$holikey]['holidayName'] : '';
-
-			# Local Holiday
-			$locholikey = array_search($day, array_column($emplocholiday, 'holidayDay'));
-			$localholi = is_numeric($locholikey) ? $emplocholiday[$locholikey]['holidayName'] : '';
-
-			# Attendance Scheme from broken sched
-			if(count($arrbrokensched) > 0):
-				$dtr_bskey = array_search($ddate, array_column($arrbrokensched, 'date'));
-				if(is_numeric($dtr_bskey)):
-					$att_scheme =  $arrbrokensched[$dtr_bskey];
-					$bsremarks = $arrbrokensched[$dtr_bskey]['schemeName'].'-'.$arrbrokensched[$dtr_bskey]['schemeType'].' ('.substr($arrbrokensched[$dtr_bskey]['amTimeinFrom'],0,5).'-'.substr($arrbrokensched[$dtr_bskey]['amTimeinTo'],0,5).', '.substr($arrbrokensched[$dtr_bskey]['pmTimeoutFrom'],0,5).' - '.substr($arrbrokensched[$dtr_bskey]['pmTimeoutTo'],0,5).')';
-				else:
-					$att_scheme =  $att_scheme_ini;
+			# Begin Late
+			if(in_array($dtrdate,$arr_first_days)):
+				echo 'first day<br>';
+				if(!empty($dtr)):
+					$flag_ceremony_time = flag_ceremony_time();
+					$att_scheme['amTimeinTo'] = $flag_ceremony_time;
+					$att_scheme['pmTimeoutTo'] = date('H:i:s', strtotime($flag_ceremony_time) + 60*60*9);
+					$this->compute_late($att_scheme,$dtr);
 				endif;
 			else:
-				$att_scheme =  $att_scheme_ini;
-			endif;
-			
-			# Remarks for Employee's OB
-			if(count($arremp_ob) > 0):
-				$dtr_obkey = array_search($ddate, array_column($arremp_ob, 'date'));
-				if(is_numeric($dtr_obkey)):
-					// TODO:: IF REQUEST IS APPROVED
-					if($arremp_ob[$dtr_obkey]['approveRequest'] == 'Y'):
-						$obremarks = json_encode($arremp_ob[$dtr_obkey]);
-						if(count($dtrdata) > 0):
-							$dtrdata['remarks'] = '';
-						endif;
-					endif;
-				endif;
-			endif;
-
-			# Remarks for Employee's TO
-			if(count($arremp_to) > 0):
-				$dtr_tokey = array_search($ddate, array_column($arremp_to, 'date'));
-				if(is_numeric($dtr_tokey)):
-					// TODO:: IF TO HAS REQUEST AND IF IT IS APPROVED
-					$toremarks = json_encode($arremp_to[$dtr_tokey]);
-					if(count($dtrdata) > 0):
-						$dtrdata['remarks'] = '';
-					endif;
-				endif;
-			endif;
-
-			# Remarks for Employee's Leave
-			if(count($arremp_leaves) > 0):
-				$dtr_leavekey = array_search($ddate, array_column($arremp_leaves, 'date'));
-				if(is_numeric($dtr_leavekey)):
-					// TODO:: IF REQUEST IS APPROVED : approveRequest or approveChief
-					if($arremp_leaves[$dtr_leavekey]['certifyHR'] == 'Y'):
-						if($arremp_leaves[$dtr_leavekey]['leaveCode'] == 'SL'):
-							$total_days_sl = $total_days_sl + 1;
-						endif;
-						if($arremp_leaves[$dtr_leavekey]['leaveCode'] == 'VL'):
-							$total_days_vl = $total_days_vl + 1;
-						endif;
-						if($arremp_leaves[$dtr_leavekey]['leaveCode'] == 'FL'):
-							$total_days_fl = $total_days_fl + 1;
-						endif;
-						$leaveremarks = json_encode($arremp_leaves[$dtr_leavekey]);
-						if(count($dtrdata) > 0):
-							$dtrdata['remarks'] = '';
-						endif;
-					endif;
-				endif;
-			endif;
-
-			if(count($dtrdata) > 0):
-				$dtrin_out = array($dtrdata['inAM'], $dtrdata['outAM'], $dtrdata['inPM'], $dtrdata['outPM'], $dtrdata['inOT'], $dtrdata['outOT']);
-
-				if(($dtrdata['inAM'] != '00:00:00' && $dtrdata['inAM'] != '' && $dtrdata['outPM'] != '00:00:00' && $dtrdata['outPM'] != '')):
-					if(($dtrdata['outAM'] == '00:00:00' || $dtrdata['outAM'] == '') || ($dtrdata['inPM'] == '00:00:00' || $dtrdata['inPM'] == '')):
-						$dtrdata['outAM'] = '12:01:00';
-						$dtrdata['inPM'] = '12:01:00';
-						$lunchremarks = 'NO LUNCH OUT';
-					endif;
-				endif;
-				
-				# Attendance Scheme
-				$am_timein_from = date('H:i:s', strtotime($att_scheme['amTimeinFrom'].' AM'));
-				$am_timein_to = date('H:i:s', strtotime($att_scheme['amTimeinTo'].' AM'));
-				$nn_timein_from = date('H:i:s', strtotime($att_scheme['nnTimeoutFrom'].' PM'));
-				$nn_timein_to = date('H:i:s', strtotime($att_scheme['nnTimeoutTo'].' PM'));
-				$pm_timeout_from = date('H:i:s', strtotime($att_scheme['pmTimeoutFrom'].' PM'));
-				$pm_timeout_to = date('H:i:s', strtotime($att_scheme['pmTimeoutTo'].' PM'));
-
-				# morning
-				$am_time_in = date('H:i:s', strtotime($dtrdata['inAM'].' AM'));
-				if($dtrdata['outAM'] >= '12:00:00'):
-					$am_time_out = date('H:i:s', strtotime($dtrdata['outAM'].' PM'));
-				else:
-					$am_time_out = date('H:i:s', strtotime($dtrdata['outAM'].' AM'));
-				endif;
-
-				# afternoon
-				$pm_time_in = date('H:i:s', strtotime($dtrdata['inPM'].' PM'));
-				$pm_time_out = date('H:i:s', strtotime($dtrdata['outPM'].' PM'));
-			endif;
-
-			if($holiday == '' && $localholi == '' && count($dtrdata) > 0 && !in_array($dday, array('Sat','Sun'))):
-				# if Fix Monday and Monday
-				if($att_scheme['fixMonday'] == 'Y' && $dday == 'Mon'):
-					/* amTimeinTo in monday will change; then minutes from att-scheme-am-timein-to minus flag-cer-time will added to att-scheme-pm-timeout-from and become att-scheme-pm-timeout-to */
-					$fc_minutes = toMinutes($am_timein_to) - toMinutes(date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM')));
-					$am_timein_to = date('H:i:s', strtotime($_ENV['FLAGCRMNY'].' AM'));
-					$pm_timeout_to = date("H:i:s", strtotime('+'.$fc_minutes.' minutes', strtotime($pm_timeout_from)));
-
-					$late_am = toMinutes($am_time_in) - toMinutes($_ENV['FLAGCRMNY']);
-					$late_pm = toMinutes($pm_time_in) - toMinutes($nn_timein_to);
-				# if Not Fix Monday and Not Monday
-				else:
-					$late_am = toMinutes($am_time_in) - toMinutes($am_timein_to);
-					$late_pm = toMinutes($pm_time_in) - toMinutes($nn_timein_to);
-				endif;
-
-				# Compute Total Late
-				/* if employee has no AM timein*/
-				if($am_time_in == '00:00:00'):
-					$late_am = toMinutes($nn_timein_from) - toMinutes($am_timein_to);
-				endif;
-
-				# check if emp has dtr record
-				if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
-					$late = $late_am > 0 ? $late_am : 0;
-					$late = $late + ($late_pm > 0 ? $late_pm : 0);
-					if($late > 0):
-						$total_days_late = $total_days_late + 1;
-					endif;
-				endif;
-
-				#  UnderTime
-				## Get employee's expected time out first to check if employee gets undertime
-				/* if employee has AM time in*/
-				if($am_time_in != '00:00:00'):
-					## AM UnderTime
-					if($am_time_out <= $nn_timein_from):
-						$undertime_am = toMinutes($nn_timein_from) - toMinutes($am_time_out);
-					endif;
-
-					## PM UnderTime
-					/* if employee's timein is earlier than att scheme amTimeinFrom, set the timein to the amTimeinFrom */
-					if($am_time_in < $am_timein_from):
-						$expected_timein = $am_timein_from;
-					else:
-						$expected_timein = $am_time_in;
-					endif;
-					/* if employee is late, the expected time out will be the pmTimeoutTo */
-					if($late_am > 0):
-						$expected_timeout = $pm_timeout_to;
-					else:
-						$mins_timein = toMinutes($expected_timein) - toMinutes($am_timein_from);
-						$expected_timeout = date("H:i:s", strtotime('+'.$mins_timein.' minutes', strtotime($pm_timeout_from)));
-					endif;
-				else:
-					# No AM Undertime
-					/* if employee has no AM time in; expected time out is pmTimeoutTo */
-					$expected_timeout = $pm_timeout_to;
-				endif;
-				## PM UnderTime
-				# check undertime using expected_timeout
-				/* Check if employee has PM timein */
-				if($pm_time_in != '00:00:00'):
-					if($expected_timeout > $pm_time_out):
-						$undertime_pm = toMinutes($expected_timeout) - toMinutes($pm_time_out);
-					endif;
-				else:
-					$undertime_pm = toMinutes($expected_timeout) - toMinutes($nn_timein_to);
-				endif;
-
-				# Compute Total UnderTime
-				# check if emp has dtr record
-				if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
-					$undertime = $undertime_am > 0 ? $undertime_am : 0;
-					$undertime = $undertime + ($undertime_pm > 0 ? $undertime_pm : 0);
-					if($undertime > 0):
-						$total_days_ut = $total_days_ut + 1;
-					endif;
-				endif;
-				
-				# Compute Overtime
-				# check if emp has dtr record
-				if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
-					if($undertime >= 0):
-						$lateunder = $late + $undertime_am;
-						$overtime = toMinutes($pm_time_out) - toMinutes($expected_timeout);
-						$overtime = $overtime > $lateunder ? ($overtime - $lateunder) : 0;
-					endif;
-				endif;
-
-				# Overtime weekdays
-				$total_ot_wkdays = $total_ot_wkdays + $overtime;
-			else:
-				# if holiday or weekends
-				if(count($dtrdata) > 0):
-					# check if emp has dtr record
-					if (!(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00')):
-						$overtime_am = toMinutes($nn_timein_from) - toMinutes($am_time_in);
-						$overtime_pm = toMinutes($pm_time_out) - toMinutes($nn_timein_to);
-						$overtime = $overtime_am + $overtime_pm;
-					endif;
-				endif;
-				# Overtime weekends, holidays
-				$total_ot_wkendsholi = $total_ot_wkendsholi + $overtime;
-			endif;
-			# overtime less than 1 hr, [after official time out]
-			$overtime = $overtime - 60;
-			# if has late
-			$overtime = $late > 0 ? 0 : $overtime;
-			# if overtime is greater than or equal to 1 hr
-			$overtime = $overtime >= 60 ? $overtime : 0;
-
-			$emp_dtrdata = array('date' 	 => $ddate,
-								  'day'  	 => $dday,
-								  'late' 	 => date('H:i', mktime(0, $late)),
-								  'undertime'=> date('H:i', mktime(0, $undertime)),
-								  'overtime' => date('H:i', mktime(0, $overtime)),
-								  'holiday'  => $holiday!='' ? $localholi!='' ? $holiday.' + '.$localholi : $holiday : '',
-								  'bsremarks'=> $bsremarks,
-								  'obremarks'=> $obremarks,
-								  'toremarks'=> $toremarks,
-								  'leaveremarks' => $leaveremarks,
-								  'dtrdata'  => $dtrdata);
-
-			$arrdtrData[] = $emp_dtrdata;
-
-			# Absent
-			if($holiday == '' && $localholi == '' && !in_array($dday, array('Sat','Sun'))):
-
-				# check if no remarks
-				if($bsremarks == '' && $obremarks == '' && $toremarks == '' && $leaveremarks == ''):
-					if(count($dtrdata) < 1):
-						array_push($date_absents, $ddate);
-					else:
-						if($dtrin_out != null):
-							if(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
-								array_push($date_absents, $ddate);
-								$total_days_lwop = $total_days_lwop + 1;
-							endif;
-						endif;
-					endif;
-				else:
-					if($dtrin_out != null):
-						if(count(array_unique($dtrin_out)) === 1 && end($dtrin_out) === '00:00:00'):
-							array_push($date_absents, $ddate);
-						endif;
-					endif;
-				endif;
-
-				if($obremarks != '' || $toremarks != ''):
-					$total_days_present = $total_days_present + 1;
-				else:
-					if(count($dtrdata) > 0):
-						if($dtrdata['inAM'] != '00:00:00' || $dtrdata['inPM'] != '00:00:00'):
-							$total_days_present = $total_days_present + 1;
-						endif;
-					endif;
-				endif;
-
-				# Total working days
-				$total_workingdays = $total_workingdays + 1;
 
 			endif;
+			# End Late
 
-			# Total late
-			$total_late = $total_late + $late;
-			# Total undertime
-			$total_undertime = $total_undertime + $undertime;
-
-			print_r($emp_dtrdata);
-
+			# Begin Data Array
+			$emp_dtr[] = array('dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'cto' => $cto);
+			# End Data Array
 			echo '<hr>';
 		endforeach;
-		
-		$arrdtrData = array('dtr' 			 	 => $arrdtrData,
-							'date_absents' 	 	 => $date_absents,
-							'total_late' 	 	 => $total_late,
-							'total_undertime'	 => $total_undertime,
-							'total_ot_wkdays'	 => $total_ot_wkdays,
-							'total_ot_wkendsholi'=> $total_ot_wkendsholi,
-							'total_workingdays'	 => $total_workingdays,
-							'total_days_ut'		 => $total_days_ut,
-							'total_days_late'	 => $total_days_late,
-							'total_days_sl'		 => $total_days_sl,
-							'total_days_vl'		 => $total_days_vl,
-							'total_days_fl'		 => $total_days_fl,
-							'total_days_lwop'	 => $total_days_lwop,
-							'total_days_present' => $total_days_present);
-
-		// return $arrdtrData;
-		
-		# PRINTDIE
-		// print_r($arrdtrData);
+		print_r($emp_dtr);
 		die();
 	}
 
@@ -845,6 +436,77 @@ class Attendance_summary_model extends CI_Model {
 	}
 	# end offset balance
 
+	function get_the_firstday_ofthe_week($datefrom,$dateto,$holidays)
+	{
+		$array_first_day_of_theweek = array();
+		foreach(get_day($datefrom,$dateto,1) as $mdate):
+			$week_firstday = '';
+			$monday = $mdate;
+			$friday = date('Y-m-d', strtotime('friday this week', strtotime($mdate)));
+			$weekdates = dateRange($monday,$friday);
+			$not_holidays = $this->sort_date(array_diff($weekdates,$holidays));
+
+			if(count($not_holidays) > 0):
+				$week_firstday = $not_holidays[0];
+			endif;
+			array_push($array_first_day_of_theweek,$week_firstday);
+		endforeach;
+
+		return $array_first_day_of_theweek;
+	}
+
+	function sort_date($arrDates)
+	{
+		usort($arrDates, "date_sort");
+		return $arrDates;
+	}
+
+	function compute_late($att_scheme,$dtr)
+	{
+		# Attendance Scheme
+		$sc_am_timein_from = date('H:i:s',strtotime($att_scheme['amTimeinFrom'].' AM'));
+		$sc_am_timein_to = date('H:i:s',strtotime($att_scheme['amTimeinTo'].' AM'));
+		$sc_nn_timein_from = date('H:i:s',strtotime($att_scheme['nnTimeinFrom'].' PM'));
+		$sc_nn_timein_to = date('H:i:s',strtotime($att_scheme['nnTimeinTo'].' PM'));
+		$sc_pm_timeout_from = date('H:i:s',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
+		$sc_pm_timeout_to = date('H:i:s',strtotime($att_scheme['pmTimeoutTo'].' PM'));
+		
+
+		# DTR Data
+		print_r($dtr);
+		$am_timein 	= $dtr['inAM'];
+		$am_timeout = $dtr['outAM'];
+		$pm_timein 	= $dtr['inPM'];
+		$pm_timeout = $dtr['outPM'];
+
+		if($am_timein <= $sc_am_timein_to):
+			
+		else:
+		endif;
+
+		echo 'am_timein_from = '.$sc_am_timein_from;
+		echo '<br>';
+		echo 'am_timein_to = '.$sc_am_timein_to;
+		echo '<br>';
+		echo 'nn_timein_from = '.$sc_nn_timein_from;
+		echo '<br>';
+		echo 'nn_timein_to = '.$sc_nn_timein_to;
+		echo '<br>';
+		echo 'pm_timeout_from = '.$sc_pm_timeout_from;
+		echo '<br>';
+		echo 'pm_timeout_to = '.$sc_pm_timeout_to;
+		echo '<br><br>';
+		echo 'am_timein = '.$am_timein;
+		echo '<br>';
+		echo 'am_timeout = '.$am_timeout;
+		echo '<br>';
+		echo 'pm_timein = '.$pm_timein;
+		echo '<br>';
+		echo 'pm_timeout = '.$pm_timeout;
+		echo '<br>';
+		
+
+	}
 
 }
 /* End of file Dtr_model.php */
