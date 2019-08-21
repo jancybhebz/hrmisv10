@@ -50,12 +50,7 @@ class Attendance_summary_model extends CI_Model {
 	public function getemp_dtr($empid, $datefrom, $dateto)
 	{
 		$this->load->model(array('libraries/Holiday_model','employee/Official_business_model','finance/Dtr_model','employee/Travelorder_model','employee/Leave_model','libraries/Attendance_scheme_model'));
-		echo '<pre>';
 		$this->load->helper('dtr_helper');
-
-		echo '<br>txtdtr_datefrom '.$datefrom;
-		echo '<br>txtdtr_dateto '.$dateto;
-		echo '<br><br>';
 
 		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
 		$att_scheme_temp = $att_scheme;
@@ -123,13 +118,6 @@ class Attendance_summary_model extends CI_Model {
 			endif;
 			# End Leave
 
-			# Begin Compensatory Leave
-			$cto = '';
-			if(!empty($dtr)):
-				$cto = $dtr['remarks'] == 'CL' ? 1 : 0;
-			endif;
-			# End Compensatory Leave
-
 			# Begin Late and UnderTime
 			$lates = 0;
 			$utimes = 0;
@@ -138,42 +126,22 @@ class Attendance_summary_model extends CI_Model {
 					$flag_ceremony_time = flag_ceremony_time();
 					$att_scheme['amTimeinTo'] = $flag_ceremony_time;
 					$att_scheme['pmTimeoutTo'] = date('H:i:s', strtotime($flag_ceremony_time) + 60*60*9);
-					echo '<br>FIRSTDAY<br>';
 				else:
 					$att_scheme['amTimeinTo'] = $att_scheme_temp['amTimeinTo'];
 					$att_scheme['pmTimeoutTo'] = $att_scheme_temp['pmTimeoutTo'];
 				endif;
 			else:
-				# NO DTR VALUE; //TODO:: CHECK OB,CTO
+				# NO DTR VALUE;
 				# Check OB
-				// print_r($obs);
 				if(count($obs) > 0):
-					// $ob_timefrom = array_column($obs,'obTimeFrom');
-					// $ob_time_in = array();
-					// foreach ($ob_timefrom as $key => $val) {
-					//     $ob_time_in[$key] = $val;
-					// }
-					// array_multisort($ob_time_in, SORT_ASC, $ob_timefrom);
-
-					// $ob_timeto = array_column($obs,'obTimeTo');
-					// $ob_time_to = array();
-					// foreach ($ob_timeto as $key => $val) {
-					//     $ob_time_to[$key] = $val;
-					// }
-					// array_multisort($ob_time_to, SORT_DESC, $ob_timefrom);
-
-					// print_r($ob_time_to[0]);
+					$arr_ob_timein = $this->check_obtime_in($att_scheme,$obs);
+					$arr_ob_timeout = $this->check_obtime_out($att_scheme,$obs);
 					
 					$dtr['dtrDate'] = $dtrdate;
-					$dtr['inAM'] = $this->check_obtime_in($att_scheme,$obs);
-					$dtr['outAM'] = '';
-					$dtr['inPM'] = '';
-					$dtr['outPM'] = '';
-
-					// echo '<br>am_timein = '.$am_timein;
-					// echo '<br>am_timeout = '.$am_timeout;
-					// echo '<br>pm_timein = '.$pm_timein;
-					// echo '<br>pm_timeout = '.$pm_timeout;
+					$dtr['inAM'] = $arr_ob_timein['in_am'];
+					$dtr['outAM'] = $arr_ob_timeout['out_am'];
+					$dtr['inPM'] = $arr_ob_timein['in_pm'];
+					$dtr['outPM'] = $arr_ob_timeout['out_pm'];
 				endif;
 				# CTO
 			endif;
@@ -185,13 +153,28 @@ class Attendance_summary_model extends CI_Model {
 			endif;
 			# End Late
 
+			# Begin Compute Overtime
+			$ot = 0;
+			if(in_array($dtrdate,$reg_holidays) || in_array(date('D',strtotime($dtrdate)),array('Sat','Sun'))):
+				# weekend and holiday ot
+				if(!empty($dtr)):
+					// $ot = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
+					$ot = $this->compute_working_hours($att_scheme,$dtr);
+				endif;
+			else:
+				# regular days ot; if dtr is not empty, and no lates or undertime; 
+				if(!empty($dtr) && ($lates+$utimes) < 1):
+					$ot = $this->compute_overtime($att_scheme,$dtr);
+				endif;
+			endif;
+			# End Compute Overtime
+
 			# Begin Data Array
-			$emp_dtr[] = array('dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'cto' => $cto, 'lates' => $lates, 'utimes' => $utimes);
+			$emp_dtr[] = array('dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot);
 			# End Data Array
-			echo '<hr>';
+
 		endforeach;
-		print_r($emp_dtr);
-		die();
+		return $emp_dtr;
 	}
 
 	# Begin Broken Sched
@@ -550,7 +533,7 @@ class Attendance_summary_model extends CI_Model {
 			$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
 			// $sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
 
-			$working_hours = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
+			$req_hours = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
 			
 			# DTR Data
 			$am_timein 	= date('H:i',strtotime($dtr['inAM']));
@@ -561,11 +544,11 @@ class Attendance_summary_model extends CI_Model {
 			# Get Expected Timeout
 			$expctd_pm_timeout = 0;
 			if($am_timein < $sc_am_timein_from):
-				$expctd_pm_timeout = date('H:i', strtotime('+'.$working_hours.' minutes', strtotime($sc_am_timein_from)));
+				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_from)));
 			elseif($am_timein > $sc_am_timein_to):
-				$expctd_pm_timeout = date('H:i', strtotime('+'.$working_hours.' minutes', strtotime($sc_am_timein_to)));
+				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_to)));
 			else:
-				$expctd_pm_timeout = date('H:i', strtotime('+'.$working_hours.' minutes', strtotime($am_timein)));
+				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($am_timein)));
 			endif;
 
 			# AM Undertime
@@ -589,32 +572,187 @@ class Attendance_summary_model extends CI_Model {
 	function check_obtime_in($att_scheme,$obs)
 	{
 		# Attendance Scheme
-		$sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
-		$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
 		$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
-		$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
-		$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
-		$sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
 
-		echo '<br>sc_am_timein_from = '.$sc_am_timein_from;
-		echo '<br>sc_am_timein_to = '.$sc_am_timein_to;
-		echo '<br>sc_nn_timein_from = '.$sc_nn_timein_from;
-		echo '<br>sc_nn_timein_to = '.$sc_nn_timein_to;
-		echo '<br>sc_pm_timeout_from = '.$sc_pm_timeout_from;
-		echo '<br>sc_pm_timeout_to = '.$sc_pm_timeout_to;
-		echo '<br>';
+		$in_am = '';
+		$in_pm = '';
 
 		foreach($obs as $ob):
 			$ob_time_in = date('H:i',strtotime($ob['obTimeFrom']));
-			print_r($ob_time_in);
 
 			if($ob_time_in >= $sc_nn_timein_from):
-				
+				if($in_pm == ''):
+					$in_pm = $ob_time_in;
+				else:
+					if($ob_time_in < $in_pm):
+						$in_pm = $ob_time_in;
+					endif;
+				endif;
+			else:
+				if($in_am == ''):
+					$in_am = $ob_time_in;
+				else:
+					if($ob_time_in < $in_am):
+						$in_am = $ob_time_in;
+					endif;
+				endif;
 			endif;
 
-			echo '<br>';
 		endforeach;
 
+		return array('in_am' => $in_am, 'in_pm' => $in_pm);
+	}
+
+	function check_obtime_out($att_scheme,$obs)
+	{
+		# Attendance Scheme
+		$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
+		$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
+
+		$out_am = '';
+		$out_pm = '';
+
+		foreach($obs as $ob):
+			$ob_time_out = date('H:i',strtotime($ob['obTimeTo']));
+
+			if($ob_time_out >= $sc_nn_timein_from && $ob_time_out <= $sc_nn_timein_to):
+				if($out_am == ''):
+					$out_am = $ob_time_out;
+				else:
+					if($ob_time_out > $out_am):
+						if($ob_time_out > $out_pm):
+							$out_am = $out_pm;
+							$out_pm = $ob_time_out;
+						else:
+							$out_am = $ob_time_out;
+						endif;
+					endif;
+				endif;
+			else:
+				if($ob_time_out > $sc_nn_timein_to):
+					if($out_pm == ''):
+						$out_pm = $ob_time_out;
+					else:
+						if($ob_time_out > $out_pm):
+							$out_pm = $ob_time_out;
+						endif;
+					endif;
+				else:
+					if($out_am == ''):
+						$out_am = $ob_time_out;
+					else:
+						if($ob_time_out > $am_out):
+							$out_am = $ob_time_out;
+						endif;
+					endif;
+				endif;
+			endif;
+
+		endforeach;
+
+		return array('out_am' => $out_am, 'out_pm' => $out_pm);
+
+	}
+
+	function compute_overtime($att_scheme,$dtr)
+	{
+		if(!empty($dtr)):
+			# Attendance Scheme
+			$sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
+			$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
+			$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
+			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
+			$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
+			$sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
+
+			$req_hours = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
+			
+			# DTR Data
+			$am_timein 	= date('H:i',strtotime($dtr['inAM']));
+			$am_timeout = $dtr['outAM'] == '' || $dtr['outAM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['outAM']));
+			$pm_timein 	= $dtr['inPM'] == '' || $dtr['inPM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['inPM']));
+			$pm_timeout = date('H:i',strtotime($dtr['outPM']));
+
+			# Get Expected Timeout
+			$expctd_pm_timeout = 0;
+			if($am_timein < $sc_am_timein_from):
+				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_from)));
+			elseif($am_timein > $sc_am_timein_to):
+				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_to)));
+			else:
+				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($am_timein)));
+			endif;
+
+			$ot_details = overtime_details();
+			$min_before_ot = toMinutes($ot_details['minOT']);
+			$max_ot = toMinutes($ot_details['maxOT']);
+
+			$ot_pm_out = date('H:i', strtotime('+'.$min_before_ot.' minutes', strtotime($expctd_pm_timeout)));
+
+			$ot_hrs = 0;
+			if($pm_timeout > $ot_pm_out):
+				$ot_hrs = toMinutes($pm_timeout) - toMinutes($ot_pm_out);
+			endif;
+
+			return $ot_hrs;
+		else:
+			return 0;
+		endif;
+	}
+
+	function compute_working_hours($att_scheme,$dtr)
+	{
+		if(!empty($dtr)):
+			# Attendance Scheme
+			$sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
+			$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
+			$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
+			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
+			$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
+			$sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
+
+			$req_hours = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
+			
+			# DTR Data
+			$am_timein 	= date('H:i',strtotime($dtr['inAM']));
+			$am_timeout = $dtr['outAM'] == '' || $dtr['outAM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['outAM']));
+			$pm_timein 	= $dtr['inPM'] == '' || $dtr['inPM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['inPM']));
+			$pm_timeout = date('H:i',strtotime($dtr['outPM']));
+
+			
+			# Get Expected Timeout and official Time in
+			// $expctd_pm_timeout = 0;
+			$off_timein = '';
+			if($am_timein < $sc_am_timein_from):
+				// $expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_from)));
+				$off_timein = $sc_am_timein_from;
+			elseif($am_timein > $sc_am_timein_to):
+				// $expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_to)));
+				$off_timein = $sc_am_timein_to;
+			else:
+				// $expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($am_timein)));
+				$off_timein = $am_timein;
+			endif;
+
+			# get working hours
+			$am_working_hours = 0;
+			if($am_timeout >= $sc_nn_timein_from):
+				$am_working_hours = toMinutes($sc_nn_timein_from) - toMinutes($am_timeout);
+			else:
+				$am_working_hours = toMinutes($am_timeout) - toMinutes($off_timein);
+			endif;
+
+			$pm_working_hours = 0;
+			if($pm_timein <= $sc_nn_timein_to):
+				$pm_working_hours = toMinutes($pm_timeout) - toMinutes($sc_nn_timein_to);
+			else:
+				$pm_working_hours = toMinutes($pm_timeout) - toMinutes($pm_timein);
+			endif;
+
+			return ($am_working_hours + $pm_working_hours);
+		else:
+			return 0;
+		endif;
 	}
 
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 09, 2019 at 02:15 PM
+-- Generation Time: Aug 21, 2019 at 11:34 AM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -43,8 +43,9 @@ CREATE TABLE `tblAgency` (
   `afternoonFrom` time DEFAULT '00:00:00',
   `afternoonTo` time DEFAULT '00:00:00',
   `salarySchedule` varchar(10) NOT NULL DEFAULT '',
-  `minOT` time NOT NULL,
-  `maxOT` time NOT NULL,
+  `mins_before_OT` time DEFAULT NULL,
+  `minOT` time DEFAULT NULL,
+  `maxOT` time DEFAULT NULL,
   `expirationCTO` datetime DEFAULT NULL,
   `flagTime` time NOT NULL,
   `autoComputeTax` tinyint(4) NOT NULL,
@@ -1671,7 +1672,7 @@ CREATE TABLE `tblOverride` (
   `office_type` varchar(20) NOT NULL,
   `office` varchar(20) NOT NULL,
   `appt_status` varchar(20) NOT NULL,
-  `created_date` datetime NOT NULL,
+  `created_date` datetime DEFAULT NULL,
   `created_by` varchar(20) NOT NULL,
   `lastupdated_date` datetime DEFAULT NULL,
   `lastupdate_dby` varchar(20) DEFAULT NULL
@@ -2935,7 +2936,7 @@ ALTER TABLE `tblBrokenSched`
 -- AUTO_INCREMENT for table `tblChangeLog`
 --
 ALTER TABLE `tblChangeLog`
-  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157085;
+  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157095;
 --
 -- AUTO_INCREMENT for table `tblComputation`
 --
@@ -2965,7 +2966,7 @@ ALTER TABLE `tblCustodian`
 -- AUTO_INCREMENT for table `tblDeduction`
 --
 ALTER TABLE `tblDeduction`
-  MODIFY `deduction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `deduction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT for table `tblDuties`
 --
@@ -3090,7 +3091,7 @@ ALTER TABLE `tblEmpReference`
 -- AUTO_INCREMENT for table `tblEmpRequest`
 --
 ALTER TABLE `tblEmpRequest`
-  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6767;
+  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6777;
 --
 -- AUTO_INCREMENT for table `tblEmpScholarship`
 --
@@ -3260,7 +3261,7 @@ ALTER TABLE `tblServiceRecord`
 -- AUTO_INCREMENT for table `tblSignatory`
 --
 ALTER TABLE `tblSignatory`
-  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

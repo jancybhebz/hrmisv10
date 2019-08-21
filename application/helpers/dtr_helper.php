@@ -19,9 +19,21 @@ if ( ! function_exists('flag_ceremony_time'))
     function flag_ceremony_time()
     {
         $CI =& get_instance();
-        $res = $CI->db->get('tblAgency')->result_array();
+        $res = $CI->db->select('flagTime')->get('tblAgency')->result_array();
         
         return count($res) > 0 ? $res[0]['flagTime'] : '';
+    }
+}
+
+# get Flag Ceremony Time
+if ( ! function_exists('overtime_details'))
+{
+    function overtime_details()
+    {
+        $CI =& get_instance();
+        $res = $CI->db->select('minOT,maxOT')->get('tblAgency')->result_array();
+        
+        return count($res) > 0 ? $res[0] : '';
     }
 }
 

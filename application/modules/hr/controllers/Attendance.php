@@ -80,8 +80,11 @@ class Attendance extends MY_Controller {
 		$dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
 		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
-
-		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
+		echo '<pre>';
+		print_r($arremp_dtr);
+		
+		die();
+		$this->arrData['arremp_dtr'] = $arremp_dtr;
 		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
 		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
 		$this->arrData['total_late'] = $arremp_dtr['total_late'];
