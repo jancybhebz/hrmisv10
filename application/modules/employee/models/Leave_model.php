@@ -31,34 +31,15 @@ class Leave_model extends CI_Model {
 					";
 			
 		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
 		return $objQuery->result_array();	
 	}
 
-	// function getBalances($strEmpNum = '')
-	// {		
-	// 	$strWhere = '';
-	// 	if($strEmpNum != "")
-	// 		$strWhere .= " AND empNumber = '".$strEmpNum."'";
-		
-	// 	$strSQL = " SELECT * FROM tblEmpLeaveBalance	
-	// 				-- LEFT JOIN tblEmpPersonal ON tblEmpPersonal.empNumber = tblEmpLeaveBalance.empNumber
-	// 				WHERE 1=1 
-	// 				$strWhere
-	// 				";
-			
-	// 	$objQuery = $this->db->query($strSQL);
-	// 	//print_r($objQuery->result_array());
-	// 	return $objQuery->result_array();	
-	// }
-
 	public function getLatestBalance($strEmpNum)
 	{
-		
 		$this->db->where("empNumber",$strEmpNum);
 		$this->db->order_by('periodYear DESC,periodMonth DESC');
 		$res = $this->db->get('tblEmpLeaveBalance')->result_array();
-		return $res;
+		return count($res) > 0 ? $res[0] : array();
 	}
 
 	function add_employeeLeave($arrData)
@@ -130,16 +111,8 @@ class Leave_model extends CI_Model {
 	}
 
 	# get Leaves
-	// TODO:: SURE FOR THIS FUNCTION
 	function getleave($empid,$datefrom,$dateto)
 	{
-		// $arrcond = array('empNumber' => $empid);
-		// if($month != 0) : $arrcond['periodMonth']=$month; endif;
-		// if($yr != 0) : $arrcond['periodYear']=$yr; endif;
-
-		// $this->db->order_by('lb_id' , 'desc');
-		// return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
-
 		$this->db->where('empNumber', $empid);
 		$this->db->where("(leaveFrom between '".$datefrom."' and '".$dateto."' or leaveTo between '".$datefrom."' and '".$dateto."')");
 		return $this->db->get('tblEmpLeave')->result_array();
@@ -255,7 +228,8 @@ class Leave_model extends CI_Model {
 	public function getleave_data($code = '')
 	{
 		if($code!=''):
-			return $this->db->get_where('tblLeave', array('leaveCode' => $code))->result_array();
+			$res = $this->db->get_where('tblLeave', array('leaveCode' => $code))->result_array();
+			return count($res) > 0 ? $res[0] : array();
 		else:
 			return $this->db->get('tblLeave')->result_array();
 		endif;

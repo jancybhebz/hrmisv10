@@ -112,6 +112,12 @@
                                                     Leave</a>';
                                         endforeach;
                                     endif;
+                                    if(count($dtr['dtr']) > 0):
+                                        if($dtr['dtr']['remarks'] == 'CL'):
+                                            echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($dtr['dtr'])).'">
+                                                    CTO</a>';
+                                        endif;
+                                    endif;
 
                                     $total_undertime = $total_undertime + $dtr['utimes'];
                                     $total_late = $total_late + $dtr['lates'];

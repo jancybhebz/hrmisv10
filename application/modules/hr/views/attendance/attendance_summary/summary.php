@@ -31,11 +31,13 @@
             endswitch;
 
             foreach($breadcrumbs as $key => $bc):
-                echo '<li><span>'.$bc.'</span>';
-                if($key != count($breadcrumbs)-1):
-                    echo '<i class="fa fa-circle"></i>';
-                endif;    
-                echo '</li>';
+                if($bc != 'index'):
+                    echo '<li><span>'.$bc.'</span>';
+                    if($key != count($breadcrumbs)-1):
+                        echo '<i class="fa fa-circle"></i>';
+                    endif;    
+                    echo '</li>';
+                endif;
             endforeach;
          ?>
     </ul>
@@ -91,90 +93,6 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <!-- BEGIN OFFICER / EXECUTIVE MODULE -->
-
-                                    <?php if(in_array(check_module(),array('officer','executive'))): ?>
-                                    <div class="col-md-12">
-                                        <div class="col-md-2">
-                                            <ul class="list-unstyled profile-nav">
-                                                <li>
-                                                    <?php  $strImageUrl = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
-                                                      if(file_exists($strImageUrl))
-                                                        { 
-                                                            $strImage = $strImageUrl;
-                                                        } 
-                                                        else 
-                                                        {
-                                                          $strImage = base_url('assets/images/logo.png');
-                                                        }   
-                                                        // $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
-                                                    <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- begin 201 profile -->
-                                        <?php $view_officer = isset($_GET['mode']) ? $_GET['mode'] == 'officer' ? 0 : 1 : 1; ?>
-                                        <?php if($view_officer): ?>
-                                        <div class="col-md-9">
-                                            <div class="row">
-                                                <div class="col-md-9 profile-info">
-                                                    <h1 class="font-green sbold uppercase"><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'])?></h1>
-                                                    <div class="row">
-                                                        <table class="table table-bordered table-striped">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td width="25%"><b>Employee Number</b></td>
-                                                                    <td width="25%"><?=$arrData['empNumber']?></td>
-                                                                    <td width="25%"><b>Employment Status</b></td>
-                                                                    <td width="25%"><?=$arrData['statusOfAppointment']?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><b>Position </b></td>
-                                                                    <td><?=$arrData['positionDesc']?></td>
-                                                                    <td><b>Appointment </b></td>
-                                                                    <td><?=$arrData['appointmentDesc']?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><b>Office</b></td>
-                                                                    <td colspan="3"><?=office_name(employee_office($arrData['empNumber']))?></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="portlet sale-summary">
-                                                        <div class="portlet-title">
-                                                            <div class="caption font-red sbold"> DTR </div>
-                                                        </div>
-                                                        <div class="portlet-body">
-                                                            <ul class="list-unstyled" style="line-height: 15px;">
-                                                                <li>
-                                                                    <span class="sale-info"> LOG IN </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inAM'])) : '00:00'?></span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="sale-info"> BREAK OUT </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outAM'])) : '00:00'?></span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="sale-info"> BREAK IN </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inPM'])) : '00:00'?></span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="sale-info"> LOG OUT </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outPM'])) : '00:00'?></span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php endif; ?>
-                                    </div>
-                                    <?php endif; ?>
-                                    <!-- END OFFICER / EXECUTIVE MODULE -->
                                     <div class="col-md-12" style="margin-bottom: 20px;" <?=($this_page == 'dtr' && !(preg_match('#[0-9]#',$tab))) || in_array($this_page,array('qr_code','index','leave_monetization')) ? 'hidden' : ''?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>

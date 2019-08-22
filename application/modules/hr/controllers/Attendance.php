@@ -48,25 +48,75 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 		
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
-
-		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
-		$this->arrData['arrspe_leave'] = $this->Leave_model->getspe_leave($empid, $yr);
-		// echo '<pre>';
-		// print_r($this->arrData['arremp_dtr']);
-		// die();
-
-		# GET FORCED LEAVE
-		$no_fl = $this->Leave_model->getleave_data('FL');
-		$no_fl = $no_fl[0]['numOfDays'];
-		$month_fl = $this->Leave_model->getforce_leave($empid, $yr, $month);
-		$this->arrData['fl_left'] = $no_fl - count($month_fl);
-
-		// TODO:: GET OFFSET BALANCE
-		// $this->arrData['arroff_bal'] = $this->Attendance_summary_model->getOffsetBalance($empid, $month, $yr);
+		$datefrom = date('Y-m').'-01';
+		$dateto = date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 		
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+
+		$days_absent = array();
+		$vl_left = 0;
+		$sl_left = 0;
+		$fl_left = 0;
+		$offset_balance = 0;
+		$total_undertime = 0;
+		$total_late = 0;
+		$total_ot_wkdays = 0;
+		$total_ot_holidays = 0;
+
+		foreach($arremp_dtr as $dtr):
+			if($dtr['dtrdate'] <= date('Y-m-d')):
+				if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				    array_push($days_absent,$dtr['dtrdate']);
+				endif;
+			endif;
+
+			$total_undertime = $total_undertime + $dtr['utimes'];
+			$total_late = $total_late + $dtr['lates'];
+			
+			# begin checking overtime
+			if(in_array($dtr['day'],array('Sat','Sun')) || count($dtr['holiday_name']) > 0):
+				# weekends
+				if(!empty($dtr['dtr'])):
+					if($dtr['OT'] == 1):
+						$total_ot_holidays = $total_ot_holidays + $dtr['ot'];
+					endif;
+				endif;
+			else:
+				# weekdays
+				if(!empty($dtr['dtr'])):
+					if($dtr['OT'] == 1):
+						$total_ot_wkdays = $total_ot_wkdays + $dtr['ot'];
+					endif;
+				endif;
+			endif;
+			# end checking overtime
+		endforeach;
+
+		$ctr_force_leave = 0;
+		$ctr_spe_leave = 0;
+		$emp_leaves = $this->Leave_model->getleave($empid,$datefrom,$dateto);
+		foreach($emp_leaves as $empleave):
+			if($empleave['certifyHR'] == 'Y'):
+				switch ($empleave['leaveCode']):
+					case 'FL':
+						$ctr_force_leave = $ctr_force_leave + 1; break;
+					case 'PL':
+						$ctr_spe_leave = $ctr_spe_leave + 1; break;
+				endswitch;
+			endif;
+		endforeach;
+
+		$force_leave = $this->Leave_model->getleave_data('FL');
+		$force_leave = empty($force_leave) ? 0 : $force_leave['numOfDays'];
+		$total_force_leave = $force_leave - $ctr_force_leave;
+
+		$spe_leave = $this->Leave_model->getleave_data('PL');
+		$spe_leave = empty($spe_leave) ? 0 : $spe_leave['numOfDays'];
+		$total_spe_leave = $spe_leave - $ctr_spe_leave;
+
+		$this->arrData['arrattendance'] = array('days_absent' => $days_absent, 'total_undertime' => $total_undertime, 'total_late' => $total_late, 'total_force_leave' => $total_force_leave, 'total_spe_leave' => $total_spe_leave);
+		$this->arrData['arrleaves'] = $this->Leave_model->getLatestBalance($empid);
+
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
