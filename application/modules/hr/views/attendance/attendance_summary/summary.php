@@ -181,11 +181,13 @@
                                                 <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Date From</label>
-                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_datefrom" type="text"  style="width: 140px !important;">
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_datefrom" type="text" style="width: 140px !important;"
+                                                            value="<?=isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : ''?>">
                                                 </div>
                                                 <div class="form-group" style="display: inline-flex;margin-left: 10px;">
                                                     <label style="padding: 6px;">Date To</label>
-                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_dateto" type="text" style="width: 140px !important;">
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_dateto" type="text" style="width: 140px !important;"
+                                                            value="<?=isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : ''?>">
                                                 </div>
                                                 &nbsp;
                                                 <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>

@@ -72,6 +72,9 @@ class Attendance extends MY_Controller {
 
 	public function dtr()
 	{
+		$this->load->model('libraries/Holiday_model');
+		$this->load->helper('dtr_helper');
+
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
@@ -79,19 +82,12 @@ class Attendance extends MY_Controller {
 		$datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m-').'01';
 		$dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
+		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		$this->arrData['working_days'] = get_workingdays('','',$holidays,$datefrom,$dateto);
+
 		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
-		echo '<pre>';
-		print_r($arremp_dtr);
-		
-		die();
 		$this->arrData['arremp_dtr'] = $arremp_dtr;
-		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
-		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
-		$this->arrData['total_late'] = $arremp_dtr['total_late'];
-		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
-		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
-		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
-		// $this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
+
 		if(in_array(check_module(),array('officer','executive'))):
 			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
 		endif;

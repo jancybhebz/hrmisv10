@@ -2,6 +2,10 @@
 <?php 
     $datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m-d');
     $dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m-d');
+    $total_undertime = 0;
+    $total_late = 0;
+    $days_late_ut = 0;
+    $days_absent = 0;
  ?>
 
 <div class="tab-pane active" id="tab_1_4">
@@ -65,8 +69,6 @@
                         <th class="no-sort">OUT</th>
                         <th class="no-sort">IN</th>
                         <th class="no-sort">OUT</th>
-                        <th class="no-sort">IN</th>
-                        <th class="no-sort">OUT</th>
                         <th class="no-sort">REMARKS</th>
                         <th class="no-sort">LATE</th>
                         <th class="no-sort">OT</th>
@@ -76,102 +78,123 @@
                 </thead>
                 <tbody>
                     <?php foreach($arremp_dtr as $dtr): ?>
-                    <tr class="odd <?=$dtr['day']?> tooltips <?=$dtr['holiday']!='' ? 'holiday' : ''?>"
-                            data-original-title="<?=date('l', strtotime($dtr['date']))?> <?=count($dtr['dtrdata']) > 0 ? $dtr['holiday']!='' ? ' - '.$dtr['holiday'] : '' : ''?>">
-                        
-                        <td><?=date('d', strtotime($dtr['date']))?></td>
-                        <?php if($dtr['holiday'] != '' && count($dtr['dtrdata']) < 1): ?>
-                            <td colspan="11"><?=$dtr['holiday']?></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                            <td style="display: none;"></td>
-                        <?php else: ?>
-                            <td><?=isset($dtr['dtrdata']['inAM'])  > 0 ? convert_12($dtr['dtrdata']['inAM'])  : ''?></td>
-                            <td><?=isset($dtr['dtrdata']['outAM']) > 0 ? convert_12($dtr['dtrdata']['outAM']) : ''?></td>
-                            <td><?=isset($dtr['dtrdata']['inPM'])  > 0 ? convert_12($dtr['dtrdata']['inPM'])  : ''?></td>
-                            <td><?=isset($dtr['dtrdata']['outPM']) > 0 ? convert_12($dtr['dtrdata']['outPM']) : ''?></td>
-                            <td><?=isset($dtr['dtrdata']['inOT'])  > 0 ? convert_12($dtr['dtrdata']['inOT'])  : ''?></td>
-                            <td><?=isset($dtr['dtrdata']['outOT']) > 0 ? convert_12($dtr['dtrdata']['outOT']) : ''?></td>
-                            <td><?php 
-                                    echo count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
-                                    if($dtr['obremarks']!=''):
-                                        echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars($dtr['obremarks']).'">
-                                                OB</a>';
+                        <tr class="odd <?=$dtr['day']?> tooltips <?=count($dtr['holiday_name']) > 0 ? 'holiday' : ''?>"
+                            data-original-title="<?=date('l', strtotime($dtr['dtrdate']))?>">
+                            <td><?=date('M d', strtotime($dtr['dtrdate']))?>
+                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['inAM'])) : '' ?></td>
+                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['outAM'])) : '' ?></td>
+                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['inPM'])) : '' ?></td>
+                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['outPM'])) : '' ?></td>
+                            <td style="text-align: left;">
+                                <?php 
+                                    if(count($dtr['holiday_name']) > 0):
+                                        echo '<ul>';
+                                        foreach($dtr['holiday_name'] as $hday): echo '<li><small>'.$hday.'</small></li>'; endforeach;
+                                        echo '</ul>';
+                                    endif; ?>
+                                <div style="padding-left: 30px;">
+                                <?php
+                                    if(count($dtr['obs']) > 0):
+                                        foreach($dtr['obs'] as $ob):
+                                            echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($ob)).'">
+                                                    OB</a>';
+                                        endforeach;
+                                    endif;
+                                    if(count($dtr['tos']) > 0):
+                                        foreach($dtr['tos'] as $to):
+                                            echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($to)).'">
+                                                    TO</a>';
+                                        endforeach;
+                                    endif;
+                                    if(count($dtr['leaves']) > 0):
+                                        foreach($dtr['leaves'] as $leave):
+                                            echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($leave)).'">
+                                                    Leave</a>';
+                                        endforeach;
                                     endif;
 
-                                    if($dtr['toremarks']!=''):
-                                        echo '<a id="btnto" class="btn btn-xs green-meadow" data-json="'.htmlspecialchars($dtr['toremarks']).'">
-                                                TO</a>';
+                                    $total_undertime = $total_undertime + $dtr['utimes'];
+                                    $total_late = $total_late + $dtr['lates'];
+                                    if($dtr['lates'] + $dtr['utimes'] > 0):
+                                        $days_late_ut = $days_late_ut + 1;
                                     endif;
 
-                                    if($dtr['leaveremarks']!=''):
-                                        echo '<a id="btnleave" class="btn btn-xs green-haze" data-json="'.htmlspecialchars($dtr['leaveremarks']).'">
-                                                Leave</a>';
+                                    if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+                                        $days_absent = $days_absent + 1;
                                     endif;
-                                 ?>        
+
+                                 ?>
+                                <div>
                             </td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['late'] != '00:00' ? $dtr['late'] : '' : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['overtime'] != '00:00' ? $dtr['overtime'] : '' : ''?></td>
-                            <td><?=count($dtr['dtrdata']) > 0 ? $dtr['undertime'] != '00:00' ? $dtr['undertime'] : '' : ''?></td>
-                            <td><?php 
-                                $djson['empname']   = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['name'] : '';
-                                $djson['ipadd']     = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : '';
-                                $djson['datetime']  = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : '';
-                                $djson['oldval']    = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : '';
-                                $djson['bsremarks'] = $dtr['bsremarks'] !='' ? $dtr['bsremarks'] : '';
-                                if(count($dtr['dtrdata']) > 0): ?>
-                                    <a id="btnlog" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
-                                        <i class="fa fa-info"></i></a></td>
-                                <?php endif; ?>
-                        <?php endif; ?>
-                    </tr>
+                            <td><?=$dtr['lates'] > 0 ? date('H:i', mktime(0, $dtr['lates'])) : ''?></td>
+                            <td><?=$dtr['ot'] > 0 ? date('H:i', mktime(0, $dtr['ot'])) : ''?></td>
+                            <td><?=$dtr['utimes'] > 0 ? date('H:i', mktime(0, $dtr['utimes'])) : ''?></td>
+                            <td>
+                                <?php 
+                                    $djson['empname']   = count($dtr['dtr']) > 0 ? $dtr['dtr']['name'] : '';
+                                    $djson['ipadd']     = count($dtr['dtr']) > 0 ? $dtr['dtr']['ip'] : '';
+                                    $djson['datetime']  = count($dtr['dtr']) > 0 ? $dtr['dtr']['editdate'] : '';
+                                    $djson['oldval']    = count($dtr['dtr']) > 0 ? $dtr['dtr']['oldValue'] : '';
+                                    $djson['bsremarks'] = $dtr['broken_sched'] !='' ? $dtr['broken_sched'] : '';
+                                    if(count($dtr['dtr']) > 0): ?>
+                                        <a id="btnlog" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
+                                            <i class="fa fa-info"></i></a>
+                                    <?php endif; ?>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <table class="table" width="100%">
+                <tr>
+                    <td width="25%"><b>Total Number of Working Days</b></td>
+                    <td width="25%"><?=count($working_days)?></td>
+                    <td width="25%"><b>Total Days Absent</b></td>
+                    <td width="25%"><?=$days_absent?></td>
+                </tr>
+                <tr>
+                    <td><b>Total Undertime</b></td>
+                    <td><?=date('H:i', mktime(0, $total_undertime))?></td>
+                    <td><b>VL</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Total Late</b></td>
+                    <td><?=date('H:i', mktime(0, $total_late))?></td>
+                    <td><b>SL</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Late / Undertime</b></td>
+                    <td><?=date('H:i', mktime(0, ($total_undertime + $total_late)))?></td>
+                    <td><b>Offset Balance</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Total Days Late / Undertime</b></td>
+                    <td><?=$days_late_ut?></td>
+                    <td><b>Offset for the Month</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Total Days LWOP</b></td>
+                    <td></td>
+                    <td><b>Offset Used</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Total Offset (Weekdays)</b></td>
+                    <td></td>
+                    <td><b>Total Offset (Weekends/Holiday)</b></td>
+                    <td></td>
+                </tr>
+            </table>
 
-            <div class="well">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>Total Number of Working Days: <?=$emp_workingdays?></p>
-                        <p>Total Undertime: <?=date('H:i', mktime(0, $total_undertime))?></p>
-                        <p>Total Late: <?=date('H:i', mktime(0, $total_late))?></p>
-                        <p>Late/Undertime: <?=date('H:i', mktime(0, $total_undertime+$total_late))?></p>
-                        <p>Total Days Late/Undertime: <?=$total_days_ut + $total_days_late?></p>
-                        <p>Total Days LWOP:</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Total Days Absent: <?=count($date_absents)?></p>
-                        <p>VL: <?=count($arrleaves) > 0 ? $arrleaves[0]['vlBalance'] : ''?></p>
-                        <p>SL: <?=count($arrleaves) > 0 ? $arrleaves[0]['slBalance'] : ''?></p>
-                        <p>Offset Balance:</p>
-                        <p>Offset for the Month:</p>
-                        <p>Offset Used:</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p>Dates Absent: 
-                            <?php 
-                                foreach($date_absents as $absent):
-                                    echo date('d', strtotime($absent)).'; ';
-                                endforeach;
-                             ?>
-                        </p>
-                    </div>
-                </div>
-            </div>
             <div class="row" <?=$_SESSION['sessUserLevel'] == 1 ? '' : 'hidden'?>>
                 <div class="col-md-12">
-                    <a href="<?=base_url('hr/attendance_summary/dtr/certify_offset').'/'.$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>" class="btn blue">Certify Offset</a>
+                    <a href="<?=base_url('hr/attendance_summary/dtr/certify_offset').'/'.$arrData['empNumber'].'?txtdtr_datefrom='.$_GET['txtdtr_datefrom'].'&txtdtr_dateto='.$_GET['txtdtr_dateto']?>" class="btn blue">Certify Offset</a>
                     <small><i>Click here to include/exclude Offset from computation.</i></small>
                     <?=str_repeat('&nbsp;', 6)?>
-                    <b>Total Offset (Weekdays):</b> 00:00 <?=str_repeat('&nbsp;', 6)?>
-                    <b>Total Offset (Weekends/Holiday):</b> 00:00</p>
                 </div>
             </div>
         </div>

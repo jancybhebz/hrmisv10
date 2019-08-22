@@ -55,6 +55,10 @@ class Attendance_summary_model extends CI_Model {
 		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
 		$att_scheme_temp = $att_scheme;
 
+		# Begin Broken Schedule
+		$broken_sched = array();
+		# End Broken Schedule
+
 		# DTR Data
 		$arrData = $this->Dtr_model->getData($empid,0,0,$datefrom,$dateto);
 		$reg_holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
@@ -107,17 +111,24 @@ class Attendance_summary_model extends CI_Model {
 			# Begin TO
 			$tos = array();
 			if(in_array($dtrdate,array_column($arrTo,'todate'))):
-				$tos = $arrTo[array_search($dtrdate, array_column($arrTo, 'todate'))];
+				$to_list  = array_intersect(array_column($arrTo,'todate'),array($dtrdate));
+				foreach($to_list as $key=>$tolist):
+					$tos[] = $arrTo[$key];
+				endforeach;
 			endif;
 			# End TO
 
 			# Begin Leave
 			$leaves = array();
 			if(in_array($dtrdate,array_column($arrLeaves,'leavedate'))):
-				$leaves = $arrLeaves[array_search($dtrdate, array_column($arrLeaves, 'leavedate'))];
+				$leave_list  = array_intersect(array_column($arrLeaves,'leavedate'),array($dtrdate));
+				foreach($leave_list as $key=>$leavelist):
+					$leaves[] = $arrLeaves[$key];
+				endforeach;
 			endif;
 			# End Leave
 
+			$temp_dtr = $dtr;
 			# Begin Late and UnderTime
 			$lates = 0;
 			$utimes = 0;
@@ -158,7 +169,6 @@ class Attendance_summary_model extends CI_Model {
 			if(in_array($dtrdate,$reg_holidays) || in_array(date('D',strtotime($dtrdate)),array('Sat','Sun'))):
 				# weekend and holiday ot
 				if(!empty($dtr)):
-					// $ot = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
 					$ot = $this->compute_working_hours($att_scheme,$dtr);
 				endif;
 			else:
@@ -169,11 +179,20 @@ class Attendance_summary_model extends CI_Model {
 			endif;
 			# End Compute Overtime
 
-			# Begin Data Array
-			$emp_dtr[] = array('dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot);
-			# End Data Array
+			# Begin Data for Holiday
+			$holiday_name = array();
+			if(in_array($dtrdate,$reg_holidays)):
+				$holiday_name = $this->Holiday_model->getHolidayDetails($dtrdate);
+			endif;
+			# End Data for Holiday
 
+			# Begin Data Array
+			$dtr = $temp_dtr;
+			$day = date('D', strtotime($dtrdate));
+			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'broken_sched' => $broken_sched);
+			# End Data Array
 		endforeach;
+		
 		return $emp_dtr;
 	}
 
@@ -686,15 +705,25 @@ class Attendance_summary_model extends CI_Model {
 			$ot_details = overtime_details();
 			$min_before_ot = toMinutes($ot_details['minOT']);
 			$max_ot = toMinutes($ot_details['maxOT']);
+			$min_ot = toMinutes($ot_details['minOT']);
 
 			$ot_pm_out = date('H:i', strtotime('+'.$min_before_ot.' minutes', strtotime($expctd_pm_timeout)));
 
 			$ot_hrs = 0;
 			if($pm_timeout > $ot_pm_out):
 				$ot_hrs = toMinutes($pm_timeout) - toMinutes($ot_pm_out);
+			endif;	
+
+			# check if OT is greater than minutes before OT
+			if($ot_hrs >= $min_before_ot):
+				$ot_hrs = $ot_hrs - $min_before_ot;
+				# removed excess hours of OT
+				if($max_ot > 0):
+					$ot_hrs = ($ot_hrs > $max_ot) ? $max_ot : $ot_hrs;
+				endif;
 			endif;
 
-			return $ot_hrs;
+			return ($ot_hrs >= $min_ot) ? $ot_hrs : 0;
 		else:
 			return 0;
 		endif;

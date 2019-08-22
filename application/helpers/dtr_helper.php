@@ -40,10 +40,15 @@ if ( ! function_exists('overtime_details'))
 # get all weekends in a month
 if ( ! function_exists('get_workingdays'))
 {
-    function get_workingdays($month,$yr,$holidays=null,$sdate='',$edate='')
+    function get_workingdays($month,$yr,$arrholidays=null,$sdate='',$edate='')
     {
     	$arrworking_days = array();
-    	$holidays = array_column($holidays, 'holidayDate');
+        if(strpos(json_encode($arrholidays), 'holidayDate') > 0):
+    	   $holidays = array_column($arrholidays, 'holidayDate');
+        else:
+            $holidays = $arrholidays;
+        endif;
+        
         if($sdate == '' && $edate == ''):
         	foreach(range(1, cal_days_in_month(CAL_GREGORIAN,$month,$yr)) as $day):
         		$ddate = date('Y-m-d',strtotime(implode('-',array($yr,$month,$day))));
@@ -62,6 +67,7 @@ if ( ! function_exists('get_workingdays'))
                 $date = date('Y-m-d', strtotime($date . ' +1 day'));
             }
         endif;
+        
     	return $arrworking_days;
 	}
 

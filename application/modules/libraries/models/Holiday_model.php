@@ -268,7 +268,19 @@ class Holiday_model extends CI_Model {
 		$localholidays = $this->db->get('tblLocalHoliday')->result_array();
 
 		$allholidays = array_merge(array_column($reg_holidays,'holidayDate'),array_column($localholidays,'holidate'));
+
 		return $allholidays;
+	}
+
+	function getHolidayDetails($date)
+	{
+		# Regular Holiday
+		$reg_holidays = $this->db->join('tblHoliday','tblHoliday.holidayCode = tblHolidayYear.holidayCode')->get_where('tblHolidayYear',array('holidayDate' => $date))->result_array();
+
+		# Local Holiday 
+		$local_holidays = $this->db->get_where('tblLocalHoliday',array('holidayDate' => $date))->result_array();
+
+		return array_merge(array_column($reg_holidays,'holidayName'),array_column($local_holidays,'holidayName'));
 	}
 
 		
