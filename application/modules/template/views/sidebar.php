@@ -8,6 +8,7 @@ $activesub = strtolower($activesub);
 $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
 $activetab = strtolower($activetab);
 
+$user_session = $this->session->userdata();
 // echo '<br>active = '.$active;
 // echo '<br>activesub = '.$activesub;
 // echo '<br>activetab = '.$activetab;
@@ -66,86 +67,100 @@ $activetab = strtolower($activetab);
                         <i class="icon-home"></i>
                         <span class="title">Dashboard</span>
                     </a>                            
-                </li>                            
-                <li class="nav-item <?=$active=='pds' || ($active=='hr' && $activesub=='add_employee') || ($active=='hr' && $activesub=='profile') ? 'active' : ''?>">
-                    <a href="<?=base_url('pds')?>" class="nav-link nav-toggle">
-                        <i class="icon-user"></i>
-                        <span class="title">201 File</span>
-                    </a>
                 </li>
-                <li class="nav-item <?=$activesub=='attendance' || $activesub=='attendance_summary'?'active open':''?>">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-settings"></i>
-                        <span class="title">Attendance</span>
-                        <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item <?=$activetab=='conversion_table'?'active open':''?>">
-                            <a href="<?=base_url('hr/attendance/conversion_table')?>">
-                                <span class="title">Conversion Table</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$active=='hr' && ($activesub=='attendance_summary' && in_array($activetab, array('index','leave_balance','leave_monetization','filed_request','dtr','qr_code','leave_balance_set','leave_balance_update')) || ($activesub=='attendance' && in_array($activetab, array('view_all')))) ? 'active open' : ''?>">
-                            <a href="<?=base_url('hr/attendance/view_all')?>">
-                                <span class="title">Attendance Summary</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='override'?'active open':''?>">
-                            <a href="<?=base_url('hr/attendance/override/ob')?>">
-                                <span class="title">Override</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <?=$active == 'hr' && $activesub == 'reports' ? 'active' : '' ?> ">
-                     <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
-                        <i class="icon-docs"></i>
-                        <span class="title">Reports</span>
-                    </a>                            
-                </li>
-                <li class="nav-item <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory') ?'active open':''?>">
-                    <a href="<?=base_url('libraries')?>" class="nav-link nav-toggle">
-                        <i class="icon-settings"></i>
-                        <span class="title">Libraries</span>
-                        <span class="arrow <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory')?'open':''?>""></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <?php 
-                            //get library menu item from menu_helper
-                            $signatory_url = $_SESSION['sessUserLevel'] == 1 ? 'hr/libraries/signatory' : 'finance/libraries/signatory';
-                            $arrMenu = get_libraries();
-                            foreach($arrMenu as $i=>$menuItem):
-                                $baseurl = ($i=="signatories") ? $signatory_url : 'libraries/'.$i;
-                                if($i!="signatories"):?>
-                                    <li class="nav-item start <?=$activesub==$i?'active':''?>">
-                                        <a href="<?=base_url('libraries/'.$i)?>" class="nav-link ">
-                                            <span class="title"><?=$menuItem?></span>
-                                        </a>
-                                    </li><?php
-                                else:?>
-                                    <li class="nav-item start <?=$active=='hr' && $activesub=='libraries' && $activetab=='signatory' ? 'active' : ''?>">
-                                        <a href="<?=base_url($signatory_url)?>" class="nav-link ">
-                                            <span class="title"><?=$menuItem?></span>
-                                        </a>
-                                    </li><?php
-                                endif;
-                            endforeach; ?>
-                    </ul>
-                </li>
-                <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-wallet"></i>
-                        <span class="title">Compensation</span>
-                        <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
-                            <a href="<?=base_url('finance/compensation/personnel_profile')?>">
-                                <span class="title">Personnel Profile</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '2') !== false))): ?>                      
+                    <li class="nav-item <?=$active=='pds' || ($active=='hr' && $activesub=='add_employee') || ($active=='hr' && $activesub=='profile') ? 'active' : ''?>">
+                        <a href="<?=base_url('pds')?>" class="nav-link nav-toggle">
+                            <i class="icon-user"></i>
+                            <span class="title">201 File</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '3') !== false))): ?> 
+                    <li class="nav-item <?=$activesub=='attendance' || $activesub=='attendance_summary'?'active open':''?>">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-settings"></i>
+                            <span class="title">Attendance</span>
+                            <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item <?=$activetab=='conversion_table'?'active open':''?>">
+                                <a href="<?=base_url('hr/attendance/conversion_table')?>">
+                                    <span class="title">Conversion Table</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$active=='hr' && ($activesub=='attendance_summary' && in_array($activetab, array('index','leave_balance','leave_monetization','filed_request','dtr','qr_code','leave_balance_set','leave_balance_update')) || ($activesub=='attendance' && in_array($activetab, array('view_all')))) ? 'active open' : ''?>">
+                                <a href="<?=base_url('hr/attendance/view_all')?>">
+                                    <span class="title">Attendance Summary</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='override'?'active open':''?>">
+                                <a href="<?=base_url('hr/attendance/override/ob')?>">
+                                    <span class="title">Override</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '4') !== false))): ?> 
+                    <li class="nav-item <?=$active == 'hr' && $activesub == 'reports' ? 'active' : '' ?> ">
+                         <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
+                            <i class="icon-docs"></i>
+                            <span class="title">Reports</span>
+                        </a>                            
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '5') !== false))): ?> 
+                    <li class="nav-item <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory') ?'active open':''?>">
+                        <a href="<?=base_url('libraries')?>" class="nav-link nav-toggle">
+                            <i class="icon-settings"></i>
+                            <span class="title">Libraries</span>
+                            <span class="arrow <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory')?'open':''?>""></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <?php 
+                                //get library menu item from menu_helper
+                                $signatory_url = $_SESSION['sessUserLevel'] == 1 ? 'hr/libraries/signatory' : 'finance/libraries/signatory';
+                                $arrMenu = get_libraries();
+                                foreach($arrMenu as $i=>$menuItem):
+                                    $baseurl = ($i=="signatories") ? $signatory_url : 'libraries/'.$i;
+                                    if($i!="signatories"):?>
+                                        <li class="nav-item start <?=$activesub==$i?'active':''?>">
+                                            <a href="<?=base_url('libraries/'.$i)?>" class="nav-link ">
+                                                <span class="title"><?=$menuItem?></span>
+                                            </a>
+                                        </li><?php
+                                    else:?>
+                                        <li class="nav-item start <?=$active=='hr' && $activesub=='libraries' && $activetab=='signatory' ? 'active' : ''?>">
+                                            <a href="<?=base_url($signatory_url)?>" class="nav-link ">
+                                                <span class="title"><?=$menuItem?></span>
+                                            </a>
+                                        </li><?php
+                                    endif;
+                                endforeach; ?>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '6') !== false))): ?> 
+                    <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-wallet"></i>
+                            <span class="title">Compensation</span>
+                            <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
+                                <a href="<?=base_url('finance/compensation/personnel_profile')?>">
+                                    <span class="title">Personnel Profile</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
             <?php endif; ?>
             <!-- end hr module -->
 
@@ -154,131 +169,145 @@ $activetab = strtolower($activetab);
                 <li class="heading">
                     <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
-                <li class="nav-item <?=$activesub=='notifications'?'active open':''?>">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-bell"></i>
-                        <span class="title">Notifications</span>
-                        <span class="arrow <?=$activesub=='notifications'?'open':''?>"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item <?=$activetab=='npayroll'?'active open':''?>">
-                            <a href="<?=base_url('finance/notifications/npayroll')?>">
-                                <span class="title">Included in Payroll</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='matureloans'?'active open':''?>">
-                            <a href="<?=base_url('finance/notifications/matureloans')?>">
-                                <span class="title">Maturing Loans</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='nlongi'?'active open':''?>">
-                            <a href="<?=base_url('finance/notifications/nlongi')?>">
-                                <span class="title">Increase in Longevity Factor</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-wallet"></i>
-                        <span class="title">Compensation</span>
-                        <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
-                            <a href="<?=base_url('finance/compensation/personnel_profile')?>">
-                                <span class="title">Personnel Profile</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <?=$activesub=='payroll_update'?'active open':''?>">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-docs"></i>
-                        <span class="title">Update</span>
-                        <span class="arrow <?=$activesub=='payroll_update'?'open':''?>"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item start <?=$activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')?'active open':''?>">
-                            <a href="<?=base_url('finance/payroll_update/process')?>">
-                                <span class="title">Process Payroll</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start <?=$activetab=='process_history'?'active open':''?>">
-                            <a href="<?=base_url('finance/payroll_update/process_history')?>">
-                                <span class="title">Process History</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start <?=$activetab=='update_or'?'active open':''?>">
-                            <a href="<?=base_url('finance/payroll_update/update_or')?>">
-                                <span class="title">Update OR Remittances</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <?=$activesub=='reports'?'active open':''?>">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-docs"></i>
-                        <span class="title">Reports</span>
-                        <span class="arrow <?=$activesub=='reports'?'open':''?>"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item <?=$activetab=='monthly'?'active open':''?>">
-                            <a href="<?=base_url('finance/reports/monthly')?>">
-                                <span class="title">Monthly Reports</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='remittance'?'active open':''?>">
-                            <a href="<?=base_url('finance/reports/remittance')?>">
-                                <span class="title">Employee Remittances</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='loanbalance'?'active open':''?>">
-                            <a href="<?=base_url('finance/reports/loanbalance')?>">
-                                <span class="title">Employee Loan balance</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-settings"></i>
-                        <span class="title">Libraries</span>
-                        <span class="arrow <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'open':''?>"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item <?=$activetab=='deductions' || $activetab=='agency'?'active open':''?>">
-                            <a href="<?=base_url('finance/libraries/deductions')?>">
-                                <span class="title">Deduction</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='income'?'active open':''?>">
-                            <a href="<?=base_url('finance/libraries/income')?>">
-                                <span class="title">Income</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='payrollprocess'?'active open':''?>">
-                            <a href="<?=base_url('finance/libraries/payrollprocess')?>">
-                                <span class="title">Payroll Process</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='projectcode'?'active open':''?>">
-                            <a href="<?=base_url('finance/libraries/projectcode')?>">
-                                <span class="title">Project Code</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$activetab=='payrollgroup' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
-                            <a href="<?=base_url('libraries/payroll_group')?>">
-                                <span class="title">Payroll Group</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?=$active=='finance' && $activesub=='libraries' && $activetab=='signatory'?'active open':''?>">
-                            <a href="<?=base_url('finance/libraries/signatory')?>">
-                                <span class="title">Signatory</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '1') !== false))): ?>
+                    <li class="nav-item <?=$activesub=='notifications'?'active open':''?>">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-bell"></i>
+                            <span class="title">Notifications</span>
+                            <span class="arrow <?=$activesub=='notifications'?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item <?=$activetab=='npayroll'?'active open':''?>">
+                                <a href="<?=base_url('finance/notifications/npayroll')?>">
+                                    <span class="title">Included in Payroll</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='matureloans'?'active open':''?>">
+                                <a href="<?=base_url('finance/notifications/matureloans')?>">
+                                    <span class="title">Maturing Loans</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='nlongi'?'active open':''?>">
+                                <a href="<?=base_url('finance/notifications/nlongi')?>">
+                                    <span class="title">Increase in Longevity Factor</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '3') !== false))): ?>
+                    <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-wallet"></i>
+                            <span class="title">Compensation</span>
+                            <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
+                                <a href="<?=base_url('finance/compensation/personnel_profile')?>">
+                                    <span class="title">Personnel Profile</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '5') !== false))): ?>
+                    <li class="nav-item <?=$activesub=='payroll_update'?'active open':''?>">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-docs"></i>
+                            <span class="title">Update</span>
+                            <span class="arrow <?=$activesub=='payroll_update'?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start <?=$activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')?'active open':''?>">
+                                <a href="<?=base_url('finance/payroll_update/process')?>">
+                                    <span class="title">Process Payroll</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start <?=$activetab=='process_history'?'active open':''?>">
+                                <a href="<?=base_url('finance/payroll_update/process_history')?>">
+                                    <span class="title">Process History</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start <?=$activetab=='update_or'?'active open':''?>">
+                                <a href="<?=base_url('finance/payroll_update/update_or')?>">
+                                    <span class="title">Update OR Remittances</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '2') !== false))): ?>
+                    <li class="nav-item <?=$activesub=='reports'?'active open':''?>">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-docs"></i>
+                            <span class="title">Reports</span>
+                            <span class="arrow <?=$activesub=='reports'?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item <?=$activetab=='monthly'?'active open':''?>">
+                                <a href="<?=base_url('finance/reports/monthly')?>">
+                                    <span class="title">Monthly Reports</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='remittance'?'active open':''?>">
+                                <a href="<?=base_url('finance/reports/remittance')?>">
+                                    <span class="title">Employee Remittances</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='loanbalance'?'active open':''?>">
+                                <a href="<?=base_url('finance/reports/loanbalance')?>">
+                                    <span class="title">Employee Loan balance</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '4') !== false))): ?>
+                    <li class="nav-item <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-settings"></i>
+                            <span class="title">Libraries</span>
+                            <span class="arrow <?=$activesub=='libraries' || ($active=='libraries' && $activesub == 'payroll_group')?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item <?=$activetab=='deductions' || $activetab=='agency'?'active open':''?>">
+                                <a href="<?=base_url('finance/libraries/deductions')?>">
+                                    <span class="title">Deduction</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='income'?'active open':''?>">
+                                <a href="<?=base_url('finance/libraries/income')?>">
+                                    <span class="title">Income</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='payrollprocess'?'active open':''?>">
+                                <a href="<?=base_url('finance/libraries/payrollprocess')?>">
+                                    <span class="title">Payroll Process</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='projectcode'?'active open':''?>">
+                                <a href="<?=base_url('finance/libraries/projectcode')?>">
+                                    <span class="title">Project Code</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='payrollgroup' || ($active=='libraries' && $activesub == 'payroll_group')?'active open':''?>">
+                                <a href="<?=base_url('libraries/payroll_group')?>">
+                                    <span class="title">Payroll Group</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$active=='finance' && $activesub=='libraries' && $activetab=='signatory'?'active open':''?>">
+                                <a href="<?=base_url('finance/libraries/signatory')?>">
+                                    <span class="title">Signatory</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
             <?php endif; ?>
             <!-- end finance module -->
 
@@ -427,6 +456,7 @@ $activetab = strtolower($activetab);
                 <li class="heading">
                     <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
+                <?php if($_SESSION['']) ?>
                 <li class="nav-item  <?=$active =='hr' && $activesub =='profile' ? 'active': ''?>">
                     <a href="<?=base_url('hr/profile/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">
                         <i class="icon-user"></i>
