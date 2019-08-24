@@ -70,23 +70,23 @@
                                 <?php endif; ?>
                                 <tr>
                                     <td><b>Offset Balance</b></td>
-                                    <td style="width: 75%;"><?=date('H:i', mktime(0, ($arremp_dtr['total_ot_wkdays'] + $arremp_dtr['total_ot_wkendsholi'])))?></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, ($arrattendance['total_ot_wkdays'] + $arrattendance['total_ot_holidays'])))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Undertime</b></td>
-                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_undertime']))?></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arrattendance['total_undertime']))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Late</b></td>
-                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_late']))?></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arrattendance['total_late']))?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Total Overtime Weekdays</b></td>
-                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_ot_wkdays']))?></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arrattendance['total_ot_wkdays']))?></td>
                                 </tr>
                                 <tr>
                                     <td nowrap><b>Total Overtime Weekends / Holidays</b></td>
-                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arremp_dtr['total_ot_wkendsholi']))?></td>
+                                    <td style="width: 75%;"><?=date('H:i', mktime(0, $arrattendance['total_ot_holidays']))?></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -125,7 +125,7 @@
                                         $days_late_ut = $days_late_ut + 1;
                                     endif;
 
-                                    if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+                                    if((count($dtr['leaves']) + count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
                                         $days_absent = $days_absent + 1;
                                     endif;
 

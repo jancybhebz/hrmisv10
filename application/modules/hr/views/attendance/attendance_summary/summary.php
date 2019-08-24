@@ -71,9 +71,6 @@
                     <div style="height: 560px;" id="div_hide"></div>
                     <div class="portlet-body"  id="employee_view" style="display: none">
                         <div class="row">
-                            <pre><?php print_r($this_page) ?></pre>
-                            <pre><?php print_r($show_monyr) ?></pre>
-                            <pre><?php print_r($show_dates) ?></pre>
                             <div class="tabbable-line tabbable-full-width col-md-12">
                                 <ul class="nav nav-tabs">
                                     <li class="<?=$this_page == 'index' ? 'active' : ''?>">
