@@ -140,73 +140,73 @@ $(document).ready(function() {
     });
 
     $('#btn-update-leavebal').click(function(e) {
-        var lb_data = $(this).data('json');
+        // var lb_data = $(this).data('json');
         var leave_earned = $(this).data('leave_earned');
         var latest_lb = $(this).data('latest_lb');
-        
-        $('#txtprev_month').html('<b>'+ number_to_month(lb_data['lb_detail']['periodMonth'],1) + ' ' + lb_data['lb_detail']['periodYear']);
+        console.log(latest_lb);
+        // $('#txtprev_month').html('<b>'+ number_to_month(lb_data['lb_detail']['periodMonth'],1) + ' ' + lb_data['lb_detail']['periodYear']);
 
         /* Previous Month Balance */
-        $('.prev_vl').html(lb_data['lb_detail']['vlBalance']);
-        $('.prev_sl').html(lb_data['lb_detail']['slBalance']);
+        $('.prev_vl').html(latest_lb['lb']['vlBalance']);
+        $('.prev_sl').html(latest_lb['lb']['slBalance']);
         /* Earned for the month */
         $('.earned_vl').html(leave_earned);
         $('.earned_sl').html(leave_earned);
         /* Abs. Und. W/ Pay */
-        $('.auwp_vl').html(lb_data['lb_detail']['vlAbsUndWPay']);
-        $('.auwp_sl').html(lb_data['lb_detail']['slAbsUndWPay']);
-        /* Month Year Balance */
-        $('.period_date_bal').html('<b>'+ number_to_month(lb_data['lb_detail']['periodMonth']) + ' ' + lb_data['lb_detail']['periodYear'] + '</b> Balance');
-        $('.period_vl').html(lb_data['lb_detail']['vlBalance']);
-        $('.period_sl').html(lb_data['lb_detail']['slBalance']);
+        $('.auwp_vl').html(latest_lb['abswpay']['vl']);
+        $('.auwp_sl').html(latest_lb['abswpay']['sl']);
+        // /* Month Year Balance */
+        // $('.period_date_bal').html('<b>'+ number_to_month(lb_data['periodMonth']) + ' ' + lb_data['periodYear'] + '</b> Balance');
+        // $('.period_vl').html(lb_data['vlBalance']);
+        // $('.period_sl').html(lb_data['slBalance']);
         /* Abs. Und. W/o Pay */
-        $('.auwop_vl').html(lb_data['lb_detail']['vlAbsUndWoPay']);
-        $('.auwop_sl').html(lb_data['lb_detail']['slAbsUndWoPay']);
+        $('.auwop_vl').html(latest_lb['abswopay']['vl']);
+        $('.auwop_sl').html(latest_lb['abswopay']['sl']);
 
-        /* Leave Type */
-        /* Special Leave */
-        $('.spe_prev').html(latest_lb['plPreBalance']);
-        $('.spe_filed').html(lb_data['filed_leave']['filed_spe']);
-        $('.spe_curr').html(latest_lb['plBalance']);
-        /* Force Leave */
-        $('.fl_prev').html(latest_lb['flPreBalance']);
-        $('.fl_filed').html(lb_data['filed_leave']['filed_force']);
-        $('.fl_curr').html(latest_lb['flBalance']);
-        /* Study Leave */
-        $('.sdl_prev').html(latest_lb['stlPreBalance']);
-        $('.sdl_filed').html(lb_data['filed_leave']['filed_study']);
-        $('.sdl_curr').html(latest_lb['stlBalance']);
-        /* Paternity Leave */
-        $('.ptl_prev').html(latest_lb['ptlPreBalance']);
-        $('.ptl_filed').html(lb_data['filed_leave']['filed_pater']);
-        $('.ptl_curr').html(latest_lb['ptlBalance']);
-        /* Maternity Leave */
-        $('.mtl_prev').html(latest_lb['mtlPreBalance']);
-        $('.mtl_filed').html(lb_data['filed_leave']['filed_mater']);
-        $('.mtl_curr').html(latest_lb['mtlBalance']);
+        // /* Leave Type */
+        // /* Special Leave */
+        // $('.spe_prev').html(latest_lb['plPreBalance']);
+        // $('.spe_filed').html(lb_data['filed_leave']['filed_spe']);
+        // $('.spe_curr').html(latest_lb['plBalance']);
+        // /* Force Leave */
+        // $('.fl_prev').html(latest_lb['flPreBalance']);
+        // $('.fl_filed').html(lb_data['filed_leave']['filed_force']);
+        // $('.fl_curr').html(latest_lb['flBalance']);
+        // /* Study Leave */
+        // $('.sdl_prev').html(latest_lb['stlPreBalance']);
+        // $('.sdl_filed').html(lb_data['filed_leave']['filed_study']);
+        // $('.sdl_curr').html(latest_lb['stlBalance']);
+        // /* Paternity Leave */
+        // $('.ptl_prev').html(latest_lb['ptlPreBalance']);
+        // $('.ptl_filed').html(lb_data['filed_leave']['filed_pater']);
+        // $('.ptl_curr').html(latest_lb['ptlBalance']);
+        // /* Maternity Leave */
+        // $('.mtl_prev').html(latest_lb['mtlPreBalance']);
+        // $('.mtl_filed').html(lb_data['filed_leave']['filed_mater']);
+        // $('.mtl_curr').html(latest_lb['mtlBalance']);
 
-        /* COC */
-        $('.coc_balance').html(latest_lb['off_bal']);
-        $('.coc_gain').html(latest_lb['off_gain']);
-        $('.coc_used').html(latest_lb['off_used']);
+        // /* COC */
+        // $('.coc_balance').html(latest_lb['off_bal']);
+        // $('.coc_gain').html(latest_lb['off_gain']);
+        // $('.coc_used').html(latest_lb['off_used']);
 
-        /* Attendance Summary */
-        $('.late_ut_days').html(latest_lb['trut_notimes']);
-        $('.late_ut_hhmm').html(latest_lb['trut_totalminutes']);
-        $('.days_awol').html(latest_lb['nodays_awol']);
-        $('.days_present').html(latest_lb['nodays_present']);
-        $('.days_absent').html(latest_lb['nodays_absent']);
+        // /* Attendance Summary */
+        // $('.late_ut_days').html(latest_lb['trut_notimes']);
+        // $('.late_ut_hhmm').html(latest_lb['trut_totalminutes']);
+        // $('.days_awol').html(latest_lb['nodays_awol']);
+        // $('.days_present').html(latest_lb['nodays_present']);
+        // $('.days_absent').html(latest_lb['nodays_absent']);
 
-        /* MC Benefits */
-        $('.laundry').html(latest_lb['ctr_laundry']);
-        $('.subs_8hrs').html(latest_lb['ctr_8h']);
-        $('.subs_6hrs').html(latest_lb['ctr_6h']);
-        $('.subs_5hrs').html(latest_lb['ctr_5h']);
-        $('.subs_4hrs').html(latest_lb['ctr_4h']);
-        $('.with_meal').html(latest_lb['ctr_wmeal']);
-        $('.amt_training').html(latest_lb['ctr_diem']);
+        // /* MC Benefits */
+        // $('.laundry').html(latest_lb['ctr_laundry']);
+        // $('.subs_8hrs').html(latest_lb['ctr_8h']);
+        // $('.subs_6hrs').html(latest_lb['ctr_6h']);
+        // $('.subs_5hrs').html(latest_lb['ctr_5h']);
+        // $('.subs_4hrs').html(latest_lb['ctr_4h']);
+        // $('.with_meal').html(latest_lb['ctr_wmeal']);
+        // $('.amt_training').html(latest_lb['ctr_diem']);
 
-        $('#frmupdate_leavebalance').attr('action',$('#txtget_data').val());
+        // $('#frmupdate_leavebalance').attr('action',$('#txtget_data').val());
         $('#modal-view-leave-balance').modal('show');
 
     });

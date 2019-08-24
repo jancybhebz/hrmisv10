@@ -110,11 +110,23 @@ class Leave_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function getleave_balance($empid, $month=0, $yr=0)
+	{
+		$arrcond = array('empNumber' => $empid);
+		if($month != 0) : $arrcond['periodMonth']=$month; endif;
+		if($yr != 0) : $arrcond['periodYear']=$yr; endif;
+
+		$this->db->order_by('periodMonth' , 'DESC');
+		return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
+	}
+
 	# get Leaves
-	function getleave($empid,$datefrom,$dateto)
+	function getleave($empid,$datefrom='',$dateto='')
 	{
 		$this->db->where('empNumber', $empid);
-		$this->db->where("(leaveFrom between '".$datefrom."' and '".$dateto."' or leaveTo between '".$datefrom."' and '".$dateto."')");
+		if($datefrom!='' && $dateto!=''):
+			$this->db->where("(leaveFrom between '".$datefrom."' and '".$dateto."' or leaveTo between '".$datefrom."' and '".$dateto."')");
+		endif;
 		return $this->db->get('tblEmpLeave')->result_array();
 	}
 
@@ -235,28 +247,38 @@ class Leave_model extends CI_Model {
 		endif;
 	}
 
-	public function getEmpLeave_balance($empid,$permonth,$peryr)
+	// public function getEmpLeave_balance($empid,$permonth,$peryr)
+	// {
+	// 	$this->db->order_by('periodMonth','ASC');
+	// 	if($empid!=''):
+	// 		$condition['empNumber'] = $empid;
+	// 	endif;
+	// 	if($permonth!='all'):
+	// 		$condition['periodMonth'] = $permonth;
+	// 	endif;
+	// 	$condition['periodYear'] = $peryr;
+
+	// 	$res = $this->db->get_where('tblEmpLeaveBalance',$condition)->result_array();
+	// 	return $res;
+	// }
+
+	public function getEmployee_dtr($empno,$mon='',$yr='',$datefrom='',$dateto='')
 	{
-		if($empid!=''):
-			$condition['empNumber'] = $empid;
+		if($mon!='' && $yr!=''):
+			$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
 		endif;
-		$condition['periodMonth'] = $permonth;
-		$condition['periodYear'] = $peryr;
 
-		$res = $this->db->get_where('tblEmpLeaveBalance',$condition)->result_array();
-		return $res;
-	}
+		if($datefrom!='' && $dateto!=''):
+			$this->db->where("dtrDate BETWEEN '".$datefrom."' AND '".$dateto."'");
+		endif;
 
-	public function getEmployee_dtr($empno,$mon,$yr)
-	{
-		$this->db->like('dtrdate',$yr.'-'.$mon,'after',false);
 		return $this->db->get_where('tblEmpDTR', array('empNumber' => $empno))->result_array();
 	}
 
-	public function filed_vl($empno,$mon,$yr)
+	public function filed_vl($empno,$datefrom,$dateto)
 	{
 		$total_leave = 0;
-		$emp_leaves = $this->getEmployee_dtr($empno,$mon,$yr);
+		$emp_leaves = $this->getEmployee_dtr($empno,'','',$datefrom,$dateto);
 		
 		foreach($emp_leaves as $leave):
 			if(in_array($leave["remarks"],array('HVL','HFL','HPL'))):
@@ -270,10 +292,10 @@ class Leave_model extends CI_Model {
 		return $total_leave;
 	}
 
-	public function filed_sl($empno,$mon,$yr)
+	public function filed_sl($empno,$datefrom,$dateto)
 	{
 		$total_leave = 0;
-		$emp_leaves = $this->getEmployee_dtr($empno,$mon,$yr);
+		$emp_leaves = $this->getEmployee_dtr($empno,'','',$datefrom,$dateto);
 
 		foreach($emp_leaves as $leave):
 			if($leave["remarks"]=="HSL"):
@@ -307,18 +329,29 @@ class Leave_model extends CI_Model {
 		return $total_leave;
 	}
 
-	public function approved_vl($empno,$yr,$mon)
+	public function approved_leave($empid,$datefrom,$dateto,$leave_code='')
 	{
-		$this->db->like('leaveFrom',$this->db->escape_like_str($yr.'-'.$mon),'after',false);
-		$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'VL', 'certifyHR' => 'Y'))->result_array();
-		return count($emp_leaves);
+		$this->db->where('empNumber', $empid);
+		$this->db->where("(leaveFrom between '".$datefrom."' and '".$dateto."' or leaveTo between '".$datefrom."' and '".$dateto."')");
+		if($leave_code!=''):
+			$this->db->where('leaveCode',$leave_code);
+		endif;
+		$this->db->where('certifyHR','Y');
+		return $this->db->get('tblEmpLeave')->result_array();
 	}
+
+	// public function approved_vl($empno,$yr,$mon)
+	// {
+	// 	$this->db->like('leaveFrom',$this->db->escape_like_str($yr.'-'.$mon),'after',false);
+	// 	$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'VL', 'certifyHR' => 'Y'))->result_array();
+	// 	return count($emp_leaves);
+	// }
 	
-	public function approved_sl($empno,$yr,$mon)
-	{
-		$this->db->like('leaveFrom',$this->db->escape_like_str($yr.'-'.$mon),'after',false);
-		$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'SL', 'certifyHR' => 'Y'))->result_array();
-		return count($emp_leaves);	
-	}	
+	// public function approved_sl($empno,$yr,$mon)
+	// {
+	// 	$this->db->like('leaveFrom',$this->db->escape_like_str($yr.'-'.$mon),'after',false);
+	// 	$emp_leaves = $this->db->get_where('tblEmpLeave', array('empNumber' => $empno, 'leaveCode' => 'SL', 'certifyHR' => 'Y'))->result_array();
+	// 	return count($emp_leaves);	
+	// }	
 
 }

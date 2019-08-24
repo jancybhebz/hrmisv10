@@ -17,8 +17,8 @@
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
-                                    <td width="25%"><b>Employee Number</b></td>
-                                    <td width="25%"><?=$arrData['empNumber']?></td>
+                                    <td width="20%"><b>Employee Number</b></td>
+                                    <td width="35%"><?=$arrData['empNumber']?></td>
                                     <td width="15%"><b>Pay Ending</b></td>
                                     <td width="35%"><?=date('F Y')?></td>
                                 </tr>

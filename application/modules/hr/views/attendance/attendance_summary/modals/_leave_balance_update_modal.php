@@ -7,7 +7,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title bold">Leave Balance Preview</h4>
-                    <small>Leave Balance Info for the Month of <span id="txtprev_month"><?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.(count($arrLatestBalance) > 0 ? $arrLatestBalance['periodYear'] : date('Y'))?></span></small>
+                    <small>Leave Balance Info for the Month of <span id="txtprev_month"><?=date('F', mktime(0, 0, 0, $arrLatestBalance['lb']['periodMonth']+1, 10)).' '.(count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodYear'] : date('Y'))?></span></small>
                 </div>
                 <div class="modal-body">
                     <div class="row form-body">

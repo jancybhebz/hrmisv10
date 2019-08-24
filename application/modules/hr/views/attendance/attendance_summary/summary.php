@@ -6,7 +6,18 @@
     $tab = $this->uri->segment(4);
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+
+    $datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m').'-01';
+    $dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+
+    $show_monyr = 0;
+    $show_dates = 0;
+    switch ($this_page):
+        case 'dtr': $show_monyr = 0; $show_dates = 1; break;
+        case 'leave_balance_update': $show_monyr = 1; $show_dates = 0; break;
+    endswitch;
 ?>
+
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -60,18 +71,21 @@
                     <div style="height: 560px;" id="div_hide"></div>
                     <div class="portlet-body"  id="employee_view" style="display: none">
                         <div class="row">
+                            <pre><?php print_r($this_page) ?></pre>
+                            <pre><?php print_r($show_monyr) ?></pre>
+                            <pre><?php print_r($show_dates) ?></pre>
                             <div class="tabbable-line tabbable-full-width col-md-12">
                                 <ul class="nav nav-tabs">
                                     <li class="<?=$this_page == 'index' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                        <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber']?>">
                                             Attendance Summary </a>
                                     </li>
                                     <li <?=$arrData['appointmentCode']!='P' ? 'style="display: none;"' :''?> class="<?=in_array($this_page, array('leave_balance','leave_balance_update','leave_balance_set')) ? 'active' : ''?>">
                                         <?php if(check_module() == 'hr'): ?>
-                                            <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.date('m').'&yr='.date('Y')?>">
                                                 Leave Balance </a>
                                         <?php else: ?>
-                                            <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?txtdtr_datefrom='.$datefrom.'&txtdtr_dateto='.$dateto?>">
                                                 Leave Balance </a>
                                         <?php endif; ?>
                                     </li>
@@ -84,7 +98,7 @@
                                             Filed Request </a>
                                     </li>
                                     <li class="<?=($this_page == 'dtr') ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?month='.($month == 'all' ? date('m') : $month).'&yr='.$yr?>">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?txtdtr_datefrom='.$datefrom.'&txtdtr_dateto='.$dateto?>">
                                             Daily Time Record </a>
                                     </li>
                                     <li class="<?=$this_page == 'qr_code' ? 'active' : ''?>">
@@ -93,19 +107,62 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=($this_page == 'dtr' && !(preg_match('#[0-9]#',$tab))) || in_array($this_page,array('qr_code','index','leave_monetization')) ? 'hidden' : ''?>>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$show_monyr?'':'hidden'?>>
+                                        <center>
+                                            <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                                                <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
+                                                <div class="form-group" style="display: inline-flex;">
+                                                    <label style="padding: 6px;">Month</label>
+                                                    <select class="bs-select form-control" name="month">
+                                                        <?php if($this_page!='dtr'): ?>
+                                                            <option value="all">All</option>
+                                                        <?php endif; ?>
+                                                        <?php foreach (range(1, 12) as $m): ?>
+                                                            <option value="<?=sprintf('%02d', $m)?>"
+                                                                <?php 
+                                                                    if(isset($_GET['month'])):
+                                                                        echo $_GET['month'] == $m ? 'selected' : '';
+                                                                    else:
+                                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                                    endif;
+                                                                 ?> >
+                                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" style="display: inline-flex;margin-left: 10px;">
+                                                    <label style="padding: 6px;">Year</label>
+                                                    <select class="bs-select form-control" name="yr">
+                                                        <?php foreach (getYear() as $yr): ?>
+                                                            <option value="<?=$yr?>"
+                                                                <?php 
+                                                                    if(isset($_GET['yr'])):
+                                                                        echo $_GET['yr'] == $yr ? 'selected' : '';
+                                                                    else:
+                                                                        echo $yr == date('Y') ? 'selected' : '';
+                                                                    endif;
+                                                                 ?> >  
+                                                            <?=$yr?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
+                                            <?=form_close()?>
+                                        </center>
+                                    </div>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$show_dates?'':'hidden'?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Date From</label>
                                                     <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_datefrom" type="text" style="width: 140px !important;"
-                                                            value="<?=isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : ''?>">
+                                                            value="<?=$datefrom?>">
                                                 </div>
                                                 <div class="form-group" style="display: inline-flex;margin-left: 10px;">
                                                     <label style="padding: 6px;">Date To</label>
                                                     <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_dateto" type="text" style="width: 140px !important;"
-                                                            value="<?=isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : ''?>">
+                                                            value="<?=$dateto?>">
                                                 </div>
                                                 &nbsp;
                                                 <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
