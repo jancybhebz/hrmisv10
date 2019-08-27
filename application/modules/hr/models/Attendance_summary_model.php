@@ -90,6 +90,8 @@ class Attendance_summary_model extends CI_Model {
 		endforeach;
 		
 		$emp_dtr = array();
+		$work_hrs = 0;
+
 		foreach(dateRange($datefrom,$dateto) as $dtrdate):
 			# Begin DTR
 			$dtr = array();
@@ -141,6 +143,7 @@ class Attendance_summary_model extends CI_Model {
 					$att_scheme['amTimeinTo'] = $att_scheme_temp['amTimeinTo'];
 					$att_scheme['pmTimeoutTo'] = $att_scheme_temp['pmTimeoutTo'];
 				endif;
+				$work_hrs = $this->compute_working_hours($att_scheme,$dtr);
 			else:
 				# NO DTR VALUE;
 				# Check OB
@@ -166,6 +169,7 @@ class Attendance_summary_model extends CI_Model {
 
 			# Begin Compute Overtime
 			$ot = 0;
+
 			if(in_array($dtrdate,$reg_holidays) || in_array(date('D',strtotime($dtrdate)),array('Sat','Sun'))):
 				# weekend and holiday ot
 				if(!empty($dtr)):
@@ -177,6 +181,8 @@ class Attendance_summary_model extends CI_Model {
 					$ot = $this->compute_overtime($att_scheme,$dtr);
 				endif;
 			endif;
+
+			
 			# End Compute Overtime
 
 			# Begin Data for Holiday
@@ -189,10 +195,10 @@ class Attendance_summary_model extends CI_Model {
 			# Begin Data Array
 			$dtr = $temp_dtr;
 			$day = date('D', strtotime($dtrdate));
-			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'broken_sched' => $broken_sched);
+			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'broken_sched' => $broken_sched, 'work_hrs' => $work_hrs);
 			# End Data Array
 		endforeach;
-		
+
 		return $emp_dtr;
 	}
 
@@ -548,7 +554,7 @@ class Attendance_summary_model extends CI_Model {
 			$sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
 			$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
 			$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
-			// $sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
+			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
 			$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
 			// $sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
 
@@ -558,7 +564,7 @@ class Attendance_summary_model extends CI_Model {
 			$am_timein 	= date('H:i',strtotime($dtr['inAM']));
 			$am_timeout = $dtr['outAM'] == '' || $dtr['outAM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['outAM']));
 			$pm_timein 	= $dtr['inPM'] == '' || $dtr['inPM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['inPM']));
-			$pm_timeout = date('H:i',strtotime($dtr['outPM']));
+			$pm_timeout = $dtr['outPM'] == '' || $dtr['outPM'] == '00:00:00' ? '' : date('H:i',strtotime($dtr['outPM']));
 
 			# Get Expected Timeout
 			$expctd_pm_timeout = 0;
@@ -579,7 +585,11 @@ class Attendance_summary_model extends CI_Model {
 			# PM Undertime
 			$pm_utime = 0;
 			if($pm_timeout < $expctd_pm_timeout):
-				$pm_utime = toMinutes($expctd_pm_timeout) - toMinutes($pm_timeout);
+				if($pm_timeout  == '' || $pm_timeout  == '00:00'):
+					$pm_utime = toMinutes($expctd_pm_timeout) - toMinutes($sc_nn_timein_to);
+				else:
+					$pm_utime = toMinutes($expctd_pm_timeout) - toMinutes($pm_timeout);
+				endif;
 			endif;
 
 			return ($am_utime + $pm_utime);
@@ -766,7 +776,7 @@ class Attendance_summary_model extends CI_Model {
 			# get working hours
 			$am_working_hours = 0;
 			if($am_timeout >= $sc_nn_timein_from):
-				$am_working_hours = toMinutes($sc_nn_timein_from) - toMinutes($am_timeout);
+				$am_working_hours = toMinutes($sc_nn_timein_from) - toMinutes($am_timein);
 			else:
 				$am_working_hours = toMinutes($am_timeout) - toMinutes($off_timein);
 			endif;
@@ -777,6 +787,7 @@ class Attendance_summary_model extends CI_Model {
 			else:
 				$pm_working_hours = toMinutes($pm_timeout) - toMinutes($pm_timein);
 			endif;
+
 
 			return ($am_working_hours + $pm_working_hours);
 		else:

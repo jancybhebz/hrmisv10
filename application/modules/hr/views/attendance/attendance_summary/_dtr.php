@@ -6,6 +6,10 @@
     $total_late = 0;
     $days_late_ut = 0;
     $days_absent = 0;
+    $in_am  = '';
+    $out_am = '';
+    $in_pm  = '';
+    $out_pm = '';
  ?>
 
 <div class="tab-pane active" id="tab_1_4">
@@ -77,14 +81,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($arremp_dtr as $dtr): ?>
+                    <?php foreach($arremp_dtr as $dtr):
+                            $in_am  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inAM']  == '00:00:00' || $dtr['dtr']['inAM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inAM']))  : '';
+                            $out_am = count($dtr['dtr']) > 0 ? $dtr['dtr']['outAM'] == '00:00:00' || $dtr['dtr']['outAM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outAM'])) : '';
+                            $in_pm  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inPM']  == '00:00:00' || $dtr['dtr']['inPM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inPM']))  : '';
+                            $out_pm = count($dtr['dtr']) > 0 ? $dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outPM'])) : '';
+                            ?>
                         <tr class="odd <?=$dtr['day']?> tooltips <?=count($dtr['holiday_name']) > 0 ? 'holiday' : ''?>"
                             data-original-title="<?=date('l', strtotime($dtr['dtrdate']))?>">
                             <td><?=date('M d', strtotime($dtr['dtrdate']))?>
-                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['inAM'])) : '' ?></td>
-                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['outAM'])) : '' ?></td>
-                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['inPM'])) : '' ?></td>
-                            <td><?=count($dtr['dtr']) > 0 ? date('h:i',strtotime($dtr['dtr']['outPM'])) : '' ?></td>
+                            <td><?=$in_am?></td>
+                            <td><?=$out_am?></td>
+                            <td><?=$in_pm?></td>
+                            <td><?=$out_pm?></td>
                             <td style="text-align: left;">
                                 <?php 
                                     if(count($dtr['holiday_name']) > 0):

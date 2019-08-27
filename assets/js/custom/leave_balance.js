@@ -153,15 +153,15 @@ $(document).ready(function() {
         $('.earned_vl').html(leave_earned);
         $('.earned_sl').html(leave_earned);
         /* Abs. Und. W/ Pay */
-        $('.auwp_vl').html(latest_lb['abswpay']['vl']);
-        $('.auwp_sl').html(latest_lb['abswpay']['sl']);
+        // $('.auwp_vl').html(latest_lb['abswpay']['vl']);
+        // $('.auwp_sl').html(latest_lb['abswpay']['sl']);
         // /* Month Year Balance */
         // $('.period_date_bal').html('<b>'+ number_to_month(lb_data['periodMonth']) + ' ' + lb_data['periodYear'] + '</b> Balance');
         // $('.period_vl').html(lb_data['vlBalance']);
         // $('.period_sl').html(lb_data['slBalance']);
         /* Abs. Und. W/o Pay */
-        $('.auwop_vl').html(latest_lb['abswopay']['vl']);
-        $('.auwop_sl').html(latest_lb['abswopay']['sl']);
+        // $('.auwop_vl').html(latest_lb['abswopay']['vl']);
+        // $('.auwop_sl').html(latest_lb['abswopay']['sl']);
 
         // /* Leave Type */
         // /* Special Leave */

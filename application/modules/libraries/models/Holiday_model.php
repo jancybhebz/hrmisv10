@@ -263,20 +263,19 @@ class Holiday_model extends CI_Model {
 		$reg_holidays = $this->db->get_where('tblHolidayYear')->result_array();
 
 		$this->db->select("concat(holidayYear,'-',LPAD(holidayMonth,2,0),'-',LPAD(holidayDay,2,0)) as holidate");
-		$this->db->join('tblEmpLocalHoliday','tblEmpLocalHoliday.holidayCode = tblLocalHoliday.holidayCode');
+		$this->db->join('tblEmpLocalHoliday','tblEmpLocalHoliday.holidayCode = tblLocalHoliday.holidayCode','left');
 		$this->db->where("(STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') >= '".$sdate."' and STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') <= '".$edate."')");
 		$localholidays = $this->db->get('tblLocalHoliday')->result_array();
 
 		$allholidays = array_merge(array_column($reg_holidays,'holidayDate'),array_column($localholidays,'holidate'));
-
+		
 		return $allholidays;
 	}
 
 	function getHolidayDetails($date)
 	{
 		# Regular Holiday
-		$reg_holidays = $this->db->join('tblHoliday','tblHoliday.holidayCode = tblHolidayYear.holidayCode')->get_where('tblHolidayYear',array('holidayDate' => $date))->result_array();
-
+		$reg_holidays = $this->db->select("concat(holidayName,' - ',holidayTime) as holidayName")->join('tblHoliday','tblHoliday.holidayCode = tblHolidayYear.holidayCode')->get_where('tblHolidayYear',array('holidayDate' => $date))->result_array();
 		# Local Holiday 
 		$local_holidays = $this->db->get_where('tblLocalHoliday',array('holidayDate' => $date))->result_array();
 

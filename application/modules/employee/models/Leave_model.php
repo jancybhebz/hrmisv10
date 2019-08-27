@@ -156,7 +156,7 @@ class Leave_model extends CI_Model {
 	# Late undertime equivalent
 	function ltut_table_equiv($ltut)
 	{
-		$arrequiv = array("0"  => 0.000, "1"  => 0.002, "2"  => 0.004, "3"  => 0.006,"4"  => 0.008,"5"  => 0.010,
+		$arrequiv = array("0"  => 0.000, "1"  => 0.002, "2"  => 0.004,"3"  => 0.006,"4"  => 0.008,"5"  => 0.010,
 						  "6"  => 0.012, "7"  => 0.015, "8"  => 0.017,"9"  => 0.019,"10" => 0.021,
 						  "11" => 0.023, "12" => 0.025, "13" => 0.027,"14" => 0.029,"15" => 0.031,
 						  "16" => 0.033, "17" => 0.035, "18" => 0.037,"19" => 0.040,"20" => 0.042,
@@ -310,7 +310,7 @@ class Leave_model extends CI_Model {
 		return $total_leave;
 	}
 
-	public function filed_leave_others($empno,$mon,$yr,$leave_type)
+	public function filed_leave_others($empno,$datefrom,$dateto,$leave_type)
 	{
 		$total_leave = 0;
 		$emp_leaves = $this->getEmployee_dtr($empno,$mon,$yr);
@@ -337,7 +337,15 @@ class Leave_model extends CI_Model {
 			$this->db->where('leaveCode',$leave_code);
 		endif;
 		$this->db->where('certifyHR','Y');
-		return $this->db->get('tblEmpLeave')->result_array();
+		$all_leaves = $this->db->get('tblEmpLeave')->result_array();
+		$days = 0;
+
+		foreach($all_leaves as $leave):
+			$dates = dateRange($leave['leaveFrom'],$leave['leaveTo']);
+			$days = $days + count($dates);
+		endforeach;
+
+		return $days;
 	}
 
 	// public function approved_vl($empno,$yr,$mon)
