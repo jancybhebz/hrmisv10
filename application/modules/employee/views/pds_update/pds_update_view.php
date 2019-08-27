@@ -49,11 +49,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <select name="strProfileType" id="strProfileType" type="text" class="form-control bs-select form-required" required="" value="<?=!empty($this->session->userdata('strProfileType'))?$this->session->userdata('strProfileType'):''?>" onchange="showtextbox()">
                                 <option value="">-- SELECT PERSONAL DATA --</option>
                                 <option value="Profile">Profile</option>
-                                <option value="Family">Family Background</option>
+                                <option value="Family">Family Background (Parents/Spouse)</option>
                                 <option value="Educational">Educational Attainment</option>
                                 <option value="Trainings">Trainings</option>
                                 <option value="Examinations">Eligibility</option>
-                                <option value="Children">Children</option>
+                                <option value="Children">Family Background (Children)</option>
                                 <option value="Community">Community Tax Certification</option>
                                 <option value="References">References</option>
                                 <option value="Voluntary">Voluntary Works</option>
@@ -120,7 +120,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Civil Status : </label>
-                       <input type="text" class="form-control" name="strCS" value="<?=isset($arrData[0]['civilStatus'])?$arrData[0]['civilStatus']:''?>" autocomplete="off">
+                       <!-- <input type="text" class="form-control" name="strCS" value="<?=isset($arrData[0]['civilStatus'])?$arrData[0]['civilStatus']:''?>" autocomplete="off"> -->
+                       <select name="strCS" id="strCS" type="text" class="form-control" autocomplete="off" value="<?=isset($arrData[0]['civilStatus'])?$arrData[0]['civilStatus']:''?>">
+                        <option value="">Please Select</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Separated">Separated</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Annulled">Annulled</option>
+                        <option value="Others">Others</option>
+                    </select>
                 </div>
             </div>
         </div>

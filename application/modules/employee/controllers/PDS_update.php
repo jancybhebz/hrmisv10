@@ -102,7 +102,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -158,7 +158,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -208,7 +208,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -255,7 +255,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -300,7 +300,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -341,7 +341,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -383,7 +383,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -425,7 +425,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -470,7 +470,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
@@ -522,7 +522,7 @@ class Pds_update extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/pds_update');
 				}
