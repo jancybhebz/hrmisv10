@@ -42,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
                     <div class="portlet-body">
-            <?=form_open('', array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open('', array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()', 'onsubmit' => 'return checkForBlank()'))?>
             <div class="row">
             <div class="col-sm-8">
                 <div class="form-group">
@@ -116,21 +116,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="form-group">
                      <label class="control-label">Leave From : <span class="required"> * </span></label>
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                                <div class="input-icon left">
+                                    <font color='red'> <span id="leavefrom"></span></font>
+                                </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <br>
              <div class="row" id="leaveto_textbox">
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave To : <span class="required"> * </span></label>
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                             <div class="input-icon left">
+                                    <font color='red'> <span id="leaveto"></span></font>
+                            </div>
                     </div>
                 </div>
             </div>
+            <br>
              <div class="row" id="daysapplied_textbox">
                 <div class="col-sm-1">
                     <div class="form-group">
-                     <label class="control-label"># of Days Applied : </label>
+                     <label class="control-label">No. of Days Applied : </label>
                              <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
                     </div>
                 </div>
@@ -320,13 +328,13 @@ var FormValidation = function () {
                 rules: {
                     strLeavetype: {
                         required: true,
-                    },
-                    dtmLeavefrom: {
-                        required: true,
-                    },
-                    dtmLeaveto: {
-                        required: true,
                     }
+                    // dtmLeavefrom: {
+                    //     required: true,
+                    // },
+                    // dtmLeaveto: {
+                    //     required: true,
+                    // }
 
                 },
 
@@ -437,4 +445,32 @@ jQuery(document).ready(function() {
         return (endDate-startDate)/(1000*60*60*24);
     }
 
+</script>
+<script>
+
+function checkForBlank()
+{
+   var spaceCount = 0;
+    $dtmLeavefrom= $('#dtmLeavefrom').val();
+    $dtmLeaveto= $('#dtmLeaveto').val();
+
+    $('leavefrom','leaveto').html('');
+
+    if($dtmLeavefrom=="")
+    {
+      $('#leavefrom').html('This field is required!');
+      return false;
+    }
+    else if($dtmLeaveto=="")
+    {
+      $('#leaveto').html('This field is required!');
+      return false;
+    }
+  
+    else
+    {
+      return true;
+    }
+
+}
 </script>

@@ -500,9 +500,9 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(55, 5,"", 0, 0, "L");	
 		//signature
 		$this->fpdf->SetFont('Arial', "B", 10);	
-		$arrDetails=$this->getEmp($str2ndSignatory);
+		$arrDetails=$this->getEmp($strEmpName2);
 		$SecondSig=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);	
-		// $this->fpdf->Cell(70, 5,"$SecondSig",0, 1, "C");
+		$this->fpdf->Cell(70, 5,"$SecondSig",0, 1, "C");
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Ln(0);
 

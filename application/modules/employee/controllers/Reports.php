@@ -94,7 +94,7 @@ class Reports extends MY_Controller {
 			break;
 			case 'reportLeave': 
 				$this->load->model(array('reports/ReportLeave_rpt_model'));	
-				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'strEmpName2'=>$arrGet['empname'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL'],'intVL'=>$arrGet['intVL'],'intSL'=>$arrGet['intSL']);
+				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'str2ndSignatory'=>$arrGet['signatory2'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL'],'intVL'=>$arrGet['intVL'],'intSL'=>$arrGet['intSL']);
 				$this->ReportLeave_rpt_model->generate($arrData);
 				echo $this->fpdf->Output();	
 			break;
