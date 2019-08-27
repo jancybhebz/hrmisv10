@@ -42,7 +42,7 @@ class Leave extends MY_Controller {
 			$dtmLeaveto=$arrPost['dtmLeaveto'];
 			$intDaysApplied=$arrPost['intDaysApplied'];
 			$str1stSignatory=$arrPost['str1stSignatory'];
-			$strEmpName2=$arrPost['strEmpName2'];
+			$str2ndSignatory=$arrPost['str2ndSignatory'];
 
 			$strStatus=$arrPost['strStatus'];
 			$strCode1=$arrPost['strCode1'];
@@ -53,7 +53,7 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$intVL.';'.$intSL,
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$str2ndSignatory.';'.$intVL.';'.$intSL,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode1,
@@ -87,7 +87,7 @@ class Leave extends MY_Controller {
 			$dtmLeaveto=$arrPost['dtmLeaveto'];
 			$intDaysApplied=$arrPost['intDaysApplied'];
 			$str1stSignatory=$arrPost['str1stSignatory'];
-			$strEmpName2=$arrPost['strEmpName2'];
+			$str2ndSignatory=$arrPost['str2ndSignatory'];
 			$strReason=$arrPost['strReason'];
 
 			$strStatus=$arrPost['strStatus'];
@@ -99,7 +99,7 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$intVL.';'.$intSL,
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$str2ndSignatory.';'.$strReason.';'.$intVL.';'.$intSL,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCodeSPL,
@@ -133,7 +133,7 @@ class Leave extends MY_Controller {
 			$dtmLeaveto=$arrPost['dtmLeaveto'];
 			$intDaysApplied=$arrPost['intDaysApplied'];
 			$str1stSignatory=$arrPost['str1stSignatory'];
-			$strEmpName2=$arrPost['strEmpName2'];
+			$str2ndSignatory=$arrPost['str2ndSignatory'];
 			$strReason=$arrPost['strReason'];
 			$strIncaseSL=$arrPost['strIncaseSL'];
 
@@ -146,7 +146,7 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$strIncaseSL.';'.$intVL.';'.$intSL,
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$str2ndSignatory.';'.$strReason.';'.$strIncaseSL.';'.$intVL.';'.$intSL,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode3,
@@ -179,7 +179,7 @@ class Leave extends MY_Controller {
 			$dtmLeaveto=$arrPost['dtmLeaveto'];
 			$intDaysApplied=$arrPost['intDaysApplied'];
 			$str1stSignatory=$arrPost['str1stSignatory'];
-			$strEmpName2=$arrPost['strEmpName2'];
+			$str2ndSignatory=$arrPost['str2ndSignatory'];
 			$strReason=$arrPost['strReason'];
 			$strIncaseVL=$arrPost['strIncaseVL'];
 
@@ -193,7 +193,7 @@ class Leave extends MY_Controller {
 				{
 					$arrData = array(
 						#$leavetype;$"leave";$date_from;date_to;$reason;$nodays;$vlbalance;$slbalance;$period;$signatory1;$signatory2
-						'requestDetails'=>'VL;Leave;'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$strReason.';'.$strIncaseVL.';'.$intVL.';'.$intSL.';;'.$str1stSignatory.';'.$strEmpName2,
+						'requestDetails'=>'VL;Leave;'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$strReason.';'.$strIncaseVL.';'.$intVL.';'.$intSL.';;'.$str1stSignatory.';'.$str2ndSignatory,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>'Filed Request',
 						'requestCode'=>'Leave',
@@ -226,7 +226,7 @@ class Leave extends MY_Controller {
 			$dtmLeaveto=$arrPost['dtmLeaveto'];
 			$intDaysApplied=$arrPost['intDaysApplied'];
 			$str1stSignatory=$arrPost['str1stSignatory'];
-			$strEmpName2=$arrPost['strEmpName2'];
+			$str2ndSignatory=$arrPost['str2ndSignatory'];
 			$strReason=$arrPost['strReason'];
 
 			$strStatus=$arrPost['strStatus'];
@@ -238,7 +238,7 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$intVL.';'.$intSL,
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$str2ndSignatory.';'.$strReason.';'.$intVL.';'.$intSL,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode,
@@ -271,7 +271,7 @@ class Leave extends MY_Controller {
 			$dtmLeaveto=$arrPost['dtmLeaveto'];
 			$intDaysApplied=$arrPost['intDaysApplied'];
 			$str1stSignatory=$arrPost['str1stSignatory'];
-			$strEmpName2=$arrPost['strEmpName2'];
+			$str2ndSignatory=$arrPost['str2ndSignatory'];
 			$strReason=$arrPost['strReason'];
 
 			$strStatus=$arrPost['strStatus'];
@@ -283,7 +283,7 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$intVL.';'.$intSL,
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$str2ndSignatory.';'.$strReason.';'.$intVL.';'.$intSL,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode,
@@ -316,7 +316,7 @@ class Leave extends MY_Controller {
 			$dtmLeaveto=$arrPost['dtmLeaveto'];
 			$intDaysApplied=$arrPost['intDaysApplied'];
 			$str1stSignatory=$arrPost['str1stSignatory'];
-			$strEmpName2=$arrPost['strEmpName2'];
+			$str2ndSignatory=$arrPost['str2ndSignatory'];
 			$strReason=$arrPost['strReason'];
 
 			$strStatus=$arrPost['strStatus'];
@@ -328,7 +328,7 @@ class Leave extends MY_Controller {
 				if( count($this->leave_model->checkExist($strDay))==0 )
 				{
 					$arrData = array(
-						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$strEmpName2.';'.$strReason.';'.$intVL.';'.$intSL,	
+						'requestDetails'=>$strDay.';'.$dtmLeavefrom.';'.$dtmLeaveto.';'.$intDaysApplied.';'.$str1stSignatory.';'.$str2ndSignatory.';'.$strReason.';'.$intVL.';'.$intSL,	
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode,

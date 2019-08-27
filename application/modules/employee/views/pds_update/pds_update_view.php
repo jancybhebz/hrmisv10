@@ -143,7 +143,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          <div class="row" id="blood_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="control-label">Blood : </label>
+                    <label class="control-label">Blood Type: </label>
                     <input type="text" class="form-control" name="strBlood" maxlength="6" value="<?=isset($arrData[0]['bloodType'])?$arrData[0]['bloodType']:''?>" autocomplete="off">
                 </div>
             </div>

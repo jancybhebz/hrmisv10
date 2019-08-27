@@ -130,7 +130,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
              <div class="row" id="daysapplied_textbox">
                 <div class="col-sm-1">
                     <div class="form-group">
-                     <label class="control-label"># of Days Applied : </label>
+                     <label class="control-label">No. of Days Applied : </label>
                              <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
                     </div>
                 </div>
