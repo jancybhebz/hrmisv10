@@ -40,6 +40,7 @@ class Pds extends MY_Controller
 			$strSex=$arrPost['strSex'];
 			$strCvlStatus=$arrPost['strCvlStatus'];
 			$strCitizenship=$arrPost['strCitizenship'];
+			
 			$strHeight=$arrPost['strHeight'];
 			$strWeight=$arrPost['strWeight'];
 			$strBloodType=$arrPost['strBloodType'];

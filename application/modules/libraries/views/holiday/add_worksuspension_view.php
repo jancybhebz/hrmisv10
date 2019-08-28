@@ -7,7 +7,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
-<?=load_plugin('css', array('datepicker','timepicker'))?>
+<?=load_plugin('css', array('datepicker','timepicker','datatables'))?>
 
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -48,7 +48,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Work Suspension Date <span class="required"> * </span></label>
+                                <label class="control-label">Date <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
@@ -59,15 +59,22 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label class="control-label">Work Suspension Time <span class="required"> * </span></label>
+                                <label class="control-label">Whole Day </label>
+                                     <input type="checkbox" class="form-control"  autocomplete="off" name="strWholeday" size="10"  id="strWholeday" value="WholeDay">     
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row" id="time">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label">Time </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <input type="text" class="form-control timepicker timepicker-default"  autocomplete="off" name="dtmSuspensionTime" size="10"  id="dtmSuspensionTime" value="12:00:00 AM">     
-                                
                                 </div>
                             </div>
                         </div>
-                    </div>               
+                    </div>   
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -98,7 +105,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <tr class="odd gradeX">
                         <td> <?=$i?> </td>
                         <td><?=$row['holidayDate']?></td> 
-                        <td><?=$row['holidayTime']?></td>                       
+                        <?php 
+                            $time = $row['holidayTime']; ?>
+                            <?php if ($row['holidayTime']=="")
+                            {
+                                echo "<td>Whole Day</td>";                
+                            } 
+                            else { 
+                                echo "<td>$time</td>"; 
+                        } ?>
                         <td>
                             <a href="<?=base_url('libraries/holiday/edit_worksuspension/'.$row['holidayId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                             <a href="<?=base_url('libraries/holiday/delete_worksuspension/'.$row['holidayId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
@@ -203,7 +218,16 @@ var FormValidation = function () {
 </script>
 
 
-<?=load_plugin('js',array('validation','datepicker'));?>
+<?=load_plugin('js',array('validation','datepicker','datatables'));?>
+<script>
+    $(document).ready(function() {
+        $('#libraries_holiday').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#div-exam').show();
+            }} );
+    });
+</script>
 <script>
     $(document).ready(function() 
     {
@@ -224,4 +248,15 @@ var FormValidation = function () {
                 // defaultValue: '12:00:00 a'
             });
     });
+</script>
+
+
+<script>
+$('#strWholeday').change(function(){
+  if($(this).prop("checked")) {
+    $('#time').hide();
+  } else {
+    $('#time').show();
+  }
+});
 </script>
