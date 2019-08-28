@@ -259,15 +259,28 @@ class Holiday_model extends CI_Model {
 
 	function getAllHolidates($empid,$sdate,$edate)
 	{
+		$arrholiday_year = array();
 		$this->db->where("(holidayDate >= '".$sdate."' and holidayDate <= '".$edate."')");
 		$reg_holidays = $this->db->get_where('tblHolidayYear')->result_array();
+		echo '<pre>';
+		print_r($reg_holidays);
+		foreach($reg_holidays as $rholiday):
+			if($rholiday['holidayCode'] == 'WS'):
+				$time = 
+			else:
+				array_push($arrholiday_year,$rholiday);
+			endif;
+		endforeach;
+
+		print_r($arrholiday_year);
+		die();
 
 		$this->db->select("concat(holidayYear,'-',LPAD(holidayMonth,2,0),'-',LPAD(holidayDay,2,0)) as holidate");
 		$this->db->join('tblEmpLocalHoliday','tblEmpLocalHoliday.holidayCode = tblLocalHoliday.holidayCode','left');
 		$this->db->where("(STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') >= '".$sdate."' and STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') <= '".$edate."')");
 		$localholidays = $this->db->get('tblLocalHoliday')->result_array();
 
-		$allholidays = array_merge(array_column($reg_holidays,'holidayDate'),array_column($localholidays,'holidate'));
+		$allholidays = array_merge(array_column($arrholiday_year,'holidayDate'),array_column($localholidays,'holidate'));
 		
 		return $allholidays;
 	}
