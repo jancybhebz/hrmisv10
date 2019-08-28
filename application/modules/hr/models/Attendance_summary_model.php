@@ -62,6 +62,7 @@ class Attendance_summary_model extends CI_Model {
 		# DTR Data
 		$arrData = $this->Dtr_model->getData($empid,0,0,$datefrom,$dateto);
 		$reg_holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		$work_suspensions = $this->Holiday_model->get_work_suspension($datefrom,$dateto);
 		
 		$arr_first_days = $this->get_the_firstday_ofthe_week($datefrom,$dateto,$reg_holidays);
 		
@@ -160,10 +161,21 @@ class Attendance_summary_model extends CI_Model {
 				# CTO
 			endif;
 
+			# Begin work suspension
+			$emp_ws = array();
+			if(in_array($dtrdate,array_column($work_suspensions,'holidayDate'))):
+				$ws_list  = array_intersect(array_column($work_suspensions,'holidayDate'),array($dtrdate));
+				foreach($ws_list as $key=>$wslist):
+					$emp_ws[] = $work_suspensions[$key];
+				endforeach;
+			endif;
+			# End work suspension
+
+
 			# No lates and undertime for Weekends and Holidays
 			if(!(in_array($dtrdate,$reg_holidays) || in_array(date('D',strtotime($dtrdate)),array('Sat','Sun')))):
 				$lates = $this->compute_late($att_scheme,$dtr);
-				$utimes = $this->compute_undertime($att_scheme,$dtr);
+				$utimes = $this->compute_undertime($emp_ws,$att_scheme,$dtr);
 			endif;
 			# End Late
 
@@ -195,10 +207,10 @@ class Attendance_summary_model extends CI_Model {
 			# Begin Data Array
 			$dtr = $temp_dtr;
 			$day = date('D', strtotime($dtrdate));
-			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'broken_sched' => $broken_sched, 'work_hrs' => $work_hrs);
+			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'emp_ws' => $emp_ws, 'broken_sched' => $broken_sched, 'work_hrs' => $work_hrs);
 			# End Data Array
 		endforeach;
-
+		// die();
 		return $emp_dtr;
 	}
 
@@ -547,7 +559,7 @@ class Attendance_summary_model extends CI_Model {
 		endif;
 	}
 
-	function compute_undertime($att_scheme,$dtr)
+	function compute_undertime($emp_ws,$att_scheme,$dtr)
 	{
 		if(!empty($dtr)):
 			# Attendance Scheme
@@ -569,11 +581,20 @@ class Attendance_summary_model extends CI_Model {
 			# Get Expected Timeout
 			$expctd_pm_timeout = 0;
 			if($am_timein < $sc_am_timein_from):
-				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_from)));
+				$expctd_pm_timeout = date('H:i:s', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_from)));
 			elseif($am_timein > $sc_am_timein_to):
-				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_to)));
+				$expctd_pm_timeout = date('H:i:s', strtotime('+'.$req_hours.' minutes', strtotime($sc_am_timein_to)));
 			else:
-				$expctd_pm_timeout = date('H:i', strtotime('+'.$req_hours.' minutes', strtotime($am_timein)));
+				$expctd_pm_timeout = date('H:i:s', strtotime('+'.$req_hours.' minutes', strtotime($am_timein)));
+			endif;
+
+			if(count($emp_ws) > 0):
+				if($emp_ws[0]['holidayTime'] >= $sc_nn_timein_from):
+					$expctd_pm_timeout = date('H:i', strtotime($emp_ws[0]['holidayTime']));
+				else:
+					$sc_nn_timein_from = date('H:i', strtotime($emp_ws[0]['holidayTime']));
+					$expctd_pm_timeout = date('H:i', strtotime($emp_ws[0]['holidayTime']));
+				endif;
 			endif;
 
 			# AM Undertime
@@ -584,11 +605,13 @@ class Attendance_summary_model extends CI_Model {
 
 			# PM Undertime
 			$pm_utime = 0;
-			if($pm_timeout < $expctd_pm_timeout):
-				if($pm_timeout  == '' || $pm_timeout  == '00:00'):
-					$pm_utime = toMinutes($expctd_pm_timeout) - toMinutes($sc_nn_timein_to);
-				else:
-					$pm_utime = toMinutes($expctd_pm_timeout) - toMinutes($pm_timeout);
+			if($expctd_pm_timeout > $sc_nn_timein_to):
+				if($pm_timeout < $expctd_pm_timeout):
+					if($pm_timeout  == '' || $pm_timeout  == '00:00'):
+						$pm_utime = toMinutes($expctd_pm_timeout) - toMinutes($sc_nn_timein_to);
+					else:
+						$pm_utime = toMinutes($expctd_pm_timeout) - toMinutes($pm_timeout);
+					endif;
 				endif;
 			endif;
 

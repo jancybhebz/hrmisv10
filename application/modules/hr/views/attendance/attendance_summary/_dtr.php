@@ -100,7 +100,16 @@
                                         echo '<ul>';
                                         foreach($dtr['holiday_name'] as $hday): echo '<li><small>'.$hday.'</small></li>'; endforeach;
                                         echo '</ul>';
-                                    endif; ?>
+                                    endif;
+
+                                    if(count($dtr['emp_ws']) > 0):
+                                        echo '<ul>';
+                                        foreach($dtr['emp_ws'] as $ws):
+                                            echo '<li><small>'.$ws['holidayName'].' - '.date('h:i A',strtotime($ws['holidayTime'])).'</small></li>';
+                                        endforeach;
+                                        echo '</ul>';
+                                    endif;
+                                 ?>
                                 <div style="padding-left: 30px;">
                                 <?php
                                     if(count($dtr['obs']) > 0):

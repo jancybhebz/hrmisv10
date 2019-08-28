@@ -243,6 +243,8 @@ class Attendance extends MY_Controller {
 
 	public function leave_balance_update()
 	{
+		$this->load->helper('payroll_helper');
+		echo '<pre>';
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
@@ -284,10 +286,8 @@ class Attendance extends MY_Controller {
 		$emp_hsl = 0;
 		$dates_ut_lates = 0;
 
-		$ctr_8h = 0;
-		$ctr_6h = 0;
-		$ctr_5h = 0;
-		$ctr_4h = 0;
+		$arr_subs_allowance = array();
+		$arr_work_hrs = array();
 
 		foreach($arremp_dtr as $dtr):
 			if($dtr['dtrdate'] <= date('Y-m-d')):
@@ -316,6 +316,11 @@ class Attendance extends MY_Controller {
 					endif;
 				endif;
 			else:
+				# subsistence allowance
+				echo 'day='.$dtr['day'];
+				echo '<br>whrs='.$dtr['work_hrs'];
+				print_r(compute_subsistence_allowance(array($arr_work_hrs)));
+				// array_push($arr_work_hrs,$dtr['work_hrs']);
 				# weekdays
 				if(!empty($dtr['dtr'])):
 					if($dtr['dtr']['OT'] == 1):
@@ -331,15 +336,11 @@ class Attendance extends MY_Controller {
 				endif;
 			endif;
 			# end checking overtime
-			echo '<pre>';
-			print_r($dtr['work_hrs']);
 			echo '<hr>';
-			$ctr_8h = 0;
-			$ctr_6h = 0;
-			$ctr_5h = 0;
-			$ctr_4h = 0;
 		endforeach;
 
+		// $arr_subs_allowance = compute_subsistence_allowance($arr_work_hrs);
+		// print_r($arr_subs_allowance);
 		$ctr_force_leave = 0;
 		$ctr_spe_leave = 0;
 		$emp_leaves = $this->Leave_model->getleave($empid,$datefrom,$dateto);
@@ -423,7 +424,6 @@ class Attendance extends MY_Controller {
 			$filed_mtl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'MTL');
 			$filed_fl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'FL');
 			$filed_spl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'PL');
-
 
 			$arrLatestBalance = array('lb' => $arrLatestBalance[0], 'vl_abswpay' => $vl_abswpay, 'vl_abswopay' => $vl_abswopay, 'sl_abswopay' => $sl_abswopay, 'filed_vl' => $filed_vl, 'filed_sl' => $filed_sl, 'filed_fl' => $filed_fl, 'filed_stl' => $filed_stl,'filed_mtl' => $filed_mtl,'filed_spl' => $filed_spl);
 		else:
