@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 09, 2019 at 02:15 PM
+-- Generation Time: Aug 28, 2019 at 01:16 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -43,8 +43,9 @@ CREATE TABLE `tblAgency` (
   `afternoonFrom` time DEFAULT '00:00:00',
   `afternoonTo` time DEFAULT '00:00:00',
   `salarySchedule` varchar(10) NOT NULL DEFAULT '',
-  `minOT` time NOT NULL,
-  `maxOT` time NOT NULL,
+  `mins_before_OT` time DEFAULT NULL,
+  `minOT` time DEFAULT NULL,
+  `maxOT` time DEFAULT NULL,
   `expirationCTO` datetime DEFAULT NULL,
   `flagTime` time NOT NULL,
   `autoComputeTax` tinyint(4) NOT NULL,
@@ -1505,7 +1506,7 @@ CREATE TABLE `tblHolidayYear` (
   `holidayId` int(11) NOT NULL,
   `holidayCode` varchar(20) NOT NULL DEFAULT '',
   `holidayDate` date DEFAULT NULL,
-  `holidayTime` varchar(15) NOT NULL
+  `holidayTime` time DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1671,7 +1672,7 @@ CREATE TABLE `tblOverride` (
   `office_type` varchar(20) NOT NULL,
   `office` varchar(20) NOT NULL,
   `appt_status` varchar(20) NOT NULL,
-  `created_date` datetime NOT NULL,
+  `created_date` datetime DEFAULT NULL,
   `created_by` varchar(20) NOT NULL,
   `lastupdated_date` datetime DEFAULT NULL,
   `lastupdate_dby` varchar(20) DEFAULT NULL
@@ -2930,12 +2931,12 @@ ALTER TABLE `tblBackUpScheduler`
 -- AUTO_INCREMENT for table `tblBrokenSched`
 --
 ALTER TABLE `tblBrokenSched`
-  MODIFY `rec_ID` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+  MODIFY `rec_ID` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tblChangeLog`
 --
 ALTER TABLE `tblChangeLog`
-  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157085;
+  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157096;
 --
 -- AUTO_INCREMENT for table `tblComputation`
 --
@@ -2965,7 +2966,7 @@ ALTER TABLE `tblCustodian`
 -- AUTO_INCREMENT for table `tblDeduction`
 --
 ALTER TABLE `tblDeduction`
-  MODIFY `deduction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `deduction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 --
 -- AUTO_INCREMENT for table `tblDuties`
 --
@@ -3005,7 +3006,7 @@ ALTER TABLE `tblEmpDeductLoan`
 -- AUTO_INCREMENT for table `tblEmpDTR`
 --
 ALTER TABLE `tblEmpDTR`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372078;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372079;
 --
 -- AUTO_INCREMENT for table `tblEmpDTR_log`
 --
@@ -3035,17 +3036,17 @@ ALTER TABLE `tblEmpIncomeAdjust`
 -- AUTO_INCREMENT for table `tblEmpLeave`
 --
 ALTER TABLE `tblEmpLeave`
-  MODIFY `leaveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4905;
+  MODIFY `leaveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4906;
 --
 -- AUTO_INCREMENT for table `tblEmpLeaveBalance`
 --
 ALTER TABLE `tblEmpLeaveBalance`
-  MODIFY `lb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9557;
+  MODIFY `lb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9558;
 --
 -- AUTO_INCREMENT for table `tblEmpLocalHoliday`
 --
 ALTER TABLE `tblEmpLocalHoliday`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 --
 -- AUTO_INCREMENT for table `tblEmpLongevity`
 --
@@ -3060,12 +3061,12 @@ ALTER TABLE `tblEmpMeeting`
 -- AUTO_INCREMENT for table `tblEmpMonetization`
 --
 ALTER TABLE `tblEmpMonetization`
-  MODIFY `mon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `mon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 --
 -- AUTO_INCREMENT for table `tblEmpOB`
 --
 ALTER TABLE `tblEmpOB`
-  MODIFY `obID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24624;
+  MODIFY `obID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24627;
 --
 -- AUTO_INCREMENT for table `tblEmpOtherSched`
 --
@@ -3090,7 +3091,7 @@ ALTER TABLE `tblEmpReference`
 -- AUTO_INCREMENT for table `tblEmpRequest`
 --
 ALTER TABLE `tblEmpRequest`
-  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6767;
+  MODIFY `requestID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6777;
 --
 -- AUTO_INCREMENT for table `tblEmpScholarship`
 --
@@ -3110,7 +3111,7 @@ ALTER TABLE `tblEmpTraining`
 -- AUTO_INCREMENT for table `tblEmpTravelOrder`
 --
 ALTER TABLE `tblEmpTravelOrder`
-  MODIFY `toID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1074;
+  MODIFY `toID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1075;
 --
 -- AUTO_INCREMENT for table `tblEmpTripTicket`
 --
@@ -3160,7 +3161,7 @@ ALTER TABLE `tblNonPermComputation`
 -- AUTO_INCREMENT for table `tblNonPermComputationInstance`
 --
 ALTER TABLE `tblNonPermComputationInstance`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10379;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10380;
 --
 -- AUTO_INCREMENT for table `tblOTComputation`
 --
@@ -3210,12 +3211,12 @@ ALTER TABLE `tblPosition`
 -- AUTO_INCREMENT for table `tblProcess`
 --
 ALTER TABLE `tblProcess`
-  MODIFY `processID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5578;
+  MODIFY `processID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5579;
 --
 -- AUTO_INCREMENT for table `tblProject`
 --
 ALTER TABLE `tblProject`
-  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `tblRequestFlow`
 --
@@ -3260,7 +3261,7 @@ ALTER TABLE `tblServiceRecord`
 -- AUTO_INCREMENT for table `tblSignatory`
 --
 ALTER TABLE `tblSignatory`
-  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

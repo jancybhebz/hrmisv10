@@ -41,7 +41,7 @@ class ReportLeave_rpt_model extends CI_Model {
 		$dtmLeaveto = date("F j, Y",strtotime($arrData['dtmLeaveto']));
 		$intDaysApplied = $arrData['intDaysApplied'];
 		$str1stSignatory = $arrData['str1stSignatory'];
-		$strEmpName2 = $arrData['strEmpName2'];
+		$str2ndSignatory = $arrData['str2ndSignatory'];
 		$strReason = $arrData['strReason'];
 
 		$intVL = $arrData['intVL'];
@@ -500,10 +500,9 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(55, 5,"", 0, 0, "L");	
 		//signature
 		$this->fpdf->SetFont('Arial', "B", 10);	
-		$strEmpName2='';
 		$arrDetails=$this->getEmp($strEmpName2);
-		$Signatory=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);	
-		$this->fpdf->Cell(70, 5,"$Signatory",0, 1, "C");
+		$SecondSig=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);	
+		$this->fpdf->Cell(70, 5,"$SecondSig",0, 1, "C");
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Ln(0);
 

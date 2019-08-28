@@ -20,6 +20,15 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		return $objQuery->result_array();		
 	}
 
+	function intToMonthFull($t_intMonth)
+	{
+		$arrMonths = array(1=>"January", 2=>"February", 3=>"March", 
+						4=>"April", 5=>"May", 6=>"June", 
+						7=>"July", 8=>"August", 9=>"September", 
+						10=>"October", 11=>"November", 12=>"December");
+		return $arrMonths[$t_intMonth];
+	}
+
 	public function Header()
 	{
 
@@ -36,6 +45,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 	{
 		$today =  date("F j, Y",strtotime(date("Y-m-d")));
 		$dtmDTRupdate = date("F j, Y",strtotime($arrData['dtmDTRupdate']));
+
 		// old
 		$strOldMorningIn= $arrData['strOldMorningIn'];
 		$strOldMorningOut= $arrData['strOldMorningOut'];
@@ -53,6 +63,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 
 		$strReason = $arrData['strReason'];
 		$dtmMonthOf = $arrData['dtmMonthOf'];
+		
 		$strEvidence = $arrData['strEvidence'];
 		$strSignatory = $arrData['strSignatory'];
 
@@ -103,7 +114,8 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial', "", 10);		
 				$this->fpdf->Cell(30, 5,"For the month of :" , 0, 0, "C"); 
 				$this->fpdf->SetFont('Arial', "U", 10);	
-				$this->fpdf->Cell(15, 5,"$dtmMonthOf"  , 0, 0, "C"); 
+				$month=$this->intToMonthFull(LTRIM($dtmMonthOf, '0'));
+				$this->fpdf->Cell(15, 5,"$month"  , 0, 0, "C"); 
 				$this->fpdf->Ln(10);
 			}
 		// start of table
@@ -253,7 +265,8 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial', "", 10);		
 				$this->fpdf->Cell(30, 5,"For the month of :" , 0, 0, "C"); 
 				$this->fpdf->SetFont('Arial', "U", 10);	
-				$this->fpdf->Cell(15, 5,"$dtmMonthOf"  , 0, 0, "C"); 
+				$month=$this->intToMonthFull(LTRIM($dtmMonthOf, '0'));
+				$this->fpdf->Cell(15, 5,"$month", 0, 0, "C"); 
 				$this->fpdf->Ln(10);
 			}
 		// start of table

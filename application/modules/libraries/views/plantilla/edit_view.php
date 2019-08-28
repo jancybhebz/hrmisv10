@@ -43,14 +43,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
              <?=form_open(base_url('libraries/plantilla/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmPlantilla'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrPlantilla);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Item Number <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strItemNumber" value="<?=!empty($arrPlantilla[0]['itemNumber'])?$arrPlantilla[0]['itemNumber']:''?>">
+                                     <input type="text" class="form-control" name="strItemNumber" id="strItemNumber" value="<?=!empty($arrPlantilla[0]['itemNumber'])?$arrPlantilla[0]['itemNumber']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Position <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strPosition">
+                                    <select type="text" class="form-control" name="strPosition" id="strPosition">
                                     <option value="">Select</option>
                                         <?php foreach($arrPosition as $pos)
                                         {
@@ -78,42 +78,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Salary Grade <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strSG">
+                                    <select type="text" class="form-control" name="strSG" id="strSG">
                                     <option value="">Select</option>
-                                      <option value="">Select</option>
-                                         <option>1</option>
-                                         <option>2</option>
-                                         <option>3</option>
-                                         <option>4</option>
-                                         <option>5</option>
-                                         <option>6</option>
-                                         <option>7</option>
-                                         <option>8</option>
-                                         <option>9</option>
-                                         <option>10</option>
-                                         <option>11</option>
-                                         <option>12</option>
-                                         <option>13</option>
-                                         <option>14</option>
-                                         <option>15</option>
-                                         <option>16</option>
-                                         <option>17</option>
-                                         <option>18</option>
-                                         <option>19</option>
-                                         <option>20</option>
-                                         <option>21</option>
-                                         <option>22</option>
-                                         <option>23</option>
-                                         <option>24</option>
-                                         <option>25</option>
-                                         <option>26</option>
-                                         <option>27</option>
-                                         <option>28</option>
-                                         <option>29</option>
-                                         <option>30</option>
-                                         <option>31</option>
-                                         <option>32</option>
-                                         <option>33</option>
+                                        <?php foreach($arrSG as $sg)
+                                        {
+                                           echo '<option value="'.$sg['salaryGradeNumber'].'" '.($arrPlantilla[0]['salaryGrade']==$sg['salaryGradeNumber']?'selected':'').'>'.$sg['salaryGradeNumber'].'</option>';
+                                        }?>
                                     </select>
                                 </div>
                             </div>
@@ -125,7 +95,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intAreaCode" value="<?=!empty($arrPlantilla[0]['areaCode'])?$arrPlantilla[0]['areaCode']:''?>">
+                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode"  value="<?=!empty($arrPlantilla[0]['areaCode'])?$arrPlantilla[0]['areaCode']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -136,7 +106,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Type <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAreaType" value="<?=!empty($arrPlantilla[0]['areaType'])?$arrPlantilla[0]['areaType']:''?>">
+                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" value="<?=!empty($arrPlantilla[0]['areaType'])?$arrPlantilla[0]['areaType']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -147,11 +117,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Plantilla Group  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strPlantillaGroup">
+                                    <?php //print_r($arrPlantillaGroup);?>
+                                    <select type="text" class="form-control" name="strPlantillaGroup" id="strPlantillaGroup">
                                     <option value="">Select</option>
                                     <?php foreach($arrPlantillaGroup as $plantilla)
                                         {
-                                          echo '<option value="'.$plantilla['plantillaGroupCode'].'" '.($arrPlantilla[0]['plantillaGroupCode']==$plantilla['plantillaGroupId']?'selected':'').'>'.$plantilla['plantillaGroupName'].'</option>';
+                                          echo '<option value="'.$plantilla['plantillaGroupCode'].'" '.($arrPlantilla[0]['plantillaGroupCode']==$plantilla['plantillaGroupCode']?'selected':'').'>'.$plantilla['plantillaGroupName'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -164,11 +135,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Civil Service Eligibility  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strCSEligibility">
+                                    <select type="text" class="form-control" name="strCSEligibility" id="strCSEligibility">
                                     <option value="">Select</option>
                                      <?php foreach($arrExam as $exam)
                                         {
-                                          echo '<option value="'.$exam['examId'].'" '.($arrPlantilla[0]['examCode']==$exam['examId']?'selected':'').'>'.$exam['examDesc'].'</option>';
+                                          echo '<option value="'.$exam['examId'].'" '.($arrPlantilla[0]['examCode']==$exam['examId']?'selected':'').'>'.$exam['examCode'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -181,7 +152,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Educational Requirements <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strEducationalReq" value="<?=!empty($arrPlantilla[0]['educational'])?$arrPlantilla[0]['educational']:''?>">
+                                     <input type="text" class="form-control" name="strEducationalReq" id="strEducationalReq" value="<?=!empty($arrPlantilla[0]['educational'])?$arrPlantilla[0]['educational']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -192,7 +163,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Training Requirements <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strTrainingReq" value="<?=!empty($arrPlantilla[0]['training'])?$arrPlantilla[0]['training']:''?>">
+                                     <input type="text" class="form-control" name="strTrainingReq" id="strTrainingReq" value="<?=!empty($arrPlantilla[0]['training'])?$arrPlantilla[0]['training']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -203,7 +174,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Experience Requirements <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strExperienceReq" value="<?=!empty($arrPlantilla[0]['experience'])?$arrPlantilla[0]['experience']:''?>">
+                                     <input type="text" class="form-control" name="strExperienceReq" id="strExperienceReq" value="<?=!empty($arrPlantilla[0]['experience'])?$arrPlantilla[0]['experience']:''?>">
                                 </div>
                             </div>
                         </div>
@@ -256,35 +227,35 @@ var FormValidation = function () {
                     strSG: {
                         minlength: 1,
                         required: true,
-                    },
-                    intAreaCode: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strAreaType: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strCSEligibility: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strPlantillaGroup: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strEducationalReq: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strTrainingReq: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strExperienceReq: {
-                        minlength: 1,
-                        required: true,
-                    },
+                    }
+                    // intAreaCode: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // strAreaType: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // strCSEligibility: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // strPlantillaGroup: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // strEducationalReq: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // strTrainingReq: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // },
+                    // strExperienceReq: {
+                    //     minlength: 1,
+                    //     required: true,
+                    // }
                   
                 },
 
