@@ -50,7 +50,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Item Number <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strItemNumber" value="<?=!empty($this->session->userdata('strItemNumber'))?$this->session->userdata('strItemNumber'):''?>" required>
+                                    <input type="text" class="form-control" name="strItemNumber" id="strItemNumber"  value="<?=!empty($this->session->userdata('strItemNumber'))?$this->session->userdata('strItemNumber'):''?>" required>
                                    
                                 </div>
                             </div>
@@ -62,7 +62,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Position <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                      <i class="fa"></i><?php //print_r($arrProject)?>
-                                    <select type="text" class="form-control" name="strPosition" value="<?=!empty($this->session->userdata('strPosition'))?$this->session->userdata('strPosition'):''?>" required>
+                                    <select type="text" class="form-control" name="strPosition" id="strPosition" value="<?=!empty($this->session->userdata('strPosition'))?$this->session->userdata('strPosition'):''?>" required>
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrPosition as $pos)
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Salary Grade <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <select type="text" class="form-control" name="strSG" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSG'):''?>" required>
+                                     <select type="text" class="form-control" name="strSG" id="strSG" value="<?=!empty($this->session->userdata('strSG'))?$this->session->userdata('strSG'):''?>" required>
                                          <option value="">Select</option>
                                          <option>1</option>
                                          <option>2</option>
@@ -124,7 +124,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intAreaCode" value="<?=!empty($this->session->userdata('intAreaCode'))?$this->session->userdata('intAreaCode'):''?>">
+                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode" value="<?=!empty($this->session->userdata('intAreaCode'))?$this->session->userdata('intAreaCode'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Type </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAreaType" value="<?=!empty($this->session->userdata('strAreaType'))?$this->session->userdata('strAreaType'):''?>" >
+                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" value="<?=!empty($this->session->userdata('strAreaType'))?$this->session->userdata('strAreaType'):''?>" >
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Plantilla Group<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strPlantillaGroup" value="<?=!empty($this->session->userdata('strPlantillaGroup'))?$this->session->userdata('strPlantillaGroup'):''?>" required>
+                                    <select type="text" class="form-control" name="strPlantillaGroup" id="strPlantillaGroup" value="<?=!empty($this->session->userdata('strPlantillaGroup'))?$this->session->userdata('strPlantillaGroup'):''?>" required>
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrPlantillaGroup as $plantilla)
@@ -184,7 +184,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Civil Service Eligibility <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strCSEligibility" value="<?=!empty($this->session->userdata('strCSEligibility'))?$this->session->userdata('strCSEligibility'):''?>" required>
+                                   <select type="text" class="form-control" name="strCSEligibility" id="strCSEligibility" value="<?=!empty($this->session->userdata('strCSEligibility'))?$this->session->userdata('strCSEligibility'):''?>" required>
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrExam as $exam)
@@ -202,7 +202,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Educational Requirement <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strEducationalReq" value="<?=!empty($this->session->userdata('strEducationalReq'))?$this->session->userdata('strEducationalReq'):''?>" required>
+                                    <input type="text" class="form-control" name="strEducationalReq" id="strEducationalReq" value="<?=!empty($this->session->userdata('strEducationalReq'))?$this->session->userdata('strEducationalReq'):''?>" required>
                                    
                                 </div>
                             </div>
@@ -214,7 +214,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Training Requirement <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strTrainingReq" value="<?=!empty($this->session->userdata('strTrainingReq'))?$this->session->userdata('strTrainingReq'):''?>" required>
+                                    <input type="text" class="form-control" name="strTrainingReq" id="strTrainingReq" value="<?=!empty($this->session->userdata('strTrainingReq'))?$this->session->userdata('strTrainingReq'):''?>" required>
                                    
                                 </div>
                             </div>
@@ -226,7 +226,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Experience Requirement <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strExperienceReq" value="<?=!empty($this->session->userdata('strExperienceReq'))?$this->session->userdata('strExperienceReq'):''?>" required>
+                                    <input type="text" class="form-control" name="strExperienceReq" id="strExperienceReq" value="<?=!empty($this->session->userdata('strExperienceReq'))?$this->session->userdata('strExperienceReq'):''?>" required>
                                    
                                 </div>
                             </div>

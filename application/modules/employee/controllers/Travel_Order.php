@@ -53,7 +53,7 @@ class Travel_order extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strDestination.' Travel Order',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/travel_order');
 				}

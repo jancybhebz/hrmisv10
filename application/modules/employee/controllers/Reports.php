@@ -55,7 +55,7 @@ class Reports extends MY_Controller {
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strReporttype.' Reports',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
 					redirect('employee/reports');
 				}
@@ -94,7 +94,7 @@ class Reports extends MY_Controller {
 			break;
 			case 'reportLeave': 
 				$this->load->model(array('reports/ReportLeave_rpt_model'));	
-				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'strEmpName2'=>$arrGet['empname'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL'],'intVL'=>$arrGet['intVL'],'intSL'=>$arrGet['intSL']);
+				$arrData=array('strLeavetype'=>$arrGet['leavetype'],'strDay'=>$arrGet['day'],'dtmLeavefrom'=>$arrGet['leavefrom'],'dtmLeaveto'=>$arrGet['leaveto'],'intDaysApplied'=>$arrGet['daysapplied'],'str1stSignatory'=>$arrGet['signatory'],'str2ndSignatory'=>$arrGet['signatory2'],'strReason'=>$arrGet['reason'],'strIncaseSL'=>$arrGet['incaseSL'],'strIncaseVL'=>$arrGet['incaseVL'],'intVL'=>$arrGet['intVL'],'intSL'=>$arrGet['intSL']);
 				$this->ReportLeave_rpt_model->generate($arrData);
 				echo $this->fpdf->Output();	
 			break;

@@ -155,7 +155,7 @@ class Request extends MY_Controller {
 			$str4thOfficer = $arrPost['str4thOfficer'];
 			//print_r($arrPost);
 		
-			if(!empty($strReqType) && !empty($strGenApplicant) && !empty($str1stOfficer) && !empty($str4thOfficer))
+			if(!empty($strReqType) && !empty($strGenApplicant) && !empty($str4thOfficer))
 			{
 				$arrData = array(
 						'RequestType'=>$strReqType,

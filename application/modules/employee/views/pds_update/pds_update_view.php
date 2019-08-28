@@ -6,7 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css', array('datepicker','timepicker'))?>
+<?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -46,15 +46,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                            <label class="control-label"><strong>Type of Profile : </strong><span class="required"> * </span></label>
-                                <select name="strProfileType" id="strProfileType" type="text" class="form-control" required="" value="<?=!empty($this->session->userdata('strProfileType'))?$this->session->userdata('strProfileType'):''?>" onchange="showtextbox()">
-                                <option value="">Select Personal Data</option>
-                                <option value=""></option>
+                                <select name="strProfileType" id="strProfileType" type="text" class="form-control bs-select form-required" required="" value="<?=!empty($this->session->userdata('strProfileType'))?$this->session->userdata('strProfileType'):''?>" onchange="showtextbox()">
+                                <option value="">-- SELECT PERSONAL DATA --</option>
                                 <option value="Profile">Profile</option>
-                                <option value="Family">Family Background</option>
+                                <option value="Family">Family Background (Parents/Spouse)</option>
                                 <option value="Educational">Educational Attainment</option>
                                 <option value="Trainings">Trainings</option>
                                 <option value="Examinations">Eligibility</option>
-                                <option value="Children">Children</option>
+                                <option value="Children">Family Background (Children)</option>
                                 <option value="Community">Community Tax Certification</option>
                                 <option value="References">References</option>
                                 <option value="Voluntary">Voluntary Works</option>
@@ -73,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Surname : <span class="required"> * </span></label>
-                        <input type="text" class="form-control" name="strSname" value="<?=isset($arrData[0]['surname'])?$arrData[0]['surname']:''?>" autocomplete="off">
+                        <input type="text" class="form-control" name="strSname" maxlength="50" value="<?=isset($arrData[0]['surname'])?$arrData[0]['surname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -81,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Firstname : <span class="required"> * </span></label>
-                       <input type="text" class="form-control" name="strFname" value="<?=isset($arrData[0]['firstname'])?$arrData[0]['firstname']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strFname" maxlength="50" value="<?=isset($arrData[0]['firstname'])?$arrData[0]['firstname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -89,7 +88,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Middle Name : <span class="required"> * </span></label>
-                       <input type="text" class="form-control" name="strMname" value="<?=isset($arrData[0]['middlename'])?$arrData[0]['middlename']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strMname" maxlength="50" value="<?=isset($arrData[0]['middlename'])?$arrData[0]['middlename']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -97,7 +96,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Name Extension: <span class="required"> * </span></label>
-                       <input type="text" class="form-control" name="strExtension" value="<?=isset($arrData[0]['nameExtension'])?$arrData[0]['nameExtension']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strExtension" maxlength="10" value="<?=isset($arrData[0]['nameExtension'])?$arrData[0]['nameExtension']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -113,7 +112,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                    <label class="control-label">Place of Birth : <span class="required"> * </span></label>
-                       <input type="text" class="form-control" name="strBirthplace" value="<?=isset($arrData[0]['birthPlace'])?$arrData[0]['birthPlace']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strBirthplace" maxlength="80" value="<?=isset($arrData[0]['birthPlace'])?$arrData[0]['birthPlace']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -121,7 +120,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Civil Status : </label>
-                       <input type="text" class="form-control" name="strCS" value="<?=isset($arrData[0]['civilStatus'])?$arrData[0]['civilStatus']:''?>" autocomplete="off">
+                       <!-- <input type="text" class="form-control" name="strCS" value="<?=isset($arrData[0]['civilStatus'])?$arrData[0]['civilStatus']:''?>" autocomplete="off"> -->
+                       <select name="strCS" id="strCS" type="text" class="form-control" autocomplete="off" value="<?=isset($arrData[0]['civilStatus'])?$arrData[0]['civilStatus']:''?>">
+                        <option value="">Please Select</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Separated">Separated</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Annulled">Annulled</option>
+                        <option value="Others">Others</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -129,7 +137,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Weight(kg) : </label>
-                       <input type="text" class="form-control" name="intWeight" value="<?=isset($arrData[0]['weight'])?$arrData[0]['weight']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="intWeight" maxlength="5" value="<?=isset($arrData[0]['weight'])?$arrData[0]['weight']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -137,15 +145,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Height(m) : </label>
-                      <input type="text" class="form-control" name="intHeight" value="<?=isset($arrData[0]['height'])?$arrData[0]['height']:''?>" autocomplete="off">
+                      <input type="text" class="form-control" name="intHeight" maxlength="5" value="<?=isset($arrData[0]['height'])?$arrData[0]['height']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
          <div class="row" id="blood_textbox">
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="control-label">Blood : </label>
-                    <input type="text" class="form-control" name="strBlood" value="<?=isset($arrData[0]['bloodType'])?$arrData[0]['bloodType']:''?>" autocomplete="off">
+                    <label class="control-label">Blood Type: </label>
+                    <input type="text" class="form-control" name="strBlood" maxlength="6" value="<?=isset($arrData[0]['bloodType'])?$arrData[0]['bloodType']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -153,7 +161,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">GSIS Policy No. : </label>
-                       <input type="text" class="form-control" name="intGSIS" value="<?=isset($arrData[0]['gsisNumber'])?$arrData[0]['gsisNumber']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="intGSIS" maxlength="25" value="<?=isset($arrData[0]['gsisNumber'])?$arrData[0]['gsisNumber']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -161,7 +169,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Business Partner No. : </label>
-                       <input type="text" class="form-control"  name="strBP" value="<?=isset($arrData[0]['businessPartnerNumber'])?$arrData[0]['businessPartnerNumber']:''?>" autocomplete="off">
+                       <input type="text" class="form-control"  name="strBP" maxlength="25" value="<?=isset($arrData[0]['businessPartnerNumber'])?$arrData[0]['businessPartnerNumber']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -169,7 +177,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">PAG-IBIG ID No. : </label>
-                       <input type="text" class="form-control"  name="intPagibig" value="<?=isset($arrData[0]['pagibigNumber'])?$arrData[0]['pagibigNumber']:''?>" autocomplete="off">
+                       <input type="text" class="form-control"  name="intPagibig" maxlength="14" value="<?=isset($arrData[0]['pagibigNumber'])?$arrData[0]['pagibigNumber']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -177,7 +185,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">PHILHEALTH No. :  </label>
-                       <input type="text" class="form-control" name="intPhilhealth" value="<?=isset($arrData[0]['philHealthNumber'])?$arrData[0]['philHealthNumber']:''?>"  autocomplete="off">
+                       <input type="text" class="form-control" name="intPhilhealth" maxlength="14" value="<?=isset($arrData[0]['philHealthNumber'])?$arrData[0]['philHealthNumber']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>
@@ -185,7 +193,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">TIN :  </label>
-                       <input type="text" class="form-control" name="intTin" value="<?=isset($arrData[0]['tin'])?$arrData[0]['tin']:''?>"  autocomplete="off">
+                       <input type="text" class="form-control" name="intTin" maxlength="20" value="<?=isset($arrData[0]['tin'])?$arrData[0]['tin']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>
@@ -200,7 +208,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">House/Block/Lot No. : </label>
-                      <input type="text" class="form-control" name="strBlk1" value="<?=isset($arrData[0]['lot1'])?$arrData[0]['lot1']:''?>" autocomplete="off">
+                      <input type="text" class="form-control" name="strBlk1" maxlength="10" value="<?=isset($arrData[0]['lot1'])?$arrData[0]['lot1']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -208,7 +216,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                       <label class="control-label">Street : </label>
-                      <input type="text" class="form-control" name="strStreet1" value="<?=isset($arrData[0]['street1'])?$arrData[0]['street1']:''?>"  autocomplete="off">
+                      <input type="text" class="form-control" name="strStreet1" maxlength="50" value="<?=isset($arrData[0]['street1'])?$arrData[0]['street1']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>
@@ -216,7 +224,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Subdivision/Village : </label>
-                       <input type="text" class="form-control" name="strSubd1" value="<?=isset($arrData[0]['subdivision1'])?$arrData[0]['subdivision1']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strSubd1" maxlength="50" value="<?=isset($arrData[0]['subdivision1'])?$arrData[0]['subdivision1']:''?>" autocomplete="off">
                </div>
             </div>
         </div>
@@ -224,7 +232,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Barangay : </label>
-                       <input type="text" class="form-control" name="strBrgy1" value="<?=isset($arrData[0]['barangay1'])?$arrData[0]['barangay1']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strBrgy1" maxlength="50" value="<?=isset($arrData[0]['barangay1'])?$arrData[0]['barangay1']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -232,7 +240,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">City/Municipality : </label>
-                      <input type="text" class="form-control" name="strCity1" value="<?=isset($arrData[0]['city1'])?$arrData[0]['city1']:''?>" autocomplete="off">
+                      <input type="text" class="form-control" name="strCity1" maxlength="50" value="<?=isset($arrData[0]['city1'])?$arrData[0]['city1']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -240,7 +248,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Province : </label>
-                    <input type="text" class="form-control" name="strProv1" value="<?=isset($arrData[0]['province1'])?$arrData[0]['province1']:''?>"  autocomplete="off">
+                    <input type="text" class="form-control" name="strProv1" maxlength="50" value="<?=isset($arrData[0]['province1'])?$arrData[0]['province1']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>   
@@ -248,7 +256,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Zip Code : </label>
-                     <input type="text" class="form-control" name="strZipCode1" value="<?=isset($arrData[0]['zipCode1'])?$arrData[0]['zipCode1']:''?>" autocomplete="off">
+                     <input type="text" class="form-control" name="strZipCode1" maxlength="4" value="<?=isset($arrData[0]['zipCode1'])?$arrData[0]['zipCode1']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>  
@@ -256,7 +264,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Telephone No. : </label>
-                    <input type="text" class="form-control" name="strTel1" value="<?=isset($arrData[0]['telephone1'])?$arrData[0]['telephone1']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strTel1" maxlength="20" value="<?=isset($arrData[0]['telephone1'])?$arrData[0]['telephone1']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>  
@@ -271,7 +279,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">House/Block/Lot No. : </label>
-                    <input type="text" class="form-control" name="strBlk2" value="<?=isset($arrData[0]['lot2'])?$arrData[0]['lot2']:''?>"  autocomplete="off">
+                    <input type="text" class="form-control" name="strBlk2" maxlength="10" value="<?=isset($arrData[0]['lot2'])?$arrData[0]['lot2']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -279,7 +287,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Street : </label>
-                    <input type="text" class="form-control" name="strStreet2" value="<?=isset($arrData[0]['street2'])?$arrData[0]['street2']:''?>"" autocomplete="off">
+                    <input type="text" class="form-control" name="strStreet2" maxlength="50" value="<?=isset($arrData[0]['street2'])?$arrData[0]['street2']:''?>"" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -287,7 +295,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Subdivision/Village : </label>
-                     <input type="text" class="form-control" name="strSubd2" value="<?=isset($arrData[0]['subdivision2'])?$arrData[0]['subdivision2']:''?>" autocomplete="off">
+                     <input type="text" class="form-control" name="strSubd2" maxlength="50" value="<?=isset($arrData[0]['subdivision2'])?$arrData[0]['subdivision2']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -295,7 +303,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Barangay : </label>
-                    <input type="text" class="form-control" name="strBrgy2" value="<?=isset($arrData[0]['barangay2'])?$arrData[0]['barangay2']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strBrgy2" maxlength="50" value="<?=isset($arrData[0]['barangay2'])?$arrData[0]['barangay2']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -303,7 +311,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">City/Municipality : </label>
-                    <input type="text" class="form-control" name="strCity2" value="<?=isset($arrData[0]['city2'])?$arrData[0]['city2']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strCity2" maxlength="50" value="<?=isset($arrData[0]['city2'])?$arrData[0]['city2']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>  
@@ -311,7 +319,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Province : </label>
-                    <input type="text" class="form-control" name="strProv2" value="<?=isset($arrData[0]['province2'])?$arrData[0]['province2']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strProv2" maxlength="50" value="<?=isset($arrData[0]['province2'])?$arrData[0]['province2']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>   
@@ -319,7 +327,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Zip Code : </label>
-                    <input type="text" class="form-control" name="strZipCode2" value="<?=isset($arrData[0]['zipCode2'])?$arrData[0]['zipCode2']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strZipCode2" maxlength="4" value="<?=isset($arrData[0]['zipCode2'])?$arrData[0]['zipCode2']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -327,7 +335,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Telephone No.: </label>
-                    <input type="text" class="form-control" name="intTel2" value="<?=isset($arrData[0]['telephone2'])?$arrData[0]['telephone2']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="intTel2" maxlength="20" value="<?=isset($arrData[0]['telephone2'])?$arrData[0]['telephone2']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>  
@@ -335,7 +343,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Email Address (if any) : </label>
-                    <input type="text" class="form-control" name="strEmail" value="<?=isset($arrData[0]['email'])?$arrData[0]['email']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strEmail" maxlength="30" value="<?=isset($arrData[0]['email'])?$arrData[0]['email']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>    
@@ -343,7 +351,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Cellphone No. : </label>
-                     <input type="text" class="form-control" name="strCP" value="<?=isset($arrData[0]['mobile'])?$arrData[0]['mobile']:''?>" autocomplete="off">
+                     <input type="text" class="form-control" name="strCP" maxlength="15" value="<?=isset($arrData[0]['mobile'])?$arrData[0]['mobile']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -375,7 +383,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Surname :  </label>
-                      <input type="text" class="form-control" name="strSSurname" value="<?=isset($arrData[0]['spouseSurname'])?$arrData[0]['spouseSurname']:''?>" autocomplete="off">
+                      <input type="text" class="form-control" name="strSSurname" maxlength="80" value="<?=isset($arrData[0]['spouseSurname'])?$arrData[0]['spouseSurname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -383,7 +391,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Firstname :  </label>
-                       <input type="text" class="form-control" name="strSFirstname" value="<?=isset($arrData[0]['spouseFirstname'])?$arrData[0]['spouseFirstname']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strSFirstname" maxlength="80" value="<?=isset($arrData[0]['spouseFirstname'])?$arrData[0]['spouseFirstname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -391,7 +399,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                      <label class="control-label">Middlename : </label>
-                      <input type="text" class="form-control" name="strSMidname" value="<?=isset($arrData[0]['strSMidname'])?$arrData[0]['strSMidname']:''?>" autocomplete="off">
+                      <input type="text" class="form-control" name="strSMidname" maxlength="80" value="<?=isset($arrData[0]['strSMidname'])?$arrData[0]['strSMidname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div> 
@@ -399,7 +407,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                   <label class="control-label">Name Extension : </label>
-                      <input type="text" class="form-control" name="strSNameExt" value="<?=isset($arrData[0]['spousenameExtension'])?$arrData[0]['spousenameExtension']:''?>"  autocomplete="off">
+                      <input type="text" class="form-control" name="strSNameExt" maxlength="80" value="<?=isset($arrData[0]['spousenameExtension'])?$arrData[0]['spousenameExtension']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>       
@@ -407,7 +415,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                    <label class="control-label">Occupation  : </label>
-                    <input type="text" class="form-control" name="strSOccupation" value="<?=isset($arrData[0]['spouseWork'])?$arrData[0]['spouseWork']:''?>" autocomplete="off">
+                    <input type="text" class="form-control" name="strSOccupation" maxlength="50" value="<?=isset($arrData[0]['spouseWork'])?$arrData[0]['spouseWork']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>     
@@ -415,7 +423,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                    <label class="control-label">Employer/Business Name : </label>
-                    <input type="text" class="form-control" name="strSBusname" value="<?=isset($arrData[0]['spouseBusName'])?$arrData[0]['spouseBusName']:''?>"  autocomplete="off">
+                    <input type="text" class="form-control" name="strSBusname" maxlength="70" value="<?=isset($arrData[0]['spouseBusName'])?$arrData[0]['spouseBusName']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>       
@@ -431,7 +439,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Telephone No. :</label>
-                      <input type="text" class="form-control" name="strSTel" value="<?=isset($arrData[0]['spouseTelephone'])?$arrData[0]['spouseTelephone']:''?>" autocomplete="off">
+                      <input type="text" class="form-control" name="strSTel" maxlength="10" value="<?=isset($arrData[0]['spouseTelephone'])?$arrData[0]['spouseTelephone']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>         
@@ -446,7 +454,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Surname :</label>
-                      <input type="text" class="form-control" name="strFSurname" value="<?=isset($arrData[0]['fatherSurname'])?$arrData[0]['fatherSurname']:''?>" autocomplete="off">
+                      <input type="text" class="form-control" name="strFSurname" maxlength="80" value="<?=isset($arrData[0]['fatherSurname'])?$arrData[0]['fatherSurname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>         
@@ -454,7 +462,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Firstname :</label>
-                       <input type="text" class="form-control" name="strFFirstname" value="<?=isset($arrData[0]['fatherFirstname'])?$arrData[0]['fatherFirstname']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strFFirstname" maxlength="80" value="<?=isset($arrData[0]['fatherFirstname'])?$arrData[0]['fatherFirstname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -462,7 +470,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Middle name :</label>
-                       <input type="text" class="form-control" name="strFMidname" value="<?=isset($arrData[0]['fatherMiddlename'])?$arrData[0]['fatherMiddlename']:''?>"  autocomplete="off">
+                       <input type="text" class="form-control" name="strFMidname" maxlength="80" value="<?=isset($arrData[0]['fatherMiddlename'])?$arrData[0]['fatherMiddlename']:''?>"  autocomplete="off">
                 </div>
             </div>
         </div>
@@ -470,7 +478,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Name Extension :</label>
-                       <input type="text" class="form-control" name="strFExtension" value="<?=isset($arrData[0]['fathernameExtension'])?$arrData[0]['fathernameExtension']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strFExtension" maxlength="80" value="<?=isset($arrData[0]['fathernameExtension'])?$arrData[0]['fathernameExtension']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>      
@@ -485,7 +493,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Surname :</label>
-                         <input type="text" class="form-control" name="strMSurname" value="<?=isset($arrData[0]['motherSurname'])?$arrData[0]['motherSurname']:''?>" autocomplete="off">
+                         <input type="text" class="form-control" name="strMSurname" maxlength="80" value="<?=isset($arrData[0]['motherSurname'])?$arrData[0]['motherSurname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>         
@@ -493,7 +501,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Firstname :</label>
-                        <input type="text" class="form-control" name="strMFirstname" value="<?=isset($arrData[0]['motherFirstname'])?$arrData[0]['motherFirstname']:''?>" autocomplete="off">
+                        <input type="text" class="form-control" name="strMFirstname" maxlength="80" value="<?=isset($arrData[0]['motherFirstname'])?$arrData[0]['motherFirstname']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>       
@@ -501,7 +509,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                     <label class="control-label">Middle name :</label>
-                       <input type="text" class="form-control" name="strMMidname" value="<?=isset($arrData[0]['motherMiddlename'])?$arrData[0]['motherMiddlename']:''?>" autocomplete="off">
+                       <input type="text" class="form-control" name="strMMidname" maxlength="80" value="<?=isset($arrData[0]['motherMiddlename'])?$arrData[0]['motherMiddlename']:''?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -1310,7 +1318,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script type="text/javascript" src="<?=base_url('assets/js/pds_update.js')?>">
 
-<?=load_plugin('js',array('validation','datepicker'));?>
+<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
 <script>
     $(document).ready(function() 
     {

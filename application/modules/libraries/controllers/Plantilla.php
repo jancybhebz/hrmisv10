@@ -47,7 +47,7 @@ class Plantilla extends MY_Controller {
 			$strEducationalReq = $arrPost['strEducationalReq'];
 			$strTrainingReq = $arrPost['strTrainingReq'];
 			$strExperienceReq = $arrPost['strExperienceReq'];
-			if(!empty($strItemNumber) && !empty($strPosition) && !empty($strSG) && !empty($intAreaCode) && !empty($strAreaType)  && !empty($strCSEligibility) && !empty($strPlantillaGroup) && !empty($strEducationalReq) && !empty($strTrainingReq) && !empty($strExperienceReq))
+			if(!empty($strItemNumber) && !empty($strPosition))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->plantilla_model->checkExist($strItemNumber, $strPosition))==0)
@@ -64,8 +64,9 @@ class Plantilla extends MY_Controller {
 						'experience'=>$strTrainingReq,
 						'training'=>$strExperienceReq
 					);
+					// print_r($arrData);
 					$blnReturn  = $this->plantilla_model->add($arrData);
-
+					
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantilla','Added '.$strItemNumber.' Plantilla',implode(';',$arrData),'');
@@ -95,6 +96,7 @@ class Plantilla extends MY_Controller {
 			$this->arrData['arrPosition']=$this->position_model->getData(); 
 			$this->arrData['arrPlantillaGroup']=$this->plantilla_group_model->getData(); 
 			$this->arrData['arrExam']=$this->exam_type_model->getData(); 
+			$this->arrData['arrSG']=$this->plantilla_model->getAllSG(); 
 			$this->template->load('template/template_view','libraries/plantilla/edit_view', $this->arrData);
 		}
 		else
@@ -110,7 +112,7 @@ class Plantilla extends MY_Controller {
 			$strEducationalReq = $arrPost['strEducationalReq'];
 			$strTrainingReq = $arrPost['strTrainingReq'];
 			$strExperienceReq = $arrPost['strExperienceReq'];
-			if(!empty($strItemNumber) && !empty($strPosition) && !empty($strSG) && !empty($intAreaCode) && !empty($strAreaType)  && !empty($strCSEligibility) && !empty($strPlantillaGroup) && !empty($strEducationalReq)  && !empty($strTrainingReq) && !empty($strExperienceReq))
+			if(!empty($strItemNumber) && !empty($strPosition))
 			{
 				$arrData = array(
 					'itemNumber'=>$strItemNumber,
