@@ -89,6 +89,17 @@ class Pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getTraining($strtraIndex = '')
+	{		
+		if($strtraIndex != "")
+		{
+			$this->db->where($this->tblTrainingId,$strtraIndex);
+		}
+		$objQuery = $this->db->get($this->tblTraining);
+		return $objQuery->result_array();	
+	}
+
+
 	function getWorkExp($intServiceId = '')
 	{		
 		if($intServiceId != "")
@@ -197,6 +208,7 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblExamId, $intExamIndex);
 		$this->db->update($this->tblExam, $arrData);
+		// echo $this->db->last_query();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
@@ -259,9 +271,9 @@ class Pds_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function save_training($arrData, $strEmpNumber)
+	function save_training($arrData, $strtraIndex)
 	{
-		$this->db->where($this->tblTrainingId, $strEmpNumber);
+		$this->db->where($this->tblTrainingId, $strtraIndex);
 		$this->db->update($this->tblTraining, $arrData);
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
