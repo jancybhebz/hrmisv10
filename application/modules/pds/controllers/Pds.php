@@ -318,26 +318,50 @@ class Pds extends MY_Controller
 		endif;
 	}
 
-	public function edit_exam()
-	{
-		$empid = $this->uri->segment(3);
-		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
-			$arrData = array(
-				'examCode'		=> $arrPost['exam_desc'],
-				'examDate'		=> $arrPost['txtdate_exam'],
-				'examRating'	=> $arrPost['txtrating'],
-				'examPlace'		=> $arrPost['txtplace_exam'],
-				'licenseNumber' => $arrPost['txtlicense'],
-				'dateRelease'	=> $arrPost['txtvalidity'],
-				'verifier'		=> $arrPost['txtverifier'],
-				'reviewer'		=> $arrPost['txtreviewer']);
+	// public function edit_exam()
+	// {
+	// 	$empid = $this->uri->segment(3);
+	// 	$arrPost = $this->input->post();
+	// 	if(!empty($arrPost)):
+	// 		$arrData = array(
+	// 			'examCode'		=> $arrPost['exam_desc'],
+	// 			'examDate'		=> $arrPost['txtdate_exam'],
+	// 			'examRating'	=> $arrPost['txtrating'],
+	// 			'examPlace'		=> $arrPost['txtplace_exam'],
+	// 			'licenseNumber' => $arrPost['txtlicense'],
+	// 			'dateRelease'	=> $arrPost['txtvalidity'],
+	// 			'verifier'		=> $arrPost['txtverifier'],
+	// 			'reviewer'		=> $arrPost['txtreviewer']);
 
-			$this->pds_model->save_exam($arrData, $arrPost['txtexamid']);
+	// 		$this->pds_model->save_exam($arrData, $arrPost['txtexamid']);
+	// 		$this->session->set_flashdata('strSuccessMsg','Eligibility information updated successfully.');
+
+	// 		redirect('hr/profile/'.$empid);
+	// 	endif;
+	// }
+	public function edit_exam()
+    {
+    	$empid = $this->uri->segment(3);
+    	$arrPost = $this->input->post();
+
+		if(!empty($arrPost))
+		{
+			$arrData = array(
+							'examCode'		=> $arrPost['exam_desc'],
+							'examDate'		=> $arrPost['txtdate_exam'],
+							'examRating'	=> $arrPost['txtrating'],
+							'examPlace'		=> $arrPost['txtplace_exam'],
+							'licenseNumber' => $arrPost['txtlicense'],
+							'dateRelease'	=> $arrPost['txtvalidity'],
+							'verifier'		=> $arrPost['txtverifier'],
+							'reviewer'		=> $arrPost['txtreviewer']);
+
+			$this->pds_model->save_exam($arrData,$arrPost['txtexamid']);
+			// log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$arrPost['txtfatherLname'].' Personal',implode(';',$arrData),'');
 			$this->session->set_flashdata('strSuccessMsg','Eligibility information updated successfully.');
 
 			redirect('hr/profile/'.$empid);
-		endif;
+		}
 	}
 
 	public function delete_exam()
@@ -517,11 +541,36 @@ class Pds extends MY_Controller
 		endif;
 	}
 
+	// public function edit_training()
+	// {
+	// 	$empid = $this->uri->segment(3);
+	// 	$arrPost = $this->input->post();
+	// 	if(!empty($arrPost)):
+	// 		$arrData = array(
+	// 						'trainingTitle'		  => $arrPost['txttra_name'],
+	// 						'trainingContractDate'=> $arrPost['txttra_contract'],
+	// 						'trainingStartDate'	  => $arrPost['txttra_sdate'],
+	// 						'trainingEndDate'	  => $arrPost['txttra_edate'],
+	// 						'trainingHours'		  => $arrPost['txttra_hrs'],
+	// 						'trainingTypeofLD'	  => $arrPost['seltra_typeld'],
+	// 						'trainingConductedBy' => $arrPost['txttra_sponsored'],
+	// 						'trainingVenue'		  => $arrPost['txttra_venue'],
+	// 						'trainingCost'		  => $arrPost['txttra_cost'],
+	// 						'trainingDesc'		  => $arrPost['txttra_name']); # Same as training title
+
+	// 		$this->pds_model->save_training($arrData, $arrPost['txttraid']);
+	// 		$this->session->set_flashdata('strSuccessMsg','Training updated successfully.');
+	// 		redirect('hr/profile/'.$empid);
+	// 	endif;	
+	// }
+
 	public function edit_training()
-	{
-		$empid = $this->uri->segment(3);
-		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
+    {
+    	$empid = $this->uri->segment(3);
+    	$arrPost = $this->input->post();
+
+		if(!empty($arrPost))
+		{
 			$arrData = array(
 							'trainingTitle'		  => $arrPost['txttra_name'],
 							'trainingContractDate'=> $arrPost['txttra_contract'],
@@ -532,12 +581,13 @@ class Pds extends MY_Controller
 							'trainingConductedBy' => $arrPost['txttra_sponsored'],
 							'trainingVenue'		  => $arrPost['txttra_venue'],
 							'trainingCost'		  => $arrPost['txttra_cost'],
-							'trainingDesc'		  => $arrPost['txttra_name']); # Same as training title
-
-			$this->pds_model->save_training($arrData, $arrPost['txttraid']);
+							'trainingDesc'		  => $arrPost['txttra_name']); 
+			
+			$this->pds_model->save_training($arrData,$arrPost['txttraid']);
 			$this->session->set_flashdata('strSuccessMsg','Training updated successfully.');
+
 			redirect('hr/profile/'.$empid);
-		endif;	
+		}
 	}
 
 	public function del_training()
