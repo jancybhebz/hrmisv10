@@ -23,22 +23,22 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Previous Month Balance  </td>
+                                                <td>Previous Month Balance </td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td>Earned for the month    </td>
+                                                <td>Earned for the month </td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td>Abs. Und. W/ Pay    </td>
+                                                <td>Abs. Und. W/ Pay </td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td>Abs. Und. W/O Pay   </td>
+                                                <td>Abs. Und. W/O Pay </td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>

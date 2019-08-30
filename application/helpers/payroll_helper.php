@@ -228,14 +228,13 @@ if ( ! function_exists('compute_subsistence_allowance'))
 {
     function compute_subsistence_allowance($arr_work_hrs)
     {
-        echo '<br>';
         $ctr_8h = 0;
         $ctr_6h = 0;
         $ctr_5h = 0;
         $ctr_4h = 0;
 
         foreach($arr_work_hrs as $whrs):
-            print_r($whrs);
+            
             if($whrs >= 480):
                 $ctr_8h = $ctr_8h + 1;
             elseif($whrs >= 360 && $whrs < 480):

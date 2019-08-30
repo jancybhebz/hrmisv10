@@ -86,13 +86,15 @@ class Attendance_summary_model extends CI_Model {
 		$arrLeaves = array();
 		foreach($arrDataLeaves as $data_leave):
 			foreach(dateRange($data_leave['leaveFrom'],$data_leave['leaveTo']) as $leave_date):
-				$arrLeaves[] = array_merge($data_leave,array('leavedate' => $leave_date));
+				if(!(in_array($leave_date,$reg_holidays) || in_array(date('D',strtotime($leave_date)),array('Sat','Sun')))):
+					$arrLeaves[] = array_merge($data_leave,array('leavedate' => $leave_date));
+				endif;
 			endforeach;
 		endforeach;
 		
 		$emp_dtr = array();
 		$work_hrs = 0;
-
+		
 		foreach(dateRange($datefrom,$dateto) as $dtrdate):
 			# Begin DTR
 			$dtr = array();
@@ -203,14 +205,14 @@ class Attendance_summary_model extends CI_Model {
 				$holiday_name = $this->Holiday_model->getHolidayDetails($dtrdate);
 			endif;
 			# End Data for Holiday
-
+			
 			# Begin Data Array
 			$dtr = $temp_dtr;
 			$day = date('D', strtotime($dtrdate));
 			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'emp_ws' => $emp_ws, 'broken_sched' => $broken_sched, 'work_hrs' => $work_hrs);
 			# End Data Array
 		endforeach;
-		// die();
+		
 		return $emp_dtr;
 	}
 
@@ -779,9 +781,8 @@ class Attendance_summary_model extends CI_Model {
 			$am_timein 	= date('H:i',strtotime($dtr['inAM']));
 			$am_timeout = $dtr['outAM'] == '' || $dtr['outAM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['outAM']));
 			$pm_timein 	= $dtr['inPM'] == '' || $dtr['inPM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['inPM']));
-			$pm_timeout = date('H:i',strtotime($dtr['outPM']));
-
-			
+			$pm_timeout = $dtr['outPM'] == '' || $dtr['outPM'] == '00:00:00' ? '' : date('H:i',strtotime($dtr['outPM']));
+						
 			# Get Expected Timeout and official Time in
 			// $expctd_pm_timeout = 0;
 			$off_timein = '';
@@ -805,12 +806,19 @@ class Attendance_summary_model extends CI_Model {
 			endif;
 
 			$pm_working_hours = 0;
-			if($pm_timein <= $sc_nn_timein_to):
-				$pm_working_hours = toMinutes($pm_timeout) - toMinutes($sc_nn_timein_to);
+			if($pm_timeout==''):
+				$pm_working_hours = 0;	
 			else:
-				$pm_working_hours = toMinutes($pm_timeout) - toMinutes($pm_timein);
+				if($pm_timeout >= $sc_nn_timein_to):
+					if($pm_timein >= $sc_nn_timein_to):
+						$pm_working_hours = toMinutes($pm_timeout) - toMinutes($pm_timein);
+					else:
+						$pm_working_hours = toMinutes($pm_timeout) - toMinutes($sc_nn_timein_to);
+					endif;
+				else:
+					$pm_working_hours = 0;
+				endif;
 			endif;
-
 
 			return ($am_working_hours + $pm_working_hours);
 		else:

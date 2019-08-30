@@ -8,6 +8,8 @@ if ( ! function_exists('toMinutes'))
         if($time!=''){
     		$t_time = explode(":",$time);
     		return ($t_time[0] * 60) + $t_time[1];
+        }else{
+            return 0;
         }
 	}
 

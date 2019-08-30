@@ -85,7 +85,7 @@
                         <p style="text-align: center;">
                             <button class="btn red" id="btn-update-leavebal"
                                     data-latest_lb='<?=json_encode($arrLatestBalance,0)?>'
-                                    
+                                    data-att_summ='<?=json_encode($arrAttendance_summary,0)?>'
                                     data-leave_earned="<?=$_ENV['leave_earned']?>">
                                 <i class="fa fa-pencil"></i> &nbsp;Update Leave Balance</button>
                             <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-rollback" id="btn-rollback">
