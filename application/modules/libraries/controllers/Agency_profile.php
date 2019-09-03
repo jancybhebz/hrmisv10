@@ -144,7 +144,8 @@ class Agency_profile extends MY_Controller {
 
 			$intBeforeOT = $arrPost['intBeforeOT'];
 			$intMaxOT = $arrPost['intMaxOT'];
-			$intExpryOT = $arrPost['intExpryOT'];
+			$dtmExpMon = $arrPost['dtmExpMon'];
+			$dtmExpYr = $arrPost['dtmExpYr'];
 			$intFlagTime = $arrPost['intFlagTime'];
 			$intAutoComputeTax = $arrPost['intAutoComputeTax'];
 
@@ -180,7 +181,8 @@ class Agency_profile extends MY_Controller {
 						'salarySchedule'=>$strSalarySched,
 						'minOT'=>$intBeforeOT,
 						'maxOT'=>$intMaxOT,
-						'expirationCTO'=>$intExpryOT,
+						'expr_cto_mon'=>$dtmExpMon,
+						'expr_cto_yr'=>$dtmExpYr,
 						'flagTime'=>$intFlagTime,
 						'autoComputeTax'=>$intAutoComputeTax,
 						'gsisId'=>$intGSISNum,
