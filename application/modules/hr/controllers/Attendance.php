@@ -243,6 +243,7 @@ class Attendance extends MY_Controller {
 
 	public function leave_balance_update()
 	{
+		$this->load->model(array('finance/Dtr_model'));
 		$this->load->helper('payroll_helper');
 		// echo '<pre>';
 		$empid = $this->uri->segment(4);
@@ -289,6 +290,9 @@ class Attendance extends MY_Controller {
 		$arr_subs_allowance = array();
 		$arr_work_hrs = array();
 
+		$total_perdiem = 0;
+		$total_wmeal = 0;
+
 		foreach($arremp_dtr as $dtr):
 			if($dtr['dtrdate'] <= date('Y-m-d')):
 				if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
@@ -299,6 +303,54 @@ class Attendance extends MY_Controller {
 				    endif;
 				endif;
 			endif;
+
+			# begin check meal for ob
+			if(count($dtr['obs']) > 0):
+				# weekends
+				if(in_array($dtr['day'],array('Sat','Sun'))):
+					# check if approve CTO
+					$dtr_day_data = $this->Dtr_model->getData($empid,0,0,$dtr['dtrdate'],$dtr['dtrdate']);
+					if(count($dtr_day_data) > 0):
+						if($dtr_day_data[0]['OT'] == 1):
+							$total_wmeal = $total_wmeal + count(array_filter(array_column($dtr['obs'],'obMeal'), function ($n) { return $n == 'Y'; }));
+						endif;
+					endif;
+				else:
+					# weekdays
+					foreach($dtr['obs'] as $ob):
+						if($ob['obMeal'] == 'Y'):
+							$total_wmeal = $total_wmeal + 1;
+						endif;
+					endforeach;
+				endif;
+			endif;
+			# end check meal for ob
+
+			# begin check meal and perdiem for to
+			if(count($dtr['tos']) > 0):
+				# weekends
+				if(in_array($dtr['day'],array('Sat','Sun'))):
+					# check if approve CTO
+					$dtr_day_data = $this->Dtr_model->getData($empid,0,0,$dtr['dtrdate'],$dtr['dtrdate']);
+					if(count($dtr_day_data) > 0):
+						if($dtr_day_data[0]['OT'] == 1):
+							$total_wmeal = $total_wmeal + count(array_filter(array_column($dtr['tos'],'wmeal'), function ($n) { return $n == 'Y'; }));
+							$total_perdiem = $total_perdiem + count(array_filter(array_column($dtr['tos'],'perdiem'), function ($n) { return $n == 'Y'; }));
+						endif;
+					endif;
+				else:
+					# weekdays
+					foreach($dtr['tos'] as $to):
+						if($to['wmeal'] == 'Y'):
+							$total_wmeal = $total_wmeal + 1;
+						endif;
+						if($to['perdiem'] == 'Y'):
+							$total_perdiem = $total_perdiem + 1;
+						endif;
+					endforeach;
+				endif;
+			endif;
+			# end check meal and perdiem for to
 
 			$total_undertime = $total_undertime + $dtr['utimes'];
 			$total_late = $total_late + $dtr['lates'];
@@ -334,6 +386,8 @@ class Attendance extends MY_Controller {
 				endif;
 			endif;
 			# end checking overtime
+			// print_r($dtr);
+			// echo '<hr>';
 		endforeach;
 
 		$arr_subs_allowance = compute_subsistence_allowance($arr_work_hrs);
@@ -435,9 +489,8 @@ class Attendance extends MY_Controller {
 			endforeach;
 		endforeach;
 
-		$this->arrData['arrAttendance_summary'] = array('dates_ut_lates' => $dates_ut_lates, 'total_late_ut' => $total_late_ut,'days_awol' => count($days_awol),'days_absent' => count($days_absent), 'days_leave' => count($arrLeaves), 'working_days' => count(get_workingdays('','',$holidays,$datefrom,$dateto)));
-		// echo '<pre>';
-		// print_r($arrLeaves);
+		$this->arrData['arrAttendance_summary'] = array('dates_ut_lates' => $dates_ut_lates, 'total_late_ut' => $total_late_ut,'days_awol' => count($days_awol),'days_absent' => count($days_absent), 'days_leave' => count($arrLeaves), 'working_days' => count(get_workingdays('','',$holidays,$datefrom,$dateto)), 'total_wmeal' => $total_wmeal, 'total_perdiem' => $total_perdiem);
+		
 		// die();
 		$this->arrData['employeedata'] = $this->Hr_model->getEmployeePersonal($empid);
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);

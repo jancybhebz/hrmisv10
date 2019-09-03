@@ -96,6 +96,7 @@ class Attendance_summary_model extends CI_Model {
 		$work_hrs = 0;
 		
 		foreach(dateRange($datefrom,$dateto) as $dtrdate):
+			$work_hrs = 0;
 			# Begin DTR
 			$dtr = array();
 			if(in_array($dtrdate,array_column($arrData,'dtrDate'))):

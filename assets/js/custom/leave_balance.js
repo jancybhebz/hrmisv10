@@ -212,6 +212,8 @@ $(document).ready(function() {
         $('.subs_6hrs').html(latest_lb['arr_subs_allowance']['ctr_6h']);
         $('.subs_5hrs').html(latest_lb['arr_subs_allowance']['ctr_5h']);
         $('.subs_4hrs').html(latest_lb['arr_subs_allowance']['ctr_4h']);
+        $('.with_meal').html(att_summ['total_wmeal']);
+        $('.amt_training').html(att_summ['total_perdiem']);
         // $('.with_meal').html(latest_lb['ctr_wmeal']);
         // $('.amt_training').html(latest_lb['ctr_diem']);
 
