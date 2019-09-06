@@ -160,7 +160,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Authorized Official (2nd Signatory) :</label>
-                            <!-- <select type="text" class="form-control select2 form-required" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" > -->
                             <select name="str2ndSignatory" id="str2ndSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>" >
                                     <option value="">-- SELECT SIGNATORY--</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
