@@ -57,9 +57,13 @@
                                             <button class="btn btn-sm blue" id="btn-leavebal" data-json='<?=json_encode($leave_bal,0)?>'
                                                 data-action="view" data-leave_earned="<?=$_ENV['leave_earned']?>">
                                                 <i class="fa fa-eye"></i> View</button>
-                                            <button class="btn btn-sm green" id="btn-leavebal-override" data-json='<?=json_encode($leave_bal,0)?>'
-                                                data-action="override" data-leave_earned="<?=$_ENV['leave_earned']?>">
-                                                <i class="fa fa-edit"></i> Override</button>
+                                            <?php if($arrLatestBalance['lb']['periodMonth'] == $leave_bal['periodMonth']): ?>
+                                                <button class="btn btn-sm green" id="btn-leavebal-override" data-json='<?=json_encode($leave_bal,0)?>'
+                                                    data-action="override" data-leave_earned="<?=$_ENV['leave_earned']?>">
+                                                    <i class="fa fa-edit"></i> Override</button>
+                                            <?php else: ?>
+                                                <button class="btn btn-sm green" disabled><i class="fa fa-edit"></i> Override</button>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

@@ -147,3 +147,58 @@ if ( ! function_exists('date_sort'))
         return strtotime($a) - strtotime($b);
     }
 }
+
+if ( ! function_exists('seconds_to_time'))
+{
+    function seconds_to_time($int_mins)
+    {
+        # extract hours
+        $hours = floor($int_mins / (60));
+
+        # extract minutes
+        $minutes = $int_mins - ($hours * 60);
+
+        # create string
+        $str_hr = $hours > 0 ? $hours > 1 ? sprintf('%02d', $hours).' hrs' : sprintf('%02d', $hours).' hr' : '00 hr';
+        $str_mins = $minutes > 0 ? $minutes > 1 ? sprintf('%02d', $minutes).' mins' : sprintf('%02d', $minutes).' min' : '00 min';
+
+        return($str_hr.' and '.$str_mins);
+    }
+}
+
+if ( ! function_exists('required_hrs'))
+{
+    function required_hrs($empid)
+    {
+        $CI =& get_instance();
+        $att_scheme = $CI->db->join('tblAttendanceScheme', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode', 'left')
+                                ->where('tblEmpPosition.empNumber',$empid)
+                                ->get('tblEmpPosition')->result_array();
+
+        if(count($att_scheme) > 0):
+            $sc_am_timein_from = date('H:i',strtotime($att_scheme[0]['amTimeinFrom'].' AM'));
+            $sc_pm_timeout_from = date('H:i',strtotime($att_scheme[0]['pmTimeoutFrom'].' PM'));
+            return toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
+        else:
+            return 0;
+        endif;
+    }
+}
+
+if ( ! function_exists('breakhhmm'))
+{
+    function breakhhmm($strtime)
+    {
+        foreach(array('hr','hrs','and','min','mins',' ') as $str):
+            $strtime = str_replace($str,'',$strtime);
+        endforeach;
+        
+        $exltime = explode(':',$strtime);
+        $exltime_hr = (int)ltrim($exltime[0],'0');
+        $exltime_min = (int)ltrim($exltime[1],'0');
+        $exltime_totalminutes = ($exltime_hr * 60) + $exltime_min;
+
+        return $exltime_totalminutes;
+    }
+}
+
