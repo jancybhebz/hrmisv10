@@ -157,15 +157,18 @@ $(document).ready(function() {
         $('.with_meal').html(lb_data['ctr_wmeal']);
         $('.amt_training').html(lb_data['ctr_diem']);
 
-        // $('#txtoverride_id').val(lb_data['lb_detail']['lb_id']);
+        $('#txtoverride_id').val(lb_data['lb_id']);
         $('#txtleave_data').val(JSON.stringify([lb_data,leave_earned]));
 
-        // $('#frmupdate_leavebalance').attr('action','../leave_balance_override/'+$('#txtget_data').val());
+        $('#frmupdate_leavebalance').attr('action','../leave_balance_override/'+$('#txtget_data').val());
         $('#modal-view-leave-balance').modal('show');
 
     });
 
     $('#btn-update-leavebal').click(function(e) {
+        $('td#tdn-or').show();
+        $('td#tdor').hide();
+
         // var lb_data = $(this).data('json');
         var leave_earned = $(this).data('leave_earned');
         var latest_lb = $(this).data('latest_lb');

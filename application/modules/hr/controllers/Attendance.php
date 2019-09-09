@@ -533,6 +533,7 @@ class Attendance extends MY_Controller {
 
 	public function leave_balance_override()
 	{
+		$this->load->helper('dtr_helper');
 		$empid = $this->uri->segment(4);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
@@ -547,9 +548,9 @@ class Attendance extends MY_Controller {
 							 'stlBalance' 		 => $arrPost['txtsdl_curr'],
 							 'mtlBalance' 		 => $arrPost['txtmtl_curr'],
 							 'ptlBalance' 		 => $arrPost['txtptl_curr'],
-							 'off_bal' 			 => $arrPost['txtbalance'],
-							 'off_gain' 		 => $arrPost['txtgain'],
-							 'off_used' 		 => $arrPost['txtused'],
+							 'off_bal' 			 => breakhhmm($arrPost['txtbalance']),
+							 'off_gain' 		 => breakhhmm($arrPost['txtgain']),
+							 'off_used' 		 => breakhhmm($arrPost['txtused']),
 							 'trut_notimes' 	 => $arrPost['txtlate_ut_days'],
 							 'trut_totalminutes' => $arrPost['txtlate_ut_hhmm'],
 							 'nodays_awol' 		 => $arrPost['txtdays_awol'],
