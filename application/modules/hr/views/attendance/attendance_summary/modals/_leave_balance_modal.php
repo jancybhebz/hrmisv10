@@ -1,5 +1,5 @@
 <?=load_plugin('css', array('attendance-css','datepicker'))?>
-<div id="modal-view-leave-balance" class="modal fade" aria-hidden="true">
+<!-- <div id="modal-view-leave-balance" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 80%;">
         <div class="modal-content">
             <div class="modal-header">
@@ -201,7 +201,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <div id="modal-edit-leave-balance" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">

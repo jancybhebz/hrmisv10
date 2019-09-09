@@ -6,14 +6,14 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Balance
-                        <?php if(count($arrLeaveBalance) > 0): ?>
-                            <?php #$_GET['month']=='all' ? 'from '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, end($arrLeaveBalance)['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' to '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLeaveBalance[0]['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' ':'for the Month of '.date('F', mktime(0, 0, 0, $month, 10))?> <?=$yr?>
-                        <?php endif; ?>
-                    </span>
+                    <span class="caption-subject bold uppercase"> Leave Balance</span>
                 </div>
             </div>
             <div class="portlet-body">
+                <?php if(count($arrLatestBalance) < 1): ?>
+                    <a href="<?=base_url('hr/attendance_summary/leave_balance_set/'.$this->uri->segment(4)).'?month='.$month.'&yr='.$yr?>" class="btn blue"><i class="fa fa-pencil"></i> Set Leave Balance</a>
+                    <br><br>
+                <?php endif; ?>
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblleave-balance" data-title="Vacation Leave">

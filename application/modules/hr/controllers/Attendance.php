@@ -147,22 +147,23 @@ class Attendance extends MY_Controller {
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
-	public function leave_balance()
-	{
-		$empid = $this->uri->segment(4);
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-		$this->arrData['arrempleave'] = $this->Leave_model->getleave($empid);
-
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
-	}
+	// public function leave_balance()
+	// {
+	// 	$empid = $this->uri->segment(4);
+	// 	$res = $this->Hr_model->getData($empid,'','all');
+	// 	$this->arrData['arrData'] = $res[0];
+	// 	$this->arrData['arrempleave'] = $this->Leave_model->getleave($empid);
+	// 	$month = isset($_GET['month']) ?  $_GET['month'] : date('n');
+	// 	$yr = isset($_GET['yr']) ?  $_GET['yr'] : date('n');
+	// 	$this->arrData['arrLeaves'] = $this->Leave_model->getleave_balance($empid, $month,$yr);
+	// 	$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	// }
 
 	public function leave_balance_update()
 	{
 		$this->load->model(array('finance/Dtr_model'));
 		$this->load->helper(array('payroll_helper','dtr_helper'));
-		// echo '<pre>';
+		
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];

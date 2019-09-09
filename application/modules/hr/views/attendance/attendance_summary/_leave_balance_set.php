@@ -97,7 +97,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <button class="btn green" type="submit"><i class="fa fa-check"></i> Submit </button>
-                                        <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>" class="btn blue">
+                                        <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$this->uri->segment(4).'?month='.$month.'&yr='.$yr?>" class="btn blue">
                                             <i class="icon-ban"></i> Cancel</a>
                                     </div>
                                 </div>

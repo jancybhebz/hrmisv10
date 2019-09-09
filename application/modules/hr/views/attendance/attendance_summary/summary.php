@@ -15,6 +15,7 @@
     switch ($this_page):
         case 'dtr': $show_monyr = 0; $show_dates = 1; break;
         case 'leave_balance_update': $show_monyr = 1; $show_dates = 0; break;
+        case 'leave_balance': $show_monyr = 1; $show_dates = 0; break;
     endswitch;
 ?>
 
