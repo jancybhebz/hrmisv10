@@ -344,7 +344,7 @@ class Leave_model extends CI_Model {
 			$dates = dateRange($leave['leaveFrom'],$leave['leaveTo']);
 			$days = $days + count($dates);
 		endforeach;
-
+		
 		return $days;
 	}
 

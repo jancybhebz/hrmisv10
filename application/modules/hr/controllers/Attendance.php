@@ -15,6 +15,7 @@ class Attendance extends MY_Controller {
 	function __construct() {
         parent::__construct();
         $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model','libraries/Org_structure_model','libraries/Appointment_status_model'));
+    	$this->load->helper(array('payroll_helper','dtr_helper'));
     }
 
     public function conversion_table()
@@ -123,7 +124,6 @@ class Attendance extends MY_Controller {
 	public function dtr()
 	{
 		$this->load->model('libraries/Holiday_model');
-		$this->load->helper('dtr_helper');
 		// echo '<pre>';
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
@@ -162,7 +162,6 @@ class Attendance extends MY_Controller {
 	public function leave_balance_update()
 	{
 		$this->load->model(array('finance/Dtr_model'));
-		$this->load->helper(array('payroll_helper','dtr_helper'));
 		
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
@@ -369,7 +368,7 @@ class Attendance extends MY_Controller {
 		
 		$vl_abswpay = 0;
 		$vl_abswopay = 0;
-		// $ut_lates = $this->Leave_model->ltut_table_equiv($total_undertime + $total_late);
+		
 		$curr_vl = 0;
 		$emp_vl = 0;
 		$trut_wopay = 0;
@@ -449,7 +448,6 @@ class Attendance extends MY_Controller {
 
 	public function leave_balance_save()
 	{
-		$this->load->helper('dtr_helper');
 		$empid = $this->uri->segment(4);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
@@ -534,7 +532,6 @@ class Attendance extends MY_Controller {
 
 	public function leave_balance_override()
 	{
-		$this->load->helper('dtr_helper');
 		$empid = $this->uri->segment(4);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
@@ -585,36 +582,47 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
-		$arrLeaves = $this->Leave_model->getleave($empid);
+		$arrlatest_balance = $this->Leave_model->getLatestBalance($empid);
+
+		// $arrLeaves = $this->Leave_model->getleave($empid);
 		
 		$total_monetize = $this->Leave_monetization_model->getemp_total_monetized($empid, date('n'), date('Y'));
-
-		$sl_monetized = 0;
-		if(count($arrLeaves) > 0):
+		$sl_monetized = '0.0000';
+		$vl_monetized = '0.0000';
+		$datefrom = '';
+		$dateto = '';
+		if(count($arrlatest_balance) > 0):
 			if(count($total_monetize) > 0):
-				$sl_monetized = $arrLeaves[0]['slBalance'] - $total_monetize['slmonetize'];
-				$vl_monetized = $arrLeaves[0]['vlBalance'] - $total_monetize['vlmonetize'];
+				$sl_monetized = $arrlatest_balance['slBalance'] - $total_monetize['slmonetize'];
+				$vl_monetized = $arrlatest_balance['vlBalance'] - $total_monetize['vlmonetize'];
 			else:
-				$sl_monetized = $arrLeaves[0]['slBalance'];
-				$vl_monetized = $arrLeaves[0]['vlBalance'];
+				$sl_monetized = $arrlatest_balance['slBalance'];
+				$vl_monetized = $arrlatest_balance['vlBalance'];
 			endif;
-		else:
-			$sl_monetized = '0.0000';
-			$vl_monetized = '0.0000';
+
+			if($arrlatest_balance['periodMonth'] < 12):
+				$periodYear = $arrlatest_balance['periodYear'];
+				$periodMonth = sprintf('%02d',($arrlatest_balance['periodMonth']+1));				
+			else:
+				$periodMonth = $arrlatest_balance['periodYear'] + 1;
+				$periodYear = '01';
+			endif;
+			$datefrom = $periodYear.'-'.$periodMonth.'-01';
+			$dateto = $periodYear.'-'.$periodMonth.'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 		endif;
 
-		$approved_vl = count($arrLeaves) > 0 ? $this->Leave_model->approved_vl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1)) : 0;
-		$approved_sl = count($arrLeaves) > 0 ? $this->Leave_model->approved_sl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1)) : 0;
+		$approved_vl = count($arrlatest_balance) > 0 ? $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'VL') : 0;
+		$approved_sl = count($arrlatest_balance) > 0 ? $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'SL') : 0;
 		
 		$this->arrData['total_monetize'] = $total_monetize;
 		$this->arrData['sl_monetized'] = $sl_monetized;
 		$this->arrData['vl_monetized'] = $vl_monetized;
 		$this->arrData['sl_projected'] = $sl_monetized - $approved_sl;
 		$this->arrData['vl_projected'] = $vl_monetized - $approved_vl;
-		$this->arrData['arrLeaves'] = $arrLeaves;
+		$this->arrData['arrlatest_balance'] = $arrlatest_balance;
 		$this->arrData['arrMonetize'] = $this->Leave_monetization_model->getemp_monetized($empid, currmo(), curryr());
 		$this->arrData['arrData'] = $res[0];
-
+		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}
