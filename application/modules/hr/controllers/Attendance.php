@@ -129,8 +129,8 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m-').'01';
-		$dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
 		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
 		$this->arrData['working_days'] = get_workingdays('','',$holidays,$datefrom,$dateto);
@@ -744,51 +744,74 @@ class Attendance extends MY_Controller {
 	# Begin Edit Mode
 	public function dtr_edit_mode()
 	{
+		$this->load->model('libraries/Holiday_model');
+
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+
+		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+
+		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		$this->arrData['working_days'] = get_workingdays('','',$holidays,$datefrom,$dateto);
+
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
 		
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arremp_dtr'] = $arremp_dtr;
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function dtr_edit()
 	{
-		$arrPost = $this->input->post();
+		// echo '<pre>';
+		$arrPost = $this->input->post();	
 		$dtr_json = json_decode($arrPost['txtjson'], true);
+
 		foreach($dtr_json as $dtr):
 			# check if row
 			if(count($dtr) > 0):
 				# check if body
 				if(count($dtr['tr']) > 6):
-					$dtrid = $dtr['tr'][1]['td'];
+					$dtr_details = json_decode($dtr['tr'][10]['td'], true);
+					$dtrid = $dtr_details[1];
 					$arrData = array('empNumber'	=> $arrPost['empnum'],
-									 'dtrDate'		=> $arrPost['yr'].'-'.$arrPost['month'].'-'.$dtr['tr'][2]['td'],
-									 'inAM' 		=> $dtr['tr'][3]['td'],
-									 'outAM' 		=> $dtr['tr'][4]['td'],
-									 'inPM' 		=> $dtr['tr'][5]['td'],
-									 'outPM' 		=> $dtr['tr'][6]['td'],
-									 'inOT' 		=> $dtr['tr'][7]['td'],
-									 'outOT' 		=> $dtr['tr'][8]['td'],
-									 // TODO:: OT field
-									 // 'OT' => $arrPost['empnum'],
-									 'name' 		=> $dtr['tr'][11]['td'].';'.$_SESSION['sessName'],
-									 'ip'			=> $dtr['tr'][12]['td'].';'.$this->input->ip_address(),
-									 'editdate'		=> $dtr['tr'][13]['td'].';'.date('Y-m-d h:i:s A'),
-									 'oldValue' 	=> $dtr['tr'][14]['td']);
+									 'dtrDate'		=> $dtr_details[0],
+									 'inAM' 		=> $dtr['tr'][2]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00',
+									 'outAM' 		=> $dtr['tr'][3]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00',
+									 'inPM' 		=> $dtr['tr'][4]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00',
+									 'outPM' 		=> $dtr['tr'][5]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00',
+									 'inOT' 		=> $dtr['tr'][6]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00',
+									 'outOT' 		=> $dtr['tr'][7]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00',
+									 'name' 		=> $dtr_details[2].';'.$_SESSION['sessName'],
+									 'ip'			=> $dtr_details[3].';'.$this->input->ip_address(),
+									 'editdate'		=> $dtr_details[4].';'.date('Y-m-d h:i:s A'),
+									 'oldValue' 	=> $dtr_details[5]);
+					# check timein validation
+					$valid_time = 0;
+					foreach(array($arrData['inAM'],$arrData['outAM'],$arrData['inPM'],$arrData['outPM'],$arrData['inOT'],$arrData['outOT']) as $vtime):
+						// echo '<br>'.$vtime;
+						if($vtime!='00:00:00'):
+							$valid_time = $valid_time + 1;
+						endif;
+					endforeach;
+					// echo $valid_time;
 					if($dtrid != ''):
 						$this->Attendance_summary_model->edit_dtr($arrData, $dtrid);
 					else:
-						$this->Attendance_summary_model->add_dtr($arrData);
+						if($valid_time > 0){
+							$this->Attendance_summary_model->add_dtr($arrData);
+						}
 					endif;
+					// echo '<hr>';
 				endif;
 			endif;
+			
 		endforeach;
+		// die();
 		$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
-		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrPost['empnum'].'?month='.$arrPost['month'].'&yr='.$arrPost['yr']);
+		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrPost['empnum'].'?datefrom='.$arrPost['datefrom'].'&dateto='.$arrPost['dateto']);
 	}
 	# End Edit Mode
 

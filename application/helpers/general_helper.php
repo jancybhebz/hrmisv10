@@ -233,6 +233,22 @@ if ( ! function_exists('currmo'))
 	}
 }
 
+if ( ! function_exists('currdfrom'))
+{
+    function currdfrom()
+    {
+        return isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m').'-01';
+    }
+}
+
+if ( ! function_exists('currdto'))
+{
+    function currdto()
+    {
+        return isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+    }
+}
+
 if ( ! function_exists('ordinal'))
 {
     function ordinal($number)

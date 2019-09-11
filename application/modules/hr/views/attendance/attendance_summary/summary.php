@@ -7,13 +7,19 @@
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 
-    $datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m').'-01';
-    $dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+    $datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m').'-01';
+    $dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
     $show_monyr = 0;
     $show_dates = 0;
     switch ($this_page):
-        case 'dtr': $show_monyr = 0; $show_dates = 1; break;
+        case 'dtr':
+            if($this->uri->segment(4) == $arrData['empNumber']):
+                $show_monyr = 0; $show_dates = 1;
+            else:
+                $show_monyr = 0; $show_dates = 0;
+            endif;
+            break;
         case 'leave_balance_update': $show_monyr = 1; $show_dates = 0; break;
         case 'leave_balance': $show_monyr = 1; $show_dates = 0; break;
         case 'filed_request': $show_monyr = 1; $show_dates = 0; break;          
@@ -84,7 +90,7 @@
                                             <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.date('m').'&yr='.date('Y')?>">
                                                 Leave Balance </a>
                                         <?php else: ?>
-                                            <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?txtdtr_datefrom='.$datefrom.'&txtdtr_dateto='.$dateto?>">
+                                            <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">
                                                 Leave Balance </a>
                                         <?php endif; ?>
                                     </li>
@@ -97,7 +103,7 @@
                                             Filed Request </a>
                                     </li>
                                     <li class="<?=($this_page == 'dtr') ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?txtdtr_datefrom='.$datefrom.'&txtdtr_dateto='.$dateto?>">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">
                                             Daily Time Record </a>
                                     </li>
                                     <li class="<?=$this_page == 'qr_code' ? 'active' : ''?>">
@@ -156,12 +162,12 @@
                                                 <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Date From</label>
-                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_datefrom" type="text" style="width: 140px !important;"
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="datefrom" type="text" style="width: 140px !important;"
                                                             value="<?=$datefrom?>">
                                                 </div>
                                                 <div class="form-group" style="display: inline-flex;margin-left: 10px;">
                                                     <label style="padding: 6px;">Date To</label>
-                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtdtr_dateto" type="text" style="width: 140px !important;"
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="dateto" type="text" style="width: 140px !important;"
                                                             value="<?=$dateto?>">
                                                 </div>
                                                 &nbsp;

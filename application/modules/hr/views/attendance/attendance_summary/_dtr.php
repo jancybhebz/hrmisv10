@@ -1,7 +1,7 @@
 <?=load_plugin('css', array('profile-2','datatables'))?>
 <?php 
-    $datefrom = isset($_GET['txtdtr_datefrom']) ? $_GET['txtdtr_datefrom'] : date('Y-m-d');
-    $dateto = isset($_GET['txtdtr_dateto']) ? $_GET['txtdtr_dateto'] : date('Y-m-d');
+    $datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-d');
+    $dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-d');
     $total_undertime = 0;
     $total_late = 0;
     $days_late_ut = 0;
@@ -30,22 +30,22 @@
                             <li>
                                 <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Edit Mode</a></li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber']?>">Broken Sched</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/broken_sched').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Broken Sched</a></li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber']?>">Local Holiday</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/local_holiday').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Local Holiday</a></li>
                             <li class="divider"> </li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber']?>">OB</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/ob').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">OB</a></li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber']?>">Leave</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/leave').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Leave</a></li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber']?>">Compensatory Time Off</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/compensatory_leave').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Compensatory Time Off</a></li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber']?>">Time</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/time').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Time</a></li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/flagcrmy').'/'.$arrData['empNumber']?>">Flag Ceremony</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/flagcrmy').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Flag Ceremony</a></li>
                             <li>
-                                <a href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber']?>">Travel Order</a></li>
+                                <a href="<?=base_url('hr/attendance_summary/dtr/to').'/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">Travel Order</a></li>
                             <li class="divider"> </li>
                             <li>
                                 <a href="javascript:;" data-toggle="modal" data-target="#print-preview-modal">Preview / Print</a>
@@ -216,7 +216,7 @@
 
             <div class="row" <?=$_SESSION['sessUserLevel'] == 1 ? '' : 'hidden'?>>
                 <div class="col-md-12">
-                    <a href="<?=base_url('hr/attendance_summary/dtr/certify_offset').'/'.$arrData['empNumber'].'?txtdtr_datefrom='.$_GET['txtdtr_datefrom'].'&txtdtr_dateto='.$_GET['txtdtr_dateto']?>" class="btn blue">Certify Offset</a>
+                    <a href="<?=base_url('hr/attendance_summary/dtr/certify_offset').'/'.$arrData['empNumber'].'?datefrom='.$_GET['datefrom'].'&dateto='.$_GET['dateto']?>" class="btn blue">Certify Offset</a>
                     <small><i>Click here to include/exclude Offset from computation.</i></small>
                     <?=str_repeat('&nbsp;', 6)?>
                 </div>

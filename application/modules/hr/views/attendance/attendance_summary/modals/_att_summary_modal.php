@@ -26,7 +26,7 @@
                     $datefrom = date('Y-m').'-01';
                     $dateto = date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
                     
-                    $dtrlink = base_url('hr/attendance_summary/dtr/'.$arrData['empNumber'].'?txtdtr_datefrom='.$datefrom.'&txtdtr_dateto='.$dateto);
+                    $dtrlink = base_url('hr/attendance_summary/dtr/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto);
                  ?>
                 <a href="<?=$dtrlink?>" class="btn btn-sm grey-cascade">
                             <i class="icon-calendar"></i> View DTR </a>
