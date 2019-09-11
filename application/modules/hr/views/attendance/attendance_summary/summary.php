@@ -16,6 +16,7 @@
         case 'dtr': $show_monyr = 0; $show_dates = 1; break;
         case 'leave_balance_update': $show_monyr = 1; $show_dates = 0; break;
         case 'leave_balance': $show_monyr = 1; $show_dates = 0; break;
+        case 'filed_request': $show_monyr = 1; $show_dates = 0; break;          
     endswitch;
 ?>
 
@@ -109,6 +110,7 @@
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
+                                                <input type="hidden" name="tab" id="txttab" value="<?=isset($_GET['tab']) ? $_GET['tab'] : ''?>">
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Month</label>
                                                     <select class="bs-select form-control" name="month">

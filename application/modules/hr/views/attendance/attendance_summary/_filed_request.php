@@ -1,5 +1,9 @@
 <?=load_plugin('css',array('datatables'));?>
-<?php $month = isset($_GET['month']) ? $_GET['month'] : date('m'); $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y'); ?>
+<?php
+    $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+    $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+    $tab = isset($_GET['tab']) ? $_GET['tab'] : '';?>
+
 <div class="tab-pane active" id="tab_1_2">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -12,28 +16,28 @@
             <div class="portlet-body">
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs ">
-                        <li class="active">
-                            <a href="#tab-comm" data-toggle="tab"> Commutation </a>
+                        <li class="<?=$tab=='comm'? 'active' : ''?>">
+                            <a data-value="comm" href="#tab-comm" class="filed_req" data-toggle="tab"> Commutation </a>
                         </li>
-                        <li>
-                            <a href="#tab-dtr" data-toggle="tab"> DTR Update </a>
+                        <li class="<?=$tab=='dtr'? 'active' : ''?>">
+                            <a data-value="dtr" href="#tab-dtr" class="filed_req" data-toggle="tab"> DTR Update </a>
                         </li>
-                        <li>
-                            <a href="#tab-leave" data-toggle="tab"> Leave </a>
+                        <li class="<?=$tab=='leave'? 'active' : ''?>">
+                            <a data-value="leave" href="#tab-leave" class="filed_req" data-toggle="tab"> Leave </a>
                         </li>
-                        <li>
-                            <a href="#tab-mone" data-toggle="tab"> Monetization </a>
+                        <li class="<?=$tab=='mone'? 'active' : ''?>">
+                            <a data-value="mone" href="#tab-mone" class="filed_req" data-toggle="tab"> Monetization </a>
                         </li>
-                        <li>
-                            <a href="#tab-ob" data-toggle="tab"> Official Business </a>
+                        <li class="<?=$tab=='ob'? 'active' : ''?>">
+                            <a data-value="ob" href="#tab-ob" class="filed_req" data-toggle="tab"> Official Business </a>
                         </li>
-                        <li>
-                            <a href="#tab-to" data-toggle="tab"> Travel Order </a>
+                        <li class="<?=$tab=='to'? 'active' : ''?>">
+                            <a data-value="to" href="#tab-to" class="filed_req" data-toggle="tab"> Travel Order </a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <!-- begin commutation order -->
-                        <div class="tab-pane active" id="tab-comm">
+                        <div class="tab-pane <?=$tab=='comm'? 'active' : ''?>" id="tab-comm">
                             <table class="table table-bordered table-hover" id="tbl-comm">
                                 <thead>
                                     <tr>
@@ -60,7 +64,7 @@
                         <!-- end commutation order -->
 
                         <!-- begin dtr -->
-                        <div class="tab-pane " id="tab-dtr">
+                        <div class="tab-pane <?=$tab=='dtr'? 'active' : ''?>" id="tab-dtr">
                             <table class="table table-bordered table-hover" id="tbl-dtr">
                                 <thead>
                                     <tr>
@@ -91,7 +95,7 @@
                         <!-- end dtr -->
 
                         <!-- begin leave -->
-                        <div class="tab-pane " id="tab-leave">
+                        <div class="tab-pane <?=$tab=='leave'? 'active' : ''?>" id="tab-leave">
                             <table class="table table-bordered table-hover" id="tbl-leave">
                                 <thead>
                                     <tr>
@@ -122,7 +126,7 @@
                         <!-- end leave -->
 
                         <!-- begin monetization order -->
-                        <div class="tab-pane " id="tab-mone">
+                        <div class="tab-pane <?=$tab=='mone'? 'active' : ''?>" id="tab-mone">
                             <table class="table table-bordered table-hover" id="tbl-mone">
                                 <thead>
                                     <tr>
@@ -151,7 +155,7 @@
                         <!-- end monetization order -->
 
                         <!-- begin official business -->
-                        <div class="tab-pane " id="tab-ob">
+                        <div class="tab-pane <?=$tab=='ob'? 'active' : ''?>" id="tab-ob">
                             <table class="table table-bordered table-hover" id="tbl-ob">
                                 <thead>
                                     <tr>
@@ -182,7 +186,7 @@
                         <!-- end official business -->
 
                         <!-- begin travel order -->
-                        <div class="tab-pane " id="tab-to">
+                        <div class="tab-pane <?=$tab=='to'? 'active' : ''?>" id="tab-to">
                             <table class="table table-bordered table-hover" id="tbl-to">
                                 <thead>
                                     <tr>
@@ -231,6 +235,10 @@
                     "targets": 'no-sort',
                     "orderable": false,
                 }]
+        });
+
+        $('.filed_req').click(function() {
+            $('#txttab').val($(this).data('value'));
         });
     });
 </script>

@@ -641,9 +641,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrmonetize'] = array_map(function($r){if(strtolower($r['requestCode']) == 'monetization'){ return $r;}}, $arremp_request);
 		$this->arrData['arrob'] = array_map(function($r){if(strtolower($r['requestCode']) == 'ob'){ return $r;}}, $arremp_request);
 		$this->arrData['arrto'] = array_map(function($r){if(strtolower($r['requestCode']) == 'to'){ return $r;}}, $arremp_request);
-		// $this->arrData['arrOb'] = ;
-		// $this->arrData['arrTo'] = ;
-		// die();
+		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}
