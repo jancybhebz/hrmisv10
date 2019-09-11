@@ -55,6 +55,7 @@ class Migrate_model extends CI_Model {
 
 	function check_tables()
     {
+    	$this->db->query("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
     	$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
     	$tbldb_hrmisv10 = $this->hrmisv10->list_tables();
     	$tbldb_hrmis = $this->db->list_tables();
@@ -281,17 +282,30 @@ class Migrate_model extends CI_Model {
 
 	function import_database($dbconn,$path,$set=0) 
 	{
+		$this->db->query("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+		$this->db->query("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
 		if($set == 0):
 			if(file_exists($path)):
 			    $sql_contents = file_get_contents($path);
 			    $file = fopen($path,"r");
 			    while(! feof($file)):
 			        $query = fgets($file);
-			        echo $query.'<br>';
 			        if($query != ''):
 			        	$pos = strpos($query,'ci_sessions');
 			        	if($pos == false):
-			        		$result = $dbconn->query($query);
+			        		// $result = $dbconn->query($query);
+			        		if(str_replace(' ','',$query) != ''):
+				        		if ($dbconn->simple_query($query))
+								{
+								    echo $query.'<br>';
+								}
+								else
+								{
+									echo "<font color='red'><b>Query failed!</b></font>";
+									echo $dbconn->error()['message'].'<br>';
+									echo $query.'<br></font>';
+								}
+							endif;
 			        	else:
 			        		continue;
 			        	endif;
@@ -307,7 +321,20 @@ class Migrate_model extends CI_Model {
 			foreach($sql_contents as $query):
 				$pos = strpos($query,'ci_sessions');
 				if($pos == false):
-					$result = $dbconn->query($query);
+					// $result = $dbconn->query($query);
+					if(str_replace(' ','',$query) != ''):
+						if ($dbconn->simple_query($query))
+						{
+						    echo $query.'<br>';
+						}
+						else
+						{
+							echo "<font color='red'><b>Query failed!</b></font>";
+							echo $dbconn->error()['message'].'<br>';
+							echo '<br>';
+							echo $query.'<br></font>';
+						}
+					endif;
 				else:
 					continue;
 				endif;

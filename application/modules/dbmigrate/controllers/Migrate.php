@@ -166,8 +166,8 @@ class Migrate extends MY_Controller
 
         # change inPM to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change inPM to 24-H Time",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inPM`  `inPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inPM` TIME NULL AFTER  `inPM_old_data`;",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` CHANGE `inPM` `inPM_old_data` VARCHAR(11);",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` ADD `inPM` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inPM` = CASE WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inPM_old_data` = '00:00:00') THEN NULL ELSE `inPM_old_data` END;",$path);
 
         $total_line = 0;
@@ -203,7 +203,7 @@ class Migrate extends MY_Controller
         # change outPM to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change outPM to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL AFTER  `outPM_old_data`;",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outPM` = CASE WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outPM_old_data` = '00:00:00') THEN NULL ELSE `outPM_old_data` END;",$path);
 
         $total_line = 0;
@@ -239,7 +239,7 @@ class Migrate extends MY_Controller
         # change inOT to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change inOT to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL AFTER  `inOT_old_data`;",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inOT` = CASE WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inOT_old_data` = '00:00:00') THEN NULL ELSE `inOT_old_data` END;",$path);
 
         $total_line = 0;
@@ -275,7 +275,7 @@ class Migrate extends MY_Controller
         # change outOT to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change outOT to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL AFTER  `outOT_old_data`;",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outOT` = CASE WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outOT_old_data` = '00:00:00') THEN NULL ELSE `outOT_old_data` END;",$path);
 
         $total_line = 0;

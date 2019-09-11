@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 03, 2019 at 09:37 AM
+-- Generation Time: Sep 11, 2019 at 01:18 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hrmis_new_version`
+-- Database: `hrmis_updated_schema`
 --
 
 -- --------------------------------------------------------
@@ -1160,6 +1160,8 @@ CREATE TABLE `tblEmpPosition` (
   `providentSwitch` char(1) NOT NULL DEFAULT '',
   `premiumAidSwitch` char(1) NOT NULL DEFAULT 'Y',
   `dtrSwitch` char(1) NOT NULL DEFAULT 'Y',
+  `is_override` int(11) DEFAULT NULL,
+  `override_id` int(11) DEFAULT NULL,
   `mcSwitch` char(1) NOT NULL DEFAULT 'Y',
   `hazardSwitch` char(1) NOT NULL DEFAULT 'Y',
   `longevitySwitch` char(1) NOT NULL DEFAULT 'Y',
@@ -2291,7 +2293,7 @@ CREATE TABLE `tblTaxRange` (
 CREATE TABLE `tblWorkZone` (
   `currentWorkZone` varchar(20) DEFAULT NULL,
   `currentchiefworkzone` varchar(20) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='stores the current working zone. 201 display depend on which';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2732,6 +2734,12 @@ ALTER TABLE `tblOTComputationInstance`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tblOverride`
+--
+ALTER TABLE `tblOverride`
+  ADD PRIMARY KEY (`override_id`);
+
+--
 -- Indexes for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
@@ -2987,7 +2995,7 @@ ALTER TABLE `tblEmpAppointment`
 -- AUTO_INCREMENT for table `tblEmpBenefits`
 --
 ALTER TABLE `tblEmpBenefits`
-  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=697792;
+  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=697800;
 --
 -- AUTO_INCREMENT for table `tblEmpChild`
 --
@@ -3052,7 +3060,7 @@ ALTER TABLE `tblEmpLocalHoliday`
 -- AUTO_INCREMENT for table `tblEmpLongevity`
 --
 ALTER TABLE `tblEmpLongevity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
 --
 -- AUTO_INCREMENT for table `tblEmpMeeting`
 --
@@ -3173,6 +3181,11 @@ ALTER TABLE `tblOTComputation`
 --
 ALTER TABLE `tblOTComputationInstance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT for table `tblOverride`
+--
+ALTER TABLE `tblOverride`
+  MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblPayrollGroup`
 --

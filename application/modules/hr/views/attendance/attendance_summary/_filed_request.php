@@ -16,7 +16,7 @@
             <div class="portlet-body">
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs ">
-                        <li class="<?=$tab=='comm'? 'active' : ''?>">
+                        <li class="<?=$tab=='comm' || $tab==''? 'active' : ''?>">
                             <a data-value="comm" href="#tab-comm" class="filed_req" data-toggle="tab"> Commutation </a>
                         </li>
                         <li class="<?=$tab=='dtr'? 'active' : ''?>">
@@ -37,7 +37,7 @@
                     </ul>
                     <div class="tab-content">
                         <!-- begin commutation order -->
-                        <div class="tab-pane <?=$tab=='comm'? 'active' : ''?>" id="tab-comm">
+                        <div class="tab-pane <?=$tab=='comm' || $tab==''? 'active' : ''?>" id="tab-comm">
                             <table class="table table-bordered table-hover" id="tbl-comm">
                                 <thead>
                                     <tr>
