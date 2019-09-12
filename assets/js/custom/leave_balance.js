@@ -62,7 +62,7 @@ $(document).ready(function() {
         var action = $(this).data('action');
         var lb_data = $(this).data('json');
         var leave_earned = $(this).data('leave_earned');
-        console.log(lb_data);
+        console.log(lb_data['processBy']);
         if(action == 'override'){
             $('td#tdn-or').hide();
             $('td#tdor').show();
@@ -158,6 +158,7 @@ $(document).ready(function() {
         $('.amt_training').html(lb_data['ctr_diem']);
 
         $('#txtoverride_id').val(lb_data['lb_id']);
+        $('#updatedby').html(lb_data['process_by']+' <b>Updated Date: </b>'+lb_data['processDate']);
         $('#txtleave_data').val(JSON.stringify([lb_data,leave_earned]));
 
         $('#frmupdate_leavebalance').attr('action','../leave_balance_override/'+$('#txtget_data').val());

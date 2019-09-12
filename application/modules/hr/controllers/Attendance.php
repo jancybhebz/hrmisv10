@@ -360,6 +360,7 @@ class Attendance extends MY_Controller {
 			$arrLeaveBalance[$key]['off_bal_w'] = seconds_to_time($lb['off_bal']);
 			$arrLeaveBalance[$key]['off_gain_w'] = seconds_to_time($lb['off_gain']);
 			$arrLeaveBalance[$key]['off_used_w'] = seconds_to_time($lb['off_used']);
+			$arrLeaveBalance[$key]['process_by'] = employee_name($lb['processBy']);
 
 		endforeach;
 
