@@ -125,6 +125,17 @@ class Migrate_model extends CI_Model {
 	    	unlink($sql_file_S3);
 	    endif;
 
+	   	# Fix Time for Holiday Year
+	    $this->write_sqlstmt("# Fix Time for Holidays ",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` CHANGE  `holidayTime`  `holidayTime_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` ADD  `holidayTime` TIME NULL AFTER  `holidayTime_old_data`;",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` ADD  `htime` VARCHAR(20) NULL AFTER  `holidayTime`;",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` ADD  `hmed` VARCHAR(20) NULL AFTER  `htime`;",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblHolidayYear` SET htime = SUBSTRING_INDEX(holidayTime_old_data,' ',1);",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblHolidayYear` SET hmed = SUBSTRING_INDEX(holidayTime_old_data,' ',-1);",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;",$sql_file);
+
     	$tbldb_hrmis = $this->db->list_tables();
     	foreach($tbldb_hrmis as $tbl):
     		$desc_tbl = $this->db->query('DESCRIBE '.$tbl.';')->result_array();

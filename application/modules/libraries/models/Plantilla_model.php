@@ -20,6 +20,7 @@ class Plantilla_model extends CI_Model {
 
 	function getData($intPlantillaId = '')
 	{		
+		$this->db->select($this->table.'.*,tblPosition.positionDesc');
 		if($intPlantillaId != "")
 		{
 			$this->db->where($this->tableid,$intPlantillaId);
@@ -29,6 +30,20 @@ class Plantilla_model extends CI_Model {
 		 $this->db->join('tblExamType','tblExamType.examCode = '.$this->table.'.examCode','left');
 		 $this->db->order_by('tblPlantilla.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
+		// echo $this->db->last_query();
+		return $objQuery->result_array();	
+	}
+
+	function getAllSG($salaryGradeNumber='')
+	{
+		$this->db->select('distinct(salaryGradeNumber)');
+		if($salaryGradeNumber != "")
+		{
+			$this->db->where('tblSalarySched',$salaryGradeNumber);
+		}
+			$this->db->order_by('salaryGradeNumber','ASC');
+			// $this->db->group_by('salaryGradeNumber');
+		$objQuery = $this->db->get('tblSalarySched');
 		return $objQuery->result_array();	
 	}
 
@@ -51,6 +66,7 @@ class Plantilla_model extends CI_Model {
 	function add($arrData)
 	{
 		$this->db->insert($this->table, $arrData);
+		// echo $this->db->last_query();
 		return $this->db->insert_id();		
 	}
 

@@ -7,7 +7,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 ?>
 <!-- BEGIN PAGE BAR -->
-<?=load_plugin('css', array('datepicker','timepicker'))?>
+<?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -41,7 +42,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
                     <div class="portlet-body">
-            <?=form_open('', array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open('', array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()', 'onsubmit' => 'return checkForBlank()'))?>
             <div class="row">
             <div class="col-sm-8">
                 <div class="form-group">
@@ -63,8 +64,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="form-group">
                    <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
                             <i class="fa"></i>
-                             <select name="strLeavetype" id="strLeavetype" type="text" class="form-control" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
-                            <option value="">Please select</option>
+                             <select name="strLeavetype" id="strLeavetype" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
+                            <option value="">-- SELECT LEAVE TYPE --</option>
                             <option value="FL">Forced Leave</option>
                             <option value="SPL">Special Leave</option>
                             <option value="SL">Sick Leave</option>
@@ -115,21 +116,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="form-group">
                      <label class="control-label">Leave From : <span class="required"> * </span></label>
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                                <div class="input-icon left">
+                                    <font color='red'> <span id="leavefrom"></span></font>
+                                </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <br>
              <div class="row" id="leaveto_textbox">
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave To : <span class="required"> * </span></label>
                              <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                             <div class="input-icon left">
+                                    <font color='red'> <span id="leaveto"></span></font>
+                            </div>
                     </div>
                 </div>
             </div>
+            <br>
              <div class="row" id="daysapplied_textbox">
                 <div class="col-sm-1">
                     <div class="form-group">
-                     <label class="control-label"># of Days Applied : </label>
+                     <label class="control-label">No. of Days Applied : </label>
                              <input name="intDaysApplied" id="intDaysApplied" type="number" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('intDaysApplied'))?$this->session->userdata('intDaysApplied'):''?>">
                     </div>
                 </div>
@@ -138,8 +147,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Authorized Official (1st Signatory) :</label>
-                            <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
-                                    <option value="">Select</option>
+                            <select name="str1stSignatory" id="str1stSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
+                                    <option value="">-- SELECT SIGNATORY--</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
@@ -151,8 +160,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Authorized Official (2nd Signatory) :</label>
-                            <select type="text" class="form-control" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" >
-                                    <option value="">Select</option>
+                            <select name="str2ndSignatory" id="str2ndSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>" >
+                                    <option value="">-- SELECT SIGNATORY--</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                     <?php endforeach; ?>
@@ -172,8 +181,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                       <label class="control-label">In Case of Sick Leave : </label>
-                             <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
-                                 <option value="">Select</option>
+                             <select name="strIncaseSL" id="strIncaseSL" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strIncase'))?$this->session->userdata('strIncaseSL'):''?>">
+                                 <option value="">-- Select --</option>
                                  <option value="in patient">in patient</option>
                                  <option value="out patient">out patient</option>
                              </select>
@@ -184,8 +193,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                        <label class="control-label">In Case of Vacation Leave : </label>
-                              <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
-                                 <option value="">Select</option>
+                              <select name="strIncaseVL" id="strIncaseVL" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strIncaseVL'))?$this->session->userdata('strIncaseVL'):''?>">
+                                 <option value="">-- Select --</option>
                                  <option value="within the country">within the country</option>
                                  <option value="abroad">abroad</option>
                              </select>
@@ -224,7 +233,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>">
 
-<?=load_plugin('js',array('validation','datepicker'));?>
+<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
 <script>
     $(document).ready(function() 
     {
@@ -272,7 +281,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var leaveto=$('#dtmLeaveto').val();
         var daysapplied=$('#intDaysApplied').val();
         var signatory=$('#str1stSignatory').val();
-        var empname=$('#strEmpName2').val();
+        var signatory2=$('#str2ndSignatory').val();
         var reason=$('#strReason').val();
         var incaseSL=$('#strIncaseSL').val();
         var incaseVL=$('#strIncaseVL').val();
@@ -288,7 +297,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         //     valid=true;
         // if(valid)
 
-            window.open("reports/generate/?rpt=reportLeave&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&empname="+empname+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL+"&intVL="+intVL+"&intSL="+intSL,'_blank'); //ok
+            window.open("reports/generate/?rpt=reportLeave&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&signatory2="+signatory2+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL+"&intVL="+intVL+"&intSL="+intSL,'_blank'); //ok
     
     });
  });
@@ -318,13 +327,13 @@ var FormValidation = function () {
                 rules: {
                     strLeavetype: {
                         required: true,
-                    },
-                    dtmLeavefrom: {
-                        required: true,
-                    },
-                    dtmLeaveto: {
-                        required: true,
                     }
+                    // dtmLeavefrom: {
+                    //     required: true,
+                    // },
+                    // dtmLeaveto: {
+                    //     required: true,
+                    // }
 
                 },
 
@@ -435,4 +444,32 @@ jQuery(document).ready(function() {
         return (endDate-startDate)/(1000*60*60*24);
     }
 
+</script>
+<script>
+
+function checkForBlank()
+{
+   var spaceCount = 0;
+    $dtmLeavefrom= $('#dtmLeavefrom').val();
+    $dtmLeaveto= $('#dtmLeaveto').val();
+
+    $('leavefrom','leaveto').html('');
+
+    if($dtmLeavefrom=="")
+    {
+      $('#leavefrom').html('This field is required!');
+      return false;
+    }
+    else if($dtmLeaveto=="")
+    {
+      $('#leaveto').html('This field is required!');
+      return false;
+    }
+  
+    else
+    {
+      return true;
+    }
+
+}
 </script>
