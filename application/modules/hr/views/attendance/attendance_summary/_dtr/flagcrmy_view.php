@@ -10,7 +10,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber']?>" class="btn grey-cascade">
+                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'/?datefrom='.currdfrom().'&dateto='.currdto()?>" class="btn grey-cascade">
                             <i class="icon-calendar"></i> DTR </a>
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/flagcrmy_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add Entry</a>

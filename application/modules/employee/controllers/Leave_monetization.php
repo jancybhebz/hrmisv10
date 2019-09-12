@@ -74,6 +74,7 @@ class Leave_monetization extends MY_Controller {
     	$arrPost = $this->input->post();
     	$empid = $this->uri->segment(4);
     	if(!empty($arrPost)):
+
     		$arrData=array(
     			'empNumber' 	=> $empid,
     			'vlMonetize'	=> $arrPost['txtvl'],
@@ -82,11 +83,11 @@ class Leave_monetization extends MY_Controller {
     			'processYear' 	=> date('Y'),
     			'monetizeMonth'	=> $arrPost['txtperiodmo'],
     			'monetizeYear' 	=> $arrPost['txtperiodyr'],
-    			'monetizeAmount'=> 0,
+    			'monetizeAmount'=> str_replace(',','',$arrPost['txtmone_amt']),
     			'processBy'		=> $_SESSION['sessName'],
     			'ip'	    	=> $this->input->ip_address(),
     			'processDate'	=> date('Y-m-d h:i:s A'));
-
+    			
     		$this->leave_monetization_model->addemp_monetized($arrData);
     		$this->session->set_flashdata('strSuccessMsg','Monetized Leave added successfully.');
     		redirect('hr/attendance_summary/leave_monetization/'.$empid.'?month='.date('m').'&yr='.date('Y'));

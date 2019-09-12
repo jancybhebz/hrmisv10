@@ -257,17 +257,53 @@ class Holiday_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function getAllHolidates($empid,$sdate,$edate)
+	function get_work_suspension($sdate,$edate)
 	{
+		$arrwork_suspension = array();
+		$this->db->join('tblHoliday','tblHoliday.holidayCode = tblHolidayYear.holidayCode','left');
 		$this->db->where("(holidayDate >= '".$sdate."' and holidayDate <= '".$edate."')");
 		$reg_holidays = $this->db->get_where('tblHolidayYear')->result_array();
+		
+		foreach($reg_holidays as $rholiday):
+			if($rholiday['holidayCode'] == 'WS' && $rholiday['holidayTime'] != NULL && $rholiday['holidayTime'] != ''):
+				array_push($arrwork_suspension,$rholiday);
+			endif;
+		endforeach;
+
+		return $arrwork_suspension;
+	}
+
+	function getAllHolidates($empid,$sdate,$edate)
+	{
+		$arrholiday_year = array();
+		$this->db->where("(holidayDate >= '".$sdate."' and holidayDate <= '".$edate."')");
+		$reg_holidays = $this->db->get_where('tblHolidayYear')->result_array();
+		
+		foreach($reg_holidays as $rholiday):
+			if($rholiday['holidayCode'] == 'WS' && ($rholiday['holidayTime'] == NULL || $rholiday['holidayTime'] == '')):
+				array_push($arrholiday_year,$rholiday);
+			endif;
+		endforeach;
 
 		$this->db->select("concat(holidayYear,'-',LPAD(holidayMonth,2,0),'-',LPAD(holidayDay,2,0)) as holidate");
+		$this->db->join('tblEmpLocalHoliday','tblEmpLocalHoliday.holidayCode = tblLocalHoliday.holidayCode','left');
 		$this->db->where("(STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') >= '".$sdate."' and STR_TO_DATE(concat(holidayYear,'-',holidayMonth,'-',holidayDay),'%Y-%m-%d') <= '".$edate."')");
 		$localholidays = $this->db->get('tblLocalHoliday')->result_array();
 
-		$allholidays = array_merge(array_column($reg_holidays,'holidayDate'),array_column($localholidays,'holidate'));
+		$allholidays = array_merge(array_column($arrholiday_year,'holidayDate'),array_column($localholidays,'holidate'));
+		
 		return $allholidays;
+	}
+
+	function getHolidayDetails($date)
+	{
+		# Regular Holiday
+		$reg_holidays = $this->db->join('tblHoliday','tblHoliday.holidayCode = tblHolidayYear.holidayCode','left')->get_where('tblHolidayYear',array('tblHolidayYear.holidayDate' => $date))->result_array();
+		
+		# Local Holiday 
+		$local_holidays = $this->db->get_where('tblLocalHoliday',array('holidayDate' => $date))->result_array();
+		
+		return array_merge(array_column($reg_holidays,'holidayName'),array_column($local_holidays,'holidayName'));
 	}
 
 		
