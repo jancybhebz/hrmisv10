@@ -275,6 +275,7 @@ class Pds_model extends CI_Model {
 	{
 		$this->db->where($this->tblTrainingId, $strtraIndex);
 		$this->db->update($this->tblTraining, $arrData);
+			// echo $this->db->last_query();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
