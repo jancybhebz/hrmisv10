@@ -1,4 +1,4 @@
-<?php load_plugin('css',array('datatables'));?>
+<?=load_plugin('css',array('datatables'));?>
 <?php $month = isset($_GET['month']) ? $_GET['month'] : date('m'); $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y'); ?>
 <div class="tab-pane active" id="tab_1_2">
     <div class="col-md-12">
@@ -39,20 +39,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($arrLeaves as $leave): ?>
                                 <tr class="odd gradeX">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td align="center">
+                                    <td nowrap><?=date("M", mktime(0, 0, 0, $leave['periodMonth'], 10)).' '.$leave['periodYear']?></td>
+                                    <td align="center"><?=$leave['vlEarned']?></td>
+                                    <td align="center"><?=$leave['vlAbsUndWPay']?></td>
+                                    <td align="center"><?=$leave['vlBalance']?></td>
+                                    <td align="center"><?=$leave['vlPreBalance']?></td>
+                                    <td align="center"><?=$leave['vlAbsUndWoPay']?></td>
+                                    <td align="center" nowrap>
                                         <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-vl">
                                             <i class="fa fa-eye"></i> View</button>
                                         <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-edit-leave-balance" id="btn-vl-update">
                                             <i class="fa fa-edit"></i> Edit</button>
                                     </td>
                                 </tr>
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
                         <!-- end vacation leave -->
@@ -62,7 +64,7 @@
                             <span class="caption-subject bold uppercase"> Sick Leave</span>
                         </div>
                         <hr>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-vl" data-title="Vacation Leave">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-sl" data-title="Vacation Leave">
                             <thead>
                                 <tr>
                                     <th style="width: 140px;">Date</th>
@@ -75,20 +77,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($arrLeaves as $leave): ?>
                                 <tr class="odd gradeX">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td align="center">
+                                    <td nowrap><?=date("M", mktime(0, 0, 0, $leave['periodMonth'], 10)).' '.$leave['periodYear']?></td>
+                                    <td align="center"><?=$leave['slEarned']?></td>
+                                    <td align="center"><?=$leave['slAbsUndWPay']?></td>
+                                    <td align="center"><?=$leave['slBalance']?></td>
+                                    <td align="center"><?=$leave['slPreBalance']?></td>
+                                    <td align="center"><?=$leave['slAbsUndWoPay']?></td>
+                                    <td align="center" nowrap>
                                         <button class="btn btn-sm blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-view-leave-balance" id="btn-sl">
                                             <i class="fa fa-eye"></i> View</button>
                                         <button class="btn btn-sm green" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-edit-leave-balance" id="btn-sl-update">
                                             <i class="fa fa-edit"></i> Edit</button>
                                     </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                         <!-- end sick leave -->
@@ -100,4 +104,18 @@
     </div>
 </div>
 
+<?php $this->load->view('modals/_leave_balance_update_modal'); ?>
 <?php $this->load->view('modals/_leave_balance_modal'); ?>
+<script src="<?=base_url('assets/js/custom/leave_balance.js')?>"></script>
+<?=load_plugin('js',array('datatables'));?>
+
+<script>
+    $(document).ready(function() {
+        $('#table-vl,#table-sl').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#employee_view').show();
+            },"pageLength":5,
+        });
+    });
+</script>

@@ -2,12 +2,12 @@
 <?=load_plugin('css', array('attendance-css'))?>
 <div id="modal-view-leave-balance" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 80%;">
-        <?=form_open('', array('id' => 'frmupdate_leavebalance'))?>
+        <?=form_open(base_url(), array('id' => 'frmupdate_leavebalance'))?>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title bold">Leave Balance Preview</h4>
-                    <small>Leave Balance Info for the Month of <span id="txtprev_month"><?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth']+1, 10)).' '.(count($arrLatestBalance) > 0 ? $arrLatestBalance['periodYear'] : date('Y'))?></span></small>
+                    <small>Leave Balance Info for the Month of <span id="txtprev_month"><?=date('F', mktime(0, 0, 0, $arrLatestBalance['lb']['periodMonth']+1, 10)).' '.(count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodYear'] : date('Y'))?></span></small>
                 </div>
                 <div class="modal-body">
                     <div class="row form-body">
@@ -294,10 +294,16 @@
                     <input type="hidden" id="txtget_data" name="txtget_data" value="<?=$this->uri->segment(4).'?month='.($_GET['month'] == 'all' ? date('m') : $_GET['month']).'&yr='.$_GET['yr']?>">
                     <input type="hidden" id="txtoverride_id" name="txtoverride_id">
                     <?php 
-                        $arrleave_data = array('dtr_summary' => $att_summary,
-                                               'latest_leave' => $arrLatestBalance);
+                        $arrleave_data = array( 'arrLeaveBalance' => $arrLeaveBalance,
+                                                'arrLatestBalance' => $arrLatestBalance,
+                                                'arrAttendance_summary' => $arrAttendance_summary,
+                                                'employeedata' => $employeedata);
                      ?>
-                    <input type="hidden" name="txtleave_data" value='<?=json_encode($arrleave_data)?>'>
+                    <input type="hidden" id="txtperiodMonth" name="txtperiodMonth">
+                    <input type="hidden" id="txtperiodYr" name="txtperiodYr">
+                    <input type="hidden" name="txtprev_vlbal" id="txtprev_vlbal">
+                    <input type="hidden" name="txtprev_slbal" id="txtprev_slbal">
+                    <input type="hidden" name="txtleave_data" id="txtleave_data" value='<?=json_encode($arrleave_data)?>'>
                     <button type="submit" class="btn green" id="btnupdate_lb"><i class="icon-check"> </i> Update</button>
                     <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
                 </div>
@@ -317,10 +323,10 @@
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="txtlb_id" id="txtlb_id" value="<?=$arrLatestBalance['lb_id']?>">
+                            <input type="hidden" name="txtlb_id" id="txtlb_id" value="<?=count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['lb_id'] : ''?>">
                             <div class="form-group">
                                 <label>
-                                    Are you sure you want to rollback leave balance <b><?=date('F', mktime(0, 0, 0, $arrLatestBalance['periodMonth'], 10)).' '.$arrLatestBalance['periodYear']?></b>?
+                                    Are you sure you want to rollback leave balance <b><?=count($arrLatestBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLatestBalance['lb']['periodMonth'], 10)).' '.$arrLatestBalance['lb']['periodYear'] : ''?></b>?
                                 </label>
                             </div>
                         </div>

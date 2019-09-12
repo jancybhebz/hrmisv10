@@ -15,8 +15,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <!-- begin input elements -->
-                                            <input type="hidden" name="txtperiodmo" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodMonth'] : ''?>">
-                                            <input type="hidden" name="txtperiodyr" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodYear'] : ''?>">
+                                            <input type="hidden" name="txtperiodmo" value="<?=count($arrlatest_balance) > 0 ? $arrlatest_balance['periodMonth'] : ''?>">
+                                            <input type="hidden" name="txtperiodyr" value="<?=count($arrlatest_balance) > 0 ? $arrlatest_balance['periodYear'] : ''?>">
+                                            <input type="hidden" id="txtamt_mone" value="<?=AMT_MONETIZATION?>">
+                                            <input type="hidden" id="txtactual_sal" value="<?=$arrData['actualSalary']?>">
                                             <div class="form-group col-md-12" style="padding: 0 !important;">
                                                 <label class="control-label col-md-12" style="padding: 0 !important;">Date<span class="required"> * </span></label>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
@@ -33,7 +35,7 @@
                                                     <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <select class="form-control form-required bs-select" name="txtadjyr" id="txtadjyr" placeholder="">
                                                         <option value="null">SELECT YEAR</option>
-                                                        <?php foreach (getYear($arrLeaves[0]['periodYear']) as $yr): ?>
+                                                        <?php foreach (getYear($arrlatest_balance['periodYear']) as $yr): ?>
                                                             <option value="<?=$yr?>" <?=date('Y') == $yr ? 'selected' : ''?>>
                                                                 <?=$yr?></option>
                                                         <?php endforeach; ?>
@@ -51,9 +53,16 @@
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Sick Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
-<!--                                                     <i class="fa fa-warning tooltips i-required"></i> -->
+                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <input type="text" class="form-control form-required" name="txtsl" id="txtsl"
                                                         placeholder="<?=count($sl_monetized) > 0 ? $sl_monetized : ''?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Amount</label>
+                                                <div class="input-icon right">
+                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
+                                                    <input type="text" class="form-control form-required" name="txtmone_amt" id="txtmone_amt" readonly>
                                                 </div>
                                             </div>
                                             <!-- end input elements -->
@@ -125,3 +134,5 @@
     </div>
 </div>
 <!-- end monetize form modal -->
+
+<script src="<?=base_url('assets/js/custom/leave_monetization.js')?>"></script>

@@ -22,7 +22,7 @@ class User_account extends MY_Controller {
 	{
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
-		$this->arrData['arrEmployees'] = $this->hr_model->getData();
+		// $this->arrData['arrEmployees'] = $this->hr_model->getData('','','In-Service');
 		// $this->arrData['pGroups'] = $this->payroll_group_model->getData();
 
 		$this->template->load('template/template_view', 'libraries/user_account/list_view', $this->arrData);
@@ -121,7 +121,8 @@ class User_account extends MY_Controller {
 			$this->arrData['arrUser']=$this->user_account_model->getData($intEmpNumber);
 			$this->arrData['arrUserLevel']=$this->user_account_model->getUserLevel();
 			$this->arrData['arrGroups'] = $this->user_account_model->getPayrollGroup();
-			$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData($intEmpNumber,'','all');
+			
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);
 		
 		else:

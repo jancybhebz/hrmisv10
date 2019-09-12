@@ -108,6 +108,9 @@ define('TABLE_VOLUNTARY','tblEmpVoluntaryWork');
 
 define('STORE_QR','uploads/qr/'); 
 
+/* Leave Monetization */
+define('AMT_MONETIZATION',0.0478087);
+
 /* predefined variable use in payroll */
 define('AMT_SUBSISTENCE',150); 
 define('AMT_CTR_8H',150);

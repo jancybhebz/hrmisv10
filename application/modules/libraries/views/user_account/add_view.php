@@ -222,7 +222,7 @@ load_plugin('css',array('select','select2'));?>
                                         <option value="">Select Employee Name</option>
                                         <?php foreach($arrEmployees as $i=>$data):
                                                 $selected = count($flash_data) > 0 ? $data['empNumber'] == $flash_data['empNumber'] ? 'selected' : '' : '';?>
-                                                <option value="<?=$data['empNumber']?>" <?=$selected?>><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                                <option value="<?=$data['empNumber']?>" <?=$selected?>><?=(ucfirst($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -263,11 +263,24 @@ load_plugin('css',array('select','select2'));?>
                         </div>
                     </div>
 
+                    <div class="row" <?=$action == 'edit' ? $arrEmployees[0]['statusOfAppointment'] != 'In-Service' ? '' : 'hidden' : 'hidden' ?>>
+                        <div class="col-md-12">
+                            <div class="input-icon right col-md-6" style="padding: 0 !important;">
+                                <div class="alert alert-warning" style="padding: 6px 10px !important;text-align: left;">
+                                    <small><b>Warning!</b>
+                                        <?=$action == 'edit' ? 'Employee is <u>'.$arrEmployees[0]['statusOfAppointment'].'</u>' : ''?></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12">  
                             <div class="form-group">
-                                <button class="btn btn-success" type="submit" id="btn-add-user"><i class="fa fa-<?=$action == 'add' ? 'plus' : 'check'?>"></i> <?=ucfirst($action)?></button>
-                                <a href="<?=base_url('libraries/user_account')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <button class="btn btn-success" type="submit" id="btn-add-user"
+                                    <?=$action == 'edit' ? $arrEmployees[0]['statusOfAppointment'] != 'In-Service' ? 'disabled' : '' : '' ?>>
+                                    <i class="fa fa-<?=$action == 'add' ? 'plus' : 'check'?>"></i> <?=ucfirst($action)?></button>
+                                <a href="<?=base_url('libraries/user_account')?>" class="btn btn-primary">
+                                    <i class="icon-ban"></i> Cancel</a>
                             </div>
                         </div>
                     </div>

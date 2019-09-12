@@ -6,14 +6,14 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Balance
-                        <?php if(count($arrLeaveBalance) > 0): ?>
-                            <?=$_GET['month']=='all' ? 'from '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, end($arrLeaveBalance)['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' to '.(count($arrLeaveBalance) > 0 ? date('F', mktime(0, 0, 0, $arrLeaveBalance[0]['lb_detail']['periodMonth'], 10)) : date('F', mktime(0, 0, 0, $month, 10))).' ':'for the Month of '.date('F', mktime(0, 0, 0, $month, 10))?> <?=$yr?>
-                        <?php endif; ?>
-                    </span>
+                    <span class="caption-subject bold uppercase"> Leave Balance</span>
                 </div>
             </div>
             <div class="portlet-body">
+                <?php if(count($arrLatestBalance) < 1): ?>
+                    <a href="<?=base_url('hr/attendance_summary/leave_balance_set/'.$this->uri->segment(4)).'?month='.$month.'&yr='.$yr?>" class="btn blue"><i class="fa fa-pencil"></i> Set Leave Balance</a>
+                    <br><br>
+                <?php endif; ?>
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblleave-balance" data-title="Vacation Leave">
@@ -37,21 +37,33 @@
                             <tbody>
                                 <?php foreach($arrLeaveBalance as $leave_bal): ?>
                                     <tr class="odd gradeX">
-                                        <td align="center" <?=$_GET['month']=='all'?'':'hidden'?>><?=date('M', mktime(0, 0, 0, $leave_bal['lb_detail']['periodMonth'], 10)).' '.$yr?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlEarned'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlAbsUndWPay'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlBalance'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['vlAbsUndWoPay'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['slAbsUndWPay'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['slBalance'] : ''?></td>
-                                        <td align="center"><?=count($leave_bal) > 0 ? $leave_bal['lb_detail']['slAbsUndWoPay'] : ''?></td>
+                                        <td align="center">
+                                            <?=date('M', mktime(0, 0, 0, $leave_bal['periodMonth'], 10)).' '.$yr?></td>
+                                        <td align="center">
+                                            <?=count($leave_bal) > 0 ? $leave_bal['vlEarned'] : ''?></td>
+                                        <td align="center">
+                                            <?=count($leave_bal) > 0 ? $leave_bal['vlAbsUndWPay'] : ''?></td>
+                                        <td align="center">
+                                            <?=count($leave_bal) > 0 ? $leave_bal['vlBalance'] : ''?></td>
+                                        <td align="center">
+                                            <?=count($leave_bal) > 0 ? $leave_bal['vlAbsUndWoPay'] : ''?></td>
+                                        <td align="center">
+                                            <?=count($leave_bal) > 0 ? $leave_bal['slAbsUndWPay'] : ''?></td>
+                                        <td align="center">
+                                            <?=count($leave_bal) > 0 ? $leave_bal['slBalance'] : ''?></td>
+                                        <td align="center">
+                                            <?=count($leave_bal) > 0 ? $leave_bal['slAbsUndWoPay'] : ''?></td>
                                         <td align="center" style="width: 16%;" nowrap>
                                             <button class="btn btn-sm blue" id="btn-leavebal" data-json='<?=json_encode($leave_bal,0)?>'
                                                 data-action="view" data-leave_earned="<?=$_ENV['leave_earned']?>">
                                                 <i class="fa fa-eye"></i> View</button>
-                                            <button class="btn btn-sm green" id="btn-leavebal-override" data-json='<?=json_encode($leave_bal,0)?>'
-                                                data-action="override" data-leave_earned="<?=$_ENV['leave_earned']?>">
-                                                <i class="fa fa-edit"></i> Override</button>
+                                            <?php if($arrLatestBalance['lb']['periodMonth'] == $leave_bal['periodMonth']): ?>
+                                                <button class="btn btn-sm green" id="btn-leavebal-override" data-json='<?=json_encode($leave_bal,0)?>'
+                                                    data-action="override" data-leave_earned="<?=$_ENV['leave_earned']?>">
+                                                    <i class="fa fa-edit"></i> Override</button>
+                                            <?php else: ?>
+                                                <button class="btn btn-sm green" disabled><i class="fa fa-edit"></i> Override</button>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -65,22 +77,23 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of <?=date('F', mktime(0, 0, 0, count($arrLatestBalance) > 0 ? $arrLatestBalance['periodMonth']+1 : date('m'), 10)).' '.count($arrLatestBalance) > 0 ? $arrLatestBalance['periodYear'] : date('Y')?></span>
+                    <span class="caption-subject bold uppercase"> Leave Balance for the Month of <?=date('F', mktime(0, 0, 0, count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodMonth']+1 : date('m'), 10)).' '.count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodYear'] : date('Y')?></span>
                 </div>
             </div>
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <small>"If the employee reach the compulsory retirement age of 65 but the service has been extended, the employee will NO LONGER EARN leave credits."</small><br>
-                        <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of <?=date('F', mktime(0, 0, 0, count($arrLatestBalance) > 0 ? $arrLatestBalance['periodMonth']+1 : date('m'), 10)).' '.count($arrLatestBalance) > 0 ? $arrLatestBalance['periodYear'] : date('Y')?>. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
+                        <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of <?=date('F', mktime(0, 0, 0, count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodMonth']+1 : date('m'), 10)).' '.count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodYear'] : date('Y')?>. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
                         <br>
                         <p style="text-align: center;">
-                            <button class="btn red" id="btn-update-leavebal" data-latest_lb='<?=json_encode($arrLatestBalance,0)?>' data-json='<?=json_encode($arrLeave_data,0)?>' data-leave_earned="<?=$_ENV['leave_earned']?>">
+                            <button class="btn red" id="btn-update-leavebal"
+                                    data-latest_lb='<?=json_encode($arrLatestBalance,0)?>'
+                                    data-att_summ='<?=json_encode($arrAttendance_summary,0)?>'
+                                    data-leave_earned="<?=$_ENV['leave_earned']?>">
                                 <i class="fa fa-pencil"></i> &nbsp;Update Leave Balance</button>
                             <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#modal-rollback" id="btn-rollback">
                                 <i class="fa fa-refresh"></i> &nbsp;Rollback</button>
-                            <a class="btn grey-mint" href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
-                                <i class="icon-arrow-left"></i> &nbsp;Back</a>
                         </p>
                     </div>
                 </div>

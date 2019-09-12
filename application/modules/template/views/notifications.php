@@ -116,7 +116,8 @@
     <!-- end employee notification -->
 
     <!-- begin hr notification -->
-    <?php if(in_array($_SESSION['sessUserLevel'], array(1))): ?>
+    <?php if(check_module() == 'hr'):?>
+        <?php if($_SESSION['sessIsAssistant'] == 0 || ($_SESSION['sessIsAssistant'] == 1 && (strpos($_SESSION['sessAccessPermission'], '1') !== false))): ?> 
         <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                 <i class="icon-bell"></i>
@@ -224,6 +225,7 @@
                 </li>
             </ul>
         </li>
+        <?php endif; ?>
     <?php endif; ?>
     <!-- end HR notification -->
 
