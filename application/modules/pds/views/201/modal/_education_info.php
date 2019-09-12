@@ -1,5 +1,5 @@
 <?=load_plugin('css', array('select','select2','datepicker'))?>
-<!-- begin modal update/add child info -->
+<!-- begin modal update/add education info -->
 <div class="modal fade in" id="add_education" aria-hidden="true">
     <div class="modal-dialog" style="width: 50%;">
         <div class="modal-content">
@@ -110,9 +110,6 @@
                     </div>
                 </div>
                 </div>
-                 <br><br><br><br><br><br><br><br><br><br>
-                 <br><br><br><br><br><br><br><br><br><br>
-                 
                      <div class="modal-footer">
                        <div class="col-md-8">
                         <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
@@ -123,9 +120,9 @@
         </div>
     </div>
 </div>
-<!-- end modal update/add child info -->
+<!-- end modal update/add education info -->
 
-<!-- begin delete child -->
+<!-- begin education -->
 <div class="modal fade" id="delete_education" tabindex="-1" role="basic" aria-hidden="true"> 
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -146,7 +143,7 @@
         </div>
     </div>
 </div>
-<!-- end delete child -->
+<!-- end education  -->
 <?=load_plugin('js',array('select','select2','datepicker'));?>
 
 <script>

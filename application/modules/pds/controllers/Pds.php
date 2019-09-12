@@ -580,10 +580,10 @@ class Pds extends MY_Controller
 							'trainingTypeofLD'	  => $arrPost['seltra_typeld'],
 							'trainingConductedBy' => $arrPost['txttra_sponsored'],
 							'trainingVenue'		  => $arrPost['txttra_venue'],
-							'trainingCost'		  => $arrPost['txttra_cost'],
+							'trainingCost'		  => $arrPost['txttra_cost'], 
 							'trainingDesc'		  => $arrPost['txttra_name']); 
 			
-			$this->pds_model->save_training($arrData,$arrPost['txttraid']);
+			$this->pds_model->save_training($arrData, $arrPost['txttraid']);
 			$this->session->set_flashdata('strSuccessMsg','Training updated successfully.');
 
 			redirect('hr/profile/'.$empid);
@@ -1162,11 +1162,10 @@ class Pds extends MY_Controller
 		else
 		{
 			$data = $this->upload->data();
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			//rename($data['full_path'],$data['file_path'].$idTraining.$data['file_ext']);
 			// print_r($data);
 			// exit(1);
-			
-			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			
 		}
 		// print_r($error);

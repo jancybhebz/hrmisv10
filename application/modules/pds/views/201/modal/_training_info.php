@@ -1,13 +1,14 @@
-<?=load_plugin('css', array('select','datepicker'))?>
+<?=load_plugin('css', array('select','select2','datepicker'))?>
 <!-- begin modal update/add training info -->
 <div class="modal fade in" id="add_training" tabindex="-1" role="full" aria-hidden="true">
     <div class="modal-dialog" style="width: 70%;">
         <div class="modal-content">
             <div class="modal-header">
+            <?=form_open('', array('method' => 'post', 'id' => 'frmtraining','class' => 'form-horizontal'))?>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h5 class="modal-title uppercase"><b><span class="action"></span> Training Information</b></h5>
             </div>
-            <?=form_open('', array('method' => 'post', 'id' => 'frmtraining','class' => 'form-horizontal'))?>
+            
             <input type="hidden" name="txttraid" id="txttraid">
             <div class="modal-body">
                 <div class="row">
@@ -106,7 +107,6 @@
     </div>
 </div>
 <!-- end modal update/add training info -->
-
 <!-- begin delete training -->
 <div class="modal fade" id="delete_training" tabindex="-1" role="basic" aria-hidden="true"> 
     <div class="modal-dialog modal-sm">
@@ -117,19 +117,19 @@
             </div>
             <?=form_open('pds/del_training/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdeltra','class' => 'form-horizontal'))?>
                 <input type="hidden" name="txtdel_tra" id="txtdel_tra">
-                <div class="modal-body"> Are you sure you want to delete this data? </div>
-                <div class="modal-footer">
-                    <button type="submit" id="btndelete" class="btn btn-sm green">
+                    <div class="modal-body"> Are you sure you want to delete this data? </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm green">
                         <i class="icon-check"> </i> Yes</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
                         <i class="icon-ban"> </i> Cancel</button>
-                </div>
+                    </div>
             <?=form_close()?>
         </div>
     </div>
 </div>
 <!-- end delete training -->
-<?=load_plugin('js',array('select','datepicker'));?>
+<?=load_plugin('js',array('select','select2','datepicker'));?>
 
 <script>
     $(document).ready(function() {
