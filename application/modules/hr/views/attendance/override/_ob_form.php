@@ -141,6 +141,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Employees <span class="required"> * </span></label>
                                     <select multiple="multiple" class="multi-select form-control" id="selemps" name="selemps[]">
+                                        <optgroup label="SELECT ALL">
                                         <?php
                                             foreach($arrEmployees as $emp):
                                                 $selected = isset($arrob_data) ? in_array($emp['empNumber'], array_column($arrob_data,'empNumber')) ? 'selected' : '' : '';
@@ -152,6 +153,7 @@
                                                               data-appt="'.$emp['appointmentCode'].'" '.$selected.' value="'.$emp['empNumber'].'">'.
                                                         getfullname($emp['firstname'],$emp['surname'],$emp['middlename'],$emp['middleInitial'],$emp['nameExtension']).'</option>';
                                             endforeach; ?>
+                                        </optgroup>
                                     </select>
                                 </div>
                             </div>
