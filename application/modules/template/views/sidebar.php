@@ -456,7 +456,6 @@ $user_session = $this->session->userdata();
                 <li class="heading">
                     <h3 class="uppercase"><?=strtoupper(userlevel($this->session->userdata('sessUserLevel')))?> Module</h3>
                 </li>
-                <?php if($_SESSION['']) ?>
                 <li class="nav-item  <?=$active =='hr' && $activesub =='profile' ? 'active': ''?>">
                     <a href="<?=base_url('hr/profile/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">
                         <i class="icon-user"></i>
