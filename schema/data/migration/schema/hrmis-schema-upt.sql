@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 11, 2019 at 01:18 PM
+-- Generation Time: Sep 12, 2019 at 03:31 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -227,6 +227,23 @@ CREATE TABLE `tblChangeLog` (
   `data2` longtext NOT NULL,
   `ip` varchar(30) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblcompensatory_timeoff`
+--
+
+CREATE TABLE `tblcompensatory_timeoff` (
+  `cto_id` int(11) NOT NULL,
+  `empnumber` varchar(20) NOT NULL,
+  `cto_date` date DEFAULT NULL,
+  `cto_timefrom` time DEFAULT NULL,
+  `cto_timeto` time DEFAULT NULL,
+  `process_by` varchar(20) DEFAULT NULL,
+  `process_date` datetime DEFAULT NULL,
+  `process_ip` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -614,7 +631,7 @@ CREATE TABLE `tblEmpDTR` (
   `dtrDate` date DEFAULT NULL,
   `inAM` time NOT NULL DEFAULT '00:00:00',
   `outAM` time NOT NULL DEFAULT '00:00:00',
-  `inPM` time DEFAULT NULL,
+  `inPM_old_data` time NOT NULL DEFAULT '00:00:00',
   `outPM` time DEFAULT NULL,
   `inOT` time DEFAULT NULL,
   `outOT` time DEFAULT NULL,
@@ -2376,6 +2393,12 @@ ALTER TABLE `tblChangeLog`
   ADD PRIMARY KEY (`changeLogId`);
 
 --
+-- Indexes for table `tblcompensatory_timeoff`
+--
+ALTER TABLE `tblcompensatory_timeoff`
+  ADD PRIMARY KEY (`cto_id`);
+
+--
 -- Indexes for table `tblComputation`
 --
 ALTER TABLE `tblComputation`
@@ -2946,6 +2969,11 @@ ALTER TABLE `tblBrokenSched`
 --
 ALTER TABLE `tblChangeLog`
   MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157107;
+--
+-- AUTO_INCREMENT for table `tblcompensatory_timeoff`
+--
+ALTER TABLE `tblcompensatory_timeoff`
+  MODIFY `cto_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblComputation`
 --
