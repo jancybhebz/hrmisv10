@@ -34,13 +34,10 @@ class Hr extends MY_Controller {
 	public function profile()
 	{
 		$this->load->helper('directory');
-		
-
+	
 		$strEmpNo = $this->uri->segment(3);
-		if ($strEmpNo == '')
-			redirect('pds');
-		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
-		if(count($this->arrData['arrData'])==0) redirect('pds');
+		
+		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo,'','all');
 		
 		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($strEmpNo);
 		
