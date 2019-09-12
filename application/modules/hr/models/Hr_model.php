@@ -122,7 +122,7 @@ class Hr_model extends CI_Model {
 		return json_encode($res);
 	}
 
-	public function getData_byGroup($dtrswitch='Y')
+	public function getData_byGroup($dtrswitch='')
 	{
 		$this->db->select('tblEmpPosition.empNumber,appointmentCode,statusOfAppointment,positionCode,appointmentCode,
 							group1,group2,group3,group4,group5,surname,firstname,middlename,middlename,
@@ -130,7 +130,10 @@ class Hr_model extends CI_Model {
 		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber = tblEmpPersonal.empNumber','left')
 				  ->order_by('surname,firstname','asc');
 
-		$res = $this->db->get_where($this->table,array('statusOfAppointment' => 'In-Service','dtrSwitch' => $dtrswitch))->result_array();
+		if($dtrswitch == ''){
+			$this->db->where('dtrSwitch','Y');
+		}
+		$res = $this->db->get_where($this->table,array('statusOfAppointment' => 'In-Service'))->result_array();
 		return $res;
 	}			
 

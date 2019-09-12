@@ -181,7 +181,7 @@ class Override extends MY_Controller {
 		$this->arrData['arrexecdtr_data'] = $arrexecdtr_data;
 		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
-		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup('N');
 
 		$arrPost = $this->input->post();
 		$override_id = $this->uri->segment(5);

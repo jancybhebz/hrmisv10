@@ -11,7 +11,9 @@ $(document).ready(function() {
         $(this).datepicker('hide');
     });
 
-    $('#selemps').multiSelect({});
+    $('#selemps').multiSelect({
+        selectableOptgroup: true
+    });
     $('.selper').select2({
         placeholder: "",
         allowClear: true
@@ -74,7 +76,6 @@ $(document).ready(function() {
         if(selgroup1 == 0 && selgroup2 == 0 && selgroup3 == 0 && selgroup4 == 0 && selgroup5 == 0){
             arrgrp_emp = all_employees;
         }
-        console.log(arrgrp_emp);
 
         var apptcode = $('#selappt').val();
         if(apptcode!=0){
@@ -85,20 +86,21 @@ $(document).ready(function() {
             }, this));
         }else{ arrappt_emp = arrgrp_emp; }
         
-        console.log(arrappt_emp);
         edit_emp = $.parseJSON($('#txtemp_ob').val());
-        console.log(edit_emp);
         $('#selemps').multiSelect('destroy').empty();
+        // $('#selemps').append('<optgroup label="SELECT ALL">');
+        var selemps_data_b = '<optgroup label="SELECT ALL">';
         $.each(arrappt_emp, $.proxy(function(i, emp) {
             e_name = emp.surname + ', ' + emp.firstname + ' ' + emp.middleInitial + '.';
             selected = '';
             if($.inArray(emp.empNumber, edit_emp) !== -1){
                 selected = 'selected';
-                console.log(emp.empNumber);
             }
-            $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
+            selemps_data_b = selemps_data_b + '<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>';
+            // $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
         }, this));
-        $('#selemps').multiSelect({});
+        $('#selemps').append(selemps_data_b + '</optgroup>');
+        $('#selemps').multiSelect({ selectableOptgroup: true });
     }
 
     $('#seltype').change(function() {
@@ -216,6 +218,9 @@ $(document).ready(function() {
 
         $('#selemps').multiSelect('destroy').empty();
         if($('#spnaction').text().toLowerCase() == 'edit'){ edit_emp = $.parseJSON($('#txtemp_ob').val()); }
+        var selemps_data = '';
+        selemps_data = '<optgroup label="SELECT ALL">';
+        // $('#selemps').append('<optgroup label="SELECT ALL">');
         $.each(arrappt_emp, $.proxy(function(i, emp) {
             e_name = emp.surname + ', ' + emp.firstname + ' ' + emp.middleInitial + '.';
             selected = '';
@@ -224,9 +229,13 @@ $(document).ready(function() {
                     selected = 'selected';
                 }
             }
-            $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
+            selemps_data = selemps_data + '<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>';
+            // $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
         }, this));
-        $('#selemps').multiSelect({});
+        // $('#selemps').append('</optgroup>');
+        selemps_data = selemps_data + '</optgroup>';
+        $('#selemps').append(selemps_data);
+        $('#selemps').multiSelect({selectableOptgroup: true});
 
         $('#txtoffice').val(officename);
     });

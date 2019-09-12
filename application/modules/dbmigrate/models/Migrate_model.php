@@ -386,8 +386,8 @@ class Migrate_model extends CI_Model {
 
 	function sql_final_statement($path='')
 	{
-		$this->write_sqlstmt("# Initial data for password: hrmisdost",$path);
-		$this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '$2y$10\$GzCYi.q681e.KNCs1RuGRezgHMrxjtQu7tFeY7xwDsLdSa0ztdrvu';",$path);
+		// $this->write_sqlstmt("# Initial data for password: hrmisdost",$path);
+		// $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '$2y$10\$GzCYi.q681e.KNCs1RuGRezgHMrxjtQu7tFeY7xwDsLdSa0ztdrvu';",$path);
 	}
 
 	function drop_dbase()
