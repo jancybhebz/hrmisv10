@@ -253,9 +253,11 @@ class Payrollupdate_model extends CI_Model {
 			// $actual_days_absent = count($workingdays) - $actual_days_presents;
 			# current working days - days absent
 			// $days_work = count($curr_workingdays) - $actual_days_absent;
-			$emp_lb = $emp_leavebal[array_search($emp['empNumber'], array_column($emp_leavebal, 'empNumber'))];
-			if(count($emp_lb) < 1):
-				$no_empty_lb = $no_empty_lb + 1;
+			if(count($emp_leavebal) > 0):
+				$emp_lb = $emp_leavebal[array_search($emp['empNumber'], array_column($emp_leavebal, 'empNumber'))];
+				if(count($emp_lb) < 1):
+					$no_empty_lb = $no_empty_lb + 1;
+				endif;
 			endif;
 
 			$lbkey = array_search($emp['empNumber'], array_column($emp_leavebal, 'empNumber'));
