@@ -247,20 +247,20 @@ class Leave_model extends CI_Model {
 		endif;
 	}
 
-	// public function getEmpLeave_balance($empid,$permonth,$peryr)
-	// {
-	// 	$this->db->order_by('periodMonth','ASC');
-	// 	if($empid!=''):
-	// 		$condition['empNumber'] = $empid;
-	// 	endif;
-	// 	if($permonth!='all'):
-	// 		$condition['periodMonth'] = $permonth;
-	// 	endif;
-	// 	$condition['periodYear'] = $peryr;
+	public function getEmpLeave_balance($empid,$permonth,$peryr)
+	{
+		$this->db->order_by('periodMonth','ASC');
+		if($empid!=''):
+			$condition['empNumber'] = $empid;
+		endif;
+		if($permonth!='all'):
+			$condition['periodMonth'] = $permonth;
+		endif;
+		$condition['periodYear'] = $peryr;
 
-	// 	$res = $this->db->get_where('tblEmpLeaveBalance',$condition)->result_array();
-	// 	return $res;
-	// }
+		$res = $this->db->get_where('tblEmpLeaveBalance',$condition)->result_array();
+		return $res;
+	}
 
 	public function getEmployee_dtr($empno,$mon='',$yr='',$datefrom='',$dateto='')
 	{
