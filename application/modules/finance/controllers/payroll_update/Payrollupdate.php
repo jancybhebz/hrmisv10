@@ -29,7 +29,7 @@ class Payrollupdate extends MY_Controller {
 		$_GET['period'] = isset($_GET['period']) ? $_GET['period'] : 'Period 1';
 		$_GET['selcode'] = isset($_GET['selcode']) ? $_GET['selcode'] : 'SALARY';
 		
-		$this->arrData['arr_form_data'] = json_decode($_GET['data'],1);
+		$this->arrData['arr_form_data'] = isset($_GET['data']) ? json_decode($_GET['data'],1) : array();
 
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getAppointmentJointPermanent(true);
 		$this->arrData['arrProcesses'] = $this->Process_model->getPayrollProcessed('*','*',$_GET['mon'],$_GET['yr']);
