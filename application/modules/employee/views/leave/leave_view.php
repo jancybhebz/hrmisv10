@@ -51,11 +51,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 ?>
                        <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
                             <i class="fa"></i>
-                            <div><label>Vacation Leave left: <?=$arrBalance[0]['vlBalance']?></label></div>
-                            <div><label>Sick Leave left: <?=$arrBalance[0]['slBalance']?></label></div>
-                            <div><label>Special Leave left: <?=$arrBalance[0]['plBalance']?></label></div>
-                            <div><label>Forced Leave left: <?=$arrBalance[0]['flBalance']?></label></div>
-                            <div><label>Maternity Leave left: <?=$arrBalance[0]['mtlBalance']?></label></div>
+                            <div><label>Vacation Leave left: <?=$arrBalance['vlBalance']?></label></div>
+                            <div><label>Sick Leave left: <?=$arrBalance['slBalance']?></label></div>
+                            <div><label>Special Leave left: <?=$arrBalance['plBalance']?></label></div>
+                            <div><label>Forced Leave left: <?=$arrBalance['flBalance']?></label></div>
+                            <div><label>Maternity Leave left: <?=$arrBalance['mtlBalance']?></label></div>
                     </div>
                 </div>
             </div><br>
