@@ -827,7 +827,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					// $result_app = mysql_query("SELECT * FROM tblAppointment WHERE appointmentCode='".$work['appointmentCode']."'");
 					// $row_app = mysql_fetch_assoc($result_app);
 					$strFromDate = explode('-',$work['serviceFromDate']);
-					$fromDate = $strFromDate[1]."/".$strFromDate[2]."/".$strFromDate[0];
+					$fromDate = "";
+					if($fromDate != 0)
+					{
+						$fromDate = $strFromDate[1]."/".$strFromDate[2]."/".$strFromDate[0];
+					}
+
 					if($work['serviceToDate']!="Present")
 					{
 						$strToDate = explode('-',$work['serviceToDate']);
