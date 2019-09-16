@@ -177,6 +177,9 @@ class Migrate extends MY_Controller
     /* STEP 5; Change inPM to 24-H Time*/
     function fix_dtr_inpm_military_time()
     {
+        echo '<br>Fix DTR inPM to 24-H Time..';
+        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s5.sql';
+
         # drop old fields if exists, usually left when migration failed
         $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
         
@@ -184,8 +187,6 @@ class Migrate extends MY_Controller
             $this->dbforge->drop_column('tblEmpDTR', 'inPM_old_data');
         endif;
         
-        echo '<br>Fix DTR inPM to 24-H Time..';
-        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s5.sql';
         # remove file contents
         if(file_exists($path)):
             unlink($path);
@@ -224,13 +225,14 @@ class Migrate extends MY_Controller
     /* STEP 6; Change outPM to 24-H Time*/
     function fix_dtr_outpm_military_time()
     {
+        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s6.sql';
+
         # drop old fields if exists, usually left when migration failed
         $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
         if($this->Migrate_model->check_if_column_exist('tblEmpDTR','outPM_old_data')):
             $this->dbforge->drop_column('tblEmpDTR', 'outPM_old_data');
         endif;
 
-        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s6.sql';
         # remove file contents
         if(file_exists($path)):
             unlink($path);
@@ -269,12 +271,14 @@ class Migrate extends MY_Controller
     /* STEP 7; Change inOT to 24-H Time*/
     function fix_dtr_inot_military_time()
     {
+        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s7.sql';
+        
         # drop old fields if exists, usually left when migration failed
         $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
         if($this->Migrate_model->check_if_column_exist('tblEmpDTR','inOT_old_data')):
             $this->dbforge->drop_column('tblEmpDTR', 'inOT_old_data');
         endif;
-        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s7.sql';
+        
         # remove file contents
         if(file_exists($path)):
             unlink($path);
@@ -313,12 +317,14 @@ class Migrate extends MY_Controller
     /* STEP 8; Change outOT to 24-H Time*/
     function fix_dtr_outot_military_time()
     {
+        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s8.sql';
+
         # drop old fields if exists, usually left when migration failed
         $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
         if($this->Migrate_model->check_if_column_exist('tblEmpDTR','outOT_old_data')):
             $this->dbforge->drop_column('tblEmpDTR', 'outOT_old_data');
         endif;
-        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s8.sql';
+        
         # remove file contents
         if(file_exists($path)):
             unlink($path);
