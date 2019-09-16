@@ -51,6 +51,8 @@ class Migrate_model extends CI_Model {
 
 		# call check_tables
 		$this->check_tables();
+
+
 	}
 
 	function check_tables()
@@ -289,7 +291,7 @@ class Migrate_model extends CI_Model {
 	    		endif;
 	    	endforeach;
 
-	    	$this->sql_final_statement($sql_file);
+	    	$this->sql_final_statement();
 	    endif;
 
     }
@@ -384,10 +386,41 @@ class Migrate_model extends CI_Model {
 		$this->write_sqlstmt("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';",$path);
 	}
 
-	function sql_final_statement($path='')
+	function sql_final_statement()
 	{
-		// $this->write_sqlstmt("# Initial data for password: hrmisdost",$path);
-		// $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '$2y$10\$GzCYi.q681e.KNCs1RuGRezgHMrxjtQu7tFeY7xwDsLdSa0ztdrvu';",$path);
+		$path = 'schema/hrmisv10/hrmis-schema-upt_0000-inipass.sql';
+		
+		if(file_exists($path)):
+			$sql_inipass = file_get_contents($path);
+			$sfind = "start#";
+			$str_start = strpos($sql_inipass, $sfind) + strlen($sfind);
+			$efind = "#end";
+			$str_end = strpos($sql_inipass, $efind);
+			$inital_password = substr($sql_inipass,$str_start,($str_end-$str_start));
+
+			echo "<br><br>Initial data for password: <b>".$inital_password.'</b><br>';
+			$total_line = 0;
+			$ctrcomment = 0;
+			if(file_exists($path)):
+			    $sql_contents = file_get_contents($path);
+			    $file = fopen($path,"r");
+			    while(! feof($file)):
+			        $line = fgets($file);
+			        $total_line++;
+			        if($line[0] == '#' || $line == '') { $ctrcomment++; }
+			    endwhile;
+			    fclose($file);
+
+			    if($total_line != $ctrcomment):
+			        $this->Migrate_model->update_database($path);
+			    endif;
+			    # append file in schema update
+			    $str=file_get_contents($path);
+			    file_put_contents($path, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+
+			    unlink($path);
+			endif;
+		endif;
 	}
 
 	function drop_dbase()
@@ -395,6 +428,20 @@ class Migrate_model extends CI_Model {
 		$this->dbforge->drop_database('hrmisv10_upt');
 	}
 
+	function check_if_column_exist($tablename,$colname)
+    {
+     	$tbl = $this->db->query("show tables like '".$tablename."'")->result_array();
+     	if(count($tbl) > 0){
+     		$cols = $this->db->list_fields($tablename);
+     		foreach($cols as $col):
+     			if($col == $colname){
+     				return true;
+     			}
+     		endforeach;
+     	}else{
+     		return false;
+     	}
 
+    }
 
 }

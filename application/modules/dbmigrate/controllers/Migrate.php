@@ -26,6 +26,12 @@ class Migrate extends MY_Controller
         $pass = str_replace('^pls;','+',$pass);
         $pass = str_replace('^hash;','#',$pass);
 
+        $inipass = $_GET['inipass'];
+        $inipass = str_replace('^amp;','&',$inipass);
+        $inipass = str_replace('^atrsk;','*',$inipass);
+        $inipass = str_replace('^pls;','+',$inipass);
+        $inipass = str_replace('^hash;','#',$inipass);
+
         echo 'host: '.$host;
         echo '<br>dbname: '.$dbname;
         echo '<br>uname: '.$uname;
@@ -38,20 +44,27 @@ class Migrate extends MY_Controller
         # replace something in the file string
         $str=str_replace('DB_HOST = "'.$_ENV['DB_HOST'].'"', 'DB_HOST = "'.$host.'"',$str);
         $str=str_replace('DB_USER = "'.$_ENV['DB_USER'].'"', 'DB_USER = "'.$uname.'"',$str);
-        // $str=str_replace('DB_PASS = "'.$_ENV['DB_PASS'].'"', 'DB_PASS = "'.$pass.'"',$str);
+        $str=str_replace('DB_PASS = "'.$_ENV['DB_PASS'].'"', 'DB_PASS = "'.$pass.'"',$str);
         $str=str_replace('DB_NAME = "'.$_ENV['DB_NAME'].'"', 'DB_NAME = "'.$dbname.'"',$str);
 
         # write the entire string
         file_put_contents('.env', $str);
 
-        $path1 = 'schema/hrmisv10/hrmis-schema-upt_001.sql';
-        $path2 = 'schema/hrmisv10/hrmis-schema-upt_002.sql';
-        $path3 = 'schema/hrmisv10/hrmis-schema-upt_003.sql';
-        $path4 = 'schema/hrmisv10/hrmis-schema-upt_004.sql';
-        if(file_exists($path1)) { unlink('schema/hrmisv10/hrmis-schema-upt_001.sql'); }
-        if(file_exists($path2)) { unlink('schema/hrmisv10/hrmis-schema-upt_002.sql'); }
-        if(file_exists($path3)) { unlink('schema/hrmisv10/hrmis-schema-upt_003.sql'); }
-        if(file_exists($path4)) { unlink('schema/hrmisv10/hrmis-schema-upt_004.sql'); }
+        $this->load->helper('directory');
+        $map = directory_map('schema/hrmisv10', 1);
+        foreach($map as $file):
+            if(strpos($file,'_') > 0){
+                unlink('schema/hrmisv10/'.$file);
+            }
+        endforeach;
+
+        if($inipass!=''):
+            echo '<br>initial password: '.$inipass;
+            $path = 'schema/hrmisv10/hrmis-schema-upt_0000-inipass.sql';
+            $this->Migrate_model->write_sqlstmt("# start#".$inipass.'#end',$path);
+            $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '".password_hash($inipass,PASSWORD_BCRYPT)."';",$path);
+        endif;
+
         $this->Migrate_model->comparing_tables();
         echo 'Comparing Databases...';
         file_put_contents('schema/hrmisv10/hrmis-schema-upt.sql','');
@@ -122,7 +135,10 @@ class Migrate extends MY_Controller
     function fix_dtr_datetime_field()
     {
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s4.sql';
-
+        # remove file contents
+        if(file_exists($path)):
+            unlink($path);
+        endif;
         ## BEGIN Update DTR 
         # Fix dtrDate 
         $this->Migrate_model->write_sqlstmt("# Fix DateTime field in table tblEmpDTR",$path);
@@ -161,9 +177,19 @@ class Migrate extends MY_Controller
     /* STEP 5; Change inPM to 24-H Time*/
     function fix_dtr_inpm_military_time()
     {
+        # drop old fields if exists, usually left when migration failed
+        $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
+        
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','inPM_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'inPM_old_data');
+        endif;
+        
         echo '<br>Fix DTR inPM to 24-H Time..';
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s5.sql';
-
+        # remove file contents
+        if(file_exists($path)):
+            unlink($path);
+        endif;
         # change inPM to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change inPM to 24-H Time",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` CHANGE `inPM` `inPM_old_data` VARCHAR(11);",$path);
@@ -198,11 +224,20 @@ class Migrate extends MY_Controller
     /* STEP 6; Change outPM to 24-H Time*/
     function fix_dtr_outpm_military_time()
     {
-        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s6.sql';
+        # drop old fields if exists, usually left when migration failed
+        $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','outPM_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'outPM_old_data');
+        endif;
 
+        $path = 'schema/hrmisv10/hrmis-schema-upt_002-s6.sql';
+        # remove file contents
+        if(file_exists($path)):
+            unlink($path);
+        endif;
         # change outPM to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change outPM to 24-H Time",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outPM` = CASE WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outPM_old_data` = '00:00:00') THEN NULL ELSE `outPM_old_data` END;",$path);
 
@@ -234,11 +269,19 @@ class Migrate extends MY_Controller
     /* STEP 7; Change inOT to 24-H Time*/
     function fix_dtr_inot_military_time()
     {
+        # drop old fields if exists, usually left when migration failed
+        $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','inOT_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'inOT_old_data');
+        endif;
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s7.sql';
-
+        # remove file contents
+        if(file_exists($path)):
+            unlink($path);
+        endif;
         # change inOT to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change inOT to 24-H Time",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inOT` = CASE WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inOT_old_data` = '00:00:00') THEN NULL ELSE `inOT_old_data` END;",$path);
 
@@ -270,11 +313,19 @@ class Migrate extends MY_Controller
     /* STEP 8; Change outOT to 24-H Time*/
     function fix_dtr_outot_military_time()
     {
+        # drop old fields if exists, usually left when migration failed
+        $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','outOT_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'outOT_old_data');
+        endif;
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s8.sql';
-
+        # remove file contents
+        if(file_exists($path)):
+            unlink($path);
+        endif;
         # change outOT to 24-H Time 
         $this->Migrate_model->write_sqlstmt("# Change outOT to 24-H Time",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` TIME NOT NULL DEFAULT  '00:00:00';",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `outOT` = CASE WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outOT_old_data` = '00:00:00') THEN NULL ELSE `outOT_old_data` END;",$path);
 
@@ -307,10 +358,27 @@ class Migrate extends MY_Controller
     function fix_dtr_drop_old_field()
     {
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s9.sql';
-
+        # remove file contents
+        if(file_exists($path)):
+            unlink($path);
+        endif;
         # drop old field with old data 
         $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
-        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` DROP `inPM_old_data`, DROP `outPM_old_data`, DROP `inOT_old_data`, DROP `outOT_old_data`;",$path);
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','inPM_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'inPM_old_data');
+        endif;
+
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','outPM_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'outPM_old_data');
+        endif;
+
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','inOT_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'inOT_old_data');
+        endif;
+
+        if($this->Migrate_model->check_if_column_exist('tblEmpDTR','outOT_old_data')):
+            $this->dbforge->drop_column('tblEmpDTR', 'outOT_old_data');
+        endif;
         ## END Update DTR
 
         $total_line = 0;
@@ -429,6 +497,9 @@ class Migrate extends MY_Controller
         echo 'Database successfully updated... Migration log is added in schema/hrmisv10/hrmis-schema-upt.sql.. Click here to <u><b><a class="btn btn-xs" href="login"> Login </a></b></u>';
     }
 
-
+    function sql_final_statement()
+    {
+        $this->Migrate_model->sql_final_statement();
+    }
 
 }
