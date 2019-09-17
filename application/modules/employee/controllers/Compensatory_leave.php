@@ -74,4 +74,31 @@ class Compensatory_leave extends MY_Controller {
 		}
     	$this->template->load('template/template_view','employee/compensatory_leave/compensatory_leave_view',$this->arrData);
     }
+
+    public function certify_offset()
+    {
+    	$this->load->model(array('hr/Attendance_summary_model'));
+    	$arrPost = $this->input->post();
+
+    	foreach(json_decode($arrPost['txtot_id'],1) as $cto):
+    		$dtr = $this->Attendance_summary_model->getData($cto);
+
+    		$arrData = array();
+    		if($dtr['OT'] == 1):
+    			if(!in_array($cto,$arrPost['certified_ot'])):
+    				$arrData = array('OT' => 0, 'name' => $dtr['name'].';'.$_SESSION['sessName'], 'ip' => $dtr['ip'].';'.$this->input->ip_address(), 'editdate' => $dtr['editdate'].';'.date('Y-m-d H:i:s A'));
+    			endif;
+    		else:
+				if(in_array($cto,$arrPost['certified_ot'])):
+					$arrData = array('OT' => 1, 'name' => $dtr['name'].';'.$_SESSION['sessName'], 'ip' => $dtr['ip'].';'.$this->input->ip_address(), 'editdate' => $dtr['editdate'].';'.date('Y-m-d H:i:s A'));
+				endif;    			
+    		endif;
+    		$this->Attendance_summary_model->edit_dtr($arrData, $cto);
+    	endforeach;
+    	
+    	$this->session->set_flashdata('strSuccessMsg','Certify offset successfully saved.');
+    	redirect('hr/attendance_summary/dtr/'.$this->uri->segment(4).'?datefrom='.currdfrom().'&dateto='.currdto());
+    }
+
+
 }

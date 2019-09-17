@@ -6,7 +6,7 @@ class Dtr extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('hr/Hr_model','libraries/Attendance_scheme_model','hr/Attendance_summary_model','libraries/Agency_profile_model','libraries/Holiday_model'));
+        $this->load->model(array('hr/Hr_model','libraries/Attendance_scheme_model','hr/Attendance_summary_model','libraries/Agency_profile_model','libraries/Holiday_model','employee/Leave_model'));
     	$this->load->helper(array('dtr_helper'));
     }
 	
@@ -20,10 +20,13 @@ class Dtr extends MY_Controller {
 		$total_late = 0;
 		$days_late_ut = 0;
 		$days_absent = 0;
+		$days_lwop = 0;
 		$in_am  = '';
 		$out_am = '';
 		$in_pm  = '';
 		$out_pm = '';
+		$offset_wkdays = 0;
+    	$offset_wkends = 0;
 
 		$datefrom = currdfrom();
 		$dateto = currdto();
@@ -31,6 +34,8 @@ class Dtr extends MY_Controller {
 		$working_days = get_workingdays('','',$holidays,$datefrom,$dateto);
 		$agencyname = $this->Agency_profile_model->getData();
 		$agencyname = $agencyname[0]['agencyName'];
+
+		$arrLatestBalance = $this->Leave_model->getLatestBalance($empid);
 		// echo '<pre>';
 		// echo '<br>datefrom = '.$datefrom;
 		// echo '<br>dateto = '.$dateto;
@@ -106,6 +111,12 @@ class Dtr extends MY_Controller {
 				$in_pm  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inPM']  == '00:00:00' || $dtr['dtr']['inPM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inPM']))  : '';
 				$out_pm = count($dtr['dtr']) > 0 ? $dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outPM'])) : '';
 				$remarks= array();
+				$certified_ot = 0;
+				if(count($dtr['dtr']) > 0):
+				    if($dtr['dtr']['OT'] == 1):
+				        $certified_ot = 1;
+				    endif;
+				endif;
 
 				if(count($dtr['holiday_name']) > 0):
 				    foreach($dtr['holiday_name'] as $hday): 
@@ -146,8 +157,25 @@ class Dtr extends MY_Controller {
 				    $days_late_ut = $days_late_ut + 1;
 				endif;
 
-				if((count($dtr['leaves']) + count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
-				    $days_absent = $days_absent + 1;
+				if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				    if(count($dtr['leaves']) == 0):
+				        $days_lwop = $days_lwop + 1;
+				    else:
+				        $days_absent = $days_absent + 1;
+				    endif;
+				endif;
+
+				// if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				//     $days_absent = $days_absent + 1;
+				// endif;
+
+				# check ot
+				if($dtr['ot'] > 0 && $certified_ot == 1):
+				    if((count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				        $offset_wkdays = $offset_wkdays + $dtr['ot'];
+				    else:
+				        $offset_wkends = $offset_wkends + $dtr['ot'];
+				    endif;
 				endif;
 
 				$row_detail = array($ddate,
@@ -157,7 +185,7 @@ class Dtr extends MY_Controller {
 									$out_pm,
 									'', // (count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ':'),
 									'', // (count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ':'),
-									'', // (count($dtr['dtrdata']) > 0 ? $dtr['late'] != '00:00' ? $dtr['late'] : ':' : ':'),
+									$dtr['lates'] > 0 ? date('H:i', mktime(0, $dtr['lates'])) : '',
 									count($dtr['dtr']) > 0 ? $dtr['dtr']['OT'] == 1 ? $dtr['ot'] > 0 ? date('H:i', mktime(0, $dtr['ot'])) : '' : '' : '',
 									$dtr['utimes'] > 0 ? date('H:i', mktime(0, $dtr['utimes'])) : '',
 									implode('; ',$remarks));
@@ -166,11 +194,11 @@ class Dtr extends MY_Controller {
 				// 	$this->fpdf->Cell($header_w[$hk],5,$row,'LRB',0,$hk==0 ? 'L' : 'C');	
 				// endforeach;
 
-				$align = array('C','C','C','C','C','C','C','C','C','C','C');
+				$align = array('L','C','C','C','C','C','C','C','C','C','C');
 				$border = array(1,1,1,1,1,1,1,1,1,1,1);
 				$this->fpdf->SetWidths($header_w);
 				$this->fpdf->SetAligns($width);
-				$this->fpdf->FancyRow_small(4,$row_detail,$border,$align);
+				$this->fpdf->FancyRow_small(5,$row_detail,$border,$align);
 				
 				// $this->fpdf->Ln();
 			endforeach;
@@ -180,33 +208,43 @@ class Dtr extends MY_Controller {
 			# footer
 			$this->fpdf->SetFont('Arial','', 8);
 
-			$this->fpdf->Cell(115,5,'Total Number of Working Days: '.count($working_days),0,0,'L');
-			$this->fpdf->Cell(75,5,'Total Days Absent: '.count($arremp_dtr['date_absents']),0,1,'L');
+			$this->fpdf->Cell(45,5,'Total Number of Working Days: ',0,0,'L');
+			$this->fpdf->Cell(70,5,count($working_days),0,0,'L');
+			$this->fpdf->Cell(35,5,'Total Days Absent: ',0,0,'L');
+			$this->fpdf->Cell(40,5,$days_absent,0,1,'L');
 
-			$date_absents = '';
-			foreach($arremp_dtr['date_absents'] as $absent):
-				$date_absents.= date('d', strtotime($absent)).' ';
-			endforeach;
-			$this->fpdf->Cell(115,5,'Dates Absent: '.$date_absents,0,0,'L');
-			$this->fpdf->Cell(75,5,'VL: '.($arremp_dtr['total_days_vl']+$arremp_dtr['total_days_fl']),0,1,'L');
+			$this->fpdf->Cell(45,5,'Total Undertime: ',0,0,'L');
+			$this->fpdf->Cell(70,5,date('H:i', mktime(0, $total_undertime)),0,0,'L');
+			$this->fpdf->Cell(35,5,'VL: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? $arrLatestBalance['vlBalance'] : '',0,1,'L');
+			// echo '<pre>';
+			// print_r($arrLatestBalance);
+			// die();
+			$this->fpdf->Cell(45,5,'Total Late:',0,0,'L');
+			$this->fpdf->Cell(70,5,date('H:i', mktime(0, $total_late)),0,0,'L');
+			$this->fpdf->Cell(35,5,'SL: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? $arrLatestBalance['slBalance'] : '',0,1,'L');
 
-			$this->fpdf->Cell(115,5,'Total Undertime: '.date('H:i', mktime(0, $total_undertime)),0,0,'L');
-			$this->fpdf->Cell(75,5,'SL: '.$arremp_dtr['total_days_sl'],0,1,'L');
+			$this->fpdf->Cell(45,5,'Late/Undertime: ',0,0,'L');
+			$this->fpdf->Cell(70,5,date('H:i', mktime(0, ($total_undertime + $total_late))),0,0,'L');
+			$this->fpdf->Cell(35,5,'Offset Balance: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? date('H:i', mktime(0, $arrLatestBalance['off_bal'])) : '',0,1,'L');
 
-			$this->fpdf->Cell(115,5,'Total Late:'.date('H:i', mktime(0, $total_late)).'   Late/Undertime: '.date('H:i', mktime(0, ($total_undertime + $total_late))),0,0,'L');
-			$this->fpdf->Cell(75,5,'Offset Balance: ',0,1,'L');
+			$this->fpdf->Cell(45,5,'Total Days Late/Undertime: ',0,0,'L');
+			$this->fpdf->Cell(70,5,$days_late_ut,0,0,'L');
+			$this->fpdf->Cell(35,5,'Offset Gain: ',0,0,'L');
+			$this->fpdf->Cell(40,5,($offset_wkdays + $offset_wkends) > 0 ? date('H:i', mktime(0, ($offset_wkdays + $offset_wkends))) : '',0,1,'L');
+			
+			$this->fpdf->Cell(45,5,'Total Days LWOP: ',0,0,'L');
+			$this->fpdf->Cell(70,5,$days_lwop,0,0,'L');
+			$this->fpdf->Cell(35,5,'Offset Used: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? date('H:i', mktime(0, $arrLatestBalance['off_used'])) : '',0,1,'L');
 
-			$this->fpdf->Cell(115,5,'Total Days Late/Undertime: '.($arremp_dtr['total_days_late'] + $arremp_dtr['total_days_ut']),0,0,'L');
-			$this->fpdf->Cell(75,5,'Offset for the Month: ',0,1,'L');
-
-			$this->fpdf->Cell(115,5,'Total Days LWOP: '.$arremp_dtr['total_days_lwop'],0,0,'L');
-			$this->fpdf->Cell(75,5,'Offset Used: ',0,1,'L');
-
-			$this->fpdf->Ln(3);
+			$this->fpdf->Ln(5);
 			$this->fpdf->MultiCell(190, 5, 'I HEREBY CERTIFY that the above records are true and correct report of the hours of work performed of which was made daily from the time of arrival and departure from the office.','T','J');
 
 			$this->fpdf->SetFont('Arial','B', 8);
-			$this->fpdf->Ln(5);
+			$this->fpdf->Ln(3);
 			$this->fpdf->Cell(27,5,'',0,0,'L');
 			$this->fpdf->Cell(63,5,'EMPLOYEE SIGNATURE','T',0,'C');
 			$this->fpdf->Cell(10,5,'',0,0,'L');

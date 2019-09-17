@@ -6,10 +6,13 @@
     $total_late = 0;
     $days_late_ut = 0;
     $days_absent = 0;
+    $days_lwop = 0;
     $in_am  = '';
     $out_am = '';
     $in_pm  = '';
     $out_pm = '';
+    $offset_wkdays = 0;
+    $offset_wkends = 0;
  ?>
 
 <div class="tab-pane active" id="tab_1_4">
@@ -62,6 +65,8 @@
                     <div class="legend-dd1" style="background-color: #acd9f7;"></div> &nbsp;<small style="margin-left: 10px;">Weekend</small> &nbsp;&nbsp;</div>
                 <div class="legend-def1">
                     <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Holiday</small> &nbsp;&nbsp;</div>
+                <div class="legend-def1">
+                    <i class="fa fa-check-square certified_ot"></i>&nbsp;<small>Certified Overtime</small> &nbsp;&nbsp;</div>
             </div>
             <br><br>
             <style type="text/css">th.no-sort { padding: 15px !important; }</style>
@@ -86,6 +91,12 @@
                             $out_am = count($dtr['dtr']) > 0 ? $dtr['dtr']['outAM'] == '00:00:00' || $dtr['dtr']['outAM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outAM'])) : '';
                             $in_pm  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inPM']  == '00:00:00' || $dtr['dtr']['inPM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inPM']))  : '';
                             $out_pm = count($dtr['dtr']) > 0 ? $dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outPM'])) : '';
+                            $certified_ot = 0;
+                            if(count($dtr['dtr']) > 0):
+                                if($dtr['dtr']['OT'] == 1):
+                                    $certified_ot = 1;
+                                endif;
+                            endif;
                             ?>
                         <tr class="odd <?=$dtr['day']?> tooltips <?=count($dtr['holiday_name']) > 0 ? 'holiday' : ''?>"
                             data-original-title="<?=date('l', strtotime($dtr['dtrdate']))?>">
@@ -143,15 +154,31 @@
                                         $days_late_ut = $days_late_ut + 1;
                                     endif;
 
-                                    if((count($dtr['leaves']) + count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
-                                        $days_absent = $days_absent + 1;
+                                    if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+                                        if(count($dtr['leaves']) == 0):
+                                            $days_lwop = $days_lwop + 1;
+                                        else:
+                                            $days_absent = $days_absent + 1;
+                                        endif;
+                                    endif;
+
+                                    # check ot
+                                    if($dtr['ot'] > 0 && $certified_ot == 1):
+                                        if((count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+                                            $offset_wkdays = $offset_wkdays + $dtr['ot'];
+                                        else:
+                                            $offset_wkends = $offset_wkends + $dtr['ot'];
+                                        endif;
                                     endif;
 
                                  ?>
                                 <div>
                             </td>
                             <td><?=$dtr['lates'] > 0 ? date('H:i', mktime(0, $dtr['lates'])) : ''?></td>
-                            <td><?=$dtr['ot'] > 0 ? date('H:i', mktime(0, $dtr['ot'])) : ''?></td>
+                            <td nowrap>
+                                <?=$dtr['ot'] > 0 ? date('H:i', mktime(0, $dtr['ot'])) : '';?>
+                                <?=$certified_ot ? '<i class="fa fa-check-square certified_ot"></i>' : ''?>
+                            </td>
                             <td><?=$dtr['utimes'] > 0 ? date('H:i', mktime(0, $dtr['utimes'])) : ''?></td>
                             <td>
                                 <?php 
@@ -180,37 +207,37 @@
                     <td><b>Total Undertime</b></td>
                     <td><?=date('H:i', mktime(0, $total_undertime))?></td>
                     <td><b>VL</b></td>
-                    <td></td>
+                    <td><?=count($arrLatestBalance) > 0 ? $arrLatestBalance['vlBalance'] : ''?></td>
                 </tr>
                 <tr>
                     <td><b>Total Late</b></td>
                     <td><?=date('H:i', mktime(0, $total_late))?></td>
                     <td><b>SL</b></td>
-                    <td></td>
+                    <td><?=count($arrLatestBalance) > 0 ? $arrLatestBalance['slBalance'] : ''?></td>
                 </tr>
                 <tr>
                     <td><b>Late / Undertime</b></td>
                     <td><?=date('H:i', mktime(0, ($total_undertime + $total_late)))?></td>
                     <td><b>Offset Balance</b></td>
-                    <td></td>
+                    <td><?=count($arrLatestBalance) > 0 ? date('H:i', mktime(0, $arrLatestBalance['off_bal'])) : ''?></td>
                 </tr>
                 <tr>
                     <td><b>Total Days Late / Undertime</b></td>
                     <td><?=$days_late_ut?></td>
-                    <td><b>Offset for the Month</b></td>
-                    <td></td>
+                    <td><b>Offset Gain</b></td>
+                    <td><?=($offset_wkdays + $offset_wkends) > 0 ? date('H:i', mktime(0, ($offset_wkdays + $offset_wkends))) : ''?></td>
                 </tr>
                 <tr>
                     <td><b>Total Days LWOP</b></td>
-                    <td></td>
+                    <td><?=$days_lwop?></td>
                     <td><b>Offset Used</b></td>
-                    <td></td>
+                    <td><?=count($arrLatestBalance) > 0 ? date('H:i', mktime(0, $arrLatestBalance['off_used'])) : ''?></td>
                 </tr>
                 <tr>
                     <td><b>Total Offset (Weekdays)</b></td>
-                    <td></td>
+                    <td><?=$offset_wkdays > 0 ? date('H:i', mktime(0, $offset_wkdays)) : ''?></td>
                     <td><b>Total Offset (Weekends/Holiday)</b></td>
-                    <td></td>
+                    <td><?=$offset_wkends > 0 ? date('H:i', mktime(0, $offset_wkends)) : ''?></td>
                 </tr>
             </table>
 

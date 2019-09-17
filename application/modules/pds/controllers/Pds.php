@@ -220,13 +220,12 @@ class Pds extends MY_Controller
 
 	public function delete_child()
     {
-
     	$arrPost = $this->input->post();
     	$empid = $this->uri->segment(3);
 
 		if(!empty($arrPost))
 		{
-			$this->pds_model->delete_child($arrPost['txtdelcode']);
+			$this->pds_model->delete_child($arrPost['txtdelchild']);
 
 			$this->session->set_flashdata('strSuccessMsg','Child information deleted successfully.');
 			redirect('hr/profile/'.$empid);

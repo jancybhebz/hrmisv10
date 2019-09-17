@@ -14,14 +14,14 @@
     $show_dates = 0;
     switch ($this_page):
         case 'dtr':
-            if($this->uri->segment(4) == $arrData['empNumber']):
+            if(in_array($this->uri->segment(4), array($arrData['empNumber'],'certify_offset'))):
                 $show_monyr = 0; $show_dates = 1;
             else:
                 $show_monyr = 0; $show_dates = 0;
             endif;
             break;
-        case 'leave_balance_update': $show_monyr = 1; $show_dates = 0; break;
-        case 'leave_balance': $show_monyr = 1; $show_dates = 0; break;
+        case 'leave_balance_update':
+        case 'leave_balance':
         case 'filed_request': $show_monyr = 1; $show_dates = 0; break;          
     endswitch;
 ?>

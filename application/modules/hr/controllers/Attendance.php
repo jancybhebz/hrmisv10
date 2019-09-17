@@ -136,7 +136,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['working_days'] = get_workingdays('','',$holidays,$datefrom,$dateto);
 
 		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
-		
+		$this->arrData['arrLatestBalance'] = $this->Leave_model->getLatestBalance($empid);
 		$this->arrData['arremp_dtr'] = $arremp_dtr;
 		// print_r($arremp_dtr);
 		// die();
@@ -1325,14 +1325,27 @@ class Attendance extends MY_Controller {
 
 	public function dtr_certify_offset()
 	{
+		// echo '<pre>';
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
-		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
+		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+		$arrots = array();
+		foreach($arremp_dtr as $dtr):
+			if($dtr['ot'] > 0):
+				array_push($arrots,$dtr);
+			endif;
+			// print_r($dtr);
+			// echo '<hr>';
+		endforeach;
+		$this->arrData['arrots'] = $arrots;
+		
+
+		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
