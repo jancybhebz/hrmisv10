@@ -1,10 +1,27 @@
+function viewPassword() {
+	var x = document.getElementById("txtpass");
+	if (x.type === "password") {
+		x.type = "text";
+	} else {
+		x.type = "password";
+	}
+}
+
+function viewIniPassword() {
+	var x = document.getElementById("txtinipass");
+	if (x.type === "password") {
+		x.type = "text";
+	} else {
+		x.type = "password";
+	}
+}
+
 function divset_bottom() {
 	var objDiv = $(".code");
 	$('div#loading-text').remove();
 	var h = objDiv.get(0).scrollHeight;
 	objDiv.animate({scrollTop: h});
 }
-
 
 $(document).ready(function(){
 	/* Initial Password */
@@ -196,7 +213,6 @@ $(document).ready(function(){
 			$('.code').show();
 
 			/* STEP 1*/
-			console.log("dbmigrate/migrate/comparing_tables?host="+host+"&dbname="+dbname+"&uname="+uname+"&pass="+pass+"&inipass="+inipass);
 			$('.code').append($("<div>").load(encodeURI("dbmigrate/migrate/comparing_tables?host="+host+"&dbname="+dbname+"&uname="+uname+"&pass="+pass+"&inipass="+inipass), function() {
 				$('#update_table-modal').modal({'backdrop':'static','keyboard':'false'});
 				$('#update_table-modal').modal({},'show');

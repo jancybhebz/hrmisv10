@@ -631,7 +631,6 @@ CREATE TABLE `tblEmpDTR` (
   `dtrDate` date DEFAULT NULL,
   `inAM` time NOT NULL DEFAULT '00:00:00',
   `outAM` time NOT NULL DEFAULT '00:00:00',
-  `inPM_old_data` time NOT NULL DEFAULT '00:00:00',
   `outPM` time DEFAULT NULL,
   `inOT` time DEFAULT NULL,
   `outOT` time DEFAULT NULL,
