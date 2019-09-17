@@ -121,6 +121,7 @@
                                                         <i class="fa fa-warning tooltips" data-original-title="Please provide a database password" style="display: none;"></i>
                                                         <i class="fa fa-check tooltips" style="display: none;"></i>
                                                         <input type="password" id="txtpass" class="form-control" autocomplete="off" value="<?=$_ENV['DB_PASS']?>">
+                                                        <small><input type="checkbox" onclick="viewPassword()">Show Password</small>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -130,6 +131,7 @@
                                                         <i class="fa fa-warning tooltips" data-original-title="Please provide a initial password" style="display: none;"></i>
                                                         <i class="fa fa-check tooltips" style="display: none;"></i>
                                                         <input type="password" id="txtinipass" name="txtinipass" class="form-control" autocomplete="off">
+                                                        <small><input type="checkbox" onclick="viewIniPassword()">Show Password</small>
                                                     </div>
                                                 </div>
                                                 <div class="note note-danger" style="text-align: justify;">
