@@ -280,7 +280,11 @@ class Holiday_model extends CI_Model {
 		$reg_holidays = $this->db->get_where('tblHolidayYear')->result_array();
 		
 		foreach($reg_holidays as $rholiday):
-			if($rholiday['holidayCode'] == 'WS' && ($rholiday['holidayTime'] == NULL || $rholiday['holidayTime'] == '')):
+			if($rholiday['holidayCode'] == 'WS'):
+				if($rholiday['holidayTime'] == NULL || $rholiday['holidayTime'] == ''):
+					array_push($arrholiday_year,$rholiday);
+				endif;
+			else:
 				array_push($arrholiday_year,$rholiday);
 			endif;
 		endforeach;

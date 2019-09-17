@@ -86,7 +86,6 @@ class Compensatory_leave_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-
 	function get_cto_used($empid)
 	{
 		return $this->db->get_where('tblEmpRequest', array('empNumber' => $empid, 'requestCode' => 'CL', 'requestStatus' => 'CERTIFIED'))->result_array();
