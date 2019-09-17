@@ -19,12 +19,13 @@
                                             <input type="hidden" name="txtperiodyr" value="<?=count($arrlatest_balance) > 0 ? $arrlatest_balance['periodYear'] : ''?>">
                                             <input type="hidden" id="txtamt_mone" value="<?=AMT_MONETIZATION?>">
                                             <input type="hidden" id="txtactual_sal" value="<?=$arrData['actualSalary']?>">
+                                            <input type="hidden" id="txtactual_vl" value="<?=$vl_monetized?>">
+                                            <input type="hidden" id="txtactual_sl" value="<?=$sl_monetized?>">
+
                                             <div class="form-group col-md-12" style="padding: 0 !important;">
                                                 <label class="control-label col-md-12" style="padding: 0 !important;">Date<span class="required"> * </span></label>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <select class="form-control form-required bs-select" name="txtadjmon" id="txtadjmon" placeholder="">
-                                                        <option value="null">SELECT MONTH</option>
                                                         <?php foreach (range(1, 12) as $m): ?>
                                                             <option value="<?=sprintf('%02d', $m)?>" <?=sprintf('%02d', date('n')) == $m ? 'selected' : ''?>>
                                                                 <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
@@ -32,9 +33,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <select class="form-control form-required bs-select" name="txtadjyr" id="txtadjyr" placeholder="">
-                                                        <option value="null">SELECT YEAR</option>
                                                         <?php foreach (getYear($arrlatest_balance['periodYear']) as $yr): ?>
                                                             <option value="<?=$yr?>" <?=date('Y') == $yr ? 'selected' : ''?>>
                                                                 <?=$yr?></option>
@@ -45,7 +44,8 @@
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Vacation Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
+                                                    <i class="fa fa-warning tooltips" data-original-title="Please Provide Leave Credits to be Monetized on Vacation Leave" style="display: none;"></i>
+                                                    <i class="fa fa-check tooltips" style="display: none;"></i>
                                                     <input type="text" class="form-control form-required" name="txtvl" id="txtvl"
                                                         placeholder="<?=count($vl_monetized) > 0 ? $vl_monetized : ''?>">
                                                 </div>
@@ -53,7 +53,8 @@
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Sick Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
+                                                    <i class="fa fa-warning tooltips" data-original-title="Please Provide Valid Leave Credits to be Monetized on Sick Leave" style="display: none;"></i>
+                                                    <i class="fa fa-check tooltips" style="display: none;"></i>
                                                     <input type="text" class="form-control form-required" name="txtsl" id="txtsl"
                                                         placeholder="<?=count($sl_monetized) > 0 ? $sl_monetized : ''?>">
                                                 </div>
@@ -61,7 +62,6 @@
                                             <div class="form-group">
                                                 <label class="control-label">Amount</label>
                                                 <div class="input-icon right">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <input type="text" class="form-control form-required" name="txtmone_amt" id="txtmone_amt" readonly>
                                                 </div>
                                             </div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn green"><i class="icon-check"> </i> Submit</button>
+                    <button type="submit" class="btn green" id="btnmonetized"><i class="icon-check"> </i> Submit</button>
                     <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
