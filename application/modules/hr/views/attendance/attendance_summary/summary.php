@@ -16,6 +16,8 @@
         case 'dtr':
             if(in_array($this->uri->segment(4), array($arrData['empNumber'],'certify_offset'))):
                 $show_monyr = 0; $show_dates = 1;
+            elseif(in_array($this->uri->segment(4), array('leave'))):
+                $show_monyr = 1; $show_dates = 0;
             else:
                 $show_monyr = 0; $show_dates = 0;
             endif;
@@ -120,7 +122,7 @@
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Month</label>
                                                     <select class="bs-select form-control" name="month">
-                                                        <?php if($this_page!='dtr'): ?>
+                                                        <?php if($this_page!='dtr' || ($this_page=='dtr' && $this->uri->segment(4) == 'leave')): ?>
                                                             <option value="all">All</option>
                                                         <?php endif; ?>
                                                         <?php foreach (range(1, 12) as $m): ?>

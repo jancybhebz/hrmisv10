@@ -123,6 +123,7 @@ class Leave_model extends CI_Model {
 	# get Leaves
 	function getleave($empid,$datefrom='',$dateto='')
 	{
+		$this->db->join('tblLeave','tblLeave.leaveCode = tblEmpLeave.leaveCode');
 		$this->db->where('empNumber', $empid);
 		if($datefrom!='' && $dateto!=''):
 			$this->db->where("(leaveFrom between '".$datefrom."' and '".$dateto."' or leaveTo between '".$datefrom."' and '".$dateto."')");

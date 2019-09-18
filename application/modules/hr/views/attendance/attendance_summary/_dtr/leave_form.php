@@ -18,9 +18,8 @@
                                 <div class="form-group">
                                     <label class="control-label">Type of Leave <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="bs-select form-control form-required" name="sel_leavetype" id="sel_leavetype">
-                                            <option value="null">-- SELECT LEAVE TYPE --</option>
+                                            <option value="0">-- SELECT LEAVE TYPE --</option>
                                             <?php foreach($arrleaveTypes as $leave): if($leave['system'] == 1): ?>
                                                 <option value="<?=$leave['leaveCode']?>" <?=isset($arremp_leave) ? $leave['leaveCode'] == $arremp_leave['leaveCode'] ? 'selected' : '' : ''?>>
                                                     <?=$leave['leaveType']?></option>
@@ -59,8 +58,8 @@
 
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label">Date From <span class="required"> * </span></label>
+                                <div class="form-group" id="div-date">
+                                    <label class="control-label">Date <span class="required"> * </span></label>
                                     <div class="input-group input-daterange">
                                         <input type="text" class="form-control form-required date-picker" data-date-format="yyyy-mm-dd"
                                             name="txtleave_dtfrom" id="txtleave_dtfrom" value="<?=date('Y-m-d')?>">
@@ -68,6 +67,10 @@
                                         <input type="text" class="form-control form-required date-picker" data-date-format="yyyy-mm-dd"
                                             name="txtleave_dtto" id="txtleave_dtto" value="<?=date('Y-m-d')?>">
                                     </div>
+                                    <span class="font-red" id="span-warning" style="display: none;">
+                                        <i class="fa fa-warning tooltips overflow" data-original-title="Date must not be empty."></i></span>
+                                    <span class="font-green" id="span-success" style="display: none;">
+                                        <i class="fa fa-check tooltips overflow"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +78,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">No of Day(s) applied <span class="required"> * <small><i>Weekends and holidays not included</i></small></span></label>
+                                    <label class="control-label">No of Day(s) applied <br><span class="required"> * <small><i>Weekends and holidays not included</i></small></span></label>
                                     <div class="input-icon right">
                                         <input type="text" class="form-control form-required" value="<?=isset($arremp_leave) ? $noofdays : ''?>" id="txtleave_noofdays" readonly>
                                     </div>
@@ -88,8 +91,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Specific Reason <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <textarea class="form-control form-required" name="txtleave_reason"><?=isset($arremp_leave) ? $arremp_leave['reason'] : ''?></textarea>
+                                        <textarea class="form-control form-required" name="txtleave_reason" id="txtleave_reason"><?=isset($arremp_leave) ? $arremp_leave['reason'] : ''?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -115,9 +117,7 @@
     </div>
 </div>
 
-
 <?=load_plugin('js',array('datetimepicker','timepicker','datepicker'));?>
-
 <script>
     $(document).ready(function() {
         $('.timepicker').timepicker({
@@ -134,7 +134,7 @@
         $('#sel_leavetype').change(function() {
             leavetype = $(this).val();
             $('.loading-image-small').show();
-            $.get("<?=base_url('hr/attendance/dtr_specific_leave')?>", {type: leavetype}, function(data) {
+            $.get("<?=base_url('hr/attendance/dtr_specific_leave')?>", {type: leavetype==0?null:leavetype}, function(data) {
                 data = data.trim();
                 // console.log(data);
                 if(data != 'empty'){
@@ -149,30 +149,148 @@
                 $('#sel_spe_leave').selectpicker('refresh');
                 $('.loading-image-small').hide();
             });
+
+            if(leavetype != 0){
+                $(this).closest('div.form-group').removeClass('has-error');
+                $(this).closest('div.form-group').addClass('has-success');
+                $(this).closest('div.form-group').find('i.fa-warning').remove();
+                $(this).closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($(this));
+            }else{
+                $(this).closest('div.form-group').addClass('has-error');
+                $(this).closest('div.form-group').removeClass('has-success');
+                $(this).closest('div.form-group').find('i.fa-check').remove();
+                $(this).closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips" data-original-title="Type of leave is required."></i>').tooltip().insertBefore($(this));
+            }
         });
         // end setting specific leave
+
+        $('#txtleave_reason').on('keyup keypress change',function() {
+            if($(this).val() != ''){
+                $(this).closest('div.form-group').removeClass('has-error');
+                $(this).closest('div.form-group').addClass('has-success');
+                $(this).closest('div.form-group').find('i.fa-warning').remove();
+                $(this).closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($(this));
+            }else{
+                $(this).closest('div.form-group').addClass('has-error');
+                $(this).closest('div.form-group').removeClass('has-success');
+                $(this).closest('div.form-group').find('i.fa-check').remove();
+                $(this).closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips" data-original-title="Reason must not be empty."></i>').tooltip().insertBefore($(this));
+            }
+        });
 
         // begin getting number of days
         var leavefrom = $('#txtleave_dtfrom').val();
         var leaveto   = $('#txtleave_dtto').val();
-        $('#txtleave_dtfrom').on('changeDate', function(ev){
+        $('#txtleave_dtfrom').on('changeDate keyup keypress', function(ev){
             $(this).datepicker('hide');
             leavefrom = $('#txtleave_dtfrom').val();
-            $.get("<?=base_url('hr/attendance/dtr_no_ofdays')?>", {leavefrom: leavefrom, leaveto: leaveto}, function(data) {
-                data = data.trim();
-                $('#txtleave_noofdays').val(data);
-            });
-        });
-
-        $('#txtleave_dtto').on('changeDate', function(ev){
-            $(this).datepicker('hide');
             leaveto   = $('#txtleave_dtto').val();
             $.get("<?=base_url('hr/attendance/dtr_no_ofdays')?>", {leavefrom: leavefrom, leaveto: leaveto}, function(data) {
                 data = data.trim();
                 $('#txtleave_noofdays').val(data);
             });
+
+            if(leaveto != '' && leavefrom != ''){
+                $('#div-date').addClass('has-success');
+                $('#div-date').removeClass('has-error');
+                $('#span-success').show();
+                $('#span-warning').hide();
+            }else{
+                $('#txtleave_noofdays').val('0');
+                $('#div-date').addClass('has-error');
+                $('#div-date').removeClass('has-success');
+                $('#span-warning').show();
+                $('#span-success').hide();
+            }
+        });
+
+        $('#txtleave_dtto').on('changeDate keyup keypress', function(ev){
+            $(this).datepicker('hide');
+            leavefrom = $('#txtleave_dtfrom').val();
+            leaveto   = $('#txtleave_dtto').val();
+            $.get("<?=base_url('hr/attendance/dtr_no_ofdays')?>", {leavefrom: leavefrom, leaveto: leaveto}, function(data) {
+                data = data.trim();
+                $('#txtleave_noofdays').val(data);
+            });
+
+            if(leaveto != '' && leavefrom != ''){
+                $('#div-date').addClass('has-success');
+                $('#div-date').removeClass('has-error');
+                $('#span-success').show();
+                $('#span-warning').hide();
+            }else{
+                $('#txtleave_noofdays').val('0');
+                $('#div-date').addClass('has-error');
+                $('#div-date').removeClass('has-success');
+                $('#span-warning').show();
+                $('#span-success').hide();
+            }
         });
         // end getting number of days
+
+        $('#btn_add_deduction').on('click', function(e) {
+            var arrerror= [];
+
+            leavefrom = $('#txtleave_dtfrom').val();
+            leaveto   = $('#txtleave_dtto').val();
+            if(leaveto != '' && leavefrom != ''){
+                $('#div-date').addClass('has-success');
+                $('#div-date').removeClass('has-error');
+                $('#span-success').show();
+                $('#span-warning').hide();
+
+                $.get("<?=base_url('hr/attendance/dtr_no_ofdays')?>", {leavefrom: leavefrom, leaveto: leaveto}, function(data) {
+                    data = data.trim();
+                    $('#txtleave_noofdays').val(data);
+                });
+            }else{
+                $('#txtleave_noofdays').val('0');
+                $('#div-date').addClass('has-error');
+                $('#div-date').removeClass('has-success');
+                $('#span-warning').show();
+                $('#span-success').hide();
+                arrerror.push(1);
+            }
+
+            if($('#txtleave_reason').val() != ''){
+                $('#txtleave_reason').closest('div.form-group').removeClass('has-error');
+                $('#txtleave_reason').closest('div.form-group').addClass('has-success');
+                $('#txtleave_reason').closest('div.form-group').find('i.fa-warning').remove();
+                $('#txtleave_reason').closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtleave_reason'));
+            }else{
+                $('#txtleave_reason').closest('div.form-group').addClass('has-error');
+                $('#txtleave_reason').closest('div.form-group').removeClass('has-success');
+                $('#txtleave_reason').closest('div.form-group').find('i.fa-check').remove();
+                $('#txtleave_reason').closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips" data-original-title="Reason must not be empty."></i>').tooltip().insertBefore($('#txtleave_reason'));
+                arrerror.push(1);
+            }
+
+            leavetype = $('#sel_leavetype').val();
+            if(leavetype != 0){
+                $('#sel_leavetype').closest('div.form-group').removeClass('has-error');
+                $('#sel_leavetype').closest('div.form-group').addClass('has-success');
+                $('#sel_leavetype').closest('div.form-group').find('i.fa-warning').remove();
+                $('#sel_leavetype').closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#sel_leavetype'));
+            }else{
+                $('#sel_leavetype').closest('div.form-group').addClass('has-error');
+                $('#sel_leavetype').closest('div.form-group').removeClass('has-success');
+                $('#sel_leavetype').closest('div.form-group').find('i.fa-check').remove();
+                $('#sel_leavetype').closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips" data-original-title="Type of leave is required."></i>').tooltip().insertBefore($('#sel_leavetype'));
+                arrerror.push(1);
+            }
+
+            if(jQuery.inArray(1,arrerror) !== -1){
+                e.preventDefault();
+            }
+        });
 
     });
 </script>
