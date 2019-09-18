@@ -973,13 +973,18 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(5);
 
-		if($_GET['month'] == 'all'){
-			$datefrom = curryr().'-01-01';
+		if(isset($_GET['month'])):
+			if($_GET['month'] == 'all'){
+				$datefrom = curryr().'-01-01';
+				$dateto = date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y'));
+			}else{
+				$datefrom = curryr().'-'.currmo().'-01';
+				$dateto = curryr().'-'.currmo().'-'.cal_days_in_month(CAL_GREGORIAN, ltrim(currmo(), '0'), curryr()-1);
+			}
+		else:
+			$datefrom = date('Y-m').'-01';
 			$dateto = date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y'));
-		}else{
-			$datefrom = curryr().'-'.currmo().'-01';
-			$dateto = curryr().'-'.currmo().'-'.cal_days_in_month(CAL_GREGORIAN, ltrim(currmo(), '0'), curryr()-1);
-		}
+		endif;
 		
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
