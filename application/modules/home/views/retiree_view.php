@@ -47,6 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tbldata"  style="display: none">
                     <thead>
                         <tr>
+                            <th> No</th>
                             <th> Employee Name </th>
                             <th> Office </th>
                             <th> Position </th>
@@ -55,6 +56,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <tbody>
                         <?php $i=1; foreach($arrData as $row):?>
                             <tr class="odd gradeX">
+                                <td> <?=$i++?></td>
                                 <td> <?=$row['name']?> </td>
                                 <td> <?=$row['office']?> </td>
                                 <td> <?=$row['position']?> </td>
