@@ -349,8 +349,8 @@ class Attendance extends MY_Controller {
 		$arrLeaveBalance = $this->Leave_model->getleave_balance($empid, $month,$yr);
 
 		foreach($arrLeaveBalance as $key=>$lb):
-			$dfrom = implode('-',array($yr,sprintf('%02d',$lb['periodMonth']),'01'));
-			$dto   = implode('-',array($yr,sprintf('%02d',$lb['periodMonth']),cal_days_in_month(CAL_GREGORIAN,$lb['periodMonth'],$yr)));
+			$dfrom = implode('-',array($lb['periodYear'],sprintf('%02d',$lb['periodMonth']),'01'));
+			$dto   = implode('-',array($lb['periodYear'],sprintf('%02d',$lb['periodMonth']),cal_days_in_month(CAL_GREGORIAN,$lb['periodMonth'],$lb['periodYear'])));
 			$arrLeaveBalance[$key]['filed_stl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'STL');
 			$arrLeaveBalance[$key]['filed_mtl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'MTL');
 			$arrLeaveBalance[$key]['filed_ptl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PTL');
@@ -972,11 +972,32 @@ class Attendance extends MY_Controller {
 	public function dtr_leave()
 	{
 		$empid = $this->uri->segment(5);
+
+		if($_GET['month'] == 'all'){
+			$datefrom = curryr().'-01-01';
+			$dateto = date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y'));
+		}else{
+			$datefrom = curryr().'-'.currmo().'-01';
+			$dateto = curryr().'-'.currmo().'-'.cal_days_in_month(CAL_GREGORIAN, ltrim(currmo(), '0'), curryr()-1);
+		}
+		
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->arrData['arrLeaves'] = $this->Attendance_summary_model->getleaves($empid);
+		$this->arrData['arrLeaves'] = $this->Leave_model->getleave($empid,$datefrom,$dateto);
+		$arrLeaveBalance = $this->Leave_model->getLatestBalance($empid);
+		
+		$dfrom = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),'01'));
+		$dto   = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),cal_days_in_month(CAL_GREGORIAN,$arrLeaveBalance['periodMonth'],$arrLeaveBalance['periodYear'])));
+		$arrLeaveBalance['filed_vl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'VL');
+		$arrLeaveBalance['filed_sl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'SL');
+		$arrLeaveBalance['filed_stl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'STL');
+		$arrLeaveBalance['filed_mtl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'MTL');
+		$arrLeaveBalance['filed_ptl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PTL');
+		$arrLeaveBalance['filed_fl']  = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'FL');
+		$arrLeaveBalance['filed_spl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PL');
 
+		$this->arrData['arrLeaveBalance'] = $arrLeaveBalance;
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 

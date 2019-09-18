@@ -14,14 +14,14 @@
                             <div class="col-md-12">
                                 <small>
                                     <div class="well">
-                                        <b>Certify Leave Credits as of November 2018</b>&nbsp;
+                                        <b>Certify Leave Credits as of <?=date('F', mktime(0, 0, 0, $arrLeaveBalance['periodMonth'], 10)).' '.$arrLeaveBalance['periodYear']?></b>&nbsp;
                                         <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> view</a>
                                         <div class="collapse" id="collapseExample">
                                             <p></p>
-                                            <p><b>Vacation Leave Left:</b> 48.906</p>
-                                            <p><b>Sick Leave Left:</b> 78.250</p>
-                                            <p><b>Privilege Leave Left:</b> 0.000</p>
-                                            <b>Force Leave Left:</b> 2.000
+                                            <p><b>Vacation Leave Left:</b> <?=$arrLeaveBalance['vlPreBalance'] - $arrLeaveBalance['filed_vl']?></p>
+                                            <p><b>Sick Leave Left:</b> <?=$arrLeaveBalance['slPreBalance'] - $arrLeaveBalance['filed_sl']?></p>
+                                            <p><b>Privilege Leave Left:</b> <?=$arrLeaveBalance['plPreBalance'] - $arrLeaveBalance['filed_pl']?></p>
+                                            <b>Force Leave Left:</b> <?=$arrLeaveBalance['flPreBalance'] - $arrLeaveBalance['filed_fl']?>
                                         </div>
                                     </div>
                                 </small>
@@ -36,22 +36,22 @@
                             <thead>
                                 <th>No</th>
                                 <th>Type of Leave</th>
-                                <th>Whole/Half Day</th>
-                                <th>Date From</th>
-                                <th>Date To</th>
-                                <th>Day(s) Applied</th>
+                                <th style="text-align: center;">Whole/Half Day</th>
+                                <th style="text-align: center;">Date From</th>
+                                <th style="text-align: center;">Date To</th>
+                                <th style="text-align: center;">Day(s) Applied</th>
                                 <th>Specify Reason</th>
                                 <td></td>
                             </thead>
                              <tbody>
-                                <?php $no=1; foreach($arrLeaves as $leave): ?>
+                                <?php $no=1;foreach($arrLeaves as $leave): ?>
                                 <tr>
                                     <td align="center"><?=$no++?></td>
                                     <td><?=$leave['leaveType']?></td>
-                                    <td></td>
-                                    <td><?=$leave['leaveFrom']?></td>
-                                    <td><?=$leave['leaveTo']?></td>
-                                    <td></td>
+                                    <td align="center"><?=$leave['leaveCode'][0] == 'H' ? 'Yes' : ''?></td>
+                                    <td align="center"><?=$leave['leaveFrom']?></td>
+                                    <td align="center"><?=$leave['leaveTo']?></td>
+                                    <td align="center"><?=((strtotime($leave['leaveTo']) - strtotime($leave['leaveFrom'])) / 86400) + 1?></td>
                                     <td><?=$leave['reason']?></td>
                                     <td style="white-space: nowrap !important;">
                                         <a href="<?=base_url('hr/attendance_summary/dtr/leave_edit/'.$this->uri->segment(5).'?id='.$leave['leaveID'])?>" class="btn green btn-xs"> <i class="fa fa-pencil"></i> Edit</a>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                    <button type="submit" id="btnsubmit-delete-leave" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
