@@ -7,7 +7,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css',array('datepicker','timepicker'));?>
+<?=load_plugin('css',array('timepicker'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -314,8 +314,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('validation','datepicker','timepicker'));?>
-<script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+<?php load_plugin('js',array('validation','timepicker'));?>
 
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
