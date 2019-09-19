@@ -9,8 +9,10 @@ class Home_model extends CI_Model {
 	function getbirthdays()
 	{
 		$month = date('m');
-		$this->db->select('surname,firstname,middlename,middleInitial,birthday,empNumber');
+		$this->db->select('surname,firstname,middlename,middleInitial,birthday,tblEmpPersonal.empNumber');
+		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber = tblEmpPersonal.empNumber');
 		$this->db->like('birthday',$month);
+		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('DAYOFMONTH(birthday)');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		return $objQuery->result_array();

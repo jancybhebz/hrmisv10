@@ -15,6 +15,7 @@ class Attendance extends MY_Controller {
 	function __construct() {
         parent::__construct();
         $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model','libraries/Org_structure_model','libraries/Appointment_status_model'));
+    	$this->load->helper(array('payroll_helper','dtr_helper'));
     }
 
     public function conversion_table()
@@ -48,146 +49,454 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 		
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
-
-		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
-		$this->arrData['arrspe_leave'] = $this->Leave_model->getspe_leave($empid, $yr);
-		// echo '<pre>';
-		// print_r($this->arrData['arremp_dtr']);
-		// die();
-
-		# GET FORCED LEAVE
-		$no_fl = $this->Leave_model->getleave_data('FL');
-		$no_fl = $no_fl[0]['numOfDays'];
-		$month_fl = $this->Leave_model->getforce_leave($empid, $yr, $month);
-		$this->arrData['fl_left'] = $no_fl - count($month_fl);
-
-		// TODO:: GET OFFSET BALANCE
-		// $this->arrData['arroff_bal'] = $this->Attendance_summary_model->getOffsetBalance($empid, $month, $yr);
+		$datefrom = date('Y-m').'-01';
+		$dateto = date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 		
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+
+		$days_absent = array();
+		$vl_left = 0;
+		$sl_left = 0;
+		$fl_left = 0;
+		$offset_balance = 0;
+		$total_undertime = 0;
+		$total_late = 0;
+		$total_ot_wkdays = 0;
+		$total_ot_holidays = 0;
+
+		foreach($arremp_dtr as $dtr):
+			if($dtr['dtrdate'] <= date('Y-m-d')):
+				if((count($dtr['leaves']) + count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				    array_push($days_absent,$dtr['dtrdate']);
+				endif;
+			endif;
+
+			$total_undertime = $total_undertime + $dtr['utimes'];
+			$total_late = $total_late + $dtr['lates'];
+			
+			# begin checking overtime
+			if(in_array($dtr['day'],array('Sat','Sun')) || count($dtr['holiday_name']) > 0):
+				# weekends
+				if(!empty($dtr['dtr'])):
+					if($dtr['dtr']['OT'] == 1):
+						$total_ot_holidays = $total_ot_holidays + $dtr['ot'];
+					endif;
+				endif;
+			else:
+				# weekdays
+				if(!empty($dtr['dtr'])):
+					if($dtr['dtr']['OT'] == 1):
+						$total_ot_wkdays = $total_ot_wkdays + $dtr['ot'];
+					endif;
+				endif;
+			endif;
+			# end checking overtime
+		endforeach;
+
+		$ctr_force_leave = 0;
+		$ctr_spe_leave = 0;
+		$emp_leaves = $this->Leave_model->getleave($empid,$datefrom,$dateto);
+		foreach($emp_leaves as $empleave):
+			if($empleave['certifyHR'] == 'Y'):
+				switch ($empleave['leaveCode']):
+					case 'FL':
+						$ctr_force_leave = $ctr_force_leave + 1; break;
+					case 'PL':
+						$ctr_spe_leave = $ctr_spe_leave + 1; break;
+				endswitch;
+			endif;
+		endforeach;
+
+		$force_leave = $this->Leave_model->getleave_data('FL');
+		$force_leave = empty($force_leave) ? 0 : $force_leave['numOfDays'];
+		$total_force_leave = $force_leave - $ctr_force_leave;
+
+		$spe_leave = $this->Leave_model->getleave_data('PL');
+		$spe_leave = empty($spe_leave) ? 0 : $spe_leave['numOfDays'];
+		$total_spe_leave = $spe_leave - $ctr_spe_leave;
+
+		$this->arrData['arrattendance'] = array('days_absent' => $days_absent, 'total_undertime' => $total_undertime, 'total_late' => $total_late, 'total_force_leave' => $total_force_leave, 'total_spe_leave' => $total_spe_leave, 'total_ot_wkdays' => $total_ot_wkdays, 'total_ot_holidays' => $total_ot_holidays);
+		$this->arrData['arrleaves'] = $this->Leave_model->getLatestBalance($empid);
+
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function dtr()
 	{
+		$this->load->model('libraries/Holiday_model');
+		// echo '<pre>';
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
-		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
+		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		$this->arrData['working_days'] = get_workingdays('','',$holidays,$datefrom,$dateto);
 
-		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
-		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
-		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
-		$this->arrData['total_late'] = $arremp_dtr['total_late'];
-		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
-		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
-		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
-		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid, $month, $yr);
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+		$this->arrData['arrLatestBalance'] = $this->Leave_model->getLatestBalance($empid);
+		$this->arrData['arremp_dtr'] = $arremp_dtr;
+		// print_r($arremp_dtr);
+		// die();
+
 		if(in_array(check_module(),array('officer','executive'))):
 			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
 		endif;
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
-	public function leave_balance()
-	{
-		$empid = $this->uri->segment(4);
-		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
-		$this->arrData['arrempleave'] = $this->Leave_model->getleave($empid);
-
-		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
-
-	}
+	// public function leave_balance()
+	// {
+	// 	$empid = $this->uri->segment(4);
+	// 	$res = $this->Hr_model->getData($empid,'','all');
+	// 	$this->arrData['arrData'] = $res[0];
+	// 	$this->arrData['arrempleave'] = $this->Leave_model->getleave($empid);
+	// 	$month = isset($_GET['month']) ?  $_GET['month'] : date('n');
+	// 	$yr = isset($_GET['yr']) ?  $_GET['yr'] : date('n');
+	// 	$this->arrData['arrLeaves'] = $this->Leave_model->getleave_balance($empid, $month,$yr);
+	// 	$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	// }
 
 	public function leave_balance_update()
 	{
+		$this->load->model(array('finance/Dtr_model'));
+		
 		$empid = $this->uri->segment(4);
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$arrPost = $this->input->post();
-
-		if(!empty($arrPost)):
-			$leave_data = json_decode($arrPost['txtleave_data'],true);
-		else:
-			$emp_leave_balance = $this->Leave_model->getleave($empid, $month, $yr);
-			$arrLeaveBalance = array();
-			foreach($emp_leave_balance as $leave_bal):
-				$arrLeaveBalance[] =  array('lb_detail' => $leave_bal,
-											'filed_leave' => array(
-													'filed_spe' => $this->Leave_model->filed_leave_others($empid,$month,$yr,'PL'),
-													'filed_force' => $this->Leave_model->filed_leave_others($empid,$month,$yr,'FL'),
-													'filed_study' => $this->Leave_model->filed_leave_others($empid,$month,$yr,'STL'),
-													'filed_pater'=> $this->Leave_model->filed_leave_others($empid,$month,$yr,'PTL'),
-													'filed_mater'=> $this->Leave_model->filed_leave_others($empid,$month,$yr,'MTL')));
-			endforeach;
-
-			$this->arrData['arrLeaveBalance'] = $arrLeaveBalance;
-			$arrLatestBalance = $this->Leave_model->getleave($empid);
-			$this->arrData['arrLatestBalance'] = count($arrLatestBalance) > 0 ? $arrLatestBalance[0] : array();
-
-			$curr_date = date('Y M', strtotime((count($arrLatestBalance) > 0 ? $arrLatestBalance[0]['periodYear'] : date('Y')).'-'.(count($arrLatestBalance) > 0 ? $arrLatestBalance[0]['periodMonth'] : date('m') )));
-			$next_date = date("Y M", strtotime("+1 month", strtotime($curr_date)));
-			$att_summary = $this->Attendance_summary_model->getemp_dtr($empid, (count($arrLatestBalance) > 0 ? $arrLatestBalance[0]['periodMonth']+1 : date('m')+1), date('Y',strtotime($next_date)));
-			
-			$this->arrData['att_summary'] = array('days_ut_late' => count($att_summary['total_days_late']) + count($att_summary['total_days_ut']),
-												  'mins_ut_late' => $att_summary['total_undertime'] + $att_summary['total_late'],
-												  'days_lwop'	 => $att_summary['total_days_lwop'],
-												  'days_presents'=> $att_summary['total_workingdays'] - count($att_summary['date_absents']),
-												  'date_absents' => count($att_summary['date_absents']));
-			$leave_data = array('dtr_summary' => $this->arrData['att_summary'], 'latest_leave' => count($arrLatestBalance) > 0 ? $arrLatestBalance[0] : array());
-		endif;
-
-		# data for update and for view
-		$leave_earned = $this->Leave_model->leave_earned($leave_data['dtr_summary']['date_absents']);
-		$vlfiled = $this->Leave_model->filed_vl($empid,$month,$yr);
-		$slfiled = $this->Leave_model->filed_sl($empid,$month,$yr);
-		$ut_late = $this->Leave_model->ltut_table_equiv($leave_data['dtr_summary']['mins_ut_late']);
-		$curr_sl = count($leave_data['latest_leave']) > 0 ? $leave_data['latest_leave']['slBalance'] + $leave_earned : 0;
-		$period_month = count($leave_data['latest_leave']) ? $leave_data['latest_leave']['periodMonth'] == 12 ? 1 : $leave_data['latest_leave']['periodMonth'] + 1 : currmo();
-		$period_yr = count($leave_data['latest_leave']) ? $leave_data['latest_leave']['periodMonth'] == 12 ? $leave_data['latest_leave']['periodYear'] + 1 : $leave_data['latest_leave']['periodYear'] : curryr();
-		$latest_vlBalance = count($leave_data['latest_leave']) > 0 ? $leave_data['latest_leave']['vlBalance'] : 0;
-		$latest_slBalance = count($leave_data['latest_leave']) > 0 ? $leave_data['latest_leave']['slBalance'] : 0;
-		$arrLeave_data = array('empNumber'		=> $empid,
-						 	   'periodMonth'	=> $period_month,
-						 	   'periodYear'		=> $period_yr,
-						 	   'vlEarned'		=> $leave_earned,
-						 	   'vlBalance'		=> ($latest_vlBalance + $leave_earned) - ($ut_late) - $vlfiled, # (vlbalance + leave_earned) - (late + undertime) - vlfiled
-						 	   'vlPreBalance'	=> $latest_vlBalance,
-						 	   'vlAbsUndWPay'	=> ($slfiled > $curr_sl) ? ($slfiled + $curr_sl) : $vlfiled + $ut_late,
-						 	   'vlAbsUndWoPay'	=> $leave_data['dtr_summary']['date_absents'],
-						 	   'slEarned'		=> $leave_earned,
-						 	   'slBalance'		=> ($slfiled > $curr_sl) ? 0 : ($curr_sl - $slfiled),
-						 	   'slPreBalance'	=> $latest_slBalance,
-						 	   'slAbsUndWPay'	=> ($slfiled > $curr_sl) ? 0 : $slfiled,
-						 	   'slAbsUndWoPay'	=> 0);
-		if(!empty($arrPost)):
-			$leave_data = json_decode($arrPost['txtleave_data'],true);
-			$this->Leave_model->addLeaveBalance($arrLeave_data);
-			$this->session->set_flashdata('strSuccessMsg','Leave balance updated successfully.');
-			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month=all&yr='.$yr);
-		else:
-			$arrLeaveBalance = array();
-			$arrLeaveBalance =  array('lb_detail' => $arrLeave_data,
-									  'filed_leave' => array(
-												'filed_spe' => $this->Leave_model->filed_leave_others($empid,$month,$yr,'PL'),
-												'filed_force' => $this->Leave_model->filed_leave_others($empid,$month,$yr,'FL'),
-												'filed_study' => $this->Leave_model->filed_leave_others($empid,$month,$yr,'STL'),
-												'filed_pater'=> $this->Leave_model->filed_leave_others($empid,$month,$yr,'PTL'),
-												'filed_mater'=> $this->Leave_model->filed_leave_others($empid,$month,$yr,'MTL')));
-			$this->arrData['arrLeave_data'] = $arrLeaveBalance;
-		endif;
-
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+
+		$arrLatestBalance = $this->Leave_model->getleave_balance($empid, 0,0);
+
+		# Leave Balance Info
+		$datefrom = date('Y-m').'-01';
+		$dateto = date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+		if(count($arrLatestBalance) > 0):
+			if($arrLatestBalance[0]['periodMonth'] < 12):
+				$periodYear = $arrLatestBalance[0]['periodYear'];
+				$periodMonth = sprintf('%02d',($arrLatestBalance[0]['periodMonth']+1));				
+			else:
+				$periodMonth = $arrLatestBalance[0]['periodYear'] + 1;
+				$periodYear = '01';
+			endif;
+			$datefrom = $periodYear.'-'.$periodMonth.'-01';
+			$dateto = $periodYear.'-'.$periodMonth.'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+		endif;
+
+		# BEGIN DTR
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+
+		$days_absent = array();
+		$days_awol = array();
+		$vl_left = 0;
+		$sl_left = 0;
+		$fl_left = 0;
+		$offset_balance = 0;
+		$total_undertime = 0;
+		$total_late = 0;
+		$total_ot_wkdays = 0;
+		$total_ot_holidays = 0;
+		$total_hrs_cto = 0;
+		$emp_hvl = 0;
+		$emp_hsl = 0;
+		$dates_ut_lates = 0;
+
+		$arr_subs_allowance = array();
+		$arr_work_hrs = array();
+
+		$total_perdiem = 0;
+		$total_wmeal = 0;
+
+		foreach($arremp_dtr as $dtr):
+			if($dtr['dtrdate'] <= date('Y-m-d')):
+				if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				    if(count($dtr['leaves']) > 0):
+				    	array_push($days_absent,$dtr['dtrdate']);
+				    else:
+				    	array_push($days_awol,$dtr['dtrdate']);
+				    endif;
+				endif;
+			endif;
+
+			# begin check meal for ob
+			if(count($dtr['obs']) > 0):
+				# weekends
+				if(in_array($dtr['day'],array('Sat','Sun'))):
+					# check if approve CTO
+					$dtr_day_data = $this->Dtr_model->getData($empid,0,0,$dtr['dtrdate'],$dtr['dtrdate']);
+					if(count($dtr_day_data) > 0):
+						if($dtr_day_data[0]['OT'] == 1):
+							$total_wmeal = $total_wmeal + count(array_filter(array_column($dtr['obs'],'obMeal'), function ($n) { return $n == 'Y'; }));
+						endif;
+					endif;
+				else:
+					# weekdays
+					foreach($dtr['obs'] as $ob):
+						if($ob['obMeal'] == 'Y'):
+							$total_wmeal = $total_wmeal + 1;
+						endif;
+					endforeach;
+				endif;
+			endif;
+			# end check meal for ob
+
+			# begin check meal and perdiem for to
+			if(count($dtr['tos']) > 0):
+				# weekends
+				if(in_array($dtr['day'],array('Sat','Sun'))):
+					# check if approve CTO
+					$dtr_day_data = $this->Dtr_model->getData($empid,0,0,$dtr['dtrdate'],$dtr['dtrdate']);
+					if(count($dtr_day_data) > 0):
+						if($dtr_day_data[0]['OT'] == 1):
+							$total_wmeal = $total_wmeal + count(array_filter(array_column($dtr['tos'],'wmeal'), function ($n) { return $n == 'Y'; }));
+							$total_perdiem = $total_perdiem + count(array_filter(array_column($dtr['tos'],'perdiem'), function ($n) { return $n == 'Y'; }));
+						endif;
+					endif;
+				else:
+					# weekdays
+					foreach($dtr['tos'] as $to):
+						if($to['wmeal'] == 'Y'):
+							$total_wmeal = $total_wmeal + 1;
+						endif;
+						if($to['perdiem'] == 'Y'):
+							$total_perdiem = $total_perdiem + 1;
+						endif;
+					endforeach;
+				endif;
+			endif;
+			# end check meal and perdiem for to
+
+			$total_undertime = $total_undertime + $dtr['utimes'];
+			$total_late = $total_late + $dtr['lates'];
+
+			if($dtr['utimes'] + $dtr['lates'] > 0):
+				$dates_ut_lates = $dates_ut_lates + 1; 
+			endif;
+			
+			# begin checking cto
+			if(!empty($dtr['dtr'])):
+				if(strtoupper($dtr['dtr']['remarks']) == 'CL'):
+					if($dtr['work_hrs'] > required_hrs($empid)):
+						$total_hrs_cto = $total_hrs_cto + required_hrs($empid);
+					else:
+						$total_hrs_cto = $total_hrs_cto + $dtr['work_hrs'];
+					endif;
+				endif;
+			endif;
+			# end checking cto
+
+			# begin checking overtime
+			if(in_array($dtr['day'],array('Sat','Sun')) || count($dtr['holiday_name']) > 0):
+				# weekends
+				if(!empty($dtr['dtr'])):
+					if($dtr['dtr']['OT'] == 1):
+						$total_ot_holidays = $total_ot_holidays + $dtr['ot'];
+					endif;
+				endif;
+			else:
+				# weekdays
+				if(!empty($dtr['dtr'])):
+					# subsistence allowance
+					array_push($arr_work_hrs,$dtr['work_hrs']);
+
+					if($dtr['dtr']['OT'] == 1):
+						$total_ot_wkdays = $total_ot_wkdays + $dtr['ot'];
+					endif;
+					# check half - leave
+					if($dtr['dtr']['remarks'] == 'HSL'):
+						$emp_hsl = $emp_hsl + 1;
+					endif;
+					if($dtr['dtr']['remarks'] == 'VSL'):
+						$emp_hvl = $emp_hvl + 1;
+					endif;
+				endif;
+			endif;
+			# end checking overtime
+			// print_r($dtr);
+			// echo '<hr>';
+		endforeach;
+		// die();
+		$arr_subs_allowance = compute_subsistence_allowance($arr_work_hrs);
+		
+		$ctr_force_leave = 0;
+		$ctr_spe_leave = 0;
+		$emp_leaves = $this->Leave_model->getleave($empid,$datefrom,$dateto);
+		foreach($emp_leaves as $empleave):
+			if($empleave['certifyHR'] == 'Y'):
+				switch ($empleave['leaveCode']):
+					case 'FL':
+						$ctr_force_leave = $ctr_force_leave + 1; break;
+					case 'PL':
+						$ctr_spe_leave = $ctr_spe_leave + 1; break;
+				endswitch;
+			endif;
+		endforeach;
+
+		$force_leave = $this->Leave_model->getleave_data('FL');
+		$force_leave = empty($force_leave) ? 0 : $force_leave['numOfDays'];
+		$total_force_leave = $force_leave - $ctr_force_leave;
+
+		$spe_leave = $this->Leave_model->getleave_data('PL');
+		$spe_leave = empty($spe_leave) ? 0 : $spe_leave['numOfDays'];
+		$total_spe_leave = $spe_leave - $ctr_spe_leave;
+		# END DTR
+
+		$arrLeaveBalance = array();
+		$arrLeaveBalance = $this->Leave_model->getleave_balance($empid, $month,$yr);
+
+		foreach($arrLeaveBalance as $key=>$lb):
+			$dfrom = implode('-',array($lb['periodYear'],sprintf('%02d',$lb['periodMonth']),'01'));
+			$dto   = implode('-',array($lb['periodYear'],sprintf('%02d',$lb['periodMonth']),cal_days_in_month(CAL_GREGORIAN,$lb['periodMonth'],$lb['periodYear'])));
+			$arrLeaveBalance[$key]['filed_stl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'STL');
+			$arrLeaveBalance[$key]['filed_mtl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'MTL');
+			$arrLeaveBalance[$key]['filed_ptl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PTL');
+			$arrLeaveBalance[$key]['filed_fl']  = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'FL');
+			$arrLeaveBalance[$key]['filed_spl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PL');
+
+			$arrLeaveBalance[$key]['off_bal_w'] = seconds_to_time($lb['off_bal']);
+			$arrLeaveBalance[$key]['off_gain_w'] = seconds_to_time($lb['off_gain']);
+			$arrLeaveBalance[$key]['off_used_w'] = seconds_to_time($lb['off_used']);
+			$arrLeaveBalance[$key]['process_by'] = employee_name($lb['processBy']);
+
+		endforeach;
+
+		$leave_earned = $this->Leave_model->leave_earned(count($days_absent));
+		$ut_late = $this->Leave_model->ltut_table_equiv($total_undertime + $total_late);
+		
+		$vl_abswpay = 0;
+		$vl_abswopay = 0;
+		
+		$curr_vl = 0;
+		$emp_vl = 0;
+		$trut_wopay = 0;
+		$vl_wopay = 0;
+		if(count($arrLatestBalance) > 0):
+			# Vacation Leave
+			$curr_vl = $arrLatestBalance[0]['vlBalance'] + $leave_earned;
+
+			$emp_vl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'VL');
+			$filed_vl = $emp_vl + $emp_hvl + $emp_hsl;
+
+			$deduct_vl = $this->Leave_model->ltut_table_equiv($total_undertime + $total_late);
+			$total_deduct_vl = count($days_absent) + $filed_vl + $deduct_vl;
+
+			if($total_deduct_vl > $curr_vl):
+				$vl_abswopay = $total_deduct_vl - $curr_vl;
+				$vl_abswpay = $total_deduct_vl - $vl_abswopay;
+				$curr_vl = 0;
+				$trut_wopay = $deduct_vl;
+				$vl_wopay = count($days_absent) + $filed_vl;
+			else:
+				$curr_vl = $curr_vl - $vl_abswpay;
+				$vl_abswpay = $total_deduct_vl;
+			endif;
+
+			$filed_sl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'SL');
+			$curr_sl = $arrLatestBalance[0]['slBalance'] + $leave_earned;
+
+			$exc_sl = 0;
+			$sl_abswopay = 0;
+			if($curr_sl < $filed_sl):
+				$exc_sl = $filed_sl - $curr_sl;
+				if($curr_vl > $exc_sl):
+					$vl_abswpay = $vl_abswpay + $exc_sl;
+					$curr_vl = $curr_vl - $exc_sl;
+				else:
+					$sl_abswopay = $exc_sl;
+				endif;
+			else:
+				$curr_sl = $curr_sl - $filed_sl;
+			endif;
+
+			$filed_stl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'STL');
+			$filed_mtl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'MTL');
+			$filed_ptl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'PTL');
+			$filed_fl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'FL');
+			$filed_spl = $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'PL');
+
+			$arrLatestBalance = array('lb' => $arrLatestBalance[0], 'vl_abswpay' => $vl_abswpay, 'vl_abswopay' => $vl_abswopay, 'sl_abswopay' => $sl_abswopay, 'filed_vl' => $filed_vl, 'filed_sl' => $filed_sl, 'filed_fl' => $filed_fl, 'filed_stl' => $filed_stl,'filed_mtl' => $filed_mtl,'filed_ptl' => $filed_ptl,'filed_spl' => $filed_spl, 'arr_subs_allowance' => $arr_subs_allowance, 'curr_sl' => $curr_sl, 'curr_vl' => $curr_vl, 'off_bal' => seconds_to_time($arrLatestBalance[0]['off_bal']), 'deduct_vl' => $deduct_vl, 'trut_wopay' => $trut_wopay, 'vl_wopay' => $vl_wopay);
+		else:
+			# NO LEAVE BALANCE
+		endif;
+
+		$this->arrData['arrLeaveBalance'] = $arrLeaveBalance;
+		$this->arrData['arrLatestBalance'] = $arrLatestBalance;
+
+		$total_late_ut = $total_late + $total_undertime;
+		$total_late_ut = $total_late_ut > 0 ? date('H:i', mktime(0, $total_late_ut)) : '00:00';
+		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+
+		$arrDataLeaves = $this->Leave_model->getleave($empid,$datefrom,$dateto);
+		$arrLeaves = array();
+		foreach($arrDataLeaves as $data_leave):
+			foreach(dateRange($data_leave['leaveFrom'],$data_leave['leaveTo']) as $leave_date):
+				if(!(in_array($leave_date,$holidays) || in_array(date('D',strtotime($leave_date)),array('Sat','Sun')))):
+					$arrLeaves[] = array_merge($data_leave,array('leavedate' => $leave_date));
+				endif;
+			endforeach;
+		endforeach;
+
+		$total_ot = $total_ot_wkdays + $total_ot_holidays;
+		$this->arrData['arrAttendance_summary'] = array('dates_ut_lates' => $dates_ut_lates, 'total_late_ut' => $total_late_ut,'days_awol' => count($days_awol),'days_absent' => count($days_absent), 'days_leave' => count($arrLeaves), 'working_days' => count(get_workingdays('','',$holidays,$datefrom,$dateto)), 'total_wmeal' => $total_wmeal, 'total_perdiem' => $total_perdiem, 'off_gain' => seconds_to_time($total_ot), 'total_hrs_cto' => seconds_to_time($total_hrs_cto));
+		// die();
 		$this->arrData['employeedata'] = $this->Hr_model->getEmployeePersonal($empid);
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
+	}
+
+	public function leave_balance_save()
+	{
+		$empid = $this->uri->segment(4);
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			$leave_data = json_decode($arrPost['txtleave_data'],true);
+			$arrLatestBalance = $leave_data['arrLatestBalance'];
+
+			$arrData = array('empNumber'	=> $empid,
+							 'trut_totalminutes' => $arrPost['txtlate_ut_hhmm'],
+							 'periodMonth'	=> $arrPost['txtperiodMonth'],
+							 'periodYear'	=> $arrPost['txtperiodYr'],
+							 'vlEarned'		=> $_ENV['leave_earned'],
+							 'vlBalance'	=> $arrPost['txtperiod_vl'],
+							 'vlPreBalance'	=> $arrPost['txtprev_vlbal'],
+							 'vlAbsUndWPay'	=> $arrPost['txtauwp_vl'],
+							 'vlAbsUndWoPay'=> $arrPost['txtauwop_vl'],
+							 'slEarned'		=> $_ENV['leave_earned'],
+							 'slBalance'	=> $arrPost['txtperiod_sl'],
+							 'slPreBalance'	=> $arrPost['txtprev_slbal'],
+							 'slAbsUndWPay'	=> $arrPost['txtauwp_sl'],
+							 'slAbsUndWoPay'=> 0,
+							 'nodays_awol'	=>$arrPost['txtdays_awol'],
+							 'nodays_present'=>$arrPost['txtdays_present'],
+							 'nodays_absent'=>$arrPost['txtdays_absent'],
+							 'off_bal' 		=> breakhhmm($arrPost['txtbalance']),
+							 'off_gain' 	=> breakhhmm($arrPost['txtgain']),
+							 'off_used' 	=> breakhhmm($arrPost['txtused']),
+							 'flBalance' 	=> $arrLatestBalance['lb']['flBalance'],
+							 'flPreBalance' => $arrLatestBalance['lb']['flPreBalance'],
+							 'plBalance' 	=> $arrLatestBalance['lb']['plBalance'],
+							 'plPreBalance' => $arrLatestBalance['lb']['plPreBalance'],
+							 'mtlBalance' 	=> $arrLatestBalance['lb']['mtlBalance'],
+							 'mtlPreBalance'=> $arrLatestBalance['lb']['mtlPreBalance'],
+							 'ptlBalance' 	=> $arrLatestBalance['lb']['ptlBalance'],
+							 'ptlPreBalance'=> $arrLatestBalance['lb']['ptlPreBalance'],
+							 'stlBalance' 	=> $arrLatestBalance['lb']['stlBalance'],
+							 'stlPreBalance'=> $arrLatestBalance['lb']['stlPreBalance'],
+							 'numOfPerdiem' => $arrPost['txtamt_training'],
+							 'ctr_8h' 		=> $arrPost['txtsubs_8hrs'],
+							 'ctr_6h' 		=> $arrPost['txtsubs_6hrs'],
+							 'ctr_5h' 		=> $arrPost['txtsubs_5hrs'],
+							 'ctr_4h' 		=> $arrPost['txtsubs_4hrs'],
+							 'ctr_wmeal' 	=> $arrPost['txtwith_meal'],
+							 'ctr_diem' 	=> $arrPost['txtamt_training']);
+
+			$this->Leave_model->addLeaveBalance($arrData);
+			$this->session->set_flashdata('strSuccessMsg','Leave balance updated successfully.');
+			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month='.ltrim($_GET['month'], '0').'&yr='.$_GET['yr']);
+		endif;
 	}
 
 	public function leave_balance_set()
@@ -238,9 +547,9 @@ class Attendance extends MY_Controller {
 							 'stlBalance' 		 => $arrPost['txtsdl_curr'],
 							 'mtlBalance' 		 => $arrPost['txtmtl_curr'],
 							 'ptlBalance' 		 => $arrPost['txtptl_curr'],
-							 'off_bal' 			 => $arrPost['txtbalance'],
-							 'off_gain' 		 => $arrPost['txtgain'],
-							 'off_used' 		 => $arrPost['txtused'],
+							 'off_bal' 			 => breakhhmm($arrPost['txtbalance']),
+							 'off_gain' 		 => breakhhmm($arrPost['txtgain']),
+							 'off_used' 		 => breakhhmm($arrPost['txtused']),
 							 'trut_notimes' 	 => $arrPost['txtlate_ut_days'],
 							 'trut_totalminutes' => $arrPost['txtlate_ut_hhmm'],
 							 'nodays_awol' 		 => $arrPost['txtdays_awol'],
@@ -274,36 +583,47 @@ class Attendance extends MY_Controller {
 	{
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
-		$arrLeaves = $this->Leave_model->getleave($empid);
+		$arrlatest_balance = $this->Leave_model->getLatestBalance($empid);
+
+		// $arrLeaves = $this->Leave_model->getleave($empid);
 		
 		$total_monetize = $this->Leave_monetization_model->getemp_total_monetized($empid, date('n'), date('Y'));
-
-		$sl_monetized = 0;
-		if(count($arrLeaves) > 0):
+		$sl_monetized = '0.0000';
+		$vl_monetized = '0.0000';
+		$datefrom = '';
+		$dateto = '';
+		if(count($arrlatest_balance) > 0):
 			if(count($total_monetize) > 0):
-				$sl_monetized = $arrLeaves[0]['slBalance'] - $total_monetize['slmonetize'];
-				$vl_monetized = $arrLeaves[0]['vlBalance'] - $total_monetize['vlmonetize'];
+				$sl_monetized = $arrlatest_balance['slBalance'] - $total_monetize['slmonetize'];
+				$vl_monetized = $arrlatest_balance['vlBalance'] - $total_monetize['vlmonetize'];
 			else:
-				$sl_monetized = $arrLeaves[0]['slBalance'];
-				$vl_monetized = $arrLeaves[0]['vlBalance'];
+				$sl_monetized = $arrlatest_balance['slBalance'];
+				$vl_monetized = $arrlatest_balance['vlBalance'];
 			endif;
-		else:
-			$sl_monetized = '0.0000';
-			$vl_monetized = '0.0000';
+
+			if($arrlatest_balance['periodMonth'] < 12):
+				$periodYear = $arrlatest_balance['periodYear'];
+				$periodMonth = sprintf('%02d',($arrlatest_balance['periodMonth']+1));				
+			else:
+				$periodMonth = $arrlatest_balance['periodYear'] + 1;
+				$periodYear = '01';
+			endif;
+			$datefrom = $periodYear.'-'.$periodMonth.'-01';
+			$dateto = $periodYear.'-'.$periodMonth.'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 		endif;
 
-		$approved_vl = count($arrLeaves) > 0 ? $this->Leave_model->approved_vl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1)) : 0;
-		$approved_sl = count($arrLeaves) > 0 ? $this->Leave_model->approved_sl($empid, $arrLeaves[0]['periodYear'], sprintf('%02d', $arrLeaves[0]['periodMonth']+1)) : 0;
+		$approved_vl = count($arrlatest_balance) > 0 ? $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'VL') : 0;
+		$approved_sl = count($arrlatest_balance) > 0 ? $this->Leave_model->approved_leave($empid,$datefrom,$dateto,'SL') : 0;
 		
 		$this->arrData['total_monetize'] = $total_monetize;
 		$this->arrData['sl_monetized'] = $sl_monetized;
 		$this->arrData['vl_monetized'] = $vl_monetized;
 		$this->arrData['sl_projected'] = $sl_monetized - $approved_sl;
 		$this->arrData['vl_projected'] = $vl_monetized - $approved_vl;
-		$this->arrData['arrLeaves'] = $arrLeaves;
+		$this->arrData['arrlatest_balance'] = $arrlatest_balance;
 		$this->arrData['arrMonetize'] = $this->Leave_monetization_model->getemp_monetized($empid, currmo(), curryr());
 		$this->arrData['arrData'] = $res[0];
-
+		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}
@@ -322,9 +642,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrmonetize'] = array_map(function($r){if(strtolower($r['requestCode']) == 'monetization'){ return $r;}}, $arremp_request);
 		$this->arrData['arrob'] = array_map(function($r){if(strtolower($r['requestCode']) == 'ob'){ return $r;}}, $arremp_request);
 		$this->arrData['arrto'] = array_map(function($r){if(strtolower($r['requestCode']) == 'to'){ return $r;}}, $arremp_request);
-		// $this->arrData['arrOb'] = ;
-		// $this->arrData['arrTo'] = ;
-		// die();
+		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
 	}
@@ -427,51 +745,74 @@ class Attendance extends MY_Controller {
 	# Begin Edit Mode
 	public function dtr_edit_mode()
 	{
+		$this->load->model('libraries/Holiday_model');
+
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+
+		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+
+		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		$this->arrData['working_days'] = get_workingdays('','',$holidays,$datefrom,$dateto);
+
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
 		
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$this->arrData['arremp_dtr'] = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
+		$this->arrData['arremp_dtr'] = $arremp_dtr;
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
 	public function dtr_edit()
 	{
-		$arrPost = $this->input->post();
+		// echo '<pre>';
+		$arrPost = $this->input->post();	
 		$dtr_json = json_decode($arrPost['txtjson'], true);
+
 		foreach($dtr_json as $dtr):
 			# check if row
 			if(count($dtr) > 0):
 				# check if body
 				if(count($dtr['tr']) > 6):
-					$dtrid = $dtr['tr'][1]['td'];
+					$dtr_details = json_decode($dtr['tr'][10]['td'], true);
+					$dtrid = $dtr_details[1];
 					$arrData = array('empNumber'	=> $arrPost['empnum'],
-									 'dtrDate'		=> $arrPost['yr'].'-'.$arrPost['month'].'-'.$dtr['tr'][2]['td'],
-									 'inAM' 		=> $dtr['tr'][3]['td'],
-									 'outAM' 		=> $dtr['tr'][4]['td'],
-									 'inPM' 		=> $dtr['tr'][5]['td'],
-									 'outPM' 		=> $dtr['tr'][6]['td'],
-									 'inOT' 		=> $dtr['tr'][7]['td'],
-									 'outOT' 		=> $dtr['tr'][8]['td'],
-									 // TODO:: OT field
-									 // 'OT' => $arrPost['empnum'],
-									 'name' 		=> $dtr['tr'][11]['td'].';'.$_SESSION['sessName'],
-									 'ip'			=> $dtr['tr'][12]['td'].';'.$this->input->ip_address(),
-									 'editdate'		=> $dtr['tr'][13]['td'].';'.date('Y-m-d h:i:s A'),
-									 'oldValue' 	=> $dtr['tr'][14]['td']);
+									 'dtrDate'		=> $dtr_details[0],
+									 'inAM' 		=> $dtr['tr'][2]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00',
+									 'outAM' 		=> $dtr['tr'][3]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00',
+									 'inPM' 		=> $dtr['tr'][4]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00',
+									 'outPM' 		=> $dtr['tr'][5]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00',
+									 'inOT' 		=> $dtr['tr'][6]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00',
+									 'outOT' 		=> $dtr['tr'][7]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00',
+									 'name' 		=> $dtr_details[2].';'.$_SESSION['sessName'],
+									 'ip'			=> $dtr_details[3].';'.$this->input->ip_address(),
+									 'editdate'		=> $dtr_details[4].';'.date('Y-m-d h:i:s A'),
+									 'oldValue' 	=> $dtr_details[5]);
+					# check timein validation
+					$valid_time = 0;
+					foreach(array($arrData['inAM'],$arrData['outAM'],$arrData['inPM'],$arrData['outPM'],$arrData['inOT'],$arrData['outOT']) as $vtime):
+						// echo '<br>'.$vtime;
+						if($vtime!='00:00:00'):
+							$valid_time = $valid_time + 1;
+						endif;
+					endforeach;
+					// echo $valid_time;
 					if($dtrid != ''):
 						$this->Attendance_summary_model->edit_dtr($arrData, $dtrid);
 					else:
-						$this->Attendance_summary_model->add_dtr($arrData);
+						if($valid_time > 0){
+							$this->Attendance_summary_model->add_dtr($arrData);
+						}
 					endif;
+					// echo '<hr>';
 				endif;
 			endif;
+			
 		endforeach;
+		// die();
 		$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
-		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrPost['empnum'].'?month='.$arrPost['month'].'&yr='.$arrPost['yr']);
+		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrPost['empnum'].'?datefrom='.$arrPost['datefrom'].'&dateto='.$arrPost['dateto']);
 	}
 	# End Edit Mode
 
@@ -631,11 +972,37 @@ class Attendance extends MY_Controller {
 	public function dtr_leave()
 	{
 		$empid = $this->uri->segment(5);
+
+		if(isset($_GET['month'])):
+			if($_GET['month'] == 'all'){
+				$datefrom = curryr().'-01-01';
+				$dateto = date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y'));
+			}else{
+				$datefrom = curryr().'-'.currmo().'-01';
+				$dateto = curryr().'-'.currmo().'-'.cal_days_in_month(CAL_GREGORIAN, ltrim(currmo(), '0'), curryr()-1);
+			}
+		else:
+			$datefrom = date('Y-m').'-01';
+			$dateto = date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y'));
+		endif;
+		
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$this->arrData['arrLeaves'] = $this->Attendance_summary_model->getleaves($empid);
+		$this->arrData['arrLeaves'] = $this->Leave_model->getleave($empid,$datefrom,$dateto);
+		$arrLeaveBalance = $this->Leave_model->getLatestBalance($empid);
+		
+		$dfrom = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),'01'));
+		$dto   = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),cal_days_in_month(CAL_GREGORIAN,$arrLeaveBalance['periodMonth'],$arrLeaveBalance['periodYear'])));
+		$arrLeaveBalance['filed_vl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'VL');
+		$arrLeaveBalance['filed_sl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'SL');
+		$arrLeaveBalance['filed_stl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'STL');
+		$arrLeaveBalance['filed_mtl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'MTL');
+		$arrLeaveBalance['filed_ptl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PTL');
+		$arrLeaveBalance['filed_fl']  = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'FL');
+		$arrLeaveBalance['filed_spl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PL');
 
+		$this->arrData['arrLeaveBalance'] = $arrLeaveBalance;
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
@@ -746,7 +1113,10 @@ class Attendance extends MY_Controller {
 	public function dtr_add_compensatory_leave()
 	{
 		$empid = $this->uri->segment(5);
-
+		$this->load->model(array('employee/Compensatory_leave_model','libraries/Attendance_scheme_model'));
+		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
+		$total_ot = $this->Compensatory_leave_model->get_all_overtime($empid);
+		
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			# HR Account
@@ -761,17 +1131,37 @@ class Attendance extends MY_Controller {
 				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
 				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
 				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
-			if(count($dtrEntry) > 0):
-				$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
-			else:
-				$arrData['dtrDate'] = $arrPost['txtcompen_date'];
-				$this->Attendance_summary_model->add_dtr($arrData);
-			endif;
+			// echo '<pre>';
+			
+			// die();
+			// $arrData_cto=array(
+			// 	'empNumber' => $empid,
+			// 	'cto_date'  => $arrPost['txtcompen_date'],
+			// 	'cto_timefrom'=> $arrPost['txtcl_am_timefrom'],
+			// 	'outAM'		=> $arrPost['txtcl_am_timeto'],
+			// 	'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
+			// 	'outPM' 	=> $arrPost['txtcl_pm_timeto'],
+			// 	'remarks'	=> 'CL',
+			// 	'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
+			// 	'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
+			// 	'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
 
-			$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
-			redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
+			$total_hrs = $this->Attendance_summary_model->compute_working_hours($att_scheme,$arrData);
+			if($total_ot >= $total_hrs):
+				if(count($dtrEntry) > 0):
+					$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+					$this->Compensatory_leave_model->add_cto($arrData_cto);
+				else:
+					$arrData['dtrDate'] = $arrPost['txtcompen_date'];
+					$this->Attendance_summary_model->add_dtr($arrData);
+				endif;
+				$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
+				redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
+			else:
+				$this->session->set_flashdata('strErrorMsg','Time is greater than CTO Time.');
+			endif;
 		endif;
-		
+		$this->arrData['total_ot'] = $total_ot;
 		$this->load->model('libraries/Leave_type_model');
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
@@ -984,14 +1374,27 @@ class Attendance extends MY_Controller {
 
 	public function dtr_certify_offset()
 	{
+		// echo '<pre>';
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
-		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
+		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+		$arrots = array();
+		foreach($arremp_dtr as $dtr):
+			if($dtr['ot'] > 0):
+				array_push($arrots,$dtr);
+			endif;
+			// print_r($dtr);
+			// echo '<hr>';
+		endforeach;
+		$this->arrData['arrots'] = $arrots;
+		
+
+		// die();
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 

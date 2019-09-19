@@ -1,12 +1,11 @@
 $(document).ready(function() {
-    $('#selemps').multiSelect({});
+    $('#selemps').multiSelect({ selectableOptgroup: true });
     $('.selper').select2({
         placeholder: "",
         allowClear: true
     });
 
     all_employees = $.parseJSON($('#json_employee').val());
-    
     // hide all the group
     if($('#spnaction').text().toLowerCase() == 'add'){
         $(".div-group,.div-group1,.div-group2,.div-group3,.div-group4,.div-group5").hide();
@@ -62,31 +61,36 @@ $(document).ready(function() {
         if(selgroup1 == 0 && selgroup2 == 0 && selgroup3 == 0 && selgroup4 == 0 && selgroup5 == 0){
             arrgrp_emp = all_employees;
         }
-        console.log(arrgrp_emp);
 
         var apptcode = $('#selappt').val();
+        
         if(apptcode!=0){
             $.each(arrgrp_emp, $.proxy(function(i, emp) {
+                // console.log(emp.appointmentCode);
                 if(emp.appointmentCode == apptcode){
                     arrappt_emp.push(emp);
                 }
             }, this));
         }else{ arrappt_emp = arrgrp_emp; }
         
-        console.log(arrappt_emp);
+        // console.log(arrappt_emp);
         edit_emp = $.parseJSON($('#txtemp_ob').val());
         console.log(edit_emp);
         $('#selemps').multiSelect('destroy').empty();
+        var selemps_data_b = '<optgroup label="SELECT ALL">';
         $.each(arrappt_emp, $.proxy(function(i, emp) {
             e_name = emp.surname + ', ' + emp.firstname + ' ' + emp.middleInitial + '.';
             selected = '';
             if($.inArray(emp.empNumber, edit_emp) !== -1){
                 selected = 'selected';
-                console.log(emp.empNumber);
+                console.log(emp);
             }
-            $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
+            // $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
+            selemps_data_b = selemps_data_b + '<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>';
         }, this));
-        $('#selemps').multiSelect({});
+        $('#selemps').append(selemps_data_b + '</optgroup>');
+        $('#selemps').multiSelect({ selectableOptgroup: true });
+        console.log(selemps_data_b);
     }
 
     $('#seltype').change(function() {
@@ -204,6 +208,7 @@ $(document).ready(function() {
 
         $('#selemps').multiSelect('destroy').empty();
         if($('#spnaction').text().toLowerCase() == 'edit'){ edit_emp = $.parseJSON($('#txtemp_ob').val()); }
+        var selemps_data = '<optgroup label="SELECT ALL">';
         $.each(arrappt_emp, $.proxy(function(i, emp) {
             e_name = emp.surname + ', ' + emp.firstname + ' ' + emp.middleInitial + '.';
             selected = '';
@@ -212,9 +217,11 @@ $(document).ready(function() {
                     selected = 'selected';
                 }
             }
-            $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
+            // $('#selemps').append('<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>');
+            selemps_data = selemps_data + '<option value="'+ emp.empNumber +'" '+selected+'>'+ e_name +'</option>';
         }, this));
-        $('#selemps').multiSelect({});
+        $('#selemps').append(selemps_data + '</optgroup>');
+        $('#selemps').multiSelect({ selectableOptgroup: true });
 
         $('#txtoffice').val(officename);
     });

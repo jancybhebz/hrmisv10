@@ -213,12 +213,15 @@ class Request_model extends CI_Model {
 
 	function getEmpFiledRequest($empNumber,$arrcode=null)
 	{
+		$smonth = currmo() == 'all' ? '01' : currmo();
+		$emonth = currmo() == 'all' ? '12' : currmo();
 		$this->db->order_by('requestDate', 'desc');
 		$this->db->where('empNumber', $empNumber);
 		$this->db->where_in('requestCode', $arrcode);
-		$this->db->where('(requestDate >= \''.curryr().'-'.currmo().'-01\' and requestDate <= LAST_DAY(\''.curryr().'-'.currmo().'-01\'))');
+		$this->db->where('(requestDate >= \''.curryr().'-'.$smonth.'-01\' and requestDate <= LAST_DAY(\''.curryr().'-'.$emonth.'-01\'))');
 		// $this->db->where('requestStatus!=','Cancelled');
-		return $this->db->get_where('tblEmpRequest')->result_array();
+		$res = $this->db->get_where('tblEmpRequest')->result_array();
+		return $res;
 	}
 
 	function request_type()

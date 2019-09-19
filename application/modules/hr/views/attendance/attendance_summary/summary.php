@@ -1,4 +1,4 @@
-<?php load_plugin('css',array('select'));
+<?php load_plugin('css',array('select','datepicker'));
       if($_SESSION['sessUserLevel'] != 1):?>
         <style> ul.nav.nav-tabs { display: none;} .tab-content { border-top: none !important;} </style>
 <?php endif;
@@ -6,7 +6,28 @@
     $tab = $this->uri->segment(4);
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+
+    $datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m').'-01';
+    $dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+
+    $show_monyr = 0;
+    $show_dates = 0;
+    switch ($this_page):
+        case 'dtr':
+            if(in_array($this->uri->segment(4), array($arrData['empNumber'],'certify_offset'))):
+                $show_monyr = 0; $show_dates = 1;
+            elseif(in_array($this->uri->segment(4), array('leave'))):
+                $show_monyr = 1; $show_dates = 0;
+            else:
+                $show_monyr = 0; $show_dates = 0;
+            endif;
+            break;
+        case 'leave_balance_update':
+        case 'leave_balance':
+        case 'filed_request': $show_monyr = 1; $show_dates = 0; break;          
+    endswitch;
 ?>
+
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -31,11 +52,13 @@
             endswitch;
 
             foreach($breadcrumbs as $key => $bc):
-                echo '<li><span>'.$bc.'</span>';
-                if($key != count($breadcrumbs)-1):
-                    echo '<i class="fa fa-circle"></i>';
-                endif;    
-                echo '</li>';
+                if($bc != 'index'):
+                    echo '<li><span>'.$bc.'</span>';
+                    if($key != count($breadcrumbs)-1):
+                        echo '<i class="fa fa-circle"></i>';
+                    endif;    
+                    echo '</li>';
+                endif;
             endforeach;
          ?>
     </ul>
@@ -61,15 +84,15 @@
                             <div class="tabbable-line tabbable-full-width col-md-12">
                                 <ul class="nav nav-tabs">
                                     <li class="<?=$this_page == 'index' ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                        <a href="<?=base_url('hr/attendance_summary/index/').$arrData['empNumber']?>">
                                             Attendance Summary </a>
                                     </li>
                                     <li <?=$arrData['appointmentCode']!='P' ? 'style="display: none;"' :''?> class="<?=in_array($this_page, array('leave_balance','leave_balance_update','leave_balance_set')) ? 'active' : ''?>">
                                         <?php if(check_module() == 'hr'): ?>
-                                            <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            <a href="<?=base_url('hr/attendance_summary/leave_balance_update/').$arrData['empNumber'].'?month='.date('m').'&yr='.date('Y')?>">
                                                 Leave Balance </a>
                                         <?php else: ?>
-                                            <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>">
+                                            <a href="<?=base_url('hr/attendance_summary/leave_balance/').$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">
                                                 Leave Balance </a>
                                         <?php endif; ?>
                                     </li>
@@ -82,7 +105,7 @@
                                             Filed Request </a>
                                     </li>
                                     <li class="<?=($this_page == 'dtr') ? 'active' : ''?>">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?month='.($month == 'all' ? date('m') : $month).'&yr='.$yr?>">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto?>">
                                             Daily Time Record </a>
                                     </li>
                                     <li class="<?=$this_page == 'qr_code' ? 'active' : ''?>">
@@ -91,98 +114,15 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <!-- BEGIN OFFICER / EXECUTIVE MODULE -->
-
-                                    <?php if(in_array(check_module(),array('officer','executive'))): ?>
-                                    <div class="col-md-12">
-                                        <div class="col-md-2">
-                                            <ul class="list-unstyled profile-nav">
-                                                <li>
-                                                    <?php  $strImageUrl = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
-                                                      if(file_exists($strImageUrl))
-                                                        { 
-                                                            $strImage = $strImageUrl;
-                                                        } 
-                                                        else 
-                                                        {
-                                                          $strImage = base_url('assets/images/logo.png');
-                                                        }   
-                                                        // $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
-                                                    <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- begin 201 profile -->
-                                        <?php $view_officer = isset($_GET['mode']) ? $_GET['mode'] == 'officer' ? 0 : 1 : 1; ?>
-                                        <?php if($view_officer): ?>
-                                        <div class="col-md-9">
-                                            <div class="row">
-                                                <div class="col-md-9 profile-info">
-                                                    <h1 class="font-green sbold uppercase"><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'])?></h1>
-                                                    <div class="row">
-                                                        <table class="table table-bordered table-striped">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td width="25%"><b>Employee Number</b></td>
-                                                                    <td width="25%"><?=$arrData['empNumber']?></td>
-                                                                    <td width="25%"><b>Employment Status</b></td>
-                                                                    <td width="25%"><?=$arrData['statusOfAppointment']?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><b>Position </b></td>
-                                                                    <td><?=$arrData['positionDesc']?></td>
-                                                                    <td><b>Appointment </b></td>
-                                                                    <td><?=$arrData['appointmentDesc']?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><b>Office</b></td>
-                                                                    <td colspan="3"><?=office_name(employee_office($arrData['empNumber']))?></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="portlet sale-summary">
-                                                        <div class="portlet-title">
-                                                            <div class="caption font-red sbold"> DTR </div>
-                                                        </div>
-                                                        <div class="portlet-body">
-                                                            <ul class="list-unstyled" style="line-height: 15px;">
-                                                                <li>
-                                                                    <span class="sale-info"> LOG IN </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inAM'])) : '00:00'?></span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="sale-info"> BREAK OUT </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outAM'])) : '00:00'?></span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="sale-info"> BREAK IN </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inPM'])) : '00:00'?></span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="sale-info"> LOG OUT </span>
-                                                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outPM'])) : '00:00'?></span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php endif; ?>
-                                    </div>
-                                    <?php endif; ?>
-                                    <!-- END OFFICER / EXECUTIVE MODULE -->
-                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=($this_page == 'dtr' && !(preg_match('#[0-9]#',$tab))) || in_array($this_page,array('qr_code','index','leave_monetization')) ? 'hidden' : ''?>>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$show_monyr?'':'hidden'?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
                                                 <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
+                                                <input type="hidden" name="tab" id="txttab" value="<?=isset($_GET['tab']) ? $_GET['tab'] : ''?>">
                                                 <div class="form-group" style="display: inline-flex;">
                                                     <label style="padding: 6px;">Month</label>
                                                     <select class="bs-select form-control" name="month">
-                                                        <?php if($this_page!='dtr'): ?>
+                                                        <?php if($this_page!='dtr' || ($this_page=='dtr' && $this->uri->segment(4) == 'leave')): ?>
                                                             <option value="all">All</option>
                                                         <?php endif; ?>
                                                         <?php foreach (range(1, 12) as $m): ?>
@@ -214,6 +154,25 @@
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
+                                                <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
+                                            <?=form_close()?>
+                                        </center>
+                                    </div>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$show_dates?'':'hidden'?>>
+                                        <center>
+                                            <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                                                <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
+                                                <div class="form-group" style="display: inline-flex;">
+                                                    <label style="padding: 6px;">Date From</label>
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="datefrom" type="text" style="width: 140px !important;"
+                                                            value="<?=$datefrom?>">
+                                                </div>
+                                                <div class="form-group" style="display: inline-flex;margin-left: 10px;">
+                                                    <label style="padding: 6px;">Date To</label>
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="dateto" type="text" style="width: 140px !important;"
+                                                            value="<?=$dateto?>">
+                                                </div>
+                                                &nbsp;
                                                 <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
                                             <?=form_close()?>
                                         </center>
@@ -319,10 +278,15 @@
     </div>
 </div>
 
-<?php load_plugin('js',array('select'));?>
+<?php load_plugin('js',array('select','datepicker'));?>
 <script>
     $(document).ready(function() {
         $('.loading-image, #div_hide').hide();
         $('#employee_view').show();
+
+        $('.date-picker').datepicker();
+        $('.date-picker').on('changeDate', function(){
+            $(this).datepicker('hide');
+        });
     });
 </script>

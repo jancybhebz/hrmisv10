@@ -40,7 +40,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 div-group" <?=isset($arrexecdtr_data) ? $arrexecdtr_data['excdtr']['office_type'] == 'AllEmployees' ? 'hidden' : '' : ''?>>
+                            <div class="col-md-4 div-group" <?=isset($arrexecdtr_data) ? $arrexecdtr_data['excdtr']['office_type'] == '' || $arrexecdtr_data['excdtr']['office_type'] == 'AllEmployees' ? 'hidden' : '' : ''?>>
                                 <div class="form-group div-group1" <?=$_ENV['Group1']!=''? isset($arrexecdtr_data) ? $arrexecdtr_data['excdtr']['office_type'] == 1 ? '' : 'hidden' : 'hidden' : 'hidden'?>>
                                     <label class="control-label">Select <?=ucfirst($_ENV['Group1'])?> <span class="required"> * </span></label>
                                     <select class="select2 form-control selper" name="selgroup1" id="selgroup1">
@@ -129,6 +129,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Employees <span class="required"> * </span></label>
                                     <select multiple="multiple" class="multi-select form-control" id="selemps" name="selemps[]">
+                                        <optgroup label="SELECT ALL">
                                         <?php
                                             foreach($arrEmployees as $emp):
                                                 $selected = isset($arrexecdtr_data) ? in_array($emp['empNumber'], array_column($arrexecdtr_data['emps'],'empNumber')) ? 'selected' : '' : '';
@@ -140,6 +141,7 @@
                                                               data-appt="'.$emp['appointmentCode'].'" '.$selected.' value="'.$emp['empNumber'].'">'.
                                                         getfullname($emp['firstname'],$emp['surname'],$emp['middlename'],$emp['middleInitial'],$emp['nameExtension']).'</option>';
                                             endforeach; ?>
+                                        </optgroup>
                                     </select>
                                 </div>
                             </div>
@@ -155,7 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                        <textarea id="txtemp_ob" name="txtemp_ob" hidden><?=isset($arrexecdtr_data) ? json_encode(array_column($arrexecdtr_data['emps'], 'empNumber')) : ''?></textarea>
+                        <textarea hidden id="txtemp_ob" name="txtemp_ob"><?=isset($arrexecdtr_data) ? json_encode(array_column($arrexecdtr_data['emps'], 'empNumber')) : ''?></textarea>
                         <?=form_close()?>
                     </div>
                 </div>

@@ -13,7 +13,11 @@ class Pds extends MY_Controller
 
 	public function index()
 	{
-		$this->arrData['arrEmployees'] = $this->Hr_model->getData('','','all');
+		$employees = $this->Hr_model->getData('','','all');
+		$this->arrData['arrEmployees'] = $employees;
+		$status = array_unique(array_column($employees, 'statusOfAppointment'));
+		asort($status);
+		$this->arrData['arrStatus'] = $status;
 		$this->template->load('template/template_view','pds/default_view',$this->arrData);
 	}
 
@@ -40,6 +44,7 @@ class Pds extends MY_Controller
 			$strSex=$arrPost['strSex'];
 			$strCvlStatus=$arrPost['strCvlStatus'];
 			$strCitizenship=$arrPost['strCitizenship'];
+			
 			$strHeight=$arrPost['strHeight'];
 			$strWeight=$arrPost['strWeight'];
 			$strBloodType=$arrPost['strBloodType'];
@@ -215,13 +220,12 @@ class Pds extends MY_Controller
 
 	public function delete_child()
     {
-
     	$arrPost = $this->input->post();
     	$empid = $this->uri->segment(3);
 
 		if(!empty($arrPost))
 		{
-			$this->pds_model->delete_child($arrPost['txtdelcode']);
+			$this->pds_model->delete_child($arrPost['txtdelchild']);
 
 			$this->session->set_flashdata('strSuccessMsg','Child information deleted successfully.');
 			redirect('hr/profile/'.$empid);
@@ -317,26 +321,50 @@ class Pds extends MY_Controller
 		endif;
 	}
 
-	public function edit_exam()
-	{
-		$empid = $this->uri->segment(3);
-		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
-			$arrData = array(
-				'examCode'		=> $arrPost['exam_desc'],
-				'examDate'		=> $arrPost['txtdate_exam'],
-				'examRating'	=> $arrPost['txtrating'],
-				'examPlace'		=> $arrPost['txtplace_exam'],
-				'licenseNumber' => $arrPost['txtlicense'],
-				'dateRelease'	=> $arrPost['txtvalidity'],
-				'verifier'		=> $arrPost['txtverifier'],
-				'reviewer'		=> $arrPost['txtreviewer']);
+	// public function edit_exam()
+	// {
+	// 	$empid = $this->uri->segment(3);
+	// 	$arrPost = $this->input->post();
+	// 	if(!empty($arrPost)):
+	// 		$arrData = array(
+	// 			'examCode'		=> $arrPost['exam_desc'],
+	// 			'examDate'		=> $arrPost['txtdate_exam'],
+	// 			'examRating'	=> $arrPost['txtrating'],
+	// 			'examPlace'		=> $arrPost['txtplace_exam'],
+	// 			'licenseNumber' => $arrPost['txtlicense'],
+	// 			'dateRelease'	=> $arrPost['txtvalidity'],
+	// 			'verifier'		=> $arrPost['txtverifier'],
+	// 			'reviewer'		=> $arrPost['txtreviewer']);
 
-			$this->pds_model->save_exam($arrData, $arrPost['txtexamid']);
+	// 		$this->pds_model->save_exam($arrData, $arrPost['txtexamid']);
+	// 		$this->session->set_flashdata('strSuccessMsg','Eligibility information updated successfully.');
+
+	// 		redirect('hr/profile/'.$empid);
+	// 	endif;
+	// }
+	public function edit_exam()
+    {
+    	$empid = $this->uri->segment(3);
+    	$arrPost = $this->input->post();
+
+		if(!empty($arrPost))
+		{
+			$arrData = array(
+							'examCode'		=> $arrPost['exam_desc'],
+							'examDate'		=> $arrPost['txtdate_exam'],
+							'examRating'	=> $arrPost['txtrating'],
+							'examPlace'		=> $arrPost['txtplace_exam'],
+							'licenseNumber' => $arrPost['txtlicense'],
+							'dateRelease'	=> $arrPost['txtvalidity'],
+							'verifier'		=> $arrPost['txtverifier'],
+							'reviewer'		=> $arrPost['txtreviewer']);
+
+			$this->pds_model->save_exam($arrData,$arrPost['txtexamid']);
+			// log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$arrPost['txtfatherLname'].' Personal',implode(';',$arrData),'');
 			$this->session->set_flashdata('strSuccessMsg','Eligibility information updated successfully.');
 
 			redirect('hr/profile/'.$empid);
-		endif;
+		}
 	}
 
 	public function delete_exam()
@@ -516,11 +544,36 @@ class Pds extends MY_Controller
 		endif;
 	}
 
+	// public function edit_training()
+	// {
+	// 	$empid = $this->uri->segment(3);
+	// 	$arrPost = $this->input->post();
+	// 	if(!empty($arrPost)):
+	// 		$arrData = array(
+	// 						'trainingTitle'		  => $arrPost['txttra_name'],
+	// 						'trainingContractDate'=> $arrPost['txttra_contract'],
+	// 						'trainingStartDate'	  => $arrPost['txttra_sdate'],
+	// 						'trainingEndDate'	  => $arrPost['txttra_edate'],
+	// 						'trainingHours'		  => $arrPost['txttra_hrs'],
+	// 						'trainingTypeofLD'	  => $arrPost['seltra_typeld'],
+	// 						'trainingConductedBy' => $arrPost['txttra_sponsored'],
+	// 						'trainingVenue'		  => $arrPost['txttra_venue'],
+	// 						'trainingCost'		  => $arrPost['txttra_cost'],
+	// 						'trainingDesc'		  => $arrPost['txttra_name']); # Same as training title
+
+	// 		$this->pds_model->save_training($arrData, $arrPost['txttraid']);
+	// 		$this->session->set_flashdata('strSuccessMsg','Training updated successfully.');
+	// 		redirect('hr/profile/'.$empid);
+	// 	endif;	
+	// }
+
 	public function edit_training()
-	{
-		$empid = $this->uri->segment(3);
-		$arrPost = $this->input->post();
-		if(!empty($arrPost)):
+    {
+    	$empid = $this->uri->segment(3);
+    	$arrPost = $this->input->post();
+
+		if(!empty($arrPost))
+		{
 			$arrData = array(
 							'trainingTitle'		  => $arrPost['txttra_name'],
 							'trainingContractDate'=> $arrPost['txttra_contract'],
@@ -530,13 +583,14 @@ class Pds extends MY_Controller
 							'trainingTypeofLD'	  => $arrPost['seltra_typeld'],
 							'trainingConductedBy' => $arrPost['txttra_sponsored'],
 							'trainingVenue'		  => $arrPost['txttra_venue'],
-							'trainingCost'		  => $arrPost['txttra_cost'],
-							'trainingDesc'		  => $arrPost['txttra_name']); # Same as training title
-
+							'trainingCost'		  => $arrPost['txttra_cost'], 
+							'trainingDesc'		  => $arrPost['txttra_name']); 
+			
 			$this->pds_model->save_training($arrData, $arrPost['txttraid']);
 			$this->session->set_flashdata('strSuccessMsg','Training updated successfully.');
+
 			redirect('hr/profile/'.$empid);
-		endif;	
+		}
 	}
 
 	public function del_training()
@@ -1111,11 +1165,10 @@ class Pds extends MY_Controller
 		else
 		{
 			$data = $this->upload->data();
+			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			//rename($data['full_path'],$data['file_path'].$idTraining.$data['file_ext']);
 			// print_r($data);
 			// exit(1);
-			
-			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			
 		}
 		// print_r($error);

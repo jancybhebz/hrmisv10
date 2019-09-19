@@ -47,10 +47,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblemployees"  style="display: none">
                     <thead>
                         <tr>
-                            <th> No. </th>
+                            <th style="width: 75px;"> No. </th>
                             <th> Name of Celebrator </th>
                             <th> Office </th>
-                            <th> Day of Birth </th>
+                            <th style="width: 120px;text-align: center;"> Day of Birth </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,7 +59,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <td> <?=$i++?> </td>
                                 <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'?> </td>
                                 <td> <?=employee_office($row['empNumber'])?> </td>
-                                <td> <?=date('j',strtotime($row['birthday']))?></td>
+                                <td align="center"> <?=date('j',strtotime($row['birthday']))?></td>
                             </tr>
                         <?php endforeach;?>
                     </tbody>

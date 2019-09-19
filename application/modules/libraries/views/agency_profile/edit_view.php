@@ -7,7 +7,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css',array('datepicker','timepicker'));?>
+<?=load_plugin('css',array('timepicker'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -138,9 +138,36 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Expiration of CTO </label>
-                            <div class="col-md-9">
-                                <input class="form-control form-control-inline input-medium date-picker" name="intExpryOT" id="intExpryOT" autocomplete="off" size="16" type="text" value="<?=!empty($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>" data-date-format="yyyy-mm-dd">
+                            <label class="col-md-2 control-label">Expiration of CTO (Month / Year)</label>
+                            <div class="col-md-1">
+                                <!-- <input class="form-control form-control-inline input-medium date-picker" name="intExpryOT" id="intExpryOT" autocomplete="off" size="16" type="text" value="<?=!empty($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>" 
+                                data-date-format="yyyy-mm-dd"> -->
+                                    <select class="bs-select form-control" name="dtmExpMon" id="dtmExpMon" >
+                                        <?php foreach (range(1, 12) as $m): ?>
+                                            <option value="<?=sprintf('%02d', $m)?>"
+                                                <?php 
+                                                    if(isset($_GET['month'])):
+                                                        echo $_GET['month'] == $m ? 'selected' : '';
+                                                    else:
+                                                        echo $m == sprintf('%02d', date('m')) ? 'selected' : '';
+                                                    endif;
+                                                 ?> >
+                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                            </div>
+                             <div class="col-md-1">
+                                <!-- <input class="form-control form-control-inline input-medium date-picker" name="intExpryOT" id="intExpryOT" autocomplete="off" size="16" type="text" value="<?=!empty($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>" 
+                                data-date-format="yyyy-mm-dd"> -->
+                                    <?php
+                                        $already_selected_value = date("Y");
+                                        $earliest_year = 2003;
+
+                                        print '<select name="dtmExpYr" id="dtmExpYr" class="form-control bs-select form-required">';
+                                        foreach (range(date('Y'), $earliest_year) as $x) {
+                                            print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
+                                        }
+                                        print '</select>'; ?>
                             </div>
                         </div>
 
@@ -287,8 +314,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('validation','datepicker','timepicker'));?>
-<script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+<?php load_plugin('js',array('validation','timepicker'));?>
 
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 

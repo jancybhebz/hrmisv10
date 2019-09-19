@@ -51,11 +51,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 ?>
                        <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
                             <i class="fa"></i>
-                            <div><label>Vacation Leave left: <?=$arrBalance[0]['vlBalance']?></label></div>
-                            <div><label>Sick Leave left: <?=$arrBalance[0]['slBalance']?></label></div>
-                            <div><label>Special Leave left: <?=$arrBalance[0]['plBalance']?></label></div>
-                            <div><label>Forced Leave left: <?=$arrBalance[0]['flBalance']?></label></div>
-                            <div><label>Maternity Leave left: <?=$arrBalance[0]['mtlBalance']?></label></div>
+                            <div><label>Vacation Leave left: <?=$arrBalance['vlBalance']?></label></div>
+                            <div><label>Sick Leave left: <?=$arrBalance['slBalance']?></label></div>
+                            <div><label>Special Leave left: <?=$arrBalance['plBalance']?></label></div>
+                            <div><label>Forced Leave left: <?=$arrBalance['flBalance']?></label></div>
+                            <div><label>Maternity Leave left: <?=$arrBalance['mtlBalance']?></label></div>
                     </div>
                 </div>
             </div><br>
@@ -160,7 +160,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Authorized Official (2nd Signatory) :</label>
-                            <!-- <select type="text" class="form-control select2 form-required" name="strEmpName2" value="<?=!empty($this->session->userdata('strEmpName2'))?$this->session->userdata('strEmpName2'):''?>" > -->
                             <select name="str2ndSignatory" id="str2ndSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>" >
                                     <option value="">-- SELECT SIGNATORY--</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>

@@ -1,3 +1,14 @@
+i.fa.tooltips.overflow {
+    position: relative;
+    left: 316px;
+    top: -25px;
+    z-index: 300;
+}
+
+i.fa.fa-check-square.certified_ot {
+    color: #26c281;
+}
+
 a.nav-link.nav-toggle {
     color: #fff !important;
 }

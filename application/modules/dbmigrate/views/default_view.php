@@ -12,6 +12,10 @@
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
+
+        <link href="<?=base_url('assets/global/plugins/uniform/css/uniform.default.css')?>" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')?>" rel="stylesheet" type="text/css" />
+
         <link href="<?=base_url('assets/css/fonts.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/plugins/font-awesome/css/font-awesome.min.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/plugins/simple-line-icons/simple-line-icons.min.css')?>" rel="stylesheet" type="text/css" />
@@ -88,20 +92,47 @@
                                         <div class="portlet-body form">
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label>Host</label>
-                                                    <input type="text" id="txthost" class="form-control" autocomplete="off" value="<?=$_ENV['DB_HOST']?>">
+                                                    <label class="control-label">Host <span class="required">*</span></label>
+                                                    <div class="input-icon right">
+                                                        <i class="fa fa-warning tooltips" data-original-title="Please provide a database host" style="display: none;"></i>
+                                                        <i class="fa fa-check tooltips" style="display: none;"></i>
+                                                        <input type="text" id="txthost" class="form-control" autocomplete="off" value="<?=$_ENV['DB_HOST']?>">
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Database name</label>
-                                                    <input type="text" id="txtdbname" class="form-control" autocomplete="off" value="<?=$_ENV['DB_NAME']?>">
+                                                    <label class="control-label">Database name <span class="required">*</span></label>
+                                                    <div class="input-icon right">
+                                                        <i class="fa fa-warning tooltips" data-original-title="Please provide a database name" style="display: none;"></i>
+                                                        <i class="fa fa-check tooltips" style="display: none;"></i>
+                                                        <input type="text" id="txtdbname" class="form-control" autocomplete="off" value="<?=$_ENV['DB_NAME']?>">
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Username</label>
-                                                    <input type="text" id="txtuname" class="form-control" autocomplete="off" value="<?=$_ENV['DB_USER']?>">
+                                                    <label class="control-label">Username <span class="required">*</span></label>
+                                                    <div class="input-icon right">
+                                                        <i class="fa fa-warning tooltips" data-original-title="Please provide a database username" style="display: none;"></i>
+                                                        <i class="fa fa-check tooltips" style="display: none;"></i>
+                                                        <input type="text" id="txtuname" class="form-control" autocomplete="off" value="<?=$_ENV['DB_USER']?>">
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Password</label>
-                                                    <input type="password" id="txtpass" class="form-control" autocomplete="off" value="<?=$_ENV['DB_PASS']?>">
+                                                    <label class="control-label">Password <span class="required">*</span></label>
+                                                    <div class="input-icon right">
+                                                        <i class="fa fa-warning tooltips" data-original-title="Please provide a database password" style="display: none;"></i>
+                                                        <i class="fa fa-check tooltips" style="display: none;"></i>
+                                                        <input type="password" id="txtpass" class="form-control" autocomplete="off" value="<?=$_ENV['DB_PASS']?>">
+                                                        <small><input type="checkbox" onclick="viewPassword()">Show Password</small>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="check" style="margin-top: 10px;">
+                                                        <input type="checkbox" name="chkinipass" id="chkinipass" value="1" />Set Initial Password </label>
+                                                    <div class="input-icon right" id="div-inipass" style="display: none;">
+                                                        <i class="fa fa-warning tooltips" data-original-title="Please provide a initial password" style="display: none;"></i>
+                                                        <i class="fa fa-check tooltips" style="display: none;"></i>
+                                                        <input type="password" id="txtinipass" name="txtinipass" class="form-control" autocomplete="off">
+                                                        <small><input type="checkbox" onclick="viewIniPassword()">Show Password</small>
+                                                    </div>
                                                 </div>
                                                 <div class="note note-danger" style="text-align: justify;">
                                                     <small>

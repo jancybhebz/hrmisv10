@@ -51,10 +51,13 @@ class Migrate_model extends CI_Model {
 
 		# call check_tables
 		$this->check_tables();
+
+
 	}
 
 	function check_tables()
     {
+    	$this->db->query("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
     	$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
     	$tbldb_hrmisv10 = $this->hrmisv10->list_tables();
     	$tbldb_hrmis = $this->db->list_tables();
@@ -123,6 +126,17 @@ class Migrate_model extends CI_Model {
 	    if(file_exists($sql_file_S3)):
 	    	unlink($sql_file_S3);
 	    endif;
+
+	   	# Fix Time for Holiday Year
+	    $this->write_sqlstmt("# Fix Time for Holidays ",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` CHANGE  `holidayTime`  `holidayTime_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` ADD  `holidayTime` TIME NULL AFTER  `holidayTime_old_data`;",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` ADD  `htime` VARCHAR(20) NULL AFTER  `holidayTime`;",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` ADD  `hmed` VARCHAR(20) NULL AFTER  `htime`;",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblHolidayYear` SET htime = SUBSTRING_INDEX(holidayTime_old_data,' ',1);",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblHolidayYear` SET hmed = SUBSTRING_INDEX(holidayTime_old_data,' ',-1);",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;",$sql_file);
 
 	   	# Fix Time for Holiday Year
 	    $this->write_sqlstmt("# Fix Time for Holidays ",$sql_file);
@@ -277,7 +291,7 @@ class Migrate_model extends CI_Model {
 	    		endif;
 	    	endforeach;
 
-	    	$this->sql_final_statement($sql_file);
+	    	$this->sql_final_statement();
 	    endif;
 
     }
@@ -292,17 +306,30 @@ class Migrate_model extends CI_Model {
 
 	function import_database($dbconn,$path,$set=0) 
 	{
+		$this->db->query("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+		$this->db->query("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
 		if($set == 0):
 			if(file_exists($path)):
 			    $sql_contents = file_get_contents($path);
 			    $file = fopen($path,"r");
 			    while(! feof($file)):
 			        $query = fgets($file);
-			        echo $query;'<br>';
 			        if($query != ''):
 			        	$pos = strpos($query,'ci_sessions');
 			        	if($pos == false):
-			        		$result = $dbconn->query($query);
+			        		// $result = $dbconn->query($query);
+			        		if(str_replace(' ','',$query) != ''):
+				        		if ($dbconn->simple_query($query))
+								{
+								    echo $query.'<br>';
+								}
+								else
+								{
+									echo "<font color='red'><b>Query failed!</b></font>";
+									echo $dbconn->error()['message'].'<br>';
+									echo $query.'<br></font>';
+								}
+							endif;
 			        	else:
 			        		continue;
 			        	endif;
@@ -310,7 +337,7 @@ class Migrate_model extends CI_Model {
 			    endwhile;
 			    fclose($file);
 			endif;
-			echo '<br>Database Import Successfully!!...';
+			echo '<br>Database Modified Successfully!!...';
 		else:
 			$sql_contents = file_get_contents($path);
 			$sql_contents = explode(";", $sql_contents);
@@ -318,7 +345,20 @@ class Migrate_model extends CI_Model {
 			foreach($sql_contents as $query):
 				$pos = strpos($query,'ci_sessions');
 				if($pos == false):
-					$result = $dbconn->query($query);
+					// $result = $dbconn->query($query);
+					if(str_replace(' ','',$query) != ''):
+						if ($dbconn->simple_query($query))
+						{
+						    echo $query.'<br>';
+						}
+						else
+						{
+							echo "<font color='red'><b>Query failed!</b></font>";
+							echo $dbconn->error()['message'].'<br>';
+							echo '<br>';
+							echo $query.'<br></font>';
+						}
+					endif;
 				else:
 					continue;
 				endif;
@@ -346,10 +386,41 @@ class Migrate_model extends CI_Model {
 		$this->write_sqlstmt("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';",$path);
 	}
 
-	function sql_final_statement($path='')
+	function sql_final_statement()
 	{
-		$this->write_sqlstmt("# Initial data for password: hrmisdost",$path);
-		$this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '$2y$10\$GzCYi.q681e.KNCs1RuGRezgHMrxjtQu7tFeY7xwDsLdSa0ztdrvu';",$path);
+		$path = 'schema/hrmisv10/hrmis-schema-upt_0000-inipass.sql';
+		
+		if(file_exists($path)):
+			$sql_inipass = file_get_contents($path);
+			$sfind = "start#";
+			$str_start = strpos($sql_inipass, $sfind) + strlen($sfind);
+			$efind = "#end";
+			$str_end = strpos($sql_inipass, $efind);
+			$inital_password = substr($sql_inipass,$str_start,($str_end-$str_start));
+
+			echo "<br><br>Initial data for password: <b>".$inital_password.'</b><br>';
+			$total_line = 0;
+			$ctrcomment = 0;
+			if(file_exists($path)):
+			    $sql_contents = file_get_contents($path);
+			    $file = fopen($path,"r");
+			    while(! feof($file)):
+			        $line = fgets($file);
+			        $total_line++;
+			        if($line[0] == '#' || $line == '') { $ctrcomment++; }
+			    endwhile;
+			    fclose($file);
+
+			    if($total_line != $ctrcomment):
+			        $this->Migrate_model->update_database($path);
+			    endif;
+			    # append file in schema update
+			    $str=file_get_contents($path);
+			    file_put_contents($path, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+
+			    unlink($path);
+			endif;
+		endif;
 	}
 
 	function drop_dbase()
@@ -357,6 +428,20 @@ class Migrate_model extends CI_Model {
 		$this->dbforge->drop_database('hrmisv10_upt');
 	}
 
+	function check_if_column_exist($tablename,$colname)
+    {
+     	$tbl = $this->db->query("show tables like '".$tablename."'")->result_array();
+     	if(count($tbl) > 0){
+     		$cols = $this->db->list_fields($tablename);
+     		foreach($cols as $col):
+     			if($col == $colname){
+     				return true;
+     			}
+     		endforeach;
+     	}else{
+     		return false;
+     	}
 
+    }
 
 }

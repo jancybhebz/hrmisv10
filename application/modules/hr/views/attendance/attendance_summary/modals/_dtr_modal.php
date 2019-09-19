@@ -204,13 +204,13 @@
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?month='.$month.'&yr='.$yr)?>" frameborder="0" width="100%" height="400px">
+                            <embed src="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?datefrom='.currdfrom().'&dateto='.currdto())?>" frameborder="0" width="100%" height="400px">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?month='.$month.'&yr='.$yr)?>" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <a href="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?datefrom='.currdfrom().'&dateto='.currdto())?>" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>
         </div>

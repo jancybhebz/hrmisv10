@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 28, 2019 at 01:16 PM
+-- Generation Time: Sep 12, 2019 at 03:31 PM
 -- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hrmis_new_version`
+-- Database: `hrmis_updated_schema`
 --
 
 -- --------------------------------------------------------
@@ -46,7 +46,8 @@ CREATE TABLE `tblAgency` (
   `mins_before_OT` time DEFAULT NULL,
   `minOT` time DEFAULT NULL,
   `maxOT` time DEFAULT NULL,
-  `expirationCTO` datetime DEFAULT NULL,
+  `expr_cto_mon` int(11) DEFAULT NULL,
+  `expr_cto_yr` int(11) DEFAULT NULL,
   `flagTime` time NOT NULL,
   `autoComputeTax` tinyint(4) NOT NULL,
   `pagibigId` varchar(20) NOT NULL DEFAULT '',
@@ -226,6 +227,23 @@ CREATE TABLE `tblChangeLog` (
   `data2` longtext NOT NULL,
   `ip` varchar(30) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblcompensatory_timeoff`
+--
+
+CREATE TABLE `tblcompensatory_timeoff` (
+  `cto_id` int(11) NOT NULL,
+  `empnumber` varchar(20) NOT NULL,
+  `cto_date` date DEFAULT NULL,
+  `cto_timefrom` time DEFAULT NULL,
+  `cto_timeto` time DEFAULT NULL,
+  `process_by` varchar(20) DEFAULT NULL,
+  `process_date` datetime DEFAULT NULL,
+  `process_ip` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -613,7 +631,6 @@ CREATE TABLE `tblEmpDTR` (
   `dtrDate` date DEFAULT NULL,
   `inAM` time NOT NULL DEFAULT '00:00:00',
   `outAM` time NOT NULL DEFAULT '00:00:00',
-  `inPM` time DEFAULT NULL,
   `outPM` time DEFAULT NULL,
   `inOT` time DEFAULT NULL,
   `outOT` time DEFAULT NULL,
@@ -1159,6 +1176,8 @@ CREATE TABLE `tblEmpPosition` (
   `providentSwitch` char(1) NOT NULL DEFAULT '',
   `premiumAidSwitch` char(1) NOT NULL DEFAULT 'Y',
   `dtrSwitch` char(1) NOT NULL DEFAULT 'Y',
+  `is_override` int(11) DEFAULT NULL,
+  `override_id` int(11) DEFAULT NULL,
   `mcSwitch` char(1) NOT NULL DEFAULT 'Y',
   `hazardSwitch` char(1) NOT NULL DEFAULT 'Y',
   `longevitySwitch` char(1) NOT NULL DEFAULT 'Y',
@@ -2290,7 +2309,7 @@ CREATE TABLE `tblTaxRange` (
 CREATE TABLE `tblWorkZone` (
   `currentWorkZone` varchar(20) DEFAULT NULL,
   `currentchiefworkzone` varchar(20) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='stores the current working zone. 201 display depend on which';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2371,6 +2390,12 @@ ALTER TABLE `tblBrokenSched`
 --
 ALTER TABLE `tblChangeLog`
   ADD PRIMARY KEY (`changeLogId`);
+
+--
+-- Indexes for table `tblcompensatory_timeoff`
+--
+ALTER TABLE `tblcompensatory_timeoff`
+  ADD PRIMARY KEY (`cto_id`);
 
 --
 -- Indexes for table `tblComputation`
@@ -2731,6 +2756,12 @@ ALTER TABLE `tblOTComputationInstance`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tblOverride`
+--
+ALTER TABLE `tblOverride`
+  ADD PRIMARY KEY (`override_id`);
+
+--
 -- Indexes for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
@@ -2936,7 +2967,12 @@ ALTER TABLE `tblBrokenSched`
 -- AUTO_INCREMENT for table `tblChangeLog`
 --
 ALTER TABLE `tblChangeLog`
-  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157096;
+  MODIFY `changeLogId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157107;
+--
+-- AUTO_INCREMENT for table `tblcompensatory_timeoff`
+--
+ALTER TABLE `tblcompensatory_timeoff`
+  MODIFY `cto_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblComputation`
 --
@@ -2966,7 +3002,7 @@ ALTER TABLE `tblCustodian`
 -- AUTO_INCREMENT for table `tblDeduction`
 --
 ALTER TABLE `tblDeduction`
-  MODIFY `deduction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `deduction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 --
 -- AUTO_INCREMENT for table `tblDuties`
 --
@@ -2986,7 +3022,7 @@ ALTER TABLE `tblEmpAppointment`
 -- AUTO_INCREMENT for table `tblEmpBenefits`
 --
 ALTER TABLE `tblEmpBenefits`
-  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=697791;
+  MODIFY `benefitCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=697800;
 --
 -- AUTO_INCREMENT for table `tblEmpChild`
 --
@@ -2996,7 +3032,7 @@ ALTER TABLE `tblEmpChild`
 -- AUTO_INCREMENT for table `tblEmpDeductions`
 --
 ALTER TABLE `tblEmpDeductions`
-  MODIFY `deductCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6428;
+  MODIFY `deductCode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6429;
 --
 -- AUTO_INCREMENT for table `tblEmpDeductLoan`
 --
@@ -3031,7 +3067,7 @@ ALTER TABLE `tblEmpIncome`
 -- AUTO_INCREMENT for table `tblEmpIncomeAdjust`
 --
 ALTER TABLE `tblEmpIncomeAdjust`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tblEmpLeave`
 --
@@ -3041,7 +3077,7 @@ ALTER TABLE `tblEmpLeave`
 -- AUTO_INCREMENT for table `tblEmpLeaveBalance`
 --
 ALTER TABLE `tblEmpLeaveBalance`
-  MODIFY `lb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9558;
+  MODIFY `lb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9559;
 --
 -- AUTO_INCREMENT for table `tblEmpLocalHoliday`
 --
@@ -3051,7 +3087,7 @@ ALTER TABLE `tblEmpLocalHoliday`
 -- AUTO_INCREMENT for table `tblEmpLongevity`
 --
 ALTER TABLE `tblEmpLongevity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
 --
 -- AUTO_INCREMENT for table `tblEmpMeeting`
 --
@@ -3173,10 +3209,15 @@ ALTER TABLE `tblOTComputation`
 ALTER TABLE `tblOTComputationInstance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
+-- AUTO_INCREMENT for table `tblOverride`
+--
+ALTER TABLE `tblOverride`
+  MODIFY `override_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `tblPayrollGroup`
 --
 ALTER TABLE `tblPayrollGroup`
-  MODIFY `payrollGroupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `payrollGroupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 --
 -- AUTO_INCREMENT for table `tblPayrollOfficer`
 --
@@ -3216,7 +3257,7 @@ ALTER TABLE `tblProcess`
 -- AUTO_INCREMENT for table `tblProject`
 --
 ALTER TABLE `tblProject`
-  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `tblRequestFlow`
 --
@@ -3261,7 +3302,7 @@ ALTER TABLE `tblServiceRecord`
 -- AUTO_INCREMENT for table `tblSignatory`
 --
 ALTER TABLE `tblSignatory`
-  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -68,8 +68,6 @@ class ReportLeave_rpt_model extends CI_Model {
 		else
 			$strAbroad = "";
 
-		
-
 		// if ($strDay=='Whole day')
 		// 	$strWholeday = "x";
 		// else
@@ -98,7 +96,22 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Ln(9);
 		
 		$this->fpdf->Line(10, 25, 200, 25); //------------------------------------------------------------------
-		$arrDetails=$this->empInfo();
+		// echo '<pre>';
+
+		$empid = $this->uri->segment(4);
+		if($empid!=''){
+			$this->load->model(array('hr/Hr_model','employee/Leave_model'));
+			$arrLeaveBal = $this->Leave_model->getLatestBalance($empid);
+			$arrDetails = $this->Hr_model->getData($empid);
+			$arrDetails[0]['payrollGroupCode'] = office_name(employee_office($empid));
+			$arrDetails[0]['positionCode'] = $arrDetails[0]['positionDesc'];
+			
+		}else{
+			$arrDetails=$this->empInfo();
+		}
+		// print_r($arrDetails);
+		// die();
+		// $arrDetails=$this->empInfo();
 		foreach($arrDetails as $row)
 			{
 				$this->fpdf->SetFont('Arial', "", 10);
@@ -108,25 +121,28 @@ class ReportLeave_rpt_model extends CI_Model {
 				$this->fpdf->Cell(45, 5, "(Middle)", 0, 1, "L");
 					
 				$this->fpdf->Cell(50, 7,$row['payrollGroupCode'], "R", 0, "C");
-				$this->fpdf->Cell(100, 7,$row['surname'].'                      '.$row['firstname'].'                                       '.$row['middleInitial'], 0, 0, "C");
+				$this->fpdf->Cell(100,7,$row['surname'].'                      '.$row['firstname'].'                                       '.$row['middleInitial'], 0, 0, "C");
 
 				$this->fpdf->Cell(45, 7,'', 0, 0, "L");
 				$this->fpdf->Cell(45, 7, '', 0, 1, "L");
 
-				$this->fpdf->Ln(0);
+				// $this->fpdf->Ln(0);
 				$this->fpdf->Line(10, 37, 200, 37); //------------------------------------------------------------------
 
-				$this->fpdf->SetFont('Arial', "", 10);
+				// $this->fpdf->SetFont('Arial', "", 10);
 				$this->fpdf->Cell(50, 5, "3. DATE OF FILING", "R", 0, "L");
 				$this->fpdf->Cell(90, 5, "4. POSITION", "R", 0, "L");
-				$this->fpdf->Cell(45, 5, "5. SALARY (Monthly)", 0, 0, "L");
-				$this->fpdf->Cell(200, 5, "", 0, 0, "L");
-				$this->fpdf->Ln(0);
-				$this->fpdf->Cell(50, 15, "$today", "R", 0, "C");
-				$this->fpdf->Cell(90, 12,'    '.$row['positionCode'], "R", 0, "L");
-				$this->fpdf->Cell(45, 12,'    '.$row['actualSalary'], 0, 1, "L");
+				$this->fpdf->Cell(45, 5, "5. SALARY (Monthly)", 0, 1, "L");
+				// $this->fpdf->Cell(200, 10, "", 0, 1, "L");
+				// $this->fpdf->Ln(0);
+				$this->fpdf->Cell(50, 7, "$today", "R", 0, "C");
+				$this->fpdf->Cell(90, 7,'    '.$row['positionCode'], "R", 0, "L");
+				$this->fpdf->Cell(45, 7,'    '.number_format($row['actualSalary'],2,".",","), 0, 1, "L");
 			}
 
+
+
+		// $this->fpdf->Ln(100);
 		$this->fpdf->Line(10, 49, 200, 49); //------------------------------------------------------------------
 		$this->fpdf->Ln(2);
 		$this->fpdf->SetFont('Arial', "", 10);
@@ -223,9 +239,19 @@ class ReportLeave_rpt_model extends CI_Model {
 		// $this->fpdf->Cell(30, 5,"Others (Specify)", 0, 0, "L");		
 		// $this->fpdf->Cell(42, 5,"", "B", 0, "L"); 		
 	// }else{
-		$this->fpdf->Cell(6, 5,"", 1, 0, "C");
-		$this->fpdf->Cell(30, 5,"Others (Specify)", 0, 0, "L");		
-		$this->fpdf->Cell(42, 5,"", "B", 0, "L"); 
+		if($_GET['leavetype'] == 'monetization'){
+			$this->fpdf->SetFont('ZapfDingbats','', 10);
+			$this->fpdf->Cell(6, 5,"4", 1, 0, "C");
+			$this->fpdf->SetFont('Arial','', 10);
+		}else{
+			$this->fpdf->Cell(6, 5,"", 1, 0, "C");
+		}
+		$this->fpdf->Cell(30, 5,"Others (Specify)", 0, 0, "L");
+		if($_GET['leavetype'] == 'monetization'){
+			$this->fpdf->Cell(42, 5,"Leave Monetization", "B", 0, "L"); 
+		}else{
+			$this->fpdf->Cell(42, 5,"", "B", 0, "L"); 
+		}	
 	// }		
 		$this->fpdf->Cell(2, 5,"", "R", 0, "L"); 
 				
@@ -278,8 +304,13 @@ class ReportLeave_rpt_model extends CI_Model {
 		
 //----------------------------------------------------------
 
-		$this->fpdf->Cell(10, 6,"", 0, 0, "L");	
-		$this->fpdf->Cell(78, 6,"$dtmLeavefrom from $dtmLeaveto", "B", 0, "C"); 
+		$this->fpdf->Cell(10, 6,"", 0, 0, "L");
+		if($arrData['dtmLeavefrom'] != '' && $arrData['dtmLeaveto'] != ''){
+			$this->fpdf->Cell(78, 6,"$dtmLeavefrom from $dtmLeaveto", "B", 0, "C"); 	
+		}else{
+			$this->fpdf->Cell(78, 6,"", "B", 0, "C"); 
+		}
+		
 		$this->fpdf->Cell(2, 6,"", "R", 0, "L"); 
 		
 		$this->fpdf->Cell(20, 6,"", 0, 0, "L");
@@ -318,9 +349,14 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(90, 5, "7. B)  RECOMMENDATION:", 0, 1, "L");
 
 		$this->fpdf->Cell(10, 5,"", 0, 0, "L");	
-		$this->fpdf->Cell(10, 5,"as of", 0, 0, "L"); 
-		$this->fpdf->Cell(68, 5,"", "B", 0, "C"); 
-		$this->fpdf->Cell(2, 5,"", "R", 0, "L"); 
+		$this->fpdf->Cell(10, 5,"as of", 0, 0, "L");
+		if($_GET['leavetype'] == 'monetization'){
+			$this->fpdf->Cell(68, 5,date('F', mktime(0, 0, 0, $arrLeaveBal['periodMonth'], 10)).' '.$arrLeaveBal['periodYear'], "B", 0, "L"); 
+		}else{
+			$this->fpdf->Cell(68, 5,"", "B", 0, "L"); 
+		}
+		
+		$this->fpdf->Cell(2,  5,"", "R", 0, "L"); 
 		
 		$this->fpdf->Cell(10, 5,"", 0, 0, "L");	
 		$this->fpdf->Cell(80, 5,"", 0, 1, "C"); 
@@ -347,6 +383,11 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(83, 5,"", "B", 1, "C");
 		
 //----------------------------------------------------------
+		if($_GET['leavetype'] == 'monetization'){
+			$intVL = $arrLeaveBal['vlBalance'];
+			$intSL = $arrLeaveBal['slBalance'];
+			$intTotal = $intVL + $intSL;
+		}
 		$this->fpdf->Cell(10, 3,"", "R", 0, "L");	
 		$this->fpdf->Cell(26, 6,$intVL, "R", 0, "C"); 
 		$this->fpdf->Cell(26, 6,$intSL, "R", 0, "C"); 
@@ -495,14 +536,15 @@ class ReportLeave_rpt_model extends CI_Model {
 	// if ($strApprovedBy)
 	// 	$this->fpdf->Cell(70, 5,"    ".."    ", 0, 1, "C");  
 	// else
-		$this->fpdf->Cell(70, 5,"", 0, 1, "C");  
+		$arrDetails=$this->getEmp($str2ndSignatory);
+		$SecondSig=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);
+		$this->fpdf->Cell(70, 5,$SecondSig, 0, 1, "C");  
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(55, 5,"", 0, 0, "L");	
 		//signature
 		$this->fpdf->SetFont('Arial', "B", 10);	
-		$arrDetails=$this->getEmp($strEmpName2);
-		$SecondSig=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);	
-		$this->fpdf->Cell(70, 5,"$SecondSig",0, 1, "C");
+		$this->fpdf->Cell(30, 5,'', 0, 0, "C");	
+		$this->fpdf->Cell(30, 5,'', 0, 0, "C");	
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Ln(0);
 

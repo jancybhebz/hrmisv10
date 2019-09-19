@@ -80,7 +80,7 @@
         </div>
     </div>
 </div>
-<!-- end modal update/add child info -->
+<!-- end modal update/add child info -->    
 
 <!-- begin delete child -->
 <div class="modal fade" id="delete_exam" tabindex="-1" role="basic" aria-hidden="true"> 

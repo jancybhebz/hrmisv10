@@ -6,7 +6,9 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css',array('datatables'));?>
+<?php
+    $_GET['status'] = isset($_GET['status']) ? $_GET['status'] : 'all-employees';
+    load_plugin('css',array('datatables'));?>
 <!-- BREADCRUMB -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -39,7 +41,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <i class="icon-user font-dark"></i>
                     <span class="caption-subject bold uppercase"> List of Employees</span>
                 </div>
-                
+                <div class="page-toolbar">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> <?=ucwords(str_replace('-',' ',strtolower($_GET['status'])))?>
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a href="<?=base_url('pds?status=all-employees')?>"> All Employees</a>
+                            </li>
+                            <?php foreach($arrStatus as $status): if($status!='' && strtolower(str_replace(' ','-',$status)) != $_GET['status']): ?>
+                                <li>
+                                    <a href="<?=base_url('pds?status='.strtolower(str_replace(' ','-',$status)))?>"> <?=ucwords(str_replace('-',' ',strtolower($status)))?></a>
+                                </li>
+                            <?php endif; endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="portlet-body">
                 <div class="table-toolbar">
@@ -72,20 +90,24 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1; foreach($arrEmployees as $row):?>
-                            <tr class="odd gradeX">
-                                <td> <?=$i++?> </td>
-                                <td> <?=$row['empNumber']?></a> </td>
-                                <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'?> </td>
-                                <td> <?=employee_office($row['empNumber'])?> </td>
-                                <td> <?=$row['positionDesc']?></td>
-                                <td> <?=$row['appointmentDesc']?></td>
-                                <td> <?=$row['statusOfAppointment']?></td>
-                                <td style="text-align: center;">
-                                    <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a>
-                                </td>
-                            </tr>
-                        <?php endforeach;?>
+                        <?php $i=1;
+                        foreach($arrEmployees as $row):
+                            if((strtolower(str_replace(' ','-',$row['statusOfAppointment'])) == strtolower(str_replace(' ','-',$_GET['status']))) || $_GET['status'] == 'all-employees'): ?>
+                                <tr class="odd gradeX">
+                                    <td> <?=$i++?> </td>
+                                    <td> <?=$row['empNumber']?></a> </td>
+                                    <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'?> </td>
+                                    <td> <?=employee_office($row['empNumber'])?> </td>
+                                    <td> <?=$row['positionDesc']?></td>
+                                    <td> <?=$row['appointmentDesc']?></td>
+                                    <td> <?=$row['statusOfAppointment']?></td>
+                                    <td style="text-align: center;">
+                                        <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a>
+                                    </td>
+                                </tr>
+                            <?php 
+                            endif;
+                        endforeach;?>
                     </tbody>
                 </table>
             </div>

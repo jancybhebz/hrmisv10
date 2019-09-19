@@ -70,7 +70,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrBalance[0]['vlBalance']; ?>
+                                <?php echo $arrBalance['vlBalance']; ?>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrBalance[0]['slBalance'];?>
+                                <?php echo $arrBalance['slBalance'];?>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
                             <?php $sum = 0;
-                                $sum += $arrBalance[0]['vlBalance']+ $arrBalance[0]['slBalance'];
+                                $sum += $arrBalance['vlBalance']+ $arrBalance['slBalance'];
                                 echo $sum; ?>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrBalance[0]['vlBalance']; ?>
+                                <?php echo $arrBalance['vlBalance']; ?>
                                 </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-1 text-left">
                             <div class="form-group">
-                                <?php echo $arrBalance[0]['slBalance']; ?>
+                                <?php echo $arrBalance['slBalance']; ?>
                             </div>
                         </div>
                     </div>
@@ -198,7 +198,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                 <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrBalance[0]['vlBalance'])?$arrBalance[0]['vlBalance']:''?>">
+                                 <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrBalance['vlBalance'])?$arrBalance['vlBalance']:''?>">
                             </div>
                         </div>
                     </div>
@@ -211,7 +211,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-2 text-right">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrBalance[0]['slBalance'])?$arrBalance[0]['slBalance']:''?>">
+                                <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrBalance['slBalance'])?$arrBalance['slBalance']:''?>">
                             </div>
                         </div>
                     </div></br>

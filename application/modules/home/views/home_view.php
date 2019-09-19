@@ -97,7 +97,7 @@
                 <div class="number">
                     <span data-counter="counterup" data-value="<?=$intP?>">0</span>
                 </div>
-                <div class="desc"> PERMANENT</div>
+                <div class="desc"> Permanent</div>
             </div>
             <a class="more" href="<?=base_url('home/employees/p')?>"> View more
                 <i class="m-icon-swapright m-icon-white"></i>

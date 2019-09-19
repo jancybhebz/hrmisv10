@@ -46,7 +46,7 @@
                             <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                 <td style="width: 150px;" nowrap>
                                     <center>
-                                        <a class="btn green btn-xs btnedit_srvc" data-json='<?=json_encode($tra)?>'>
+                                        <a class="btn green btn-xs btnedit_training" data-json='<?=json_encode($tra)?>'>
                                             <i class="fa fa-pencil"></i> Edit </a>
                                         <a class="btn red btn-xs btndelete_tra" data-toggle="modal" href="#delete_training" data-traid="<?=$tra['TrainingIndex']?>">
                                             <i class="fa fa-trash"></i> Delete </a>
@@ -67,7 +67,7 @@
                                     {
                                         
                                         echo '<a class="btn blue btn-xs" href="'.base_url($strFile).'" target="new">
-                                            <i class="fa fa-file"></i> File </a>';
+                                            <i class="fa fa-file"></i>'.' '.$tra['TrainingIndex'].'.pdf'.' </a>';
                                     }
                                 else 
                                 { ?>
@@ -79,7 +79,7 @@
                                         <i class="fa fa-upload"></i>
                                         <span> Start Upload </span>
                                     </button>
-                                <?php form_close();} ?>
+                                <?=form_close();} ?>
                                 </td>
                             <?php endif; ?>
                         </tr>
@@ -115,13 +115,13 @@
             $('#txttraid').val('');
         });
 
-        $('#tbltraining').on('click','a.btnedit_srvc',function() {
+        $('#tbltraining').on('click','a.btnedit_training',function() {
             var jsondata = $(this).data('json');
             $('#frmtraining').attr("action","<?=base_url('pds/edit_training/').$this->uri->segment(3)?>");
             $('span.action').html('Edit ');
             $('#add_training').modal('show');
             
-            $('#txttra_name').val(jsondata.trainingTitle);
+            $('#txttra_name').val(jsondata.trainingDesc);
             $('#txttra_hrs').val(jsondata.trainingHours);
             $('#txttra_venue').val(jsondata.trainingVenue);
             $('#seltra_typeld').selectpicker('val', jsondata.trainingTypeofLD);

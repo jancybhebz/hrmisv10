@@ -3,7 +3,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Leave Credits Available as of <?=count($arrLeaves) > 0 ? date('F', mktime(0, 0, 0, $arrLeaves[0]['periodMonth'], 10)).' '.$arrLeaves[0]['periodYear'] : date('F Y')?></span>
+                    <span class="caption-subject bold uppercase"> Leave Credits Available as of <?=count($arrlatest_balance) > 0 ? date('F', mktime(0, 0, 0, $arrlatest_balance['periodMonth'], 10)).' '.$arrlatest_balance['periodYear'] : date('F Y')?></span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -72,7 +72,7 @@
                                             <td align="center"><?=date('F', mktime(0, 0, 0, $montz['processMonth'], 10))?> <?=$montz['processYear']?></td>
                                             <td align="center"><?=$montz['vlMonetize']?></td>
                                             <td align="center"><?=$montz['slMonetize']?></td>
-                                            <td align="center"><?=$montz['monetizeAmount']?></td>
+                                            <td align="center"><?=number_format($montz['monetizeAmount'],2)?></td>
                                             <td style="text-align: center;">
                                                 <button class="btn btn-sm blue" data-toggle="modal" id="btn-monetize-rollback" data-id="<?=$montz['mon_id']?>">
                                                     <i class="fa fa-refresh"></i> &nbsp;Rollback</button>

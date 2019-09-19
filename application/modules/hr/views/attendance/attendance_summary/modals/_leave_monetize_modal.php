@@ -15,14 +15,17 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <!-- begin input elements -->
-                                            <input type="hidden" name="txtperiodmo" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodMonth'] : ''?>">
-                                            <input type="hidden" name="txtperiodyr" value="<?=count($arrLeaves) > 0 ? $arrLeaves[0]['periodYear'] : ''?>">
+                                            <input type="hidden" name="txtperiodmo" value="<?=count($arrlatest_balance) > 0 ? $arrlatest_balance['periodMonth'] : ''?>">
+                                            <input type="hidden" name="txtperiodyr" value="<?=count($arrlatest_balance) > 0 ? $arrlatest_balance['periodYear'] : ''?>">
+                                            <input type="hidden" id="txtamt_mone" value="<?=AMT_MONETIZATION?>">
+                                            <input type="hidden" id="txtactual_sal" value="<?=$arrData['actualSalary']?>">
+                                            <input type="hidden" id="txtactual_vl" value="<?=$vl_monetized?>">
+                                            <input type="hidden" id="txtactual_sl" value="<?=$sl_monetized?>">
+
                                             <div class="form-group col-md-12" style="padding: 0 !important;">
                                                 <label class="control-label col-md-12" style="padding: 0 !important;">Date<span class="required"> * </span></label>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <select class="form-control form-required bs-select" name="txtadjmon" id="txtadjmon" placeholder="">
-                                                        <option value="null">SELECT MONTH</option>
                                                         <?php foreach (range(1, 12) as $m): ?>
                                                             <option value="<?=sprintf('%02d', $m)?>" <?=sprintf('%02d', date('n')) == $m ? 'selected' : ''?>>
                                                                 <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
@@ -30,10 +33,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-icon right col-md-6" style="padding: 0 !important;">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
                                                     <select class="form-control form-required bs-select" name="txtadjyr" id="txtadjyr" placeholder="">
-                                                        <option value="null">SELECT YEAR</option>
-                                                        <?php foreach (getYear($arrLeaves[0]['periodYear']) as $yr): ?>
+                                                        <?php foreach (getYear($arrlatest_balance['periodYear']) as $yr): ?>
                                                             <option value="<?=$yr?>" <?=date('Y') == $yr ? 'selected' : ''?>>
                                                                 <?=$yr?></option>
                                                         <?php endforeach; ?>
@@ -43,7 +44,8 @@
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Vacation Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
-                                                    <!-- <i class="fa fa-warning tooltips i-required"></i> -->
+                                                    <i class="fa fa-warning tooltips" data-original-title="Please Provide Leave Credits to be Monetized on Vacation Leave" style="display: none;"></i>
+                                                    <i class="fa fa-check tooltips" style="display: none;"></i>
                                                     <input type="text" class="form-control form-required" name="txtvl" id="txtvl"
                                                         placeholder="<?=count($vl_monetized) > 0 ? $vl_monetized : ''?>">
                                                 </div>
@@ -51,9 +53,16 @@
                                             <div class="form-group">
                                                 <label class="control-label"># of Leave Credits to be Monetized on Sick Leave<span class="required"> * </span></label>
                                                 <div class="input-icon right">
-<!--                                                     <i class="fa fa-warning tooltips i-required"></i> -->
+                                                    <i class="fa fa-warning tooltips" data-original-title="Please Provide Valid Leave Credits to be Monetized on Sick Leave" style="display: none;"></i>
+                                                    <i class="fa fa-check tooltips" style="display: none;"></i>
                                                     <input type="text" class="form-control form-required" name="txtsl" id="txtsl"
                                                         placeholder="<?=count($sl_monetized) > 0 ? $sl_monetized : ''?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Amount</label>
+                                                <div class="input-icon right">
+                                                    <input type="text" class="form-control form-required" name="txtmone_amt" id="txtmone_amt" readonly>
                                                 </div>
                                             </div>
                                             <!-- end input elements -->
@@ -65,7 +74,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn green"><i class="icon-check"> </i> Submit</button>
+                    <button type="submit" class="btn green" id="btnmonetized"><i class="icon-check"> </i> Submit</button>
                     <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
@@ -112,16 +121,18 @@
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="<?=base_url('employee/reports/generate/?rpt=reportLeave&leavetype=vacation&day=Whole%20day&leavefrom=&leaveto=&daysapplied=&signatory=&empname=&reason=&incaseSL=&incaseVL=')?>" frameborder="0" width="100%" height="500px">
+                            <embed src="<?=base_url('employee/reports/generate/'.$arrData['empNumber'].'?rpt=reportLeave&leavetype=monetization&day=Whole%20day&leavefrom=&leaveto=&daysapplied=&signatory=&empname=&reason=&incaseSL=&incaseVL=')?>" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="<?=base_url('employee/dtr/print_preview/'.$arrData['empNumber'].'?month='.currmo().'&yr='.curryr())?>" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <a href="<?=base_url('employee/reports/generate/'.$arrData['empNumber'].'?rpt=reportLeave&leavetype=monetization&day=Whole%20day&leavefrom=&leaveto=&daysapplied=&signatory=&empname=&reason=&incaseSL=&incaseVL=')?>" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>
         </div>
     </div>
 </div>
 <!-- end monetize form modal -->
+
+<script src="<?=base_url('assets/js/custom/leave_monetization.js')?>"></script>

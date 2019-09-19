@@ -6,15 +6,41 @@ class Dtr extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('hr/Hr_model','libraries/Attendance_scheme_model','hr/Attendance_summary_model','libraries/Agency_profile_model'));
+        $this->load->model(array('hr/Hr_model','libraries/Attendance_scheme_model','hr/Attendance_summary_model','libraries/Agency_profile_model','libraries/Holiday_model','employee/Leave_model'));
+    	$this->load->helper(array('dtr_helper'));
     }
 	
 	public function print_preview()
 	{
-		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		// $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		// $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+
+		$empid = $this->uri->segment(4);
+
+		$total_undertime = 0;
+		$total_late = 0;
+		$days_late_ut = 0;
+		$days_absent = 0;
+		$days_lwop = 0;
+		$in_am  = '';
+		$out_am = '';
+		$in_pm  = '';
+		$out_pm = '';
+		$offset_wkdays = 0;
+    	$offset_wkends = 0;
+
+		$datefrom = currdfrom();
+		$dateto = currdto();
+		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		$working_days = get_workingdays('','',$holidays,$datefrom,$dateto);
 		$agencyname = $this->Agency_profile_model->getData();
 		$agencyname = $agencyname[0]['agencyName'];
+
+		$arrLatestBalance = $this->Leave_model->getLatestBalance($empid);
+		// echo '<pre>';
+		// echo '<br>datefrom = '.$datefrom;
+		// echo '<br>dateto = '.$dateto;
+		// echo '<br>agencyname = '.$agencyname;
 		
 		$this->load->library('general/Pdf_gen');
 		$this->fpdf = new Pdf_gen();
@@ -38,11 +64,9 @@ class Dtr extends MY_Controller {
 		$this->fpdf->Ln(2);
 
 		# employee details
-		$empid = $this->uri->segment(4);
 		$empdata = $this->Hr_model->getData($empid,'','all');
 		$empdata = $empdata[0];
 		$emp_att_scheme = $this->Attendance_scheme_model->getData($empdata['schemeCode']);
-
 		if(count($emp_att_scheme) > 0):
 			$emp_att_scheme = $emp_att_scheme[0];
 			
@@ -68,7 +92,7 @@ class Dtr extends MY_Controller {
 			# DTR Header
 			$this->fpdf->SetFont('Arial','B', 8);
 			$arr_header = array('DAY','IN','OUT','IN','OUT','IN','OUT','LATE','Overtime','Undertime','REMARKS');
-			$header_w = array(14,12,12,12,12,12,12,12,17,17,58);
+			$header_w = array(19,12,12,12,12,12,12,12,17,17,53);
 			foreach($arr_header as $hk => $colheader):
 				$this->fpdf->Cell($header_w[$hk],5,$colheader,'LRB',0,'C');	
 			endforeach;
@@ -77,83 +101,151 @@ class Dtr extends MY_Controller {
 			# DTR Content
 			$this->fpdf->SetFont('Arial','', 7);
 			# DTR Details
-			$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
+			// $arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $month, $yr);
 
-			foreach($arremp_dtr['dtr'] as $dtr):
-				$row_detail = array();
-				$ddate = '  '.date('d',strtotime($dtr['date'])).'  '.$dtr['day'];
+			$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
 
-				$remarks = '';
-				# Remarks if holiday
-				if($dtr['holiday'] != ''):
-					$remarks = $dtr['holiday'];
+			foreach($arremp_dtr as $dtr):
+				$ddate  = '  '.date('M-d',strtotime($dtr['dtrdate'])).'  '.$dtr['day'];
+				$in_am  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inAM']  == '00:00:00' || $dtr['dtr']['inAM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inAM']))  : '';
+				$out_am = count($dtr['dtr']) > 0 ? $dtr['dtr']['outAM'] == '00:00:00' || $dtr['dtr']['outAM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outAM'])) : '';
+				$in_pm  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inPM']  == '00:00:00' || $dtr['dtr']['inPM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inPM']))  : '';
+				$out_pm = count($dtr['dtr']) > 0 ? $dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outPM'])) : '';
+				$remarks= array();
+				$certified_ot = 0;
+				if(count($dtr['dtr']) > 0):
+				    if($dtr['dtr']['OT'] == 1):
+				        $certified_ot = 1;
+				    endif;
 				endif;
-				# Remarks if Leave
-				if($dtr['leaveremarks'] != ''):
-					$leaveremarks = json_decode($dtr['leaveremarks'],true);
-					$remarks = $remarks!='' ? $remarks.'; '.$leaveremarks['leaveCode'] : $leaveremarks['leaveCode'];
+
+				if(count($dtr['holiday_name']) > 0):
+				    foreach($dtr['holiday_name'] as $hday): 
+				    	$remarks[] = $hday;
+				    endforeach;
 				endif;
-				# Remarks if OB
-				if($dtr['obremarks'] != ''):
-					$obremarks = json_decode($dtr['obremarks'],true);
-					$remarks = $remarks!='' ? $remarks.'; (OB) '.date('H:i A', strtotime($obremarks['obTimeFrom'])).' - '.date('H:i A', strtotime($obremarks['obTimeTo'])) : '(OB) '.date('H:i A', strtotime($obremarks['obTimeFrom'])).' - '.date('H:i A', strtotime($obremarks['obTimeTo']));
+
+				if(count($dtr['emp_ws']) > 0):
+				    foreach($dtr['emp_ws'] as $ws):
+				    	$remarks[] = $ws['holidayName'].' - '.date('h:i A',strtotime($ws['holidayTime']));
+				    endforeach;
 				endif;
-				# Remarks if OB
-				if($dtr['toremarks'] != ''):
-					$toremarks = json_decode($dtr['toremarks'],true);
-					$remarks = $remarks!='' ? $remarks.'; TO' : 'TO';
+
+				if(count($dtr['obs']) > 0):
+				    foreach($dtr['obs'] as $ob):
+				    	$remarks[] = 'OB '.date('M.d',strtotime($ob['obDateFrom'])).' to '.date('M.d',strtotime($ob['obDateTo'])).' ('.date('h:i a',strtotime($ob['obTimeFrom'])).')';
+				    endforeach;
+				endif;
+				if(count($dtr['tos']) > 0):
+				    foreach($dtr['tos'] as $to):
+				    	$remarks[] = 'TO '.date('M.d',strtotime($to['toDateFrom'])).' to '.date('M.d',strtotime($to['toDateTo']));
+				    endforeach;
+				endif;
+				if(count($dtr['leaves']) > 0):
+				    foreach($dtr['leaves'] as $leave):
+				        $remarks[] = 'Leave '.date('M.d',strtotime($leave['leaveFrom'])).' to '.date('M.d',strtotime($leave['leaveTo']));
+				    endforeach;
+				endif;
+				if(count($dtr['dtr']) > 0):
+				    if($dtr['dtr']['remarks'] == 'CL'):
+				        $remarks[] = 'CTO';
+				    endif;
+				endif;
+
+				$total_undertime = $total_undertime + $dtr['utimes'];
+				$total_late = $total_late + $dtr['lates'];
+				if($dtr['lates'] + $dtr['utimes'] > 0):
+				    $days_late_ut = $days_late_ut + 1;
+				endif;
+
+				if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				    if(count($dtr['leaves']) == 0):
+				        $days_lwop = $days_lwop + 1;
+				    else:
+				        $days_absent = $days_absent + 1;
+				    endif;
+				endif;
+
+				// if((count($dtr['dtr']) + count($dtr['obs']) + count($dtr['tos']) + count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				//     $days_absent = $days_absent + 1;
+				// endif;
+
+				# check ot
+				if($dtr['ot'] > 0 && $certified_ot == 1):
+				    if((count($dtr['holiday_name']) < 1) && !in_array($dtr['day'],array('Sat','Sun'))):
+				        $offset_wkdays = $offset_wkdays + $dtr['ot'];
+				    else:
+				        $offset_wkends = $offset_wkends + $dtr['ot'];
+				    endif;
 				endif;
 
 				$row_detail = array($ddate,
-									(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inAM'])) : ':'),
-									(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outAM'])) : ':'),
-									(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inPM'])) : ':'),
-									(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outPM'])) : ':'),
-									(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['inOT'])) : ':'),
-									(count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ':'),
-									(count($dtr['dtrdata']) > 0 ? $dtr['late'] != '00:00' ? $dtr['late'] : ':' : ':'),
-									(count($dtr['dtrdata']) > 0 ? $dtr['overtime'] != '00:00' ? $dtr['overtime'] : ':' : ':'),
-									(count($dtr['dtrdata']) > 0 ? $dtr['undertime'] != '00:00' ? $dtr['undertime'] : ':' : ':'),
-									$remarks);
+									$in_am,
+									$out_am,
+									$in_pm,
+									$out_pm,
+									'', // (count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ':'),
+									'', // (count($dtr['dtrdata']) > 0 ? date('H:i', strtotime($dtr['dtrdata']['outOT'])) : ':'),
+									$dtr['lates'] > 0 ? date('H:i', mktime(0, $dtr['lates'])) : '',
+									count($dtr['dtr']) > 0 ? $dtr['dtr']['OT'] == 1 ? $dtr['ot'] > 0 ? date('H:i', mktime(0, $dtr['ot'])) : '' : '' : '',
+									$dtr['utimes'] > 0 ? date('H:i', mktime(0, $dtr['utimes'])) : '',
+									implode('; ',$remarks));
 
-				foreach($row_detail as $hk => $row):
-					$this->fpdf->Cell($header_w[$hk],5,$row,'LRB',0,$hk==0 ? 'L' : 'C');	
-				endforeach;
-				$this->fpdf->Ln();
+				// foreach($row_detail as $hk => $row):
+				// 	$this->fpdf->Cell($header_w[$hk],5,$row,'LRB',0,$hk==0 ? 'L' : 'C');	
+				// endforeach;
 
+				$align = array('L','C','C','C','C','C','C','C','C','C','C');
+				$border = array(1,1,1,1,1,1,1,1,1,1,1);
+				$this->fpdf->SetWidths($header_w);
+				$this->fpdf->SetAligns($width);
+				$this->fpdf->FancyRow_small(5,$row_detail,$border,$align);
+				
+				// $this->fpdf->Ln();
 			endforeach;
+
 			$this->fpdf->Ln(2);
 
 			# footer
 			$this->fpdf->SetFont('Arial','', 8);
 
-			$this->fpdf->Cell(115,5,'Total Number of Working Days: '.$arremp_dtr['total_workingdays'],0,0,'L');
-			$this->fpdf->Cell(75,5,'Total Days Absent: '.count($arremp_dtr['date_absents']),0,1,'L');
+			$this->fpdf->Cell(45,5,'Total Number of Working Days: ',0,0,'L');
+			$this->fpdf->Cell(70,5,count($working_days),0,0,'L');
+			$this->fpdf->Cell(35,5,'Total Days Absent: ',0,0,'L');
+			$this->fpdf->Cell(40,5,$days_absent,0,1,'L');
 
-			$date_absents = '';
-			foreach($arremp_dtr['date_absents'] as $absent):
-				$date_absents.= date('d', strtotime($absent)).' ';
-			endforeach;
-			$this->fpdf->Cell(115,5,'Dates Absent: '.$date_absents,0,0,'L');
-			$this->fpdf->Cell(75,5,'VL: '.($arremp_dtr['total_days_vl']+$arremp_dtr['total_days_fl']),0,1,'L');
+			$this->fpdf->Cell(45,5,'Total Undertime: ',0,0,'L');
+			$this->fpdf->Cell(70,5,date('H:i', mktime(0, $total_undertime)),0,0,'L');
+			$this->fpdf->Cell(35,5,'VL: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? $arrLatestBalance['vlBalance'] : '',0,1,'L');
+			// echo '<pre>';
+			// print_r($arrLatestBalance);
+			// die();
+			$this->fpdf->Cell(45,5,'Total Late:',0,0,'L');
+			$this->fpdf->Cell(70,5,date('H:i', mktime(0, $total_late)),0,0,'L');
+			$this->fpdf->Cell(35,5,'SL: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? $arrLatestBalance['slBalance'] : '',0,1,'L');
 
-			$this->fpdf->Cell(115,5,'Total Undertime: '.date('H:i', mktime(0, $arremp_dtr['total_undertime'])),0,0,'L');
-			$this->fpdf->Cell(75,5,'SL: '.$arremp_dtr['total_days_sl'],0,1,'L');
+			$this->fpdf->Cell(45,5,'Late/Undertime: ',0,0,'L');
+			$this->fpdf->Cell(70,5,date('H:i', mktime(0, ($total_undertime + $total_late))),0,0,'L');
+			$this->fpdf->Cell(35,5,'Offset Balance: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? date('H:i', mktime(0, $arrLatestBalance['off_bal'])) : '',0,1,'L');
 
-			$this->fpdf->Cell(115,5,'Total Late:'.date('H:i', mktime(0, $arremp_dtr['total_late'])).'   Late/Undertime: '.date('H:i', mktime(0, $arremp_dtr['total_undertime']+$arremp_dtr['total_late'])),0,0,'L');
-			$this->fpdf->Cell(75,5,'Offset Balance: ',0,1,'L');
+			$this->fpdf->Cell(45,5,'Total Days Late/Undertime: ',0,0,'L');
+			$this->fpdf->Cell(70,5,$days_late_ut,0,0,'L');
+			$this->fpdf->Cell(35,5,'Offset Gain: ',0,0,'L');
+			$this->fpdf->Cell(40,5,($offset_wkdays + $offset_wkends) > 0 ? date('H:i', mktime(0, ($offset_wkdays + $offset_wkends))) : '',0,1,'L');
+			
+			$this->fpdf->Cell(45,5,'Total Days LWOP: ',0,0,'L');
+			$this->fpdf->Cell(70,5,$days_lwop,0,0,'L');
+			$this->fpdf->Cell(35,5,'Offset Used: ',0,0,'L');
+			$this->fpdf->Cell(40,5,count($arrLatestBalance) > 0 ? date('H:i', mktime(0, $arrLatestBalance['off_used'])) : '',0,1,'L');
 
-			$this->fpdf->Cell(115,5,'Total Days Late/Undertime: '.($arremp_dtr['total_days_late'] + $arremp_dtr['total_days_ut']),0,0,'L');
-			$this->fpdf->Cell(75,5,'Offset for the Month: ',0,1,'L');
-
-			$this->fpdf->Cell(115,5,'Total Days LWOP: '.$arremp_dtr['total_days_lwop'],0,0,'L');
-			$this->fpdf->Cell(75,5,'Offset Used: ',0,1,'L');
-
-			$this->fpdf->Ln(3);
+			$this->fpdf->Ln(5);
 			$this->fpdf->MultiCell(190, 5, 'I HEREBY CERTIFY that the above records are true and correct report of the hours of work performed of which was made daily from the time of arrival and departure from the office.','T','J');
 
 			$this->fpdf->SetFont('Arial','B', 8);
-			$this->fpdf->Ln(5);
+			$this->fpdf->Ln(3);
 			$this->fpdf->Cell(27,5,'',0,0,'L');
 			$this->fpdf->Cell(63,5,'EMPLOYEE SIGNATURE','T',0,'C');
 			$this->fpdf->Cell(10,5,'',0,0,'L');

@@ -73,8 +73,7 @@
                                     }
                                 else 
                                 { ?>
-                                <?=form_open_multipart(base_url('pds/pds/uploadEduc/'.$this->uri->segment(4)), array('method'=> 'po
-                                    st'))?>
+                                <?=form_open_multipart(base_url('pds/pds/uploadEduc/'.$this->uri->segment(4)), array('method'=> 'post'))?>
                                     <input type ="hidden" name ="idEduc" id= "idEduc" value="<?=$educ['SchoolIndex']?>">
                                     <input type ="hidden" name ="EmployeeId" id= "EmployeeId" value="<?=$educ['empNumber']?>">
                                     <input type ="file" name ="userfile" id= "userfile" accept="application/pdf">
@@ -82,7 +81,7 @@
                                         <i class="fa fa-upload"></i>
                                         <span> Start Upload </span>
                                     </button>
-                                <?php form_close();} ?>
+                                <?=form_close();} ?>
                                 </td>
                             <?php endif; ?>
                         </tr>

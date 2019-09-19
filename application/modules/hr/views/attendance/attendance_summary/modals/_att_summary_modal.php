@@ -12,7 +12,7 @@
                         <div class="form-group">
                             <ul>
                                 <?php
-                                    foreach($arremp_dtr['date_absents'] as $absent):
+                                    foreach($arrattendance['days_absent'] as $absent):
                                         echo '<li>'.date('M d, Y (D)', strtotime($absent)).'</li>';
                                     endforeach;
                                 ?>
@@ -23,9 +23,10 @@
             </div>
             <div class="modal-footer">
                 <?php 
-                    $month = isset($_GET['month']) ? $_GET['month'] : date('m');
-                    $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-                    $dtrlink = base_url('hr/attendance_summary/dtr/'.$arrData['empNumber'].'?month='.$month.'&yr='.$yr);
+                    $datefrom = date('Y-m').'-01';
+                    $dateto = date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+                    
+                    $dtrlink = base_url('hr/attendance_summary/dtr/'.$arrData['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto);
                  ?>
                 <a href="<?=$dtrlink?>" class="btn btn-sm grey-cascade">
                             <i class="icon-calendar"></i> View DTR </a>

@@ -393,6 +393,7 @@ class Holiday extends MY_Controller {
 		{	
 			$dtmSuspensionDate = $arrPost['dtmSuspensionDate'];
 			$dtmSuspensionTime = $arrPost['dtmSuspensionTime'];
+			$strWholeday = $arrPost['strWholeday'];
 			if(!empty($dtmSuspensionDate) && !empty($dtmSuspensionTime))
 			{	
 				// check if exam code and/or exam desc already exist
@@ -401,8 +402,7 @@ class Holiday extends MY_Controller {
 					$arrData = array(
 						'holidayCode'=>'WS',
 						'holidayDate'=>$dtmSuspensionDate,
-						'holidayTime'=>$dtmSuspensionTime
-
+						'holidayTime'=>isset($strWholeday) ? '' : $dtmSuspensionTime
 					);
 					$blnReturn  = $this->holiday_model->add_worksuspension($arrData);
 					if(count($blnReturn)>0)

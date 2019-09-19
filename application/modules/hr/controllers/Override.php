@@ -60,7 +60,7 @@ class Override extends MY_Controller {
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
-			$this->session->set_flashdata('strSuccessMsg','Override OB added successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Override OB successfully.');
 			redirect('hr/attendance/override/ob');
 		endif;
 
@@ -112,7 +112,7 @@ class Override extends MY_Controller {
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
-			$this->session->set_flashdata('strSuccessMsg','Override OB updated successfully.');
+			$this->session->set_flashdata('strSuccessMsg','OB updated successfully.');
 			redirect('hr/attendance/override/ob');
 		endif;
 
@@ -130,7 +130,7 @@ class Override extends MY_Controller {
 		endforeach;
 
 		$this->Override_model->delete($arrPost['txtdelover_ob']);
-		$this->session->set_flashdata('strSuccessMsg','Override OB deleted successfully.');
+		$this->session->set_flashdata('strSuccessMsg','OB deleted successfully.');
 		redirect('hr/attendance/override/ob');
 	}
 
@@ -167,7 +167,7 @@ class Override extends MY_Controller {
 				$this->Pds_model->save_position($arrData,$emps);
 			endforeach;
 			
-			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR added successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR successfully.');
 			redirect('hr/attendance/override/exclude_dtr');
 		endif;
 
@@ -181,7 +181,7 @@ class Override extends MY_Controller {
 		$this->arrData['arrexecdtr_data'] = $arrexecdtr_data;
 		$this->arrData['arrGroups'] = $this->Org_structure_model->getData_allgroups();
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
-		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup('N');
 
 		$arrPost = $this->input->post();
 		$override_id = $this->uri->segment(5);
@@ -212,7 +212,7 @@ class Override extends MY_Controller {
 				$this->Pds_model->save_position($arrData,$emps);
 			endforeach;
 			
-			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR updated successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR successfully.');
 			redirect('hr/attendance/override/exclude_dtr');
 		endif;
 
@@ -238,7 +238,7 @@ class Override extends MY_Controller {
 			$this->Override_model->delete($arrPost['txtdel_excdtr']);
 		endif;
 
-		$this->session->set_flashdata('strSuccessMsg','Employee excluded to DTR  deleted successfully.');
+		$this->session->set_flashdata('strSuccessMsg','Employee included to DTR successfully.');
 		redirect('hr/attendance/override/exclude_dtr');
 	}
 
@@ -258,7 +258,7 @@ class Override extends MY_Controller {
 							'override_id'=> null);
 			$this->Pds_model->save_position($arrData,$arrPost['txtempinc_id']);
 
-			$this->session->set_flashdata('strSuccessMsg','Employee include to DTR updated successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Employee include to DTR successfully.');
 			redirect('hr/attendance/override/generate_dtr');
 		endif;
 	}

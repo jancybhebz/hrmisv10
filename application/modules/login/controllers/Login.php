@@ -18,7 +18,7 @@ class Login extends MY_Controller {
 			$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
 			if(!empty($arrUser)):
 				
-				$this->set_session_login_data($arrUser[0]['empNumber'],$arrUser[0]['userLevel'],$arrUser[0]['userPermission'],$arrUser[0]['accessPermission'],$arrUser[0]['userName'],$arrUser[0]['userPassword'],$arrUser[0]['firstname'].' '.$arrUser[0]['surname'],$arrUser[0]['assignedGroup']);
+				$this->set_session_login_data($arrUser[0]['empNumber'],$arrUser[0]['userLevel'],$arrUser[0]['userPermission'],$arrUser[0]['accessPermission'],$arrUser[0]['userName'],$arrUser[0]['userPassword'],$arrUser[0]['firstname'].' '.$arrUser[0]['surname'],$arrUser[0]['assignedGroup'],$arrUser[0]['is_assistant']);
 				redirect('home/index');
 			else:
 				$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
@@ -33,7 +33,7 @@ class Login extends MY_Controller {
 		endif;
 	}
 
-	function set_session_login_data($strEmpno,$strLevel,$strUserPermission,$strAccessPermission,$strUsername,$strPassword,$strName,$strGroup)
+	function set_session_login_data($strEmpno,$strLevel,$strUserPermission,$strAccessPermission,$strUsername,$strPassword,$strName,$strGroup,$strAssistant)
 	{
 		$sessData = array(
 			 'sessEmpNo'			=> $strEmpno,
@@ -44,6 +44,7 @@ class Login extends MY_Controller {
 			 'sessName'  			=> $strName,
 			 'sessAccessPermission'	=> $strAccessPermission,
 			 'sessAssignedGroup'	=> $strGroup,
+			 'sessIsAssistant'		=> $strAssistant,
 			 'sessBoolLoggedIn' 	=> TRUE,
 			);
 		

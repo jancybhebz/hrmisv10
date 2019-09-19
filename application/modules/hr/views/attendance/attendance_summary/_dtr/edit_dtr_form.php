@@ -18,13 +18,12 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber']?>" class="btn grey-cascade">
+                        <a href="<?=base_url('hr/attendance_summary/dtr/'.$arrData['empNumber'].'?datefrom='.currdfrom().'&dateto='.currdto())?>" class="btn grey-cascade">
                             <i class="icon-calendar"></i> DTR </a>
                         <br><br>
                         <table class="table table-bordered dtr-edit" id="tbldtr">
                             <thead>
                                 <tr>
-                                    <td hidden></td>
                                     <th>DATE</th>
                                     <th>IN</th>
                                     <th>OUT</th>
@@ -35,65 +34,96 @@
                                     <th>REMARKS</th>
                                     <th>LOGS</th>
                                     <td hidden></td>
-                                    <td hidden></td>
-                                    <td hidden></td>
-                                    <td hidden></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($arremp_dtr['dtr'] as $dtr): ?>
-                                <tr class="odd <?=$dtr['day']?> <?=$dtr['holiday']!='' ? 'holiday' : ''?>"
-                                        title="<?=date('l', strtotime($dtr['date']))?> <?=count($dtr['dtrdata']) > 0 ? $dtr['holiday']!='' ? ' - '.$dtr['holiday'] : '' : ''?>">
-                                    <td hidden><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['id'] : ''?></td>
-                                    <td><?=date('d', strtotime($dtr['date']))?></td>
+                                <?php foreach($arremp_dtr as $dtr):
+                                        $in_am  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inAM']  == '00:00:00' || $dtr['dtr']['inAM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inAM']))  : '00:00';
+                                        $out_am = count($dtr['dtr']) > 0 ? $dtr['dtr']['outAM'] == '00:00:00' || $dtr['dtr']['outAM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outAM'])) : '00:00';
+                                        $in_pm  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inPM']  == '00:00:00' || $dtr['dtr']['inPM']  == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inPM']))  : '00:00';
+                                        $out_pm = count($dtr['dtr']) > 0 ? $dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outPM'])) : '00:00';
+                                        $in_ot = count($dtr['dtr']) > 0 ? $dtr['dtr']['inOT'] == '00:00:00' || $dtr['dtr']['inOT'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['inOT'])) : '00:00';
+                                        $out_ot = count($dtr['dtr']) > 0 ? $dtr['dtr']['outOT'] == '00:00:00' || $dtr['dtr']['outOT'] == '' ? '00:00' : date('h:i',strtotime($dtr['dtr']['outOT'])) : '00:00';
+                                        $dtr_id = count($dtr['dtr']) > 0 ? $dtr['dtr']['id'] : '';
+                                        $name = count($dtr['dtr']) > 0 ? $dtr['dtr']['name'] : '';
+                                        $ip = count($dtr['dtr']) > 0 ? $dtr['dtr']['ip'] : '';
+                                        $editdate = count($dtr['dtr']) > 0 ? $dtr['dtr']['editdate'] : '';
+                                        $oldValue = count($dtr['dtr']) > 0 ? $dtr['dtr']['oldValue'] : '';
+                                        ?>
+                                    <tr class="odd <?=$dtr['day']?> tooltips <?=count($dtr['holiday_name']) > 0 ? 'holiday' : ''?>"
+                                        data-original-title="<?=date('l', strtotime($dtr['dtrdate']))?>">
+                                        <td><?=date('M d', strtotime($dtr['dtrdate']))?>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inAM'] : '00:00:00'?></div></td>
+                                            <div class="tdedit" contenteditable><?=$in_am?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outAM'] : '00:00:00'?></div></td>
+                                            <div class="tdedit" contenteditable><?=$out_am?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inPM'] : '00:00:00'?></div></td>
+                                            <div class="tdedit" contenteditable><?=$in_pm?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outPM'] : '00:00:00'?></div></td>
+                                            <div class="tdedit" contenteditable><?=$out_pm?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['inOT'] : '00:00:00'?></div></td>
+                                            <div class="tdedit" contenteditable><?=$in_ot?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['outOT'] : '00:00:00'?></div></td>
-                                        <td>
+                                            <div class="tdedit" contenteditable><?=$out_ot?></div></td>
+                                        <td style="text-align: left;">
+                                            <?php 
+                                                if(count($dtr['holiday_name']) > 0):
+                                                    echo '<ul>';
+                                                    foreach($dtr['holiday_name'] as $hday): echo '<li><small>'.$hday.'</small></li>'; endforeach;
+                                                    echo '</ul>';
+                                                endif;
+
+                                                if(count($dtr['emp_ws']) > 0):
+                                                    echo '<ul>';
+                                                    foreach($dtr['emp_ws'] as $ws):
+                                                        echo '<li><small>'.$ws['holidayName'].' - '.date('h:i A',strtotime($ws['holidayTime'])).'</small></li>';
+                                                    endforeach;
+                                                    echo '</ul>';
+                                                endif;
+                                             ?>
+                                            <div style="padding-left: 30px;">
                                             <?php
-                                                echo count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['remarks'] : '';
-                                                echo $dtr['holiday']!='' ? $dtr['holiday'] : '';
-                                                if($dtr['obremarks']!=''):
-                                                    echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars($dtr['obremarks']).'">
-                                                            OB</a>';
+                                                if(count($dtr['obs']) > 0):
+                                                    foreach($dtr['obs'] as $ob):
+                                                        echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($ob)).'">
+                                                                OB</a>';
+                                                    endforeach;
                                                 endif;
-
-                                                if($dtr['toremarks']!=''):
-                                                    echo '<a id="btnto" class="btn btn-xs green-meadow" data-json="'.htmlspecialchars($dtr['toremarks']).'">
-                                                            TO</a>';
+                                                if(count($dtr['tos']) > 0):
+                                                    foreach($dtr['tos'] as $to):
+                                                        echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($to)).'">
+                                                                TO</a>';
+                                                    endforeach;
                                                 endif;
-
-                                                if($dtr['leaveremarks']!=''):
-                                                    echo '<a id="btnleave" class="btn btn-xs green-haze" data-json="'.htmlspecialchars($dtr['leaveremarks']).'">
-                                                            Leave</a>';
+                                                if(count($dtr['leaves']) > 0):
+                                                    foreach($dtr['leaves'] as $leave):
+                                                        echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($leave)).'">
+                                                                Leave</a>';
+                                                    endforeach;
                                                 endif;
-                                             ?>        
+                                                if(count($dtr['dtr']) > 0):
+                                                    if($dtr['dtr']['remarks'] == 'CL'):
+                                                        echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($dtr['dtr'])).'">
+                                                                CTO</a>';
+                                                    endif;
+                                                endif;
+                                             ?>
+                                            <div>
                                         </td>
-                                        <td><?php 
-                                            $djson['empname']   = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['name'] : '';
-                                            $djson['ipadd']     = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : '';
-                                            $djson['datetime']  = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : '';
-                                            $djson['oldval']    = count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'] : '';
-                                            $djson['bsremarks'] = $dtr['bsremarks'] !='' ? $dtr['bsremarks'] : '';
-                                            if(count($dtr['dtrdata']) > 0): ?>
-                                                <a id="btnlog" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
-                                                    <i class="fa fa-info"></i></a>
-                                            <?php endif; ?>
+                                        <td>
+                                            <?php 
+                                                $djson['empname']   = count($dtr['dtr']) > 0 ? $dtr['dtr']['name'] : '';
+                                                $djson['ipadd']     = count($dtr['dtr']) > 0 ? $dtr['dtr']['ip'] : '';
+                                                $djson['datetime']  = count($dtr['dtr']) > 0 ? $dtr['dtr']['editdate'] : '';
+                                                $djson['oldval']    = count($dtr['dtr']) > 0 ? $dtr['dtr']['oldValue'] : '';
+                                                $djson['bsremarks'] = $dtr['broken_sched'] !='' ? $dtr['broken_sched'] : '';
+                                                if(count($dtr['dtr']) > 0): ?>
+                                                    <a id="btnlog" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
+                                                        <i class="fa fa-info"></i></a>
+                                                <?php endif; ?>
                                         </td>
-                                        <td hidden><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['name'] : ''?></td>
-                                        <td hidden><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['ip'] : ''?></td>
-                                        <td hidden><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['editdate'] : ''?></td>
-                                        <td hidden><?=count($dtr['dtrdata']) > 0 ? $dtr['dtrdata']['oldValue'].';inAM='.$dtr['dtrdata']['inAM'].', outAM='.$dtr['dtrdata']['outAM'].', inPM='.$dtr['dtrdata']['inPM'].', outPM='.$dtr['dtrdata']['outPM'].', inOT='.$dtr['dtrdata']['inOT'].', outOT='.$dtr['dtrdata']['outOT'] : ''?></td>
-                                </tr>
+                                        <td hidden><?=json_encode(array($dtr['dtrdate'],$dtr_id,$name,$ip,$editdate,$oldValue))?></td>
+                                    </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -107,12 +137,12 @@
                             <center>
                                 <?=form_open('hr/attendance/dtr_edit', array('method' => 'post'))?>
                                     <input type="hidden" name="empnum" value="<?=$this->uri->segment(5)?>">
-                                    <input type="hidden" name="month" value="<?=$_GET['month']?>">
-                                    <input type="hidden" name="yr" value="<?=$_GET['yr']?>">
+                                    <input type="hidden" name="datefrom" value="<?=$_GET['datefrom']?>">
+                                    <input type="hidden" name="dateto" value="<?=$_GET['dateto']?>">
 
                                     <textarea name="txtjson" id="txtjson" hidden></textarea>
                                     <button class="btn green" type="submit" id="btn_edit_dtr"><i class="fa fa-plus"></i> Edit </button>
-                                    <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?month='.$month.'&yr='.$yr?>" class="btn grey-cascade">
+                                    <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?datefrom='.$_GET['dateto'].'&datefrom='.$_GET['dateto']?>" class="btn grey-cascade">
                                         <i class="icon-ban"></i> Clear</a>
                                 <?=form_close()?>
                             </center>

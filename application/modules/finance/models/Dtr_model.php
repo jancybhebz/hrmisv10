@@ -7,7 +7,7 @@ class Dtr_model extends CI_Model {
 		$this->table = 'tblEmpDTR';
 	}
 	
-	function getData($empid,$yr,$mon,$sdate='',$edate='')
+	function getData($empid,$yr=0,$mon=0,$sdate='',$edate='')
 	{
 		if($sdate != '' && $edate != ''){
 			$this->db->where("(dtrDate >= '".$sdate."' and dtrDate <= '".$edate."')");
@@ -18,6 +18,7 @@ class Dtr_model extends CI_Model {
 		$this->db->where("NOT (`inAM` = '00:00:00' AND `outAM` = '00:00:00' AND `inPM` = '00:00:00' AND `outPM` = '00:00:00')");
 		$this->db->order_by("dtrDate", "asc");
 		$res = $this->db->get_where($this->table)->result_array();
+
 		return $res;
 	}
 
