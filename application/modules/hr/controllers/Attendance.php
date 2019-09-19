@@ -1113,7 +1113,10 @@ class Attendance extends MY_Controller {
 	public function dtr_add_compensatory_leave()
 	{
 		$empid = $this->uri->segment(5);
-
+		$this->load->model(array('employee/Compensatory_leave_model','libraries/Attendance_scheme_model'));
+		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
+		$total_ot = $this->Compensatory_leave_model->get_all_overtime($empid);
+		
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			# HR Account
@@ -1128,17 +1131,37 @@ class Attendance extends MY_Controller {
 				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
 				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
 				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
-			if(count($dtrEntry) > 0):
-				$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
-			else:
-				$arrData['dtrDate'] = $arrPost['txtcompen_date'];
-				$this->Attendance_summary_model->add_dtr($arrData);
-			endif;
+			// echo '<pre>';
+			
+			// die();
+			// $arrData_cto=array(
+			// 	'empNumber' => $empid,
+			// 	'cto_date'  => $arrPost['txtcompen_date'],
+			// 	'cto_timefrom'=> $arrPost['txtcl_am_timefrom'],
+			// 	'outAM'		=> $arrPost['txtcl_am_timeto'],
+			// 	'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
+			// 	'outPM' 	=> $arrPost['txtcl_pm_timeto'],
+			// 	'remarks'	=> 'CL',
+			// 	'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
+			// 	'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
+			// 	'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
 
-			$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
-			redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
+			$total_hrs = $this->Attendance_summary_model->compute_working_hours($att_scheme,$arrData);
+			if($total_ot >= $total_hrs):
+				if(count($dtrEntry) > 0):
+					$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+					$this->Compensatory_leave_model->add_cto($arrData_cto);
+				else:
+					$arrData['dtrDate'] = $arrPost['txtcompen_date'];
+					$this->Attendance_summary_model->add_dtr($arrData);
+				endif;
+				$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
+				redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
+			else:
+				$this->session->set_flashdata('strErrorMsg','Time is greater than CTO Time.');
+			endif;
 		endif;
-		
+		$this->arrData['total_ot'] = $total_ot;
 		$this->load->model('libraries/Leave_type_model');
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
