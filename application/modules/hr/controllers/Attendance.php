@@ -666,8 +666,8 @@ class Attendance extends MY_Controller {
 			$arrData=array(
 				'empNumber'	=> $this->uri->segment(5),
 				'schemeCode'=> $arrPost['selscheme'],
-				'dateFrom'	=> $arrPost['from'],
-				'dateTo'	=> $arrPost['to']);
+				'dateFrom'	=> $arrPost['bs_sched_from'],
+				'dateTo'	=> $arrPost['bs_sched_to']);
 			$this->Attendance_summary_model->add_brokensched($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Schedule added successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
@@ -702,8 +702,8 @@ class Attendance extends MY_Controller {
 		if(!empty($arrPost)):
 			$arrData=array(
 				'schemeCode'=> $arrPost['selscheme'],
-				'dateFrom'	=> $arrPost['from'],
-				'dateTo'	=> $arrPost['to']);
+				'dateFrom'	=> $arrPost['bs_sched_from'],
+				'dateTo'	=> $arrPost['bs_sched_to']);
 			$this->Attendance_summary_model->edit_brokensched($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Schedule updated successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
@@ -1131,20 +1131,18 @@ class Attendance extends MY_Controller {
 				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
 				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
 				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
-			// echo '<pre>';
 			
-			// die();
-			// $arrData_cto=array(
-			// 	'empNumber' => $empid,
-			// 	'cto_date'  => $arrPost['txtcompen_date'],
-			// 	'cto_timefrom'=> $arrPost['txtcl_am_timefrom'],
-			// 	'outAM'		=> $arrPost['txtcl_am_timeto'],
-			// 	'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
-			// 	'outPM' 	=> $arrPost['txtcl_pm_timeto'],
-			// 	'remarks'	=> 'CL',
-			// 	'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
-			// 	'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
-			// 	'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
+			$arrData_cto=array(
+				'empNumber' => $empid,
+				'cto_date'  => $arrPost['txtcompen_date'],
+				'cto_timefrom'=> $arrPost['txtcl_am_timefrom'],
+				'outAM'		=> $arrPost['txtcl_am_timeto'],
+				'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
+				'outPM' 	=> $arrPost['txtcl_pm_timeto'],
+				'remarks'	=> 'CL',
+				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
+				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
+				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
 
 			$total_hrs = $this->Attendance_summary_model->compute_working_hours($att_scheme,$arrData);
 			if($total_ot >= $total_hrs):
@@ -1158,7 +1156,7 @@ class Attendance extends MY_Controller {
 				$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
 				redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
 			else:
-				$this->session->set_flashdata('strErrorMsg','Time is greater than CTO Time.');
+				$this->session->set_flashdata('strErrorMsg','Time is greater than CTO.');
 			endif;
 		endif;
 		$this->arrData['total_ot'] = $total_ot;

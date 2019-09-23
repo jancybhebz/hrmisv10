@@ -16,9 +16,8 @@
                             <div class="form-group">
                                 <label class="control-label">Holiday Name <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
                                     <select class="select2 form-control form-required" name="selholiday" id="selholiday">
-                                        <option value="null">-- SELECT HOLIDAY --</option>
+                                        <option value="">-- SELECT HOLIDAY --</option>
                                         <?php foreach($localHolidays as $holi): ?>
                                             <option value="<?=$holi['holidayCode']?>" <?=isset($arrempholiday) ? $holi['holidayCode'] == $arrempholiday['holidayCode'] ? 'selected' : '' : ''?>>
                                                 <?=$holi['holidayName']?> - <?=date("F", mktime(0, 0, 0, $holi['holidayMonth'], 10))?> <?=$holi['holidayDay']?></option>
@@ -29,7 +28,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                        <button class="btn green" type="submit" id="btn_holiday"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
                                         <a href="<?=base_url('hr/attendance_summary/dtr/local_holiday/').$arrData['empNumber']?>" class="btn blue">
                                             <i class="icon-ban"></i> Cancel</a>
                                     </div>
@@ -45,3 +44,50 @@
 </div>
 
 <?php load_plugin('js',array('select2','form_validation'));?>
+
+<script>
+    $(document).ready(function() {
+        $('#selholiday').on('keyup keypress change',function() {
+            $('#selholiday').closest('div.form-group').find('i.fa-calendar').remove();
+            if($('#selholiday').val() != ''){
+                $('#selholiday').closest('div.form-group').removeClass('has-error');
+                $('#selholiday').closest('div.form-group').addClass('has-success');
+                $('#selholiday').closest('div.form-group').find('i.fa-warning').remove();
+                $('#selholiday').closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#selholiday'));
+            }else{
+                $('#selholiday').closest('div.form-group').addClass('has-error');
+                $('#selholiday').closest('div.form-group').removeClass('has-success');
+                $('#selholiday').closest('div.form-group').find('i.fa-check').remove();
+                $('#selholiday').closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Time Off Date must not be empty."></i>').tooltip().insertBefore($('#selholiday'));
+            }
+        });
+        
+        $("#btn_holiday").click(function(e) {
+            var arrerror = [];
+
+            $('#selholiday').closest('div.form-group').find('i.fa-calendar').remove();
+            if($('#selholiday').val() != ''){
+                $('#selholiday').closest('div.form-group').removeClass('has-error');
+                $('#selholiday').closest('div.form-group').addClass('has-success');
+                $('#selholiday').closest('div.form-group').find('i.fa-warning').remove();
+                $('#selholiday').closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#selholiday'));
+            }else{
+                $('#selholiday').closest('div.form-group').addClass('has-error');
+                $('#selholiday').closest('div.form-group').removeClass('has-success');
+                $('#selholiday').closest('div.form-group').find('i.fa-check').remove();
+                $('#selholiday').closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Time Off Date must not be empty."></i>').tooltip().insertBefore($('#selholiday'));
+                arrerror.push(1);
+            }
+
+            if(jQuery.inArray(1,arrerror) !== -1){
+                e.preventDefault();
+            }
+        });
+
+    });
+</script>
+
