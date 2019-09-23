@@ -48,12 +48,88 @@ function mins_to_time(mins)
     return pad(hours,2)+':'+pad(minutes,2);
 }
 
+function check_str(el)
+{
+    $(el).closest('div.form-group').find('i.fa-calendar').remove();
+    if(isNaN($(el).val()) == false && $(el).val() != ''){
+        $(el).closest('div.form-group').removeClass('has-error');
+        $(el).closest('div.form-group').addClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+        return 0;
+    }else{
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="Invalid input."></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
+}
+
+function check_time(el)
+{
+    value = $(el).val();
+    if (!/^\d{2}:\d{2}$/.test(value)){
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="Invalid input."></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
+    var parts = value.split(':');
+    if (parts[0] > 23 || parts[1] > 59){
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="Invalid input."></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
+
+    $(el).closest('div.form-group').find('i.fa-calendar').remove();
+    if($(el).val() != ''){
+        $(el).closest('div.form-group').removeClass('has-error');
+        $(el).closest('div.form-group').addClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+        return 0;
+    }else{
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="Invalid input."></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
+}
+
 $(document).ready(function() {
 	$('.loading-image').hide();
 	$('#div-body').show();
 
     $('td#tdn-or').show();
     $('td#tdor').hide();
+
+    $('button#btnupdate_lb').on('click', function(e){
+        var regexp = /([01][0-9]|[02][0-3]):[0-5][0-9]/;
+        var correct = regexp.test($('input').val());
+
+        var total_error = 0;
+
+        total_error = total_error + check_str($('#txtauwp_vl')) + check_str($('#txtauwp_sl')) + check_str($('#txtperiod_vl')) + check_str($('#txtperiod_sl')) + check_str($('#txtauwop_vl')) + check_str($('#txtauwop_sl'));
+        total_error = total_error + check_str($('#txtspe_curr')) + check_str($('#txtfl_curr')) + check_str($('#txtsdl_curr')) + check_str($('#txtmtl_curr')) + check_str($('#txtptl_curr'));
+        total_error = total_error + check_str($('#txtlaundry')) + check_str($('#txtsubs_8hrs')) + check_str($('#txtsubs_6hrs')) + check_str($('#txtsubs_5hrs')) + check_str($('#txtsubs_4hrs')) + check_str($('#txtwith_meal')) + check_str($('#txtamt_training'));
+        total_error = total_error + check_str($('#txtlate_ut_days')) + check_str($('#txtdays_awol')) + check_str($('#txtdays_present')) + check_str($('#txtdays_absent'));
+        total_error = total_error + check_time($('#txtlate_ut_hhmm'))  + check_time($('#txtbalance')) + check_time($('#txtgain')) + check_time($('#txtused'));
+
+        if(total_error > 0){
+            e.preventDefault();
+        }
+    });
 
     $('#tblleave-balance').on('click','#btn-leavebal,#btn-leavebal-override', function(e){
         $('td#tdn-or,button#btnupdate_lb').show();
