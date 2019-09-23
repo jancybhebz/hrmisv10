@@ -63,9 +63,9 @@ class Attendance_summary_model extends CI_Model {
 		$att_scheme_temp = $att_scheme;
 
 		# Begin Broken Schedule
-		$broken_sched = array();
+		$broken_sched = $this->Attendance_summary_model->getBrokenschedules($empid, $datefrom, $dateto);
 		# End Broken Schedule
-
+		
 		# DTR Data
 		$arrData = $this->Dtr_model->getData($empid,0,0,$datefrom,$dateto);
 		$reg_holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
@@ -103,6 +103,18 @@ class Attendance_summary_model extends CI_Model {
 		$work_hrs = 0;
 		
 		foreach(dateRange($datefrom,$dateto) as $dtrdate):
+			$bs_sched = array();
+			if(count($broken_sched) > 0):
+				foreach($broken_sched as $bs):
+					if($dtrdate > $bs['dateFrom'] && $dtrdate < $bs['dateTo']){
+						$att_scheme = $bs;
+						$att_scheme_temp = $att_scheme;
+						$bs_sched['scheme'] = $bs['schemeType'];
+						$bs_sched['from'] = $bs['amTimeinFrom'];
+						$bs_sched['to'] = $bs['pmTimeoutTo'];
+					}
+				endforeach;
+			endif;
 			$work_hrs = 0;
 			# Begin DTR
 			$dtr = array();
@@ -215,10 +227,10 @@ class Attendance_summary_model extends CI_Model {
 			# Begin Data Array
 			$dtr = $temp_dtr;
 			$day = date('D', strtotime($dtrdate));
-			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'emp_ws' => $emp_ws, 'broken_sched' => $broken_sched, 'work_hrs' => $work_hrs);
+			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'emp_ws' => $emp_ws, 'broken_sched' => $bs_sched, 'work_hrs' => $work_hrs,'att_scheme'=>$att_scheme);
 			# End Data Array
-			// echo '<hr>';
 		endforeach;
+		// print_r($emp_dtr);
 		// die();
 		return $emp_dtr;
 	}
@@ -244,10 +256,14 @@ class Attendance_summary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function getBrokenschedules($empid)
+	public function getBrokenschedules($empid,$datefrom='',$dateto='')
 	{
 		$this->db->join('tblAttendanceScheme', 'tblAttendanceScheme.schemeCode = tblBrokenSched.schemeCode', 'left');
-		return $this->db->get_where('tblBrokenSched', array('empNumber' => $empid))->result_array();
+		if($datefrom !='' && $dateto !=''){
+			$this->db->where("(dateFrom between '".$datefrom."' and '".$dateto."' or dateTo between '".$datefrom."' and '".$dateto."')");
+		}
+		$res = $this->db->get_where('tblBrokenSched', array('empNumber' => $empid))->result_array();
+		return $res;
 	}
 
 	public function getSchedule($id)

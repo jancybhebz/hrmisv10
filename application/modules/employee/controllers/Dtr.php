@@ -14,6 +14,7 @@ class Dtr extends MY_Controller {
 	{
 		// $month = isset($_GET['month']) ? $_GET['month'] : date('m');
 		// $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+
 		$empid = $this->uri->segment(4);
 
 		$total_undertime = 0;
