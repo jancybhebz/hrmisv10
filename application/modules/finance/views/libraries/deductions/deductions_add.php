@@ -156,11 +156,11 @@
 
         $('#btn_add_deduction').on('click', function(e) {
             var total_error = 0;
-            total_error = check_null('#selAgency','Agency must not be empty.');
-            total_error = check_null('#txtddcode','Deduction Code must not be empty.');
-            total_error = check_null('#txtdesc','Deduction Description must not be empty.');
-            total_error = check_null('#txtacctcode','Account Code must not be empty.');
-            total_error = check_null('#seltype','Type must not be empty.');
+            total_error = total_error + check_null('#selAgency','Agency must not be empty.');
+            total_error = total_error + check_null('#txtddcode','Deduction Code must not be empty.');
+            total_error = total_error + check_null('#txtdesc','Deduction Description must not be empty.');
+            total_error = total_error + check_null('#txtacctcode','Account Code must not be empty.');
+            total_error = total_error + check_null('#seltype','Type must not be empty.');
             
             if(total_error > 0){
                 e.preventDefault();
