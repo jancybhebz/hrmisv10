@@ -26,9 +26,44 @@ function validate_text(e)
 	
 }
 
-function test123()
+function check_null(el,msg)
 {
-	alert('test123');
+    $(el).closest('div.form-group').find('i.fa-calendar').remove();
+    if($(el).val() != ''){
+        $(el).closest('div.form-group').removeClass('has-error');
+        $(el).closest('div.form-group').addClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+        return 0;
+    }else{
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="'+msg+'"></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
+}
+
+function check_number(el)
+{
+    $(el).closest('div.form-group').find('i.fa-calendar').remove();
+    if(isNaN($(el).val()) == false && $(el).val() != ''){
+        $(el).closest('div.form-group').removeClass('has-error');
+        $(el).closest('div.form-group').addClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+        return 0;
+    }else{
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="Invalid input."></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
 }
 
 
