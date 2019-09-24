@@ -121,9 +121,9 @@
 
         $('#btn_add_agency').on('click', function(e) {
             var total_error = 0;
-            total_error = check_null('#agency-code','Agency Code must not be empty.');
-            total_error = check_null('#agency-desc','Agency Description must not be empty.');
-            total_error = check_null('#acct-code','Account Code must not be empty.');
+            total_error = total_error + check_null('#agency-code','Agency Code must not be empty.');
+            total_error = total_error + check_null('#agency-desc','Agency Description must not be empty.');
+            total_error = total_error + check_null('#acct-code','Account Code must not be empty.');
             
             if(total_error > 0){
                 e.preventDefault();

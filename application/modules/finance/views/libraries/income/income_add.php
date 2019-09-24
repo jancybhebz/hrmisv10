@@ -36,8 +36,8 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="income" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <?=form_open($action == 'edit' ? 'finance/libraries/income/edit/'.$this->uri->segment(4) : '', array('method' => 'post', 'id' => 'frm_addincome')); ?>
-                                <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
+                            <?=form_open($action == 'edit' ? 'finance/libraries/income/edit/'.$this->uri->segment(5) : '', array('method' => 'post', 'id' => 'frm_addincome')); ?>
+                                <input type="hidden" id='txtcode' value="<?=$this->uri->segment(5)?>" />
                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                     <label class="control-label">Income Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
@@ -105,9 +105,9 @@
 
         $('#btn_add_income').on('click', function(e) {
             var total_error = 0;
-            total_error = check_null('#txtinccode','Income Code must not be empty.');
-            total_error = check_null('#txtincdesc','Income Description must not be empty.');
-            total_error = check_null('#selinctype','Income Type must not be empty.');
+            total_error = total_error + check_null('#txtinccode','Income Code must not be empty.');
+            total_error = total_error + check_null('#txtincdesc','Income Description must not be empty.');
+            total_error = total_error + check_null('#selinctype','Income Type must not be empty.');
             
             if(total_error > 0){
                 e.preventDefault();
