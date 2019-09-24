@@ -401,7 +401,7 @@
                     <div class="pull-left"><small>
                         <b>Updated by: </b> <span id="updatedby"></span>
                     </small></div>
-                    <input type="hidden" id="txtget_data" name="txtget_data" value="<?=$this->uri->segment(4).'?month='.($_GET['month'] == 'all' ? date('m') : $_GET['month']).'&yr='.$_GET['yr']?>">
+                    <input type="hidden" id="txtget_data" name="txtget_data" value="<?=$this->uri->segment(4).'?month='.(isset($_GET['month']) ? $_GET['month'] : date('m')).'&yr='.(isset($_GET['yr']) ? $_GET['yr'] : date('Y'))?>">
                     <input type="hidden" id="txtoverride_id" name="txtoverride_id">
                     <?php 
                         $arrleave_data = array( 'arrLeaveBalance' => $arrLeaveBalance,
