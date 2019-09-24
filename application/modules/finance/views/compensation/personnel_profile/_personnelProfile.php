@@ -263,3 +263,4 @@
     </div>
 </div>
 <?php include('modals/_modal_personnel_profile.php'); ?>
+<script src="<?=base_url('assets/js/custom/finance-personnel_profile.js')?>"></script>

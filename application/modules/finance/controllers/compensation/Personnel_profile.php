@@ -89,6 +89,7 @@ class Personnel_profile extends MY_Controller {
 					'hpFactor'          => $arrPost['txthazardPay'],
 					'RATACode'          => $arrPost['selrataCode'],
 					'RATAVehicle'       => isset($arrPost['chkw_govt_vehicle']) ? $arrPost['chkw_govt_vehicle'] : '');
+			$this->session->set_flashdata('strSuccessMsg','Payroll Details updated successfully.');
 			$this->Compensation_model->editEmpPosition($arrData, $empid, $arrPost['txtacctNumber']);
 		endif;
 		redirect('finance/compensation/personnel_profile/employee/'.$empid.'/1');
@@ -110,6 +111,7 @@ class Personnel_profile extends MY_Controller {
 					'salaryGradeNumber'	=> $arrPost['txtsalaryGrade'],
 					'stepNumber'		=> $arrPost['selStep_number'],
 					'dateIncremented'	=> $arrPost['txtdateincrement']);
+			$this->session->set_flashdata('strSuccessMsg','Position Details updated successfully.');
 			$this->Compensation_model->editEmpPosition($arrData, $empid);
 		endif;
 		redirect('finance/compensation/personnel_profile/employee/'.$empid.'/2');

@@ -36,23 +36,6 @@
             endforeach;
          ?>
     </ul>
-    <!-- <ul class="page-breadcrumb">
-        <li>
-            <a href="<?=base_url('home')?>">Home</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>Compensation</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>Personnel Profile</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></span>
-        </li>
-    </ul> -->
 </div>
 <!-- END PAGE BAR -->
 <br>
