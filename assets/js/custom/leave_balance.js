@@ -115,9 +115,6 @@ $(document).ready(function() {
     $('td#tdor').hide();
 
     $('button#btnupdate_lb').on('click', function(e){
-        var regexp = /([01][0-9]|[02][0-3]):[0-5][0-9]/;
-        var correct = regexp.test($('input').val());
-
         var total_error = 0;
 
         total_error = total_error + check_str($('#txtauwp_vl')) + check_str($('#txtauwp_sl')) + check_str($('#txtperiod_vl')) + check_str($('#txtperiod_sl')) + check_str($('#txtauwop_vl')) + check_str($('#txtauwop_sl'));

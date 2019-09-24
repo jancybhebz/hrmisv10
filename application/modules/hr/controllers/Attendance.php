@@ -564,7 +564,7 @@ class Attendance extends MY_Controller {
 							 'ctr_diem' 		 => $arrPost['txtamt_training']);
 			$this->Leave_model->editLeaveBalance($arrData, $arrPost['txtoverride_id']);
 			$this->session->set_flashdata('strSuccessMsg','Leave balance override successfully.');
-			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month=all&yr='.date('Y'));
+			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month='.$_GET['month'].'&yr='.$_GET['yr']);
 		endif;
 	}
 

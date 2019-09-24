@@ -19,7 +19,7 @@
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblleave-balance" data-title="Vacation Leave">
                             <thead>
                                 <tr>
-                                    <th rowspan="2" style="text-align: center;vertical-align: middle;"<?=$_GET['month']=='all'?'':'hidden'?>>Month</th>
+                                    <th rowspan="2" style="text-align: center;vertical-align: middle;">Month</th>
                                     <th rowspan="2" style="text-align: center;vertical-align: middle;">Earned</th>
                                     <th colspan="3" style="text-align: center;">Vacation Leave</th>
                                     <th colspan="3" style="text-align: center;">Sick Leave</th>
@@ -104,3 +104,4 @@
 
 <?php $this->load->view('modals/_leave_balance_update_modal'); ?>
 <script src="<?=base_url('assets/js/custom/leave_balance.js')?>"></script>
+
