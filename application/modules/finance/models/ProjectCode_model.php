@@ -12,9 +12,9 @@ class ProjectCode_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function edit($arrData, $code)
+	function edit($arrData, $id)
 	{
-		$this->db->where('projectCode',$code);
+		$this->db->where('projectId',$id);
 		$this->db->update('tblProject', $arrData);
 		return $this->db->affected_rows();
 	}
@@ -26,12 +26,12 @@ class ProjectCode_model extends CI_Model {
 		return $this->db->affected_rows(); 
 	}
 
-	function getData($code)
+	function getData($id)
 	{
-		if($code==''):
+		if($id==''):
 			return $this->db->order_by('projectOrder','ASC')->get('tblProject')->result_array();
 		else:
-			$result = $this->db->get_where('tblProject', array('projectCode' => $code))->result_array();
+			$result = $this->db->get_where('tblProject', array('projectId' => $id))->result_array();
 			return $result[0];
 		endif;
 	}

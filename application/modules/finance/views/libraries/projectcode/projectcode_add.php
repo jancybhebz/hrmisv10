@@ -35,43 +35,40 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="projectcode" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <?=form_open($action == 'edit' ? 'finance/libraries/projectcode/edit/'.$this->uri->segment(4) : '', array('method' => 'post'))?>
-                                <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
+                            <?=form_open($action == 'edit' ? 'finance/libraries/projectcode/edit/'.$this->uri->segment(5) : '', array('method' => 'post'))?>
+                                <!-- <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" /> -->
                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                     <label class="control-label">Project Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
-                                        <input type="text" class="form-control form-required" name="txtcode" <?=$action == 'edit' ? 'disabled' : ''?>
+                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'hidden'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                        <input type="text" class="form-control form-required" name="txtcode" id="txtcode" <?=$action == 'edit' ? 'disabled' : ''?>
                                             value="<?=isset($data) ? $data['projectCode'] : set_value('txtcode')?>" <?=$action?>>
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Project Description <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <input type="text" class="form-control form-required" name="txtdesc"
+                                        <input type="text" class="form-control form-required" name="txtdesc" id="txtdesc"
                                             value="<?=isset($data) ? $data['projectDesc'] : set_value('txtdesc')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Project Order <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <input type="text" class="form-control form-required" name="txtorder"
+                                        <input type="text" class="form-control form-required" name="txtorder" id="txtorder"
                                             value="<?=isset($data) ? $data['projectOrder'] : set_value('txtorder')?>">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                            <button class="btn green" type="submit" id="btn_add_projectcode"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
                                             <a href="<?=base_url('finance/libraries/projectcode')?>" class="btn blue">
                                                 <i class="icon-ban"></i> Cancel</a>
                                         </div>
                                     </div>
                                 </div>
                             <?=form_close()?>
-
                         </div>
                     </div>
                 </div>
@@ -85,5 +82,25 @@
     $(document).ready(function() {
         $('.loading-image').hide();
         $('.portlet-body').show();
+
+        $('#txtcode').on('keyup keypress change', function() {
+            check_null('#txtcode','Project Code must not be empty.');
+        });
+        $('#txtdesc').on('keyup keypress change', function() {
+            check_null('#txtdesc','Project Description must not be empty.');
+        });
+        $('#txtorder').on('keyup keypress change', function() {
+            check_number('#txtorder','Project Order must not be empty.');
+        });
+
+        $('#btn_add_projectcode').on('click', function(e) {
+            var total_error = 0;
+            total_error = total_error + check_null('#txtcode','Project Code must not be empty.');
+            total_error = total_error + check_null('#txtdesc','Project Description must not be empty.');
+            total_error = total_error + check_number('#txtorder','Project Order must not be empty.');
+            if(total_error > 0){
+                e.preventDefault();
+            }
+        });
     });
 </script>

@@ -37,21 +37,21 @@ class ProjectCode extends MY_Controller {
 		$this->template->load('template/template_view','finance/libraries/projectcode/projectcode_add',$this->arrData);
 	}
 
-	public function edit($code)
+	public function edit($id)
 	{
-		$code = str_replace('%20', ' ', $code);
+		$id = $this->uri->segment(5);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
 				'projectDesc' => $arrPost['txtdesc'],
 				'projectOrder' => $arrPost['txtorder']
 			);
-			$this->ProjectCode_model->edit($arrData, $code);
+			$this->ProjectCode_model->edit($arrData, $id);
 			$this->session->set_flashdata('strSuccessMsg','Project Code updated successfully.');
 			redirect('finance/libraries/projectcode');
 		else:
 			$this->arrData['action'] = 'edit';
-			$this->arrData['data'] = $this->ProjectCode_model->getData($code);
+			$this->arrData['data'] = $this->ProjectCode_model->getData($id);
 			$this->template->load('template/template_view','finance/libraries/projectcode/projectcode_add',$this->arrData);
 		endif;
 	}

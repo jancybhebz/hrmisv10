@@ -91,7 +91,7 @@
                                             <td><?=$data['deductionType']?> </td>
                                             <td><?=$data['hidden'] == 1 ? 'Inactive' : 'Active' ?> </td>
                                             <td align="center" nowrap>
-                                                <a href="<?=base_url('finance/libraries/deductions/edit/'.$data['deductionCode'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                                <a href="<?=base_url('finance/libraries/deductions/edit/'.$data['deduction_id'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="1" data-code="<?=$data['deductionCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>
@@ -137,7 +137,7 @@
                                             <td><?=$data['deductionGroupDesc']?> </td>
                                             <td><?=$data['deductionGroupAccountCode']?> </td>
                                             <td align="center" nowrap>
-                                                <a href="<?=base_url('finance/libraries/agency/edit/'.$data['deductionGroupCode'])?>"><button class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                                <a href="<?=base_url('finance/libraries/agency/edit/'.$data['deduct_id'])?>"><button class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="0" data-code="<?=$data['deductionGroupCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>

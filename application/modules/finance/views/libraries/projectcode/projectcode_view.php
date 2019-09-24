@@ -62,7 +62,7 @@
                                         <td><?=$data['projectCode']?></td>
                                         <td><?=$data['projectDesc']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/libraries/projectcode/edit/'.$data['projectCode'])?>" class="btn btn-sm green">
+                                            <a href="<?=base_url('finance/libraries/projectcode/edit/'.$data['projectId'])?>" class="btn btn-sm green">
                                                 <span class="fa fa-edit" title="Edit"></span> Edit</a>
                                             <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['projectCode']?>">
                                                 <span class="fa fa-trash" title="Delete"></span> Delete</a>

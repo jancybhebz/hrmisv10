@@ -75,9 +75,9 @@ class Deductions extends MY_Controller {
 		$this->template->load('template/template_view','finance/libraries/deductions/agency_add',$this->arrData);
 	}
 
-	public function edit($code)
+	public function edit($id)
 	{
-		$code = str_replace('%20', ' ', $code);
+		$id = $this->uri->segment(5);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
@@ -87,20 +87,20 @@ class Deductions extends MY_Controller {
 				'deductionAccountCode' => $arrPost['txtacctcode'],
 				'hidden' => $arrPost['chkisactive'] == 'on' ? 1 : 0
 			);
-			$this->Deduction_Model->edit($arrData, $code);
+			$this->Deduction_Model->edit($arrData, $id);
 			$this->session->set_flashdata('strSuccessMsg','Deduction updated successfully.');
 			redirect('finance/libraries/deductions');
 		else:
 			$this->arrData['action'] = 'edit';
-			$this->arrData['data'] = $this->Deduction_Model->getDeductions($code);
+			$this->arrData['data'] = $this->Deduction_Model->getDeductions($id);
 			$this->arrData['agency'] = $this->Deduction_Model->getDeductionGroup('');
 			$this->template->load('template/template_view','finance/libraries/deductions/deductions_add',$this->arrData);
 		endif;
 	}
 
-	public function edit_agency($code)
+	public function edit_agency($id)
 	{
-		$code = str_replace('%20', ' ', $code);
+		$id = $this->uri->segment(5);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
@@ -108,7 +108,7 @@ class Deductions extends MY_Controller {
 				'deductionGroupAccountCode' => $arrPost['acct-code']
 			);
 			if(!$this->Deduction_Model->isDeductionGroupExists($arrPost['agency-code'],'edit')):
-				$this->Deduction_Model->edit_agency($arrData, $code);
+				$this->Deduction_Model->edit_agency($arrData, $id);
 				$this->session->set_flashdata('strSuccessMsg','Agency updated successfully.');
 				redirect('finance/libraries/deductions?tab=agency');
 			else:
@@ -116,7 +116,7 @@ class Deductions extends MY_Controller {
 			endif;
 		endif;
 		$this->arrData['action'] = 'edit';
-		$this->arrData['arrData'] = $this->Deduction_Model->getDeductionGroup($code);
+		$this->arrData['arrData'] = $this->Deduction_Model->getDeductionGroup($id);
 		$this->template->load('template/template_view','finance/libraries/deductions/agency_add',$this->arrData);
 	}
 
