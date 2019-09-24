@@ -65,9 +65,8 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Agency <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips i-required"></i>
                                                         <select class="bs-select form-control form-required" name="selAgency" id="selAgency">
-                                                            <option value="null">-- SELECT AGENCY --</option>
+                                                            <option value="">-- SELECT AGENCY --</option>
                                                             <?php foreach($agency as $agency): ?>
                                                                 <option value="<?=$agency['deductionGroupCode']?>"
                                                                     <?=isset($data) ? $agency['deductionGroupCode'] == $data['deductionGroupCode'] ? 'selected' : '' : $agency['deductionGroupCode'] == set_value('selAgency') ? 'selected' : ''?>>
@@ -79,30 +78,26 @@
                                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                                     <label class="control-label">Deduction Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
                                                         <input type="text" class="form-control form-required" name="txtddcode" id="txtddcode" value="<?=isset($data) ? $data['deductionCode'] : set_value('txtddcode')?>" <?=$action == 'edit' ? 'disabled' : ''?>>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Deduction Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips i-required"></i>
                                                         <input type="text" class="form-control form-required" name="txtdesc" id="txtdesc" value="<?=isset($data) ? $data['deductionDesc'] : set_value('txtdesc')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips i-required"></i>
                                                         <input type="text" class="form-control form-required" name="txtacctcode" id="txtacctcode" value="<?=isset($data) ? $data['deductionAccountCode'] : set_value('txtacctcode')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Type <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <i class="fa fa-warning tooltips i-required"></i>
                                                         <select class="bs-select form-control form-required" name="seltype" id="seltype">
-                                                            <option value="null">-- SELECT TYPE --</option>
+                                                            <option value="">-- SELECT TYPE --</option>
                                                             <?php foreach(deduction_type() as $type): ?>
                                                                 <option value="<?=$type?>" <?=isset($data) ? $type == $data['deductionType'] ? 'selected' : '' : $type == set_value('seltype') ? 'selected' : ''?>>
                                                                     <?=$type?></option>
@@ -142,5 +137,34 @@
     $(document).ready(function() {
         $('.loading-image').hide();
         $('.portlet-body').show();
+
+        $('#selAgency').on('keyup keypress change', function() {
+            check_null('#selAgency','Agency must not be empty.');
+        });
+        $('#txtddcode').on('keyup keypress change', function() {
+            check_null('#txtddcode','Deduction Code must not be empty.');
+        });
+        $('#txtdesc').on('keyup keypress change', function() {
+            check_null('#txtdesc','Deduction Description must not be empty.');
+        });
+        $('#txtacctcode').on('keyup keypress change', function() {
+            check_null('#txtacctcode','Account Code must not be empty.');
+        });
+        $('#seltype').on('keyup keypress change', function() {
+            check_null('#seltype','Type must not be empty.');
+        });
+
+        $('#btn_add_deduction').on('click', function(e) {
+            var total_error = 0;
+            total_error = check_null('#selAgency','Agency must not be empty.');
+            total_error = check_null('#txtddcode','Deduction Code must not be empty.');
+            total_error = check_null('#txtdesc','Deduction Description must not be empty.');
+            total_error = check_null('#txtacctcode','Account Code must not be empty.');
+            total_error = check_null('#seltype','Type must not be empty.');
+            
+            if(total_error > 0){
+                e.preventDefault();
+            }
+        });
     });
 </script>
