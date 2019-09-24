@@ -29,7 +29,7 @@ function validate_text(e)
 function check_null(el,msg)
 {
     $(el).closest('div.form-group').find('i.fa-calendar').remove();
-    if($(el).val() != ''){
+    if($(el).val() != '' && $(el).val().replace(/\s/g, '').length > 0){
         $(el).closest('div.form-group').removeClass('has-error');
         $(el).closest('div.form-group').addClass('has-success');
         $(el).closest('div.form-group').find('i.fa-warning').remove();
@@ -49,7 +49,7 @@ function check_null(el,msg)
 function check_number(el)
 {
     $(el).closest('div.form-group').find('i.fa-calendar').remove();
-    if(isNaN($(el).val()) == false && $(el).val() != ''){
+    if(isNaN($(el).val()) == false && $(el).val() != '' && $(el).val().replace(/\s/g, '').length > 0){
         $(el).closest('div.form-group').removeClass('has-error');
         $(el).closest('div.form-group').addClass('has-success');
         $(el).closest('div.form-group').find('i.fa-warning').remove();
