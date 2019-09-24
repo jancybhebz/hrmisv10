@@ -23,7 +23,7 @@ class PayrollProcess extends MY_Controller {
 			endforeach;
 			$arrPayroll[$key]['process_with'] = implode(', ', $pprocess);
 		endforeach;
-		
+
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
 		$this->arrData['arrPayrollProc'] = $arrPayroll;
 		$this->template->load('template/template_view','finance/libraries/payrollprocess/payrollprocess_view',$this->arrData);
@@ -56,19 +56,19 @@ class PayrollProcess extends MY_Controller {
 
 	public function edit()
 	{
-		$code = str_replace('%20', ' ', $this->uri->segment(5));
+		$id = $this->uri->segment(5);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
 				'processWith' => implode(',', $arrPost['selprocesswith']),
 				'computation' => $arrPost['selsalary']
 			);
-			$this->Process_model->edit($arrData, $code);
+			$this->Process_model->edit($arrData, $id);
 			$this->session->set_flashdata('strSuccessMsg','Payroll process updated successfully.');
 			redirect('finance/libraries/payrollprocess');
 		endif;
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
-		$this->arrData['arrData'] = $this->Process_model->getProcessData($code);
+		$this->arrData['arrData'] = $this->Process_model->getProcessData($id);
 
 		$this->arrData['action'] = 'edit';
 		$this->template->load('template/template_view','finance/libraries/payrollprocess/payrollprocess_add',$this->arrData);

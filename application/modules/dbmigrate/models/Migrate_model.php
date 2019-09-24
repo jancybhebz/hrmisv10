@@ -149,6 +149,10 @@ class Migrate_model extends CI_Model {
         $this->write_sqlstmt("UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;",$sql_file);
         $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;",$sql_file);
 
+        $this->write_sqlstmt("ALTER TABLE `tblIncome` ADD `income_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`income_id`);",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblDeductionGroup` ADD `deduct_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`deduct_id`);",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblPayrollProcess` ADD `process_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`process_id`);",$sql_file);
+
     	$tbldb_hrmis = $this->db->list_tables();
     	foreach($tbldb_hrmis as $tbl):
     		$desc_tbl = $this->db->query('DESCRIBE '.$tbl.';')->result_array();

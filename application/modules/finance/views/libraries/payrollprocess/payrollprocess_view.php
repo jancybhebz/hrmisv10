@@ -71,7 +71,7 @@
                                         </td>
                                         <td><?=$proc['computation']?></td>
                                         <td align="center" nowrap>
-                                            <a href="<?=base_url('finance/libraries/payrollprocess/edit/'.$proc['appointmentCode'])?>" class="btn btn-sm green">
+                                            <a href="<?=base_url('finance/libraries/payrollprocess/edit/'.$proc['process_id'])?>" class="btn btn-sm green">
                                                 <span class="fa fa-edit" title="Edit"></span> Edit</a>
                                             <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$proc['appointmentCode']?>">
                                                 <span class="fa fa-trash" title="Delete"></span> Delete</a>

@@ -94,6 +94,7 @@ class Payroll_group extends MY_Controller {
 		}
 		else
 		{
+
 			$intPayrollGroupId = $arrPost['intPayrollGroupId'];
 			$strProject = $arrPost['strProject'];
 			$strPayrollGroupCode = $arrPost['strPayrollGroupCode'];

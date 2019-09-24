@@ -41,9 +41,9 @@
                                 <div class="form-group <?=isset($err) ? 'has-error' : ''?>">
                                     <label class="control-label">Appointment Name <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
-                                        <select class="form-control select2 form-required" name="selappointment" <?=$action=='edit' ? 'disabled' : ''?>>
-                                            <option value="null">-- SELECT APPOINTMENT --</option>
+                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'hidden'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                        <select class="form-control select2 form-required" name="selappointment" id="selappointment" <?=$action=='edit' ? 'disabled' : ''?>>
+                                            <option value="">-- SELECT APPOINTMENT --</option>
                                             <?php foreach($arrAppointments as $appointment): ?>
                                                 <option value="<?=$appointment['appointmentCode']?>" <?=isset($arrData) ? $appointment['appointmentCode'] == $arrData['appointmentCode'] ? 'selected' : '' : $appointment['appointmentCode'] == set_value('selappointment') ? 'selected' : ''?>>
                                                     <?=$appointment['appointmentDesc']?></option>
@@ -54,7 +54,6 @@
                                 <div class="form-group ">
                                     <label class="control-label">Process With <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="form-control select2-multiple form-required" multiple placeholder="" id="selprocesswith" name="selprocesswith[]">
                                             <?php 
                                                 if(isset($arrData)):
@@ -75,7 +74,6 @@
                                 <div class="form-group ">
                                     <label class="control-label">Salary <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="form-control bs-select form-required" id="selsalary" name="selsalary">
                                             <option value="">-- SELECT SALARY --</option>
                                             <?php foreach(salaryPeriod() as $period): ?>
@@ -88,7 +86,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                            <button class="btn green" type="submit" id="btn_add_process"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
                                             <a href="<?=base_url('finance/libraries/payrollprocess')?>" class="btn blue">
                                                 <i class="icon-ban"></i> Cancel</a>
                                         </div>
@@ -117,6 +115,56 @@
         $('#selprocesswith').select2({
             placeholder: "-- SELECT MULTIPLE PROCESS WITH --",
             allowClear: true
+        });
+
+        $('#selappointment').on('keyup keypress change', function() {
+            check_null('#selappointment','Appointment Name must not be empty.');
+        });
+        $('#selprocesswith').on("select2:select", function(e) { 
+           $('#selprocesswith').closest('div.form-group').find('i.fa-calendar').remove();
+           if($('#selprocesswith').val() != null){
+               $('#selprocesswith').closest('div.form-group').removeClass('has-error');
+               $('#selprocesswith').closest('div.form-group').addClass('has-success');
+               $('#selprocesswith').closest('div.form-group').find('i.fa-warning').remove();
+               $('#selprocesswith').closest('div.form-group').find('i.fa-check').remove();
+               $('<i class="fa fa-check tooltips"></i>').insertBefore($('#selprocesswith'));
+           }else{
+               $('#selprocesswith').closest('div.form-group').addClass('has-error');
+               $('#selprocesswith').closest('div.form-group').removeClass('has-success');
+               $('#selprocesswith').closest('div.form-group').find('i.fa-check').remove();
+               $('#selprocesswith').closest('div.form-group').find('i.fa-warning').remove();
+               $('<i class="fa fa-warning tooltips font-red" data-original-title="Process With must not be empty."></i>').tooltip().insertBefore($('#selprocesswith'));
+               total_error = total_error + 1;
+           }
+        });
+        $('#selsalary').on('keyup keypress change', function() {
+            check_null('#selsalary','Salary must not be empty.');
+        });
+
+        $('#btn_add_process').on('click', function(e) {
+            var total_error = 0;
+            total_error = total_error + check_null('#selappointment','Appointment Name must not be empty.');
+            total_error = total_error + check_null('#selsalary','Salary must not be empty.');
+
+            $('#selprocesswith').closest('div.form-group').find('i.fa-calendar').remove();
+            if($('#selprocesswith').val() != null){
+                $('#selprocesswith').closest('div.form-group').removeClass('has-error');
+                $('#selprocesswith').closest('div.form-group').addClass('has-success');
+                $('#selprocesswith').closest('div.form-group').find('i.fa-warning').remove();
+                $('#selprocesswith').closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#selprocesswith'));
+            }else{
+                $('#selprocesswith').closest('div.form-group').addClass('has-error');
+                $('#selprocesswith').closest('div.form-group').removeClass('has-success');
+                $('#selprocesswith').closest('div.form-group').find('i.fa-check').remove();
+                $('#selprocesswith').closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips font-red" data-original-title="Process With must not be empty."></i>').tooltip().insertBefore($('#selprocesswith'));
+                total_error = total_error + 1;
+            }
+
+            if(total_error > 0){
+                e.preventDefault();
+            }
         });
     });
 </script>
