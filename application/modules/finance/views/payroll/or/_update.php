@@ -35,7 +35,18 @@
             <div class="portlet-body" id="div-body" style="display: none">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <?=form_open('', array('method' => 'post', 'id' => 'frmto'))?>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <?php if(count($arrmsg) > 0): ?>
+                                    <div class="alert alert-danger">
+                                        <strong>Error!</strong>
+                                        <p>Employee<?=count($arrmsg) > 0 ? 's' : ''?> does not exists.</p><br>
+                                        <?php foreach($arrmsg as $e): echo '<li>'.employee_name($e).'</li>'; endforeach;?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?=form_open('finance/payroll_update/update_or?month='.currmo().'&yr='.curryr().'&mode=add', array('method' => 'post', 'id' => 'frmto'))?>
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="row">
@@ -49,7 +60,11 @@
                                                             if(isset($_GET['month'])):
                                                                 echo $_GET['month'] == $m ? 'selected' : '';
                                                             else:
-                                                                echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                                if(count($arr_remitt) > 0):
+                                                                    echo $m == $arr_remitt['deductMonth'] ? 'selected' : '';
+                                                                else:
+                                                                    echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
+                                                                endif;
                                                             endif;
                                                             ?> >
                                                         <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
@@ -67,7 +82,11 @@
                                                             if(isset($_GET['yr'])):
                                                                 echo $_GET['yr'] == $yr ? 'selected' : '';
                                                             else:
-                                                                echo $yr == date('Y') ? 'selected' : '';
+                                                                if(count($arr_remitt) > 0):
+                                                                    echo $yr == $arr_remitt['deductYear'] ? 'selected' : '';
+                                                                else:
+                                                                    echo $yr == date('Y') ? 'selected' : '';
+                                                                endif;
                                                             endif;
                                                             ?> >  
                                                     <?=$yr?></option>
@@ -87,8 +106,9 @@
                                             <option value=""> </option>
                                             <?php 
                                                 foreach($arrpayroll as $payroll):
+                                                    $selected = count($arr_remitt) > 0 ? $arr_remitt['processID'] == $payroll['processID'] ? 'selected' : '' : '';
                                                     $period = $payroll['employeeAppoint'] != 'P' ? ' - Period '.$payroll['period'] : '';
-                                                    echo '<option value="'.$payroll['processID'].'">'.$payroll['processCode'].$period.' ('.$payroll['employeeAppoint'].')'.'</option>';
+                                                    echo '<option value="'.$payroll['processID'].'" '.$selected.'>'.$payroll['processCode'].$period.' ('.$payroll['employeeAppoint'].')'.'</option>';
                                                 endforeach;
                                              ?>
                                         </select>
@@ -105,7 +125,8 @@
                                             <option value="">  </option>
                                             <?php 
                                                 foreach($arremployees as $emp):
-                                                    echo '<option value="'.$emp['empNumber'].'">'.getfullname($emp['firstname'],$emp['surname'],$emp['middlename'],$emp['middleInitial'],$emp['nameExtension']).'</option>';
+                                                    $selected = count($arr_remitt) > 0 ? $arr_remitt['empNumber'] == $emp['empNumber'] ? 'selected' : '' : '';
+                                                    echo '<option value="'.$emp['empNumber'].'" '.$selected.'>'.getfullname($emp['firstname'],$emp['surname'],$emp['middlename'],$emp['middleInitial'],$emp['nameExtension']).'</option>';
                                                 endforeach;
                                              ?>
                                         </select>
@@ -122,7 +143,7 @@
                                             <option value="">-- SELECT FUND SOURCE --</option>
                                             <?php 
                                                 foreach($deduction_list as $deduction):
-                                                    $selected = '';
+                                                    $selected = count($arr_remitt) > 0 ? $arr_remitt['deductionCode'] == $deduction['deductionCode'] ? 'selected' : '' : '';
                                                     echo '<option value="'.$deduction['deductionCode'].'" '.$selected.'>'.$deduction['deductionDesc'].'</option>';
                                                 endforeach;
                                              ?>
@@ -137,7 +158,8 @@
                                 <div class="form-group">
                                     <label class="control-label">OR No. / TRA <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <input type="text" class="form-control" name="txtorno" id="txtorno">
+                                        <input type="text" class="form-control" name="txtorno" id="txtorno"
+                                                value="<?=count($arr_remitt) > 0 ? $arr_remitt['orNumber'] : ''?>">
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +170,8 @@
                                     <label class="control-label">OR Date <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" 
-                                                name="txtordate" id="txtordate" type="text">
+                                                name="txtordate" id="txtordate" type="text"
+                                                value="<?=count($arr_remitt) > 0 ? $arr_remitt['orDate'] : ''?>">
                                     </div>
                                 </div>
                             </div>
@@ -157,8 +180,9 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <button class="btn green" type="submit" id="btn_add_remittance"><i class="fa fa-check"></i> Update OR Remittance </button>
-                                    <a href="<?=base_url('hr/attendance_summary/dtr/to/')?>" class="btn blue">
+                                    <button class="btn green" type="submit" id="btn_add_remittance">
+                                        <i class="fa fa-<?=$_GET['mode']=='add'?'plus':'check'?>"></i> <?=$_GET['mode']=='add'?'Add':'Edit'?> </button>
+                                    <a href="<?=base_url('finance/payroll_update/view_or')?>" class="btn blue">
                                         <i class="icon-ban"></i> Cancel</a>
                                 </div>
                             </div>
@@ -192,7 +216,8 @@
         $('#selproc_mon,#selproc_yr').on('keyup keypress change', function() {
             var mon = $('#selproc_mon').val();
             var yr = $('#selproc_yr').val();
-            window.location = "<?=base_url('finance/payroll_update/update_or?month=')?>" + mon + "&yr=" + yr;
+            var mode = "<?=$_GET['mode']?>";
+            window.location = "<?=base_url('finance/payroll_update/update_or?month=')?>" + mon + "&yr=" + yr + "&mode=" + mode;
         });
 
         $('#selproc_sal').on('keyup keypress change', function() {

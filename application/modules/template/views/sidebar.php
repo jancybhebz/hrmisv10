@@ -9,10 +9,14 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
 $activetab = strtolower($activetab);
 
 $user_session = $this->session->userdata();
-// echo '<br>active = '.$active;
-// echo '<br>activesub = '.$activesub;
-// echo '<br>activetab = '.$activetab;
 ?>
+<!-- <pre>
+    <?php 
+        // echo '<br>active = '.$active;
+        // echo '<br>activesub = '.$activesub;
+        // echo '<br>activetab = '.$activetab;
+     ?>
+</pre> -->
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
@@ -221,7 +225,7 @@ $user_session = $this->session->userdata();
                             <span class="arrow <?=$activesub=='payroll_update'?'open':''?>"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item start <?=$activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')?'active open':''?>">
+                            <li class="nav-item start <?=($activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')) && !in_array($activetab, array('view_or','update_or')) ?'active open':''?>">
                                 <a href="<?=base_url('finance/payroll_update/process')?>">
                                     <span class="title">Process Payroll</span>
                                 </a>
@@ -231,9 +235,9 @@ $user_session = $this->session->userdata();
                                     <span class="title">Process History</span>
                                 </a>
                             </li>
-                            <li class="nav-item start <?=$activetab=='update_or'?'active open':''?>">
-                                <a href="<?=base_url('finance/payroll_update/update_or')?>">
-                                    <span class="title">Update OR Remittances</span>
+                            <li class="nav-item start <?=$activesub =='payroll_update' && in_array($activetab, array('update_or','view_or'))?'active open':''?>">
+                                <a href="<?=base_url('finance/payroll_update/view_or')?>">
+                                    <span class="title">OR Remittances</span>
                                 </a>
                             </li>
                         </ul>

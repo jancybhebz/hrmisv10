@@ -134,7 +134,6 @@
                $('#selprocesswith').closest('div.form-group').find('i.fa-check').remove();
                $('#selprocesswith').closest('div.form-group').find('i.fa-warning').remove();
                $('<i class="fa fa-warning tooltips font-red" data-original-title="Process With must not be empty."></i>').tooltip().insertBefore($('#selprocesswith'));
-               total_error = total_error + 1;
            }
         });
         $('#selsalary').on('keyup keypress change', function() {
