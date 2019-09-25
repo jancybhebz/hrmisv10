@@ -152,6 +152,7 @@ class Migrate_model extends CI_Model {
         $this->write_sqlstmt("ALTER TABLE `tblIncome` ADD `income_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`income_id`);",$sql_file);
         $this->write_sqlstmt("ALTER TABLE `tblDeductionGroup` ADD `deduct_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`deduct_id`);",$sql_file);
         $this->write_sqlstmt("ALTER TABLE `tblPayrollProcess` ADD `process_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`process_id`);",$sql_file);
+        $this->write_sqlstmt("ALTER TABLE `tblEmpDeductionRemit` ADD `remitt_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`remitt_id`);",$sql_file);
 
     	$tbldb_hrmis = $this->db->list_tables();
     	foreach($tbldb_hrmis as $tbl):

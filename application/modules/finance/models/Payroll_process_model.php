@@ -175,7 +175,53 @@ class Payroll_process_model extends CI_Model {
 		return count($res) > 0 ? $res[0] : null;
 	}
 
+	function update_or($arrData,$processid,$deduction_code,$empid)
+	{
+		$this->db->where('processID',$processid);
+		$this->db->where('deductionCode',$deduction_code);
+		$this->db->where('empNumber',$empid);
+		$this->db->update('tblEmpDeductionRemit', $arrData);
+		return $this->db->affected_rows();
+	}
 
+	function update_orby_remitt($arrData,$remitt_id)
+	{
+		$this->db->where('remitt_id',$remitt_id);
+		$this->db->update('tblEmpDeductionRemit', $arrData);
+		return $this->db->affected_rows();
+	}
+
+	function get_orlist($processid='',$deduction_code='',$isnull=0)
+	{
+		$this->db->select('tblProcess.processID,tblProcess.empNumber,tblProcess.processMonth,tblProcess.processYear,tblProcess.employeeAppoint,tblDeduction.deductionDesc,tblDeduction.deductionCode,tblEmpDeductionRemit.deductMonth,tblEmpDeductionRemit.deductYear,tblEmpDeductionRemit.orNumber,tblEmpDeductionRemit.orDate,tblEmpDeductionRemit.remitt_id');
+		$this->db->join('tblDeduction','tblDeduction.deductionCode = tblEmpDeductionRemit.deductionCode');
+		$this->db->join('tblProcess','tblProcess.processID = tblEmpDeductionRemit.processID');
+		
+		if($isnull == 1){
+			$this->db->where('orNumber IS NULL', null, false);
+			$this->db->where('orDate IS NULL', null, false);
+		}else{
+			$this->db->where('orNumber IS NOT NULL', null, false);
+			$this->db->where('orDate IS NOT NULL', null, false);
+		}
+		
+		if($processid!=''){
+			$this->db->where('tblProcess.processID',$processid);
+		}
+		if($deduction_code!=''){
+			$this->db->where('tblDeduction.deductionCode',$deduction_code);
+		}
+
+		$res = $this->db->get('tblEmpDeductionRemit')->result_array();
+		
+		return $res;
+	}
+
+	function get_deduction_remit($remitt_id)
+	{
+		$res = $this->db->get_where('tblEmpDeductionRemit', array('remitt_id' => $remitt_id))->result_array();
+		return count($res) > 0 ? $res[0] : null;
+	}
 
 
 }
