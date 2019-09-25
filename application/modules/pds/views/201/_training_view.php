@@ -24,8 +24,8 @@
                         <th rowspan="2">Training Venue</th>
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                             <th rowspan="2">Action</th>
-                            <th rowspan="2">Attachment/s</th>
                         <?php endif; ?>
+                        <th rowspan="2">Attachment/s</th>
                     </tr>
                     <tr>
                         <th>From</th>
@@ -53,6 +53,7 @@
                                     </center>
                                 </td>
                                 <!-- upload -->
+                            <?php endif; ?>
                                 <td>
                                 <?php 
                                 // $folder = 'uploads/employees/attachments/trainings/'.$tra['TrainingIndex']; 
@@ -81,7 +82,7 @@
                                     </button>
                                 <?=form_close();} ?>
                                 </td>
-                            <?php endif; ?>
+                            
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
