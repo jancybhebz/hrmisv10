@@ -96,7 +96,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <tr class="odd gradeX">
                                     <td> <?=$i++?> </td>
                                     <td> <?=$row['empNumber']?></a> </td>
-                                    <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'?> </td>
+                                    <?php if($row['middleInitial']=="") 
+                                    {
+                                        echo '<td>'.$row['surname'].', '.$row['firstname'].'</td>'; ?>
+                                    <?php } else {
+                                         echo '<td>'.$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'.'</td>'; ?>
+                                    <?php } ?>
+                           
                                     <td> <?=employee_office($row['empNumber'])?> </td>
                                     <td> <?=$row['positionDesc']?></td>
                                     <td> <?=$row['appointmentDesc']?></td>
