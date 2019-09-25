@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Year Graduated</label>
                     <div class="col-md-8">
-                        <input type="type" maxlength="4" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
+                        <input type="number" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
                         <span class="help-block"></span>
                     </div>
                 </div>
