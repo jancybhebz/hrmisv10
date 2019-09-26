@@ -37,16 +37,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no=1; foreach($arrdtrTime as $dtr): $editby = explode(';',$dtr['name']); $editdate = explode(';',$dtr['editdate']); ?>
+                                <?php
+                                $no=1;
+                                foreach($arrdtrTime as $dtr):
+                                    $editby = explode(';',$dtr['name']);
+                                    $editdate = explode(';',$dtr['editdate']);
+                                    $in_am = $dtr['inAM']  == '' || $dtr['inAM']  == '00:00:00' ? '' : date('h:i',strtotime($dtr['inAM']));
+                                    $out_am= $dtr['outAM'] == '' || $dtr['outAM'] == '00:00:00' ? '' : date('h:i',strtotime($dtr['outAM']));
+                                    $in_pm = $dtr['inPM']  == '' || $dtr['inPM']  == '00:00:00' ? '' : date('h:i',strtotime($dtr['inPM']));
+                                    $out_pm= $dtr['outPM'] == '' || $dtr['outPM'] == '00:00:00' ? '' : date('h:i',strtotime($dtr['outPM']));
+                                    $ot_in = $dtr['inOT']  == '' || $dtr['inOT']  == '00:00:00' ? '' : date('h:i',strtotime($dtr['inOT']));
+                                    $ot_out= $dtr['outOT'] == '' || $dtr['outOT'] == '00:00:00' ? '' : date('h:i',strtotime($dtr['outOT']));
+                                    ?>
                                 <tr>
                                     <td align="center"><?=$no++?></td>
-                                    <td><?=$dtr['dtrDate']?></td>
-                                    <td><?=$dtr['inAM']?></td>
-                                    <td><?=$dtr['outAM']?></td>
-                                    <td><?=$dtr['inPM']?></td>
-                                    <td><?=$dtr['outPM']?></td>
-                                    <td><?=$dtr['inOT']?></td>
-                                    <td><?=$dtr['outOT']?></td>
+                                    <td align="center"><?=$dtr['dtrDate']?></td>
+                                    <td align="center"><?=$in_am?></td>
+                                    <td align="center"><?=$out_am?></td>
+                                    <td align="center"><?=$in_pm?></td>
+                                    <td align="center"><?=$out_pm?></td>
+                                    <td align="center"><?=$ot_in?></td>
+                                    <td align="center"><?=$ot_out?></td>
                                     <td><?=$editby[count($editby)-1]?></td>
                                     <td><?=$editdate[count($editdate)-1]?></td>
                                 </tr>
