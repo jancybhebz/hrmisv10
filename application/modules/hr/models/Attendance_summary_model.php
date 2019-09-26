@@ -59,9 +59,6 @@ class Attendance_summary_model extends CI_Model {
 		$this->load->model(array('libraries/Holiday_model','employee/Official_business_model','finance/Dtr_model','employee/Travelorder_model','employee/Leave_model','libraries/Attendance_scheme_model'));
 		$this->load->helper('dtr_helper');
 
-		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
-		$att_scheme_temp = $att_scheme;
-
 		# Begin Broken Schedule
 		$broken_sched = $this->Attendance_summary_model->getBrokenschedules($empid, $datefrom, $dateto);
 		# End Broken Schedule
@@ -101,12 +98,14 @@ class Attendance_summary_model extends CI_Model {
 		
 		$emp_dtr = array();
 		$work_hrs = 0;
-		
 		foreach(dateRange($datefrom,$dateto) as $dtrdate):
+			$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
+			$att_scheme_temp = $att_scheme;
+
 			$bs_sched = array();
 			if(count($broken_sched) > 0):
 				foreach($broken_sched as $bs):
-					if($dtrdate > $bs['dateFrom'] && $dtrdate < $bs['dateTo']){
+					if($dtrdate >= $bs['dateFrom'] && $dtrdate <= $bs['dateTo']){
 						$att_scheme = $bs;
 						$att_scheme_temp = $att_scheme;
 						$bs_sched['scheme'] = $bs['schemeType'];
@@ -115,6 +114,7 @@ class Attendance_summary_model extends CI_Model {
 					}
 				endforeach;
 			endif;
+			
 			$work_hrs = 0;
 			# Begin DTR
 			$dtr = array();
@@ -160,8 +160,10 @@ class Attendance_summary_model extends CI_Model {
 			if(!empty($dtr)):
 				if(in_array($dtrdate,$arr_first_days)):
 					$flag_ceremony_time = flag_ceremony_time();
-					$att_scheme['amTimeinTo'] = $flag_ceremony_time;
-					$att_scheme['pmTimeoutTo'] = date('H:i:s', strtotime($flag_ceremony_time) + 60*60*9);
+					if($flag_ceremony_time != '' && $flag_ceremony_time != '00:00:00'):
+						$att_scheme['amTimeinTo'] = $flag_ceremony_time;
+						$att_scheme['pmTimeoutTo'] = date('H:i:s', strtotime($flag_ceremony_time) + 60*60*9);
+					endif;
 				else:
 					$att_scheme['amTimeinTo'] = $att_scheme_temp['amTimeinTo'];
 					$att_scheme['pmTimeoutTo'] = $att_scheme_temp['pmTimeoutTo'];
@@ -231,6 +233,7 @@ class Attendance_summary_model extends CI_Model {
 			$day = date('D', strtotime($dtrdate));
 			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'emp_ws' => $emp_ws, 'broken_sched' => $bs_sched, 'work_hrs' => $work_hrs,'att_scheme'=>$att_scheme);
 			# End Data Array
+			// echo '<hr>';
 		endforeach;
 		// print_r($emp_dtr);
 		// die();
@@ -556,9 +559,9 @@ class Attendance_summary_model extends CI_Model {
 		if(!empty($dtr)):
 			# Attendance Scheme
 			// $sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
-			$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
-			$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
-			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
+			$sc_am_timein_to = $att_scheme['amTimeinTo'];
+			$sc_nn_timein_from = $att_scheme['nnTimeinFrom'];
+			$sc_nn_timein_to = $att_scheme['nnTimeinTo'];
 			// $sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
 			// $sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
 			
@@ -567,7 +570,7 @@ class Attendance_summary_model extends CI_Model {
 			$am_timeout = $dtr['outAM'] == '' || $dtr['outAM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['outAM']));
 			$pm_timein 	= $dtr['inPM'] == '' || $dtr['inPM'] == '00:00:00' ? $sc_nn_timein_from : date('H:i',strtotime($dtr['inPM']));
 			$pm_timeout = date('H:i',strtotime($dtr['outPM']));
-
+			
 			# morning Late
 			$am_late = 0;
 			if($am_timein > $sc_am_timein_to):
@@ -590,11 +593,11 @@ class Attendance_summary_model extends CI_Model {
 	{
 		if(!empty($dtr)):
 			# Attendance Scheme
-			$sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
-			$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
-			$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
-			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
-			$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
+			$sc_am_timein_from = $att_scheme['amTimeinFrom'];
+			$sc_am_timein_to = $att_scheme['amTimeinTo'];
+			$sc_nn_timein_from = $att_scheme['nnTimeinFrom'];
+			$sc_nn_timein_to = $att_scheme['nnTimeinTo'];
+			$sc_pm_timeout_from = $att_scheme['pmTimeoutFrom'];
 			// $sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
 
 			$req_hours = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
@@ -641,7 +644,7 @@ class Attendance_summary_model extends CI_Model {
 					endif;
 				endif;
 			endif;
-
+			
 			return ($am_utime + $pm_utime);
 		else:
 			return 0;
@@ -651,7 +654,7 @@ class Attendance_summary_model extends CI_Model {
 	function check_obtime_in($att_scheme,$obs)
 	{
 		# Attendance Scheme
-		$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
+		$sc_nn_timein_from = $att_scheme['nnTimeinFrom'];
 
 		$in_am = '';
 		$in_pm = '';
@@ -685,8 +688,8 @@ class Attendance_summary_model extends CI_Model {
 	function check_obtime_out($att_scheme,$obs)
 	{
 		# Attendance Scheme
-		$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
-		$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
+		$sc_nn_timein_from = $att_scheme['nnTimeinFrom'];
+		$sc_nn_timein_to = $att_scheme['nnTimeinTo'];
 
 		$out_am = '';
 		$out_pm = '';
@@ -737,12 +740,12 @@ class Attendance_summary_model extends CI_Model {
 	{
 		if(!empty($dtr)):
 			# Attendance Scheme
-			$sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
-			$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
-			$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
-			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
-			$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
-			$sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
+			$sc_am_timein_from = $att_scheme['amTimeinFrom'];
+			$sc_am_timein_to   = $att_scheme['amTimeinTo'];
+			$sc_nn_timein_from = $att_scheme['nnTimeinFrom'];
+			$sc_nn_timein_to   = $att_scheme['nnTimeinTo'];
+			$sc_pm_timeout_from= $att_scheme['pmTimeoutFrom'];
+			$sc_pm_timeout_to  = $att_scheme['pmTimeoutTo'];
 
 			$req_hours = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
 			
@@ -804,12 +807,12 @@ class Attendance_summary_model extends CI_Model {
 	{
 		if(!empty($dtr)):
 			# Attendance Scheme
-			$sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
-			$sc_am_timein_to = date('H:i',strtotime($att_scheme['amTimeinTo'].' AM'));
-			$sc_nn_timein_from = date('H:i',strtotime($att_scheme['nnTimeinFrom'].' PM'));
-			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
-			$sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
-			$sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
+			$sc_am_timein_from  = $att_scheme['amTimeinFrom'];
+			$sc_am_timein_to    = $att_scheme['amTimeinTo'];
+			$sc_nn_timein_from  = $att_scheme['nnTimeinFrom'];
+			$sc_nn_timein_to    = $att_scheme['nnTimeinTo'];
+			$sc_pm_timeout_from = $att_scheme['pmTimeoutFrom'];
+			$sc_pm_timeout_to   = $att_scheme['pmTimeoutTo'];
 
 			$req_hours = toMinutes($sc_pm_timeout_from) - toMinutes($sc_am_timein_from);
 			

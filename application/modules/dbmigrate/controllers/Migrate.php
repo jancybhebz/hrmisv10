@@ -197,6 +197,31 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` ADD `inPM` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `inPM` = CASE WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inPM_old_data` = '00:00:00') THEN NULL ELSE `inPM_old_data` END;",$path);
 
+        $datenow = date('Y-m-d');
+        $this->Migrate_model->write_sqlstmt("# Drop old field with old data ",$path);
+        if($this->Migrate_model->check_if_column_exist('tblAttendanceScheme','pmTimeoutFrom_old_data')):
+            $this->dbforge->drop_column('tblAttendanceScheme', 'pmTimeoutFrom_old_data');
+        endif;
+
+        $this->Migrate_model->write_sqlstmt("# Fix Attendance Scheme",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` CHANGE `pmTimeoutFrom` `pmTimeoutFrom_old_data` VARCHAR(11);",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` ADD `pmTimeoutFrom` TIME NULL;",$path);
+        $this->Migrate_model->write_sqlstmt("UPDATE `tblAttendanceScheme` SET `pmTimeoutFrom` = CASE WHEN (`pmTimeoutFrom_old_data` > '00:59:59' AND `pmTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`pmTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`pmTimeoutFrom_old_data` = '00:00:00') THEN NULL ELSE `pmTimeoutFrom_old_data` END;",$path);
+
+        if($this->Migrate_model->check_if_column_exist('tblAttendanceScheme','pmTimeoutTo_old_data')):
+            $this->dbforge->drop_column('tblAttendanceScheme', 'pmTimeoutTo_old_data');
+        endif;
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` CHANGE `pmTimeoutTo` `pmTimeoutTo_old_data` VARCHAR(11);",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` ADD `pmTimeoutTo` TIME NULL;",$path);
+        $this->Migrate_model->write_sqlstmt("UPDATE `tblAttendanceScheme` SET `pmTimeoutTo` = CASE WHEN (`pmTimeoutTo_old_data` > '00:59:59' AND `pmTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`pmTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`pmTimeoutTo_old_data` = '00:00:00') THEN NULL ELSE `pmTimeoutTo_old_data` END;",$path);
+
+        if($this->Migrate_model->check_if_column_exist('tblAttendanceScheme','nnTimeinTo_old_data')):
+            $this->dbforge->drop_column('tblAttendanceScheme', 'nnTimeinTo_old_data');
+        endif;
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeinTo` `nnTimeinTo_old_data` VARCHAR(11);",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` ADD `nnTimeinTo` TIME NULL;",$path);
+        $this->Migrate_model->write_sqlstmt("UPDATE `tblAttendanceScheme` SET `nnTimeinTo` = CASE WHEN (`nnTimeinTo_old_data` > '00:59:59' AND `nnTimeinTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeinTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeinTo_old_data` = '00:00:00') THEN NULL ELSE `nnTimeinTo_old_data` END;",$path);
+        
         $total_line = 0;
         $ctrcomment = 0;
         if(file_exists($path)):
@@ -385,8 +410,20 @@ class Migrate extends MY_Controller
         if($this->Migrate_model->check_if_column_exist('tblEmpDTR','outOT_old_data')):
             $this->dbforge->drop_column('tblEmpDTR', 'outOT_old_data');
         endif;
-        ## END Update DTR
 
+        if($this->Migrate_model->check_if_column_exist('tblAttendanceScheme','pmTimeoutFrom_old_data')):
+            $this->dbforge->drop_column('tblAttendanceScheme', 'pmTimeoutFrom_old_data');
+        endif;
+
+        if($this->Migrate_model->check_if_column_exist('tblAttendanceScheme','pmTimeoutTo_old_data')):
+            $this->dbforge->drop_column('tblAttendanceScheme', 'pmTimeoutTo_old_data');
+        endif;
+
+        if($this->Migrate_model->check_if_column_exist('tblAttendanceScheme','nnTimeinTo_old_data')):
+            $this->dbforge->drop_column('tblAttendanceScheme', 'nnTimeinTo_old_data');
+        endif;
+        ## END Update DTR
+        
         $total_line = 0;
         $ctrcomment = 0;
         if(file_exists($path)):
