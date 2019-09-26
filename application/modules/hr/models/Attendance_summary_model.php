@@ -754,6 +754,11 @@ class Attendance_summary_model extends CI_Model {
 			$ot_timein  = $dtr['inOT'] == '' || $dtr['inOT'] == '00:00:00' ? '' : date('H:i',strtotime($dtr['inOT']));
 			$ot_timeout = $dtr['outOT'] == '' || $dtr['outOT'] == '00:00:00' ? '' : date('H:i',strtotime($dtr['outOT']));
 
+			$ot_details = array();
+			$min_before_ot = 0;
+			$max_ot = 0;
+			$min_ot = 0;
+
 			if($ot_timein == '' && $ot_timeout == ''):
 				# Get Expected Timeout
 				$expctd_pm_timeout = 0;
