@@ -182,6 +182,10 @@
                     var second = now.getSeconds();
                     var timeOfDay = (hour < 12) ? "AM" : "PM";
 
+                    // Convert the hours our of 24-hour time
+                    hour = (hour > 12) ? hour - 12 : hour;
+                    hour = (hour == 0) ? 12 : hour;
+
                     document.getElementById('txtclock').innerHTML = ('0' + hour).slice(-2) + ":" + ('0' + minute).slice(-2) + ":" + ('0' + second).slice(-2) + " " + timeOfDay;
                     hour=hour%12;
                     hour=(hour*Math.PI/6)+
