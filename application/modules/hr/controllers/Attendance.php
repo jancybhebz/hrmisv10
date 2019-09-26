@@ -810,9 +810,9 @@ class Attendance extends MY_Controller {
 			endif;
 			
 		endforeach;
-		die();
+		
 		$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
-		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrPost['empnum'].'?datefrom='.$arrPost['datefrom'].'&dateto='.$arrPost['dateto']);
+		redirect('hr/attendance_summary/dtr/'.$arrPost['empnum'].'?datefrom='.$arrPost['datefrom'].'&dateto='.$arrPost['dateto']);
 	}
 	# End Edit Mode
 
