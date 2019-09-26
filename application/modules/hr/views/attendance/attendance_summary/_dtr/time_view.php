@@ -28,12 +28,12 @@
                                     <th rowspan="2" style="text-align: center;">Last Updated<br>Date</th>
                                 </tr>
                                 <tr>
-                                    <th>Time in</th>
-                                    <th>Time out</th>
-                                    <th>Time in</th>
-                                    <th>Time out</th>
-                                    <th>Time in</th>
-                                    <th>Time out</th>
+                                    <th style="text-align: center;">Time in</th>
+                                    <th style="text-align: center;">Time out</th>
+                                    <th style="text-align: center;">Time in</th>
+                                    <th style="text-align: center;">Time out</th>
+                                    <th style="text-align: center;">Time in</th>
+                                    <th style="text-align: center;">Time out</th>
                                 </tr>
                             </thead>
                             <tbody>
