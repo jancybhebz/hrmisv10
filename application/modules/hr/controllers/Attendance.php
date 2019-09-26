@@ -1192,19 +1192,13 @@ class Attendance extends MY_Controller {
 			foreach($arrdates as $ddate):
 				$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $ddate);
 				
-				$amtimein = explode(' ',$arrPost['txtdtr_amtimein']);
-				$amtimeout = explode(' ',$arrPost['txtdtr_amtimeout']);
-				$pmtimein = explode(' ',$arrPost['txtdtr_pmtimein']);
-				$pmtimeout = explode(' ',$arrPost['txtdtr_pmtimeout']);
-				$ottimein = explode(' ',$arrPost['txtdtr_ottimein']);
-				$ottimeout = explode(' ',$arrPost['txtdtr_ottimeout']);
 				$arrData=array(
-					'inAM' 		=> date('H:i:s', strtotime($amtimein[0])),
-					'outAM'		=> date('H:i:s', strtotime($amtimeout[0])),
-					'inPM' 		=> date('H:i:s', strtotime($pmtimein[0])),
-					'outPM' 	=> date('H:i:s', strtotime($pmtimeout[0])),
-					'inOT' 		=> date('H:i:s', strtotime($ottimein[0])),
-					'outOT' 	=> date('H:i:s', strtotime($ottimeout[0])),
+					'inAM' 		=> $arrPost['txtdtr_amtimein'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_amtimein'])),
+					'outAM'		=> $arrPost['txtdtr_amtimeout'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_amtimeout'])),
+					'inPM' 		=> $arrPost['txtdtr_pmtimein'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_pmtimein'])),
+					'outPM' 	=> $arrPost['txtdtr_pmtimeout'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_pmtimeout'])),
+					'inOT' 		=> $arrPost['txtdtr_ottimein'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_ottimein'])),
+					'outOT' 	=> $arrPost['txtdtr_ottimeout'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_ottimeout'])),
 					'remarks'	=> '',
 					'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
 					'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),

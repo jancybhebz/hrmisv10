@@ -179,6 +179,8 @@ class Attendance_summary_model extends CI_Model {
 					$dtr['outAM'] = $arr_ob_timeout['out_am'];
 					$dtr['inPM'] = $arr_ob_timein['in_pm'];
 					$dtr['outPM'] = $arr_ob_timeout['out_pm'];
+					$dtr['inOT'] = '';
+					$dtr['outOT'] = '';
 				endif;
 				# CTO
 			endif;
