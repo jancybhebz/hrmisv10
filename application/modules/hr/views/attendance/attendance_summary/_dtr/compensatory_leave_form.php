@@ -26,7 +26,7 @@
                                         <i class="fa fa-calendar"></i>
                                         <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" 
                                                 name="txtcompen_date" id="txtcompen_date" type="text"
-                                                value="<?=count(set_value())>0 ? set_value('txtcompen_date'):''?>">
+                                                value="<?=set_value('txtcompen_date', '')?>">
                                     </div>
                                 </div>
                             </div>
@@ -36,24 +36,23 @@
                             <div class="col-md-2">
                                 <div class="form-group div_am_time">
                                     <label class="control-label"><b>Morning </b> <label>
-                                        <!-- <input type="checkbox" name="chkam" id="chkam" <?=count(set_value())>0 ? set_value('chkam') == 'on' ? 'checked' : '' :'checked'?>> -->
                                     </label>
                                         <br>From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timefrom" id="txtcl_am_timefrom"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_am_timefrom'):'08:00:00 AM'?>">
+                                                value="<?=set_value('txtcl_am_timefrom','08:00:00 AM')?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group div_am_time">
-                                    <label class="control-label">&nbsp;<label>&nbsp;</label>
+                                    <label class="control-label">
                                         <br>To <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timeto" id="txtcl_am_timeto"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_am_timeto'):'12:00:00 PM'?>">
+                                                value="<?=set_value('txtcl_am_timeto','12:00:00 PM')?>">
                                     </div>
                                 </div>
                             </div>
@@ -63,24 +62,23 @@
                             <div class="col-md-2">
                                 <div class="form-group div_pm_time">
                                     <label class="control-label"><b>Afternoon </b> <label>
-                                        <!-- <input type="checkbox" name="chkpm" id="chkpm" <?=count(set_value())>0 ? set_value('chkpm') == 'on' ? 'checked' : '' :'checked'?>> -->
                                     </label>
                                         <br>From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timefrom" id="txtcl_pm_timefrom"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_pm_timefrom') : '12:00:00 PM'?>">
+                                                value="<?=set_value('txtcl_pm_timefrom','12:00:00 PM')?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group div_pm_time">
-                                    <label class="control-label">&nbsp;<label>&nbsp;</label>
+                                    <label class="control-label">
                                         <br>To <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timeto" id="txtcl_pm_timeto"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_pm_timeto') : '05:00:00 PM'?>">
+                                                value="<?=set_value('txtcl_pm_timeto','05:00:00 PM')?>">
                                     </div>
                                 </div>
                             </div>
