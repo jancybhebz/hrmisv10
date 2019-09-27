@@ -398,4 +398,110 @@ class Dtr_log_model extends CI_Model {
 	}
 
 
+	function update_nnbreak_time($empid,$dtrdate,$dtrlog)
+	{
+		$emp_att_scheme = $this->get_employee_attscheme($empid);
+		$empdtr = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		// print_r($att_scheme);
+		$nn_out_from = $emp_att_scheme['nnTimeoutFrom'];
+		$nn_out_to = $emp_att_scheme['nnTimeoutTo'];
+		$nn_in_from = $emp_att_scheme['nnTimeinFrom'];
+		$nn_in_to = $emp_att_scheme['nnTimeinTo'];
+		echo '<br>nn_out_from = '.$nn_out_from;
+		echo '<br>nn_out_to = '.$nn_out_to;
+		echo '<br>nn_in_from = '.$nn_in_from;
+		echo '<br>nn_in_to = '.$nn_in_to;
+
+		$dtrid = count($empdtr) > 0 ? $empdtr['id']  == '' ? '' : $empdtr['id'] : '';
+		$am_timein  = count($empdtr) > 0 ? $empdtr['inAM']  == '' || $empdtr['inAM']  == '00:00:00' ? '' : $empdtr['inAM'] : '';
+		$am_timeout = count($empdtr) > 0 ? $empdtr['outAM'] == '' || $empdtr['outAM'] == '00:00:00' ? '' : $empdtr['outAM'] : '';
+		$pm_timein  = count($empdtr) > 0 ? $empdtr['inPM']  == '' || $empdtr['inPM']  == '00:00:00' ? '' : $empdtr['inPM'] : '';
+		$pm_timeout = count($empdtr) > 0 ? $empdtr['outPM'] == '' || $empdtr['outPM'] == '00:00:00' ? '' : $empdtr['outPM'] : '';
+		$ot_timein  = count($empdtr) > 0 ? $empdtr['inOT']  == '' || $empdtr['inOT']  == '00:00:00' ? '' : $empdtr['inOT'] : '';
+		$ot_timeout = count($empdtr) > 0 ? $empdtr['outOT'] == '' || $empdtr['outOT'] == '00:00:00' ? '' : $empdtr['outOT'] : '';
+
+		$has_30mins_allow = $emp_att_scheme['allow30'];
+		$is_strict = $emp_att_scheme['strict'];
+
+		$res = array();
+		if($dtrlog >= $nn_out_from):
+			if($has_30mins_allow && $is_strict):
+				$res = array('strErrorMsg','You are not allow to use asterisk (*)! Your log noon time should have 30 minutes distance. Please contact administrator.');
+			else:
+				if($has_30mins_allow && !$is_strict):
+					$res = array('strErrorMsg','You are not allow to use asterisk (*)! Your log noon time should have 30 minutes distance. Please contact administrator.');
+				elseif(!$has_30mins_allow && $is_strict):
+					if($dtrlog >= $nn_out_from || $dtrlog > $nn_in_to):
+						$res = array('strErrorMsg','You are not allow to logout for or login from lunch break! Please contact administrator.');
+					else:
+						$msg = array();
+						$warn = 0;
+						
+						if($am_timeout==''):
+							if($dtrid!=''):
+								$this->Attendance_summary_model->edit_dtr(array('outAM' => $dtrlog), $dtrid);
+							else:
+								$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'outAM' => $dtrlog);
+								$this->Attendance_summary_model->add_dtr($arrdtr);
+							endif;
+						else:
+							array_push($msg, '<li>You already have AM OUT.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($pm_timein==''):
+							if($dtrid!=''):
+								$this->Attendance_summary_model->edit_dtr(array('inPM' => $dtrlog), $dtrid);
+							else:
+								$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'inPM' => $dtrlog);
+								$this->Attendance_summary_model->add_dtr($arrdtr);
+							endif;
+						else:
+							array_push($msg, '<li>You already have PM IN.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($warn > 0):
+							$res = array('err_message' => array('strMsg',implode(' ',$msg)));
+						else:
+							$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
+						endif;
+					endif;
+				else:
+					$msg = array();
+					$warn = 0;
+					if($dtrid!=''):
+						if($am_timeout==''):
+							$this->Attendance_summary_model->edit_dtr(array('outAM' => $dtrlog), $dtrid);
+						else:
+							array_push($msg, '<li>You already have AM OUT.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($pm_timein==''):
+							$this->Attendance_summary_model->edit_dtr(array('inPM' => $dtrlog), $dtrid);
+						else:
+							array_push($msg, '<li>You already have PM IN.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($warn > 0):
+							$res = array('err_message' => array('strMsg',implode(' ',$msg)));
+						else:
+							$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
+						endif;
+					else:
+						$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'outAM' => $dtrlog, 'inPM' => $dtrlog);
+						$this->Attendance_summary_model->add_dtr($arrdtr);
+						$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
+					endif;
+				endif;
+			endif;
+		else:
+			$res = array('err_message' => array('strErrorMsg','Invalid use of asterisk (*), Please try again without asterisk.'));
+		endif;
+
+		return $res['err_message'];
+	}
+
 }
