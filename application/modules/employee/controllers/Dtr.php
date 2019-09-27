@@ -46,7 +46,7 @@ class Dtr extends MY_Controller {
 		$this->fpdf = new Pdf_gen();
 
 		$this->fpdf->AddPage('P');
-		$this->fpdf->SetTitle(date('F', mktime(0, 0, 0, $month, 10)).' '.$yr);
+		$this->fpdf->SetTitle(date('F Y', strtotime($datefrom)));
 
 		# header
 		$this->fpdf->Image('assets/images/logo.png',10,10,20,20);
@@ -74,7 +74,7 @@ class Dtr extends MY_Controller {
 			$this->fpdf->Cell(27,5,'Employee Number:','TL',0,'L');
 			$this->fpdf->Cell(93,5,$empid,'T',0,'L');
 			$this->fpdf->Cell(20,5,'Month/Year:','T',0,'L');
-			$this->fpdf->Cell(50,5,date('F', mktime(0, 0, 0, $month, 10)).', '.$yr,'TR',1,'L');
+			$this->fpdf->Cell(50,5,date('F, Y', strtotime($datefrom)),'TR',1,'L');
 
 			$this->fpdf->Cell(27,5,'Employee Name:','L',0,'L');
 			$this->fpdf->Cell(93,5,$empdata['surname'].', '.$empdata['firstname'].' '.$empdata['middlename'],0,0,'L');
@@ -198,7 +198,7 @@ class Dtr extends MY_Controller {
 				$align = array('L','C','C','C','C','C','C','C','C','C','C');
 				$border = array(1,1,1,1,1,1,1,1,1,1,1);
 				$this->fpdf->SetWidths($header_w);
-				$this->fpdf->SetAligns($width);
+				// $this->fpdf->SetAligns($width);
 				$this->fpdf->FancyRow_small(5,$row_detail,$border,$align);
 				
 				// $this->fpdf->Ln();
