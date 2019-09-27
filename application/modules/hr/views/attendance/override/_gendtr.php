@@ -1,4 +1,8 @@
 <?=load_plugin('css', array('datatables'))?>
+<?php 
+    $datefrom = date('Y-m').'-01';
+    $dateto = date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+ ?>
 <div class="tab-pane active" id="tab_1_3">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -28,7 +32,7 @@
                                     <td style="white-space:nowrap;"><?=$empname?></td>
                                     <td width="150px" style='white-space:nowrap;'>
                                         <center>
-                                            <a href="<?=base_url('hr/attendance_summary/dtr/'.$emp['empNumber'])?>" class="btn btn-sm grey-cascade"> <i class="icon-calendar"></i>&nbsp; View DTR </a>
+                                            <a href="<?=base_url('hr/attendance_summary/dtr/'.$emp['empNumber'].'?datefrom='.$datefrom.'&dateto='.$dateto)?>" class="btn btn-sm grey-cascade"> <i class="icon-calendar"></i>&nbsp; View DTR </a>
                                             <a class="btn blue btn-sm btngen_dtr" data-toggle="modal" href="#modal-gen-dtr"
                                                 data-empid="<?=$emp['empNumber']?>"
                                                 data-empname="<?=$empname?>">

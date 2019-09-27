@@ -1,4 +1,8 @@
-<?php load_plugin('css',array('datatables'));?>
+<?php
+    load_plugin('css',array('datatables'));
+    $datefrom = date('Y-m').'-01';
+    $dateto = date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">

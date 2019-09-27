@@ -132,8 +132,12 @@ class Hr_model extends CI_Model {
 
 		if($dtrswitch == ''){
 			$this->db->where('dtrSwitch','Y');
+		}else{
+			$this->db->where('dtrSwitch',$dtrswitch);
 		}
+
 		$res = $this->db->get_where($this->table,array('statusOfAppointment' => 'In-Service'))->result_array();
+		
 		return $res;
 	}			
 

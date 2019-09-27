@@ -337,17 +337,24 @@ class Attendance_summary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function getobs($empid, $ddate='')
+	public function getobs($empid, $ddate='',$dtr=0)
 	{
 		$this->db->where('tblEmpOB.empNumber', $empid);
-		$this->db->where('requestStatus', 'Certified');
-		$this->db->where('requestCode', 'OB');
-
+		if($dtr==0){
+			$this->db->where('requestStatus', 'Certified');
+			$this->db->where('requestCode', 'OB');	
+		}
+		
 		if($ddate != ''):
 			$this->db->where("('".$ddate."' >= obDateFrom and '".$ddate."' <= obDateTo)");
 		endif;
-		$this->db->join('tblEmpRequest', 'tblEmpRequest.empNumber = tblEmpOB.empNumber', 'left');
-		return $this->db->get('tblEmpOB')->result_array();
+
+		if($dtr==0){
+			$this->db->join('tblEmpRequest', 'tblEmpRequest.empNumber = tblEmpOB.empNumber', 'left');
+		}
+		$res = $this->db->get('tblEmpOB')->result_array();
+
+		return $res;
 	}
 
 	public function getOb($id)
