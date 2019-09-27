@@ -246,28 +246,31 @@ class Holiday extends MY_Controller {
 			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
 			$arrLocalCode = $this->holiday_model->getLastLocalCode();
 			foreach ($arrLocalCode as $row):
-				$arrCode=explode('-', $row['holidayCode']);
-				$i = $arrCode[1]+1;
-				if (strlen($i)==1)
-				{
-					$i = '000'.$i;
-				}
-				if (strlen($i)==2)
-				{
-					$i = '00'.$i;
-				}
-				if (strlen($i)==3)
-				{
-					$i = '0'.$i;
-				}
-				$strNewCode='LOC-'.$i;
-				//echo $strNewCode;
-				$this->arrData['strLocalCode'] = $strNewCode;	
-				break;
-				//echo $i;
-				//exit(1);
+				if($row['holidayCode']!=''):
+					$arrCode=explode('-', $row['holidayCode']);
+					$i = $arrCode[1]+1;
+					if (strlen($i)==1)
+					{
+						$i = '000'.$i;
+					}
+					if (strlen($i)==2)
+					{
+						$i = '00'.$i;
+					}
+					if (strlen($i)==3)
+					{
+						$i = '0'.$i;
+					}
+					$strNewCode='LOC-'.$i;
+					//echo $strNewCode;
+					$this->arrData['strLocalCode'] = $strNewCode;	
+					break;
+					//echo $i;
+					//exit(1);
+				endif;
 			endforeach;
 			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			
 			$this->template->load('template/template_view','libraries/holiday/add_local_view',$this->arrData);	
 		}
 		else

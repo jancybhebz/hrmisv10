@@ -889,7 +889,7 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		$this->arrData['arrObs'] = $this->Attendance_summary_model->getobs($empid);
+		$this->arrData['arrObs'] = $this->Attendance_summary_model->getobs($empid,'',1);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
