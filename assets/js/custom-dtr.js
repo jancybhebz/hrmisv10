@@ -30,7 +30,11 @@ $(document).ready(function(){
 	    		{"title":"Time out","data":"outAM"},
 	    		{"title":"Time in","data":"inPM"},
 	    		{"title":"Time out","data":"outPM"}
-	    	],"scrollY": "200px","scrollCollapse": true,"paging": false
+	    	],
+	    	// "scrollY": "200px","scrollCollapse": true,"paging": false,
+	    	"initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#tbldtr-employee').show();},
 	    });
 
 	    $('#dtr-modal').modal('show');
@@ -58,7 +62,11 @@ $(document).ready(function(){
 				    	fullname = row.surname+row.firstname+' '+mid_ini;
 	    				return fullname;
 	    			}}
-	    	],"scrollY": "200px","scrollCollapse": true,"paging": false
+	    	],
+	    	// "scrollY": "200px","scrollCollapse": true,"paging": false,
+	    	"initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#tbldtr-employee').show();},
 	    });
 
 	    $('#dtr-modal').modal('show');
@@ -86,7 +94,11 @@ $(document).ready(function(){
 				    	fullname = row.surname+row.firstname+' '+mid_ini;
 	    				return fullname;
 	    			}}
-	    	],"scrollY": "200px","scrollCollapse": true,"paging": false
+	    	],
+	    	// "scrollY": "200px","scrollCollapse": true,"paging": false,
+	    	"initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#tbldtr-employee').show();},
 	    });
 
 	    $('#dtr-modal').modal('show');
@@ -114,7 +126,11 @@ $(document).ready(function(){
 				    	fullname = row.surname+row.firstname+' '+mid_ini;
 	    				return fullname;
 	    			}}
-	    	],"scrollY": "200px","scrollCollapse": true,"paging": false
+	    	],
+	    	// "scrollY": "200px","scrollCollapse": true,"paging": false,
+	    	"initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#tbldtr-employee').show();},
 	    });
 
 	    $('#dtr-modal').modal('show');

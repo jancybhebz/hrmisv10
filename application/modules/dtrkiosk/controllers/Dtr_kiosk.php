@@ -15,57 +15,32 @@ class Dtr_kiosk extends MY_Controller
 		$arrPost = $this->input->post();
 		
 		if(!empty($arrPost)):
-			// echo '<pre>';
-			$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
-			if(count($arrUser) > 0):
-				$empno = $arrUser[0]['empNumber'];
-				$dtrdate = date('Y-m-d');
-				$dtrlog = date('H:i:s');
-				// $dtrlog = date('H:i:s',strtotime('06:30:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:30:00'));
-				// $dtrlog = date('H:i:s',strtotime('13:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('16:00:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('07:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:15:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('08:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('09:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:31:00'));
-				// $dtrlog = date('H:i:s',strtotime('16:00:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('09:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('16:00:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('12:30:00'));
-				// $dtrlog = date('H:i:s',strtotime('16:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('18:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('20:30:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('08:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('09:30:00'));
-				// $dtrlog = date('H:i:s',strtotime('14:30:00'));
-				// $dtrlog = date('H:i:s',strtotime('16:30:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('09:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('14:30:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('09:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:15:00'));
-				// $dtrlog = date('H:i:s',strtotime('16:00:00'));
-
-				// $dtrlog = date('H:i:s',strtotime('09:00:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:40:00'));
-				// $dtrlog = date('H:i:s',strtotime('12:50:00'));
-				// $dtrlog = date('H:i:s',strtotime('16:30:00'));
-				$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
-				$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
-				redirect('dtr');
+			if(substr($arrPost['strPassword'], -1) == '*'):
+				$orig_password = substr($arrPost['strPassword'], 0, -1);
+				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$orig_password);
+				if(count($arrUser) > 0):
+					$empno = $arrUser[0]['empNumber'];
+					$dtrdate = date('Y-m-d');
+					$dtrlog = date('H:i:s');
+					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
+					
+					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
+					redirect('dtr');
+				endif;
 			else:
-				$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
-				redirect('dtr');
+				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
+				if(count($arrUser) > 0):
+					$empno = $arrUser[0]['empNumber'];
+					$dtrdate = date('Y-m-d');
+					$dtrlog = date('H:i:s');
+					// $dtrlog = date('H:i:s',strtotime('06:30:00'));
+					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
+					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
+					redirect('dtr');
+				else:
+					$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
+					redirect('dtr');
+				endif;
 			endif;
 			
 		endif;

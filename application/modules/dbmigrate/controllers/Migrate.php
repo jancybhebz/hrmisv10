@@ -149,6 +149,9 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00';",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` DATE NULL DEFAULT NULL;",$path);
         
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` CHANGE `inAM` `inAM` TIME NULL;",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` CHANGE `outAM` `outAM` TIME NULL;",$path);
+
         $total_line = 0;
         $ctrcomment = 0;
         if(file_exists($path)):
