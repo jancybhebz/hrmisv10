@@ -777,18 +777,26 @@ class Attendance extends MY_Controller {
 				if(count($dtr['tr']) > 6):
 					$dtr_details = json_decode($dtr['tr'][10]['td'], true);
 					$dtrid = $dtr_details[1];
+
+					$in_am  = $dtr['tr'][2]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00';
+					$out_am = $dtr['tr'][3]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00';
+					$in_pm  = $dtr['tr'][4]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00';
+					$out_pm = $dtr['tr'][5]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00';
+					$in_ot  = $dtr['tr'][6]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00';
+					$out_ot = $dtr['tr'][7]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00';
+
 					$arrData = array('empNumber'	=> $arrPost['empnum'],
 									 'dtrDate'		=> $dtr_details[0],
-									 'inAM' 		=> $dtr['tr'][2]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00',
-									 'outAM' 		=> $dtr['tr'][3]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00',
-									 'inPM' 		=> $dtr['tr'][4]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00',
-									 'outPM' 		=> $dtr['tr'][5]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00',
-									 'inOT' 		=> $dtr['tr'][6]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00',
-									 'outOT' 		=> $dtr['tr'][7]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00',
+									 'inAM' 		=> $in_am,
+									 'outAM' 		=> $out_am,
+									 'inPM' 		=> $in_pm,
+									 'outPM' 		=> $out_pm,
+									 'inOT' 		=> $in_ot,
+									 'outOT' 		=> $out_ot,
 									 'name' 		=> $dtr_details[2].';'.$_SESSION['sessName'],
 									 'ip'			=> $dtr_details[3].';'.$this->input->ip_address(),
 									 'editdate'		=> $dtr_details[4].';'.date('Y-m-d h:i:s A'),
-									 'oldValue' 	=> $dtr_details[5]);
+									 'oldValue' 	=> $dtr_details[5].';'.'inAM='.$in_am.', outAM='.$out_am.', inPM='.$in_pm.', outPM='.$out_pm.', inOT='.$in_ot.', outOT='.$out_ot);
 					# check timein validation
 					$valid_time = 0;
 					foreach(array($arrData['inAM'],$arrData['outAM'],$arrData['inPM'],$arrData['outPM'],$arrData['inOT'],$arrData['outOT']) as $vtime):
@@ -1116,42 +1124,65 @@ class Attendance extends MY_Controller {
 		$this->load->model(array('employee/Compensatory_leave_model','libraries/Attendance_scheme_model'));
 		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
 		$total_ot = $this->Compensatory_leave_model->get_all_overtime($empid);
-		
+		$total_hrs = 0;
+
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			# HR Account
 			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrPost['txtcompen_date']);
+			$timefrom = date('H:i:s', strtotime($arrPost['txtcl_timefrom']));
+			$timeto = date('H:i:s', strtotime($arrPost['txtcl_timeto']));
+			$inAM  = '';
+			$outAM = '';
+			$inPM  = '';
+			$outPM = '';
+			if($att_scheme['nnTimeoutFrom'] >= $timefrom && $att_scheme['nnTimeoutTo'] <= $timeto):
+				$inAM  = $timefrom;
+				$outAM = $att_scheme['nnTimeoutFrom'];
+				$inPM  = $att_scheme['nnTimeoutTo'];
+				$outPM = $timeto;
+			else:
+				if($att_scheme['nnTimeoutFrom'] >= $timefrom):
+					$inAM  = $timefrom;
+					$outAM = $timeto;
+				else:
+					$inPM  = $timefrom;
+					$outPM = $timeto;
+				endif;
+			endif;
+
 			$arrData=array(
 				'empNumber' => $empid,
-				'inAM' 		=> $arrPost['txtcl_am_timefrom'],
-				'outAM'		=> $arrPost['txtcl_am_timeto'],
-				'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
-				'outPM' 	=> $arrPost['txtcl_pm_timeto'],
-				'remarks'	=> 'CL',
+				'inAM' 		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['inAM'].';' : '').$inAM,
+				'outAM'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['outAM'].';' : '').$outAM,
+				'inPM' 		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['inPM'].';' : '').$inPM,
+				'outPM' 	=> (count($dtrEntry) > 0 ? $dtrEntry[0]['outPM'].';' : '').$outPM,
+				'remarks'	=> (count($dtrEntry) > 0 ? $dtrEntry[0]['remarks'].';' : '').'CL',
 				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
 				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
 				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
 			
 			$arrData_cto=array(
-				'empNumber' => $empid,
-				'cto_date'  => $arrPost['txtcompen_date'],
-				'cto_timefrom'=> $arrPost['txtcl_am_timefrom'],
-				'outAM'		=> $arrPost['txtcl_am_timeto'],
-				'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
-				'outPM' 	=> $arrPost['txtcl_pm_timeto'],
-				'remarks'	=> 'CL',
-				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
-				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
-				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
-
+				'empnumber' 	=> $empid,
+				'cto_date'  	=> $arrPost['txtcompen_date'],
+				'cto_timefrom'  => $arrPost['txtcl_timefrom'],
+				'cto_timeto'	=> $arrPost['txtcl_timeto'],
+				'process_by'	=> $_SESSION['sessName'],
+				'process_date'	=> date('Y-m-d h:i:s A'),
+				'process_ip'	=> $this->input->ip_address()
+			);
+			
 			$total_hrs = $this->Attendance_summary_model->compute_working_hours($att_scheme,$arrData);
 			if($total_ot >= $total_hrs):
 				if(count($dtrEntry) > 0):
-					$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+					$arrData_cto['dtr_id'] = $this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+					print_r($arrData_cto);
 					$this->Compensatory_leave_model->add_cto($arrData_cto);
 				else:
 					$arrData['dtrDate'] = $arrPost['txtcompen_date'];
-					$this->Attendance_summary_model->add_dtr($arrData);
+					$arrData_cto['dtr_id'] = $this->Attendance_summary_model->add_dtr($arrData);
+					print_r($arrData_cto);
+					$this->Compensatory_leave_model->add_cto($arrData_cto);
 				endif;
 				$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
 				redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));

@@ -192,6 +192,40 @@
 </div>
 <!-- end leave modal -->
 
+<!-- begin cto modal -->
+<div id="cto-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Compensatory Time Off Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <table class="table table-bordered table-striped" id="tblcto-details">
+                                <tr>
+                                    <th width="30%">Date</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Time</th>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end cto modal -->
+
 <!-- begin print-preview modal -->
 <div id="print-preview-modal" class="modal fade" aria-hidden="true">
     <div class="modal-dialog" style="width: 75%;">

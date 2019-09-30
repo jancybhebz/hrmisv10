@@ -10,9 +10,10 @@ $('#tbldtr').on('click', 'tbody > tr > td #btnlog', function () {
 
 $('#tbldtr').on('click', 'tbody > tr > td #btnob', function () {
     var objsdata = $(this).data('json');
+    console.log(objsdata);
     $('#tblob-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
     $('#tblob-details tr:nth-child(2) > td').text(objsdata['official']);
-    $('#tblob-details tr:nth-child(3) > td').text(objsdata['date']);
+    $('#tblob-details tr:nth-child(3) > td').html('<b>From</b> '+objsdata['obDateFrom']+' <b>To</b> '+objsdata['obDateTo']);
     $('#tblob-details tr:nth-child(4) > td').html('<b>From</b> '+objsdata['obTimeFrom']+' <b>To</b> '+objsdata['obTimeTo']);
     $('#tblob-details tr:nth-child(5) > td').text(objsdata['obPlace']);
     $('#tblob-details tr:nth-child(6) > td').text(objsdata['obMeal']);
@@ -39,6 +40,13 @@ $('#tbldtr').on('click', 'tbody > tr > td #btnleave', function () {
     $('#tblleave-details tr:nth-child(3) > td').html('<b>From</b> '+objsdata['leaveFrom']+' <b>To</b> '+objsdata['leaveTo']);
     $('#tblleave-details tr:nth-child(4) > td').text(objsdata['reason']);
     $('#leave-modal').modal('show');
+});
+
+$('#tbldtr').on('click', 'tbody > tr > td #btncto', function () {
+    var objsdata = $(this).data('json');
+    $('#tblcto-details tr:nth-child(1) > td').text(objsdata['cto_date']);
+    $('#tblcto-details tr:nth-child(2) > td').html('<b>From</b> '+objsdata['cto_timefrom']+' <b>To</b> '+objsdata['cto_timeto']);
+    $('#cto-modal').modal('show');
 });
 
 // var baseurl = window.location.origin;

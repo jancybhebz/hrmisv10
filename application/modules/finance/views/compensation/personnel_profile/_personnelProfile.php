@@ -228,7 +228,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Item Number</b></td>
-                                        <td><?=$arrData['uniqEmployment StatusueItemNumber'] == 'NULL' ? '' : $arrData['uniqueItemNumber']?></td>
+                                        <td><?=$arrData['uniqueItemNumber'] == 'NULL' ? '' : $arrData['uniqueItemNumber']?></td>
                                         <td><b></b></td>
                                         <td><?=$arrData['statusOfAppointment']?></td>
                                     </tr>

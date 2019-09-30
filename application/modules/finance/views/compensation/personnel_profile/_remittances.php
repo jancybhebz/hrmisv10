@@ -5,7 +5,7 @@
             <div class="col-md-9">
                 <?=form_open('finance/compensation/personnel_profile/remittances/'.$this->uri->segment(5), array('method' => 'get', 'class' => 'form-horizontal'))?>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Select remittance</label>
+                        <label class="col-md-3 control-label">Select Remittance</label>
                         <div class="col-md-9">
                             <select class="form-control select2 form-required" name="selpayrollGrp">
                                 <option value="null">-- SELECT PAYROLL PROCESS --</option>

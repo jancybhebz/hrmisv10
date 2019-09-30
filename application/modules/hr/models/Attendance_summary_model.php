@@ -56,7 +56,7 @@ class Attendance_summary_model extends CI_Model {
 	public function getemp_dtr($empid, $datefrom, $dateto)
 	{
 		// echo '<pre>';
-		$this->load->model(array('libraries/Holiday_model','employee/Official_business_model','finance/Dtr_model','employee/Travelorder_model','employee/Leave_model','libraries/Attendance_scheme_model'));
+		$this->load->model(array('libraries/Holiday_model','employee/Official_business_model','finance/Dtr_model','employee/Travelorder_model','employee/Leave_model','libraries/Attendance_scheme_model','employee/Compensatory_leave_model'));
 		$this->load->helper('dtr_helper');
 
 		# Begin Broken Schedule
@@ -99,6 +99,7 @@ class Attendance_summary_model extends CI_Model {
 		$emp_dtr = array();
 		$work_hrs = 0;
 		foreach(dateRange($datefrom,$dateto) as $dtrdate):
+			$emp_cto = array();
 			$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
 			$att_scheme_temp = $att_scheme;
 
@@ -158,6 +159,10 @@ class Attendance_summary_model extends CI_Model {
 			$lates = 0;
 			$utimes = 0;
 			if(!empty($dtr)):
+				if($dtr['remarks'] == 'CL'):
+					$emp_cto = $this->Compensatory_leave_model->get_emp_cto($dtr['id']);
+				endif;
+
 				if(in_array($dtrdate,$arr_first_days)):
 					$flag_ceremony_time = flag_ceremony_time();
 					if($flag_ceremony_time != '' && $flag_ceremony_time != '00:00:00'):
@@ -231,7 +236,8 @@ class Attendance_summary_model extends CI_Model {
 			# Begin Data Array
 			$dtr = $temp_dtr;
 			$day = date('D', strtotime($dtrdate));
-			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'emp_ws' => $emp_ws, 'broken_sched' => $bs_sched, 'work_hrs' => $work_hrs,'att_scheme'=>$att_scheme);
+			
+			$emp_dtr[] = array('day' => $day, 'dtrdate' => $dtrdate, 'dtr' => $dtr, 'obs' => $obs, 'tos' => $tos, 'leaves' => $leaves, 'lates' => $lates, 'utimes' => $utimes, 'ot' => $ot, 'holiday_name' => $holiday_name, 'emp_ws' => $emp_ws, 'broken_sched' => $bs_sched, 'work_hrs' => $work_hrs,'att_scheme'=>$att_scheme, 'emp_cto' => $emp_cto);
 			# End Data Array
 			// echo '<hr>';
 		endforeach;
@@ -430,7 +436,13 @@ class Attendance_summary_model extends CI_Model {
 		$this->db->where('empNumber', $empnumber);
 		$this->db->where('dtrDate', $dtrdate);
 		$this->db->update('tblEmpDTR', $arrData);
-		return $this->db->affected_rows()>0?TRUE:FALSE;
+		if($this->db->affected_rows() > 0):
+			$res = $this->db->get_where('tblEmpDTR', array('dtrDate' => $dtrdate))->result_array();
+			return $res[0]['id'];
+		else:
+			return 0;
+		endif;
+
 	}
 
 	public function getcomp_leaves($empid)

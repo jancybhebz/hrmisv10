@@ -172,6 +172,9 @@ class Dtr_log_model extends CI_Model {
 
 		# insert/update tblEmpDtr
 		if($dtrid==''):
+			$arrdtr['name'] = 'System';
+			$arrdtr['editdate'] = date('Y-m-d h:i:s A');
+			$arrdtr['ip'] = $this->input->ip_address();
 			$this->Attendance_summary_model->add_dtr($arrdtr);
 			return array('strSuccessMsg','You have successfully Logged-IN !!!');
 		else:
@@ -407,10 +410,6 @@ class Dtr_log_model extends CI_Model {
 		$nn_out_to = $emp_att_scheme['nnTimeoutTo'];
 		$nn_in_from = $emp_att_scheme['nnTimeinFrom'];
 		$nn_in_to = $emp_att_scheme['nnTimeinTo'];
-		echo '<br>nn_out_from = '.$nn_out_from;
-		echo '<br>nn_out_to = '.$nn_out_to;
-		echo '<br>nn_in_from = '.$nn_in_from;
-		echo '<br>nn_in_to = '.$nn_in_to;
 
 		$dtrid = count($empdtr) > 0 ? $empdtr['id']  == '' ? '' : $empdtr['id'] : '';
 		$am_timein  = count($empdtr) > 0 ? $empdtr['inAM']  == '' || $empdtr['inAM']  == '00:00:00' ? '' : $empdtr['inAM'] : '';
