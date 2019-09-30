@@ -131,19 +131,19 @@
                                     endif;
                                     if(count($dtr['tos']) > 0):
                                         foreach($dtr['tos'] as $to):
-                                            echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($to)).'">
+                                            echo '<a id="btnto" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($to)).'">
                                                     TO</a>';
                                         endforeach;
                                     endif;
                                     if(count($dtr['leaves']) > 0):
                                         foreach($dtr['leaves'] as $leave):
-                                            echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($leave)).'">
+                                            echo '<a id="btnleave" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($leave)).'">
                                                     Leave</a>';
                                         endforeach;
                                     endif;
                                     if(count($dtr['dtr']) > 0):
                                         if($dtr['dtr']['remarks'] == 'CL'):
-                                            echo '<a id="btnob" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($dtr['dtr'])).'">
+                                            echo '<a id="btncto" class="btn btn-xs green" data-json="'.htmlspecialchars(json_encode($dtr['emp_cto'][0])).'">
                                                     CTO</a>';
                                         endif;
                                     endif;

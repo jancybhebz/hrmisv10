@@ -150,19 +150,11 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '6') !== false))): ?> 
-                    <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
-                        <a href="javascript:;" class="nav-link nav-toggle">
+                    <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
+                        <a href="<?=base_url('finance/compensation/personnel_profile')?>">
                             <i class="icon-wallet"></i>
                             <span class="title">Compensation</span>
-                            <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
                         </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
-                                <a href="<?=base_url('finance/compensation/personnel_profile')?>">
-                                    <span class="title">Personnel Profile</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 <?php endif; ?>
             <?php endif; ?>
@@ -201,19 +193,11 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '3') !== false))): ?>
-                    <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
-                        <a href="javascript:;" class="nav-link nav-toggle">
+                    <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
+                        <a href="<?=base_url('finance/compensation/personnel_profile')?>">
                             <i class="icon-wallet"></i>
                             <span class="title">Compensation</span>
-                            <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
                         </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
-                                <a href="<?=base_url('finance/compensation/personnel_profile')?>">
-                                    <span class="title">Personnel Profile</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 <?php endif; ?>
 

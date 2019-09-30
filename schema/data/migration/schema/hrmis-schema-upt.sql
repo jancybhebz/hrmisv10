@@ -237,6 +237,7 @@ CREATE TABLE `tblChangeLog` (
 CREATE TABLE `tblcompensatory_timeoff` (
   `cto_id` int(11) NOT NULL,
   `empnumber` varchar(20) NOT NULL,
+  `dtr_id` int(11) NOT NULL,
   `cto_date` date DEFAULT NULL,
   `cto_timefrom` time DEFAULT NULL,
   `cto_timeto` time DEFAULT NULL,
