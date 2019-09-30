@@ -216,7 +216,13 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Place of Assignment</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control" value="">
+                                    <!-- <input type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control" value=""> -->
+                                    <select type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control select2" value=""> 
+                                        <option value="">Select</option>
+                                        <option value="Detailed to">Detailed to</option>
+                                        <option value="Detailed from">Detailed from</option>
+                                        <option value="Not Applicable">Not Applicable</option>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
