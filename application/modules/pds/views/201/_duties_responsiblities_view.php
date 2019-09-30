@@ -80,9 +80,9 @@
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
-                                            <a class="btn green btn-xs btnedit_plan_dr" data-json='<?=$plant_d['itemNumber']?>'>
+                                            <a class="btn green btn-xs btnedit_plan_dr" data-json='<?=json_encode($plant_d)?>'>
                                                 <i class="fa fa-pencil"></i> Edit </a>
-                                            <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['itemNumber']?>">
+                                            <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['itemDuties']?>">
                                                 <i class="fa fa-trash"></i> Delete </a>
                                         </center>
                                     </td>

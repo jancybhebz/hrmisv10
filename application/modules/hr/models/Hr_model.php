@@ -39,6 +39,7 @@ class Hr_model extends CI_Model {
 
 	var $tableplantilla = 'tblplantilladuties';
 	var $tableplantillaid = 'itemDuties';
+	// var $tableplantillaid = 'plantilla_duties_index';
 
 	var $tableCharRef = 'tblEmpReference';
 	var $tableCharRefId = 'ReferenceIndex';
@@ -328,6 +329,7 @@ class Hr_model extends CI_Model {
 	{
 		$this->db->order_by('dutyNumber');
 		return $this->db->get_where('tblPlantillaDuties', array('itemNumber' => $itemno))->result_array();
+		// return $this->db->get_where('tblPlantillaDuties', array('itemNumber' => $itemno))->result_array();
 	}
 
 	function duties_actual($empid)
