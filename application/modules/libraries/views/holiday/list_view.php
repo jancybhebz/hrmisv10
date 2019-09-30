@@ -75,7 +75,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     foreach($arrHoliday as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
-                            <td> <?=trim($row['holidayCode'])?> </td>
+                            <td> <?=$row['holidayCode']?> </td>
                             <td> <?=$row['holidayName']?> </td>                            
                             <td style="width: 150px;text-align:center;" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/holiday/edit/'.$row['holidayCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
