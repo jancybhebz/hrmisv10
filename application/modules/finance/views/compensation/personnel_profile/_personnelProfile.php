@@ -191,7 +191,7 @@
                                         <td><?=$arrData['healthProvider']?></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Account Number</b></td>
+                                        <td><b>Payroll Account Number</b></td>
                                         <td><?=$arrData['AccountNum']?></td>
                                         <td><b>Tax Rate</b></td>
                                         <td><?=$arrData['taxRate']?></td>
