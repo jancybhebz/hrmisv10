@@ -148,7 +148,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strLot1" value="<?=isset($arrData['lot1'])?$arrData['lot1']:''?>">
+                             <input type="text" class="form-control" name="strLot1" maxlength="30" value="<?=isset($arrData['lot1'])?$arrData['lot1']:''?>">
                         </div>
                     </div>
                     <div class="col-sm-1 text-left">
@@ -158,7 +158,7 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="strLot2" value="<?=isset($arrData['lot2'])?$arrData['lot2']:''?>">
+                            <input type="text" class="form-control" name="strLot2" maxlength="30" value="<?=isset($arrData['lot2'])?$arrData['lot2']:''?>">
                         </div>
                     </div>
                 </div>
