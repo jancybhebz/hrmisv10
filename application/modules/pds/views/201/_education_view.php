@@ -27,8 +27,8 @@
                         <th>Licensed</th>
                         <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                             <th>Action</th>
-                            <th>Attachment/s</th>
                         <?php endif; ?>
+                            <th>Attachment/s</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +61,7 @@
                                     </center>
                                 </td>
                                 <!-- upload -->
+                             <?php endif; ?>
                                 <td>
                                 <?php 
                                 $strFile = 'uploads/employees/attachments/educ/'.$educ['empNumber'].'/'.$educ['SchoolIndex'].'.pdf'; 
@@ -83,7 +84,6 @@
                                     </button>
                                 <?=form_close();} ?>
                                 </td>
-                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
