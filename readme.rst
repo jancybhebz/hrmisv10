@@ -16,6 +16,19 @@ Installation
 - cp .htaccess-copy .htaccess
 - cp .env.sample .env
 - nano .env
+- a2enmod rewrite
+- chmod 775 .env
+- chmod 775 -R schema/
+- chmod 775 -R uploads/
+- nano /etc/apache2/sites-enabled/000-default.conf
+- add the following block inside <VirtualHost *:80>
+		<Directory /var/www/html>
+		                Options Indexes FollowSymLinks MultiViews
+		                AllowOverride All
+		                Order allow,deny
+		                allow from all
+		</Directory>
+- sudo service apache2 restart
 - run hrmis/migrate in your localhost
 
 
