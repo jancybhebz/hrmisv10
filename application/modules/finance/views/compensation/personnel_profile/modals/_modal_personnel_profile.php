@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Account Number<span class="required"> * </span></label>
+                                <label class="control-label">Payroll Account Number<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <input type="text" class="form-control form-required" name="txtacctNumber" id="txtacctNumber" value="<?=isset($arrData) ? $arrData['AccountNum'] : ''?>">
                                 </div>
