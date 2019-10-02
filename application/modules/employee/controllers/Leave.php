@@ -24,9 +24,6 @@ class Leave extends MY_Controller {
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
 		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 
-		// 	$permonth = date("Y-n-j", strtotime("last day of previous month"));
-		// 	$peryr =  date("Y");
-		// $this->arrData['arrBalance'] = $this->leave_model->getEmpLeave_balance($_SESSION['sessEmpNo'],$permonth='',$peryr='');
 		$this->arrData['arrBalance'] = $this->leave_model->getLatestBalance($_SESSION['sessEmpNo']);
 		$this->template->load('template/template_view', 'employee/leave/leave_view', $this->arrData);
 	}
