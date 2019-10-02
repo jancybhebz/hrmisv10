@@ -121,10 +121,18 @@
             $('#txtposition').val(jsondata.positionDesc);
             $('#txtoffice').val(jsondata.stationAgency);
             $('#txtsalary').val(jsondata.salary);
-            $('#selperiod').val(jsondata.salaryPer);
+            // $('#selperiod').val(jsondata.salaryPer);
+            $('#selperiod').selectpicker('val', jsondata.salaryPer);
             $('#txtcurrency').val(jsondata.currency);
             $('#txtgrade').val(jsondata.salaryGrade);
-            $('#selappointment').select2('val', jsondata.appointmentCode);
+            $('#selappointment').selectpicker('val', jsondata.appointmentCode);
+            $('#selbranch').selectpicker('val', jsondata.branch);
+            $('#selmode_separation').select2('val', jsondata.separationCause);
+            $('#txtseparation_date').val(jsondata.separationDate);
+            $('#txtabs').val(jsondata.lwop);
+            $('#txtremarks').val(jsondata.remarks);
+            $('#txtprocessor').val(jsondata.processor);
+            $('#txtofficial').val(jsondata.signee);
             if(jsondata.governService != 'No'){
                 $('div.radio-list').find('#optgov_srvc_y').attr('checked', 'checked');
                 $('div.radio-list').find('#optgov_srvc_y').parent().addClass('checked');
@@ -138,13 +146,6 @@
                 $('div.radio-list').find('#optgov_srvc_y').attr('checked', '');
                 $('div.radio-list').find('#optgov_srvc_y').parent().removeClass('checked');
             }
-            $('#selbranch').selectpicker('val', jsondata.branch);
-            $('#selmode_separation').select2('val', jsondata.separationCause);
-            $('#txtseparation_date').val(jsondata.separationDate);
-            $('#txtabs').val(jsondata.lwop);
-            $('#txtremarks').val(jsondata.remarks);
-            $('#txtprocessor').val(jsondata.processor);
-            $('#txtofficial').val(jsondata.signee);
 
             $('#txtxpid').val(jsondata.serviceRecID);
         });
