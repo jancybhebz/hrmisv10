@@ -1,59 +1,35 @@
 ###################
 What is HRMIS
 ###################
+
 The Human Resource Management Information System (HRMIS) is a comprehensive and proactive human resources system designed to provide a single interface for government employees to perform the human resources management functions efficiently and effectively.
 
+
 *******************
-Release Information
+Installation
 *******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
-
-**************************
-Changelog and New Features
-**************************
-
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+- git clone `https://bitbucket.org/sysdevdost/hrmis.git` hrmis
+- composer dump-autoload
+- composer install
+- cp .htaccess-copy .htaccess
+- cp .env.sample .env
+- nano .env
+- run hrmis/migrate in your localhost
 
 *******************
 Server Requirements
 *******************
 
-PHP version 5.6 or newer is recommended.
-
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
-
-************
-Installation
-************
-
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+- PHP version 7.1 or newer is recommended.
+- Ubuntu 18.
+- Git
 
 *********
-Resources
+Documentation
 *********
 
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
+-  `HRMISv10 Powerpoint Presentation <https://docs.google.com/presentation/d/1uGS2of7UIxYarlfvFLySg2kX31DBh_JFYP5vZxuq8Vc/edit#slide=id.g5c00ba7bd3_11_0>`_
 
 ***************
 Acknowledgement
