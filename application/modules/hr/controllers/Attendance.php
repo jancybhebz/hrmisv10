@@ -1461,10 +1461,103 @@ class Attendance extends MY_Controller {
 		else:
 			$this->session->set_flashdata('strErrorMsg','Failed to generate QR Code, please try again later or contact Administrator.');
 		endif;
-
 	}
 
+	public function dtrlogs()
+	{
+		$dtr_date = isset($_GET['logdate']) ? $_GET['logdate'] == '' ? date('Y-m-d') : $_GET['logdate'] : date('Y-m-d');
+		$this->arrData['dtrlogs'] = $this->Attendance_summary_model->getdtr_log($dtr_date);
+		$this->template->load('template/template_view','attendance/attendance/dtrlogs', $this->arrData);
+	}
 
+	public function flag_ceremony()
+	{
+		$this->load->model('libraries/Appointment_status_model');
+
+		$dtr_date = isset($_GET['logdate']) ? $_GET['logdate'] == '' ? date('Y-m-d') : $_GET['logdate'] : date('Y-m-d');
+		$position = isset($_GET['position']) ? $_GET['position'] : 'all';
+		$dtr_flagcrmy = $this->Attendance_summary_model->getflag_ceremony($dtr_date);
+		$arr_dtr_flagcrmy = array();
+		if($position!='all'):
+			foreach($dtr_flagcrmy as $log):
+				 $details = employee_details($log['flag_empNumber']); $emp_detail = $details[0];
+				 if($emp_detail['appointmentCode'] == $position):
+				 	$arr_dtr_flagcrmy[] = $log;
+				 endif;
+			endforeach;
+			$dtr_flagcrmy = $arr_dtr_flagcrmy;
+		endif;
+		$this->arrData['dtr_flagcrmy'] = $dtr_flagcrmy;
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData(); 
+		$this->template->load('template/template_view','attendance/attendance/flag_ceremony', $this->arrData);
+	}
+
+	public function employees_inc_dtr()
+	{
+		$month = isset($_GET['month']) ? $_GET['month'] == '' ? date('m') : $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] == '' ? date('Y') : $_GET['yr'] : date('Y');
+		$position = isset($_GET['position']) ? $_GET['position'] : 'all';
+
+		$attendance = $this->Attendance_summary_model->getcurrent_dtr($yr,$month);
+		$arremployees = array();
+
+		foreach($attendance as $att):
+			if($att['inAM']=='00:00:00' || $att['inAM']=='' || $att['outAM']=='00:00:00' || $att['outAM']=='' || $att['inPM']=='00:00:00' || $att['inPM']=='' || $att['outPM']=='00:00:00' || $att['outPM']==''):
+				if(!in_array($att['empNumber'],$arremployees)):
+					$details = employee_details($att['empNumber']); $emp_detail = $details[0];
+					if($position == 'all'):
+						array_push($arremployees,$att['empNumber']);
+					else:
+						if($emp_detail['appointmentCode'] == $position):
+							array_push($arremployees,$att['empNumber']);
+						endif;
+					endif;
+				endif;
+			endif;
+		endforeach;
+		
+		$emp_inc_dtr = $this->Attendance_summary_model->getincomplete_dtr($yr,$month);
+		$inc_dtr = array();
+		foreach($emp_inc_dtr as $inc):
+			if(!in_array($inc['empNumber'],$arremployees)):
+				$details = employee_details($inc['empNumber']);
+				if(count($details) > 0):
+					$emp_detail = $details[0];
+					if($position == 'all'):
+						array_push($arremployees,$inc['empNumber']);
+					else:
+						if($emp_detail['appointmentCode'] == $position):
+							array_push($arremployees,$inc['empNumber']);
+						endif;
+					endif;
+				endif;
+			endif;
+		endforeach;
+
+		$att_employees = array();
+		foreach($arremployees as $emp):
+			$empname = employee_name($emp);
+			if($empname!=''):
+				$att_employees[] = array('name' => $empname, 'empNumber' => $emp);
+			endif;
+		endforeach;
+		
+		sort($att_employees);
+		$this->arrData['arremployees'] = $att_employees;
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->template->load('template/template_view','attendance/attendance/inc_attendance', $this->arrData);
+	}
+
+	public function employees_leave_balance()
+	{
+		$this->load->model('employee/Leave_model');
+		$month = isset($_GET['month']) ? ltrim($_GET['month'], '0') == '' ? date('m') : ltrim($_GET['month'], '0') : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] == '' ? date('Y') : $_GET['yr'] : date('Y');
+		
+		$this->arrData['leave_balance'] = $this->Leave_model->att_getleave_balance($month,$yr);
+		
+		$this->template->load('template/template_view','attendance/attendance/leave_balance', $this->arrData);
+	}
 
 }
 

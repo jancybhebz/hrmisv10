@@ -175,11 +175,14 @@ class Dtr_log_model extends CI_Model {
 			$arrdtr['name'] = 'System';
 			$arrdtr['editdate'] = date('Y-m-d h:i:s A');
 			$arrdtr['ip'] = $this->input->ip_address();
-			$this->Attendance_summary_model->add_dtr($arrdtr);
-			return array('strSuccessMsg','You have successfully Logged-IN !!!');
+			$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
+			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
+			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
+			return $err_message;
 		else:
 			if($err_message[0] == 'strSuccessMsg'):
-				$this->Attendance_summary_model->edit_dtr($arrdtr, $dtrid);
+				$sql_str = $this->Attendance_summary_model->edit_dtrkios($arrdtr, $dtrid);
+				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
 				return $err_message;
 			else:
 				return $err_message;
@@ -438,10 +441,12 @@ class Dtr_log_model extends CI_Model {
 						
 						if($am_timeout==''):
 							if($dtrid!=''):
-								$this->Attendance_summary_model->edit_dtr(array('outAM' => $dtrlog), $dtrid);
+								$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('outAM' => $dtrlog), $dtrid);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
 							else:
 								$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'outAM' => $dtrlog);
-								$this->Attendance_summary_model->add_dtr($arrdtr);
+								$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
 							endif;
 						else:
 							array_push($msg, '<li>You already have AM OUT.!</li>');
@@ -450,10 +455,12 @@ class Dtr_log_model extends CI_Model {
 
 						if($pm_timein==''):
 							if($dtrid!=''):
-								$this->Attendance_summary_model->edit_dtr(array('inPM' => $dtrlog), $dtrid);
+								$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('inPM' => $dtrlog), $dtrid);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
 							else:
 								$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'inPM' => $dtrlog);
-								$this->Attendance_summary_model->add_dtr($arrdtr);
+								$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
 							endif;
 						else:
 							array_push($msg, '<li>You already have PM IN.!</li>');
@@ -471,14 +478,14 @@ class Dtr_log_model extends CI_Model {
 					$warn = 0;
 					if($dtrid!=''):
 						if($am_timeout==''):
-							$this->Attendance_summary_model->edit_dtr(array('outAM' => $dtrlog), $dtrid);
+							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('outAM' => $dtrlog), $dtrid);
 						else:
 							array_push($msg, '<li>You already have AM OUT.!</li>');
 							$warn = $warn + 1;
 						endif;
 
 						if($pm_timein==''):
-							$this->Attendance_summary_model->edit_dtr(array('inPM' => $dtrlog), $dtrid);
+							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('inPM' => $dtrlog), $dtrid);
 						else:
 							array_push($msg, '<li>You already have PM IN.!</li>');
 							$warn = $warn + 1;
@@ -491,7 +498,7 @@ class Dtr_log_model extends CI_Model {
 						endif;
 					else:
 						$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'outAM' => $dtrlog, 'inPM' => $dtrlog);
-						$this->Attendance_summary_model->add_dtr($arrdtr);
+						$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
 						$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
 					endif;
 				endif;
@@ -500,6 +507,8 @@ class Dtr_log_model extends CI_Model {
 			$res = array('err_message' => array('strErrorMsg','Invalid use of asterisk (*), Please try again without asterisk.'));
 		endif;
 
+
+		$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
 		return $res['err_message'];
 	}
 
