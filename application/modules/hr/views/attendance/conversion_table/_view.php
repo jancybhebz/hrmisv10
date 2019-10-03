@@ -74,8 +74,8 @@
                                                                 <?php foreach($convii as $i): ?>
                                                                 <tr>
                                                                     <td><?=$i['days']?></td>
-                                                                    <td><?=$i['vl']?></td>
-                                                                    <td><?=$i['sl']?></td>
+                                                                    <td><?=number_format($i['vl'], 3, '.', '')?></td>
+                                                                    <td><?=number_format($i['sl'], 3, '.', '')?></td>
                                                                 </tr>
                                                                 <?php endforeach; ?>
                                                             </tbody>
@@ -98,8 +98,8 @@
                                                             <tbody>
                                                                 <?php foreach($conv8hrs as $i): ?>
                                                                 <tr>
-                                                                    <td><?=$i['hrs']?></td>
-                                                                    <td><?=$i['days']?></td>
+                                                                    <td><?=number_format($i['hrs'], 3, '.', '')?></td>
+                                                                    <td><?=number_format($i['days'], 3, '.', '')?></td>
                                                                 </tr>
                                                                 <?php endforeach; ?>
                                                             </tbody>
@@ -118,10 +118,10 @@
                                                             <tbody>
                                                                 <?php foreach($conviii as $i): ?>
                                                                 <tr>
-                                                                    <td><?=$i['mins1']?></td>
-                                                                    <td><?=$i['day1']?></td>
-                                                                    <td><?=$i['mins2']?></td>
-                                                                    <td><?=$i['day2']?></td>
+                                                                    <td><?=number_format($i['mins1'],3,'.','')?></td>
+                                                                    <td><?=number_format($i['day1'],3,'.','')?></td>
+                                                                    <td><?=number_format($i['mins2'],3,'.','')?></td>
+                                                                    <td><?=number_format($i['day2'],3,'.','')?></td>
                                                                 </tr>
                                                                 <?php endforeach; ?>
                                                             </tbody>
