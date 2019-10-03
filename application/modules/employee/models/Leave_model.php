@@ -120,6 +120,13 @@ class Leave_model extends CI_Model {
 		return $this->db->get_where('tblEmpLeaveBalance', $arrcond)->result_array();
 	}
 
+	function att_getleave_balance($month,$yr)
+	{
+		$this->db->where('periodMonth', $month);
+		$this->db->where('periodYear', $yr);
+		return $this->db->get('tblEmpLeaveBalance')->result_array();
+	}
+
 	# get Leaves
 	function getleave($empid,$datefrom='',$dateto='')
 	{

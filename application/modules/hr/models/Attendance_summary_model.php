@@ -12,6 +12,20 @@ class Attendance_summary_model extends CI_Model {
 		return count($res) > 0 ? $res[0] : array();
 	}
 
+	function getdtr_log($log_date)
+	{
+		$this->db->where("log_date like '".$log_date."%'");
+		$res = $this->db->get('tblEmpDTR_log')->result_array();
+		return $res;
+	}
+
+	function getflag_ceremony($flag_date)
+	{
+		$this->db->where("flag_datetime like '".$flag_date."%'");
+		$res = $this->db->get('tblFlagCeremony')->result_array();
+		return $res;
+	}
+
 	function edit_dtr($arrData, $dtrid)
 	{
 		$this->db->where('id', $dtrid);
@@ -20,9 +34,29 @@ class Attendance_summary_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function edit_dtrkios($arrData, $dtrid)
+	{
+		$this->db->where('id', $dtrid);
+		$this->db->update('tblEmpDTR', $arrData);
+		
+		return $this->db->last_query();
+	}
+
 	public function add_dtr($arrData)
 	{
 		$this->db->insert('tblEmpDTR', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	public function add_dtrkios($arrData)
+	{
+		$this->db->insert('tblEmpDTR', $arrData);
+		return $this->db->last_query();
+	}
+
+	public function add_dtr_log($arrData)
+	{
+		$this->db->insert('tblEmpDTR_log', $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -43,14 +77,17 @@ class Attendance_summary_model extends CI_Model {
 		}
 	}
 
-	function getcurrent_dtr($empid)
+	function getcurrent_dtr($yr,$month)
 	{
-		$res = $this->db->get_where('tblEmpDTR' ,array('empNumber' => $empid, 'dtrDate' => date('Y-m-d')))->result_array();
-		if(count($res) > 0){
-			return $res[0];
-		}else{
-			return null;
-		}
+		$this->db->where("dtrDate like '".$yr."-".$month."%'");
+		return $this->db->get('tblEmpDTR')->result_array();
+	}
+
+	function getincomplete_dtr($yr,$month)
+	{
+		$this->db->where("empNumber NOT IN (SELECT empNumber FROM tblEmpDTR WHERE dtrDate like '".$yr."-".$month."%')");
+		$this->db->where('statusOfAppointment', 'In-Service');
+		return $this->db->get('tblEmpPosition')->result_array();
 	}
 
 	public function getemp_dtr($empid, $datefrom, $dateto)

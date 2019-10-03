@@ -89,7 +89,7 @@ $user_session = $this->session->userdata();
                             <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item <?=$active=='hr' && ($activesub=='attendance_summary' && in_array($activetab, array('index','leave_balance','leave_monetization','filed_request','dtr','qr_code','leave_balance_set','leave_balance_update')) || ($activesub=='attendance' && in_array($activetab, array('view_all')))) ? 'active open' : ''?>">
+                            <li class="nav-item <?=$active=='hr' && ($activesub=='attendance_summary' && in_array($activetab, array('index','leave_balance','leave_monetization','filed_request','dtr','qr_code','leave_balance_set','leave_balance_update')) || ($activesub=='attendance' && in_array($activetab, array('view_all','dtrlogs','flag_ceremony','employees_inc_dtr','employees_leave_balance')))) ? 'active open' : ''?>">
                                 <a href="<?=base_url('hr/attendance/view_all')?>">
                                     <span class="title">Attendance Summary</span>
                                 </a>
