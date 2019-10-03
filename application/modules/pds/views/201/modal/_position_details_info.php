@@ -78,14 +78,27 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Executive Office</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="" class="form-control" value="">
+                                    <select class="form-control bs-select" name="selexec">
+                                        <option value=""> </option>
+                                        <?php foreach($arrOrganization as $exec):
+                                                $selected = $exec['group1Code'] == $arrPosition[0]['officecode'] ? 'selected' : '';
+                                                echo '<option value="'.$exec['group1Code'].'" '.$selected.'>'.$exec['group1Code'].'</option>';
+                                              endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Service</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="" class="form-control" value="">
+                                    <!-- <input type="text" name="selservice" class="form-control" value=""> -->
+                                     <select class="form-control bs-select" name="selservice">
+                                        <option value=""> </option>
+                                        <?php foreach($arrServiceCode as $service):
+                                                $selected = $service['group2Code'] == $arrPosition[0]['serviceCode'] ? 'selected' : '';
+                                                echo '<option value="'.$service['group2Code'].'" '.$selected.'>'.$service['group2Code'].'</option>';
+                                              endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -202,14 +215,28 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Division</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="" class="form-control" value="">
+                                    <!-- <input type="text" name="seldivision" class="form-control" value=""> -->
+                                    <select class="form-control bs-select" name="seldivision">
+                                        <option value=""> </option>
+                                        <?php foreach($arrDivision as $division):
+                                                $selected = $division['group3Code'] == $arrPosition[0]['divisionCode'] ? 'selected' : '';
+                                                echo '<option value="'.$division['group3Code'].'" '.$selected.'>'.$division['group3Code'].'</option>';
+                                              endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Section</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="" class="form-control" value="">
+                                    <!-- <input type="text" name="" class="form-control" value=""> -->
+                                    <select class="form-control bs-select" name="selsection">
+                                        <option value=""> </option>
+                                        <?php foreach($arrSection as $section):
+                                                $selected = $section['group4Code'] == $arrPosition[0]['sectionCode'] ? 'selected' : '';
+                                                echo '<option value="'.$section['group4Code'].'" '.$selected.'>'.$section['group4Code'].'</option>';
+                                              endforeach; ?>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>

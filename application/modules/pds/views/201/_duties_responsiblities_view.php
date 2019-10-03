@@ -31,7 +31,7 @@
                             <tr>
                                 <td align="center"><?=$pos_d['dutyNumber']?></td>
                                 <td><?=$pos_d['duties']?></td>
-                                <td align="center"><?=$pos_d['percentWork']?></td>
+                                <td align="center"><?=number_format($pos_d['percentWork'])?></td>
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
@@ -76,7 +76,7 @@
                             <tr>
                                 <td align="center"><?=$plant_d['dutyNumber']?></td>
                                 <td><?=$plant_d['itemDuties']?></td>
-                                <td align="center"><?=$plant_d['percentWork']?></td>
+                                <td align="center"><?=number_format($plant_d['percentWork'])?></td>
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
@@ -121,7 +121,7 @@
                             <tr>
                                 <td align="center"><?=$no++?></td>
                                 <td><?=$actual_d['duties']?></td>
-                                <td align="center"><?=$actual_d['percentWork']?></td>
+                                <td align="center"><?=number_format($actual_d['percentWork'])?></td>
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
