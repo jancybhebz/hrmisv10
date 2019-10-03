@@ -1504,8 +1504,9 @@ class Attendance extends MY_Controller {
 		foreach($attendance as $att):
 			if($att['inAM']=='00:00:00' || $att['inAM']=='' || $att['outAM']=='00:00:00' || $att['outAM']=='' || $att['inPM']=='00:00:00' || $att['inPM']=='' || $att['outPM']=='00:00:00' || $att['outPM']==''):
 				if(!in_array($att['empNumber'],$arremployees)):
-					$details = employee_details($att['empNumber']); $emp_detail = $details[0];
+					$details = employee_details($att['empNumber']);
 					if(count($details) > 0):
+						$emp_detail = $details[0];
 						if($position == 'all'):
 							array_push($arremployees,$att['empNumber']);
 						else:
