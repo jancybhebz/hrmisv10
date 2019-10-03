@@ -94,13 +94,23 @@
                     <th style="text-align: right;">Authorize Salary :</th>
                     <td><?=$arrPosition[0]['authorizeSalary']?></td>
                     <th style="text-align: right;">Step Number :</th>
-                    <td><?=$arrPosition[0]['stepNumber']?></td>
+                    <?php if ($arrPosition[0]['stepNumber']==0)
+                    {
+                        echo '<td></td>'; 
+                    } else { ?>
+                        <td><?=$arrPosition[0]['stepNumber']?></td>
+                    <?php } ?>
                 </tr>
                 <tr>
                     <th style="text-align: right;">Position :</th>
                     <td><?=$arrData[0]['positionDesc']?></td>
                     <th style="text-align: right;">Date Increment :</th>
+                    <?php if ($arrPosition[0]['dateIncremented']==0000-00-00)
+                    {
+                        echo '<td></td>'; 
+                    } else { ?>
                     <td><?=$arrPosition[0]['dateIncremented']?></td>
+                    <?php } ?>
                 </tr>
                 <tr>
                     <th style="text-align: right;">Position Date :</th>

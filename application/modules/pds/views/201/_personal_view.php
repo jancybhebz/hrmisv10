@@ -27,7 +27,12 @@
         <th style="text-align:right;" nowrap>Citizenship </th>
         <td><?=$arrData['citizenship']?></td>
         <th style="text-align:right;" nowrap>Zip Code </th>
-        <td><?=$arrData['zipCode1']?></td>
+        <?php if($arrData['zipCode1']==0)
+        {
+            echo '<td></td>';
+        } else { ?>
+            <td><?=$arrData['zipCode1']?></td>
+        <?php } ?>
     </tr>
     <tr>
         <th style="text-align:right;" nowrap>Height (m) </th>
@@ -62,7 +67,12 @@
         <th style="text-align:right;" nowrap>PHILHEALTH ID No. </th>
         <td><?=$arrData['philHealthNumber']?></td>
         <th style="text-align:right;" nowrap>Zip Code </th>
-        <td><?=$arrData['zipCode2']?></td>
+        <?php if($arrData['zipCode2']==0)
+        {
+            echo '<td></td>';
+        } else { ?>
+            <td><?=$arrData['zipCode2']?></td>
+        <?php } ?>
     </tr>
     <tr>
         <th style="text-align:right;" nowrap>Pag-ibig ID No. </th>
