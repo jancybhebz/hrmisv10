@@ -48,22 +48,27 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="form-group">
                 <?php 
                 $permonth = date("F, Y", strtotime("last day of previous month"));
+                $vlBalance = $arrBalance['vlBalance'];
+                $slBalance = $arrBalance['slBalance'];
+                $plBalance = $arrBalance['plBalance'];
+                $flBalance = $arrBalance['flBalance'];
+                $mtlBalance = $arrBalance['mtlBalance'];
                 ?>
                        <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
                             <i class="fa"></i>
-                            <?php if ($arrBalance['vlBalance']=='')
+                            <?php if ($vlBalance=='')
                             {
                                 echo '<div><label>Vacation Leave left: 0 </label></div>'; 
-                            } if ($arrBalance['slBalance']=='')
+                            } if ($slBalance=='')
                             {
                                 echo '<div><label>Sick Leave left: 0 </label></div>'; 
-                            } if ($arrBalance['plBalance']=='')
+                            } if ($plBalance=='')
                             {
                                 echo '<div><label>Special Leave left: 0 </label></div>'; 
-                            } if ($arrBalance['flBalance']=='')
+                            } if ($flBalance=='')
                             {
                                 echo '<div><label>Forced Leave left: 0 </label></div>'; 
-                            } if ($arrBalance['mtlBalance']=='')
+                            } if ($mtlBalance=='')
                             {
                                 echo '<div><label>Maternity Leave left: 0 </label></div>'; 
                             } else { ?> 
