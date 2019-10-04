@@ -203,6 +203,22 @@ if ( ! function_exists('getfullname'))
 	}
 }
 
+if ( ! function_exists('fix_fullname'))
+{
+    function fix_fullname($fname, $lname, $mname='', $mid='', $ext='')
+    {
+        $lname = $lname!='' ? $lname: '';
+        $mname = $mname == '' ? '' : $mname[0];
+        $mid_ini = $mid!='' ? str_replace('.', '', $mid) : $mname;
+        $mid_ini = $mid_ini!='' ? $mid_ini.'. ' : '';
+        $mid_ini = $mid_ini != '' ? strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.' : '';
+        $ext = $ext!='' ? $ext.' ': '';
+        $fullname = ucwords($ext.$fname.' '.$mid_ini.$lname);
+        return $fullname;
+    }
+}
+
+
 if ( ! function_exists('breakdates'))
 {
     function breakdates($from,$to)

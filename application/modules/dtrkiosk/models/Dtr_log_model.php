@@ -23,7 +23,8 @@ class Dtr_log_model extends CI_Model {
 		$dtrid = '';$am_timein = '';$am_timeout = '';$pm_timein = '';$pm_timeout = '';$ot_timein = '';$ot_timeout = '';
 
 		$arrdtr = array();
-		$empdtr = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,date('Y-m-d'),date('Y-m-d'));
+		
 		$emp_att_scheme = $this->get_employee_attscheme($empid);
 		if(!empty($emp_att_scheme)):
 			# initializing employee attendance scheme
@@ -32,11 +33,13 @@ class Dtr_log_model extends CI_Model {
 			$nn_in_from = $emp_att_scheme['nnTimeinFrom'];
 			$nn_in_to = $emp_att_scheme['nnTimeinTo'];
 		else:
-			return array();
+			$err_message = array('strErrorMsg','No Attendance Scheme. Please contact administrator.');
+			return err_message;
 		endif;
 		
+		
 		# check if dtr is empty
-		if(empty($empdtr)):
+		if(count($empdtr) < 1):
 			# check if dtrlog < morning out
 			if($dtrlog < $nn_out_from):
 				# if true, set to inAM
@@ -46,6 +49,7 @@ class Dtr_log_model extends CI_Model {
 				$pm_timein = $dtrlog;
 			endif;
 		else:
+			$empdtr = $empdtr[0];
 			# if employee has already dtr log
 			$dtrid = $empdtr['id'];
 			$am_timein  = $empdtr['inAM']  == '00:00:00' ? '' : $empdtr['inAM'];
@@ -74,9 +78,11 @@ class Dtr_log_model extends CI_Model {
 						if($am_timeout != ''):
 							# if not empty, set pm_timein
 							$pm_timein = $dtrlog;
+							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
 						else:
 							# if empty, set am_timeout
 							$am_timeout = $dtrlog;
+							$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
 						endif;
 					else:
 						# if empty, set am_timein
@@ -172,12 +178,13 @@ class Dtr_log_model extends CI_Model {
 
 		# insert/update tblEmpDtr
 		if($dtrid==''):
+			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
 			$arrdtr['name'] = 'System';
 			$arrdtr['editdate'] = date('Y-m-d h:i:s A');
 			$arrdtr['ip'] = $this->input->ip_address();
 			$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
-			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
+			
 			return $err_message;
 		else:
 			if($err_message[0] == 'strSuccessMsg'):

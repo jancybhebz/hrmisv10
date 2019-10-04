@@ -1498,7 +1498,7 @@ class Attendance extends MY_Controller {
 		$yr = isset($_GET['yr']) ? $_GET['yr'] == '' ? date('Y') : $_GET['yr'] : date('Y');
 		$position = isset($_GET['position']) ? $_GET['position'] : 'all';
 
-		$attendance = $this->Attendance_summary_model->getcurrent_dtr($yr,$month);
+		$attendance = $this->Attendance_summary_model->getdtr_bydate($yr,$month);
 		$arremployees = array();
 
 		foreach($attendance as $att):

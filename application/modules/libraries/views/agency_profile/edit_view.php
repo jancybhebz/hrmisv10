@@ -40,7 +40,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Agency Profile</span>
+                    <span class="caption-subject bold uppercase"> Save Agency Profile</span>
                 </div> 
             </div>
             <div class="portlet-body form">

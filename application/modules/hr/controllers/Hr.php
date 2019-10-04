@@ -39,7 +39,7 @@ class Hr extends MY_Controller {
 		
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo,'','all');
 		
-		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($strEmpNo);
+		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getEmployee_dtr($strEmpNo,date('Y-m-d'),date('Y-m-d'));
 		
 		$this->arrData['arrChild'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
 		// $this->arrData['arrEduc'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
