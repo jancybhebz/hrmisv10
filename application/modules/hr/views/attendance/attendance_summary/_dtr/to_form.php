@@ -127,7 +127,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <button class="btn green" type="submit" id="btn_to"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                    <button class="btn green" type="submit" id="btn_to"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                     <a href="<?=base_url('hr/attendance_summary/dtr/to/').$arrData['empNumber']?>" class="btn blue">
                                         <i class="icon-ban"></i> Cancel</a>
                                 </div>
