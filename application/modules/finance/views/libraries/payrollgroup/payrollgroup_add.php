@@ -88,7 +88,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <button class="btn green" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error">
-                                                <i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                                <i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                             <a href="<?=base_url('finance/libraries/payrollgroup')?>" class="btn blue" type="button">
                                                 <i class="icon-ban"></i> Cancel</a>
                                         </div>
