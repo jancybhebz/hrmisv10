@@ -60,7 +60,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <button class="btn green" type="submit" id="btn_add_signatory">
-                                                <i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                                <i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                             <a href="<?=base_url('finance/libraries/signatory')?>"><button class="btn blue" type="button">
                                                 <i class="icon-ban"></i> Cancel</button></a>
                                         </div>
