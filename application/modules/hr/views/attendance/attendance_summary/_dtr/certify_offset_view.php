@@ -61,7 +61,7 @@
                                         <td align="center"><?=$out_pm?></td>
                                         <td align="center"><?=$in_ot?></td>
                                         <td align="center"><?=$out_ot?></td>
-                                        <td align="center"><?=$ot['remarks']?></td>
+                                        <td align="center"><?=$ot['dtr']['remarks']?></td>
                                         <td align="center" nowrap>
                                             <?=$ot['ot'] > 0 ? date('H:i', mktime(0, $ot['ot'])) : '';?>
                                         </td>
