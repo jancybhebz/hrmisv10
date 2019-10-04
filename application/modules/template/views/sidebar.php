@@ -538,14 +538,12 @@ $user_session = $this->session->userdata();
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-layers"></i>
                     <span class="title">Online Help</span>
-                    <span class="arrow"></span>
                 </a>                    
             </li>
             <li class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-layers"></i>
                     <span class="title">FAQs</span>
-                    <span class="arrow"></span>
                 </a>
             </li>
         </ul>

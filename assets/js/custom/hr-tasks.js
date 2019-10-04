@@ -125,6 +125,7 @@ $(document).ready(function() {
         }
 
         if(data['req_code'] == "TO") {
+            $('#txtto_json').val(JSON.stringify(data));
             $('#txtto_id').val(data['req_id']);
             $('#txtto_empno').val(data['req_emp']);
             $('#txtto_empname').val(data['req_empname']);

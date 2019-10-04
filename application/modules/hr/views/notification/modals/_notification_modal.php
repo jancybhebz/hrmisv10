@@ -1,3 +1,7 @@
+<?php 
+    $status = isset($_GET['status']) ? $_GET['status']!='' ? '&status='.$_GET['status'] : '&status=All' : '';
+    $code = isset($_GET['code']) ? $_GET['code']!='' ? '&code='.$_GET['code'] : '&code=all' : '';
+ ?>
 <!-- BGEIN MODAL LEAVE -->
 <div id="request_leave" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
@@ -6,7 +10,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?=form_open('hr/request/leave_request', array('class' => 'form-horizontal', 'method' => 'post'))?>
+            <?=form_open('hr/request/leave_request?month='.currmo().'&yr='.curryr().$status.$code, array('class' => 'form-horizontal', 'method' => 'post'))?>
                 <div class="modal-body">
                     <div class="form-body">
                         <input type="hidden" name="txtleave_json" id="txtleave_json">
@@ -113,7 +117,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?=form_open('hr/request/ob_request', array('class' => 'form-horizontal'))?>
+            <?=form_open('hr/request/ob_request?month='.currmo().'&yr='.curryr().$status.$code, array('class' => 'form-horizontal'))?>
                 <div class="modal-body">
                     <input type="hidden" name="txtob_json" id="txtob_json">
                     <div class="form-body">
@@ -392,7 +396,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?=form_open('employee/requests/cancel_request', array('class' => 'form-horizontal'))?>
+            <?=form_open('hr/request/to_request?month='.currmo().'&yr='.curryr().$status.$code, array('class' => 'form-horizontal'))?>
+                <input type="hidden" name="txtto_json" id="txtto_json">
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="form-group">
