@@ -90,7 +90,7 @@
                                                 <tr class="odd gradeX ">
                                                     <td><?=$no++?> </td>
                                                     <td> <?=$row['empNumber']?></a> </td>
-                                                    <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
+                                                    <td> <?=getfullname($row['firstname'],$row['surname'],$row['middlename'],$row['middleInitial'],$row['nameExtension'])?> </td>
                                                     <td> <?=$row['statusOfAppointment']?> </td>
                                                     <td> <?=employee_office($row['empNumber'])?> </td>
                                                     <td> <?=$row['positionDesc']?></td>

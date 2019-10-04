@@ -1,8 +1,23 @@
 <?php
-$modulename = array('','HR','Financial','Officer','Executive','Employee');
-load_plugin('css',array('select'));
-$this_page = $this->uri->segment(4);
-$arrData = $arrData[0];?>
+    $modulename = array('','HR','Financial','Officer','Executive','Employee');
+    load_plugin('css',array('select'));
+    $this_page = $this->uri->segment(4);
+    $arrData = $arrData[0];
+
+    $am_timein  = '-';
+    $am_timeout = '-';
+    $pm_timein  = '-';
+    $pm_timeout = '-';
+
+    if($arrdtr!=null):
+        $arrdtr = $arrdtr[0];
+        $am_timein  = $arrdtr['inAM']  == '' || $arrdtr['inAM']  == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['inAM']));
+        $am_timeout = $arrdtr['outAM'] == '' || $arrdtr['outAM'] == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['outAM']));
+        $pm_timein  = $arrdtr['inPM']  == '' || $arrdtr['inPM']  == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['inPM']));
+        $pm_timeout = $arrdtr['outPM'] == '' || $arrdtr['outPM'] == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['outPM']));
+    endif;
+
+?>
 <!-- BEGIN PAGE BAR -->
 <style>
     .tabbable-line > .nav-tabs > li > a {
@@ -114,19 +129,19 @@ $arrData = $arrData[0];?>
                                                         <ul class="list-unstyled" style="line-height: 15px;">
                                                             <li>
                                                                 <span class="sale-info"> LOG IN </span>
-                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inAM'])) : '00:00'?></span>
+                                                                <span class="sale-num"><?=$am_timein?></span>
                                                             </li>
                                                             <li>
                                                                 <span class="sale-info"> BREAK OUT </span>
-                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outAM'])) : '00:00'?></span>
+                                                                <span class="sale-num"><?=$am_timeout?></span>
                                                             </li>
                                                             <li>
                                                                 <span class="sale-info"> BREAK IN </span>
-                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inPM'])) : '00:00'?></span>
+                                                                <span class="sale-num"><?=$pm_timein?></span>
                                                             </li>
                                                             <li>
                                                                 <span class="sale-info"> LOG OUT </span>
-                                                                <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outPM'])) : '00:00'?></span>
+                                                                <span class="sale-num"><?=$pm_timeout?></span>
                                                             </li>
                                                         </ul>
                                                     </div>

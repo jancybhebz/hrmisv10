@@ -12,7 +12,7 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12 profile-info">
-                    <h1 class="font-green sbold uppercase"><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></h1>
+                    <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],$arrData['nameExtension'])?></h1>
                     <div class="row">
                         <table class="table table-bordered table-striped">
                             <tbody>

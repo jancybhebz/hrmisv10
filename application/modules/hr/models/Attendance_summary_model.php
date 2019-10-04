@@ -77,7 +77,13 @@ class Attendance_summary_model extends CI_Model {
 		}
 	}
 
-	function getcurrent_dtr($yr,$month)
+	function getcurrent_dtr($empid)
+	{
+		$this->db->where('empNumber', $empid);
+		return $this->db->get('tblEmpDTR')->result_array();
+	}
+
+	function getdtr_bydate($yr,$month)
 	{
 		$this->db->where("dtrDate like '".$yr."-".$month."%'");
 		return $this->db->get('tblEmpDTR')->result_array();
