@@ -95,6 +95,11 @@ class Compensatory_leave_model extends CI_Model {
 		return $this->db->get_where('tblEmpRequest', array('empNumber' => $empid, 'requestCode' => 'CL', 'requestStatus' => 'CERTIFIED'))->result_array();
 	}
 
+	function get_emp_cto($dtr_id)
+	{
+		return $this->db->get_where('tblcompensatory_timeoff', array('dtr_id' => $dtr_id))->result_array();
+	}
+
 	function get_all_overtime($empid)
 	{
 		$this->load->model(array('hr/Attendance_summary_model','libraries/Attendance_scheme_model'));

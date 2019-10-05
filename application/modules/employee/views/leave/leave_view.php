@@ -48,14 +48,37 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="form-group">
                 <?php 
                 $permonth = date("F, Y", strtotime("last day of previous month"));
+                $vlBalance = $arrBalance['vlBalance'];
+                $slBalance = $arrBalance['slBalance'];
+                $plBalance = $arrBalance['plBalance'];
+                $flBalance = $arrBalance['flBalance'];
+                $mtlBalance = $arrBalance['mtlBalance'];
                 ?>
                        <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
                             <i class="fa"></i>
-                            <div><label>Vacation Leave left: <?=$arrBalance['vlBalance']?></label></div>
-                            <div><label>Sick Leave left: <?=$arrBalance['slBalance']?></label></div>
-                            <div><label>Special Leave left: <?=$arrBalance['plBalance']?></label></div>
-                            <div><label>Forced Leave left: <?=$arrBalance['flBalance']?></label></div>
-                            <div><label>Maternity Leave left: <?=$arrBalance['mtlBalance']?></label></div>
+                            <?php if ($vlBalance=='')
+                            {
+                                echo '<div><label>Vacation Leave left: 0 </label></div>'; 
+                            } if ($slBalance=='')
+                            {
+                                echo '<div><label>Sick Leave left: 0 </label></div>'; 
+                            } if ($plBalance=='')
+                            {
+                                echo '<div><label>Special Leave left: 0 </label></div>'; 
+                            } if ($flBalance=='')
+                            {
+                                echo '<div><label>Forced Leave left: 0 </label></div>'; 
+                            } if ($mtlBalance=='')
+                            {
+                                echo '<div><label>Maternity Leave left: 0 </label></div>'; 
+                            } else { ?> 
+                                <div><label>Vacation Leave left: <?=$arrBalance['vlBalance'] ?></label></div>
+                                <div><label>Sick Leave left: <?=$arrBalance['slBalance']?></label></div>
+                                <div><label>Special Leave left: <?=$arrBalance['plBalance']?></label></div>
+                                <div><label>Forced Leave left: <?=$arrBalance['flBalance']?></label></div>
+                                <div><label>Maternity Leave left: <?=$arrBalance['mtlBalance']?></label></div>
+                            <?php } ?>
+                            
                     </div>
                 </div>
             </div><br>

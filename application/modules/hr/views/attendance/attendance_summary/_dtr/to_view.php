@@ -85,7 +85,6 @@
 </div>
 
 <?php load_plugin('js',array('datatables'));?>
-<?php $this->load->view('modals/_leave_monetize_modal'); ?>
 
 <script>
     $(document).ready(function() {

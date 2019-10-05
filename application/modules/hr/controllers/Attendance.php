@@ -564,7 +564,7 @@ class Attendance extends MY_Controller {
 							 'ctr_diem' 		 => $arrPost['txtamt_training']);
 			$this->Leave_model->editLeaveBalance($arrData, $arrPost['txtoverride_id']);
 			$this->session->set_flashdata('strSuccessMsg','Leave balance override successfully.');
-			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month=all&yr='.date('Y'));
+			redirect('hr/attendance_summary/leave_balance_update/'.$empid.'?month='.$_GET['month'].'&yr='.$_GET['yr']);
 		endif;
 	}
 
@@ -666,8 +666,8 @@ class Attendance extends MY_Controller {
 			$arrData=array(
 				'empNumber'	=> $this->uri->segment(5),
 				'schemeCode'=> $arrPost['selscheme'],
-				'dateFrom'	=> $arrPost['from'],
-				'dateTo'	=> $arrPost['to']);
+				'dateFrom'	=> $arrPost['bs_sched_from'],
+				'dateTo'	=> $arrPost['bs_sched_to']);
 			$this->Attendance_summary_model->add_brokensched($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Schedule added successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
@@ -702,8 +702,8 @@ class Attendance extends MY_Controller {
 		if(!empty($arrPost)):
 			$arrData=array(
 				'schemeCode'=> $arrPost['selscheme'],
-				'dateFrom'	=> $arrPost['from'],
-				'dateTo'	=> $arrPost['to']);
+				'dateFrom'	=> $arrPost['bs_sched_from'],
+				'dateTo'	=> $arrPost['bs_sched_to']);
 			$this->Attendance_summary_model->edit_brokensched($arrData, $_GET['id']);
 			$this->session->set_flashdata('strSuccessMsg','Schedule updated successfully.');
 			redirect('hr/attendance_summary/dtr/broken_sched/'.$this->uri->segment(5));
@@ -777,18 +777,26 @@ class Attendance extends MY_Controller {
 				if(count($dtr['tr']) > 6):
 					$dtr_details = json_decode($dtr['tr'][10]['td'], true);
 					$dtrid = $dtr_details[1];
+
+					$in_am  = $dtr['tr'][2]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00';
+					$out_am = $dtr['tr'][3]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00';
+					$in_pm  = $dtr['tr'][4]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00';
+					$out_pm = $dtr['tr'][5]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00';
+					$in_ot  = $dtr['tr'][6]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00';
+					$out_ot = $dtr['tr'][7]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00';
+
 					$arrData = array('empNumber'	=> $arrPost['empnum'],
 									 'dtrDate'		=> $dtr_details[0],
-									 'inAM' 		=> $dtr['tr'][2]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00',
-									 'outAM' 		=> $dtr['tr'][3]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00',
-									 'inPM' 		=> $dtr['tr'][4]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00',
-									 'outPM' 		=> $dtr['tr'][5]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00',
-									 'inOT' 		=> $dtr['tr'][6]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00',
-									 'outOT' 		=> $dtr['tr'][7]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00',
+									 'inAM' 		=> $in_am,
+									 'outAM' 		=> $out_am,
+									 'inPM' 		=> $in_pm,
+									 'outPM' 		=> $out_pm,
+									 'inOT' 		=> $in_ot,
+									 'outOT' 		=> $out_ot,
 									 'name' 		=> $dtr_details[2].';'.$_SESSION['sessName'],
 									 'ip'			=> $dtr_details[3].';'.$this->input->ip_address(),
 									 'editdate'		=> $dtr_details[4].';'.date('Y-m-d h:i:s A'),
-									 'oldValue' 	=> $dtr_details[5]);
+									 'oldValue' 	=> $dtr_details[5].';'.'inAM='.$in_am.', outAM='.$out_am.', inPM='.$in_pm.', outPM='.$out_pm.', inOT='.$in_ot.', outOT='.$out_ot);
 					# check timein validation
 					$valid_time = 0;
 					foreach(array($arrData['inAM'],$arrData['outAM'],$arrData['inPM'],$arrData['outPM'],$arrData['inOT'],$arrData['outOT']) as $vtime):
@@ -810,9 +818,9 @@ class Attendance extends MY_Controller {
 			endif;
 			
 		endforeach;
-		// die();
+		
 		$this->session->set_flashdata('strSuccessMsg','DTR updated successfully.');
-		redirect('hr/attendance_summary/dtr/edit_mode/'.$arrPost['empnum'].'?datefrom='.$arrPost['datefrom'].'&dateto='.$arrPost['dateto']);
+		redirect('hr/attendance_summary/dtr/'.$arrPost['empnum'].'?datefrom='.$arrPost['datefrom'].'&dateto='.$arrPost['dateto']);
 	}
 	# End Edit Mode
 
@@ -889,7 +897,7 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
-		$this->arrData['arrObs'] = $this->Attendance_summary_model->getobs($empid);
+		$this->arrData['arrObs'] = $this->Attendance_summary_model->getobs($empid,'',1);
 
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
@@ -991,16 +999,26 @@ class Attendance extends MY_Controller {
 
 		$this->arrData['arrLeaves'] = $this->Leave_model->getleave($empid,$datefrom,$dateto);
 		$arrLeaveBalance = $this->Leave_model->getLatestBalance($empid);
-		
-		$dfrom = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),'01'));
-		$dto   = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),cal_days_in_month(CAL_GREGORIAN,$arrLeaveBalance['periodMonth'],$arrLeaveBalance['periodYear'])));
-		$arrLeaveBalance['filed_vl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'VL');
-		$arrLeaveBalance['filed_sl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'SL');
-		$arrLeaveBalance['filed_stl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'STL');
-		$arrLeaveBalance['filed_mtl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'MTL');
-		$arrLeaveBalance['filed_ptl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PTL');
-		$arrLeaveBalance['filed_fl']  = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'FL');
-		$arrLeaveBalance['filed_spl'] = $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PL');
+
+		$dfrom = date('Y-m-d');
+		$dto   = date('Y-m-d');
+		if(count($arrLeaveBalance) > 0):
+			$dfrom = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),'01'));
+			$dto   = implode('-',array($arrLeaveBalance['periodYear'],sprintf('%02d',$arrLeaveBalance['periodMonth']),cal_days_in_month(CAL_GREGORIAN,$arrLeaveBalance['periodMonth'],$arrLeaveBalance['periodYear'])));
+		else:
+			$arrLeaveBalance['vlPreBalance'] = 0;	
+			$arrLeaveBalance['slPreBalance'] = 0;
+			$arrLeaveBalance['plPreBalance'] = 0;
+			$arrLeaveBalance['filed_pl'] = 0;
+			$arrLeaveBalance['flPreBalance'] = 0;
+		endif;
+		$arrLeaveBalance['filed_vl']  = count($arrLeaveBalance) > 0 ? $this->Leave_model->approved_leave($empid,$dfrom,$dto,'VL')  : 0;
+		$arrLeaveBalance['filed_sl']  = count($arrLeaveBalance) > 0 ? $this->Leave_model->approved_leave($empid,$dfrom,$dto,'SL')  : 0;
+		$arrLeaveBalance['filed_stl'] = count($arrLeaveBalance) > 0 ? $this->Leave_model->approved_leave($empid,$dfrom,$dto,'STL') : 0;
+		$arrLeaveBalance['filed_mtl'] = count($arrLeaveBalance) > 0 ? $this->Leave_model->approved_leave($empid,$dfrom,$dto,'MTL') : 0;
+		$arrLeaveBalance['filed_ptl'] = count($arrLeaveBalance) > 0 ? $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PTL') : 0;
+		$arrLeaveBalance['filed_fl']  = count($arrLeaveBalance) > 0 ? $this->Leave_model->approved_leave($empid,$dfrom,$dto,'FL')  : 0;
+		$arrLeaveBalance['filed_spl'] = count($arrLeaveBalance) > 0 ? $this->Leave_model->approved_leave($empid,$dfrom,$dto,'PL')  : 0;
 
 		$this->arrData['arrLeaveBalance'] = $arrLeaveBalance;
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
@@ -1116,49 +1134,70 @@ class Attendance extends MY_Controller {
 		$this->load->model(array('employee/Compensatory_leave_model','libraries/Attendance_scheme_model'));
 		$att_scheme = $this->Attendance_scheme_model->getAttendanceScheme($empid);
 		$total_ot = $this->Compensatory_leave_model->get_all_overtime($empid);
-		
+		$total_hrs = 0;
+
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			# HR Account
 			$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $arrPost['txtcompen_date']);
+			$timefrom = date('H:i:s', strtotime($arrPost['txtcl_timefrom']));
+			$timeto = date('H:i:s', strtotime($arrPost['txtcl_timeto']));
+			$inAM  = '';
+			$outAM = '';
+			$inPM  = '';
+			$outPM = '';
+			if($att_scheme['nnTimeoutFrom'] >= $timefrom && $att_scheme['nnTimeoutTo'] <= $timeto):
+				$inAM  = $timefrom;
+				$outAM = $att_scheme['nnTimeoutFrom'];
+				$inPM  = $att_scheme['nnTimeoutTo'];
+				$outPM = $timeto;
+			else:
+				if($att_scheme['nnTimeoutFrom'] >= $timefrom):
+					$inAM  = $timefrom;
+					$outAM = $timeto;
+				else:
+					$inPM  = $timefrom;
+					$outPM = $timeto;
+				endif;
+			endif;
+
 			$arrData=array(
 				'empNumber' => $empid,
-				'inAM' 		=> $arrPost['txtcl_am_timefrom'],
-				'outAM'		=> $arrPost['txtcl_am_timeto'],
-				'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
-				'outPM' 	=> $arrPost['txtcl_pm_timeto'],
-				'remarks'	=> 'CL',
+				'inAM' 		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['inAM'].';' : '').$inAM,
+				'outAM'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['outAM'].';' : '').$outAM,
+				'inPM' 		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['inPM'].';' : '').$inPM,
+				'outPM' 	=> (count($dtrEntry) > 0 ? $dtrEntry[0]['outPM'].';' : '').$outPM,
+				'remarks'	=> (count($dtrEntry) > 0 ? $dtrEntry[0]['remarks'].';' : '').'CL',
 				'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
 				'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
 				'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
-			// echo '<pre>';
 			
-			// die();
-			// $arrData_cto=array(
-			// 	'empNumber' => $empid,
-			// 	'cto_date'  => $arrPost['txtcompen_date'],
-			// 	'cto_timefrom'=> $arrPost['txtcl_am_timefrom'],
-			// 	'outAM'		=> $arrPost['txtcl_am_timeto'],
-			// 	'inPM' 		=> $arrPost['txtcl_pm_timefrom'],
-			// 	'outPM' 	=> $arrPost['txtcl_pm_timeto'],
-			// 	'remarks'	=> 'CL',
-			// 	'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
-			// 	'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
-			// 	'editdate'  => (count($dtrEntry) > 0 ? $dtrEntry[0]['editdate'].';' : '').date('Y-m-d h:i:s A'));
-
+			$arrData_cto=array(
+				'empnumber' 	=> $empid,
+				'cto_date'  	=> $arrPost['txtcompen_date'],
+				'cto_timefrom'  => $arrPost['txtcl_timefrom'],
+				'cto_timeto'	=> $arrPost['txtcl_timeto'],
+				'process_by'	=> $_SESSION['sessName'],
+				'process_date'	=> date('Y-m-d h:i:s A'),
+				'process_ip'	=> $this->input->ip_address()
+			);
+			
 			$total_hrs = $this->Attendance_summary_model->compute_working_hours($att_scheme,$arrData);
 			if($total_ot >= $total_hrs):
 				if(count($dtrEntry) > 0):
-					$this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+					$arrData_cto['dtr_id'] = $this->Attendance_summary_model->edit_comp_leave($arrData, $empid, $arrPost['txtcompen_date']);
+					print_r($arrData_cto);
 					$this->Compensatory_leave_model->add_cto($arrData_cto);
 				else:
 					$arrData['dtrDate'] = $arrPost['txtcompen_date'];
-					$this->Attendance_summary_model->add_dtr($arrData);
+					$arrData_cto['dtr_id'] = $this->Attendance_summary_model->add_dtr($arrData);
+					print_r($arrData_cto);
+					$this->Compensatory_leave_model->add_cto($arrData_cto);
 				endif;
 				$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
 				redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
 			else:
-				$this->session->set_flashdata('strErrorMsg','Time is greater than CTO Time.');
+				$this->session->set_flashdata('strErrorMsg','Time is greater than CTO.');
 			endif;
 		endif;
 		$this->arrData['total_ot'] = $total_ot;
@@ -1194,19 +1233,13 @@ class Attendance extends MY_Controller {
 			foreach($arrdates as $ddate):
 				$dtrEntry = $this->Attendance_summary_model->checkEntry($empid, $ddate);
 				
-				$amtimein = explode(' ',$arrPost['txtdtr_amtimein']);
-				$amtimeout = explode(' ',$arrPost['txtdtr_amtimeout']);
-				$pmtimein = explode(' ',$arrPost['txtdtr_pmtimein']);
-				$pmtimeout = explode(' ',$arrPost['txtdtr_pmtimeout']);
-				$ottimein = explode(' ',$arrPost['txtdtr_ottimein']);
-				$ottimeout = explode(' ',$arrPost['txtdtr_ottimeout']);
 				$arrData=array(
-					'inAM' 		=> date('H:i:s', strtotime($amtimein[0])),
-					'outAM'		=> date('H:i:s', strtotime($amtimeout[0])),
-					'inPM' 		=> date('H:i:s', strtotime($pmtimein[0])),
-					'outPM' 	=> date('H:i:s', strtotime($pmtimeout[0])),
-					'inOT' 		=> date('H:i:s', strtotime($ottimein[0])),
-					'outOT' 	=> date('H:i:s', strtotime($ottimeout[0])),
+					'inAM' 		=> $arrPost['txtdtr_amtimein'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_amtimein'])),
+					'outAM'		=> $arrPost['txtdtr_amtimeout'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_amtimeout'])),
+					'inPM' 		=> $arrPost['txtdtr_pmtimein'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_pmtimein'])),
+					'outPM' 	=> $arrPost['txtdtr_pmtimeout'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_pmtimeout'])),
+					'inOT' 		=> $arrPost['txtdtr_ottimein'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_ottimein'])),
+					'outOT' 	=> $arrPost['txtdtr_ottimeout'] == '' ? NULL : date('H:i',strtotime($arrPost['txtdtr_ottimeout'])),
 					'remarks'	=> '',
 					'name'		=> (count($dtrEntry) > 0 ? $dtrEntry[0]['name'].';' : '').$_SESSION['sessName'],
 					'ip'	    => (count($dtrEntry) > 0 ? $dtrEntry[0]['ip'].';' : '').$this->input->ip_address(),
@@ -1438,10 +1471,106 @@ class Attendance extends MY_Controller {
 		else:
 			$this->session->set_flashdata('strErrorMsg','Failed to generate QR Code, please try again later or contact Administrator.');
 		endif;
-
 	}
 
+	public function dtrlogs()
+	{
+		$dtr_date = isset($_GET['logdate']) ? $_GET['logdate'] == '' ? date('Y-m-d') : $_GET['logdate'] : date('Y-m-d');
+		$this->arrData['dtrlogs'] = $this->Attendance_summary_model->getdtr_log($dtr_date);
+		$this->template->load('template/template_view','attendance/attendance/dtrlogs', $this->arrData);
+	}
 
+	public function flag_ceremony()
+	{
+		$this->load->model('libraries/Appointment_status_model');
+
+		$dtr_date = isset($_GET['logdate']) ? $_GET['logdate'] == '' ? date('Y-m-d') : $_GET['logdate'] : date('Y-m-d');
+		$position = isset($_GET['position']) ? $_GET['position'] : 'all';
+		$dtr_flagcrmy = $this->Attendance_summary_model->getflag_ceremony($dtr_date);
+		$arr_dtr_flagcrmy = array();
+		if($position!='all'):
+			foreach($dtr_flagcrmy as $log):
+				 $details = employee_details($log['flag_empNumber']); $emp_detail = $details[0];
+				 if($emp_detail['appointmentCode'] == $position):
+				 	$arr_dtr_flagcrmy[] = $log;
+				 endif;
+			endforeach;
+			$dtr_flagcrmy = $arr_dtr_flagcrmy;
+		endif;
+		$this->arrData['dtr_flagcrmy'] = $dtr_flagcrmy;
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData(); 
+		$this->template->load('template/template_view','attendance/attendance/flag_ceremony', $this->arrData);
+	}
+
+	public function employees_inc_dtr()
+	{
+		$month = isset($_GET['month']) ? $_GET['month'] == '' ? date('m') : $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] == '' ? date('Y') : $_GET['yr'] : date('Y');
+		$position = isset($_GET['position']) ? $_GET['position'] : 'all';
+
+		$attendance = $this->Attendance_summary_model->getdtr_bydate($yr,$month);
+		$arremployees = array();
+
+		foreach($attendance as $att):
+			if($att['inAM']=='00:00:00' || $att['inAM']=='' || $att['outAM']=='00:00:00' || $att['outAM']=='' || $att['inPM']=='00:00:00' || $att['inPM']=='' || $att['outPM']=='00:00:00' || $att['outPM']==''):
+				if(!in_array($att['empNumber'],$arremployees)):
+					$details = employee_details($att['empNumber']);
+					if(count($details) > 0):
+						$emp_detail = $details[0];
+						if($position == 'all'):
+							array_push($arremployees,$att['empNumber']);
+						else:
+							if($emp_detail['appointmentCode'] == $position):
+								array_push($arremployees,$att['empNumber']);
+							endif;
+						endif;
+					endif;
+				endif;
+			endif;
+		endforeach;
+		
+		$emp_inc_dtr = $this->Attendance_summary_model->getincomplete_dtr($yr,$month);
+		$inc_dtr = array();
+		foreach($emp_inc_dtr as $inc):
+			if(!in_array($inc['empNumber'],$arremployees)):
+				$details = employee_details($inc['empNumber']);
+				if(count($details) > 0):
+					$emp_detail = $details[0];
+					if($position == 'all'):
+						array_push($arremployees,$inc['empNumber']);
+					else:
+						if($emp_detail['appointmentCode'] == $position):
+							array_push($arremployees,$inc['empNumber']);
+						endif;
+					endif;
+				endif;
+			endif;
+		endforeach;
+
+		$att_employees = array();
+		foreach($arremployees as $emp):
+			$empname = employee_name($emp);
+			if($empname!=''):
+				$att_employees[] = array('name' => $empname, 'empNumber' => $emp);
+			endif;
+		endforeach;
+		
+		sort($att_employees);
+		$this->arrData['arremployees'] = $att_employees;
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->template->load('template/template_view','attendance/attendance/inc_attendance', $this->arrData);
+	}
+
+	public function employees_leave_balance()
+	{
+		$this->load->model('employee/Leave_model');
+		$month = isset($_GET['month']) ? ltrim($_GET['month'], '0') == '' ? date('m') : ltrim($_GET['month'], '0') : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] == '' ? date('Y') : $_GET['yr'] : date('Y');
+		
+		$this->arrData['leave_balance'] = $this->Leave_model->att_getleave_balance($month,$yr);
+		
+		$this->template->load('template/template_view','attendance/attendance/leave_balance', $this->arrData);
+	}
 
 }
 

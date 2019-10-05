@@ -81,4 +81,5 @@ $route['finance/payroll_update/process_history'] = 'finance/payroll_update/payro
 
 # update remittances
 $route['finance/payroll_update/update_or'] = 'finance/payroll_update/payrollupdate/update_or';
+$route['finance/payroll_update/view_or'] = 'finance/payroll_update/payrollupdate/view_or';
 $route['finance/payroll_update/reprocess'] = 'finance/payroll_update/payrollupdate/reprocess';

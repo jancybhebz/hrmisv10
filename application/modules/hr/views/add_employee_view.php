@@ -189,7 +189,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="row">
                                 <label class="col-md-2 control-label right"> Citizenship <span class="required"> * </span></label>
                                 <div class="col-md-9">
-                                    <label><input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Filipino") echo "checked";?> value="female"> &nbsp;Filipino</label>
+                                    <label><input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Filipino") echo "checked";?> value="Filipino"> &nbsp;Filipino</label>
                                     <label><input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Dual") echo "checked";?> value="dual"> &nbsp;Dual Citizenship</label>
                                 </div>  
                             </div>
@@ -327,7 +327,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strLot1" id="strLot1" type="text" size="20" maxlength="10" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strLot1'))?$this->session->userdata('strLot1'):''?>">
+                                        <input name="strLot1" id="strLot1" type="text" size="20" maxlength="30" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strLot1'))?$this->session->userdata('strLot1'):''?>">
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +430,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
-                                        <input name="strLot2" id="strLot2" type="text" size="20" maxlength="10" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strLot2'))?$this->session->userdata('strLot2'):''?>">
+                                        <input name="strLot2" id="strLot2" type="text" size="20" maxlength="30" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strLot2'))?$this->session->userdata('strLot2'):''?>">
                                     </div>
                                 </div>
                             </div>

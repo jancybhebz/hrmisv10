@@ -23,7 +23,8 @@ class Dtr_log_model extends CI_Model {
 		$dtrid = '';$am_timein = '';$am_timeout = '';$pm_timein = '';$pm_timeout = '';$ot_timein = '';$ot_timeout = '';
 
 		$arrdtr = array();
-		$empdtr = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,date('Y-m-d'),date('Y-m-d'));
+		
 		$emp_att_scheme = $this->get_employee_attscheme($empid);
 		if(!empty($emp_att_scheme)):
 			# initializing employee attendance scheme
@@ -32,11 +33,13 @@ class Dtr_log_model extends CI_Model {
 			$nn_in_from = $emp_att_scheme['nnTimeinFrom'];
 			$nn_in_to = $emp_att_scheme['nnTimeinTo'];
 		else:
-			return array();
+			$err_message = array('strErrorMsg','No Attendance Scheme. Please contact administrator.');
+			return err_message;
 		endif;
 		
+		
 		# check if dtr is empty
-		if(empty($empdtr)):
+		if(count($empdtr) < 1):
 			# check if dtrlog < morning out
 			if($dtrlog < $nn_out_from):
 				# if true, set to inAM
@@ -46,6 +49,7 @@ class Dtr_log_model extends CI_Model {
 				$pm_timein = $dtrlog;
 			endif;
 		else:
+			$empdtr = $empdtr[0];
 			# if employee has already dtr log
 			$dtrid = $empdtr['id'];
 			$am_timein  = $empdtr['inAM']  == '00:00:00' ? '' : $empdtr['inAM'];
@@ -74,9 +78,11 @@ class Dtr_log_model extends CI_Model {
 						if($am_timeout != ''):
 							# if not empty, set pm_timein
 							$pm_timein = $dtrlog;
+							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
 						else:
 							# if empty, set am_timeout
 							$am_timeout = $dtrlog;
+							$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
 						endif;
 					else:
 						# if empty, set am_timein
@@ -172,11 +178,18 @@ class Dtr_log_model extends CI_Model {
 
 		# insert/update tblEmpDtr
 		if($dtrid==''):
-			$this->Attendance_summary_model->add_dtr($arrdtr);
-			return array('strSuccessMsg','You have successfully Logged-IN !!!');
+			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+			$arrdtr['name'] = 'System';
+			$arrdtr['editdate'] = date('Y-m-d h:i:s A');
+			$arrdtr['ip'] = $this->input->ip_address();
+			$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
+			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
+			
+			return $err_message;
 		else:
 			if($err_message[0] == 'strSuccessMsg'):
-				$this->Attendance_summary_model->edit_dtr($arrdtr, $dtrid);
+				$sql_str = $this->Attendance_summary_model->edit_dtrkios($arrdtr, $dtrid);
+				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
 				return $err_message;
 			else:
 				return $err_message;
@@ -397,5 +410,113 @@ class Dtr_log_model extends CI_Model {
 		return count($res) > 0 ? $res[0] : array();
 	}
 
+
+	function update_nnbreak_time($empid,$dtrdate,$dtrlog)
+	{
+		$emp_att_scheme = $this->get_employee_attscheme($empid);
+		$empdtr = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		// print_r($att_scheme);
+		$nn_out_from = $emp_att_scheme['nnTimeoutFrom'];
+		$nn_out_to = $emp_att_scheme['nnTimeoutTo'];
+		$nn_in_from = $emp_att_scheme['nnTimeinFrom'];
+		$nn_in_to = $emp_att_scheme['nnTimeinTo'];
+
+		$dtrid = count($empdtr) > 0 ? $empdtr['id']  == '' ? '' : $empdtr['id'] : '';
+		$am_timein  = count($empdtr) > 0 ? $empdtr['inAM']  == '' || $empdtr['inAM']  == '00:00:00' ? '' : $empdtr['inAM'] : '';
+		$am_timeout = count($empdtr) > 0 ? $empdtr['outAM'] == '' || $empdtr['outAM'] == '00:00:00' ? '' : $empdtr['outAM'] : '';
+		$pm_timein  = count($empdtr) > 0 ? $empdtr['inPM']  == '' || $empdtr['inPM']  == '00:00:00' ? '' : $empdtr['inPM'] : '';
+		$pm_timeout = count($empdtr) > 0 ? $empdtr['outPM'] == '' || $empdtr['outPM'] == '00:00:00' ? '' : $empdtr['outPM'] : '';
+		$ot_timein  = count($empdtr) > 0 ? $empdtr['inOT']  == '' || $empdtr['inOT']  == '00:00:00' ? '' : $empdtr['inOT'] : '';
+		$ot_timeout = count($empdtr) > 0 ? $empdtr['outOT'] == '' || $empdtr['outOT'] == '00:00:00' ? '' : $empdtr['outOT'] : '';
+
+		$has_30mins_allow = $emp_att_scheme['allow30'];
+		$is_strict = $emp_att_scheme['strict'];
+
+		$res = array();
+		if($dtrlog >= $nn_out_from):
+			if($has_30mins_allow && $is_strict):
+				$res = array('strErrorMsg','You are not allow to use asterisk (*)! Your log noon time should have 30 minutes distance. Please contact administrator.');
+			else:
+				if($has_30mins_allow && !$is_strict):
+					$res = array('strErrorMsg','You are not allow to use asterisk (*)! Your log noon time should have 30 minutes distance. Please contact administrator.');
+				elseif(!$has_30mins_allow && $is_strict):
+					if($dtrlog >= $nn_out_from || $dtrlog > $nn_in_to):
+						$res = array('strErrorMsg','You are not allow to logout for or login from lunch break! Please contact administrator.');
+					else:
+						$msg = array();
+						$warn = 0;
+						
+						if($am_timeout==''):
+							if($dtrid!=''):
+								$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('outAM' => $dtrlog), $dtrid);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
+							else:
+								$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'outAM' => $dtrlog);
+								$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
+							endif;
+						else:
+							array_push($msg, '<li>You already have AM OUT.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($pm_timein==''):
+							if($dtrid!=''):
+								$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('inPM' => $dtrlog), $dtrid);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
+							else:
+								$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'inPM' => $dtrlog);
+								$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
+								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
+							endif;
+						else:
+							array_push($msg, '<li>You already have PM IN.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($warn > 0):
+							$res = array('err_message' => array('strMsg',implode(' ',$msg)));
+						else:
+							$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
+						endif;
+					endif;
+				else:
+					$msg = array();
+					$warn = 0;
+					if($dtrid!=''):
+						if($am_timeout==''):
+							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('outAM' => $dtrlog), $dtrid);
+						else:
+							array_push($msg, '<li>You already have AM OUT.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($pm_timein==''):
+							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('inPM' => $dtrlog), $dtrid);
+						else:
+							array_push($msg, '<li>You already have PM IN.!</li>');
+							$warn = $warn + 1;
+						endif;
+
+						if($warn > 0):
+							$res = array('err_message' => array('strMsg',implode(' ',$msg)));
+						else:
+							$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
+						endif;
+					else:
+						$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'outAM' => $dtrlog, 'inPM' => $dtrlog);
+						$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
+						$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
+					endif;
+				endif;
+			endif;
+		else:
+			$res = array('err_message' => array('strErrorMsg','Invalid use of asterisk (*), Please try again without asterisk.'));
+		endif;
+
+
+		$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
+		return $res['err_message'];
+	}
 
 }

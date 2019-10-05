@@ -32,7 +32,7 @@
 
         <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> </head>
     
-        <body class=" login">
+        <body onload="startTime()" class=" login">
 
             <style type="text/css">
                 a.btn-lg {
@@ -78,7 +78,7 @@
                 <div class="col-md-6">
                     <div class="content pull-left">
                         <div class="datenow"><?=date('F d, Y')?></div>
-                        <div class="clock"><?=date('h:i:s A')?></div>
+                        <div class="clock" id="txtclock"></div>
                         <br><br>
                         <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
                         <div class="alert alert-danger display-hide">
@@ -123,6 +123,7 @@
             </div>
 
             <script>
+
                 var canvas = document.getElementById("canvas");
                 var ctx = canvas.getContext("2d");
                 var radius = canvas.height / 2;
@@ -176,19 +177,23 @@
                 function drawTime(ctx, radius){
                     var now = new Date();
 
-                    var hour = "<?=date('H')?>";
+                    var hour = now.getHours();
                     var minute = now.getMinutes();
                     var second = now.getSeconds();
+                    var timeOfDay = (hour < 12) ? "AM" : "PM";
 
+                    // Convert the hours our of 24-hour time
+                    hour = (hour > 12) ? hour - 12 : hour;
+                    hour = (hour == 0) ? 12 : hour;
+
+                    document.getElementById('txtclock').innerHTML = ('0' + hour).slice(-2) + ":" + ('0' + minute).slice(-2) + ":" + ('0' + second).slice(-2) + " " + timeOfDay;
                     hour=hour%12;
                     hour=(hour*Math.PI/6)+
                     (minute*Math.PI/(6*60))+
                     (second*Math.PI/(360*60));
                     drawHand(ctx, hour, radius*0.5, radius*0.07);
-                    //minute
                     minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
                     drawHand(ctx, minute, radius*0.8, radius*0.07);
-                    // second
                     second=(second*Math.PI/30);
                     drawHand(ctx, second, radius*0.9, radius*0.02);
                 }
@@ -209,38 +214,6 @@
                     while (s.length < size) s = "0" + s;
                     return s;
                 }
-
-                var new_date = Date.parse("<?=date('m/d/Y H:i:s')?>");
-                var d = new Date(new_date);
-
-                function clock() {
-                  // Increment the date
-                  d.setTime(d.getTime() + 1000);
-
-                  // Translate time to pieces
-                  var currentHours = d.getHours();
-                  var currentMinutes = d.getMinutes();
-                  var currentSeconds = d.getSeconds();
-
-                  // Add the beginning zero to minutes and seconds if needed
-                  currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
-                  currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
-
-                  // Add either "AM" or "PM"
-                  var timeOfDay = (currentHours < 12) ? "AM" : "PM";
-
-                  // Convert the hours our of 24-hour time
-                  currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
-                  currentHours = (currentHours == 0) ? 12 : currentHours;
-
-                  // Generate the display string
-                  var currentTimeString = pad(currentHours, 2) + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
-
-                  // Update the time
-                  document.querySelectorAll('.clock')[0].innerHTML = currentTimeString;
-                }
-
-                setInterval(clock, 1000);
 
             </script>
             <!-- BEGIN CORE PLUGINS -->
@@ -283,6 +256,20 @@
 
             <script>
                 $(document).ready(function(){
+                    toastr.options = {
+                      "closeButton": true,
+                      "debug": false,
+                      "positionClass": "toast-top-right",
+                      "onclick": null,
+                      "showDuration": "10000",
+                      "hideDuration": "10000",
+                      "timeOut": "10000",
+                      "extendedTimeOut": "10000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                    }
                     /* Set flash message */
                     <?php if($this->session->flashdata('strMsg')!=''):?>
                         toastr.warning('<?=$this->session->flashdata('strMsg')?>')
@@ -309,9 +296,10 @@
                     //     countdownBar: true
                     // });
 
-                    setTimeout(function() {
-                        $(".alert").alert('close');
-                    }, 2000);
+                    // setTimeout(function() {
+                    //     $(".alert").alert('close');
+                    // }, 20000);
+
                 });  
             </script>
         </body>

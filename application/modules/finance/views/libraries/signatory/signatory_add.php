@@ -45,24 +45,22 @@
                                 <div class="form-group ">
                                     <label class="control-label">Signatory <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <input type="text" class="form-control form-required" name="txtsignatory"
+                                        <input type="text" class="form-control form-required" name="txtsignatory" id="txtsignatory"
                                             value="<?=isset($data) ? $data['signatory'] : set_value('txtsignatory')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Position <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <input type="text" class="form-control form-required" name="txtposition"
+                                        <input type="text" class="form-control form-required" name="txtposition" id="txtposition"
                                             value="<?=isset($data) ? $data['signatoryPosition'] : set_value('txtposition')?>">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit" v-bind:class="[error ? 'disabled' : '']" :disabled="error">
-                                                <i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                            <button class="btn green" type="submit" id="btn_add_signatory">
+                                                <i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                             <a href="<?=base_url('finance/libraries/signatory')?>"><button class="btn blue" type="button">
                                                 <i class="icon-ban"></i> Cancel</button></a>
                                         </div>
@@ -82,5 +80,22 @@
     $(document).ready(function() {
         $('.loading-image').hide();
         $('.portlet-body').show();
+
+        $('#txtsignatory').on('keyup keypress change', function() {
+            check_null('#txtsignatory','Signatory must not be empty.');
+        });
+        $('#txtposition').on('keyup keypress change', function() {
+            check_null('#txtposition','Position must not be empty.');
+        });
+
+        $('#btn_add_signatory').on('click', function(e) {
+            var total_error = 0;
+            total_error = total_error + check_null('#txtsignatory','Signatory must not be empty.');
+            total_error = total_error + check_null('#txtposition','Position must not be empty.');
+            
+            if(total_error > 0){
+                e.preventDefault();
+            }
+        });
     });
 </script>

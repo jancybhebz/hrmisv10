@@ -12,9 +12,9 @@ class Process_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function edit($arrData, $apptCode)
+	function edit($arrData, $id)
 	{
-		$this->db->where('appointmentCode', $apptCode);
+		$this->db->where('process_id', $id);
 		$this->db->update('tblPayrollProcess', $arrData);
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
@@ -44,15 +44,15 @@ class Process_model extends CI_Model {
 		return $arrProcess;
 	}
 
-	function getProcessData($appointmentCode='')
+	function getProcessData($id='')
 	{
-		if($appointmentCode==''):
+		if($id==''):
 			return $this->db->join('tblAppointment', 'tblPayrollProcess.appointmentCode = tblAppointment.appointmentCode', 'inner')
 							->distinct()
-							->select('tblPayrollProcess.appointmentCode,tblPayrollProcess.processWith,tblPayrollProcess.computation, tblAppointment.appointmentDesc')
+							->select('tblPayrollProcess.process_id,tblPayrollProcess.appointmentCode,tblPayrollProcess.processWith,tblPayrollProcess.computation, tblAppointment.appointmentDesc')
 							->get('tblPayrollProcess')->result_array();
 		else:
-			$arrData = $this->db->get_where('tblPayrollProcess',array('appointmentCode' => $appointmentCode))->result_array();
+			$arrData = $this->db->get_where('tblPayrollProcess',array('process_id' => $id))->result_array();
 			return $arrData[0];
 		endif;
 	}

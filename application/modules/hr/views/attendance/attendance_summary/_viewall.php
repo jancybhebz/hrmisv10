@@ -57,6 +57,18 @@
                         </div>
                     </div>
                     <div class="portlet-body">
+                        <div class="row" style="padding-bottom: 25px;">
+                            <div class="col-md-12">
+                                <a href="<?=base_url('hr/attendance/dtrlogs')?>" class="btn btn-md blue">
+                                    DTR Logs</a>&nbsp;&nbsp;
+                                <a href="<?=base_url('hr/attendance/flag_ceremony')?>" class="btn btn-md blue">
+                                    Flag Ceremony</a>&nbsp;&nbsp;
+                                <a href="<?=base_url('hr/attendance/employees_inc_dtr')?>" class="btn btn-md blue">
+                                    Employees with Incomplete Attendance</a>&nbsp;&nbsp;
+                                <a href="<?=base_url('hr/attendance/employees_leave_balance')?>" class="btn btn-md blue">
+                                    Leave Balance</a>
+                            </div>
+                        </div>
                         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-employees" style="display: none">
                             <thead>
@@ -78,7 +90,7 @@
                                                 <tr class="odd gradeX ">
                                                     <td><?=$no++?> </td>
                                                     <td> <?=$row['empNumber']?></a> </td>
-                                                    <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].'.'?> </td>
+                                                    <td> <?=getfullname($row['firstname'],$row['surname'],$row['middlename'],$row['middleInitial'],$row['nameExtension'])?> </td>
                                                     <td> <?=$row['statusOfAppointment']?> </td>
                                                     <td> <?=employee_office($row['empNumber'])?> </td>
                                                     <td> <?=$row['positionDesc']?></td>

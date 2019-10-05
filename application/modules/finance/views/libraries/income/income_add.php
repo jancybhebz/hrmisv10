@@ -36,12 +36,12 @@
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                     <div class="portlet-body" id="income" style="display: none" v-cloak>
                         <div class="table-toolbar">
-                            <?=form_open($action == 'edit' ? 'finance/libraries/income/edit/'.$this->uri->segment(4) : '', array('method' => 'post', 'id' => 'frm_addincome')); ?>
-                                <input type="hidden" id='txtcode' value="<?=$this->uri->segment(4)?>" />
+                            <?=form_open($action == 'edit' ? 'finance/libraries/income/edit/'.$this->uri->segment(5) : '', array('method' => 'post', 'id' => 'frm_addincome')); ?>
+                                <input type="hidden" id='txtcode' value="<?=$this->uri->segment(5)?>" />
                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                     <label class="control-label">Income Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'i-required'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
+                                        <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'hidden'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
                                         <input type="text" class="form-control form-required" name="txtinccode" id="txtinccode" <?=$action == 'edit' ? 'disabled' : ''?>
                                             value="<?=isset($arrData) ? $arrData['incomeCode'] : set_value('txtinccode')?>">
                                     </div>
@@ -49,7 +49,6 @@
                                 <div class="form-group ">
                                     <label class="control-label">Income Description <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <input type="text" class="form-control form-required" name="txtincdesc" id="txtincdesc"
                                             value="<?=isset($arrData) ? $arrData['incomeDesc'] : set_value('txtinccode')?>">
                                     </div>
@@ -57,9 +56,8 @@
                                 <div class="form-group ">
                                     <label class="control-label">Income Type <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="bs-select form-control form-required" name="selinctype" id="selinctype">
-                                            <option value="null">-- SELECT INCOME TYPE --</option>
+                                            <option value="">-- SELECT INCOME TYPE --</option>
                                             <?php foreach(income_type() as $type): ?>
                                                 <option value="<?=$type?>" <?=isset($arrData) ? $type == $arrData['incomeType'] ? 'selected' : '' : $type == set_value('selinctype') ? 'selected' : ''?>>
                                                     <?=$type?></option>
@@ -75,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit" id="btn_add_income"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                            <button class="btn green" type="submit" id="btn_add_income"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                             <a href="<?=base_url('finance/libraries/income')?>" class="btn blue"><i class="icon-ban"></i> Cancel</a>
                                         </div>
                                     </div>
@@ -94,5 +92,26 @@
     $(document).ready(function() {
         $('.loading-image').hide();
         $('.portlet-body').show();
+
+        $('#txtinccode').on('keyup keypress change', function() {
+            check_null('#txtinccode','Agency must not be empty.');
+        });
+        $('#txtincdesc').on('keyup keypress change', function() {
+            check_null('#txtincdesc','Deduction Code must not be empty.');
+        });
+        $('#selinctype').on('keyup keypress change', function() {
+            check_null('#selinctype','Deduction Description must not be empty.');
+        });
+
+        $('#btn_add_income').on('click', function(e) {
+            var total_error = 0;
+            total_error = total_error + check_null('#txtinccode','Income Code must not be empty.');
+            total_error = total_error + check_null('#txtincdesc','Income Description must not be empty.');
+            total_error = total_error + check_null('#selinctype','Income Type must not be empty.');
+            
+            if(total_error > 0){
+                e.preventDefault();
+            }
+        });
     });
 </script>

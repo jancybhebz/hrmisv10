@@ -43,7 +43,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete Duties and Responsibilities of Plantilla</h4>
+                <h4 class="modal-title">Delete Duties and Responsibilities</h4>
             </div>
             <?=form_open(''.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmdel_duties','class' => 'form-horizontal'))?>
                 <input type="hidden" name="txtdel_drid" id="txtdel_drid">

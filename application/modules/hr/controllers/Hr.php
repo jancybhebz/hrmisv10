@@ -13,7 +13,7 @@ class Hr extends MY_Controller {
 	var $arrData;
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model','libraries/Appointment_status_model','libraries/Separation_mode_model','libraries/Plantilla_model','libraries/service_code_model','finance/Tax_exempt_model','finance/Payroll_group_model','libraries/Attendance_scheme_model','libraries/Position_model'));
+        $this->load->model(array('Hr_model','libraries/Educ_level_model','libraries/Courses_model','libraries/Scholarship_model','libraries/Exam_type_model','hr/Attendance_summary_model','libraries/Appointment_status_model','libraries/Separation_mode_model','libraries/Plantilla_model','libraries/service_code_model','finance/Tax_exempt_model','finance/Payroll_group_model','libraries/Attendance_scheme_model','libraries/Position_model','libraries/Org_structure_model'));
     }
 
 	public function index()
@@ -39,7 +39,7 @@ class Hr extends MY_Controller {
 		
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo,'','all');
 		
-		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($strEmpNo);
+		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getEmployee_dtr($strEmpNo,date('Y-m-d'),date('Y-m-d'));
 		
 		$this->arrData['arrChild'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_CHILD);
 		// $this->arrData['arrEduc'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_EDUC);
@@ -52,6 +52,12 @@ class Hr extends MY_Controller {
 		$this->arrData['arrExamType'] = $this->Exam_type_model->getData();
 		# Work Experience
 		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		
+		$this->arrData['arrOrganization'] = $this->Org_structure_model->getData();
+		$this->arrData['arrServiceCode'] = $this->Org_structure_model->getServiceData();
+		$this->arrData['arrDivision'] = $this->Org_structure_model->getDivisionData();
+		$this->arrData['arrSection'] = $this->Org_structure_model->getSectionData();
+
 		$this->arrData['arrSeparation_mode'] = $this->Separation_mode_model->getData();
 		# Voluntary Work
 		$this->arrData['arrVol'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_VOLWORK);

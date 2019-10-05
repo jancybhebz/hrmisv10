@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Year Graduated</label>
                     <div class="col-md-8">
-                        <input type="type" maxlength="4" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
+                        <input type="number" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -71,9 +71,9 @@
                     <label class="col-md-3 control-label">Period of Attendance</label>
                     <div class="col-md-9">
                         <div class="input-group input-large input-daterange" id="attperiod" style="width: 88% !important;">
-                            <input type="type" maxlength="4" class="form-control" name="txtperiodatt_from" id="txtperiodatt_from" placeholder="YYYY">
+                            <input type="number" maxlength="5" class="form-control" name="txtperiodatt_from" id="txtperiodatt_from" placeholder="YYYY">
                             <span class="input-group-addon"> to </span>
-                            <input type="type" maxlength="4" class="form-control" name="txtperiodatt_to" id="txtperiodatt_to" placeholder="YYYY">
+                            <input type="number" maxlength="5" class="form-control" name="txtperiodatt_to" id="txtperiodatt_to" placeholder="YYYY">
                         </div>
                         <span class="help-block"></span>
                     </div>

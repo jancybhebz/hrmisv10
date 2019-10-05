@@ -9,10 +9,14 @@ $activetab=$this->uri->segment(3)!=''?$this->uri->segment(3):'';
 $activetab = strtolower($activetab);
 
 $user_session = $this->session->userdata();
-// echo '<br>active = '.$active;
-// echo '<br>activesub = '.$activesub;
-// echo '<br>activetab = '.$activetab;
 ?>
+<!-- <pre>
+    <?php 
+        // echo '<br>active = '.$active;
+        // echo '<br>activesub = '.$activesub;
+        // echo '<br>activetab = '.$activetab;
+     ?>
+</pre> -->
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
@@ -85,12 +89,7 @@ $user_session = $this->session->userdata();
                             <span class="arrow <?=$activesub=='attendance' || $activesub=='attendance_summary'?'open':''?>"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item <?=$activetab=='conversion_table'?'active open':''?>">
-                                <a href="<?=base_url('hr/attendance/conversion_table')?>">
-                                    <span class="title">Conversion Table</span>
-                                </a>
-                            </li>
-                            <li class="nav-item <?=$active=='hr' && ($activesub=='attendance_summary' && in_array($activetab, array('index','leave_balance','leave_monetization','filed_request','dtr','qr_code','leave_balance_set','leave_balance_update')) || ($activesub=='attendance' && in_array($activetab, array('view_all')))) ? 'active open' : ''?>">
+                            <li class="nav-item <?=$active=='hr' && ($activesub=='attendance_summary' && in_array($activetab, array('index','leave_balance','leave_monetization','filed_request','dtr','qr_code','leave_balance_set','leave_balance_update')) || ($activesub=='attendance' && in_array($activetab, array('view_all','dtrlogs','flag_ceremony','employees_inc_dtr','employees_leave_balance')))) ? 'active open' : ''?>">
                                 <a href="<?=base_url('hr/attendance/view_all')?>">
                                     <span class="title">Attendance Summary</span>
                                 </a>
@@ -98,6 +97,11 @@ $user_session = $this->session->userdata();
                             <li class="nav-item <?=$activetab=='override'?'active open':''?>">
                                 <a href="<?=base_url('hr/attendance/override/ob')?>">
                                     <span class="title">Override</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <?=$activetab=='conversion_table'?'active open':''?>">
+                                <a href="<?=base_url('hr/attendance/conversion_table')?>">
+                                    <span class="title">Conversion Table</span>
                                 </a>
                             </li>
                         </ul>
@@ -146,19 +150,11 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '6') !== false))): ?> 
-                    <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
-                        <a href="javascript:;" class="nav-link nav-toggle">
+                    <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
+                        <a href="<?=base_url('finance/compensation/personnel_profile')?>">
                             <i class="icon-wallet"></i>
                             <span class="title">Compensation</span>
-                            <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
                         </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
-                                <a href="<?=base_url('finance/compensation/personnel_profile')?>">
-                                    <span class="title">Personnel Profile</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 <?php endif; ?>
             <?php endif; ?>
@@ -197,19 +193,11 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '3') !== false))): ?>
-                    <li class="nav-item <?=$activesub=='compensation'?'active open':''?>">
-                        <a href="javascript:;" class="nav-link nav-toggle">
+                    <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
+                        <a href="<?=base_url('finance/compensation/personnel_profile')?>">
                             <i class="icon-wallet"></i>
                             <span class="title">Compensation</span>
-                            <span class="arrow <?=$activesub=='compensation'?'open':''?>"></span>
                         </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item <?=$activetab=='personnel_profile'?'active open':''?>">
-                                <a href="<?=base_url('finance/compensation/personnel_profile')?>">
-                                    <span class="title">Personnel Profile</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 <?php endif; ?>
 
@@ -221,7 +209,7 @@ $user_session = $this->session->userdata();
                             <span class="arrow <?=$activesub=='payroll_update'?'open':''?>"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item start <?=$activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')?'active open':''?>">
+                            <li class="nav-item start <?=($activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')) && !in_array($activetab, array('view_or','update_or')) ?'active open':''?>">
                                 <a href="<?=base_url('finance/payroll_update/process')?>">
                                     <span class="title">Process Payroll</span>
                                 </a>
@@ -231,9 +219,9 @@ $user_session = $this->session->userdata();
                                     <span class="title">Process History</span>
                                 </a>
                             </li>
-                            <li class="nav-item start <?=$activetab=='update_or'?'active open':''?>">
-                                <a href="<?=base_url('finance/payroll_update/update_or')?>">
-                                    <span class="title">Update OR Remittances</span>
+                            <li class="nav-item start <?=$activesub =='payroll_update' && in_array($activetab, array('update_or','view_or'))?'active open':''?>">
+                                <a href="<?=base_url('finance/payroll_update/view_or')?>">
+                                    <span class="title">OR Remittances</span>
                                 </a>
                             </li>
                         </ul>

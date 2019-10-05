@@ -36,7 +36,7 @@ load_plugin('css',array('select','select2'));?>
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit User Account</span>
+                    <span class="caption-subject bold uppercase"> Save User Account</span>
                 </div>
                 
             </div>

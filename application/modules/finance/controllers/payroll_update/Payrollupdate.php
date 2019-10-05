@@ -789,12 +789,55 @@ class Payrollupdate extends MY_Controller {
 		$this->template->load('template/template_view','finance/payroll/process_step',$this->arrData);
 	}
 
+	public function view_or()
+	{
+		$this->arrData['arr_orlist'] = $this->Payroll_process_model->get_orlist('','',0);
+		$this->template->load('template/template_view','finance/payroll/or/_view',$this->arrData);
+	}
+
 	public function update_or()
 	{
+		$arrmsg = array();
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)){
+			$employees = $arrPost['selproc_emp'];
+			foreach($employees as $employee):
+				$arrData = array('orNumber' => $arrPost['txtorno'], 'orDate' => $arrPost['txtordate']);
+				$update = $this->Payroll_process_model->update_or($arrData,$arrPost['selproc_sal'],$arrPost['selproc_deduction'],$employee);
+				
+				if(!$update){
+					array_push($arrmsg,$employee);
+				}
+			endforeach;
+
+			if(count($arrmsg) < 1){
+				$this->session->set_flashdata('strSuccessMsg','OR Remittances updated successfully.');
+				redirect('finance/payroll_update/update_or');
+			}
+		}
+
+		$arr_remitt = array();
+		if(isset($_GET['remitt_id'])){
+			$arr_remitt = $this->Payroll_process_model->get_deduction_remit($_GET['remitt_id']);
+		}
+		$this->arrData['arr_remitt'] = $arr_remitt;
+		$this->arrData['arrmsg'] = $arrmsg;
 		$this->arrData['arrpayroll'] = $this->Payroll_process_model->get_payroll_process(currmo(),curryr());
 		$this->arrData['arremployees'] = $this->Hr_model->getData();
-		$this->arrData['deduction_list'] = isset($_GET['processid']) && isset($_GET['empno']) ? $this->Deduction_model->getDeductionByProcess($_GET['processid'],$_GET['empno']) : array();
-		$this->template->load('template/template_view','finance/payroll/process_view',$this->arrData);
+		$this->arrData['deduction_list'] = $this->Deduction_model->getData();
+		$this->template->load('template/template_view','finance/payroll/or/_update',$this->arrData);
+	}
+
+	public function or_delete()
+	{
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)){
+			$arrData = array('orNumber' => '', 'orDate' => NULL);
+			$update = $this->Payroll_process_model->update_orby_remitt($arrData,$arrPost['txtremitt_id']);
+
+			$this->session->set_flashdata('strSuccessMsg','OR Remittances deleted successfully.');
+			redirect('finance/payroll_update/view_or');
+		}
 	}
 
 	public function fieldsinPayroll()
@@ -838,17 +881,6 @@ class Payrollupdate extends MY_Controller {
 	public function process_reports()
 	{
 		$this->template->load('template/template_view','finance/payroll/process_history',$this->arrData);
-	}
-
-	public function testingtesting()
-	{
-		echo '<pre>';
-		$process_data = json_decode('{"selemployment":"P","mon":"5","yr":"2019","period":"1","txt_dtfrom":"","txt_dtto":"","data_fr_mon":"4","data_fr_yr":"2019","txtcomputation":"monthly"}',true);
-		$process_data['selemployment'] = 'P';
-		print_r($process_data);
-		$emp = $this->Payrollupdate_model->compute_benefits(null, $process_data,$_GET['id']);
-		echo '<br></br>';
-		print_r($emp);
 	}
 	
 

@@ -559,7 +559,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <td><?=$row['graduated']?></td><!-- graduated -->
                     <td><?=$row['licensed']?></td><!-- licensed -->
                     <td> 
-                    <a class="btn green" data-toggle="modal" href="#educ_modal"> Edit </a>
+                    <a class="btn green" data-toggle="modal" href="#educ_modal"> Save </a>
                      
                     </td>
                 </tr>
@@ -734,7 +734,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <td><?=$row['trainingTypeofLD']?></td><!-- trainingTypeofLD -->
                     <td><?=$row['trainingConductedBy']?></td><!-- trainingConductedBy -->
                     <td><?=$row['trainingVenue']?></td><!-- trainingVenue -->
-                    <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal"> Edit </a>
+                    <td>  <a class="btn green" data-toggle="modal" href="#editTrainings_modal"> Save </a>
                       
                 </tr>
             <?php endforeach; ?>
@@ -849,7 +849,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <td><?=$row['examPlace']?></td><!-- examPlace -->
                         <td><?=$row['licenseNumber']?></td><!-- licenseNumber -->
                         <td><?=$row['dateRelease']?></td><!-- dateRelease -->
-                        <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Edit </a>
+                        <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Save </a>
                     </tr>
                     <?php endforeach;?>
             </table>
@@ -998,7 +998,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <td><?=$row['refName']?></td><!-- examCode -->
                         <td><?=$row['refAddress']?></td><!-- examRating -->
                         <td><?=$row['refTelephone']?></td><!-- examDate -->
-                        <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Edit </a>
+                        <td>  <a class="btn green" data-toggle="modal" href="#exam_modal"> Save </a>
                     </tr>
                     <?php endforeach;?>
                 </table>
@@ -1064,7 +1064,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <td><?=$row['vwDateFrom'].'/'.$row['vwDateTo']?></td><!-- vwDateFrom vwDateTo -->
                         <td><?=$row['vwHours']?></td><!-- vwHours -->
                         <td><?=$row['vwPosition']?></td><!-- vwPosition -->
-                        <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Edit </a></td>
+                        <td> <a class="btn green" data-toggle="modal" href="#editVolWorks_modal"> Save </a></td>
                     </tr>
                     <?php endforeach;?>
                 </table>
@@ -1150,7 +1150,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <td><?=$row['salaryGrade']?></td><!-- salaryGrade -->
                     <td><?=$row['appointmentCode']?></td><!-- appointmentCode -->
                     <td><?=$row['governService']?></td><!-- governService -->
-                    <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Edit </a></td>
+                    <td> <a class="btn green" data-toggle="modal" href="#workExp_modal"> Save </a></td>
                 </tr>
                 <?php endforeach;?>
             </table>

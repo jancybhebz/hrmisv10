@@ -26,7 +26,7 @@
                                         <i class="fa fa-calendar"></i>
                                         <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" 
                                                 name="txtcompen_date" id="txtcompen_date" type="text"
-                                                value="<?=count(set_value())>0 ? set_value('txtcompen_date'):''?>">
+                                                value="<?=set_value('txtcompen_date', '')?>">
                                     </div>
                                 </div>
                             </div>
@@ -35,52 +35,24 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group div_am_time">
-                                    <label class="control-label"><b>Morning </b> <label>
-                                        <!-- <input type="checkbox" name="chkam" id="chkam" <?=count(set_value())>0 ? set_value('chkam') == 'on' ? 'checked' : '' :'checked'?>> -->
+                                    <label class="control-label"><b>Time </b> <label>
                                     </label>
                                         <br>From <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timefrom" id="txtcl_am_timefrom"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_am_timefrom'):'08:00:00 AM'?>">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_timefrom" id="txtcl_timefrom"
+                                                value="<?=set_value('txtcl_timefrom','08:00 AM')?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group div_am_time">
-                                    <label class="control-label">&nbsp;<label>&nbsp;</label>
+                                    <label class="control-label">
                                         <br>To <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_am_timeto" id="txtcl_am_timeto"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_am_timeto'):'12:00:00 PM'?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group div_pm_time">
-                                    <label class="control-label"><b>Afternoon </b> <label>
-                                        <!-- <input type="checkbox" name="chkpm" id="chkpm" <?=count(set_value())>0 ? set_value('chkpm') == 'on' ? 'checked' : '' :'checked'?>> -->
-                                    </label>
-                                        <br>From <span class="required"> * </span></label>
-                                    <div class="input-icon right">
-                                        <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timefrom" id="txtcl_pm_timefrom"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_pm_timefrom') : '12:00:00 PM'?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group div_pm_time">
-                                    <label class="control-label">&nbsp;<label>&nbsp;</label>
-                                        <br>To <span class="required"> * </span></label>
-                                    <div class="input-icon right">
-                                        <i class="fa fa-clock-o"></i>
-                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_pm_timeto" id="txtcl_pm_timeto"
-                                                value="<?=count(set_value())>0 ? set_value('txtcl_pm_timeto') : '05:00:00 PM'?>">
+                                        <input type="text" class="form-control timepicker form-required timepicker-default" name="txtcl_timeto" id="txtcl_timeto"
+                                                value="<?=set_value('txtcl_timeto','05:00 PM')?>">
                                     </div>
                                 </div>
                             </div>
@@ -136,10 +108,10 @@
 <script>
     $(document).ready(function() {
         $('.timepicker').timepicker({
-            timeFormat: 'HH:mm:ss A',
+            timeFormat: 'HH:mm A',
             disableFocus: true,
             showInputs: false,
-            showSeconds: true,
+            showSeconds: false,
             showMeridian: true,
             autoclose: true,
         });
@@ -147,22 +119,6 @@
         $('.date-picker').on('changeDate', function(){
             $(this).datepicker('hide');
         });
-
-        // $("#chkam").change(function() {
-        //     if(this.checked) {
-        //         $('#txtcl_am_timefrom,#txtcl_am_timeto').attr('readonly',false);
-        //     }else{
-        //         $('#txtcl_am_timefrom,#txtcl_am_timeto').attr('readonly',true);
-        //     }
-        // });
-
-        // $("#chkpm").change(function() {
-        //     if(this.checked) {
-        //         $('#txtcl_pm_timefrom,#txtcl_pm_timeto').attr('readonly',false);
-        //     }else{
-        //         // $('#txtcl_pm_timefrom,#txtcl_pm_timeto').attr('readonly',true).timepicker('destroy');
-        //     }
-        // });
 
         /*Begin CTO Date*/
         $('#txtcompen_date').on('keyup keypress change',function() {
@@ -183,53 +139,29 @@
         });
         /*End CTO Date*/
 
-        /*Begin Morning Time*/
-        $('#txtcl_am_timefrom,#txtcl_am_timeto').bind("change keyup keypress", function() {
-            $('#txtcl_am_timefrom').closest('div.form-group').find('i.fa-clock-o').remove();
-            $('#txtcl_am_timeto').closest('div.form-group').find('i.fa-clock-o').remove();
-            am_timein  = $('#txtcl_am_timefrom').val();
-            am_timeout = $('#txtcl_am_timeto').val();
+        /*Begin Time*/
+        $('#txtcl_timefrom,#txtcl_timeto').bind("change keyup keypress", function() {
+            $('#txtcl_timefrom').closest('div.form-group').find('i.fa-clock-o').remove();
+            $('#txtcl_timeto').closest('div.form-group').find('i.fa-clock-o').remove();
+            am_timein  = $('#txtcl_timefrom').val();
+            am_timeout = $('#txtcl_timeto').val();
             if(am_timein != '' && am_timeout != ''){
                 $('.div_am_time').addClass('has-success');
                 $('.div_am_time').removeClass('has-error');
-                $('#txtcl_am_timefrom,#txtcl_am_timeto').closest('div.form-group').find('i.fa-warning').remove();
-                $('#txtcl_am_timefrom,#txtcl_am_timeto').closest('div.form-group').find('i.fa-check').remove();
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtcl_am_timefrom'));
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtcl_am_timeto'));
+                $('#txtcl_timefrom,#txtcl_timeto').closest('div.form-group').find('i.fa-warning').remove();
+                $('#txtcl_timefrom,#txtcl_timeto').closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtcl_timefrom'));
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtcl_timeto'));
             }else{
                 $('.div_am_time').addClass('has-error');
                 $('.div_am_time').removeClass('has-success');
-                $('#txtcl_am_timefrom,#txtcl_am_timeto').closest('div.form-group').find('i.fa-check').remove();
-                $('#txtcl_am_timefrom,#txtcl_am_timeto').closest('div.form-group').find('i.fa-warning').remove();
-                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Morning Time must not be empty."></i>').tooltip().insertBefore($('#txtcl_am_timefrom'));
-                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Morning Time must not be empty."></i>').tooltip().insertBefore($('#txtcl_am_timeto'));
+                $('#txtcl_timefrom,#txtcl_timeto').closest('div.form-group').find('i.fa-check').remove();
+                $('#txtcl_timefrom,#txtcl_timeto').closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Morning Time must not be empty."></i>').tooltip().insertBefore($('#txtcl_timefrom'));
+                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Morning Time must not be empty."></i>').tooltip().insertBefore($('#txtcl_timeto'));
             }
         });
-        /*End Morning Time*/
-
-        /*Begin Afternoon Time*/
-        $('#txtcl_pm_timefrom,#txtcl_pm_timeto').bind("change keyup keypress", function() {
-            $('#txtcl_pm_timefrom').closest('div.form-group').find('i.fa-clock-o').remove();
-            $('#txtcl_pm_timeto').closest('div.form-group').find('i.fa-clock-o').remove();
-            pm_timein  = $('#txtcl_pm_timefrom').val();
-            pm_timeout = $('#txtcl_pm_timeto').val();
-            if(pm_timein != '' && pm_timeout != ''){
-                $('.div_pm_time').addClass('has-success');
-                $('.div_pm_time').removeClass('has-error');
-                $('#txtcl_pm_timefrom,#txtcl_pm_timeto').closest('div.form-group').find('i.fa-warning').remove();
-                $('#txtcl_pm_timefrom,#txtcl_pm_timeto').closest('div.form-group').find('i.fa-check').remove();
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtcl_pm_timefrom'));
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtcl_pm_timeto'));
-            }else{
-                $('.div_pm_time').addClass('has-error');
-                $('.div_pm_time').removeClass('has-success');
-                $('#txtcl_pm_timefrom,#txtcl_pm_timeto').closest('div.form-group').find('i.fa-check').remove();
-                $('#txtcl_pm_timefrom,#txtcl_pm_timeto').closest('div.form-group').find('i.fa-warning').remove();
-                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Afternoon Time must not be empty."></i>').tooltip().insertBefore($('#txtcl_pm_timefrom'));
-                $('<i class="fa fa-warning tooltips" data-original-title="Compensatory Afternoon Time must not be empty."></i>').tooltip().insertBefore($('#txtcl_pm_timeto'));
-            }
-        });
-        /*End Afternoon Time*/
+        /*End Time*/
 
         $("#btn_compen_leave").click(function(e) {
             e.preventDefault();

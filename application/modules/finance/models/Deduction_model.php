@@ -49,9 +49,9 @@ class Deduction_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	function edit($arrData, $code)
+	function edit($arrData, $id)
 	{
-		$this->db->where('deductionCode',$code);
+		$this->db->where('deduction_id',$id);
 		$this->db->update('tblDeduction', $arrData);
 		return $this->db->affected_rows();
 	}
@@ -68,9 +68,9 @@ class Deduction_model extends CI_Model {
 		return $this->db->affected_rows(); 
 	}
 
-	function edit_agency($arrData, $code)
+	function edit_agency($arrData, $id)
 	{
-		$this->db->where('deductionGroupCode',$code);
+		$this->db->where('deduct_id',$id);
 		$this->db->update('tblDeductionGroup', $arrData);
 		return $this->db->affected_rows();
 	}
@@ -90,22 +90,22 @@ class Deduction_model extends CI_Model {
 		return $this->db->get_where('tblDeduction', array('deductionType' => $type,'hidden' => 0))->result_array();
 	}
 
-	function getDeductionGroup($groupCode='')
+	function getDeductionGroup($id='')
 	{
-		if($groupCode==''):
+		if($id==''):
 			return $this->db->order_by('deductionGroupCode','ASC')->get('tblDeductionGroup')->result_array();
 		else:
-			$result = $this->db->get_where('tblDeductionGroup', array('deductionGroupCode' => $groupCode))->result_array();
+			$result = $this->db->get_where('tblDeductionGroup', array('deduct_id' => $id))->result_array();
 			return $result[0];
 		endif;
 	}
 
-	function getDeductions($code='',$select='deductionCode')
+	function getDeductions($id='',$select='deductionCode')
 	{
-		if($code==''):
+		if($id==''):
 			return $this->db->select($select)->order_by('deductionDesc')->get('tblDeduction')->result_array();
 		else:
-			$result = $this->db->get_where('tblDeduction', array('deductionCode' => $code))->result_array();
+			$result = $this->db->get_where('tblDeduction', array('deduction_id' => $id))->result_array();
 			return $result[0];
 		endif;
 	}

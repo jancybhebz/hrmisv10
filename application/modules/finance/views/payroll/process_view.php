@@ -37,14 +37,12 @@
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <?=form_open('', array('method' => 'post', 'id' => 'frmto'))?>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="control-label">Process Date <span class="required"> * </span></label>
                                         <div class="input-icon right">
-                                            <i class="fa fa-warning tooltips i-required"></i>
                                             <select class="bs-select form-control form-required" name="selproc_mon" id="selproc_mon">
-                                                <option value="all">All</option>
                                                 <?php foreach (range(1, 12) as $m): ?>
                                                     <option value="<?=sprintf('%02d', $m)?>"
                                                         <?php 
@@ -62,7 +60,6 @@
                                     <div class="form-group col-md-6">
                                         <label class="control-label">&nbsp;</label>
                                         <div class="input-icon right">
-                                            <i class="fa fa-warning tooltips i-required"></i>
                                             <select class="bs-select form-control form-required" name="selproc_yr" id="selproc_yr">
                                                 <?php foreach (getYear() as $yr): ?>
                                                     <option value="<?=$yr?>"
@@ -82,11 +79,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="form-group">
                                     <label class="control-label">Payroll Salary <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="bs-select form-control form-required" name="selproc_sal" id="selproc_sal">
                                             <option value=""> </option>
                                             <?php 
@@ -101,12 +97,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="form-group">
                                     <label class="control-label">Employee name <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <select class="select2 form-control form-required" name="selproc_emp" id="selproc_emp">
+                                        <select class="form-control select2-multiple form-required" multiple name="selproc_emp[]" id="selproc_emp">
                                             <option value="">  </option>
                                             <?php 
                                                 foreach($arremployees as $emp):
@@ -119,17 +114,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="form-group">
                                     <label class="control-label">Deduction List <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="select2 form-control form-required" name="selproc_deduction" id="selproc_deduction">
-                                            <option value="null">-- SELECT FUND SOURCE --</option>
+                                            <option value="">-- SELECT FUND SOURCE --</option>
                                             <?php 
-                                                foreach(array('Fund 101', 'Fund 102') as $fund):
-                                                    $selected = isset($arrempto) ? $fund == $arrempto['fund'] ? 'selected' : '' : '';
-                                                    echo '<option value="'.$fund.'" '.$selected.'>'.$fund.'</option>';
+                                                foreach($deduction_list as $deduction):
+                                                    $selected = '';
+                                                    echo '<option value="'.$deduction['deductionCode'].'" '.$selected.'>'.$deduction['deductionDesc'].'</option>';
                                                 endforeach;
                                              ?>
                                         </select>
@@ -139,24 +133,22 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="form-group">
                                     <label class="control-label">OR No. / TRA <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
-                                        <input type="text" class="form-control" name="">
+                                        <input type="text" class="form-control" name="txtorno" id="txtorno">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="form-group">
                                     <label class="control-label">OR Date <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" 
-                                                name="txtcompen_date" type="text">
+                                                name="txtordate" id="txtordate" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +157,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-check"></i> Update OR Remittance </button>
+                                    <button class="btn green" type="submit" id="btn_add_remittance"><i class="fa fa-check"></i> Update OR Remittance </button>
                                     <a href="<?=base_url('hr/attendance_summary/dtr/to/')?>" class="btn blue">
                                         <i class="icon-ban"></i> Cancel</a>
                                 </div>
@@ -191,5 +183,74 @@
         $('.date-picker').on('changeDate', function(){
             $(this).datepicker('hide');
         });
+
+        $('#selproc_emp').select2({
+            placeholder: "-- SELECT MULTIPLE EMPLOYEES --",
+            allowClear: true
+        });
+
+        $('#selproc_mon,#selproc_yr').on('keyup keypress change', function() {
+            var mon = $('#selproc_mon').val();
+            var yr = $('#selproc_yr').val();
+            window.location = "<?=base_url('finance/payroll_update/update_or?month=')?>" + mon + "&yr=" + yr;
+        });
+
+        $('#selproc_sal').on('keyup keypress change', function() {
+            check_null('#selproc_sal','Payroll Salary must not be empty.');
+        });
+        $('#selproc_emp').on("select2:select", function(e) { 
+           $('#selproc_emp').closest('div.form-group').find('i.fa-calendar').remove();
+           if($('#selproc_emp').val() != null){
+               $('#selproc_emp').closest('div.form-group').removeClass('has-error');
+               $('#selproc_emp').closest('div.form-group').addClass('has-success');
+               $('#selproc_emp').closest('div.form-group').find('i.fa-warning').remove();
+               $('#selproc_emp').closest('div.form-group').find('i.fa-check').remove();
+               $('<i class="fa fa-check tooltips"></i>').insertBefore($('#selproc_emp'));
+           }else{
+               $('#selproc_emp').closest('div.form-group').addClass('has-error');
+               $('#selproc_emp').closest('div.form-group').removeClass('has-success');
+               $('#selproc_emp').closest('div.form-group').find('i.fa-check').remove();
+               $('#selproc_emp').closest('div.form-group').find('i.fa-warning').remove();
+               $('<i class="fa fa-warning tooltips font-red" data-original-title="Employee name must not be empty."></i>').tooltip().insertBefore($('#selproc_emp'));
+           }
+        });
+        $('#selproc_deduction').on('keyup keypress change', function() {
+            check_null('#selproc_deduction','Deduction List must not be empty.');
+        });
+        $('#txtorno').on('keyup keypress change', function() {
+            check_null('#txtorno','OR No. / TRA must not be empty.');
+        });
+        $('#txtordate').on('keyup keypress change', function() {
+            check_null('#txtordate','OR Date must not be empty.');
+        });
+
+        $('#btn_add_remittance').on('click', function(e) {
+            var total_error = 0;
+
+            $('#selproc_emp').closest('div.form-group').find('i.fa-calendar').remove();
+            if($('#selproc_emp').val() != null){
+                $('#selproc_emp').closest('div.form-group').removeClass('has-error');
+                $('#selproc_emp').closest('div.form-group').addClass('has-success');
+                $('#selproc_emp').closest('div.form-group').find('i.fa-warning').remove();
+                $('#selproc_emp').closest('div.form-group').find('i.fa-check').remove();
+                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#selproc_emp'));
+            }else{
+                $('#selproc_emp').closest('div.form-group').addClass('has-error');
+                $('#selproc_emp').closest('div.form-group').removeClass('has-success');
+                $('#selproc_emp').closest('div.form-group').find('i.fa-check').remove();
+                $('#selproc_emp').closest('div.form-group').find('i.fa-warning').remove();
+                $('<i class="fa fa-warning tooltips font-red" data-original-title="Employee name must not be empty."></i>').tooltip().insertBefore($('#selproc_emp'));
+                total_error = total_error + 1;
+            }
+            total_error = total_error + check_null('#selproc_sal','Payroll Salary must not be empty.');
+            total_error = total_error + check_null('#selproc_deduction','Deduction List must not be empty.');
+            total_error = total_error + check_null('#txtorno','OR No. / TRA must not be empty.');
+            total_error = total_error + check_null('#txtordate','OR Date must not be empty.');
+            
+            if(total_error > 0){
+                e.preventDefault();
+            }
+        });
+
     });
 </script>

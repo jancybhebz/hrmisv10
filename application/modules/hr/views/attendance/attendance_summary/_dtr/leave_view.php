@@ -1,4 +1,12 @@
-<?php load_plugin('css',array('datatables'));?>
+<?php
+    load_plugin('css',array('datatables'));
+    $certify_date = isset($arrLeaveBalance['periodMonth']) ? date('F', mktime(0, 0, 0, $arrLeaveBalance['periodMonth'], 10)).' '.$arrLeaveBalance['periodYear'] : date('F Y');
+    $vlPreBalance = $arrLeaveBalance['vlPreBalance'] - $arrLeaveBalance['filed_vl'];
+    $slPreBalance = $arrLeaveBalance['slPreBalance'] - $arrLeaveBalance['filed_sl'];
+    $plPreBalance = $arrLeaveBalance['plPreBalance'] - (isset($arrLeaveBalance['filed_pl']) ? $arrLeaveBalance['filed_pl'] : 0);
+    $flPreBalance = $arrLeaveBalance['flPreBalance'] - $arrLeaveBalance['filed_fl'];
+    ?>
+
 <div class="tab-pane active" id="tab_1_3">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -14,14 +22,14 @@
                             <div class="col-md-12">
                                 <small>
                                     <div class="well">
-                                        <b>Certify Leave Credits as of <?=date('F', mktime(0, 0, 0, $arrLeaveBalance['periodMonth'], 10)).' '.$arrLeaveBalance['periodYear']?></b>&nbsp;
+                                        <b>Certify Leave Credits as of <?=$certify_date?></b>&nbsp;
                                         <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> view</a>
                                         <div class="collapse" id="collapseExample">
                                             <p></p>
-                                            <p><b>Vacation Leave Left:</b> <?=$arrLeaveBalance['vlPreBalance'] - $arrLeaveBalance['filed_vl']?></p>
-                                            <p><b>Sick Leave Left:</b> <?=$arrLeaveBalance['slPreBalance'] - $arrLeaveBalance['filed_sl']?></p>
-                                            <p><b>Privilege Leave Left:</b> <?=$arrLeaveBalance['plPreBalance'] - $arrLeaveBalance['filed_pl']?></p>
-                                            <b>Force Leave Left:</b> <?=$arrLeaveBalance['flPreBalance'] - $arrLeaveBalance['filed_fl']?>
+                                            <p><b>Vacation Leave Left:</b> <?=$vlPreBalance?></p>
+                                            <p><b>Sick Leave Left:</b> <?=$slPreBalance?></p>
+                                            <p><b>Privilege Leave Left:</b> <?=$plPreBalance?></p>
+                                            <b>Force Leave Left:</b> <?=$flPreBalance?>
                                         </div>
                                     </div>
                                 </small>
@@ -29,7 +37,8 @@
                         </div>
                         <a href="<?=base_url('hr/attendance_summary/dtr/').$arrData['empNumber'].'/?datefrom='.currdfrom().'&dateto='.currdto()?>" class="btn grey-cascade">
                             <i class="icon-calendar"></i> DTR </a>
-                        <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/leave_add/').$arrData['empNumber']?>">
+                        <a class="btn blue" href="<?=($vlPreBalance+$slPreBalance+$plPreBalance+$flPreBalance) < 1 ? 'javascript:;' : base_url('hr/attendance_summary/dtr/leave_add/').$arrData['empNumber']?>"
+                            <?=($vlPreBalance+$slPreBalance+$plPreBalance+$flPreBalance) < 1 ? 'disabled' : ''?>>
                             <i class="fa fa-plus"></i> Add Leave</a>
                         <br><br>
                         <table class="table table-striped table-bordered table-hover" id="table-leave">
@@ -53,9 +62,9 @@
                                     <td align="center"><?=$leave['leaveTo']?></td>
                                     <td align="center"><?=((strtotime($leave['leaveTo']) - strtotime($leave['leaveFrom'])) / 86400) + 1?></td>
                                     <td><?=$leave['reason']?></td>
-                                    <td style="white-space: nowrap !important;">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/leave_edit/'.$this->uri->segment(5).'?id='.$leave['leaveID'])?>" class="btn green btn-xs"> <i class="fa fa-pencil"></i> Edit</a>
-                                        <button class="btn red btn-xs btn-delete" data-id="<?=$leave['leaveID']?>">
+                                    <td style="text-align: center;white-space: nowrap !important;">
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/leave_edit/'.$this->uri->segment(5).'?id='.$leave['leaveID'])?>" class="btn green btn-sm"> <i class="fa fa-pencil"></i> Edit</a>
+                                        <button class="btn red btn-sm btn-delete" data-id="<?=$leave['leaveID']?>">
                                             <i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>

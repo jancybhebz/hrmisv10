@@ -139,7 +139,7 @@
                                                         <span class="label label-danger">REMINDER!</span>
                                                         <span class="bold">You are about to update your current database.</span> 
                                                         We recommend to create backup before you proceed.
-                                                        There is no undo command to reverse the changes. Click <b>Submit</b> to continue.
+                                                        There is no undo command to revert the changes. Click <b>Submit</b> to continue.
                                                     </small>
                                                 </div>
                                                 <button type="submit" class="btn green" id="btnmigrate">Submit</button>

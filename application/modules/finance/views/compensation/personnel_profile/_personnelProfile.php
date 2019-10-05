@@ -191,7 +191,7 @@
                                         <td><?=$arrData['healthProvider']?></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Account Number</b></td>
+                                        <td><b>Payroll Account Number</b></td>
                                         <td><?=$arrData['AccountNum']?></td>
                                         <td><b>Tax Rate</b></td>
                                         <td><?=$arrData['taxRate']?></td>
@@ -228,7 +228,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Item Number</b></td>
-                                        <td><?=$arrData['uniqEmployment StatusueItemNumber'] == 'NULL' ? '' : $arrData['uniqueItemNumber']?></td>
+                                        <td><?=$arrData['uniqueItemNumber'] == 'NULL' ? '' : $arrData['uniqueItemNumber']?></td>
                                         <td><b></b></td>
                                         <td><?=$arrData['statusOfAppointment']?></td>
                                     </tr>
@@ -263,3 +263,4 @@
     </div>
 </div>
 <?php include('modals/_modal_personnel_profile.php'); ?>
+<script src="<?=base_url('assets/js/custom/finance-personnel_profile.js')?>"></script>
