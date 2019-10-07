@@ -111,12 +111,13 @@
 
             $('#txtdfrom').val(jsondata.serviceFromDate);
             $('#txtdto').val(jsondata.serviceToDate);
-            if(jsondata.tmpServiceToDate == "Present"){
-                console.log('present');
-                $('input#chkpresent').prop('checked', true).uniform('refresh');
+             // console.log(jsondata.tmpServiceToDate);
+            if(jsondata.tmpServiceToDate == "Present" && jsondata.serviceToDate == "Present"){
+                console.log('Present');
+                $('input#chkpresent').prop('checked', 'checked').uniform('refresh');
             }else{
                 console.log('not present');
-                $('input#chkpresent').prop('checked', true).uniform('refresh');
+                $('input#chkpresent').removeAttr('checked').uniform('refresh');
             }
             $('#txtposition').val(jsondata.positionDesc);
             $('#txtoffice').val(jsondata.stationAgency);
