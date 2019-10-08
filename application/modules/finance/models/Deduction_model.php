@@ -56,13 +56,13 @@ class Deduction_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function delete($tab, $code)
+	public function delete($tab, $id)
 	{
 		if($tab == 1):
-			$this->db->where('deductionCode', $code);
+			$this->db->where('deduction_id', $id);
 			$this->db->delete('tblDeduction');	
 		else:
-			$this->db->where('deductionGroupCode', $code);
+			$this->db->where('deduct_id', $id);
 			$this->db->delete('tblDeductionGroup');	
 		endif;
 		return $this->db->affected_rows(); 

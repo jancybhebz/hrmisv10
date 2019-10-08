@@ -57,8 +57,8 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Separation Date</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtseparation_date" class="form-control date-picker"
-                                        value="<?=$arrPosition[0]['contractEndDate']?>" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txt_sep_date" class="form-control date-picker" value="<?=$arrPosition[0]['contractEndDate']?>" data-date-format="yyyy-mm-dd">
+                                    <!-- name="txtseparation_date" -->
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -244,11 +244,11 @@
                                 <label class="col-md-3 control-label">Place of Assignment</label>
                                 <div class="col-md-8">
                                     <!-- <input type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control" value=""> -->
-                                    <select type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control select2" value=""> 
-                                        <option value="">Select</option>
-                                        <option value="Detailed to">Detailed to</option>
-                                        <option value="Detailed from">Detailed from</option>
-                                        <option value="Not Applicable">Not Applicable</option>
+                                    <select type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control bs-select" value=""> 
+                                        <option value=""></option>
+                                        <option <?php if ($arrPosition[0]['assignPlace'] == 'Detailed to' ) echo 'selected' ; ?> value="Detailed to">Detailed to</option>
+                                        <option <?php if ($arrPosition[0]['assignPlace'] == 'Detailed from' ) echo 'selected' ; ?> value="Detailed from">Detailed from</option>
+                                        <option <?php if ($arrPosition[0]['assignPlace'] == 'Not Applicable' ) echo 'selected' ; ?> value="Not Applicable">Not Applicable</option>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
@@ -256,12 +256,18 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Personnel Action</label>
                                 <div class="col-md-8">
-                                    <select class="form-control bs-select" name="selper_action">
-                                        <option value=""> </option>
-                                        <?php foreach($personnel_action as $action):
-                                                $selected = $action['personnelAction'] == $arrPosition[0]['personnelAction'] ? 'selected' : '';
-                                                echo '<option value="'.$action['personnelAction'].'" '.$selected.'>'.$action['personnelAction'].'</option>';
-                                              endforeach; ?>
+                                    <select class="form-control bs-select" name="selper_action" value="<?=!empty($arrPosition['personnelAction'])?$arrPosition['personnelAction']:''?>">
+                                    <!-- value="<?=$arrPosition[0]['personnelAction']?> -->
+                                        <option value=""></option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Promotion' ) echo 'selected' ; ?> value="Promotion">Promotion</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Original' ) echo 'selected' ; ?> value="Original">Original</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Transfer' ) echo 'selected' ; ?> value="Transfer">Transfer</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Details' ) echo 'selected' ; ?> value="Original">Details</option>
+                                    </select>
+                                         <?php //foreach($personnel_action as $action):
+                                        //         $selected = $action['personnelAction'] == $arrPosition[0]['personnelAction'] ? 'selected' : '';
+                                        //         echo '<option value="'.$action['personnelAction'].'" '.$selected.'>'.$action['personnelAction'].'</option>';
+                                        //       endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
