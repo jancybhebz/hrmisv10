@@ -68,7 +68,7 @@
                                         <td><?=$data['payrollGroupRC']?></td>
                                         <td align="center" style="white-space: nowrap;">
                                             <a href="<?=base_url('finance/libraries/payrollgroup/edit/'.$data['payrollGroupCode'])?>" class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</a>
-                                            <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['payrollGroupCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
+                                            <a href="<?=base_url('finance/libraries/payrollgroup/delete_payrollgroup/'.$data['projectId'])?>" class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -108,19 +108,19 @@
                 $('#table-payrollgroup').show();
             },"columnDefs": [{ "orderable":false, "targets":'no-sort' }]} );
 
-        var code = '';
-        $('#table-payrollgroup').on('click', 'tr > td > a#btnDelDeduction', function () {
-            code = $(this).data('code');
-            $('.modal-title').html('Delete Project Group');
-            $('#delete').modal('show');
-        });
+        // var code = '';
+        // $('#table-payrollgroup').on('click', 'tr > td > a#btnDelDeduction', function () {
+        //     code = $(this).data('code');
+        //     $('.modal-title').html('Delete Project Group');
+        //     $('#delete').modal('show');
+        // });
 
-        $('#btndelete').click(function() {
-            $.ajax ({type : 'GET', url: 'PayrollGroup/delete?code='+code,
-                success: function(){
-                    toastr.success('Payroll Group Code '+code+' successfully deleted.','Success');
-                    $('#delete').modal('hide');
-                    $('[data-code="' + code + '"]').closest('tr').hide(); }});
-        });
+        // $('#btndelete').click(function() {
+        //     $.ajax ({type : 'GET', url: 'PayrollGroup/delete?code='+code,
+        //         success: function(){
+        //             toastr.success('Payroll Group Code '+code+' successfully deleted.','Success');
+        //             $('#delete').modal('hide');
+        //             $('[data-code="' + code + '"]').closest('tr').hide(); }});
+        // });
     });
 </script>

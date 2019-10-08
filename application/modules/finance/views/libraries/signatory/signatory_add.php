@@ -45,22 +45,26 @@
                                 <div class="form-group ">
                                     <label class="control-label">Signatory <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <input type="text" class="form-control form-required" name="txtsignatory" id="txtsignatory"
+                                        <input type="text" class="form-control form-required" name="txtsignatory" id="txtsignatory" <?=$action=='delete'?'disabled':''?>
                                             value="<?=isset($data) ? $data['signatory'] : set_value('txtsignatory')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Position <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <input type="text" class="form-control form-required" name="txtposition" id="txtposition"
+                                        <input type="text" class="form-control form-required" name="txtposition" id="txtposition" <?=$action=='delete'?'disabled':''?>
                                             value="<?=isset($data) ? $data['signatoryPosition'] : set_value('txtposition')?>">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit" id="btn_add_signatory">
-                                                <i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php if($action=='delete'): ?>
+                                                    <a href="<?=base_url('finance/libraries/signatory/delete/'.$this->uri->segment(5))?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                            <?php else: ?>
+                                                <button class="btn green" type="submit" id="btn_add_signatory">
+                                                    <i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php endif; ?>
                                             <a href="<?=base_url('finance/libraries/signatory')?>"><button class="btn blue" type="button">
                                                 <i class="icon-ban"></i> Cancel</button></a>
                                         </div>
