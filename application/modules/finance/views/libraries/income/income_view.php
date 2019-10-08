@@ -88,27 +88,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="delete" tabindex="-1" role="basic" aria-hidden="true"> 
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <?=form_open('finance/libraries/income/delete', array('method' => 'post'))?>
-            <input type="hidden" name="txtcode" id="txtcode">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete Income</h4>
-            </div>
-            <div class="modal-body"> Are you sure you want to delete this data? </div>
-            <div class="modal-footer">
-                <button type="submit" id="btndelete" class="btn btn-sm green">
-                    <i class="icon-check"> </i> Yes</button>
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
-                    <i class="icon-ban"> </i> Cancel</button>
-            </div>
-            <?=form_close()?>
-        </div>
-    </div>
-</div>
-
 <?=load_plugin('js',array('datatables'));?>
 
 <script>
@@ -119,12 +98,5 @@
                 $('#table-income').show();},
             "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
         });
-
-        // var code = '';
-        // $('#table-income').on('click', 'tr > td > a#btnDelIncome', function () {
-        //     code = $(this).data('code');
-        //     $('#txtcode').val(code);
-        //     $('#delete').modal('show');
-        // });
     });
 </script>
