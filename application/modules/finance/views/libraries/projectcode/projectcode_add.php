@@ -41,28 +41,31 @@
                                     <label class="control-label">Project Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'hidden'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
-                                        <input type="text" class="form-control form-required" name="txtcode" id="txtcode" <?=$action == 'edit' ? 'disabled' : ''?>
-                                            value="<?=isset($data) ? $data['projectCode'] : set_value('txtcode')?>" <?=$action?>>
+                                        <input type="text" class="form-control form-required" name="txtcode" id="txtcode" <?=$action == 'edit' || $action == 'delete' ? 'disabled' : ''?>
+                                            maxlength="100" value="<?=isset($data) ? $data['projectCode'] : set_value('txtcode')?>" <?=$action?>>
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Project Description <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <input type="text" class="form-control form-required" name="txtdesc" id="txtdesc"
-                                            value="<?=isset($data) ? $data['projectDesc'] : set_value('txtdesc')?>">
+                                        <textarea class="form-control form-required" name="txtdesc" id="txtdesc" <?=$action == 'delete' ? 'disabled' : ''?>><?=isset($data) ? $data['projectDesc'] : set_value('txtdesc')?></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Project Order <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <input type="text" class="form-control form-required" name="txtorder" id="txtorder"
-                                            value="<?=isset($data) ? $data['projectOrder'] : set_value('txtorder')?>">
+                                        <input type="text" class="form-control form-required" name="txtorder" id="txtorder" <?=$action == 'delete' ? 'disabled' : ''?>
+                                            maxlength="11" value="<?=isset($data) ? $data['projectOrder'] : set_value('txtorder')?>">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit" id="btn_add_projectcode"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php if($action=='delete'): ?>
+                                                    <a href="<?=base_url('finance/libraries/projectcode/delete/'.$this->uri->segment(5))?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                            <?php else: ?>
+                                                <button class="btn green" type="submit" id="btn_add_projectcode"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php endif; ?>
                                             <a href="<?=base_url('finance/libraries/projectcode')?>" class="btn blue">
                                                 <i class="icon-ban"></i> Cancel</a>
                                         </div>
