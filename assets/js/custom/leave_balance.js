@@ -115,27 +115,31 @@ $(document).ready(function() {
     $('td#tdor').hide();
 
     $('button#btnupdate_lb').on('click', function(e){
-        var total_error = 0;
+        if($('#txt_isoverride').val() == 'override') {
+            var total_error = 0;
 
-        total_error = total_error + check_str($('#txtauwp_vl')) + check_str($('#txtauwp_sl')) + check_str($('#txtperiod_vl')) + check_str($('#txtperiod_sl')) + check_str($('#txtauwop_vl')) + check_str($('#txtauwop_sl'));
-        total_error = total_error + check_str($('#txtspe_curr')) + check_str($('#txtfl_curr')) + check_str($('#txtsdl_curr')) + check_str($('#txtmtl_curr')) + check_str($('#txtptl_curr'));
-        total_error = total_error + check_str($('#txtlaundry')) + check_str($('#txtsubs_8hrs')) + check_str($('#txtsubs_6hrs')) + check_str($('#txtsubs_5hrs')) + check_str($('#txtsubs_4hrs')) + check_str($('#txtwith_meal')) + check_str($('#txtamt_training'));
-        total_error = total_error + check_str($('#txtlate_ut_days')) + check_str($('#txtdays_awol')) + check_str($('#txtdays_present')) + check_str($('#txtdays_absent'));
-        total_error = total_error + check_time($('#txtlate_ut_hhmm'))  + check_time($('#txtbalance')) + check_time($('#txtgain')) + check_time($('#txtused'));
+            total_error = total_error + check_str($('#txtauwp_vl')) + check_str($('#txtauwp_sl')) + check_str($('#txtperiod_vl')) + check_str($('#txtperiod_sl')) + check_str($('#txtauwop_vl')) + check_str($('#txtauwop_sl'));
+            total_error = total_error + check_str($('#txtspe_curr')) + check_str($('#txtfl_curr')) + check_str($('#txtsdl_curr')) + check_str($('#txtmtl_curr')) + check_str($('#txtptl_curr'));
+            total_error = total_error + check_str($('#txtlaundry')) + check_str($('#txtsubs_8hrs')) + check_str($('#txtsubs_6hrs')) + check_str($('#txtsubs_5hrs')) + check_str($('#txtsubs_4hrs')) + check_str($('#txtwith_meal')) + check_str($('#txtamt_training'));
+            total_error = total_error + check_str($('#txtlate_ut_days')) + check_str($('#txtdays_awol')) + check_str($('#txtdays_present')) + check_str($('#txtdays_absent'));
+            total_error = total_error + check_time($('#txtlate_ut_hhmm'))  + check_time($('#txtbalance')) + check_time($('#txtgain')) + check_time($('#txtused'));
 
-        if(total_error > 0){
-            e.preventDefault();
+            if(total_error > 0){
+                e.preventDefault();
+            }
         }
     });
 
     $('#tblleave-balance').on('click','#btn-leavebal,#btn-leavebal-override', function(e){
+        $('#txt_isoverride').val('override');
         $('td#tdn-or,button#btnupdate_lb').show();
         $('td#tdor').hide(); 
 
         var action = $(this).data('action');
         var lb_data = $(this).data('json');
         var leave_earned = $(this).data('leave_earned');
-        console.log(lb_data['processBy']);
+        
+        $('#updatedby').html(lb_data['process_by']+'  &nbsp;&nbsp;<b>Updated Date: </b>'+(lb_data['processDate']!=null?lb_data['processDate']:''));
         if(action == 'override'){
             $('td#tdn-or').hide();
             $('td#tdor').show();
@@ -231,7 +235,6 @@ $(document).ready(function() {
         $('.amt_training').html(lb_data['ctr_diem']);
 
         $('#txtoverride_id').val(lb_data['lb_id']);
-        $('#updatedby').html(lb_data['process_by']+' <b>Updated Date: </b>'+lb_data['processDate']);
         $('#txtleave_data').val(JSON.stringify([lb_data,leave_earned]));
 
         $('#frmupdate_leavebalance').attr('action','../leave_balance_override/'+$('#txtget_data').val());
@@ -240,6 +243,7 @@ $(document).ready(function() {
     });
 
     $('#btn-update-leavebal').click(function(e) {
+        $('#txt_isoverride').val('update');
         $('td#tdn-or').show();
         $('td#tdor').hide();
 
@@ -248,9 +252,9 @@ $(document).ready(function() {
         var latest_lb = $(this).data('latest_lb');
         var att_summ = $(this).data('att_summ');
         var mon_yr = check_year(latest_lb['lb']['periodMonth'],latest_lb['lb']['periodYear']);
-        console.log(mon_yr);
+        
         $('#txtprev_month').html('<b>'+ number_to_month(mon_yr[0],1) + ' ' + mon_yr[1]);
-
+        $('#updatedby').html(latest_lb['lb_updatedby']+'  &nbsp;&nbsp;<b>Updated Date: </b>'+(latest_lb['process_date']!=null?latest_lb['process_date']:''));
         /* Previous Month Balance */
         $('.prev_vl').html(latest_lb['lb']['vlBalance']);
         $('.prev_sl').html(latest_lb['lb']['slBalance']);

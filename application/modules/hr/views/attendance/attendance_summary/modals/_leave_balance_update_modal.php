@@ -403,6 +403,7 @@
                     </small></div>
                     <input type="hidden" id="txtget_data" name="txtget_data" value="<?=$this->uri->segment(4).'?month='.(isset($_GET['month']) ? $_GET['month'] : date('m')).'&yr='.(isset($_GET['yr']) ? $_GET['yr'] : date('Y'))?>">
                     <input type="hidden" id="txtoverride_id" name="txtoverride_id">
+                    <input type="hidden" id="txt_isoverride">
                     <?php 
                         $arrleave_data = array( 'arrLeaveBalance' => $arrLeaveBalance,
                                                 'arrLatestBalance' => $arrLatestBalance,
