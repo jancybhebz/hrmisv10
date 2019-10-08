@@ -64,21 +64,21 @@
                                                     <label class="control-label">Agency Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
                                                         <input type="text" class="form-control form-required" name="agency-code" id="agency-code" <?=$action == 'edit' || $action == 'delete' ? 'disabled' : ''?>
-                                                            value="<?=isset($arrData) ? $arrData['deductionGroupCode'] : set_value('agency-code')?>">
+                                                            maxlength="20" value="<?=isset($arrData) ? $arrData['deductionGroupCode'] : set_value('agency-code')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Agency Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
                                                         <input type="text" class="form-control form-required" name="agency-desc" id="agency-desc" <?=$action == 'delete' ? 'disabled' : ''?>
-                                                            value="<?=isset($arrData) ? $arrData['deductionGroupDesc'] : set_value('agency-desc')?>">
+                                                            maxlength="50" value="<?=isset($arrData) ? $arrData['deductionGroupDesc'] : set_value('agency-desc')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
                                                         <input type="text" class="form-control form-required" name="acct-code" id="acct-code" <?=$action == 'delete' ? 'disabled' : ''?>
-                                                            value="<?=isset($arrData) ? $arrData['deductionGroupAccountCode'] : set_value('acct-code')?>">    
+                                                            maxlength="50" value="<?=isset($arrData) ? $arrData['deductionGroupAccountCode'] : set_value('acct-code')?>">    
                                                     </div>
                                                 </div>
                                                 <div class="row">
