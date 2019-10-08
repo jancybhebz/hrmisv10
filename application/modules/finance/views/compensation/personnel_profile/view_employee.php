@@ -47,8 +47,7 @@
                 <div class="portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption font-dark">
-                            <i class="icon-user font-dark"></i>
-                            <span class="caption-subject bold uppercase"> Personnel Profile</span>
+                            <span class="caption-subject bold uppercase"> Compensation</span>
                         </div>
                     </div>
                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
