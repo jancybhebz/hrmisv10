@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 # BEGIN libraries
 // Deductions
 $route['finance/libraries/deductions/(:num)'] = 'finance/libraries/deductions/index/$1';
+$route['finance/libraries/deductions/delete/(:any)'] = 'finance/libraries/deductions/delete_deduction/$1';
 
 // income
 $route['finance/libraries/income'] = 'finance/libraries/income/index';
@@ -12,6 +13,7 @@ $route['finance/libraries/income/(:num)'] = 'finance/libraries/income/index/$1';
 // agency
 $route['finance/libraries/agency/add'] = 'finance/libraries/deductions/add_agency';
 $route['finance/libraries/agency/edit/(:any)'] = 'finance/libraries/deductions/edit_agency/$1';
+$route['finance/libraries/agency/delete/(:any)'] = 'finance/libraries/deductions/delete_agency/$1';
 
 // payroll group
 $route['finance/libraries/payrollgroup'] = 'finance/libraries/PayrollGroup/index';

@@ -48,7 +48,7 @@
             <div id="tab-deduction" class="tab-pane <?=isset($_GET['tab']) ? '' : 'active'?>" v-cloak>
                 <div class="row">
                     <div class="col-md-12">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <!-- BEGIN DEDUCTION -->
                         <div class="portlet">
                             <div class="portlet-body">
                                 <div class="table-toolbar">
@@ -92,7 +92,7 @@
                                             <td><?=$data['hidden'] == 1 ? 'Inactive' : 'Active' ?> </td>
                                             <td align="center" nowrap>
                                                 <a href="<?=base_url('finance/libraries/deductions/edit/'.$data['deduction_id'].'?stat='.$data['hidden'])?>"><button class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                                <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="1" data-code="<?=$data['deductionCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
+                                                <a href="<?=base_url('finance/libraries/deductions/delete/'.$data['deduction_id'])?>" class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -100,7 +100,7 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- END EXAMPLE TABLE PORTLET-->
+                        <!-- END DEDUCTION -->
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                                             <td><?=$data['deductionGroupAccountCode']?> </td>
                                             <td align="center" nowrap>
                                                 <a href="<?=base_url('finance/libraries/agency/edit/'.$data['deduct_id'])?>"><button class="btn btn-sm green"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                                <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-tab="0" data-code="<?=$data['deductionGroupCode']?>"><span class="fa fa-trash" title="Delete"></span> Delete</a>
+                                                <a href="<?=base_url('finance/libraries/agency/delete/'.$data['deduct_id'])?>" class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -153,28 +153,6 @@
         </div>
     </div>
     <!--end col-md-9-->
-</div>
-
-<div class="modal fade" id="delete" tabindex="-1" role="basic" aria-hidden="true"> 
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <?=form_open('finance/libraries/deductions/delete', array('method' => 'post'))?>
-            <input type="hidden" name="txtcode" id="txtcode">
-            <input type="hidden" name="txttab" id="txttab">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete</h4>
-            </div>
-            <div class="modal-body"> Are you sure you want to delete this data? </div>
-            <div class="modal-footer">
-                <button type="submit" id="btndelete" class="btn btn-sm green">
-                    <i class="icon-check"> </i> Yes</button>
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
-                    <i class="icon-ban"> </i> Cancel</button>
-            </div>
-            <?=form_close()?>
-        </div>
-    </div>
 </div>
 
 <?=load_plugin('js',array('datatables'));?>
@@ -194,16 +172,6 @@
                 $('#table-agency').show();},
             "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
         });
-
-        var code = '';
-        $('#table-agency, #table-deductions').on('click', 'tr > td > a#btnDelDeduction', function () {
-            code = $(this).data('code');
-            tab = $(this).data('tab');
-            $('#txtcode').val(code);
-            $('#txttab').val(tab);
-
-            $('.modal-title').html((tab == 1) ? 'Delete Deduction' : 'Delete Agency');
-            $('#delete').modal('show');
-        });
+        
     });
 </script>
