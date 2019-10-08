@@ -167,7 +167,7 @@ class Override extends MY_Controller {
 				$this->Pds_model->save_position($arrData,$emps);
 			endforeach;
 			
-			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Employee excluded in DTR successfully.');
 			redirect('hr/attendance/override/exclude_dtr');
 		endif;
 
@@ -212,7 +212,7 @@ class Override extends MY_Controller {
 				$this->Pds_model->save_position($arrData,$emps);
 			endforeach;
 			
-			$this->session->set_flashdata('strSuccessMsg','Employee exclude in DTR successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Employee excluded in DTR successfully.');
 			redirect('hr/attendance/override/exclude_dtr');
 		endif;
 
