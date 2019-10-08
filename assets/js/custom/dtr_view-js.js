@@ -1,5 +1,6 @@
 $('#tbldtr').on('click', 'tbody > tr > td #btnlog', function () {
     var jsdata = $(this).data('json');
+    console.log(jsdata);
     $('#td-empname').html(jsdata['empname'] == null ? '' : '<li>'+jsdata['empname'].split(';').join('<li>'));
     $('#td-ipadd').html(jsdata['ipadd'] == null ? '' : '<li>'+jsdata['ipadd'].split(';').join('<li>'));
     $('#td-datetime').html(jsdata['datetime'] == null ? '' : '<li>'+jsdata['datetime'].split(';').join('<li>'));

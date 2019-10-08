@@ -182,9 +182,9 @@
                             <td><?=$dtr['utimes'] > 0 ? date('H:i', mktime(0, $dtr['utimes'])) : ''?></td>
                             <td>
                                 <?php 
-                                    $djson['empname']   = count($dtr['dtr']) > 0 ? substr($dtr['dtr']['name'],1) : '';
-                                    $djson['ipadd']     = count($dtr['dtr']) > 0 ? substr($dtr['dtr']['ip'],1) : '';
-                                    $djson['datetime']  = count($dtr['dtr']) > 0 ? substr($dtr['dtr']['editdate'],1) : '';
+                                    $djson['empname']   = count($dtr['dtr']) > 0 ? $dtr['dtr']['name'] : '';
+                                    $djson['ipadd']     = count($dtr['dtr']) > 0 ? $dtr['dtr']['ip'] : '';
+                                    $djson['datetime']  = count($dtr['dtr']) > 0 ? $dtr['dtr']['editdate'] : '';
                                     $djson['oldval']    = count($dtr['dtr']) > 0 ? $dtr['dtr']['oldValue'] : '';
                                     $djson['bsremarks'] = $dtr['broken_sched'] !='' ? $dtr['broken_sched'] : '';
                                     if(count($dtr['dtr']) > 0): ?>
