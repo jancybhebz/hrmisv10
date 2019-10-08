@@ -634,7 +634,7 @@ class Attendance extends MY_Controller {
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$arremp_request = $this->Request_model->getEmpFiledRequest($empid,array('Commutation','DTR','Leave','Monetization','OB','TO'));
+		$arremp_request = $this->Request_model->getEmpFiledRequest($empid,array('Commutation','DTR','Leave','Monetization','OB','TO','201'));
 
 		$this->arrData['arrcomm'] = array_map(function($r){if(strtolower($r['requestCode']) == 'commutation'){ return $r;}}, $arremp_request);
 		$this->arrData['arrdtr'] = array_map(function($r){if(strtolower($r['requestCode']) == 'dtr'){ return $r;}}, $arremp_request);
@@ -642,6 +642,7 @@ class Attendance extends MY_Controller {
 		$this->arrData['arrmonetize'] = array_map(function($r){if(strtolower($r['requestCode']) == 'monetization'){ return $r;}}, $arremp_request);
 		$this->arrData['arrob'] = array_map(function($r){if(strtolower($r['requestCode']) == 'ob'){ return $r;}}, $arremp_request);
 		$this->arrData['arrto'] = array_map(function($r){if(strtolower($r['requestCode']) == 'to'){ return $r;}}, $arremp_request);
+		$this->arrData['arrpds'] = array_map(function($r){if(strtolower($r['requestCode']) == '201'){ return $r;}}, $arremp_request);
 		
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 
