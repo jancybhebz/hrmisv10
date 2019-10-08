@@ -28,7 +28,7 @@ class Income_model extends CI_Model {
 
 	public function delete($code)
 	{
-		$this->db->where('incomeCode', $code);
+		$this->db->where('income_id', $code);
 		$this->db->delete('tblIncome');
 		return $this->db->affected_rows(); 
 	}
@@ -66,6 +66,12 @@ class Income_model extends CI_Model {
 	function getIncomeData($code)
 	{
 		$result = $this->db->get_where('tblIncome', array('incomeCode' => $code))->result_array();
+		return $result[0];
+	}
+
+	function getIncomeById($id)
+	{
+		$result = $this->db->get_where('tblIncome', array('income_id' => $id))->result_array();
 		return $result[0];
 	}
 	

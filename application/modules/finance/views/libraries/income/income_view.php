@@ -75,8 +75,7 @@
                                         <td align="center" nowrap>
                                             <a href="<?=base_url('finance/libraries/income/edit/'.$data['incomeCode'].'?stat='.$data['hidden'])?>" class="btn btn-sm green">
                                                 <span class="fa fa-edit" title="Edit"></span> Edit</a>
-                                            <a class="btn btn-sm btn-danger" id="btnDelIncome" data-code="<?=$data['incomeCode']?>">
-                                                <span class="fa fa-trash" title="Delete"></span> Delete</a>
+                                            <a href="<?=base_url('finance/libraries/income/delete_income/'.$data['income_id'])?>" class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -121,11 +120,11 @@
             "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
         });
 
-        var code = '';
-        $('#table-income').on('click', 'tr > td > a#btnDelIncome', function () {
-            code = $(this).data('code');
-            $('#txtcode').val(code);
-            $('#delete').modal('show');
-        });
+        // var code = '';
+        // $('#table-income').on('click', 'tr > td > a#btnDelIncome', function () {
+        //     code = $(this).data('code');
+        //     $('#txtcode').val(code);
+        //     $('#delete').modal('show');
+        // });
     });
 </script>
