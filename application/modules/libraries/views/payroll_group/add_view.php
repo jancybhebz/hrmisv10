@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" id="strPayrollGroupCode"
+                                    <input type="text" class="form-control" name="strPayrollGroupCode" id="strPayrollGroupCode" maxlength="20"
                                         value="<?=!empty($this->session->userdata('strPayrollGroupCode'))?$this->session->userdata('strPayrollGroupCode'):''?>" required>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <input type="text" class="form-control" name="strPayrollGroupDesc" id="strPayrollGroupDesc"
+                                    <input type="text" class="form-control" name="strPayrollGroupDesc" id="strPayrollGroupDesc" maxlength="200"
                                         value="<?=!empty($this->session->userdata('strPayrollGroupDesc'))?$this->session->userdata('strPayrollGroupDesc'):''?>" required>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <input type="number" class="form-control" name="intPayrollGroupOrder" id="intPayrollGroupOrder"
+                                    <input type="text" maxlength="11" class="form-control" name="intPayrollGroupOrder" id="intPayrollGroupOrder"
                                         value="<?=!empty($this->session->userdata('intPayrollGroupOrder'))?$this->session->userdata('intPayrollGroupOrder'):''?>" required>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Responsibility Center <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <input type="text" class="form-control" name="strResponsibilityCntr" id="strResponsibilityCntr"
+                                    <input type="text" class="form-control" name="strResponsibilityCntr" id="strResponsibilityCntr" maxlength="30"
                                         value="<?=!empty($this->session->userdata('strResponsibilityCntr'))?$this->session->userdata('strResponsibilityCntr'):''?>" required>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             check_null('#strPayrollGroupDesc','Payroll Group Description must not be empty.');
         });
         $('#intPayrollGroupOrder').on('keyup keypress change', function() {
-            check_null('#intPayrollGroupOrder','Payroll Group Order must not be empty.');
+            check_number('#intPayrollGroupOrder','Payroll Group Order must not be empty.');
         });
         $('#strResponsibilityCntr').on('keyup keypress change', function() {
             check_null('#strResponsibilityCntr','Responsibility Center must not be empty.');
@@ -147,6 +147,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             total_error = total_error + check_null('#strPayrollGroupCode','Payroll Group Code must not be empty.');
             total_error = total_error + check_null('#strPayrollGroupDesc','Payroll Group Description must not be empty.');
             total_error = total_error + check_null('#intPayrollGroupOrder','Payroll Group Order must not be empty.');
+            total_error = total_error + check_number('#intPayrollGroupOrder');;
             total_error = total_error + check_null('#strResponsibilityCntr','Responsibility Center must not be empty.');
             
             if(total_error > 0){
