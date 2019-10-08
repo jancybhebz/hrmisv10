@@ -44,7 +44,7 @@ class Request extends MY_Controller {
 			$this->Leave_model->save($arrsignatory, $leave_details['req_id']);
 
 			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selreq_stat']));
-			redirect('hr/notification');
+			redirect('hr/notification?month='.currmo().'&yr='.curryr().'&status='.$_GET['status'].'&code='.$_GET['code']);
 		endif;
 	}
 
@@ -52,12 +52,9 @@ class Request extends MY_Controller {
 	{
 		$emp_session = $_SESSION;
 		$arrPost = $this->input->post();
-		echo '<pre>';
 		if(!empty($arrPost)):
 			$request_details = fixArray($arrPost['txtob_json']);
 			$ob_details = explode(';',$request_details['req_details']);
-			print_r($request_details);
-			print_r($ob_details);
 			$arrData=array(
 				'dateFiled' 	 => date('Y-m-d'),
 				'empNumber'	  	 => $request_details['req_emp'],
@@ -84,7 +81,47 @@ class Request extends MY_Controller {
 			$this->Leave_model->save($arrsignatory, $request_details['req_id']);
 			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selob_stat']));
 		endif;
-		redirect('hr/notification');
+		redirect('hr/notification?month='.currmo().'&yr='.curryr().'&status='.$_GET['status'].'&code='.$_GET['code']);
+	}
+
+	public function to_request()
+	{
+		// echo '<pre>';
+		$emp_session = $_SESSION;
+		$arrPost = $this->input->post();
+		if(!empty($arrPost)):
+			// print_r($arrPost);
+			// $request_details = fixArray($arrPost['txtto_json']);
+			// print_r($request_details);
+			// $to_details = explode(';',$request_details['req_details']);
+			// print_r($to_details);
+			// $arrData=array(
+			// 	'empNumber'	  	 => $request_details['req_emp'],
+			// 	'dateFiled' 	 => $request_details['req_id'],
+			// 	'toDateFrom' 	 => $ob_details[1],
+			// 	'toDateTo' 		 => $ob_details[2],
+			// 	'destination' 	 => $ob_details[3],
+			// 	'purpose' 		 => $ob_details[4],
+			// 	'obPlace' 		 => $ob_details[5],
+			// 	'obMeal' 		 => $ob_details[6] == '' ? 'Y' : 'N',
+			// 	'purpose' 		 => $ob_details[7],
+			// 	'official' 		 => $ob_details[0],
+			// 	'approveRequest' => 'Y',
+			// 	'approveChief' 	 => 'Y',
+			// 	'approveHR' 	 => 'Y');
+			
+			// $this->Attendance_summary_model->add_ob($arrData);
+			// $arrsignatory = array(
+			// 				'SignatoryFin' => $arrPost['selob_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
+			// 				'requestStatus' => $arrPost['selob_stat'],
+			// 				'SigFinDateTime' => date('Y-m-d H:i:s'));
+			// # update request
+
+			// $this->Leave_model->save($arrsignatory, $request_details['req_id']);
+			// $this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selob_stat']));
+		endif;
+		// die();
+		redirect('hr/notification?month='.currmo().'&yr='.curryr().'&status='.$_GET['status'].'&code='.$_GET['code']);
 	}
 
 	public function dtr_request()
