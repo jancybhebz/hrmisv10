@@ -15,8 +15,6 @@
         <?php include('css.php');?>
         
         <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> </head>
-    
-
     <body class=" login">
         <div class="menu-toggler sidebar-toggler"></div>
         <!-- END SIDEBAR TOGGLER BUTTON -->
@@ -41,10 +39,10 @@
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
-                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" /> </div>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" maxlength="20" /> </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
-                    <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" /> </div>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" maxlength="60" /> </div>
                 <div class="form-actions">
                     <button type="submit" class="btn green uppercase">Log in</button>
                     <!--label class="rememberme check">
