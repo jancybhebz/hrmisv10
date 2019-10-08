@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td align="center"> <?=$row['payrollGroupRC']?> </td>
                             <td width="150px" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/payroll_group/edit/'.$row['payrollGroupId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/payroll_group/delete/'.$row['payrollGroupId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/payroll_group/delete_payrollgroup/'.$row['payrollGroupId'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
                             </td>
                         </tr>

@@ -63,8 +63,7 @@
                                         <td align="center" nowrap>
                                             <a href="<?=base_url('finance/libraries/signatory/edit/'.$data['signatoryId'])?>" class="btn btn-sm green">
                                                 <span class="fa fa-edit" title="Edit"></span> Edit</a>
-                                            <a class="btn btn-sm btn-danger" id="btnDelDeduction" data-code="<?=$data['signatoryId']?>">
-                                                <span class="fa fa-trash" title="Delete"></span> Delete</a>
+                                            <a href="<?=base_url('finance/libraries/signatory/delete_signatory/'.$data['signatoryId'])?>" class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -73,26 +72,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="delete" tabindex="-1" role="basic" aria-hidden="true"> 
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <?=form_open('finance/libraries/signatory/delete', array('method' => 'post'))?>
-            <input type="hidden" name="txtsig_id" id="txtsig_id">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete Signatory</h4>
-            </div>
-            <div class="modal-body"> Are you sure you want to delete this data? </div>
-            <div class="modal-footer">
-                <button type="submit" id="btndelete" class="btn btn-sm green">
-                    <i class="icon-check"> </i> Yes</button>
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
-                    <i class="icon-ban"> </i> Cancel</button>
-            </div>
-            <?=form_close()?>
         </div>
     </div>
 </div>
@@ -107,13 +86,5 @@
                 $('#table-signatory').show();
             },"columnDefs" : [{ "orderable": false, "target": 'no-sort'}]
         });
-
-        var code = '';
-        $('#table-signatory').on('click', 'tr > td > a#btnDelDeduction', function () {
-            code = $(this).data('code');
-            $('#txtsig_id').val(code);
-            $('#delete').modal('show');
-        });
-
     });
 </script>

@@ -19,6 +19,7 @@ $route['finance/libraries/agency/delete/(:any)'] = 'finance/libraries/deductions
 $route['finance/libraries/payrollgroup'] = 'finance/libraries/PayrollGroup/index';
 $route['finance/libraries/payrollgroup/add'] = 'finance/libraries/PayrollGroup/add';
 $route['finance/libraries/payrollgroup/edit/(:any)'] = 'finance/libraries/PayrollGroup/edit/$1';
+$route['finance/libraries/payrollgroup/delete_payrollgroup/(:any)'] = 'finance/libraries/PayrollGroup/delete_payrollgroup/$1';
 
 // Payroll Process
 $route['finance/libraries/payrollprocess'] = 'finance/libraries/PayrollProcess/index';

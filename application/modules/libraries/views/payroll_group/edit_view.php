@@ -6,6 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
+<?php load_plugin('css',array('select2'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -36,7 +37,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Save Payroll Group</span>
+                    <span class="caption-subject bold uppercase"> <?=$action?> Payroll Group</span>
                 </div>
                 
             </div>
@@ -45,12 +46,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Project <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                      <select type="text" class="form-control" name="strProject" id="strProject" value="<?=!empty($this->session->userdata('projectDesc'))?$this->session->userdata('projectDesc'):''?>" required>
+                                      <select type="text" class="form-control select2" name="strProject" id="strProject" value="<?=!empty($this->session->userdata('projectDesc'))?$this->session->userdata('projectDesc'):''?>" <?=$action=='delete'?'disabled':''?>>
                                      <option value="">Select</option>
                                      <?php foreach($arrProject as $i=>$project)
                                         {
@@ -62,54 +63,58 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>">
+                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>" <?=$action=='delete'?'disabled':''?>>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($arrPayrollGroup[0]['payrollGroupName'])?$arrPayrollGroup[0]['payrollGroupName']:''?>">
+                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($arrPayrollGroup[0]['payrollGroupName'])?$arrPayrollGroup[0]['payrollGroupName']:''?>" <?=$action=='delete'?'disabled':''?>>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($arrPayrollGroup[0]['payrollGroupOrder'])?$arrPayrollGroup[0]['payrollGroupOrder']:''?>">
+                                    <input type="text" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($arrPayrollGroup[0]['payrollGroupOrder'])?$arrPayrollGroup[0]['payrollGroupOrder']:''?>" <?=$action=='delete'?'disabled':''?>>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Responsibility Center  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($arrPayrollGroup[0]['payrollGroupRC'])?$arrPayrollGroup[0]['payrollGroupRC']:''?>">
+                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($arrPayrollGroup[0]['payrollGroupRC'])?$arrPayrollGroup[0]['payrollGroupRC']:''?>" <?=$action=='delete'?'disabled':''?>>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <input type="hidden" name="intPayrollGroupId" value="<?=isset($arrPayrollGroup[0]['payrollGroupId'])?$arrPayrollGroup[0]['payrollGroupId']:''?>">
-                                <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <?php if($action=='delete'): ?>
+                                        <a href="<?=base_url('libraries/payroll_group/delete/'.$this->uri->segment(4))?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                <?php else: ?>
+                                    <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                <?php endif; ?>
                                 <a href="<?=base_url('libraries/payroll_group')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
@@ -120,7 +125,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('validation'));?>
+<?php load_plugin('js',array('validation','select2'));?>
+
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
   return value.indexOf(" ") < 0 && value != ""; 
