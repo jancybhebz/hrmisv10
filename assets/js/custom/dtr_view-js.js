@@ -1,17 +1,15 @@
 $('#tbldtr').on('click', 'tbody > tr > td #btnlog', function () {
     var jsdata = $(this).data('json');
-    console.log(jsdata);
     $('#td-empname').html(jsdata['empname'] == null ? '' : '<li>'+jsdata['empname'].split(';').join('<li>'));
     $('#td-ipadd').html(jsdata['ipadd'] == null ? '' : '<li>'+jsdata['ipadd'].split(';').join('<li>'));
     $('#td-datetime').html(jsdata['datetime'] == null ? '' : '<li>'+jsdata['datetime'].split(';').join('<li>'));
-    $('#td-oldval').html(jsdata['oldval'] == null ? '' : jsdata['oldval'].split(';').join('<li>'));
+    $('#td-oldval').html(jsdata['oldval'] == null ? '' : '<li>'+jsdata['oldval'].split(';').join('<li>'));
     $('#span-bsremarks').html('<b>Broken Schedule:</b> '+jsdata['bsremarks']);
     $('#log-modal').modal('show');
 });
 
 $('#tbldtr').on('click', 'tbody > tr > td #btnob', function () {
     var objsdata = $(this).data('json');
-    console.log(objsdata);
     $('#tblob-details tr:nth-child(1) > td').text(objsdata['dateFiled']);
     $('#tblob-details tr:nth-child(2) > td').text(objsdata['official']);
     $('#tblob-details tr:nth-child(3) > td').html('<b>From</b> '+objsdata['obDateFrom']+' <b>To</b> '+objsdata['obDateTo']);
