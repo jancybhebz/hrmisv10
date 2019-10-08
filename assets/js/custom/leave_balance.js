@@ -345,9 +345,57 @@ $(document).ready(function() {
         $('#frmupdate_leavebalance').attr('action',$('#frmupdate_leavebalance').attr('action')+'hr/attendance/leave_balance_save/'+$('#txtget_data').val());
 
         $('#modal-view-leave-balance').modal('show');
-
     });
     
+    /* validation in set starting balance*/
+    $('#vl_start').on('keyup keypress change', function() {
+        check_str('#vl_start');
+    });
+    $('#vl_ut_wpay').on('keyup keypress change', function() {
+        check_str('#vl_ut_wpay');
+    });
+    $('#vl_ut_wopay').on('keyup keypress change', function() {
+        check_str('#vl_ut_wopay');
+    });
 
+    $('#sl_start').on('keyup keypress change', function() {
+        check_str('#sl_start');
+    });
+    $('#sl_ut_wpay').on('keyup keypress change', function() {
+        check_str('#sl_ut_wpay');
+    });
+    $('#sl_ut_wopay').on('keyup keypress change', function() {
+        check_str('#sl_ut_wopay');
+    });
+
+    $('#off_bal').on('keyup keypress change', function() {
+        check_str('#off_bal');
+    });
+    $('#fl_bal').on('keyup keypress change', function() {
+        check_str('#fl_bal');
+    });
+    $('#pl_bal').on('keyup keypress change', function() {
+        check_str('#pl_bal');
+    });
+
+    $('#btn-set-balance').click(function(e) {
+        var total_error = 0;
+
+        total_error = total_error + check_str($('#vl_start'));
+        total_error = total_error + check_str($('#vl_ut_wpay'));
+        total_error = total_error + check_str($('#vl_ut_wopay'));
+
+        total_error = total_error + check_str($('#sl_start'));
+        total_error = total_error + check_str($('#sl_ut_wpay'));
+        total_error = total_error + check_str($('#sl_ut_wopay'));
+
+        total_error = total_error + check_str($('#off_bal'));
+        total_error = total_error + check_str($('#fl_bal'));
+        total_error = total_error + check_str($('#pl_bal'));
+
+        if(total_error > 0){
+            e.preventDefault();
+        }
+    });
 
 });
