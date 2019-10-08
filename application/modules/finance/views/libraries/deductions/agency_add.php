@@ -63,28 +63,32 @@
                                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                                     <label class="control-label">Agency Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <input type="text" class="form-control form-required" name="agency-code" id="agency-code" <?=$action == 'edit' ? 'disabled' : ''?>
+                                                        <input type="text" class="form-control form-required" name="agency-code" id="agency-code" <?=$action == 'edit' || $action == 'delete' ? 'disabled' : ''?>
                                                             value="<?=isset($arrData) ? $arrData['deductionGroupCode'] : set_value('agency-code')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Agency Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <input type="text" class="form-control form-required" name="agency-desc" id="agency-desc"
+                                                        <input type="text" class="form-control form-required" name="agency-desc" id="agency-desc" <?=$action == 'delete' ? 'disabled' : ''?>
                                                             value="<?=isset($arrData) ? $arrData['deductionGroupDesc'] : set_value('agency-desc')?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <input type="text" class="form-control form-required" name="acct-code" id="acct-code"
+                                                        <input type="text" class="form-control form-required" name="acct-code" id="acct-code" <?=$action == 'delete' ? 'disabled' : ''?>
                                                             value="<?=isset($arrData) ? $arrData['deductionGroupAccountCode'] : set_value('acct-code')?>">    
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <button class="btn green" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                                            <?php if($action=='delete'): ?>
+                                                                    <a href="<?=base_url('finance/libraries/deductions/delete?tab=agency&id='.$arrData['deduct_id'])?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                                            <?php else: ?>
+                                                                    <button class="btn green" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                                            <?php endif; ?>
                                                             <a href="<?=base_url('finance/libraries/deductions?tab=agency')?>" class="btn blue"><i class="icon-ban"></i> Cancel</a>
                                                         </div>
                                                     </div>
