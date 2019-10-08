@@ -66,7 +66,7 @@ class Personnel_profile extends MY_Controller {
 		$this->arrData['arrEmpBenefits'] = $arrEmpBenefits;
 		$this->arrData['empSalary'] = $this->arrData['arrData']['actualSalary'];
 		$this->arrData['arrEmpDeductions'] = $this->Compensation_model->getEmployeeDeduction($empid,$_GET['yr'],$_GET['mon']);
-		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getEmployee_dtr($empid,date('Y-m-d'),date('Y-m-d'));
 		
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
