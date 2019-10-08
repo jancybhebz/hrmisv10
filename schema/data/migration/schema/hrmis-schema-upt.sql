@@ -657,7 +657,8 @@ CREATE TABLE `tblEmpDTR_log` (
   `empNumber` varchar(20) NOT NULL,
   `log_date` datetime DEFAULT NULL,
   `log_sql` text NOT NULL,
-  `log_notify` varchar(50) NOT NULL
+  `log_notify` varchar(50) NOT NULL,
+  `log_ip` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
