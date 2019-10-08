@@ -50,24 +50,6 @@
                                         ?>
                                     </td>
                                 </tr>
-                                <?php if($arrData['appointmentCode']=='P'): ?>
-                                <tr>
-                                    <td><b>Vacation Leave Left</b></td>
-                                    <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['vlBalance'] : ''?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Sick Leave Left</b></td>
-                                    <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['slBalance'] : ''?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Special Leave Left</b></td>
-                                    <td style="width: 75%;"><?=$arrattendance['total_spe_leave']?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Forced Leave Left</b></td>
-                                    <td style="width: 75%;"><?=$arrattendance['total_force_leave']?></td>
-                                </tr>
-                                <?php endif; ?>
                                 <tr>
                                     <td><b>Offset Balance</b></td>
                                     <td style="width: 75%;"><?=date('H:i', mktime(0, ($arrattendance['total_ot_wkdays'] + $arrattendance['total_ot_holidays'])))?></td>
@@ -90,6 +72,31 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <?php if(count($arrleaves) > 0): ?>
+                            <p>
+                                <i><small>As of <?=date('F', mktime(0, 0, 0, $arrleaves['periodMonth'], 10)).' '.$arrleaves['periodYear']?></small></i>
+                            </p>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Vacation Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['vlBalance'] : ''?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Sick Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['slBalance'] : ''?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Special Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? number_format($arrleaves['plBalance'],3,".","") : ''?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Forced Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? number_format($arrleaves['flBalance'],3,".","") : ''?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

@@ -87,7 +87,7 @@
                         <small class="bold" style="color: red;">WARNING:  You are about to update the LEAVE BALANCE for the month of <?=date('F', mktime(0, 0, 0, count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodMonth']+1 : date('m'), 10)).' '.count($arrLatestBalance) > 0 ? $arrLatestBalance['lb']['periodYear'] : date('Y')?>. Please check that all Leaves, OBs, Flag Ceremonies, Time-in and Time-out has been overriden correctly. Blank attendance records shall be considered Vacation Leaves.</small><br>
                         <br>
                         <p style="text-align: center;">
-                            <button class="btn red" id="btn-update-leavebal"
+                            <button class="btn red <?=(count($arrLatestBalance) < 1) ? 'disabled' : '' ?>" id="btn-update-leavebal"
                                     data-latest_lb='<?=json_encode($arrLatestBalance,0)?>'
                                     data-att_summ='<?=json_encode($arrAttendance_summary,0)?>'
                                     data-leave_earned="<?=$_ENV['leave_earned']?>">
