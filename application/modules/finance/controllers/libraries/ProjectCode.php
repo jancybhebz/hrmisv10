@@ -56,10 +56,18 @@ class ProjectCode extends MY_Controller {
 		endif;
 	}
 
+	public function delete_projectcode()
+	{
+		$id = $this->uri->segment(5);
+		$this->arrData['action'] = 'delete';
+		$this->arrData['data'] = $this->ProjectCode_model->getData($id);
+		$this->template->load('template/template_view','finance/libraries/projectcode/projectcode_add',$this->arrData);
+	}
+
 	public function delete()
 	{
-		$arrPost = $this->input->post();
-		$this->ProjectCode_model->delete($arrPost['txtcode']);
+		$id = $this->uri->segment(5);
+		$this->ProjectCode_model->delete($id);
 		$this->session->set_flashdata('strSuccessMsg','Project code successfully deleted.');
 		redirect('finance/libraries/projectcode');
 	}
