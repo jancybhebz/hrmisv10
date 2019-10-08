@@ -57,8 +57,8 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Separation Date</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtseparation_date" class="form-control date-picker"
-                                        value="<?=$arrPosition[0]['contractEndDate']?>" data-date-format="yyyy-mm-dd">
+                                    <input type="text" name="txt_sep_date" class="form-control date-picker" value="<?=$arrPosition[0]['contractEndDate']?>" data-date-format="yyyy-mm-dd">
+                                    <!-- name="txtseparation_date" -->
                                     <span class="help-block"></span>
                                 </div>
                             </div>
