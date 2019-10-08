@@ -42,7 +42,7 @@
                                     <label class="control-label">Appointment Name <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'hidden'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
-                                        <select class="form-control select2 form-required" name="selappointment" id="selappointment" <?=$action=='edit' ? 'disabled' : ''?>>
+                                        <select class="form-control select2 form-required" name="selappointment" id="selappointment" <?=$action=='edit' || $action=='delete' ? 'disabled' : ''?>>
                                             <option value="">-- SELECT APPOINTMENT --</option>
                                             <?php foreach($arrAppointments as $appointment): ?>
                                                 <option value="<?=$appointment['appointmentCode']?>" <?=isset($arrData) ? $appointment['appointmentCode'] == $arrData['appointmentCode'] ? 'selected' : '' : $appointment['appointmentCode'] == set_value('selappointment') ? 'selected' : ''?>>
@@ -54,7 +54,7 @@
                                 <div class="form-group ">
                                     <label class="control-label">Process With <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <select class="form-control select2-multiple form-required" multiple placeholder="" id="selprocesswith" name="selprocesswith[]">
+                                        <select class="form-control select2-multiple form-required" multiple placeholder="" id="selprocesswith" name="selprocesswith[]" <?=$action=='delete' ? 'disabled' : ''?>>
                                             <?php 
                                                 if(isset($arrData)):
                                                     foreach(explode(',', $arrData['processWith']) as $procwith):
@@ -74,7 +74,7 @@
                                 <div class="form-group ">
                                     <label class="control-label">Salary <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <select class="form-control bs-select form-required" id="selsalary" name="selsalary">
+                                        <select class="form-control bs-select form-required" id="selsalary" name="selsalary" <?=$action=='delete' ? 'disabled' : ''?>>
                                             <option value="">-- SELECT SALARY --</option>
                                             <?php foreach(salaryPeriod() as $period): ?>
                                                 <option value="<?=$period?>" <?=isset($arrData) ? $period == $arrData['computation'] ? 'selected' : '' : $period == set_value('selsalary') ? 'selected' : ''?>>
@@ -86,7 +86,11 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit" id="btn_add_process"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php if($action=='delete'): ?>
+                                                    <a href="<?=base_url('finance/libraries/payrollprocess/delete/'.$this->uri->segment(5))?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                            <?php else: ?>
+                                                    <button class="btn green" type="submit" id="btn_add_process"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php endif; ?>
                                             <a href="<?=base_url('finance/libraries/payrollprocess')?>" class="btn blue">
                                                 <i class="icon-ban"></i> Cancel</a>
                                         </div>
