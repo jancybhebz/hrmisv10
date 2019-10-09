@@ -37,3 +37,4 @@ index.php
 
 .htaccess
 schema/data/migration/schema/*
+uploads/employees/*
