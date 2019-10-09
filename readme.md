@@ -19,23 +19,14 @@ Installation
 10.	chmod 775 -R uploads/
 11.	nano /etc/apache2/sites-enabled/000-default.conf
 12.	add the following block inside
-```html
-<h1><VirtualHost *:80></h1>
-```
-	
-
+```<VirtualHost *:80>
 	<Directory /var/www/html>
-
-	Options Indexes FollowSymLinks MultiViews
-
-	AllowOverride All
-
-	Order allow,deny
-
-	allow from all
-
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
 	</Directory>
-
+```
 13.	sudo service apache2 restart
 14.	run hrmis/migrate in your localhost
 
