@@ -116,14 +116,23 @@ class Deductions extends MY_Controller {
 
 	public function delete()
 	{
+		$this->load->model('Check_exists_model');
 		$arrget = $this->input->get();
 		if($arrget['tab'] == 'agency'):
-			$this->Deduction_Model->delete(0, $arrget['id']);
+			if($this->Check_exists_model->check_deduction($arrget['code']) > 0):
+				$this->session->set_flashdata('strMsg','Agency is unable to delete. Contact administrator.');
+			else:
+				$this->Deduction_Model->delete(0, $arrget['id']);
 			$this->session->set_flashdata('strSuccessMsg','Agency successfully deleted.');
+			endif;
 			redirect('finance/libraries/deductions?tab=agency');
 		else:
-			$this->Deduction_Model->delete(1, $arrget['id']);
-			$this->session->set_flashdata('strSuccessMsg','Deduction successfully deleted.');
+			if($this->Check_exists_model->check_deduction($arrget['code']) > 0):
+				$this->session->set_flashdata('strMsg','Deduction is unable to delete. Contact administrator.');
+			else:
+				$this->Deduction_Model->delete(1, $arrget['id']);
+				$this->session->set_flashdata('strSuccessMsg','Deduction successfully deleted.');
+			endif;
 			redirect('finance/libraries/deductions');
 		endif;
 	}

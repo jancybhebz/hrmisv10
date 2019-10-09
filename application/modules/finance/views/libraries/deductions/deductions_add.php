@@ -58,7 +58,7 @@
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
                                 <?=form_open($action == 'edit' ? 'finance/libraries/deductions/edit/'.$this->uri->segment(5) : '', array('method' => 'post'))?>
-                                    <input type="hidden" id='txtcode' value="<?=$this->uri->segment(5)?>" />
+                                    <!-- <input type="hidden" id='txtcode' value="<?=$this->uri->segment(5)?>" /> -->
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -117,7 +117,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <?php if($action=='delete'): ?>
-                                                                    <a href="<?=base_url('finance/libraries/deductions/delete?tab=&id='.$data['deduction_id'])?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                                                    <a href="<?=base_url('finance/libraries/deductions/delete?tab=&id='.$data['deduction_id'].'&code='.$data['deductionCode'])?>" class="btn red"><i class="icon-trash"></i> Delete</a>
                                                             <?php else: ?>
                                                                     <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                                             <?php endif; ?>

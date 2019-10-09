@@ -85,7 +85,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <?php if($action=='delete'): ?>
-                                                                    <a href="<?=base_url('finance/libraries/deductions/delete?tab=agency&id='.$arrData['deduct_id'])?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                                                    <a href="<?=base_url('finance/libraries/deductions/delete?tab=agency&id='.$arrData['deduct_id'].'&code='.$arrData['deductionGroupCode'])?>" class="btn red"><i class="icon-trash"></i> Delete</a>
                                                             <?php else: ?>
                                                                     <button class="btn green" id="btn_add_agency" type="submit"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                                             <?php endif; ?>

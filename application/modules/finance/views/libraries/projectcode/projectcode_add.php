@@ -61,8 +61,8 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <?php if($action=='delete'): ?>
-                                                    <a href="<?=base_url('finance/libraries/projectcode/delete/'.$this->uri->segment(5))?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                            <?php if($action=='delete'): $code = isset($data)?$data['projectCode']:''; ?>
+                                                    <a href="<?=base_url('finance/libraries/projectcode/delete/'.$this->uri->segment(5)).'?code='.$code?>" class="btn red"><i class="icon-trash"></i> Delete</a>
                                             <?php else: ?>
                                                 <button class="btn green" type="submit" id="btn_add_projectcode"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
                                             <?php endif; ?>
