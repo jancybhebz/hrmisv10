@@ -36,10 +36,10 @@ Installation
 		</Directory>
 
 ```
+```sudo service apache2 restart```
 
-	sudo service apache2 restart
-	
-	run hrmis/migrate in your localhost
+
+```run hrmis/migrate in your localhost```
 
 Server Requirements
 ------------------
