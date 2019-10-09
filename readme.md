@@ -37,8 +37,9 @@ Installation
 
 ```
 
-13.	sudo service apache2 restart
-14.	run hrmis/migrate in your localhost
+	sudo service apache2 restart
+	
+	run hrmis/migrate in your localhost
 
 Server Requirements
 ------------------
