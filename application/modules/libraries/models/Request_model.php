@@ -249,7 +249,11 @@ class Request_model extends CI_Model {
 
 		if($code!=''):
 			if($code!='all'):
-				$this->db->where('requestCode',$code);
+				if(strpos($code, '201') !== false):
+					$this->db->like('requestCode', $code, 'after', false);
+				else:
+					$this->db->where('requestCode',$code);
+				endif;
 			endif;
 		endif;
 
