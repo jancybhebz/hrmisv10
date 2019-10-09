@@ -122,7 +122,11 @@ class Compensation_model extends CI_Model {
 	function getITW($empid)
 	{
 		$res = $this->db->get_where('tblEmpDeductions', array('empNumber' => $empid, 'deductionCode' => 'ITW'))->result_array();
-		return $res[0]['period1'] + $res[0]['period2'] + $res[0]['period3'] + $res[0]['period4'];
+		if(count($res) > 0):
+			return $res[0]['period1'] + $res[0]['period2'] + $res[0]['period3'] + $res[0]['period4'];
+		else:
+			return 0;
+		endif;
 	}
 
 	function getLoans($empid)
