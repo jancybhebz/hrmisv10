@@ -5,6 +5,11 @@ The Human Resource Management Information System (HRMIS) is a comprehensive and 
 
 
 
+
+
+
+
+
 Installation
 ------------------
 1.	git clone `https://bitbucket.org/sysdevdost/hrmis.git` hrmis
@@ -24,15 +29,16 @@ Installation
 
 	<Directory /var/www/html>
 
-	  Options Indexes FollowSymLinks MultiViews
+	Options Indexes FollowSymLinks MultiViews
 
-	  AllowOverride All
+	AllowOverride All
 
-	  Order allow,deny
+	Order allow,deny
 
-	  allow from all
+	allow from all
 
 	</Directory>
 
 13.	sudo service apache2 restart
 14.	run hrmis/migrate in your localhost
+
