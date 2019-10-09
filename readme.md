@@ -36,6 +36,7 @@ Installation
 		</Directory>
 
 ```
+
 13.	sudo service apache2 restart
 14.	run hrmis/migrate in your localhost
 
