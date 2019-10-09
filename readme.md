@@ -20,7 +20,7 @@ Installation
 11.	nano /etc/apache2/sites-enabled/000-default.conf
 12.	add the following block inside
 
-	```
+```
 	<VirtualHost *:80>
 
 		<Directory /var/www/html>
@@ -35,11 +35,12 @@ Installation
 
 		</Directory>
 
-	```
+```
 13.	sudo service apache2 restart
 14.	run hrmis/migrate in your localhost
 
-## Server Requirements
+Server Requirements
+------------------
 
 * PHP version 7.1 or newer is recommended.
 * Ubuntu 18.
@@ -69,7 +70,7 @@ Errors:
 To recieved email notification:
 ------------------
 
-1. Create bitbucket account here ``
-2. Go to HRMIS Repository
-3. Click ...
+1. Create bitbucket account here [Here] (https://bitbucket.org/account/signup/)
+2. Go to [HRMIS Repository] (https://bitbucket.org/sysdevdost/hrmis)
+3. Click `...`
 4. Select Manage Notification
