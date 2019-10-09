@@ -20,22 +20,22 @@ Installation
 11.	nano /etc/apache2/sites-enabled/000-default.conf
 12.	add the following block inside
 
-```
-<VirtualHost *:80>
+	```
+	<VirtualHost *:80>
 
-	<Directory /var/www/html>
+		<Directory /var/www/html>
 
-		Options Indexes FollowSymLinks MultiViews
+			Options Indexes FollowSymLinks MultiViews
 
-		AllowOverride All
+			AllowOverride All
 
-		Order allow,deny
+			Order allow,deny
 
-		allow from all
+			allow from all
 
-	</Directory>
+		</Directory>
 
-```
+	```
 13.	sudo service apache2 restart
 14.	run hrmis/migrate in your localhost
 
@@ -45,29 +45,29 @@ Installation
 * Ubuntu 18.
 * Git
  
-
-## Documentation
+Documentation
+------------------
 
  [HRMISv10 Powerpoint Presentation] (https://docs.google.com/presentation/d/1uGS2of7UIxYarlfvFLySg2kX31DBh_JFYP5vZxuq8Vc/edit#slide=id.g5c00ba7bd3_11_0)
  
-
-## Acknowledgement
+Acknowledgement
+------------------
 
 	DOSTCO - ITD
 
+Other Setup
+------------------
 
-## Other Setup
-
-	Hrmisv10 Schema for new users:
-	[https://tinyurl.com/hrmisv10-schema] (https://tinyurl.com/hrmisv10-schema)
-	Password: hrmisdost
+* Hrmisv10 Schema for new users:
+* [https://tinyurl.com/hrmisv10-schema] (https://tinyurl.com/hrmisv10-schema)
+* Password: hrmisdost
 
 Errors:
-  The action you have requested is not allowed. (POST) or timeoutkeepalive 403 (Forbidden):
-	config['csrf_regenerate'] = FALSE;
+	  The action you have requested is not allowed. (POST) or timeoutkeepalive 403 (Forbidden):
+		config['csrf_regenerate'] = FALSE;
 
-
-## To recieved email notification:
+To recieved email notification:
+------------------
 
 1. Create bitbucket account here ``
 2. Go to HRMIS Repository
