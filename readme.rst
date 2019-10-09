@@ -3,7 +3,8 @@ What is HRMIS
 
 The Human Resource Management Information System (HRMIS) is a comprehensive and proactive human resource system designed to provide a single interface for government employees to erform the human resource management functions efficiently and effectively.
 
-
+-
+-
 Installation
 ------------------
 1.	git clone `https://bitbucket.org/sysdevdost/hrmis.git` hrmis
@@ -18,6 +19,7 @@ Installation
 10.	chmod 775 -R uploads/
 11.	nano /etc/apache2/sites-enabled/000-default.conf
 12.	add the following block inside
+
 		```
 		<VirtualHost *:80>
 		<Directory /var/www/html>
