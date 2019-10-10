@@ -44,7 +44,7 @@
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
-                                    <td width="25%"><b>Emplosdfyment Status</b></td>
+                                    <td width="25%"><b>Employment Status</b></td>
                                     <td width="25%"><?=$arrData['statusOfAppointment']?></td>
                                     <td width="25%"><b>TIN Number</b></td>
                                     <td width="25%"><?=$arrData['tin']?></td>

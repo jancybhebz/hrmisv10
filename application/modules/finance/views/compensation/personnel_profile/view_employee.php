@@ -1,9 +1,15 @@
 <?php
     $modulename = array('','HR','Financial','Officer','Executive','Employee');
-    load_plugin('css',array('select'));
+    load_plugin('css',array('select','datepicker'));
     $this_page = $this->uri->segment(4);
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+
+    $datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m').'-01';
+    $dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m').'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+
+    $show_monyr = 0;
+    $show_dates = 0;
 ?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
@@ -89,41 +95,21 @@
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this_page == 'dtr' ? '' : 'hidden'?>>
+                                    <div class="col-md-12" style="margin-bottom: 20px;" <?=$this->uri->segment(4)=='dtr'?'':'hidden'?>>
                                         <center>
                                             <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                                                <input type="hidden" name="mode" value="<?=isset($_GET['mode']) ? $_GET['mode'] : check_module()?>">
                                                 <div class="form-group" style="display: inline-flex;">
-                                                    <label style="padding: 6px;">Month</label>
-                                                    <select class="bs-select form-control" name="month">
-                                                        <?php foreach (range(1, 12) as $m): ?>
-                                                            <option value="<?=sprintf('%02d', $m)?>"
-                                                                <?php 
-                                                                    if(isset($_GET['month'])):
-                                                                        echo $_GET['month'] == $m ? 'selected' : '';
-                                                                    else:
-                                                                        echo $m == sprintf('%02d', date('n')) ? 'selected' : '';
-                                                                    endif;
-                                                                 ?> >
-                                                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                    <label style="padding: 6px;">Date From</label>
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="datefrom" type="text" style="width: 140px !important;"
+                                                            value="<?=$datefrom?>">
                                                 </div>
                                                 <div class="form-group" style="display: inline-flex;margin-left: 10px;">
-                                                    <label style="padding: 6px;">Year</label>
-                                                    <select class="bs-select form-control" name="yr">
-                                                        <?php foreach (getYear() as $yr): ?>
-                                                            <option value="<?=$yr?>"
-                                                                <?php 
-                                                                    if(isset($_GET['yr'])):
-                                                                        echo $_GET['yr'] == $yr ? 'selected' : '';
-                                                                    else:
-                                                                        echo $yr == date('Y') ? 'selected' : '';
-                                                                    endif;
-                                                                 ?> >  
-                                                            <?=$yr?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                    <label style="padding: 6px;">Date To</label>
+                                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="dateto" type="text" style="width: 140px !important;"
+                                                            value="<?=$dateto?>">
                                                 </div>
+                                                &nbsp;
                                                 <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
                                             <?=form_close()?>
                                         </center>
@@ -154,10 +140,15 @@
     </div>
 </div>
 
-<?php load_plugin('js',array('select'));?>
+<?php load_plugin('js',array('select','datepicker'));?>
 <script>
     $(document).ready(function() {
         $('.loading-image, #div_hide').hide();
         $('#employee_view').show();
+
+        $('.date-picker').datepicker();
+        $('.date-picker').on('changeDate', function(){
+            $(this).datepicker('hide');
+        });
     });
 </script>
