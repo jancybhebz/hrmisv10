@@ -17,9 +17,9 @@ class Notification extends MY_Controller {
 		
 		# Notification Menu
 		$active_menu = isset($_GET['status']) ? $_GET['status']=='' ? 'All' : $_GET['status'] : 'All';
-		$menu = array('All','Pending','Certified','Cancelled');
+		$menu = array('All','Filed Request','Certified','Cancelled','Disapproved');
 		unset($menu[array_search($active_menu, $menu)]);
-		$notif_icon = array('All' => 'list', 'Pending' => 'file-text-o', 'Certified' => 'check', 'Cancelled' => 'ban');
+		$notif_icon = array('All' => 'list', 'Filed Request' => 'file-text-o', 'Certified' => 'check', 'Cancelled' => 'ban', 'Disapproved' => 'remove');
 
 		# Request Type Menu
 		$active_code = isset($_GET['code']) ? $_GET['code']=='' ? 'all' : $_GET['code'] : 'all';

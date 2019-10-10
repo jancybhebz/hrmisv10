@@ -451,5 +451,3 @@
         </div>
     </div>
 </div>
-
-<?php load_plugin('js', array('form_validation')) ?>

@@ -270,8 +270,10 @@
         </div>
     </div>
 </div>
+
 <?php include('modals/_modal_income.php'); ?>
-<?php load_plugin('js',array('datatables'));?>
+<?php load_plugin('js',array('datatables','form_validation'));?>
+
 <script>
     $(document).ready(function() {
         $('#table-benefitList, #table-bonusList, #table-longevityPay, #table-incomeList').dataTable({"pageLength": 5});

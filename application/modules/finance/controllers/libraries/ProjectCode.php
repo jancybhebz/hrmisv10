@@ -66,9 +66,15 @@ class ProjectCode extends MY_Controller {
 
 	public function delete()
 	{
+		$this->load->model('Check_exists_model');
+		$arrget = $this->input->get();
 		$id = $this->uri->segment(5);
-		$this->ProjectCode_model->delete($id);
-		$this->session->set_flashdata('strSuccessMsg','Project code successfully deleted.');
+		if($this->Check_exists_model->check_project_code($arrget['code']) > 0):
+			$this->session->set_flashdata('strMsg','Project code is unable to delete. Contact administrator.');
+		else:
+			$this->ProjectCode_model->delete($id);
+			$this->session->set_flashdata('strSuccessMsg','Project code successfully deleted.');
+		endif;
 		redirect('finance/libraries/projectcode');
 	}
 
