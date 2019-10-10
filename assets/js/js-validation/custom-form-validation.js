@@ -1,3 +1,38 @@
+function check_date(el,msg='')
+{
+    var value = $(el).val();
+    var message = msg == '' ? "Invalid input." : msg;
+    message = value == '' ? message : 'Invalid input.';
+
+    if(value == '')
+    {
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="'+message+'"></i>').tooltip().insertBefore($(el));
+        return 1;
+    }else{
+        if(/^\d{4}-\d{2}-\d{2}$/.test(value))
+        {
+            $(el).closest('div.form-group').removeClass('has-error');
+            $(el).closest('div.form-group').addClass('has-success');
+            $(el).closest('div.form-group').find('i.fa-warning').remove();
+            $(el).closest('div.form-group').find('i.fa-check').remove();
+            $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+            return 0;
+        }else
+        {
+            $(el).closest('div.form-group').addClass('has-error');
+            $(el).closest('div.form-group').removeClass('has-success');
+            $(el).closest('div.form-group').find('i.fa-check').remove();
+            $(el).closest('div.form-group').find('i.fa-warning').remove();
+            $('<i class="fa fa-warning tooltips font-red" data-original-title="'+message+'"></i>').tooltip().insertBefore($(el));
+            return 1;
+        }
+    }
+}
+
 function check_null(el,msg)
 {
     $(el).closest('div.form-group').find('i.fa-calendar').remove();
@@ -18,30 +53,48 @@ function check_null(el,msg)
     }
 }
 
-function check_number(el)
+function check_number(el,msg='')
 {
-    $(el).closest('div.form-group').find('i.fa-calendar').remove();
-    if(isNaN($(el).val()) == false && $(el).val() != '' && $(el).val().replace(/\s/g, '').length > 0){
-        $(el).closest('div.form-group').removeClass('has-error');
-        $(el).closest('div.form-group').addClass('has-success');
-        $(el).closest('div.form-group').find('i.fa-warning').remove();
-        $(el).closest('div.form-group').find('i.fa-check').remove();
-        $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
-        return 0;
-    }else{
+    var value = $(el).val();
+    if(value.substr(value.length - 1) == ',')
+    {
         $(el).closest('div.form-group').addClass('has-error');
         $(el).closest('div.form-group').removeClass('has-success');
         $(el).closest('div.form-group').find('i.fa-check').remove();
         $(el).closest('div.form-group').find('i.fa-warning').remove();
         $('<i class="fa fa-warning tooltips font-red" data-original-title="Invalid input."></i>').tooltip().insertBefore($(el));
         return 1;
+    }else{
+        var el_val = value.replace(',', '');
+        var message = msg == '' ? "Invalid input." : msg;
+        message = el_val == '' ? message : 'Invalid input.';
+
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        if(isNaN(el_val) == false && $(el).val() != '' && el_val.replace(/\s/g, '').length > 0){
+            $(el).closest('div.form-group').removeClass('has-error');
+            $(el).closest('div.form-group').addClass('has-success');
+            $(el).closest('div.form-group').find('i.fa-warning').remove();
+            $(el).closest('div.form-group').find('i.fa-check').remove();
+            $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+            return 0;
+        }else{
+            $(el).closest('div.form-group').addClass('has-error');
+            $(el).closest('div.form-group').removeClass('has-success');
+            $(el).closest('div.form-group').find('i.fa-check').remove();
+            $(el).closest('div.form-group').find('i.fa-warning').remove();
+            $('<i class="fa fa-warning tooltips font-red" data-original-title="'+message+'."></i>').tooltip().insertBefore($(el));
+            return 1;
+        }
     }
 }
 
 function check_str(el)
 {
-    $(el).closest('div.form-group').find('i.fa-calendar').remove();
-    if(isNaN($(el).val()) == false && $(el).val() != ''){
+    var el_val = $(el).val().replace(',', '');
+    $(el).closest('div.form-group').find('i.fa-warning').remove();
+    $(el).closest('div.form-group').find('i.fa-check').remove();
+    if(isNaN(el_val) == false && el_val != ''){
         $(el).closest('div.form-group').removeClass('has-error');
         $(el).closest('div.form-group').addClass('has-success');
         $(el).closest('div.form-group').find('i.fa-warning').remove();
