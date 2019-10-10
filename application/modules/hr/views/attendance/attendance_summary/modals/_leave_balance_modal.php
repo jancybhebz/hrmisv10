@@ -95,5 +95,3 @@
         </div>
     </div>
 </div>
-
-<?php load_plugin('js', array('datepicker','form_validation')) ?>

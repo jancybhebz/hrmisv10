@@ -272,7 +272,7 @@
 </div>
 
 <?php include('modals/_modal_income.php'); ?>
-<?php load_plugin('js',array('datatables'));?>
+<?php load_plugin('js',array('datatables','form_validation'));?>
 
 <script>
     $(document).ready(function() {
