@@ -53,10 +53,19 @@ class Signatory extends MY_Controller {
 		$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
 	}
 
+	public function delete_signatory($code)
+	{
+		$id = $this->uri->segment(5);
+		$this->arrData['action'] = 'delete';
+		$this->arrData['data'] = $this->Signatory_model->getSignatories($id);
+		$this->arrData['payrollGroup'] = $this->Payroll_group_model->getData('');
+		$this->template->load('template/template_view','finance/libraries/signatory/signatory_add',$this->arrData);
+	}
+
 	public function delete()
 	{
-		$arrPost = $this->input->post();
-		$this->Signatory_model->delete($arrPost['txtsig_id']);
+		$id = $this->uri->segment(5);
+		$this->Signatory_model->delete($id);
 		$this->session->set_flashdata('strSuccessMsg','Signatory successfully deleted.');
 		redirect('finance/libraries/signatory');
 	}

@@ -74,11 +74,27 @@ class PayrollProcess extends MY_Controller {
 		$this->template->load('template/template_view','finance/libraries/payrollprocess/payrollprocess_add',$this->arrData);
 	}
 
+	public function delete_process()
+	{
+		$id = $this->uri->segment(5);
+		$this->arrData['arrAppointments'] = $this->Appointment_status_model->getData();
+		$this->arrData['arrData'] = $this->Process_model->getProcessData($id);
+
+		$this->arrData['action'] = 'delete';
+		$this->template->load('template/template_view','finance/libraries/payrollprocess/payrollprocess_add',$this->arrData);
+	}
+
 	public function delete()
 	{
-		$arrPost = $this->input->post();
-		$this->Process_model->delete($arrPost['txtcode']);
-		$this->session->set_flashdata('strSuccessMsg','Payroll process successfully deleted.');
+		$this->load->model('Check_exists_model');
+		$arrget = $this->input->get();
+		$id = $this->uri->segment(5);
+		if($this->Check_exists_model->check_payroll_process($arrget['code']) > 0):
+			$this->session->set_flashdata('strMsg','Payroll process is unable to delete. Contact administrator.');
+		else:
+			$this->Process_model->delete($id);
+			$this->session->set_flashdata('strSuccessMsg','Payroll process successfully deleted.');
+		endif;
 		redirect('finance/libraries/payrollprocess');
 	}
 

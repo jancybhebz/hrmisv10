@@ -20,49 +20,42 @@
                             <div class="form-group">
                                 <label class="control-label">Amount<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control form-required" name="txtamount" id="txtamount-bl">
+                                    <input type="text" class="form-control form-required" name="txtamount" id="txtamount-bl" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group" id="div-tax">
                                 <label class="control-label">Tax<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control form-required" name="txttax" id="txttax-bl">
+                                    <input type="text" class="form-control form-required" name="txttax" id="txttax-bl" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group" <?=in_array('Period 1', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
                                 <label class="control-label">Period 1<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control" name="txtperiod1" id="txtperiod1-bl">
+                                    <input type="text" class="form-control" name="txtperiod1" id="txtperiod1-bl" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group" <?=in_array('Period 2', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
                                 <label class="control-label">Period 2<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control" name="txtperiod2" id="txtperiod2-bl">
+                                    <input type="text" class="form-control" name="txtperiod2" id="txtperiod2-bl" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group" <?=in_array('Period 3', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
                                 <label class="control-label">Period 3<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control" name="txtperiod3" id="txtperiod3-bl">
+                                    <input type="text" class="form-control" name="txtperiod3" id="txtperiod3-bl" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group" <?=in_array('Period 4', setPeriods($empPayrollProcess)) ? '' : 'hidden'?>>
                                 <label class="control-label">Period 4<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
-                                    <input type="text" class="form-control" name="txtperiod4" id="txtperiod4-bl">
+                                    <input type="text" class="form-control" name="txtperiod4" id="txtperiod4-bl" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Status<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
                                     <select class="form-control bs-select form-required" name="selstatus" id="selstatus-bl">
                                         <option value="">SELECT STATUS</option>
                                         <?php foreach($arrStatus as $id=>$desc): ?>
@@ -103,7 +96,6 @@
                             <div class="form-group">
                                 <label class="control-label">Longevity Date<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
                                     <input class="form-control date-picker form-required" data-date="2012-03-01" data-date-format="yyyy-mm-dd" name="txtlongevitydate" id="txtlongevitydate-bl"
                                     type="text" value="">
                                 </div>
@@ -111,14 +103,12 @@
                             <div class="form-group">
                                 <label class="control-label">Salary<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
                                     <input type="text" class="form-control form-required" name="txtsalary" id="txtsalary-bl">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Percent<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-warning tooltips i-required"></i>
                                     <input type="text" class="form-control form-required" name="txtpercent" id="txtpercent-bl">
                                 </div>
                             </div>
@@ -126,7 +116,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn green"><i class="icon-check"> </i> Save</button>
+                    <button type="submit" class="btn green" id="btn-update-longevity"><i class="icon-check"> </i> Save</button>
                     <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
@@ -161,7 +151,8 @@
                                 <div class="checkbox-list">
                                     <?php foreach(array_slice($arrAppointments, 0, $arrAppointments_by2) as $chkappointment): ?>
                                         <label alt="Double click to uncheck">
-                                            <input type="checkbox" class="check" id="chkappnt" value="<?=$chkappointment['appointmentCode']?>" name="chkappnt[]">
+                                            <!-- id="chkappnt" -->
+                                            <input type="checkbox" class="check chkappnt" value="<?=$chkappointment['appointmentCode']?>" name="chkappnt[]">
                                             <?=$chkappointment['appointmentDesc']?> </label>
                                     <?php endforeach; ?>
                                 </div>
@@ -173,7 +164,8 @@
                                 <div class="checkbox-list">
                                     <?php foreach(array_slice($arrAppointments, $arrAppointments_by2, count($arrAppointments)) as $chkappointment): ?>
                                         <label alt="Double click to uncheck">
-                                            <input type="checkbox" class="check" id="chkappnt" value="<?=$chkappointment['appointmentCode']?>" name="chkappnt[]">
+                                            <!-- id="chkappnt" -->
+                                            <input type="checkbox" class="check chkappnt" value="<?=$chkappointment['appointmentCode']?>" name="chkappnt[]">
                                             <?=$chkappointment['appointmentDesc']?> </label>
                                     <?php endforeach; ?>
                                 </div>
@@ -182,7 +174,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="btnsubmit-payrollDetails" class="btn green"><i class="icon-check"> </i> Save</button>
+                    <!-- id="btnsubmit-payrollDetails" -->
+                    <button type="submit" class="btn green"><i class="icon-check"> </i> Save</button>
                     <button type="button" class="btn btn btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
@@ -210,7 +203,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="btnsubmit-payrollDetails" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                    <!-- id="btnsubmit-payrollDetails" -->
+                    <button type="submit" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
                 </div>
             <?=form_close()?>
@@ -218,72 +212,5 @@
     </div>
 </div>
 
-<?php load_plugin('js', array('select2','datepicker','form_validation')) ?>
-<script>
-    function numberformat(num) {
-        var parts = num.toString().split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        if(parts.length == 1){
-            parts[1] = "00";
-        }
-        return parts.join(".");
-    }
+<?php load_plugin('js', array('select2','datepicker')) ?>
 
-    $(document).ready(function() {
-        $('#el-1, #el-2, #el-3, #el-4').hide();
-
-        $("#chkall").click(function () {
-            if($(this).is(":checked")){
-                $('div.checker span').addClass('checked');
-                $('input#chkappnt').prop('checked', true);
-            }else{
-                $('div.checker span').removeClass('checked');
-                $('input#chkappnt').prop('checked', false);
-            }
-        });
-
-        $("input#chkappnt").click(function () {
-            if($(this).is(":checked")){
-                $('div#uniform-chkall span').addClass('checked');
-                $('input#chkall').prop('checked', true);
-            }else{
-                $('div#uniform-chkall span').removeClass('checked');
-                $('input#chkall').prop('checked', false);
-            }
-        });
-        $('.date-picker').datepicker();
-        
-        $('#btnsubmit-deductDetails').click(function(e) {
-            totalamt = parseFloat($('#txtamount-bl').val().replace(/[^\d\.]/g, ""));
-            period1 = parseFloat($('#txtperiod1-bl').val().replace(/[^\d\.]/g, ""));
-            period2 = parseFloat($('#txtperiod2-bl').val().replace(/[^\d\.]/g, ""));
-            period3 = parseFloat($('#txtperiod3-bl').val().replace(/[^\d\.]/g, ""));
-            period4 = parseFloat($('#txtperiod4-bl').val().replace(/[^\d\.]/g, ""));
-
-            if(totalamt != (period1 + period2 + period3 + period4)){
-                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').parent().parent().addClass('has-error');
-                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").attr('data-original-title', "Total amount should be equal to the total of period amount.");
-                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").show();
-                e.preventDefault();
-            }else{
-                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").hide();
-                $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').parent().parent().removeClass('has-error');
-            }
-
-        });
-
-        $('#btnupdateallemployees').click(function() {
-            $('#txtallincomecode').val($('#txtincomecode').val());
-            $('#txtallbenefittype').val($('#txtbenefitType').val());
-            $('#txtallamount').val($('#txtamount-bl').val());
-            $('#txtalltax').val($('#txttax').val());
-            $('#txtallperiod1').val($('#txtperiod1-bl').val());
-            $('#txtallperiod2').val($('#txtperiod2-bl').val());
-            $('#txtallperiod3').val($('#txtperiod3-bl').val());
-            $('#txtallperiod4').val($('#txtperiod4-bl').val());
-            $('#selallstatus').val($('#selstatus-bl').val());
-            $('#appointmentList').modal('show');
-        });
-
-    });
-</script>

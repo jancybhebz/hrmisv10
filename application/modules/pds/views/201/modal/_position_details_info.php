@@ -28,16 +28,24 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">First Day Government</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txt_fday_govt" class="form-control date-picker"
-                                        value="<?=$arrPosition[0]['firstDayGov']?>" data-date-format="yyyy-mm-dd">
+                                <?php if ($arrPosition[0]['firstDayGov']=='0000-00-00')
+                                { ?>
+                                    <input class="form-control date-picker form-required" name="txt_fday_govt" type="text" data-date-format="yyyy-mm-dd">
+                                <?php } else { ?>
+                                    <input type="text" name="txt_fday_govt" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?=$arrPosition[0]['firstDayGov']?>">
+                                <?php } ?>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">First Day Agency</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txt_fday_agency" class="form-control date-picker"
-                                        value="<?=$arrPosition[0]['firstDayAgency']?>" data-date-format="yyyy-mm-dd">
+                                 <?php if ($arrPosition[0]['firstDayAgency']=='0000-00-00')
+                                { ?>
+                                     <input class="form-control date-picker form-required" name="txt_fday_agency" type="text" data-date-format="yyyy-mm-dd">
+                                <?php } else { ?>
+                                    <input type="text" name="txt_fday_agency" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?=$arrPosition[0]['firstDayAgency']?>">
+                                <?php } ?>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -57,8 +65,13 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Separation Date</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtseparation_date" class="form-control date-picker"
-                                        value="<?=$arrPosition[0]['contractEndDate']?>" data-date-format="yyyy-mm-dd">
+                                <?php if ($arrPosition[0]['contractEndDate']=='0000-00-00')
+                                { ?>
+                                    <input class="form-control date-picker form-required" name="txt_sep_date" type="text" data-date-format="yyyy-mm-dd">
+                                <?php } else { ?>
+                                    <input type="text" name="txt_sep_date" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?=$arrPosition[0]['contractEndDate']?>">
+                                <?php } ?>
+                                    <!-- name="txtseparation_date" -->
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -149,8 +162,12 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Position Date</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtposition_date" class="form-control date-picker"
-                                        value="<?=$arrPosition[0]['positionDate']?>" data-date-format="yyyy-mm-dd">
+                                <?php if ($arrPosition[0]['positionDate']=='0000-00-00')
+                                { ?>
+                                    <input class="form-control date-picker form-required" name="txtposition_date" type="text" data-date-format="yyyy-mm-dd">
+                                <?php } else { ?>
+                                    <input type="text" name="txtposition_date" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?=$arrPosition[0]['positionDate']?>">
+                                <?php } ?>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -159,8 +176,12 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Salary Effectivity Date</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txtsalary_eff_date" class="form-control date-picker"
-                                        value="<?=$arrPosition[0]['effectiveDate']?>" data-date-format="yyyy-mm-dd">
+                                <?php if ($arrPosition[0]['effectiveDate']=='0000-00-00')
+                                { ?>
+                                    <input class="form-control date-picker form-required" name="txtsalary_eff_date" type="text" data-date-format="yyyy-mm-dd">
+                                <?php } else { ?>
+                                    <input class="form-control date-picker form-required" data-date-format="yyyy-mm-dd" name="txtsalary_eff_date" type="text" value="<?=$arrPosition[0]['effectiveDate']?>">
+                                <?php } ?>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -244,11 +265,11 @@
                                 <label class="col-md-3 control-label">Place of Assignment</label>
                                 <div class="col-md-8">
                                     <!-- <input type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control" value=""> -->
-                                    <select type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control select2" value=""> 
-                                        <option value="">Select</option>
-                                        <option value="Detailed to">Detailed to</option>
-                                        <option value="Detailed from">Detailed from</option>
-                                        <option value="Not Applicable">Not Applicable</option>
+                                    <select type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control bs-select" value=""> 
+                                        <option value=""></option>
+                                        <option <?php if ($arrPosition[0]['assignPlace'] == 'Detailed to' ) echo 'selected' ; ?> value="Detailed to">Detailed to</option>
+                                        <option <?php if ($arrPosition[0]['assignPlace'] == 'Detailed from' ) echo 'selected' ; ?> value="Detailed from">Detailed from</option>
+                                        <option <?php if ($arrPosition[0]['assignPlace'] == 'Not Applicable' ) echo 'selected' ; ?> value="Not Applicable">Not Applicable</option>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
@@ -256,12 +277,18 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Personnel Action</label>
                                 <div class="col-md-8">
-                                    <select class="form-control bs-select" name="selper_action">
-                                        <option value=""> </option>
-                                        <?php foreach($personnel_action as $action):
-                                                $selected = $action['personnelAction'] == $arrPosition[0]['personnelAction'] ? 'selected' : '';
-                                                echo '<option value="'.$action['personnelAction'].'" '.$selected.'>'.$action['personnelAction'].'</option>';
-                                              endforeach; ?>
+                                    <select class="form-control bs-select" name="selper_action" value="<?=!empty($arrPosition['personnelAction'])?$arrPosition['personnelAction']:''?>">
+                                    <!-- value="<?=$arrPosition[0]['personnelAction']?> -->
+                                        <option value=""></option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Promotion' ) echo 'selected' ; ?> value="Promotion">Promotion</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Original' ) echo 'selected' ; ?> value="Original">Original</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Transfer' ) echo 'selected' ; ?> value="Transfer">Transfer</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Details' ) echo 'selected' ; ?> value="Original">Details</option>
+                                    </select>
+                                         <?php //foreach($personnel_action as $action):
+                                        //         $selected = $action['personnelAction'] == $arrPosition[0]['personnelAction'] ? 'selected' : '';
+                                        //         echo '<option value="'.$action['personnelAction'].'" '.$selected.'>'.$action['personnelAction'].'</option>';
+                                        //       endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
@@ -292,8 +319,12 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Date Increment</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="txt_date_inc" class="form-control date-picker" 
-                                        value="<?=$arrPosition[0]['dateIncremented']?>" data-date-format="yyyy-mm-dd">
+                                <?php if ($arrPosition[0]['dateIncremented']=='0000-00-00')
+                                { ?>
+                                    <input class="form-control date-picker form-required" name="txt_date_inc" type="text" data-date-format="yyyy-mm-dd">
+                                <?php } else { ?>
+                                    <input type="text" name="txt_date_inc" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?=$arrPosition[0]['dateIncremented']?>">
+                                <?php } ?>
                                     <span class="help-block"></span>
                                 </div>
                             </div>

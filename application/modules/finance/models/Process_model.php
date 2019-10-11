@@ -19,9 +19,9 @@ class Process_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	public function delete($code)
+	public function delete($id)
 	{
-		$this->db->where('appointmentCode', $code);
+		$this->db->where('process_id', $id);
 		$this->db->delete('tblPayrollProcess');
 		return $this->db->affected_rows(); 
 	}

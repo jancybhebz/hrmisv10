@@ -34,6 +34,9 @@
                         <li class="<?=$tab=='to'? 'active' : ''?>">
                             <a data-value="to" href="#tab-to" class="filed_req" data-toggle="tab"> Travel Order </a>
                         </li>
+                        <li class="<?=$tab=='pds_update'? 'active' : ''?>">
+                            <a data-value="pds_update" href="#tab-pds_update" class="filed_req" data-toggle="tab"> PDS Update </a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <!-- begin commutation order -->
@@ -41,7 +44,7 @@
                             <table class="table table-bordered table-hover" id="tbl-comm">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;width: 50px;">No</th>
                                         <th style="text-align: center;">Date File</th>
                                         <th style="text-align: center;">Date Request</th>
                                         <th style="text-align: center;">Purpose</th>
@@ -68,7 +71,7 @@
                             <table class="table table-bordered table-hover" id="tbl-dtr">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;width: 50px;">No</th>
                                         <th style="text-align: center;">Date Filed</th>
                                         <th style="text-align: center;">Date</th>
                                         <th style="text-align: center;width: 250px;">Time</th>
@@ -80,11 +83,11 @@
                                     <tr>
                                         <td align="center"><?=$no++?></td>
                                         <td align="center"><?=$rdtr['requestDate']?></td>
-                                        <td align="center"><?=$rdate[1]?></td>
+                                        <td align="center"><?=$rdate[0]?></td>
                                         <td><small>
                                             <?php
-                                            echo '<b>Morning:</b> '.join(':',array($rdate[8],$rdate[9],$rdate[10])).' '.$rdate[11].' - '.join(':',array($rdate[12],$rdate[13],$rdate[14])).' '.$rdate[15].'<br>';
-                                            echo '<b>Afternoon:</b> '.join(':',array($rdate[16],$rdate[17],$rdate[18])).' '.$rdate[19].' - '.join(':',array($rdate[20],$rdate[21],$rdate[22])).' PM';?></small>
+                                            echo '<b>Morning:</b> '.$rdate[8].' - '.$rdate[9].'<br>';
+                                            echo '<b>Afternoon:</b> '.$rdate[10].' - '.$rdate[11];?></small>
                                         </td>
                                         <td align="center"><?=$rdtr['requestStatus']?></td>
                                     </tr>
@@ -99,7 +102,7 @@
                             <table class="table table-bordered table-hover" id="tbl-leave">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;width: 50px;">No</th>
                                         <th style="text-align: center;">Date Filed</th>
                                         <th style="text-align: center;">Leave Type</th>
                                         <th style="text-align: center;">Date From</th>
@@ -130,7 +133,7 @@
                             <table class="table table-bordered table-hover" id="tbl-mone">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;width: 50px;">No</th>
                                         <th style="text-align: center;">Date Filed</th>
                                         <th style="text-align: center;">Monetized on VL</th>
                                         <th style="text-align: center;">Monetized on SL</th>
@@ -159,12 +162,12 @@
                             <table class="table table-bordered table-hover" id="tbl-ob">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;width: 50px;">No</th>
                                         <th style="text-align: center;">Date Filed</th>
-                                        <th style="text-align: center;">Place</th>
-                                        <th style="text-align: center;">Purpose</th>
-                                        <th style="text-align: center;">From</th>
-                                        <th style="text-align: center;">To</th>
+                                        <th style="text-align: left;">Place</th>
+                                        <th style="text-align: left;">Purpose</th>
+                                        <th style="text-align: left;">From</th>
+                                        <th style="text-align: left;">To</th>
                                         <th style="text-align: center;">Status</th>
                                     </tr>
                                 </thead>
@@ -173,10 +176,10 @@
                                     <tr>
                                         <td align="center"><?=$no++?></td>
                                         <td align="center"><?=$ob['requestDate']?></td>
-                                        <td align="center"><?=$rdate[6]?></td>
-                                        <td align="center"><?=$rdate[7]?></td>
-                                        <td align="center"><?=$rdate[2]?> <?=$rdate[4]?></td>
-                                        <td align="center"><?=$rdate[3]?> <?=$rdate[5]?></td>
+                                        <td align="left"><?=$rdate[6]?></td>
+                                        <td align="left"><?=$rdate[7]?></td>
+                                        <td align="left"><?=$rdate[2]?> <?=$rdate[4]?></td>
+                                        <td align="left"><?=$rdate[3]?> <?=$rdate[5]?></td>
                                         <td align="center"><?=$ob['requestStatus']?></td>
                                     </tr>
                                     <?php endif; endforeach; ?>
@@ -190,12 +193,12 @@
                             <table class="table table-bordered table-hover" id="tbl-to">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;width: 100px;">No</th>
+                                        <th style="text-align: center;width: 50px;">No</th>
                                         <th style="text-align: center;">Date Filed</th>
-                                        <th style="text-align: center;">Place</th>
-                                        <th style="text-align: center;">Purpose</th>
-                                        <th style="text-align: center;">From</th>
-                                        <th style="text-align: center;">To</th>
+                                        <th style="text-align: left;">Place</th>
+                                        <th style="text-align: left;">Purpose</th>
+                                        <th style="text-align: left;">From</th>
+                                        <th style="text-align: left;">To</th>
                                         <th style="text-align: center;">Status</th>
                                     </tr>
                                 </thead>
@@ -204,10 +207,10 @@
                                     <tr>
                                         <td align="center"><?=$no++?></td>
                                         <td align="center"><?=$to['requestDate']?></td>
-                                        <td align="center"><?=$rdate[0]?></td>
-                                        <td align="center"><?=$rdate[3]?></td>
-                                        <td align="center"><?=$rdate[1]?></td>
-                                        <td align="center"><?=$rdate[2]?></td>
+                                        <td align="left"><?=$rdate[0]?></td>
+                                        <td align="left"><?=$rdate[3]?></td>
+                                        <td align="left"><?=$rdate[1]?></td>
+                                        <td align="left"><?=$rdate[2]?></td>
                                         <td align="center"><?=$to['requestStatus']?></td>
                                     </tr>
                                     <?php endif; endforeach; ?>
@@ -215,6 +218,31 @@
                             </table>
                         </div>
                         <!-- end travel order -->
+
+                        <!-- begin pds update -->
+                        <div class="tab-pane <?=$tab=='pds_update'? 'active' : ''?>" id="tab-pds_update">
+                            <table class="table table-bordered table-hover" id="tbl-pds_update">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;width: 50px;">No</th>
+                                        <th style="text-align: center;">Request Date</th>
+                                        <th style="text-align: center;">Type of Profile</th>
+                                        <th style="text-align: center;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no=1; foreach($arrpds as $pds): if(count($pds) > 0): $pds_details = explode(';', $pds['requestDetails']); ?>
+                                    <tr>
+                                        <td align="center"><?=$no++?></td>
+                                        <td align="center"><?=$pds['requestDate']?></td>
+                                        <td align="center"><?=$pds_details[0]?></td>
+                                        <td align="center"><?=$pds['requestStatus']?></td>
+                                    </tr>
+                                    <?php endif; endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end pds update -->
                         
                     </div>
                 </div>
@@ -227,7 +255,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#tbl-comm,#tbl-dtr,#tbl-leave,#tbl-mone,#tbl-ob,#tbl-to').dataTable( {
+        $('#tbl-comm,#tbl-dtr,#tbl-leave,#tbl-mone,#tbl-ob,#tbl-to,#tbl-pds_update').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#employee_view').show();

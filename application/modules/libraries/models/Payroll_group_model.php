@@ -71,5 +71,12 @@ class Payroll_group_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-		
+	
+	public function deleteById($id)
+	{
+		$this->db->where('payrollGroupId', $id);
+		$this->db->delete('tblPayrollGroup');
+		return $this->db->affected_rows(); 
+	}
+	
 }

@@ -61,11 +61,26 @@ class Income extends MY_Controller {
 		endif;
 	}
 	
+	public function delete_income($code)
+	{
+		$id = $this->uri->segment(5);
+		$this->arrData['action'] = 'delete';
+		$this->arrData['arrData'] = $this->Income_Model->getIncomeById($id);
+		$this->template->load('template/template_view','finance/libraries/income/income_add',$this->arrData);
+	}
+
 	public function delete()
 	{
-		$arrPost = $this->input->post();
-		$this->Income_Model->delete($arrPost['txtcode']);
-		$this->session->set_flashdata('strSuccessMsg','Income successfully deleted.');
+		$this->load->model('Check_exists_model');
+		$arrget = $this->input->get();
+		$id = $this->uri->segment(5);
+		if($this->Check_exists_model->check_income($arrget['code']) > 0):
+			$this->session->set_flashdata('strMsg','Income is unable to delete. Contact administrator.');
+		else:
+			$this->Income_Model->delete($id);
+			$this->session->set_flashdata('strSuccessMsg','Income successfully deleted.');
+		endif;
+		
 		redirect('finance/libraries/income');
 	}
 

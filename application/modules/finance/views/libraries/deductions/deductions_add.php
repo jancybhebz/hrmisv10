@@ -58,14 +58,14 @@
                             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                             <div class="portlet-body" style="display: none;">
                                 <?=form_open($action == 'edit' ? 'finance/libraries/deductions/edit/'.$this->uri->segment(5) : '', array('method' => 'post'))?>
-                                    <input type="hidden" id='txtcode' value="<?=$this->uri->segment(5)?>" />
+                                    <!-- <input type="hidden" id='txtcode' value="<?=$this->uri->segment(5)?>" /> -->
                                     <div class="form-body">
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Agency <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <select class="bs-select form-control form-required" name="selAgency" id="selAgency">
+                                                        <select class="bs-select form-control form-required" name="selAgency" id="selAgency" <?=$action == 'delete' ? 'disabled' : ''?>>
                                                             <option value="">-- SELECT AGENCY --</option>
                                                             <?php foreach($agency as $agency): ?>
                                                                 <option value="<?=$agency['deductionGroupCode']?>"
@@ -78,25 +78,28 @@
                                                 <div class="form-group <?=isset($err) ? 'has-error': ''?>">
                                                     <label class="control-label">Deduction Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <input type="text" class="form-control form-required" name="txtddcode" id="txtddcode" value="<?=isset($data) ? $data['deductionCode'] : set_value('txtddcode')?>" <?=$action == 'edit' ? 'disabled' : ''?>>
+                                                        <input type="text" class="form-control form-required" name="txtddcode" id="txtddcode"
+                                                            maxlength="20" value="<?=isset($data) ? $data['deductionCode'] : set_value('txtddcode')?>" <?=$action == 'edit' || $action == 'delete' ? 'disabled' : ''?>>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Deduction Description <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <input type="text" class="form-control form-required" name="txtdesc" id="txtdesc" value="<?=isset($data) ? $data['deductionDesc'] : set_value('txtdesc')?>">
+                                                        <input type="text" class="form-control form-required" name="txtdesc" id="txtdesc"
+                                                            maxlength="50" value="<?=isset($data) ? $data['deductionDesc'] : set_value('txtdesc')?>" <?=$action == 'delete' ? 'disabled' : ''?>>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Account Code <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <input type="text" class="form-control form-required" name="txtacctcode" id="txtacctcode" value="<?=isset($data) ? $data['deductionAccountCode'] : set_value('txtacctcode')?>">
+                                                        <input type="text" class="form-control form-required" name="txtacctcode" id="txtacctcode"
+                                                            maxlength="50" value="<?=isset($data) ? $data['deductionAccountCode'] : set_value('txtacctcode')?>" <?=$action == 'delete' ? 'disabled' : ''?>>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Type <span class="required"> * </span></label>
                                                     <div class="input-icon right">
-                                                        <select class="bs-select form-control form-required" name="seltype" id="seltype">
+                                                        <select class="bs-select form-control form-required" name="seltype" id="seltype" <?=$action == 'delete' ? 'disabled' : ''?>>
                                                             <option value="">-- SELECT TYPE --</option>
                                                             <?php foreach(deduction_type() as $type): ?>
                                                                 <option value="<?=$type?>" <?=isset($data) ? $type == $data['deductionType'] ? 'selected' : '' : $type == set_value('seltype') ? 'selected' : ''?>>
@@ -113,7 +116,11 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                                            <?php if($action=='delete'): ?>
+                                                                    <a href="<?=base_url('finance/libraries/deductions/delete?tab=&id='.$data['deduction_id'].'&code='.$data['deductionCode'])?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                                            <?php else: ?>
+                                                                    <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                                            <?php endif; ?>
                                                             <a href="<?=base_url('finance/libraries/deductions')?>"><button class="btn blue" type="button"><i class="icon-ban"></i> Cancel</button></a>
                                                         </div>
                                                     </div>

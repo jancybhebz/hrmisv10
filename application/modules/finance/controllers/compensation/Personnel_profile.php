@@ -66,7 +66,7 @@ class Personnel_profile extends MY_Controller {
 		$this->arrData['arrEmpBenefits'] = $arrEmpBenefits;
 		$this->arrData['empSalary'] = $this->arrData['arrData']['actualSalary'];
 		$this->arrData['arrEmpDeductions'] = $this->Compensation_model->getEmployeeDeduction($empid,$_GET['yr'],$_GET['mon']);
-		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getEmployee_dtr($empid,date('Y-m-d'),date('Y-m-d'));
 		
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
@@ -401,20 +401,26 @@ class Personnel_profile extends MY_Controller {
 
 	public function dtr($empid)
 	{
+		$this->load->model('libraries/Holiday_model');
+		$this->load->helper(array('payroll_helper','dtr_helper'));
+		
 		$empid = $this->uri->segment(5);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
 
-		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid,currmo(),curryr());
+		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
+		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
 
-		$this->arrData['arremp_dtr'] = $arremp_dtr['dtr'];
-		$this->arrData['emp_workingdays'] = $arremp_dtr['total_workingdays'];
-		$this->arrData['date_absents'] = $arremp_dtr['date_absents'];
-		$this->arrData['total_late'] = $arremp_dtr['total_late'];
-		$this->arrData['total_undertime'] = $arremp_dtr['total_undertime'];
-		$this->arrData['total_days_ut'] = $arremp_dtr['total_days_ut'];
-		$this->arrData['total_days_late'] = $arremp_dtr['total_days_late'];
-		$this->arrData['arrleaves'] = $this->Leave_model->getleave($empid,currmo(),curryr());
+		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
+		$this->arrData['working_days'] = get_workingdays('','',$holidays,$datefrom,$dateto);
+
+		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+		$this->arrData['arrLatestBalance'] = $this->Leave_model->getLatestBalance($empid);
+		$this->arrData['arremp_dtr'] = $arremp_dtr;
+
+		if(in_array(check_module(),array('officer','executive'))):
+			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
+		endif;
 		
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}

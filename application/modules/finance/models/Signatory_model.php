@@ -19,9 +19,9 @@ class Signatory_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function delete($code)
+	public function delete($id)
 	{
-		$this->db->where('signatoryId', $code);
+		$this->db->where('signatoryId', $id);
 		$this->db->delete('tblSignatory');
 		return $this->db->affected_rows(); 
 	}

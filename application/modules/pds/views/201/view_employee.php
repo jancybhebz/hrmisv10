@@ -92,7 +92,7 @@
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-9 profile-info">
-                                                <h1 class="font-green sbold uppercase"><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'])?></h1>
+                                                <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['firstname'], $arrData['surname'],$arrData['middlename'], $arrData['middleInitial'],'')?></h1>
                                                 <div class="row">
                                                     <table class="table table-bordered table-striped">
                                                         <tbody>

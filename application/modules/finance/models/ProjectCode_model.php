@@ -19,9 +19,9 @@ class ProjectCode_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function delete($code)
+	public function delete($id)
 	{
-		$this->db->where('projectCode', $code);
+		$this->db->where('projectId', $id);
 		$this->db->delete('tblProject');
 		return $this->db->affected_rows(); 
 	}

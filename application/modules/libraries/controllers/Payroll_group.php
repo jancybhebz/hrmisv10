@@ -32,6 +32,7 @@ class Payroll_group extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{	
+			$this->arrData['action'] = 'add';
 			$this->arrData['arrProject']=$this->project_code_model->getData(); 
 			$this->template->load('template/template_view','libraries/payroll_group/add_view',$this->arrData);	
 		}
@@ -87,6 +88,7 @@ class Payroll_group extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$intPayrollGroupId = urldecode($this->uri->segment(4));
+			$this->arrData['action'] = 'edit';
 			$this->arrData['arrProject']=$this->project_code_model->getData(); 
 			$this->arrData['arrPayrollGroup']=$this->payroll_group_model->getData();
 		
@@ -124,34 +126,52 @@ class Payroll_group extends MY_Controller {
 		
 	}
 
+	public function delete_payrollgroup()
+	{
+		$intPayrollGroupId = urldecode($this->uri->segment(4));
+		$this->arrData['action'] = 'delete';
+		$this->arrData['arrProject'] = $this->project_code_model->getData(); 
+		$this->arrData['arrPayrollGroup']=$this->payroll_group_model->getData();
+		
+		$this->template->load('template/template_view','libraries/payroll_group/edit_view', $this->arrData);
+	}
+
 	public function delete()
 	{
-		//$strDescription=$arrPost['strDescription'];
-		$arrPost = $this->input->post();
-		$intPayrollGroupId = $this->uri->segment(4);
-		if(empty($arrPost))
-		{
-			$this->arrData['arrData'] = $this->payroll_group_model->getData($intPayrollGroupId);
-			$this->template->load('template/template_view','libraries/payroll_group/delete_view',$this->arrData);
-		}
-		else
-		{
-			$intPayrollGroupId = $arrPost['intPayrollGroupId'];
-			//add condition for checking dependencies from other tables
-			if(!empty($intPayrollGroupId))
-			{
-				$arrPayrollGroup = $this->payroll_group_model->getData($intPayrollGroupId);
-				$strProject = $arrPayrollGroup[0]['strProject'];	
-				$blnReturn = $this->payroll_group_model->delete($intPayrollGroupId);
-				if(count($blnReturn)>0)
-				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Deleted '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrPayrollGroup[0]),'');
-	
-					$this->session->set_flashdata('strMsg','Payroll group deleted successfully.');
-				}
-				redirect('libraries/payroll_group');
-			}
-		}
-		
+		$id = $this->uri->segment(4);
+		$this->payroll_group_model->deleteById($id);
+		$this->session->set_flashdata('strSuccessMsg','Payroll group deleted successfully.');
+		redirect('libraries/payroll_group');
 	}
+
+	// public function delete()
+	// {
+	// 	//$strDescription=$arrPost['strDescription'];
+	// 	$arrPost = $this->input->post();
+	// 	$intPayrollGroupId = $this->uri->segment(4);
+	// 	if(empty($arrPost))
+	// 	{
+	// 		$this->arrData['arrData'] = $this->payroll_group_model->getData($intPayrollGroupId);
+	// 		$this->template->load('template/template_view','libraries/payroll_group/delete_view',$this->arrData);
+	// 	}
+	// 	else
+	// 	{
+	// 		$intPayrollGroupId = $arrPost['intPayrollGroupId'];
+	// 		//add condition for checking dependencies from other tables
+	// 		if(!empty($intPayrollGroupId))
+	// 		{
+	// 			$arrPayrollGroup = $this->payroll_group_model->getData($intPayrollGroupId);
+	// 			$strProject = $arrPayrollGroup[0]['strProject'];	
+	// 			$blnReturn = $this->payroll_group_model->delete($intPayrollGroupId);
+	// 			if(count($blnReturn)>0)
+	// 			{
+	// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblpayrollgroup','Deleted '.$strPayrollGroupCode.' Payroll_Group',implode(';',$arrPayrollGroup[0]),'');
+	
+	// 				$this->session->set_flashdata('strMsg','Payroll group deleted successfully.');
+	// 			}
+	// 			redirect('libraries/payroll_group');
+	// 		}
+	// 	}
+		
+	// }
 }

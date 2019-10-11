@@ -37,7 +37,7 @@
                                 <label class="control-label">Attendance Scheme<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <select class="form-control select2 form-required" name="selattScheme" id="selattScheme" placeholder="">
-                                        <option value="null">SELECT ATTENDANCE SCHEME</option>
+                                        <option value="">SELECT ATTENDANCE SCHEME</option>
                                         <?php foreach($arrAttSchemes as $as): ?>
                                             <option value="<?=$as['code']?>" <?=$as['code'] == $arrData['schemeCode'] ? 'selected' : ''?>>
                                                 <?=$as['label']?></option>

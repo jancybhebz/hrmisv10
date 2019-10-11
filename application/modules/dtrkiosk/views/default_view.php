@@ -53,6 +53,7 @@
                 .logo {
                     margin: 0 !important;
                 }
+                .toast-message{ font-size: 20px !important; }
             </style>
 
             <div class="menu-toggler sidebar-toggler"></div>

@@ -11,7 +11,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=$action?> Income</span>
+            <span><?=ucfirst($action)?> Income</span>
         </li>
     </ul>
 </div>
@@ -42,21 +42,21 @@
                                     <label class="control-label">Income Code <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips <?=isset($err) ? '' : 'hidden'?>" <?=isset($err) ? 'data-original-title="'.$err.'"' : ''?>></i>
-                                        <input type="text" class="form-control form-required" name="txtinccode" id="txtinccode" <?=$action == 'edit' ? 'disabled' : ''?>
-                                            value="<?=isset($arrData) ? $arrData['incomeCode'] : set_value('txtinccode')?>">
+                                        <input type="text" class="form-control form-required" name="txtinccode" id="txtinccode" <?=$action == 'edit' || $action == 'delete' ? 'disabled' : ''?>
+                                            maxlength="15" value="<?=isset($arrData) ? $arrData['incomeCode'] : set_value('txtinccode')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Income Description <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <input type="text" class="form-control form-required" name="txtincdesc" id="txtincdesc"
-                                            value="<?=isset($arrData) ? $arrData['incomeDesc'] : set_value('txtinccode')?>">
+                                        <input type="text" class="form-control form-required" name="txtincdesc" id="txtincdesc" <?=$action == 'delete' ? 'disabled' : ''?>
+                                            maxlength="50" value="<?=isset($arrData) ? $arrData['incomeDesc'] : set_value('txtinccode')?>">
                                     </div>
                                 </div>
                                 <div class="form-group ">
                                     <label class="control-label">Income Type <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <select class="bs-select form-control form-required" name="selinctype" id="selinctype">
+                                        <select class="bs-select form-control form-required" name="selinctype" id="selinctype" <?=$action == 'delete' ? 'disabled' : ''?>>
                                             <option value="">-- SELECT INCOME TYPE --</option>
                                             <?php foreach(income_type() as $type): ?>
                                                 <option value="<?=$type?>" <?=isset($arrData) ? $type == $arrData['incomeType'] ? 'selected' : '' : $type == set_value('selinctype') ? 'selected' : ''?>>
@@ -73,7 +73,11 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button class="btn green" type="submit" id="btn_add_income"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php if($action=='delete'): $code = isset($arrData)?$arrData['incomeCode']:''; ?>
+                                                    <a href="<?=base_url('finance/libraries/income/delete/').$this->uri->segment(5).'?code='.$code?>" class="btn red"><i class="icon-trash"></i> Delete</a>
+                                            <?php else: ?>
+                                                    <button class="btn green" type="submit" id="btn_add_income"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <?php endif; ?>
                                             <a href="<?=base_url('finance/libraries/income')?>" class="btn blue"><i class="icon-ban"></i> Cancel</a>
                                         </div>
                                     </div>

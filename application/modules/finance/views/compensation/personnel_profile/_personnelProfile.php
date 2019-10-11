@@ -1,17 +1,45 @@
-<?=load_plugin('css', array('profile-2'))?>
+<?php
+    load_plugin('css', array('profile-2'));
+    $am_timein  = '-';
+    $am_timeout = '-';
+    $pm_timein  = '-';
+    $pm_timeout = '-';
+
+    if($arrdtr!=null):
+        $arrdtr = $arrdtr[0];
+        $am_timein  = $arrdtr['inAM']  == '' || $arrdtr['inAM']  == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['inAM']));
+        $am_timeout = $arrdtr['outAM'] == '' || $arrdtr['outAM'] == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['outAM']));
+        $pm_timein  = $arrdtr['inPM']  == '' || $arrdtr['inPM']  == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['inPM']));
+        $pm_timeout = $arrdtr['outPM'] == '' || $arrdtr['outPM'] == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['outPM']));
+    endif;
+?>
 <div class="tab-pane active" id="tab_1_1">
     <div class="row">
         <div class="col-md-2">
             <ul class="list-unstyled profile-nav">
                 <li>
-                    <img src="<?=base_url('assets/images/logo.png')?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                    <?php
+                    $strImageUrl = 'uploads/employees/'.$arrData['empNumber'].'.jpg';
+                        if(file_exists($strImageUrl))
+                        {
+                            $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
+                        }
+                        else 
+                        {
+                            $strImage = base_url('assets/images/logo.png');
+                        }?>
+                    <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                    <?php if(check_module() == 'hr'): ?>
+                        <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>" class="btn dark btn-sm">
+                                <i class="icon-ban"> </i> Edit Image</a>
+                    <?php endif; ?>
                 </li>
             </ul>
         </div>
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-9 profile-info">
-                    <h1 class="font-green sbold uppercase"><?=$arrData['firstname']?> <?=$arrData['middleInitial']?>. <?=$arrData['surname']?></h1>
+                    <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['firstname'], $arrData['surname'],$arrData['middlename'], $arrData['middleInitial'],'')?></h1>
                     <div class="row">
                         <table class="table table-bordered table-striped">
                             <tbody>
@@ -52,19 +80,19 @@
                             <ul class="list-unstyled" style="line-height: 15px;">
                                 <li>
                                     <span class="sale-info"> LOG IN </span>
-                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inAM'])) : '00:00'?></span>
+                                    <span class="sale-num"><?=$am_timein?></span>
                                 </li>
                                 <li>
                                     <span class="sale-info"> BREAK OUT </span>
-                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outAM'])) : '00:00'?></span>
+                                    <span class="sale-num"><?=$am_timeout?></span>
                                 </li>
                                 <li>
                                     <span class="sale-info"> BREAK IN </span>
-                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['inPM'])) : '00:00'?></span>
+                                    <span class="sale-num"><?=$pm_timein?></span>
                                 </li>
                                 <li>
                                     <span class="sale-info"> LOG OUT </span>
-                                    <span class="sale-num"><?=$arrdtr != null ? date('H:i', strtotime($arrdtr['outPM'])) : '00:00'?></span>
+                                    <span class="sale-num"><?=$pm_timeout?></span>
                                 </li>
                             </ul>
                         </div>
@@ -229,7 +257,7 @@
                                     <tr>
                                         <td><b>Item Number</b></td>
                                         <td><?=$arrData['uniqueItemNumber'] == 'NULL' ? '' : $arrData['uniqueItemNumber']?></td>
-                                        <td><b></b></td>
+                                        <td><b>Employment Status</b></td>
                                         <td><?=$arrData['statusOfAppointment']?></td>
                                     </tr>
                                     <tr>

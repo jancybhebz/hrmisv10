@@ -717,6 +717,7 @@ class Pds extends MY_Controller
 							'effectiveDate' 	  => $arrPost['txtsalary_eff_date'],
 							'firstDayAgency' 	  => $arrPost['txt_fday_agency'],
 							'statusOfAppointment' => $arrPost['selmode_separation'],
+							'contractEndDate' 	  => $arrPost['txt_sep_date'],
 							'appointmentCode' 	  => $arrPost['selappt_desc'],
 							'officecode' 		  => $arrPost['selexec'],
 							'serviceCode' 		  => $arrPost['selservice'],

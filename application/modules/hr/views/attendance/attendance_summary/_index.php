@@ -5,7 +5,21 @@
         <div class="col-md-2">
             <ul class="list-unstyled profile-nav">
                 <li>
-                    <img src="<?=base_url('assets/images/logo.png')?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                    <?php
+                    $strImageUrl = 'uploads/employees/'.$arrData['empNumber'].'.jpg';
+                        if(file_exists($strImageUrl))
+                        {
+                            $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
+                        }
+                        else 
+                        {
+                            $strImage = base_url('assets/images/logo.png');
+                        }?>
+                    <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
+                    <?php if(check_module() == 'hr'): ?>
+                        <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>" class="btn dark btn-sm">
+                                <i class="icon-ban"> </i> Edit Image</a>
+                    <?php endif; ?>
                 </li>
             </ul>
         </div>
@@ -50,24 +64,6 @@
                                         ?>
                                     </td>
                                 </tr>
-                                <?php if($arrData['appointmentCode']=='P'): ?>
-                                <tr>
-                                    <td><b>Vacation Leave Left</b></td>
-                                    <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['vlBalance'] : ''?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Sick Leave Left</b></td>
-                                    <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['slBalance'] : ''?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Special Leave Left</b></td>
-                                    <td style="width: 75%;"><?=$arrattendance['total_spe_leave']?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Forced Leave Left</b></td>
-                                    <td style="width: 75%;"><?=$arrattendance['total_force_leave']?></td>
-                                </tr>
-                                <?php endif; ?>
                                 <tr>
                                     <td><b>Offset Balance</b></td>
                                     <td style="width: 75%;"><?=date('H:i', mktime(0, ($arrattendance['total_ot_wkdays'] + $arrattendance['total_ot_holidays'])))?></td>
@@ -90,6 +86,31 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <?php if(count($arrleaves) > 0): ?>
+                            <p>
+                                <i><small>As of <?=date('F', mktime(0, 0, 0, $arrleaves['periodMonth'], 10)).' '.$arrleaves['periodYear']?></small></i>
+                            </p>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Vacation Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['vlBalance'] : ''?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Sick Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? $arrleaves['slBalance'] : ''?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Special Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? number_format($arrleaves['plBalance'],3,".","") : ''?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Forced Leave Left</b></td>
+                                        <td style="width: 75%;"><?=count($arrleaves) > 0 ? number_format($arrleaves['flBalance'],3,".","") : ''?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

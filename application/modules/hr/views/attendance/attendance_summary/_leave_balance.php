@@ -106,8 +106,10 @@
 
 <?php $this->load->view('modals/_leave_balance_update_modal'); ?>
 <?php $this->load->view('modals/_leave_balance_modal'); ?>
+
+<?php load_plugin('js', array('form_validation')) ?>
 <script src="<?=base_url('assets/js/custom/leave_balance.js')?>"></script>
-<?=load_plugin('js',array('datatables'));?>
+
 
 <script>
     $(document).ready(function() {

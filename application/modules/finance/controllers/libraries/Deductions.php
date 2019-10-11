@@ -98,6 +98,45 @@ class Deductions extends MY_Controller {
 		endif;
 	}
 
+	public function delete_deduction($id)
+	{
+		$this->arrData['action'] = 'delete';
+		$this->arrData['data'] = $this->Deduction_Model->getDeductions($id);
+		$this->arrData['agency'] = $this->Deduction_Model->getDeductionGroup('');
+		$this->template->load('template/template_view','finance/libraries/deductions/deductions_add',$this->arrData);
+	}
+
+	public function delete_agency($id)
+	{
+		$id = $this->uri->segment(5);
+		$this->arrData['action'] = 'delete';
+		$this->arrData['arrData'] = $this->Deduction_Model->getDeductionGroup($id);
+		$this->template->load('template/template_view','finance/libraries/deductions/agency_add',$this->arrData);
+	}
+
+	public function delete()
+	{
+		$this->load->model('Check_exists_model');
+		$arrget = $this->input->get();
+		if($arrget['tab'] == 'agency'):
+			if($this->Check_exists_model->check_deduction($arrget['code']) > 0):
+				$this->session->set_flashdata('strMsg','Agency is unable to delete. Contact administrator.');
+			else:
+				$this->Deduction_Model->delete(0, $arrget['id']);
+			$this->session->set_flashdata('strSuccessMsg','Agency successfully deleted.');
+			endif;
+			redirect('finance/libraries/deductions?tab=agency');
+		else:
+			if($this->Check_exists_model->check_deduction($arrget['code']) > 0):
+				$this->session->set_flashdata('strMsg','Deduction is unable to delete. Contact administrator.');
+			else:
+				$this->Deduction_Model->delete(1, $arrget['id']);
+				$this->session->set_flashdata('strSuccessMsg','Deduction successfully deleted.');
+			endif;
+			redirect('finance/libraries/deductions');
+		endif;
+	}
+
 	public function edit_agency($id)
 	{
 		$id = $this->uri->segment(5);
@@ -120,17 +159,7 @@ class Deductions extends MY_Controller {
 		$this->template->load('template/template_view','finance/libraries/deductions/agency_add',$this->arrData);
 	}
 
-	public function delete()
-	{
-		$arrPost = $this->input->post();
-		$this->Deduction_Model->delete($arrPost['txttab'], $arrPost['txtcode']);
-		$this->session->set_flashdata('strSuccessMsg',$arrPost['txtcode'].' successfully deleted.');
-		if($arrPost['txttab'] == 1):
-			redirect('finance/libraries/deductions');
-		else:
-			redirect('finance/libraries/deductions?tab=agency');
-		endif;
-	}
+	
 
 }
 /* End of file Deductions.php

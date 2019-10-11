@@ -36,6 +36,16 @@ class Payroll_group_model extends CI_Model {
 		endif;
 	}
 
+	function getDataById($id='')
+	{
+		if($id==''):
+			return $this->db->join('tblProject', 'tblProject.projectCode = tblPayrollGroup.projectCode', 'left')->order_by('payrollGroupCode','ASC')->get('tblPayrollGroup')->result_array();
+		else:
+			$result = $this->db->get_where('tblPayrollGroup', array('payrollGroupId' => $id))->result_array();
+			return $result[0];
+		endif;
+	}
+
 	function getPayrollGroupCode($code='')
 	{
 		if($code==''):

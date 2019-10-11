@@ -23,7 +23,7 @@ class Notifications extends MY_Controller {
 		$arrEmployees = array();
 		$employees = $this->Hr_model->getData('','','');
 		foreach($employees as $employee):
-			if($employee['payrollSwitch'] == 'Y' && ($employee['detailedfrom'] == '0' || $employee['detailedfrom'] == '2')):
+			if($employee['payrollSwitch'] == 'Y'):
 				array_push($arrEmployees, $employee);
 			endif;
 		endforeach;

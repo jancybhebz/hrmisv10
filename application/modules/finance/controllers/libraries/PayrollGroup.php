@@ -61,6 +61,15 @@ class PayrollGroup extends MY_Controller {
 		$this->template->load('template/template_view','finance/libraries/payrollgroup/payrollgroup_add',$this->arrData);
 	}
 
+	public function delete_payrollgroup()
+	{
+		$id = $this->uri->segment(4);
+		$this->arrData['action'] = 'delete';
+		$this->arrData['data'] = $this->Payroll_group_model->getDataById($id);
+		$this->arrData['projectcode'] = $this->ProjectCode_model->getData('');
+		$this->template->load('template/template_view','finance/libraries/payrollgroup/payrollgroup_add',$this->arrData);
+	}
+
 	public function delete() 
 	{ 
 		$this->Payroll_group_model->delete($_GET['code']);

@@ -15,8 +15,6 @@
         <?php include('css.php');?>
         
         <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> </head>
-    
-
     <body class=" login">
         <div class="menu-toggler sidebar-toggler"></div>
         <!-- END SIDEBAR TOGGLER BUTTON -->
@@ -32,7 +30,7 @@
             <br><img style="height: 50px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
             <h1 class="hrmisLogo">HRMIS</h1>
             <div class="small">Human Resource Management Information System</div>
-            <h3 class="form-title font-green">Sign In</h3>
+            <h3 class="form-title font-green">Log In</h3>
             <div class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
                 <span> Enter any username and password. </span>
@@ -41,12 +39,12 @@
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
-                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" /> </div>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" maxlength="20" /> </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
-                    <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" /> </div>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" maxlength="60" /> </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn green uppercase">Login</button>
+                    <button type="submit" class="btn green uppercase">Log in</button>
                     <!--label class="rememberme check">
                         <input type="checkbox" name="remember" value="1" />Remember </label-->
                     <!--a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a-->
