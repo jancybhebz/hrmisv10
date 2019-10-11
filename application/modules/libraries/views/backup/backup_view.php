@@ -30,32 +30,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 <div class="row">
-<div class="row">
     <div class="col-md-12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
                     <span class="caption-subject bold uppercase"> Back-up</span>
-                </div>
-                
+                </div> 
             </div>
-            <div class="portlet-body">
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="btn-group">
-                                <a href="<?=base_url('libraries/backup/export_database')?>" id="btndbdownload" class="btn sbold green"> Download
-                                    <i class="fa fa-download"></i>
-                                    
-                                </button></a>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                    
+            <div class="portlet-body form">
+                <a href="<?=base_url('libraries/backup/export_database')?>" id="btndbdownload" class="btn sbold green"> Download
+                    <i class="fa fa-download"></i>
+                </a>
+
+                <br><br>
                  <!--  <table class="table table-striped table-bordered table-checkable order-column" id="libraries_backup" style="visibility: hidden;">
                     <thead>
                         <tr>
@@ -72,10 +60,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </tr>
                     </tbody>
                 </table> -->
-
             </div>
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
 

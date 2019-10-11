@@ -1,3 +1,7 @@
+.page-content {
+    min-height: 1150px !important;
+}
+
 i.fa.tooltips.overflow {
     position: relative;
     left: 316px;
