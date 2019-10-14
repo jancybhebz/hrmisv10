@@ -18,6 +18,9 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
+                        <div class="alert alert-danger alert-dismissable" >
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                            <strong>Error!</strong> Invalid input. </div>
                         <a href="<?=base_url('hr/attendance_summary/dtr/'.$arrData['empNumber'].'?datefrom='.currdfrom().'&dateto='.currdto())?>" class="btn grey-cascade">
                             <i class="icon-calendar"></i> DTR </a>
                         <br><br>
