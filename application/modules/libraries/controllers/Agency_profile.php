@@ -147,7 +147,7 @@ class Agency_profile extends MY_Controller {
 			$dtmExpMon = $arrPost['dtmExpMon'];
 			$dtmExpYr = $arrPost['dtmExpYr'];
 			$intFlagTime = $arrPost['intFlagTime'];
-			$intAutoComputeTax = $arrPost['intAutoComputeTax'];
+			$intAutoComputeTax = isset($arrPost['intAutoComputeTax']) ? 1 : 0;
 
 			$intGSISNum = $arrPost['intGSISNum'];
 			$intGSISEmpShare = $arrPost['intGSISEmpShare'];

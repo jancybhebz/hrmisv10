@@ -87,39 +87,36 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Longevity Update</h4>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmLongevity'))?>
-                <div class="modal-body">
-                    <div class="row form-body">
-                        <div class="col-md-12">
-                            <input type="hidden" name="txtaction" id="txtaction">
-                            <input type="hidden" name="txtlongevityid" id="txtlongevityid">
-                            <div class="form-group">
-                                <label class="control-label">Longevity Date<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <input class="form-control date-picker form-required" data-date="2012-03-01" data-date-format="yyyy-mm-dd" name="txtlongevitydate" id="txtlongevitydate-bl"
-                                    type="text" value="">
-                                </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <input type="hidden" name="txtaction" id="txtaction">
+                        <div class="form-group">
+                            <label class="control-label">Longevity Date<span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <input class="form-control date-picker form-required" data-date="2012-03-01" data-date-format="yyyy-mm-dd" name="txtlongevitydate" id="txtlongevitydate-bl"
+                                type="text" value="" maxlength="10">
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Salary<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <input type="text" class="form-control form-required" name="txtsalary" id="txtsalary-bl">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Salary<span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <input type="text" class="form-control form-required" name="txtsalary" id="txtsalary-bl" maxlength="10">
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Percent<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <input type="text" class="form-control form-required" name="txtpercent" id="txtpercent-bl">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Percent<span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <input type="text" class="form-control form-required" name="txtpercent" id="txtpercent-bl" maxlength="3">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn green" id="btn-update-longevity"><i class="icon-check"> </i> Save</button>
-                    <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
-                </div>
-            <?=form_close()?>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn green" id="btn-update-longevity"><i class="icon-check"> </i> Save</button>
+                <button type="button" class="btn blue" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+            </div>
         </div>
     </div>
 </div>
@@ -183,6 +180,38 @@
     </div>
 </div>
 
+<div id="update_longevity" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h5 class="modal-title font-yellow"> <i class="fa fa-exclamation-triangle"></i> Update Longevity in Benefit List</h5>
+            </div>
+            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmdellongevity'))?>
+                <div class="modal-body">
+                    <div class="row form-body">
+                        <div class="col-md-12">
+                            <input type="text" name="txtaction" id="txt_upt_action">
+                            <input type="hidden" name="txtamount" value="<?=$totalLP?>">
+                            <input type="hidden" name="txtlongevitydate" id="txt_upt_longevitydate-bl">
+                            <input type="hidden" name="txtsalary" id="txt_upt_salary-bl">
+                            <input type="hidden" name="txtpercent" id="txt_upt_percent-bl">
+                            <input type="hidden" name="txtlongevityid" id="txtlongevityid-bl">
+                            <div class="form-group">
+                                <label>Longevity in Benefit List will also update period 1, you can alter details later. Are you sure you want to proceed?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                    <button type="button" class="btn btn-sm dark" data-dismiss="modal"><i class="icon-close"> </i> No</button>
+                </div>
+            <?=form_close()?>
+        </div>
+    </div>
+</div>
+
 <div id="deleteLongevity" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -211,6 +240,7 @@
         </div>
     </div>
 </div>
+
 
 <?php load_plugin('js', array('select2','datepicker')) ?>
 

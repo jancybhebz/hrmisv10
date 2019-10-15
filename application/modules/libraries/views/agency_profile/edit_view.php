@@ -7,7 +7,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css',array('timepicker'));?>
+
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -124,25 +124,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">No. of Min before OT </label>
-                            <div class="col-md-1">
-                                <input type="text" class="form-control timepicker timepicker-default" name="intBeforeOT" id="intBeforeOT" value="<?=!empty($arrAgency[0]['minOT'])?$arrAgency[0]['minOT']:''?>" format="12:00"  autocomplete="off">   
+                            <label class="col-md-2 control-label">Time Before OT </label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control timepicker" name="intBeforeOT" id="intBeforeOT" value="<?=!empty($arrAgency[0]['minOT'])?$arrAgency[0]['minOT']:''?>" format="12:00"  autocomplete="off">   
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Max of OT Hours </label>
-                            <div class="col-md-1">
-                                <input type="text" class="form-control timepicker timepicker-default" name="intMaxOT" id="intMaxOT" value="<?=!empty($arrAgency[0]['maxOT'])?$arrAgency[0]['maxOT']:''?>" format="12:00"  autocomplete="off">   
+                            <label class="col-md-2 control-label">Maximum Hours of OT </label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control timepicker timepicker-default" name="intMaxOT" id="intMaxOT" value="<?=!empty($arrAgency[0]['maxOT'])?$arrAgency[0]['maxOT']:''?>" format="12:00"  autocomplete="off">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Expiration of CTO (Month / Year)</label>
-                            <div class="col-md-1">
+                            <label class="col-md-2 control-label">Expiration of CTO (Yr / Month)</label>
+                            <div class="col-md-3">
                                 <!-- <input class="form-control form-control-inline input-medium date-picker" name="intExpryOT" id="intExpryOT" autocomplete="off" size="16" type="text" value="<?=!empty($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>" 
                                 data-date-format="yyyy-mm-dd"> -->
-                                    <select class="bs-select form-control" name="dtmExpMon" id="dtmExpMon" >
+                                    <!-- <select class="bs-select form-control" name="dtmExpMon" id="dtmExpMon" >
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=sprintf('%02d', $m)?>"
                                                 <?php 
@@ -154,37 +154,46 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                                  ?> >
                                                 <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
                                         <?php endforeach; ?>
-                                    </select>
+                                    </select> -->
+                                <input type="text" class="form-control" name="dtmExpYr" maxlength="4" placeholder="Number of Years" value="<?=isset($arrAgency) ? $arrAgency[0]['expr_cto_yr'] : ''?>">
                             </div>
-                             <div class="col-md-1">
+                             <div class="col-md-3">
                                 <!-- <input class="form-control form-control-inline input-medium date-picker" name="intExpryOT" id="intExpryOT" autocomplete="off" size="16" type="text" value="<?=!empty($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>" 
                                 data-date-format="yyyy-mm-dd"> -->
                                     <?php
-                                        $already_selected_value = date("Y");
-                                        $earliest_year = 2003;
+                                        // $already_selected_value = date("Y");
+                                        // $earliest_year = 2003;
 
-                                        print '<select name="dtmExpYr" id="dtmExpYr" class="form-control bs-select form-required">';
-                                        foreach (range(date('Y'), $earliest_year) as $x) {
-                                            print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
-                                        }
-                                        print '</select>'; ?>
+                                        // print '<select name="dtmExpYr" id="dtmExpYr" class="form-control bs-select form-required">';
+                                        // foreach (range(date('Y'), $earliest_year) as $x) {
+                                        //     print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
+                                        // }
+                                        // print '</select>'; ?>
+                                    <input type="text" class="form-control" name="dtmExpMon" maxlength="2" placeholder="Number of Months" value="<?=isset($arrAgency) ? $arrAgency[0]['expr_cto_mon'] : ''?>">
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-info btn-circle btn-xs" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                        href="#modal-info"><i class="fa fa-question"></i></a>
                             </div>
                         </div>
 
                         <div class="form-group timepicker">
                             <label class="col-md-2 control-label">Flag Ceremony Time </label>
-                            <div class="col-md-1">
+                            <div class="col-md-3">
                                 <input type="text" class="form-control timepicker timepicker-default" name="intFlagTime" id="intFlagTime" value="<?=!empty($arrAgency[0]['flagTime'])?$arrAgency[0]['flagTime']:''?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                             <label class="col-md-2 control-label">Auto Computation of Tax </label>
-                            <div class="col-md-9">
+                            <label class="col-md-2 control-label">Auto Computation of Tax </label>
+                            <!-- <div class="col-md-9">
                                 <label class="radio-inline">
                                     <input type="radio" name="intAutoComputeTax" value="1" <?=isset($arrAgency) ? $arrAgency[0]['autoComputeTax'] == '1' ? 'checked' : '' : ''?>> Yes </label>
                                 <label class="radio-inline">
                                     <input type="radio" name="intAutoComputeTax" value="0" <?=isset($arrAgency) ? $arrAgency[0]['autoComputeTax'] == '0' ? 'checked' : '' : ''?>> No </label>
+                            </div> -->
+                            <div class="col-md-3" style="padding-top: 7px;padding-bottom: 0 !important;">
+                                <label><input type="checkbox" name="intAutoComputeTax" <?=isset($arrAgency) ? $arrAgency[0]['autoComputeTax'] == '1' ? 'checked' : '' : ''?>></label>
                             </div>
                         </div>
                         <hr>
@@ -314,7 +323,35 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-<?php load_plugin('js',array('validation','timepicker'));?>
+<?php load_plugin('js',array('validation'));?>
+
+<!-- begin Info Modal -->
+<div class="modal fade" id="modal-info" tabindex="-1" role="basic" aria-hidden="true"> 
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title small">Expiration of CTO</h4>
+            </div>
+            <div class="modal-body"><small>
+                Expiration of CTO will based on number of years and months. <b>For example:</b>
+                <i>
+                    <br>Expiration Years: 2
+                    <br>Expiration Months: 6
+                    <br>CTO Date: 2019-01-01
+                    <br>CTO Expiration Date: 2021-07-01
+                </i>
+            </small> </div>
+            <div class="modal-footer">
+                <button type="submit" id="btndelete" class="btn btn-sm green">
+                    <i class="icon-check"> </i> Yes</button>
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    <i class="icon-ban"> </i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Info Modal -->
 
 <script type="text/javascript">
     jQuery.validator.addMethod("noSpace", function(value, element) { 
@@ -497,5 +534,6 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
     FormValidation.init();
+
 });
 </script>

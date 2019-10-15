@@ -26,6 +26,14 @@ class Income_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	function editBy_empid_income($arrData, $empid, $code)
+	{
+		$this->db->where('empNumber',$empid);
+		$this->db->where('incomeCode',$code);
+		$this->db->update('tblEmpBenefits', $arrData);
+		return $this->db->affected_rows();
+	}
+
 	public function delete($code)
 	{
 		$this->db->where('income_id', $code);

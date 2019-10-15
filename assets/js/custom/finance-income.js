@@ -92,6 +92,8 @@ $(document).ready(function() {
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').find('i.fa-check').remove();
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').find('i.fa-warning').remove();
 
+	    $('#txtlongevityid-bl').val($(this).data('longeid'));
+	    $('#txt_upt_action').val('edit');
 	    $('#sub-title').html($(this).closest('table').data('title'));
 	    $('#txtlongevitydate-bl').val($(this).parent().siblings(":first").text());
 	    $('#txtsalary-bl').val($(this).parent().siblings(":eq(1)").text());
@@ -107,6 +109,7 @@ $(document).ready(function() {
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').find('i.fa-warning').remove();
 	    
 	    $('#txtaction').val('add');
+	    $('#txt_upt_action').val('add');
 	    $('#txtlongevitydate-bl').val('');
 	    $('#txtsalary-bl').val('');
 	    $('#txtpercent-bl').val('');
@@ -201,14 +204,18 @@ $(document).ready(function() {
     });
 
     $('#btn-update-longevity').click(function(e) {
+    	e.preventDefault();
     	var total_error = 0;
-
+    	
         total_error = total_error + check_date('#txtlongevitydate-bl','Longevity Date must not be empty.');
 		total_error = total_error + check_number('#txtsalary-bl','Salary must not be empty.');
 		total_error = total_error + check_number('#txtpercent-bl','Percent must not be empty.');
 
-        if(total_error > 0){
-            e.preventDefault();
+        if(total_error < 1){
+        	$('#txt_upt_longevitydate-bl').val($('#txtlongevitydate-bl').val());
+			$('#txt_upt_salary-bl').val($('#txtsalary-bl').val());
+			$('#txt_upt_percent-bl').val($('#txtpercent-bl').val());
+            $('#update_longevity').modal('show');
         }
     });
 

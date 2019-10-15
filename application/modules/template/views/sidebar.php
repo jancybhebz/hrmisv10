@@ -431,7 +431,7 @@ $user_session = $this->session->userdata();
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="<?=base_url('hr/profile/'.$this->session->userdata('sessEmpNo'))?>" class="nav-link nav-toggle">
+                    <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
                         <i class="icon-docs"></i>
                         <span class="title">Reports</span>
                     </a>

@@ -55,7 +55,9 @@ $('#tbldtr').on('click', 'tbody > tr > td #btncto', function () {
 var dtr = [];
 
 var json_alltr = [{}];
+$('.alert').hide();
 $('#btn_edit_dtr').click(function(e) {
+    var err = 0;
     // e.preventDefault();
     $('.dtr-edit tr').each(function (i, valtr) {
         // dtr_tr = [];
@@ -65,36 +67,32 @@ $('#btn_edit_dtr').click(function(e) {
             td_text = td_text.replace(/(<([^>]+)>)/ig,"").replace(/(\r\n|\n|\r)/gm, "");
             // dtr_tr.push($.trim(td_text));
             json_tr.push({ 'td' : $.trim(td_text)});
+            var tdindex = $(this).index();
+
+            $(this).css('background-color','#fff');
+            if(tdindex >= 1 && tdindex <=6 ){
+                value = td_text.replace(/ /g,'');
+                if(!/^\d{2}:\d{2}$/.test(value)){
+                    $(this).find('.tdedit').css('background-color','pink');
+                    err = err + 1;
+                }else{
+                    var parts = value.split(':');
+                    if(parts[0] > 23 || parts[1] > 59){
+                        $(this).find('.tdedit').css('background-color','pink');
+                        err = err + 1;
+                    }
+                }
+            }
         });
         json_alltr.push({ 'tr' : json_tr});
-        // console.log(json_tr);
-        // dtr.push('tr', [dtr_tr]);
     });
-    console.log(JSON.stringify(json_alltr));
-    // dtr = ;
-    // jsondtr = {};
-    // jsondtr.val = JSON.stringify(dtr);
-    // console.log(jsondtr);
+
     $('#txtjson').val(JSON.stringify(json_alltr));
-
-
-    // console.log(baseurl+'/'+pathname[1]+'/hr/attendance/dtr_edit');
-    // $.post(baseurl+'/'+pathname[1]+'/hr/attendance/dtr_edit', dtr );
-    // $.post( baseurl+'/'+pathname[1]+'/hr/attendance/dtr_edit', function( data ) {
-    //   console.log( "Data Loaded: " + data );
-    // });
-    // $.post(baseurl+'/'+pathname[1]+'/hr/attendance/dtr_edit', dtr, function(response) {
-        // Log the response to the console
-        // console.log("Response: "+response);
-    // });
-    // $.ajax({
-    //             type: "post",
-    //             dataType: "json",
-    //             url: baseurl+'/'+pathname[1]+'/hr/attendance/dtr_edit',
-    //             data: dtr,
-    //             contentType: 'json',
-    //             "success": function(result) {
-    //                 console.log(result);
-    //             },
-    //         });
+    console.log(err);
+    if(err > 0){
+        $('.alert').show();
+        e.preventDefault();
+    }else{
+        $('.alert').hide();
+    }
 });
