@@ -151,19 +151,21 @@ class Personnel_profile extends MY_Controller {
 
 	public function actionLongevity()
 	{
+		$this->load->model('Income_model');
 		$arrPost = $this->input->post();
 		$empid = $this->uri->segment(5);
 
 		if(!empty($arrPost)):
 			$this->load->model('Longevity_model');
+			$salary = str_replace(',','',$arrPost['txtsalary']);
 			if(isset($arrPost['txtaction'])):
 				if($arrPost['txtaction'] == 'add'):
 					$arrData = array(
 							'empNumber'		=> $empid,
 							'longiDate'		=> $arrPost['txtlongevitydate'],
-							'longiAmount'	=> $arrPost['txtsalary'],
+							'longiAmount'	=> $salary,
 							'longiPercent'	=> $arrPost['txtpercent'],
-							'longiPay'		=> $arrPost['txtsalary'] * ($arrPost['txtpercent'] / 100));
+							'longiPay'		=> $salary * ($arrPost['txtpercent'] / 100));
 					$this->Longevity_model->addLongevity($arrData);
 					$this->session->set_flashdata('strSuccessMsg','Longevity pay added successfully.');
 				endif;
@@ -171,9 +173,9 @@ class Personnel_profile extends MY_Controller {
 				if($arrPost['txtaction'] == 'edit'):
 					$arrData = array(
 							'longiDate'		=> $arrPost['txtlongevitydate'],
-							'longiAmount'	=> $arrPost['txtsalary'],
+							'longiAmount'	=> $salary,
 							'longiPercent'	=> $arrPost['txtpercent'],
-							'longiPay'		=> $arrPost['txtsalary'] * ($arrPost['txtpercent'] / 100));
+							'longiPay'		=> $salary * ($arrPost['txtpercent'] / 100));
 					$this->Longevity_model->editLongevity($arrData, $empid, $arrPost['txtlongevityid']);
 					$this->session->set_flashdata('strSuccessMsg','Longevity pay updated successfully.');
 				endif;
@@ -186,6 +188,10 @@ class Personnel_profile extends MY_Controller {
 				endif;
 			endif;
 
+			# update longevity table
+			$income_amount = $arrPost['txtamount'] + ($arrPost['txtsalary'] * ($arrPost['txtpercent'] / 100));
+			$this->session->set_flashdata('strSuccessMsg','Longevity and Benefit Details updated successfully.');
+			$this->Income_model->editBy_empid_income(array('incomeAmount' => $income_amount, 'period1' => $income_amount), $empid, 'LONGI');
 		endif;
 		redirect('finance/compensation/personnel_profile/income/'.$empid.'/2');
 	}
