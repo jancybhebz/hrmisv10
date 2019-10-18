@@ -164,7 +164,6 @@ class Migrate_model extends CI_Model {
         if(!$this->Migrate_model->check_if_column_exist('tblEmpDeductionRemit','remitt_id')):
             $this->write_sqlstmt("ALTER TABLE `tblEmpDeductionRemit` ADD `remitt_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`remitt_id`);",$sql_file);
         endif;
-        
 
     	$tbldb_hrmis = $this->db->list_tables();
     	foreach($tbldb_hrmis as $tbl):
@@ -265,6 +264,12 @@ class Migrate_model extends CI_Model {
 		    	endif;
 	    	endforeach;
 	    endif;
+
+        # Fix Request Applicant
+        $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '1' WHERE `tblRequestSignatory`.`SignCode` IN ('SECHEAD','UNSEC','EXECUTIVE');",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '2' WHERE `tblRequestSignatory`.`SignCode` = 'SERVICE';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '3' WHERE `tblRequestSignatory`.`SignCode` = 'DIVISION';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '4' WHERE `tblRequestSignatory`.`SignCode` = 'SECTION';",$sql_file);
     }
 
     function update_data_type()

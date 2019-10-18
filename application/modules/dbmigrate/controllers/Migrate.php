@@ -245,7 +245,7 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeinFrom` `nnTimeinFrom_old_data` VARCHAR(11);",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` ADD `nnTimeinFrom` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblAttendanceScheme` SET `nnTimeinFrom` = CASE WHEN (`nnTimeinFrom_old_data` > '00:59:59' AND `nnTimeinFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeinFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeinFrom_old_data` = '00:00:00') THEN NULL ELSE `nnTimeinFrom_old_data` END;",$path);
-        
+
         $total_line = 0;
         $ctrcomment = 0;
         if(file_exists($path)):

@@ -2037,8 +2037,10 @@ CREATE TABLE `tblReportType` (
 --
 
 CREATE TABLE `tblRequestApplicant` (
+  `appid` int(11) NOT NULL,
   `AppliCode` varchar(100) NOT NULL DEFAULT '',
-  `Applicant` varchar(100) NOT NULL DEFAULT ''
+  `Applicant` varchar(100) NOT NULL DEFAULT '',
+  `group` varchar(100) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2066,7 +2068,8 @@ CREATE TABLE `tblRequestFlow` (
 CREATE TABLE `tblRequestSignatory` (
   `SignCode` varchar(50) NOT NULL DEFAULT '',
   `Signatory` varchar(100) NOT NULL DEFAULT '',
-  `SignHead` varchar(50) NOT NULL DEFAULT ''
+  `SignHead` varchar(50) NOT NULL DEFAULT '',
+  `group` INT(2) NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

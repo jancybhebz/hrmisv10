@@ -38,6 +38,10 @@ class Request_model extends CI_Model {
 
 	function getData($intReqId = '')
 	{		
+		$this->db->join('tblRequestType','tblRequestFlow.RequestType = tblRequestType.requestCode','left');
+		$this->db->join('tblRequestApplicant','tblRequestFlow.Applicant = tblRequestApplicant.AppliCode','left');
+
+
 		if($intReqId != "")
 		{
 			$this->db->where($this->tableid,$intReqId);

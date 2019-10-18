@@ -71,132 +71,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <?php $no=1;foreach($arrRequest as $request): ?>
                             <tr>
                                 <td><?=$no++?></td>
-                                <td> <?=$request['RequestType']?> </td>
-                                <td> <?=$request['Applicant']?> </td>
-                                <?php $arrSig1 = explode(';', $request['Signatory1']);?>
-                                <td> <?php 
-                                    if (isset($arrSig1[0]))
-                                    { 
-                                        echo $arrSig1[0].' : ';
-                                    } 
-                                    if(isset($arrSig1[1]))
-                                    { 
-                                        echo $arrSig1[1].' : ';
-                                    } 
-                                    if(isset($arrSig1[2]))
-                                    { 
-                                         echo employee_name(trim($arrSig1[2]));
-                                    } ?>
-                                <?php $arrSig2 = explode(':', $request['Signatory2']);?>
-                                <td> <?php 
-                                    if (isset($arrSig2[0]))
-                                    { 
-                                        echo $arrSig2[0].' : ';
-                                    } 
-                                    if(isset($arrSig2[1]))
-                                    { 
-                                        echo $arrSig2[1].' : ';
-                                    } 
-                                    if(isset($arrSig2[2]))
-                                    { 
-                                        echo employee_name(trim($arrSig2[2]));
-                                    } ?>
-                                <?php $arrSig3 = explode(';', $request['Signatory3']);?>
-                                <td> <?php 
-                                    if (isset($arrSig3[0]))
-                                    { 
-                                        echo $arrSig3[0].' : ';
-                                    } 
-                                    if(isset($arrSig3[1]))
-                                    { 
-                                        echo $arrSig3[1].' : ';
-                                    } 
-                                    if(isset($arrSig3[2]))
-                                    { 
-                                        echo employee_name(trim($arrSig3[2]));
-                                    } ?>
-                                <?php $arrSigFin = explode(';', $request['SignatoryFin']);?>
-                                <td> <?php 
-                                    if (isset($arrSigFin[0]))
-                                    { 
-                                        echo $arrSigFin[0].' : ';
-                                    } 
-                                    if(isset($arrSigFin[1]))
-                                    { 
-                                        echo $arrSigFin[1].' : ';
-                                    } 
-                                    if(isset($arrSigFin[2]))
-                                    { 
-                                        echo employee_name(trim($arrSigFin[2]));
-                                    } ?>
-                                </td> 
-                               <td width="150px" style="white-space: nowrap;">
-                                <a href="<?=base_url('libraries/request/edit/'.$request['reqID'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/request/delete/'.$request['reqID'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
-                               
-                            </td>
+                                <td><?=$request['requestDesc']?> </td>
+                                <td><?=$request['Applicant']?> </td>
+                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['first_signatory'])?></td>
+                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['second_signatory'])?></td>
+                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['third_signatory'])?></td>
+                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['final_signatory'])?></td>
+                                <td width="150px" style="white-space: nowrap;">
+                                    <a class="btn btn-sm btn-success" href="<?=base_url('libraries/request/edit/'.$request['reqID'])?>">
+                                        <i class="fa fa-edit" title="Edit"></i> Edit</a>
+                                    <a class="btn btn-sm btn-danger" href="<?=base_url('libraries/request/delete/'.$request['reqID'])?>">
+                                        <i class="fa fa-trash" title="Delete"></i> Delete</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
-                    <!-- <tbody>
-                    <?php 
-                    $i=1;
-                    foreach($arrRequest as $request):?>
-                        <tr class="odd gradeX">
-                            <td> <?=$i?> </td>
-                            <td> <?=$request['RequestType']?> </td>
-                            <td> <?=$request['Applicant']?> </td>
-                            <?php $arrSig1 = explode(';', $request['Signatory1']);?>
-                            <td> <?php 
-                                if (count($arrSig1)>2)
-                                { 
-                                    echo $arrSig1[0].' - '.employee_name($arrSig1[2]);
-                                } 
-                                else if (count($arrSig1)==0)
-                                { 
-                                    echo employee_name($arrSig1[0]);
-                                } ?>
-                            <?php $arrSig2 = explode(';', $request['Signatory2']);?>
-                            <td> <?php 
-                                if (count($arrSig2)>2)
-                                { 
-                                    echo $arrSig2[0].' - '.employee_name($arrSig2[2]);
-                                } 
-                                else if (count($arrSig2)==1)
-                                { 
-                                    echo employee_name($arrSig2[0]);
-                                } ?>
-                            <?php $arrSig3 = explode(';', $request['Signatory3']);?>
-                            <td> <?php 
-                                if (count($arrSig3)>2)
-                                { 
-                                    echo $arrSig3[0].' - '.employee_name($arrSig3[2]);
-                                } 
-                                else if (count($arrSig3)==1)
-                                { 
-                                    echo employee_name($arrSig3[0]);
-                                } ?>
-                                <?php $arrSigFin = explode(';', $request['SignatoryFin']);?>
-                                <td> <?php 
-                                if (count($arrSigFin)>2)
-                                { 
-                                    echo $arrSigFin[0].' - '.employee_name($arrSigFin[2]);
-                                } 
-                                else if (count($arrSigFin)==1)
-                                { 
-                                    echo employee_name($arrSigFin[0]);
-                                } ?>
-                            </td> 
-                            <td>
-                                <a href="<?=base_url('libraries/request/edit/'.$request['reqID'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/request/delete/'.$request['reqID'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
-                               
-                            </td>
-                        </tr>
-                    <?php 
-                    $i++;
-                    endforeach;?>
-                    </tbody> -->
                 </table>
             </div>
         </div>

@@ -1,11 +1,4 @@
-<?php 
-/** 
-Purpose of file:    Add page for Request Signatories Library
-Author:             Rose Anne L. Grefaldeo
-System Name:        Human Resource Management Information System Version 10
-Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
-**/
-?>
+<?php load_plugin('css',array('select2','select'));?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -25,8 +18,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-	   &nbsp;
-	</div>
+       &nbsp;
+    </div>
 </div>
 <div class="clearfix"></div>
 <div class="row">
@@ -35,481 +28,351 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Add Request Signatories</span>
+                    <span class="caption-subject bold uppercase"> <?=$action?> Request Signatories</span>
                 </div>
-                
             </div>
             <div class="portlet-body">
-               <?=form_open(base_url('libraries/request/add'), array('method' => 'post', 'id' => 'frmRequest'))?>
-               
-                <div class="form-body">
-                    <?php //print_r($arrPost);?>
-                    <div class="row">
-                        <div class="col-sm-12">
+                <div class="row">
+                    <div class="tabbable-line tabbable-full-width col-md-9">
+                        <?php 
+                        $form = $action == 'add' ? '' : 'hr/attendance_summary/dtr/local_holiday_edit/'.$this->uri->segment(5).'?id='.$_GET['id'];
+                        echo form_open($form, array('method' => 'post', 'id' => 'frmlocalholiday', 'class' => 'form-horizontal'))?>
                             <div class="form-group">
-                                <label class="control-label">Type of Request <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i><?php //print_r($arrProject)?>
-                                    <select type="text" class="form-control" name="strReqType" value="<?=!empty($this->session->userdata('strReqType'))?$this->session->userdata('strReqType'):''?>">
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrRequestType as $type)
-                                        {
-                                          echo '<option value="'.$type['requestCode'].'">'.$type['requestDesc'].'</option>';
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Type of Request <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="request_type" id="request_type">
+                                                    <option value="">-- SELECT TYPE OF REQUEST --</option>
+                                                    <?php foreach($arrRequestType as $type): ?>
+                                                        <option value="<?=$type['requestCode']?>"><?=$type['requestDesc']?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12">
+                            <hr>
+
                             <div class="form-group">
-                                <label class="control-label"><strong>APPLICANT </strong> <span class="required"> * </span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 ">
-                            <div class="form-group">
-                                <label class="control-label">General <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strGenApplicant" value="<?=!empty($this->session->userdata('strGenApplicant'))?$this->session->userdata('strGenApplicant'):''?>">
-                                        
-                                         <option value="">Select</option>
-                                         <!-- <option value="ALLEMP">All Employees</option> -->
-                                        <?php foreach($arrApplicant as $applicant)
-                                        {
-                                          echo '<option value="'.$applicant['AppliCode'].'">'.$applicant['Applicant'].'</option>';
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3"><b>APPLICANT</b></label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Office Name </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                     <select type="text" class="form-control" name="strOfficeName" value="<?=!empty($this->session->userdata('strOfficeName'))?$this->session->userdata('strOfficeName'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?=getGroupOffice()?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Type <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="app_type" id="app_type">
+                                                    <option value=""> -- SELECT TYPE OF APPLICANT -- </option>
+                                                    <?php foreach($arrApplicant as $applicant): ?>
+                                                        <option value="<?=$applicant['AppliCode']?>"><?=$applicant['Applicant']?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Employee Name</label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strName" value="<?=!empty($this->session->userdata('strName'))?$this->session->userdata('strName'):''?>" >
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Office Name <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="select2 form-control form-required" name="app_office" id="app_office">
+                                                    <option value=""> -- SELECT OFFICE -- </option>
+                                                    <?=getGroupOffice()?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>1ST SIGNATORY </strong> </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Action </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str1stSigAction" value="<?=!empty($this->session->userdata('str1stSigAction'))?$this->session->userdata('str1stSigAction'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrAction as $action)
-                                        {
-                                          echo '<option value="'.$action['ActionCode'].'">'.$action['ActionDesc'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Employee Name <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="select2 form-control form-required" name="app_employee" id="app_employee">
+                                                    <option value=""> -- SELECT EMPLOYEE -- </option>
+                                                    <?php foreach($arrEmployees as $data): ?>
+                                                        <option value="<?=$data['empNumber']?>"><?=getfullname($data['firstname'],$data['surname'],$data['middlename'],$data['middleInitial'],$data['nameExtension'])?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
+                            <hr>
+
                             <div class="form-group">
-                                <label class="control-label">Signatory </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str1stSignatory" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrSignatory as $signatory)
-                                        {
-                                          echo '<option value="'.$signatory['SignCode'].'">'.$signatory['Signatory'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3"><b>First Signatory</b></label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Officer</label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str1stOfficer" value="<?=!empty($this->session->userdata('str1stOfficer'))?$this->session->userdata('str1stOfficer'):''?>" >
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Action <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sig1_action" id="sig1_action">
+                                                    <option value=""> -- SELECT ACTION -- </option>
+                                                    <?php foreach($arrAction as $sig_action): if($sig_action['ID']!=1):?>
+                                                        <option value="<?=$sig_action['ActionCode']?>"><?=$sig_action['ActionDesc']?></option>
+                                                    <?php endif; endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>2ND SIGNATORY </strong> </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Action </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str2ndSigAction" value="<?=!empty($this->session->userdata('str2ndSigAction'))?$this->session->userdata('str2ndSigAction'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrAction as $action)
-                                        {
-                                          echo '<option value="'.$action['ActionCode'].'">'.$action['ActionDesc'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Signatory </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sig1_signatory" id="sig1_signatory">
+                                                    <option value=""> -- SELECT SIGNATORY -- </option>
+                                                    <?php foreach($arrSignatory as $signatory): ?>
+                                                        <option value="<?=$signatory['SignCode']?>"><?=$signatory['Signatory']?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Signatory</label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str2ndSignatory" value="<?=!empty($this->session->userdata('str2ndSignatory'))?$this->session->userdata('str2ndSignatory'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrSignatory as $signatory)
-                                        {
-                                          echo '<option value="'.$signatory['SignCode'].'">'.$signatory['Signatory'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Officer <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="select2 form-control form-required" name="sig1_officer" id="sig1_officer">
+                                                    <option value=""> -- SELECT EMPLOYEE -- </option>
+                                                    <?php foreach($arrEmployees as $data): ?>
+                                                        <option value="<?=$data['empNumber']?>"><?=getfullname($data['firstname'],$data['surname'],$data['middlename'],$data['middleInitial'],$data['nameExtension'])?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
+                            <hr>
+
                             <div class="form-group">
-                                <label class="control-label">Officer</label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str2ndOfficer" value="<?=!empty($this->session->userdata('str2ndOfficer'))?$this->session->userdata('str2ndOfficer'):''?>" >
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3"><b>Second Signatory</b></label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><strong>3RD SIGNATORY </strong> </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Action </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str3rdSigAction" value="<?=!empty($this->session->userdata('str3rdSigAction'))?$this->session->userdata('str3rdSigAction'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrAction as $action)
-                                        {
-                                          echo '<option value="'.$action['ActionCode'].'">'.$action['ActionDesc'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Action <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sig2_action" id="sig2_action">
+                                                    <option value=""> -- SELECT ACTION -- </option>
+                                                    <?php foreach($arrAction as $sig_action): if($sig_action['ID']!=1):?>
+                                                        <option value="<?=$sig_action['ActionCode']?>"><?=$sig_action['ActionDesc']?></option>
+                                                    <?php endif; endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Signatory </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str3rdSignatory" value="<?=!empty($this->session->userdata('str3rdSignatory'))?$this->session->userdata('str3rdSignatory'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrSignatory as $signatory)
-                                        {
-                                          echo '<option value="'.$signatory['SignCode'].'">'.$signatory['Signatory'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Signatory </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sig2_signatory" id="sig2_signatory">
+                                                    <option value=""> -- SELECT SIGNATORY -- </option>
+                                                    <?php foreach($arrSignatory as $signatory): ?>
+                                                        <option value="<?=$signatory['SignCode']?>"><?=$signatory['Signatory']?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Officer </label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str3rdOfficer" value="<?=!empty($this->session->userdata('str3rdOfficer'))?$this->session->userdata('str3rdOfficer'):''?>" >
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Officer <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="select2 form-control form-required" name="sig2_officer" id="sig2_officer">
+                                                    <option value=""> -- SELECT EMPLOYEE -- </option>
+                                                    <?php foreach($arrEmployees as $data): ?>
+                                                        <option value="<?=$data['empNumber']?>"><?=getfullname($data['firstname'],$data['surname'],$data['middlename'],$data['middleInitial'],$data['nameExtension'])?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12">
+                            <hr>
+
                             <div class="form-group">
-                                <label class="control-label"><strong>FINAL SIGNATORY </strong> </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Action <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <select type="text" class="form-control" name="str4thSigAction" value="<?=!empty($this->session->userdata('str4thSigAction'))?$this->session->userdata('str4thSigAction'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrAction as $action)
-                                        {
-                                          echo '<option value="'.$action['ActionCode'].'">'.$action['ActionDesc'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3"><b>Third Signatory</b></label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Signatory <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                  <select type="text" class="form-control" name="str4thSignatory" value="<?=!empty($this->session->userdata('str4thSignatory'))?$this->session->userdata('str4thSignatory'):''?>" >
-                                        
-                                         <option value="">Select</option>
-                                        <?php foreach($arrSignatory as $signatory)
-                                        {
-                                          echo '<option value="'.$signatory['SignCode'].'">'.$signatory['Signatory'].'</option>';
-            
-                                        }?>
-                                  </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Action <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sig3_action" id="sig3_action">
+                                                    <option value=""> -- SELECT ACTION -- </option>
+                                                    <?php foreach($arrAction as $sig_action): if($sig_action['ID']!=1):?>
+                                                        <option value="<?=$sig_action['ActionCode']?>"><?=$sig_action['ActionDesc']?></option>
+                                                    <?php endif; endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Officer<span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                   <select type="text" class="form-control" name="str4thOfficer" value="<?=!empty($this->session->userdata('str4thOfficer'))?$this->session->userdata('str4thOfficer'):''?>" >
-                                        <option value="">Select</option>
-                                        <?php foreach($arrEmployees as $i=>$data): ?>
-                                        <option value="<?=$data['empNumber']?>"><?=$data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Signatory </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sig3_signatory" id="sig3_signatory">
+                                                    <option value=""> -- SELECT SIGNATORY -- </option>
+                                                    <?php foreach($arrSignatory as $signatory): ?>
+                                                        <option value="<?=$signatory['SignCode']?>"><?=$signatory['Signatory']?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12">
                             <div class="form-group">
-                                <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/request')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Officer <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="select2 form-control form-required" name="sig3_officer" id="sig3_officer">
+                                                    <option value=""> -- SELECT EMPLOYEE -- </option>
+                                                    <?php foreach($arrEmployees as $data): ?>
+                                                        <option value="<?=$data['empNumber']?>"><?=getfullname($data['firstname'],$data['surname'],$data['middlename'],$data['middleInitial'],$data['nameExtension'])?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <hr>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3"><b>Final Signatory</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Action <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sigfinal_action" id="sigfinal_action">
+                                                    <?php foreach($arrAction as $sig_action): if($sig_action['ID']==1):?>
+                                                        <option value="<?=$sig_action['ActionCode']?>"><?=$sig_action['ActionDesc']?></option>
+                                                    <?php endif; endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Signatory </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sigfinal_signatory" id="sigfinal_signatory">
+                                                    <option value=""> -- SELECT SIGNATORY -- </option>
+                                                    <?php foreach($arrSignatory as $signatory): ?>
+                                                        <option value="<?=$signatory['SignCode']?>"><?=$signatory['Signatory']?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Officer <span class="required"> * </span></label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="select2 form-control form-required" name="sigfinal_officer" id="sigfinal_officer">
+                                                    <option value=""> -- SELECT EMPLOYEE -- </option>
+                                                    <?php foreach($arrEmployees as $data): ?>
+                                                        <option value="<?=$data['empNumber']?>"><?=getfullname($data['firstname'],$data['surname'],$data['middlename'],$data['middleInitial'],$data['nameExtension'])?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br><br>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">&nbsp;</label>
+                                        <div class="col-md-9">
+                                            <button class="btn green" type="submit" id="btn_submit_signature"><i class="fa fa-plus"></i> <?=strtolower($action)=='add'?'Add':'Save'?> </button>
+                                            <a href="<?=base_url('libraries/request')?>" class="btn blue"><i class="icon-ban"></i> Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?=form_close()?>
                     </div>
                 </div>
-                <?=form_close()?>
             </div>
         </div>
+
     </div>
 </div>
-<?php load_plugin('js',array('validation'));?>
-<script type="text/javascript">
-    jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
-var FormValidation = function () {
 
-    // validation using icons
-    var handleValidation = function() {
-        // for more info visit the official plugin documentation: 
-            // http://docs.jquery.com/Plugins/Validation
+<?php load_plugin('js',array('select2','form_validation','select'));?>
+<script src="<?=base_url('assets/js/custom/libraries-request_signature.js')?>"></script>
 
-            var form2 = $('#frmRequest');
-            var error2 = $('.alert-danger', form2);
-            var success2 = $('.alert-success', form2);
-
-            form2.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",  // validate all fields including form hidden input
-                rules: {
-                    strReqType: {
-                        required: true
-                    },
-                    strGenApplicant: {
-                        required: true,
-                    },
-                    // strOfficeName: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // strName: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str1stSigAction: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str1stSignatory: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str1stOfficer: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str2ndSigAction: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str2ndSignatory: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str2ndOfficer: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str3rdSigAction: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str3rdSignatory: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    // str3rdOfficer: {
-                    //     minlength: 1,
-                    //     required: true,
-                    // },
-                    str4thSigAction: {
-                        required: true,
-                    },
-                    str4thSigAction: {
-                        required: true,
-                    },
-                    str4thOfficer: {
-                        required: true,
-                    }
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit              
-                    success2.hide();
-                    error2.show();
-                    App.scrollTo(error2, -200);
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    
-                },
-
-                success: function (label, element) {
-                    var icon = $(element).parent('.input-icon').children('i');
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                    icon.removeClass("fa-warning").addClass("fa-check");
-                },
-
-                submitHandler: function (form) {
-                    success2.show();
-                    error2.hide();
-                    form[0].submit(); // submit the form
-                }
-            });
-
-
-    }
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };
-
-}();
-
-jQuery(document).ready(function() {
-    FormValidation.init();
-});
-</script>
