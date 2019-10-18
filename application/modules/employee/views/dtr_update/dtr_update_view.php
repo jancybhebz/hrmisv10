@@ -53,14 +53,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Date : <span class="required"> * </span></label>
+                        <div class="input-icon right">
+                                <i class="fa"></i>
                               <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label style="padding: 6px;">For the Month of : <span class="required"> * </span></label>
+                        <label style="padding: 6px;">For the Month of : </label>
                             <select class="bs-select form-control" name="dtmMonthOf" id="dtmMonthOf" >
                                 <?php foreach (range(1, 12) as $m): ?>
                                     <option value="<?=sprintf('%02d', $m)?>"

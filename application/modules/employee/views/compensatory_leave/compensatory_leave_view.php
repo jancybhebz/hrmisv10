@@ -46,8 +46,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Date : <span class="required"> * </span></label>
+                        <div class="input-icon right">
+                                <i class="fa"></i>
                               <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                          <font color='red'> <span id="errordate"></span></font>
+                        </div>
+                          <!-- <font color='red'> <span id="errordate"></span></font> -->
                     </div>
                 </div>
             </div>
@@ -203,7 +206,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
-            var form2 = $('#frmDTRupdate');
+            var form2 = $('#frmCompensatoryLeave');
             var error2 = $('.alert-danger', form2);
             var success2 = $('.alert-success', form2);
 
@@ -215,11 +218,11 @@ var FormValidation = function () {
                 rules: {
                     dtmComLeave: {
                         required: true,
-                    },
-                    strPurpose: {
-                        required: true,
-                        noSpace: true
                     }
+                    // strPurpose: {
+                    //     required: true,
+                    //     noSpace: true
+                    // }
 
                 },
 
@@ -279,23 +282,23 @@ jQuery(document).ready(function() {
 
 <script>
 
-function checkForBlank()
-{
-   var spaceCount = 0;
+// function checkForBlank()
+// {
+//    var spaceCount = 0;
 
-    $comleave= $('#dtmComLeave').val();
+//     $comleave= $('#dtmComLeave').val();
 
-    $('#errordate').html('');
+//     $('#errordate').html('');
 
-    if($comleave=="")
-    {
-      $('#errordate').html('This field is required!');
-      return false;
-    }
-    else
-    {
-      return true;
-    }
+//     if($comleave=="")
+//     {
+//       $('#errordate').html('This field is required!');
+//       return false;
+//     }
+//     else
+//     {
+//       return true;
+//     }
 
-}
+// }
 </script>
