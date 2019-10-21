@@ -371,7 +371,7 @@ class Leave extends MY_Controller {
         $config['allowed_types']        = 'pdf';
         $path = $_FILES['image']['userfile'];
 		// $newName = "<Whatever name>".".".pathinfo($path, PATHINFO_EXTENSION); 
-		$config['file_name'] = $idTraining.".pdf"; 
+		$config['file_name'] = $strEmpNum.".pdf"; 
 		$config['overwrite'] = TRUE;
 		// print_r($config);
 		// exit(1);
