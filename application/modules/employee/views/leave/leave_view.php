@@ -47,38 +47,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                 <?php 
-                $permonth = date("F, Y", strtotime("last day of previous month"));
-                $vlBalance = $arrBalance['vlBalance'];
-                $slBalance = $arrBalance['slBalance'];
-                $plBalance = $arrBalance['plBalance'];
-                $flBalance = $arrBalance['flBalance'];
-                $mtlBalance = $arrBalance['mtlBalance'];
+                    $permonth = date("F, Y", strtotime("last day of previous month"));
+                    $vlBalance = $arrBalance['vlBalance'];
+                    $slBalance = $arrBalance['slBalance'];
+                    $plBalance = $arrBalance['plBalance'];
+                    $flBalance = $arrBalance['flBalance'];
+                    $mtlBalance = $arrBalance['mtlBalance'];
                 ?>
                        <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
                             <i class="fa"></i>
-                            <?php if ($vlBalance=='')
-                            {
-                                echo '<div><label>Vacation Leave left: 0 </label></div>'; 
-                            } if ($slBalance=='')
-                            {
-                                echo '<div><label>Sick Leave left: 0 </label></div>'; 
-                            } if ($plBalance=='')
-                            {
-                                echo '<div><label>Special Leave left: 0 </label></div>'; 
-                            } if ($flBalance=='')
-                            {
-                                echo '<div><label>Forced Leave left: 0 </label></div>'; 
-                            } if ($mtlBalance=='')
-                            {
-                                echo '<div><label>Maternity Leave left: 0 </label></div>'; 
-                            } else { ?> 
-                                <div><label>Vacation Leave left: <?=$arrBalance['vlBalance'] ?></label></div>
-                                <div><label>Sick Leave left: <?=$arrBalance['slBalance']?></label></div>
-                                <div><label>Special Leave left: <?=$arrBalance['plBalance']?></label></div>
-                                <div><label>Forced Leave left: <?=$arrBalance['flBalance']?></label></div>
-                                <div><label>Maternity Leave left: <?=$arrBalance['mtlBalance']?></label></div>
-                            <?php } ?>
-                            
+                                <div><label>Vacation Leave left: <?=$vlBalance==""?0:$arrBalance['vlBalance']?></label></div>
+                                <div><label>Sick Leave left: <?=$slBalance==""?0:$arrBalance['slBalance']?></label></div>
+                                <div><label>Special Leave left: <?=$plBalance==""?0:$arrBalance['plBalance']?></label></div>
+                                <div><label>Forced Leave left: <?=$flBalance==""?0:$arrBalance['flBalance']?></label></div>
+                                <div><label>Maternity Leave left: <?=$mtlBalance==""?0:$arrBalance['mtlBalance']?></label></div>
                     </div>
                 </div>
             </div><br>
@@ -252,7 +234,30 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                    </div>
                 </div>
+
                 <?=form_close()?>
+                <br>
+                <?=form_open_multipart(base_url('employee/leave/uploadLeaveDocs/'.$this->uri->segment(4)), array('method'=> 'post'))?>
+                <div class="row" id="upload">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                         <label class="control-label"><strong>ATTACHMENT :</strong></label>
+                         <br>
+                            <div style="position:relative;">
+                                <a class='btn btn-primary' href='javascript:;'>
+                                    Choose File...
+                                <input type="file" name ="userfile" id= "userfile" accept="application/pdf" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+                                </a>
+                                &nbsp;
+                                <button type="submit" name="uploadLeaveDocs" class="btn blue start">
+                                    <i class="fa fa-upload"></i>
+                                    <span> Start Upload </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?=form_close(); ?>
             </div>
         </div>
     </div>
