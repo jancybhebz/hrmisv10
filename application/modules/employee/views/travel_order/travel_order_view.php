@@ -48,7 +48,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Destination : <span class="required"> * </span></label>
-                               <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                                <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,7 +59,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Date From : <span class="required"> * </span></label>
-                              <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                                <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +70,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Date To : <span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <i class="fa"></i>
                                <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdateto" id="dtmTOdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +81,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Purpose : <span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <i class="fa"></i>
                                <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,8 +109,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-
                 <?=form_close()?>
+                  <br>
+                <?=form_open_multipart(base_url('employee/travel_order/uploadTODocs/'.$this->uri->segment(4)), array('method'=> 'post'))?>
+                <div class="row" id="upload">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                         <label class="control-label"><strong>ATTACHMENT :</strong></label>
+                         <br>
+                            <div style="position:relative;">
+                                <a class='btn btn-primary' href='javascript:;'>
+                                    Choose File...
+                                <input type="file" name ="userfile" id= "userfile" accept="application/pdf" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+                                </a>
+                                &nbsp;
+                                <button type="submit" name="uploadTODocs" class="btn blue start">
+                                    <i class="fa fa-upload"></i>
+                                    <span> Start Upload </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?=form_close(); ?>
             </div>
         </div>
     </div>

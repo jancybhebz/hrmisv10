@@ -47,38 +47,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                 <?php 
-                $permonth = date("F, Y", strtotime("last day of previous month"));
-                $vlBalance = $arrBalance['vlBalance'];
-                $slBalance = $arrBalance['slBalance'];
-                $plBalance = $arrBalance['plBalance'];
-                $flBalance = $arrBalance['flBalance'];
-                $mtlBalance = $arrBalance['mtlBalance'];
+                    $permonth = date("F, Y", strtotime("last day of previous month"));
+                    $vlBalance = $arrBalance['vlBalance'];
+                    $slBalance = $arrBalance['slBalance'];
+                    $plBalance = $arrBalance['plBalance'];
+                    $flBalance = $arrBalance['flBalance'];
+                    $mtlBalance = $arrBalance['mtlBalance'];
                 ?>
                        <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
                             <i class="fa"></i>
-                            <?php if ($vlBalance=='')
-                            {
-                                echo '<div><label>Vacation Leave left: 0 </label></div>'; 
-                            } if ($slBalance=='')
-                            {
-                                echo '<div><label>Sick Leave left: 0 </label></div>'; 
-                            } if ($plBalance=='')
-                            {
-                                echo '<div><label>Special Leave left: 0 </label></div>'; 
-                            } if ($flBalance=='')
-                            {
-                                echo '<div><label>Forced Leave left: 0 </label></div>'; 
-                            } if ($mtlBalance=='')
-                            {
-                                echo '<div><label>Maternity Leave left: 0 </label></div>'; 
-                            } else { ?> 
-                                <div><label>Vacation Leave left: <?=$arrBalance['vlBalance'] ?></label></div>
-                                <div><label>Sick Leave left: <?=$arrBalance['slBalance']?></label></div>
-                                <div><label>Special Leave left: <?=$arrBalance['plBalance']?></label></div>
-                                <div><label>Forced Leave left: <?=$arrBalance['flBalance']?></label></div>
-                                <div><label>Maternity Leave left: <?=$arrBalance['mtlBalance']?></label></div>
-                            <?php } ?>
-                            
+                                <div><label>Vacation Leave left: <?=$vlBalance==""?0:$arrBalance['vlBalance']?></label></div>
+                                <div><label>Sick Leave left: <?=$slBalance==""?0:$arrBalance['slBalance']?></label></div>
+                                <div><label>Special Leave left: <?=$plBalance==""?0:$arrBalance['plBalance']?></label></div>
+                                <div><label>Forced Leave left: <?=$flBalance==""?0:$arrBalance['flBalance']?></label></div>
+                                <div><label>Maternity Leave left: <?=$mtlBalance==""?0:$arrBalance['mtlBalance']?></label></div>
                     </div>
                 </div>
             </div><br>
@@ -138,10 +120,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave From : <span class="required"> * </span></label>
-                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                                <div class="input-icon left">
+                            <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmLeavefrom" id="dtmLeavefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            <!--     <div class="input-icon right">
                                     <font color='red'> <span id="leavefrom"></span></font>
-                                </div>
+                                </div> -->
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -150,9 +135,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                      <label class="control-label">Leave To : <span class="required"> * </span></label>
-                             <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                             <div class="input-icon left">
-                                    <font color='red'> <span id="leaveto"></span></font>
+                            <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmLeaveto" id="dtmLeaveto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                             </div>
                     </div>
                 </div>
@@ -230,6 +215,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                       
                         <input class="hidden" name="strStatus" value="Filed Request">
                         <input class="hidden" name="strCode1" value="Forced Leave">
+                        <input class="hidden" name="strCode3" value="Sick Leave">
                         <input class="hidden" name="strCodeSPL" value="Special Leave">
                         <input class="hidden" name="intVL" id="intVL" value="<?=!empty($arrBalance[0]['vlBalance'])?$arrBalance[0]['vlBalance']:''?>">
                         <input class="hidden" name="intSL" id="intSL" value="<?=!empty($arrBalance[0]['slBalance'])?$arrBalance[0]['slBalance']:''?>">
@@ -248,7 +234,30 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                    </div>
                 </div>
+
                 <?=form_close()?>
+                <br>
+                <?=form_open_multipart(base_url('employee/leave/uploadLeaveDocs/'.$this->uri->segment(4)), array('method'=> 'post'))?>
+                <div class="row" id="upload">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                         <label class="control-label"><strong>ATTACHMENT :</strong></label>
+                         <br>
+                            <div style="position:relative;">
+                                <a class='btn btn-primary' href='javascript:;'>
+                                    Choose File...
+                                <input type="file" name ="userfile" id= "userfile" accept="application/pdf" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+                                </a>
+                                &nbsp;
+                                <button type="submit" name="uploadLeaveDocs" class="btn blue start">
+                                    <i class="fa fa-upload"></i>
+                                    <span> Start Upload </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?=form_close(); ?>
             </div>
         </div>
     </div>
@@ -348,15 +357,13 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strLeavetype: {
+
+                    dtmLeavefrom: {
+                        required: true,
+                    },
+                    dtmLeaveto: {
                         required: true,
                     }
-                    // dtmLeavefrom: {
-                    //     required: true,
-                    // },
-                    // dtmLeaveto: {
-                    //     required: true,
-                    // }
 
                 },
 
@@ -470,29 +477,29 @@ jQuery(document).ready(function() {
 </script>
 <script>
 
-function checkForBlank()
-{
-   var spaceCount = 0;
-    $dtmLeavefrom= $('#dtmLeavefrom').val();
-    $dtmLeaveto= $('#dtmLeaveto').val();
+// function checkForBlank()
+// {
+//    var spaceCount = 0;
+//     $dtmLeavefrom= $('#dtmLeavefrom').val();
+//     $dtmLeaveto= $('#dtmLeaveto').val();
 
-    $('leavefrom','leaveto').html('');
+//     $('leavefrom','leaveto').html('');
 
-    if($dtmLeavefrom=="")
-    {
-      $('#leavefrom').html('This field is required!');
-      return false;
-    }
-    else if($dtmLeaveto=="")
-    {
-      $('#leaveto').html('This field is required!');
-      return false;
-    }
+//     if($dtmLeavefrom=="")
+//     {
+//       $('#leavefrom').html('This field is required!');
+//       return false;
+//     }
+//     else if($dtmLeaveto=="")
+//     {
+//       $('#leaveto').html('This field is required!');
+//       return false;
+//     }
   
-    else
-    {
-      return true;
-    }
+//     else
+//     {
+//       return true;
+//     }
 
-}
+// }
 </script>

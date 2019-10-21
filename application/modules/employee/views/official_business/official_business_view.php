@@ -124,33 +124,29 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                      <div class="row">
+                    <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <label class="control-label">Destination :  <span class="required"> * </span></label>
-                                <div>
-                                     <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
                                     </div>
-                                </div>
-                                     <div class="input-icon left">
-                                   <font color='red'> <span id="errordesti"></span></font>
-                                </div>
                             </div>
                         </div>
-                    
+                    </div>
                     <br>
                      <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group">
                                <label class="control-label">Purpose : <span class="required"> * </span></label>
-                                    <i class="fa"></i>
-                                    <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
                                     </div>
-                                     <div class="input-icon left">
-                                   <font color='red'> <span id="errorpur"></span></font>
-                                </div>
                             </div>
                         </div>
+                    </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-8">
@@ -177,6 +173,27 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
                 <?=form_close()?>
+                 <?=form_open_multipart(base_url('employee/official_business/uploadOBDocs/'.$this->uri->segment(4)), array('method'=> 'post'))?>
+                <div class="row" id="upload">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                         <label class="control-label"><strong>ATTACHMENT :</strong></label>
+                         <br>
+                            <div style="position:relative;">
+                                <a class='btn btn-primary' href='javascript:;'>
+                                    Choose File...
+                                <input type="file" name ="userfile" id= "userfile" accept="application/pdf" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+                                </a>
+                                &nbsp;
+                                <button type="submit" name="uploadOBDocs" class="btn blue start">
+                                    <i class="fa fa-upload"></i>
+                                    <span> Start Upload </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?=form_close(); ?>
             </div>
         </div>
     </div>
@@ -351,52 +368,52 @@ jQuery(document).ready(function() {
 
 <script>
 
-function checkForBlank()
-{
-   var spaceCount = 0;
+// function checkForBlank()
+// {
+//    var spaceCount = 0;
 
-//     $dtmOBrequestdate= $('#dtmOBrequestdate').val();
-//     $dtmOBdatefrom= $('#dtmOBdatefrom').val();
-//     $dtmOBdateto= $('#dtmOBdateto').val();
-    $strDestination= $('#strDestination').val();
-    $strPurpose= $('#strPurpose').val();
+// //     $dtmOBrequestdate= $('#dtmOBrequestdate').val();
+// //     $dtmOBdatefrom= $('#dtmOBdatefrom').val();
+// //     $dtmOBdateto= $('#dtmOBdateto').val();
+//     $strDestination= $('#strDestination').val();
+//     $strPurpose= $('#strPurpose').val();
 
-    $('errordesti','errorpur').html('');
+//     $('errordesti','errorpur').html('');
 
-    if($strDestination=="")
-    {
-      $('#errordesti').html('This field is required!');
-      return false;
-    }
-    else if($strDestination==0)
-    {
-      $('#errordesti').html('Invalid input!');
-      return false;
-    }
-    else if($strPurpose=="")
-    {
-      $('#errorpur').html('This field is required!');
-      return false;
-    }
-    else if($strPurpose==0)
-    {
-      $('#errorpur').html('Invalid input!');
-      return false;
-    }
+//     // if($strDestination=="")
+//     // {
+//     //   $('#errordesti').html('This field is required!');
+//     //   return false;
+//     // }
+//     if($strDestination==0)
+//     {
+//       $('#errordesti').html('Invalid input!');
+//       return false;
+//     }
+//     // else if($strPurpose=="")
+//     // {
+//     //   $('#errorpur').html('This field is required!');
+//     //   return false;
+//     // }
+//     else if($strPurpose==0)
+//     {
+//       $('#errorpur').html('Invalid input!');
+//       return false;
+//     }
 
-    if($strDestination=="" && $strPurpose=="")
-    {
-        $('#errordesti').html('This field is required!');
-        $('#errorpur').html('This field is required!');
-        return false;
-    }
+//     // if($strDestination=="" && $strPurpose=="")
+//     // {
+//     //     $('#errordesti').html('This field is required!');
+//     //     $('#errorpur').html('This field is required!');
+//     //     return false;
+//     // }
 
-    else
-    {
-      return true;
-    }
+//     else
+//     {
+//       return true;
+//     }
 
-}
+// }
 </script>
 
 <script>
