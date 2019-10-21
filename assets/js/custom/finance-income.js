@@ -1,42 +1,42 @@
-function check_income_amount()
+function check_income_amount(el_a,el_b,el_c,el_d,el_e)
 {
 	var total_error = 0;
-	total_error = total_error + check_number('#txtamount-bl');
-	total_error = total_error + check_number('#txtperiod1-bl');
-	total_error = total_error + check_number('#txtperiod2-bl');
-	total_error = total_error + check_number('#txtperiod3-bl');
-	total_error = total_error + check_number('#txtperiod4-bl');
+	total_error = total_error + check_number(el_a);
+	total_error = total_error + check_number(el_b);
+	total_error = total_error + check_number(el_c);
+	total_error = total_error + check_number(el_d);
+	total_error = total_error + check_number(el_e);
 
 	if(total_error < 1)
 	{
-		totalamt = parseFloat($('#txtamount-bl').val().replace(/[^\d\.]/g, ""));
-		period1 = parseFloat($('#txtperiod1-bl').val().replace(/[^\d\.]/g, ""));
-		period2 = parseFloat($('#txtperiod2-bl').val().replace(/[^\d\.]/g, ""));
-		period3 = parseFloat($('#txtperiod3-bl').val().replace(/[^\d\.]/g, ""));
-		period4 = parseFloat($('#txtperiod4-bl').val().replace(/[^\d\.]/g, ""));
+		totalamt = parseFloat($(el_a).val().replace(/[^\d\.]/g, ""));
+		period1 = parseFloat($(el_b).val().replace(/[^\d\.]/g, ""));
+		period2 = parseFloat($(el_c).val().replace(/[^\d\.]/g, ""));
+		period3 = parseFloat($(el_d).val().replace(/[^\d\.]/g, ""));
+		period4 = parseFloat($(el_e).val().replace(/[^\d\.]/g, ""));
 
 		if(totalamt != (period1 + period2 + period3 + period4))
 		{
-			$('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').addClass('has-error');
-			$('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').removeClass('has-success');
-			$('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').find('i.fa-check').remove();
-			$('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').find('i.fa-warning').remove();
-			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($('#txtamount-bl'));
-			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($('#txtperiod1-bl'));
-			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($('#txtperiod2-bl'));
-			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($('#txtperiod3-bl'));
-			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($('#txtperiod4-bl'));
+			$([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').addClass('has-error');
+			$([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').removeClass('has-success');
+			$([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').find('i.fa-check').remove();
+			$([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').find('i.fa-warning').remove();
+			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($(el_a));
+			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($(el_b));
+			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($(el_c));
+			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($(el_d));
+			$('<i class="fa fa-warning tooltips font-red" data-original-title="Total amount should be equal to the total of period amount."></i>').tooltip().insertBefore($(el_e));
 			return 1;
 		}else{
-		    $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').removeClass('has-error');
-		    $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').addClass('has-success');
-		    $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').find('i.fa-warning').remove();
-		    $('#txtamount-bl, #txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').closest('div.form-group').find('i.fa-check').remove();
-		    $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtamount-bl'));
-		    $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtperiod1-bl'));
-		    $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtperiod2-bl'));
-		    $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtperiod3-bl'));
-		    $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtperiod4-bl'));
+		    $([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').removeClass('has-error');
+		    $([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').addClass('has-success');
+		    $([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').find('i.fa-warning').remove();
+		    $([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').find('i.fa-check').remove();
+		    $('<i class="fa fa-check tooltips"></i>').insertBefore($(el_a));
+		    $('<i class="fa fa-check tooltips"></i>').insertBefore($(el_b));
+		    $('<i class="fa fa-check tooltips"></i>').insertBefore($(el_c));
+		    $('<i class="fa fa-check tooltips"></i>').insertBefore($(el_d));
+		    $('<i class="fa fa-check tooltips"></i>').insertBefore($(el_e));
 		    return 0;
 		}
 	}
@@ -54,6 +54,21 @@ function update_employee()
 	$('#txtallperiod4').val($('#txtperiod4-bl').val());
 	$('#selallstatus').val($('#selstatus-bl').val());
 	$('#appointmentList').modal('show');
+}
+
+function update_employee_loans()
+{
+	$('#txtallamount').val($('#txtamount-loan').val());
+	$('#txtallperiod1').val($('#txtperiod1-loan').val());
+	$('#txtallperiod2').val($('#txtperiod2-loan').val());
+	$('#txtallperiod3').val($('#txtperiod3-loan').val());
+	$('#txtallperiod4').val($('#txtperiod4-loan').val());
+	$('#selallemonth').val($('#selemonth-loan').val());
+	$('#selallsmonth').val($('#selsmonth-loan').val());
+	$('#selalleyr').val($('#seleyr-loan').val());
+	$('#selallsyr').val($('#seleyr-loan').val());
+	$('#selallstatus').val($('#selstatus-loan').val());
+	$('#appointmentList-loan').modal('show');
 }
 
 $(document).ready(function() {
@@ -142,7 +157,7 @@ $(document).ready(function() {
 	$('.date-picker').datepicker();
 
 	$('#txtamount-bl').on('keyup keypress change',function() {
-		check_income_amount();
+		check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl');
 	});
 
 	$('#txttax-bl').on('keyup keypress change',function() {
@@ -150,19 +165,19 @@ $(document).ready(function() {
 	});
 
 	$('#txtperiod1-bl').on('keyup keypress change',function() {
-		check_income_amount();
+		check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl');
 	});
 
 	$('#txtperiod2-bl').on('keyup keypress change',function() {
-		check_income_amount();
+		check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl');
 	});
 
 	$('#txtperiod3-bl').on('keyup keypress change',function() {
-		check_income_amount();
+		check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl');
 	});
 
 	$('#txtperiod4-bl').on('keyup keypress change',function() {
-		check_income_amount();
+		check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl');
 	});
 
 	$('#selstatus-bl').on('keyup keypress change',function() {
@@ -179,11 +194,12 @@ $(document).ready(function() {
 		total_error = total_error + check_number('#txtperiod3-bl','Period 3 must not be empty.');
 		total_error = total_error + check_number('#txtperiod4-bl','Period 4 must not be empty.');
 		total_error = total_error + check_number('#selstatus-bl','Status must not be empty.');
+		total_error = total_error + check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl');
 
         if(total_error > 0){
             e.preventDefault();
         }else{
-        	if(check_income_amount() > 0){
+        	if(check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl') > 0){
         		e.preventDefault()
         	}
         }
@@ -234,10 +250,142 @@ $(document).ready(function() {
         if(total_error > 0){
             e.preventDefault();
         }else{
-        	if(check_income_amount() > 0){
+        	if(check_income_amount('#txtamount-bl','#txtperiod1-bl','#txtperiod2-bl','#txtperiod3-bl','#txtperiod4-bl') > 0){
         		e.preventDefault()
         	}else{
         		update_employee();
+        	}
+        }
+    });
+
+    $('#btnupdateallemployee-loan').click(function(e) {
+    	var total_error = 0;
+
+        total_error = total_error + check_number('#txtamount-loan','Monthly must not be empty.');
+        total_error = total_error + check_number('#txtperiod1-loan','Period 1 must not be empty.');
+        total_error = total_error + check_number('#txtperiod2-loan','Period 2 must not be empty.');
+        total_error = total_error + check_number('#txtperiod3-loan','Period 3 must not be empty.');
+        total_error = total_error + check_number('#txtperiod4-loan','Period 4 must not be empty.');
+        total_error = total_error + check_null('#selstatus-loan','Status must not be empty.');
+        total_error = total_error + check_null('#selsyr-loan','Start year must not be empty.');
+        total_error = total_error + check_null('#selsmonth-loan','Start month must not be empty.');
+        total_error = total_error + check_null('#seleyr-loan','End year must not be empty.');
+        total_error = total_error + check_null('#selemonth-loan','End month must not be empty.');
+        total_error = total_error + check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan');
+
+        if(total_error > 0){
+            e.preventDefault();
+        }else{
+        	if(check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan') > 0){
+        		e.preventDefault()
+        	}else{
+        		update_employee_loans();
+        	}
+        }
+    });
+
+
+    /* PREMIUM LOANS */
+    $('#table-regDeductList, #table-loanList, #table-contandDeduct').dataTable({"pageLength": 5});
+
+    $('#table-regDeductList, #table-loanList, #table-contandDeduct').on('click', 'tbody > tr #btn-modal-premloans', function () {
+        var el = $(this);
+
+        $('#txtalldeductcode').val(el.data("deductcode"));
+        $('#txtalldeductioncode').val(el.data("deductioncode"));
+        $('#txtalldeductionType').val(el.closest('table').data("title"));
+
+        $('#sub-title').html(el.closest('table').data('title'));
+        $('#modal-title').html(el.parent().siblings(":first").text());
+        $('#txtamount-loan').val(el.parent().siblings(":eq(1)").text());
+
+        $('#txtperiod1-loan').val(el.data('period1'));
+        $('#txtperiod2-loan').val(el.data('period2'));
+        $('#txtperiod3-loan').val(el.data('period3'));
+        $('#txtperiod4-loan').val(el.data('period4'));
+        $('#selstatus-loan').val(el.data("statusval"));
+        $('#selstatus-loan').selectpicker('refresh');
+
+        if(el.data('stat') == 'loan'){
+        	$('.div-deduction').show();
+	        $('#selsyr-loan').val(el.data("syr")).selectpicker('refresh');
+	        $('#selsmonth-loan').val(el.data("smon")).selectpicker('refresh');
+	        $('#seleyr-loan').val(el.data("eyr")).selectpicker('refresh');
+	        $('#selemonth-loan').val(el.data("emon")).selectpicker('refresh');
+	    }else{
+	    	$('.div-deduction').hide();
+	    }
+
+        $('#txtdeductcode').val(el.data("deductcode"));
+        $('#txtdeductioncode').val(el.data("deductioncode"));
+        $('#txtdeductionType').val(el.closest('table').data("title"));
+
+        $('#txtstat-loan,#txtallstat-loan').val(el.data('stat'));
+
+        // $('#txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").hide();
+        // $('#txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').parent().parent().removeClass('has-error');
+    });
+
+    $('#txtamount-loan').on('keyup keypress change',function() {
+    	check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan');
+    });
+
+    $('#txtperiod1-loan').on('keyup keypress change',function() {
+    	check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan');
+    });
+
+    $('#txtperiod2-loan').on('keyup keypress change',function() {
+    	check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan');
+    });
+
+    $('#txtperiod3-loan').on('keyup keypress change',function() {
+    	check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan');
+    });
+
+    $('#txtperiod4-loan').on('keyup keypress change',function() {
+    	check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan');
+    });
+
+    $('#selstatus-loan').on('keyup keypress change',function() {
+    	check_number('#selstatus-loan','Start Year must not be empty.');
+    });
+
+    $('#selsyr-loan').on('keyup keypress change',function() {
+    	check_number('#selsyr-loan','Start Month must not be empty.');
+    });
+
+    $('#selsmonth-loan').on('keyup keypress change',function() {
+    	check_number('#selsmonth-loan','End Year must not be empty.');
+    });
+
+    $('#seleyr-loan').on('keyup keypress change',function() {
+    	check_number('#seleyr-loan','End Month must not be empty.');
+    });
+
+    $('#selemonth-loan').on('keyup keypress change',function() {
+    	check_number('#selemonth-loan','Status must not be empty.');
+    });
+
+    $('#btnsubmit-premloans').click(function(e) {
+        var total_error = 0;
+
+        total_error = total_error + check_number('#txtamount-loan','Monthly must not be empty.');
+        total_error = total_error + check_number('#txtperiod1-loan','Period 1 must not be empty.');
+        total_error = total_error + check_number('#txtperiod2-loan','Period 2 must not be empty.');
+        total_error = total_error + check_number('#txtperiod3-loan','Period 3 must not be empty.');
+        total_error = total_error + check_number('#txtperiod4-loan','Period 4 must not be empty.');
+        total_error = total_error + check_null('#selstatus-loan','Status must not be empty.');
+        total_error = total_error + check_null('#selsyr-loan','Start year must not be empty.');
+        total_error = total_error + check_null('#selsmonth-loan','Start month must not be empty.');
+        total_error = total_error + check_null('#seleyr-loan','End year must not be empty.');
+        total_error = total_error + check_null('#selemonth-loan','End month must not be empty.');
+        total_error = total_error + check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan');
+
+        if(total_error > 0){
+            e.preventDefault();
+        }else{
+        	if(check_income_amount('#txtamount-loan','#txtperiod1-loan','#txtperiod2-loan','#txtperiod3-loan','#txtperiod4-loan') > 0){
+        		e.preventDefault()
         	}
         }
     });

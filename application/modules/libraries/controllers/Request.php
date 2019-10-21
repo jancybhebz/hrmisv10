@@ -20,8 +20,28 @@ class Request extends MY_Controller {
 
 	public function index()
 	{
-		$this->arrData['arrRequest'] = $this->request_model->getData();
-		$this->arrData['arrEmployees'] = $this->hr_model->getData();
+		$arrRequest = array();
+		$all_requests = $this->request_model->getData();
+		foreach($all_requests as $key => $request):
+			$first_sign = explode(';',$request['Signatory1']);
+			$first_signatory = count($first_sign) > 1 ? $first_sign[1]!=''?$this->request_model->getSignatory($first_sign[1]) : array() : array();
+			$all_requests[$key]['first_signatory'] = count($first_sign) > 1 ? array($first_sign[0],count($first_signatory) > 0 ? $first_signatory[0]['Signatory'] : '',count($first_sign) > 1 ? employee_name($first_sign[2]) : '') : array();
+
+			$second_sign = explode(';',$request['Signatory2']);
+			$second_signatory = count($second_sign) > 1 ? $second_sign[1]!=''?$this->request_model->getSignatory($second_sign[1]) : array() : array();
+			$all_requests[$key]['second_signatory'] = count($second_sign) > 1 ? array($second_sign[0],count($second_signatory) > 0 ? $second_signatory[0]['Signatory'] : '',count($second_sign) > 1 ? employee_name($second_sign[2]) : '') : array();
+
+			$third_sign = explode(';',$request['Signatory3']);
+			$third_signatory = count($third_sign) > 1 ? $third_sign[1]!=''?$this->request_model->getSignatory($third_sign[1]) : array() : array();
+			$all_requests[$key]['third_signatory'] = count($third_sign) > 1 ? array($third_sign[0],count($third_signatory) > 0 ? $third_signatory[0]['Signatory'] : '',count($third_sign) > 1 ? employee_name($third_sign[2]) : '') : array();
+
+			$final_sign = explode(';',$request['SignatoryFin']);
+			$final_signatory = count($final_sign) > 1 ? $final_sign[1]!=''?$this->request_model->getSignatory($final_sign[1]) : array() : array();
+			$all_requests[$key]['final_signatory'] = count($final_sign) > 1 ? array($final_sign[0],count($final_signatory) > 0 ? $final_signatory[0]['Signatory'] : '',count($final_sign) > 1 ? employee_name($final_sign[2]) : '') : array();
+		endforeach;
+		
+		$this->arrData['arrRequest'] = $all_requests;
+		// $this->arrData['arrEmployees'] = $this->hr_model->getData();
 		// $this->arrData['arrLeaves'] = $this->Attendance_summary_model->getleaves($empid);
 		// $this->arrData['arrEmp'] = $this->request_model->getEmpDetails();
 		$this->template->load('template/template_view', 'libraries/request/list_view', $this->arrData);
@@ -37,7 +57,7 @@ class Request extends MY_Controller {
 			$this->arrData['arrEmployees'] = $this->hr_model->getData();
 			$this->arrData['arrAction'] = $this->request_model->getAction();
 			$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
-
+			$this->arrData['action'] = 'add';
 
 			$this->template->load('template/template_view','libraries/request/add_view',$this->arrData);	
 		}

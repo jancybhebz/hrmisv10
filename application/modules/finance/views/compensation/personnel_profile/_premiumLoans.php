@@ -38,13 +38,15 @@
                                     <td><?=getincome_status($deduction['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">
-                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                            <button class="btn btn-xs green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
                                                     data-period1="<?=$deduction['period1'] == '' ? '0.00' : $deduction['period1']?>"
                                                     data-period2="<?=$deduction['period2'] == '' ? '0.00' : $deduction['period2']?>"
                                                     data-period3="<?=$deduction['period3'] == '' ? '0.00' : $deduction['period3']?>"
                                                     data-period4="<?=$deduction['period4'] == '' ? '0.00' : $deduction['period4']?>"
 
                                                     data-deductioncode="<?=$deduction['deductionCode']?>" data-stat="deduction"
+                                                    data-smon="<?=sprintf('%02d',$deduction['actualStartMonth'])?>" data-syear="<?=$deduction['actualStartYear']?>"
+                                                    data-emon="<?=sprintf('%02d',$deduction['actualEndMonth'])?>" data-eyear="<?=$deduction['actualEndYear']?>"
                                                     data-deductcode="<?=$deduction['deductCode']?>"
                                                     data-statusval="<?=$deduction['status']?>">
                                                 <i class="fa fa-edit"></i> Edit</button>
@@ -99,16 +101,14 @@
                                     <td><?=getincome_status($loan['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">
-                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                            <button class="btn btn-xs green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
                                                     data-period1="<?=$loan['period1'] == '' ? '0.00' : $loan['period1']?>"
                                                     data-period2="<?=$loan['period2'] == '' ? '0.00' : $loan['period2']?>"
                                                     data-period3="<?=$loan['period3'] == '' ? '0.00' : $loan['period3']?>"
                                                     data-period4="<?=$loan['period4'] == '' ? '0.00' : $loan['period4']?>"
 
-                                                    data-syr="<?=$loan['actualStartYear'] == '0000' ? date('Y') : $loan['actualStartYear']?>"
-                                                    data-smon="<?=$loan['actualStartMonth'] == '0' ? date('n') : sprintf('%02d',$loan['actualStartMonth'])?>"
-                                                    data-eyr="<?=$loan['actualEndYear'] == '0000' ? date('Y') : $loan['actualEndYear']?>"
-                                                    data-emon="<?=$loan['actualEndMonth'] == '0' ? date('n') : sprintf('%02d',$loan['actualEndMonth'])?>"
+                                                    data-smon="<?=sprintf('%02d',$loan['actualStartMonth'])?>" data-syear="<?=$loan['actualStartYear']?>"
+                                                    data-emon="<?=sprintf('%02d',$loan['actualEndMonth'])?>" data-eyear="<?=$loan['actualEndYear']?>"
 
                                                     data-deductioncode="<?=$loan['deductionCode']?>" data-stat="loan"
                                                     data-deductcode="<?=$loan['deductCode']?>"
@@ -164,13 +164,13 @@
                                     <td><?=getincome_status($contri['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">
-                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                            <button class="btn btn-xs green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
                                                     data-period1="<?=$contri['period1'] == '' ? '0.00' : $contri['period1']?>"
                                                     data-period2="<?=$contri['period2'] == '' ? '0.00' : $contri['period2']?>"
                                                     data-period3="<?=$contri['period3'] == '' ? '0.00' : $contri['period3']?>"
                                                     data-period4="<?=$contri['period4'] == '' ? '0.00' : $contri['period4']?>"
 
-                                                    data-deductioncode="<?=$contri['deductionCode']?>" data-stat="loan"
+                                                    data-deductioncode="<?=$contri['deductionCode']?>" data-stat="oth"
                                                     data-deductcode="<?=$contri['deductCode']?>"
                                                     data-statusval="<?=$contri['status']?>">
 
@@ -189,31 +189,33 @@
 </div>
 <?php include('modals/_modal_loans.php'); ?>
 <?=load_plugin('js', array('datatables'))?>
+
+<script src="<?=base_url('assets/js/custom/finance-income.js')?>"></script>
 <script>
     $(document).ready(function() {
-        $('#table-regDeductList, #table-loanList, #table-contandDeduct').dataTable({"pageLength": 5});
+        // $('#table-regDeductList, #table-loanList, #table-contandDeduct').dataTable({"pageLength": 5});
 
-        $('#table-regDeductList, #table-loanList, #table-contandDeduct').on('click', 'tbody > tr #btn-modal-premloans', function () {
-            var el = $(this);
-            $('#sub-title').html(el.closest('table').data('title'));
-            $('#modal-title').html(el.parent().siblings(":first").text());
-            $('#txtamount-bl').val(el.parent().siblings(":eq(1)").text());
-            $('#txtperiod1-bl').val(el.data('period1'));
-            $('#txtperiod2-bl').val(el.data('period2'));
-            $('#txtperiod3-bl').val(el.data('period3'));
-            $('#txtperiod4-bl').val(el.data('period4'));
-            $('#selstatus-bl').val(el.data("statusval"));
-            $('#selstatus-bl').selectpicker('refresh');
-            $('#selsyr-bl').val(el.data("syr")).selectpicker('refresh');
-            $('#selsmonth-bl').val(el.data("smon")).selectpicker('refresh');
-            $('#seleyr-bl').val(el.data("eyr")).selectpicker('refresh');
-            $('#selemonth-bl').val(el.data("emon")).selectpicker('refresh');
-            $('#txtdeductcode').val(el.data("deductcode"));
-            $('#txtdeductioncode').val(el.data("deductioncode"));
-            $('#txtdeductionType').val(el.closest('table').data("title"));
+        // $('#table-regDeductList, #table-loanList, #table-contandDeduct').on('click', 'tbody > tr #btn-modal-premloans', function () {
+        //     var el = $(this);
+        //     $('#sub-title').html(el.closest('table').data('title'));
+        //     $('#modal-title').html(el.parent().siblings(":first").text());
+        //     $('#txtamount-bl').val(el.parent().siblings(":eq(1)").text());
+        //     $('#txtperiod1-bl').val(el.data('period1'));
+        //     $('#txtperiod2-bl').val(el.data('period2'));
+        //     $('#txtperiod3-bl').val(el.data('period3'));
+        //     $('#txtperiod4-bl').val(el.data('period4'));
+        //     $('#selstatus-bl').val(el.data("statusval"));
+        //     $('#selstatus-bl').selectpicker('refresh');
+        //     $('#selsyr-bl').val(el.data("syr")).selectpicker('refresh');
+        //     $('#selsmonth-bl').val(el.data("smon")).selectpicker('refresh');
+        //     $('#seleyr-bl').val(el.data("eyr")).selectpicker('refresh');
+        //     $('#selemonth-bl').val(el.data("emon")).selectpicker('refresh');
+        //     $('#txtdeductcode').val(el.data("deductcode"));
+        //     $('#txtdeductioncode').val(el.data("deductioncode"));
+        //     $('#txtdeductionType').val(el.closest('table').data("title"));
 
-            $('#txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").hide();
-            $('#txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').parent().parent().removeClass('has-error');
-        });
+        //     $('#txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').prev("i").hide();
+        //     $('#txtperiod1-bl, #txtperiod2-bl, #txtperiod3-bl, #txtperiod4-bl').parent().parent().removeClass('has-error');
+        // });
     });
 </script>
