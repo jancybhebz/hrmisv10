@@ -38,7 +38,7 @@
                                     <td><?=getincome_status($deduction['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">
-                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                            <button class="btn btn-xs green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
                                                     data-period1="<?=$deduction['period1'] == '' ? '0.00' : $deduction['period1']?>"
                                                     data-period2="<?=$deduction['period2'] == '' ? '0.00' : $deduction['period2']?>"
                                                     data-period3="<?=$deduction['period3'] == '' ? '0.00' : $deduction['period3']?>"
@@ -101,7 +101,7 @@
                                     <td><?=getincome_status($loan['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">
-                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                            <button class="btn btn-xs green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
                                                     data-period1="<?=$loan['period1'] == '' ? '0.00' : $loan['period1']?>"
                                                     data-period2="<?=$loan['period2'] == '' ? '0.00' : $loan['period2']?>"
                                                     data-period3="<?=$loan['period3'] == '' ? '0.00' : $loan['period3']?>"
@@ -164,7 +164,7 @@
                                     <td><?=getincome_status($contri['status'])?></td>
                                     <?php if($_SESSION['sessUserLevel'] == '2'): ?>
                                         <td align="center">
-                                            <button class="btn btn-sm green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
+                                            <button class="btn btn-xs green" data-toggle="modal" href="#regularDeductions" id="btn-modal-premloans"
                                                     data-period1="<?=$contri['period1'] == '' ? '0.00' : $contri['period1']?>"
                                                     data-period2="<?=$contri['period2'] == '' ? '0.00' : $contri['period2']?>"
                                                     data-period3="<?=$contri['period3'] == '' ? '0.00' : $contri['period3']?>"
