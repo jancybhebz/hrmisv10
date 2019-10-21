@@ -113,7 +113,7 @@
                                         <label class="control-label">TIN Number</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_tin"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pTin'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pTin1'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -123,7 +123,7 @@
                                         <label class="control-label">Registered Address</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_reg"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pAddress'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pAddress1'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -136,7 +136,7 @@
                                         <label class="control-label">Employer's Name</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_name"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pEmployer'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pEmployer1'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                                         <label class="control-label">Zip Code</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp2_zip"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pZipCode'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pZipCode1'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
                                         <label class="control-label">TIN Number</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_tin"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pTin'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pTin2'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                                         <label class="control-label">Registered Address</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_reg"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pAddress'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pAddress2'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                                         <label class="control-label">Employer's Name</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_name"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pEmployer'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pEmployer2'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -197,7 +197,7 @@
                                         <label class="control-label">Zip Code</label>
                                         <div class="input-icon right">
                                             <input type="text" class="form-control" <?=$action=='view' ? 'disabled' : ''?> name="txtemp3_zip"
-                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pZipCode'] : ''?>">
+                                                    value="<?=isset($arrTaxDetails) ? $arrTaxDetails['pZipCode2'] : ''?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
