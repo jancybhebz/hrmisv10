@@ -145,7 +145,7 @@
 
                                     <textarea name="txtjson" id="txtjson" hidden></textarea>
                                     <button class="btn green" type="submit" id="btn_edit_dtr"><i class="fa fa-plus"></i> Save </button>
-                                    <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?datefrom='.$_GET['dateto'].'&datefrom='.$_GET['dateto']?>" class="btn grey-cascade">
+                                    <a href="<?=base_url('hr/attendance_summary/dtr/edit_mode').'/'.$arrData['empNumber'].'?datefrom='.$_GET['datefrom'].'&dateto='.$_GET['dateto']?>" class="btn grey-cascade">
                                         <i class="icon-ban"></i> Clear</a>
                                 <?=form_close()?>
                             </center>
