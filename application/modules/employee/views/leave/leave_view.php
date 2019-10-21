@@ -47,38 +47,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="col-sm-8">
                 <div class="form-group">
                 <?php 
-                $permonth = date("F, Y", strtotime("last day of previous month"));
-                $vlBalance = $arrBalance['vlBalance'];
-                $slBalance = $arrBalance['slBalance'];
-                $plBalance = $arrBalance['plBalance'];
-                $flBalance = $arrBalance['flBalance'];
-                $mtlBalance = $arrBalance['mtlBalance'];
+                    $permonth = date("F, Y", strtotime("last day of previous month"));
+                    $vlBalance = $arrBalance['vlBalance'];
+                    $slBalance = $arrBalance['slBalance'];
+                    $plBalance = $arrBalance['plBalance'];
+                    $flBalance = $arrBalance['flBalance'];
+                    $mtlBalance = $arrBalance['mtlBalance'];
                 ?>
                        <label class="control-label"><strong>Leave Balances as of: <?=$permonth?></strong></label>
                             <i class="fa"></i>
-                            <?php if ($vlBalance=='')
-                            {
-                                echo '<div><label>Vacation Leave left: 0 </label></div>'; 
-                            } if ($slBalance=='')
-                            {
-                                echo '<div><label>Sick Leave left: 0 </label></div>'; 
-                            } if ($plBalance=='')
-                            {
-                                echo '<div><label>Special Leave left: 0 </label></div>'; 
-                            } if ($flBalance=='')
-                            {
-                                echo '<div><label>Forced Leave left: 0 </label></div>'; 
-                            } if ($mtlBalance=='')
-                            {
-                                echo '<div><label>Maternity Leave left: 0 </label></div>'; 
-                            } else { ?> 
-                                <div><label>Vacation Leave left: <?=$arrBalance['vlBalance'] ?></label></div>
-                                <div><label>Sick Leave left: <?=$arrBalance['slBalance']?></label></div>
-                                <div><label>Special Leave left: <?=$arrBalance['plBalance']?></label></div>
-                                <div><label>Forced Leave left: <?=$arrBalance['flBalance']?></label></div>
-                                <div><label>Maternity Leave left: <?=$arrBalance['mtlBalance']?></label></div>
-                            <?php } ?>
-                            
+                                <div><label>Vacation Leave left: <?=$vlBalance==""?0:$arrBalance['vlBalance']?></label></div>
+                                <div><label>Sick Leave left: <?=$slBalance==""?0:$arrBalance['slBalance']?></label></div>
+                                <div><label>Special Leave left: <?=$plBalance==""?0:$arrBalance['plBalance']?></label></div>
+                                <div><label>Forced Leave left: <?=$flBalance==""?0:$arrBalance['flBalance']?></label></div>
+                                <div><label>Maternity Leave left: <?=$mtlBalance==""?0:$arrBalance['mtlBalance']?></label></div>
                     </div>
                 </div>
             </div><br>
@@ -224,6 +206,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                  <option value="within the country">within the country</option>
                                  <option value="abroad">abroad</option>
                              </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="upload_textbox">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                       <label class="control-label">Upload Supporting document : </label>
                     </div>
                 </div>
             </div>
