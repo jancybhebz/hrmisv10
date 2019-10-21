@@ -209,13 +209,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
             </div>
-            <div class="row" id="upload_textbox">
-                <div class="col-sm-8">
-                    <div class="form-group">
-                       <label class="control-label">Upload Supporting document : </label>
-                    </div>
-                </div>
-            </div>
             <br><br>
                 <div class="row">
                   <div class="col-sm-8 text-right">
@@ -241,7 +234,30 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                    </div>
                 </div>
+
                 <?=form_close()?>
+                <br>
+                <?=form_open_multipart(base_url('employee/leave/uploadLeaveDocs/'.$this->uri->segment(4)), array('method'=> 'post'))?>
+                <div class="row" id="upload">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                         <label class="control-label"><strong>ATTACHMENT :</strong></label>
+                         <br>
+                            <div style="position:relative;">
+                                <a class='btn btn-primary' href='javascript:;'>
+                                    Choose File...
+                                <input type="file" name ="userfile" id= "userfile" accept="application/pdf" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+                                </a>
+                                &nbsp;
+                                <button type="submit" name="uploadLeaveDocs" class="btn blue start">
+                                    <i class="fa fa-upload"></i>
+                                    <span> Start Upload </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?=form_close(); ?>
             </div>
         </div>
     </div>
