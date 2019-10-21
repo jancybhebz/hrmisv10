@@ -8,7 +8,7 @@
                         <label class="col-md-3 control-label">Select Remittance</label>
                         <div class="col-md-9">
                             <select class="form-control select2 form-required" name="selpayrollGrp">
-                                <option value="null">-- SELECT PAYROLL PROCESS --</option>
+                                <option value="null">-- SELECT REMITTANCE --</option>
                                 <?php foreach($arrDeductions as $deduct): ?>
                                     <option value="<?=$deduct['deductionCode']?>" <?=count($_GET) > 0 ? $_GET['selpayrollGrp'] == $deduct['deductionCode'] ? 'selected' : '' : '' ?>>
                                         <?=$deduct['deductionDesc']?></option>

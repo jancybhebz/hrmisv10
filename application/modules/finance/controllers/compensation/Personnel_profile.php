@@ -374,18 +374,22 @@ class Personnel_profile extends MY_Controller {
 			$arrData = array('otherDependent' => $arrPost['txtdependent_name'],
 							 'dBirthDate' => $arrPost['txtdependent_bday'],
 							 'dRelationship' => $arrPost['txtdependent_rel'],
-							 'pTin1' => $arrPost['txtemp1_tin'],
-							 'pAddress1' => $arrPost['txtemp1_reg'],
-							 'pEmployer1' => $arrPost['txtemp1_name'],
-							 'pZipCode1' => $arrPost['txtemp1_zip'],
-							 'pTin2' => $arrPost['txtemp2_tin'],
-							 'pAddress2' => $arrPost['txtemp2_reg'],
-							 'pEmployer2' => $arrPost['txtemp2_name'],
-							 'pZipCode2' => $arrPost['txtemp2_zip'],
-							 'pTin' => $arrPost['txtemp3_tin'],
-							 'pAddress' => $arrPost['txtemp3_reg'],
-							 'pEmployer' => $arrPost['txtemp3_name'],
-							 'pZipCode' => $arrPost['txtemp3_zip'],
+
+							 'pTin' => $arrPost['txtemp1_tin'],
+							 'pAddress' => $arrPost['txtemp1_reg'],
+							 'pEmployer' => $arrPost['txtemp1_name'],
+							 'pZipCode' => $arrPost['txtemp1_zip'],
+
+							 'pTin1' => $arrPost['txtemp2_tin'],
+							 'pAddress1' => $arrPost['txtemp2_reg'],
+							 'pEmployer1' => $arrPost['txtemp2_name'],
+							 'pZipCode1' => $arrPost['txtemp2_zip'],
+
+							 'pTin2' => $arrPost['txtemp3_tin'],
+							 'pAddress2' => $arrPost['txtemp3_reg'],
+							 'pEmployer2' => $arrPost['txtemp3_name'],
+							 'pZipCode2' => $arrPost['txtemp3_zip'],
+
 							 'pTaxComp' => $arrPost['txtcompen'],
 							 'pTaxWheld' => $arrPost['txttax']
 							);
