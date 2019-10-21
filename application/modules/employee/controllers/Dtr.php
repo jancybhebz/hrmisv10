@@ -79,7 +79,7 @@ class Dtr extends MY_Controller {
 			$this->fpdf->Cell(27,5,'Employee Name:','L',0,'L');
 			$this->fpdf->Cell(93,5,$empdata['surname'].', '.$empdata['firstname'].' '.$empdata['middlename'],0,0,'L');
 			$this->fpdf->Cell(20,5,'Official Time:',0,0,'L');
-			$this->fpdf->Cell(50,5,$emp_att_scheme['amTimeinFrom'].' - '.$emp_att_scheme['pmTimeoutTo'],'R',1,'L');
+			$this->fpdf->Cell(50,5,date('h:i',strtotime($emp_att_scheme['amTimeinFrom'])).' - '.date('h:i',strtotime($emp_att_scheme['pmTimeoutTo'])),'R',1,'L');
 
 			$this->fpdf->Cell(27,5,'Position:','L',0,'L');
 			$this->fpdf->Cell(163,5,$empdata['positionDesc'],'R',1,'L');
