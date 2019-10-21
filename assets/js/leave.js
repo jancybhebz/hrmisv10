@@ -11,6 +11,7 @@ function showtextbox()
 		$('#daysapplied_textbox').show();
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
+		$('#upload').show();
 		$('#reason_textbox').hide();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
@@ -32,6 +33,7 @@ function showtextbox()
 		$('#daysapplied_textbox').show();
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
+		$('#upload').show();
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
@@ -51,6 +53,7 @@ function showtextbox()
 		$('#daysapplied_textbox').show();
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
+		$('#upload').show();
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').show();
 		$('#incaseVL_textbox').hide();
@@ -70,6 +73,7 @@ function showtextbox()
 		$('#daysapplied_textbox').show();
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
+		$('#upload').show();
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').show();
@@ -89,6 +93,7 @@ function showtextbox()
 		$('#daysapplied_textbox').show();
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
+		$('#upload').show();
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
@@ -108,6 +113,7 @@ function showtextbox()
 		$('#daysapplied_textbox').show();
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
+		$('#upload').show();
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
@@ -127,6 +133,7 @@ function showtextbox()
 		$('#daysapplied_textbox').show();
 		$('#signatory1_textbox').show();
 		$('#signatory2_textbox').show();
+		$('#upload').show();
 		$('#reason_textbox').show();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
@@ -147,6 +154,7 @@ function showtextbox()
 		$('#daysapplied_textbox').hide();
 		$('#signatory1_textbox').hide();
 		$('#signatory2_textbox').hide();
+		$('#upload').hide();
 		$('#reason_textbox').hide();
 		$('#incaseSL_textbox').hide();
 		$('#incaseVL_textbox').hide();
@@ -169,6 +177,7 @@ $(document).ready(function()
 	$('#daysapplied_textbox').hide();
 	$('#signatory1_textbox').hide();
 	$('#signatory2_textbox').hide();
+	$('#upload').hide();
 	$('#reason_textbox').hide();
 	$('#incaseSL_textbox').hide();
 	$('#incaseVL_textbox').hide();

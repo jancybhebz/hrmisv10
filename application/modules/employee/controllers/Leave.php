@@ -363,5 +363,49 @@ class Leave extends MY_Controller {
     }
     # end employee leave balance
 
+    public function uploadLeaveDocs()
+	{
+		$arrPost = $this->input->post();
+		$strEmpNum = $_SESSION['sessEmpNo'];
+		$config['upload_path']          = 'uploads/employees/attachments/leave/'.$strEmpNum.'/';
+        $config['allowed_types']        = 'pdf';
+        $path = $_FILES['image']['userfile'];
+		// $newName = "<Whatever name>".".".pathinfo($path, PATHINFO_EXTENSION); 
+		$config['file_name'] = $strEmpNum.".pdf"; 
+		$config['overwrite'] = TRUE;
+		// print_r($config);
+		// exit(1);
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		
+		if (!is_dir($config['upload_path'])) {
+    		mkdir($config['upload_path'], 0777, TRUE);
+			}
+
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			// echo $this->upload->display_errors();
+			$error = array('error' => $this->upload->display_errors());
+			print_r($error);
+			exit(1);
+			$this->session->set_flashdata('strErrorMsg','Please try again!');
+		}
+		else
+		{
+			$data = $this->upload->data();
+			$this->session->set_flashdata('strSuccessMsg','Upload successfully saved.');
+			//rename($data['full_path'],$data['file_path'].$idTraining.$data['file_ext']);
+			// print_r($data);
+			// exit(1);
+			
+		}
+		// print_r($error);
+		// print_r($data);
+		// exit(1);
+		redirect('employee/leave');
+		
+	}
+
 
 }
