@@ -440,8 +440,10 @@ class Personnel_profile extends MY_Controller {
 			$arrPost = $this->input->post();
 			$empid = $this->uri->segment(5);
 		endif;
-		
 		# check if exist in benefits
+		$arrPost['selsmonth'] = ltrim($arrPost['selsmonth'],'0');
+		$arrPost['selemonth'] = ltrim($arrPost['selemonth'],'0');
+
 		$checkexist = $this->Compensation_model->getDeduction($empid, $arrPost['txtdeductioncode']);
 		if(count($checkexist) > 0):
 			$arrPost['txtdeductcode'] = $arrPost['txtdeductcode'] != '' ? $arrPost['txtdeductcode'] : $checkexist[0]['deductCode'];
@@ -451,11 +453,14 @@ class Personnel_profile extends MY_Controller {
 							 'period2' => isset($arrPost['txtperiod2']) ? str_replace(',', '', $arrPost['txtperiod2']) : '',
 							 'period3' => isset($arrPost['txtperiod3']) ? str_replace(',', '', $arrPost['txtperiod3']) : '',
 							 'period4' => isset($arrPost['txtperiod4']) ? str_replace(',', '', $arrPost['txtperiod4']) : '',
-							 'actualStartYear' => $arrPost['selsyr'],
-							 'actualStartMonth' => $arrPost['selsmonth'],
-							 'actualEndYear' => $arrPost['seleyr'],
-							 'actualEndMonth' => $arrPost['selemonth'],
 							 'status' => $arrPost['selstatus']);
+
+			if($arrPost['txtstat'] == 'loan'):
+				$arrData['actualStartYear'] = $arrPost['selsyear'];
+				$arrData['actualStartMonth'] = $arrPost['selsmonth'];
+				$arrData['actualEndYear'] = $arrPost['seleyr'];
+				$arrData['actualEndMonth'] = $arrPost['selemonth'];
+			endif;
 			$this->Compensation_model->editDeduction($arrData, $arrPost['txtdeductcode'], $empid);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' updated successfully.');
 		else:
@@ -466,15 +471,18 @@ class Personnel_profile extends MY_Controller {
 							 'period2' => isset($arrPost['txtperiod2']) ? str_replace(',', '', $arrPost['txtperiod2']) : '',
 							 'period3' => isset($arrPost['txtperiod3']) ? str_replace(',', '', $arrPost['txtperiod3']) : '',
 							 'period4' => isset($arrPost['txtperiod4']) ? str_replace(',', '', $arrPost['txtperiod4']) : '',
-							 'actualStartYear' => $arrPost['selsyr'],
-							 'actualStartMonth' => $arrPost['selsmonth'],
-							 'actualEndYear' => $arrPost['seleyr'],
-							 'actualEndMonth' => $arrPost['selemonth'],
 							 'status' => $arrPost['selstatus']);
+
+			if($arrPost['txtstat'] == 'loan'):
+				$arrData['actualStartYear'] = $arrPost['selsyear'];
+				$arrData['actualStartMonth'] = $arrPost['selsmonth'];
+				$arrData['actualEndYear'] = $arrPost['seleyr'];
+				$arrData['actualEndMonth'] = $arrPost['selemonth'];
+			endif;
 			$this->Compensation_model->addDeduction($arrData);
 			$this->session->set_flashdata('strSuccessMsg', $arrPost['txtdeductionType'].' added successfully.');
 		endif;
-
+		
 		if($updateall == 0):
 			redirect('finance/compensation/personnel_profile/premium_loan/'.$empid);
 		endif;
