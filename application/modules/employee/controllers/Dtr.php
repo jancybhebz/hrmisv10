@@ -246,11 +246,11 @@ class Dtr extends MY_Controller {
 
 			$this->fpdf->SetFont('Arial','B', 8);
 			$this->fpdf->Ln(3);
-			$this->fpdf->Cell(27,5,'',0,0,'L');
-			$this->fpdf->Cell(63,5,'EMPLOYEE SIGNATURE','T',0,'C');
+			$this->fpdf->Cell(20,5,'',0,0,'L');
+			$this->fpdf->Cell(45,5,"EMPLOYEE'S SIGNATURE","T",0,'C');
 			$this->fpdf->Cell(10,5,'',0,0,'L');
-			$this->fpdf->Cell(63,5,'DIVISION CHIEF / IMMEDIATE SUPERVISOR','T',0,'C');
-			$this->fpdf->Cell(27,5,'',0,0,'L');
+			$this->fpdf->Cell(95,5,"DIVISION CHIEF / IMMEDIATE SUPERVISOR'S SIGNATURE","T",0,'C');
+			$this->fpdf->Cell(20,5,'',0,0,'L');
 		else:
 			$this->fpdf->SetTextColor(255, 85, 0);
 			$this->fpdf->Ln(15);
