@@ -64,10 +64,10 @@
                                                     <td align="center"><?=$adjincome['incomeDesc']?></td>
                                                     <td align="center"><?=$adjincome['incomeAmount']?></td>
                                                     <td align="center"><?=adjustmentType($adjincome['type'])?></td>
-                                                    <td align="center" style="width: 170px;">
-                                                        <button class="btn btn-sm green" data-toggle="modal" href="#incomeAdjustments" id="btneditIncome_adj" data-json='<?=json_encode($adjincome)?>'>
+                                                    <td align="center" style="width: 170px;" nowrap>
+                                                        <button class="btn btn-xs green" data-toggle="modal" href="#incomeAdjustments" id="btneditIncome_adj" data-json='<?=json_encode($adjincome)?>'>
                                                             <i class="fa fa-edit"></i> Edit</button>
-                                                        <button class="btn btn-sm red" data-toggle="modal" href="#delete_adjustment" id="btndeleteIncome_adj" data-id='<?=$adjincome['code']?>'>
+                                                        <button class="btn btn-xs red" data-toggle="modal" href="#delete_adjustment" id="btndeleteIncome_adj" data-id='<?=$adjincome['code']?>'>
                                                             <i class="fa fa-trash"></i> Delete</button>
                                                     </td>
                                                 </tr>
