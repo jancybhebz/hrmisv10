@@ -34,10 +34,11 @@ class Adjustments_model extends CI_Model {
 		if($yr > 0): $where .= " AND adjustYear = '".$yr."'"; endif;
 		if($period > 0): $where .= " AND adjustPeriod = '".$period."'"; endif;
 
-		return $this->db->query("SELECT tblEmpIncomeAdjust.*, tblIncome.incomeDesc FROM tblEmpIncomeAdjust
+		$res = $this->db->query("SELECT tblEmpIncomeAdjust.*, tblIncome.incomeDesc FROM tblEmpIncomeAdjust
 									LEFT JOIN tblIncome ON tblIncome.incomeCode = tblEmpIncomeAdjust.incomeCode
 									WHERE $where
 									ORDER BY adjustYear DESC, adjustMonth DESC")->result_array();
+		return $res;
 
 	}
 	# END INCOME
