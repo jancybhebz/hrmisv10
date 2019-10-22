@@ -74,7 +74,7 @@ class Dtr extends MY_Controller {
 			$this->fpdf->Cell(27,5,'Employee Number:','TL',0,'L');
 			$this->fpdf->Cell(93,5,$empid,'T',0,'L');
 			$this->fpdf->Cell(20,5,'Month/Year:','T',0,'L');
-			$this->fpdf->Cell(50,5,date('F, Y', strtotime($datefrom)),'TR',1,'L');
+			$this->fpdf->Cell(50,5,date('M. d, Y', strtotime($datefrom)).' - '.date('M. d, Y', strtotime($dateto)),'TR',1,'L');
 
 			$this->fpdf->Cell(27,5,'Employee Name:','L',0,'L');
 			$this->fpdf->Cell(93,5,$empdata['surname'].', '.$empdata['firstname'].' '.$empdata['middlename'],0,0,'L');
