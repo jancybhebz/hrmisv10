@@ -59,7 +59,7 @@
                                         <td style="text-align: center;"><?=$employee['longiFactor']?>%</td>
                                         <td style="text-align: center;"><?=$employee['difYear']?>%</td>
                                         <td style="text-align: center;"><?=$employee['dateofIncrease']?></td>
-                                        <td style="text-align: center;">
+                                        <td style="text-align: center;" nowrap>
                                             <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$employee['empNumber']?>" class="btn btn-sm blue">
                                                 <i class="fa fa-eye"></i>  View</a>
                                             <a data-toggle="modal" href="#updateLongevity" id="btnupdateLongevity" class="btn btn-sm green"
