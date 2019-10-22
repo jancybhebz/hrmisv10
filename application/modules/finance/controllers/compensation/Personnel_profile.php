@@ -507,6 +507,9 @@ class Personnel_profile extends MY_Controller {
 		$res_process = $this->Payroll_process_model->getData($employeeData[0]['appointmentCode']);
 		$this->arrData['empPayrollProcess'] = $res_process[0]['computation'];
 
+		$mon 	= isset($_GET['month']) ? $_GET['month'] == 'all' ? 0 : ltrim($_GET['month'], '0') : 0;
+		$yr 	= isset($_GET['yr']) ? $_GET['yr'] == 'all' ? 0 : $_GET['yr'] : 0;
+		$period = isset($_GET['period']) ? $_GET['period'] == 'all' ? 0 : $_GET['period'] : 0;
 		$this->arrData['arrDataDeduct'] = $this->Adjustments_model->getDeductions($empid,$mon,$yr,$period);
 		$this->arrData['arrDataIncome'] = $this->Adjustments_model->getIncome($empid,$mon,$yr,$period);
 
@@ -562,9 +565,9 @@ class Personnel_profile extends MY_Controller {
 								 'deductYear' 	=> 	$arrPost['selded_yr'],
 								 'deductAmount' => 	$arrPost['txtded_amt'],
 								 'type' 		=> 	$arrPost['selded_type'],
-								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
-								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
-								 'adjustPeriod' => 	$arrPost['txtadjper']);
+								 'adjustMonth' 	=> 	$arrPost['seladjmon_adj'],
+								 'adjustYear' 	=> 	$arrPost['seladjyr_adj'],
+								 'adjustPeriod' => 	$arrPost['seladjper_adj']);
 				$this->Adjustments_model->addAdj_deduction($arrData);
 				$this->session->set_flashdata('strSuccessMsg', 'Adjustment deduction added successfully.');
 			endif;
@@ -574,9 +577,9 @@ class Personnel_profile extends MY_Controller {
 								 'deductYear' 	=> 	$arrPost['selded_yr'],
 								 'deductAmount' => 	$arrPost['txtded_amt'],
 								 'type' 		=> 	$arrPost['selded_type'],
-								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
-								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
-								 'adjustPeriod' => 	$arrPost['txtadjper']);
+								 'adjustMonth' 	=> 	$arrPost['seladjmon_adj'],
+								 'adjustYear' 	=> 	$arrPost['seladjyr_adj'],
+								 'adjustPeriod' => 	$arrPost['seladjper_adj']);
 				$this->Adjustments_model->editAdj_deduction($arrData, $arrPost['txtded_id']);
 				$this->session->set_flashdata('strSuccessMsg', 'Adjustment deduction updated successfully.');
 			endif;

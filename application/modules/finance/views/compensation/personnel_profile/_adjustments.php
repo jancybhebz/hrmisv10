@@ -2,43 +2,69 @@
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
-            <?=form_open('', array('class' => 'form-inline', 'method' => 'get', 'id' => 'frmadjsearch'))?>
-                <div class="col-md-3"></div>
-                <div class="form-group" style="display: inline-flex;">
-                    <label style="padding: 6px;white-space: nowrap;">Payroll Date</label>
-                    <select class="bs-select form-control" name="mon">
-                        <option value="0">Month</option>
-                        <?php foreach (range(1, 12) as $m): ?>
-                            <option value="<?=$m?>" <?=isset($_GET['mon']) ? $_GET['mon'] == $m ? 'selected' : '' : date('n') == $m?>>
-                                <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group" style="display: inline-flex;">
-                    <select class="bs-select form-control" name="yr">
-                        <option value="0">Year</option>
-                        <?php foreach (getYear() as $yr): ?>
-                            <option value="<?=$yr?>" <?=isset($_GET['yr']) ? $_GET['yr'] == $yr ? 'selected' : '' : date('n') == $yr?>>
+            <br>
+            <center>
+                <?=form_open('', array('class' => 'form-inline', 'method' => 'get'))?>
+                    <div class="form-group" style="display: inline-flex;">
+                        <label class="bold" style="padding: 6px;"> Adjustment:</label>
+                        <label style="padding: 6px;"> Month</label>
+                        <select class="bs-select form-control" name="month">
+                            <option value="all">All</option>
+                            <?php foreach (range(1, 12) as $m): ?>
+                                <option value="<?=sprintf('%02d', $m)?>"
+                                    <?php 
+                                        if(isset($_GET['month'])):
+                                            echo $_GET['month'] == $m ? 'selected' : '';
+                                        else:
+                                            echo $m == 'all' ? 'selected' : '';
+                                        endif;
+                                        ?> >
+                                    <?=date('F', mktime(0, 0, 0, $m, 10))?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: inline-flex;margin-left: 10px;">
+                        <label style="padding: 6px;"> Year</label>
+                        <select class="bs-select form-control" name="yr">
+                            <option value="all">All</option>
+                            <?php foreach (getYear() as $yr): ?>
+                                <option value="<?=$yr?>"
+                                    <?php 
+                                        if(isset($_GET['yr'])):
+                                            echo $_GET['yr'] == $yr ? 'selected' : '';
+                                        else:
+                                            echo $yr == 'all' ? 'selected' : '';
+                                        endif;
+                                        ?> >  
                                 <?=$yr?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group" style="display: inline-flex;">
-                    <select class="bs-select form-control" name="period">
-                        <option value="">Period</option>
-                        <?php $ctr = 1;
-                              foreach(setPeriods($empPayrollProcess) as $period): ?>
-                                <option value="<?=$ctr++?>" <?=isset($_GET['period']) ? $_GET['period'] == $ctr ? 'selected' : '' : ''?>>
-                                <?=$period?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
-            <?=form_close()?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: inline-flex;margin-left: 10px;">
+                        <label style="padding: 6px;"> Period </label>
+                        <select class="bs-select form-control" name="period">
+                            <option value="all">All</option>
+                            <?php $ctr = 0; foreach(setPeriods($empPayrollProcess) as $period): $ctr++?>
+                                    <option value="<?=$ctr?>"
+                                    <?php 
+                                        if(isset($_GET['period'])):
+                                            echo $_GET['period'] == $ctr ? 'selected' : '';
+                                        else:
+                                            echo $ctr == 'all' ? 'selected' : '';
+                                        endif;
+                                        ?> >  
+                                    <?=$period?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
+                <?=form_close()?>
+            </center>
             <br><br>
             <div class="portlet-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="portlet light bordered">
                             <div class="portlet-title">
                                 <div class="caption font-dark">
@@ -52,22 +78,30 @@
                                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-adj-income" >
                                             <thead>
                                                 <tr>
-                                                    <th style="text-align: center;"> Income </th>
-                                                    <th style="text-align: center;"> Amount </th>
-                                                    <th style="text-align: center;"> Type </th>
-                                                    <th style="text-align: center;"> Actions </th>
+                                                   <th style="text-align: center;vertical-align: middle;"> No </th>
+                                                    <th style="text-align: left;vertical-align: middle;"> Income </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Amount </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Type </th>
+                                                    <th style="text-align: center;"> Adjustment Date <br>(Month / Year) </th>
+                                                    <th style="text-align: center;"> Income Date <br>(Month / Year) </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Period </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Actions </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach($arrDataIncome as $adjincome): ?>
+                                                <?php $no=1; foreach($arrDataIncome as $adjincome): ?>
                                                 <tr class="odd gradeX">
-                                                    <td align="center"><?=$adjincome['incomeDesc']?></td>
+                                                    <td align="center"><?=$no++?></td>
+                                                    <td><?=$adjincome['incomeDesc']?></td>
                                                     <td align="center"><?=$adjincome['incomeAmount']?></td>
                                                     <td align="center"><?=adjustmentType($adjincome['type'])?></td>
-                                                    <td align="center" style="width: 170px;">
-                                                        <button class="btn btn-sm green" data-toggle="modal" href="#incomeAdjustments" id="btneditIncome_adj" data-json='<?=json_encode($adjincome)?>'>
+                                                    <td align="center"><?=date('M', mktime(0, 0, 0, $adjincome['adjustMonth'], 10))?> <?=$adjincome['adjustYear']?></td>
+                                                    <td align="center"><?=date('M', mktime(0, 0, 0, $adjincome['incomeMonth'], 10))?> <?=$adjincome['incomeYear']?></td>
+                                                    <td align="center"><?=$adjincome['adjustPeriod']?></td>
+                                                    <td align="center" style="width: 170px;" nowrap>
+                                                        <button class="btn btn-xs green" data-toggle="modal" href="#incomeAdjustments" id="btneditIncome_adj" data-json='<?=json_encode($adjincome)?>'>
                                                             <i class="fa fa-edit"></i> Edit</button>
-                                                        <button class="btn btn-sm red" data-toggle="modal" href="#delete_adjustment" id="btndeleteIncome_adj" data-id='<?=$adjincome['code']?>'>
+                                                        <button class="btn btn-xs red" data-toggle="modal" href="#delete_adjustment" id="btndeleteIncome_adj" data-id='<?=$adjincome['code']?>'>
                                                             <i class="fa fa-trash"></i> Delete</button>
                                                     </td>
                                                 </tr>
@@ -80,7 +114,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="portlet light bordered">
                             <div class="portlet-title">
                                 <div class="caption font-dark">
@@ -94,24 +128,30 @@
                                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-adj-deductions" >
                                             <thead>
                                                 <tr>
-                                                    <th style="text-align: center;"> Deduction </th>
-                                                    <th style="text-align: center;"> Amount </th>
-                                                    <th style="text-align: center;"> Type </th>
-                                                    <th style="text-align: center;"> Adjustment Date </th>
-                                                    <th style="text-align: center;"> Actions </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> No </th>
+                                                    <th style="text-align: left;vertical-align: middle;"> Deduction </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Amount </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Type </th>
+                                                    <th style="text-align: center;"> Adjustment Date <br>(Month / Year) </th>
+                                                    <th style="text-align: center;"> Deduction Date <br>(Month / Year) </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Period </th>
+                                                    <th style="text-align: center;vertical-align: middle;"> Actions </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach($arrDataDeduct as $adjdeduct): ?>
+                                                <?php $no=1; foreach($arrDataDeduct as $adjdeduct): ?>
                                                 <tr class="odd gradeX">
-                                                    <td align="center"><?=$adjdeduct['deductionDesc']?></td>
+                                                    <td align="center"><?=$no++?></td>
+                                                    <td> <?=$adjdeduct['deductionDesc']?></td>
                                                     <td align="center"><?=$adjdeduct['deductAmount']?></td>
                                                     <td align="center"><?=adjustmentType($adjdeduct['type'])?></td>
-                                                    <td align="center"><?=date('F', mktime(0, 0, 0, $adjdeduct['deductMonth'], 10))?> <?=$adjdeduct['deductYear']?></td>
-                                                    <td align="center" style="width: 170px;">
-                                                        <button class="btn btn-sm green" data-toggle="modal" href="#deductAdjustments" id="btneditdeduct_adj" data-json='<?=json_encode($adjdeduct)?>'>
+                                                    <td align="center"><?=date('M', mktime(0, 0, 0, $adjdeduct['adjustMonth'], 10))?> <?=$adjdeduct['adjustYear']?></td>
+                                                    <td align="center"><?=date('M', mktime(0, 0, 0, $adjdeduct['deductMonth'], 10))?> <?=$adjdeduct['deductYear']?></td>
+                                                    <td align="center"><?=$adjdeduct['adjustPeriod']?></td>
+                                                    <td align="center" style="width: 170px;" nowrap>
+                                                        <button class="btn btn-xs green" data-toggle="modal" href="#deductAdjustments" id="btneditdeduct_adj" data-json='<?=json_encode($adjdeduct)?>'>
                                                             <i class="fa fa-edit"></i> Edit</button>
-                                                        <button class="btn btn-sm red" data-toggle="modal" href="#delete_adjustment" id="btndeletededuct_adj" data-id='<?=$adjdeduct['code']?>'>
+                                                        <button class="btn btn-xs red" data-toggle="modal" href="#delete_adjustment" id="btndeletededuct_adj" data-id='<?=$adjdeduct['code']?>'>
                                                             <i class="fa fa-trash"></i> Delete</button>
                                                     </td>
                                                 </tr>
@@ -131,50 +171,3 @@
 </div>
 <?php include('modals/_modal_adjustments.php'); ?>
 <?=load_plugin('js', array('datatables','form_validation','select2','select'))?>
-
-<script>
-    $(document).ready(function() {
-        $('#table-adj-deductions, #table-adj-income').dataTable({"pageLength": 5});
-
-        $('#table-adj-income').on('click', 'tbody > tr #btneditIncome_adj', function () {
-            $('.modal-action').html('Update');
-            $('#txtaction').val('edit');
-            var data = $(this).data('json');
-            $('#txtinc_id').val(data.code);
-            $('#txtadjmon').val(data.adjustMonth);
-            $('#txtadjyr').val(data.adjustYear);
-            $('#txtadjper').val(data.adjustPeriod);
-            $('#selincome').select2("val", data.incomeCode);
-            $('#txtinc_amt').val(data.incomeAmount);
-            $('#selinc_type').val(data.type);
-            $('#selinc_month').val(data.incomeMonth);
-            $('#selinc_yr').val(data.incomeYear);
-        });
-
-        $('#table-adj-income').on('click', 'tbody > tr #btndeleteIncome_adj', function () {
-            $('#txtdel_action').val('income');
-            $('#txtdel_id').val($(this).data('id'));
-        });
-
-        $('#table-adj-deductions').on('click', 'tbody > tr #btneditdeduct_adj', function () {
-            $('.modal-action').html('Update');
-            $('#txtded_action').val('edit');
-            var data = $(this).data('json');
-            $('#txtded_id').val(data.code);
-            $('#txtadjmon').val(data.adjustMonth);
-            $('#txtadjyr').val(data.adjustYear);
-            $('#txtadjper').val(data.adjustPeriod);
-            $('#seldeduct').select2("val", data.deductionCode);
-            $('#txtded_amt').val(data.deductAmount);
-            $('#selded_type').val(data.type);
-            $('#selded_month').val(data.deductMonth);
-            $('#selded_yr').val(data.deductYear);
-        });
-
-        $('#table-adj-deductions').on('click', 'tbody > tr #btndeletededuct_adj', function () {
-            $('#txtdel_action').val('deduction');
-            $('#txtdel_id').val($(this).data('id'));
-        });
-
-    });
-</script>

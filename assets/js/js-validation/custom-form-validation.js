@@ -36,6 +36,9 @@ function check_date(el,msg='')
 function check_null(el,msg)
 {
     $(el).closest('div.form-group').find('i.fa-calendar').remove();
+    if($(el).val() == null){
+        $(el).val('');
+    }
     if($(el).val() != '' && $(el).val().replace(/\s/g, '').length > 0){
         $(el).closest('div.form-group').removeClass('has-error');
         $(el).closest('div.form-group').addClass('has-success');
