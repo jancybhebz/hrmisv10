@@ -19,12 +19,22 @@ class Deductions extends MY_Controller {
 
 	public function index()
 	{
-		$status = $this->uri->segment(3);
-		$this->arrData['deductions'] = $this->Deduction_Model->getDeductionsByStatus($status);
-		$this->arrData['status'][0] = $status == '' ? array('Show All', '') : ($status == 1 ? array('Show Inactive', 1) : array('Show Active', 0));
-		$this->arrData['status'][1] = $status == '' ? array('Show Active', 0) : ($status == 1 ? array('Show Active', 0) : array('Show All', ''));
-		$this->arrData['status'][2] = $status == '' ? array('Show Inactive', 1) : ($status == 1 ? array('Show All', '') : array('Show Inactive', 1));
+		$curr_status = isset($_GET['status']) ? $_GET['status'] : 0;
+		$arrstatus = array('all','active','inactive');
+		$this->arrData['allstat'] = $arrstatus;
+		unset($arrstatus[$curr_status]);
+		$this->arrData['arrstatus'] = $arrstatus;
+
+		if($curr_status==1):
+			$this->arrData['deductions'] = $this->Deduction_Model->getDeductionsByStatus(1);
+		elseif($curr_status==2):
+			$this->arrData['deductions'] = $this->Deduction_Model->getDeductionsByStatus(0);
+		else:
+			$this->arrData['deductions'] = $this->Deduction_Model->getDeductionsByStatus();
+		endif;
 		$this->arrData['agency'] = $this->Deduction_Model->getDeductionGroup('');
+		$this->arrData['curr_status'] = $curr_status;
+
 		$this->template->load('template/template_view','finance/libraries/deductions/deductions_view',$this->arrData);
 	}
 
