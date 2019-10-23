@@ -65,9 +65,9 @@ class Income_model extends CI_Model {
 	function getIncome($status='')
 	{
 		if($status==''):
-			return $this->db->order_by('incomeCode','ASC')->get('tblIncome')->result_array();
+			return $this->db->order_by('incomeType','ASC')->get('tblIncome')->result_array();
 		else:
-			return $this->db->get_where('tblIncome', array('hidden' => $status))->result_array();
+			return $this->db->order_by('incomeType','ASC')->get_where('tblIncome', array('hidden' => $status))->result_array();
 		endif;
 	}
 
