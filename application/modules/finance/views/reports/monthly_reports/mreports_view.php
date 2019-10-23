@@ -91,8 +91,8 @@
                                 <table class="table table-bordered" id="tblmreports" >
                                     <tr>
                                         <th>Payslip</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="1" data-test="fhalf1" data-link="<?=base_url('finance/reports/monthlyreports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="2" data-test="fhalf1" data-link="<?=base_url('finance/reports/monthlyreports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="1" data-test="fhalf1" data-link="<?=base_url('finance/reports/MonthlyReports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> First Half</a></td>
+                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="2" data-test="fhalf1" data-link="<?=base_url('finance/reports/MonthlyReports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> Second Half</a></td>
                                     </tr>
                                     <tr>
                                         <th>Payroll Register</th>
