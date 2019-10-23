@@ -39,7 +39,7 @@ $(document).ready(function() {
         var getdata = "empno=" + $('#txtempnumber').val() + "&rtype=" + $('#selrep_type').val() + "&remitt=" + $('#selrep_remitt').val() + "&month=" + $('#selmont').val() + "&ps_yr=" + $('#txtps_yr').val() + "&remit_fr=" + $('#txtremit_from').val() + "&remit_to=" + $('#txtremit_to').val() + "&pgroup=" + $('#selpayrollGrp').val() + "&file_gen=" + $('#selgen').val() + "&period=" + $('#selpayrollGrp').find(':selected').attr('data-period') + "&sign=" + $('#selsign').val() + "&appt=";
         if(reptype == 1){
             report_name = "Payslip";
-            replink = "finance/reports/monthlyreports/payslip?"+getdata;
+            replink = "finance/reports/MonthlyReports/payslip?"+getdata;
         }else if(reptype == 2){
             report_name = "Remittance";
             replink = "finance/reports/MonthlyReports/remittances?"+getdata;
