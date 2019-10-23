@@ -13,6 +13,17 @@ if ( ! function_exists('check_session'))
 	}
 }
 
+# get salary schedule
+if ( ! function_exists('salary_schedule'))
+{
+    function salary_schedule()
+    {
+        $CI =& get_instance();
+        $res = $CI->db->select('salarySchedule')->get('tblAgency')->result_array();
+        return count($res) > 0 ? strtolower($res[0]['salarySchedule']) : '';
+    }
+}
+
 if ( ! function_exists('employee_details'))
 {
     function employee_details($strEmpNo)

@@ -15,7 +15,7 @@ function check_income_amount(el_a,el_b,el_c,el_d,el_e)
 		period3 = parseFloat($(el_d).val().replace(/[^\d\.]/g, ""));
 		period4 = parseFloat($(el_e).val().replace(/[^\d\.]/g, ""));
 
-		if(totalamt != (period1 + period2 + period3 + period4))
+		if(Math.round(totalamt) != Math.round(period1 + period2 + period3 + period4))
 		{
 			$([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').addClass('has-error');
 			$([el_a,el_b,el_c,el_d,el_e].join()).closest('div.form-group').removeClass('has-success');

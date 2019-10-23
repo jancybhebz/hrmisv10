@@ -72,14 +72,16 @@ class Notifications extends MY_Controller {
 		if(!empty($arrPost)):
 			$this->load->model('Deduction_model');
 			$arrData = array('dateGranted'		=> $arrPost['txtdateGranted'],
-							 'actualStartYear'	=> $arrPost['txtsdate_yr'],
-							 'actualStartMonth'	=> $arrPost['selsdate_mon'],
-							 'actualEndYear'	=> $arrPost['txtedate_yr'],
-							 'actualEndMonth'	=> $arrPost['seledate_mon'],
+							 'actualStartYear'	=> $arrPost['selsdate_yr'],
+							 'actualStartMonth'	=> ltrim($arrPost['selsdate_mon'],'0'),
+							 'actualEndYear'	=> $arrPost['seledate_yr'],
+							 'actualEndMonth'	=> ltrim($arrPost['seledate_mon'],'0'),
 							 'amountGranted'	=> str_replace(',', '', $arrPost['txtamtGranted']),
 							 'monthly'			=> str_replace(',', '', $arrPost['txtmonthly']),
 							 'period1'			=> str_replace(',', '', $arrPost['txtperiod1']),
 							 'period2'			=> str_replace(',', '', $arrPost['txtperiod2']),
+							 'period3'			=> str_replace(',', '', $arrPost['txtperiod3']),
+							 'period4'			=> str_replace(',', '', $arrPost['txtperiod4']),
 							 'status'			=> $arrPost['selstatus']);
 			$this->Deduction_model->edit_empdeduction($arrData, $arrPost['txtid']);
 			$this->session->set_flashdata('strSuccessMsg','Loan updated successfully.');

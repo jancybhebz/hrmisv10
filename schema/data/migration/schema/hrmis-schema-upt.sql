@@ -42,7 +42,7 @@ CREATE TABLE `tblAgency` (
   `morningTo` time DEFAULT '00:00:00',
   `afternoonFrom` time DEFAULT '00:00:00',
   `afternoonTo` time DEFAULT '00:00:00',
-  `salarySchedule` varchar(10) NOT NULL DEFAULT '',
+  `salarySchedule` varchar(20) NOT NULL DEFAULT '',
   `mins_before_OT` time DEFAULT NULL,
   `minOT` time DEFAULT NULL,
   `maxOT` time DEFAULT NULL,
