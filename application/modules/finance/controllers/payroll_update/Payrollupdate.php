@@ -871,9 +871,9 @@ class Payrollupdate extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
-			$arrData = array('publish' => $arrPost['txtpulish_val']);
+			$arrData = array('publish' => $arrPost['txtpublish_val']);
 			$this->Payroll_process_model->edit_payroll_process($arrData, $arrPost['txtprocess_id']);
-			$this->session->set_flashdata('strSuccessMsg','Process '.($arrPost['txtpulish_val'] == 1 ? 'published' : 'unpublished').' successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Process '.($arrPost['txtpublish_val'] == 1 ? 'published' : 'unpublished').' successfully.');
 			redirect('finance/payroll_update/process_history?month='.currmo().'&yr='.curryr());
 		endif;
 	}
