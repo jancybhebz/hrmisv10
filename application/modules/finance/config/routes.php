@@ -52,7 +52,7 @@ $route['finance/notifications/nlongi'] = 'finance/notifications/notifications/nl
 $route['finance/notifications/matureloans'] = 'finance/notifications/notifications/matureloans';
 
 # REPORTS
-$route['finance/reports/monthly'] = 'finance/reports/MonthlyReports';
+// $route['finance/reports/monthly/(:any)'] = 'finance/reports/MonthlyReports';
 $route['finance/reports/remittance'] = 'finance/reports/RemittanceReports';
 $route['finance/reports/loanbalance'] = 'finance/reports/LoanBalanceReports';
 
