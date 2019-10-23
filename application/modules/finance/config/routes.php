@@ -26,6 +26,7 @@ $route['finance/libraries/payrollprocess'] = 'finance/libraries/PayrollProcess/i
 $route['finance/libraries/payrollprocess/add'] = 'finance/libraries/PayrollProcess/add';
 $route['finance/libraries/payrollprocess/edit/(:any)'] = 'finance/libraries/PayrollProcess/edit/$1';
 $route['finance/libraries/payrollprocess/delete_process/(:any)'] = 'finance/libraries/PayrollProcess/delete_process/$1';
+$route['finance/libraries/payrollprocess/delete/(:any)'] = 'finance/libraries/PayrollProcess/delete/$1';
 
 // Project Code
 $route['finance/libraries/projectcode'] = 'finance/libraries/ProjectCode/index';
