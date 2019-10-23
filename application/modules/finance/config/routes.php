@@ -32,6 +32,8 @@ $route['finance/libraries/payrollprocess/delete/(:any)'] = 'finance/libraries/Pa
 $route['finance/libraries/projectcode'] = 'finance/libraries/ProjectCode/index';
 $route['finance/libraries/projectcode/add'] = 'finance/libraries/ProjectCode/add';
 $route['finance/libraries/projectcode/edit/(:any)'] = 'finance/libraries/ProjectCode/edit/$1';
+$route['finance/libraries/projectcode/delete_projectcode/(:any)'] = 'finance/libraries/ProjectCode/delete_projectcode/$1';
+$route['finance/libraries/projectcode/delete/(:any)'] = 'finance/libraries/ProjectCode/delete/$1';
 
 // Signatory
 $route['finance/libraries/signatory'] = 'finance/libraries/Signatory/index';
