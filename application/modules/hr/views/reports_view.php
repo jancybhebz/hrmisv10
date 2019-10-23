@@ -6,6 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
+<?=load_plugin('css',array('select','select2'))?>
 <!-- BREADCRUMB -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -32,7 +33,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-6">
                 <div class="form-group">
-                   <select type="text" class="form-control" name="strReports" value="<?=!empty($this->session->userdata('strReports'))?$this->session->userdata('strReports'):''?>" required>
+                   <select type="text" class="form-control select2" name="strReports" value="<?=!empty($this->session->userdata('strReports'))?$this->session->userdata('strReports'):''?>" required>
                          <option value="">Select</option>
                         <?php foreach($arrReports as $report)
                         {
@@ -56,7 +57,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                    <select name="strSelectPer" id="strSelectPer" type="text" class="form-control" value="<?=!empty($this->session->userdata('strSelectPer'))?$this->session->userdata('strSelectPer'):''?>">
+                    <select name="strSelectPer" id="strSelectPer" type="text" class="form-control bs-select" value="<?=!empty($this->session->userdata('strSelectPer'))?$this->session->userdata('strSelectPer'):''?>">
                     <option value="">Select</option>
                     <option value="0">All Employees</option>
                     <option value="1">Per Employee</option>
@@ -78,7 +79,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
              <div class="col-sm-3">
                 <div class="form-group">
-                     <select type="text" class="form-control" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>">
+                     <select type="text" class="form-control select2" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>">
                         <option value="">Select</option>
                         <?php foreach($arrEmployees as $i=>$data): ?>
                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']))?></option>
@@ -124,7 +125,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     <br><br>
 <?=form_close()?>
-
+<?=load_plugin('js',array('select','select2'))?>
 <script>
     $(function(){
         $('.per-block, .employee-block').hide();
@@ -190,7 +191,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             if($rpt!='')
                 window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
         });
-
 
     });
 </script>
