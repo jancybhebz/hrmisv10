@@ -158,12 +158,14 @@ if ( ! function_exists('comboYear'))
 {    
     function comboYear($strName="intYear")
     {
-    	$str = '<select name="'.$strName.'" class="form-control">';
+        $str =load_plugin('css',array('select'));
+    	$str .= '<select name="'.$strName.'" class="form-control bs-select">';
     	for($i=date('Y');$i>=2003;$i--)
     	{
     		$str .= '<option value="'.$i.'">'.$i.'</option>';
     	}
     	$str .= '</select>';
+        $str .=load_plugin('js',array('select'));
     	return $str;
     }
 }
@@ -172,12 +174,14 @@ if ( ! function_exists('comboMonth'))
 {    
     function comboMonth($strName="intMonth")
     {
-    	$str = '<select name="'.$strName.'" class="form-control">';
+        $str =load_plugin('css',array('select'));
+    	$str .= '<select name="'.$strName.'" class="form-control bs-select">';
     	for($i=1;$i<=12;$i++)
     	{
     		$str .= '<option value="'.$i.'" '.(date('n')==$i?'selected="selected"':'').'>'.date('F',strtotime(date('Y-'.$i.'-d'))).'</option>';
     	}
     	$str .= '</select>';
+        $str .=load_plugin('js',array('select'));
     	return $str;
     }
 }
@@ -186,13 +190,14 @@ if ( ! function_exists('comboDay'))
 {    
     function comboDay($strName="intDay",$intMaxDay=31)
     {
-    	
-    	$str = '<select name="'.$strName.'" class="form-control">';
+    	$str =load_plugin('css',array('select'));
+    	$str .= '<select name="'.$strName.'" class="form-control bs-select">';
     	for($i=1;$i<=$intMaxDay;$i++)
     	{
     		$str .= '<option value="'.$i.'" '.(date('j')==$i?'selected="selected"':'').'>'.$i.'</option>';
     	}
     	$str .= '</select>';
+        $str .=load_plugin('js',array('select'));
     	return $str;
     }
 }
@@ -201,14 +206,15 @@ if ( ! function_exists('comboSignatory'))
 {    
     function comboSignatory($strName="intSignatory")
     {
-    	
-    	$str = '<select name="'.$strName.'" class="form-control">';
+    	$str =load_plugin('css',array('select2'));
+    	$str .= '<select name="'.$strName.'" class="form-control select2">';
     	$rs = getSignatories();
     	foreach($rs as $row)
     	{
     		$str .= '<option value="'.$row['signatoryId'].'" >'.$row['signatory'].'</option>';
     	}
     	$str .= '</select>';
+        $str .=load_plugin('js',array('select2'));
     	return $str;
     }
 }
