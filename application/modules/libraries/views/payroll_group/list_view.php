@@ -68,9 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                    $i=1;
-                    foreach($arrPayrollGroup as $row):?>
+                    <?php $i=1; foreach($arrPayrollGroup as $row):?>
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$row['projectDesc']?> </td>
@@ -84,9 +82,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                
                             </td>
                         </tr>
-                    <?php 
-                    $i++;
-                    endforeach;?>
+                    <?php $i++; endforeach;?>
                     </tbody>
                 </table>
             </div>
