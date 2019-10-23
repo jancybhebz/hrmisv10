@@ -107,7 +107,7 @@ if ( ! function_exists('income_type'))
 {
     function income_type()
     {
-		return array('Benefit', 'Bonus', 'Additional');
+		return array('Additional','Benefit', 'Bonus','Monthly');
 	}
 
 }
