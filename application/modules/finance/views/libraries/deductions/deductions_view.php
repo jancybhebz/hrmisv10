@@ -56,10 +56,11 @@
                                         <div class="col-md-12">
                                             <a href="<?=base_url('finance/libraries/deductions/add')?>" id="sample_editable_1_new" class="btn sbold blue"><i class="fa fa-plus"></i> Add New </a>
                                             <div class="btn-group pull-right">
-                                                <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown"> <?=$status[0][0]?> <i class="fa fa-angle-down"></i> </button>
+                                                <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown"> <?=ucfirst($allstat[$curr_status])?> <i class="fa fa-angle-down"></i> </button>
                                                 <ul class="dropdown-menu pull-right" role="menu">
-                                                    <li> <a href="<?=base_url('finance/libraries/deductions/'.$status[1][1])?>"> <?=$status[1][0]?></a> </li>
-                                                    <li> <a href="<?=base_url('finance/libraries/deductions/'.$status[2][1])?>"> <?=$status[2][0]?></a> </li>
+                                                    <?php foreach($arrstatus as $link => $link_stat): ?>
+                                                        <li> <a href="<?=base_url('finance/libraries/deductions/?status='.$link)?>"> Show <?=ucfirst($link_stat)?></a> </li>
+                                                    <?php endforeach; ?>
                                                 </ul>
                                             </div>
                                         </div>
