@@ -155,7 +155,7 @@
         $('#tblprocess-history').on('click', 'a#btnunpublish', function() {
             $('.modal-title').html('<b>Unpublish Process</b>');
             $('#txtprocess_id').val($(this).data('procid'));
-            $('#txtpulish_val').val(0);
+            $('#txtpublish_val').val(0);
             $('#spanpublish').html('unpublish');
             $('#publish_process').modal('show');
         });
@@ -163,8 +163,8 @@
         $('#tblprocess-history').on('click', 'a#btnpublish', function() {
             $('.modal-title').html('<b>Publish Process</b>');
             $('#txtprocess_id').val($(this).data('procid'));
-            $('#txtpulish_val').val(1);
-            $('#spanpublish').html('pulish');
+            $('#txtpublish_val').val(1);
+            $('#spanpublish').html('publish');
             $('#publish_process').modal('show');
         });
 

@@ -1,4 +1,4 @@
-<!-- modal for pulish and unpublish process -->
+<!-- modal for publish and unpublish process -->
 <div id="publish_process" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -11,7 +11,7 @@
                     <div class="row form-body">
                         <div class="col-md-12">
                             <input type="hidden" name="txtprocess_id" id="txtprocess_id">
-                            <input type="hidden" name="txtpulish_val" id="txtpulish_val">
+                            <input type="hidden" name="txtpublish_val" id="txtpublish_val">
                             <div class="form-group">
                                 <label>Are you sure you want to <span id="spanpublish"></span> this process?</label>
                             </div>
