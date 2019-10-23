@@ -10,13 +10,13 @@ $activetab = strtolower($activetab);
 
 $user_session = $this->session->userdata();
 ?>
-<!-- <pre>
+<!-- <pre> -->
     <?php 
         // echo '<br>active = '.$active;
         // echo '<br>activesub = '.$activesub;
         // echo '<br>activetab = '.$activetab;
      ?>
-</pre> -->
+<!-- </pre> -->
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
@@ -209,12 +209,12 @@ $user_session = $this->session->userdata();
                             <span class="arrow <?=$activesub=='payroll_update'?'open':''?>"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item start <?=($activetab=='process' || ($active=='finance' && $activesub == 'payroll_update')) && !in_array($activetab, array('view_or','update_or')) ?'active open':''?>">
+                            <li class="nav-item start <?=$activesub == 'payroll_update' && in_array($activetab, array('process','select_benefits_perm','compute_benefits_perm','save_benefits_perm','select_deductions_perm')) ?'active open':''?>">
                                 <a href="<?=base_url('finance/payroll_update/process')?>">
                                     <span class="title">Process Payroll</span>
                                 </a>
                             </li>
-                            <li class="nav-item start <?=$activetab=='process_history'?'active open':''?>">
+                            <li class="nav-item start <?=$activesub=='payroll_update' && $activetab=='process_history'?'active open':''?>">
                                 <a href="<?=base_url('finance/payroll_update/process_history')?>">
                                     <span class="title">Process History</span>
                                 </a>
