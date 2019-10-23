@@ -42,7 +42,7 @@ $(document).ready(function() {
             replink = "finance/reports/monthlyreports/payslip?"+getdata;
         }else if(reptype == 2){
             report_name = "Remittance";
-            replink = "finance/reports/monthlyreports/remittances?"+getdata;
+            replink = "finance/reports/MonthlyReports/remittances?"+getdata;
         }
         $('.modal-title').html(report_name);
         if(reptype == 1 || (reptype == 2 && $('#selgen').val() == 1)){
@@ -57,7 +57,7 @@ $(document).ready(function() {
         var reptype = $('#selrep_type').val();
         var replink = "";
         var getdata = "empno=" + $('#selname').val() + "&rtype=2" + "&remitt=" + $('#remitType').val() + "&month=" + "&ps_yr=" + "&remit_fr=" + $('#remityrfrom').val() + "&remit_to=" + $('#remityrto').val() + "&pgroup=" + "&file_gen=" + $('#selgen').val() + "&period=" + "&sign=" + "&appt=" + $('#selAppoint').val();
-        replink = "finance/reports/monthlyreports/remittances?"+getdata;
+        replink = "finance/reports/MonthlyReports/remittances?"+getdata;
         $('.modal-title').html('Remittance');
         $('#print-preview-modal').modal('show');
         $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
