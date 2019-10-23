@@ -90,13 +90,12 @@ class Payroll_group extends MY_Controller {
 			$intPayrollGroupId = urldecode($this->uri->segment(4));
 			$this->arrData['action'] = 'edit';
 			$this->arrData['arrProject']=$this->project_code_model->getData(); 
-			$this->arrData['arrPayrollGroup']=$this->payroll_group_model->getData();
+			$this->arrData['arrPayrollGroup']=$this->payroll_group_model->getData($intPayrollGroupId);
 		
 			$this->template->load('template/template_view','libraries/payroll_group/edit_view', $this->arrData);
 		}
 		else
 		{
-
 			$intPayrollGroupId = $arrPost['intPayrollGroupId'];
 			$strProject = $arrPost['strProject'];
 			$strPayrollGroupCode = $arrPost['strPayrollGroupCode'];

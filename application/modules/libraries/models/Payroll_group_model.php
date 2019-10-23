@@ -22,12 +22,13 @@ class Payroll_group_model extends CI_Model {
 	{		
 		if($intPayrollGroupId != "")
 		{
-			$this->db->where($this->tableid,$intPayrollGroupId);
+			$this->db->where('payrollGroupId',$intPayrollGroupId);
 		}
 		$this->db->join('tblProject','tblProject.projectCode = '.$this->table.'.projectCode','left');
 		$this->db->order_by('tblPayrollGroup.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
+
 	}
 
 	// function getProject($intProjectId = '')
@@ -61,6 +62,7 @@ class Payroll_group_model extends CI_Model {
 		$this->db->where('payrollGroupId', $intPayrollGroupId);
 		$this->db->update($this->table, $arrData);
 		//echo $this->db->affected_rows();
+		echo $this->db->last_query();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

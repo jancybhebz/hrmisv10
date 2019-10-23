@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                      <option value="">Select</option>
                                      <?php foreach($arrProject as $i=>$project)
                                         {
-                                          echo '<option value="'.$project['projectId'].'" '.($arrProject[0]['projectId']==$project['projectId']?'selected':'').'>'.(strtoupper($project['projectDesc'])).'</option>';
+                                          echo '<option value="'.$project['projectCode'].'" '.($arrProject[0]['projectCode']==$project['projectCode']?'selected':'').'>'.(strtoupper($project['projectDesc'])).'</option>';
                                         }?>
                                     </select>
                                 </div>
