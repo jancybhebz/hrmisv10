@@ -15,11 +15,10 @@ class Remittance_model extends CI_Model {
 		if($empid != ''){
 			$this->db->where('empNumber',$empid);
 		}
-		if($appt != ''){
+		if(count($arremp) > 0){
 			$this->db->where_in('empNumber',array_column($arremp,'empNumber'));	
 		}
-		$res = $this->db->join('tblDeduction', 'tblDeduction.deductionCode = tblEmpDeductionRemit.deductionCode', 'left')
-					    ->get_where('tblEmpDeductionRemit')->result_array();
+		$res = $this->db->join('tblDeduction', 'tblDeduction.deductionCode = tblEmpDeductionRemit.deductionCode', 'left')->get_where('tblEmpDeductionRemit')->result_array();
 		
 		return $res;
 	}
