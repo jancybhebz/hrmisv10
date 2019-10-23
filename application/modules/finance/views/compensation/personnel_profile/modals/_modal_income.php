@@ -85,7 +85,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Longevity Update</h4>
+                <h4 class="modal-title bold"> <span id="splonge"></span> Longevity</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
@@ -187,11 +187,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h5 class="modal-title font-yellow"> <i class="fa fa-exclamation-triangle"></i> Update Longevity in Benefit List</h5>
             </div>
-            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmdellongevity'))?>
+            <?=form_open('finance/compensation/personnel_profile/actionLongevity/'.$this->uri->segment(5), array('id' => 'frmdelbenefits'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="text" name="txtaction" id="txt_upt_action">
+                            <input type="hidden" name="txtaction" id="txt_upt_action">
                             <input type="hidden" name="txtamount" value="<?=$totalLP?>">
                             <input type="hidden" name="txtlongevitydate" id="txt_upt_longevitydate-bl">
                             <input type="hidden" name="txtsalary" id="txt_upt_salary-bl">

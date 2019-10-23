@@ -106,7 +106,7 @@ $(document).ready(function() {
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').removeClass('has-success');
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').find('i.fa-check').remove();
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').find('i.fa-warning').remove();
-
+	    $('#splonge').html('Update');
 	    $('#txtlongevityid-bl').val($(this).data('longeid'));
 	    $('#txt_upt_action').val('edit');
 	    $('#sub-title').html($(this).closest('table').data('title'));
@@ -122,7 +122,7 @@ $(document).ready(function() {
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').removeClass('has-success');
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').find('i.fa-check').remove();
 	    $('#txtlongevitydate-bl,#txtsalary-bl,#txtpercent-bl').closest('div.form-group').find('i.fa-warning').remove();
-	    
+	    $('#splonge').html('Add');
 	    $('#txtaction').val('add');
 	    $('#txt_upt_action').val('add');
 	    $('#txtlongevitydate-bl').val('');
