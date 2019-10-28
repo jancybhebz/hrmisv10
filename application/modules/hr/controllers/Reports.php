@@ -166,6 +166,50 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
 			break;
+			case 'AppLF':
+				echo '<div class="row">
+						<div class="col-sm-3 text-right">
+		                	<div class="form-group">
+		                		<label class="control-label">Month: </label>
+		                	</div>
+		                </div>
+		                <div class="col-sm-3">
+		                	<div class="form-group">'.comboMonth('dtMonth').'</div>
+		                </div>
+	                </div>
+	                <div class="row">
+		                <div class="col-sm-3 text-right">
+		                	<div class="form-group">
+		                		<label class="control-label">Year: </label>
+		                	</div>
+		                </div>
+		                <div class="col-sm-3">
+		                	<div class="form-group">'.comboYear('dtYear').'</div>
+		                </div>
+	                </div>';
+	                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Signatory : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Noted : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatoryNoted').'</div>
+	        			</div>
+                	</div>
+                </div>';
+			break;
 			case 'ADR':
 				echo '<div class="row">
                 	<div class="col-sm-3 text-right">
