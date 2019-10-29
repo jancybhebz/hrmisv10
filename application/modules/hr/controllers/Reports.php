@@ -166,28 +166,39 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
 			break;
-			case 'AppLF':
+			case 'AFLF':
 				echo '<div class="row">
-						<div class="col-sm-3 text-right">
-		                	<div class="form-group">
-		                		<label class="control-label">Month: </label>
-		                	</div>
-		                </div>
-		                <div class="col-sm-3">
-		                	<div class="form-group">'.comboMonth('dtMonth').'</div>
-		                </div>
-	                </div>
-	                <div class="row">
-		                <div class="col-sm-3 text-right">
-		                	<div class="form-group">
-		                		<label class="control-label">Year: </label>
-		                	</div>
-		                </div>
-		                <div class="col-sm-3">
-		                	<div class="form-group">'.comboYear('dtYear').'</div>
-		                </div>
+					<div class="col-sm-3 text-right">
+	                	<div class="form-group">
+	                		<label class="control-label">Letter Date : </label>
+	                	</div>
 	                </div>';
-	                echo '<div class="row">
+				echo '<div class="col-sm-2">'.comboYear('dtLetterYear').'</div>
+                <div class="col-sm-2">'.comboMonth('dtLetterMonth').'</div>
+                <div class="col-sm-2">'.comboDay('dtLetterDay').'</div>
+                </div>
+                </div>';
+                echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+                			<div class="form-group">
+                				<label class="control-label">Received Date : </label>
+                			</div>
+                		</div>';
+				echo '<div class="col-sm-2">'.comboYear('dtReceivedYear').'</div>
+				<div class="col-sm-2">'.comboMonth('dtReceivedMonth').'</div>
+	            <div class="col-sm-2">'.comboDay('dtReceivedDay').'</div>
+				</div></div>';
+                echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+                			<div class="form-group">
+                				<label class="control-label">Accepted Date : </label>
+                			</div>
+                		</div>';
+				echo '<div class="col-sm-2">'.comboYear('dtAcceptedYear').'</div>
+                <div class="col-sm-2">'.comboMonth('dtAcceptedMonth').'</div>
+                <div class="col-sm-2">'.comboDay('dtAcceptedDay').'</div>
+                </div></div>';
+                echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
 	        				<label class="control-label">Signatory : </label>
@@ -195,17 +206,6 @@ class Reports extends MY_Controller
 	        			</div>
 	        			<div class="form-group">
 	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
-	        			</div>
-                	</div>
-                </div>';
-                echo '<div class="row">
-                	<div class="col-sm-3 text-right">
-	        			<div class="form-group">
-	        				<label class="control-label">Noted : </label>
-	        			</div>
-	        			</div>
-	        			<div class="form-group">
-	        				<div class="col-sm-6">'.comboSignatory('intSignatoryNoted').'</div>
 	        			</div>
                 	</div>
                 </div>';
