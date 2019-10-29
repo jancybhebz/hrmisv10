@@ -804,6 +804,39 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
+            case 'TOS':
+                echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+                			<div class="form-group">
+                				<label class="control-label">Training Date From: </label>
+                			</div>
+                		</div>';
+				echo '<div class="col-sm-2">'.comboYear('dtmTrainYearFrm').'</div>
+                		<div class="col-sm-2">'.comboMonth('dtmTrainMonthFrm').'</div>
+                		<div class="col-sm-2">'.comboDay('dtmATrainDayFrm').'</div>
+                	</div></div>';
+        	 	echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+                			<div class="form-group">
+                				<label class="control-label">Training Date To: </label>
+                			</div>
+                		</div>';
+				echo '<div class="col-sm-2">'.comboYear('dtmTrainYearTo').'</div>
+                		<div class="col-sm-2">'.comboMonth('dtmTrainMonthTo').'</div>
+                		<div class="col-sm-2">'.comboDay('dtmATrainDayTo').'</div>
+                	</div></div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
 		}
 		echo "<script>
 		$('.date-picker').datepicker({format: 'yyyy-mm-dd'});

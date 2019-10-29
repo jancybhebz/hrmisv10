@@ -151,6 +151,10 @@ class Generate extends MY_Controller
     			$this->load->model('ServiceRecord_model');
 				$this->ServiceRecord_model->generate($arrGet);
     		break;
+            case 'TOS':
+                $this->load->model('TrainingsofStaff_model');
+                $this->TrainingsofStaff_model->generate($arrGet);
+            break;
             default: echo "Sorry, this report is still not available."; break;
     	}
 
