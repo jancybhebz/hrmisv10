@@ -341,8 +341,6 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'CNACL':
-				
-				
 				echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -351,6 +349,74 @@ class Reports extends MY_Controller
 	        			</div>
 	        			<div class="form-group">
 	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'CACQ':
+				echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Position Considered : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"></div>
+	        			</div>
+                	</div>
+                </div>';
+                 echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Eligibility Requirement : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strEligibility" maxlength="50"></div>
+	        			</div>
+                	</div>
+                </div>';
+                 echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Educational Requirement : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strEducational" maxlength="50"></div>
+	        			</div>
+                	</div>
+                </div>';
+                 echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Experience Requirement : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strExpReq" maxlength="50"></div>
+	        			</div>
+                	</div>
+                </div>';
+                 echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Training Requirement : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strTraining" maxlength="50"></div>
 	        			</div>
                 	</div>
                 </div>';
@@ -792,7 +858,6 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
-
             case 'ROT':
             	echo '<div class="row">
 					<div class="col-sm-3 text-right">
