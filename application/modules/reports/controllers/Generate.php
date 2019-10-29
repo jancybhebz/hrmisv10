@@ -43,7 +43,7 @@ class Generate extends MY_Controller
                 $this->load->model('AccumulatedReportbyOffice_model');
                 $this->AccumulatedReportbyOffice_model->generate($arrGet);
             break;
-            case 'AppLF':
+            case 'AFLF':
                 $this->load->model('ApplicationforLeaveForm_model');
                 $this->ApplicationforLeaveForm_model->generate($arrGet);
             break;
