@@ -669,7 +669,6 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'LR':
-            
                 echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -678,6 +677,19 @@ class Reports extends MY_Controller
 	        			</div>
 	        			<div class="form-group">
 	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'LTP':
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Training Criteria : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6"><input type="text" class="form-control" name="strCriteria" maxlength="50"></div>
 	        			</div>
                 	</div>
                 </div>';
