@@ -58,7 +58,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="control-label">Offset balance: <?php echo $arrLB[0]['off_bal']; ?></label> 
+                            <label class="control-label">Offset balance: <?=count($arrLB) > 0 ? $arrLB[0]['off_bal'] : ''?></label> 
                         </div>
                     </div>
                 </div>
