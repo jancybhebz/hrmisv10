@@ -133,7 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('select[name="strReports"]').change(function(){
             $rpt = $(this).val();
             
-            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LR' || $rpt=='LVP' || $rpt=='LEA' || $rpt=='LVP' || $rpt=='PP' || $rpt=='EFDS' || $rpt=='LOYR')
+            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LR' || $rpt=='LVP' || $rpt=='LEA' || $rpt=='LVP' || $rpt=='PP' || $rpt=='EFDS' || $rpt=='LOYR' || $rpt=='AAR')
                 $('.per-block, .employee-block').hide();
             else
                 $('.per-block').show();
