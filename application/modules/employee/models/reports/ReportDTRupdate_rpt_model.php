@@ -44,7 +44,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 	function generate($arrData)
 	{
 		$today =  date("F j, Y",strtotime(date("Y-m-d")));
-		$dtmDTRupdate = date("F j, Y",strtotime($arrData['dtmDTRupdate']));
+		$dtmDTRupdate = $arrData['dtmDTRupdate']==''?'':date("F j, Y",strtotime($arrData['dtmDTRupdate']));
 
 		// old
 		$strOldMorningIn= $arrData['strOldMorningIn'];
@@ -305,7 +305,11 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 			$this->fpdf->Cell(20,6,"$dtmAfternoonOut",1,0,"C");
 		}
 		$arrDetails=$this->getEmp($strSignatory);
-		$name=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].' '.$arrDetails[0]['surname']);
+		if(count($arrDetails) > 0):
+			$name=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].' '.$arrDetails[0]['surname']);
+		else:
+			$name='';
+		endif;
 		$this->fpdf->Cell(70,6,"$name",1,0,"C");
 		$this->fpdf->Cell(35,6,"$strEvidence",1,0,"C");
 		// end of table

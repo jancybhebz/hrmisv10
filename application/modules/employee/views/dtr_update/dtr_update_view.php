@@ -47,15 +47,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="portlet-body">
             <?=form_open(base_url('employee/update_dtr/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
-            <br>
-                   
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label">Date : <span class="required"> * </span></label>
                         <div class="input-icon right">
-                                <i class="fa"></i>
-                              <input class="form-control form-control-inline input-medium date-picker" name="dtmDTRupdate" id="dtmDTRupdate" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            <input class="form-control date-picker" name="dtmDTRupdate" id="dtmDTRupdate" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -63,7 +60,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label style="padding: 6px;">For the Month of : </label>
+                        <label>For the Month of : </label>
                             <select class="bs-select form-control" name="dtmMonthOf" id="dtmMonthOf" >
                                 <?php foreach (range(1, 12) as $m): ?>
                                     <option value="<?=sprintf('%02d', $m)?>"
@@ -82,103 +79,109 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Old Morning In : </label>
-                            <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                    <label class="control-label bold">Old Timein/Timeout : </label>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Morning In : </label>
+                                <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Old Morning Out :</label>
-                            <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Old Morning Out :</label>
+                                <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Old Afternoon In :</label>
-                             <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Old Afternoon In :</label>
+                                <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-          <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Old Afternoon Out :</label>
-                              <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Old Afternoon Out :</label>
+                                <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Old Overtime In : </label>
-                              <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Old Overtime In : </label>
+                                <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-             <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Old Overtime Out : </label>
-                               <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Old Overtime Out : </label>
+                                <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                    <!-- New TIME -->
-             <div class="row">
+
                 <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">New Morning Time In : </label>
-                              <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">New Morning Time Out :</label>
-                               <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00 PM" autocomplete="off">
+                    <label class="control-label bold">New Timein/Timeout : </label>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Morning Time In : </label>
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" autocomplete="off">
+                            </div>
                         </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">New Afternoon Time In :</label>
-                               <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM" autocomplete="off">
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">New Afternoon Time Out :</label>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                 <label class="control-label">Morning Time Out :</label>
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00 PM" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Afternoon Time In :</label>
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Afternoon Time Out :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Overtime In :</label>
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" value="12:00:00 PM" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Overtime Out :</label>
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" value="12:00:00 PM" autocomplete="off">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">New Overtime In :</label>
-                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" value="12:00:00 PM" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                         <label class="control-label">New Overtime Out :</label>
-                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" value="12:00:00 PM" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-            <br>
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
@@ -195,12 +198,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
             </div>
-             <div class="row" id="signatory1_textbox">
+            <div class="row" id="signatory1_textbox">
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Authorized Official (Signatory) :</label>
                             <select name="strSignatory" id="strSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
-                                    <option value="">-- SELECT SIGNATORY --</option>
+                                    <option value="0">-- SELECT SIGNATORY --</option>
                                     <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
@@ -208,43 +211,90 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
             </div>
-            <br>
-            <br><br>
-                 <div class="row">
-                  <div class="col-sm-6 text-center">
-                      <button type="submit" class="btn btn-success"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                       <a href="<?=base_url('employee/update_dtr')?>"/><button type="reset" class="btn blue">Clear</button></a>
-                  </div>
-                  <div class="col-sm-2 text-right">
-                       <button type="button" id="printreport" value="reportDTRupdate" class="btn blue">Print/Preview</button>
-                  </div>
+            <div class="row"><div class="col-sm-8"><hr></div></div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-success" id="btn-request-dtr">
+                        <i class="icon-check"></i>
+                        <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                    <a href="<?=base_url('employee/update_dtr')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                    <button type="button" id="printreport" value="reportDTRupdate" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                 </div>
-                <?=form_close()?>
             </div>
+            <?=form_close()?>
         </div>
     </div>
 </div>
 
-<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
-<script>
-    $(document).ready(function() 
-    {
-        $('.date-picker').datepicker();
-    });
- 
-</script>
+<!-- begin dtr form modal -->
+<div id="dtr-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Personnel Travel Pass</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed src="" id="dtr-embed" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" id="dtr-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end dtr form modal -->
 
-<?=load_plugin('js',array('timepicker'));?>
+<?=load_plugin('js',array('form_validation','datepicker','select','select2','timepicker'));?>
 <script>
-    $(document).ready(function() {
-        $('.timepicker').timepicker({
-                timeFormat: 'HH:mm:ss A',
-                disableFocus: true,
-                showInputs: false,
-                showSeconds: true,
-                showMeridian: true,
-                // defaultValue: '12:00:00 a'
-            });
+$(document).ready(function() {
+    
+    $('.date-picker').datepicker();
+    $('.date-picker').on('changeDate', function(){
+        $(this).datepicker('hide');
+    });
+
+    $('.timepicker').timepicker({
+        timeFormat: 'HH:mm:ss A',
+        disableFocus: true,
+        showInputs: false,
+        showSeconds: true,
+        showMeridian: true,
+        // defaultValue: '12:00:00 a'
+    });
+
+    $('#dtmDTRupdate').change(function() {
+        $date=$('#dtmDTRupdate').val();
+        $.ajax({
+             url: "<?=base_url('employee/update_dtr')?>/getinout?date="+$date,
+        success: function(result){
+            $arrTime = result.split(';');
+            console.log($arrTime);
+            $('input[name="strOldMorningIn"],input[name="dtmMorningIn"]').val($arrTime[0]);
+            $('input[name="strOldMorningOut"],input[name="dtmMorningOut"]').val($arrTime[1]);
+            $('input[name="strOldAfternoonIn"],input[name="dtmAfternoonIn"]').val($arrTime[2]);
+            $('input[name="strOldAfternoonOut"],input[name="dtmAfternoonOut"]').val($arrTime[3]);
+            $('input[name="strOldOvertimeIn"],input[name="dtmOvertimeIn"]').val($arrTime[4]);
+            $('input[name="strOldOvertimeOut"],input[name="dtmOvertimeOut"]').val($arrTime[5]);
+        }});
+    });
+
+    $('#dtmDTRupdate').on('keyup keypress change',function() {
+        check_null('#dtmDTRupdate','Date must not be empty.');
+    });
+
+    $('#btn-request-dtr').click(function(e) {
+        if(check_null('#dtmDTRupdate','Date must not be empty.') > 0){
+            e.preventDefault();
+        }
+    });
 
     $('#printreport').click(function(){
         var dtrupdate=$('#dtmDTRupdate').val();
@@ -265,183 +315,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var evidence=$('#strEvidence').val();
         var signatory=$('#strSignatory').val();
         
-        if(dtrupdate=='')
-          $('#printreport').disabled();
-        else
-        // if(request=='reportDTRupdate')
-        //     valid=true;
-        // if(valid)
-
-            window.open("reports/generate/?rpt=reportDTRupdate&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&month="+month+"&evidence="+evidence+"&reason="+reason+"&signatory="+signatory,'_blank'); //ok
+        var link = "reports/generate/?rpt=reportDTRupdate&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&month="+month+"&evidence="+evidence+"&reason="+reason+"&signatory="+signatory;
+        $('#dtr-embed').attr('src',link);
+        $('#dtr-embed-fullview').attr('href',link);
+        $('#dtr-form').modal('show');
     
     });
  });
 </script>
-
-<?php load_plugin('js',array('validation'));?>
-<script type="text/javascript">
-    jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
-var FormValidation = function () {
-
-    // validation using icons
-    var handleValidation = function() {
-        // for more info visit the official plugin documentation: 
-            // http://docs.jquery.com/Plugins/Validation
-
-            var form2 = $('#frmDTRupdate');
-            var error2 = $('.alert-danger', form2);
-            var success2 = $('.alert-success', form2);
-
-            form2.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",  // validate all fields including form hidden input
-                rules: {
-                    dtmDTRupdate: {
-                        required: true,
-                    },
-                    dtmMonthOf: {
-                        required: true,
-                        noSpace: true
-                    },
-                    strReason: {
-                        required: true,
-                        noSpace: true
-                    },
-                    strEvidence: {
-                        required: true,
-                        noSpace: true
-                    }
-
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit              
-                    success2.hide();
-                    error2.show();
-                    App.scrollTo(error2, -200);
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    
-                },
-
-                success: function (label, element) {
-                    var icon = $(element).parent('.input-icon').children('i');
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                    icon.removeClass("fa-warning").addClass("fa-check");
-                },
-
-                submitHandler: function (form) {
-                    success2.show();
-                    error2.hide();
-                    form[0].submit(); // submit the form
-                }
-            });
-
-
-    }
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };
-
-}();
-
-jQuery(document).ready(function() {
-    FormValidation.init();
-});
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#dtmDTRupdate').change(function() {
-            //alert($('input[name="dtmDTRupdate"]').val());
-            //console.log( $(this).val() );
-            $date=$('#dtmDTRupdate').val();
-            $.ajax({
-                 url: "<?=base_url('employee/update_dtr')?>/getinout?date="+$date,
-            success: function(result){
-                $arrTime = result.split(';');
-                //alert(result);
-                console.log($arrTime);
-                $('input[name="strOldMorningIn"],input[name="dtmMorningIn"]').val($arrTime[0]);
-                $('input[name="strOldMorningOut"],input[name="dtmMorningOut"]').val($arrTime[1]);
-                $('input[name="strOldAfternoonIn"],input[name="dtmAfternoonIn"]').val($arrTime[2]);
-                $('input[name="strOldAfternoonOut"],input[name="dtmAfternoonOut"]').val($arrTime[3]);
-                $('input[name="strOldOvertimeIn"],input[name="dtmOvertimeIn"]').val($arrTime[4]);
-                $('input[name="strOldOvertimeOut"],input[name="dtmOvertimeOut"]').val($arrTime[5]);
-                // $arrInAM=$arrTime[0].split(':');
-                //$('select[name="dtmMorningIn"]').val($arrInAM[0]);
-                // $arrOutAM=$arrTime[1].split(':');
-                // $('select[name="dtmMorningOut"]').val($arrOutAM[0]);
-                // $arrInPM=$arrTime[2].split(':');
-                // $('select[name="dtmAfternoonIn"]').val($arrInPM[0]);
-                // $arrOutPM=$arrTime[3].split(':');
-                // $('select[name="dtmAfternoonOut"]').val($arrOutPM[0]);
-                // $arrInOT=$arrTime[4].split(':');
-                // $('select[name="dtmOvertimeIn"]').val($arrInOT[0]);
-                // $arrOutOT=$arrTime[5].split(':');
-                // $('select[name="dtmOvertimeOut"]').val($arrOutOT[0]);
-                //console.log(result);
-                //$("#div1").html(result);
-            }});
-            //console.log( $year+$month+$day );
-        });
-    });
-</script>
-
-<!-- <script>
-    $(document).ready(function() {
-        $('#dtmDTRupdate').change(function() {
-            //alert($('input[name="dtmDTRupdate"]').val());
-            //console.log( $(this).val() );
-            $date=$('#dtmDTRupdate').val();
-            $.ajax({
-                
-            success: function(result){
-                $arrTime = result.split(';');
-                //alert(result);
-                $('input[name="strOldMorningIn"]').val($arrTime[0]);
-                $('input[name="strOldMorningOut"]').val($arrTime[1]);
-                $('input[name="strOldAfternoonIn"]').val($arrTime[2]);
-                $('input[name="strOldAfternoonOut"]').val($arrTime[3]);
-                $('input[name="strOldOvertimeIn"]').val($arrTime[4]);
-                $('input[name="strOldOvertimeOut"]').val($arrTime[5]);
-                // $arrInAM=$arrTime[0].split(':');
-                $('select[name="dtmMorningIn"]').val($arrInAM[0]);
-                // $arrOutAM=$arrTime[1].split(':');
-                $('select[name="dtmMorningOut"]').val($arrOutAM[0]);
-                // $arrInPM=$arrTime[2].split(':');
-                $('select[name="dtmAfternoonIn"]').val($arrInPM[0]);
-                // $arrOutPM=$arrTime[3].split(':');
-                $('select[name="dtmAfternoonOut"]').val($arrOutPM[0]);
-                // $arrInOT=$arrTime[4].split(':');
-                $('select[name="dtmOvertimeIn"]').val($arrInOT[0]);
-                // $arrOutOT=$arrTime[5].split(':');
-                $('select[name="dtmOvertimeOut"]').val($arrOutOT[0]);
-                //console.log(result);
-                //$("#div1").html(result);
-            }});
-            //console.log( $year+$month+$day );
-        });
-    });
-</script> -->
