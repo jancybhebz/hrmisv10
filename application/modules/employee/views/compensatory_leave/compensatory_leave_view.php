@@ -5,9 +5,10 @@ Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
+$emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
 ?>
+<?=load_plugin('css',array('datepicker','timepicker','select','select2'));?>
 <!-- BEGIN PAGE BAR -->
-<?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -41,134 +42,161 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave', 'onsubmit' => 'return checkForBlank()'))?>
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group">
-                        <label class="control-label">Date : <span class="required"> * </span></label>
-                        <div class="input-icon right">
-                                <i class="fa"></i>
-                              <input class="form-control form-control-inline input-medium date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave'))?>
+                <input class="hidden" name="strStatus" value="Filed Request">
+                <input class="hidden" name="strCode" value="CL">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Date : <span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                  <input class="form-control date-picker" name="dtmComLeave" id="dtmComLeave" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            </div>
                         </div>
-                          <!-- <font color='red'> <span id="errordate"></span></font> -->
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Offset balance:</label> 
-                             <?php echo $arrLB[0]['off_bal']; ?>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Offset balance: <?php echo $arrLB[0]['off_bal']; ?></label> 
+                        </div>
                     </div>
                 </div>
-            </div>  
-            <br>  
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Morning Time In :</label>
-                             <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="12:00:00" autocomplete="off">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Morning Time In :</label>
+                            <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="<?=date('h:i:A',strtotime($emp_att_scheme['amTimeinTo']))?>" autocomplete="off">
+                        </div>
+                    </div>
+                </div>      
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Morning Time Out :</label>
+                            <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="<?=date('h:i:A',strtotime($emp_att_scheme['nnTimeinTo']))?>" autocomplete="off">
+                        </div>
+                    </div>
+                </div>  
+                 <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Afternoon Time In :</label>
+                            <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="<?=date('h:i:A',strtotime($emp_att_scheme['nnTimeoutTo']))?>" autocomplete="off">
+                        </div>
                     </div>
                 </div>
-            </div>      
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Morning Time Out :</label>
-                             <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00" autocomplete="off">
+                  <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Afternoon Time Out :</label>
+                            <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="<?=date('h:i:A',strtotime($emp_att_scheme['pmTimeoutTo']))?>" autocomplete="off">
+                        </div>
                     </div>
                 </div>
-            </div>  
-             <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Afternoon Time In :</label>
-                             <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-              <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label">Afternoon Time Out :</label>
-                             <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group">
-                        <label class="control-label">Purpose/Target Deliverables :</label>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Purpose/Target Deliverables :</label>
                             <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-             <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group">
-                       <label class="control-label">Recommending Approval : </label>
-                             <select name="strRecommend" id="strRecommend" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('strRecommend'))?$this->session->userdata('strRecommend'):''?>">
-                                    <option value="">-- SELECT --</option>
-                                    <?php foreach($arrEmployees as $i=>$data): ?>
-                                    <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
-                                        <?php endforeach; ?>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Recommending Approval : </label>
+                            <select name="strRecommend" id="strRecommend" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('strRecommend'))?$this->session->userdata('strRecommend'):''?>">
+                                <option value="0">-- SELECT --</option>
+                                <?php foreach($arrEmployees as $i=>$data): ?>
+                                    <option value="<?=$data['empNumber']?>">
+                                        <?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                <?php endforeach; ?>
                             </select>
+                        </div>
                     </div>
-                </div>
-            </div>      
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group">
-                       <label class="control-label">Approval / Disapproval : </label>
-                             <select name="strApproval" id="strApproval" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('strApproval'))?$this->session->userdata('strApproval'):''?>">
-                                    <option value="">-- SELECT --</option>
-                                    <?php foreach($arrEmployees as $i=>$data): ?>
+                </div>      
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label">Approval / Disapproval : </label>
+                            <select name="strApproval" id="strApproval" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('strApproval'))?$this->session->userdata('strApproval'):''?>">
+                                <option value="0">-- SELECT --</option>
+                                <?php foreach($arrEmployees as $i=>$data): ?>
                                     <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
-                                        <?php endforeach; ?>
-                                </select>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>    
-            <br><br>
-            <div class="row">
-                    <div class="col-sm-8 text-right">
-                        <input class="hidden" name="strStatus" value="Filed Request">
-                        <input class="hidden" name="strCode" value="CL">
-                        <button type="button" id="printreport" value="reportCL" class="btn blue">Print/Preview</button>
-                    <div class="col-sm-8 text-center">
-                        <button type="submit" class="btn btn-success"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                        <a href="<?=base_url('employee/compensatory_leave')?>"/><button type="reset" class="btn blue">Clear</button></a>
-                  </div>
+                <div class="row"><div class="col-sm-8"><hr></div></div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-success" id="btn-request-cto">
+                            <i class="icon-check"></i>
+                            <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                        <a href="<?=base_url('employee/compensatory_leave')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                        <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
+                    </div>
                 </div>
-            </div>
                 <?=form_close()?>
             </div>
         </div>
     </div>
 </div>
 
-<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
-<script>
-    $(document).ready(function() 
-    {
-        $('.date-picker').datepicker();
-    });
- 
-</script>
+<!-- begin cto form modal -->
+<div id="cto-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Personnel Travel Pass</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed src="" id="cto-embed" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" id="cto-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end cto form modal -->
 
-<?=load_plugin('js',array('timepicker'));?>
+<?=load_plugin('js',array('form_validation','datepicker','timepicker','select','select2'));?>
 <script>
-    $(document).ready(function() {
-        $('.timepicker').timepicker({
-                timeFormat: 'HH:mm:ss A',
-                disableFocus: true,
-                showInputs: false,
-                showSeconds: true,
-                showMeridian: true,
-                // defaultValue: '12:00:00 a'
-            });
+$(document).ready(function() {
+    $('.timepicker').timepicker({
+        timeFormat: 'HH:mm:ss A',
+        disableFocus: true,
+        showInputs: false,
+        showSeconds: true,
+        showMeridian: true,
+        // defaultValue: '12:00:00 a'
+    });
+    $('.date-picker').datepicker();
+    $('.date-picker').on('changeDate', function(){
+        $(this).datepicker('hide');
+    });
+
+    $('#dtmComLeave').on('keyup keypress change',function() {
+        check_null('#dtmComLeave','Date must not be empty.');
+    });
+
+    $('#btn-request-cto').click(function(e) {
+        if(check_null('#dtmComLeave','Date must not be empty.') > 0){
+            e.preventDefault();
+        }
+    });
   
     $('#printreport').click(function(){
         var comleave=$('#dtmComLeave').val();
@@ -184,121 +212,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         var reco=$('#strRecommend').val();
         var approval=$('#strApproval').val();
 
-         if(comleave=='')
-          $('#printreport').disabled();
-        else 
-
-            window.open("reports/generate/?rpt=reportCL&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval,'_blank'); //ok
+        var link = "reports/generate/?rpt=reportCL&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval;
+        $('#cto-embed').attr('src',link);
+        $('#cto-embed-fullview').attr('href',link);
+        $('#cto-form').modal('show');
     
     });
- });
-</script>
-
-<?php load_plugin('js',array('validation'));?>
-<script type="text/javascript">
-    jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
-var FormValidation = function () {
-
-    // validation using icons
-    var handleValidation = function() {
-        // for more info visit the official plugin documentation: 
-            // http://docs.jquery.com/Plugins/Validation
-
-            var form2 = $('#frmCompensatoryLeave');
-            var error2 = $('.alert-danger', form2);
-            var success2 = $('.alert-success', form2);
-
-            form2.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",  // validate all fields including form hidden input
-                rules: {
-                    dtmComLeave: {
-                        required: true,
-                    }
-                    // strPurpose: {
-                    //     required: true,
-                    //     noSpace: true
-                    // }
-
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit              
-                    success2.hide();
-                    error2.show();
-                    App.scrollTo(error2, -200);
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    
-                },
-
-                success: function (label, element) {
-                    var icon = $(element).parent('.input-icon').children('i');
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                    icon.removeClass("fa-warning").addClass("fa-check");
-                },
-
-                submitHandler: function (form) {
-                    success2.show();
-                    error2.hide();
-                    form[0].submit(); // submit the form
-                }
-            });
-
-
-    }
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };
-
-}();
-
-jQuery(document).ready(function() {
-    FormValidation.init();
 });
-</script>
-
-
-<script>
-
-// function checkForBlank()
-// {
-//    var spaceCount = 0;
-
-//     $comleave= $('#dtmComLeave').val();
-
-//     $('#errordate').html('');
-
-//     if($comleave=="")
-//     {
-//       $('#errordate').html('This field is required!');
-//       return false;
-//     }
-//     else
-//     {
-//       return true;
-//     }
-
-// }
 </script>

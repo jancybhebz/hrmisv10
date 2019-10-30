@@ -5,12 +5,10 @@ Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
+$emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker'))?>
-<?php 
-    $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
- ?>
 
 <div class="page-bar">
     <ul class="page-breadcrumb">
