@@ -151,6 +151,10 @@ class Generate extends MY_Controller
                 $this->load->model('PlantillaOfPersonnel_model');
                 $this->PlantillaOfPersonnel_model->generate($arrGet);
             break;
+            case 'AAR':
+                $this->load->model('RptofAttendanceandAccumulatedLeaveCredits_model');
+                $this->RptofAttendanceandAccumulatedLeaveCredits_model->generate($arrGet);
+            break;
             case 'PSK':
                 $this->load->model('PanunumpaSaKatungkulan_model');
                 $this->PanunumpaSaKatungkulan_model->generate($arrGet);
