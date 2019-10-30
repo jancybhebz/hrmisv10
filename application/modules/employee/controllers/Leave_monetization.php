@@ -59,7 +59,7 @@ class Leave_monetization extends MY_Controller {
 				}
 				else
 				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
+					$this->session->set_flashdata('strSuccessMsg','Request already exists.');
 					//$this->session->set_flashdata('strOBtype',$strOBtype);
 					redirect('employee/leave_monetization');
 				}
