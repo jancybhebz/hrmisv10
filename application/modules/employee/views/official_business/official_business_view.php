@@ -45,7 +45,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-                <?=form_open_multipart('employee/official_business/submit', array('method' => 'post', 'id' => 'frmOB', 'onsubmit' => 'return checkForBlank()'))?>
+                <?=form_open_multipart('employee/official_business/submit', array('method' => 'post', 'id' => 'frmOB'))?>
                     <input class="hidden" name="strStatus" value="Filed Request">
                     <input class="hidden" name="strCode" value="OB">
                     <div class="row">
@@ -141,10 +141,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="radio-list">
-                                    <label class="radio-inline">
-                                        <input type="checkbox" value="Meal" name="strMeal" id="strMeal" /> With Meal </label>
-                                </div>
+                               <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
+                                    <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
                             </div>
                         </div>
                     </div>
@@ -183,7 +181,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title bold">Application for Leave</h4>
+                <h4 class="modal-title bold">Personnel Travel Pass</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
@@ -219,15 +217,15 @@ $(document).ready(function() {
     });
 
     $('#printreport').click(function(){
-        var obtype=$('#strOBtype').val();
-        var reqdate=$('#dtmOBrequestdate').val();
-        var obdatefrom=$('#dtmOBdatefrom').val();
-        var obdateto=$('#dtmOBdateto').val();
-        var obtimefrom=$('#dtmTimeFrom').val();
-        var obtimeto=$('#dtmTimeTo').val();
-        var desti=$('#strDestination').val();
-        var meal=$('#strMeal').val();
-        var purpose=$('#strPurpose').val();
+        var obtype      = $('#strOBtype').val();
+        var reqdate     = $('#dtmOBrequestdate').val();
+        var obdatefrom  = $('#dtmOBdatefrom').val();
+        var obdateto    = $('#dtmOBdateto').val();
+        var obtimefrom  = $('#dtmTimeFrom').val();
+        var obtimeto    = $('#dtmTimeTo').val();
+        var desti       = $('#strDestination').val();
+        var meal        = $('#strMeal').val();
+        var purpose     = $('#strPurpose').val();
 
         var link = "reports/generate/?rpt=reportOB&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose;
         $('#ob-embed').attr('src',link);
@@ -267,7 +265,6 @@ $(document).ready(function() {
         check_null('#strPurpose','Purpose must not be empty.');
     });
 
-
     $('#btn-request-ob').click(function(e) {
         var total_error = 0;
 
@@ -283,7 +280,6 @@ $(document).ready(function() {
             e.preventDefault();
         }
     });
-
 
 });
 </script>
