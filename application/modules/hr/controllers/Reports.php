@@ -774,7 +774,6 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'LVP':
-            
                 echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -809,6 +808,28 @@ class Reports extends MY_Controller
 	        			</div>
 	        			<div class="form-group">
 	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Period : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboMonth('dtmMonth').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                 echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Year : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboYear('dtmYear').'</div>
 	        			</div>
                 	</div>
                 </div>';
