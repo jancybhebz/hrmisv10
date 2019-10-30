@@ -42,15 +42,38 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/travel_order/submit'), array('method' => 'post', 'id' => 'frmTO'))?>
-                    
+                <?=form_open_multipart('employee/travel_order/submit', array('method' => 'post', 'id' => 'frmTO'))?>
+                <input class="hidden" name="strStatus" value="Filed Request">
+                <input class="hidden" name="strCode" value="TO">
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
-                            <label class="control-label">Destination : <span class="required"> * </span></label>
+                            <label class="control-label">Destination :  <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Date From :  <span class="required"> * </span></label>
                             <div class="input-icon right">
                                 <i class="fa"></i>
-                                <textarea name="strDestination" id="strDestination" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
+                               <input type="text" class="form-control date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" value="" data-date-format="yyyy-mm-dd" autocomplete="off">   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">Date To :  <span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                               <input type="text" class="form-control date-picker" name="dtmTOdateto" id="dtmTOdateto" value="" data-date-format="yyyy-mm-dd" autocomplete="off">   
                             </div>
                         </div>
                     </div>
@@ -58,37 +81,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
-                            <label class="control-label">Date From : <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
-                                <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                            </div>
+                            <label class="control-label">Purpose :  <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <textarea class="form-control" rows="2" name="strPurpose" id="strPurpose" type="text" maxlength="1000" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
+                                </div>
                         </div>
                     </div>
                 </div>
-                 <div class="row">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label class="control-label">Date To : <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
-                               <input class="form-control form-control-inline input-medium date-picker" name="dtmTOdateto" id="dtmTOdateto" size="16" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <div class="row">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label class="control-label">Purpose : <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
-                               <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" required="" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -98,170 +98,109 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-8 text-right">
-                            <input class="hidden" name="strStatus" value="Filed Request">
-                            <input class="hidden" name="strCode" value="TO">
-                            <!-- <button type="button" id="printreport" value="reportTO" class="btn blue">Print/Preview</button> -->
-
-                        <div class="col-sm-10 text-center">
-                            <button type="submit" class="btn btn-success"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                            <a href="<?=base_url('employee/travel_order')?>"/><button type="reset" class="btn blue">Clear</button></a>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <a class='btn blue-madison' href='javascript:;'>
+                                <i class="fa fa-upload"></i> Attach File
+                                <input type="file" name ="userfile" id= "userfile" accept="application/pdf"
+                                    style='left: 16px !important;width: 108px;height: 34px;position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
+                                    name="file_source" size="40" onchange='$("#upload-file-info").html($(this).val());'>
+                            </a>
                         </div>
+                    </div>
+                </div>
+                <div class="row"><div class="col-sm-8"><hr></div></div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-success" id="btn-request-to">
+                            <i class="icon-check"></i>
+                            <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                        <a href="<?=base_url('employee/travel_order')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                        <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                     </div>
                 </div>
                 <?=form_close()?>
-                  <br>
-                <?=form_open_multipart(base_url('employee/travel_order/uploadTODocs/'.$this->uri->segment(4)), array('method'=> 'post'))?>
-                <div class="row" id="upload">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                         <label class="control-label"><strong>ATTACHMENT :</strong></label>
-                         <br>
-                            <div style="position:relative;">
-                                <a class='btn btn-primary' href='javascript:;'>
-                                    Choose File...
-                                <input type="file" name ="userfile" id= "userfile" accept="application/pdf" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
-                                </a>
-                                &nbsp;
-                                <button type="submit" name="uploadTODocs" class="btn blue start">
-                                    <i class="fa fa-upload"></i>
-                                    <span> Start Upload </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?=form_close(); ?>
             </div>
         </div>
     </div>
 </div>
 
+<!-- begin to form modal -->
+<div id="to-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Travel Order</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed src="" id="to-embed" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" id="to-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end to form modal -->
 
-<?=load_plugin('js',array('validation','datepicker'));?>
+<?=load_plugin('js',array('form_validation','datepicker'));?>
+
 <script>
-    $(document).ready(function() 
-    {
-        $('.date-picker').datepicker();
+$(document).ready(function() {
+    $('.date-picker').datepicker();
+    $('.date-picker').on('changeDate', function(){
+        $(this).datepicker('hide');
     });
- 
-</script>
 
-<?=load_plugin('js',array('timepicker'));?>
-<script>
-    $(document).ready(function() {
-        $('.timepicker').timepicker({
-                timeFormat: 'HH:mm:ss A',
-                disableFocus: true,
-                showInputs: false,
-                showSeconds: true,
-                showMeridian: true,
-                // defaultValue: '12:00:00 a'
-            });
-
-    $('#printreport').click(function(){
-        var desti=$('#strDestination').val();
-        var todatefrom=$('#dtmTOdatefrom').val();
-        var todateto=$('#dtmTOdateto').val();
-        var purpose=$('#strPurpose').val();
-        var meal=$('#strMeal').val();
-
-        
-        // if(request=='reportTO')
-        //     valid=true;
-        // if(valid)
-            window.open("reports/generate/?rpt=reportTO&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal,'_blank'); //ok
-            
+    $('#strDestination').on('keyup keypress change',function() {
+        check_null('#strDestination','Destination must not be empty.');
     });
-});
-</script>
 
-<?php load_plugin('js',array('validation'));?>
-<script type="text/javascript">
-    jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
-var FormValidation = function () {
+    $('#dtmTOdatefrom').on('keyup keypress change',function() {
+        check_null('#dtmTOdatefrom','Date From must not be empty.');
+    });
 
-    // validation using icons
-    var handleValidation = function() {
-        // for more info visit the official plugin documentation: 
-            // http://docs.jquery.com/Plugins/Validation
+    $('#dtmTOdateto').on('keyup keypress change',function() {
+        check_null('#dtmTOdateto','Date To must not be empty.');
+    });
 
-            var form2 = $('#frmTO');
-            var error2 = $('.alert-danger', form2);
-            var success2 = $('.alert-success', form2);
+    $('#strPurpose').on('keyup keypress change',function() {
+        check_null('#strPurpose','Purpose must not be empty.');
+    });
 
-            form2.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",  // validate all fields including form hidden input
-                rules: {
-                    strDestination: {
-                        required: true,
-                    },
-                    dtmTOdatefrom: {
-                        required: true,
-                    },
-                    dtmTOdateto: {
-                        required: true,
-                    },
-                    strPurpose: {
-                        required: true
-                    }
+    $('#btn-request-to').click(function(e) {
+        var total_error = 0;
 
-                },
+        total_error = total_error + check_null('#strDestination','Destination must not be empty.');
+        total_error = total_error + check_null('#dtmTOdatefrom','Date From must not be empty.');
+        total_error = total_error + check_null('#dtmTOdateto','Date To must not be empty.');
+        total_error = total_error + check_null('#strPurpose','Purpose must not be empty.');
 
-                invalidHandler: function (event, validator) { //display error alert on form submit              
-                    success2.hide();
-                    error2.show();
-                    App.scrollTo(error2, -200);
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    
-                },
-
-                success: function (label, element) {
-                    var icon = $(element).parent('.input-icon').children('i');
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                    icon.removeClass("fa-warning").addClass("fa-check");
-                },
-
-                submitHandler: function (form) {
-                    success2.show();
-                    error2.hide();
-                    form[0].submit(); // submit the form
-                }
-            });
-
-
-    }
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
+        if(total_error > 0){
+            e.preventDefault();
         }
+    });
 
-    };
+    $('#printreport').click(function() {
+        var desti       = $('#strDestination').val();
+        var todatefrom  = $('#dtmTOdatefrom').val();
+        var todateto    = $('#dtmTOdateto').val();
+        var purpose     = $('#strPurpose').val();
+        var meal        = $('#strMeal').val();
 
-}();
-
-jQuery(document).ready(function() {
-    FormValidation.init();
+        var link = "reports/generate/?rpt=reportTO&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal;
+        $('#to-embed').attr('src',link);
+        $('#to-embed-fullview').attr('href',link);
+        $('#to-form').modal('show');
+        
+    });
 });
 </script>

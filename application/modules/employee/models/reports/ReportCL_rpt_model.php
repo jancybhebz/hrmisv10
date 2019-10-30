@@ -1,4 +1,4 @@
-Time off<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class ReportCL_rpt_model extends CI_Model {
 
 	public function __construct()
@@ -34,7 +34,7 @@ class ReportCL_rpt_model extends CI_Model {
 	
 	function generate($arrData)
 	{
-		$dtmComLeave=date("F j, Y",strtotime($arrData['dtmComLeave']));
+		$dtmComLeave=$arrData['dtmComLeave']=='' ? '' : date("F j, Y",strtotime($arrData['dtmComLeave']));
 		$strPurpose=$arrData['strPurpose'];
 		$strRecommend='';
 		$strApproval=$arrData['strApproval'];
@@ -113,7 +113,11 @@ class ReportCL_rpt_model extends CI_Model {
 		$this->fpdf->Ln(10);
 		$this->fpdf->Cell(78,6,'       ','',0,'C');
 		$arrDetails=$this->getEmp($strApproval);
-		$Approval=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].' '.$arrDetails[0]['surname']);
+		if(count($arrDetails) > 0):
+			$Approval=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].' '.$arrDetails[0]['surname']);
+		else:
+			$Approval = '';
+		endif;
 		$this->fpdf->Cell(20,6,'         '.$Approval,'',0,'C'); 
 		$this->fpdf->Ln(5);
 		$this->fpdf->Cell(60,6,'       ','',0,'C');

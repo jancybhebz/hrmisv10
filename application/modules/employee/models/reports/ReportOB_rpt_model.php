@@ -25,9 +25,9 @@ class ReportOB_rpt_model extends CI_Model {
 	function generate($arrData)
 	{
 		$strOBtype=$arrData['strOBtype'];
-		$dtmOBrequestdate = date("F j, Y",strtotime($arrData['dtmOBrequestdate']));
-		$dtmOBdatefrom = date("F j, Y",strtotime($arrData['dtmOBdatefrom']));
-		$dtmOBdateto = date("F j, Y",strtotime($arrData['dtmOBdateto']));
+		$dtmOBrequestdate = $arrData['dtmOBrequestdate'] == '' ? '' : date("F j, Y",strtotime($arrData['dtmOBrequestdate']));
+		$dtmOBdatefrom = $arrData['dtmOBdatefrom'] == '' ? '' : date("F j, Y",strtotime($arrData['dtmOBdatefrom']));
+		$dtmOBdateto = $arrData['dtmOBdateto'] == '' ? '' : date("F j, Y",strtotime($arrData['dtmOBdateto']));
 		$dtmTimeFrom = $arrData['dtmTimeFrom'];
 		$dtmTimeTo = $arrData['dtmTimeTo'];
 		$strDestination = $arrData['strDestination'];

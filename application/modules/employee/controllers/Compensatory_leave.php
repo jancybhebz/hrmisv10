@@ -20,9 +20,8 @@ class Compensatory_leave extends MY_Controller {
 
 	public function index()
 	{
-		// $this->arrData['arrOB'] = $this->dtr_update_model->getData();
-			$this->arrData['arrEmployees'] = $this->hr_model->getData();
-			$this->arrData['arrLB'] = $this->compensatory_leave_model->getOffsetBal();
+		$this->arrData['arrEmployees'] = $this->hr_model->getData();
+		$this->arrData['arrLB'] = $this->compensatory_leave_model->getOffsetBal();
 		$this->template->load('template/template_view', 'employee/compensatory_leave/compensatory_leave_view', $this->arrData);
 	}
 	
@@ -32,16 +31,16 @@ class Compensatory_leave extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
-			$dtmComLeave=$arrPost['dtmComLeave'];
-			$dtmMorningIn=$arrPost['dtmMorningIn'];
-			$dtmMorningOut=$arrPost['dtmMorningOut'];
-			$dtmAfternoonIn=$arrPost['dtmAfternoonIn'];
-			$dtmAfternoonOut=$arrPost['dtmAfternoonOut'];
-			$strPurpose=$arrPost['strPurpose'];
-			$strRecommend=$arrPost['strRecommend'];
-			$strApproval=$arrPost['strApproval'];
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+			$dtmComLeave	 = $arrPost['dtmComLeave'];
+			$dtmMorningIn	 = $arrPost['dtmMorningIn'];
+			$dtmMorningOut	 = $arrPost['dtmMorningOut'];
+			$dtmAfternoonIn	 = $arrPost['dtmAfternoonIn'];
+			$dtmAfternoonOut = $arrPost['dtmAfternoonOut'];
+			$strPurpose		 = $arrPost['strPurpose'];
+			$strRecommend 	 = $arrPost['strRecommend'] == '0' ? '' : $arrPost['strRecommend'];
+			$strApproval 	 = $arrPost['strApproval'] == '0' ? '' : $arrPost['strApproval'];
+			$strStatus		 = $arrPost['strStatus'];
+			$strCode 		 = $arrPost['strCode'];
 			if(!empty($dtmComLeave))
 			{	
 				if( count($this->compensatory_leave_model->checkExist($dtmComLeave))==0 )
