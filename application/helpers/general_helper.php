@@ -14,6 +14,17 @@ if ( ! function_exists('check_session'))
 }
 
 # get salary schedule
+if ( ! function_exists('emp_att_scheme'))
+{
+    function emp_att_scheme($empNumber)
+    {
+        $CI =& get_instance();
+        $res = $CI->db->select('tblAttendanceScheme.*')->join('tblAttendanceScheme','tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode','left')->get_where('tblEmpPosition',array('empNumber' => $empNumber))->result_array();
+        return count($res) > 0 ? $res[0] : '';
+    }
+}
+
+# get salary schedule
 if ( ! function_exists('salary_schedule'))
 {
     function salary_schedule()
