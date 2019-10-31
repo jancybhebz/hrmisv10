@@ -48,41 +48,47 @@ class Leave_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function submitFL($arrData)
+	function add_leave_request($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
-	function submitSPL($arrData)
-	{
-		$this->db->insert('tblEmpRequest', $arrData);
-		return $this->db->insert_id();		
-	}
-	function submitSL($arrData)
-	{
-		$this->db->insert('tblEmpRequest', $arrData);
-		return $this->db->insert_id();		
-	}
-	function submitVL($arrData)
-	{
-		$this->db->insert('tblEmpRequest', $arrData);
-		return $this->db->insert_id();		
-	}
-	function submitML($arrData)
-	{
-		$this->db->insert('tblEmpRequest', $arrData);
-		return $this->db->insert_id();		
-	}
-	function submitPL($arrData)
-	{
-		$this->db->insert('tblEmpRequest', $arrData);
-		return $this->db->insert_id();		
-	}
-	function submitSTL($arrData)
-	{
-		$this->db->insert('tblEmpRequest', $arrData);
-		return $this->db->insert_id();		
-	}
+
+	// function submitFL($arrData)
+	// {
+	// 	$this->db->insert('tblEmpRequest', $arrData);
+	// 	return $this->db->insert_id();		
+	// }
+	// function submitSPL($arrData)
+	// {
+	// 	$this->db->insert('tblEmpRequest', $arrData);
+	// 	return $this->db->insert_id();		
+	// }
+	// function submitSL($arrData)
+	// {
+	// 	$this->db->insert('tblEmpRequest', $arrData);
+	// 	return $this->db->insert_id();		
+	// }
+	// function submitVL($arrData)
+	// {
+	// 	$this->db->insert('tblEmpRequest', $arrData);
+	// 	return $this->db->insert_id();		
+	// }
+	// function submitML($arrData)
+	// {
+	// 	$this->db->insert('tblEmpRequest', $arrData);
+	// 	return $this->db->insert_id();		
+	// }
+	// function submitPL($arrData)
+	// {
+	// 	$this->db->insert('tblEmpRequest', $arrData);
+	// 	return $this->db->insert_id();		
+	// }
+	// function submitSTL($arrData)
+	// {
+	// 	$this->db->insert('tblEmpRequest', $arrData);
+	// 	return $this->db->insert_id();		
+	// }
 	
 	function checkExist($strDay = '')
 	{		
