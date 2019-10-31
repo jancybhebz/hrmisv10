@@ -58,7 +58,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="control-label">Offset balance: <?=count($arrLB) > 0 ? $arrLB[0]['off_bal'] : ''?></label> 
+                            <label class="control-label">Offset balance: <?=count($arrLB) > 0 ? $arrLB[0]['off_bal'] : '0'?></label> 
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,8 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
 
                 <div class="row">
                     <div class="col-sm-8">
-                        <button type="submit" class="btn btn-success" id="btn-request-cto">
+                        <button type="submit" class="btn btn-success" id="btn-request-cto"
+                            <?=count($arrLB) > 0 ? $arrLB[0]['off_bal'] > 0 ? '' : 'disabled' : 'disabled'?> >
                             <i class="icon-check"></i>
                             <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                         <a href="<?=base_url('employee/compensatory_leave')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>

@@ -151,6 +151,10 @@ class Generate extends MY_Controller
                 $this->load->model('PlantillaOfPersonnel_model');
                 $this->PlantillaOfPersonnel_model->generate($arrGet);
             break;
+            case 'AAR':
+                $this->load->model('RptofAttendanceandAccumulatedLeaveCredits_model');
+                $this->RptofAttendanceandAccumulatedLeaveCredits_model->generate($arrGet);
+            break;
             case 'PSK':
                 $this->load->model('PanunumpaSaKatungkulan_model');
                 $this->PanunumpaSaKatungkulan_model->generate($arrGet);
@@ -158,6 +162,10 @@ class Generate extends MY_Controller
             case 'ROT':
                 $this->load->model('ReportTardiness_model');
                 $this->ReportTardiness_model->generate($arrGet);
+            break;
+            case 'ROTUAN':
+                $this->load->model('ReportTardinessNonperm_model');
+                $this->ReportTardinessNonperm_model->generate($arrGet);
             break;
     		case 'SR':
     			$this->load->model('ServiceRecord_model');

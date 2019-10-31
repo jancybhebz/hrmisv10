@@ -774,7 +774,6 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'LVP':
-            
                 echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -788,7 +787,6 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'PP':
-            
                 echo '<div class="row">
                 	<div class="col-sm-3 text-right">
 	        			<div class="form-group">
@@ -797,6 +795,41 @@ class Reports extends MY_Controller
 	        			</div>
 	        			<div class="form-group">
 	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'AAR':
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Period : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboMonth('dtmMonth').'</div>
+	        			</div>
+                	</div>
+                </div>';
+                 echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Year : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboYear('dtmYear').'</div>
 	        			</div>
                 	</div>
                 </div>';
@@ -859,6 +892,28 @@ class Reports extends MY_Controller
                 </div>';
             break;
             case 'ROT':
+            	echo '<div class="row">
+					<div class="col-sm-3 text-right">
+	                	<div class="form-group">
+	                		<label class="control-label"> Period : </label>
+	                	</div>
+	                </div>';
+				echo ' <div class="col-sm-2">'.comboMonth('dtmMonth').'</div>
+					<div class="col-sm-2">'.comboYear('dtmYear').'</div>
+                </div>';
+                echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Certified Correct : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
+            case 'ROTUAN':
             	echo '<div class="row">
 					<div class="col-sm-3 text-right">
 	                	<div class="form-group">

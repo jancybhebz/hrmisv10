@@ -42,7 +42,7 @@ class Update_dtr extends MY_Controller {
 			$strReason=$arrPost['strReason'];
 			$dtmMonthOf=$arrPost['dtmMonthOf'];
 			$strEvidence=$arrPost['strEvidence'];
-			$strSignatory=$arrPost['strSignatory'];
+			$strSignatory=$arrPost['strSignatory']==0?'':$arrPost['strSignatory'];
 			if(!empty($dtmDTRupdate))
 			{	
 				if( count($this->update_dtr_model->checkExist($dtmDTRupdate))==0 )

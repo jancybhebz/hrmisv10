@@ -205,6 +205,10 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
 $(document).ready(function() {
 
     $('.date-picker').datepicker();
+    $('.date-picker').on('changeDate', function(){
+        $(this).datepicker('hide');
+    });
+    
     $('.timepicker').timepicker({
         timeFormat: 'HH:mm:ss A',
         disableFocus: true,
@@ -229,10 +233,6 @@ $(document).ready(function() {
         $('#ob-embed').attr('src',link);
         $('#ob-embed-fullview').attr('href',link);
         $('#ob-form').modal('show');
-    });
-
-    $('.date-picker').on('changeDate', function(){
-        $(this).datepicker('hide');
     });
 
     $('#dtmOBrequestdate').on('keyup keypress change',function() {
