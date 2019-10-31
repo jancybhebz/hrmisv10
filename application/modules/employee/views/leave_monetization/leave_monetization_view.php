@@ -42,201 +42,95 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/leave_monetization/submit'), array('method' => 'post', 'id' => 'frmTO'))?>
-                   
-                    <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                            <?php 
-                                $permonth = date("F, Y", strtotime("last day of previous month"));
-                            ?>
-                                <label class="control-label" ><b>Leave Credits Available as of <?=$permonth?></b></label>
-                            </div>
+                <div class="row">
+                    <div class="tabbable-line tabbable-full-width col-md-12">
+                        <?php $permonth = date("F Y", strtotime("last day of previous month")); ?>
+                        <p><b>Leave Credits Available as of <?=$permonth?></b></p>
+                        <table class="table table-striped table-bordered table-hover">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 25%;">Vacation Leave</td>
+                                    <td style="width: 25%;"><?=number_format($arrBalance['vlBalance'],3)?></td>
+                                    <td style="width: 25%;">Projected Vacation Leave</td>
+                                    <td style="width: 25%;"><?=number_format($arrBalance['vlBalance'],3)?></td>
+                                </tr>
+                                <tr>
+                                    <td>Sick Leave</td>
+                                    <td><?=number_format($arrBalance['slBalance'],3)?></td>
+                                    <td>Projected Sick Leaves</td>
+                                    <td><?=number_format($arrBalance['slBalance'],3)?></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Leave Credits</td>
+                                    <td colspan="3"><?=number_format(($arrBalance['vlBalance']+ $arrBalance['slBalance']), 3)?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="m-heading-1 border-blue m-bordered small" style="position: static;display: block;line-height: 1.8;">
+                            Projected Leave = Actual Leave - Approved Leave <br>
+                            <b>Approved Leaves from Jan to Nov</b><br>
+                                "Monetization of 50% or more of all your accumulated leave credit may be allowable for valid and justifiable reasons subject to the discretion of the agency head and the availability of funds." <br>
+                                "Sick leave credits may be monetized if an employee has no available vacation leave credits. Vacation leave credits must be exhausted first before sick leave credits maybe used." <br>
+                                Five (5) days must be left at Vacation Leaves credits after monetization. <br>
                         </div>
                     </div>
-                     <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <label class="control-label" ></label>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Vacation Leave :</label>
-                            </div>
-                        </div>
+                </div>
+                <hr>
+                <?=form_open(base_url('employee/leave_monetization/submit'), array('method' => 'post', 'id' => 'frmTO'))?>
                     <div class="row">
-                        <div class="col-sm-1 text-left">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <?php echo $arrBalance['vlBalance']; ?>
-                            </div>
-                        </div>
-                    </div>
-                      
-                   <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Sick Leave :</label>
-                            </div>
-                        </div>
-                    <div class="row">
-                        <div class="col-sm-1 text-left">
-                            <div class="form-group">
-                                <?php echo $arrBalance['slBalance'];?>
-                            </div>
-                        </div>
-                    </div>
-                  <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Total Leave Credits :</label>
-                            </div>
-                        </div>
-                    <div class="row">
-                        <div class="col-sm-1 text-left">
-                            <div class="form-group">
-                            <?php $sum = 0;
-                                $sum += $arrBalance['vlBalance']+ $arrBalance['slBalance'];
-                                echo $sum; ?>
+                                <label><input type="checkbox" value="1" name="commutation" id="commutation" /><b> Commutation</b></label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"></label>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Projected Vacation Leave :</label>
-                            </div>
-                        </div>
-                    <div class="row">
-                        <div class="col-sm-1 text-left">
-                            <div class="form-group">
-                                <?php echo $arrBalance['vlBalance']; ?>
+                                <label class="control-label col-sm-6"># of Leave Credits to be Monetized on Vacation Leave :</label>
+                                <div class="col-sm-4">
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrBalance['vlBalance'])?$arrBalance['vlBalance']:''?>">
+                                    </div> 
                                 </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group">
-                                <label class="control-label">Projected Sick Leave :</label>
                             </div>
                         </div>
+                    </div><br>
                     <div class="row">
-                        <div class="col-sm-1 text-left">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <?php echo $arrBalance['slBalance']; ?>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <label class="control-label" style="color:#FF0000;">Projected Leave = Actual Leave - Approved Leave Approved Leaves from January to March </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <label class="control-label" style="color:#FF0000;">"Monetization of 50% or more of all your accumulated leave credit may be allowable for valid and justifiable reasons subject to the discretion of the agency head and the availability of funds."</label>
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <label class="control-label" style="color:#FF0000;">
-                                "Sick leave credits may be monetized if an employee has no available vacation leave credits. Vacation leave credits must be exhausted first before sick leave credits maybe used." </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <label class="control-label" style="color:#FF0000;">
-                                Five (5) days must be left at Vacation Leaves credits after monetization. </label>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <div class="form-group">
-                                <input type="checkbox" value="1" name="commutation" id="commutation" /><b> Commutation</b>
-                            </div>
-                        </div>
-                    </div>
-                     
-                    <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group">
-                                <label class="control-label"># of Leave Credits to be Monetized on Vacation Leave :</label>
-                            </div>
-                        </div>
-                    <div class="row">
-                        <div class="col-sm-2 text-right">
-                            <div class="form-group">
-                                 <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" value="<?=isset($arrBalance['vlBalance'])?$arrBalance['vlBalance']:''?>">
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group">
-                                <label class="control-label"># of Leave Credits to be Monetized on Sick Leave :</label>
-                            </div>
-                        </div>
-                    <div class="row">
-                        <div class="col-sm-2 text-right">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrBalance['slBalance'])?$arrBalance['slBalance']:''?>">
+                                <label class="control-label col-sm-6"># of Leave Credits to be Monetized on Sick Leave :</label>
+                                <div class="col-sm-4">
+                                    <div class="input-icon right">
+                                        <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" value="<?=isset($arrBalance['slBalance'])?$arrBalance['slBalance']:''?>">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div></br>
-                     <div class="row reason">
-                        <div class="col-sm-6 text-right">
+                    <div class="row div-reason">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Reason :</label>
+                                <label class="control-label col-sm-2">Reason :</label>
+                                <div class="col-sm-8">
+                                    <div class="input-icon right">
+                                        <textarea class="form-control" name="strReason" id="strReason"><?=isset($arrBalance['strReason'])?$arrBalance['strReason']:''?></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    <div class="row reason">
-                        <div class="col-sm-2 text-right">
-                            <div class="form-group">
-                                 <input type="text" class="form-control" name="strReason" id="strReason"  value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>">
-                            </div>
-                        </div>
-                    </div></br>
-
+                    </div>
+                    <div class="row"><div class="col-sm-10"><hr></div> </div>
                     <div class="row">
-                      <div class="col-sm-12 text-center">
-                            <input class="hidden" name="strStatus" value="Filed Request">
+                        <div class="col-sm-12"><input class="hidden" name="strStatus" value="Filed Request">
                             <input class="hidden" name="strCode" value="Leave Monetization">
-
-                          <button type="submit" class="btn btn-primary"><?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                          
-                      </div>
+                            <button type="submit" class="btn btn-success" id="btn-request-leave"> <i class="icon-check"></i> <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                        </div>
                     </div>
                 <?=form_close()?>
             </div>
@@ -244,47 +138,47 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 
+<?=load_plugin('js',array('form_validation'));?>
 
-<?=load_plugin('js',array('validation','datepicker'));?>
 <script>
-    $(document).ready(function() 
-    {
-        $('.date-picker').datepicker();
+$(document).ready(function() {
+    $('.div-reason').hide();
+
+    $('#commutation').on('change', function(){
+        this.value = this.checked ? 1 : 0;
+        if(this.checked) {
+            $('.div-reason').show();
+
+        }else{
+            $('.div-reason').hide();
+        }
     });
- 
-</script>
 
-<?=load_plugin('js',array('timepicker'));?>
-<script>
-    $(document).ready(function() {
-        $('.timepicker').timepicker({
-                timeFormat: 'HH:mm:ss A',
-                disableFocus: true,
-                showInputs: false,
-                showSeconds: true,
-                showMeridian: true,
-                // defaultValue: '12:00:00 a'
-            });
-
-    <?php if($commutation==''):?>
-        $('.reason').hide();
-    <?php endif;?>
-    <?php if($commutation=='1'):?>
-        $('.reason').show();
-    <?php endif;?>
-
-    $('#printreport').click(function(){
-        var desti=$('#strDestination').val();
-        var todatefrom=$('#dtmTOdatefrom').val();
-        var todateto=$('#dtmTOdateto').val();
-        var purpose=$('#strPurpose').val();
-        var meal=$('#strMeal').val();
-
-        // if(request=='reportTO')
-        //     valid=true;
-        // if(valid)
-            window.open("reports/generate/?rpt=reportTO&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal,'_blank'); //ok
-            
+    $('#MonetizedVL').on('keyup keypress change',function() {
+        check_null('#MonetizedVL','Leave Credits to be Monetized on Vacation Leave must not be empty.');
     });
-});
+
+    $('#MonetizedSL').on('keyup keypress change',function() {
+        check_null('#MonetizedSL','Leave Credits to be Monetized on Sick Leave must not be empty.');
+    });
+
+    $('#strReason').on('keyup keypress change',function() {
+        check_null('#strReason','Reason must not be empty.');
+    });
+
+    $('#btn-request-leave').click(function(e) {
+        var total_error = 0;
+
+        total_error = total_error + check_null('#MonetizedVL','Leave Credits to be Monetized on Vacation Leave must not be empty.');
+        total_error = total_error + check_null('#MonetizedSL','Leave Credits to be Monetized on Sick Leave must not be empty.');
+        if($('#commutation').val()){
+            total_error = total_error + check_null('#strReason','Reason must not be empty.');
+        }
+
+        if(total_error > 0){
+            e.preventDefault();
+        }
+    });
+
+}); 
 </script>
