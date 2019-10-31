@@ -34,6 +34,8 @@ class RptofAttendanceandAccumulatedLeaveCredits_model extends CI_Model {
 
 		$arrGet = $this->input->get();
 		$today = date("F j, Y");
+		// $dtmMonth = $arrData['dtmMonth'];
+		// $dtmYear = $arrData['dtmYear'];
 		//$t_dtmRcvDate = $arrData['dtReceivedDay']." ".date('F',strtotime(date('Y').'-'.$arrData['dtReceivedMonth'].'-'.date('d')))." ".$arrData['dtReceivedYear'];
 		//$t_dtmLtrDate = $arrData['dtLetterDay']." ".date('F',strtotime(date('Y').'-'.$arrData['dtLetterMonth'].'-'.date('d')))." ".$arrData['dtLetterYear'];
 		//$t_dtmAcptDate = $arrData['dtAcceptedDay']." ".date('F',strtotime(date('Y').'-'.$arrData['dtAcceptedMonth'].'-'.date('d')))." ".$arrData['dtAcceptedYear'];
@@ -53,6 +55,80 @@ class RptofAttendanceandAccumulatedLeaveCredits_model extends CI_Model {
 			$this->fpdf->Cell(0, 5, "The record of Human Resource Management Unit show that for the month of , the division's staff had incurred tardiness/undertime/half-days/absences and certified in their favor the accumulated ", 0, 0, "L");
 			$this->fpdf->Ln(5);
 			$this->fpdf->Cell(0, 5, "vacation leave and sick leave as follows:", 0, 0, "L");
+			$this->fpdf->Ln(10);
+
+			// table 
+			$this->fpdf->SetFillColor(180,180,180);
+			$this->fpdf->SetFillColor(180,180,180);					
+			$this->fpdf->SetWidths(array(185));
+			$this->fpdf->SetAligns(array('C'));
+			$this->fpdf->SetFillColor(210,210,210);
+
+			$this->fpdf->SetFont('Arial', "B", 6);
+			$this->fpdf->Cell(55,5,"","LTR",0,'C',1);
+			$this->fpdf->Cell(64,5,"MONTH1","TL",0,'C',1);
+			$this->fpdf->Cell(64,5,"MONTH2","TL",0,'C',1);
+			$this->fpdf->Cell(64,5,"MONTH3","TRL",0,'C',1);
+			$this->fpdf->Ln(4);
+
+			$this->fpdf->SetFont('Arial', "B", 6);
+			$this->fpdf->Cell(55,5,"","LTR",0,'C',1);
+			$this->fpdf->Cell(20,5,"# of Days","TL",0,'C',1);
+			$this->fpdf->Cell(14,5,"# of Abs",1,0,'C',1);
+			$this->fpdf->Cell(30,5,"Leave Credits",1,0,'C',1);
+			$this->fpdf->Cell(20,5,"# of Days","TL",0,'C',1);
+			$this->fpdf->Cell(14,5,"# of Abs",1,0,'C',1);
+			$this->fpdf->Cell(30,5,"Leave Credits",1,0,'C',1);
+			$this->fpdf->Cell(20,5,"# of Days","TL",0,'C',1);
+			$this->fpdf->Cell(14,5,"# of Abs",1,0,'C',1);
+			$this->fpdf->Cell(30,5,"Leave Credits",1,0,'C',1);
+			$this->fpdf->Ln(4);
+
+			$this->fpdf->SetFont('Arial', "B", 6);
+			$this->fpdf->Cell(55,5,"EMPLOYEE NAME",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"TR/UT",1,0,'C',1);
+			$this->fpdf->Cell(5,5,"HD",1,0,'C',1);
+			$this->fpdf->Cell(7,5,"VL",1,0,'C',1);
+			$this->fpdf->Cell(7,5,"SL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"VL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"SL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"TR/UT",1,0,'C',1);
+			$this->fpdf->Cell(5,5,"HD",1,0,'C',1);
+			$this->fpdf->Cell(7,5,"VL",1,0,'C',1);
+			$this->fpdf->Cell(7,5,"SL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"VL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"SL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"TR/UT",1,0,'C',1);
+			$this->fpdf->Cell(5,5,"HD",1,0,'C',1);
+			$this->fpdf->Cell(7,5,"VL",1,0,'C',1);
+			$this->fpdf->Cell(7,5,"SL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"VL",1,0,'C',1);
+			$this->fpdf->Cell(15,5,"SL",1,0,'C',1);
+			$this->fpdf->Ln(5);
+			$this->fpdf->SetFont('Arial', "", 6);
+			$this->fpdf->Cell(55,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(5,5,"",1,0,'C');
+			$this->fpdf->Cell(7,5,"",1,0,'C');
+			$this->fpdf->Cell(7,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(5,5,"",1,0,'C');
+			$this->fpdf->Cell(7,5,"",1,0,'C');
+			$this->fpdf->Cell(7,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(5,5,"",1,0,'C');
+			$this->fpdf->Cell(7,5,"",1,0,'C');
+			$this->fpdf->Cell(7,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Cell(15,5,"",1,0,'C');
+			$this->fpdf->Ln(5);
+			
+			$this->fpdf->Ln(5);
+
 			$this->fpdf->Ln(10);
 			$this->fpdf->SetFont('Arial', "B", 8);
 			$this->fpdf->Cell(0, 5, "CERTIFIED CORRECT", 0, 1, "C");
