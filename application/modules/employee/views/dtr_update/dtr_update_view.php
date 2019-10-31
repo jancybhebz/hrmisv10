@@ -91,7 +91,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Old Morning Out :</label>
+                                <label class="control-label">Morning Out :</label>
                                 <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Old Afternoon In :</label>
+                                <label class="control-label">Afternoon In :</label>
                                 <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                             </div>
                         </div>
@@ -107,7 +107,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Old Afternoon Out :</label>
+                                <label class="control-label">Afternoon Out :</label>
                                 <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Old Overtime In : </label>
+                                <label class="control-label">Overtime In : </label>
                                 <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                             </div>
                         </div>
@@ -123,7 +123,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Old Overtime Out : </label>
+                                <label class="control-label">Overtime Out : </label>
                                 <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
                             </div>
                         </div>

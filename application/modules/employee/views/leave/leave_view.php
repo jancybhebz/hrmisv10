@@ -15,6 +15,8 @@ $mtlBalance = $arrBalance['mtlBalance'];
 
 $strLeavetype = '';
 $action = '';
+$emp_gender = employee_details($_SESSION['sessEmpNo']);
+$emp_gender = $emp_gender[0]['sex'];
 ?>
 <?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
 <!-- BEGIN PAGE BAR -->
@@ -51,11 +53,15 @@ $action = '';
                 </div>
             </div>
             <div class="portlet-body">
-                <?=form_open_multipart('', array('method' => 'post', 'id' => 'frmLeave', 'onsubmit' => 'return checkForBlank()', 'onsubmit' => 'return checkForBlank()'))?>
-                <input class="hidden" name="strStatus" value="Filed Request">
-                <input class="hidden" name="strCode1" value="Forced Leave">
-                <input class="hidden" name="strCode3" value="Sick Leave">
-                <input class="hidden" name="strCodeSPL" value="Special Leave">
+                <?=form_open_multipart('employee/leave/add_leave', array('method' => 'post', 'id' => 'frmLeave'))?>
+                <input class="hidden" name="txtempno" id="txtempno" value="<?=$_SESSION['sessEmpNo']?>">
+                <input class="hidden" name="txttype" id="txttype">
+
+
+                <!-- <input class="hidden" name="strStatus" value="Filed Request"> -->
+                <!-- <input class="hidden" name="strCode1" value="Forced Leave"> -->
+                <!-- <input class="hidden" name="strCode3" value="Sick Leave"> -->
+                <!-- <input class="hidden" name="strCodeSPL" value="Special Leave"> -->
                 <input class="hidden" name="intVL" id="intVL" value="<?=!empty($arrBalance[0]['vlBalance'])?$arrBalance[0]['vlBalance']:''?>">
                 <input class="hidden" name="intSL" id="intSL" value="<?=!empty($arrBalance[0]['slBalance'])?$arrBalance[0]['slBalance']:''?>">
                 <div class="row">
@@ -67,17 +73,17 @@ $action = '';
                             </tr>
                             <tr>
                                 <th width="20%">Forced Leave left</th>
-                                <td width="11%"><?=$flBalance==""?0:$arrBalance['flBalance']?></td>
+                                <td width="11%"><?=$flBalance==""?0:number_format($arrBalance['flBalance'],3)?></td>
                                 <th width="18%">Sick Leave left</th>
-                                <td width="11%"><?=$slBalance==""?0:$arrBalance['slBalance']?></td>
+                                <td width="11%"><?=$slBalance==""?0:number_format($arrBalance['slBalance'],3)?></td>
                                 <th width="18%">Vacation Leave left</th>
-                                <td width="12%"><?=$vlBalance==""?0:$arrBalance['vlBalance']?></td>
+                                <td width="12%"><?=$vlBalance==""?0:number_format($arrBalance['vlBalance'],3)?></td>
                             </tr>
                             <tr>
                                 <th>Maternity Leave left</th>
-                                <td><?=$mtlBalance==""?0:$arrBalance['mtlBalance']?></td>
+                                <td><?=$mtlBalance==""?0:number_format($arrBalance['mtlBalance'],3)?></td>
                                 <th>Special Leave left</th>
-                                <td><?=$plBalance==""?0:$arrBalance['plBalance']?></td>
+                                <td><?=$plBalance==""?0:number_format($arrBalance['plBalance'],3)?></td>
                                 <td colspan="2"></td>
                             </tr>
                         </table>
@@ -88,14 +94,17 @@ $action = '';
                     <div class="col-sm-8">
                         <div class="form-group">
                            <label class="control-label"><strong>Leave Type : </strong><span class="required"> * </span></label>
-                            <select name="strLeavetype" id="strLeavetype" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>" onchange="showtextbox()">
+                            <select name="strLeavetype" id="strLeavetype" type="text" class="form-control bs-select form-required" value="<?=!empty($this->session->userdata('strLeavetype'))?$this->session->userdata('strLeavetype'):''?>">
                                 <option value="">-- SELECT LEAVE TYPE --</option>
                                 <option value="FL">Forced Leave</option>
                                 <option value="SPL">Special Leave</option>
                                 <option value="SL">Sick Leave</option>
                                 <option value="VL">Vacation Leave</option>
-                                <option value="MTL">Maternity Leave</option>
-                                <option value="PTL">Paternity Leave</option>
+                                <?php if(strtolower($emp_gender) == 'm'): ?>
+                                    <option value="PTL">Paternity Leave</option>
+                                <?php else: ?>
+                                    <option value="MTL">Maternity Leave</option>
+                                <?php endif; ?>
                                 <option value="STL">Study Leave</option>
                             </select>
                         </div>
@@ -106,9 +115,9 @@ $action = '';
                         <div class="form-group">
                             <div class="radio-list">
                                 <label class="radio-inline">
-                                    <input type="radio" name="strDay" id="strDay" value="Whole day" checked> Whole day</label>
+                                    <input type="radio" name="strDay" id="strDayw" value="Whole day" checked> Whole day</label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="strDay" id="strDay" value="Half day"> Half day </label>
+                                    <input type="radio" name="strDay" id="strDayf" value="Half day"> Half day </label>
                             </div>
                         </div>
                     </div>
@@ -141,7 +150,8 @@ $action = '';
                             <label class="control-label">No. of Days Applied :  <span class="required"> * </span></label>
                             <div class="input-icon right">
                                 <i class="fa"></i>
-                               <input type="text" class="form-control" name="intDaysApplied" id="intDaysApplied" disabled>   
+                               <input type="text" class="form-control" id="intDaysApplied" disabled>   
+                               <input type="hidden" name="intDaysApplied" id="intDaysApplied_val">
                             </div>
                         </div>
                     </div>
@@ -219,10 +229,10 @@ $action = '';
                     </div>
                 </div>
 
-                <div class="row"><div class="col-sm-8"><hr></div></div>
-                <div class="row">
+                <div class="row div-actions"><div class="col-sm-8"><hr></div></div>
+                <div class="row div-actions">
                     <div class="col-sm-8">
-                        <button type="submit" class="btn btn-success" id="btn-request-ob">
+                        <button type="submit" class="btn btn-success" id="btn-request-leave">
                             <i class="icon-check"></i>
                             <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                         <a href="<?=base_url('employee/leave')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
@@ -235,243 +245,5 @@ $action = '';
     </div>
 </div>
 
-<script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>">
-
-<?=load_plugin('js',array('validation','datepicker','select','select2'));?>
-<script>
-    $(document).ready(function() 
-    {
-        $('.date-picker').datepicker();
-    });
- 
-</script>
-
-<?=load_plugin('js',array('timepicker'));?>
-<script>
-    $(document).ready(function() {
-        $('.timepicker').timepicker({
-                timeFormat: 'HH:mm:ss A',
-                disableFocus: true,
-                showInputs: false,
-                showSeconds: true,
-                showMeridian: true,
-                // defaultValue: '12:00:00 a'
-            });
-
-        $('#strLeavetype').on('change', function() {
-            strLeavetype = $(this).val();
-            if($(this).val() == 'FL'){  
-                $('#frmLeave').attr('action','leave/submitFL'); 
-                } else if(strLeavetype == 'SPL'){ 
-                $('#frmLeave').attr('action','leave/submitSPL'); 
-                } else if(strLeavetype == 'SL'){ 
-                $('#frmLeave').attr('action','leave/submitSL'); 
-                } else if(strLeavetype == 'VL'){ 
-                $('#frmLeave').attr('action','leave/submitVL'); 
-                } else if(strLeavetype == 'MTL'){ 
-                $('#frmLeave').attr('action','leave/submitML');
-                } else if(strLeavetype == 'PTL'){ 
-                $('#frmLeave').attr('action','leave/submitPL'); 
-                } else if(strLeavetype == 'STL'){
-                $('#frmLeave').attr('action','leave/submitSTL'); 
-                }
-        });
-
-
-     $('#printreport').click(function(){
-        var leavetype=$('#strLeavetype').val();
-        var day=$('#strDay').val();
-        var leavefrom=$('#dtmLeavefrom').val();
-        var leaveto=$('#dtmLeaveto').val();
-        var daysapplied=$('#intDaysApplied').val();
-        var signatory=$('#str1stSignatory').val();
-        var signatory2=$('#str2ndSignatory').val();
-        var reason=$('#strReason').val();
-        var incaseSL=$('#strIncaseSL').val();
-        var incaseVL=$('#strIncaseVL').val();
-        var intVL=$('#intVL').val();
-        var intSL=$('#intSL').val();
-
-        if(leavefrom=='')
-          $('#printreport').disabled();
-        else
-       // var valid=false;
-
-        // if(request=='reportLeave')
-        //     valid=true;
-        // if(valid)
-
-            window.open("reports/generate/?rpt=reportLeave&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&signatory2="+signatory2+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL+"&intVL="+intVL+"&intSL="+intSL,'_blank'); //ok
-    
-    });
- });
-</script>
-
-<?php load_plugin('js',array('validation'));?>
-<script type="text/javascript">
-    jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
-var FormValidation = function () {
-
-    // validation using icons
-    var handleValidation = function() {
-        // for more info visit the official plugin documentation: 
-            // http://docs.jquery.com/Plugins/Validation
-
-            var form2 = $('#frmLeave');
-            var error2 = $('.alert-danger', form2);
-            var success2 = $('.alert-success', form2);
-
-            form2.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",  // validate all fields including form hidden input
-                rules: {
-
-                    dtmLeavefrom: {
-                        required: true,
-                    },
-                    dtmLeaveto: {
-                        required: true,
-                    }
-
-                },
-
-                invalidHandler: function (event, validator) { //display error alert on form submit              
-                    success2.hide();
-                    error2.show();
-                    App.scrollTo(error2, -200);
-                },
-
-                errorPlacement: function (error, element) { // render error placement for each input type
-                    var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
-                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    
-                },
-
-                success: function (label, element) {
-                    var icon = $(element).parent('.input-icon').children('i');
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                    icon.removeClass("fa-warning").addClass("fa-check");
-                },
-
-                submitHandler: function (form) {
-                    success2.show();
-                    error2.hide();
-                    form[0].submit(); // submit the form
-                }
-            });
-
-
-    }
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            handleValidation();
-
-        }
-
-    };
-
-}();
-
-jQuery(document).ready(function() {
-    FormValidation.init();
-});
-</script>
-
-<script>
-    $('#dtmLeavefrom, #dtmLeaveto').change(function()
-    {
-        if($('#dtmLeavefrom').val() != '' && $('#dtmLeaveto').val() != ''){
-            var startDate = parseDate($('#dtmLeavefrom').val());
-            var endDate = parseDate($('#dtmLeaveto').val());
-            //var days = calcDaysBetween(startDate, endDate);
-            var days = showDays(startDate, endDate);
-            $('#intDaysApplied').html(days + " days"); 
-            calculate();
-            // round($days / (60 * 60 * 24));  
-        }
-    })
-
-    function calculate() 
-    {
-        var d1 = $('#dtmLeavefrom').datepicker('getDate');
-        var d2 = $('#dtmLeaveto').datepicker('getDate');
-        var oneDay = 24*60*60*1000;
-        var diff = 0;
-
-        if (d1 && d2) 
-        {
-          diff = Math.round(Math.abs((d2.getTime() - d1.getTime())/(oneDay)));
-        }        
-        diff+=1;
-        $('#intDaysApplied').val(diff);
-    }
-
-    function showDays(firstDate,secondDate)
-    {
-        var startDay = new Date(secondDate);
-        var endDay = new Date(firstDate);
-        var millisecondsPerDay = 1000 * 60 * 60 * 24;
-
-        var millisBetween = startDay.getTime() - endDay.getTime();
-        var days = millisBetween / millisecondsPerDay;
-        console.log(Math.floor(days)); 
-        return Math.floor(days);
-    }
-
-    function parseDate(s)
-    {
-        var parts = s.split('-');
-        //console.log(parts); 
-        return new Date(parts[0], parts[1], parts[2]);
-    }
-
-    function calcDaysBetween(startDate, endDate)
-    {
-        console.log('endDate'+endDate+'startDate'+startDate);
-        return (endDate-startDate)/(1000*60*60*24);
-    }
-
-</script>
-<script>
-
-// function checkForBlank()
-// {
-//    var spaceCount = 0;
-//     $dtmLeavefrom= $('#dtmLeavefrom').val();
-//     $dtmLeaveto= $('#dtmLeaveto').val();
-
-//     $('leavefrom','leaveto').html('');
-
-//     if($dtmLeavefrom=="")
-//     {
-//       $('#leavefrom').html('This field is required!');
-//       return false;
-//     }
-//     else if($dtmLeaveto=="")
-//     {
-//       $('#leaveto').html('This field is required!');
-//       return false;
-//     }
-  
-//     else
-//     {
-//       return true;
-//     }
-
-// }
-</script>
+<script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>"></script>
+<?=load_plugin('js',array('form_validation','datepicker','select','select2'));?>
