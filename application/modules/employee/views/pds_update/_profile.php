@@ -5,8 +5,10 @@
 		<div class="row" id="surname_textbox">
 	        <div class="col-sm-8">
 	            <div class="form-group">
-	              <label class="control-label">Surname : <span class="required"> * </span></label>
-	              <input type="text" class="form-control" name="strSname" maxlength="50" value="<?=isset($arrData[0]['surname'])?$arrData[0]['surname']:''?>" autocomplete="off">
+	            	<label class="control-label">Surname : <span class="required"> * </span></label>
+	            	<div class="input-icon right">
+	            		<input type="text" class="form-control" name="strSname" id="strSname" maxlength="50" value="<?=isset($arrData[0]['surname'])?$arrData[0]['surname']:''?>" autocomplete="off">
+		            </div>
 	            </div>
 	        </div>
 	    </div>
@@ -14,7 +16,9 @@
 			<div class="col-sm-8">
 				<div class="form-group">
 					<label class="control-label">Firstname : <span class="required"> * </span></label>
-					<input type="text" class="form-control" name="strFname" maxlength="50" value="<?=isset($arrData[0]['firstname'])?$arrData[0]['firstname']:''?>" autocomplete="off">
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strFname" id="strFname" maxlength="50" value="<?=isset($arrData[0]['firstname'])?$arrData[0]['firstname']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -22,14 +26,16 @@
 			<div class="col-sm-8">
 				<div class="form-group">
 					<label class="control-label">Middle Name : <span class="required"> * </span></label>
-					<input type="text" class="form-control" name="strMname" maxlength="50" value="<?=isset($arrData[0]['middlename'])?$arrData[0]['middlename']:''?>" autocomplete="off">
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strMname" id="strMname" maxlength="50" value="<?=isset($arrData[0]['middlename'])?$arrData[0]['middlename']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row" id="extension_textbox">
 			<div class="col-sm-3">
 				<div class="form-group">
-					<label class="control-label">Name Extension: <span class="required"> * </span></label>
+					<label class="control-label">Name Extension: </label>
 					<input type="text" class="form-control" name="strExtension" maxlength="10" value="<?=isset($arrData[0]['nameExtension'])?$arrData[0]['nameExtension']:''?>" autocomplete="off">
 				</div>
 			</div>
@@ -37,7 +43,7 @@
 		<div class="row" id="bdate_textbox">
 			<div class="col-sm-3">
 				<div class="form-group">
-					<label class="control-label">Date of Birth : <span class="required"> * </span></label>
+					<label class="control-label">Date of Birth : </label>
 					<input class="form-control date-picker" name="dtmBirthdate" id="dtmBirthdate" type="text" data-date-format="yyyy-mm-dd" autocomplete="off" value="<?=isset($arrData[0]['birthday'])?$arrData[0]['birthday']:''?>" >
 				</div>
 			</div>
@@ -45,7 +51,7 @@
 		<div class="row" id="birthplace_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Place of Birth : <span class="required"> * </span></label>
+					<label class="control-label">Place of Birth : </label>
 					<input type="text" class="form-control" name="strBirthplace" maxlength="80" value="<?=isset($arrData[0]['birthPlace'])?$arrData[0]['birthPlace']:''?>" autocomplete="off">
 				</div>
 			</div>
@@ -137,56 +143,68 @@
 		<div class="row" id="block1_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label"> <b>RESIDENTIAL ADDRESS :</b> <br> House/Block/Lot No. : </label>
-					<input type="text" class="form-control" name="strBlk1" maxlength="10" value="<?=isset($arrData[0]['lot1'])?$arrData[0]['lot1']:''?>" autocomplete="off">
+					<label class="control-label"> <b>RESIDENTIAL ADDRESS :</b> <br> House/Block/Lot No. : <span class="required"> * </span></label>
+					<input type="text" class="form-control" name="strBlk1" id="strBlk1" maxlength="10" value="<?=isset($arrData[0]['lot1'])?$arrData[0]['lot1']:''?>" autocomplete="off">
 				</div>
 			</div>
 		</div>
 		<div class="row" id="street1_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Street : </label>
-					<input type="text" class="form-control" name="strStreet1" maxlength="50" value="<?=isset($arrData[0]['street1'])?$arrData[0]['street1']:''?>"  autocomplete="off">
+					<label class="control-label">Street : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strStreet1" id="strStreet1" maxlength="50" value="<?=isset($arrData[0]['street1'])?$arrData[0]['street1']:''?>"  autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row" id="subd1_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Subdivision/Village : </label>
-					<input type="text" class="form-control" name="strSubd1" maxlength="50" value="<?=isset($arrData[0]['subdivision1'])?$arrData[0]['subdivision1']:''?>" autocomplete="off">
+					<label class="control-label">Subdivision/Village : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strSubd1" id="strSubd1" maxlength="50" value="<?=isset($arrData[0]['subdivision1'])?$arrData[0]['subdivision1']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row" id="brgy1_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Barangay : </label>
-					<input type="text" class="form-control" name="strBrgy1" maxlength="50" value="<?=isset($arrData[0]['barangay1'])?$arrData[0]['barangay1']:''?>" autocomplete="off">
+					<label class="control-label">Barangay : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strBrgy1" id="strBrgy1" maxlength="50" value="<?=isset($arrData[0]['barangay1'])?$arrData[0]['barangay1']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row" id="city1_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">City/Municipality : </label>
-					<input type="text" class="form-control" name="strCity1" maxlength="50" value="<?=isset($arrData[0]['city1'])?$arrData[0]['city1']:''?>" autocomplete="off">
+					<label class="control-label">City/Municipality : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strCity1" id="strCity1" maxlength="50" value="<?=isset($arrData[0]['city1'])?$arrData[0]['city1']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row" id="prov1_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Province : </label>
-					<input type="text" class="form-control" name="strProv1" maxlength="50" value="<?=isset($arrData[0]['province1'])?$arrData[0]['province1']:''?>"  autocomplete="off">
+					<label class="control-label">Province : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strProv1" id="strProv1" maxlength="50" value="<?=isset($arrData[0]['province1'])?$arrData[0]['province1']:''?>"  autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>   
 		<div class="row" id="zip1_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Zip Code : </label>
-					<input type="text" class="form-control" name="strZipCode1" maxlength="4" value="<?=isset($arrData[0]['zipCode1'])?$arrData[0]['zipCode1']:''?>" autocomplete="off">
+					<label class="control-label">Zip Code : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strZipCode1" id="strZipCode1" maxlength="4" value="<?=isset($arrData[0]['zipCode1'])?$arrData[0]['zipCode1']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>  
@@ -201,56 +219,70 @@
 		<div class="row" id="block2_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label"> <b>PERMANENT ADDRESS :</b> <br> House/Block/Lot No. : </label>
-					<input type="text" class="form-control" name="strBlk2" maxlength="10" value="<?=isset($arrData[0]['lot2'])?$arrData[0]['lot2']:''?>"  autocomplete="off">
+					<label class="control-label"> <b>PERMANENT ADDRESS :</b> <br> House/Block/Lot No. : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strBlk2" id="strBlk2" maxlength="10" value="<?=isset($arrData[0]['lot2'])?$arrData[0]['lot2']:''?>"  autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div> 
 		<div class="row" id="street2_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Street : </label>
-					<input type="text" class="form-control" name="strStreet2" maxlength="50" value="<?=isset($arrData[0]['street2'])?$arrData[0]['street2']:''?>"" autocomplete="off">
+					<label class="control-label">Street : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strStreet2" id="strStreet2" maxlength="50" value="<?=isset($arrData[0]['street2'])?$arrData[0]['street2']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div> 
 		<div class="row" id="subd2_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Subdivision/Village : </label>
-					<input type="text" class="form-control" name="strSubd2" maxlength="50" value="<?=isset($arrData[0]['subdivision2'])?$arrData[0]['subdivision2']:''?>" autocomplete="off">
+					<label class="control-label">Subdivision/Village : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strSubd2" id="strSubd2" maxlength="50" value="<?=isset($arrData[0]['subdivision2'])?$arrData[0]['subdivision2']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div> 
 		<div class="row" id="brgy2_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Barangay : </label>
-					<input type="text" class="form-control" name="strBrgy2" maxlength="50" value="<?=isset($arrData[0]['barangay2'])?$arrData[0]['barangay2']:''?>" autocomplete="off">
+					<label class="control-label">Barangay : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strBrgy2" id="strBrgy2" maxlength="50" value="<?=isset($arrData[0]['barangay2'])?$arrData[0]['barangay2']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div> 
 		<div class="row" id="city2_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">City/Municipality : </label>
-					<input type="text" class="form-control" name="strCity2" maxlength="50" value="<?=isset($arrData[0]['city2'])?$arrData[0]['city2']:''?>" autocomplete="off">
+					<label class="control-label">City/Municipality : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strCity2" id="strCity2" maxlength="50" value="<?=isset($arrData[0]['city2'])?$arrData[0]['city2']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>  
 		<div class="row" id="prov2_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Province : </label>
-					<input type="text" class="form-control" name="strProv2" maxlength="50" value="<?=isset($arrData[0]['province2'])?$arrData[0]['province2']:''?>" autocomplete="off">
+					<label class="control-label">Province : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strProv2" id="strProv2" maxlength="50" value="<?=isset($arrData[0]['province2'])?$arrData[0]['province2']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>   
 		<div class="row" id="zip2_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
-					<label class="control-label">Zip Code : </label>
-					<input type="text" class="form-control" name="strZipCode2" maxlength="4" value="<?=isset($arrData[0]['zipCode2'])?$arrData[0]['zipCode2']:''?>" autocomplete="off">
+					<label class="control-label">Zip Code : <span class="required"> * </span></label>
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strZipCode2" id="strZipCode2" maxlength="4" value="<?=isset($arrData[0]['zipCode2'])?$arrData[0]['zipCode2']:''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div> 

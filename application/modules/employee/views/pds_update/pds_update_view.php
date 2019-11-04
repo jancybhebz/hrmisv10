@@ -6,7 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
+<?=load_plugin('css', array('datepicker','datatables','timepicker','select','select2'))?>
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -48,14 +48,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option value="">-- SELECT PERSONAL DATA --</option>
                                 <option value="Profile">Profile</option>
                                 <option value="Family">Family Background (Parents/Spouse)</option>
-                                <option value="Educational">Educational Attainment</option>
+                                <option value="Educational" <?=$this->uri->segment(3)=='education'?'selected':''?>>Educational Attainment</option>
                                 <option value="Trainings">Trainings</option>
-                                <option value="Examinations">Eligibility</option>
-                                <option value="Children">Family Background (Children)</option>
-                                <option value="Community">Community Tax Certification</option>
-                                <option value="References">References</option>
-                                <option value="Voluntary">Voluntary Works</option>
-                                <option value="WorkExp">Work Experience</option>
+                                <!-- <option value="Examinations">Eligibility</option> -->
+                                <!-- <option value="Children">Family Background (Children)</option> -->
+                                <!-- <option value="Community">Community Tax Certification</option> -->
+                                <!-- <option value="References">References</option> -->
+                                <!-- <option value="Voluntary">Voluntary Works</option> -->
+                                <!-- <option value="WorkExp">Work Experience</option> -->
                             </select>
                         </div>
                     </div>
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                     <!-- Begin Training -->
                     <div class="row" id="divtra">
-                        Training
+                        <?=$this->load->view('_training.php')?>
                     </div>
                     <!-- End Training -->
 
@@ -127,5 +127,5 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 
-<?=load_plugin('js',array('form_validation','datepicker','select','select2'));?>
+<?=load_plugin('js',array('form_validation','datatables','datepicker','select','select2'));?>
 <script type="text/javascript" src="<?=base_url('assets/js/pds_update.js')?>">
