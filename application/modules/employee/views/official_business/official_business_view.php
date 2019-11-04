@@ -60,7 +60,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">Request Date :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
@@ -71,7 +71,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">Date From :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
@@ -82,7 +82,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">Date To :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
@@ -93,7 +93,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">Time From :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
@@ -104,7 +104,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">Time To :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
@@ -162,7 +162,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                             <button type="submit" class="btn btn-success" id="btn-request-ob">
                                 <i class="icon-check"></i>
                                 <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                            <a href="<?=base_url('employee/official_business')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                            <a href="<?=base_url('employee/official_business')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                             <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                         </div>
                     </div>

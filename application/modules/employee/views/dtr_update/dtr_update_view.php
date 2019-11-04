@@ -48,7 +48,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('employee/update_dtr/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label class="control-label">Date : <span class="required"> * </span></label>
                         <div class="input-icon right">
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>For the Month of : </label>
                             <select class="bs-select form-control" name="dtmMonthOf" id="dtmMonthOf" >
@@ -78,7 +78,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label class="control-label bold">Old Timein/Timeout : </label>
                     <div class="row">
                         <div class="col-sm-12">
@@ -130,7 +130,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label class="control-label bold">New Timein/Timeout : </label>
                     <div class="row">
                         <div class="col-sm-12">
@@ -217,7 +217,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <button type="submit" class="btn btn-success" id="btn-request-dtr">
                         <i class="icon-check"></i>
                         <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                    <a href="<?=base_url('employee/update_dtr')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                    <a href="<?=base_url('employee/update_dtr')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                     <button type="button" id="printreport" value="reportDTRupdate" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                 </div>
             </div>

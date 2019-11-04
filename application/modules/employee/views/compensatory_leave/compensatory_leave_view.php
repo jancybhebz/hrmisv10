@@ -46,7 +46,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                 <input class="hidden" name="strStatus" value="Filed Request">
                 <input class="hidden" name="strCode" value="CL">
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Date : <span class="required"> * </span></label>
                             <div class="input-icon right">
@@ -56,14 +56,14 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Offset balance: <?=count($arrLB) > 0 ? $arrLB[0]['off_bal'] : '0'?></label> 
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Morning Time In :</label>
                             <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" value="<?=date('h:i:A',strtotime($emp_att_scheme['amTimeinTo']))?>" autocomplete="off">
@@ -71,7 +71,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                     </div>
                 </div>      
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Morning Time Out :</label>
                             <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="<?=date('h:i:A',strtotime($emp_att_scheme['nnTimeinTo']))?>" autocomplete="off">
@@ -79,7 +79,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                     </div>
                 </div>  
                  <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Afternoon Time In :</label>
                             <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="<?=date('h:i:A',strtotime($emp_att_scheme['nnTimeoutTo']))?>" autocomplete="off">
@@ -87,7 +87,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                     </div>
                 </div>
                   <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Afternoon Time Out :</label>
                             <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="<?=date('h:i:A',strtotime($emp_att_scheme['pmTimeoutTo']))?>" autocomplete="off">
@@ -137,7 +137,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                             <?=count($arrLB) > 0 ? $arrLB[0]['off_bal'] > 0 ? '' : 'disabled' : 'disabled'?> >
                             <i class="icon-check"></i>
                             <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                        <a href="<?=base_url('employee/compensatory_leave')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                        <a href="<?=base_url('employee/compensatory_leave')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                         <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                     </div>
                 </div>

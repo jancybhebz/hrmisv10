@@ -56,12 +56,6 @@ $emp_gender = $emp_gender[0]['sex'];
                 <?=form_open_multipart('employee/leave/add_leave', array('method' => 'post', 'id' => 'frmLeave'))?>
                 <input class="hidden" name="txtempno" id="txtempno" value="<?=$_SESSION['sessEmpNo']?>">
                 <input class="hidden" name="txttype" id="txttype">
-
-
-                <!-- <input class="hidden" name="strStatus" value="Filed Request"> -->
-                <!-- <input class="hidden" name="strCode1" value="Forced Leave"> -->
-                <!-- <input class="hidden" name="strCode3" value="Sick Leave"> -->
-                <!-- <input class="hidden" name="strCodeSPL" value="Special Leave"> -->
                 <input class="hidden" name="intVL" id="intVL" value="<?=!empty($arrBalance[0]['vlBalance'])?$arrBalance[0]['vlBalance']:''?>">
                 <input class="hidden" name="intSL" id="intSL" value="<?=!empty($arrBalance[0]['slBalance'])?$arrBalance[0]['slBalance']:''?>">
                 <div class="row">
@@ -235,7 +229,7 @@ $emp_gender = $emp_gender[0]['sex'];
                         <button type="submit" class="btn btn-success" id="btn-request-leave">
                             <i class="icon-check"></i>
                             <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                        <a href="<?=base_url('employee/leave')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                        <a href="<?=base_url('employee/leave')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                         <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                     </div>
                 </div>
