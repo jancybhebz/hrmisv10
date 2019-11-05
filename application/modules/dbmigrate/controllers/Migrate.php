@@ -17,6 +17,12 @@ class Migrate extends MY_Controller
     
     function comparing_tables()
     {
+        # remove log file
+        $log_file = 'schema/data/migration/schema/migrate.log';
+        if(file_exists($log_file)){
+            unlink($log_file);
+        }
+        
         $host = $_GET['host'];
         $dbname = $_GET['dbname'];
         $uname = $_GET['uname'];
@@ -58,11 +64,6 @@ class Migrate extends MY_Controller
             }
         endforeach;
 
-        # remove log file
-        $log_file = 'schema/data/migration/schema/migrate.log';
-        if(file_exists($log_file)){
-            unlink($log_file);
-        }
         if($inipass!=''):
             $this->Migrate_model->create_log('<br>initial password: '.$inipass);
             $path = 'schema/hrmisv10/hrmis-schema-upt_0000-inipass.sql';
