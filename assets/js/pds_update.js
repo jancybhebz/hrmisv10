@@ -5,12 +5,18 @@ function hide_all() {
 $(document).ready(function() {
 
 	hide_all();
-	// $('#divtra').show();
-	$('#table-trainings,#table-educ').dataTable({"pageLength": 5});
+	$('.date-picker').datepicker();
+	$('.date-picker').on('changeDate', function(){
+		$(this).datepicker('hide');
+	});
 
-	if(has_set('educ_id')){
-		$('#diveduc').show();
-	}
+	// $('#divcomm').show();
+	$('#table-trainings,#table-educ,#table-examinations,#table-children').dataTable({"pageLength": 5});
+
+	if(has_set('educ_id')){ $('#diveduc').show(); }
+	if(has_set('tra_id')){ $('#divtra').show(); }
+	if(has_set('exam_id')){ $('#divexam').show(); }
+	if(has_set('child_id')){ $('#divchildren').show(); }
 	
 	$('#strProfileType').on('keyup keypress change',function() {
 		hide_all();
@@ -118,7 +124,6 @@ $(document).ready(function() {
 		check_null('#strZipCode2','Zip Code must not be empty.');
 	});
 
-
 	$('#btn-request-profile').click(function(e) {
 	    var total_error = 0;
 
@@ -147,5 +152,26 @@ $(document).ready(function() {
 	    }
 	});
 	/* End Profile */
+
+	/* Begin Education */
+	$('#strSchName').on('keyup keypress change',function() {
+		check_null('#strSchName','School name must not be empty.');
+	});
+
+	$('#intUnits').on('keyup keypress change',function() {
+		check_null('#intUnits','Zip Code must not be empty.');
+	});
+
+	$('#btn-request-educ').click(function(e) {
+	    var total_error = 0;
+
+	    total_error = total_error + check_null('#strSchName','School name must not be empty.');
+	    total_error = total_error + check_null('#intUnits','Firstname must not be empty.');
+
+	    if(total_error > 0){
+	        e.preventDefault();
+	    }
+	});
+	/* End Education */
 
 });

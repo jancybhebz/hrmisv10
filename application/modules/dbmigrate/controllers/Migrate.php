@@ -32,10 +32,10 @@ class Migrate extends MY_Controller
         $inipass = str_replace('^pls;','+',$inipass);
         $inipass = str_replace('^hash;','#',$inipass);
 
-        echo 'host: '.$host;
-        echo '<br>dbname: '.$dbname;
-        echo '<br>uname: '.$uname;
-        echo '<br>pass: '.$pass;
+        $this->Migrate_model->create_log('host: '.$host);
+        $this->Migrate_model->create_log('<br>dbname: '.$dbname);
+        $this->Migrate_model->create_log('<br>uname: '.$uname);
+        $this->Migrate_model->create_log('<br>pass: '.$pass);
 
         # update .env file
         # read the entire string
@@ -58,15 +58,20 @@ class Migrate extends MY_Controller
             }
         endforeach;
 
+        # remove log file
+        $log_file = 'schema/data/migration/schema/migrate.log';
+        if(file_exists($log_file)){
+            unlink($log_file);
+        }
         if($inipass!=''):
-            echo '<br>initial password: '.$inipass;
+            $this->Migrate_model->create_log('<br>initial password: '.$inipass);
             $path = 'schema/hrmisv10/hrmis-schema-upt_0000-inipass.sql';
             $this->Migrate_model->write_sqlstmt("# start#".$inipass.'#end',$path);
             $this->Migrate_model->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPassword` = '".password_hash($inipass,PASSWORD_BCRYPT)."';",$path);
         endif;
 
         $this->Migrate_model->comparing_tables();
-        echo 'Comparing Databases...';
+        $this->Migrate_model->create_log('Comparing Databases...');
         file_put_contents('schema/hrmisv10/hrmis-schema-upt.sql','');
     }
 
@@ -97,7 +102,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Fixed datetime fields...';
+        $this->Migrate_model->create_log('Fixed datetime fields...');
         $this->Migrate_model->fix_datetime_fields();
     }
 
@@ -128,7 +133,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Time successfully Fixed...';
+        $this->Migrate_model->create_log('Time successfully Fixed...');
     }
 
     /* STEP 4; fix DateTime field in table tblEmpDTR*/
@@ -174,13 +179,13 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'DateTime field in table Dtr successfully fixed...';
+        $this->Migrate_model->create_log('DateTime field in table Dtr successfully fixed...');
     }
 
     /* STEP 5; Change inPM to 24-H Time*/
     function fix_dtr_inpm_military_time()
     {
-        echo '<br>Fix DTR inPM to 24-H Time..';
+        $this->Migrate_model->create_log('<br>Fix DTR inPM to 24-H Time..');
         $path = 'schema/hrmisv10/hrmis-schema-upt_002-s5.sql';
 
         # drop old fields if exists, usually left when migration failed
@@ -268,7 +273,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.inPM to 24-H Time...';
+        $this->Migrate_model->create_log('Change tblEmpDTR.inPM to 24-H Time...');
     }
 
     /* STEP 6; Change outPM to 24-H Time*/
@@ -314,7 +319,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.outPM to 24-H Time...';
+        $this->Migrate_model->create_log('Change tblEmpDTR.outPM to 24-H Time...');
     }
 
     /* STEP 7; Change inOT to 24-H Time*/
@@ -360,7 +365,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.inOT to 24-H Time...';
+        $this->Migrate_model->create_log('Change tblEmpDTR.inOT to 24-H Time...');
     }
 
     /* STEP 8; Change outOT to 24-H Time*/
@@ -406,7 +411,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Change tblEmpDTR.outOT to 24-H Time...';
+        $this->Migrate_model->create_log('Change tblEmpDTR.outOT to 24-H Time...');
     }
 
     /* STEP 9; Drop old field with old data */
@@ -482,7 +487,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'DTR table successfully fixed...';
+        $this->Migrate_model->create_log('DTR table successfully fixed...');
     }
 
     function update_fields()
@@ -511,7 +516,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Update Fields...';
+        $this->Migrate_model->create_log('Update Fields...');
         $this->Migrate_model->update_fields();
     }
 
@@ -541,7 +546,7 @@ class Migrate extends MY_Controller
             unlink($path);
         endif;
 
-        echo 'Update Data Type...';
+        $this->Migrate_model->create_log('Update Data Type...');
         $this->Migrate_model->update_data_type();
 
     }
@@ -573,7 +578,7 @@ class Migrate extends MY_Controller
         endif;
 
         $this->Migrate_model->drop_dbase();
-        echo 'Database successfully updated... Migration log is added in schema/hrmisv10/hrmis-schema-upt.sql.. Click here to <u><b><a class="btn btn-xs" href="login"> Login </a></b></u>';
+        $this->Migrate_model->create_log('Database successfully updated... Migration log is added in schema/hrmisv10/hrmis-schema-upt.sql.. Click here to <u><b><a class="btn btn-xs" href="login"> Login </a></b></u>');
     }
 
     function sql_final_statement()

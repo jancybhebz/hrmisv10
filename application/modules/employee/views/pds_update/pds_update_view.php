@@ -48,11 +48,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option value="">-- SELECT PERSONAL DATA --</option>
                                 <option value="Profile">Profile</option>
                                 <option value="Family">Family Background (Parents/Spouse)</option>
-                                <option value="Educational" <?=$this->uri->segment(3)=='education'?'selected':''?>>Educational Attainment</option>
-                                <option value="Trainings">Trainings</option>
-                                <!-- <option value="Examinations">Eligibility</option> -->
-                                <!-- <option value="Children">Family Background (Children)</option> -->
-                                <!-- <option value="Community">Community Tax Certification</option> -->
+                                <option value="Educational" <?=isset($_GET['educ_id'])?'selected':''?>>Educational Attainment</option>
+                                <option value="Trainings" <?=isset($_GET['tra_id'])?'selected':''?>>Trainings</option>
+                                <option value="Examinations" <?=isset($_GET['exam_id'])?'selected':''?>>Eligibility</option>
+                                <option value="Children" <?=isset($_GET['child_id'])?'selected':''?>>Family Background (Children)</option>
+                                <option value="Community">Community Tax Certification</option>
                                 <!-- <option value="References">References</option> -->
                                 <!-- <option value="Voluntary">Voluntary Works</option> -->
                                 <!-- <option value="WorkExp">Work Experience</option> -->
@@ -86,19 +86,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                     <!-- Begin Examinations -->
                     <div class="row" id="divexam">
-                        Examinations
+                        <?=$this->load->view('_examination.php')?>
                     </div>
                     <!-- End Examinations -->
 
                     <!-- Begin Children -->
                     <div class="row" id="divchildren">
-                        Children
+                        <?=$this->load->view('_children.php')?>
                     </div>
                     <!-- End Children -->
 
                     <!-- Begin Community -->
                     <div class="row" id="divcomm">
-                        Community
+                        <?=$this->load->view('_community.php')?>
                     </div>
                     <!-- End Community -->
 

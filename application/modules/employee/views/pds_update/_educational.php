@@ -60,7 +60,9 @@
 			<div class="col-sm-8">
 				<div class="form-group">
 					<label class="control-label">School Name :  <span class="required"> * </span></label>
-					<input type="text" class="form-control" name="strSchName" value="<?=count($emp_educ) > 0 ? $emp_educ['schoolName'] : ''?>" autocomplete="off">
+					<div class="input-icon right">
+						<input type="text" class="form-control" name="strSchName" id="strSchName" value="<?=count($emp_educ) > 0 ? $emp_educ['schoolName'] : ''?>" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div> 
@@ -105,8 +107,10 @@
 	        <div class="row" id="units_textbox">
 	            <div class="col-sm-8">
 	                <div class="form-group">
-	                    <label class="control-label">Units Earned :  </label>
-	                    <input type="text" class="form-control" name="intUnits" value="<?=count($emp_educ) > 0 ? $emp_educ['units'] : ''?>" autocomplete="off"><label>* (write - if not-applicable)</label>
+	                    <label class="control-label">Units Earned :  <span class="required"> * </span></label>
+	                    <div class="input-icon right">
+	                    	<input type="text" class="form-control" name="intUnits" id="intUnits" value="<?=count($emp_educ) > 0 ? $emp_educ['units'] : ''?>" autocomplete="off"><label>* (write - if not-applicable)</label>
+	                    </div>
 	                </div>
 	            </div>
 	        </div>       
@@ -172,7 +176,7 @@
 	                <button type="submit" class="btn btn-success" id="btn-request-educ">
 	                    <i class="icon-check"></i>
 	                    <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-	                <a href="<?=base_url('employee/pds_update')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+	                <a href="<?=base_url('employee/update_pds')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
 	            </div>
 	        </div>
 	        <?=form_close()?>

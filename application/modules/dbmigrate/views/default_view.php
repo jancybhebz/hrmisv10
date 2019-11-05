@@ -126,7 +126,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="check" style="margin-top: 10px;">
-                                                        <input type="checkbox" name="chkinipass" id="chkinipass" value="1" />Set Initial Password </label>
+                                                        <input type="checkbox" name="chkinipass" id="chkinipass" value="1" />Set Initial User Account Password </label>
                                                     <div class="input-icon right" id="div-inipass" style="display: none;">
                                                         <i class="fa fa-warning tooltips" data-original-title="Please provide a initial password" style="display: none;"></i>
                                                         <i class="fa fa-check tooltips" style="display: none;"></i>

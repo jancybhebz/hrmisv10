@@ -17,7 +17,7 @@ class Migrate_model extends CI_Model {
 		$tbldb_hrmisv10 = array();
 		$tbldb_hrmis = array();
 
-		echo '<br>Create database hrmisv10_upt..';
+		$this->create_log('<br>Create database hrmisv10_upt..');
 		$check_db_exist = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'hrmisv10_upt'";
 		$db_new_isexist = $this->db->query($check_db_exist)->result_array();
 		if(count($db_new_isexist) > 0):
@@ -25,22 +25,22 @@ class Migrate_model extends CI_Model {
 		else:
 			$create_db = $this->db->query('CREATE DATABASE IF NOT EXISTS hrmisv10_upt');
 			if(!$create_db):
-				echo '<br><b>ERR!!</b> Error in creating database for migration..';
+				$this->create_log('<br><b>ERR!!</b> Error in creating database for migration..');
 			endif;
 			$db_new_isexist = $this->db->query($check_db_exist)->result_array();
 		endif;
 
 		if(count($db_new_isexist) > 0):
-			echo '<br>Checking database if not empty...';
+			$this->create_log('<br>Checking database if not empty...');
 			$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
 			if(count($this->hrmisv10->list_tables()) < 1):
-				echo '<br>Importing database...';
+				$this->create_log('<br>Importing database...');
 				$this->import_database($this->hrmisv10,$this->path,1);
 			endif;
 			# get the table list from hrmisv10 schema
 			$tbldb_hrmisv10 = $this->hrmisv10->list_tables();
 		else:
-			echo '<br><b>ERR!!</b> Error in creating database for migration..';
+			$this->create_log('<br><b>ERR!!</b> Error in creating database for migration..');
 		endif;
 
 		# get the table list from current database
@@ -70,8 +70,8 @@ class Migrate_model extends CI_Model {
 	    	unlink($sql_file);
 	    endif;
 
-    	echo '<br>Start creating sql file...';
-        echo '<br>Checking Tables...';
+    	$this->create_log('<br>Start creating sql file...');
+        $this->create_log('<br>Checking Tables...');
 
         # get tables that does not exist in updated schema
         $this->write_sqlstmt('# Remove unused Tables that does not exist in updated schema',$sql_file);
@@ -104,7 +104,7 @@ class Migrate_model extends CI_Model {
         	endforeach;
 
         	$new_tbl = "CREATE TABLE IF NOT EXISTS `".$tbladd."` (".implode(",",$arr_fields).(count($arr_primary) > 0 ? ','.implode(",",$arr_primary) : '').");";
-        	echo $new_tbl;
+        	$this->create_log($new_tbl);
 			$this->write_sqlstmt('# Add table '.$tbladd,$sql_file);
 			$this->write_sqlstmt($new_tbl,$sql_file);
         endforeach;
@@ -149,19 +149,19 @@ class Migrate_model extends CI_Model {
         $this->write_sqlstmt("UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;",$sql_file);
         $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;",$sql_file);
 
-        if(!$this->Migrate_model->check_if_column_exist('tblIncome','income_id')):
+        if(!$this->check_if_column_exist('tblIncome','income_id')):
             $this->write_sqlstmt("ALTER TABLE `tblIncome` ADD `income_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`income_id`);",$sql_file);
         endif;
 
-        if(!$this->Migrate_model->check_if_column_exist('tblDeductionGroup','deduct_id')):
+        if(!$this->check_if_column_exist('tblDeductionGroup','deduct_id')):
             $this->write_sqlstmt("ALTER TABLE `tblDeductionGroup` ADD `deduct_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`deduct_id`);",$sql_file);
         endif;
 
-        if(!$this->Migrate_model->check_if_column_exist('tblPayrollProcess','process_id')):
+        if(!$this->check_if_column_exist('tblPayrollProcess','process_id')):
             $this->write_sqlstmt("ALTER TABLE `tblPayrollProcess` ADD `process_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`process_id`);",$sql_file);
         endif;
 
-        if(!$this->Migrate_model->check_if_column_exist('tblEmpDeductionRemit','remitt_id')):
+        if(!$this->check_if_column_exist('tblEmpDeductionRemit','remitt_id')):
             $this->write_sqlstmt("ALTER TABLE `tblEmpDeductionRemit` ADD `remitt_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`remitt_id`);",$sql_file);
         endif;
 
@@ -174,7 +174,7 @@ class Migrate_model extends CI_Model {
     		$fields_alter = array();
 
     		if(in_array('datetime',$arr_datatype)):
-    			echo '<br><br>##DATETIME';
+    			$this->create_log('<br><br>##DATETIME');
     			foreach($arr_datatype as $key => $dttype):
     				if($dttype == 'datetime'):
     					array_push($fields_ddtime_to_varchar, "CHANGE `".$desc_tbl[$key]['Field']."` `".$desc_tbl[$key]['Field']."` VARCHAR(20) DEFAULT NULL");
@@ -233,7 +233,7 @@ class Migrate_model extends CI_Model {
 
     	if(count($hrmisv10_table_list) != count($hrmis_table_list)):
     		# check if table list from both database is equal
-    		echo 'There is error in migrating table, please try again.';
+    		$this->create_log('There is error in migrating table, please try again.');
     		die();
     	else:
 	    	foreach($hrmisv10_table_list as $tbl):
@@ -289,7 +289,7 @@ class Migrate_model extends CI_Model {
 
     	if(count($hrmisv10_table_list) != count($hrmis_table_list)):
     		# check if table list from both database is equal
-    		echo 'There is error in migrating table, please try again.';
+    		$this->create_log('There is error in migrating table, please try again.');
     		die();
     	else:
 	    	# compare field type
@@ -346,13 +346,13 @@ class Migrate_model extends CI_Model {
 			        		if(str_replace(' ','',$query) != ''):
 				        		if ($dbconn->simple_query($query))
 								{
-								    echo $query.'<br>';
+								    $this->create_log($query.'<br>');
 								}
 								else
 								{
-									echo "<font color='red'><b>Query failed!</b></font>";
-									echo $dbconn->error()['message'].'<br>';
-									echo $query.'<br></font>';
+									$this->create_log("<font color='red'><b>Query failed!</b></font>");
+									$this->create_log($dbconn->error()['message'].'<br>');
+									$this->create_log($query.'<br></font>');
 								}
 							endif;
 			        	else:
@@ -362,7 +362,7 @@ class Migrate_model extends CI_Model {
 			    endwhile;
 			    fclose($file);
 			endif;
-			echo '<br>Database Modified Successfully!!...';
+			$this->create_log('<br>Database Modified Successfully!!...');
 		else:
 			$sql_contents = file_get_contents($path);
 			$sql_contents = explode(";", $sql_contents);
@@ -374,21 +374,21 @@ class Migrate_model extends CI_Model {
 					if(str_replace(' ','',$query) != ''):
 						if ($dbconn->simple_query($query))
 						{
-						    echo $query.'<br>';
+						    $this->create_log($query.'<br>');
 						}
 						else
 						{
-							echo "<font color='red'><b>Query failed!</b></font>";
-							echo $dbconn->error()['message'].'<br>';
-							echo '<br>';
-							echo $query.'<br></font>';
+							$this->create_log("<font color='red'><b>Query failed!</b></font>");
+							$this->create_log($dbconn->error()['message'].'<br>');
+							$this->create_log('<br>');
+							$this->create_log($query.'<br></font>');
 						}
 					endif;
 				else:
 					continue;
 				endif;
 			endforeach;
-			echo '<br>Database Initialized Successfully!!...';
+			$this->create_log('<br>Database Initialized Successfully!!...');
 		endif;
 		
 	}
@@ -400,9 +400,18 @@ class Migrate_model extends CI_Model {
 		endif;
 		file_put_contents($path, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 		if($txt[0] == '#'){
-			echo '<br>';echo $txt;
+			$this->create_log('<br>'.$txt);
 		}
+        $log_file = 'schema/data/migration/schema/migrate.log';
+        file_put_contents($log_file, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 	}
+
+    function create_log($txt)
+    {
+        echo $txt;
+        $log_file = 'schema/data/migration/schema/migrate.log';
+        file_put_contents($log_file, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+    }
 
 	function sql_initial_statement($path='')
 	{
@@ -423,7 +432,7 @@ class Migrate_model extends CI_Model {
 			$str_end = strpos($sql_inipass, $efind);
 			$inital_password = substr($sql_inipass,$str_start,($str_end-$str_start));
 
-			echo "<br><br>Initial data for password: <b>".$inital_password.'</b><br>';
+			$this->create_log("<br><br>Initial data for password: <b>".$inital_password.'</b><br>');
 			$total_line = 0;
 			$ctrcomment = 0;
 			if(file_exists($path)):
@@ -437,7 +446,7 @@ class Migrate_model extends CI_Model {
 			    fclose($file);
 
 			    if($total_line != $ctrcomment):
-			        $this->Migrate_model->update_database($path);
+			        $this->update_database($path);
 			    endif;
 			    # append file in schema update
 			    $str=file_get_contents($path);
