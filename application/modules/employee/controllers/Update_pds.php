@@ -43,8 +43,48 @@ class Update_pds extends MY_Controller {
 		$this->arrData['arrSeparation'] = $this->update_pds_model->getSepCauseData();
 		$this->arrData['arrDetails'] = $this->update_pds_model->getDetails();
 		
+		$emp_educ = array();
+		if(isset($_GET['educ_id'])){
+			$emp_educ = $this->update_pds_model->geteduc_data($_GET['educ_id']);
+		}
+		$this->arrData['emp_educ'] = $emp_educ;
+
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
+
+	// public function education()
+	// {
+
+	// 	$strEmpNo = $_SESSION['sessEmpNo'];
+	// 	$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
+	// 	if(count($this->arrData['arrData'])==0) redirect('pds');
+
+	// 	$this->arrData['arrData'] = $this->update_pds_model->getData($strEmpNo);
+	// 	$this->arrData['arrEduc_CMB'] = $this->update_pds_model->getEducData();	
+	// 	$this->arrData['arrEduc'] = $this->update_pds_model->getEduc($strEmpNo);
+	// 	$this->arrData['arrCourse'] = $this->update_pds_model->getCourseData();
+	// 	$this->arrData['arrScholarship'] = $this->update_pds_model->getScholarshipData();
+	// 	$this->arrData['arrSchool'] = $this->update_pds_model->getSchoolData();
+	// 	$this->arrData['arrTraining_CMB'] = $this->update_pds_model->getTrainingData();
+	// 	$this->arrData['arrTraining'] = $this->update_pds_model->getTraining($strEmpNo);
+	// 	$this->arrData['arrExamination_CMB'] = $this->update_pds_model->getExamData();
+	// 	$this->arrData['arrExamination'] = $this->update_pds_model->getExamination($strEmpNo);
+	// 	$this->arrData['arrReference'] = $this->update_pds_model->getRefData($strEmpNo);
+	// 	$this->arrData['arrVoluntary'] = $this->update_pds_model->getVoluntary($strEmpNo);
+	// 	$this->arrData['arrExperience_CMB'] = $this->update_pds_model->getExpData();
+	// 	$this->arrData['arrExperience'] = $this->update_pds_model->getExperience($strEmpNo);
+	// 	$this->arrData['arrAppointment'] = $this->update_pds_model->getAppointData();
+	// 	$this->arrData['arrSeparation'] = $this->update_pds_model->getSepCauseData();
+	// 	$this->arrData['arrDetails'] = $this->update_pds_model->getDetails();
+		
+	// 	$emp_educ = array();
+	// 	if($this->uri->segment(4)!=''){
+	// 		$emp_educ = $this->update_pds_model->geteduc_data($this->uri->segment(4));
+	// 	}
+	// 	$this->arrData['emp_educ'] = $emp_educ;
+
+	// 	$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
+	// }
 	
 	public function submitProfile()
     {

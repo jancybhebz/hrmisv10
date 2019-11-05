@@ -125,3 +125,5 @@ define('AMT_PERA',2000);
 
 define('SALARY_DAYS',22);
 define('TAX_PERCENT',0.05);
+
+define('ERLIEST_YEAR',1970);

@@ -57,7 +57,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Date From :  <span class="required"> * </span></label>
                             <div class="input-icon right">
@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Date To :  <span class="required"> * </span></label>
                             <div class="input-icon right">
@@ -115,7 +115,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <button type="submit" class="btn btn-success" id="btn-request-to">
                             <i class="icon-check"></i>
                             <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                        <a href="<?=base_url('employee/travel_order')?>" class="btn blue"> <i class="icon-ban"></i> Clear</a>
+                        <a href="<?=base_url('employee/travel_order')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                         <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                     </div>
                 </div>

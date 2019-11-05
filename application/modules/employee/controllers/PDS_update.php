@@ -21,7 +21,7 @@ class Pds_update extends MY_Controller {
 	public function index()
 	{
 
-		$strEmpNo =$_SESSION['sessEmpNo'];
+		$strEmpNo = $_SESSION['sessEmpNo'];
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
@@ -51,68 +51,54 @@ class Pds_update extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
-			// $strProfileType=$arrPost['strProfileType'];
-			$strSname=$arrPost['strSname'];
-			$strFname=$arrPost['strFname'];
-			$strMname=$arrPost['strMname'];
-			$strExtension=$arrPost['strExtension'];
-			$dtmBirthdate=$arrPost['dtmBirthdate'];
-			$strBirthplace=$arrPost['strBirthplace'];
-			$strCS=$arrPost['strCS'];
-			$intWeight=$arrPost['intWeight'];
-			$intHeight=$arrPost['intHeight'];
-			$strBlood=$arrPost['strBlood'];
-			$intGSIS=$arrPost['intGSIS'];
-			$intPagibig=$arrPost['intPagibig'];
-			$intPhilhealth=$arrPost['intPhilhealth'];
-			$intTin=$arrPost['intTin'];
-			$strBlk1=$arrPost['strBlk1'];
-			$strStreet1=$arrPost['strStreet1'];
-			$strSubd1=$arrPost['strSubd1'];
-			$strBrgy1=$arrPost['strBrgy1'];
-			$strCity1=$arrPost['strCity1'];
-			$strProv1=$arrPost['strProv1'];
-			$strZipCode1=$arrPost['strZipCode1'];
-			$strTel1=$arrPost['strTel1'];
-			$strStreet2=$arrPost['strStreet2'];
-			$strSubd2=$arrPost['strSubd2'];
-			$strBrgy2=$arrPost['strBrgy2'];
-			$strCity2=$arrPost['strCity2'];
-			$strProv2=$arrPost['strProv2'];
-			$strZipCode2=$arrPost['strZipCode2'];
-			$intTel2=$arrPost['intTel2'];
-			$strEmail=$arrPost['strEmail'];
-			$strCP=$arrPost['strCP'];
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+			$strSname	  = $arrPost['strSname'];
+			$strFname	  = $arrPost['strFname'];
+			$strMname	  = $arrPost['strMname'];
+			$strExtension = $arrPost['strExtension'];
+			$dtmBirthdate = $arrPost['dtmBirthdate'];
+			$strBirthplace= $arrPost['strBirthplace'];
+			$strCS	  	  = $arrPost['strCS'];
+			$intWeight	  = $arrPost['intWeight'];
+			$intHeight	  = $arrPost['intHeight'];
+			$strBlood	  = $arrPost['strBlood'];
+			$intGSIS	  = $arrPost['intGSIS'];
+			$intPagibig	  = $arrPost['intPagibig'];
+			$intPhilhealth= $arrPost['intPhilhealth'];
+			$intTin	  	  = $arrPost['intTin'];
+			$strBlk1	  = $arrPost['strBlk1'];
+			$strStreet1	  = $arrPost['strStreet1'];
+			$strSubd1	  = $arrPost['strSubd1'];
+			$strBrgy1	  = $arrPost['strBrgy1'];
+			$strCity1	  = $arrPost['strCity1'];
+			$strProv1	  = $arrPost['strProv1'];
+			$strZipCode1  = $arrPost['strZipCode1'];
+			$strTel1	  = $arrPost['strTel1'];
+			$strStreet2	  = $arrPost['strStreet2'];
+			$strSubd2	  = $arrPost['strSubd2'];
+			$strBrgy2	  = $arrPost['strBrgy2'];
+			$strCity2	  = $arrPost['strCity2'];
+			$strProv2	  = $arrPost['strProv2'];
+			$strZipCode2  = $arrPost['strZipCode2'];
+			$intTel2	  = $arrPost['intTel2'];
+			$strEmail	  = $arrPost['strEmail'];
+			$strCP	  	  = $arrPost['strCP'];
+			$strStatus	  = $arrPost['strStatus'];
+			$strCode	  = $arrPost['strCode'];
 
-			if(!empty($strSname))
+			$arrData = array(
+				'requestDetails'  => $strSname.';'.$strFname.';'.$strMname.';'.$strExtension.';'.$dtmBirthdate.';'.$strBirthplace.';'.$strCS.';'.$intWeight.';'.$intHeight.';'.$strBlood.';'.$intGSIS.';'.$intPagibig.';'.$intPhilhealth.';'.$intTin.';'.$strBlk1.';'.$strStreet1.';'.$strSubd1.';'.$strBrgy1.';'.$strCity1.';'.$strProv1.';'.$strZipCode1.';'.$strTel1.';'.$strStreet2.';'.$strSubd2.';'.$strBrgy2.';'.$strCity2.';'.$strProv2.';'.$strZipCode2.';'.$intTel2.';'.$strEmail.';'.$strCP.';'.$strStatus.';'.$strCode,
+				'requestDate'	  => date('Y-m-d'),
+				'requestStatus'   => $strStatus,
+				'requestCode' 	  => $strCode,
+				'empNumber' 	  => $_SESSION['sessEmpNo']);
+
+			$blnReturn  = $this->pds_update_model->submit_request($arrData);
+			if(count($blnReturn)>0)
 			{	
-				if( count($this->pds_update_model->checkExist($strSname, $strFname))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strSname.';'.$strFname.';'.$strMname.';'.$strExtension.';'.$dtmBirthdate.';'.$strBirthplace.';'.$strCS.';'.$intWeight.';'.$intHeight.';'.$strBlood.';'.$intGSIS.';'.$intPagibig.';'.$intPhilhealth.';'.$intTin.';'.$strBlk1.';'.$strStreet1.';'.$strSubd1.';'.$strBrgy1.';'.$strCity1.';'.$strProv1.';'.$strZipCode1.';'.$strTel1.';'.$strStreet2.';'.$strSubd2.';'.$strBrgy2.';'.$strCity2.';'.$strProv2.';'.$strZipCode2.';'.$intTel2.';'.$strEmail.';'.$strCP.';'.$strStatus.';'.$strCode,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
-						
-					);
-					$blnReturn  = $this->pds_update_model->submitProfile($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/pds_update');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					//$this->session->set_flashdata('strOBtype',$strOBtype);
-					redirect('employee/pds_update');
-				}
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
+				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 			}
+			redirect('employee/pds_update');
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
@@ -122,52 +108,39 @@ class Pds_update extends MY_Controller {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
-			// $strProfileType=$arrPost['strProfileType'];
-			$strSSurname=$arrPost['strSSurname'];
-			$strSFirstname=$arrPost['strSFirstname'];
-			$strSMidname=$arrPost['strSMidname'];
-			$strSNameExt=$arrPost['strSNameExt'];
-			$strSOccupation=$arrPost['strSOccupation'];
-			$strSBusname=$arrPost['strSBusname'];
-			$strSBusadd=$arrPost['strSBusadd'];
-			$strSTel=$arrPost['strSTel'];
-			$strFSurname=$arrPost['strFSurname'];
-			$strFFirstname=$arrPost['strFFirstname'];
-			$strFMidname=$arrPost['strFMidname'];
-			$strFExtension=$arrPost['strFExtension'];
-			$strMSurname=$arrPost['strMSurname'];
-			$strMFirstname=$arrPost['strMFirstname'];
-			$strMMidname=$arrPost['strMMidname'];
-			$strPaddress=$arrPost['strPaddress'];
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+			$strSSurname	= $arrPost['strSSurname'];
+			$strSFirstname	= $arrPost['strSFirstname'];
+			$strSMidname	= $arrPost['strSMidname'];
+			$strSNameExt	= $arrPost['strSNameExt'];
+			$strSOccupation	= $arrPost['strSOccupation'];
+			$strSBusname	= $arrPost['strSBusname'];
+			$strSBusadd		= $arrPost['strSBusadd'];
+			$strSTel		= $arrPost['strSTel'];
+			$strFSurname	= $arrPost['strFSurname'];
+			$strFFirstname	= $arrPost['strFFirstname'];
+			$strFMidname	= $arrPost['strFMidname'];
+			$strFExtension	= $arrPost['strFExtension'];
+			$strMSurname	= $arrPost['strMSurname'];
+			$strMFirstname	= $arrPost['strMFirstname'];
+			$strMMidname	= $arrPost['strMMidname'];
+			$strPaddress	= $arrPost['strPaddress'];
+			$strStatus		= $arrPost['strStatus'];
+			$strCode		= $arrPost['strCode'];
 
-			if(!empty($strSSurname))
+			$arrData = array(
+				'requestDetails'=>$strSSurname.';'.$strSFirstname.';'.$strSMidname.';'.$strSNameExt.';'.$strSOccupation.';'.$strSBusname.';'.$strSBusadd.';'.$strSTel.';'.$strFSurname.';'.$strFFirstname.';'.$strFMidname.';'.$strFExtension.';'.$strMSurname.';'.$strMFirstname.';'.$strMMidname.';'.$strPaddress,
+				'requestDate'=>date('Y-m-d'),
+				'requestStatus'=>$strStatus,
+				'requestCode'=>$strCode,
+				'empNumber'=>$_SESSION['sessEmpNo']);
+
+			$blnReturn  = $this->pds_update_model->submit_request($arrData);
+			if(count($blnReturn)>0)
 			{	
-				if( count($this->pds_update_model->checkExist($strSSurname))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strSSurname.';'.$strSFirstname.';'.$strSMidname.';'.$strSNameExt.';'.$strSOccupation.';'.$strSBusname.';'.$strSBusadd.';'.$strSTel.';'.$strFSurname.';'.$strFFirstname.';'.$strFMidname.';'.$strFExtension.';'.$strMSurname.';'.$strMFirstname.';'.$strMMidname.';'.$strPaddress,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
-						
-					);
-					$blnReturn  = $this->pds_update_model->submitFam($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/pds_update');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
-				}
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
+				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 			}
+			redirect('employee/pds_update');
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
@@ -175,51 +148,22 @@ class Pds_update extends MY_Controller {
     public function submitEduc()
     {
     	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$strLevelDesc=$arrPost['strLevelDesc'];
-			$strSchName=$arrPost['strSchName'];
-			$strDegree=$arrPost['strDegree'];
-			$dtmFrmYr=$arrPost['dtmFrmYr'];
-			$dtmTo=$arrPost['dtmTo'];
-			$intUnits=$arrPost['intUnits'];
-			$strScholarship=$arrPost['strScholarship'];
-			$strHonors=$arrPost['strHonors'];
-			$strLicensed=$arrPost['strLicensed'];
-			$strGraduated=$arrPost['strGraduated'];
-			$strYrGraduated=$arrPost['strYrGraduatedstrYrGraduated'];
-			
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+    	if(!empty($arrPost)):
+    		$arrData = array(
+    			'requestDetails' => implode(',',array($arrPost['strLevelDesc'],$arrPost['strSchName'],$arrPost['strDegree'],$arrPost['dtmFrmYr'],$arrPost['dtmTo'],$arrPost['intUnits'],$arrPost['strScholarship'],$arrPost['strHonors'],$arrPost['strLicensed'],$arrPost['strGraduated'],$arrPost['strYrGraduated'],$arrPost['txteducid'])),
+    			'requestDate'	 => date('Y-m-d'),
+    			'requestStatus'	 => $arrPost['strStatus'],
+    			'requestCode'	 => $arrPost['strCode'],
+    			'empNumber'		 => $_SESSION['sessEmpNo']);
 
-			if(!empty($strLevelDesc))
-			{	
-				if( count($this->pds_update_model->checkExist($strLevelDesc))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strLevelDesc.';'.$strSchName.';'.$strDegree.';'.$dtmFrmYr.';'.$dtmTo.';'.$intUnits.';'.$strScholarship.';'.$strHonors.';'.$strLicensed.';'.$strGraduated.';'.$strYrGraduated,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
-						
-					);
-					$blnReturn  = $this->pds_update_model->submitEduc($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/pds_update');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/pds_update');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+    		$blnReturn = $this->pds_update_model->submit_request($arrData);
+    		if(count($blnReturn)>0):
+    			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
+    			$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+    		endif;
+
+    		redirect('employee/update_pds');
+    	endif;
     }
 
     public function submitTraining()

@@ -91,6 +91,12 @@ class Update_pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function geteduc_data($educid)
+	{		
+		$res = $this->db->get_where('tblEmpSchool',array('SchoolIndex' => $educid))->result_array();
+		return count($res) > 0 ? $res[0] : array();
+	}
+
 	function getEmployeeDetails($strEmpNo,$strSelect,$strTable,$strOrder="",$strJoinTable="",$strJoinString="",$strJoinType="")
 	{
 		if($strOrder!='')

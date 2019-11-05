@@ -1,3 +1,52 @@
+function getsegment(num) {
+    num += 1;
+    var loc = window.location.href.replace('//','');
+    var segments = (loc).toString();
+    segments = segments.split('/');
+    if (segments[num] != undefined) {
+        return segments[num];
+    }
+    return '';
+}
+
+function getdata(idname) {
+    var loc = window.location.href.replace('//','');
+    var ids = (loc).toString();
+    ids = ids.split('?');
+    ids = ids[1].split('&');
+
+    var id_value = '';
+    $.each(ids, function(i,value) {
+        arrids = value.split('=');
+        if(arrids[0] == idname){
+            id_value = arrids[1];
+        }
+    });
+
+    return id_value;
+}
+
+function has_set(idname) {
+    var isset = 0;
+
+    var loc = window.location.href.replace('//','');
+    var ids = (loc).toString();
+    
+    if(ids.indexOf("?") >= 0){
+        ids = ids.split('?');
+        if(ids.indexOf("&") >= 0){
+            ids = ids[1].split('&');
+        }
+        $.each(ids, function(i,value) {
+            arrids = value.split('=');
+            if(arrids[0] == idname){
+                isset = 1;
+            }
+        });
+    }
+    return isset;
+}
+
 function check_date(el,msg='')
 {
     var value = $(el).val();
