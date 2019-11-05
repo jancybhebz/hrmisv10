@@ -286,6 +286,15 @@ class Migrate_model extends CI_Model {
 
     	if(count($hrmisv10_table_list) != count($hrmis_table_list)):
     		# check if table list from both database is equal
+            $this->create_log('hrmisv10_table_list = '.count($hrmisv10_table_list).'||hrmis_table_list = '.count($hrmis_table_list));
+            $this->create_log('<br>hrmisv10_table_list:');
+            $ctrv10 = 0; $ctrcur = 0;
+            foreach($hrmisv10_table_list as $tblv10):
+                $this->create_log('<br>'.$ctrv10++.' .'.$tblv10);
+            endforeach;
+            foreach($hrmis_table_list as $tblcur):
+                $this->create_log('<br>'.$tblcur++.' .'.$ctrcur);
+            endforeach;
     		$this->create_log('There is error in migrating table, please try again.');
     		die();
     	else:
