@@ -578,7 +578,7 @@ class Migrate extends MY_Controller
         endif;
 
         $this->Migrate_model->drop_dbase();
-        $this->Migrate_model->create_log('Database successfully updated... Migration log is added in schema/hrmisv10/hrmis-schema-upt.sql.. Click here to <u><b><a class="btn btn-xs" href="login"> Login </a></b></u>');
+        $this->Migrate_model->create_log('Database successfully updated... Migration log is added in <a href="'.base_url('schema/data/migration/schema/migrate.log').'">'.base_url('schema/data/migration/schema/migrate.log').'</a>.. Click here to <u><b><a class="btn btn-xs" href="login"> Login </a></b></u>');
     }
 
     function sql_final_statement()
