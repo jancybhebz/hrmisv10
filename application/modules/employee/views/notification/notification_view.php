@@ -157,6 +157,10 @@
                 ob_details = json.req_details.split(';');
                 replink = 'employee/reports/generate/?rpt=reportOB&obtype='+ ob_details[0] +'&reqdate='+ json.req_date +'&obdatefrom='+ ob_details[2] +'&obdateto='+ ob_details[3] +'&obtimefrom='+ ob_details[4] +'&obtimeto='+ ob_details[5] +'&desti='+ ob_details[6] +'&meal='+ ob_details[9] +'&purpose='+ ob_details[7];
             }
+            if(json.req_code=='TO'){
+                to_details = json.req_details.split(';');
+                replink = 'employee/reports/generate/?rpt=reportTO&desti='+ to_details[0] +'&todatefrom='+ json.req_date +'&todateto='+ to_details[2] +'&purpose='+ to_details[3] +'&strMeal='+ to_details[4] +'&meal='+ to_details[5];
+            }
             if(json.req_code=='Leave'){
                 leave_details = json.req_details.split(';');
                 replink = 'employee/reports/generate/?rpt=reportLeave&leavetype='+ leave_details[0] +'&day='+ leave_details[8] +'&leavefrom='+ leave_details[2] +'&leaveto='+ leave_details[3] +'&daysapplied=&signatory=&signatory2=0315-CO0-2012&empname=undefined&reason='+ leave_details[4] +'&incaseSL=&incaseVL=&intVL='+ leave_details[9] +'&intSL='+ leave_details[10] +'';
