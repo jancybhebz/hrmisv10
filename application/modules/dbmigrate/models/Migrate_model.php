@@ -270,9 +270,6 @@ class Migrate_model extends CI_Model {
         $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '2' WHERE `tblRequestSignatory`.`SignCode` = 'SERVICE';",$sql_file);
         $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '3' WHERE `tblRequestSignatory`.`SignCode` = 'DIVISION';",$sql_file);
         $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '4' WHERE `tblRequestSignatory`.`SignCode` = 'SECTION';",$sql_file);
-
-        # fix Agency
-        $this->write_sqlstmt("UPDATE `tblAgency` SET `salarySchedule` = 'semimonthly' WHERE LOWER(`tblAgency`.`salarySchedule`) LIKE 'bi%monthly';",$sql_file);
     }
 
     function update_data_type()
@@ -319,6 +316,8 @@ class Migrate_model extends CI_Model {
 	    	$this->sql_final_statement();
 	    endif;
 
+        # fix Agency
+        $this->write_sqlstmt("UPDATE `tblAgency` SET `salarySchedule` = 'semimonthly' WHERE LOWER(`tblAgency`.`salarySchedule`) LIKE 'bi%monthly';",$sql_file);
     }
 
     function update_database($path='')
