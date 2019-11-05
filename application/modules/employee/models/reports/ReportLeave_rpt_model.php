@@ -37,6 +37,7 @@ class ReportLeave_rpt_model extends CI_Model {
 		$today =  date("F j, Y",strtotime(date("Y-m-d")));
 		$strWholeday ="";
 		$strHalfday ="";
+		$intTotal ="";
 		$dtmLeavefrom = date("F j, Y",strtotime($arrData['dtmLeavefrom']));
 		$dtmLeaveto = date("F j, Y",strtotime($arrData['dtmLeaveto']));
 		$intDaysApplied = $arrData['intDaysApplied'];
@@ -47,8 +48,7 @@ class ReportLeave_rpt_model extends CI_Model {
 		$intVL = $arrData['intVL'];
 		$intSL = $arrData['intSL'];
 		
-		$intTotal = 0;
-		$intTotal = $intVL + $intSL;
+		// // $intTotal = $arrData['intVL'] + $arrData['intSL'];
 
 		$strIncaseSL = "";
 		$strInpatient = "";

@@ -159,7 +159,7 @@
             }
             if(json.req_code=='Leave'){
                 leave_details = json.req_details.split(';');
-                replink = 'employee/reports/generate/?rpt=reportLeave&leavetype='+ leave_details[0] +'&day='+ leave_details[8] +'&leavefrom='+ leave_details[2] +'&leaveto='+ leave_details[3] +'&daysapplied=&signatory=0315-CO0-2012&empname=undefined&reason='+ leave_details[4] +'&incaseSL=&incaseVL=&intVL='+ leave_details[9] +'&intSL='+ leave_details[10] +'';
+                replink = 'employee/reports/generate/?rpt=reportLeave&leavetype='+ leave_details[0] +'&day='+ leave_details[8] +'&leavefrom='+ leave_details[2] +'&leaveto='+ leave_details[3] +'&daysapplied=&signatory=&signatory2=0315-CO0-2012&empname=undefined&reason='+ leave_details[4] +'&incaseSL=&incaseVL=&intVL='+ leave_details[9] +'&intSL='+ leave_details[10] +'';
             }
             if(json.req_code=='DTR'){
                 dtr_details = json.req_details.split(';');
