@@ -157,15 +157,24 @@
                 ob_details = json.req_details.split(';');
                 replink = 'employee/reports/generate/?rpt=reportOB&obtype='+ ob_details[0] +'&reqdate='+ json.req_date +'&obdatefrom='+ ob_details[2] +'&obdateto='+ ob_details[3] +'&obtimefrom='+ ob_details[4] +'&obtimeto='+ ob_details[5] +'&desti='+ ob_details[6] +'&meal='+ ob_details[9] +'&purpose='+ ob_details[7];
             }
+            if(json.req_code=='TO'){
+                to_details = json.req_details.split(';');
+                replink = 'employee/reports/generate/?rpt=reportTO&desti='+ to_details[0] +'&todatefrom='+ json.req_date +'&todateto='+ to_details[2] +'&purpose='+ to_details[3] +'&strMeal='+ to_details[4] +'&meal='+ to_details[5];
+            }
             if(json.req_code=='Leave'){
                 leave_details = json.req_details.split(';');
-                replink = 'employee/reports/generate/?rpt=reportLeave&leavetype='+ leave_details[0] +'&day='+ leave_details[8] +'&leavefrom='+ leave_details[2] +'&leaveto='+ leave_details[3] +'&daysapplied=&signatory=0315-CO0-2012&empname=undefined&reason='+ leave_details[4] +'&incaseSL=&incaseVL=&intVL='+ leave_details[9] +'&intSL='+ leave_details[10] +'';
+                replink = 'employee/reports/generate/?rpt=reportLeave&leavetype='+ leave_details[0] +'&day='+ leave_details[8] +'&leavefrom='+ leave_details[2] +'&leaveto='+ leave_details[3] +'&daysapplied=&signatory=&signatory2=0315-CO0-2012&empname=undefined&reason='+ leave_details[4] +'&incaseSL=&incaseVL=&intVL='+ leave_details[9] +'&intSL='+ leave_details[10] +'';
             }
             if(json.req_code=='DTR'){
                 dtr_details = json.req_details.split(';');
                 replink = 'employee/reports/generate/?rpt=reportDTRupdate&dtrupdate='+ dtr_details[1] +'&oldmorin='+ dtr_details[2] +'&oldmorout='+ dtr_details[3] +'&oldafin='+ dtr_details[4] +'&oldaftout='+ dtr_details[5] +'&oldOTin='+ dtr_details[6] +'&oldOTout='+ dtr_details[7] +'&morningin=&morningout=&aftnoonin=&aftnoonout=&OTtimein=&OTtimeout=&month=sdf&evidence=asdf&reason='+ dtr_details[32] +'&signatory=JO-06-2016';
             }
-            
+            if(json.req_code=='CL'){
+                cl_details = json.req_details.split(';');
+                replink = 'employee/reports/generate/?rpt=reportCL&comleave='+ cl_details[1] +'&morningin='+ cl_details[2] +'&morningout='+ cl_details[3] +'&aftrnoonin='+ cl_details[4] +'&aftrnoonout='+ cl_details[5] +'&purpose='+ cl_details[6] +'&reco='+ cl_details[7] +'&approval='+ cl_details[8];
+            }
+
+
             $('.modal-title').html(type);
             $('#print-request-modal').modal('show');
             $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
