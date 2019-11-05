@@ -169,7 +169,12 @@
                 dtr_details = json.req_details.split(';');
                 replink = 'employee/reports/generate/?rpt=reportDTRupdate&dtrupdate='+ dtr_details[1] +'&oldmorin='+ dtr_details[2] +'&oldmorout='+ dtr_details[3] +'&oldafin='+ dtr_details[4] +'&oldaftout='+ dtr_details[5] +'&oldOTin='+ dtr_details[6] +'&oldOTout='+ dtr_details[7] +'&morningin=&morningout=&aftnoonin=&aftnoonout=&OTtimein=&OTtimeout=&month=sdf&evidence=asdf&reason='+ dtr_details[32] +'&signatory=JO-06-2016';
             }
-            
+            if(json.req_code=='CL'){
+                cl_details = json.req_details.split(';');
+                replink = 'employee/reports/generate/?rpt=reportCL&comleave='+ cl_details[1] +'&morningin='+ cl_details[2] +'&morningout='+ cl_details[3] +'&aftrnoonin='+ cl_details[4] +'&aftrnoonout='+ cl_details[5] +'&purpose='+ cl_details[6] +'&reco='+ cl_details[7] +'&approval='+ cl_details[8];
+            }
+
+
             $('.modal-title').html(type);
             $('#print-request-modal').modal('show');
             $('#embed-pdf,#link-fullsize').attr('src',$('#txtbaseurl').val()+replink);
