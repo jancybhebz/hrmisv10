@@ -288,66 +288,13 @@ class Update_pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	// submission of requests
-	function submitRequest($arrData)
+	# submission of requests
+	function submit_request($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);
 		return $this->db->insert_id();		
 	}
-	// function submitProfile($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitFam($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitEduc($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }	
-	// function submitTraining($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitExam($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitChild($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitTax($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitRef($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitVol($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }	
-	// function submitWorkExp($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
 
-						
-					
-		
 	// check existence
 	function checkExist($strSname = '', $strFname = '')
 	{		
