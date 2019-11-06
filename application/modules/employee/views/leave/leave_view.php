@@ -16,7 +16,7 @@ $mtlBalance = count($arrBalance) > 0 ? $arrBalance['mtlBalance'] : 0;
 $strLeavetype = '';
 $action = '';
 $emp_gender = employee_details($_SESSION['sessEmpNo']);
-$emp_gender = $emp_gender[0]['sex'];
+$emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
 ?>
 <?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
 <!-- BEGIN PAGE BAR -->
