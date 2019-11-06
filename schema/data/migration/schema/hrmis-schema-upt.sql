@@ -1261,7 +1261,8 @@ CREATE TABLE `tblEmpRequest` (
   `Signatory3` text NOT NULL,
   `Sig3DateTime` datetime DEFAULT NULL,
   `SignatoryFin` text NOT NULL,
-  `SigFinDateTime` datetime DEFAULT NULL
+  `SigFinDateTime` datetime DEFAULT NULL,
+  `file_location` text
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
