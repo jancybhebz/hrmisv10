@@ -386,13 +386,13 @@ $user_session = $this->session->userdata();
                                 <span class="title">Leave</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='travelorder' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/travelorder')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='travel_order' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/travel_order')?>">
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='update_pds' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/update_pds')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='pds_update' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/pds_update')?>">
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
@@ -491,13 +491,13 @@ $user_session = $this->session->userdata();
                                 <span class="title">Leave</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='travelorder' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/travelorder')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='travel_order' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/travel_order')?>">
                                 <span class="title">Travel Order</span>
                             </a>
                         </li>
-                        <li class="nav-item <?=$active=='employee' && $activesub=='update_pds' ? 'active' : ''?>">
-                            <a href="<?=base_url('employee/update_pds')?>">
+                        <li class="nav-item <?=$active=='employee' && $activesub=='pds_update' ? 'active' : ''?>">
+                            <a href="<?=base_url('employee/pds_update')?>">
                                 <span class="title">PDS Update</span>
                             </a>
                         </li>
