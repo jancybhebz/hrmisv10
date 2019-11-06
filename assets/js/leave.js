@@ -78,5 +78,25 @@ $(document).ready(function() {
         }
     });
 
+    $('#printreport').click(function(){
+		var leavetype=$('#strLeavetype').val();
+		var day=$('#strDay').val();
+		var leavefrom=$('#dtmLeavefrom').val();
+		var leaveto=$('#dtmLeaveto').val();
+		var daysapplied=$('#intDaysApplied').val();
+		var signatory=$('#str1stSignatory').val();
+		var signatory2=$('#str2ndSignatory').val();
+		var reason=$('#strReason').val();
+		var incaseSL=$('#strIncaseSL').val();
+		var incaseVL=$('#strIncaseVL').val();
+		var intVL=$('#intVL').val();
+		var intSL=$('#intSL').val();
+
+		var link = "reports/generate/?rpt=reportLeave&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&signatory2="+signatory2+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL+"&intVL="+intVL+"&intSL="+intSL;
+
+		$('#leave-embed').attr('src',link);
+		$('#leave-embed-fullview').attr('href',link);
+		$('#leave-form').modal('show');
+    });
 
 });

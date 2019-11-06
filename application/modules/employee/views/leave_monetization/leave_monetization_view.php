@@ -5,6 +5,8 @@ Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
+$arrBalance['vlBalance'] = isset($arrBalance['vlBalance']) ? $arrBalance['vlBalance'] : 0;
+$arrBalance['slBalance'] = isset($arrBalance['slBalance']) ? $arrBalance['slBalance'] : 0;
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker'))?>
