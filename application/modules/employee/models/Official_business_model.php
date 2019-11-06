@@ -35,6 +35,11 @@ class Official_business_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getall_request($empno)
+	{
+		return $this->db->order_by('requestDate','DESC')->get_where('tblEmpRequest',array('empNumber' => $empno, 'requestCode' => 'OB'))->result_array();
+	}
+
 	function submit($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);

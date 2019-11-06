@@ -21,7 +21,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Official Business</span>
+            <span><?=ucwords($action)?> OB</span>
         </li>
     </ul>
 </div>
@@ -149,7 +149,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                             <div class="form-group">
                                 <a class='btn blue-madison' href='javascript:;'>
                                     <i class="fa fa-upload"></i> Attach File
-                                    <input type="file" name ="userfile" id= "userfile" accept="application/pdf"
+                                    <input type="file" name ="userfile[]" id= "userfile" multiple 
                                         style='left: 16px !important;width: 108px;height: 34px;position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
                                         name="file_source" size="40" onchange='$("#upload-file-info").html($(this).val());'>
                                 </a>
@@ -229,7 +229,7 @@ $(document).ready(function() {
         var meal        = $('#strMeal').val();
         var purpose     = $('#strPurpose').val();
 
-        var link = "reports/generate/?rpt=reportOB&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose;
+        var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose;
         $('#ob-embed').attr('src',link);
         $('#ob-embed-fullview').attr('href',link);
         $('#ob-form').modal('show');
