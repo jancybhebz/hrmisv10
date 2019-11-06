@@ -22,7 +22,7 @@
                 <td align="center"> <?=$row['licenseNumber']?> </td>
                 <td align="center"> <?=$row['dateRelease']?> </td>
 				<td align="center">
-					<a class="btn green btn-sm" href="<?=base_url('employee/update_pds?exam_id='.$row['ExamIndex'])?>"><i class="fa fa-edit"></i> Edit </a>
+					<a class="btn green btn-sm" href="<?=base_url('employee/pds_update?exam_id='.$row['ExamIndex'])?>"><i class="fa fa-edit"></i> Edit </a>
 				</td>
 			</tr>
 			<?php endforeach;?>
@@ -108,7 +108,7 @@
 		        <button type="submit" class="btn btn-success" id="btn-request-exam">
 		            <i class="icon-check"></i>
 		            <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-		        <a href="<?=base_url('employee/update_pds')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+		        <a href="<?=base_url('employee/pds_update')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
 		    </div>
 		</div>
 	<?=form_close()?>

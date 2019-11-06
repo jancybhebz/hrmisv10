@@ -20,8 +20,7 @@ class Pds_update extends MY_Controller {
 
 	public function index()
 	{
-
-		$strEmpNo = $_SESSION['sessEmpNo'];
+		$strEmpNo =$_SESSION['sessEmpNo'];
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
@@ -42,7 +41,50 @@ class Pds_update extends MY_Controller {
 		$this->arrData['arrAppointment'] = $this->pds_update_model->getAppointData();
 		$this->arrData['arrSeparation'] = $this->pds_update_model->getSepCauseData();
 		$this->arrData['arrDetails'] = $this->pds_update_model->getDetails();
+		$this->arrData['arrChild'] = $this->pds_update_model->getChildren($strEmpNo);
 		
+		$emp_educ = array();
+		if(isset($_GET['educ_id'])){
+			$emp_educ = $this->pds_update_model->geteduc_data($_GET['educ_id']);
+		}
+		$this->arrData['emp_educ'] = $emp_educ;
+
+		$emp_tra = array();
+		if(isset($_GET['tra_id'])){
+			$emp_tra = $this->pds_update_model->gettra_data($_GET['tra_id']);
+		}
+		$this->arrData['emp_tra'] = $emp_tra;
+
+		$emp_exam = array();
+		if(isset($_GET['exam_id'])){
+			$emp_exam = $this->pds_update_model->getexam_data($_GET['exam_id']);
+		}
+		$this->arrData['emp_exam'] = $emp_exam;
+
+		$emp_child = array();
+		if(isset($_GET['child_id'])){
+			$emp_child = $this->pds_update_model->getchild_data($_GET['child_id']);
+		}
+		$this->arrData['emp_child'] = $emp_child;
+
+		$emp_ref = array();
+		if(isset($_GET['ref_id'])){
+			$emp_ref = $this->pds_update_model->getreference_data($_GET['ref_id']);
+		}
+		$this->arrData['emp_ref'] = $emp_ref;
+
+		$emp_vol = array();
+		if(isset($_GET['vol_id'])){
+			$emp_vol = $this->pds_update_model->getvoluntary_data($_GET['vol_id']);
+		}
+		$this->arrData['emp_vol'] = $emp_vol;
+
+		$emp_wxp = array();
+		if(isset($_GET['wxp_id'])){
+			$emp_wxp = $this->pds_update_model->getworkxp_data($_GET['wxp_id']);
+		}
+		$this->arrData['emp_wxp'] = $emp_wxp;
+
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
 	
@@ -98,7 +140,7 @@ class Pds_update extends MY_Controller {
 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 			}
-			redirect('employee/update_pds');
+			redirect('employee/pds_update');
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
@@ -140,7 +182,7 @@ class Pds_update extends MY_Controller {
 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 			}
-			redirect('employee/update_pds');
+			redirect('employee/pds_update');
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
@@ -162,7 +204,7 @@ class Pds_update extends MY_Controller {
     			$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
     		endif;
 
-    		redirect('employee/update_pds');
+    		redirect('employee/pds_update');
     	endif;
     }
 
@@ -187,7 +229,7 @@ class Pds_update extends MY_Controller {
 
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			else:
 				$arrData = array(
 					'requestDetails' => $strTrainTitle.';'.$dtmStartDate.';'.$dtmEndDate.';'.$dtmHours.';'.$strTypeLD.';'.$strConduct.';'.$intCost.';'.$dtmContract.';'.$arrPost['txttraid'],
@@ -202,7 +244,7 @@ class Pds_update extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				}
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			endif;
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
@@ -227,7 +269,7 @@ class Pds_update extends MY_Controller {
 
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			else:
 				$arrData = array(
 					'requestDetails'=>$strExamDesc.';'.$strrating.';'.$dtmExamDate.';'.$strPlaceExam.';'.$intLicenseNo.';'.$dtmRelease.';'.$arrPost['txtexamid'],
@@ -242,7 +284,7 @@ class Pds_update extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				}
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			endif;
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
@@ -263,7 +305,7 @@ class Pds_update extends MY_Controller {
 
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			else:
 				$arrData = array(
 							'requestDetails'=>$strChildName.';'.$dtmChildBdate.';'.$arrPost['txtchildid'],
@@ -277,7 +319,7 @@ class Pds_update extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				}
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			endif;
 		}
 		
@@ -309,7 +351,7 @@ class Pds_update extends MY_Controller {
 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 			}
-			redirect('employee/update_pds');
+			redirect('employee/pds_update');
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
@@ -329,7 +371,7 @@ class Pds_update extends MY_Controller {
 			$allPost = array($arrPost['txtrefid'],$arrPost['strRefName'],$arrPost['strRefAdd'],$arrPost['intRefContact']);
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			else:
 				$arrData = array(
 					'requestDetails'=>$strRefName.';'.$strRefAdd.';'.$intRefContact.';'.$arrPost['txtrefid'],
@@ -344,7 +386,7 @@ class Pds_update extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					}
-					redirect('employee/update_pds');
+					redirect('employee/pds_update');
 			endif;
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
@@ -368,7 +410,7 @@ class Pds_update extends MY_Controller {
 			$allPost = array($arrPost['txtvolid'],$arrPost['strVolName'],$arrPost['strVolAdd'],$arrPost['dtmVolDateFrom'],$arrPost['dtmVolDateTo'],$arrPost['intVolHours'],$arrPost['strNature']);
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			else:
 				$arrData = array(
 					'requestDetails'=>$strVolName.';'.$strVolAdd.';'.$dtmVolDateFrom.';'.$dtmVolDateTo.';'.$intVolHours.';'.$strNature.';'.$arrPost['txtvolid'],
@@ -383,7 +425,7 @@ class Pds_update extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				}
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			endif;
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
@@ -420,7 +462,7 @@ class Pds_update extends MY_Controller {
 			$allPost = array($arrPost['dtmExpDateFrom'],$arrPost['dtmExpDateTo'],$arrPost['strPosTitle'],$arrPost['strExpDept'],$arrPost['strSalary'],$arrPost['strExpPer'],$arrPost['strCurrency'],$arrPost['strExpSG'],$arrPost['strAStatus'],$arrPost['strBranch'],$arrPost['strSepCause'],$arrPost['strSepDate'],$arrPost['strLV']);
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			else:
 				$arrData = array(
 					'requestDetails'=>$dtmExpDateFrom.';'.$dtmExpDateTo.';'.$strPosTitle.';'.$strExpDept.';'.$strSalary.';'.$strExpPer.';'.$strCurrency.';'.$strExpSG.';'.$strAStatus.';'.$strGovn.';'.$strBranch.';'.$strSepCause.';'.$strSepDate.';'.$strLV.';'.$arrPost['txtwxpid'],
@@ -435,7 +477,7 @@ class Pds_update extends MY_Controller {
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				}
-				redirect('employee/update_pds');
+				redirect('employee/pds_update');
 			endif;
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
