@@ -32,7 +32,7 @@
 </div>
 
 <div class="col-md-12">
-	<?=form_open('employee/pds_update/submitTraining', array('method' => 'post', 'id' => 'frmEduc'))?>
+	<?=form_open('employee/pds_update/submitTraining', array('method' => 'post', 'id' => 'frmtraining'))?>
 		<input class="hidden" name="strStatus" value="Filed Request">
 		<input class="hidden" name="strCode" value="201 Training">
 		<input class="hidden" name="txttraid" value="<?=isset($_GET['tra_id']) ? $_GET['tra_id'] : ''?>">

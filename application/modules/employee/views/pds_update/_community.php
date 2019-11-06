@@ -1,5 +1,5 @@
 <div class="col-md-12">
-	<?=form_open('employee/pds_update/submitTax', array('method' => 'post', 'id' => 'frmEduc'))?>
+	<?=form_open('employee/pds_update/submitTax', array('method' => 'post', 'id' => 'frmcommunity'))?>
 		<input class="hidden" name="strStatus" value="Filed Request">
 		<input class="hidden" name="strCode" value="201 Tax">
 		<div class="row" id="taxcert_textbox">

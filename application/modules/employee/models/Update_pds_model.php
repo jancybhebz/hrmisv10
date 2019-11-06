@@ -115,6 +115,24 @@ class Update_pds_model extends CI_Model {
 		return count($res) > 0 ? $res[0] : array();
 	}
 
+	function getreference_data($refid)
+	{		
+		$res = $this->db->get_where('tblEmpReference',array('ReferenceIndex' => $refid))->result_array();
+		return count($res) > 0 ? $res[0] : array();
+	}
+
+	function getvoluntary_data($volid)
+	{		
+		$res = $this->db->get_where('tblEmpVoluntaryWork',array('VoluntaryIndex' => $volid))->result_array();
+		return count($res) > 0 ? $res[0] : array();
+	}
+
+	function getworkxp_data($wxpid)
+	{		
+		$res = $this->db->get_where('tblServiceRecord',array('serviceRecID' => $wxpid))->result_array();
+		return count($res) > 0 ? $res[0] : array();
+	}
+
 	function getChildren($empnumber)
 	{		
 		return $this->db->get_where('tblEmpChild',array('empNumber' => $empnumber))->result_array();
