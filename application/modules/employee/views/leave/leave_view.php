@@ -7,11 +7,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 
 $permonth = date("F, Y", strtotime("last day of previous month"));
-$vlBalance = $arrBalance['vlBalance'];
-$slBalance = $arrBalance['slBalance'];
-$plBalance = $arrBalance['plBalance'];
-$flBalance = $arrBalance['flBalance'];
-$mtlBalance = $arrBalance['mtlBalance'];
+$vlBalance = count($arrBalance) > 0 ? $arrBalance['vlBalance'] : 0;
+$slBalance = count($arrBalance) > 0 ? $arrBalance['slBalance'] : 0;
+$plBalance = count($arrBalance) > 0 ? $arrBalance['plBalance'] : 0;
+$flBalance = count($arrBalance) > 0 ? $arrBalance['flBalance'] : 0;
+$mtlBalance = count($arrBalance) > 0 ? $arrBalance['mtlBalance'] : 0;
 
 $strLeavetype = '';
 $action = '';
