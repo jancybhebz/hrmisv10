@@ -104,7 +104,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="wholeday_textbox">
+                <div class="row" id="wholeday_textbox" hidden>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <div class="radio-list">
@@ -116,7 +116,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="leavefrom_textbox">
+                <div class="row" id="leavefrom_textbox" hidden>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Leave From :  <span class="required"> * </span></label>
@@ -127,7 +127,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="leaveto_textbox">
+                <div class="row" id="leaveto_textbox" hidden>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">Leave To :  <span class="required"> * </span></label>
@@ -138,7 +138,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="daysapplied_textbox">
+                <div class="row" id="daysapplied_textbox" hidden>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label">No. of Days Applied :  <span class="required"> * </span></label>
@@ -150,7 +150,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="signatory1_textbox">
+                <div class="row" id="signatory1_textbox" hidden>
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Authorized Official (1st Signatory) :</label>
@@ -163,7 +163,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="signatory2_textbox">
+                <div class="row" id="signatory2_textbox" hidden>
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Authorized Official (2nd Signatory) :</label>
@@ -176,7 +176,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="reason_textbox">
+                <div class="row" id="reason_textbox" hidden>
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Specify Reason/s :</label>
@@ -184,7 +184,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="incaseSL_textbox">
+                <div class="row" id="incaseSL_textbox" hidden>
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">In Case of Sick Leave : </label>
@@ -196,7 +196,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                         </div>
                     </div>
                 </div>
-                <div class="row" id="incaseVL_textbox">
+                <div class="row" id="incaseVL_textbox" hidden>
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">In Case of Vacation Leave : </label>
@@ -209,7 +209,7 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
                     </div>
                 </div>
 
-                <div class="row" id="attachments">
+                <div class="row" id="attachments" hidden>
                     <br>
                     <div class="col-sm-12">
                         <div class="form-group">
@@ -238,6 +238,32 @@ $emp_gender = count($emp_gender) > 0 ? $emp_gender[0]['sex'] : '';
         </div>
     </div>
 </div>
+
+<!-- begin leave form modal -->
+<div id="leave-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title bold">Personnel Travel Pass</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <embed src="" id="leave-embed" frameborder="0" width="100%" height="500px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" id="leave-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end leave form modal -->
 
 <script type="text/javascript" src="<?=base_url('assets/js/leave.js')?>"></script>
 <?=load_plugin('js',array('form_validation','datepicker','select','select2'));?>

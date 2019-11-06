@@ -38,8 +38,8 @@ class ReportLeave_rpt_model extends CI_Model {
 		$strWholeday ="";
 		$strHalfday ="";
 		$intTotal ="";
-		$dtmLeavefrom = date("F j, Y",strtotime($arrData['dtmLeavefrom']));
-		$dtmLeaveto = date("F j, Y",strtotime($arrData['dtmLeaveto']));
+		$dtmLeavefrom = $arrData['dtmLeavefrom'] == '' ? '' : date("F j, Y",strtotime($arrData['dtmLeavefrom']));
+		$dtmLeaveto = $arrData['dtmLeaveto'] == '' ? '' : date("F j, Y",strtotime($arrData['dtmLeaveto']));
 		$intDaysApplied = $arrData['intDaysApplied'];
 		$str1stSignatory = $arrData['str1stSignatory'];
 		$str2ndSignatory = $arrData['str2ndSignatory'];
@@ -72,7 +72,9 @@ class ReportLeave_rpt_model extends CI_Model {
 		// 	$strWholeday = "x";
 		// else
 		// 	$strHalfday = "x";
-
+		// echo '<pre>';
+		// print_r($arrData);
+		// die();
 		$this->fpdf->SetTitle('Application for Leave Form');
 		$this->fpdf->SetLeftMargin(10);
 		$this->fpdf->SetRightMargin(10);
@@ -305,11 +307,13 @@ class ReportLeave_rpt_model extends CI_Model {
 //----------------------------------------------------------
 
 		$this->fpdf->Cell(10, 6,"", 0, 0, "L");
-		if($arrData['dtmLeavefrom'] != '' && $arrData['dtmLeaveto'] != ''){
-			$this->fpdf->Cell(78, 6,"$dtmLeavefrom from $dtmLeaveto", "B", 0, "C"); 	
-		}else{
-			$this->fpdf->Cell(78, 6,"", "B", 0, "C"); 
-		}
+		// if($arrData['dtmLeavefrom'] != '' && $arrData['dtmLeaveto'] != ''){
+		// 	$this->fpdf->Cell(78, 6,"$dtmLeavefrom from $dtmLeaveto", "B", 0, "C");
+		// }else{
+		// 	$this->fpdf->Cell(78, 6,"", "B", 0, "C"); 
+		// }
+
+		$this->fpdf->Cell(78, 6,"From $dtmLeavefrom to $dtmLeaveto", "B", 0, "C");
 		
 		$this->fpdf->Cell(2, 6,"", "R", 0, "L"); 
 		
@@ -474,7 +478,7 @@ class ReportLeave_rpt_model extends CI_Model {
 //----------------------------------------------------------
 		$this->fpdf->SetFont('Arial', "B", 10);
 		$arrDetails=$this->getEmp($str1stSignatory);
-		$FirstSig=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);
+		$FirstSig = count($arrDetails) > 0 ? strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']) : '';
 		$this->fpdf->Cell(30, 5,$FirstSig, 0, 0, "C");	
 		$this->fpdf->SetFont('Arial', "", 10);
 		$this->fpdf->Ln(5);
@@ -537,7 +541,7 @@ class ReportLeave_rpt_model extends CI_Model {
 	// 	$this->fpdf->Cell(70, 5,"    ".."    ", 0, 1, "C");  
 	// else
 		$arrDetails=$this->getEmp($str2ndSignatory);
-		$SecondSig=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']);
+		$SecondSig = count($arrDetails) > 0 ? strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].'. '.$arrDetails[0]['surname']) : '';
 		$this->fpdf->Cell(70, 5,$SecondSig, 0, 1, "C");  
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(55, 5,"", 0, 0, "L");	
