@@ -15,7 +15,7 @@ class Pds_update extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employee/pds_update_model','hr/Hr_model'));
+        $this->load->model(array('employee/update_pds_model','hr/Hr_model'));
     }
 
 	public function index()
@@ -24,64 +24,64 @@ class Pds_update extends MY_Controller {
 		$this->arrData['arrData'] = $this->Hr_model->getData($strEmpNo);
 		if(count($this->arrData['arrData'])==0) redirect('pds');
 
-		$this->arrData['arrData'] = $this->pds_update_model->getData($strEmpNo);
-		$this->arrData['arrEduc_CMB'] = $this->pds_update_model->getEducData();	
-		$this->arrData['arrEduc'] = $this->pds_update_model->getEduc($strEmpNo);		
-		$this->arrData['arrCourse'] = $this->pds_update_model->getCourseData();
-		$this->arrData['arrScholarship'] = $this->pds_update_model->getScholarshipData();
-		$this->arrData['arrSchool'] = $this->pds_update_model->getSchoolData();
-		$this->arrData['arrTraining_CMB'] = $this->pds_update_model->getTrainingData();
-		$this->arrData['arrTraining'] = $this->pds_update_model->getTraining($strEmpNo);
-		$this->arrData['arrExamination_CMB'] = $this->pds_update_model->getExamData();
-		$this->arrData['arrExamination'] = $this->pds_update_model->getExamination($strEmpNo);
-		$this->arrData['arrReference'] = $this->pds_update_model->getRefData($strEmpNo);
-		$this->arrData['arrVoluntary'] = $this->pds_update_model->getVoluntary($strEmpNo);
-		$this->arrData['arrExperience_CMB'] = $this->pds_update_model->getExpData();
-		$this->arrData['arrExperience'] = $this->pds_update_model->getExperience($strEmpNo);
-		$this->arrData['arrAppointment'] = $this->pds_update_model->getAppointData();
-		$this->arrData['arrSeparation'] = $this->pds_update_model->getSepCauseData();
-		$this->arrData['arrDetails'] = $this->pds_update_model->getDetails();
-		$this->arrData['arrChild'] = $this->pds_update_model->getChildren($strEmpNo);
+		$this->arrData['arrData'] = $this->update_pds_model->getData($strEmpNo);
+		$this->arrData['arrEduc_CMB'] = $this->update_pds_model->getEducData();	
+		$this->arrData['arrEduc'] = $this->update_pds_model->getEduc($strEmpNo);		
+		$this->arrData['arrCourse'] = $this->update_pds_model->getCourseData();
+		$this->arrData['arrScholarship'] = $this->update_pds_model->getScholarshipData();
+		$this->arrData['arrSchool'] = $this->update_pds_model->getSchoolData();
+		$this->arrData['arrTraining_CMB'] = $this->update_pds_model->getTrainingData();
+		$this->arrData['arrTraining'] = $this->update_pds_model->getTraining($strEmpNo);
+		$this->arrData['arrExamination_CMB'] = $this->update_pds_model->getExamData();
+		$this->arrData['arrExamination'] = $this->update_pds_model->getExamination($strEmpNo);
+		$this->arrData['arrReference'] = $this->update_pds_model->getRefData($strEmpNo);
+		$this->arrData['arrVoluntary'] = $this->update_pds_model->getVoluntary($strEmpNo);
+		$this->arrData['arrExperience_CMB'] = $this->update_pds_model->getExpData();
+		$this->arrData['arrExperience'] = $this->update_pds_model->getExperience($strEmpNo);
+		$this->arrData['arrAppointment'] = $this->update_pds_model->getAppointData();
+		$this->arrData['arrSeparation'] = $this->update_pds_model->getSepCauseData();
+		$this->arrData['arrDetails'] = $this->update_pds_model->getDetails();
+		$this->arrData['arrChild'] = $this->update_pds_model->getChildren($strEmpNo);
 		
 		$emp_educ = array();
 		if(isset($_GET['educ_id'])){
-			$emp_educ = $this->pds_update_model->geteduc_data($_GET['educ_id']);
+			$emp_educ = $this->update_pds_model->geteduc_data($_GET['educ_id']);
 		}
 		$this->arrData['emp_educ'] = $emp_educ;
 
 		$emp_tra = array();
 		if(isset($_GET['tra_id'])){
-			$emp_tra = $this->pds_update_model->gettra_data($_GET['tra_id']);
+			$emp_tra = $this->update_pds_model->gettra_data($_GET['tra_id']);
 		}
 		$this->arrData['emp_tra'] = $emp_tra;
 
 		$emp_exam = array();
 		if(isset($_GET['exam_id'])){
-			$emp_exam = $this->pds_update_model->getexam_data($_GET['exam_id']);
+			$emp_exam = $this->update_pds_model->getexam_data($_GET['exam_id']);
 		}
 		$this->arrData['emp_exam'] = $emp_exam;
 
 		$emp_child = array();
 		if(isset($_GET['child_id'])){
-			$emp_child = $this->pds_update_model->getchild_data($_GET['child_id']);
+			$emp_child = $this->update_pds_model->getchild_data($_GET['child_id']);
 		}
 		$this->arrData['emp_child'] = $emp_child;
 
 		$emp_ref = array();
 		if(isset($_GET['ref_id'])){
-			$emp_ref = $this->pds_update_model->getreference_data($_GET['ref_id']);
+			$emp_ref = $this->update_pds_model->getreference_data($_GET['ref_id']);
 		}
 		$this->arrData['emp_ref'] = $emp_ref;
 
 		$emp_vol = array();
 		if(isset($_GET['vol_id'])){
-			$emp_vol = $this->pds_update_model->getvoluntary_data($_GET['vol_id']);
+			$emp_vol = $this->update_pds_model->getvoluntary_data($_GET['vol_id']);
 		}
 		$this->arrData['emp_vol'] = $emp_vol;
 
 		$emp_wxp = array();
 		if(isset($_GET['wxp_id'])){
-			$emp_wxp = $this->pds_update_model->getworkxp_data($_GET['wxp_id']);
+			$emp_wxp = $this->update_pds_model->getworkxp_data($_GET['wxp_id']);
 		}
 		$this->arrData['emp_wxp'] = $emp_wxp;
 
@@ -134,7 +134,7 @@ class Pds_update extends MY_Controller {
 				'requestCode' 	  => $strCode,
 				'empNumber' 	  => $_SESSION['sessEmpNo']);
 
-			$blnReturn  = $this->pds_update_model->submit_request($arrData);
+			$blnReturn  = $this->update_pds_model->submit_request($arrData);
 			if(count($blnReturn)>0)
 			{	
 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
@@ -176,7 +176,7 @@ class Pds_update extends MY_Controller {
 				'requestCode' 	 => $strCode,
 				'empNumber' 	 => $_SESSION['sessEmpNo']);
 
-			$blnReturn  = $this->pds_update_model->submit_request($arrData);
+			$blnReturn  = $this->update_pds_model->submit_request($arrData);
 			if(count($blnReturn)>0)
 			{	
 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
@@ -198,7 +198,7 @@ class Pds_update extends MY_Controller {
     			'requestCode'	 => $arrPost['strCode'],
     			'empNumber'		 => $_SESSION['sessEmpNo']);
 
-    		$blnReturn = $this->pds_update_model->submit_request($arrData);
+    		$blnReturn = $this->update_pds_model->submit_request($arrData);
     		if(count($blnReturn)>0):
     			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
     			$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
@@ -238,7 +238,7 @@ class Pds_update extends MY_Controller {
 					'requestCode'    => $strCode,
 					'empNumber' 	 => $_SESSION['sessEmpNo']);
 
-				$blnReturn  = $this->pds_update_model->submit_request($arrData);
+				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0)
 				{	
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
@@ -278,7 +278,7 @@ class Pds_update extends MY_Controller {
 					'requestCode'=>$strCode,
 					'empNumber'=>$_SESSION['sessEmpNo']);
 
-				$blnReturn  = $this->pds_update_model->submit_request($arrData);
+				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0)
 				{	
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
@@ -313,7 +313,7 @@ class Pds_update extends MY_Controller {
 							'requestStatus'=>$strStatus,
 							'requestCode'=>$strCode,
 							'empNumber'=>$_SESSION['sessEmpNo']);
-				$blnReturn  = $this->pds_update_model->submitChild($arrData);
+				$blnReturn  = $this->update_pds_model->submitChild($arrData);
 				if(count($blnReturn)>0)
 				{	
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
@@ -345,7 +345,7 @@ class Pds_update extends MY_Controller {
 						'requestCode'=>$strCode,
 						'empNumber'=>$_SESSION['sessEmpNo']);
 
-			$blnReturn  = $this->pds_update_model->submit_request($arrData);
+			$blnReturn  = $this->update_pds_model->submit_request($arrData);
 			if(count($blnReturn)>0)
 			{	
 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
@@ -380,7 +380,7 @@ class Pds_update extends MY_Controller {
 					'requestCode'=>$strCode,
 					'empNumber'=>$_SESSION['sessEmpNo']);
 
-					$blnReturn  = $this->pds_update_model->submit_request($arrData);
+					$blnReturn  = $this->update_pds_model->submit_request($arrData);
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
@@ -419,7 +419,7 @@ class Pds_update extends MY_Controller {
 					'requestCode'=>$strCode,
 					'empNumber'=>$_SESSION['sessEmpNo']);
 
-				$blnReturn  = $this->pds_update_model->submit_request($arrData);
+				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0)
 				{	
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
@@ -471,7 +471,7 @@ class Pds_update extends MY_Controller {
 					'requestCode'=>$strCode,
 					'empNumber'=>$_SESSION['sessEmpNo']
 				);
-				$blnReturn  = $this->pds_update_model->submit_request($arrData);
+				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0)
 				{	
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
