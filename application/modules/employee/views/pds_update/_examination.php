@@ -32,7 +32,7 @@
 </div>
 
 <div class="col-md-12">
-	<?=form_open('employee/pds_update/submitExam', array('method' => 'post', 'id' => 'frmEduc'))?>
+	<?=form_open('employee/pds_update/submitExam', array('method' => 'post', 'id' => 'frmexaminations'))?>
 		<input class="hidden" name="strStatus" value="Filed Request">
 		<input class="hidden" name="strCode" value="201 Exam">
 		<input class="hidden" name="txtexamid" value="<?=isset($_GET['exam_id']) ? $_GET['exam_id'] : ''?>">
@@ -67,7 +67,7 @@
 				<div class="form-group">
 					<label class="control-label">Date of Exam/Conferment :  </label>
 					<div class="input-icon right">
-						<input class="form-control date-picker" name="dtmExamDate" id="dtmExamDate" type="text" value="<?=count($emp_exam)>0?$emp_exam['examDate']:''?>" data-date-format="yyyy-mm-dd"  autocomplete="off">
+						<input class="form-control date-picker" name="dtmExamDate" id="dtmExamDate" type="text" value="<?=count($emp_exam)>0?$emp_exam['examDate']:''?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 					</div>
 				</div>
 			</div>

@@ -53,70 +53,70 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <option value="Examinations" <?=isset($_GET['exam_id'])?'selected':''?>>Eligibility</option>
                                 <option value="Children" <?=isset($_GET['child_id'])?'selected':''?>>Family Background (Children)</option>
                                 <option value="Community">Community Tax Certification</option>
-                                <!-- <option value="References">References</option> -->
-                                <!-- <option value="Voluntary">Voluntary Works</option> -->
-                                <!-- <option value="WorkExp">Work Experience</option> -->
+                                <option value="References">References</option>
+                                <option value="Voluntary">Voluntary Works</option>
+                                <option value="WorkExp">Work Experience</option>
                             </select>
                         </div>
                     </div>
 
                     <!-- Begin Profile -->
-                    <div id="divprof">
+                    <div id="divprof" hidden>
                         <?=$this->load->view('_profile.php')?>
                     </div>
                     <!-- End Profile -->
 
                     <!-- Begin Family -->
-                    <div id="divfam">
+                    <div id="divfam" hidden>
                         <?=$this->load->view('_family.php')?>
                     </div>
                     <!-- End Family -->
 
                     <!-- Begin Educational -->
-                    <div id="diveduc">
+                    <div id="diveduc" hidden>
                         <?=$this->load->view('_educational.php')?>
                     </div>
                     <!-- End Educational -->
 
                     <!-- Begin Training -->
-                    <div class="row" id="divtra">
+                    <div class="row" id="divtra" hidden>
                         <?=$this->load->view('_training.php')?>
                     </div>
                     <!-- End Training -->
 
                     <!-- Begin Examinations -->
-                    <div class="row" id="divexam">
+                    <div class="row" id="divexam" hidden>
                         <?=$this->load->view('_examination.php')?>
                     </div>
                     <!-- End Examinations -->
 
                     <!-- Begin Children -->
-                    <div class="row" id="divchildren">
+                    <div class="row" id="divchildren" hidden>
                         <?=$this->load->view('_children.php')?>
                     </div>
                     <!-- End Children -->
 
                     <!-- Begin Community -->
-                    <div class="row" id="divcomm">
+                    <div class="row" id="divcomm" hidden>
                         <?=$this->load->view('_community.php')?>
                     </div>
                     <!-- End Community -->
 
                     <!-- Begin References -->
-                    <div class="row" id="divref">
-                        References
+                    <div class="row" id="divref" hidden>
+                        <?=$this->load->view('_reference.php')?>
                     </div>
                     <!-- End References -->
 
                     <!-- Begin Voluntary -->
-                    <div class="row" id="divvol">
-                        Voluntary
+                    <div class="row" id="divvol" hidden>
+                        <?=$this->load->view('_voluntary.php')?>
                     </div>
                     <!-- End Voluntary -->
 
                     <!-- Begin WorkExp -->
-                    <div class="row" id="divxp">
-                        WorkExp
+                    <div class="row" id="divxp" hidden>
+                        <?=$this->load->view('_workexp.php')?>
                     </div>
                     <!-- End WorkExp -->
 

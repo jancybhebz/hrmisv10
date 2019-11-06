@@ -68,6 +68,24 @@ class Update_pds extends MY_Controller {
 		}
 		$this->arrData['emp_child'] = $emp_child;
 
+		$emp_ref = array();
+		if(isset($_GET['ref_id'])){
+			$emp_ref = $this->update_pds_model->getreference_data($_GET['ref_id']);
+		}
+		$this->arrData['emp_ref'] = $emp_ref;
+
+		$emp_vol = array();
+		if(isset($_GET['vol_id'])){
+			$emp_vol = $this->update_pds_model->getvoluntary_data($_GET['vol_id']);
+		}
+		$this->arrData['emp_vol'] = $emp_vol;
+
+		$emp_wxp = array();
+		if(isset($_GET['wxp_id'])){
+			$emp_wxp = $this->update_pds_model->getworkxp_data($_GET['wxp_id']);
+		}
+		$this->arrData['emp_wxp'] = $emp_wxp;
+
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
 	
@@ -247,318 +265,318 @@ class Update_pds extends MY_Controller {
   //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
   //   }
 
-    public function submitTraining()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$strTrainTitle=$arrPost['strTrainTitle'];
-			$dtmStartDate=$arrPost['dtmStartDate'];
-			$dtmEndDate=$arrPost['dtmEndDate'];
-			$dtmHours=$arrPost['dtmHours'];
-			$strTypeLD=$arrPost['strTypeLD'];
-			$strConduct=$arrPost['strConduct'];
-			$intCost=$arrPost['intCost'];
-			$dtmContract=$arrPost['dtmContract'];
+  //   public function submitTraining()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$strTrainTitle=$arrPost['strTrainTitle'];
+		// 	$dtmStartDate=$arrPost['dtmStartDate'];
+		// 	$dtmEndDate=$arrPost['dtmEndDate'];
+		// 	$dtmHours=$arrPost['dtmHours'];
+		// 	$strTypeLD=$arrPost['strTypeLD'];
+		// 	$strConduct=$arrPost['strConduct'];
+		// 	$intCost=$arrPost['intCost'];
+		// 	$dtmContract=$arrPost['dtmContract'];
 			
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+		// 	$strStatus=$arrPost['strStatus'];
+		// 	$strCode=$arrPost['strCode'];
 
-			if(!empty($strTrainTitle))
-			{	
-				if( count($this->update_pds_model->checkExist($strTrainTitle))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strTrainTitle.';'.$dtmStartDate.';'.$dtmEndDate.';'.$dtmHours.';'.$strTypeLD.';'.$strConduct.';'.$intCost.';'.$dtmContract,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
+		// 	if(!empty($strTrainTitle))
+		// 	{	
+		// 		if( count($this->update_pds_model->checkExist($strTrainTitle))==0 )
+		// 		{
+		// 			$arrData = array(
+		// 				'requestDetails'=>$strTrainTitle.';'.$dtmStartDate.';'.$dtmEndDate.';'.$dtmHours.';'.$strTypeLD.';'.$strConduct.';'.$intCost.';'.$dtmContract,
+		// 				'requestDate'=>date('Y-m-d'),
+		// 				'requestStatus'=>$strStatus,
+		// 				'requestCode'=>$strCode,
+		// 				'empNumber'=>$_SESSION['sessEmpNo']
 						
-					);
-					$blnReturn  = $this->update_pds_model->submitRequest($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/update_pds');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/update_pds');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
-    }
+		// 			);
+		// 			$blnReturn  = $this->update_pds_model->submitRequest($arrData);
+		// 			if(count($blnReturn)>0)
+		// 			{	
+		// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
+		// 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+		// 			}
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 		else
+		// 		{	
+		// 			$this->session->set_flashdata('strErrorMsg','Request already exists.');
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 	}
+		// }
+  //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+  //   }
 
-    public function submitExam()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$strExamDesc=$arrPost['strExamDesc'];
-			$strChildName=$arrPost['strChildName'];
-			$dtmExamDate=$arrPost['dtmExamDate'];
-			$strPlaceExam=$arrPost['strPlaceExam'];
-			$intLicenseNo=$arrPost['intLicenseNo'];
-			$dtmRelease=$arrPost['dtmRelease'];
+  //   public function submitExam()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$strExamDesc=$arrPost['strExamDesc'];
+		// 	$strChildName=$arrPost['strChildName'];
+		// 	$dtmExamDate=$arrPost['dtmExamDate'];
+		// 	$strPlaceExam=$arrPost['strPlaceExam'];
+		// 	$intLicenseNo=$arrPost['intLicenseNo'];
+		// 	$dtmRelease=$arrPost['dtmRelease'];
 
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+		// 	$strStatus=$arrPost['strStatus'];
+		// 	$strCode=$arrPost['strCode'];
 
-			if(!empty($strExamDesc))
-			{	
-				if( count($this->update_pds_model->checkExist($strExamDesc))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strExamDesc.';'.$strChildName.';'.$dtmExamDate.';'.$strPlaceExam.';'.$intLicenseNo.';'.$dtmRelease,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
+		// 	if(!empty($strExamDesc))
+		// 	{	
+		// 		if( count($this->update_pds_model->checkExist($strExamDesc))==0 )
+		// 		{
+		// 			$arrData = array(
+		// 				'requestDetails'=>$strExamDesc.';'.$strChildName.';'.$dtmExamDate.';'.$strPlaceExam.';'.$intLicenseNo.';'.$dtmRelease,
+		// 				'requestDate'=>date('Y-m-d'),
+		// 				'requestStatus'=>$strStatus,
+		// 				'requestCode'=>$strCode,
+		// 				'empNumber'=>$_SESSION['sessEmpNo']
 						
-					);
-					$blnReturn  = $this->update_pds_model->submitRequest($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/update_pds');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/update_pds');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
-    }
+		// 			);
+		// 			$blnReturn  = $this->update_pds_model->submitRequest($arrData);
+		// 			if(count($blnReturn)>0)
+		// 			{	
+		// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
+		// 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+		// 			}
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 		else
+		// 		{	
+		// 			$this->session->set_flashdata('strErrorMsg','Request already exists.');
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 	}
+		// }
+  //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+  //   }
 
-    public function submitChild()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$strChildName=$arrPost['strChildName'];
-			$dtmChildBdate=$arrPost['dtmChildBdate'];
+  //   public function submitChild()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$strChildName=$arrPost['strChildName'];
+		// 	$dtmChildBdate=$arrPost['dtmChildBdate'];
 
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+		// 	$strStatus=$arrPost['strStatus'];
+		// 	$strCode=$arrPost['strCode'];
 
-			if(!empty($strChildName))
-			{	
-				if( count($this->update_pds_model->checkExist($strChildName))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strChildName.';'.$dtmChildBdate,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
+		// 	if(!empty($strChildName))
+		// 	{	
+		// 		if( count($this->update_pds_model->checkExist($strChildName))==0 )
+		// 		{
+		// 			$arrData = array(
+		// 				'requestDetails'=>$strChildName.';'.$dtmChildBdate,
+		// 				'requestDate'=>date('Y-m-d'),
+		// 				'requestStatus'=>$strStatus,
+		// 				'requestCode'=>$strCode,
+		// 				'empNumber'=>$_SESSION['sessEmpNo']
 						
-					);
-					$blnReturn  = $this->update_pds_model->submitRequest($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/update_pds');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/update_pds');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
-    }
+		// 			);
+		// 			$blnReturn  = $this->update_pds_model->submitRequest($arrData);
+		// 			if(count($blnReturn)>0)
+		// 			{	
+		// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
+		// 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+		// 			}
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 		else
+		// 		{	
+		// 			$this->session->set_flashdata('strErrorMsg','Request already exists.');
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 	}
+		// }
+  //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+  //   }
 
-    public function submitTax()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$intTaxCert=$arrPost['intTaxCert'];
-			$strIssuedAt=$arrPost['strIssuedAt'];
-			$dtmIssuedOn=$arrPost['dtmIssuedOn'];
+  //   public function submitTax()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$intTaxCert=$arrPost['intTaxCert'];
+		// 	$strIssuedAt=$arrPost['strIssuedAt'];
+		// 	$dtmIssuedOn=$arrPost['dtmIssuedOn'];
 
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+		// 	$strStatus=$arrPost['strStatus'];
+		// 	$strCode=$arrPost['strCode'];
 
-			if(!empty($intTaxCert))
-			{	
-				if( count($this->update_pds_model->checkExist($intTaxCert))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$intTaxCert.';'.$strIssuedAt.';'.$dtmIssuedOn,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
+		// 	if(!empty($intTaxCert))
+		// 	{	
+		// 		if( count($this->update_pds_model->checkExist($intTaxCert))==0 )
+		// 		{
+		// 			$arrData = array(
+		// 				'requestDetails'=>$intTaxCert.';'.$strIssuedAt.';'.$dtmIssuedOn,
+		// 				'requestDate'=>date('Y-m-d'),
+		// 				'requestStatus'=>$strStatus,
+		// 				'requestCode'=>$strCode,
+		// 				'empNumber'=>$_SESSION['sessEmpNo']
 						
-					);
-					$blnReturn  = $this->update_pds_model->submitTax($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/update_pds');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/update_pds');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
-    }
+		// 			);
+		// 			$blnReturn  = $this->update_pds_model->submitTax($arrData);
+		// 			if(count($blnReturn)>0)
+		// 			{	
+		// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
+		// 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+		// 			}
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 		else
+		// 		{	
+		// 			$this->session->set_flashdata('strErrorMsg','Request already exists.');
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 	}
+		// }
+  //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+  //   }
 
-    public function submitRef()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$strRefName=$arrPost['strRefName'];
-			$strRefAdd=$arrPost['strRefAdd'];
-			$intRefContact=$arrPost['intRefContact'];
+  //   public function submitRef()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$strRefName=$arrPost['strRefName'];
+		// 	$strRefAdd=$arrPost['strRefAdd'];
+		// 	$intRefContact=$arrPost['intRefContact'];
 
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+		// 	$strStatus=$arrPost['strStatus'];
+		// 	$strCode=$arrPost['strCode'];
 
-			if(!empty($strRefName))
-			{	
-				if( count($this->update_pds_model->checkExist($strRefName))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strRefName.';'.$strRefAdd.';'.$intRefContact,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
+		// 	if(!empty($strRefName))
+		// 	{	
+		// 		if( count($this->update_pds_model->checkExist($strRefName))==0 )
+		// 		{
+		// 			$arrData = array(
+		// 				'requestDetails'=>$strRefName.';'.$strRefAdd.';'.$intRefContact,
+		// 				'requestDate'=>date('Y-m-d'),
+		// 				'requestStatus'=>$strStatus,
+		// 				'requestCode'=>$strCode,
+		// 				'empNumber'=>$_SESSION['sessEmpNo']
 						
-					);
-					$blnReturn  = $this->update_pds_model->submitRef($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/update_pds');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/update_pds');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
-    }
+		// 			);
+		// 			$blnReturn  = $this->update_pds_model->submitRef($arrData);
+		// 			if(count($blnReturn)>0)
+		// 			{	
+		// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
+		// 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+		// 			}
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 		else
+		// 		{	
+		// 			$this->session->set_flashdata('strErrorMsg','Request already exists.');
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 	}
+		// }
+  //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+  //   }
 
-    public function submitVol()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$strVolName=$arrPost['strVolName'];
-			$strVolAdd=$arrPost['strVolAdd'];
-			$dtmVolDateFrom=$arrPost['dtmVolDateFrom'];
-			$dtmVolDateTo=$arrPost['dtmVolDateTo'];
-			$intVolHours=$arrPost['intVolHours'];
-			$strNature=$arrPost['strNature'];
+  //   public function submitVol()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$strVolName=$arrPost['strVolName'];
+		// 	$strVolAdd=$arrPost['strVolAdd'];
+		// 	$dtmVolDateFrom=$arrPost['dtmVolDateFrom'];
+		// 	$dtmVolDateTo=$arrPost['dtmVolDateTo'];
+		// 	$intVolHours=$arrPost['intVolHours'];
+		// 	$strNature=$arrPost['strNature'];
 
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+		// 	$strStatus=$arrPost['strStatus'];
+		// 	$strCode=$arrPost['strCode'];
 
-			if(!empty($strVolName))
-			{	
-				if( count($this->update_pds_model->checkExist($strVolName))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$strVolName.';'.$strVolAdd.';'.$dtmVolDateFrom.';'.$dtmVolDateTo.';'.$intVolHours.';'.$strNature,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
+		// 	if(!empty($strVolName))
+		// 	{	
+		// 		if( count($this->update_pds_model->checkExist($strVolName))==0 )
+		// 		{
+		// 			$arrData = array(
+		// 				'requestDetails'=>$strVolName.';'.$strVolAdd.';'.$dtmVolDateFrom.';'.$dtmVolDateTo.';'.$intVolHours.';'.$strNature,
+		// 				'requestDate'=>date('Y-m-d'),
+		// 				'requestStatus'=>$strStatus,
+		// 				'requestCode'=>$strCode,
+		// 				'empNumber'=>$_SESSION['sessEmpNo']
 						
-					);
-					$blnReturn  = $this->update_pds_model->submitVol($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/update_pds');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/update_pds');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
-    }
+		// 			);
+		// 			$blnReturn  = $this->update_pds_model->submitVol($arrData);
+		// 			if(count($blnReturn)>0)
+		// 			{	
+		// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
+		// 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+		// 			}
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 		else
+		// 		{	
+		// 			$this->session->set_flashdata('strErrorMsg','Request already exists.');
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 	}
+		// }
+  //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+  //   }
 
-    public function submitWorkExp()
-    {
-    	$arrPost = $this->input->post();
-		if(!empty($arrPost))
-		{
-			$dtmExpDateFrom=$arrPost['dtmExpDateFrom'];
-			$dtmExpDateTo=$arrPost['dtmExpDateTo'];
-			$strPosTitle=$arrPost['strPosTitle'];
-			$strExpDept=$arrPost['strExpDept'];
-			$strSalary=$arrPost['strSalary'];
-			$strExpPer=$arrPost['strExpPer'];
-			$strCurrency=$arrPost['strCurrency'];
-			$strExpSG=$arrPost['strExpSG'];
-			$strAStatus=$arrPost['strAStatus'];
-			$strGovn=$arrPost['strGovn'];
-			$strBranch=$arrPost['strBranch'];
-			$strSepCause=$arrPost['strSepCause'];
-			$strSepDate=$arrPost['strSepDate'];
-			$strLV=$arrPost['strLV'];
+  //   public function submitWorkExp()
+  //   {
+  //   	$arrPost = $this->input->post();
+		// if(!empty($arrPost))
+		// {
+		// 	$dtmExpDateFrom=$arrPost['dtmExpDateFrom'];
+		// 	$dtmExpDateTo=$arrPost['dtmExpDateTo'];
+		// 	$strPosTitle=$arrPost['strPosTitle'];
+		// 	$strExpDept=$arrPost['strExpDept'];
+		// 	$strSalary=$arrPost['strSalary'];
+		// 	$strExpPer=$arrPost['strExpPer'];
+		// 	$strCurrency=$arrPost['strCurrency'];
+		// 	$strExpSG=$arrPost['strExpSG'];
+		// 	$strAStatus=$arrPost['strAStatus'];
+		// 	$strGovn=$arrPost['strGovn'];
+		// 	$strBranch=$arrPost['strBranch'];
+		// 	$strSepCause=$arrPost['strSepCause'];
+		// 	$strSepDate=$arrPost['strSepDate'];
+		// 	$strLV=$arrPost['strLV'];
 
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
+		// 	$strStatus=$arrPost['strStatus'];
+		// 	$strCode=$arrPost['strCode'];
 
-			if(!empty($dtmExpDateFrom))
-			{	
-				if( count($this->update_pds_model->checkExist($dtmExpDateFrom))==0 )
-				{
-					$arrData = array(
-						'requestDetails'=>$dtmExpDateFrom.';'.$dtmExpDateTo.';'.$strPosTitle.';'.$strExpDept.';'.$strSalary.';'.$strExpPer.';'.$strCurrency.';'.$strExpSG.';'.$strAStatus.';'.$strGovn.';'.$strBranch.';'.$strSepCause.';'.$strSepDate.';'.$strLV,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
-					);
-					$blnReturn  = $this->update_pds_model->submitWorkExp($arrData);
-					if(count($blnReturn)>0)
-					{	
-						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
-						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
-					}
-					redirect('employee/update_pds');
-				}
-				else
-				{	
-					$this->session->set_flashdata('strErrorMsg','Request already exists.');
-					redirect('employee/update_pds');
-				}
-			}
-		}
-    	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
-    }
+		// 	if(!empty($dtmExpDateFrom))
+		// 	{	
+		// 		if( count($this->update_pds_model->checkExist($dtmExpDateFrom))==0 )
+		// 		{
+		// 			$arrData = array(
+		// 				'requestDetails'=>$dtmExpDateFrom.';'.$dtmExpDateTo.';'.$strPosTitle.';'.$strExpDept.';'.$strSalary.';'.$strExpPer.';'.$strCurrency.';'.$strExpSG.';'.$strAStatus.';'.$strGovn.';'.$strBranch.';'.$strSepCause.';'.$strSepDate.';'.$strLV,
+		// 				'requestDate'=>date('Y-m-d'),
+		// 				'requestStatus'=>$strStatus,
+		// 				'requestCode'=>$strCode,
+		// 				'empNumber'=>$_SESSION['sessEmpNo']
+		// 			);
+		// 			$blnReturn  = $this->update_pds_model->submitWorkExp($arrData);
+		// 			if(count($blnReturn)>0)
+		// 			{	
+		// 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
+		// 				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+		// 			}
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 		else
+		// 		{	
+		// 			$this->session->set_flashdata('strErrorMsg','Request already exists.');
+		// 			redirect('employee/update_pds');
+		// 		}
+		// 	}
+		// }
+  //   	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
+  //   }
 
 }

@@ -10,13 +10,15 @@ $(document).ready(function() {
 		$(this).datepicker('hide');
 	});
 
-	// $('#divcomm').show();
-	$('#table-trainings,#table-educ,#table-examinations,#table-children').dataTable({"pageLength": 5});
+	$('#table-trainings,#table-educ,#table-examinations,#table-children,#table-reference,#table-voluntary,#table-workxp').dataTable({"pageLength": 5});
 
 	if(has_set('educ_id')){ $('#diveduc').show(); }
 	if(has_set('tra_id')){ $('#divtra').show(); }
 	if(has_set('exam_id')){ $('#divexam').show(); }
 	if(has_set('child_id')){ $('#divchildren').show(); }
+	if(has_set('ref_id')){ $('#divref').show(); }
+	if(has_set('vol_id')){ $('#divvol').show(); }
+	if(has_set('wxp_id')){ $('#divxp').show(); }
 	
 	$('#strProfileType').on('keyup keypress change',function() {
 		hide_all();

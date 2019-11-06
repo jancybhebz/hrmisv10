@@ -24,7 +24,7 @@
 </div>
 
 <div class="col-md-12">
-	<?=form_open('employee/pds_update/submitChild', array('method' => 'post', 'id' => 'frmEduc'))?>
+	<?=form_open('employee/pds_update/submitChild', array('method' => 'post', 'id' => 'frmchildren'))?>
 		<input class="hidden" name="strStatus" value="Filed Request">
 		<input class="hidden" name="strCode" value="201 Child">
 		<input class="hidden" name="txtchildid" value="<?=isset($_GET['child_id']) ? $_GET['child_id'] : ''?>">
