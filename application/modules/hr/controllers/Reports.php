@@ -234,6 +234,29 @@ class Reports extends MY_Controller
                 <div class="col-sm-2">'.comboMonth('dtrMonth').'</div>
                 </div></div>';
             break;
+            case 'EAS':
+            	echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+                			<div class="form-group">
+                				<label class="control-label">Period : </label>
+                			</div>
+                		</div>';
+				echo '<div class="col-sm-2">
+					<select type="text" class="form-control" name="strEligibility" maxlength="50">
+						<option value="">Select</option>
+						<option value="First Half">First Half</option>
+						<option value="Second Half">Second Half</option>
+					</select>
+                </div></div>';
+                echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+                			<div class="form-group">
+                				<label class="control-label">Year : </label>
+                			</div>
+                		</div>';
+				echo '<div class="col-sm-2">'.comboYear('dtrYear').'</div>
+                </div></div>';
+            break;
 			case 'CDR':
 				echo '<div class="row">
 					<div class="col-sm-3 text-right">

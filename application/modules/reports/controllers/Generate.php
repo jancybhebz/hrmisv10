@@ -75,6 +75,10 @@ class Generate extends MY_Controller
                 $this->load->model('ComparativeAnalysisOfCandidatesQualifications_model');
                 $this->ComparativeAnalysisOfCandidatesQualifications_model->generate($arrGet);
             break;
+            case 'EAS':
+                $this->load->model('EmployeesAttendanceSummary_model');
+                $this->EmployeesAttendanceSummary_model->generate($arrGet);
+            break;
             case 'EFDS':
                 $this->load->model('EmployeeFirstDayService_model');
                 $this->EmployeeFirstDayService_model->generate($arrGet);
