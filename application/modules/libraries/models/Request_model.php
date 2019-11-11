@@ -36,19 +36,15 @@ class Request_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 
-	function getData($intReqId = '')
+	function getData($req_id='')
 	{		
-		$this->db->join('tblRequestType','tblRequestFlow.RequestType = tblRequestType.requestCode','left');
-		$this->db->join('tblRequestApplicant','tblRequestFlow.Applicant = tblRequestApplicant.AppliCode','left');
+		if($req_id!=''):
+			$res = $this->db->get_where($this->table,array('reqID' => $req_id))->result_array();
+			return count($res) > 0 ? $res[0] : array();
+		endif;
 
-
-		if($intReqId != "")
-		{
-			$this->db->where($this->tableid,$intReqId);
-		}
-
-		$objQuery = $this->db->get($this->table);
-		return $objQuery->result_array();	
+		$this->db->order_by('reqID');
+		return $this->db->get($this->table)->result_array();	
 	}
 
 	function getEmpDetails($intEmpNumber = '')
@@ -63,14 +59,26 @@ class Request_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getRequestType($strReqCode = '')
-	{		
-		if($strReqCode != "")
-		{
-			$this->db->where($this->tableid3,$strReqCode);
-		}
-		$objQuery = $this->db->get($this->table3);
-		return $objQuery->result_array();	
+	function getRequestType($req_code='')
+	{
+		$leaves = $this->db->get('tblLeave')->result_array();
+		$request_types = $this->db->get($this->table3)->result_array();
+		$request_types[] = array('requestCode' => 'Monetization','requestDesc' => 'Monetization');
+		unset($request_types[array_search('leave', array_column($request_types, 'requestCode'))]);
+
+		foreach($leaves as $key => $leave):
+			$request_types[] = array('requestCode' => $leave['leaveCode'],'requestDesc' => $leave['leaveType']);
+		endforeach;
+
+		$request_types = array_sort($request_types, 'requestDesc', SORT_ASC);
+		if($req_code!=''):
+			$key = array_search($req_code, array_column($request_types, 'requestCode'));
+			if($key!=''):
+				return $request_types[$key];
+			endif;
+		else:
+			return $request_types;
+		endif;
 	}
 
 	function getApplicant($strAppliCode = '')
@@ -96,21 +104,11 @@ class Request_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	// function getOfficeName($strGroupCode = '')
-	// {		
-	// 	if($strGroupCode != "")
-	// 	{
-	// 		$this->db->where('group1Code',$strGroupCode);
-	// 	}
-	
-	// 	$this->db->join('tblGroup2','tblGroup2.group1Code = tblGroup1.group1Code','left');
-	// 	$this->db->join('tblGroup3','tblGroup3.group1Code = tblGroup1.group1Code','left');
-	// 	$this->db->join('tblGroup4','tblGroup4.group1Code = tblGroup1.group1Code','left');
-	// 	$this->db->order_by('group1Name','asc');
-	// 	$objQuery = $this->db->get('tblGroup1');
-	// 	return $objQuery->result_array();	
-	// }
-
+	function check_request_flow($request_type,$applicant)
+	{
+		$res = $this->db->get_where('tblRequestFlow',array('RequestType' => $request_type, 'Applicant' => $applicant))->result_array();
+		return count($res) > 0 ? 1 : 0;
+	}
 
 	function getAction($strAction = '')
 	{		

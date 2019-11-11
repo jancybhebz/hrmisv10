@@ -73,10 +73,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <td><?=$no++?></td>
                                 <td><?=$request['requestDesc']?> </td>
                                 <td><?=$request['Applicant']?> </td>
-                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['first_signatory'])?></td>
-                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['second_signatory'])?></td>
-                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['third_signatory'])?></td>
-                                <td nowrap><?=implode(' <i class="fa fa-long-arrow-right"></i> ',$request['final_signatory'])?></td>
+                                <td nowrap>
+                                    <?=strlen(implode($request['first_signatory'])) == 0 ? '' : implode(' <i class="fa fa-long-arrow-right"></i> ',$request['first_signatory'])?></td>
+                                <td nowrap>
+                                    <?=strlen(implode($request['second_signatory'])) == 0 ? '' : implode(' <i class="fa fa-long-arrow-right"></i> ',$request['second_signatory'])?></td>
+                                <td nowrap>
+                                    <?=strlen(implode($request['third_signatory'])) == 0 ? '' : implode(' <i class="fa fa-long-arrow-right"></i> ',$request['third_signatory'])?></td>
+                                <td nowrap>
+                                    <?=strlen(implode($request['final_signatory'])) == 0 ? '' : implode(' <i class="fa fa-long-arrow-right"></i> ',$request['final_signatory'])?></td>
                                 <td width="150px" style="white-space: nowrap;">
                                     <a class="btn btn-sm btn-success" href="<?=base_url('libraries/request/edit/'.$request['reqID'])?>">
                                         <i class="fa fa-edit" title="Edit"></i> Edit</a>

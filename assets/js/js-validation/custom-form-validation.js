@@ -133,6 +133,29 @@ function check_null(el,msg)
     }
 }
 
+function check_null_select2(el,msg)
+{
+    $(el).closest('div.form-group').find('i.fa-calendar').remove();
+    if($(el).val() == null){
+        $(el).val('');
+    }
+    if($(el).val() != '' && $(el).val() != '0' && $(el).val().replace(/\s/g, '').length > 0){
+        $(el).closest('div.form-group').removeClass('has-error');
+        $(el).closest('div.form-group').addClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+        return 0;
+    }else{
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="'+msg+'"></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
+}
+
 function check_number(el,msg='')
 {
     var value = $(el).val();

@@ -36,7 +36,6 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12">
-        <pre><?php if(isset($arrob)): print_r($arrob); endif; ?></pre>
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">

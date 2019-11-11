@@ -54,41 +54,11 @@ class Leave_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	// function submitFL($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitSPL($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitSL($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitVL($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitML($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitPL($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
-	// function submitSTL($arrData)
-	// {
-	// 	$this->db->insert('tblEmpRequest', $arrData);
-	// 	return $this->db->insert_id();		
-	// }
+	function getLeaveByCode($code)
+	{
+		$res = $this->db->get_where('tblLeave',array('leaveCode' => $code))->result_array();
+		return count($res) > 0 ? $res[0] : array();
+	}
 	
 	function checkExist($strDay = '')
 	{		
