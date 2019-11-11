@@ -49,7 +49,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Type of Request <span class="required"> * </span></label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="select2 form-control form-required" name="request_type[]" id="request_type" multiple>
+                                                <select class="select2 form-control form-required" name="request_type[]" id="request_type" multiple <?=$action=='delete'?'disabled':''?>>
                                                     <?php foreach($arrRequestType as $type):
                                                             $selected = '';
                                                             if(isset($request_flow)):
@@ -80,7 +80,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Type <span class="required"> * </span></label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="app_type" id="app_type">
+                                                <select class="bs-select form-control form-required" name="app_type" id="app_type" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT TYPE OF APPLICANT -- </option>
                                                     <?php foreach($arrApplicant as $applicant):
                                                             $selected = '';
@@ -101,7 +101,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Office Name </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="select2 form-control form-required" name="app_office" id="app_office">
+                                                <select class="select2 form-control form-required" name="app_office" id="app_office" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT OFFICE -- </option>
                                                     <?=getGroupOffice(isset($request_flow) ? $app_type[1] : '')?>
                                                 </select>
@@ -116,7 +116,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Employee Name </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="select2 form-control form-required" name="app_employee" id="app_employee">
+                                                <select class="select2 form-control form-required" name="app_employee" id="app_employee" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT EMPLOYEE -- </option>
                                                     <?php foreach($arrEmployees as $data):
                                                             $selected = '';
@@ -147,7 +147,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Action </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sig1_action" id="sig1_action">
+                                                <select class="bs-select form-control form-required" name="sig1_action" id="sig1_action" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT ACTION -- </option>
                                                     <?php foreach($arrAction as $sig_action): if($sig_action['ID']!=1):
                                                             $selected = '';
@@ -168,7 +168,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Signatory </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sig1_signatory" id="sig1_signatory">
+                                                <select class="bs-select form-control form-required" name="sig1_signatory" id="sig1_signatory" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT SIGNATORY -- </option>
                                                     <?php foreach($arrSignatory as $signatory):
                                                             $selected = '';
@@ -189,7 +189,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Officer </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="select2 form-control form-required" name="sig1_officer" id="sig1_officer">
+                                                <select class="select2 form-control form-required" name="sig1_officer" id="sig1_officer" <?=$action=='delete'?'disabled':''?>>
                                                     <option value="0"> -- SELECT EMPLOYEE -- </option>
                                                     <?php foreach($arrEmployees as $data):
                                                             $selected = '';
@@ -220,7 +220,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Action </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sig2_action" id="sig2_action">
+                                                <select class="bs-select form-control form-required" name="sig2_action" id="sig2_action" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT ACTION -- </option>
                                                     <?php foreach($arrAction as $sig_action): if($sig_action['ID']!=1):
                                                             $selected = '';
@@ -241,7 +241,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Signatory </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sig2_signatory" id="sig2_signatory">
+                                                <select class="bs-select form-control form-required" name="sig2_signatory" id="sig2_signatory" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT SIGNATORY -- </option>
                                                     <?php foreach($arrSignatory as $signatory):
                                                             $selected = '';
@@ -262,7 +262,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Officer </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="select2 form-control form-required" name="sig2_officer" id="sig2_officer">
+                                                <select class="select2 form-control form-required" name="sig2_officer" id="sig2_officer" <?=$action=='delete'?'disabled':''?>>
                                                     <option value="0"> -- SELECT EMPLOYEE -- </option>
                                                     <?php foreach($arrEmployees as $data):
                                                             $selected = '';
@@ -293,7 +293,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Action </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sig3_action" id="sig3_action">
+                                                <select class="bs-select form-control form-required" name="sig3_action" id="sig3_action" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT ACTION -- </option>
                                                     <?php foreach($arrAction as $sig_action): if($sig_action['ID']!=1):
                                                             $selected = '';
@@ -314,7 +314,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Signatory </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sig3_signatory" id="sig3_signatory">
+                                                <select class="bs-select form-control form-required" name="sig3_signatory" id="sig3_signatory" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT SIGNATORY -- </option>
                                                     <?php foreach($arrSignatory as $signatory):
                                                             $selected = '';
@@ -335,7 +335,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Officer </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="select2 form-control form-required" name="sig3_officer" id="sig3_officer">
+                                                <select class="select2 form-control form-required" name="sig3_officer" id="sig3_officer" <?=$action=='delete'?'disabled':''?>>
                                                     <option value="0"> -- SELECT EMPLOYEE -- </option>
                                                     <?php foreach($arrEmployees as $data):
                                                             $selected = '';
@@ -366,7 +366,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Action <span class="required"> * </span></label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sigfinal_action" id="sigfinal_action">
+                                                <select class="bs-select form-control form-required" name="sigfinal_action" id="sigfinal_action" <?=$action=='delete'?'disabled':''?>>
                                                     <?php foreach($arrAction as $sig_action): if($sig_action['ID']==1):
                                                             $selected = '';
                                                             if(isset($request_flow)):
@@ -386,7 +386,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Signatory </label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="bs-select form-control form-required" name="sigfinal_signatory" id="sigfinal_signatory">
+                                                <select class="bs-select form-control form-required" name="sigfinal_signatory" id="sigfinal_signatory" <?=$action=='delete'?'disabled':''?>>
                                                     <option value=""> -- SELECT SIGNATORY -- </option>
                                                     <?php foreach($arrSignatory as $signatory):
                                                             $selected = '';
@@ -407,7 +407,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <label class="control-label col-md-3">Officer <span class="required"> * </span></label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="select2 form-control form-required" name="sigfinal_officer" id="sigfinal_officer">
+                                                <select class="select2 form-control form-required" name="sigfinal_officer" id="sigfinal_officer" <?=$action=='delete'?'disabled':''?>>
                                                     <option value="0"> -- SELECT EMPLOYEE -- </option>
                                                     <?php foreach($arrEmployees as $data):
                                                             $selected = '';
@@ -428,9 +428,13 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label class="control-label col-md-3">&nbsp;</label>
-                                    <button type="submit" class="btn btn-success" id="btn_submit_signature">
-                                        <i class="icon-check"></i>
-                                        <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                                    <button type="submit" class="btn <?=$action=='delete' ? 'red' : 'btn-success'?>" id="btn_submit_signature">
+                                        <?php if($action=='delete'): ?>
+                                                <i class="icon-trash"> &nbsp;</i>Delete</button>
+                                        <?php else: ?>
+                                                <i class="icon-check"></i>
+                                                <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                                        <?php endif; ?>
                                     <a href="<?=base_url('libraries/request')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                                 </div>
                             </div>
