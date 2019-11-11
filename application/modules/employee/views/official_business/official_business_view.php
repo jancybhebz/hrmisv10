@@ -6,6 +6,8 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
+$obdetails = isset($arrob) ? explode(';',$arrob['requestDetails']) : array();
+$form_action = $action == 'add' ? 'employee/official_business/submit' : 'employee/official_business/edit?req_id='.$_GET['req_id'];
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker'))?>
@@ -34,7 +36,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <pre><?php if(isset($arrob)): print_r($arrob); endif; ?></pre>
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
@@ -43,9 +45,11 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                 </div>
             </div>
             <div class="portlet-body">
-                <?=form_open_multipart('employee/official_business/submit', array('method' => 'post', 'id' => 'frmOB'))?>
-                    <input class="hidden" name="strStatus" value="Filed Request">
-                    <input class="hidden" name="strCode" value="OB">
+                <?=form_open_multipart($form_action, array('method' => 'post', 'id' => 'frmOB'))?>
+                    <input type="hidden" name="strStatus" value="Filed Request">
+                    <input type="hidden" name="strCode" value="OB">
+                    <input type="hidden" id="txtfilesize" name="txtfilesize">
+                    <input type="hidden" id="txtdgstorage" name="txtdgstorage">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -76,7 +80,8 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                                 <label class="control-label">Date From :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom" value="" data-date-format="yyyy-mm-dd" autocomplete="off">   
+                                   <input type="text" class="form-control date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom"
+                                        value="<?=count($obdetails)>0 ? $obdetails[1]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off">   
                                 </div>
                             </div>
                         </div>
@@ -87,7 +92,8 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                                 <label class="control-label">Date To :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control date-picker" name="dtmOBdateto" id="dtmOBdateto" value="" data-date-format="yyyy-mm-dd" autocomplete="off">   
+                                   <input type="text" class="form-control date-picker" name="dtmOBdateto" id="dtmOBdateto"
+                                        value="<?=count($obdetails)>0 ? $obdetails[2]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off">   
                                 </div>
                             </div>
                         </div>
@@ -98,7 +104,8 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                                 <label class="control-label">Time From :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeFrom" id="dtmTimeFrom" value="<?=date('h:i:s A',strtotime($emp_att_scheme['amTimeinTo']))?>"  autocomplete="off">   
+                                   <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeFrom" id="dtmTimeFrom"
+                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['amTimeinTo']))?>" autocomplete="off">   
                                 </div>
                             </div>
                         </div>
@@ -109,7 +116,8 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                                 <label class="control-label">Time To :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeTo" id="dtmTimeTo" value="<?=date('h:i:s A',strtotime($emp_att_scheme['pmTimeoutTo']))?>">
+                                   <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeTo" id="dtmTimeTo"
+                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['pmTimeoutTo']))?>">
                                 </div>
                             </div>
                         </div>
@@ -120,7 +128,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                                 <label class="control-label">Destination :  <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" value="<?=!empty($this->session->userdata('strDestination'))?$this->session->userdata('strDestination'):''?>"></textarea>
+                                        <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000"><?=count($obdetails)>0 ? $obdetails[5]:''?></textarea>
                                     </div>
                             </div>
                         </div>
@@ -131,7 +139,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                                <label class="control-label">Purpose : <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strPurpose'))?$this->session->userdata('strPurpose'):''?>"></textarea>
+                                        <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control"><?=count($obdetails)>0 ? $obdetails[7]:''?></textarea>
                                     </div>
                             </div>
                         </div>
@@ -140,7 +148,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                         <div class="col-sm-12">
                             <div class="form-group">
                                <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
-                                    <input type="checkbox" value="Meal" name="strMeal" id="strMeal" />
+                                    <input type="checkbox" value="Y" name="strMeal" id="strMeal" <?=count($obdetails)>0 ? strtoupper($obdetails[6])=='Y' ? 'checked' : '' :''?> />
                             </div>
                         </div>
                     </div>
@@ -151,9 +159,29 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
                                     <i class="fa fa-upload"></i> Attach File
                                     <input type="file" name ="userfile[]" id= "userfile" multiple 
                                         style='left: 16px !important;width: 108px;height: 34px;position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
-                                        name="file_source" size="40" onchange='$("#upload-file-info").html($(this).val());'>
+                                        name="file_source" size="40">
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div id="upload-file-info">
+                                <?php
+                                    if(isset($arrob)): if($arrob['file_location']!=''):
+                                        foreach(json_decode($arrob['file_location'], true) as $attach):
+                                            $ext = explode('.',$attach['filename']);
+                                            $ext = $ext[count($ext)-1];
+                                            echo '<span><i></i>
+                                                        <a href="'.base_url($attach['filepath']).'" target="_blank"><i class="'.check_icon($ext).'"></i> '.$attach['filename'].'</a>
+                                                        <a href="javascript:;" id="btn-attach" data-id="'.$attach['fileid'].'" class="font-red"><i class="fa fa-remove"></i></a>
+                                                    </span><br>';
+                                        endforeach;
+                                    endif; endif;
+                                 ?>
+                            </div>
+                            <span id="upload-size" class="small bold"></span><br>
+                            <span id="upload-error" class="font-red small">Maximum upload must be 100MB.</span>
                         </div>
                     </div>
                     <div class="row"><div class="col-sm-8"><hr></div></div>
@@ -199,11 +227,42 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
 </div>
 <!-- end ob form modal -->
 
+<!-- begin delete attachment -->
+<div id="delete-attachment" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Delete Attachment</h4>
+            </div>
+            <?php $reqid = isset($_GET['req_id'])?$_GET['req_id']:''; ?>
+            <?=form_open('employee/official_business/delete?req_id='.$reqid, array('id' => 'frmob_attach'))?>
+                <div class="modal-body">
+                    <div class="row form-body">
+                        <div class="col-md-12">
+                            <input type="text" name="txtob_attach_id" id="txtob_attach_id">
+                            <div class="form-group">
+                                <label>Are you sure you want to delete this data?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnsubmit-adj-delete" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+                </div>
+            <?=form_close()?>
+        </div>
+    </div>
+</div>
+<!-- end delete attachment -->
+
+
 <?=load_plugin('js',array('form_validation','datepicker','timepicker'));?>
 
 <script>
 $(document).ready(function() {
-
+    $('#upload-error').hide();
     $('.date-picker').datepicker();
     $('.date-picker').on('changeDate', function(){
         $(this).datepicker('hide');
@@ -216,6 +275,12 @@ $(document).ready(function() {
         showSeconds: true,
         showMeridian: true,
         // defaultValue: '12:00:00 a'
+    });
+
+    $('a#btn-attach').on('click',function() {
+        var id = $(this).data('id');
+        $('#txtob_attach_id').val(id);
+        $('#delete-attachment').modal('show');
     });
 
     $('#printreport').click(function(){
@@ -233,6 +298,38 @@ $(document).ready(function() {
         $('#ob-embed').attr('src',link);
         $('#ob-embed-fullview').attr('href',link);
         $('#ob-form').modal('show');
+    });
+
+    $('#userfile').on('keyup keypress change',function() {
+        $('#upload-error').hide();
+        var fnames = '<ul>';
+        var total_size = 0;
+        for (var i = 0; i < $(this).get(0).files.length; ++i) {
+            fnames = fnames + '<li>' + $(this).get(0).files[i].name + '</li>';
+            total_size = total_size + $(this).get(0).files[i].size;
+        }
+
+        if(total_size < 1000000){
+            $('#txtfilesize').val(Math.floor(total_size/1000));
+            $('#txtdgstorage').val('KB');
+            $('#upload-size').html('Total Filesize: '+Math.floor(total_size/1000)+' KB');
+        }else{
+            $('#txtfilesize').val(Math.floor(total_size/1000000));
+            $('#txtdgstorage').val('MB');
+            $('#upload-size').html('Total Filesize: '+Math.floor(total_size/1000000)+' MB');
+        }
+        $('#upload-file-info').html(fnames+'</ul>');
+
+        if($('#txtdgstorage').val() == 'MB' || $('#txtdgstorage').val() == 'KB') {
+            if($('#txtdgstorage').val() == 'MB') {
+                if($('#txtfilesize').val() > 100){
+                    $('#upload-error').show();
+                }
+            }
+        }else{
+            $('#upload-error').show();
+        }
+
     });
 
     $('#dtmOBrequestdate').on('keyup keypress change',function() {
@@ -264,6 +361,7 @@ $(document).ready(function() {
     });
 
     $('#btn-request-ob').click(function(e) {
+        $('#upload-error').hide();
         var total_error = 0;
 
         total_error = total_error + check_null('#dtmOBrequestdate','Request Date must not be empty.');
@@ -273,6 +371,20 @@ $(document).ready(function() {
         total_error = total_error + check_null('#dtmTimeTo','Time To must not be empty.');
         total_error = total_error + check_null('#strDestination','Destination must not be empty.');
         total_error = total_error + check_null('#strPurpose','Purpose must not be empty.');
+
+        if($('#txtdgstorage').val()!='' && $('#txtdgstorage').val()!=''){
+            if($('#txtdgstorage').val() == 'MB' || $('#txtdgstorage').val() == 'KB') {
+                if($('#txtdgstorage').val() == 'MB') {
+                    if($('#txtfilesize').val() > 100){
+                        total_error = total_error + 1;
+                        $('#upload-error').show();
+                    }
+                }
+            }else{
+                total_error = total_error + 1;
+                $('#upload-error').show();
+            }
+        }
 
         if(total_error > 0){
             e.preventDefault();

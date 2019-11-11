@@ -18,21 +18,28 @@ class Official_business_model extends CI_Model {
 		$this->db->initialize();	
 	}
 	
-	function getData($intReqId = '')
+	function getData($reqid='')
 	{		
-		$strWhere = '';
-		if($intReqId != "")
-			$strWhere .= " AND requestID = '".$intReqId."'";
+		// $strWhere = '';
+		// if($intReqId != "")
+		// 	$strWhere .= " AND requestID = '".$intReqId."'";
 		
-		$strSQL = " SELECT * FROM tblEmpRequest					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY requestDate
-					";
+		// $strSQL = " SELECT * FROM tblEmpRequest					
+		// 			WHERE 1=1 
+		// 			$strWhere
+		// 			ORDER BY requestDate
+		// 			";
 			
-		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
-		return $objQuery->result_array();	
+		// $objQuery = $this->db->query($strSQL);
+		// return $objQuery->result_array();
+
+		if($reqid!=''):
+			$res = $this->db->get_where('tblEmpRequest',array('requestID' => $reqid))->result_array();
+			return count($res) > 0 ? $res[0] : array();
+		else:
+			return $this->db->get('tblEmpRequest')->result_array();
+		endif;
+
 	}
 
 	function getall_request($empno)
@@ -53,7 +60,6 @@ class Official_business_model extends CI_Model {
 					requestDetails ='$strOBtype' AND
 					requestDate ='$dtmOBrequestdate'					
 					";
-		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	
 	}
@@ -62,7 +68,6 @@ class Official_business_model extends CI_Model {
 	{
 		$this->db->where('requestID', $intReqId);
 		$this->db->update('tblEmpRequest', $arrData);
-		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

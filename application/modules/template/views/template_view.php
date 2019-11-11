@@ -21,7 +21,7 @@
     </head>
     <!-- END HEAD -->
 
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-footer-fixed" oncontextmenu ="return false;">
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-footer-fixed">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
@@ -133,28 +133,6 @@
         load_plugin('js',array('global'));?>
         <!-- BEGIN TEMPLATE SCRIPTS -->
         <script>
-            document.onkeydown=function(e) {
-                if(event.keyCode == 123) {
-                    return false;
-                }
-
-                if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                    return false;
-                }
-
-                if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                    return false;
-                }
-
-                if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-                    return false;
-                }
-
-                if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                    return false;
-                }
-            }
-
             $(document).ready(function(){
                 /* Set flash message */
                 <?php if($this->session->flashdata('strMsg')!=''):?>

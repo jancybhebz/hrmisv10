@@ -1,3 +1,31 @@
+function check_icon(ext) {
+    ext = ext.toLowerCase();
+    if(ext.includes(['doc','docx','dotx'])){
+        return 'file-word-o';
+    }else if(ext.includes(['xlsx','xlsm','xlsx'])){
+        return 'file-excel-o';
+    }else if(ext.includes(['ppt','pptx'])){
+        return 'file-powerpoint-o';
+    }else if(ext.includes(['pdf'])){
+        return 'file-pdf-o';
+    }else if(ext.includes(['jpg','jpeg','png'])){
+        return 'file-photo-o';
+    }else if(ext.includes(['zip','rar'])){
+        return 'file-zip-o';
+    }else{
+        return 'file';
+    }
+}
+
+function ellipsisChar(text, size) {
+    var len = text.length;
+    if (len >= size) {
+        // if text length is equal to or more than given size then add ...
+        text = text.substring(0, size) + "...";
+    }
+    return text;
+};
+
 function getsegment(num) {
     num += 1;
     var loc = window.location.href.replace('//','');

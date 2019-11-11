@@ -64,6 +64,12 @@ Other Setup
 * Hrmisv10 Schema for new users:
 * [https://tinyurl.com/hrmisv10-schema] (https://tinyurl.com/hrmisv10-schema)
 * Password: hrmisdost
+* File upload setup:
+	1. Type sudo vim /etc/php/7.1/apache2/php.ini
+	2. To increaes file upload size in PHP, you need to modify the upload_max_filesize and post_max_size variable's in your php.ini file, change the following setup:
+		upload_max_filesize = 100M
+		post_max_size = 100M
+		max_file_uploads = 20
 
 Errors:
 	  The action you have requested is not allowed. (POST) or timeoutkeepalive 403 (Forbidden):
