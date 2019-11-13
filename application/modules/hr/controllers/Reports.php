@@ -257,6 +257,19 @@ class Reports extends MY_Controller
 				echo '<div class="col-sm-2">'.comboYear('dtrYear').'</div>
                 </div></div>';
             break;
+            case 'EP':
+            	echo '<div class="row">
+                	<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">Signatory : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
+	        			</div>
+                	</div>
+                </div>';
+            break;
 			case 'CDR':
 				echo '<div class="row">
 					<div class="col-sm-3 text-right">
