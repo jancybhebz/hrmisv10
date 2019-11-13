@@ -245,3 +245,29 @@ if ( ! function_exists('ld_type'))
         return array('Administrative','Managerial','Supervisory','Technical');
     }
 }
+
+# Notification
+function getDestination($desti)
+{
+    $desti = explode(';', $desti);
+    if(count($desti) > 1):
+        $empdesti = employee_name($desti[2]);
+        switch ($desti[0]):
+            case 'RECOMMENDED':
+                return 'for Recommendation by '.$empdesti;
+                echo 'for Recommendation by '.$empdesti;
+                break;
+            case 'APPROVED':
+                return 'for Approval by '.$empdesti;
+                echo 'for Approval by '.$empdesti;
+                break;
+            case 'CERTIFIED':
+                return 'for Certification by '.$empdesti;
+                echo 'for Certification by '.$empdesti;
+                break;
+            default:
+                return '';
+                break;
+        endswitch;
+    endif;
+}

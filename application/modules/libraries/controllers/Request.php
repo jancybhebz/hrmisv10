@@ -22,7 +22,7 @@ class Request extends MY_Controller {
 	{
 		$arrRequest = array();
 		$all_requests = $this->request_model->getData();
-
+		
 		foreach($all_requests as $key => $request):
 			$requestDesc = array();
 			foreach(explode(';',$request['RequestType']) as $rtype):
@@ -137,20 +137,12 @@ class Request extends MY_Controller {
 
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
-			$request_type = implode(';',$arrPost['request_type']);
-			$applicant = implode(';',array($arrPost['app_type'],$arrPost['app_office'],$arrPost['app_employee']));
-			$arrData = array(
-				'RequestType' => $request_type,
-				'Applicant'	  => $applicant,
-				'Signatory1'  => implode(';',array($arrPost['sig1_action'],$arrPost['sig1_signatory'],$arrPost['sig1_officer']=='0'?'':$arrPost['sig1_officer'])),
-				'Signatory2'  => implode(';',array($arrPost['sig2_action'],$arrPost['sig2_signatory'],$arrPost['sig2_officer']=='0'?'':$arrPost['sig2_officer'])),
-				'Signatory3'  => implode(';',array($arrPost['sig3_action'],$arrPost['sig3_signatory'],$arrPost['sig3_officer']=='0'?'':$arrPost['sig3_officer'])),
-				'SignatoryFin'=> implode(';',array($arrPost['sigfinal_action'],$arrPost['sigfinal_signatory'],$arrPost['sigfinal_officer']=='0'?'':$arrPost['sigfinal_officer'])));
+			$arrData = array('isactive' => 0);
 
 			$blnReturn = $this->request_model->save($arrData, $req_id);
 			if(count($blnReturn)>0)
 			{	
-				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblRequestflow','Update '.$request_type.' Request',implode(';',$arrData),'');
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblRequestflow','delete Request',implode(';',$arrData),'');
 				$this->session->set_flashdata('strSuccessMsg','Request signatory updated successfully.'); 
 			}
 			redirect('libraries/request');
@@ -165,32 +157,6 @@ class Request extends MY_Controller {
 		$this->arrData['arrAction'] = $this->request_model->getAction();
 		$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
 		$this->template->load('template/template_view','libraries/request/add_view',$this->arrData);
-		// //$strDescription=$arrPost['strDescription'];
-		// $arrPost = $this->input->post();
-		// $intReqId = $this->uri->segment(4);
-		// if(empty($arrPost))
-		// {
-		// 	$this->arrData['arrData'] = $this->request_model->getData($intReqId);
-		// 	$this->template->load('template/template_view','libraries/request/delete_view',$this->arrData);
-		// }
-		// else
-		// {
-		// 	$intReqId = $arrPost['intReqId'];
-		// 	//add condition for checking dependencies from other tables
-		// 	if(!empty($intReqId))
-		// 	{
-		// 		$arrRequest = $this->request_model->getData($intReqId);
-		// 		$strReqType = $arrRequest[0]['strReqType'];	
-		// 		$blnReturn = $this->request_model->delete($intReqId);
-		// 		if(count($blnReturn)>0)
-		// 		{
-		// 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblrequestflow','Deleted '.$strReqType.' Request',implode(';',$arrRequest[0]),'');
-	
-		// 			$this->session->set_flashdata('strMsg','Request signatory deleted successfully.');
-		// 		}
-		// 		redirect('libraries/request');
-		// 	}
-		// }
 		
 	}
 }

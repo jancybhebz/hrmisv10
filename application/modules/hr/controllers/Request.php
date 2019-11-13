@@ -5,10 +5,118 @@ class Request extends MY_Controller {
 
 	var $arrData;
 
-	function __construct() {
+	function __construct()
+	{
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/Official_business_model'));
     }
+
+    public function index()
+	{
+		# ob
+		$active_menu = isset($_GET['status']) ? $_GET['status']=='' ? 'Filed Request' : $_GET['status'] : 'Filed Request';
+		$_GET['status'] = $active_menu;
+		$menu = array('All','Filed Request','Certified','Cancelled','Disapproved');
+		unset($menu[array_search($active_menu, $menu)]);
+		$notif_icon = array('All' => 'list', 'Filed Request' => 'file-text-o', 'Certified' => 'check', 'Cancelled' => 'ban', 'Disapproved' => 'remove');
+
+		$this->arrData['active_code'] = isset($_GET['code']) ? $_GET['code']=='' ? 'all' : $_GET['code'] : 'all';
+		$this->arrData['arrNotif_menu'] = $menu;
+		$this->arrData['active_menu'] = $active_menu;
+		$this->arrData['notif_icon'] = $notif_icon;
+
+		# begin OB
+		$arrob_request = $this->official_business_model->getall_request();
+		if(isset($_GET['status'])):
+			if(strtolower($_GET['status'])!='all'):
+				$ob_request = array();
+				foreach($arrob_request as $key=>$ob):
+					$next_signatory = $this->Request_model->get_next_signatory($ob,'OB');
+					$ob['next_signatory'] = $next_signatory;
+					if(strtolower($_GET['status']) == strtolower($ob['requestStatus'])):
+						if($active_menu == 'Filed Request'):
+							if($ob['next_signatory']['display'] == 1):
+								$ob_request[] = $ob;
+							endif;
+						else:
+							$ob_request[] = $ob;
+						endif;
+					endif;
+				endforeach;
+				$arrob_request = $ob_request;
+			else:
+				foreach($arrob_request as $key=>$ob):
+					$next_signatory = $this->Request_model->get_next_signatory($ob,'OB');
+					$ob['next_signatory'] = $next_signatory;
+					$ob_request[] = $ob;
+				endforeach;
+				$arrob_request = $ob_request;
+			endif;
+		endif;
+		$this->arrData['arrob_request'] = $arrob_request;
+		# end OB
+
+		$this->template->load('template/template_view', 'hr/request/view_list', $this->arrData);
+	}
+
+	public function update_ob()
+	{
+		$arrPost = $this->input->post();
+
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+		$txtremarks = '';
+		if(!empty($arrPost)):
+			$optstatus = $arrPost['optstatus'];
+			$txtremarks = $arrPost['txtremarks'];
+		endif;
+
+		$req_id = $_GET['req_id'];
+		$arrob = $this->official_business_model->getData($_GET['req_id']);
+		$ob_details = explode(';',$arrob['requestDetails']);
+			
+		# signatories
+		$arremp_signature = $this->Request_model->get_signature($arrob['requestCode']);
+
+		$arrob_data = array(
+			'dateFiled'		=> $ob_details[1],
+			'empNumber'		=> $arrob['empNumber'],
+			'requestID'		=> $arrob['requestID'],
+			'obDateFrom'	=> $ob_details[2],
+			'obDateTo'		=> $ob_details[3],
+			'obTimeFrom'	=> $ob_details[4],
+			'obTimeTo'		=> $ob_details[5],
+			'obPlace'		=> $ob_details[6],
+			'obMeal'		=> $ob_details[8]==''?'N':$ob_details[8],
+			'purpose'		=> $ob_details[7],
+			'official'		=> strtolower($ob_details[0]) == 'official' ? 'Y' : '',
+			'approveRequest'=> '',
+			'approveChief'	=> '',
+			'approveHR'		=> check_module()=='hr' ? strtolower($optstatus) == 'certified' ? 'Y' : '' : '',
+			'is_override'	=> '',
+			'override_id'	=> ''
+		);
+
+		$addreturn = $this->Official_business_model->add($arrob_data);
+		if(count($addreturn)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Official Business',json_encode($arrob_data),'');
+		endif;
+
+		$arrob_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+
+		$arrob_signatory = array_merge($arrob_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrob_signatory, $arrob['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrob_signatory),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
+		endif;
+
+		redirect('hr/request?request=ob');
+	}
 
 	public function leave_request()
 	{

@@ -1,0 +1,114 @@
+<?php
+    load_plugin('css',array('datatables'));
+    $request = isset($_GET['request']) ? $_GET['request'] : 'ob'; ?>
+<!-- BEGIN PAGE BAR -->
+<style>
+    .tabbable-line > .nav-tabs > li > a {
+        padding-left: 3px;
+    }
+</style>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?=base_url('home')?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Requests</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<br>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-dark">
+                            <i class="icon-doc font-dark"></i>
+                            <span class="caption-subject bold uppercase"> Request</span>
+                        </div>
+                    </div>
+                    <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                    <div class="portlet-body"  id="request_view" style="display: none">
+                        <div class="row">
+                            <div class="tab-pane" id="tab_1_1">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <!-- begin tab -->
+                                        <div class="tabbable-line tabbable-custom-profile">
+                                            <ul class="nav nav-tabs">
+                                                <li class="<?=$request=='ob'?'active':''?>">
+                                                    <a href="#tab-ob" data-toggle="tab"> Official Business </a>
+                                                </li>
+                                                <li class="<?=$request=='leave'?'active':''?>">
+                                                    <a href="#tab-leave" data-toggle="tab"> Leave </a>
+                                                </li>
+                                                <li class="<?=$request=='to'?'active':''?>">
+                                                    <a href="#tab-to" data-toggle="tab"> Travel Order </a>
+                                                </li>
+                                                <li class="<?=$request=='pds'?'active':''?>">
+                                                    <a href="#tab-pds" data-toggle="tab"> PDS Update </a>
+                                                </li>
+                                                <li class="<?=$request=='mone'?'active':''?>">
+                                                    <a href="#tab-mone" data-toggle="tab"> Leave Monetization </a>
+                                                </li>
+                                                <li class="<?=$request=='dtr'?'active':''?>">
+                                                    <a href="#tab-dtr" data-toggle="tab"> Update DTR </a>
+                                                </li>
+                                                <li class="<?=$request=='cto'?'active':''?>">
+                                                    <a href="#tab-cto" data-toggle="tab"> Compensatory Leave </a>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                
+                                                <div class="tab-pane <?=$request=='ob'?'active':''?>" id="tab-ob">
+                                                    <?php $this->load->view('_ob_request.php'); ?>
+                                                </div>
+
+                                                <div class="tab-pane <?=$request=='leave'?'active':''?>" id="tab-leave">
+                                                    leave
+                                                </div>
+
+                                                <div class="tab-pane <?=$request=='to'?'active':''?>" id="tab-to">
+                                                    to
+                                                </div>
+
+                                                <div class="tab-pane <?=$request=='pds'?'active':''?>" id="tab-pds">
+                                                    pds
+                                                </div>
+
+                                                <div class="tab-pane <?=$request=='mone'?'active':''?>" id="tab-mone">
+                                                    mone
+                                                </div>
+
+                                                <div class="tab-pane <?=$request=='dtr'?'active':''?>" id="tab-dtr">
+                                                    dtr
+                                                </div>
+
+                                                <div class="tab-pane <?=$request=='cto'?'active':''?>" id="tab-cto">
+                                                    cto
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- end tab -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php load_plugin('js',array('form_validation','datatables'));?>
+<script src="<?=base_url('assets/js/request.js')?>"></script>
+
+<?php $this->load->view('_modal_js.php'); ?>

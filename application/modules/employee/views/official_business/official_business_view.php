@@ -7,7 +7,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
 $obdetails = isset($arrob) ? explode(';',$arrob['requestDetails']) : array();
-$form_action = $action == 'add' ? 'employee/official_business/submit' : 'employee/official_business/edit?req_id='.$_GET['req_id'];
+$hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
+if($hrmodule):
+    $form_action = 'hr/request/update_ob?req_id='.$_GET['req_id'];
+else:
+    $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employee/official_business/edit?req_id='.$_GET['req_id'];
+endif;
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker'))?>
@@ -23,7 +28,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=ucwords($action)?> OB</span>
+            <span><?=ucwords($hrmodule ? 'view' : $action)?> OB</span>
         </li>
     </ul>
 </div>
@@ -55,9 +60,9 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                 <label>Official Business: <span class="required"> * </span></label>
                                 <div class="radio-list">
                                     <label class="radio-inline">
-                                        <input type="radio" name="strOBtype" id="strOBtype" value="Official" checked> Official </label>
+                                        <input type="radio" name="strOBtype" id="strOBtype" value="Official" checked <?=$hrmodule ? 'disabled' : ''?>> Official </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="strOBtype" id="strOBtype" value="Personal"> Personal </label>
+                                        <input type="radio" name="strOBtype" id="strOBtype" value="Personal" <?=$hrmodule ? 'disabled' : ''?>> Personal </label>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +73,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                 <label class="control-label">Request Date :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" value="<?=date('Y-m-d')?>" data-date-format="yyyy-mm-dd" autocomplete="off">   
+                                   <input type="text" class="form-control date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" value="<?=date('Y-m-d')?>" data-date-format="yyyy-mm-dd" autocomplete="of" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -80,7 +85,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom"
-                                        value="<?=count($obdetails)>0 ? $obdetails[1]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off">   
+                                        value="<?=count($obdetails)>0 ? $obdetails[1]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -92,7 +97,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control date-picker" name="dtmOBdateto" id="dtmOBdateto"
-                                        value="<?=count($obdetails)>0 ? $obdetails[2]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off">   
+                                        value="<?=count($obdetails)>0 ? $obdetails[2]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -104,7 +109,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeFrom" id="dtmTimeFrom"
-                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['amTimeinTo']))?>" autocomplete="off">   
+                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['amTimeinTo']))?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -116,7 +121,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeTo" id="dtmTimeTo"
-                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['pmTimeoutTo']))?>">
+                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['pmTimeoutTo']))?>" <?=$hrmodule ? 'disabled' : ''?>>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +132,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                 <label class="control-label">Destination :  <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000"><?=count($obdetails)>0 ? $obdetails[5]:''?></textarea>
+                                        <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" <?=$hrmodule ? 'disabled' : ''?>><?=count($obdetails)>0 ? $obdetails[5]:''?></textarea>
                                     </div>
                             </div>
                         </div>
@@ -138,7 +143,7 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                                <label class="control-label">Purpose : <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control"><?=count($obdetails)>0 ? $obdetails[7]:''?></textarea>
+                                        <textarea name="strPurpose" id="strPurpose" type="text" size="20" maxlength="100" class="form-control" <?=$hrmodule ? 'disabled' : ''?>><?=count($obdetails)>0 ? $obdetails[7]:''?></textarea>
                                     </div>
                             </div>
                         </div>
@@ -147,11 +152,11 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                         <div class="col-sm-12">
                             <div class="form-group">
                                <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
-                                    <input type="checkbox" value="Y" name="strMeal" id="strMeal" <?=count($obdetails)>0 ? strtoupper($obdetails[6])=='Y' ? 'checked' : '' :''?> />
+                                    <input type="checkbox" value="Y" name="strMeal" id="strMeal" <?=count($obdetails)>0 ? strtoupper($obdetails[6])=='Y' ? 'checked' : '' :''?> <?=$hrmodule ? 'disabled' : ''?> />
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" <?=$hrmodule ? 'hidden' : ''?>>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <a class='btn blue-madison' href='javascript:;'>
@@ -183,13 +188,29 @@ $form_action = $action == 'add' ? 'employee/official_business/submit' : 'employe
                             <span id="upload-error" class="font-red small">Maximum upload must be 100MB.</span>
                         </div>
                     </div>
+                    <div class="row" <?=$hrmodule ? '' : 'hidden'?>>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="control-label"> Remarks</label>
+                                <textarea class="form-control" name="txtremarks"></textarea>
+                                <br>
+                                <div class="radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optstatus" value="CERTIFIED" checked> <b>CERTIFY</b> </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optstatus" value="Disapproved"> <b>DISAPPROVE</b> </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row"><div class="col-sm-8"><hr></div></div>
                     <div class="row">
                         <div class="col-sm-8">
                             <button type="submit" class="btn btn-success" id="btn-request-ob">
                                 <i class="icon-check"></i>
                                 <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                            <a href="<?=base_url('employee/official_business')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+
+                            <a href="<?=base_url($hrmodule ? 'hr/request?request=ob' : 'employee/official_business')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                             <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                         </div>
                     </div>

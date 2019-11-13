@@ -428,11 +428,12 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label class="control-label col-md-3">&nbsp;</label>
-                                    <button type="submit" class="btn <?=$action=='delete' ? 'red' : 'btn-success'?>" id="btn_submit_signature">
                                         <?php if($action=='delete'): ?>
-                                                <i class="icon-trash"> &nbsp;</i>Delete</button>
+                                                <a class="btn red" href="javascript:;" id="btn_delete-request">
+                                                    <i class="icon-trash"> &nbsp;</i>Delete</a>
                                         <?php else: ?>
-                                                <i class="icon-check"></i>
+                                                <button type="submit" class="btn btn-success" id="btn_submit_signature">
+                                                    <i class="icon-check"></i>
                                                 <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
                                         <?php endif; ?>
                                     <a href="<?=base_url('libraries/request')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
@@ -443,9 +444,37 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+<!-- begin delete request flow -->
+<div id="delete-request" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Delete Request Flow</h4>
+            </div>
+            <?=form_open('libraries/request/delete/'.$this->uri->segment(4), array('id' => 'frmdel-request'))?>
+                <input type="hidden" name="txtdelid">
+                <div class="modal-body">
+                    <div class="row form-body">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Are you sure you want to Delete this data?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm green"><i class="icon-check"> </i> Yes</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
+                </div>
+            <?=form_close()?>
+        </div>
+    </div>
+</div>
+<!-- end delete request flow -->
 
 <?php load_plugin('js',array('select2','form_validation','select'));?>
 <script src="<?=base_url('assets/js/custom/libraries-request_signature.js')?>"></script>

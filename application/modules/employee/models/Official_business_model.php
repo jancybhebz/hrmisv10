@@ -19,20 +19,7 @@ class Official_business_model extends CI_Model {
 	}
 	
 	function getData($reqid='')
-	{		
-		// $strWhere = '';
-		// if($intReqId != "")
-		// 	$strWhere .= " AND requestID = '".$intReqId."'";
-		
-		// $strSQL = " SELECT * FROM tblEmpRequest					
-		// 			WHERE 1=1 
-		// 			$strWhere
-		// 			ORDER BY requestDate
-		// 			";
-			
-		// $objQuery = $this->db->query($strSQL);
-		// return $objQuery->result_array();
-
+	{
 		if($reqid!=''):
 			$res = $this->db->get_where('tblEmpRequest',array('requestID' => $reqid))->result_array();
 			return count($res) > 0 ? $res[0] : array();
@@ -42,14 +29,23 @@ class Official_business_model extends CI_Model {
 
 	}
 
-	function getall_request($empno)
+	function getall_request($empno='')
 	{
-		return $this->db->order_by('requestDate','DESC')->get_where('tblEmpRequest',array('empNumber' => $empno, 'requestCode' => 'OB'))->result_array();
+		if($empno!=''):
+			$this->db->where('empNumber',$empno);
+		endif;
+		return $this->db->order_by('requestDate','DESC')->get_where('tblEmpRequest',array('requestCode' => 'OB'))->result_array();
 	}
 
 	function submit($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function add($arrData)
+	{
+		$this->db->insert('tblEmpOB', $arrData);
 		return $this->db->insert_id();		
 	}
 	

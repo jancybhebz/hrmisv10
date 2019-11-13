@@ -44,7 +44,7 @@ class Request_model extends CI_Model {
 		endif;
 
 		$this->db->order_by('reqID');
-		return $this->db->get($this->table)->result_array();	
+		return $this->db->get_where($this->table,array('isactive' => 1))->result_array();	
 	}
 
 	function getEmpDetails($intEmpNumber = '')
@@ -72,10 +72,7 @@ class Request_model extends CI_Model {
 
 		$request_types = array_sort($request_types, 'requestDesc', SORT_ASC);
 		if($req_code!=''):
-			$key = array_search($req_code, array_column($request_types, 'requestCode'));
-			if($key!=''):
-				return $request_types[$key];
-			endif;
+			foreach($request_types as $rt): if($rt['requestCode'] == $req_code): return $rt; endif; endforeach;
 		else:
 			return $request_types;
 		endif;
@@ -174,6 +171,92 @@ class Request_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
+	function get_signature($request_code)
+	{
+		$this->load->model('Request_model');
+		$signatories = $this->Request_model->request_signatories_bytype($request_code);
+		$arremp_signature = array();
+		if($signatories['Signatory1'] != ''):
+			$signatory = explode(';',$signatories['Signatory1']);
+			if(count($signatory) > 2):
+				if($signatory[2] == $_SESSION['sessEmpNo']):
+					$arremp_signature = array('Signatory1' => $_SESSION['sessEmpNo'], 'Sig1DateTime' =>date('Y-m-d'));
+				endif;
+			endif;
+		endif;
+
+		if($signatories['Signatory2'] != ''):
+			$signatory = explode(';',$signatories['Signatory2']);
+			if(count($signatory) > 2):
+				if($signatory[2] == $_SESSION['sessEmpNo']):
+					$arremp_signature = array('Signatory2' => $_SESSION['sessEmpNo'], 'Sig2DateTime' =>date('Y-m-d'));
+				endif;
+			endif;
+		endif;
+
+		if($signatories['Signatory3'] != ''):
+			$signatory = explode(';',$signatories['Signatory3']);
+			if(count($signatory) > 2):
+				if($signatory[2] == $_SESSION['sessEmpNo']):
+					$arremp_signature = array('Signatory3' => $_SESSION['sessEmpNo'], 'Sig3DateTime' =>date('Y-m-d'));
+				endif;
+			endif;
+		endif;
+
+		if($signatories['SignatoryFin'] != ''):
+			$signatory = explode(';',$signatories['SignatoryFin']);
+			if(count($signatory) > 2):
+				if($signatory[2] == $_SESSION['sessEmpNo']):
+					$arremp_signature = array('SignatoryFin' => $_SESSION['sessEmpNo'], 'SigFinDateTime' =>date('Y-m-d'));
+				endif;
+			endif;
+		endif;
+
+		return $arremp_signature;
+	}
+
+	function get_next_signatory($ob,$type)
+	{
+		$this->load->helper('config_helper');
+
+		$this->load->model('Request_model');
+		$signatories = $this->Request_model->request_signatories_bytype($type);
+		$rflowsign_1 = $signatories['Signatory1'] != '' ? explode(';',$signatories['Signatory1']) : array('','','');
+		$rflowsign_2 = $signatories['Signatory2'] != '' ? explode(';',$signatories['Signatory2']) : array('','','');
+		$rflowsign_3 = $signatories['Signatory3'] != '' ? explode(';',$signatories['Signatory3']) : array('','','');
+		$rflowsign_fin = $signatories['SignatoryFin'] != '' ? explode(';',$signatories['SignatoryFin']) : array('','','');
+
+		if($ob['Signatory1'] != ''):
+			if($ob['Signatory2'] != ''):
+				if($ob['Signatory3'] != ''):
+					if($ob['SignatoryFin'] == ''):
+						if($rflowsign_fin[2]!=''):
+							$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+							return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+						endif;
+					else:
+						return array('next_sign' => '', 'display' => 0);
+					endif;
+				else:
+					if($rflowsign_3[2]!=''):
+						$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+						return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+					endif;
+				endif;
+			else:
+				if($rflowsign_2[2]!=''):
+					$display = $rflowsign_2[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+					return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display);
+				endif;
+			endif;
+		else:
+			if($rflowsign_1[2]!=''):
+				$display = $rflowsign_1[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+				return array('next_sign' => getDestination($signatories['Signatory1']), 'display' => $display);
+			endif;
+		endif;
+	}
+
 	# Request Flow
 	function getRequestFlow($app='')
 	{
@@ -190,6 +273,12 @@ class Request_model extends CI_Model {
 		endif;
 		
 		return $res;
+	}
+
+	function request_signatories_bytype($request_type)
+	{
+		$res = $this->db->get_where('tblRequestFlow',array('RequestType' => $request_type,'isactive' => 1))->result_array();
+		return count($res) > 0 ? $res[0] : array();
 	}
 
 	function getEmployeeRequest($empnumber,$yr='',$month='')

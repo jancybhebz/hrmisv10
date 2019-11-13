@@ -109,6 +109,12 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '4') !== false))): ?> 
+                    <li class="nav-item <?=$active == 'hr' && $activesub == 'request' ? 'active' : '' ?> ">
+                         <a href="<?=base_url('hr/request')?>" class="nav-link nav-toggle">
+                            <i class="icon-doc"></i>
+                            <span class="title">Request</span>
+                        </a>                            
+                    </li>
                     <li class="nav-item <?=$active == 'hr' && $activesub == 'reports' ? 'active' : '' ?> ">
                          <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
                             <i class="icon-docs"></i>
@@ -122,7 +128,7 @@ $user_session = $this->session->userdata();
                         <a href="<?=base_url('libraries')?>" class="nav-link nav-toggle">
                             <i class="icon-settings"></i>
                             <span class="title">Libraries</span>
-                            <span class="arrow <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory')?'open':''?>""></span>
+                            <span class="arrow <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory')?'open':''?>"></span>
                         </a>
                         <ul class="sub-menu">
                             <?php 

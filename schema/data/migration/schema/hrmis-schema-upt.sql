@@ -2057,7 +2057,8 @@ CREATE TABLE `tblRequestFlow` (
   `Signatory1` varchar(100) NOT NULL DEFAULT '',
   `Signatory2` varchar(100) NOT NULL DEFAULT '',
   `Signatory3` varchar(100) NOT NULL DEFAULT '',
-  `SignatoryFin` varchar(100) NOT NULL DEFAULT ''
+  `SignatoryFin` varchar(100) NOT NULL DEFAULT '',
+  `isactive` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
