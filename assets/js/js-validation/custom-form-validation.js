@@ -1,3 +1,31 @@
+function check_icon(ext) {
+    ext = ext.toLowerCase();
+    if(ext.includes(['doc','docx','dotx'])){
+        return 'file-word-o';
+    }else if(ext.includes(['xlsx','xlsm','xlsx'])){
+        return 'file-excel-o';
+    }else if(ext.includes(['ppt','pptx'])){
+        return 'file-powerpoint-o';
+    }else if(ext.includes(['pdf'])){
+        return 'file-pdf-o';
+    }else if(ext.includes(['jpg','jpeg','png'])){
+        return 'file-photo-o';
+    }else if(ext.includes(['zip','rar'])){
+        return 'file-zip-o';
+    }else{
+        return 'file';
+    }
+}
+
+function ellipsisChar(text, size) {
+    var len = text.length;
+    if (len >= size) {
+        // if text length is equal to or more than given size then add ...
+        text = text.substring(0, size) + "...";
+    }
+    return text;
+};
+
 function getsegment(num) {
     num += 1;
     var loc = window.location.href.replace('//','');
@@ -89,6 +117,29 @@ function check_null(el,msg)
         $(el).val('');
     }
     if($(el).val() != '' && $(el).val().replace(/\s/g, '').length > 0){
+        $(el).closest('div.form-group').removeClass('has-error');
+        $(el).closest('div.form-group').addClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $('<i class="fa fa-check tooltips"></i>').insertBefore($(el));
+        return 0;
+    }else{
+        $(el).closest('div.form-group').addClass('has-error');
+        $(el).closest('div.form-group').removeClass('has-success');
+        $(el).closest('div.form-group').find('i.fa-check').remove();
+        $(el).closest('div.form-group').find('i.fa-warning').remove();
+        $('<i class="fa fa-warning tooltips font-red" data-original-title="'+msg+'"></i>').tooltip().insertBefore($(el));
+        return 1;
+    }
+}
+
+function check_null_select2(el,msg)
+{
+    $(el).closest('div.form-group').find('i.fa-calendar').remove();
+    if($(el).val() == null){
+        $(el).val('');
+    }
+    if($(el).val() != '' && $(el).val() != '0' && $(el).val().replace(/\s/g, '').length > 0){
         $(el).closest('div.form-group').removeClass('has-error');
         $(el).closest('div.form-group').addClass('has-success');
         $(el).closest('div.form-group').find('i.fa-warning').remove();

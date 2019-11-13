@@ -345,26 +345,31 @@ if ( ! function_exists('fixJson'))
 
 if ( ! function_exists('getGroupOffice'))
 {
-    function getGroupOffice()
+    function getGroupOffice($selected_office='')
     {
         $CI =& get_instance();
         $CI->load->model('request_model');
         $str='';
         $Group1 = $CI->request_model->getOfficeName(1);
         foreach($Group1 as $g1):
-            $str .= '<option value="'.$g1['group1Code'].'">'.$g1['group1Name'].'</option>';
+            $selected = $g1['group1Code'] == $selected_office ? 'selected' : '';
+            $str .= '<option value="'.$g1['group1Code'].'" '.$selected.'>'.$g1['group1Name'].'</option>';
             $Group2 = $CI->request_model->getOfficeName(2, $g1['group1Code']);
             foreach($Group2 as $g2):
-                $str .= '<option value="'.$g2['group2Code'].'">&nbsp;&nbsp;'.$g2['group2Name'].'</option>';
+                $selected = $g2['group2Code'] == $selected_office ? 'selected' : '';
+                $str .= '<option value="'.$g2['group2Code'].'" '.$selected.'>&nbsp;&nbsp;'.$g2['group2Name'].'</option>';
                 $Group3 = $CI->request_model->getOfficeName(3, $g2['group2Code']);
                 foreach($Group3 as $g3):
-                    $str .= '<option value="'.$g3['group3Code'].'"> &nbsp;&nbsp;&nbsp;&nbsp;'.$g3['group3Name'].'</option>';
+                    $selected = $g3['group3Code'] == $selected_office ? 'selected' : '';
+                    $str .= '<option value="'.$g3['group3Code'].'" '.$selected.'> &nbsp;&nbsp;&nbsp;&nbsp;'.$g3['group3Name'].'</option>';
                     $Group4 = $CI->request_model->getOfficeName(4, $g3['group3Code']);
                     foreach($Group4 as $g4):
-                        $str .= '<option value="'.$g4['group4Code'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$g4['group4Name'].'</option>';
+                        $selected = $g4['group4Code'] == $selected_office ? 'selected' : '';
+                        $str .= '<option value="'.$g4['group4Code'].'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$g4['group4Name'].'</option>';
                         $Group5 = $CI->request_model->getOfficeName(4, $g4['group4Code']);
                         foreach($Group5 as $g5):
-                        $str .= '<option value="'.$g5['group5Code'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$g5['group5Name'].'</option>';
+                            $selected = $g5['group5Code'] == $selected_office ? 'selected' : '';
+                            $str .= '<option value="'.$g5['group5Code'].'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$g5['group5Name'].'</option>';
                         endforeach; 
                     endforeach;
                 endforeach; 
@@ -391,5 +396,43 @@ if ( ! function_exists('position_name'))
         $CI =& get_instance();
         $rs = $CI->db->select('positionDesc')->where('positionCode',$strCode)->get('tblPosition')->result_array();
         return count($rs)>0?$rs[0]['positionDesc']:'';
+    }
+}
+
+if ( ! function_exists('array_sort'))
+{
+    function array_sort($array, $on, $order=SORT_ASC)
+    {
+        $new_array = array();
+        $sortable_array = array();
+
+        if (count($array) > 0) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k2 => $v2) {
+                        if ($k2 == $on) {
+                            $sortable_array[$k] = $v2;
+                        }
+                    }
+                } else {
+                    $sortable_array[$k] = $v;
+                }
+            }
+
+            switch ($order) {
+                case SORT_ASC:
+                    asort($sortable_array);
+                break;
+                case SORT_DESC:
+                    arsort($sortable_array);
+                break;
+            }
+
+            foreach ($sortable_array as $k => $v) {
+                $new_array[$k] = $array[$k];
+            }
+        }
+
+        return $new_array;
     }
 }

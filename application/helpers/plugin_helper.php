@@ -154,3 +154,28 @@ if ( ! function_exists('load_plugin'))
 		}
 	}
 }
+
+# Icon
+if ( ! function_exists('check_icon'))
+{
+    function check_icon($ext)
+    {
+        $ext = strtolower($ext);
+
+        if(in_array($ext,array('doc','docx','dotx'))):
+	        return 'file-word-o';
+	    elseif(in_array($ext,array('xlsx','xlsm','xlsx'))):
+	        return 'fa fa-file-excel-o';
+	    elseif(in_array($ext,array('ppt','pptx'))):
+	        return 'fa fa-file-powerpoint-o';
+	    elseif(in_array($ext,array('pdf'))):
+	        return 'fa fa-file-pdf-o';
+	    elseif(in_array($ext,array('jpg','jpeg','png'))):
+	        return 'fa fa-file-photo-o';
+	    elseif(in_array($ext,array('zip','rar'))):
+	        return 'fa fa-file-zip-o';
+	    else:
+	        return 'fa fa-file';
+	   	endif;
+	}
+}

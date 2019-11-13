@@ -106,13 +106,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 ?></td>
                             <td>
                                 <?php
-                                    if(strlen($req_details[6]) > 30):
-                                        echo '<span class="ellipsis">'.substr($req_details[6], 0, 30).' ...</span>
-                                              <span class="fulltext" style="display: none;">'.$req_details[6].'</span>&nbsp;&nbsp;
+                                    if(strlen($req_details[5]) > 30):
+                                        echo '<span class="ellipsis">'.substr($req_details[5], 0, 30).' ...</span>
+                                              <span class="fulltext" style="display: none;">'.$req_details[5].'</span>&nbsp;&nbsp;
                                               <a class="showmore small" href="javascript:;"><u>show more</u></a>
                                               <a class="showless small" href="javascript:;" style="display: none;"><u>show less</u></a>';
                                     else:
-                                        echo $req_details[6];
+                                        echo $req_details[5];
                                     endif; ?></td>
                             <td>
                                 <?php
@@ -176,7 +176,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- end ob form modal -->
 
-<?php load_plugin('js',array('datatables'));?>
+<?php load_plugin('js',array('form_validation','datatables'));?>
 
 <script>
     $(document).ready(function() {
@@ -211,16 +211,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             var purpose     = req_details[7];
 
             var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose;
-            $('div#attachments').html();
+            $('div#attachments').html('');
             $.each( $(this).data('rattach'), function(i,file) {
-                var floc = "<?=base_url('"+ file +"')?>";
-                var arrfile = file.split('/');
-                $('div#attachments').append('<a target="_blank" href="'+floc+'" class="btn btn-xs grey-cascade">'+arrfile[arrfile.length-1]+'</a>&nbsp;&nbsp;&nbsp;');
+                console.log(file);
+                var floc = "<?=base_url('"+ file.filepath +"')?>";
+                // var arrfile = file.split('/');
+                var fname = file.filename;
+                var ext = fname.split('.');
+                ext = ext[ext.length-1];
+                console.log(ext);
+                $('div#attachments').append('<div class="col-md-4"><a target="_blank" href="'+floc+'" class="icon-btn" style="width: 100%;line-height: 1.5;padding: 9px;"><i class="fa fa-'+check_icon(ext)+'"> </i>&nbsp;'+ellipsisChar(fname, 30)+'</a></div>');
             });
             
             $('#ob-embed').attr('src',link);
             $('#ob-embed-fullview').attr('href',link);
             $('#ob-form').modal('show');
-    });
+        });
     });
 </script>
