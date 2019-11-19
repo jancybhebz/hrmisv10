@@ -281,7 +281,60 @@ class Reports extends MY_Controller
 	        				<div class="col-sm-6">'.comboSignatory('intSignatory').'</div>
 	        			</div>
                 	</div>
+                </div></div>';
+                echo '<div class="row">
+                			<div class="col-sm-3 text-right">
+	        					<div class="form-group">
+								</div>
+	        				</div>
+	        		</div>';
+	        	echo '<div class="row">
+                			<div class="col-sm-3 text-right">
+	        					<div class="form-group">
+								</div>
+	        				</div>
+	        		</div>';
+                echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        			<input type="radio" name="radio" id="radio1" class="radio" checked/>
+						<label for="radio1">Select Period </label>
+							</div>
+	        		</div>
+	        	</div>';
+	        	echo '<div class="row">
+	        		<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">From : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        			  	<div class="col-sm-2">'.comboMonth('intMonth').'</div>
+	        				<div class="col-sm-2">'.comboYear('intYear').'</div>
+	        			</div>
+                	</div>
                 </div>';
+                echo '<div class="row">
+	        		<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+	        				<label class="control-label">To : </label>
+	        			</div>
+	        			</div>
+	        			<div class="form-group">
+	        			  	<div class="col-sm-2">'.comboMonth('intMonth').'</div>
+	        				<div class="col-sm-2">'.comboYear('intYear').'</div>
+	        			</div>
+                	</div>
+                </div>';
+  				echo '<div class="row">
+                		<div class="col-sm-3 text-right">
+	        			<div class="form-group">
+
+						<input type="radio" name="radio" id="radio2" class="radio"/>
+						<label for="radio2">View All Period</label>
+	        			</div>
+	        		</div>
+	        	</div>';
             break;
 			case 'CDR':
 				echo '<div class="row">
