@@ -11,7 +11,7 @@ function doAuthenticate() {
     }
 }
 
-function getData($empno)
+function getData($uname,$pass)
 {
 	if (!doAuthenticate()):
     	return "Invalid Authentication";
@@ -25,7 +25,7 @@ function getData($empno)
 	    }
 	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'] .'/'. end($dir);
 
-		$json = file_get_contents($url.'/xml/api?fingerprint=!7D$0@9&empid='.$empno);
+		$json = file_get_contents($url.'/xml/api/hrmis_login?fingerprint=!7D$0@9&uname='.$uname.'&pass='.$pass);
 		
 		header('content-type: application/json; charset=latin1');
 		return $json;
@@ -37,7 +37,7 @@ include('nusoap/lib/nusoap.php');
 error_reporting(0);
 $server = new soap_server();
 $server->configureWSDL('hrmis_api_users', 'urn:details');
-$server->register("getData", array('empno' => 'xsd:string'), array('return' => 'xsd:string'), 'urn:details', 'urn:details#getData');
+$server->register("getData", array('uname' => 'xsd:string','pass' => 'xsd:string'), array('return' => 'xsd:string'), 'urn:details', 'urn:details#getData');
 
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '';
 $server->service(file_get_contents("php://input"));
