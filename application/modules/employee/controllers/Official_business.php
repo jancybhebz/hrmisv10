@@ -109,7 +109,7 @@ class Official_business extends MY_Controller {
 						endfor;
 					endif;
 					$arrData = array(
-							'requestDetails' => $strOBtype.';'.$dtmOBdatefrom.';'.$dtmOBdateto.';'.$dtmTimeFrom.';'.$dtmTimeTo.';'.$strDestination.';'.$strMeal.';'.$strPurpose,
+							'requestDetails' => $strOBtype.';'.$dtmOBrequestdate.';'.$dtmOBdatefrom.';'.$dtmOBdateto.';'.$dtmTimeFrom.';'.$dtmTimeTo.';'.$strDestination.';'.$strPurpose.';'.$strMeal,
 							'requestDate'	 => $dtmOBrequestdate,
 							'requestStatus'  => $strStatus,
 							'requestCode'	 => $strCode,
@@ -207,7 +207,7 @@ class Official_business extends MY_Controller {
 					endif;
 					
 					$arrData = array(
-							'requestDetails' => $strOBtype.';'.$dtmOBdatefrom.';'.$dtmOBdateto.';'.$dtmTimeFrom.';'.$dtmTimeTo.';'.$strDestination.';'.$strMeal.';'.$strPurpose,
+							'requestDetails' => $strOBtype.';'.$dtmOBrequestdate.';'.$dtmOBdatefrom.';'.$dtmOBdateto.';'.$dtmTimeFrom.';'.$dtmTimeTo.';'.$strDestination.';'.$strPurpose.';'.$strMeal,
 							'requestDate'	 => $dtmOBrequestdate,
 							'requestStatus'  => $strStatus,
 							'requestCode'	 => $strCode,

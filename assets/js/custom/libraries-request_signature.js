@@ -57,4 +57,8 @@ $(document).ready(function() {
         }
     });
 
+    $('#btn_delete-request').on('click', function() {
+        $('#delete-request').modal('show');
+    });
+
 });

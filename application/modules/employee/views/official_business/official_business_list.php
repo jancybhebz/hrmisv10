@@ -145,7 +145,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 
-<!-- begin ob form modal -->
+<!-- begin ob travel pass modal -->
 <div id="ob-form" class="modal fade" aria-hidden="true">
     <div class="modal-dialog" style="width: 60%;">
         <div class="modal-content">
@@ -174,7 +174,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
-<!-- end ob form modal -->
+<!-- end ob travel pass modal -->
 
 <?php load_plugin('js',array('form_validation','datatables'));?>
 
@@ -212,16 +212,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
             var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose;
             $('div#attachments').html('');
-            $.each( $(this).data('rattach'), function(i,file) {
-                console.log(file);
-                var floc = "<?=base_url('"+ file.filepath +"')?>";
-                // var arrfile = file.split('/');
-                var fname = file.filename;
-                var ext = fname.split('.');
-                ext = ext[ext.length-1];
-                console.log(ext);
-                $('div#attachments').append('<div class="col-md-4"><a target="_blank" href="'+floc+'" class="icon-btn" style="width: 100%;line-height: 1.5;padding: 9px;"><i class="fa fa-'+check_icon(ext)+'"> </i>&nbsp;'+ellipsisChar(fname, 30)+'</a></div>');
-            });
+            var json_file = $(this).data('rattach');
+            $('div#attachments').append('<ul>');
+            if(json_file!=''){
+                $.each( $(this).data('rattach'), function(i,file) {
+                    var floc = "<?=base_url('"+ file.filepath +"')?>";
+                    var fname = file.filename;
+                    var ext = fname.split('.');
+                    ext = ext[ext.length-1];
+                    $('div#attachments').append('<li><a target="_blank" href="'+floc+'"><i class="fa fa-'+check_icon(ext)+'"> </i>&nbsp;'+ellipsisChar(fname, 30)+'</a></li>');
+                });
+            }
+            $('div#attachments').append('</ul>');
             
             $('#ob-embed').attr('src',link);
             $('#ob-embed-fullview').attr('href',link);
