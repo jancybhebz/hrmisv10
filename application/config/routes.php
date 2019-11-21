@@ -54,6 +54,9 @@ $route['default_controller'] = 'login';
 $route['translate_uri_dashes'] = FALSE;
 $route['dtr'] = 'dtrkiosk/dtr_kiosk';
 $route['migrate'] = 'dbmigrate/migrate';
+$route['getall_users'] = 'api/soapserver';
+
+// $route['soapserver/getMember/wsdl'] = 'soapserver/index/wsdl';
 
 $modules_path = APPPATH.'modules/';     
 $modules = scandir($modules_path);
