@@ -32,7 +32,7 @@ class Soapserver extends MY_Controller
 	function index()
 	{
 		
-
+		error_reporting(0);
 		// print_r($this->getData(0));
  		$this->load->library('nusoap_lib');
 		$server = new soap_server();
