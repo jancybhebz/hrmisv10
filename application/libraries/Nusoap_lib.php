@@ -4,7 +4,6 @@ class Nusoap_lib {
 	
 	function __construct()
 	{
-		parent::__construct();
 		require_once('nusoap/lib/nusoap'.EXT);
 	}
 
