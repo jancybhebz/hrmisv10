@@ -19,7 +19,7 @@ class Soapserver extends MY_Controller
 	}
 
 
-	function getData($offset) {
+	function getData() {
 	    // if (!$this->doAuthenticate()) {
 	    //     return "Invalid username or password";
 	    // }
@@ -37,7 +37,7 @@ class Soapserver extends MY_Controller
  		$this->load->library('nusoap_lib');
 		$server = new soap_server();
 		$server->configureWSDL('soapserver', 'urn:details');
-		$server->register("getData", array('offset' => 'xsd:string'), array('return' => 'xsd:string'), 'urn:details', 'urn:details#getData');
+		$server->register("getData", array('return' => 'xsd:string'), 'urn:details', 'urn:details#getData');
 
 		$HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '';
 		// $server->service($HTTP_RAW_POST_DATA);
