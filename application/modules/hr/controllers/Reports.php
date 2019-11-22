@@ -27,6 +27,16 @@ class Reports extends MY_Controller
 		$this->template->load('template/template_view', 'hr/reports_view', $this->arrData);
 	}
 
+	function intToMonthFull($t_intMonth)
+	{
+		$arrMonths = array(1=>"January", 2=>"February", 3=>"March", 
+						4=>"April", 5=>"May", 6=>"June", 
+						7=>"July", 8=>"August", 9=>"September", 
+						10=>"October", 11=>"November", 12=>"December");
+		return $arrMonths[$t_intMonth];
+	}
+
+
 	public function getfields()
 	{
 		$rpt = $this->uri->segment(4);
@@ -402,7 +412,7 @@ class Reports extends MY_Controller
 	        			</div>
 	        			</div>
 	        			<div class="form-group">
-	        				<div class="col-sm-6"></div>
+	        				<div class="col-sm-6">'.comboPosition('strPosition').'</div>
 	        			</div>
                 	</div>
                 </div>';
@@ -852,16 +862,14 @@ class Reports extends MY_Controller
 	        			</div>
                 	</div>
                 </div>';
-                echo '<div class="row">
-                	<div class="col-sm-3 text-right">
-	        			<div class="form-group">
-	        				<label class="control-label">Period : </label>
-	        			</div>
-	        			</div>
-	        			<div class="form-group">
-	        				<div class="col-sm-6">'.comboMonth('dtmMonth').'</div>
-	        			</div>
-                	</div>
+               echo '<div class="row">
+					<div class="col-sm-3 text-right">
+	                	<div class="form-group">
+	                		<label class="control-label"> Period : </label>
+	                	</div>
+	                </div>';
+				echo ' <div class="col-sm-2">'.comboMonth('dtmMonth').'</div>
+					<div class="col-sm-2">'.comboYear('dtmYear').'</div>
                 </div>';
                  echo '<div class="row">
                 	<div class="col-sm-3 text-right">
