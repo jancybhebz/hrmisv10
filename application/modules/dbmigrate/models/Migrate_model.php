@@ -57,7 +57,7 @@ class Migrate_model extends CI_Model {
 
 	function check_tables()
     {
-    	$this->db->query("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+    	set_sql_mode();
     	$this->hrmisv10 = $this->load->database('hrmisv10_upt', TRUE);
     	$tbldb_hrmisv10 = $this->hrmisv10->list_tables();
     	$tbldb_hrmis = $this->db->list_tables();
@@ -270,6 +270,16 @@ class Migrate_model extends CI_Model {
         $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '2' WHERE `tblRequestSignatory`.`SignCode` = 'SERVICE';",$sql_file);
         $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '3' WHERE `tblRequestSignatory`.`SignCode` = 'DIVISION';",$sql_file);
         $this->write_sqlstmt("UPDATE `tblRequestSignatory` SET `group` = '4' WHERE `tblRequestSignatory`.`SignCode` = 'SECTION';",$sql_file);
+
+        # fix user account access level
+        $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPermission` = 'hr' WHERE LOWER(userPermission) like 'hr%officer';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPermission` = 'hr' WHERE LOWER(userPermission) like 'hr%assistant';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPermission` = 'finance' WHERE LOWER(userPermission) like 'cashier%officer';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPermission` = 'finance' WHERE LOWER(userPermission) like 'cashier%assistant';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPermission` = 'officer' WHERE LOWER(userPermission) like 'chief';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPermission` = 'executive' WHERE LOWER(userPermission) like 'director';",$sql_file);
+        $this->write_sqlstmt("UPDATE `tblEmpAccount` SET `userPermission` = 'employee' WHERE LOWER(userPermission) like 'employee';",$sql_file);
+        
     }
 
     function update_data_type()
@@ -339,8 +349,7 @@ class Migrate_model extends CI_Model {
 
 	function import_database($dbconn,$path,$set=0) 
 	{
-		$this->db->query("set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
-		$this->db->query("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+		set_sql_mode();
 		if($set == 0):
 			if(file_exists($path)):
 			    $sql_contents = file_get_contents($path);

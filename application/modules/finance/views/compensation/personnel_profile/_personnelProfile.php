@@ -4,7 +4,7 @@
     $am_timeout = '-';
     $pm_timein  = '-';
     $pm_timeout = '-';
-
+    
     if($arrdtr!=null):
         $arrdtr = $arrdtr[0];
         $am_timein  = $arrdtr['inAM']  == '' || $arrdtr['inAM']  == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['inAM']));
@@ -19,7 +19,8 @@
             <ul class="list-unstyled profile-nav">
                 <li>
                     <?php
-                    $strImageUrl = 'uploads/employees/'.$arrData['empNumber'].'.jpg';
+                    if(!empty($arrData)):
+                        $strImageUrl = 'uploads/employees/'.$arrData['empNumber'].'.jpg';
                         if(file_exists($strImageUrl))
                         {
                             $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');
@@ -27,7 +28,10 @@
                         else 
                         {
                             $strImage = base_url('assets/images/logo.png');
-                        }?>
+                        }
+                    else:
+                        $strImage = base_url('assets/images/logo.png');
+                    endif;?>
                     <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
                     <?php if(check_module() == 'hr'): ?>
                         <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>" class="btn dark btn-sm">
@@ -39,33 +43,33 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-9 profile-info">
-                    <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['firstname'], $arrData['surname'],$arrData['middlename'], $arrData['middleInitial'],'')?></h1>
+                    <h1 class="font-green sbold uppercase"><?=!empty($arrData) ? fix_fullname($arrData['firstname'], $arrData['surname'],$arrData['middlename'], $arrData['middleInitial'],'') : ''?></h1>
                     <div class="row">
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
                                     <td width="25%"><b>Employment Status</b></td>
-                                    <td width="25%"><?=$arrData['statusOfAppointment']?></td>
+                                    <td width="25%"><?=!empty($arrData) ? $arrData['statusOfAppointment'] : ''?></td>
                                     <td width="25%"><b>TIN Number</b></td>
-                                    <td width="25%"><?=$arrData['tin']?></td>
+                                    <td width="25%"><?=!empty($arrData) ? $arrData['tin'] : ''?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Salary</b></td>
-                                    <td><?=number_format($arrData['actualSalary'], 2)?></td>
+                                    <td><?=!empty($arrData) ? number_format($arrData['actualSalary'], 2) : ''?></td>
                                     <td><b>GSIS Number</b></td>
-                                    <td><?=$arrData['gsisNumber']?></td>
+                                    <td><?=!empty($arrData) ? $arrData['gsisNumber'] : ''?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Group</b></td>
-                                    <td><?=office_name(employee_office($this->uri->segment(5)))?></td>
+                                    <td><?=!empty($arrData) ? office_name(employee_office($this->uri->segment(5))): ''?></td>
                                     <td><b>PhilHealth Number</b></td>
-                                    <td><?=$arrData['philHealthNumber']?></td>
+                                    <td><?=!empty($arrData) ? $arrData['philHealthNumber']: ''?></td>
                                 </tr>
                                 <tr>
                                     <td><b>Position</b></td>
-                                    <td><?=$arrData['positionDesc']?></td>
+                                    <td><?=!empty($arrData) ? $arrData['positionDesc'] : ''?></td>
                                     <td><b>PAGIBIG Number</b></td>
-                                    <td><?=$arrData['pagibigNumber']?></td>
+                                    <td><?=!empty($arrData) ? $arrData['pagibigNumber'] : ''?></td>
                                 </tr>
                             </tbody>
                         </table>

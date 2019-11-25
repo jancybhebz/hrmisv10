@@ -34,10 +34,10 @@ class Personnel_profile extends MY_Controller {
 								 'Benefit_model'));
 
 		$res = $this->Hr_model->getData($empid,'','all');
-		$this->arrData['arrData'] = $res[0];
+		$this->arrData['arrData'] = count($res) > 0 ? $res[0] : array();
 		$this->arrData['pGroups'] = $this->Payroll_group_model->getData();
-		$this->arrData['rata'] = $this->Rata_model->getData($res[0]['RATACode']);
-		$this->arrData['pg'] = $this->Payroll_group_model->getData($res[0]['payrollGroupCode']);
+		$this->arrData['rata'] = count($res) > 0 ? $this->Rata_model->getData($res[0]['RATACode']) : array();
+		$this->arrData['pg'] = count($res) > 0 ? $this->Payroll_group_model->getData($res[0]['payrollGroupCode']) : array();
 
 		$arrAs = array();
 		$arrAttSchemes = $this->Attendance_scheme_model->getData();
@@ -342,7 +342,7 @@ class Personnel_profile extends MY_Controller {
 		$emp_position = $this->Hr_model->get_employee_position($this->uri->segment(5));
 		$emp_position = $emp_position[0]['appointmentCode'];
 		$this->arrData['periods'] = $this->Payroll_process_model->get_process_by_appointment($emp_position,currmo(),curryr());
-		
+
 		$arrDeductions = $this->Deduction_model->getDeductionsByStatus(0);
 		array_push($arrDeductions, array('deductionCode' => 'ALLGSIS', 'deductionDesc' => 'ALL GSIS Deduction(exc. Life and Ret. Prem.)'));
 		$this->arrData['arrDeductions'] = $arrDeductions;
