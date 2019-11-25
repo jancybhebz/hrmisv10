@@ -172,9 +172,9 @@ if ( ! function_exists('agency_payroll_process'))
     }
 }
 
-if ( ! function_exists('salary_schedule'))
+if ( ! function_exists('salary_schedule_ctr'))
 {
-    function salary_schedule($sched,$ps_period=0,$period=0)
+    function salary_schedule_ctr($sched,$ps_period=0,$period=0)
     {
         $period_name = '';
         $period_no = 0;
