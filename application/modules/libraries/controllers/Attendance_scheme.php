@@ -64,8 +64,8 @@ class Attendance_scheme extends MY_Controller {
 						'schemeType'=>$strSchemeType,
 						'schemeCode'=>$strSchemeCode,
 						'schemeName'=>$strSchemeName,
-						'allow30'=>$strAllow,
-						'strict'=>$strStrict,
+						'allow30'=>$strAllow ? 'Y' : 'N',
+						'strict'=>$strStrict ? 'Y' : 'N',
 						// fixed
 					  'amTimeinFrom'=>$dtmFtimeIn,
 					 'nnTimeoutFrom'=>$dtmFtimeOutFrom, 

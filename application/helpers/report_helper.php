@@ -35,6 +35,24 @@ if ( ! function_exists('getAppStatus'))
     }
 }
 
+if ( ! function_exists('getPosition'))
+{
+    function getPosition($position="")
+    {
+        $CI =& get_instance();
+        $CI->db->Select('positionCode,positionDesc');
+        if($position!='')
+            $CI->db->where('positionCode',$position);
+        $CI->db->order_by('positionDesc');
+        $objQuery = $CI->db->get('tblPosition');
+        $rs = $objQuery->result_array();
+        if(count($rs)>0)
+        {
+            return $rs;
+        }
+    }
+}
+
 if ( ! function_exists('getPermanentGroup'))
 {
     function getPermanentGroup()
@@ -233,6 +251,23 @@ if ( ! function_exists('comboAppStatus'))
     	}
     	$str .= '</select>';
     	return $str;
+    }
+}
+
+if ( ! function_exists('comboPosition'))
+{    
+    function comboPosition($strName="strPosition")
+    {
+        
+        $str = '<select name="'.$strName.'" class="form-control">';
+        $rs = getPosition();
+        $str .= '<option></option>';
+        foreach($rs as $row)
+        {
+            $str .= '<option value="'.$row['positionCode'].'" >'.$row['positionDesc'].'</option>';
+        }
+        $str .= '</select>';
+        return $str;
     }
 }
 

@@ -107,17 +107,22 @@ class User_account_model extends CI_Model {
 	
 	function getemployee_forapi($empnumber = '')
 	{
-		# position
-		$this->db->select('tblEmpPosition.group1,tblEmpPosition.group2,tblEmpPosition.group3,tblEmpPosition.group4,tblEmpPosition.group5');
 		# personal
-		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile');
+		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile,tblEmpPersonal.email');
 	    # user account
 		$this->db->select('tblEmpAccount.userName,tblEmpAccount.userPassword');
 
 	    $this->db->join('tblEmpAccount','tblEmpAccount.empNumber = tblEmpPosition.empNumber','left');
 	    $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','left');
 
-	    $res = $this->db->get_where('tblEmpPosition',array('tblEmpPosition.statusOfAppointment' => 'In-Service'))->result_array();
+	    if($empnumber == ''):
+	    	$res = $this->db->get_where('tblEmpPosition',array('tblEmpPosition.statusOfAppointment' => 'In-Service'))->result_array();
+	    else:
+	    	$res = $this->db->get_where('tblEmpPosition',array('tblEmpPosition.empNumber' => $empnumber))->result_array();
+	    	$res[0]['office_code'] = employee_office($empnumber);
+	    	$res[0]['office_name'] = office_name($res[0]['office_code']);
+	    	$res = $res[0];
+	    endif;
 
 	    return $res;
 	}

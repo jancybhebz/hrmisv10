@@ -534,7 +534,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Account Number </label>
+                                <label class="col-md-2 control-label right">Payroll Account Number </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
