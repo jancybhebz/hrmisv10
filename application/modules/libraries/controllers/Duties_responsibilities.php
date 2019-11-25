@@ -70,8 +70,74 @@ class Duties_responsibilities extends MY_Controller {
 			}
 		}
     	
-    	
     }
+
+    public function edit()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$intDutiesIndex = urldecode($this->uri->segment(4));
+			$this->arrData['arrPosition']=$this->position_model->getData(); 
+			$this->arrData['arrDuties'] = $this->duties_responsibilities_model->getData();
+			$this->template->load('template/template_view','libraries/duties_responsibilities/edit_view', $this->arrData);
+		}
+		else
+		{
+			$intDutiesIndex = $arrPost['intDutiesIndex'];
+			$strPosition = $arrPost['strPosition'];
+			$intPercentWork = $arrPost['intPercentWork'];
+			$strDuties = $arrPost['strDuties'];
+			// if(!empty($strPosition) AND !empty($intPercentWork)) 
+			// {
+			// 	$arrData = array(
+			// 		'positionCode'=>$strPosition,
+			// 		'percentWork'=>$intPercentWork,
+			// 		'duties'=>$strDuties
+			// 	);
+			// 	$blnReturn = $this->duties_responsibilities_model->save($arrData,);
+			// 	if(count($blnReturn)>0)
+			// 	{
+			// 		log_action($this->session->userdata('sessEmpNo'),'HR Module','tblduties','Edited '.$strDuties.' Duties_responsibilities',implode(';',$arrData),'');
+					
+			// 		$this->session->set_flashdata('strSuccessMsg','Duties saved successfully.');
+			// 	}
+			// 	redirect('libraries/duties_responsibilities');
+			// }
+		}
+		
+	}
+
+
+	public function delete()
+	{
+		$arrPost = $this->input->post();
+		$intDutiesIndex = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrData'] = $this->duties_responsibilities_model->getData($intDutiesIndex);
+			$this->template->load('template/template_view','libraries/duties_responsibilities/delete_view',$this->arrData);
+		}
+		else
+		{
+			$intDutiesIndex = $arrPost['intDutiesIndex'];
+			//add condition for checking dependencies from other tables
+			if(!empty($intDutiesIndex))
+			{
+				$arrDuties = $this->duties_responsibilities_model->getData($intDutiesIndex);
+				$strDuties = $arrDuties[0]['duties'];	
+				$blnReturn = $this->duties_responsibilities_model->delete($intDutiesIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblDuties','Deleted '.$strDuties.' Duties_responsibilities',implode(';',$arrDuties[0]),'');
+	
+					$this->session->set_flashdata('strMsg','Duties deleted successfully.');
+				}
+				redirect('libraries/duties_responsibilities');
+			}
+		}
+		
+	}
 
    
 }

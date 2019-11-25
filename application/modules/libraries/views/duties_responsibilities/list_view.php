@@ -60,6 +60,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> No. </th>
                             <th> Positions </th>
                             <th> Duties and Responsibilities </th>
+                            <th> Action </th>
                     </thead>
                     <tbody>
                     <?php 
@@ -69,6 +70,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$i?> </td>
                             <td> <?=$duty['positionCode']?></td>
                             <td> <?=$duty['duties']?></td>
+                            <td style="white-space: nowrap;text-align:center;">
+                                <a href="<?=base_url('libraries/duties_responsibilities/edit/'.$duty['duties_index'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/duties_responsibilities/delete/'.$duty['duties_index'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                            </td>
                         </tr>
                     <?php 
                     $i++;
