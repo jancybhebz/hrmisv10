@@ -10,7 +10,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 class Plantilla_duties_model extends CI_Model {
 
 	var $table = 'tblPlantillaDuties';
-	var $tableid = 'itemDuties';
+	var $tableid = 'plantilla_duties_index';
 
 	function __construct()
 	{
@@ -44,17 +44,17 @@ class Plantilla_duties_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function save($arrData, $strDuties)
+	function save($arrDuties, $intPDutiesIndex)
 	{
-		$this->db->where($this->tableid, $strDuties);
-		$this->db->update($this->table, $arrData);
+		$this->db->where($this->tableid, $intPDutiesIndex);
+		$this->db->update($this->table, $arrDuties);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
 	function delete($strDuties)
 	{
-		$this->db->where($this->tableid, $strDuties);
+		$this->db->where($this->tableid, $intPDutiesIndex);
 		$this->db->delete($this->table); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
