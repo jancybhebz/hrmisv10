@@ -37,7 +37,7 @@ load_plugin('js',array('validation'));
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Save Executive Office</span>
+                    <span class="caption-subject bold uppercase"> Edit Executive Office</span>
                 </div>
                 
             </div>

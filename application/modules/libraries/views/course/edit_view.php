@@ -28,7 +28,7 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Save Course</span>
+                    <span class="caption-subject bold uppercase"> Edit Course</span>
                 </div>
                 
             </div>

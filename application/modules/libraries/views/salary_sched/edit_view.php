@@ -17,7 +17,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Save SALARY SCHEDULE</span>
+                    <span class="caption-subject bold uppercase"> Edit Salary Schedule</span>
                 </div>
             </div>
             <?=form_open(base_url('libraries/salary_sched/edit'), array('method' => 'post', 'id' => 'frmSalary', 'name' => 'frmSalary','onSubmit'=>'return checkonsubmit();'))?>
