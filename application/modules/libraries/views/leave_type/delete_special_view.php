@@ -6,7 +6,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="<?=base_url('libraries')?>">Libraries</a>
+            <a href="<?=base_url('libraries/agency_profile')?>">Libraries</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
