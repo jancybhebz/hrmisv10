@@ -19,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>AGENCY IMAGE</span>
+            <span>Agency Logo</span>
         </li>
     </ul>
 </div>
@@ -37,7 +37,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase">Agency Image</span>
+                    <span class="caption-subject bold uppercase">Agency Logo</span>
                 </div>
                 
             </div>

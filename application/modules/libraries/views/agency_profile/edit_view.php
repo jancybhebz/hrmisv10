@@ -16,15 +16,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>HR Module</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
             <a href="<?=base_url('libraries/agency_profile')?>">Libraries</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Agency Profile</span>
+            <span>Agency Information</span>
         </li>
     </ul>
 </div>
@@ -40,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Save Agency Profile</span>
+                    <span class="caption-subject bold uppercase"> Edit Agency Information</span>
                 </div> 
             </div>
             <div class="portlet-body form">
