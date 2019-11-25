@@ -43,11 +43,11 @@ class Duties_responsibilities_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function save($arrData, $intDutiesIndex)
+	function save($arrDuties, $intDutiesIndex)
 	{
 		$this->db->where($this->tableid, $intDutiesIndex);
-		$this->db->update($this->table, $arrData);
-		//echo $this->db->affected_rows();
+		$this->db->update($this->table, $arrDuties);
+		// echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

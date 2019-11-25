@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Payroll Group</span>
+            <span>Duties and Responsibilities</span>
         </li>
     </ul>
 </div>
@@ -36,27 +36,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Payroll Group</span>
+                    <span class="caption-subject bold uppercase"> Edit Duties and Responsibilities</span>
                 </div>
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/payroll_group/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmDutiesResponsibilities'))?>
+            <?=form_open(base_url('libraries/duties_responsibilities/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmDutiesResponsibilities'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrDuties);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Project <span class="required"> * </span></label>
+                                <label class="control-label">Positions <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strProject">
-                                    <option value="">Select</option>
-                                    <?php foreach($arrProject as $project)
-                                        {
-                                          echo '<option value="'.$project['projectId'].'" '.($arrPayrollGroup[0]['projectCode']==$project['projectId']?'selected':'').'>'.$project['projectDesc'].'</option>';
-                                        }?>
-                                    </select>
+                                   <input type="text" class="form-control" name="strPosition" value="<?=isset($arrDuties[0]['positionCode'])?$arrDuties[0]['positionCode']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -64,53 +58,32 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
+                                <label class="control-label">Duties <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>">
+                                    <input type="text" class="form-control" name="strDuties" value="<?=!empty($arrDuties[0]['duties'])?$arrDuties[0]['duties']:''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
+                                <label class="control-label">Percent of work <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($arrPayrollGroup[0]['payrollGroupName'])?$arrPayrollGroup[0]['payrollGroupName']:''?>">
+                                    <input type="text" class="form-control" name="intPercentWork" value="<?=!empty($arrDuties[0]['percentWork'])?$arrDuties[0]['percentWork']:''?>">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($arrPayrollGroup[0]['payrollGroupOrder'])?$arrPayrollGroup[0]['payrollGroupOrder']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Responsibility Center  <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($arrPayrollGroup[0]['payrollGroupRC'])?$arrPayrollGroup[0]['payrollGroupRC']:''?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <input type="hidden" name="intPayrollGroupId" value="<?=isset($arrPayrollGroup[0]['payrollGroupId'])?$arrPayrollGroup[0]['payrollGroupId']:''?>">
+                                <input type="hidden" name="intDutiesIndex" value="<?=isset($arrDuties[0]['duties_index'])?$arrDuties[0]['duties_index']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
-                                <a href="<?=base_url('libraries/payroll_group')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/duties_responsibilities')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
@@ -142,26 +115,18 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strProject: {
+                    strPosition: {
                         minlength: 1,
                         required: true
                     },
-                    strPayrollGroupCode: {
+                    strDuties: {
                         minlength: 1,
                         required: true,
                     },
-                    strPayrollGroupDesc: {
+                    intPercentWork: {
                         minlength: 1,
                         required: true,
-                    },
-                    intPayrollGroupOrder: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strResponsibilityCntr: {
-                        minlength: 1,
-                        required: true,
-                    },
+                   }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              

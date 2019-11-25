@@ -78,32 +78,28 @@ class Duties_responsibilities extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$intDutiesIndex = urldecode($this->uri->segment(4));
-			$this->arrData['arrPosition']=$this->position_model->getData(); 
-			$this->arrData['arrDuties'] = $this->duties_responsibilities_model->getData();
+			$this->arrData['arrDuties'] = $this->duties_responsibilities_model->getData($intDutiesIndex);
 			$this->template->load('template/template_view','libraries/duties_responsibilities/edit_view', $this->arrData);
 		}
 		else
 		{
 			$intDutiesIndex = $arrPost['intDutiesIndex'];
-			$strPosition = $arrPost['strPosition'];
 			$intPercentWork = $arrPost['intPercentWork'];
 			$strDuties = $arrPost['strDuties'];
-			// if(!empty($strPosition) AND !empty($intPercentWork)) 
-			// {
-			// 	$arrData = array(
-			// 		'positionCode'=>$strPosition,
-			// 		'percentWork'=>$intPercentWork,
-			// 		'duties'=>$strDuties
-			// 	);
-			// 	$blnReturn = $this->duties_responsibilities_model->save($arrData,);
-			// 	if(count($blnReturn)>0)
-			// 	{
-			// 		log_action($this->session->userdata('sessEmpNo'),'HR Module','tblduties','Edited '.$strDuties.' Duties_responsibilities',implode(';',$arrData),'');
-					
-			// 		$this->session->set_flashdata('strSuccessMsg','Duties saved successfully.');
-			// 	}
-			// 	redirect('libraries/duties_responsibilities');
-			// }
+			if(!empty($strDuties)) 
+			{
+				$arrData = array(
+					'percentWork'=>$intPercentWork,
+					'duties'=>$strDuties
+				);
+				$blnReturn = $this->duties_responsibilities_model->save($arrData,$intDutiesIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblDuties','Edited '.$strDuties.' Duties_responsibilities',implode(';',$arrData),'');
+					$this->session->set_flashdata('strSuccessMsg','Duties saved successfully.');
+				}
+				redirect('libraries/duties_responsibilities');
+			}
 		}
 		
 	}
