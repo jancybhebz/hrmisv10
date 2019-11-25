@@ -78,7 +78,7 @@
                                                     foreach($periods as $period):
                                                         if($period['publish'] == 1):
                                                             if($period['period'] == 4 && $period['employeeAppoint'] == 'P'):
-                                                                for($p = 1; $p <= salary_schedule($period['salarySchedule'],0,1); $p++):
+                                                                for($p = 1; $p <= salary_schedule_ctr($period['salarySchedule'],0,1); $p++):
                                                                     echo "<option value='".$period['processID']."' data-period='".$p."'
                                                                             data-appt='".$period['employeeAppoint']."'
                                                                             data-codes='".implode(', ',$period['codes'])."'>".$period['processCode']." - PERIOD ".$p."</option>";

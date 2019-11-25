@@ -46,7 +46,7 @@ class User_account extends MY_Controller {
 			$userName = $arrPost['strUsername'];
 			$userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			$userLevel = $arrPost['strAccessLevel'];
-			$userPermission = ucwords(userlevel($userLevel));
+			$userPermission = userlevel($userLevel);
 			$assignedGroup = $arrPost['selpayrollGrp'];
 			$is_assistant = 0;
 			$access = '';
@@ -88,6 +88,7 @@ class User_account extends MY_Controller {
 							 'userLevel' 		=> $userLevel,
 							 'is_assistant' 	=> $is_assistant,
 							 'assignedGroup' 	=> $assignedGroup,
+							 'userPermission' 	=> $userPermission,
 							 'accessPermission' => $access);
 			
 			if(count($this->user_account_model->check_user_exists($userName,$empNumber)) > 0):
@@ -96,7 +97,7 @@ class User_account extends MY_Controller {
 				$this->session->set_flashdata('userName',$userName);
 				$this->session->set_flashdata('userPassword',$userPassword);
 				$this->session->set_flashdata('userLevel',$userLevel);
-				$this->session->set_flashdata('userPermission',$userPermission);
+				$this->session->set_flashdata('userPermission',ucwords($userPermission));
 				$this->session->set_flashdata('accessPermission',$access);
 				$this->session->set_flashdata('is_assistant',$is_assistant);
 				redirect('libraries/user_account/add');
@@ -126,12 +127,11 @@ class User_account extends MY_Controller {
 			$this->template->load('template/template_view','libraries/user_account/add_view',$this->arrData);
 		
 		else:
-			
 			$empNumber = $this->uri->segment(4);
 			$userName = $arrPost['strUsername'];
 			$userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			$userLevel = $arrPost['strAccessLevel'];
-			$userPermission = ucwords(userlevel($userLevel));
+			$userPermission = userlevel($userLevel);
 			$assignedGroup = $arrPost['selpayrollGrp'];
 			$is_assistant = 0;
 			$access = '';
@@ -172,12 +172,13 @@ class User_account extends MY_Controller {
 							 'userLevel' 		=> $userLevel,
 							 'is_assistant' 	=> $is_assistant,
 							 'assignedGroup' 	=> $assignedGroup,
+							 'userPermission' 	=> $userPermission,
 							 'accessPermission' => $access);
 			
 			if(isset($arrPost['chkchangePassword'])):
 				$arrData['userPassword'] = $userPassword;
 			endif;
-
+			
 			$this->user_account_model->save($arrData, $empNumber);
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Edited '.$userName.' User_account',implode(';',$arrData),'');
 			$this->session->set_flashdata('strSuccessMsg','User Account saved successfully.');

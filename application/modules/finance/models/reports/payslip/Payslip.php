@@ -25,12 +25,13 @@ class Payslip extends CI_Model {
 			$benefits = $this->Payslip_model->income_list($arrData!=null ? $arrData['empno'] : $_GET['empno'], $arrData!=null ? $arrData['pgroup'] : $_GET['pgroup']);
 			$deductions = $this->Payslip_model->deduction_list($arrData!=null ? $arrData['empno'] : $_GET['empno'], $arrData!=null ? $arrData['pgroup'] : $_GET['pgroup']);
 			$process_details = $this->Payroll_process_model->getData($arrData!=null ? $arrData['pgroup'] : $_GET['pgroup']);
-			$period = salary_schedule($process_details[0]['salarySchedule'],$arrData!=null?$arrData['period'] : $_GET['period']);
-			$period_range = salary_schedule($process_details[0]['salarySchedule'],$arrData!=null?$arrData['period'] : $_GET['period'],1);
+			$period = salary_schedule_ctr($process_details[0]['salarySchedule'],$arrData!=null?$arrData['period'] : $_GET['period']);
+			$period_range = salary_schedule_ctr($process_details[0]['salarySchedule'],$arrData!=null?$arrData['period'] : $_GET['period'],1);
 			$period_range = payroll_date($process_details[0]['salarySchedule'],$arrData!=null?$arrData['period'] : $_GET['period']);
 			
 			#Period pay
 			$arrperiod_pay = $this->Payslip_model->get_employee_salary($arrData!=null ? $arrData['pgroup'] : $_GET['pgroup'],$arrData!=null ? $arrData['empno'] : $_GET['empno']);
+			
 			$period_pay = $arrperiod_pay != '' ? $arrperiod_pay[$period] : 0;
 			#Undertime Late
 			$arrut_abs = $this->Payslip_model->get_employee_undabs($arrData!=null ? $arrData['pgroup'] : $_GET['pgroup'],$arrData!=null ? $arrData['empno'] : $_GET['empno']);

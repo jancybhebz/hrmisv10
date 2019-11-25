@@ -248,13 +248,13 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-default">
             <!-- begin HR switch account -->
-            <?php if($_SESSION['sessUserLevel'] == 1 && $_SESSION['sessUserPermission'] == 'HR Officer'): ?>
+            <?php if($_SESSION['sessUserLevel'] == 1 && strtolower($_SESSION['sessUserPermission']) == 'hr'): ?>
                 <li>
                     <a href="<?=base_url('home/switch_hr_emp')?>">
                         <i class="icon-user"></i> Employee Module </a>
                 </li>
             <?php endif; ?>
-            <?php if($_SESSION['sessUserLevel'] == 5 && $_SESSION['sessUserPermission'] == 'HR Officer'): ?>
+            <?php if($_SESSION['sessUserLevel'] == 5 && strtolower($_SESSION['sessUserPermission']) == 'hr'): ?>
                 <li>
                     <a href="<?=base_url('home/switch_emp_hr')?>">
                         <i class="icon-user"></i> HR Module </a>
@@ -263,13 +263,13 @@
             <!-- end HR switch account -->
 
             <!-- begin Finance switch account -->
-            <?php if($_SESSION['sessUserLevel'] == 2 && $_SESSION['sessUserPermission'] == 'Cashier Officer'): ?>
+            <?php if($_SESSION['sessUserLevel'] == 2 && strtolower($_SESSION['sessUserPermission']) == 'finance'): ?>
                 <li>
                     <a href="<?=base_url('home/switch_fin_emp')?>">
                         <i class="icon-user"></i> Employee Module </a>
                 </li>
             <?php endif; ?>
-            <?php if($_SESSION['sessUserLevel'] == 5 && $_SESSION['sessUserPermission'] == 'Cashier Officer'): ?>
+            <?php if($_SESSION['sessUserLevel'] == 5 && strtolower($_SESSION['sessUserPermission']) == 'finance'): ?>
                 <li>
                     <a href="<?=base_url('home/switch_emp_fin')?>">
                         <i class="icon-user"></i> Finance Module </a>

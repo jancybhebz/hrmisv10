@@ -26,6 +26,7 @@ class Payroll_process_model extends CI_Model {
 
 	function get_process_code($process_id)
 	{
+		set_sql_mode();
 		$deduction_codes = $this->db->group_by('deductionCode')->get_where('tblEmpDeductionRemit',array('processID' => $process_id))->result_array();
 		$income_codes = $this->db->group_by('incomeCode')->get_where('tblEmpIncome',array('processID' => $process_id))->result_array();
 		return array_filter(array_merge(array_column($deduction_codes,'deductionCode'),array_column($income_codes,'incomeCode')));
