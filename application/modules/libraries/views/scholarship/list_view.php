@@ -16,7 +16,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Libraries</span>
+            <a href="<?=base_url('libraries/agency_profile')?>">Libraries</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
