@@ -59,6 +59,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th style="width: 100px;text-align:center;"> No. </th>
                             <th> Item Number </th>
                             <th> Duties </th>
+                            <th style="width: 200px;text-align:center;"> Action </th>
                     </thead>
                     <tbody>
                     <?php 
@@ -68,6 +69,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$i?> </td>
                             <td> <?=$duty['itemNumber']?> </td>
                             <td> <?=$duty['itemDuties']?> </td>
+                            <td style="white-space: nowrap;text-align:center;">
+                                <a href="<?=base_url('libraries/plantilla_duties/edit/'.$duty['plantilla_duties_index'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/plantilla_duties/delete/'.$duty['plantilla_duties_index'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
+                            </td>
                         </tr>
                     <?php 
                     $i++;

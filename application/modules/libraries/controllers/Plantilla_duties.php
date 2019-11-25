@@ -69,8 +69,69 @@ class Plantilla_duties extends MY_Controller {
 			}
 		}
     	
-    	
     }
+
+    public function edit()
+	{
+		$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{
+			$intPDutiesIndex = urldecode($this->uri->segment(4));
+			$this->arrData['arrPDuties'] = $this->plantilla_duties_model->getData($intPDutiesIndex);
+			$this->template->load('template/template_view','libraries/plantilla_duties/edit_view', $this->arrData);
+		}
+		else
+		{
+			$intPDutiesIndex = $arrPost['intPDutiesIndex'];
+			$intPercentWork = $arrPost['intPercentWork'];
+			$strDuties = $arrPost['strDuties'];
+			if(!empty($strDuties)) 
+			{
+				$arrData = array(
+					'percentWork'=>$intPercentWork,
+					'itemduties'=>$strDuties
+				);
+				$blnReturn = $this->plantilla_duties_model->save($arrData,$intPDutiesIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPlantillaDuties','Edited '.$strDuties.' Plantilla_Duties',implode(';',$arrData),'');
+					$this->session->set_flashdata('strSuccessMsg','Plantilla Duties saved successfully.');
+				}
+				redirect('libraries/plantilla_duties');
+			}
+		}
+		
+	}
+
+
+	public function delete()
+	{
+		$arrPost = $this->input->post();
+		$intPDutiesIndex = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrData'] = $this->plantilla_duties_model->getData($intPDutiesIndex);
+			$this->template->load('template/template_view','libraries/plantilla_duties/delete_view',$this->arrData);
+		}
+		else
+		{
+			$intPDutiesIndex = $arrPost['intPDutiesIndex'];
+			//add condition for checking dependencies from other tables
+			if(!empty($intPDutiesIndex))
+			{
+				$arrDuties = $this->plantilla_duties_model->getData($intPDutiesIndex);
+				$strDuties = $arrDuties[0]['itemduties'];	
+				$blnReturn = $this->plantilla_duties_model->delete($intPDutiesIndex);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPlantillaDuties','Deleted '.$strDuties.' Plantilla_Duties',implode(';',$arrDuties[0]),'');
+					$this->session->set_flashdata('strMsg','Duties deleted successfully.');
+				}
+				redirect('libraries/plantilla_duties');
+			}
+		}
+		
+	}
 
    
 }
