@@ -94,7 +94,7 @@ class Plantilla_duties extends MY_Controller {
 				$blnReturn = $this->plantilla_duties_model->save($arrData,$intPDutiesIndex);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPlantillaDuties','Edited '.$strDuties.' Duties_responsibilities',implode(';',$arrData),'');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPlantillaDuties','Edited '.$strDuties.' Plantilla_Duties',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Plantilla Duties saved successfully.');
 				}
 				redirect('libraries/plantilla_duties');
@@ -111,7 +111,7 @@ class Plantilla_duties extends MY_Controller {
 		if(empty($arrPost))
 		{
 			$this->arrData['arrData'] = $this->plantilla_duties_model->getData($intPDutiesIndex);
-			$this->template->load('template/template_view','libraries/duties_responsibilities/delete_view',$this->arrData);
+			$this->template->load('template/template_view','libraries/plantilla_duties/delete_view',$this->arrData);
 		}
 		else
 		{
@@ -124,11 +124,10 @@ class Plantilla_duties extends MY_Controller {
 				$blnReturn = $this->plantilla_duties_model->delete($intPDutiesIndex);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblDuties','Deleted '.$strDuties.' Duties_responsibilities',implode(';',$arrDuties[0]),'');
-	
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPlantillaDuties','Deleted '.$strDuties.' Plantilla_Duties',implode(';',$arrDuties[0]),'');
 					$this->session->set_flashdata('strMsg','Duties deleted successfully.');
 				}
-				redirect('libraries/duties_responsibilities');
+				redirect('libraries/plantilla_duties');
 			}
 		}
 		

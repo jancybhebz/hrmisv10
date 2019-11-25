@@ -44,15 +44,15 @@ class Plantilla_duties_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function save($arrDuties, $intPDutiesIndex)
+	function save($arrPDuties, $intPDutiesIndex)
 	{
 		$this->db->where($this->tableid, $intPDutiesIndex);
-		$this->db->update($this->table, $arrDuties);
+		$this->db->update($this->table, $arrPDuties);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($strDuties)
+	function delete($intPDutiesIndex)
 	{
 		$this->db->where($this->tableid, $intPDutiesIndex);
 		$this->db->delete($this->table); 	
