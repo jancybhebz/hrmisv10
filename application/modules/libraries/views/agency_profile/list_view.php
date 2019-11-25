@@ -53,70 +53,218 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Agency name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>" disabled>
+                                        <input type="text" class="form-control" name="strAgencyName" value="<?=isset($arrAgency[0]['agencyName'])?$arrAgency[0]['agencyName']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Agency Code</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>" disabled>
+                                        <input type="text" class="form-control" name="strAgencyCode" value="<?=isset($arrAgency[0]['abbreviation'])?$arrAgency[0]['abbreviation']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Region</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>" disabled>
+                                        <input type="text" class="form-control" name="strRegion" value="<?=isset($arrAgency[0]['region'])?$arrAgency[0]['region']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">TIN Number</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>" disabled>
+                                        <input type="text" class="form-control" name="intTinNum" value="<?=isset($arrAgency[0]['agencyTin'])?$arrAgency[0]['agencyTin']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Address</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['address'])?$arrAgency[0]['address']:''?>" disabled>
+                                        <input type="text" class="form-control" name="strAddress" value="<?=isset($arrAgency[0]['address'])?$arrAgency[0]['address']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Zip Code</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['zipCode'])?$arrAgency[0]['zipCode']:''?>" disabled>
+                                        <input type="text" class="form-control" name="intZipCode" value="<?=isset($arrAgency[0]['zipCode'])?$arrAgency[0]['zipCode']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Telephone</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['telephone'])?$arrAgency[0]['telephone']:''?>" disabled>
+                                        <input type="text" class="form-control" name="intTelephone" value="<?=isset($arrAgency[0]['telephone'])?$arrAgency[0]['telephone']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Facsimile</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['facsimile'])?$arrAgency[0]['facsimile']:''?>" disabled>
+                                        <input type="text" class="form-control" name="intFax" value="<?=isset($arrAgency[0]['facsimile'])?$arrAgency[0]['facsimile']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['email'])?$arrAgency[0]['email']:''?>" disabled>
+                                        <input type="text" class="form-control" name="strEmail" value="<?=isset($arrAgency[0]['email'])?$arrAgency[0]['email']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Website</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="strSchemeCode" value="<?=isset($arrAgency[0]['website'])?$arrAgency[0]['website']:''?>" disabled>
+                                        <input type="text" class="form-control" name="strWebsite" value="<?=isset($arrAgency[0]['website'])?$arrAgency[0]['website']:''?>" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Salary Schedule</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="strSalarySched" value="<?=isset($arrAgency[0]['salarySchedule'])?$arrAgency[0]['salarySchedule']:''?>" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Time Before OT</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="intBeforeOT" value="<?=isset($arrAgency[0]['minOT'])?$arrAgency[0]['minOT']:''?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Maximum Hours of OT</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="intMaxOT" value="<?=isset($arrAgency[0]['maxOT'])?$arrAgency[0]['maxOT']:''?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Expiration of CTO (Yr / Month)</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="dtmExpYr" value="<?=isset($arrAgency[0]['expirationCTO'])?$arrAgency[0]['expirationCTO']:''?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Flag Ceremony Time</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="intFlagTime" value="<?=isset($arrAgency[0]['flagTime'])?$arrAgency[0]['flagTime']:''?>" disabled>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Auto Computation of Tax</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="intAutoComputeTax" value="<?=isset($arrAgency[0]['autoComputeTax'])?$arrAgency[0]['autoComputeTax']:''?>" disabled>
+                                    </div>
+                                </div>
+
+                            <hr>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">GSIS Number</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisId']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">GSIS Employee Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisEmpShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">GSIS Employer Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisEmprShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Pagibig Number</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigId']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Pagibig Employee Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigEmpShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Pagibig Employer Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigEmprShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Provident Employee Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['providentEmpShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Provident Employer Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['providentEmprShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Philhealth Employee Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthEmpShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Philhealth Employer Share</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthEmprShare']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+                                 
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Philhealth Percentage</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthPercentage']; ?></textarea>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Philhealth Number</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['PhilhealthNum']; ?></textarea>
+                                        </b>
                                     </div>
                                 </div>
 
@@ -143,6 +291,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <div class="col-md-9">
                                         <b>
                                             <input type="text" class="form-control" value="<?=isset($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>" disabled>
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Bank Account Number</label>
+                                    <div class="col-md-9">
+                                        <b>
+                                            <input type="text" class="form-control" value="<?=isset($arrAgency[0]['AccountNum'])?$arrAgency[0]['AccountNum']:''?>" disabled>
                                         </b>
                                     </div>
                                 </div>
