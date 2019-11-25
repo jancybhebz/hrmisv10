@@ -163,144 +163,112 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">GSIS Number</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisId']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisId']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">GSIS Employee Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisEmpShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisEmpShare']; ?></textarea>
                                     </div>
                                 </div>
 
                                  <div class="form-group">
                                     <label class="col-md-2 control-label">GSIS Employer Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisEmprShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['gsisEmprShare']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Pagibig Number</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigId']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigId']; ?></textarea>
                                     </div>
                                 </div>
 
                                  <div class="form-group">
                                     <label class="col-md-2 control-label">Pagibig Employee Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigEmpShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigEmpShare']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Pagibig Employer Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigEmprShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['pagibigEmprShare']; ?></textarea>
                                     </div>
                                 </div>
 
                                  <div class="form-group">
                                     <label class="col-md-2 control-label">Provident Employee Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['providentEmpShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['providentEmpShare']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Provident Employer Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['providentEmprShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['providentEmprShare']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Philhealth Employee Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthEmpShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthEmpShare']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Philhealth Employer Share</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthEmprShare']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthEmprShare']; ?></textarea>
                                     </div>
                                 </div>
                                  
                                  <div class="form-group">
                                     <label class="col-md-2 control-label">Philhealth Percentage</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthPercentage']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['philhealthPercentage']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Philhealth Number</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['PhilhealthNum']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['PhilhealthNum']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Mission</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['Mission']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['Mission']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Vision</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['Vision']; ?></textarea>
-                                        </b>
+                                        <textarea type="text" class="form-control" disabled><?=$arrAgency[0]['Vision']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Mandate</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <input type="text" class="form-control" value="<?=isset($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>" disabled>
-                                        </b>
+                                        <input type="text" class="form-control" value="<?=isset($arrAgency[0]['Mandate'])?$arrAgency[0]['Mandate']:''?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Bank Account Number</label>
                                     <div class="col-md-9">
-                                        <b>
-                                            <input type="text" class="form-control" value="<?=isset($arrAgency[0]['AccountNum'])?$arrAgency[0]['AccountNum']:''?>" disabled>
-                                        </b>
+                                        <input type="text" class="form-control" value="<?=isset($arrAgency[0]['AccountNum'])?$arrAgency[0]['AccountNum']:''?>" disabled>
                                     </div>
                                 </div>
                             </div>
