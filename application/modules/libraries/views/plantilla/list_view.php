@@ -58,14 +58,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_plantilla">
                     <thead>
                         <tr>
-                            <th style="width: 100px;text-align:center;"> No. </th>
+                            <th style="width: 50px;text-align:center;"> No. </th>
                             <th> Item Number </th>
                             <th> Position Description </th>
                             <th> Authorize Salary (month) </th>
                             <th> Authorize Salary (year) </th>
                             <th> Salary Grade </th>
-                            <th> Plantilla Group </th>
-                            <th class="no-sort" style="text-align: center;"> Actions </th>
+                            <th style="width: 250px;text-align:center;"> Plantilla Group </th>
+                            <th style="width: 150px;text-align:center;" class="no-sort"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,12 +75,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <tr class="odd gradeX">
                             <td> <?=$i?> </td>
                             <td> <?=$plantilla['itemNumber']?> </td>
-                            <td> <?=$plantilla['positionDesc']?> </td>
+                            <td> <?=$plantilla['positionCode'].' - '.$plantilla['positionDesc']?> </td>
                             <td> <?=$plantilla['authorizeSalary']?> </td>
                             <td> <?=$plantilla['authorizeSalaryYear']?> </td>
                             <td> <?=$plantilla['salaryGrade']?> </td>
                             <td> <?=$plantilla['plantillaGroupName']?> </td>
-                            <td>
+                            <td style="width: 150px;text-align:center;">
                                 <a href="<?=base_url('libraries/plantilla/edit/'.$plantilla['plantillaID'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                 <a href="<?=base_url('libraries/plantilla/delete/'.$plantilla['plantillaID'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-trash" title="Delete"></span> Delete</button></a>
                                
