@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Position</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrPlantilla[0]['positionCode'])?$arrPlantilla[0]['positionCode']:''?>" disabled>
+                                    <input type="text" class="form-control" value="<?=isset($arrPlantilla[0]['positionCode'])?$arrPlantilla[0]['positionDesc']:''?>" disabled>
                                 </div>
                             </div>
                         </div>

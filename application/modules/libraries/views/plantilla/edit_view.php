@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                         <?php foreach($arrPosition as $pos)
                                         {
-                                           echo '<option value="'.$pos['positionId'].'" '.($arrPlantilla[0]['positionCode']==$pos['positionId']?'selected':'').'>'.$pos['positionCode'].' - '.$pos['positionDesc'].'</option>';
+                                           echo '<option value="'.$pos['positionCode'].'" '.($arrPlantilla[0]['positionCode']==$pos['positionCode']?'selected':'').'>'.$pos['positionCode'].' - '.$pos['positionDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -139,7 +139,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                      <?php foreach($arrExam as $exam)
                                         {
-                                          echo '<option value="'.$exam['examId'].'" '.($arrPlantilla[0]['examCode']==$exam['examId']?'selected':'').'>'.$exam['examCode'].'</option>';
+                                          echo '<option value="'.$exam['examCode'].'" '.($arrPlantilla[0]['examCode']==$exam['examCode']?'selected':'').'>'.$exam['examCode'].'</option>';
                                         }?>
                                     </select>
                                 </div>

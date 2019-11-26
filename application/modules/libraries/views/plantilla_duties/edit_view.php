@@ -43,7 +43,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('libraries/plantilla_duties/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmPayrollGroup'))?>
                 <div class="form-body">
-                    <?php print_r($arrPDuties);?>
+                    <?php //print_r($arrPDuties);?>
                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
