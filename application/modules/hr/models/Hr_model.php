@@ -123,6 +123,15 @@ class Hr_model extends CI_Model {
 		return json_encode($res);
 	}
 
+	public function getempby_appointment($apptcode)
+	{
+		$this->db->order_by('tblEmpPersonal.surname');
+		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPosition.statusOfAppointment');
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','left');
+		$this->db->where("tblEmpPersonal.empNumber!=''");
+		return $this->db->get_where('tblEmpPosition',array('statusOfAppointment' => 'In-Service', 'appointmentCode' => $apptcode))->result_array();
+	}
+
 	public function getData_byGroup($dtrswitch='')
 	{
 		$this->db->select('tblEmpPosition.empNumber,appointmentCode,statusOfAppointment,positionCode,appointmentCode,

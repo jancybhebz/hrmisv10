@@ -19,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Official Business</span>
+            <span>Travel Order</span>
         </li>
     </ul>
 </div>
@@ -37,17 +37,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Official Business</span>
+                    <span class="caption-subject bold uppercase"> Travel Order</span>
                 </div>
                 <div class="actions">
                     <div class="btn-group">
-                        <a class="btn green dropdown-toggle" href="<?=base_url('employee/official_business?status=All')?>" data-toggle="dropdown">
+                        <a class="btn green dropdown-toggle" href="<?=base_url('employee/travel_order?status=All')?>" data-toggle="dropdown">
                             <i class="fa fa-<?=$notif_icon[$active_menu]?>"></i> &nbsp;<?=$active_menu == 'All' ? 'All Requests' : $active_menu?> <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <?php foreach($arrNotif_menu as $notif):?>
                                     <li>
-                                        <a href="<?=base_url('employee/official_business?status='.$notif)?>">
+                                        <a href="<?=base_url('employee/travel_order?status='.$notif)?>">
                                             <i class="fa fa-<?=$notif_icon[$notif]?>"></i> <?=$notif == 'All' ? 'All Requests' : $notif?> </a>
                                     </li>
                             <?php endforeach; ?>
@@ -61,77 +61,47 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <a href="<?=base_url('employee/official_business/add')?>"><button class="btn sbold blue"> <i class="fa fa-plus"></i> Add New Request
+                                <a href="<?=base_url('employee/travel_order/add')?>"><button class="btn sbold blue"> <i class="fa fa-plus"></i> Add New Request
                                 </button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-ob">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-to">
                     <thead>
                         <tr>
                             <th style="width: 100px;text-align:center;"> No. </th>
                             <th style="text-align: center;"> Request Date </th>
                             <th style="text-align: center;"> Request Status </th>
-                            <th style="text-align: center;"> OB Date </th>
-                            <th style="text-align: center;"> OB Time </th>
-                            <th> Destination </th>
-                            <th> Purpose </th>
+                            <th style="text-align: center;"> Destination </th>
+                            <th style="text-align: center;"> Leave Date </th>
                             <th class="no-sort" style="text-align: center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach($arrob_request as $row): $req_details = explode(';',$row['requestDetails']);?>
+                    <?php $i=1; foreach($arrto_request as $row): $req_details = explode(';',$row['requestDetails']);?>
                         <tr class="odd gradeX">
                             <td align="center"> <?=$i++?> </td>
                             <td align="center"> <?=$row['requestDate']?> </td>
                             <td align="center"> <?=$row['requestStatus']?> </td>
+                            <td> <?=ucfirst($req_details[0])?> </td>
                             <td align="center" nowrap>
                                 <?php
-                                    if($req_details[2]!='' && $req_details[3]!=''):
-                                        echo date('M. d, Y',strtotime($req_details[2])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[3]));
+                                    if($req_details[1]!='' && $req_details[2]!=''):
+                                        echo date('M. d, Y',strtotime($req_details[1])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[2]));
                                     else:
+                                        echo $req_details[1]!=''?date('M. d, Y',strtotime($req_details[1])):'';
                                         echo $req_details[2]!=''?date('M. d, Y',strtotime($req_details[2])):'';
-                                        echo $req_details[3]!=''?date('M. d, Y',strtotime($req_details[3])):'';
                                     endif;
                                 ?></td>
-                            <td align="center" nowrap>
-                                <?php
-                                    if($req_details[4]!='' && $req_details[5]!=''):
-                                        echo date('h:i A',strtotime($req_details[4])).' <b>to</b> '.date('h:i A',strtotime($req_details[5]));
-                                    else:
-                                        echo $req_details[4]!=''?date('h:i A',strtotime($req_details[4])):'';
-                                        echo $req_details[5]!=''?date('h:i A',strtotime($req_details[5])):'';
-                                    endif;
-                                ?></td>
-                            <td>
-                                <?php
-                                    if(strlen($req_details[5]) > 30):
-                                        echo '<span class="ellipsis">'.substr($req_details[5], 0, 30).' ...</span>
-                                              <span class="fulltext" style="display: none;">'.$req_details[5].'</span>&nbsp;&nbsp;
-                                              <a class="showmore small" href="javascript:;"><u>show more</u></a>
-                                              <a class="showless small" href="javascript:;" style="display: none;"><u>show less</u></a>';
-                                    else:
-                                        echo $req_details[5];
-                                    endif; ?></td>
-                            <td>
-                                <?php
-                                    if(strlen($req_details[7]) > 30):
-                                        echo '<span class="ellipsis">'.substr($req_details[7], 0, 30).' ...</span>
-                                              <span class="fulltext" style="display: none;">'.$req_details[7].'</span>&nbsp;&nbsp;
-                                              <a class="showmore small" href="javascript:;"><u>show more</u></a>
-                                              <a class="showless small" href="javascript:;" style="display: none;"><u>show less</u></a>';
-                                    else:
-                                        echo $req_details[7];
-                                    endif; ?></td>
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
                                     data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
                                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
                                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
-                                    <a class="btn btn-sm green" href="<?=base_url('employee/official_business/edit?req_id='.$row['requestID'])?>">
+                                    <a class="btn btn-sm green" href="<?=base_url('employee/travel_order/edit?req_id='.$row['requestID'])?>">
                                         <span class="fa fa-edit" title="Edit"></span> Edit</a>
-                                    <a class="btn btn-sm btn-danger ob-cancel" data-id="<?=$row['requestID']?>">
+                                    <a class="btn btn-sm btn-danger leave-cancel" data-id="<?=$row['requestID']?>">
                                         <span class="icon-close" title="Cancel"></span> Cancel</a>
                                 <?php endif; ?>
                             </td>
@@ -146,18 +116,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 
 <!-- begin ob travel pass modal -->
-<div id="ob-form" class="modal fade" aria-hidden="true">
+<div id="to-form" class="modal fade" aria-hidden="true">
     <div class="modal-dialog" style="width: 60%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title bold">Personnel Travel Pass</h4>
+                <h4 class="modal-title bold">Travel Order</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="" id="ob-embed" frameborder="0" width="100%" height="500px">
+                            <embed src="" id="to-embed" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -168,7 +138,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="" id="ob-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <a href="" id="to-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>
         </div>
@@ -177,18 +147,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <!-- end ob travel pass modal -->
 
 <!-- begin ob cancel modal -->
-<div id="ob-cancel" class="modal fade" aria-hidden="true">
+<div id="leave-cancel" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Delete Attachment</h4>
+                <h4 class="modal-title">Cancel Request</h4>
             </div>
-            <?=form_open('employee/official_business/cancel', array('id' => 'frmob_attach'))?>
+            <?=form_open('employee/travel_order/cancel', array('id' => 'frmleave_attach'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="txtob_req_id" id="txtob_req_id">
+                            <input type="hidden" name="txtto_req_id" id="txtto_req_id">
                             <div class="form-group">
                                 <label>Are you sure you want to cancel this request?</label>
                             </div>
@@ -209,41 +179,39 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script>
     $(document).ready(function() {
-        $('#table-ob').dataTable( {
+        $('#table-to').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#div-ob_request').show();
             }} );
 
         /* ellipsis*/
-        $('#table-ob').on('click', 'a.showmore', function() {
+        $('#table-to').on('click', 'a.showmore', function() {
             $(this).closest('td').find('.fulltext,a.showless').show();
             $(this).prev().prev('.ellipsis').hide();
             $(this).hide();
         });
-        $('#table-ob').on('click', 'a.showless', function() {
+        $('#table-to').on('click', 'a.showless', function() {
             $(this).closest('td').find('.ellipsis,a.showmore').show();
             $(this).closest('td').find('.fulltext').hide();
             $(this).hide();
         });
 
-        $('#table-ob').on('click','a#printreport',function(){
+        $('#table-to').on('click','a#printreport',function(){
             var req_details = $(this).data('rdetails');
-            var obtype      = req_details[0];
-            var reqdate     = $(this).data('rdate');
-            var obdatefrom  = req_details[1];
-            var obdateto    = req_details[2];
-            var obtimefrom  = req_details[3];
-            var obtimeto    = req_details[4];
-            var desti       = req_details[5];
-            var meal        = req_details[6];
-            var purpose     = req_details[7];
+            var desti       = req_details[0];
+            var todatefrom  = req_details[1];
+            var todateto    = req_details[2];
+            var purpose     = req_details[3];
+            var meal        = req_details[4];
 
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose;
+            var link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal;
+
             $('div#attachments').html('');
             var json_file = $(this).data('rattach');
             $('div#attachments').append('<ul>');
             if(json_file!=''){
+                console.log($(this).data('rattach'));
                 $.each( $(this).data('rattach'), function(i,file) {
                     var floc = "<?=base_url('"+ file.filepath +"')?>";
                     var fname = file.filename;
@@ -254,14 +222,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             }
             $('div#attachments').append('</ul>');
             
-            $('#ob-embed').attr('src',link);
-            $('#ob-embed-fullview').attr('href',link);
-            $('#ob-form').modal('show');
+            $('#to-embed').attr('src',link);
+            $('#to-embed-fullview').attr('href',link);
+            $('#to-form').modal('show');
         });
 
-        $('#table-ob').on('click', 'a.ob-cancel', function() {
-            $('#txtob_req_id').val($(this).data('id'));
-            $('#ob-cancel').modal('show');
+        $('#table-to').on('click', 'a.leave-cancel', function() {
+            $('#txtto_req_id').val($(this).data('id'));
+            $('#leave-cancel').modal('show');
         });
     });
 </script>

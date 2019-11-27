@@ -176,38 +176,41 @@ class Request_model extends CI_Model {
 		$this->load->model('Request_model');
 		$signatories = $this->Request_model->request_signatories_bytype($request_code);
 		$arremp_signature = array();
-		if($signatories['Signatory1'] != ''):
-			$signatory = explode(';',$signatories['Signatory1']);
-			if(count($signatory) > 2):
-				if($signatory[2] == $_SESSION['sessEmpNo']):
-					$arremp_signature = array('Signatory1' => $_SESSION['sessEmpNo'], 'Sig1DateTime' =>date('Y-m-d'));
+		if(count($signatories) > 0):
+			$arremp_signature = array();
+			if($signatories['Signatory1'] != ''):
+				$signatory = explode(';',$signatories['Signatory1']);
+				if(count($signatory) > 2):
+					if($signatory[2] == $_SESSION['sessEmpNo']):
+						$arremp_signature = array('Signatory1' => $_SESSION['sessEmpNo'], 'Sig1DateTime' =>date('Y-m-d'));
+					endif;
 				endif;
 			endif;
-		endif;
 
-		if($signatories['Signatory2'] != ''):
-			$signatory = explode(';',$signatories['Signatory2']);
-			if(count($signatory) > 2):
-				if($signatory[2] == $_SESSION['sessEmpNo']):
-					$arremp_signature = array('Signatory2' => $_SESSION['sessEmpNo'], 'Sig2DateTime' =>date('Y-m-d'));
+			if($signatories['Signatory2'] != ''):
+				$signatory = explode(';',$signatories['Signatory2']);
+				if(count($signatory) > 2):
+					if($signatory[2] == $_SESSION['sessEmpNo']):
+						$arremp_signature = array('Signatory2' => $_SESSION['sessEmpNo'], 'Sig2DateTime' =>date('Y-m-d'));
+					endif;
 				endif;
 			endif;
-		endif;
 
-		if($signatories['Signatory3'] != ''):
-			$signatory = explode(';',$signatories['Signatory3']);
-			if(count($signatory) > 2):
-				if($signatory[2] == $_SESSION['sessEmpNo']):
-					$arremp_signature = array('Signatory3' => $_SESSION['sessEmpNo'], 'Sig3DateTime' =>date('Y-m-d'));
+			if($signatories['Signatory3'] != ''):
+				$signatory = explode(';',$signatories['Signatory3']);
+				if(count($signatory) > 2):
+					if($signatory[2] == $_SESSION['sessEmpNo']):
+						$arremp_signature = array('Signatory3' => $_SESSION['sessEmpNo'], 'Sig3DateTime' =>date('Y-m-d'));
+					endif;
 				endif;
 			endif;
-		endif;
 
-		if($signatories['SignatoryFin'] != ''):
-			$signatory = explode(';',$signatories['SignatoryFin']);
-			if(count($signatory) > 2):
-				if($signatory[2] == $_SESSION['sessEmpNo']):
-					$arremp_signature = array('SignatoryFin' => $_SESSION['sessEmpNo'], 'SigFinDateTime' =>date('Y-m-d'));
+			if($signatories['SignatoryFin'] != ''):
+				$signatory = explode(';',$signatories['SignatoryFin']);
+				if(count($signatory) > 2):
+					if($signatory[2] == $_SESSION['sessEmpNo']):
+						$arremp_signature = array('SignatoryFin' => $_SESSION['sessEmpNo'], 'SigFinDateTime' =>date('Y-m-d'));
+					endif;
 				endif;
 			endif;
 		endif;
@@ -221,38 +224,86 @@ class Request_model extends CI_Model {
 
 		$this->load->model('Request_model');
 		$signatories = $this->Request_model->request_signatories_bytype($type);
-		$rflowsign_1 = $signatories['Signatory1'] != '' ? explode(';',$signatories['Signatory1']) : array('','','');
-		$rflowsign_2 = $signatories['Signatory2'] != '' ? explode(';',$signatories['Signatory2']) : array('','','');
-		$rflowsign_3 = $signatories['Signatory3'] != '' ? explode(';',$signatories['Signatory3']) : array('','','');
-		$rflowsign_fin = $signatories['SignatoryFin'] != '' ? explode(';',$signatories['SignatoryFin']) : array('','','');
+		if(count($signatories) > 0):
+			$rflowsign_1 = $signatories['Signatory1'] != '' ? explode(';',$signatories['Signatory1']) : array('','','');
+			$rflowsign_2 = $signatories['Signatory2'] != '' ? explode(';',$signatories['Signatory2']) : array('','','');
+			$rflowsign_3 = $signatories['Signatory3'] != '' ? explode(';',$signatories['Signatory3']) : array('','','');
+			$rflowsign_fin = $signatories['SignatoryFin'] != '' ? explode(';',$signatories['SignatoryFin']) : array('','','');
 
-		if($ob['Signatory1'] != ''):
-			if($ob['Signatory2'] != ''):
-				if($ob['Signatory3'] != ''):
-					if($ob['SignatoryFin'] == ''):
-						if($rflowsign_fin[2]!=''):
-							$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-							return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+			if(strtolower($ob['requestStatus']) == 'filed request'):
+				# BEGIN SIGNATORY 1
+				# check if ob_signatory1 is null
+				if($ob['Signatory1'] == ''):
+					# check if flow_sign1 is null
+					if($rflowsign_1[2] == ''):
+						# check if flow_sign2 is null
+						if($rflowsign_2[2] == ''):
+							# check if flow_sign3 is null
+							if($rflowsign_3[2] == ''):
+								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+							else:
+								$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+							endif;
+						else:
+							$display = $rflowsign_2[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+							return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display);
 						endif;
 					else:
-						return array('next_sign' => '', 'display' => 0);
+						$display = $rflowsign_1[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+						return array('next_sign' => getDestination($signatories['Signatory1']), 'display' => $display);
 					endif;
 				else:
-					if($rflowsign_3[2]!=''):
-						$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-						return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+					# BEGIN SIGNATORY 2
+					# check if ob_signatory2 is null
+					if($ob['Signatory2'] == ''):
+						# check if flow_sign2 is null
+						if($rflowsign_2[2] == ''):
+							# check if flow_sign3 is null
+							if($rflowsign_3[2] == ''):
+								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+							else:
+								$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+							endif;
+						else:
+							$display = $rflowsign_2[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+							return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display);
+						endif;
+					else:
+						# BEGIN SIGNATORY 3
+						# check if ob_signatory3 is null
+						if($ob['Signatory3'] == ''):
+							if($rflowsign_3[2] == ''):
+								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+							else:
+								$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+							endif;
+						else:
+							# BEGIN FINAL SIGNATORY
+							if($ob['SignatoryFin'] == ''):
+								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+							else:
+								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+								return array('next_sign' => '', 'display' => $display);
+							endif;
+							# END FINAL SIGNATORY
+						endif;
+						# END SIGNATORY 3
 					endif;
+					# END SIGNATORY 2
 				endif;
+				# END SIGNATORY 1
 			else:
-				if($rflowsign_2[2]!=''):
-					$display = $rflowsign_2[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-					return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display);
+				$arr_signs = array($rflowsign_1[2],$rflowsign_2[2],$rflowsign_3[2],$rflowsign_fin[2]);
+				if(in_array($_SESSION['sessEmpNo'], $arr_signs)):
+					return array('next_sign' => '', 'display' => 1);
 				endif;
-			endif;
-		else:
-			if($rflowsign_1[2]!=''):
-				$display = $rflowsign_1[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-				return array('next_sign' => getDestination($signatories['Signatory1']), 'display' => $display);
 			endif;
 		endif;
 	}

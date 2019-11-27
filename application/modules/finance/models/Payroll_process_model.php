@@ -11,8 +11,25 @@ class Payroll_process_model extends CI_Model {
 		if($process_id == 0):
 			return $this->db->get('tblProcess')->result_array();
 		else:
-			return $this->db->get_where('tblProcess',array('processID' => $process_id))->result_array();
+			$res = $this->db->get_where('tblProcess',array('processID' => $process_id))->result_array();
+			return !empty($res) ? $res[0] : array();
 		endif;
+	}
+
+	function getemployee_income($process_id)
+	{
+		return $this->db->get_where('tblEmpIncome',array('processID' => $process_id))->result_array();
+	}
+	function get_incomedesc($incomecode)
+	{
+		$res = $this->db->get_where('tblIncome',array('incomecode' => $incomecode))->result_array();
+		return count($res) > 0 ? $res[0]['incomeDesc'] : $incomecode;
+	}
+
+	function getemployee_deductionremit($process_id)
+	{
+		$this->db->join('tblDeduction', 'tblDeduction.deductionCode = tblEmpDeductionRemit.deductionCode','left');
+		return $this->db->get_where('tblEmpDeductionRemit',array('processID' => $process_id))->result_array();
 	}
 
 	function get_rata_details($code='')

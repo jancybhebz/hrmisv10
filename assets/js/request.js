@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#table-ob').dataTable( {
+    $('#table-ob,#table-leave').dataTable( {
         "initComplete": function(settings, json) {
             $('.loading-image').hide();
             $('#request_view').show();

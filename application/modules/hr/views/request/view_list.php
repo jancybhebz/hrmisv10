@@ -42,13 +42,13 @@
                                         <div class="tabbable-line tabbable-custom-profile">
                                             <ul class="nav nav-tabs">
                                                 <li class="<?=$request=='ob'?'active':''?>">
-                                                    <a href="#tab-ob" data-toggle="tab"> Official Business </a>
+                                                    <a href="<?=base_url('hr/request?request=ob')?>"> Official Business </a>
                                                 </li>
                                                 <li class="<?=$request=='leave'?'active':''?>">
-                                                    <a href="#tab-leave" data-toggle="tab"> Leave </a>
+                                                    <a href="<?=base_url('hr/request?request=leave')?>"> Leave </a>
                                                 </li>
                                                 <li class="<?=$request=='to'?'active':''?>">
-                                                    <a href="#tab-to" data-toggle="tab"> Travel Order </a>
+                                                    <a href="<?=base_url('hr/request?request=to')?>"> Travel Order </a>
                                                 </li>
                                                 <li class="<?=$request=='pds'?'active':''?>">
                                                     <a href="#tab-pds" data-toggle="tab"> PDS Update </a>
@@ -71,11 +71,11 @@
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='leave'?'active':''?>" id="tab-leave">
-                                                    leave
+                                                    <?php $this->load->view('_leave_request.php'); ?>
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='to'?'active':''?>" id="tab-to">
-                                                    to
+                                                    <?php $this->load->view('_to_request.php'); ?>
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='pds'?'active':''?>" id="tab-pds">
@@ -109,6 +109,5 @@
 </div>
 
 <?php load_plugin('js',array('form_validation','datatables'));?>
-<script src="<?=base_url('assets/js/request.js')?>"></script>
 
 <?php $this->load->view('_modal_js.php'); ?>

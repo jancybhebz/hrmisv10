@@ -231,49 +231,39 @@ class Payslip extends CI_Model {
 
 	function generate_allemployees($arrData)
 	{
+		$appt = $_GET['appt'];
+		$process_id = $_GET['pprocess'];
+		$payroll_process = $this->Payroll_process_model->getData($process_id);
+
 		foreach($arrData['employees'] as $emp):
-			$arrpayslip = array('empno' => $emp,
-								  'pgroup' => $arrData['pgroup'],
-								  'period' => $arrData['period'],
-								  'ps_yr' => $arrData['ps_yr']);
+			$arrincome = $emp['income'];
+			$arrpayslip = array(
+								'period' => $_GET['linkper'],
+								'ps_yr' => $arrData['ps_yr']);
+			$period = 'period'.$arrpayslip['period'];
 			$this->fpdf->AddPage('P');
 			$origin_y = 1;
-			$benefits = $this->Payslip_model->income_list($arrpayslip['empno'], $_GET['pprocess']);
-			$deductions = $this->Payslip_model->deduction_list($arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno'], $arrpayslip!=null ? $arrpayslip['pgroup'] : $_GET['pgroup']);
-			$process_details = $this->Payroll_process_model->getData($arrpayslip!=null ? $arrpayslip['pgroup'] : $_GET['pgroup']);
-			$period = salary_schedule($process_details[0]['salarySchedule'],$arrpayslip!=null?$arrpayslip['period'] : $_GET['period']);
-			$period_range = salary_schedule($process_details[0]['salarySchedule'],$arrpayslip!=null?$arrpayslip['period'] : $_GET['period'],1);
-			$period_range = payroll_date($process_details[0]['salarySchedule'],$arrpayslip!=null?$arrpayslip['period'] : $_GET['period']);
-							
-			#Period pay
-			$arrperiod_pay = $this->Payslip_model->get_employee_salary($arrpayslip!=null ? $arrpayslip['pgroup'] : $_GET['pgroup'],$arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno']);
-			$period_pay = $arrperiod_pay != '' ? $arrperiod_pay[$period] : 0;
-			#Undertime Late
-			$arrut_abs = $this->Payslip_model->get_employee_undabs($arrpayslip!=null ? $arrpayslip['pgroup'] : $_GET['pgroup'],$arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno']);
-			$ut_abs = $arrut_abs != '' ? $arrut_abs[$period] : 0;
-			#Overtime pay
-			$arrot = $this->Payslip_model->get_employee_overtime($arrpayslip!=null ? $arrpayslip['pgroup'] : $_GET['pgroup'],$arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno']);
-			$ot = $arrot != '' ? $arrot[$period] : 0;
+			$period_range = payroll_date($payroll_process['salarySchedule'],$arrpayslip['period']);
 
-			$process_codes = $this->Payroll_process_model->get_process_code($arrpayslip!=null ? $arrpayslip['pgroup'] : $_GET['pgroup']);
-			$this->payslip_header('',$arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno']);
+			$this->payslip_header('',$emp['empNumber']);
 			$this->fpdf->SetFont('Arial','',9);
-			$this->fpdf->cell(0,5,'For Pay Period: '.date('F', mktime(0, 0, 0, currmo(), 10)).' '.$period_range.', '.($arrpayslip!=null?$arrpayslip['ps_yr'] : $_GET['ps_yr']),0,1,'C');
+			$this->fpdf->cell(0,5,'For Pay Period: '.date('F', mktime(0, 0, 0, currmo(), 10)).' '.$period_range.', '.$arrpayslip['ps_yr'],0,1,'C');
 			$this->fpdf->ln(5);
 
 			# begin header
 			$this->fpdf->SetFont('Arial','B',9);
 			$this->fpdf->Cell(30,5,'Employee No.:',0,0,'L');
 			$this->fpdf->SetFont('Arial','',9);
-			$this->fpdf->Cell(30,5,$arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno'],0,1,'L');
+			$this->fpdf->Cell(30,5,$emp['empNumber'],0,1,'L');
 			$this->fpdf->SetFont('Arial','B',9);
 			$this->fpdf->Cell(30,5,'Employee Name:',0,0,'L');
 			$this->fpdf->SetFont('Arial','',9);
-			$this->fpdf->Cell(50,5,strtoupper(employee_name($arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno'])),0,0,'L');
+			$fullname = getfullname($emp['firstname'], $emp['surname'], $emp['middlename'], $emp['middleInitial'], $emp['nameExtension']);
+			$this->fpdf->Cell(50,5,$fullname,0,0,'L');
 			$this->fpdf->SetFont('Arial','B',9);
 			$this->fpdf->Cell(91,5,'Basic Monthly:',0,0,'R');
 			$this->fpdf->SetFont('Arial','',9);
-			$this->fpdf->Cell(20,5,number_format($arrperiod_pay['actualSalary'],2,'.',','),0,1,'R');
+			$this->fpdf->Cell(20,5,number_format(count($emp['inc_salary']) > 0 ? $emp['inc_salary']['actualSalary'] : 0,2,'.',','),0,1,'R');
 			# end header
 
 			# begin column header
@@ -305,19 +295,24 @@ class Payslip extends CI_Model {
 			# end column header
 
 			# begin benefits
+			$overtime = '0.00';
+			$origin_y = 1;
 			$ben_y = 64;
 			$total_benefits = 0;
-			foreach($benefits as $benefit):
-				$period_amt = $benefit[$period];
-				if($period_amt!='0.00'):
-					$this->fpdf->SetXY(76,$ben_y + $origin_y);   
-					$this->fpdf->Cell(35,5,$benefit['incomeDesc'], 0, 0, 'L');
-					$this->fpdf->Cell(3,5,'', 0, 0, 'C');
-					$this->fpdf->Cell(20,5,number_format($period_amt, 2,'.',','), 0, 1, 'R');
-					$ben_y += 4;
-					$total_benefits = $total_benefits + $period_amt;
-				endif;
-			endforeach;
+			if(count($emp['income']) > 1):
+				foreach($emp['income'] as $benefit):
+					$period_amt = $benefit[$period];
+					$overtime = !empty($benefit) ? $benefit['incomeCode'] == 'OT' ? $benefit[$period] : '0.00' : '0.00';
+					if($period_amt!='0.00' && $benefit['incomeCode'] != 'SALARY'):
+						$this->fpdf->SetXY(76,$ben_y + $origin_y);   
+						$this->fpdf->Cell(35,5,$benefit['incomeDesc'], 0, 0, 'L');
+						$this->fpdf->Cell(3,5,'', 0, 0, 'C');
+						$this->fpdf->Cell(20,5,number_format($period_amt, 2,'.',','), 0, 1, 'R');
+						$ben_y += 4;
+						$total_benefits = $total_benefits + $period_amt;
+					endif;
+				endforeach;
+			endif;
 			if($total_benefits > 0):
 				$this->fpdf->SetFont('Arial','B',8);
 				$this->fpdf->SetXY(76,$ben_y+$origin_y+3);   
@@ -333,19 +328,23 @@ class Payslip extends CI_Model {
 			# end benefits
 
 			# begin deductions
+			$undertime_abs = '0.00';
 			$ded_y = 64;
 			$total_deductions = 0;
-			foreach($deductions as $deduction):
-				$period_amt = $deduction[$period];
-				if($period_amt!='0.00'):				
-					$this->fpdf->SetXY(143,$ded_y + $origin_y);   
-					$this->fpdf->Cell(37,5,$deduction['deductionDesc'], 0, 0, 'L');
-					$this->fpdf->Cell(3,5,'', 0, 0, 'C');
-					$this->fpdf->Cell(18,5,number_format($period_amt, 2,'.',','), 0, 1, 'R');
-					$ded_y += 4;
-					$total_deductions = $total_deductions + $period_amt;
-				endif;
-			endforeach;
+			if(count($emp['deduct']) > 1):
+				foreach($emp['deduct'] as $deduction):
+					$period_amt = !empty($deduction) ? $deduction[$period] : '0.00';
+					$undertime_abs = !empty($deduction) ? $deduction['deductionCode'] == 'UNDABS' ? $deduction[$period] : '0.00' : '0.00';
+					if($period_amt!='0.00'):
+						$this->fpdf->SetXY(143,$ded_y + $origin_y);   
+						$this->fpdf->Cell(37,5,$deduction['deductionDesc'], 0, 0, 'L');
+						$this->fpdf->Cell(3,5,'', 0, 0, 'C');
+						$this->fpdf->Cell(18,5,number_format($period_amt, 2,'.',','), 0, 1, 'R');
+						$ded_y += 4;
+						$total_deductions = $total_deductions + $period_amt;
+					endif;
+				endforeach;
+			endif;
 			if($total_deductions > 0):
 				$this->fpdf->SetFont('Arial','B',8);
 				$this->fpdf->SetXY(143,$ded_y + $origin_y +3);   
@@ -361,7 +360,8 @@ class Payslip extends CI_Model {
 			# end deductions
 
 			# begin earnings
-			$gross_pay = $period_pay - $ut_abs + $ot;
+			$period_pay = count($emp['inc_salary']) > 0 ? $emp['inc_salary'][$period] : 0;
+			$gross_pay = $period_pay - (float)$undertime_abs + (float)$overtime;
 			$net_pay = $gross_pay + $total_benefits - $total_deductions;
 
 			$this->fpdf->SetXY(9,64 + $origin_y); 
@@ -370,10 +370,10 @@ class Payslip extends CI_Model {
 			$this->fpdf->Cell(25,5,number_format($period_pay,2,'.',','), 0, 1, 'R');
 			$this->fpdf->SetX(9);
 			$this->fpdf->Cell(34,5,'Undertime/Abs.:', 0, 0, 'L');
-			$this->fpdf->Cell(25,5,number_format($ut_abs, 2,'.',','), 0, 1, 'R');
+			$this->fpdf->Cell(25,5,$undertime_abs, 0, 1, 'R');
 			$this->fpdf->SetX(9);
 			$this->fpdf->Cell(34,5,'Overtime:', 0, 0, 'L');
-			$this->fpdf->Cell(25,5,number_format($ot, 2,'.',','), 0, 1, 'R');
+			$this->fpdf->Cell(25,5,$overtime, 0, 1, 'R');
 			$this->fpdf->SetX(9);
 			$this->fpdf->Cell(34,5,'Gross Pay:', 0, 0, 'L');
 			$this->fpdf->Cell(25,5,number_format($gross_pay, 2,'.',','), 0, 1, 'R');		
@@ -404,10 +404,10 @@ class Payslip extends CI_Model {
 			$this->fpdf->Cell(70,5,number_format($net_pay, 2,'.',','), 0, 1, 'C');
 			# end signature
 
-			if($process_details[0]['employeeAppoint'] == 'P' && $process_details[0]['processCode'] == 'SALARY'):
+			if($_GET['appt'] == 'P' && $payroll_process['processCode'] == 'SALARY'):
 				$this->fpdf->SetX(9);
 				$this->fpdf->SetFont('Arial','',9); 
-				$this->fpdf->Cell(37,5,strtoupper(employee_name($arrpayslip!=null ? $arrpayslip['empno'] : $_GET['empno'])), 0, 0, 'L');
+				$this->fpdf->Cell(37,5,strtoupper($fullname), 0, 0, 'L');
 				$this->fpdf->SetFont('Arial','I',8);
 				$this->fpdf->Cell(0,5,'MC Benefits received herein are subject for refund if COA found it not in order.', 0, 1, 'R');
 			endif;
@@ -415,6 +415,7 @@ class Payslip extends CI_Model {
 			$this->fpdf->ln(5);
 			$this->fpdf->cell(0,5,'..................................................................................................................................................................................................................................................', 0, 1, 'C');
 		endforeach;
+		
 		$this->fpdf->Output();
 	}
 

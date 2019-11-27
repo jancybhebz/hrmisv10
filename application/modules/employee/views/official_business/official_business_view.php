@@ -73,7 +73,7 @@ endif;
                                 <label class="control-label">Request Date :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" value="<?=date('Y-m-d')?>" data-date-format="yyyy-mm-dd" autocomplete="of" <?=$hrmodule ? 'disabled' : ''?>>   
+                                   <input type="text" class="form-control date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" value="<?=count($obdetails)>0 ? $obdetails[1]:date('Y-m-d')?>" data-date-format="yyyy-mm-dd" autocomplete="of" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ endif;
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control date-picker" name="dtmOBdatefrom" id="dtmOBdatefrom"
-                                        value="<?=count($obdetails)>0 ? $obdetails[1]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
+                                        value="<?=count($obdetails)>0 ? $obdetails[2]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@ endif;
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control date-picker" name="dtmOBdateto" id="dtmOBdateto"
-                                        value="<?=count($obdetails)>0 ? $obdetails[2]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
+                                        value="<?=count($obdetails)>0 ? $obdetails[3]:''?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@ endif;
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeFrom" id="dtmTimeFrom"
-                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['amTimeinTo']))?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
+                                        value="<?=count($obdetails)>0 ? $obdetails[4]:date('h:i:s A',strtotime($emp_att_scheme['amTimeinTo']))?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@ endif;
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmTimeTo" id="dtmTimeTo"
-                                        value="<?=count($obdetails)>0 ? $obdetails[3]:date('h:i:s A',strtotime($emp_att_scheme['pmTimeoutTo']))?>" <?=$hrmodule ? 'disabled' : ''?>>
+                                        value="<?=count($obdetails)>0 ? $obdetails[5]:date('h:i:s A',strtotime($emp_att_scheme['pmTimeoutTo']))?>" <?=$hrmodule ? 'disabled' : ''?>>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ endif;
                                 <label class="control-label">Destination :  <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" <?=$hrmodule ? 'disabled' : ''?>><?=count($obdetails)>0 ? $obdetails[5]:''?></textarea>
+                                        <textarea class="form-control" rows="2" name="strDestination" id="strDestination" type="text" maxlength="1000" <?=$hrmodule ? 'disabled' : ''?>><?=count($obdetails)>0 ? $obdetails[6]:''?></textarea>
                                     </div>
                             </div>
                         </div>

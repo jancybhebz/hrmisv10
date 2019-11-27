@@ -87,17 +87,25 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <?php if(isset($_GET['appt'])): ?>
+                                <?php if(isset($_GET['appt'])): $periods = setPeriods(salary_schedule()); ?>
                                 <table class="table table-bordered" id="tblmreports" >
                                     <tr>
                                         <th>Payslip</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="1" data-test="fhalf1" data-link="<?=base_url('finance/reports/MonthlyReports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="2" data-test="fhalf1" data-link="<?=base_url('finance/reports/MonthlyReports/all_payslip')?>" data-title="Payslip"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <?php foreach($periods as $pk => $period): ?>
+                                            <td style="text-align: center;" class="half<?=($pk+1)?>">
+                                                <a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="<?=($pk+1)?>" data-link="<?=base_url('finance/reports/MonthlyReports/all_payslip')?>" data-title="Payslip">
+                                                    <i class="fa fa-money"></i> <?=$period?></a>
+                                            </td>
+                                        <?php endforeach; ?>
                                     </tr>
                                     <tr>
                                         <th>Payroll Register</th>
-                                        <td style="text-align: center;" class="half1"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="1" data-link="<?=base_url()?>"><i class="fa fa-money"></i> First Half</a></td>
-                                        <td style="text-align: center;" class="half2"><a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="2" data-link="<?=base_url()?>"><i class="fa fa-money"></i> Second Half</a></td>
+                                        <?php foreach($periods as $pk => $period): ?>
+                                            <td style="text-align: center;" class="half<?=($pk+1)?>">
+                                                <a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="<?=($pk+1)?>" data-link="<?=base_url()?>" data-title="Payroll Register">
+                                                    <i class="fa fa-money"></i> <?=$period?></a>
+                                            </td>
+                                        <?php endforeach; ?>
                                     </tr>
                                     <tr>
                                         <th>Funding Requirements</th>

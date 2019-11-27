@@ -18,26 +18,34 @@ class Travel_order_model extends CI_Model {
 		$this->db->initialize();	
 	}
 	
-	function getData($intReqId = '')
-	{		
-		$strWhere = '';
-		if($intReqId != "")
-			$strWhere .= " AND requestID = '".$intReqId."'";
-		
-		$strSQL = " SELECT * FROM tblEmpRequest					
-					WHERE 1=1 
-					$strWhere
-					ORDER BY requestDate
-					";
-			
-		$objQuery = $this->db->query($strSQL);
-		//print_r($objQuery->result_array());
-		return $objQuery->result_array();	
+	function getData($reqid='')
+	{
+		if($reqid!=''):
+			$res = $this->db->get_where('tblEmpRequest',array('requestID' => $reqid))->result_array();
+			return count($res) > 0 ? $res[0] : array();
+		else:
+			return $this->db->get('tblEmpRequest')->result_array();
+		endif;
+
+	}
+
+	function getall_request($empno='')
+	{
+		if($empno!=''):
+			$this->db->where('empNumber',$empno);
+		endif;
+		return $this->db->order_by('requestDate','DESC')->get_where('tblEmpRequest',array('requestCode' => 'TO'))->result_array();
 	}
 
 	function submit($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function add($arrData)
+	{
+		$this->db->insert('tblEmpTravelOrder', $arrData);
 		return $this->db->insert_id();		
 	}
 	

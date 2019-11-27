@@ -37,41 +37,10 @@ $(document).ready(function() {
         json = $('#selappt').find(':selected').attr('data-json');
         json_data = JSON.parse(json);
         appt = json_data.employeeAppoint;
-        
-        if(appt == 'P'){
-            if($('#selmon').val() == '06'){
-                if(linkper==1){
-                    $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/june1.pdf');
-                }else{
-                    $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/june2.pdf');
-                }
-            }
-            if($('#selmon').val() == '05'){
-                if(linkper==1){
-                    $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/may1.pdf');
-                }else{
-                    $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/may2.pdf');
-                }
-            }
-        }
-        else if(appt == 'GIA'){
-            if($('#selmon').val() == '06'){
-                    if(linkper==1){
-                        $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/gia-june1.pdf');
-                    }else{
-                        $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/gia-june2.pdf');
-                    }
-                }
-                if($('#selmon').val() == '05'){
-                    if(linkper==1){
-                        $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/gia-may1.pdf');
-                    }else{
-                        $('#embed-pdf,#link-fullsize').attr('src','../../uploads/finance/reports/payslip/gia-may2.pdf');
-                    }
-                }
-        }else{
-            $('#embed-pdf,#link-fullsize').attr('src',link+getdata);
-        }
+
+        getdata = "?appt=" + json_data.employeeAppoint + "&pprocess=" + json_data.processID + "&yr=" + json_data.processYear + "&month=" + json_data.processMonth + "&period=" + json_data.period + "&linkper=" + linkper;
+        $('#embed-pdf').attr('src',link+getdata);
+        $('a#link-fullsize').attr('href',link+getdata);
         // // if(json_data.employeeAppoint != 'P'){
         //     getdata = "?appt=" + json_data.employeeAppoint + "&pprocess=" + json_data.processID + "&yr=" + json_data.processYear + "&month=" + json_data.processMonth + "&period=" + json_data.period + "&linkper=" + linkper;
         // // }
@@ -83,7 +52,7 @@ $(document).ready(function() {
     });
 
     $('#link-fullsize').click(function() {
-        window.open($(this).attr('src'));
+        window.open($(this).attr('href'));
     });
 
 });

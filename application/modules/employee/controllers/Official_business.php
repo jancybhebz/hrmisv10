@@ -133,6 +133,17 @@ class Official_business extends MY_Controller {
 		$this->template->load('template/template_view', 'employee/official_business/official_business_view', $this->arrData);
 	}
 
+	public function cancel()
+	{
+		$arrData = array('requestStatus' => 'Cancelled');
+		$blnReturn = $this->official_business_model->save($arrData,$_POST['txtob_req_id']);
+		if(count($blnReturn)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Cancel request id = '.$_POST['txtob_req_id'].' Official Business',implode(';',$arrData),'');
+			$this->session->set_flashdata('strSuccessMsg','Your request has been cancelled.');
+		endif;
+		redirect('employee/official_business');
+	}
+
 	public function delete()
 	{
 		$fileid = $this->input->post('txtob_attach_id');
@@ -196,7 +207,7 @@ class Official_business extends MY_Controller {
 
 								if(!move_uploaded_file($tmp_file, $config['upload_path'].$config['file_name'])):
 									$error = array('error' => $this->upload->display_errors());
-									$this->session->set_flashdata('strErrorMsg','Please try again!');
+									$this->session->set_flashdata('strErrorMsg','Error in uploading attachment. Please try again!');
 								else:
 									$data = $this->upload->data();
 									$this->session->set_flashdata('strSuccessMsg','Upload successfully saved.');

@@ -109,8 +109,8 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '4') !== false))): ?> 
-                    <li class="nav-item <?=$active == 'hr' && $activesub == 'request' ? 'active' : '' ?> ">
-                         <a href="<?=base_url('hr/request')?>" class="nav-link nav-toggle">
+                    <li class="nav-item <?=($active == 'hr' && $activesub == 'request') || ($active == 'employee' && in_array($activesub, array('official_business','leave','travel_order'))) ? 'active' : '' ?> ">
+                         <a href="<?=base_url('hr/request?request=ob')?>" class="nav-link nav-toggle">
                             <i class="icon-doc"></i>
                             <span class="title">Request</span>
                         </a>                            
@@ -242,8 +242,8 @@ $user_session = $this->session->userdata();
                             <span class="arrow <?=$activesub=='reports'?'open':''?>"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item <?=$activetab=='monthly'?'active open':''?>">
-                                <a href="<?=base_url('finance/reports/monthly')?>">
+                            <li class="nav-item <?=$activetab=='monthlyreports'?'active open':''?>">
+                                <a href="<?=base_url('finance/reports/monthlyreports?month='.date("m").'&yr='.date("Y").'&appt=&processid=&period=')?>">
                                     <span class="title">Monthly Reports</span>
                                 </a>
                             </li>

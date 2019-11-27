@@ -436,3 +436,13 @@ if ( ! function_exists('array_sort'))
         return $new_array;
     }
 }
+
+if ( ! function_exists('printrd'))
+{
+    function printrd($array)
+    {
+        echo '<pre>';
+        print_r($array);
+        echo '</pre>';
+    }
+}
