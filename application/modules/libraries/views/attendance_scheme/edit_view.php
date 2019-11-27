@@ -39,7 +39,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Save Attendance Scheme</span>
+                    <span class="caption-subject bold uppercase"> Edit Attendance Scheme</span>
                 </div>
                 
             </div>

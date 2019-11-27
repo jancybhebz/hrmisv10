@@ -10,7 +10,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 class Duties_responsibilities_model extends CI_Model {
 
 	var $table = 'tblDuties';
-	var $tableid = 'duties';
+	var $tableid = 'duties_index';
 
 	function __construct()
 	{
@@ -18,13 +18,12 @@ class Duties_responsibilities_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 
-	function getData($strDuties = '')
+	function getData($intDutiesIndex = '')
 	{		
-		if($strDuties != "")
+		if($intDutiesIndex != "")
 		{
-			$this->db->where($this->tableid,$strDuties);
+			$this->db->where($this->tableid,$intDutiesIndex);
 		}
-		// $this->db->join('tblPosition','tblPosition.positionId = '.$this->table.'.duties','left');
 		$this->db->order_by('tblDuties.'.$this->tableid,'ASC');
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
@@ -44,19 +43,19 @@ class Duties_responsibilities_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function save($arrData, $strDuties)
+	function save($arrDuties, $intDutiesIndex)
 	{
-		$this->db->where($this->tableid, $strDuties);
-		$this->db->update($this->table, $arrData);
-		//echo $this->db->affected_rows();
+		$this->db->where($this->tableid, $intDutiesIndex);
+		$this->db->update($this->table, $arrDuties);
+		// echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete($strDuties)
+	function delete($intDutiesIndex)
 	{
-		$this->db->where($this->tableid, $strDuties);
+		$this->db->where($this->tableid, $intDutiesIndex);
 		$this->db->delete($this->table); 	
-		//echo $this->db->affected_rows();
+		// echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

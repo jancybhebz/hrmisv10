@@ -20,12 +20,12 @@ class Plantilla_model extends CI_Model {
 
 	function getData($intPlantillaId = '')
 	{		
-		$this->db->select($this->table.'.*,tblPosition.positionDesc');
+		$this->db->select($this->table.'.*,tblPosition.positionDesc,tblPlantillaGroup.plantillaGroupName');
 		if($intPlantillaId != "")
 		{
 			$this->db->where($this->tableid,$intPlantillaId);
 		}
-		 $this->db->join('tblPosition','tblPosition.positionId = '.$this->table.'.plantillaID','left');
+		 $this->db->join('tblPosition','tblPosition.positionCode = '.$this->table.'.positionCode','left');
 		 $this->db->join('tblPlantillaGroup','tblPlantillaGroup.plantillaGroupCode = '.$this->table.'.plantillaGroupCode','left');
 		 $this->db->join('tblExamType','tblExamType.examCode = '.$this->table.'.examCode','left');
 		 $this->db->order_by('tblPlantilla.'.$this->tableid,'ASC');
