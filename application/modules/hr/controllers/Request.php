@@ -8,12 +8,11 @@ class Request extends MY_Controller {
 	function __construct()
 	{
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/Official_business_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model'));
     }
 
     public function index()
 	{
-		# ob
 		$active_menu = isset($_GET['status']) ? $_GET['status']=='' ? 'Filed Request' : $_GET['status'] : 'Filed Request';
 		$_GET['status'] = $active_menu;
 		$menu = array('All','Filed Request','Certified','Cancelled','Disapproved');
@@ -25,36 +24,115 @@ class Request extends MY_Controller {
 		$this->arrData['active_menu'] = $active_menu;
 		$this->arrData['notif_icon'] = $notif_icon;
 
-		# begin OB
-		$arrob_request = $this->official_business_model->getall_request();
-		if(isset($_GET['status'])):
-			if(strtolower($_GET['status'])!='all'):
-				$ob_request = array();
-				foreach($arrob_request as $key=>$ob):
-					$next_signatory = $this->Request_model->get_next_signatory($ob,'OB');
-					$ob['next_signatory'] = $next_signatory;
-					if(strtolower($_GET['status']) == strtolower($ob['requestStatus'])):
-						if($active_menu == 'Filed Request'):
-							if($ob['next_signatory']['display'] == 1):
+		$request_type = $_GET['request'];
+
+		if($request_type == 'ob'):
+			# begin OB
+			$arrob_request = $this->official_business_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$ob_request = array();
+					foreach($arrob_request as $key=>$ob):
+						$next_signatory = $this->Request_model->get_next_signatory($ob,'OB');
+						$ob['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($ob['requestStatus'])):
+							if($active_menu == 'Filed Request'):
+								if($ob['next_signatory']['display'] == 1):
+									$ob_request[] = $ob;
+								endif;
+							else:
 								$ob_request[] = $ob;
 							endif;
-						else:
-							$ob_request[] = $ob;
 						endif;
-					endif;
-				endforeach;
-				$arrob_request = $ob_request;
-			else:
-				foreach($arrob_request as $key=>$ob):
-					$next_signatory = $this->Request_model->get_next_signatory($ob,'OB');
-					$ob['next_signatory'] = $next_signatory;
-					$ob_request[] = $ob;
-				endforeach;
-				$arrob_request = $ob_request;
+					endforeach;
+					$arrob_request = $ob_request;
+				else:
+					foreach($arrob_request as $key=>$ob):
+						$next_signatory = $this->Request_model->get_next_signatory($ob,'OB');
+						$ob['next_signatory'] = $next_signatory;
+						$ob_request[] = $ob;
+					endforeach;
+					$arrob_request = $ob_request;
+				endif;
 			endif;
+			$this->arrData['arrob_request'] = $arrob_request;
+			# end OB
 		endif;
-		$this->arrData['arrob_request'] = $arrob_request;
-		# end OB
+
+		if($request_type == 'leave'):
+			# begin leave
+			$arrleave_request = $this->leave_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$leave_request = array();
+					foreach($arrleave_request as $key=>$leave):
+						if($leave['requestDetails'] != ''):
+							$requestDetails = explode(';',$leave['requestDetails']);
+							$next_signatory = $this->Request_model->get_next_signatory($leave,strtoupper($requestDetails[0]));
+							$leave['next_signatory'] = $next_signatory;
+							if(strtolower($_GET['status']) == strtolower($leave['requestStatus'])):
+								if($active_menu == 'Filed Request'):
+									if($leave['next_signatory']['display'] == 1):
+										$leave_request[] = $leave;
+									endif;
+								else:
+									$leave_request[] = $leave;
+								endif;
+							endif;
+						endif;
+					endforeach;
+					$arrleave_request = $leave_request;
+				else:
+					foreach($arrleave_request as $key=>$leave):
+						if($leave['requestDetails'] != ''):
+							$requestDetails = explode(';',$leave['requestDetails']);
+							$next_signatory = $this->Request_model->get_next_signatory($leave,strtoupper($requestDetails[0]));
+							$leave['next_signatory'] = $next_signatory;
+							$leave_request[] = $leave;
+						endif;
+					endforeach;
+					$arrleave_request = $leave_request;
+				endif;
+			endif;
+			$this->arrData['arrleave_request'] = $arrleave_request;
+			# end leave
+		endif;
+
+		if($request_type == 'to'):
+			# begin TO
+			$arrto_request = $this->travel_order_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$ob_request = array();
+					foreach($arrto_request as $key=>$ob):
+						$next_signatory = $this->Request_model->get_next_signatory($ob,'TO');
+						$ob['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($ob['requestStatus'])):
+							if($active_menu == 'Filed Request'):
+								if($ob['next_signatory']['display'] == 1):
+									$ob_request[] = $ob;
+								endif;
+							else:
+								$ob_request[] = $ob;
+							endif;
+						endif;
+					endforeach;
+					$arrto_request = $ob_request;
+				else:
+					foreach($arrto_request as $key=>$ob):
+						$next_signatory = $this->Request_model->get_next_signatory($ob,'TO');
+						$ob['next_signatory'] = $next_signatory;
+						$ob_request[] = $ob;
+					endforeach;
+					$arrto_request = $ob_request;
+				endif;
+			endif;
+			$this->arrData['arrto_request'] = $arrto_request;
+			# end TO
+		endif;
 
 		$this->template->load('template/template_view', 'hr/request/view_list', $this->arrData);
 	}
@@ -118,43 +196,147 @@ class Request extends MY_Controller {
 		redirect('hr/request?request=ob');
 	}
 
-	public function leave_request()
+	public function update_leave()
 	{
-		$emp_session = $_SESSION;
 		$arrPost = $this->input->post();
 
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+		$txtremarks = '';
 		if(!empty($arrPost)):
-			$leave_details = json_decode($arrPost['txtleave_json'],true);
-			$request_details = explode(';',$leave_details['req_details']);
-
-			$arrLeave_details = array(
-							'dateFiled'	 	=> $leave_details['req_date'],
-							'empNumber'	 	=> $leave_details['req_emp'],
-							'requestID' 	=> $leave_details['req_id'],
-							'leaveCode' 	=> $leave_details['req_type'],
-							'specificLeave' => $arrPost['txtreq_patient'],
-							'reason'		=> $request_details[4],
-							'leaveFrom' 	=> $request_details[2],
-							'leaveTo' 		=> $request_details[3],
-							'certifyHR' 	=> (strpos($leave_details['req_nextsign'], 'HR') !== false) ? 'Y' : '',
-							'remarks' 		=> $leave_details['req_remarks'],
-							'inoutpatient'	=> $arrPost['txtreq_patient'],
-							'vllocation'	=> $request_details[9],
-							'commutation'	=> $request_details[10]);
-			# add in empleave
-			$this->Leave_model->add_employeeLeave($arrLeave_details);
-
-			$arrsignatory = array(
-							'SignatoryFin'	 => $arrPost['selreq_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
-							'requestStatus' => $arrPost['selreq_stat'],
-							'SigFinDateTime' => date('Y-m-d H:i:s'));
-			# update request
-			$this->Leave_model->save($arrsignatory, $leave_details['req_id']);
-
-			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selreq_stat']));
-			redirect('hr/notification?month='.currmo().'&yr='.curryr().'&status='.$_GET['status'].'&code='.$_GET['code']);
+			$optstatus = $arrPost['opt_leave_stat'];
+			$txtremarks = $arrPost['txtremarks'];
 		endif;
+
+
+		$req_id = $_GET['req_id'];
+		$arrleave = $this->leave_model->getData($_GET['req_id']);
+		$leave_details = explode(';',$arrleave['requestDetails']);
+		
+		# signatories
+		$arremp_signature = $this->Request_model->get_signature($leave_details[0]);
+		$arrleave_data = array(
+			'dateFiled'		=> $arrleave['requestDate'],
+			'empNumber'		=> $arrleave['empNumber'],
+			'requestID'		=> $arrleave['requestID'],
+			'leaveCode'		=> strtoupper($leave_details[0]),
+			'specificLeave'	=> $leave_details[7],
+			'reason'		=> $leave_details[6],
+			'leaveFrom'		=> $leave_details[1],
+			'leaveTo'		=> $leave_details[2],
+			'certifyHR'		=> 'Y',
+			'approveRequest'=> 'Y'
+		);
+
+		$addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
+		if(count($addreturn)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave',json_encode($arrob_data),'');
+		endif;
+
+		$arrleave_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+
+		$arrleave_signatory = array_merge($arrleave_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrleave_signatory, $arrleave['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
+		endif;
+
+		redirect('hr/request?request=leave');
 	}
+
+	public function update_to()
+	{
+		$arrPost = $this->input->post();
+
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+		$txtremarks = '';
+		if(!empty($arrPost)):
+			$optstatus = $arrPost['opt_to_stat'];
+			$txtremarks = $arrPost['txtremarks'];
+		endif;
+
+		$req_id = $_GET['req_id'];
+		$arrto = $this->travel_order_model->getData($_GET['req_id']);
+		$to_details = explode(';',$arrto['requestDetails']);
+		
+		# signatories
+		$arremp_signature = $this->Request_model->get_signature('TO');
+		$arrto_data = array(
+			'dateFiled'		=> $arrto['requestDate'],
+			'empNumber'		=> $arrto['empNumber'],
+			'toDateFrom'	=> $to_details[1],
+			'toDateTo'		=> $to_details[2],
+			'destination'	=> $to_details[0],
+			'purpose'		=> $to_details[3],
+			'wmeal'			=> $to_details[4]
+		);
+		
+		$addreturn = $this->travel_order_model->add($arrto_data);
+		if(count($addreturn)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add TO ',json_encode($arrto_data),'');
+		endif;
+
+		$arrto_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+
+		$arrto_signatory = array_merge($arrto_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrto['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
+		endif;
+
+		redirect('hr/request?request=to');
+	}
+
+	// public function leave_request()
+	// {
+	// 	$emp_session = $_SESSION;
+	// 	$arrPost = $this->input->post();
+
+	// 	if(!empty($arrPost)):
+	// 		$leave_details = json_decode($arrPost['txtleave_json'],true);
+	// 		$request_details = explode(';',$leave_details['req_details']);
+
+	// 		$arrLeave_details = array(
+	// 						'dateFiled'	 	=> $leave_details['req_date'],
+	// 						'empNumber'	 	=> $leave_details['req_emp'],
+	// 						'requestID' 	=> $leave_details['req_id'],
+	// 						'leaveCode' 	=> $leave_details['req_type'],
+	// 						'specificLeave' => $arrPost['txtreq_patient'],
+	// 						'reason'		=> $request_details[4],
+	// 						'leaveFrom' 	=> $request_details[2],
+	// 						'leaveTo' 		=> $request_details[3],
+	// 						'certifyHR' 	=> (strpos($leave_details['req_nextsign'], 'HR') !== false) ? 'Y' : '',
+	// 						'remarks' 		=> $leave_details['req_remarks'],
+	// 						'inoutpatient'	=> $arrPost['txtreq_patient'],
+	// 						'vllocation'	=> $request_details[9],
+	// 						'commutation'	=> $request_details[10]);
+	// 		# add in empleave
+	// 		$this->Leave_model->add_employeeLeave($arrLeave_details);
+
+	// 		$arrsignatory = array(
+	// 						'SignatoryFin'	 => $arrPost['selreq_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
+	// 						'requestStatus' => $arrPost['selreq_stat'],
+	// 						'SigFinDateTime' => date('Y-m-d H:i:s'));
+	// 		# update request
+	// 		$this->Leave_model->save($arrsignatory, $leave_details['req_id']);
+
+	// 		$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selreq_stat']));
+	// 		redirect('hr/notification?month='.currmo().'&yr='.curryr().'&status='.$_GET['status'].'&code='.$_GET['code']);
+	// 	endif;
+	// }
 
 	public function ob_request()
 	{

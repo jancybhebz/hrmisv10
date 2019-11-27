@@ -255,15 +255,12 @@ function getDestination($desti)
         switch ($desti[0]):
             case 'RECOMMENDED':
                 return 'for Recommendation by '.$empdesti;
-                echo 'for Recommendation by '.$empdesti;
                 break;
             case 'APPROVED':
                 return 'for Approval by '.$empdesti;
-                echo 'for Approval by '.$empdesti;
                 break;
             case 'CERTIFIED':
                 return 'for Certification by '.$empdesti;
-                echo 'for Certification by '.$empdesti;
                 break;
             default:
                 return '';

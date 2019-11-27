@@ -18,6 +18,35 @@ class Leave_monetization extends MY_Controller {
         $this->load->model(array('employee/leave_monetization_model','leave_model'));
     }
 
+    // public function index()
+    // {
+    // 	# Notification Menu
+    // 	$active_menu = isset($_GET['status']) ? $_GET['status']=='' ? 'All' : $_GET['status'] : 'All';
+    // 	$menu = array('All','Filed Request','Certified','Cancelled','Disapproved');
+    // 	unset($menu[array_search($active_menu, $menu)]);
+    // 	$notif_icon = array('All' => 'list', 'Filed Request' => 'file-text-o', 'Certified' => 'check', 'Cancelled' => 'ban', 'Disapproved' => 'remove');
+
+    // 	$this->arrData['active_code'] = isset($_GET['code']) ? $_GET['code']=='' ? 'all' : $_GET['code'] : 'all';
+    // 	$this->arrData['arrNotif_menu'] = $menu;
+    // 	$this->arrData['active_menu'] = $active_menu;
+    // 	$this->arrData['notif_icon'] = $notif_icon;
+
+    // 	// $arrto_request = $this->travel_order_model->getall_request($_SESSION['sessEmpNo']);
+    // 	// if(isset($_GET['status'])):
+    // 	// 	if(strtolower($_GET['status'])!='all'):
+    // 	// 		$leave_request = array();
+    // 	// 		foreach($arrto_request as $leave):
+    // 	// 			if(strtolower($_GET['status']) == strtolower($leave['requestStatus'])):
+    // 	// 				$leave_request[] = $leave;
+    // 	// 			endif;
+    // 	// 		endforeach;
+    // 	// 		$arrto_request = $leave_request;
+    // 	// 	endif;
+    // 	// endif;
+    // 	// $this->arrData['arrto_request'] = $arrto_request;
+    // 	$this->template->load('template/template_view', 'employee/leave_monetization/leave_monetization_list', $this->arrData);
+    // }
+
 	public function index()
 	{
 		$this->arrData['arrData'] = $this->leave_monetization_model->getData();

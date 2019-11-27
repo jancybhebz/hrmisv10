@@ -10,7 +10,7 @@ class Login_model extends CI_Model {
 	public function authenticate($strUsername,$strPassword)
 	{
 
-		$this->db->select('tblEmpAccount.*,tblEmpPosition.*,tblEmpPersonal.surname,tblEmpPersonal.firstname');
+		$this->db->select('tblEmpAccount.*,tblEmpPosition.*,tblEmpPersonal.*');
 		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpAccount.empNumber','left');
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber=tblEmpAccount.empNumber','left');
 		$rs = $this->db->get_where('tblEmpAccount', array('userName' => $strUsername))->result_array();

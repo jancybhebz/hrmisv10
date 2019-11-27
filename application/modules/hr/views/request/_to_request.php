@@ -13,7 +13,7 @@
         </ul>
     </div>
 </div>
-<table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-ob">
+<table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-to">
     <thead>
         <tr>
             <th style="width: 100px;text-align:center;"> No. </th>
@@ -24,15 +24,12 @@
                 <th style="text-align: center;"> Remarks </th>
             <?php endif; endif; ?>
             <th style="text-align: center;"> Request Destination </th>
-            <th style="text-align: center;"> OB Date </th>
-            <th style="text-align: center;"> OB Time </th>
-            <th> OB Destination </th>
-            <th> OB Purpose </th>
+            <th style="text-align: center;"> TO Date </th>
             <th class="no-sort" style="text-align: center;"> Actions </th>
         </tr>
     </thead>
     <tbody>
-    <?php $i=1; foreach($arrob_request as $row): $req_details = explode(';',$row['requestDetails']);?>
+    <?php $i=1; foreach($arrto_request as $row): $req_details = explode(';',$row['requestDetails']);?>
         <tr class="odd gradeX">
             <td align="center"> <?=$i++?> </td>
             <td> <?=employee_name($row['empNumber'])?> </td>
@@ -44,42 +41,13 @@
             <td align="center"> <?=$row['next_signatory']['next_sign']?> </td>
             <td align="center" nowrap>
                 <?php
-                    if($req_details[2]!='' && $req_details[3]!=''):
-                        echo date('M. d, Y',strtotime($req_details[2])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[3]));
+                    if($req_details[1]!='' && $req_details[2]!=''):
+                        echo date('M. d, Y',strtotime($req_details[1])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[2]));
                     else:
+                        echo $req_details[1]!=''?date('M. d, Y',strtotime($req_details[1])):'';
                         echo $req_details[2]!=''?date('M. d, Y',strtotime($req_details[2])):'';
-                        echo $req_details[3]!=''?date('M. d, Y',strtotime($req_details[3])):'';
                     endif;
                 ?></td>
-            <td align="center" nowrap>
-                <?php
-                    if($req_details[4]!='' && $req_details[5]!=''):
-                        echo date('h:i A',strtotime($req_details[4])).' <b>to</b> '.date('h:i A',strtotime($req_details[5]));
-                    else:
-                        echo $req_details[4]!=''?date('h:i A',strtotime($req_details[4])):'';
-                        echo $req_details[5]!=''?date('h:i A',strtotime($req_details[5])):'';
-                    endif;
-                ?></td>
-            <td>
-                <?php
-                    if(strlen($req_details[6]) > 30):
-                        echo '<span class="ellipsis">'.substr($req_details[6], 0, 30).' ...</span>
-                              <span class="fulltext" style="display: none;">'.$req_details[6].'</span>&nbsp;&nbsp;
-                              <a class="showmore small" href="javascript:;"><u>show more</u></a>
-                              <a class="showless small" href="javascript:;" style="display: none;"><u>show less</u></a>';
-                    else:
-                        echo $req_details[6];
-                    endif; ?></td>
-            <td>
-                <?php
-                    if(strlen($req_details[7]) > 30):
-                        echo '<span class="ellipsis">'.substr($req_details[7], 0, 30).' ...</span>
-                              <span class="fulltext" style="display: none;">'.$req_details[7].'</span>&nbsp;&nbsp;
-                              <a class="showmore small" href="javascript:;"><u>show more</u></a>
-                              <a class="showless small" href="javascript:;" style="display: none;"><u>show less</u></a>';
-                    else:
-                        echo $req_details[7];
-                    endif; ?></td>
             <td width="150px" style="white-space: nowrap;text-align: center;">
                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-id="<?=$row['requestID']?>"
                     data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
@@ -94,19 +62,19 @@
     </tbody>
 </table>
 
-<!-- begin ob travel pass modal -->
-<div id="ob-form" class="modal fade" aria-hidden="true">
+<!-- begin to pass modal -->
+<div id="to-form" class="modal fade" aria-hidden="true">
     <div class="modal-dialog" style="width: 60%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title bold">Personnel Travel Pass</h4>
+                <h4 class="modal-title bold">Leave Form</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="" id="ob-embed" frameborder="0" width="100%" height="500px">
+                            <embed src="" id="to-embed" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -117,30 +85,34 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="javascript:;" id="ob-open-request" class="btn green btn-sm"> <i class="icon-doc"> </i> Open Request</a>
-                <a href="javascript:;" id="ob-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <a href="javascript:;" id="to-open-request" class="btn green btn-sm"> <i class="icon-doc"> </i> Open Request</a>
+                <a href="javascript:;" id="to-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>
         </div>
     </div>
 </div>
-<!-- end ob travel pass modal -->
+<!-- end to pass modal -->
 
-<!-- begin ob certify modal -->
-<div id="modal-update-ob" class="modal fade" aria-hidden="true">
+<!-- begin to certify modal -->
+<div id="modal-update-to" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title" id="upt-title"></h4>
+                <h4 class="modal-title" id="to-title"></h4>
             </div>
-            <?=form_open('', array('id' => 'frmupdate_ob'))?>
+            <?=form_open('', array('id' => 'frmupdate_to'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="optstatus" id="optstatus">
+                            <input type="hidden" name="opt_to_stat" id="opt_to_stat">
                             <div class="form-group">
-                                <label>Are you sure you want to certify this request?</label>
+                                <label id="lbl-to-request">Are you sure you want to certify this request?</label>
+                            </div>
+                            <div class="form-group div-remarks">
+                                <label>Remarks</label>
+                                <textarea class="form-control" name="txtremarks"></textarea>
                             </div>
                         </div>
                     </div>
@@ -153,27 +125,17 @@
         </div>
     </div>
 </div>
-<!-- end ob certify modal -->
+<!-- end to certify modal -->
 
 <script>
     $(document).ready(function() {
-        $('#table-ob').dataTable( {
+        $('#table-to').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#request_view').show();
             }} );
 
-        /* ellipsis*/
-        $('#table-ob').on('click', 'a.showmore', function() {
-            $(this).closest('td').find('.fulltext,a.showless').show();
-            $(this).prev().prev('.ellipsis').hide();
-            $(this).hide();
-        });
-        $('#table-ob').on('click', 'a.showless', function() {
-            $(this).closest('td').find('.ellipsis,a.showmore').show();
-            $(this).closest('td').find('.fulltext').hide();
-            $(this).hide();
-        });
+       
             
     });
 </script>

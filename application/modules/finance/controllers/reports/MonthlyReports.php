@@ -14,7 +14,7 @@ class MonthlyReports extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Payroll_process_model','libraries/Position_model'));
+        $this->load->model(array('Payroll_process_model','libraries/Position_model','hr/Hr_model'));
         $this->arrData = array();
     }
 
@@ -38,9 +38,44 @@ class MonthlyReports extends MY_Controller {
 
 	public function all_payslip()
 	{
-		$employees = $this->Position_model->getEmployee_Position($_GET['appt']);
+		# get Process
+		$process_id = isset($_GET['pprocess']) ? $_GET['pprocess'] : '';
+		$process = $this->Payroll_process_model->getData($process_id);
+
+		# get employee
+		$employees = $this->Hr_model->getempby_appointment($_GET['appt']);
+		
+		$emp_income = $this->Payroll_process_model->getemployee_income($process_id);
+		$emp_deduct = $this->Payroll_process_model->getemployee_deductionremit($process_id);
+		
+		foreach($employees as $key => $emp):
+			$inc_salary = array();
+			$arrincome = array_keys(array_column($emp_income, 'empNumber'), $emp['empNumber']);
+			if(!empty($arrincome)):
+				foreach($arrincome as $i_key):
+					$emp_income[$i_key]['incomeDesc'] = $this->Payroll_process_model->get_incomedesc($emp_income[$i_key]['incomeCode']);
+					$employees[$key]['income'][] = $emp_income[$i_key];
+					if($emp_income[$i_key]['incomeCode'] == 'SALARY'):
+						$inc_salary = $emp_income[$i_key];
+					endif;
+				endforeach;
+			else:
+				$employees[$key]['income'][] = array();
+			endif;
+
+			$arrincome = array_keys(array_column($emp_deduct, 'empNumber'), $emp['empNumber']);
+			if(!empty($arrincome)):
+				foreach($arrincome as $d_key):
+					$employees[$key]['deduct'][] = $emp_deduct[$d_key];
+				endforeach;
+			else:
+				$employees[$key]['deduct'][] = array();
+			endif;
+			$employees[$key]['inc_salary'] = $inc_salary;
+		endforeach;
+		
 		$this->load->model('reports/payslip/Payslip');
-		$this->Payslip->generate_allemployees(array('employees' => array_column($employees,'empNumber'), 'pgroup' => $_GET['pprocess'], 'ps_yr' => $_GET['yr'], 'month' => $_GET['month'], 'period' => $_GET['period']));
+		$this->Payslip->generate_allemployees(array('employees' => $employees, 'pgroup' => $_GET['pprocess'], 'ps_yr' => $_GET['yr'], 'month' => $_GET['month'], 'period' => $_GET['period']));
 	}
 
 

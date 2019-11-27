@@ -30,10 +30,17 @@ class Api extends MY_Controller {
 		$pass = isset($_GET['pass']) ? $_GET['pass'] : '';
 		if($fingerprint=='!7D$0@9'):
 			if($uname!='' && $pass!=''):
-				echo json_encode($this->Login_model->authenticate($uname,$pass));
+				$arruser = $this->Login_model->authenticate($uname,$pass);
+				if(count($arruser) > 0):
+					echo json_encode($this->User_account_model->getemployee_forapi($arruser[0]['empNumber']));
+				else:
+					echo json_encode(array());
+				endif;
+			else:
+				echo json_encode(array());
 			endif;
 		else:
-			echo json_encode('');
+			echo json_encode(array());
 		endif;
 	}
 	
