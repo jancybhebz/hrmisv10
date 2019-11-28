@@ -19,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Leave</span>
+            <span>PDS Update</span>
         </li>
     </ul>
 </div>
@@ -37,17 +37,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Leave</span>
+                    <span class="caption-subject bold uppercase"> PDS Update</span>
                 </div>
                 <div class="actions">
                     <div class="btn-group">
-                        <a class="btn green dropdown-toggle" href="<?=base_url('employee/leave?status=All')?>" data-toggle="dropdown">
+                        <a class="btn green dropdown-toggle" href="<?=base_url('employee/pds_update?status=All')?>" data-toggle="dropdown">
                             <i class="fa fa-<?=$notif_icon[$active_menu]?>"></i> &nbsp;<?=$active_menu == 'All' ? 'All Requests' : $active_menu?> <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <?php foreach($arrNotif_menu as $notif):?>
                                     <li>
-                                        <a href="<?=base_url('employee/leave?status='.$notif)?>">
+                                        <a href="<?=base_url('employee/pds_update?status='.$notif)?>">
                                             <i class="fa fa-<?=$notif_icon[$notif]?>"></i> <?=$notif == 'All' ? 'All Requests' : $notif?> </a>
                                     </li>
                             <?php endforeach; ?>
@@ -61,47 +61,37 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <a href="<?=base_url('employee/leave/add')?>"><button class="btn sbold blue"> <i class="fa fa-plus"></i> Add New Request
+                                <a href="<?=base_url('employee/pds_update/add')?>"><button class="btn sbold blue"> <i class="fa fa-plus"></i> Add New Request
                                 </button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-leave">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-pds">
                     <thead>
                         <tr>
                             <th style="width: 100px;text-align:center;"> No. </th>
                             <th style="text-align: center;"> Request Date </th>
                             <th style="text-align: center;"> Request Status </th>
-                            <th style="text-align: center;"> Leave Type </th>
-                            <th style="text-align: center;"> Leave Date </th>
+                            <th style="text-align: center;"> Request Type </th>
                             <th class="no-sort" style="text-align: center;"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach($arrleave_request as $row): $req_details = explode(';',$row['requestDetails']);?>
+                    <?php $i=1; foreach($arrpds_request as $row): $req_details = explode(';',$row['requestDetails']);?>
                         <tr class="odd gradeX">
                             <td align="center"> <?=$i++?> </td>
                             <td align="center"> <?=$row['requestDate']?> </td>
                             <td align="center"> <?=$row['requestStatus']?> </td>
-                            <td align="center"> <?=strtoupper($req_details[0])?> </td>
-                            <td align="center" nowrap>
-                                <?php
-                                    if($req_details[1]!='' && $req_details[2]!=''):
-                                        echo date('M. d, Y',strtotime($req_details[1])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[2]));
-                                    else:
-                                        echo $req_details[1]!=''?date('M. d, Y',strtotime($req_details[1])):'';
-                                        echo $req_details[2]!=''?date('M. d, Y',strtotime($req_details[2])):'';
-                                    endif;
-                                ?></td>
+                            <td align="center"> <?=$row['requestCode']?> </td>
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
                                     data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
                                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
                                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
-                                    <a class="btn btn-sm green" href="<?=base_url('employee/leave/edit?req_id='.$row['requestID'])?>">
+                                    <a class="btn btn-sm green" href="<?=base_url('employee/pds_update/edit?req_id='.$row['requestID'])?>">
                                         <span class="fa fa-edit" title="Edit"></span> Edit</a>
-                                    <a class="btn btn-sm btn-danger leave-cancel" data-id="<?=$row['requestID']?>">
+                                    <a class="btn btn-sm btn-danger pds-cancel" data-id="<?=$row['requestID']?>">
                                         <span class="icon-close" title="Cancel"></span> Cancel</a>
                                 <?php endif; ?>
                             </td>
@@ -179,25 +169,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script>
     $(document).ready(function() {
-        $('#table-leave').dataTable( {
+        $('#table-pds').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#div-ob_request').show();
             }} );
 
-        /* ellipsis*/
-        $('#table-leave').on('click', 'a.showmore', function() {
-            $(this).closest('td').find('.fulltext,a.showless').show();
-            $(this).prev().prev('.ellipsis').hide();
-            $(this).hide();
-        });
-        $('#table-leave').on('click', 'a.showless', function() {
-            $(this).closest('td').find('.ellipsis,a.showmore').show();
-            $(this).closest('td').find('.fulltext').hide();
-            $(this).hide();
-        });
-
-        $('#table-leave').on('click','a#printreport',function(){
+        $('#table-pds').on('click','a#printreport',function(){
             var req_details = $(this).data('rdetails');
             var leavetype  = req_details[0];
             var day        = req_details.length > 9 ? req_details[9] : '' ;
@@ -229,14 +207,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             }
             $('div#attachments').append('</ul>');
             
-            $('#leave-embed').attr('src',link);
-            $('#leave-embed-fullview').attr('href',link);
-            $('#leave-form').modal('show');
+            $('#pds-embed').attr('src',link);
+            $('#pds-embed-fullview').attr('href',link);
+            $('#pds-form').modal('show');
         });
 
-        $('#table-leave').on('click', 'a.leave-cancel', function() {
+        $('#table-pds').on('click', 'a.pds-cancel', function() {
             $('#txtleave_req_id').val($(this).data('id'));
-            $('#leave-cancel').modal('show');
+            $('#pds-cancel').modal('show');
         });
     });
 </script>

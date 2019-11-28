@@ -127,3 +127,16 @@ define('SALARY_DAYS',22);
 define('TAX_PERCENT',0.05);
 
 define('ERLIEST_YEAR',1970);
+
+/*PDS UPDATE*/
+define('PDS_PROFILE','201 Profile');
+define('PDS_FAMILY','201 Family');
+define('PDS_EDUC','201 Education');
+define('PDS_TRAIN','201 Training');
+define('PDS_ELIGIBILITY','201 Eligibility');
+define('PDS_CHILD','201 Children');
+define('PDS_TAX','201 Tax');
+define('PDS_REF','201 References');
+define('PDS_VOLUNTEER','201 Voluntary Work');
+define('PDS_WORKXP','201 Work Experience');
+

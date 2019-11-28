@@ -16,7 +16,19 @@
 				<td> <?=$row['refAddress']?></td>
 				<td align="center"> <?=$row['refTelephone']?></td>
 				<td align="center">
-					<a class="btn green btn-sm" href="<?=base_url('employee/pds_update?ref_id='.$row['ReferenceIndex'])?>"><i class="fa fa-edit"></i> Edit </a>
+					<?php 
+						$row_show = 1;
+						if(isset($pds_details)):
+							$row_show = isset($pds_details[3]) ? $pds_details[3] == $row['ReferenceIndex'] ? 0 : 1 : 1;
+						else:
+							if(count($emp_ref) > 0):
+								$row_show = $emp_ref['ReferenceIndex'] == $row['ReferenceIndex'] ? 0 : 1;
+							else:
+							endif;
+						endif;
+						if($row_show):?>
+							<a class="btn green btn-sm" href="<?=base_url('employee/pds_update/add?ref_id='.$row['ReferenceIndex'])?>"><i class="fa fa-edit"></i> Edit </a>
+						<?php endif; ?>
 				</td>
 			</tr>
 			<?php endforeach;?>
@@ -26,16 +38,18 @@
 </div>
 
 <div class="col-md-12">
-	<?=form_open('employee/pds_update/submitRef', array('method' => 'post', 'id' => 'frmEduc'))?>
+	<?=form_open('employee/pds_update/submitRef?action='.$action, array('method' => 'post', 'id' => 'frmEduc'))?>
+		<input class="hidden" name="txtreqid" value="<?=isset($_GET['req_id']) ? $_GET['req_id'] : ''?>">
 		<input class="hidden" name="strStatus" value="Filed Request">
-		<input class="hidden" name="strCode" value="201 Ref">
-		<input class="hidden" name="txtrefid" value="<?=isset($_GET['ref_id']) ? $_GET['ref_id'] : ''?>">
+		<input class="hidden" name="strCode" value="<?=PDS_REF?>">
+		<input class="hidden" name="txtrefid" value="<?=isset($_GET['ref_id']) ? $_GET['ref_id'] : (isset($pds_details) ? $pds_details[3] : '')?>">
 		<div class="row" id="refname_textbox">
 		    <div class="col-sm-8">
 		        <div class="form-group">
 		        	<label class="control-label">Name : </label>
 		        	<div class="input-icon right">
-		        		<input type="text" class="form-control" name="strRefName" value="<?=count($emp_ref)>0?$emp_ref['refName']:''?>" autocomplete="off">
+		        		<input type="text" class="form-control" name="strRefName"
+		        			value="<?=isset($pds_details) ? $pds_details[0] : (count($emp_ref) > 0 ? $emp_ref['refName']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -45,7 +59,8 @@
 		        <div class="form-group">
 		        	<label class="control-label">Address : </label>
 		        	<div class="input-icon right">
-		        		<input type="text" class="form-control" name="strRefAdd" value="<?=count($emp_ref)>0?$emp_ref['refAddress']:''?>" autocomplete="off">
+		        		<input type="text" class="form-control" name="strRefAdd"
+		        			value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_ref) > 0 ? $emp_ref['refAddress']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -55,7 +70,8 @@
 		        <div class="form-group">
 		        	<label class="control-label">Contact Number : </label>
 		        	<div class="input-icon right">
-		        		<input type="text" class="form-control" name="intRefContact" value="<?=count($emp_ref)>0?$emp_ref['refTelephone']:''?>" autocomplete="off">
+		        		<input type="text" class="form-control" name="intRefContact"
+		        			value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_ref) > 0 ? $emp_ref['refTelephone']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
