@@ -18,78 +18,120 @@ class Leave_monetization extends MY_Controller {
         $this->load->model(array('employee/leave_monetization_model','leave_model'));
     }
 
-    // public function index()
-    // {
-    // 	# Notification Menu
-    // 	$active_menu = isset($_GET['status']) ? $_GET['status']=='' ? 'All' : $_GET['status'] : 'All';
-    // 	$menu = array('All','Filed Request','Certified','Cancelled','Disapproved');
-    // 	unset($menu[array_search($active_menu, $menu)]);
-    // 	$notif_icon = array('All' => 'list', 'Filed Request' => 'file-text-o', 'Certified' => 'check', 'Cancelled' => 'ban', 'Disapproved' => 'remove');
+    public function index()
+    {
+    	# Notification Menu
+    	$active_menu = isset($_GET['status']) ? $_GET['status']=='' ? 'All' : $_GET['status'] : 'All';
+    	$menu = array('All','Filed Request','Certified','Cancelled','Disapproved');
+    	unset($menu[array_search($active_menu, $menu)]);
+    	$notif_icon = array('All' => 'list', 'Filed Request' => 'file-text-o', 'Certified' => 'check', 'Cancelled' => 'ban', 'Disapproved' => 'remove');
 
-    // 	$this->arrData['active_code'] = isset($_GET['code']) ? $_GET['code']=='' ? 'all' : $_GET['code'] : 'all';
-    // 	$this->arrData['arrNotif_menu'] = $menu;
-    // 	$this->arrData['active_menu'] = $active_menu;
-    // 	$this->arrData['notif_icon'] = $notif_icon;
+    	$this->arrData['active_code'] = isset($_GET['code']) ? $_GET['code']=='' ? 'all' : $_GET['code'] : 'all';
+    	$this->arrData['arrNotif_menu'] = $menu;
+    	$this->arrData['active_menu'] = $active_menu;
+    	$this->arrData['notif_icon'] = $notif_icon;
 
-    // 	// $arrto_request = $this->travel_order_model->getall_request($_SESSION['sessEmpNo']);
-    // 	// if(isset($_GET['status'])):
-    // 	// 	if(strtolower($_GET['status'])!='all'):
-    // 	// 		$leave_request = array();
-    // 	// 		foreach($arrto_request as $leave):
-    // 	// 			if(strtolower($_GET['status']) == strtolower($leave['requestStatus'])):
-    // 	// 				$leave_request[] = $leave;
-    // 	// 			endif;
-    // 	// 		endforeach;
-    // 	// 		$arrto_request = $leave_request;
-    // 	// 	endif;
-    // 	// endif;
-    // 	// $this->arrData['arrto_request'] = $arrto_request;
-    // 	$this->template->load('template/template_view', 'employee/leave_monetization/leave_monetization_list', $this->arrData);
-    // }
+    	$arrmone_request = $this->leave_monetization_model->getall_request($_SESSION['sessEmpNo']);
+    	if(isset($_GET['status'])):
+    		if(strtolower($_GET['status'])!='all'):
+    			$mone_request = array();
+    			foreach($arrmone_request as $mone):
+    				if(strtolower($_GET['status']) == strtolower($mone['requestStatus'])):
+    					$mone_request[] = $mone;
+    				endif;
+    			endforeach;
+    			$arrmone_request = $mone_request;
+    		endif;
+    	endif;
+    	$this->arrData['arrmone_request'] = $arrmone_request;
+    	$this->template->load('template/template_view', 'employee/leave_monetization/leave_monetization_list', $this->arrData);
+    }
 
-	public function index()
+	public function add()
 	{
-		$this->arrData['arrData'] = $this->leave_monetization_model->getData();
+		$this->arrData['action'] = 'add';
+        $this->arrData['arrData'] = $this->leave_monetization_model->getData();
 		$this->arrData['arrBalance'] = $this->leave_model->getLatestBalance($_SESSION['sessEmpNo']);
 		$this->template->load('template/template_view', 'employee/leave_monetization/leave_monetization_view', $this->arrData);
 	}
+
+    public function edit()
+    {
+        $this->arrData['action'] = 'edit';
+        $this->arrData['arrmone'] = $this->leave_monetization_model->getrequest($_GET['req_id']);
+        $this->arrData['arrData'] = $this->leave_monetization_model->getData();
+        $this->arrData['arrBalance'] = $this->leave_model->getLatestBalance($_SESSION['sessEmpNo']);
+
+        $arrPost = $this->input->post();
+        if(!empty($arrPost)):
+
+            $MonetizedVL=$arrPost['MonetizedVL'];
+            $MonetizedSL=$arrPost['MonetizedSL'];
+            $strStatus=$arrPost['strStatus'];
+            $strCode=$arrPost['strCode'];
+            $commutation=$arrPost['commutation'];
+            $strReason=$arrPost['strReason'];
+            $arrData = array(
+                        'requestDetails'=>$MonetizedVL.';'.$MonetizedSL.';'.$commutation.';'.$strReason,
+                        'requestDate'=>date('Y-m-d'),
+                        'requestStatus'=>$strStatus,
+                        'requestCode'=>$strCode,
+                        'empNumber'=>$_SESSION['sessEmpNo']
+                        // 'requestStatus'=>
+                    );
+            $blnReturn  = $this->leave_monetization_model->save($arrData,$_GET['req_id']);
+
+            log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpLeaveMonetization','Updated '.$strCode.' Leave Monetization',implode(';',$arrData),'');
+            $this->session->set_flashdata('strSuccessMsg','Your Request has been updated.');
+
+            redirect('employee/leave_monetization');
+        endif;
+
+        $this->template->load('template/template_view', 'employee/leave_monetization/leave_monetization_view', $this->arrData);
+    }
 	
 	public function submit()
     {
     	$arrPost = $this->input->post();
 		if(!empty($arrPost))
 		{
-			$MonetizedVL=$arrPost['MonetizedVL'];
-			$MonetizedSL=$arrPost['MonetizedSL'];
-			$strStatus=$arrPost['strStatus'];
-			$strCode=$arrPost['strCode'];
-			$commutation=$arrPost['commutation'];
-			$strReason=$arrPost['strReason'];
+			$MonetizedVL     = $arrPost['MonetizedVL'];
+			$MonetizedSL     = $arrPost['MonetizedSL'];
+			$strStatus       = $arrPost['strStatus'];
+			$strCode         = $arrPost['strCode'];
+			$strvlBalance    = $arrPost['txtvlBalance'];
+            $strslBalance    = $arrPost['txtslBalance'];
+            $strperiodMonth  = $arrPost['txtperiodMonth'];
+            $strperiodYear   = $arrPost['txtperiodYear'];
+            $commutation     = $arrPost['commutation'];
+			$strReason       = $arrPost['strReason'];
+            $strDetails      = implode(';',array($MonetizedVL,$MonetizedSL,$strvlBalance,$strslBalance,$strperiodMonth,$strperiodYear,$commutation,$strReason));
+
+
 			if(!empty($MonetizedVL) && !empty($MonetizedSL))
 			{	
-				if( count($this->leave_monetization_model->checkExist($strCode))==0 )
+                if(count($this->leave_monetization_model->checkExist($strDetails))==0)
 				{
 					$arrData = array(
-						'requestDetails'=>$MonetizedVL.';'.$MonetizedSL.';'.$commutation.';'.$strReason,
-						'requestDate'=>date('Y-m-d'),
-						'requestStatus'=>$strStatus,
-						'requestCode'=>$strCode,
-						'empNumber'=>$_SESSION['sessEmpNo']
-						// 'requestStatus'=>
+						'requestDetails'  => $strDetails,
+						'requestDate'     => date('Y-m-d'),
+						'requestStatus'   => $strStatus,
+						'requestCode'     => 'Monetization',
+						'empNumber'       => $_SESSION['sessEmpNo'],
+						'requestStatus'   => 'Filed Request'
 					);
 					$blnReturn  = $this->leave_monetization_model->submit($arrData);
 
 					if(count($blnReturn)>0)
 					{	
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpLeaveMonetization','Added '.$strCode.' Leave Monetization',implode(';',$arrData),'');
-						$this->session->set_flashdata('strMsg','Your Request has been submitted.');
+						$this->session->set_flashdata('strSuccessMsg','Your Request has been submitted.');
 					}
 					redirect('employee/leave_monetization');
 				}
 				else
 				{	
-					$this->session->set_flashdata('strSuccessMsg','Request already exists.');
-					//$this->session->set_flashdata('strOBtype',$strOBtype);
+					$this->session->set_flashdata('strMsg','Request already exists.');
 					redirect('employee/leave_monetization');
 				}
 			}
@@ -135,6 +177,16 @@ class Leave_monetization extends MY_Controller {
     	endif;
     }
 
+    public function cancel()
+    {
+        $arrData = array('requestStatus' => 'Cancelled');
+        $blnReturn = $this->leave_monetization_model->save($arrData,$_POST['txtmone_req_id']);
+        if(count($blnReturn)>0):
+            log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Cancel request id = '.$_POST['txtmone_req_id'].' Leave Monetization ',implode(';',$arrData),'');
+            $this->session->set_flashdata('strSuccessMsg','Your request has been cancelled.');
+        endif;
+        redirect('employee/leave_monetization');
+    }
     
 
 

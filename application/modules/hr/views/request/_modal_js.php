@@ -202,6 +202,37 @@
         //     $('#opt_to_stat').val('Disapproved');
         //     $('#modal-update-to').modal('show');
         // });
+
+        // Monetization
+        $('#table-mone').on('click','a#printreport',function(){
+
+            var req_empno = $(this).data('empno');
+            var link = "<?=base_url('employee/reports/generate/')?>"+req_empno+"?rpt=reportLeave&leavetype=monetization&day=Whole%20day&leavefrom=&leaveto=&daysapplied=&signatory=&empname=&reason=&incaseSL=&incaseVL=&signatory2=&intVL=&intSL=";
+
+            $('#mone-embed').attr('src',link);
+            $('#mone-embed-fullview').attr('href',link);
+
+            $('#mone-open-request').attr('href',"<?=base_url('employee/travel_order/edit?module=hr&req_id=')?>"+$(this).data('id'));
+            $('#mone-form').modal('show');
+        });
+
+        $('#table-mone').on('click', 'a#btncertify', function() {
+            $('.div-remarks').hide();
+            $('#mone-title').html('<b>Certify</b>');
+            $('#lbl-mone-request').text('Are you sure you want to certify this request?');
+            $('#frmupdate_mone').attr('action',"<?=base_url('hr/request/update_mone?req_id=')?>"+$(this).data('id'));
+            $('#opt_mone_stat').val('CERTIFIED');
+            $('#modal-update-mone').modal('show');
+        });
+
+        $('#table-mone').on('click', 'a#btndisapproved', function() {
+            $('.div-remarks').show();
+            $('#mone-title').html('<b>DISAPPROVED</b>');
+            $('#lbl-mone-request').text('Are you sure you want to disapprove this request?');
+            $('#frmupdate_mone').attr('action',"<?=base_url('hr/request/update_mone?req_id=')?>"+$(this).data('id'));
+            $('#opt_mone_stat').val('Disapproved');
+            $('#modal-update-mone').modal('show');
+        });
         
     });
 </script>

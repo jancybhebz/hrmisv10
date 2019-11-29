@@ -8,7 +8,7 @@ class Request extends MY_Controller {
 	function __construct()
 	{
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model','employee/leave_monetization_model'));
     }
 
     public function index()
@@ -106,33 +106,68 @@ class Request extends MY_Controller {
 
 			if(isset($_GET['status'])):
 				if(strtolower($_GET['status'])!='all'):
-					$ob_request = array();
-					foreach($arrto_request as $key=>$ob):
-						$next_signatory = $this->Request_model->get_next_signatory($ob,'TO');
-						$ob['next_signatory'] = $next_signatory;
-						if(strtolower($_GET['status']) == strtolower($ob['requestStatus'])):
+					$to_request = array();
+					foreach($arrto_request as $key=>$to):
+						$next_signatory = $this->Request_model->get_next_signatory($to,'TO');
+						$to['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($to['requestStatus'])):
 							if($active_menu == 'Filed Request'):
-								if($ob['next_signatory']['display'] == 1):
-									$ob_request[] = $ob;
+								if($to['next_signatory']['display'] == 1):
+									$to_request[] = $to;
 								endif;
 							else:
-								$ob_request[] = $ob;
+								$to_request[] = $to;
 							endif;
 						endif;
 					endforeach;
-					$arrto_request = $ob_request;
+					$arrto_request = $to_request;
 				else:
-					foreach($arrto_request as $key=>$ob):
-						$next_signatory = $this->Request_model->get_next_signatory($ob,'TO');
-						$ob['next_signatory'] = $next_signatory;
-						$ob_request[] = $ob;
+					foreach($arrto_request as $key=>$to):
+						$next_signatory = $this->Request_model->get_next_signatory($to,'TO');
+						$to['next_signatory'] = $next_signatory;
+						$to_request[] = $to;
 					endforeach;
-					$arrto_request = $ob_request;
+					$arrto_request = $to_request;
 				endif;
 			endif;
 			$this->arrData['arrto_request'] = $arrto_request;
 			# end TO
 		endif;
+
+		if($request_type == 'mone'):
+			# begin Monetization
+			$arrmone_request = $this->leave_monetization_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$mone_request = array();
+					foreach($arrmone_request as $key=>$mone):
+						$next_signatory = $this->Request_model->get_next_signatory($mone,'Monetization');
+						$mone['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($mone['requestStatus'])):
+							if($active_menu == 'Filed Request'):
+								if($mone['next_signatory']['display'] == 1):
+									$mone_request[] = $mone;
+								endif;
+							else:
+								$mone_request[] = $mone;
+							endif;
+						endif;
+					endforeach;
+					$arrmone_request = $mone_request;
+				else:
+					foreach($arrmone_request as $key=>$mone):
+						$next_signatory = $this->Request_model->get_next_signatory($mone,'Monetization');
+						$mone['next_signatory'] = $next_signatory;
+						$mone_request[] = $mone;
+					endforeach;
+					$arrmone_request = $mone_request;
+				endif;
+			endif;
+			$this->arrData['arrmone_request'] = $arrmone_request;
+			# end Monetization
+		endif;
+
 
 		$this->template->load('template/template_view', 'hr/request/view_list', $this->arrData);
 	}
@@ -292,6 +327,66 @@ class Request extends MY_Controller {
 
 		$arrto_signatory = array_merge($arrto_signatory,$arremp_signature);
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrto['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
+		endif;
+
+		redirect('hr/request?request=to');
+	}
+
+	public function update_mone()
+	{
+		$arrPost = $this->input->post();
+
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+		$txtremarks = '';
+		if(!empty($arrPost)):
+			$optstatus = $arrPost['opt_mone_stat'];
+			$txtremarks = $arrPost['txtremarks'];
+		endif;
+		
+		$req_id = $_GET['req_id'];
+		$arrmone = $this->leave_monetization_model->getrequest($_GET['req_id']);
+		$mone_details = explode(';',$arrmone['requestDetails']);
+		
+		# signatories
+		$arremp_signature = $this->Request_model->get_signature('TO');
+
+		$leave_balance = $this->leave_model->getLatestBalance($arrmone['empNumber']);
+		$vlBalance = isset($leave_balance['vlBalance']) ? $leave_balance['vlBalance'] : 0;
+		$slBalance = isset($leave_balance['slBalance']) ? $leave_balance['slBalance'] : 0;
+		$arrmone_data = array(
+			'empNumber'		=> $arrmone['empNumber'],
+			'vlMonetize'	=> $vlBalance,
+			'slMonetize'	=> $slBalance,
+			'processMonth'	=> date('n'),
+			'processYear'	=> date('Y'),
+			'monetizeMonth'	=> $mone_details[2],
+			'monetizeYear'	=> $mone_details[0],
+			'monetizeAmount'=> $mone_details[0],
+			'processBy'		=> $mone_details[3],
+			'ip'			=> $mone_details[3],
+			'processDate'	=> $mone_details[3]
+		);
+		printrd($mone_details);
+		printrd($arrmone_data);
+		die();
+		$addreturn = $this->travel_order_model->add($arrmone_data);
+		if(count($addreturn)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add TO ',json_encode($arrmone_data),'');
+		endif;
+
+		$arrto_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+
+		$arrto_signatory = array_merge($arrto_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrmone['requestID']);
 		if(count($update_employeeRequest)>0):
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
 			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
