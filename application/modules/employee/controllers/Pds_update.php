@@ -233,12 +233,14 @@ class Pds_update extends MY_Controller {
 			$strCode	  = $arrPost['strCode'];
 
 			$arrData = array(
-				'requestDetails'  => $strSname.';'.$strFname.';'.$strMname.';'.$strExtension.';'.$dtmBirthdate.';'.$strBirthplace.';'.$strCS.';'.$intWeight.';'.$intHeight.';'.$strBlood.';'.$intGSIS.';'.$intPagibig.';'.$intPhilhealth.';'.$intTin.';'.$strBlk1.';'.$strStreet1.';'.$strSubd1.';'.$strBrgy1.';'.$strCity1.';'.$strProv1.';'.$strZipCode1.';'.$strTel1.';'.$strBlk2.';'.$strStreet2.';'.$strSubd2.';'.$strBrgy2.';'.$strCity2.';'.$strProv2.';'.$strZipCode2.';'.$intTel2.';'.$strEmail.';'.$strCP.';'.$strStatus.';'.$strCode,
+				'requestDetails'  => 'Profile'.';'.$strSname.';'.$strFname.';'.$strMname.';'.$strExtension.';'.$dtmBirthdate.';'.$strBirthplace.';'.$strCS.';'.$intWeight.';'.$intHeight.';'.$strBlood.';'.$intGSIS.';'.$intPagibig.';'.$intPhilhealth.';'.$intTin.';'.$strBlk1.';'.$strStreet1.';'.$strSubd1.';'.$strBrgy1.';'.$strCity1.';'.$strProv1.';'.$strZipCode1.';'.$strTel1.';'.$strBlk2.';'.$strStreet2.';'.$strSubd2.';'.$strBrgy2.';'.$strCity2.';'.$strProv2.';'.$strZipCode2.';'.$intTel2.';'.$strEmail.';'.$strCP.';'.$strStatus.';'.$strCode,
 				'requestDate'	  => date('Y-m-d'),
 				'requestStatus'   => $strStatus,
 				'requestCode' 	  => $strCode,
 				'empNumber' 	  => $_SESSION['sessEmpNo']);
-
+			// printrd($arrData);
+			// printrd(explode(';',$arrData['requestDetails']));
+			// die();
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0):
@@ -283,12 +285,14 @@ class Pds_update extends MY_Controller {
 			$strCode		= $arrPost['strCode'];
 
 			$arrData = array(
-				'requestDetails' => $strSSurname.';'.$strSFirstname.';'.$strSMidname.';'.$strSNameExt.';'.$strSOccupation.';'.$strSBusname.';'.$strSBusadd.';'.$strSTel.';'.$strFSurname.';'.$strFFirstname.';'.$strFMidname.';'.$strFExtension.';'.$strMSurname.';'.$strMFirstname.';'.$strMMidname.';'.$strPaddress,
+				'requestDetails' => 'Family'.';'.$strSSurname.';'.$strSFirstname.';'.$strSMidname.';'.$strSNameExt.';'.$strSOccupation.';'.$strSBusname.';'.$strSBusadd.';'.$strSTel.';'.$strFSurname.';'.$strFFirstname.';'.$strFMidname.';'.$strFExtension.';'.$strMSurname.';'.$strMFirstname.';'.$strMMidname.';'.$strPaddress,
 				'requestDate' 	 => date('Y-m-d'),
 				'requestStatus'  => $strStatus,
 				'requestCode' 	 => $strCode,
 				'empNumber' 	 => $_SESSION['sessEmpNo']);
-
+			// printrd($arrData);
+			// printrd(explode(';',$arrData['requestDetails']));
+			// die();
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0):
