@@ -152,6 +152,87 @@
             $('#opt_to_stat').val('Disapproved');
             $('#modal-update-to').modal('show');
         });
+
+        // PDS
+        $('#table-pds').on('click','a#printreport',function(){
+            var req_details = $(this).data('rdetails');
+            var desti      = req_details[0];
+            var todatefrom  = req_details[1];
+            var todateto    = req_details[2];
+            var purpose     = req_details[3];
+            var meal     = req_details[4];
+
+            var link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal;
+
+            $('div#attachments').html('');
+            var json_file = $(this).data('rattach');
+            $('div#attachments').append('<ul>');
+            if(json_file!=''){
+                $.each( $(this).data('rattach'), function(i,file) {
+                    var floc = "<?=base_url('"+ file.filepath +"')?>";
+                    var fname = file.filename;
+                    var ext = fname.split('.');
+                    ext = ext[ext.length-1];
+                    $('div#attachments').append('<li><a target="_blank" href="'+floc+'"><i class="fa fa-'+check_icon(ext)+'"> </i>&nbsp;'+ellipsisChar(fname, 30)+'</a></li>');
+                });
+            }
+            $('div#attachments').append('</ul>');
+            
+            $('#pds-embed').attr('src',link);
+            $('#pds-embed-fullview').attr('href',link);
+
+            $('#pds-open-request').attr('href',"<?=base_url('employee/travel_order/edit?module=hr&req_id=')?>"+$(this).data('id'));
+            $('#pds-form').modal('show');
+        });
+
+        // $('#table-to').on('click', 'a#btncertify', function() {
+        //     $('.div-remarks').hide();
+        //     $('#to-title').html('<b>Certify</b>');
+        //     $('#lbl-to-request').text('Are you sure you want to certify this request?');
+        //     $('#frmupdate_to').attr('action',"<?=base_url('hr/request/update_to?req_id=')?>"+$(this).data('id'));
+        //     $('#opt_to_stat').val('CERTIFIED');
+        //     $('#modal-update-to').modal('show');
+        // });
+
+        // $('#table-to').on('click', 'a#btndisapproved', function() {
+        //     $('.div-remarks').show();
+        //     $('#to-title').html('<b>DISAPPROVED</b>');
+        //     $('#lbl-to-request').text('Are you sure you want to disapprove this request?');
+        //     $('#frmupdate_to').attr('action',"<?=base_url('hr/request/update_to?req_id=')?>"+$(this).data('id'));
+        //     $('#opt_to_stat').val('Disapproved');
+        //     $('#modal-update-to').modal('show');
+        // });
+
+        // Monetization
+        $('#table-mone').on('click','a#printreport',function(){
+
+            var req_empno = $(this).data('empno');
+            var link = "<?=base_url('employee/reports/generate/')?>"+req_empno+"?rpt=reportLeave&leavetype=monetization&day=Whole%20day&leavefrom=&leaveto=&daysapplied=&signatory=&empname=&reason=&incaseSL=&incaseVL=&signatory2=&intVL=&intSL=";
+
+            $('#mone-embed').attr('src',link);
+            $('#mone-embed-fullview').attr('href',link);
+
+            $('#mone-open-request').attr('href',"<?=base_url('employee/leave_monetization/edit?module=hr&req_id=')?>"+$(this).data('id'));
+            $('#mone-form').modal('show');
+        });
+
+        $('#table-mone').on('click', 'a#btncertify', function() {
+            $('.div-remarks').hide();
+            $('#mone-title').html('<b>Certify</b>');
+            $('#lbl-mone-request').text('Are you sure you want to certify this request?');
+            $('#frmupdate_mone').attr('action',"<?=base_url('hr/request/update_mone?req_id=')?>"+$(this).data('id'));
+            $('#opt_mone_stat').val('CERTIFIED');
+            $('#modal-update-mone').modal('show');
+        });
+
+        $('#table-mone').on('click', 'a#btndisapproved', function() {
+            $('.div-remarks').show();
+            $('#mone-title').html('<b>DISAPPROVED</b>');
+            $('#lbl-mone-request').text('Are you sure you want to disapprove this request?');
+            $('#frmupdate_mone').attr('action',"<?=base_url('hr/request/update_mone?req_id=')?>"+$(this).data('id'));
+            $('#opt_mone_stat').val('Disapproved');
+            $('#modal-update-mone').modal('show');
+        });
         
     });
 </script>

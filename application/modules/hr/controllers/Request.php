@@ -8,7 +8,7 @@ class Request extends MY_Controller {
 	function __construct()
 	{
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model','employee/leave_monetization_model'));
     }
 
     public function index()
@@ -106,33 +106,68 @@ class Request extends MY_Controller {
 
 			if(isset($_GET['status'])):
 				if(strtolower($_GET['status'])!='all'):
-					$ob_request = array();
-					foreach($arrto_request as $key=>$ob):
-						$next_signatory = $this->Request_model->get_next_signatory($ob,'TO');
-						$ob['next_signatory'] = $next_signatory;
-						if(strtolower($_GET['status']) == strtolower($ob['requestStatus'])):
+					$to_request = array();
+					foreach($arrto_request as $key=>$to):
+						$next_signatory = $this->Request_model->get_next_signatory($to,'TO');
+						$to['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($to['requestStatus'])):
 							if($active_menu == 'Filed Request'):
-								if($ob['next_signatory']['display'] == 1):
-									$ob_request[] = $ob;
+								if($to['next_signatory']['display'] == 1):
+									$to_request[] = $to;
 								endif;
 							else:
-								$ob_request[] = $ob;
+								$to_request[] = $to;
 							endif;
 						endif;
 					endforeach;
-					$arrto_request = $ob_request;
+					$arrto_request = $to_request;
 				else:
-					foreach($arrto_request as $key=>$ob):
-						$next_signatory = $this->Request_model->get_next_signatory($ob,'TO');
-						$ob['next_signatory'] = $next_signatory;
-						$ob_request[] = $ob;
+					foreach($arrto_request as $key=>$to):
+						$next_signatory = $this->Request_model->get_next_signatory($to,'TO');
+						$to['next_signatory'] = $next_signatory;
+						$to_request[] = $to;
 					endforeach;
-					$arrto_request = $ob_request;
+					$arrto_request = $to_request;
 				endif;
 			endif;
 			$this->arrData['arrto_request'] = $arrto_request;
 			# end TO
 		endif;
+
+		if($request_type == 'mone'):
+			# begin Monetization
+			$arrmone_request = $this->leave_monetization_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$mone_request = array();
+					foreach($arrmone_request as $key=>$mone):
+						$next_signatory = $this->Request_model->get_next_signatory($mone,'Monetization');
+						$mone['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($mone['requestStatus'])):
+							if($active_menu == 'Filed Request'):
+								if($mone['next_signatory']['display'] == 1):
+									$mone_request[] = $mone;
+								endif;
+							else:
+								$mone_request[] = $mone;
+							endif;
+						endif;
+					endforeach;
+					$arrmone_request = $mone_request;
+				else:
+					foreach($arrmone_request as $key=>$mone):
+						$next_signatory = $this->Request_model->get_next_signatory($mone,'Monetization');
+						$mone['next_signatory'] = $next_signatory;
+						$mone_request[] = $mone;
+					endforeach;
+					$arrmone_request = $mone_request;
+				endif;
+			endif;
+			$this->arrData['arrmone_request'] = $arrmone_request;
+			# end Monetization
+		endif;
+
 
 		$this->template->load('template/template_view', 'hr/request/view_list', $this->arrData);
 	}
@@ -154,29 +189,30 @@ class Request extends MY_Controller {
 			
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature($arrob['requestCode']);
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$arrob_data = array(
+				'dateFiled'		=> $ob_details[1],
+				'empNumber'		=> $arrob['empNumber'],
+				'requestID'		=> $arrob['requestID'],
+				'obDateFrom'	=> $ob_details[2],
+				'obDateTo'		=> $ob_details[3],
+				'obTimeFrom'	=> $ob_details[4],
+				'obTimeTo'		=> $ob_details[5],
+				'obPlace'		=> $ob_details[6],
+				'obMeal'		=> $ob_details[8]==''?'N':$ob_details[8],
+				'purpose'		=> $ob_details[7],
+				'official'		=> strtolower($ob_details[0]) == 'official' ? 'Y' : '',
+				'approveRequest'=> '',
+				'approveChief'	=> '',
+				'approveHR'		=> check_module()=='hr' ? strtolower($optstatus) == 'certified' ? 'Y' : '' : '',
+				'is_override'	=> '',
+				'override_id'	=> ''
+			);
 
-		$arrob_data = array(
-			'dateFiled'		=> $ob_details[1],
-			'empNumber'		=> $arrob['empNumber'],
-			'requestID'		=> $arrob['requestID'],
-			'obDateFrom'	=> $ob_details[2],
-			'obDateTo'		=> $ob_details[3],
-			'obTimeFrom'	=> $ob_details[4],
-			'obTimeTo'		=> $ob_details[5],
-			'obPlace'		=> $ob_details[6],
-			'obMeal'		=> $ob_details[8]==''?'N':$ob_details[8],
-			'purpose'		=> $ob_details[7],
-			'official'		=> strtolower($ob_details[0]) == 'official' ? 'Y' : '',
-			'approveRequest'=> '',
-			'approveChief'	=> '',
-			'approveHR'		=> check_module()=='hr' ? strtolower($optstatus) == 'certified' ? 'Y' : '' : '',
-			'is_override'	=> '',
-			'override_id'	=> ''
-		);
-
-		$addreturn = $this->Official_business_model->add($arrob_data);
-		if(count($addreturn)>0):
-			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Official Business',json_encode($arrob_data),'');
+			$addreturn = $this->Official_business_model->add($arrob_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Official Business',json_encode($arrob_data),'');
+			endif;
 		endif;
 
 		$arrob_signatory = array(
@@ -215,22 +251,24 @@ class Request extends MY_Controller {
 		
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature($leave_details[0]);
-		$arrleave_data = array(
-			'dateFiled'		=> $arrleave['requestDate'],
-			'empNumber'		=> $arrleave['empNumber'],
-			'requestID'		=> $arrleave['requestID'],
-			'leaveCode'		=> strtoupper($leave_details[0]),
-			'specificLeave'	=> $leave_details[7],
-			'reason'		=> $leave_details[6],
-			'leaveFrom'		=> $leave_details[1],
-			'leaveTo'		=> $leave_details[2],
-			'certifyHR'		=> 'Y',
-			'approveRequest'=> 'Y'
-		);
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$arrleave_data = array(
+				'dateFiled'		=> $arrleave['requestDate'],
+				'empNumber'		=> $arrleave['empNumber'],
+				'requestID'		=> $arrleave['requestID'],
+				'leaveCode'		=> strtoupper($leave_details[0]),
+				'specificLeave'	=> $leave_details[7],
+				'reason'		=> $leave_details[6],
+				'leaveFrom'		=> $leave_details[1],
+				'leaveTo'		=> $leave_details[2],
+				'certifyHR'		=> 'Y',
+				'approveRequest'=> 'Y'
+			);
 
-		$addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
-		if(count($addreturn)>0):
-			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave',json_encode($arrob_data),'');
+			$addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave',json_encode($arrob_data),'');
+			endif;
 		endif;
 
 		$arrleave_signatory = array(
@@ -268,19 +306,21 @@ class Request extends MY_Controller {
 		
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature('TO');
-		$arrto_data = array(
-			'dateFiled'		=> $arrto['requestDate'],
-			'empNumber'		=> $arrto['empNumber'],
-			'toDateFrom'	=> $to_details[1],
-			'toDateTo'		=> $to_details[2],
-			'destination'	=> $to_details[0],
-			'purpose'		=> $to_details[3],
-			'wmeal'			=> $to_details[4]
-		);
-		
-		$addreturn = $this->travel_order_model->add($arrto_data);
-		if(count($addreturn)>0):
-			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add TO ',json_encode($arrto_data),'');
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$arrto_data = array(
+				'dateFiled'		=> $arrto['requestDate'],
+				'empNumber'		=> $arrto['empNumber'],
+				'toDateFrom'	=> $to_details[1],
+				'toDateTo'		=> $to_details[2],
+				'destination'	=> $to_details[0],
+				'purpose'		=> $to_details[3],
+				'wmeal'			=> $to_details[4]
+			);
+			
+			$addreturn = $this->travel_order_model->add($arrto_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add TO ',json_encode($arrto_data),'');
+			endif;
 		endif;
 
 		$arrto_signatory = array(
@@ -298,6 +338,64 @@ class Request extends MY_Controller {
 		endif;
 
 		redirect('hr/request?request=to');
+	}
+
+	public function update_mone()
+	{
+		$arrPost = $this->input->post();
+
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+		$txtremarks = '';
+		if(!empty($arrPost)):
+			$optstatus = $arrPost['opt_mone_stat'];
+			$txtremarks = $arrPost['txtremarks'];
+		endif;
+		
+		$req_id = $_GET['req_id'];
+		$arrmone = $this->leave_monetization_model->getrequest($_GET['req_id']);
+		$mone_details = explode(';',$arrmone['requestDetails']);
+		
+		# signatories
+		$arremp_signature = $this->Request_model->get_signature('TO');
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$employee_details = employee_details($arrmone['empNumber']);
+			$monetize_amt = ($mone_details[2] + $mone_details[3]) * AMT_MONETIZATION * $employee_details[0]['actualSalary'];
+			$arrmone_data = array(
+				'empNumber'		=> $arrmone['empNumber'],
+				'vlMonetize'	=> isset($mone_details[2]) ? $mone_details[2] : '',
+				'slMonetize'	=> isset($mone_details[3]) ? $mone_details[3] : '',
+				'processMonth'	=> date('n'),
+				'processYear'	=> date('Y'),
+				'monetizeMonth'	=> isset($mone_details[4]) ? $mone_details[4] : '',
+				'monetizeYear'	=> isset($mone_details[5]) ? $mone_details[5] : '',
+				'monetizeAmount'=> $monetize_amt,
+				'processBy'		=> $this->session->userdata('sessEmpNo'),
+				'ip'			=> $this->input->ip_address(),
+				'processDate'	=> date('Y-m-d h:i:s A')
+			);
+
+			$addreturn = $this->leave_monetization_model->addemp_monetized($arrmone_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave Monetization ',json_encode($arrmone_data),'');
+			endif;
+		endif;
+
+		$arrmone_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+
+		$arrmone_signatory = array_merge($arrmone_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrmone_signatory, $arrmone['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
+		endif;
+
+		redirect('hr/request?request=mone');
 	}
 
 	// public function leave_request()

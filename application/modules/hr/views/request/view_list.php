@@ -54,7 +54,7 @@
                                                     <a href="#tab-pds" data-toggle="tab"> PDS Update </a>
                                                 </li>
                                                 <li class="<?=$request=='mone'?'active':''?>">
-                                                    <a href="#tab-mone" data-toggle="tab"> Leave Monetization </a>
+                                                    <a href="<?=base_url('hr/request?request=mone')?>"> Leave Monetization </a>
                                                 </li>
                                                 <li class="<?=$request=='dtr'?'active':''?>">
                                                     <a href="#tab-dtr" data-toggle="tab"> Update DTR </a>
@@ -83,7 +83,7 @@
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='mone'?'active':''?>" id="tab-mone">
-                                                    mone
+                                                    <?php $this->load->view('_mone_request.php'); ?>
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='dtr'?'active':''?>" id="tab-dtr">

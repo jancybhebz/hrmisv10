@@ -48,6 +48,26 @@ class Update_pds_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
+	function getall_request($empno='')
+	{
+		if($empno!=''):
+			$this->db->where('empNumber',$empno);
+		endif;
+		$this->db->like('requestCode', '201', 'after');
+		return $this->db->order_by('requestDate','DESC')->get('tblEmpRequest')->result_array();
+	}
+
+	function getpds_request($reqid='')
+	{
+		if($reqid!=''):
+			$res = $this->db->get_where('tblEmpRequest',array('requestID' => $reqid))->result_array();
+			return count($res) > 0 ? $res[0] : array();
+		else:
+			return $this->db->get('tblEmpRequest')->result_array();
+		endif;
+
+	}
+
 	// getting data
 	public function getDetails($strEmpNo="",$strSearch="",$strAppStatus="")
 	{

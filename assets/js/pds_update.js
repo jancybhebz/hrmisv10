@@ -4,7 +4,7 @@ function hide_all() {
 
 $(document).ready(function() {
 
-	hide_all();
+	// hide_all();
 	$('.date-picker').datepicker();
 	$('.date-picker').on('changeDate', function(){
 		$(this).datepicker('hide');

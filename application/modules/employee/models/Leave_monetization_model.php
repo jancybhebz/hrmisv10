@@ -21,6 +21,17 @@ class Leave_monetization_model extends CI_Model {
 		$this->db->initialize();	
 	}
 	
+	function getrequest($reqid='')
+	{
+		if($reqid!=''):
+			$res = $this->db->get_where('tblEmpRequest',array('requestID' => $reqid))->result_array();
+			return count($res) > 0 ? $res[0] : array();
+		else:
+			return $this->db->get('tblEmpRequest')->result_array();
+		endif;
+
+	}
+
 	function getData($intLBId = '')
 	{		
 		$strWhere = '';
@@ -38,6 +49,15 @@ class Leave_monetization_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function getall_request($empno='')
+	{
+		if($empno!=''):
+			$this->db->where('empNumber',$empno);
+		endif;
+		$this->db->like('requestCode','Monetization');
+		return $this->db->order_by('requestDate','DESC')->get('tblEmpRequest')->result_array();
+	}
+
 	function submit($arrData)
 	{
 		$this->db->insert('tblEmpRequest', $arrData);
@@ -48,7 +68,7 @@ class Leave_monetization_model extends CI_Model {
 	{		
 		$strSQL = " SELECT * FROM tblEmpRequest					
 					WHERE  
-					requestCode ='$strCode'";
+					requestDetails ='$str_details' AND requestCode = 'Monetization'";
 		//echo $strSQL;exit(1);
 		$objQuery = $this->db->query($strSQL);
 		return $objQuery->result_array();	

@@ -106,7 +106,7 @@ class ReportLeave_rpt_model extends CI_Model {
 			$arrLeaveBal = $this->Leave_model->getLatestBalance($empid);
 			$arrDetails = $this->Hr_model->getData($empid);
 			$arrDetails[0]['payrollGroupCode'] = office_name(employee_office($empid));
-			$arrDetails[0]['positionCode'] = $arrDetails[0]['positionDesc'];
+			$arrDetails[0]['positionCode'] = isset($arrDetails[0]['positionDesc']) ? $arrDetails[0]['positionDesc'] : '';
 			
 		}else{
 			$arrDetails=$this->empInfo();
@@ -123,7 +123,7 @@ class ReportLeave_rpt_model extends CI_Model {
 				$this->fpdf->Cell(45, 5, "(Middle)", 0, 1, "L");
 					
 				$this->fpdf->Cell(50, 7,$row['payrollGroupCode'], "R", 0, "C");
-				$this->fpdf->Cell(100,7,$row['surname'].'                      '.$row['firstname'].'                                       '.$row['middleInitial'], 0, 0, "C");
+				$this->fpdf->Cell(100,7,(isset($row['surname']) ? $row['surname'] : '').'                      '.(isset($row['firstname']) ? $row['firstname'] : '').'                                       '.(isset($row['middleInitial']) ? $row['middleInitial'] : ''), 0, 0, "C");
 
 				$this->fpdf->Cell(45, 7,'', 0, 0, "L");
 				$this->fpdf->Cell(45, 7, '', 0, 1, "L");
@@ -139,7 +139,7 @@ class ReportLeave_rpt_model extends CI_Model {
 				// $this->fpdf->Ln(0);
 				$this->fpdf->Cell(50, 7, "$today", "R", 0, "C");
 				$this->fpdf->Cell(90, 7,'    '.$row['positionCode'], "R", 0, "L");
-				$this->fpdf->Cell(45, 7,'    '.number_format($row['actualSalary'],2,".",","), 0, 1, "L");
+				$this->fpdf->Cell(45, 7,'    '.(isset($row['actualSalary']) ? number_format($row['actualSalary'],2,".",",") : ''), 0, 1, "L");
 			}
 
 
@@ -355,7 +355,7 @@ class ReportLeave_rpt_model extends CI_Model {
 		$this->fpdf->Cell(10, 5,"", 0, 0, "L");	
 		$this->fpdf->Cell(10, 5,"as of", 0, 0, "L");
 		if($_GET['leavetype'] == 'monetization'){
-			$this->fpdf->Cell(68, 5,date('F', mktime(0, 0, 0, $arrLeaveBal['periodMonth'], 10)).' '.$arrLeaveBal['periodYear'], "B", 0, "L"); 
+			$this->fpdf->Cell(68, 5,(isset($arrLeaveBal['periodMonth']) ? date('F', mktime(0, 0, 0, $arrLeaveBal['periodMonth'], 10)).' '.$arrLeaveBal['periodYear'] : ''), "B", 0, "L"); 
 		}else{
 			$this->fpdf->Cell(68, 5,"", "B", 0, "L"); 
 		}
@@ -388,8 +388,8 @@ class ReportLeave_rpt_model extends CI_Model {
 		
 //----------------------------------------------------------
 		if($_GET['leavetype'] == 'monetization'){
-			$intVL = $arrLeaveBal['vlBalance'];
-			$intSL = $arrLeaveBal['slBalance'];
+			$intVL = isset($arrLeaveBal['vlBalance']) ? $arrLeaveBal['vlBalance'] : 0;
+			$intSL = isset($arrLeaveBal['slBalance']) ? $arrLeaveBal['slBalance'] : 0;
 			$intTotal = $intVL + $intSL;
 		}
 		$this->fpdf->Cell(10, 3,"", "R", 0, "L");	

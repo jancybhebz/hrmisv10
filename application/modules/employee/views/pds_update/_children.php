@@ -14,7 +14,19 @@
 				<td> <?=$row['childName']?></td>
 				<td align="center"> <?=$row['childBirthDate']?></td>
 				<td align="center">
-					<a class="btn green btn-sm" href="<?=base_url('employee/pds_update?child_id='.$row['childCode'])?>"><i class="fa fa-edit"></i> Edit </a>
+					<?php 
+						$row_show = 1;
+						if(isset($pds_details)):
+							$row_show = isset($pds_details[3]) ? $pds_details[3] == $row['childCode'] ? 0 : 1 : 1;
+						else:
+							if(count($emp_child) > 0):
+								$row_show = $emp_child['childCode'] == $row['childCode'] ? 0 : 1;
+							else:
+							endif;
+						endif;
+						if($row_show):?>
+							<a class="btn green btn-sm" href="<?=base_url('employee/pds_update/add?child_id='.$row['childCode'])?>"><i class="fa fa-edit"></i> Edit </a>
+						<?php endif; ?>
 				</td>
 			</tr>
 			<?php endforeach;?>
@@ -24,16 +36,18 @@
 </div>
 
 <div class="col-md-12">
-	<?=form_open('employee/pds_update/submitChild', array('method' => 'post', 'id' => 'frmchildren'))?>
+	<?=form_open('employee/pds_update/submitChild?action='.$action, array('method' => 'post', 'id' => 'frmchildren'))?>
+		<input class="hidden" name="txtreqid" value="<?=isset($_GET['req_id']) ? $_GET['req_id'] : ''?>">
 		<input class="hidden" name="strStatus" value="Filed Request">
-		<input class="hidden" name="strCode" value="201 Child">
-		<input class="hidden" name="txtchildid" value="<?=isset($_GET['child_id']) ? $_GET['child_id'] : ''?>">
+		<input class="hidden" name="strCode" value="<?=PDS_CHILD?>">
+		<input class="hidden" name="txtchildid" value="<?=isset($_GET['child_id']) ? $_GET['child_id'] : (isset($pds_details) ? $pds_details[2] : '')?>">
 		<div class="row" id="traintitle_textbox">
 		    <div class="col-sm-10">
 		        <div class="form-group">
 		        	<label class="control-label">Name of Children : </label>
 		        	<div class="input-icon right">
-		        		<input type="text" class="form-control" name="strChildName" value="<?=count($emp_child)>0?$emp_child['childName']:''?>" autocomplete="off">
+		        		<input type="text" class="form-control" name="strChildName"
+		        				value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_child) > 0 ? $emp_child['childName']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -43,7 +57,8 @@
 		        <div class="form-group">
 		            <label class="control-label">Date of Birth : </label>
 		            <div class="input-icon right">
-		            	<input class="form-control date-picker" name="dtmChildBdate" id="dtmChildBdate" type="text" value="<?=count($emp_child)>0?$emp_child['childBirthDate']:''?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		            	<input class="form-control date-picker" name="dtmChildBdate" id="dtmChildBdate" type="text" data-date-format="yyyy-mm-dd" 
+		            			value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_child) > 0 ? $emp_child['childBirthDate']:'')?>" autocomplete="off">
 		            </div>
 		        </div>
 		    </div>

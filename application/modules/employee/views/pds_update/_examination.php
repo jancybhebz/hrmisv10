@@ -22,7 +22,18 @@
                 <td align="center"> <?=$row['licenseNumber']?> </td>
                 <td align="center"> <?=$row['dateRelease']?> </td>
 				<td align="center">
-					<a class="btn green btn-sm" href="<?=base_url('employee/pds_update?exam_id='.$row['ExamIndex'])?>"><i class="fa fa-edit"></i> Edit </a>
+					<?php 
+						$row_show = 1;
+						if(isset($pds_details)):
+							$row_show = $pds_details[7] == $row['ExamIndex'] ? 0 : 1;
+						else:
+							if(count($emp_exam) > 0):
+								$row_show = $emp_exam['ExamIndex'] == $row['ExamIndex'] ? 0 : 1;
+							endif;
+						endif;
+						if($row_show):?>
+							<a class="btn green btn-sm" href="<?=base_url('employee/pds_update/add?exam_id='.$row['ExamIndex'])?>"><i class="fa fa-edit"></i> Edit </a>
+						<?php endif; ?>
 				</td>
 			</tr>
 			<?php endforeach;?>
@@ -32,10 +43,11 @@
 </div>
 
 <div class="col-md-12">
-	<?=form_open('employee/pds_update/submitExam', array('method' => 'post', 'id' => 'frmexaminations'))?>
+	<?=form_open('employee/pds_update/submitExam?action='.$action, array('method' => 'post', 'id' => 'frmexaminations'))?>
+		<input class="hidden" name="txtreqid" value="<?=isset($_GET['req_id']) ? $_GET['req_id'] : ''?>">
 		<input class="hidden" name="strStatus" value="Filed Request">
-		<input class="hidden" name="strCode" value="201 Exam">
-		<input class="hidden" name="txtexamid" value="<?=isset($_GET['exam_id']) ? $_GET['exam_id'] : ''?>">
+		<input class="hidden" name="strCode" value="<?=PDS_ELIGIBILITY?>">
+		<input class="hidden" name="txtexamid" value="<?=isset($_GET['exam_id']) ? $_GET['exam_id'] : (isset($pds_details) ? $pds_details[7] : '')?>">
 		<div class="row" id="examdesc_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
@@ -44,8 +56,13 @@
 						<select type="text" class="form-control select2" name="strExamDesc">
 							<option value="0">-- SELECT EXAM --</option>
 							<?php foreach($arrExamination_CMB as $exam):
-									$select = count($emp_exam)>0 ? $emp_exam['examCode'] == $exam['examCode'] ? 'selected' : '' : '';
-									echo '<option value="'.$exam['examCode'].'" '.$select.'>'.$exam['examDesc'].'</option>';
+									if(isset($pds_details)):
+										$selected = $pds_details[1] == $exam['examCode'] ? 'selected' : '';
+									else:
+										$selected = count($emp_exam)>0 ? $emp_exam['examCode'] == $exam['examCode'] ? 'selected' : '' : '';
+									endif;
+									
+									echo '<option value="'.$exam['examCode'].'" '.$selected.'>'.$exam['examDesc'].'</option>';
 								  endforeach; ?>
 						</select>
 					</div>
@@ -57,7 +74,8 @@
 				<div class="form-group">
 					<label class="control-label">Rating (%):  </label>
 					<div class="input-icon right">
-						<input type="text" class="form-control" name="strrating" value="<?=count($emp_exam)>0?$emp_exam['examRating']:''?>"  autocomplete="off">
+						<input type="text" class="form-control" name="strrating"
+								value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_exam) > 0 ? $emp_exam['examRating']:'')?>"  autocomplete="off">
 					</div>
 				</div>
 			</div>
@@ -67,7 +85,8 @@
 				<div class="form-group">
 					<label class="control-label">Date of Exam/Conferment :  </label>
 					<div class="input-icon right">
-						<input class="form-control date-picker" name="dtmExamDate" id="dtmExamDate" type="text" value="<?=count($emp_exam)>0?$emp_exam['examDate']:''?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+						<input class="form-control date-picker" name="dtmExamDate" id="dtmExamDate" type="text"
+								value="<?=isset($pds_details) ? $pds_details[3] : (count($emp_exam) > 0 ? $emp_exam['examDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 					</div>
 				</div>
 			</div>
@@ -77,7 +96,8 @@
 				<div class="form-group">
 					<label class="control-label">Place of Exam/Conferment :  </label>
 					<div class="input-icon right">
-						<input type="text" class="form-control" name="strPlaceExam" value="<?=count($emp_exam)>0?$emp_exam['examPlace']:''?>"  autocomplete="off">
+						<input type="text" class="form-control" name="strPlaceExam"
+								value="<?=isset($pds_details) ? $pds_details[4] : (count($emp_exam) > 0 ? $emp_exam['examPlace']:'')?>"  autocomplete="off">
 					</div>
 				</div>
 			</div>
@@ -87,7 +107,8 @@
 				<div class="form-group">
 					<label class="control-label">License No. (if applicable) : </label>
 					<div class="input-icon right">
-						<input type="text" class="form-control" name="intLicenseNo" value="<?=count($emp_exam)>0?$emp_exam['licenseNumber']:''?>"  autocomplete="off">
+						<input type="text" class="form-control" name="intLicenseNo"
+								value="<?=isset($pds_details) ? $pds_details[5] : (count($emp_exam) > 0 ? $emp_exam['licenseNumber']:'')?>"  autocomplete="off">
 					</div>
 				</div>
 			</div>
@@ -97,7 +118,8 @@
 				<div class="form-group">
 					<label class="control-label">Date of Release :  </label>
 					<div class="input-icon right">
-						<input class="form-control date-picker" name="dtmRelease" id="dtmRelease" type="text" value="<?=count($emp_exam)>0?$emp_exam['dateRelease']:''?>" data-date-format="yyyy-mm-dd"  autocomplete="off">
+						<input class="form-control date-picker" name="dtmRelease" id="dtmRelease" type="text" 
+								value="<?=isset($pds_details) ? $pds_details[6] : (count($emp_exam) > 0 ? $emp_exam['dateRelease']:'')?>" data-date-format="yyyy-mm-dd"  autocomplete="off">
 					</div>
 				</div>
 			</div>
