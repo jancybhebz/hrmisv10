@@ -20,13 +20,17 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		return $objQuery->result_array();		
 	}
 
-	function intToMonthFull($t_intMonth)
+	function intToMonthFull($t_intMonth='')
 	{
-		$arrMonths = array(1=>"January", 2=>"February", 3=>"March", 
-						4=>"April", 5=>"May", 6=>"June", 
-						7=>"July", 8=>"August", 9=>"September", 
-						10=>"October", 11=>"November", 12=>"December");
-		return $arrMonths[$t_intMonth];
+		if($t_intMonth!=''):
+			$arrMonths = array(1=>"January", 2=>"February", 3=>"March", 
+							4=>"April", 5=>"May", 6=>"June", 
+							7=>"July", 8=>"August", 9=>"September", 
+							10=>"October", 11=>"November", 12=>"December");
+			return $arrMonths[$t_intMonth];
+		else:
+			return '';
+		endif;
 	}
 
 	public function Header()
