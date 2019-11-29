@@ -54,7 +54,7 @@
 		<input class="hidden" name="txtreqid" value="<?=isset($_GET['req_id']) ? $_GET['req_id'] : ''?>">
 		<input class="hidden" name="strStatus" value="Filed Request">
 		<input class="hidden" name="strCode" value="<?=PDS_EDUC?>">
-		<input class="hidden" name="txteducid" value="<?=isset($_GET['educ_id']) ? $_GET['educ_id'] : (isset($pds_details) ? $pds_details[11] : '')?>">
+		<input class="hidden" name="txteducid" value="<?=isset($_GET['educ_id']) ? $_GET['educ_id'] : (isset($pds_details) ? $pds_details[12] : '')?>">
 		<div class="row" id="educlevel_textbox">
 			<div class="col-sm-8">
 				<div class="form-group">
@@ -63,7 +63,7 @@
 						<option value=""> -- SELECT LEVEL -- </option>
 						<?php foreach($arrEduc_CMB as $educ):
 								if(isset($pds_details)):
-									$selected = $pds_details[0] == $educ['levelId'] ? 'selected' : '';
+									$selected = $pds_details[1] == $educ['levelId'] ? 'selected' : '';
 								else:
 									$selected = count($emp_educ) > 0 ? ($emp_educ['levelCode']==$educ['levelId'] || $emp_educ['levelCode']==$educ['levelCode']) ? 'selected' : '' : '';
 								endif;
@@ -79,7 +79,7 @@
 					<label class="control-label">School Name :  <span class="required"> * </span></label>
 					<div class="input-icon right">
 						<input type="text" class="form-control" name="strSchName" id="strSchName" 
-								value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_educ) > 0 ? $emp_educ['schoolName'] : '')?>" autocomplete="off">
+								value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_educ) > 0 ? $emp_educ['schoolName'] : '')?>" autocomplete="off">
 					</div>
 				</div>
 			</div>
@@ -92,7 +92,7 @@
 	                            <option value="0"> -- SELECT BASIC EDUCATION -- </option>
 	                            <?php foreach($arrCourse as $course):
 	                            		if(isset($pds_details)):
-	                            			$selected = $pds_details[2] == $course['courseId'] ? 'selected' : '';
+	                            			$selected = $pds_details[3] == $course['courseId'] ? 'selected' : '';
 	                            		else:
 	                            			$selected = count($emp_educ) > 0 ? $emp_educ['courseCode']==$course['courseId'] || $emp_educ['courseCode']==$course['courseCode']? 'selected' : '' : '';
 	                            		endif;
@@ -109,7 +109,7 @@
 	                    <select name="dtmFrmYr" id="dtmFrmYr" class="form-control bs-select">
 	                   		<?php foreach (range(date('Y'), ERLIEST_YEAR) as $yr):
 	                   				if(isset($pds_details)):
-	                   					$selected = $pds_details[3] == $yr ? 'selected' : '';
+	                   					$selected = $pds_details[4] == $yr ? 'selected' : '';
 	                   				else:
 	                   					$selected = count($emp_educ) > 0 ? $emp_educ['schoolFromDate'] == $yr? 'selected' : '' : '';
 	                   				endif;
@@ -124,7 +124,7 @@
 	                    <select name="dtmTo" id="dtmTo" class="form-control bs-select">
 	                    	<?php foreach (range(date('Y'), ERLIEST_YEAR) as $yr):
 	                    			if(isset($pds_details)):
-	                    				$selected = $pds_details[4] == $yr ? 'selected' : '';
+	                    				$selected = $pds_details[5] == $yr ? 'selected' : '';
 	                    			else:
 	                    				$selected = count($emp_educ) > 0 ? $emp_educ['schoolToDate'] == $yr? 'selected' : '' : '';
 	                    			endif;
@@ -140,7 +140,7 @@
 	                    <label class="control-label">Units Earned :  <span class="required"> * </span></label>
 	                    <div class="input-icon right">
 	                    	<input type="text" class="form-control" name="intUnits" id="intUnits"
-	                    			value="<?=isset($pds_details) ? $pds_details[5] : (count($emp_educ) > 0 ? $emp_educ['units'] : '')?>" autocomplete="off"><label>* (write - if not-applicable)</label>
+	                    			value="<?=isset($pds_details) ? $pds_details[6] : (count($emp_educ) > 0 ? $emp_educ['units'] : '')?>" autocomplete="off"><label>* (write - if not-applicable)</label>
 	                    </div>
 	                </div>
 	            </div>
@@ -153,7 +153,7 @@
 	                    	<option value="">-- SELECT SCHOLARSHIP --</option>
 	                            <?php foreach($arrScholarship as $scholar):
 	                            		if(isset($pds_details)):
-	                            			$selected = $pds_details[6] == $scholar['id'] ? 'selected' : '';
+	                            			$selected = $pds_details[7] == $scholar['id'] ? 'selected' : '';
 	                            		else:
 	                            			$selected = count($emp_educ) > 0 ? $emp_educ['ScholarshipCode'] == $scholar['id']? 'selected' : '' : '';
 	                            		endif;
@@ -168,7 +168,7 @@
 	                <div class="form-group">
 	                	<label class="control-label">Honors :  </label>
 	                	<input type="text" class="form-control" name="strHonors"
-	                			value="<?=isset($pds_details) ? $pds_details[7] : (count($emp_educ) > 0 ? $emp_educ['honors'] : '')?>" autocomplete="off">
+	                			value="<?=isset($pds_details) ? $pds_details[8] : (count($emp_educ) > 0 ? $emp_educ['honors'] : '')?>" autocomplete="off">
 	                </div>
 	            </div>
 	        </div>
@@ -179,10 +179,10 @@
 	        	        <div class="radio-list">
 	        	            <label class="radio-inline">
 	        	                <input type="radio" name="strLicensed" value="Y"
-	        	                	<?=isset($pds_details) ? ($pds_details[8] == 'Y' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['licensed']=='Y' ? 'checked' : '' : '')?>> Yes </label>
+	        	                	<?=isset($pds_details) ? ($pds_details[9] == 'Y' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['licensed']=='Y' ? 'checked' : '' : '')?>> Yes </label>
 	        	            <label class="radio-inline">
 	        	                <input type="radio" name="strLicensed" value="N"
-	        	                	<?=isset($pds_details) ? ($pds_details[8] == 'N' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['licensed']!='Y' ? 'checked' : '' : 'checked')?>> No </label>
+	        	                	<?=isset($pds_details) ? ($pds_details[9] == 'N' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['licensed']!='Y' ? 'checked' : '' : 'checked')?>> No </label>
 	        	        </div>
 	        	    </div>
 	        	</div>
@@ -194,10 +194,10 @@
 	        	        <div class="radio-list">
 	        	            <label class="radio-inline">
 	        	                <input type="radio" name="strGraduated" value="Y"
-	        	                	<?=isset($pds_details) ? ($pds_details[9] == 'Y' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['graduated']=='Y' ? 'checked' : '' : 'checked')?>> Yes </label>
+	        	                	<?=isset($pds_details) ? ($pds_details[10] == 'Y' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['graduated']=='Y' ? 'checked' : '' : 'checked')?>> Yes </label>
 	        	            <label class="radio-inline">
 	        	                <input type="radio" name="strGraduated" value="N" 
-	        	                	<?=isset($pds_details) ? ($pds_details[9] == 'N' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['graduated']!='Y' ? 'checked' : '' : '')?>> No </label>
+	        	                	<?=isset($pds_details) ? ($pds_details[10] == 'N' ? 'checked' : '') : (count($emp_educ) > 0 ? $emp_educ['graduated']!='Y' ? 'checked' : '' : '')?>> No </label>
 	        	        </div>
 	        	    </div>
 	        	</div>
