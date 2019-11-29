@@ -19,7 +19,7 @@
 					<?php 
 						$row_show = 1;
 						if(isset($pds_details)):
-							$row_show = isset($pds_details[3]) ? $pds_details[3] == $row['ReferenceIndex'] ? 0 : 1 : 1;
+							$row_show = isset($pds_details[4]) ? $pds_details[4] == $row['ReferenceIndex'] ? 0 : 1 : 1;
 						else:
 							if(count($emp_ref) > 0):
 								$row_show = $emp_ref['ReferenceIndex'] == $row['ReferenceIndex'] ? 0 : 1;
@@ -49,7 +49,7 @@
 		        	<label class="control-label">Name : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strRefName"
-		        			value="<?=isset($pds_details) ? $pds_details[0] : (count($emp_ref) > 0 ? $emp_ref['refName']:'')?>" autocomplete="off">
+		        			value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_ref) > 0 ? $emp_ref['refName']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -60,7 +60,7 @@
 		        	<label class="control-label">Address : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strRefAdd"
-		        			value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_ref) > 0 ? $emp_ref['refAddress']:'')?>" autocomplete="off">
+		        			value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_ref) > 0 ? $emp_ref['refAddress']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -71,7 +71,7 @@
 		        	<label class="control-label">Contact Number : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="intRefContact"
-		        			value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_ref) > 0 ? $emp_ref['refTelephone']:'')?>" autocomplete="off">
+		        			value="<?=isset($pds_details) ? $pds_details[3] : (count($emp_ref) > 0 ? $emp_ref['refTelephone']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>

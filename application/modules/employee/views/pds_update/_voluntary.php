@@ -31,7 +31,7 @@
 					<?php 
 						$row_show = 1;
 						if(isset($pds_details)):
-							$row_show = isset($pds_details[6]) ? $pds_details[6] == $row['VoluntaryIndex'] ? 0 : 1 : 1;
+							$row_show = isset($pds_details[7]) ? $pds_details[7] == $row['VoluntaryIndex'] ? 0 : 1 : 1;
 						else:
 							if(count($emp_vol) > 0):
 								$row_show = $emp_vol['VoluntaryIndex'] == $row['VoluntaryIndex'] ? 0 : 1;
@@ -54,14 +54,14 @@
 		<input class="hidden" name="txtreqid" value="<?=isset($_GET['req_id']) ? $_GET['req_id'] : ''?>">
 		<input class="hidden" name="strStatus" value="Filed Request">
 		<input class="hidden" name="strCode" value="<?=PDS_VOLUNTEER?>">
-		<input class="hidden" name="txtvolid" value="<?=isset($_GET['vol_id']) ? $_GET['vol_id'] : (isset($pds_details) ? $pds_details[6] : '')?>">
+		<input class="hidden" name="txtvolid" value="<?=isset($_GET['vol_id']) ? $_GET['vol_id'] : (isset($pds_details) ? $pds_details[7] : '')?>">
 		<div class="row" id="refname_textbox">
 		    <div class="col-sm-8">
 		        <div class="form-group">
 		        	<label class="control-label">Name of Organization : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strVolName" 
-		        				value="<?=isset($pds_details) ? $pds_details[0] : (count($emp_vol)>0?$emp_vol['vwName']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_vol)>0?$emp_vol['vwName']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -72,7 +72,7 @@
 		        	<label class="control-label">Address : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strVolAdd" 
-		        				value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_vol)>0?$emp_vol['vwAddress']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_vol)>0?$emp_vol['vwAddress']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -83,7 +83,7 @@
 		        	<label class="control-label">Inclusive Date From : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control date-picker" name="dtmVolDateFrom" 
-		        				value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_vol)>0?$emp_vol['vwDateFrom']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[3] : (count($emp_vol)>0?$emp_vol['vwDateFrom']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -94,7 +94,7 @@
 		        	<label class="control-label">Inclusive Date To : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control date-picker" name="dtmVolDateTo" 
-		        				value="<?=isset($pds_details) ? $pds_details[3] : (count($emp_vol)>0?$emp_vol['vwDateTo']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[4] : (count($emp_vol)>0?$emp_vol['vwDateTo']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -105,7 +105,7 @@
 		        	<label class="control-label">Number of Hours : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="intVolHours" 
-		        				value="<?=isset($pds_details) ? $pds_details[4] : (count($emp_vol)>0?$emp_vol['vwHours']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[5] : (count($emp_vol)>0?$emp_vol['vwHours']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -116,7 +116,7 @@
 		        	<label class="control-label">Position / Nature of Work : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strNature" 
-		        				value="<?=isset($pds_details) ? $pds_details[5] : (count($emp_vol)>0?$emp_vol['vwPosition']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[6] : (count($emp_vol)>0?$emp_vol['vwPosition']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>

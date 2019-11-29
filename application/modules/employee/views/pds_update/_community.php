@@ -9,7 +9,7 @@
 		        	<label class="control-label">Tax Certificate Number :  </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="intTaxCert"
-		        				value="<?=count($arrData)>0 ? (isset($pds_details) ? $pds_details[0] : $arrData[0]['comTaxNumber']):''?>" autocomplete="off">
+		        				value="<?=count($arrData)>0 ? (isset($pds_details) ? $pds_details[1] : $arrData[0]['comTaxNumber']):''?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -20,7 +20,7 @@
 		        	<label class="control-label">Issued At :  </label> 
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strIssuedAt"
-		        				value="<?=count($arrData)>0 ? (isset($pds_details) ? $pds_details[1] : $arrData[0]['issuedAt']):''?>" autocomplete="off">
+		        				value="<?=count($arrData)>0 ? (isset($pds_details) ? $pds_details[2] : $arrData[0]['issuedAt']):''?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -31,7 +31,7 @@
 		            <label class="control-label">Issued On :  </label>
 		            <div class="input-icon right">
 		            	<input class="form-control date-picker" name="dtmIssuedOn" id="dtmIssuedOn" type="text"
-		            			value="<?=count($arrData)>0 ? (isset($pds_details) ? $pds_details[2] : $arrData[0]['issuedOn']):''?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		            			value="<?=count($arrData)>0 ? (isset($pds_details) ? $pds_details[3] : $arrData[0]['issuedOn']):''?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 		            </div>
 		        </div>
 		    </div>
