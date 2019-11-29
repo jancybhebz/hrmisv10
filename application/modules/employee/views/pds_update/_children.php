@@ -17,7 +17,7 @@
 					<?php 
 						$row_show = 1;
 						if(isset($pds_details)):
-							$row_show = isset($pds_details[2]) ? $pds_details[2] == $row['childCode'] ? 0 : 1 : 1;
+							$row_show = isset($pds_details[3]) ? $pds_details[3] == $row['childCode'] ? 0 : 1 : 1;
 						else:
 							if(count($emp_child) > 0):
 								$row_show = $emp_child['childCode'] == $row['childCode'] ? 0 : 1;
@@ -47,7 +47,7 @@
 		        	<label class="control-label">Name of Children : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strChildName"
-		        				value="<?=isset($pds_details) ? $pds_details[0] : (count($emp_child) > 0 ? $emp_child['childName']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_child) > 0 ? $emp_child['childName']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -58,7 +58,7 @@
 		            <label class="control-label">Date of Birth : </label>
 		            <div class="input-icon right">
 		            	<input class="form-control date-picker" name="dtmChildBdate" id="dtmChildBdate" type="text" data-date-format="yyyy-mm-dd" 
-		            			value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_child) > 0 ? $emp_child['childBirthDate']:'')?>" autocomplete="off">
+		            			value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_child) > 0 ? $emp_child['childBirthDate']:'')?>" autocomplete="off">
 		            </div>
 		        </div>
 		    </div>
