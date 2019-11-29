@@ -511,12 +511,14 @@ class Pds_update extends MY_Controller {
 			$strCode=$arrPost['strCode'];
 
 			$arrData = array(
-						'requestDetails'=>$intTaxCert.';'.$strIssuedAt.';'.$dtmIssuedOn,
+						'requestDetails'=>'Tax'.';'.$intTaxCert.';'.$strIssuedAt.';'.$dtmIssuedOn,
 						'requestDate'=>date('Y-m-d'),
 						'requestStatus'=>$strStatus,
 						'requestCode'=>$strCode,
 						'empNumber'=>$_SESSION['sessEmpNo']);
-
+				// printrd($arrData);
+				// printrd(explode(';',$arrData['requestDetails']));
+				// die();
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0):
@@ -548,7 +550,7 @@ class Pds_update extends MY_Controller {
 			$strStatus=$arrPost['strStatus'];
 			$strCode=$arrPost['strCode'];
 
-			$allPost = array($arrPost['strRefName'],$arrPost['strRefAdd'],$arrPost['intRefContact'],$arrPost['txtrefid']);
+			$allPost = array('Reference',$arrPost['strRefName'],$arrPost['strRefAdd'],$arrPost['intRefContact'],$arrPost['txtrefid']);
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
 				redirect('employee/pds_update');
@@ -559,7 +561,9 @@ class Pds_update extends MY_Controller {
 					'requestStatus'=>$strStatus,
 					'requestCode'=>$strCode,
 					'empNumber'=>$_SESSION['sessEmpNo']);
-
+					// printrd($arrData);
+					// printrd(explode(';',$arrData['requestDetails']));
+					// die();
 					if($action=='add'):
 						$blnReturn  = $this->update_pds_model->submit_request($arrData);
 						if(count($blnReturn)>0):
