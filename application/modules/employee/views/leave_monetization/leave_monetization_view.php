@@ -12,7 +12,7 @@ $arrBalance['periodYear'] = isset($arrBalance['periodYear']) ? $arrBalance['peri
 
 $mone_details = isset($arrmone) ? explode(';',$arrmone['requestDetails']) : array();
 $form_action = $action=='add' ? 'employee/leave_monetization/submit' : 'employee/leave_monetization/edit?req_id='.$_GET['req_id'];
-// $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
+$hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker'))?>
@@ -28,7 +28,7 @@ $form_action = $action=='add' ? 'employee/leave_monetization/submit' : 'employee
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Leave Monetization</span>
+            <span><?=ucwords($hrmodule ? 'view' : $action)?> Leave Monetization</span>
         </li>
     </ul>
 </div>
@@ -96,7 +96,7 @@ $form_action = $action=='add' ? 'employee/leave_monetization/submit' : 'employee
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label><input type="checkbox" value="1" name="commutation" id="commutation" /><b> Commutation</b></label>
+                                <label><input type="checkbox" value="1" name="commutation" id="commutation" <?=$hrmodule ? 'disabled' : ''?> /><b> Commutation</b></label>
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,7 @@ $form_action = $action=='add' ? 'employee/leave_monetization/submit' : 'employee
                                 <div class="col-sm-4">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL"
+                                        <input type="text" class="form-control" name="MonetizedVL" id="MonetizedVL" <?=$hrmodule ? 'disabled' : ''?>
                                             value="<?=isset($arrmone) ? $mone_details[0] : (isset($arrBalance['vlBalance'])?$arrBalance['vlBalance']:'')?>">
                                     </div> 
                                 </div>
@@ -120,7 +120,7 @@ $form_action = $action=='add' ? 'employee/leave_monetization/submit' : 'employee
                                 <label class="control-label col-sm-6"># of Leave Credits to be Monetized on Sick Leave :</label>
                                 <div class="col-sm-4">
                                     <div class="input-icon right">
-                                        <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL"
+                                        <input type="text" class="form-control" name="MonetizedSL" id="MonetizedSL" <?=$hrmodule ? 'disabled' : ''?>
                                             value="<?=isset($arrmone) ? $mone_details[1] : (isset($arrBalance['slBalance'])?$arrBalance['slBalance']:'')?>">
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@ $form_action = $action=='add' ? 'employee/leave_monetization/submit' : 'employee
                                 <label class="control-label col-sm-2">Reason :</label>
                                 <div class="col-sm-8">
                                     <div class="input-icon right">
-                                        <textarea class="form-control" name="strReason" id="strReason"><?=isset($arrBalance['strReason'])?$arrBalance['strReason']:''?></textarea>
+                                        <textarea class="form-control" name="strReason" id="strReason" <?=$hrmodule ? 'disabled' : ''?>><?=isset($arrBalance['strReason'])?$arrBalance['strReason']:''?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +142,12 @@ $form_action = $action=='add' ? 'employee/leave_monetization/submit' : 'employee
                     <div class="row"><div class="col-sm-10"><hr></div> </div>
                     <div class="row">
                         <div class="col-sm-12"><input class="hidden" name="strStatus" value="Filed Request">
-                            <button type="submit" class="btn btn-success" id="btn-request-leave"> <i class="icon-check"></i> <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                            <?php if(!$hrmodule): ?>
+                                <button type="submit" class="btn btn-success" id="btn-request-leave"> <i class="icon-check"></i> <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                            <?php else: ?>
+                                <a href="<?=base_url('hr/request?request=mone')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+                            <?php endif; ?>
+                            
                         </div>
                     </div>
                 <?=form_close()?>

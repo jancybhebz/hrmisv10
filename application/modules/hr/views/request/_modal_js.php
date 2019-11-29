@@ -212,7 +212,7 @@
             $('#mone-embed').attr('src',link);
             $('#mone-embed-fullview').attr('href',link);
 
-            $('#mone-open-request').attr('href',"<?=base_url('employee/travel_order/edit?module=hr&req_id=')?>"+$(this).data('id'));
+            $('#mone-open-request').attr('href',"<?=base_url('employee/leave_monetization/edit?module=hr&req_id=')?>"+$(this).data('id'));
             $('#mone-form').modal('show');
         });
 

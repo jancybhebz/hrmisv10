@@ -40,7 +40,7 @@ if ( ! function_exists('employee_details'))
     function employee_details($strEmpNo)
     {
 		$CI =& get_instance();
-		return $CI->db->select('tblEmpPersonal.*,tblPosition.positionDesc,tblEmpPosition.appointmentCode')->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber')->join('tblPosition','tblPosition.positionCode=tblEmpPosition.positionCode')->where('tblEmpPersonal.empNumber',$strEmpNo)->get('tblEmpPersonal')->result_array();	
+		return $CI->db->select('tblEmpPersonal.*,tblPosition.positionDesc,tblEmpPosition.appointmentCode,tblEmpPosition.actualSalary')->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpPersonal.empNumber')->join('tblPosition','tblPosition.positionCode=tblEmpPosition.positionCode')->where('tblEmpPersonal.empNumber',$strEmpNo)->get('tblEmpPersonal')->result_array();	
 	}
 }
 

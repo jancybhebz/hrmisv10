@@ -189,29 +189,30 @@ class Request extends MY_Controller {
 			
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature($arrob['requestCode']);
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$arrob_data = array(
+				'dateFiled'		=> $ob_details[1],
+				'empNumber'		=> $arrob['empNumber'],
+				'requestID'		=> $arrob['requestID'],
+				'obDateFrom'	=> $ob_details[2],
+				'obDateTo'		=> $ob_details[3],
+				'obTimeFrom'	=> $ob_details[4],
+				'obTimeTo'		=> $ob_details[5],
+				'obPlace'		=> $ob_details[6],
+				'obMeal'		=> $ob_details[8]==''?'N':$ob_details[8],
+				'purpose'		=> $ob_details[7],
+				'official'		=> strtolower($ob_details[0]) == 'official' ? 'Y' : '',
+				'approveRequest'=> '',
+				'approveChief'	=> '',
+				'approveHR'		=> check_module()=='hr' ? strtolower($optstatus) == 'certified' ? 'Y' : '' : '',
+				'is_override'	=> '',
+				'override_id'	=> ''
+			);
 
-		$arrob_data = array(
-			'dateFiled'		=> $ob_details[1],
-			'empNumber'		=> $arrob['empNumber'],
-			'requestID'		=> $arrob['requestID'],
-			'obDateFrom'	=> $ob_details[2],
-			'obDateTo'		=> $ob_details[3],
-			'obTimeFrom'	=> $ob_details[4],
-			'obTimeTo'		=> $ob_details[5],
-			'obPlace'		=> $ob_details[6],
-			'obMeal'		=> $ob_details[8]==''?'N':$ob_details[8],
-			'purpose'		=> $ob_details[7],
-			'official'		=> strtolower($ob_details[0]) == 'official' ? 'Y' : '',
-			'approveRequest'=> '',
-			'approveChief'	=> '',
-			'approveHR'		=> check_module()=='hr' ? strtolower($optstatus) == 'certified' ? 'Y' : '' : '',
-			'is_override'	=> '',
-			'override_id'	=> ''
-		);
-
-		$addreturn = $this->Official_business_model->add($arrob_data);
-		if(count($addreturn)>0):
-			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Official Business',json_encode($arrob_data),'');
+			$addreturn = $this->Official_business_model->add($arrob_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Official Business',json_encode($arrob_data),'');
+			endif;
 		endif;
 
 		$arrob_signatory = array(
@@ -250,22 +251,24 @@ class Request extends MY_Controller {
 		
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature($leave_details[0]);
-		$arrleave_data = array(
-			'dateFiled'		=> $arrleave['requestDate'],
-			'empNumber'		=> $arrleave['empNumber'],
-			'requestID'		=> $arrleave['requestID'],
-			'leaveCode'		=> strtoupper($leave_details[0]),
-			'specificLeave'	=> $leave_details[7],
-			'reason'		=> $leave_details[6],
-			'leaveFrom'		=> $leave_details[1],
-			'leaveTo'		=> $leave_details[2],
-			'certifyHR'		=> 'Y',
-			'approveRequest'=> 'Y'
-		);
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$arrleave_data = array(
+				'dateFiled'		=> $arrleave['requestDate'],
+				'empNumber'		=> $arrleave['empNumber'],
+				'requestID'		=> $arrleave['requestID'],
+				'leaveCode'		=> strtoupper($leave_details[0]),
+				'specificLeave'	=> $leave_details[7],
+				'reason'		=> $leave_details[6],
+				'leaveFrom'		=> $leave_details[1],
+				'leaveTo'		=> $leave_details[2],
+				'certifyHR'		=> 'Y',
+				'approveRequest'=> 'Y'
+			);
 
-		$addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
-		if(count($addreturn)>0):
-			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave',json_encode($arrob_data),'');
+			$addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave',json_encode($arrob_data),'');
+			endif;
 		endif;
 
 		$arrleave_signatory = array(
@@ -303,19 +306,21 @@ class Request extends MY_Controller {
 		
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature('TO');
-		$arrto_data = array(
-			'dateFiled'		=> $arrto['requestDate'],
-			'empNumber'		=> $arrto['empNumber'],
-			'toDateFrom'	=> $to_details[1],
-			'toDateTo'		=> $to_details[2],
-			'destination'	=> $to_details[0],
-			'purpose'		=> $to_details[3],
-			'wmeal'			=> $to_details[4]
-		);
-		
-		$addreturn = $this->travel_order_model->add($arrto_data);
-		if(count($addreturn)>0):
-			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add TO ',json_encode($arrto_data),'');
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$arrto_data = array(
+				'dateFiled'		=> $arrto['requestDate'],
+				'empNumber'		=> $arrto['empNumber'],
+				'toDateFrom'	=> $to_details[1],
+				'toDateTo'		=> $to_details[2],
+				'destination'	=> $to_details[0],
+				'purpose'		=> $to_details[3],
+				'wmeal'			=> $to_details[4]
+			);
+			
+			$addreturn = $this->travel_order_model->add($arrto_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add TO ',json_encode($arrto_data),'');
+			endif;
 		endif;
 
 		$arrto_signatory = array(
@@ -353,46 +358,44 @@ class Request extends MY_Controller {
 		
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature('TO');
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$employee_details = employee_details($arrmone['empNumber']);
+			$monetize_amt = ($mone_details[2] + $mone_details[3]) * AMT_MONETIZATION * $employee_details[0]['actualSalary'];
+			$arrmone_data = array(
+				'empNumber'		=> $arrmone['empNumber'],
+				'vlMonetize'	=> isset($mone_details[2]) ? $mone_details[2] : '',
+				'slMonetize'	=> isset($mone_details[3]) ? $mone_details[3] : '',
+				'processMonth'	=> date('n'),
+				'processYear'	=> date('Y'),
+				'monetizeMonth'	=> isset($mone_details[4]) ? $mone_details[4] : '',
+				'monetizeYear'	=> isset($mone_details[5]) ? $mone_details[5] : '',
+				'monetizeAmount'=> $monetize_amt,
+				'processBy'		=> $this->session->userdata('sessEmpNo'),
+				'ip'			=> $this->input->ip_address(),
+				'processDate'	=> date('Y-m-d h:i:s A')
+			);
 
-		$leave_balance = $this->leave_model->getLatestBalance($arrmone['empNumber']);
-		$vlBalance = isset($leave_balance['vlBalance']) ? $leave_balance['vlBalance'] : 0;
-		$slBalance = isset($leave_balance['slBalance']) ? $leave_balance['slBalance'] : 0;
-		$arrmone_data = array(
-			'empNumber'		=> $arrmone['empNumber'],
-			'vlMonetize'	=> $vlBalance,
-			'slMonetize'	=> $slBalance,
-			'processMonth'	=> date('n'),
-			'processYear'	=> date('Y'),
-			'monetizeMonth'	=> $mone_details[2],
-			'monetizeYear'	=> $mone_details[0],
-			'monetizeAmount'=> $mone_details[0],
-			'processBy'		=> $mone_details[3],
-			'ip'			=> $mone_details[3],
-			'processDate'	=> $mone_details[3]
-		);
-		printrd($mone_details);
-		printrd($arrmone_data);
-		die();
-		$addreturn = $this->travel_order_model->add($arrmone_data);
-		if(count($addreturn)>0):
-			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add TO ',json_encode($arrmone_data),'');
+			$addreturn = $this->leave_monetization_model->addemp_monetized($arrmone_data);
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave Monetization ',json_encode($arrmone_data),'');
+			endif;
 		endif;
 
-		$arrto_signatory = array(
+		$arrmone_signatory = array(
 			'requestStatus'	=> strtoupper($optstatus),
 			'statusDate'	=> date('Y-m-d'),
 			'remarks'		=> $txtremarks,
 			'signatory'		=> $_SESSION['sessEmpNo']
 		);
 
-		$arrto_signatory = array_merge($arrto_signatory,$arremp_signature);
-		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrmone['requestID']);
+		$arrmone_signatory = array_merge($arrmone_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrmone_signatory, $arrmone['requestID']);
 		if(count($update_employeeRequest)>0):
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
 			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
 		endif;
 
-		redirect('hr/request?request=to');
+		redirect('hr/request?request=mone');
 	}
 
 	// public function leave_request()
