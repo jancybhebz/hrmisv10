@@ -35,7 +35,7 @@
 					<?php 
 						$row_show = 1;
 						if(isset($pds_details)):
-							$row_show = isset($pds_details[15]) ? $pds_details[15] == $row['serviceRecID'] ? 0 : 1 : 1;
+							$row_show = isset($pds_details[16]) ? $pds_details[16] == $row['serviceRecID'] ? 0 : 1 : 1;
 						else:
 							if(count($emp_wxp) > 0):
 								$row_show = $emp_wxp['serviceRecID'] == $row['serviceRecID'] ? 0 : 1;
@@ -65,7 +65,7 @@
 		        	<label class="control-label">Inclusive Date From : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control date-picker" name="dtmExpDateFrom" 
-		        				value="<?=isset($pds_details) ? $pds_details[0] : (count($emp_wxp)>0?$emp_wxp['serviceFromDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_wxp)>0?$emp_wxp['serviceFromDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -76,7 +76,7 @@
 		        	<label class="control-label">Inclusive Date To : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control date-picker" name="dtmExpDateTo" 
-		        				value="<?=isset($pds_details) ? $pds_details[1] : (count($emp_wxp)>0?$emp_wxp['serviceToDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[2] : (count($emp_wxp)>0?$emp_wxp['serviceToDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -85,7 +85,7 @@
 		        	<label class="control-label">&nbsp;</label>
 		        	<div class="input-icon">
 		        		<label><input type="checkbox" name="chkpresent"
-		        			<?=isset($pds_details) ? ($pds_details[2]=='Present' ? 'checked' : '') : (count($emp_wxp)>0? ($emp_wxp['serviceToDate']=='Present' ? 'checked' : '') :'')?>> Present </label>
+		        			<?=isset($pds_details) ? ($pds_details[3]=='Present' ? 'checked' : '') : (count($emp_wxp)>0? ($emp_wxp['serviceToDate']=='Present' ? 'checked' : '') :'')?>> Present </label>
 		        	</div>
 		        </div>
 		    </div>
@@ -96,7 +96,7 @@
 		        	<label class="control-label">Position Title : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strPosTitle" 
-		        				value="<?=isset($pds_details) ? $pds_details[3] : (count($emp_wxp)>0?$emp_wxp['positionDesc']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[4] : (count($emp_wxp)>0?$emp_wxp['positionDesc']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -107,7 +107,7 @@
 		        	<label class="control-label">Department/Agency/Office : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strExpDept" 
-		        				value="<?=isset($pds_details) ? $pds_details[4] : (count($emp_wxp)>0?$emp_wxp['stationAgency']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[5] : (count($emp_wxp)>0?$emp_wxp['stationAgency']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -118,7 +118,7 @@
 		        	<label class="control-label">Salary : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strSalary" 
-		        				value="<?=isset($pds_details) ? $pds_details[5] : (count($emp_wxp)>0?$emp_wxp['salary']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[6] : (count($emp_wxp)>0?$emp_wxp['salary']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -131,7 +131,7 @@
 							<?php 
 								foreach(array('Hour','Day','Month','Quarter','Year') as $pos):
 									if(isset($pds_details)):
-										$selected = $pds_details[6] == $pos ? 'selected' : '';
+										$selected = $pds_details[7] == $pos ? 'selected' : '';
 									else:
 										$selected = isset($emp_wxp) ? $emp_wxp['salaryPer'] == $pos ? 'selected' : '' : '';
 									endif;
@@ -148,7 +148,7 @@
 		        	<label class="control-label">Currency : </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strCurrency" 
-		        				value="<?=isset($pds_details) ? $pds_details[7] : (count($emp_wxp)>0?$emp_wxp['currency']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[8] : (count($emp_wxp)>0?$emp_wxp['currency']:'')?>" autocomplete="off">
 		        	</div>
 		        	<span class="help-block small">(leave blank if PHP) /   (ex. USD for US dollars)</span>
 		        </div>
@@ -160,7 +160,7 @@
 		        	<label class="control-label">Salary Grade & Step Incremet (Format "00-0") :  </label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strExpSG" 
-		        				value="<?=isset($pds_details) ? $pds_details[8] : (count($emp_wxp)>0?$emp_wxp['salaryGrade']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[9] : (count($emp_wxp)>0?$emp_wxp['salaryGrade']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -174,7 +174,7 @@
 		                    <?php 
 								foreach($arrAppointment as $appoint):
 									if(isset($pds_details)):
-										$selected = $pds_details[9] == $appoint['appointmentCode'] ? 'selected' : '';
+										$selected = $pds_details[10] == $appoint['appointmentCode'] ? 'selected' : '';
 									else:
 										$selected = isset($emp_wxp) ? $emp_wxp['appointmentCode'] == $appoint['appointmentCode'] ? 'selected' : '' : '';
 									endif;
@@ -193,10 +193,10 @@
 			       	<div class="radio-list">
 			        	  	<label class="radio-inline">
 			        	      	<input type="radio" name="strGovn" value="Y" 
-			        	      		<?=isset($pds_details) ? ($pds_details[10]=='Y' ? 'checked' : '') : (count($emp_wxp) > 0 ? $emp_wxp['governService']=='Yes' ? 'checked' : '' : '')?>> Yes </label>
+			        	      		<?=isset($pds_details) ? ($pds_details[11]=='Y' ? 'checked' : '') : (count($emp_wxp) > 0 ? $emp_wxp['governService']=='Yes' ? 'checked' : '' : '')?>> Yes </label>
 			        	  	<label class="radio-inline">
 			        	      	<input type="radio" name="strGovn" value="N" 
-			        	      		<?=isset($pds_details) ? ($pds_details[10]=='N' ? 'checked' : '') : (count($emp_wxp) > 0 ? $emp_wxp['governService']!='Yes' ? 'checked' : '' : 'checked')?>> No </label>
+			        	      		<?=isset($pds_details) ? ($pds_details[11]=='N' ? 'checked' : '') : (count($emp_wxp) > 0 ? $emp_wxp['governService']!='Yes' ? 'checked' : '' : 'checked')?>> No </label>
 			       	</div>
 			   	</div>
 			</div>
@@ -210,7 +210,7 @@
 		                    <?php 
 								foreach(array('Government Corp','National','FGI') as $branch):
 									if(isset($pds_details)):
-										$selected = $pds_details[11] == $branch ? 'selected' : '';
+										$selected = $pds_details[12] == $branch ? 'selected' : '';
 									else:
 										$selected = isset($emp_wxp) ? $emp_wxp['branch'] == $branch ? 'selected' : '' : '';
 									endif;
@@ -231,7 +231,7 @@
 		                    <?php 
 								foreach($arrSeparation as $separation):
 									if(isset($pds_details)):
-										$selected = $pds_details[12] ==$separation['separationCause'] ? 'selected' : '';
+										$selected = $pds_details[13] ==$separation['separationCause'] ? 'selected' : '';
 									else:
 										$selected = isset($emp_wxp) ? $emp_wxp['serviceRecID'] == $separation['serviceRecID'] ? 'selected' : '' : '';
 									endif;
@@ -249,7 +249,7 @@
 		        	<label class="control-label">Separation Date :</label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control date-picker" name="strSepDate" 
-		        				value="<?=isset($pds_details) ? $pds_details[13] : (count($emp_wxp)>0?$emp_wxp['separationDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[14] : (count($emp_wxp)>0?$emp_wxp['separationDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
@@ -260,7 +260,7 @@
 		        	<label class="control-label">L/V ABS W/O PAY :</label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strLV" 
-		        				value="<?=isset($pds_details) ? $pds_details[14] : (count($emp_wxp)>0?$emp_wxp['lwop']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[15] : (count($emp_wxp)>0?$emp_wxp['lwop']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
