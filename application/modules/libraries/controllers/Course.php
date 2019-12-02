@@ -69,7 +69,7 @@ class Course extends MY_Controller {
 			$intCourseId = $arrPost['intCourseId'];
 			$strCode=$arrPost['strCode'];
 			$strDescription=$arrPost['strDescription'];
-			if(!empty($strCode) AND !empty($strDescription)) 
+			if(!empty($strDescription)) 
 			{
 				$arrData = array(
 					'courseCode'=>$strCode,

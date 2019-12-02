@@ -35,14 +35,14 @@
             <div class="portlet-body">
             <?=form_open(base_url('libraries/course/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmCourse'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrCourse);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Code <span class="required"> * </span></label>
+                                <label class="control-label">Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strCode" value="<?=isset($arrCourse[0]['courseCode'])?$arrCourse[0]['courseCode']:''?>" >
+                                    <input type="text" class="form-control" name="strCode" value="<?=isset($arrCourse[0]['courseCode'])?$arrCourse[0]['courseCode']:''?>" readonly>
                                 </div>
                             </div>
                         </div>
