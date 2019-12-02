@@ -131,7 +131,7 @@ class Appointment_status extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Deleted '.$strAppointmentCode.' Appointment status',implode(';',$arrAppointStatuses[0]),'');
-					$this->session->set_flashdata('strMsg','Appointment status deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Appointment status deleted successfully.');
 				}
 				redirect('libraries/appointment_status');
 			}

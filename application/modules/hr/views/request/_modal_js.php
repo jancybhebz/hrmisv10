@@ -185,24 +185,6 @@
             $('#pds-form').modal('show');
         });
 
-        // $('#table-to').on('click', 'a#btncertify', function() {
-        //     $('.div-remarks').hide();
-        //     $('#to-title').html('<b>Certify</b>');
-        //     $('#lbl-to-request').text('Are you sure you want to certify this request?');
-        //     $('#frmupdate_to').attr('action',"<?=base_url('hr/request/update_to?req_id=')?>"+$(this).data('id'));
-        //     $('#opt_to_stat').val('CERTIFIED');
-        //     $('#modal-update-to').modal('show');
-        // });
-
-        // $('#table-to').on('click', 'a#btndisapproved', function() {
-        //     $('.div-remarks').show();
-        //     $('#to-title').html('<b>DISAPPROVED</b>');
-        //     $('#lbl-to-request').text('Are you sure you want to disapprove this request?');
-        //     $('#frmupdate_to').attr('action',"<?=base_url('hr/request/update_to?req_id=')?>"+$(this).data('id'));
-        //     $('#opt_to_stat').val('Disapproved');
-        //     $('#modal-update-to').modal('show');
-        // });
-
         // Monetization
         $('#table-mone').on('click','a#printreport',function(){
 

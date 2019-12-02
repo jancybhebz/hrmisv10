@@ -117,6 +117,20 @@ class Pds_update extends MY_Controller {
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_view', $this->arrData);
 	}
 
+	public function view()
+	{
+		$strEmpNo =$_SESSION['sessEmpNo'];
+		$arrrequest = $this->update_pds_model->getpds_request($_GET['req_id']);
+		$pds_details = isset($arrrequest) ? explode(';',$arrrequest['requestDetails']) : array();
+		
+		$this->arrData['pds_details'] = $pds_details;
+		$this->arrData['pds_type'] = end($pds_details);
+
+		$this->arrData['arrData'] = $this->update_pds_model->getData($arrrequest['empNumber']);
+
+		$this->template->load('template/template_view', 'employee/pds_update/pds_update_hr_view', $this->arrData);
+	}
+
 	public function edit()
 	{
 		$strEmpNo =$_SESSION['sessEmpNo'];
@@ -206,6 +220,7 @@ class Pds_update extends MY_Controller {
 			$intHeight	  = $arrPost['intHeight'];
 			$strBlood	  = $arrPost['strBlood'];
 			$intGSIS	  = $arrPost['intGSIS'];
+			$strBP	  	  = $arrPost['strBP'];
 			$intPagibig	  = $arrPost['intPagibig'];
 			$intPhilhealth= $arrPost['intPhilhealth'];
 			$intTin	  	  = $arrPost['intTin'];
@@ -233,10 +248,10 @@ class Pds_update extends MY_Controller {
 			$strCode	  = $arrPost['strCode'];
 
 			$arrData = array(
-				'requestDetails'  => 'Profile'.';'.$strSname.';'.$strFname.';'.$strMname.';'.$strExtension.';'.$dtmBirthdate.';'.$strBirthplace.';'.$strCS.';'.$intWeight.';'.$intHeight.';'.$strBlood.';'.$intGSIS.';'.$intPagibig.';'.$intPhilhealth.';'.$intTin.';'.$strBlk1.';'.$strStreet1.';'.$strSubd1.';'.$strBrgy1.';'.$strCity1.';'.$strProv1.';'.$strZipCode1.';'.$strTel1.';'.$strBlk2.';'.$strStreet2.';'.$strSubd2.';'.$strBrgy2.';'.$strCity2.';'.$strProv2.';'.$strZipCode2.';'.$intTel2.';'.$strEmail.';'.$strCP.';'.$strStatus.';'.$strCode,
+				'requestDetails'  => 'Profile'.';'.$strSname.';'.$strFname.';'.$strMname.';'.$strExtension.';'.$dtmBirthdate.';'.$strBirthplace.';'.$strCS.';'.$intWeight.';'.$intHeight.';'.$strBlood.';'.$strBP.';'.$intGSIS.';'.$intPagibig.';'.$intPhilhealth.';'.$intTin.';'.$strBlk1.';'.$strStreet1.';'.$strSubd1.';'.$strBrgy1.';'.$strCity1.';'.$strProv1.';'.$strZipCode1.';'.$strTel1.';'.$strBlk2.';'.$strStreet2.';'.$strSubd2.';'.$strBrgy2.';'.$strCity2.';'.$strProv2.';'.$strZipCode2.';'.$intTel2.';'.$strEmail.';'.$strCP.';'.$strStatus.';'.$strCode,
 				'requestDate'	  => date('Y-m-d'),
 				'requestStatus'   => $strStatus,
-				'requestCode' 	  => $strCode,
+				'requestCode' 	  => '201',
 				'empNumber' 	  => $_SESSION['sessEmpNo']);
 			// printrd($arrData);
 			// printrd(explode(';',$arrData['requestDetails']));
@@ -285,14 +300,12 @@ class Pds_update extends MY_Controller {
 			$strCode		= $arrPost['strCode'];
 
 			$arrData = array(
-				'requestDetails' => 'Family'.';'.$strSSurname.';'.$strSFirstname.';'.$strSMidname.';'.$strSNameExt.';'.$strSOccupation.';'.$strSBusname.';'.$strSBusadd.';'.$strSTel.';'.$strFSurname.';'.$strFFirstname.';'.$strFMidname.';'.$strFExtension.';'.$strMSurname.';'.$strMFirstname.';'.$strMMidname.';'.$strPaddress,
+				'requestDetails' => 'Family'.';'.$strSSurname.';'.$strSFirstname.';'.$strSMidname.';'.$strSNameExt.';'.$strSOccupation.';'.$strSBusname.';'.$strSBusadd.';'.$strSTel.';'.$strFSurname.';'.$strFFirstname.';'.$strFMidname.';'.$strFExtension.';'.$strMSurname.';'.$strMFirstname.';'.$strMMidname.';'.$strPaddress.';'.$strCode,
 				'requestDate' 	 => date('Y-m-d'),
 				'requestStatus'  => $strStatus,
-				'requestCode' 	 => $strCode,
+				'requestCode' 	 => '201',
 				'empNumber' 	 => $_SESSION['sessEmpNo']);
-			// printrd($arrData);
-			// printrd(explode(';',$arrData['requestDetails']));
-			// die();
+
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0):
@@ -691,5 +704,9 @@ class Pds_update extends MY_Controller {
 		}
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
+
+    
+
+
 
 }

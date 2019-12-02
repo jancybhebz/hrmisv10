@@ -127,7 +127,7 @@ class Position extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblposition','Deleted '.$strPositionDescription.' Position',implode(';',$arrPositions[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Position deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Position deleted successfully.');
 				}
 				redirect('libraries/position');
 			}

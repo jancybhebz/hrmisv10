@@ -26,7 +26,6 @@ class Travel_order_model extends CI_Model {
 		else:
 			return $this->db->get('tblEmpRequest')->result_array();
 		endif;
-
 	}
 
 	function getall_request($empno='')

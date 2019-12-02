@@ -212,7 +212,7 @@ class Attendance_scheme extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Deleted '.$strSchemeName.' Attendance_scheme',implode(';',$arrScheme[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Attendance Scheme deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Attendance Scheme deleted successfully.');
 				}
 				redirect('libraries/attendance_scheme');
 			}

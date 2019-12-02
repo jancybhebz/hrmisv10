@@ -143,7 +143,7 @@ class Org_structure extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strExecOffice.' Org_structure',implode(';',$arrOrganization[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Executive name deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Executive name deleted successfully.');
 				}
 				redirect('libraries/org_structure');
 			}
@@ -269,7 +269,7 @@ class Org_structure extends MY_Controller {
 				if(count($blnReturn)>0) //implode(';',$arrService[0]),'');
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup2','Deleted '.$strServiceCode.' Org_structure',implode(';',$arrService),'');
-					$this->session->set_flashdata('strMsg','Service name deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Service name deleted successfully.');
 				}
 				redirect('libraries/org_structure');
 			}
@@ -403,7 +403,7 @@ class Org_structure extends MY_Controller {
 					
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup3','Deleted '.$strCode.' Org_structure',implode(';',$arrDivision),'');
 
-					$this->session->set_flashdata('strMsg','Division name deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Division name deleted successfully.');
 				}
 				redirect('libraries/org_structure/');
 			}
@@ -543,7 +543,7 @@ class Org_structure extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup1','Deleted '.$strSecCode.' Org_structure',implode(';',$arrSection),'');
 	
-					$this->session->set_flashdata('strMsg','Section name deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Section name deleted successfully.');
 				}
 				redirect('libraries/org_structure');
 			}

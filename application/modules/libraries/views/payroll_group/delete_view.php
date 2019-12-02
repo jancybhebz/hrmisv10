@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Project <span class="required"> * </span></label>
+                                <label class="control-label">Project </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['projectCode'])?$arrData[0]['projectCode']:''?>" disabled>
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
+                                <label class="control-label">Payroll Group Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['payrollGroupCode'])?$arrData[0]['payrollGroupCode']:''?>" disabled>
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
+                                <label class="control-label">Payroll Group Description </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['payrollGroupName'])?$arrData[0]['payrollGroupName']:''?>" disabled>
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
+                                <label class="control-label">Payroll Group Order </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['payrollGroupOrder'])?$arrData[0]['payrollGroupOrder']:''?>" disabled>
@@ -91,7 +91,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Responsibility Center <span class="required"> * </span></label>
+                                <label class="control-label">Responsibility Center </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['payrollGroupRC'])?$arrData[0]['payrollGroupRC']:''?>" disabled>

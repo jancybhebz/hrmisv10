@@ -8,7 +8,7 @@ class Request extends MY_Controller {
 	function __construct()
 	{
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model','employee/leave_monetization_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model','employee/leave_monetization_model','employee/update_pds_model'));
     }
 
     public function index()
@@ -132,6 +132,40 @@ class Request extends MY_Controller {
 			endif;
 			$this->arrData['arrto_request'] = $arrto_request;
 			# end TO
+		endif;
+
+		if($request_type == 'pds'):
+			# begin PDS
+			$arrpds_request = $this->update_pds_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$pds_request = array();
+					foreach($arrpds_request as $key=>$pds):
+						$next_signatory = $this->Request_model->get_next_signatory($pds,'201');
+						$pds['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($pds['requestStatus'])):
+							if($active_menu == 'Filed Request'):
+								if($pds['next_signatory']['display'] == 1):
+									$pds_request[] = $pds;
+								endif;
+							else:
+								$pds_request[] = $pds;
+							endif;
+						endif;
+					endforeach;
+					$arrpds_request = $pds_request;
+				else:
+					foreach($arrpds_request as $key=>$pds):
+						$next_signatory = $this->Request_model->get_next_signatory($pds,'201');
+						$pds['next_signatory'] = $next_signatory;
+						$pds_request[] = $pds;
+					endforeach;
+					$arrpds_request = $pds_request;
+				endif;
+			endif;
+			$this->arrData['arrpds_request'] = $arrpds_request;
+			# end PDS
 		endif;
 
 		if($request_type == 'mone'):
@@ -552,6 +586,92 @@ class Request extends MY_Controller {
 			$this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selob_stat']));
 		endif;
 		redirect('hr/notification');
+	}
+
+	// Certify PDS
+	public function certify_pds()
+	{
+		$reqid = $_GET['req_id'];
+		$arrrequest = $this->update_pds_model->getpds_request($_GET['req_id']);
+		$pds_details = isset($arrrequest) ? explode(';',$arrrequest['requestDetails']) : array();
+		
+		if($_GET['status'] == 'profile'):
+			$arr_personal = array(
+							'surname' => 	$pds_details[1],
+							'firstname' => 	$pds_details[2],
+							'middlename' => 	$pds_details[3],
+							'nameExtension' => 	$pds_details[4],
+							'birthday' => 	$pds_details[5],
+							'birthPlace' => 	$pds_details[6],
+							'civilStatus' => 	$pds_details[7],
+							'weight' => 	$pds_details[8],
+							'height' => 	$pds_details[9],
+							'bloodType' => 	$pds_details[10],
+							'gsisNumber' => 	$pds_details[11],
+							'businessPartnerNumber' => 	$pds_details[12],
+							'pagibigNumber' => 	$pds_details[13],
+							'philHealthNumber' => 	$pds_details[14],
+							'tin' => 	$pds_details[15],
+							'lot1' => 	$pds_details[16],
+							'street1' => 	$pds_details[17],
+							'subdivision1' => 	$pds_details[18],
+							'barangay1' => 	$pds_details[19],
+							'city1' => 	$pds_details[20],
+							'province1' => 	$pds_details[21],
+							'zipCode1' => 	$pds_details[22],
+							'telephone1' => 	$pds_details[23],
+							'lot2' => 	$pds_details[24],
+							'street2' => 	$pds_details[25],
+							'subdivision2' => 	$pds_details[26],
+							'barangay2' => 	$pds_details[27],
+							'city2' => 	$pds_details[28],
+							'province2' => 	$pds_details[29],
+							'zipCode2' => 	$pds_details[30],
+							'telephone2' => 	$pds_details[31],
+							'email' => 	$pds_details[32],
+							'mobile' => 	$pds_details[33]);
+
+			$this->update_pds_model->save_personal($arr_personal,$arrrequest['empNumber']);
+		endif;
+
+		if($_GET['status'] == 'family'):
+			$arr_personal = array(
+							'spouseSurname' => 	$pds_details[1],
+							'spouseFirstname' => 	$pds_details[2],
+							'spouseMiddlename' => 	$pds_details[3],
+							'spousenameExtension' => 	$pds_details[4],
+							'spouseWork' => 	$pds_details[5],
+							'spouseBusName' => 	$pds_details[6],
+							'spouseBusAddress' => 	$pds_details[7],
+							'spouseTelephone' => 	$pds_details[8],
+							'fatherSurname' => 	$pds_details[9],
+							'fatherFirstname' => 	$pds_details[10],
+							'fatherMiddlename' => 	$pds_details[11],
+							'fathernameExtension' => 	$pds_details[12],
+							'motherSurname' => 	$pds_details[13],
+							'motherFirstname' => 	$pds_details[14],
+							'motherMiddlename' => 	$pds_details[15],
+							'parentAddress' => 	$pds_details[16]);
+
+			$this->update_pds_model->save_personal($arr_personal,$arrrequest['empNumber']);
+		endif;
+
+		$arrto_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+
+		$arremp_signature = $this->Request_model->get_signature($arrrequest['requestCode']);
+		$arrto_signatory = array_merge($arrto_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrrequest['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arr_personal),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully certify.');
+		endif;
+
+		redirect('hr/request?request=pds');
 	}
 
 

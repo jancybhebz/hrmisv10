@@ -53,7 +53,7 @@ class Update_pds_model extends CI_Model {
 		if($empno!=''):
 			$this->db->where('empNumber',$empno);
 		endif;
-		$this->db->like('requestCode', '201', 'after');
+		$this->db->like('requestCode', '201', 'after',false);
 		return $this->db->order_by('requestDate','DESC')->get('tblEmpRequest')->result_array();
 	}
 
@@ -334,6 +334,13 @@ class Update_pds_model extends CI_Model {
 		$this->db->where('requestID', $intReqId);
 		$this->db->update('tblEmpRequest', $arrData);
 		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function save_personal($arrData, $empno)
+	{
+		$this->db->where('empNumber', $empno);
+		$this->db->update('tblEmpPersonal', $arrData);
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
