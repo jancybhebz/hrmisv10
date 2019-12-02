@@ -225,11 +225,11 @@ class Request_model extends CI_Model {
 		$this->load->model('Request_model');
 		$signatories = $this->Request_model->request_signatories_bytype($type);
 		if(count($signatories) > 0):
+			
 			$rflowsign_1 = $signatories['Signatory1'] != '' ? explode(';',$signatories['Signatory1']) : array('','','');
 			$rflowsign_2 = $signatories['Signatory2'] != '' ? explode(';',$signatories['Signatory2']) : array('','','');
 			$rflowsign_3 = $signatories['Signatory3'] != '' ? explode(';',$signatories['Signatory3']) : array('','','');
 			$rflowsign_fin = $signatories['SignatoryFin'] != '' ? explode(';',$signatories['SignatoryFin']) : array('','','');
-
 			if(strtolower($ob['requestStatus']) == 'filed request'):
 				# BEGIN SIGNATORY 1
 				# check if ob_signatory1 is null

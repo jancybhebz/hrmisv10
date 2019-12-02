@@ -36,8 +36,8 @@ class Attendance_scheme extends MY_Controller {
 			$strSchemeType = $arrPost['strSchemeType'];
 			$strSchemeCode = $arrPost['strSchemeCode'];
 			$strSchemeName = $arrPost['strSchemeName'];
-			$strAllow = $arrPost['strAllow'];
-			$strStrict = $arrPost['strStrict'];
+			$strAllow = isset($arrPost['strAllow']) ? 'Y' : 'N';
+			$strStrict = isset($arrPost['strStrict']) ? 'Y' : 'N';
 			// fixed
 			$dtmFtimeIn = $arrPost['dtmFtimeIn'];
 			$dtmFtimeOutFrom = $arrPost['dtmFtimeOutFrom'];
@@ -64,8 +64,8 @@ class Attendance_scheme extends MY_Controller {
 						'schemeType'=>$strSchemeType,
 						'schemeCode'=>$strSchemeCode,
 						'schemeName'=>$strSchemeName,
-						'allow30'=>$strAllow ? 'Y' : 'N',
-						'strict'=>$strStrict ? 'Y' : 'N',
+						'allow30'=>$strAllow,
+						'strict'=>$strStrict,
 						// fixed
 					  'amTimeinFrom'=>$dtmFtimeIn,
 					 'nnTimeoutFrom'=>$dtmFtimeOutFrom, 

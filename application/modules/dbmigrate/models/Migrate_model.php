@@ -51,8 +51,6 @@ class Migrate_model extends CI_Model {
 
 		# call check_tables
 		$this->check_tables();
-
-
 	}
 
 	function check_tables()
