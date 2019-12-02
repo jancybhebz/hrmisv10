@@ -306,6 +306,7 @@ class Request_model extends CI_Model {
 				endif;
 			endif;
 		endif;
+		return array('next_sign' => '', 'display' => 0);
 	}
 
 	# Request Flow
