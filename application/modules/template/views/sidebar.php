@@ -109,7 +109,7 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '4') !== false))): ?> 
-                    <li class="nav-item <?=($active == 'hr' && $activesub == 'request') || ($active == 'employee' && in_array($activesub, array('official_business','leave','travel_order','leave_monetization'))) ? 'active' : '' ?> ">
+                    <li class="nav-item <?=($active == 'hr' && $activesub == 'request') || ($active == 'employee' && in_array($activesub, array('official_business','leave','travel_order','pds_update','leave_monetization'))) ? 'active' : '' ?> ">
                          <a href="<?=base_url('hr/request?request=ob')?>" class="nav-link nav-toggle">
                             <i class="icon-doc"></i>
                             <span class="title">Request</span>
