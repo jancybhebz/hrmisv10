@@ -20,29 +20,31 @@ $(document).ready(function(){
 	});
 
 	$('#btn-add-attscheme').click(function(e) {
-		e.preventDefault(); // Remove if done
+		// e.preventDefault(); 
 	    var total_error = 0;
 
 	    total_error = total_error + check_null('#strSchemeType','Scheme Type must not be empty.');
 	    total_error = total_error + check_null('#strSchemeCode','Scheme Code must not be empty.');
-	    // total_error = total_error + check_null('#strMname','Middlename must not be empty.');
+	    total_error = total_error + check_null('#strSchemeName','Scheme Name must not be empty.');
 
-	    // total_error = total_error + check_null('#strBlk1','House/Block/Lot No. must not be empty.');
-	    // total_error = total_error + check_null('#strStreet1','Street must not be empty.');
-	    // total_error = total_error + check_null('#strSubd1','Subdivision/Villagemust not be empty.');
-	    // total_error = total_error + check_null('#strBrgy1','Barangay must not be empty.');
-	    // total_error = total_error + check_null('#strCity1','City/Municipalitymust not be empty.');
-	    // total_error = total_error + check_null('#strProv1','Province must not be empty.');
-	    // total_error = total_error + check_null('#strZipCode1','Zip Code must not be empty.');
+	    // fixed
+	    total_error = total_error + check_null('#dtmFtimeIn','Fixed Time In must not be empty.');
+	    total_error = total_error + check_null('#dtmFtimeOutFrom','Time-Out From (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmFtimeOutTo','Time-Out To (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmFtimeInFrom','Time-In From (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmFtimeInTo','Time-In To (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmFtimeOut','Time-Out must not be empty.');
 
-	    // total_error = total_error + check_null('#strBlk2','House/Block/Lot No. must not be empty.');
-	    // total_error = total_error + check_null('#strStreet2','Street must not be empty.');
-	    // total_error = total_error + check_null('#strSubd2','Subdivision/Villagemust not be empty.');
-	    // total_error = total_error + check_null('#strBrgy2','Barangay must not be empty.');
-	    // total_error = total_error + check_null('#strCity2','City/Municipalitymust not be empty.');
-	    // total_error = total_error + check_null('#strProv2','Province must not be empty.');
-	    // total_error = total_error + check_null('#strZipCode2','Zip Code must not be empty.');
-
+	  	// sliding
+	    total_error = total_error + check_null('#dtmStimeInFrom','Sliding Time In From must not be empty.');
+	    total_error = total_error + check_null('#dtmStimeInTo','Time In To must not be empty.');
+	    total_error = total_error + check_null('#dtmStimeOutFromNN','Time-Out From (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmStimeOutToNN','Time-Out To (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmStimeInFromNN','Time-In From (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmStimeInToNN','Time-In To (noon) must not be empty.');
+	    total_error = total_error + check_null('#dtmStimeOutFrom','Time Out From must not be empty.');
+	    total_error = total_error + check_null('#dtmStimeOutTo','Time Out To must not be empty.');
+	
 	    if(total_error > 0){
 	        e.preventDefault();
 	    }

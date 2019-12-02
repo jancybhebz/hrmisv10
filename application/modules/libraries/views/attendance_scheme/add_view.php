@@ -78,7 +78,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                         <label class="control-label">Scheme Name <span class="required"> * </span></label>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" name="strSchemeName" value="<?=!empty($this->session->userdata('strSchemeName'))?$this->session->userdata('strSchemeName'):''?>">
+                                            <input type="text" class="form-control" name="strSchemeName" id="strSchemeName" value="<?=!empty($this->session->userdata('strSchemeName'))?$this->session->userdata('strSchemeName'):''?>">
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div></br>
                         </div>
-
+                        <!-- end of fixed -->
                         <!-- Sliding -->
                         <div id="div-sliding">
                             <div class="row" id="StimeInFrom">
@@ -245,7 +245,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 </div>
                             </div>
                         </div>
-
+                        <!-- end of sliding -->
                         <div id="checkbox">
                             <div class="row" id="allow">
                                 <div class="col-sm-12">
