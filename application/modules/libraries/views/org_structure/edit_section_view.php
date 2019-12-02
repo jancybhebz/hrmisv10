@@ -99,10 +99,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Code  <span class="required"> * </span></label>
+                                <label class="control-label">Section Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSecCode" value="<?=!empty($arrSection[0]['group4Code'])?$arrSection[0]['group4Code']:''?>">
+                                    <input type="text" class="form-control" name="strSecCode" value="<?=!empty($arrSection[0]['group4Code'])?$arrSection[0]['group4Code']:''?>" readonly>
                                 </div>
                             </div>
                         </div>
