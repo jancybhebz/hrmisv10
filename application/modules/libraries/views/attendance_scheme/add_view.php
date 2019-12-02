@@ -250,7 +250,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="row" id="allow">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="control-label">Allow 30 mins (noon log) : <span class="required"> * </span> <input type="checkbox" class="checkbox" name="strAllow" id="strAllow" value="Y"> </label>
+                                        <label class="control-label">Allow 30 mins (noon log) : <input type="checkbox" class="checkbox" name="strAllow" id="strAllow" value="Y"> </label>
                                         <div class="input-icon left">
                                         </div>
                                     </div>
@@ -259,7 +259,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="row" id="strict">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="control-label">Strict (noon log) : <span class="required"> * </span><input type="checkbox" class="checkbox" name="strStrict" id="strStrict" value="Y"> </label>
+                                        <label class="control-label">Strict (noon log) : <input type="checkbox" class="checkbox" name="strStrict" id="strStrict" value="Y"> </label>
                                         <div class="input-icon left">
                                         </div>
                                     </div>

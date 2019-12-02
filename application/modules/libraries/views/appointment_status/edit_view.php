@@ -51,7 +51,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Appointment Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAppointmentCode" autocomplete="off" value="<?=isset($arrAppointStatuses[0]['appointmentCode'])?$arrAppointStatuses[0]['appointmentCode']:''?>">
+                                    <input type="text" class="form-control" name="strAppointmentCode" autocomplete="off" value="<?=isset($arrAppointStatuses[0]['appointmentCode'])?$arrAppointStatuses[0]['appointmentCode']:''?>" readonly>
                                 </div>
                             </div>
                         </div>
