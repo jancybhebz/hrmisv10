@@ -153,7 +153,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title bold">Personnel Travel Pass</h4>
+                <h4 class="modal-title bold">Request to Render Compensatory Time Off</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
@@ -201,19 +201,16 @@ $(document).ready(function() {
   
     $('#printreport').click(function(){
         var comleave=$('#dtmComLeave').val();
-        var oldmorin=$('#dtmOldMorningIn').val();
-        var oldmorout=$('#dtmOldMorningOut').val();
-        var oldafin=$('#dtmOldAfternoonIn').val();
-        var oldafout=$('#dtmOldAfternoonOut').val();
-        var morningin=$('#dtmMorningIn').val();
-        var morningout=$('#dtmMorningOut').val();
-        var aftrnoonin=$('#dtmAfternoonIn').val();
-        var aftrnoonout=$('#dtmAfternoonOut').val();
+        var oldmorin=$('#dtmMorningIn').val();
+        var oldmorout=$('#dtmMorningOut').val();
+        var oldafin=$('#dtmAfternoonIn').val();
+        var oldafout=$('#dtmAfternoonOut').val();
         var purpose=$('#strPurpose').val();
         var reco=$('#strRecommend').val();
         var approval=$('#strApproval').val();
 
-        var link = "reports/generate/?rpt=reportCL&comleave="+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+morningin+"&morningout="+morningout+"&aftrnoonin="+aftrnoonin+"&aftrnoonout="+aftrnoonout+"&purpose="+purpose+"&reco="+reco+"&approval="+approval;
+        var link = "<?=base_url('employee/reports/generate/?rpt=reportCL&comleave=')?>"+comleave+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldafout="+oldafout+"&morningin="+"&morningout="+"&aftrnoonin="+"&aftrnoonout="+"&purpose="+purpose+"&reco="+reco+"&approval="+approval;
+
         $('#cto-embed').attr('src',link);
         $('#cto-embed-fullview').attr('href',link);
         $('#cto-form').modal('show');

@@ -177,7 +177,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                 <label class="control-label">Overtime In :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" 
-                                    value="<?=isset($new_dtr_details[6]) ? ($new_dtr_details[6]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[6]) : ''?>" autocomplete="off">
+                                    value="<?=isset($new_dtr_details[6]) ? ($new_dtr_details[6]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[6]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                 <label class="control-label">Overtime Out :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" 
-                                        value="<?=isset($new_dtr_details[7]) ? ($new_dtr_details[7]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[7]) : ''?>" autocomplete="off">
+                                        value="<?=isset($new_dtr_details[7]) ? ($new_dtr_details[7]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[7]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>

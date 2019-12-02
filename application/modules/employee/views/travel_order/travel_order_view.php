@@ -103,7 +103,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                     </div>
                 </div>
 
-                <div class="row" id="attachments" <?=$action=='add' || $hrmodule?'hidden':''?>>
+                <div class="row" id="attachments" <?=$hrmodule?'hidden':''?>>
                     <br>
                     <div class="col-sm-12">
                         <div class="form-group">

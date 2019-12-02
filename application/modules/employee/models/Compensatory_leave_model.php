@@ -18,6 +18,14 @@ class Compensatory_leave_model extends CI_Model {
 		$this->db->initialize();	
 	}
 	
+	function getall_request($empno='')
+	{
+		if($empno!=''):
+			$this->db->where('empNumber',$empno);
+		endif;
+		return $this->db->order_by('requestDate','DESC')->get_where('tblEmpRequest',array('requestCode' => 'CL'))->result_array();
+	}
+	
 	function getData($intReqId = '')
 	{		
 		$strWhere = '';
