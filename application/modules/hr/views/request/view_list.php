@@ -51,7 +51,7 @@
                                                     <a href="<?=base_url('hr/request?request=to')?>"> Travel Order </a>
                                                 </li>
                                                 <li class="<?=$request=='pds'?'active':''?>">
-                                                    <a href="#tab-pds" data-toggle="tab"> PDS Update </a>
+                                                    <a href="<?=base_url('hr/request?request=pds')?>"> PDS Update </a>
                                                 </li>
                                                 <li class="<?=$request=='mone'?'active':''?>">
                                                     <a href="<?=base_url('hr/request?request=mone')?>"> Leave Monetization </a>
@@ -79,7 +79,7 @@
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='pds'?'active':''?>" id="tab-pds">
-                                                    pds
+                                                    <?php $this->load->view('_pds_request.php'); ?>
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='mone'?'active':''?>" id="tab-mone">
