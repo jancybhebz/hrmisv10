@@ -125,7 +125,7 @@ class Scholarship extends MY_Controller
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblScholarship','Deleted '.$strScholarship.' Scholarship',implode(';',$arrScholarship[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Scholarship deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Scholarship deleted successfully.');
 				}
 				redirect('libraries/scholarship');
 			}

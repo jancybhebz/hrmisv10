@@ -125,7 +125,7 @@ class philhealth_range extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Deleted '.$strRangeFrom.' PhilHealth Range',implode(';',$arrPhilHealth[0]),'');
 	
-					$this->session->set_flashdata('strMsg','PhilHealth Range deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','PhilHealth Range deleted successfully.');
 				}
 				redirect('libraries/philhealth_range');
 			}

@@ -125,7 +125,7 @@ class Plantilla_duties extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPlantillaDuties','Deleted '.$strDuties.' Plantilla_Duties',implode(';',$arrDuties[0]),'');
-					$this->session->set_flashdata('strMsg','Duties deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Duties deleted successfully.');
 				}
 				redirect('libraries/plantilla_duties');
 			}

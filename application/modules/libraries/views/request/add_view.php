@@ -17,7 +17,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Add Request Signatories</span>
+            <span>Add Request</span>
         </li>
     </ul>
 </div>
@@ -33,7 +33,7 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> <?=$action?> Request Signatories</span>
+                    <span class="caption-subject bold uppercase"> <?=$action?> Request</span>
                 </div>
             </div>
             <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>

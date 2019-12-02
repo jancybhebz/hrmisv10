@@ -128,7 +128,7 @@ class Project_code extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblproject','Deleted '.$strProjectDescription.' Project_code',implode(';',$arrProject[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Project code deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Project code deleted successfully.');
 				}
 				redirect('libraries/project_code');
 			}

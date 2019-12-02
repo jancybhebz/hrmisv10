@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Code <span class="required"> * </span></label>
+                                <label class="control-label">Service Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['serviceCode'])?$arrData[0]['serviceCode']:''?>" disabled>
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Description <span class="required"> * </span></label>
+                                <label class="control-label">Service Description </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['serviceDesc'])?$arrData[0]['serviceDesc']:''?>" disabled>
