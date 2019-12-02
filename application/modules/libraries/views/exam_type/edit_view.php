@@ -2,7 +2,7 @@
 /** 
 Purpose of file:    Edit page for Exam Type Library
  Library
-Author:             Edgardo P. Catorce Jr.
+Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
@@ -48,10 +48,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Exam Code <span class="required"> * </span></label>
+                                <label class="control-label">Exam Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strExamCode" value="<?=isset($arrExamTypes[0]['examCode'])?$arrExamTypes[0]['examCode']:''?>">
+                                    <input type="text" class="form-control" name="strExamCode" value="<?=isset($arrExamTypes[0]['examCode'])?$arrExamTypes[0]['examCode']:''?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">CSC Elligible <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="blnCSCEligible" value="<?=!empty($arrExamTypes[0]['csElligible'])?$arrExamTypes[0]['csElligible']:''?>">
+                                    <select type="text" class="form-control" name="blnCSCEligible" value="<?=!empty($arrExamTypes[0]['csElligible'])?$arrExamTypes[0]['csElligible']:''?>">
+                                        <option <?php if ($arrExamTypes[0]['csElligible'] == 'Y' ) echo 'selected' ; ?> value="Y">Yes</option>
+                                        <option <?php if ($arrExamTypes[0]['csElligible'] == 'N' ) echo 'selected' ; ?> value="N">No</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
