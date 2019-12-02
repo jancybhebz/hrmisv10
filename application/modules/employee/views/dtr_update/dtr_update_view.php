@@ -5,14 +5,11 @@ Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
+$month = isset($_GET['month']) ? $_GET['month'] : date('F');
+$form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_dtr/edit?req_id='.$_GET['req_id'];
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
-<?php
-    
-    $month = isset($_GET['month']) ? $_GET['month'] : date('F');
-    
-?>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -46,13 +43,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('employee/update_dtr/submit'), array('method' => 'post', 'id' => 'frmDTRupdate'))?>
+            <?=form_open($form_action, array('method' => 'post', 'id' => 'frmDTRupdate'))?>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="control-label">Date : <span class="required"> * </span></label>
                         <div class="input-icon right">
-                            <input class="form-control date-picker" name="dtmDTRupdate" id="dtmDTRupdate" type="text" value="" data-date-format="yyyy-mm-dd" autocomplete="off">
+                            <input class="form-control date-picker" name="dtmDTRupdate" id="dtmDTRupdate" type="text"
+                                value="<?=isset($new_dtr_details[1]) ? ($new_dtr_details[1]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[1]) : ''?>" data-date-format="yyyy-mm-dd" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -65,8 +63,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <?php foreach (range(1, 12) as $m): ?>
                                     <option value="<?=sprintf('%02d', $m)?>"
                                         <?php 
-                                            if(isset($_GET['month'])):
-                                                echo $_GET['month'] == $m ? 'selected' : '';
+                                            if(isset($new_dtr_details[33])):
+                                                echo $m == sprintf('%02d', $new_dtr_details[33]) ? 'selected' : '';
                                             else:
                                                 echo $m == sprintf('%02d', date('m')) ? 'selected' : '';
                                             endif;
@@ -84,7 +82,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Morning In : </label>
-                                <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                                <input name="strOldMorningIn" id="strOldMorningIn" type="text" size="20" maxlength="20" class="form-control"
+                                        value="<?=isset($old_dtr_details['inAM']) ? $old_dtr_details['inAM'] : ''?>" autocomplete="off" readonly>
                             </div>
                         </div>
                     </div>
@@ -92,7 +91,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Morning Out :</label>
-                                <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                                <input name="strOldMorningOut" id="strOldMorningOut" type="text" size="20" maxlength="20" class="form-control" 
+                                        value="<?=isset($old_dtr_details['outAM']) ? $old_dtr_details['outAM'] : ''?>" autocomplete="off" readonly>
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Afternoon In :</label>
-                                <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                                <input name="strOldAfternoonIn" id="strOldAfternoonIn" type="text" size="20" maxlength="20" class="form-control" 
+                                        value="<?=isset($old_dtr_details['inPM']) ? $old_dtr_details['inPM'] : ''?>" autocomplete="off" readonly>
                             </div>
                         </div>
                     </div>
@@ -108,7 +109,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Afternoon Out :</label>
-                                <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                                <input name="strOldAfternoonOut" id="strOldAfternoonOut" type="text" size="20" maxlength="20" class="form-control" 
+                                        value="<?=isset($old_dtr_details['outPM']) ? $old_dtr_details['outPM'] : ''?>" autocomplete="off" readonly>
                             </div>
                         </div>
                     </div>
@@ -116,7 +118,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Overtime In : </label>
-                                <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                                <input name="strOldOvertimeIn" id="strOldOvertimeIn" type="text" size="20" maxlength="20" class="form-control" 
+                                        value="<?=isset($old_dtr_details['inOT']) ? $old_dtr_details['inOT'] : ''?>" autocomplete="off" readonly>
                             </div>
                         </div>
                     </div>
@@ -124,7 +127,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Overtime Out : </label>
-                                <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" value="" autocomplete="off" readonly>
+                                <input name="strOldOvertimeOut" id="strOldOvertimeOut" type="text" size="20" maxlength="20" class="form-control" 
+                                        value="<?=isset($old_dtr_details['outOT']) ? $old_dtr_details['outOT'] : ''?>" autocomplete="off" readonly>
                             </div>
                         </div>
                     </div>
@@ -136,7 +140,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Morning Time In : </label>
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" autocomplete="off">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" 
+                                        value="<?=isset($new_dtr_details[2]) ? ($new_dtr_details[2]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[2]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -144,7 +149,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                  <label class="control-label">Morning Time Out :</label>
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" value="12:00:00 PM" autocomplete="off">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" 
+                                        value="<?=isset($new_dtr_details[3]) ? ($new_dtr_details[3]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[3]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -152,7 +158,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Afternoon Time In :</label>
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" value="12:00:00 PM" autocomplete="off">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" 
+                                        value="<?=isset($new_dtr_details[4]) ? ($new_dtr_details[4]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[4]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -160,7 +167,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Afternoon Time Out :</label>
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" value="12:00:00 PM" autocomplete="off">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" 
+                                        value="<?=isset($new_dtr_details[5]) ? ($new_dtr_details[5]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[5]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -168,7 +176,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Overtime In :</label>
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" value="12:00:00 PM" autocomplete="off">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" 
+                                    value="<?=isset($new_dtr_details[6]) ? ($new_dtr_details[6]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[6]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -176,7 +185,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Overtime Out :</label>
-                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" value="12:00:00 PM" autocomplete="off">
+                                <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" 
+                                        value="<?=isset($new_dtr_details[7]) ? ($new_dtr_details[7]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[7]) : ''?>" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -186,7 +196,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Reason :</label>
-                              <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"></textarea>
+                              <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control"><?=isset($new_dtr_details[32]) ? $new_dtr_details[32] : ''?></textarea>
                     </div>
                 </div>
             </div>
@@ -194,7 +204,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Supporting Evidence :</label>
-                            <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control" value="<?=!empty($this->session->userdata('strReason'))?$this->session->userdata('strReason'):''?>"></textarea>
+                            <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control"><?=isset($new_dtr_details[34]) ? $new_dtr_details[34] : ''?></textarea>
                     </div>
                 </div>
             </div>
@@ -204,8 +214,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <label class="control-label">Authorized Official (Signatory) :</label>
                             <select name="strSignatory" id="strSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
                                     <option value="0">-- SELECT SIGNATORY --</option>
-                                    <?php foreach($arrEmployees as $i=>$data): ?>
-                                    <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
+                                    <?php foreach($arrEmployees as $i=>$data):
+                                            $selected = isset($new_dtr_details[35]) ? ($new_dtr_details[35] == $data['empNumber'] ? 'selected' : '') : '' ?>
+                                            <option value="<?=$data['empNumber']?>" <?=$selected?>><?=(ucfirst($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
                                         <?php endforeach; ?>
                             </select>
                     </div>
@@ -232,7 +243,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title bold">Personnel Travel Pass</h4>
+                <h4 class="modal-title bold">Confirmation Slip</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
@@ -315,7 +326,7 @@ $(document).ready(function() {
         var evidence=$('#strEvidence').val();
         var signatory=$('#strSignatory').val();
         
-        var link = "reports/generate/?rpt=reportDTRupdate&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&month="+month+"&evidence="+evidence+"&reason="+reason+"&signatory="+signatory;
+        var link = "<?=base_url('employee/reports/generate/?rpt=reportDTRupdate')?>"+"&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&month="+month+"&evidence="+evidence+"&reason="+reason+"&signatory="+signatory;
         $('#dtr-embed').attr('src',link);
         $('#dtr-embed-fullview').attr('href',link);
         $('#dtr-form').modal('show');

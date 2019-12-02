@@ -37,6 +37,7 @@
                             <tbody>
                                 <?php
                                 $arrot_id = array();
+                                $allcertified_id = '';
                                 foreach($arrots as $ot):
                                     $in_am  = count($ot['dtr']) > 0 ? $ot['dtr']['inAM']  == '00:00:00' || $ot['dtr']['inAM']  == '' ? '00:00' : date('h:i',strtotime($ot['dtr']['inAM']))  : '';
                                     $out_am = count($ot['dtr']) > 0 ? $ot['dtr']['outAM'] == '00:00:00' || $ot['dtr']['outAM'] == '' ? '00:00' : date('h:i',strtotime($ot['dtr']['outAM'])) : '';
@@ -53,8 +54,14 @@
                                     array_push($arrot_id,$ot['dtr']['id']);?>
                                     <tr>
                                         <td align="center">
-                                            <input type="checkbox" name="certified_ot[]" value="<?=$ot['dtr']['id']?>" <?=$certified_ot ? 'checked' : ''?>></td>
-                                        <td align="center"><?=$ot['dtrdate']?></td>
+                                            <?php if($certified_ot): ?>
+                                                <?php $allcertified_id = $allcertified_id.';'.$ot['dtr']['id']; ?>
+                                                <input type="checkbox" name="certified_ot[]" class="chkcert" value="<?=$ot['dtr']['id']?>" checked disabled>
+                                            <?php else: ?>
+                                                <input type="checkbox" name="certified_ot[]" value="<?=$ot['dtr']['id']?>" >
+                                            <?php endif; ?>
+                                        </td>
+                                        <td align="center"><?=$ot['dtrdate']?>
                                         <td align="center"><?=$in_am?></td>
                                         <td align="center"><?=$out_am?></td>
                                         <td align="center"><?=$in_pm?></td>
@@ -71,6 +78,7 @@
                         </table>
                         <input type="hidden" name="txtot_id" value='<?=json_encode($arrot_id)?>'>
                         <input type="hidden" name="txtoffset" id="txtoffset">
+                        <input type="hidden" name="txtallcertified_id" value="<?=$allcertified_id?>"></td>
                         <button class="btn green" type="submit" id="btnoffset">
                             <i class="fa fa-check"></i> Update Offset</button>
                         <?=form_close()?>
