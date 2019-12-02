@@ -159,7 +159,7 @@ class Plantilla extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantilla','Deleted '.$strItemNumber.' Plantilla',implode(';',$arrPlantilla[0]),'');
-					$this->session->set_flashdata('strMsg','Plantilla name deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Plantilla name deleted successfully.');
 				}
 				redirect('libraries/plantilla');
 			}
