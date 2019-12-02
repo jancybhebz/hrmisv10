@@ -43,7 +43,7 @@
                             <?=form_open($action == 'edit' ? 'finance/libraries/signatory/edit/'.$this->uri->segment(5) : '', array('method' => 'post'))?>
                                 <input type="hidden" id='txtsig_id' value="<?=$this->uri->segment(5)?>" />
                                 <div class="form-group ">
-                                    <label class="control-label">Signatory <span class="required"> * </span></label>
+                                    <label class="control-label">Signatory Name<span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <input type="text" class="form-control form-required" name="txtsignatory" id="txtsignatory" <?=$action=='delete'?'disabled':''?>
                                             value="<?=isset($data) ? $data['signatory'] : set_value('txtsignatory')?>">

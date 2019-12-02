@@ -87,7 +87,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <input type="text" maxlength="11" class="form-control" name="intPayrollGroupOrder" id="intPayrollGroupOrder"
+                                    <input type="number" maxlength="11" class="form-control" name="intPayrollGroupOrder" id="intPayrollGroupOrder"
                                         value="<?=!empty($this->session->userdata('intPayrollGroupOrder'))?$this->session->userdata('intPayrollGroupOrder'):''?>" required>
                                 </div>
                             </div>
