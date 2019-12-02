@@ -222,7 +222,7 @@ class Leave_type extends MY_Controller {
 			{
 				$blnReturn=$this->leave_type_model->delete_special($strSpecifyLeave);
 				if(count($blnReturn)>0)
-					$this->session->set_flashdata('strMsg','Leave deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Leave deleted successfully.');
 				redirect('libraries/leave_type');
 			}
 		}

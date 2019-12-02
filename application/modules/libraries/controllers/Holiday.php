@@ -120,7 +120,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Deleted '.$strHolidayCode.' Holiday',implode(';',$arrHoliday[0]),'');
-					$this->session->set_flashdata('strMsg','Holiday deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Holiday deleted successfully.');
 				}
 				redirect('libraries/holiday');
 			}
@@ -230,7 +230,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Deleted '.$strHolidayName.','.$dtmHolidayDate.'Holiday',implode(';',$arrManageHoliday[0]),'');
-					$this->session->set_flashdata('strMsg','Holiday deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Holiday deleted successfully.');
 				}
 				redirect('libraries/holiday');
 			}
@@ -372,7 +372,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Deleted '.$strHolidayName.','.$dtmHolidayDate.'Holiday',implode(';',$arrLocHoliday),'');
-					$this->session->set_flashdata('strMsg','Holiday deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Holiday deleted successfully.');
 				}
 				redirect('libraries/holiday/add_local');
 			}
@@ -484,7 +484,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Deleted '.$dtmHolidayDate.','.$dtmHolidayTime.'Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strMsg','Holiday deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Holiday deleted successfully.');
 				}
 				redirect('libraries/holiday/add_worksuspension');
 			}

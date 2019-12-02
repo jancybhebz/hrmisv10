@@ -111,7 +111,7 @@ class Course extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCourse','Deleted '.$strCode.' Course',implode(';',$arrCourse[0]),'');
-					$this->session->set_flashdata('strMsg','Course deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Course deleted successfully.');
 				}
 				redirect('libraries/course');
 			}

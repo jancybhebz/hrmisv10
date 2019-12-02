@@ -124,7 +124,7 @@ class Educ_level extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEducationalLevel','Deleted '.$strEducLevelDesc.' Level',implode(';',$arrEducLevels[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Educational Level deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Educational Level deleted successfully.');
 				}
 				redirect('libraries/educ_level');
 			}
