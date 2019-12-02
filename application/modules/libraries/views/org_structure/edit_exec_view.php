@@ -48,8 +48,8 @@ load_plugin('js',array('validation'));
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Code <span class="required"> * </span></label>
-                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" id="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
+                                <label class="control-label">Executive Office Code </label>
+                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" id="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>" readonly>
                                     <font color='red'> <span id="errorCode"></span></font>
                             </div>
                         </div>
