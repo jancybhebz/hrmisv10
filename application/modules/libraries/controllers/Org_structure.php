@@ -44,7 +44,7 @@ class Org_structure extends MY_Controller {
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary = $arrPost['strSecretary'];
 			
-			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
+			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->org_structure_model->checkExist($strExecOffice, $strExecName))==0)

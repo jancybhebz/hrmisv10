@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Code <span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>" disabled>
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Name <span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['group1Name'])?$arrOrganization[0]['group1Name']:''?>" disabled>
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Head <span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Head </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['empNumber'])?$arrOrganization[0]['surname'].', '.$arrOrganization[0]['firstname']:''?>" disabled>
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Head Title <span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Head Title </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrOrganization[0]['group1HeadTitle'])?$arrOrganization[0]['group1HeadTitle']:''?>" disabled>
@@ -91,7 +91,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Secretary<span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Secretary</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <?php foreach($arrOrganization as $org):?>
