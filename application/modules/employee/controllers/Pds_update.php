@@ -123,10 +123,20 @@ class Pds_update extends MY_Controller {
 		$arrrequest = $this->update_pds_model->getpds_request($_GET['req_id']);
 		$pds_details = isset($arrrequest) ? explode(';',$arrrequest['requestDetails']) : array();
 		
+		$emp_educ = array();
+		if(end($pds_details) == PDS_EDUC){
+			$emp_educ = $this->update_pds_model->geteduc_data($pds_details[12]);
+			$emp_educ['arrEduc_CMB'] = $this->update_pds_model->getEducData();
+			$emp_educ['arrCourse'] = $this->update_pds_model->getCourseData();
+			$emp_educ['arrScholarship'] = $this->update_pds_model->getScholarshipData();
+		}
+		$this->arrData['emp_educ'] = $emp_educ;
+
 		$this->arrData['pds_details'] = $pds_details;
 		$this->arrData['pds_type'] = end($pds_details);
 
 		$this->arrData['arrData'] = $this->update_pds_model->getData($arrrequest['empNumber']);
+
 
 		$this->template->load('template/template_view', 'employee/pds_update/pds_update_hr_view', $this->arrData);
 	}
@@ -253,9 +263,7 @@ class Pds_update extends MY_Controller {
 				'requestStatus'   => $strStatus,
 				'requestCode' 	  => '201',
 				'empNumber' 	  => $_SESSION['sessEmpNo']);
-			// printrd($arrData);
-			// printrd(explode(';',$arrData['requestDetails']));
-			// die();
+
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
 				if(count($blnReturn)>0):
@@ -330,15 +338,12 @@ class Pds_update extends MY_Controller {
     	$arrPost = $this->input->post();
     	if(!empty($arrPost)):
     		$arrData = array(
-    			'requestDetails' => implode(';',array('Education'.';'.$arrPost['strLevelDesc'],$arrPost['strSchName'],$arrPost['strDegree'],$arrPost['dtmFrmYr'],$arrPost['dtmTo'],$arrPost['intUnits'],$arrPost['strScholarship'],$arrPost['strHonors'],$arrPost['strLicensed'],$arrPost['strGraduated'],$arrPost['strYrGraduated'],$arrPost['txteducid'])),
+    			'requestDetails' => implode(';',array('Education',$arrPost['strLevelDesc'],$arrPost['strSchName'],$arrPost['strDegree'],$arrPost['dtmFrmYr'],$arrPost['dtmTo'],$arrPost['intUnits'],$arrPost['strScholarship'],$arrPost['strHonors'],$arrPost['strLicensed'],$arrPost['strGraduated'],$arrPost['strYrGraduated'],$arrPost['txteducid'],$arrPost['strCode'])),
     			'requestDate'	 => date('Y-m-d'),
     			'requestStatus'	 => $arrPost['strStatus'],
-    			'requestCode'	 => $arrPost['strCode'],
+    			'requestCode'	 => '201',
     			'empNumber'		 => $_SESSION['sessEmpNo']);
 
-   //  		printrd($arrData);
-			// printrd(explode(';',$arrData['requestDetails']));
-			// die();
     		if($action=='add'):
     			$blnReturn = $this->update_pds_model->submit_request($arrData);
     			if(count($blnReturn)>0):
@@ -376,7 +381,7 @@ class Pds_update extends MY_Controller {
 			$strStatus=$arrPost['strStatus'];
 			$strCode=$arrPost['strCode'];
 
-			$allPost = array('Training',$arrPost['strTrainTitle'],$arrPost['dtmStartDate'],$arrPost['dtmEndDate'],$arrPost['dtmHours'],$arrPost['strTypeLD'],$arrPost['strConduct'],$arrPost['strVenue'],$arrPost['intCost'],$arrPost['dtmContract'],$arrPost['txttraid']);
+			$allPost = array('Training',$arrPost['strTrainTitle'],$arrPost['dtmStartDate'],$arrPost['dtmEndDate'],$arrPost['dtmHours'],$arrPost['strTypeLD'],$arrPost['strConduct'],$arrPost['strVenue'],$arrPost['intCost'],$arrPost['dtmContract'],$arrPost['txttraid'],$strCode);
 
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
@@ -386,12 +391,9 @@ class Pds_update extends MY_Controller {
 					'requestDetails' => implode(';',$allPost),
 					'requestDate'    => date('Y-m-d'),
 					'requestStatus'  => $strStatus,
-					'requestCode'    => $strCode,
+					'requestCode'    => '201',
 					'empNumber' 	 => $_SESSION['sessEmpNo']);
 
-				// printrd($arrData);
-				// printrd(explode(';',$arrData['requestDetails']));
-				// die();
 				if($action=='add'):
 					$blnReturn  = $this->update_pds_model->submit_request($arrData);
 					if(count($blnReturn)>0):

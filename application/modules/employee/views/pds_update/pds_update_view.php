@@ -9,7 +9,7 @@ $pds_details = isset($arrrequest) ? explode(';',$arrrequest['requestDetails']) :
 
 $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 // $form = $action == 'add' ? 'employee/leave/add_leave' : 'employee/leave/edit?req_id='.$arrrequest['requestID'];
-$pds_type = count($pds_details) > 0 ? (isset($pds_details[34]) ? $pds_details[34] : '') : '';
+$pds_type = count($pds_details) > 0 ? end($pds_details) : '';
 ?>
 <?=load_plugin('css', array('datepicker','datatables','timepicker','select','select2'))?>
 <!-- BEGIN PAGE BAR -->
@@ -53,9 +53,9 @@ $pds_type = count($pds_details) > 0 ? (isset($pds_details[34]) ? $pds_details[34
                                 <option value="">-- SELECT PERSONAL DATA --</option>
                                 <option value="Profile" <?=isset($arrrequest) ? ($pds_type == PDS_PROFILE ? 'selected' : '') : ''?>>
                                             Profile</option>
-                                <option value="Family" <?=isset($arrrequest) ? ($arrrequest['requestCode'] == PDS_FAMILY ? 'selected' : '') : ''?>>
+                                <option value="Family" <?=isset($arrrequest) ? ($pds_type == PDS_FAMILY ? 'selected' : '') : ''?>>
                                             Family Background (Parents/Spouse)</option>
-                                <option value="Educational" <?=isset($arrrequest) ? ($arrrequest['requestCode'] == PDS_EDUC ? 'selected' : '') : isset($_GET['educ_id']) ? 'selected' : ''?>>
+                                <option value="Educational" <?=isset($arrrequest) ? ($pds_type == PDS_EDUC ? 'selected' : '') : isset($_GET['educ_id']) ? 'selected' : ''?>>
                                             Educational Attainment</option>
                                 <option value="Trainings" <?=isset($arrrequest) ? ($arrrequest['requestCode'] == PDS_TRAIN ? 'selected' : '') : isset($_GET['tra_id']) ? 'selected' : ''?>>
                                             Trainings</option>
@@ -83,14 +83,14 @@ $pds_type = count($pds_details) > 0 ? (isset($pds_details[34]) ? $pds_details[34
                     <!-- End Profile -->
 
                     <!-- Begin Family -->
-                    <?php $divfam_show = isset($arrrequest) ? ($arrrequest['requestCode'] == PDS_FAMILY) ? 1 : 0 : 0; ?>
+                    <?php $divfam_show = isset($arrrequest) ? ($pds_type == PDS_FAMILY) ? 1 : 0 : 0; ?>
                     <div id="divfam" <?=$divfam_show ? '' : 'hidden' ?>>
                         <?=$this->load->view('_family.php',$divfam_show ? array('pds_details'=>$pds_details,'action'=>$action) : array())?>
                     </div>
                     <!-- End Family -->
 
                     <!-- Begin Educational -->
-                    <?php $diveduc_show = isset($arrrequest) ? ($arrrequest['requestCode'] == PDS_EDUC) ? 1 : 0 : 0; ?>
+                    <?php $diveduc_show = isset($arrrequest) ? ($pds_type == PDS_EDUC) ? 1 : 0 : 0; ?>
                     <div id="diveduc" <?=$diveduc_show ? '' : 'hidden' ?>>
                         <?=$this->load->view('_educational.php',$diveduc_show ? array('pds_details'=>$pds_details,'action'=>$action) : array())?>
                     </div>

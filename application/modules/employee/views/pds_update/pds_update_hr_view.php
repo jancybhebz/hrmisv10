@@ -87,6 +87,13 @@
                     </div>
                     <!-- End Family Background -->
 
+                    <!-- Begin Educational -->
+                    <?php $diveduc_show = $pds_type != '' ? ($pds_type == PDS_EDUC ? 1 : 0) : 0; ?>
+                    <div id="diveduc" <?=$diveduc_show ? '' : 'hidden' ?> style="margin-top: 100px !important;">
+                        <?=$this->load->view('view/_education.php',$diveduc_show ? array('pds_details'=>$pds_details,'emp_educ'=>$emp_educ) : array())?>
+                    </div>
+                    <!-- End Educational -->
+
                     
 
                 </div>

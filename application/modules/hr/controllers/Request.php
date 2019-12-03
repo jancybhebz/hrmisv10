@@ -656,6 +656,28 @@ class Request extends MY_Controller {
 			$this->update_pds_model->save_personal($arr_personal,$arrrequest['empNumber']);
 		endif;
 
+		if($_GET['status'] == 'educ'):
+			
+			$arr_educ = array(
+							'empNumber'		=>  $arrrequest['empNumber'],
+							'levelCode' 	=> 	$pds_details[1],
+							'schoolName' 	=> 	$pds_details[2],
+							'courseCode' 	=> 	$pds_details[3],
+							'schoolFromDate'=> 	$pds_details[4],
+							'schoolToDate' 	=> 	$pds_details[5],
+							'units' 		=> 	$pds_details[6],
+							'ScholarshipCode'=>	$pds_details[7],
+							'honors' 		=> 	$pds_details[8],
+							'licensed' 		=> 	$pds_details[9],
+							'graduated' 	=> 	$pds_details[10],
+							'yearGraduated' => 	$pds_details[11]);
+			if($pds_details[12] == ''):
+				$this->update_pds_model->save_school($arr_educ);
+			else:
+				$this->update_pds_model->update_school($arr_educ, $pds_details[12]);
+			endif;
+		endif;
+
 		$arrto_signatory = array(
 			'requestStatus'	=> strtoupper($optstatus),
 			'statusDate'	=> date('Y-m-d'),

@@ -207,6 +207,7 @@ class Update_pds_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableScholarship);
 		return $objQuery->result_array();	
 	}
+	
 	function getSchoolData($intEmpNum = '')
 	{		
 		if($intEmpNum != "")
@@ -215,6 +216,19 @@ class Update_pds_model extends CI_Model {
 		}
 		$objQuery = $this->db->get($this->tableSchool);
 		return $objQuery->result_array();	
+	}
+
+	function save_school($arrData)
+	{
+		$this->db->insert($this->tableSchool, $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_school($arrData, $schoolid)
+	{
+		$this->db->where('SchoolIndex', $schoolid);
+		$this->db->update($this->tableSchool, $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getTrainingData($strTableTraining = '')
