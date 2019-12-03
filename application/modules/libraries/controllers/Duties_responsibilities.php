@@ -127,7 +127,7 @@ class Duties_responsibilities extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblDuties','Deleted '.$strDuties.' Duties_responsibilities',implode(';',$arrDuties[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Duties deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Duties deleted successfully.');
 				}
 				redirect('libraries/duties_responsibilities');
 			}

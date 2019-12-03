@@ -123,7 +123,7 @@ class Country extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Deleted '.$strCountryName.' Country',implode(';',$arrCountries[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Country deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Country deleted successfully.');
 				}
 				redirect('libraries/country');
 			}

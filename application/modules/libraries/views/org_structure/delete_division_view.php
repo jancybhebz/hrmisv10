@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Code <span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrDivision[0]['group1Code'])?$arrDivision[0]['group1Code']:''?>" disabled>
@@ -58,10 +58,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service <span class="required"> * </span></label>
+                                <label class="control-label">Service </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrDivision[0]['group2Code'])?$arrDivision[0]['group2Code']:''?>" disabled>
+                                    <input type="text" class="form-control" maxlength="50" value="<?=isset($arrDivision[0]['group2Code'])?$arrDivision[0]['group2Code']:''?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Code <span class="required"> * </span></label>
+                                <label class="control-label">Division Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrDivision[0]['group3Code'])?$arrDivision[0]['group3Code']:''?>" disabled>
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Name <span class="required"> * </span></label>
+                                <label class="control-label">Division Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrDivision[0]['group3Name'])?$arrDivision[0]['group3Name']:''?>" disabled>
@@ -91,7 +91,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Head<span class="required"> * </span></label>
+                                <label class="control-label">Division Head</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrDivision[0]['empNumber'])?$arrDivision[0]['surname'].', '.$arrDivision[0]['firstname']:''?>" disabled>
@@ -102,7 +102,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Head Title <span class="required"> * </span></label>
+                                <label class="control-label">Division Head Title </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrDivision[0]['group3HeadTitle'])?$arrDivision[0]['group3HeadTitle']:''?>" disabled>
@@ -113,7 +113,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Secretary <span class="required"> * </span></label>
+                                <label class="control-label">Division Secretary </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <?php foreach($arrDivision as $div):?>

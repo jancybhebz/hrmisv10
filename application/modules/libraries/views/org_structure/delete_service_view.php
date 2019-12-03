@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Code <span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrService[0]['group1Code'])?$arrService[0]['group1Code']:''?>" disabled>
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Code <span class="required"> * </span></label>
+                                <label class="control-label">Service Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrService[0]['group2Code'])?$arrService[0]['group2Code']:''?>" disabled>
@@ -69,7 +69,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Name <span class="required"> * </span></label>
+                                <label class="control-label">Service Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrService[0]['group2Name'])?$arrService[0]['group2Name']:''?>" disabled>
@@ -80,7 +80,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Head <span class="required"> * </span></label>
+                                <label class="control-label">Service Head </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrService[0]['empNumber'])?$arrService[0]['surname'].', '.$arrService[0]['firstname']:''?>" disabled>
@@ -91,7 +91,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Head Title<span class="required"> * </span></label>
+                                <label class="control-label">Service Head Title</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrService[0]['group2HeadTitle'])?$arrService[0]['group2HeadTitle']:''?>" disabled>
@@ -102,7 +102,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Secretary<span class="required"> * </span></label>
+                                <label class="control-label">Service Secretary</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                   <?php foreach($arrService as $service):?>

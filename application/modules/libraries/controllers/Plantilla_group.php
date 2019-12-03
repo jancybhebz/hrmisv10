@@ -127,7 +127,7 @@ class Plantilla_group extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantillagroup','Deleted '.$strPlantillaGroupName.' Plantilla Group',implode(';',$arrPlantillaGroups[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Plantilla Group deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Plantilla Group deleted successfully.');
 				}
 				redirect('libraries/plantilla_group');
 			}

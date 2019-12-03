@@ -48,8 +48,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group1']?> Code <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                    <i class="fa"></i>
                                     <input type="text" class="form-control" maxlength="10" name="strExecOffice" id="strExecOffice"  value="<?=!empty($this->session->userdata('strExecOffice'))?$this->session->userdata('strExecOffice'):''?>">
-                                    <font color='red'> <span id="errorCode"></span></font>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -57,8 +59,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group1']?> Name <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                    <i class="fa"></i>
                                     <input type="text" class="form-control" name="strExecName" id="strExecName" value="<?=!empty($this->session->userdata('strExecName'))?$this->session->userdata('strExecName'):''?>">
                                     <font color='red'> <span id="errorName"></span></font>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -82,18 +87,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group1']?> Head Title <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                    <i class="fa"></i>
                                        <input type="text" class="form-control" name="strHeadTitle" id="strHeadTitle" autocomplete="off" value="<?=!empty($this->session->userdata('strHeadTitle'))?$this->session->userdata('strHeadTitle'):''?>">
-                                       <font color='red'> <span id="errorCode"></span></font>
+                                    </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group1']?> Secretary <span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group1']?> Secretary</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strSecretary" value="<?=!empty($this->session->userdata('strSecretary'))?$this->session->userdata('strSecretary'):''?>" required>
+                                    <select type="text" class="form-control" name="strSecretary" value="<?=!empty($this->session->userdata('strSecretary'))?$this->session->userdata('strSecretary'):''?>" >
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -142,7 +149,7 @@ var FormValidation = function () {
                 rules: {
                     strExecOffice: {
                         minlength: 1,
-                        required: true
+                        required: true,
                     },
                     strExecName: {
                         minlength: 1,
@@ -155,15 +162,7 @@ var FormValidation = function () {
                     strHeadTitle: {
                         minlength: 1,
                         required: true,
-                    },
-                    strSecretary: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strCustodian1: {
-                        minlength: 1,
-                        required: true,
-                    },
+                    }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              

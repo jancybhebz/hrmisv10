@@ -47,10 +47,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Leave Code <span class="required"> * </span></label>
+                                <label class="control-label">Leave Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <select type="text" class="form-control" name="strSpecialLeaveCode" id="strSpecialLeaveCode" value="<?=!empty($this->session->userdata('leaveCode'))?$this->session->userdata('leaveCode'):''?>" required>
+                                     <select type="text" class="form-control" name="strSpecialLeaveCode" id="strSpecialLeaveCode" value="<?=!empty($this->session->userdata('leaveCode'))?$this->session->userdata('leaveCode'):''?>" readonly>
                                      <option value="">Select</option>
                                      <?php foreach($arrSpecialLeave as $i=>$special)
                                         {

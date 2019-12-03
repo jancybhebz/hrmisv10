@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrOrganization as $org)
                                         {
-                                          echo '<option value="'.$org['group1Name'].'" '.($arrSection[0]['group1Code']==$org['group1Code']?'selected':'').'>'.$org['group1Name'].'</option>';
+                                          echo '<option value="'.$org['group1Code'].'" '.($arrSection[0]['group1Code']==$org['group1Code']?'selected':'').'>'.$org['group1Name'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -72,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrService as $service)
                                         {
-                                          echo '<option value="'.$service['group2Name'].'" '.($arrSection[0]['group2Code']==$service['group2Code']?'selected':'').'>'.$service['group2Name'].'</option>';
+                                          echo '<option value="'.$service['group2Code'].'" '.($arrSection[0]['group2Code']==$service['group2Code']?'selected':'').'>'.$service['group2Name'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -89,7 +89,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrDivision as $div)
                                         {
-                                          echo '<option value="'.$div['group3Name'].'" '.($arrSection[0]['group3Code']==$div['group3Code']?'selected':'').'>'.$div['group3Name'].'</option>';
+                                          echo '<option value="'.$div['group3Code'].'" '.($arrSection[0]['group3Code']==$div['group3Code']?'selected':'').'>'.$div['group3Name'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -99,10 +99,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Code  <span class="required"> * </span></label>
+                                <label class="control-label">Section Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strSecCode" value="<?=!empty($arrSection[0]['group4Code'])?$arrSection[0]['group4Code']:''?>">
+                                    <input type="text" class="form-control" name="strSecCode" value="<?=!empty($arrSection[0]['group4Code'])?$arrSection[0]['group4Code']:''?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +150,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Section Secretary<span class="required"> * </span></label>
+                                <label class="control-label">Section Secretary</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strSecSecretary">
@@ -226,11 +226,7 @@ var FormValidation = function () {
                     strDivHeadTitle: {
                         minlength: 1,
                         required: true,
-                    },
-                    strDivSecretary: {
-                        minlength: 1,
-                        required: true,
-                    },
+                    }
                     
                 },
 

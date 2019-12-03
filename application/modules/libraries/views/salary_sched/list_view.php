@@ -106,7 +106,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                                     function ($v) use ($search) { return $v['stepNumber'] == $search['stepNumber'] && $v['salaryGradeNumber'] == $search['salaryGradeNumber']; }
                                                 )
                                             );
-                                            $actual_salary = count($keys) > 0 ? $arrSalarysched[$keys[0]]['actualSalary'] : '';
+                                            $actual_salary = count($keys) > 0 ? number_format($arrSalarysched[$keys[0]]['actualSalary'],2) : '';
                                             echo '<a href="'.base_url('libraries/salary_sched/edit/'.$row['salaryGradeNumber'].'/'.$column['stepNumber'].'/'.$actual_salary.'/'.$intVersion).'">'.$actual_salary.'</a>';
 
                                         ?></td>

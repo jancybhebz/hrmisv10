@@ -124,7 +124,7 @@ class Service_code extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblservicecode','Deleted '.$strServiceDescription.' Service_code',implode(';',$arrService[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Service code deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Service code deleted successfully.');
 				}
 				redirect('libraries/service_code');
 			}

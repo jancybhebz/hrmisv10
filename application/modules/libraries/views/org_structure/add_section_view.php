@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/org_structure/add_section'), array('method' => 'post', 'id' => 'frmOrgStructure', 'onsubmit' => 'return checkForBlank()'))?>
+            <?=form_open(base_url('libraries/org_structure/add_section'), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -102,8 +102,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group4']?> Code <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                <i class="fa"></i>
                                     <input type="text" class="form-control" name="strSecCode" id="strSecCode" value="<?=!empty($this->session->userdata('strSecCode'))?$this->session->userdata('strSecCode'):''?>">
                                     <font color='red'> <span id="errorCode"></span></font>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -111,8 +114,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group4']?> Name <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                <i class="fa"></i>
                                     <input type="text" class="form-control" name="strSecName" id="strSecName" value="<?=!empty($this->session->userdata('strSecName'))?$this->session->userdata('strSecName'):''?>">
                                     <font color='red'> <span id="errorName"></span></font>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,18 +142,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label"><?=$_ENV['Group4']?> Head Title<span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                <i class="fa"></i>
                                     <input type="text" class="form-control" name="strSecHeadTitle" id="strSecHeadTitle"  value="<?=!empty($this->session->userdata('strSecHeadTitle'))?$this->session->userdata('strSecHeadTitle'):''?>">
                                     <font color='red'> <span id="errorTitle"></span></font>
+                                </div>
                             </div>
                         </div>
                     </div>
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label"><?=$_ENV['Group4']?> Secretary<span class="required"> * </span></label>
+                                <label class="control-label"><?=$_ENV['Group4']?> Secretary</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                  <select type="text" class="form-control" name="strSecSecretary" value="<?=!empty($this->session->userdata('strSecSecretary'))?$this->session->userdata('strSecSecretary'):''?>" required>
+                                  <select type="text" class="form-control" name="strSecSecretary" value="<?=!empty($this->session->userdata('strSecSecretary'))?$this->session->userdata('strSecSecretary'):''?>">
                                         <option value="">Select</option>
                                         <?php foreach($arrEmployees as $i=>$data): ?>
                                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname']).', '.($data['firstname']).' '.($data['middleInitial']).' '.($data['nameExtension']))?></option>
@@ -257,11 +266,7 @@ var FormValidation = function () {
                     strSecHeadTitle: {
                         minlength: 1,
                         required: true,
-                    },
-                    strSecSecretary: {
-                        minlength: 1,
-                        required: true,
-                    },
+                    }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -317,52 +322,3 @@ jQuery(document).ready(function() {
 });
 </script>
 
-<script>
-
-function checkForBlank()
-{
-   var spaceCount = 0;
-
-    $code= $('#strSecCode').val();
-    $name= $('#strSecName').val();
-    $title= $('#strSecHeadTitle').val();
-
-    $('#errorCode','#errorName','#errorTitle').html('');
-
-    if($code=="")
-    {
-      $('#errorCode').html('This field is required!');
-      return false;
-    }
-    else if($code==0)
-    {
-      $('#errorCode').html('Invalid Input!');
-      return false;
-    }
-    if($name=="")
-    {
-      $('#errorName').html('This field is required!');
-      return false;
-    }
-    else if($name==0)
-    {
-      $('#errorName').html('Invalid Input!');
-      return false;
-    }
-    if($title=="")
-    {
-      $('#errorTitle').html('This field is required!');
-      return false;
-    }
-    else if($title==0)
-    {
-      $('#errorTitle').html('Invalid Input!');
-      return false;
-    }
-    else
-    {
-      return true;
-    }
-
-}
-</script>

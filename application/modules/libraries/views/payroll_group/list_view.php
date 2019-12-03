@@ -58,11 +58,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_payroll_group">
                     <thead>
                         <tr>
-                            <th style="width: 100px;text-align:center;"> No. </th>
+                            <th width="160px"style="text-align: center;"> Payroll Group Order </th>
                             <th style="text-align: center;"> Project </th>
                             <th style="text-align: center;"> Payroll Group Code </th>
                             <th style="text-align: center;"> Payroll Group Description </th>
-                            <th style="text-align: center;"> Payroll Group Order </th>
                             <th style="text-align: center;"> Responsibility Center </th>
                             <th class="no-sort" style="text-align: center;"> Actions </th>
                         </tr>
@@ -70,11 +69,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <tbody>
                     <?php $i=1; foreach($arrPayrollGroup as $row):?>
                         <tr class="odd gradeX">
-                            <td> <?=$i?> </td>
+                            <td align="center"> <?=$row['payrollGroupOrder']?> </td>
                             <td> <?=$row['projectDesc']?> </td>
                             <td align="center"> <?=$row['payrollGroupCode']?> </td>
                             <td> <?=$row['payrollGroupName']?> </td>
-                            <td align="center"> <?=$row['payrollGroupOrder']?> </td>
                             <td align="center"> <?=$row['payrollGroupRC']?> </td>
                             <td width="150px" style="white-space: nowrap;">
                                 <a href="<?=base_url('libraries/payroll_group/edit/'.$row['payrollGroupId'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>

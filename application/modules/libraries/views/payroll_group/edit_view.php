@@ -44,7 +44,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('libraries/payroll_group/edit/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmPayrollGroup'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrPayrollGroup);?>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                      <option value="">Select</option>
                                      <?php foreach($arrProject as $i=>$project)
                                         {
-                                          echo '<option value="'.$project['projectCode'].'" '.($arrProject[0]['projectCode']==$project['projectCode']?'selected':'').'>'.(strtoupper($project['projectDesc'])).'</option>';
+                                          echo '<option value="'.$project['projectId'].'" '.($arrPayrollGroup[0]['projectCode']==$project['projectCode']?'selected':'').'>'.(strtoupper($project['projectDesc'])).'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -65,10 +65,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
+                                <label class="control-label">Payroll Group Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>" <?=$action=='delete'?'disabled':''?>>
+                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>" <?=$action=='delete'?'disabled':''?> readonly>
                                 </div>
                             </div>
                         </div>

@@ -48,8 +48,8 @@ load_plugin('js',array('validation'));
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Code <span class="required"> * </span></label>
-                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" id="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>">
+                                <label class="control-label">Executive Office Code </label>
+                                    <input type="text" class="form-control" maxlength="10" name="strExecOffice" id="strExecOffice" value="<?=isset($arrOrganization[0]['group1Code'])?$arrOrganization[0]['group1Code']:''?>" readonly>
                                     <font color='red'> <span id="errorCode"></span></font>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ load_plugin('js',array('validation'));
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Executive Office Secretary <span class="required"> * </span></label>
+                                <label class="control-label">Executive Office Secretary</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strSecretary">
@@ -159,10 +159,6 @@ var FormValidation = function () {
                     strHeadTitle: {
                         minlength: 1,
                         required: true,
-                    },
-                    strSecretary: {
-                        minlength: 1,
-                        required: true,
                     }
                     
                 },
@@ -218,38 +214,4 @@ var FormValidation = function () {
 jQuery(document).ready(function() {
     FormValidation.init();
 });
-</script>
-<script>
-
-function checkForBlank()
-{
-   var spaceCount = 0;
-
-    $code= $('#strExecOffice').val();
-    $name= $('#strExecName').val();
-    $title= $('#strHeadTitle').val();
-
-    $('#errorCode','#errorName','#errorHead').html('');
-
-   if($code==0)
-    {
-      $('#errorCode').html('Invalid input!');
-      return false;
-    }
-    else if($name==0)
-    {
-      $('#errorName').html('Invalid input!');
-      return false;
-    }
-    else if($title==0)
-    {
-      $('#errorHead').html('Invalid input!');
-      return false;
-    }
-    else
-    {
-      return true;
-    }
-
-}
 </script>

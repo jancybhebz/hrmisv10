@@ -125,7 +125,7 @@ class Signatory extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblsignatory','Deleted '.$strSignatory.' Signatory',implode(';',$arrSignatory[0]),'');
-					$this->session->set_flashdata('strMsg','Signatory deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Signatory deleted successfully.');
 				}
 				redirect('libraries/signatory');
 			}

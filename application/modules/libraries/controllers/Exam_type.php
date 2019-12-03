@@ -127,7 +127,7 @@ class Exam_type extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblExamType','Deleted '.$strExamDesc.' Exam Type',implode(';',$arrExamTypes[0]),'');
 	
-					$this->session->set_flashdata('strMsg','Exam Type deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Exam Type deleted successfully.');
 				}
 				redirect('libraries/exam_type');
 			}

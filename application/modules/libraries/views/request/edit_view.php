@@ -19,7 +19,7 @@ load_plugin('css',array('select','select2'));
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Request Signatory</span>
+            <span>Edit Request</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ load_plugin('css',array('select','select2'));
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Request Signatory</span>
+                    <span class="caption-subject bold uppercase"> Edit Request</span>
                 </div>
             </div>
 

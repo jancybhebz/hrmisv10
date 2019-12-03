@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Position</span>
+            <span>Edit Position Code</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Position</span>
+                    <span class="caption-subject bold uppercase"> Edit Position Code</span>
                 </div>
                 
             </div>
@@ -47,10 +47,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Position Code <span class="required"> * </span></label>
+                                <label class="control-label">Position Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPositionCode" value="<?=isset($arrPositions[0]['positionCode'])?$arrPositions[0]['positionCode']:''?>">
+                                    <input type="text" class="form-control" name="strPositionCode" value="<?=isset($arrPositions[0]['positionCode'])?$arrPositions[0]['positionCode']:''?>" readonly>
                                 </div>
                             </div>
                         </div>

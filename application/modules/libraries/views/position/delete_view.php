@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Delete Position</span>
+            <span>Delete Position Code</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-trash font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Delete Position</span>
+                    <span class="caption-subject bold uppercase"> Delete Position Code</span>
                 </div>
                 
             </div>
@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Position Code <span class="required"> * </span></label>
+                                <label class="control-label">Position Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['positionCode'])?$arrData[0]['positionCode']:''?>" disabled>
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Position Description <span class="required"> * </span></label>
+                                <label class="control-label">Position Description </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['positionDesc'])?$arrData[0]['positionDesc']:''?>" disabled>
@@ -70,7 +70,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Position Abbreviation <span class="required"> * </span></label>
+                                <label class="control-label">Position Abbreviation </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strPositionAbbreviation" value="<?=!empty($arrData[0]['positionAbb'])?$arrData[0]['positionAbb']:''?>" disabled>

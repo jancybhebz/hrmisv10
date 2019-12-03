@@ -101,9 +101,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Actual Salary<span class="required"> * </span></label>
+                                <div>
+                                    <font size="2" color="blue">(Note : Do not put comma (,) )</font>
+                                </div>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intActualSalary"  maxlength="10" value="<?=!empty($this->session->userdata('intActualSalary'))?$this->session->userdata('intActualSalary'):''?>">
+                                    <input type="number" class="form-control" name="intActualSalary"  maxlength="10" value="<?=!empty($this->session->userdata('intActualSalary'))?$this->session->userdata('intActualSalary'):''?>">
                                 </div>
                             </div>
                         </div>

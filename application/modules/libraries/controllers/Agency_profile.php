@@ -238,7 +238,6 @@ class Agency_profile extends MY_Controller {
 		if ( ! $this->upload->do_upload('userfile'))
 		{
 			//echo $this->upload->display_errors();
-
 			$error = array('error' => $this->upload->display_errors());
 			print_r($error);
 			$this->session->set_flashdata('error','Please try again!');
@@ -251,10 +250,8 @@ class Agency_profile extends MY_Controller {
 				$arrLogo = array(
 					'agencyLogo' => $data['file_name']	
 				);
-
 			// $this->agency_profile_model->edit_logo($arrLogo, $arrPost['id']);
 			$this->session->set_flashdata('upload_status','Upload successfully saved.');
-			
 		}
 		redirect('libraries/agency_profile');
 		
@@ -281,8 +278,7 @@ class Agency_profile extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagency','Deleted '.$strAgencyName.' Agency_profile',implode(';',$arrAgency[0]),'');
-	
-					$this->session->set_flashdata('strMsg','Agency profile deleted successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Agency profile deleted successfully.');
 				}
 				redirect('libraries/agency_profile');
 			}

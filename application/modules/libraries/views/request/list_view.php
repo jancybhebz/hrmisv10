@@ -19,7 +19,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Request Signatories</span>
+            <span>Request</span>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> REQUEST SIGNATORIES</span>
+                    <span class="caption-subject bold uppercase"> REQUEST</span>
                 </div>
                 
             </div>
