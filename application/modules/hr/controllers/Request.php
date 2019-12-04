@@ -715,6 +715,19 @@ class Request extends MY_Controller {
 			endif;
 		endif;
 
+		if($_GET['status'] == 'child'):
+			$arr_children = array(
+							'empNumber'		=>  $arrrequest['empNumber'],
+							'childName'		=> 	$pds_details[1],
+							'childBirthDate'=> 	($pds_details[2] == '' ? NULL : $pds_details[2]));
+
+			if($pds_details[3] == ''):
+				$this->update_pds_model->save_children($arr_children);
+			else:
+				$this->update_pds_model->update_children($arr_children, $pds_details[3]);
+			endif;
+		endif;
+
 		$arrto_signatory = array(
 			'requestStatus'	=> 'Certified',
 			'statusDate'	=> date('Y-m-d'),

@@ -158,6 +158,19 @@ class Update_pds_model extends CI_Model {
 		return $this->db->get_where('tblEmpChild',array('empNumber' => $empnumber))->result_array();
 	}
 
+	function save_children($arrData)
+	{
+		$this->db->insert('tblEmpChild', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_children($arrData, $child_id)
+	{
+		$this->db->where('childCode', $child_id);
+		$this->db->update('tblEmpChild', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	function getEmployeeDetails($strEmpNo,$strSelect,$strTable,$strOrder="",$strJoinTable="",$strJoinString="",$strJoinType="")
 	{
 		if($strOrder!='')
@@ -302,7 +315,6 @@ class Update_pds_model extends CI_Model {
 		$this->db->update('tblEmpExam', $arrData);
 		echo $this->db->affected_rows()>0?TRUE:FALSE;
 	}
-
 
 	function getVoluntary($strEmpNumber)
 	{		

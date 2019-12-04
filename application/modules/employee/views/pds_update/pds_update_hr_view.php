@@ -108,6 +108,13 @@
                     </div>
                     <!-- End Examinations -->
 
+                    <!-- Begin Children -->
+                    <?php $divchild_show = $pds_type != '' ? ($pds_type ==  PDS_CHILD) ? 1 : 0 : 0; ?>
+                    <div id="divchildren" <?=$divchild_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
+                        <?=$this->load->view('view/_children.php',$divchild_show ? array('pds_details'=>$pds_details,'emp_child'=>$emp_child) : array())?>
+                    </div>
+                    <!-- End Children -->
+
                 </div>
             </div>
         </div>

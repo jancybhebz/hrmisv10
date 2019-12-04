@@ -145,6 +145,12 @@ class Pds_update extends MY_Controller {
 		}
 		$this->arrData['emp_exam'] = $emp_exam;
 
+		$emp_child = array();
+		if(end($pds_details) == PDS_CHILD){
+			$emp_child = $this->update_pds_model->getchild_data($pds_details[3]);
+		}
+		$this->arrData['emp_child'] = $emp_child;
+
 		$this->arrData['pds_details'] = $pds_details;
 		$this->arrData['pds_type'] = end($pds_details);
 
@@ -487,7 +493,7 @@ class Pds_update extends MY_Controller {
 			$strStatus 	   = $arrPost['strStatus'];
 			$strCode 	   = $arrPost['strCode'];
 
-			$allPost = array('Children',$arrPost['strChildName'],$arrPost['dtmChildBdate'],$arrPost['txtchildid']);
+			$allPost = array('Children',$arrPost['strChildName'],$arrPost['dtmChildBdate'],$arrPost['txtchildid'],$strCode);
 
 			if(count(array_unique($allPost)) === 1 && end($allPost) === ''):
 				$this->session->set_flashdata('strErrorMsg','Request is empty.');
@@ -497,11 +503,9 @@ class Pds_update extends MY_Controller {
 							'requestDetails'=>implode(';',$allPost),
 							'requestDate'=>date('Y-m-d'),
 							'requestStatus'=>$strStatus,
-							'requestCode'=>$strCode,
+							'requestCode'=>'201',
 							'empNumber'=>$_SESSION['sessEmpNo']);
-				// printrd($arrData);
-				// printrd(explode(';',$arrData['requestDetails']));
-				// die();
+
 				if($action=='add'):
 					$blnReturn  = $this->update_pds_model->submit_request($arrData);
 					if(count($blnReturn)>0):
