@@ -174,14 +174,11 @@ class Holiday extends MY_Controller {
     public function edit_manage()
 	{
 		$arrPost = $this->input->post();
-		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			//$this->arrData['intHolidayId'] = urldecode($this->uri->segment(4));
 			$this->arrData['arrManageHoliday']=$this->holiday_model->getManageHoliday();
 			$this->arrData['arrDataHoliday']=$this->holiday_model->getManageHoliday(urldecode($this->uri->segment(4)));
 			$this->arrData['arrHoliday']=$this->holiday_model->getData();
-			// $this->arrData['arrHoliday'] = $this->holiday_model->getLocalHoliday();
 			$this->template->load('template/template_view','libraries/holiday/edit_manage_view', $this->arrData);
 		}
 		else
@@ -189,7 +186,7 @@ class Holiday extends MY_Controller {
 			$intHolidayId = $arrPost['intHolidayId'];
 			$strHolidayName = $arrPost['strHolidayName'];
 			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
-			if(!empty($strHolidayName) && !empty($dtmHolidayDate))
+			if(!empty($strHolidayName))
 			{	
 				$arrData = array(
 						'holidayCode'=>$strHolidayName,
@@ -197,7 +194,8 @@ class Holiday extends MY_Controller {
 				
 				);
 				$blnReturn = $this->holiday_model->save_manage($arrData, $intHolidayId);
-				//print_r($arrData)
+				// print_r($arrData);
+				// exit(1);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHolidayYear','Edited '.$strHolidayName.' Holiday',implode(';',$arrData),'');

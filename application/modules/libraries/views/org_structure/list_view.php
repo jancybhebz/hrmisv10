@@ -103,7 +103,7 @@
                                             <th> <?=$_ENV['Group1']?> Name </th>
                                             <th> <?=$_ENV['Group1']?> Head Title </th>
                                             <th> <?=$_ENV['Group1']?> Head </th>
-                                            <th style="width: 180px;text-align:center;"> Actions </th>
+                                            <th class="no-sort" style="width: 180px;text-align:center;"> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -152,12 +152,12 @@
                                     <thead>
                                         <tr>
                                             <th> No. </th>
-                                            <th> Level 1 </th>
+                                            <th> <?=$_ENV['Group1']?> Code </th>
                                             <th> <?=$_ENV['Group2']?> Code </th>
                                             <th> <?=$_ENV['Group2']?> Name </th>
                                             <th> <?=$_ENV['Group2']?> Head Title </th>
                                             <th> <?=$_ENV['Group2']?> Head </th>
-                                            <th> Action </th>
+                                            <th class="no-sort" style="text-align: center;"> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -171,7 +171,7 @@
                                             <td> <?=$service['group2Name']?> </td>   
                                             <td> <?=$service['group2HeadTitle']?> </td>   
                                             <td> <?=$service['surname'].', '.$service['firstname']?> </td>                 
-                                            <td>
+                                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                                 <a href="<?=base_url('libraries/org_structure/edit_service/'.$service['group2Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a href="<?=base_url('libraries/org_structure/delete_service/'.$service['group2Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                                                
@@ -214,13 +214,13 @@
                                     <thead>
                                         <tr>
                                             <th> No. </th>
-                                            <th> Level 1 </th>
-                                            <th> Level 2 </th>
+                                            <th> <?=$_ENV['Group1']?> Code </th>
+                                            <th> <?=$_ENV['Group2']?> Code </th>
                                             <th> <?=$_ENV['Group3']?> Code </th>
                                             <th> <?=$_ENV['Group3']?> Name </th>
                                             <th> <?=$_ENV['Group3']?> Head Title</th>
                                             <th> <?=$_ENV['Group3']?> Head </th>
-                                            <th> Action </th>
+                                            <th class="no-sort" style="text-align: center;"> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -235,7 +235,7 @@
                                             <td> <?=$div['group3Name']?> </td>   
                                             <td> <?=$div['group3HeadTitle']?> </td>   
                                             <td> <?=$div['surname'].' '.$div['firstname']?> </td>                            
-                                            <td>
+                                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                                 <a href="<?=base_url('libraries/org_structure/edit_division/'.$div['group3Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a href="<?=base_url('libraries/org_structure/delete_division/'.$div['group3Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                                             
@@ -278,14 +278,14 @@
                                     <thead>
                                         <tr>
                                             <th> No. </th>
-                                            <th> Level 1 </th>
-                                            <th> Level 2 </th>
-                                            <th> Level 3 </th>
+                                            <th> <?=$_ENV['Group1']?> Code </th>
+                                            <th> <?=$_ENV['Group2']?> Code </th>
+                                            <th> <?=$_ENV['Group3']?> Code </th>
                                             <th> <?=$_ENV['Group4']?> Code </th>
                                             <th> <?=$_ENV['Group4']?> Name </th>
                                             <th> <?=$_ENV['Group4']?> Head Title</th>
                                             <th> <?=$_ENV['Group4']?> Head </th>
-                                            <th> Action </th>
+                                            <th class="no-sort" style="text-align: center;"> Actions </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -301,7 +301,7 @@
                                             <td> <?=$section['group4Name']?> </td>   
                                             <td> <?=$section['group4HeadTitle']?> </td>   
                                             <td> <?=$section['surname'].' '.$section['firstname']?> </td>                                        
-                                            <td>
+                                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
                                                 <a href="<?=base_url('libraries/org_structure/edit_section/'.$section['group4Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                                                 <a href="<?=base_url('libraries/org_structure/delete_section/'.$section['group4Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                                              

@@ -47,10 +47,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Code <span class="required"> * </span></label>
+                                <label class="control-label">Holiday Code</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strHolidayCode" value="<?=isset($arrHoliday[0]['holidayCode'])?$arrHoliday[0]['holidayCode']:''?>">
+                                    <input type="text" class="form-control" name="strHolidayCode" value="<?=isset($arrHoliday[0]['holidayCode'])?$arrHoliday[0]['holidayCode']:''?>" readonly>
                                 </div>
                             </div>
                         </div>

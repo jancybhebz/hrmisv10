@@ -47,7 +47,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Name <span class="required"> * </span></label>
+                                <label class="control-label">Holiday Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrManageHoliday[0]['holidayName'])?$arrManageHoliday[0]['holidayName']:''?>" disabled>
@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Date<span class="required"> * </span></label>
+                                <label class="control-label">Holiday Date</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrManageHoliday[0]['holidayDate'])?$arrManageHoliday[0]['holidayDate']:''?>" disabled>
