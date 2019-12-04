@@ -1,3 +1,17 @@
+<?php 
+	$show_ref = 1;
+	if(isset($pds_details) || isset($emp_ref)):
+		if(isset($pds_details)):
+			if(end($pds_details) != PDS_REF):
+				$show_ref = 0;
+			endif;
+		else:
+			if(isset($emp_ref)):
+				$show_ref = 0;
+			endif;
+		endif;
+	endif;
+ ?>
 <div class="col-md-10">
 	<br>
 	<table class="table table-bordered table-striped" id="table-reference">
@@ -76,8 +90,8 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row"><div class="col-sm-8"><hr></div></div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_ref ? '' : 'hidden') : ''?>><div class="col-sm-8"><hr></div></div>
+		<div class="row" <?=$action!='add' ? ($show_ref ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <button type="submit" class="btn btn-success" id="btn-request-ref">
 		            <i class="icon-check"></i>

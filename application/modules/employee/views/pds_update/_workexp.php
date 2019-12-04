@@ -1,3 +1,18 @@
+<?php 
+	$show_xp = 1;
+	if(isset($pds_details) || isset($emp_wxp)):
+		if(isset($pds_details)):
+			if(end($pds_details) != PDS_WORKXP):
+				$show_xp = 0;
+			endif;
+		else:
+			if(isset($emp_wxp)):
+				$show_xp = 0;
+			endif;
+		endif;
+		
+	endif;
+ ?>
 <div class="col-md-12">
 	<br>
 	<table class="table table-bordered table-striped" id="table-workxp">
@@ -154,7 +169,7 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <div class="form-group">
 		        	<label class="control-label">Salary Grade & Step Incremet (Format "00-0") :  </label>
@@ -165,7 +180,7 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <div class="form-group">
 		            <label class="control-label">Status of Appointment :</label>
@@ -186,7 +201,7 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 			<div class="col-sm-12">
 			   	<div class="form-group">
 			       	<label>Government Service : </label>
@@ -201,7 +216,8 @@
 			   	</div>
 			</div>
 		</div>
-		<div class="row">
+		
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <div class="form-group">
 		            <label class="control-label">Branch :</label>
@@ -222,18 +238,18 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <div class="form-group">
 		            <label class="control-label">Separation Cause :</label>
 		            <select class="form-control bs-select" name="strSepCause">
-		            	<option value="0">-- SELECT SEPARATION CAUSE --</option>
+		            	<option value="">-- SELECT SEPARATION CAUSE --</option>
 		                    <?php 
 								foreach($arrSeparation as $separation):
 									if(isset($pds_details)):
-										$selected = $pds_details[13] ==$separation['separationCause'] ? 'selected' : '';
+										$selected = $pds_details[12] == $separation['separationCause'] ? 'selected' : '';
 									else:
-										$selected = isset($emp_wxp) ? $emp_wxp['serviceRecID'] == $separation['serviceRecID'] ? 'selected' : '' : '';
+										$selected = isset($emp_wxp) ? ($emp_wxp['separationCause'] == $separation['separationCause'] ? 'selected' : '') : '';
 									endif;
 									
 									echo '<option value="'.$separation['separationCause'].'" '.$selected.'>'.$separation['separationCause'].'</option>';
@@ -243,30 +259,30 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-3">
 		        <div class="form-group">
 		        	<label class="control-label">Separation Date :</label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control date-picker" name="strSepDate" 
-		        				value="<?=isset($pds_details) ? $pds_details[14] : (count($emp_wxp)>0?$emp_wxp['separationDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[13] : (count($emp_wxp)>0?$emp_wxp['separationDate']:'')?>" data-date-format="yyyy-mm-dd" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
 		</div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-3">
 		        <div class="form-group">
 		        	<label class="control-label">L/V ABS W/O PAY :</label>
 		        	<div class="input-icon right">
 		        		<input type="text" class="form-control" name="strLV" 
-		        				value="<?=isset($pds_details) ? $pds_details[15] : (count($emp_wxp)>0?$emp_wxp['lwop']:'')?>" autocomplete="off">
+		        				value="<?=isset($pds_details) ? $pds_details[14] : (count($emp_wxp)>0?$emp_wxp['lwop']:'')?>" autocomplete="off">
 		        	</div>
 		        </div>
 		    </div>
 		</div>
-		<div class="row"><div class="col-sm-8"><hr></div></div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>><div class="col-sm-8"><hr></div></div>
+		<div class="row" <?=$action!='add' ? ($show_xp ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <button type="submit" class="btn btn-success" id="btn-request-ref">
 		            <i class="icon-check"></i>

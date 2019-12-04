@@ -204,15 +204,6 @@
 			<label class="form-control"><?=$pds_details[33]?></label>
 		</div>
 	</div>
-
-	<div class="row"><div class="col-sm-8"><hr></div></div>
-	<div class="row">
-	    <div class="col-sm-8">
-	        <a type="submit" class="btn btn-success" id="btn-request-profile" href="<?=base_url('hr/request/certify_pds?status=profile&req_id='.$_GET['req_id'].'&type=profile')?>">
-	            <i class="icon-check"></i> Certify</a>
-	        <a href="<?=base_url('hr/request?request=pds')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
-	    </div>
-	</div>
 </div>
 
 <!-- Replace Profile -->
@@ -420,5 +411,20 @@
 			<label class="control-label">Cellphone No. : </label>
 			<label class="form-control"><?=$arrData[0]['mobile']?></label>
 		</div>
+	</div>
+</div>
+
+<div class="col-md-9">
+	<div class="row"><div class="col-sm-8"><hr></div></div>
+	<div class="row">
+	    <div class="col-sm-8">
+	    	<?php if(check_module() == 'employee'): ?>
+	    		<a href="<?=base_url('employee/pds_update')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+		    <?php else: ?>
+		    	<a type="submit" class="btn btn-success" id="btn-request-profile" href="<?=base_url('hr/request/certify_pds?status=profile&req_id='.$_GET['req_id'].'&type=profile')?>">
+		    	    <i class="icon-check"></i> Certify</a>
+		    	<a href="<?=base_url('hr/request?request=pds')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+		    <?php endif; ?>
+	    </div>
 	</div>
 </div>

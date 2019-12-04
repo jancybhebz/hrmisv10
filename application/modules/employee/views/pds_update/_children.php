@@ -40,7 +40,7 @@
 		<input class="hidden" name="txtreqid" value="<?=isset($_GET['req_id']) ? $_GET['req_id'] : ''?>">
 		<input class="hidden" name="strStatus" value="Filed Request">
 		<input class="hidden" name="strCode" value="<?=PDS_CHILD?>">
-		<input class="hidden" name="txtchildid" value="<?=isset($_GET['child_id']) ? $_GET['child_id'] : (isset($pds_details) ? $pds_details[2] : '')?>">
+		<input class="hidden" name="txtchildid" value="<?=isset($_GET['child_id']) ? $_GET['child_id'] : (isset($pds_details) ? $pds_details[3] : '')?>">
 		<div class="row" id="traintitle_textbox">
 		    <div class="col-sm-10">
 		        <div class="form-group">

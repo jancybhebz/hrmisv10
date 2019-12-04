@@ -733,7 +733,16 @@ class Pds_update extends MY_Controller {
     	$this->template->load('template/template_view','employee/pds_update/pds_update_view',$this->arrData);
     }
 
-    
+    public function cancel()
+    {
+    	$arrData = array('requestStatus' => 'Cancelled');
+    	$blnReturn = $this->update_pds_model->save($arrData,$_POST['txtpds_req_id']);
+    	if(count($blnReturn)>0):
+    		log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Cancel request id = '.$_POST['txtpds_req_id'].' PDS Update ',implode(';',$arrData),'');
+    		$this->session->set_flashdata('strSuccessMsg','Your request has been cancelled.');
+    	endif;
+    	redirect('employee/pds_update');
+    }
 
 
 

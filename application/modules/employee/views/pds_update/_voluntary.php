@@ -110,7 +110,22 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row" id="refname_textbox">
+		<?php 
+			$show_vol = 1;
+			if(isset($pds_details) || isset($emp_vol)):
+				if(isset($pds_details)):
+					if(end($pds_details) != PDS_VOLUNTEER):
+						$show_vol = 0;
+					endif;
+				else:
+					if(isset($emp_vol)):
+						$show_vol = 0;
+					endif;
+				endif;
+				
+			endif;
+		 ?>
+		<div class="row" id="refname_textbox" <?=$action!='add' ? ($show_vol ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <div class="form-group">
 		        	<label class="control-label">Position / Nature of Work : </label>
@@ -121,8 +136,8 @@
 		        </div>
 		    </div>
 		</div>
-		<div class="row"><div class="col-sm-8"><hr></div></div>
-		<div class="row">
+		<div class="row" <?=$action!='add' ? ($show_vol ? '' : 'hidden') : ''?>><div class="col-sm-8"><hr></div></div>
+		<div class="row" <?=$action!='add' ? ($show_vol ? '' : 'hidden') : ''?>>
 		    <div class="col-sm-8">
 		        <button type="submit" class="btn btn-success" id="btn-request-ref">
 		            <i class="icon-check"></i>
