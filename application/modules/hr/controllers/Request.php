@@ -728,6 +728,20 @@ class Request extends MY_Controller {
 			endif;
 		endif;
 
+		if($_GET['status'] == 'ref'):
+			$arr_refs = array(
+							'empNumber'		=>  $arrrequest['empNumber'],
+							'refName'		=> 	$pds_details[1],
+							'refAddress'	=> 	$pds_details[2],
+							'refTelephone'	=> 	$pds_details[3]);
+
+			if($pds_details[4] == ''):
+				$this->update_pds_model->save_reference($arr_refs);
+			else:
+				$this->update_pds_model->update_reference($arr_refs, $pds_details[4]);
+			endif;
+		endif;
+
 		$arrto_signatory = array(
 			'requestStatus'	=> 'Certified',
 			'statusDate'	=> date('Y-m-d'),

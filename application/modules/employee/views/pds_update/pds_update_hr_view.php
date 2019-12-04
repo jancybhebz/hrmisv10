@@ -115,6 +115,13 @@
                     </div>
                     <!-- End Children -->
 
+                    <!-- Begin References -->
+                    <?php $divref_show = $pds_type != '' ? ($pds_type ==  PDS_REF) ? 1 : 0 : 0; ?>
+                    <div id="divref" <?=$divref_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
+                        <?=$this->load->view('view/_reference.php',$divref_show ? array('pds_details'=>$pds_details,'emp_ref'=>$emp_ref) : array())?>
+                    </div>
+                    <!-- End References -->
+
                 </div>
             </div>
         </div>

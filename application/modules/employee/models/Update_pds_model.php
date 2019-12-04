@@ -295,14 +295,6 @@ class Update_pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getRefData($strEmpNumber)
-	{		
-		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_REFERENCE.'.empNumber','left');
-		$this->db->where(TABLE_REFERENCE.'.empNumber',$strEmpNumber);
-		$objQuery = $this->db->get(TABLE_REFERENCE);
-		return $objQuery->result_array();	
-	}
-
 	function save_eligibility($arrData)
 	{
 		$this->db->insert('tblEmpExam', $arrData);
@@ -314,6 +306,27 @@ class Update_pds_model extends CI_Model {
 		$this->db->where('ExamIndex', $exam_id);
 		$this->db->update('tblEmpExam', $arrData);
 		echo $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function getRefData($strEmpNumber)
+	{		
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_REFERENCE.'.empNumber','left');
+		$this->db->where(TABLE_REFERENCE.'.empNumber',$strEmpNumber);
+		$objQuery = $this->db->get(TABLE_REFERENCE);
+		return $objQuery->result_array();	
+	}
+
+	function save_reference($arrData)
+	{
+		$this->db->insert('tblEmpReference', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_reference($arrData, $ref_id)
+	{
+		$this->db->where('ReferenceIndex', $ref_id);
+		$this->db->update('tblEmpReference', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getVoluntary($strEmpNumber)
