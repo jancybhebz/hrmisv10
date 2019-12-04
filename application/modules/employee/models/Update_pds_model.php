@@ -337,6 +337,19 @@ class Update_pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function save_voluntary($arrData)
+	{
+		$this->db->insert('tblEmpVoluntaryWork', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_voluntary($arrData, $vol_id)
+	{
+		$this->db->where('VoluntaryIndex', $vol_id);
+		$this->db->update('tblEmpVoluntaryWork', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	function getExpData($intSerId = '')
 	{		
 		if($intSerId != "")
@@ -353,6 +366,19 @@ class Update_pds_model extends CI_Model {
 		$this->db->where(TABLE_SERVICE.'.empNumber',$strEmpNumber);
 		$objQuery = $this->db->get(TABLE_SERVICE);
 		return $objQuery->result_array();	
+	}
+
+	function save_workxp($arrData)
+	{
+		$this->db->insert('tblServiceRecord', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_workxp($arrData, $xp_id)
+	{
+		$this->db->where('serviceRecID', $xp_id);
+		$this->db->update('tblServiceRecord', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getAppointData($intAppointmentId = '')

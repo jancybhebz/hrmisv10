@@ -728,6 +728,15 @@ class Request extends MY_Controller {
 			endif;
 		endif;
 
+		if($_GET['status'] == 'tax'):
+			$arr_personal = array(
+							'comTaxNumber' 	=> 	$pds_details[1],
+							'issuedAt'		=> 	$pds_details[2],
+							'issuedOn' 		=> 	$pds_details[3]);
+
+			$this->update_pds_model->save_personal($arr_personal,$arrrequest['empNumber']);
+		endif;
+
 		if($_GET['status'] == 'ref'):
 			$arr_refs = array(
 							'empNumber'		=>  $arrrequest['empNumber'],
@@ -739,6 +748,48 @@ class Request extends MY_Controller {
 				$this->update_pds_model->save_reference($arr_refs);
 			else:
 				$this->update_pds_model->update_reference($arr_refs, $pds_details[4]);
+			endif;
+		endif;
+
+		if($_GET['status'] == 'vol'):
+			$arr_vols = array(
+							'empNumber'		=>  $arrrequest['empNumber'],
+							'vwName'		=> 	$pds_details[1],
+							'vwAddress'		=> 	$pds_details[2],
+							'vwDateFrom'	=> 	$pds_details[3],
+							'vwDateTo'		=> 	$pds_details[4],
+							'vwHours'		=> 	$pds_details[5],
+							'vwPosition'	=> 	$pds_details[6]);
+
+			if($pds_details[7] == ''):
+				$this->update_pds_model->save_voluntary($arr_vols);
+			else:
+				$this->update_pds_model->update_voluntary($arr_vols, $pds_details[7]);
+			endif;
+		endif;
+
+		if($_GET['status'] == 'wxp'):
+			$arr_xps = array(
+							'empNumber'		=>  $arrrequest['empNumber'],
+							'serviceFromDate' => $pds_details[1],
+							'serviceToDate' => $pds_details[2],
+							'positionDesc' 	=> $pds_details[3],
+							'stationAgency' => $pds_details[4],
+							'salary' 		=> $pds_details[5],
+							'salaryPer' 	=> $pds_details[6],
+							'currency' 		=> $pds_details[7],
+							'salaryGrade' 	=> $pds_details[8],
+							'appointmentCode' => $pds_details[9],
+							'governService' => $pds_details[10],
+							'branch' 		=> $pds_details[11],
+							'serviceRecID' => $pds_details[12],
+							'separationDate' => $pds_details[13],
+							'lwop' 			 => $pds_details[14]);
+
+			if($pds_details[15] == ''):
+				$this->update_pds_model->save_workxp($arr_xps);
+			else:
+				$this->update_pds_model->update_workxp($arr_xps, $pds_details[15]);
 			endif;
 		endif;
 

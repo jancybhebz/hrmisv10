@@ -115,6 +115,13 @@
                     </div>
                     <!-- End Children -->
 
+                    <!-- Begin Community -->
+                    <?php $divcomm_show = $pds_type != '' ? ($pds_type ==  PDS_TAX) ? 1 : 0 : 0; ?>
+                    <div id="divcomm" <?=$divcomm_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
+                        <?=$this->load->view('view/_community.php',$divcomm_show ? array('pds_details'=>$pds_details) : array())?>
+                    </div>
+                    <!-- End Community -->
+
                     <!-- Begin References -->
                     <?php $divref_show = $pds_type != '' ? ($pds_type ==  PDS_REF) ? 1 : 0 : 0; ?>
                     <div id="divref" <?=$divref_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
@@ -122,6 +129,19 @@
                     </div>
                     <!-- End References -->
 
+                    <!-- Begin Voluntary -->
+                    <?php $divvol_show = $pds_type != '' ? ($pds_type ==  PDS_VOLUNTEER) ? 1 : 0 : 0; ?>
+                    <div id="divvol" <?=$divvol_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
+                        <?=$this->load->view('view/_voluntary.php',$divvol_show ? array('pds_details'=>$pds_details,'emp_vol'=>$emp_vol) : array())?>
+                    </div>
+                    <!-- End Voluntary -->
+
+                    <!-- Begin WorkExp -->
+                    <?php $divwxp_show = $pds_type != '' ? ($pds_type ==  PDS_WORKXP) ? 1 : 0 : 0; ?>
+                    <div id="divxp" <?=$divwxp_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
+                        <?=$this->load->view('view/_workexp.php',$divwxp_show ? array('pds_details'=>$pds_details,'emp_wxp'=>$emp_wxp) : array())?>
+                    </div>
+                    <!-- End WorkExp -->
                 </div>
             </div>
         </div>
