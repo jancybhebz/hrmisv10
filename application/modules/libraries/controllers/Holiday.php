@@ -318,22 +318,27 @@ class Holiday extends MY_Controller {
 		//print_r($arrPost);
 		if(empty($arrPost))
 		{
-			$strCode = urldecode($this->uri->segment(4));
-			$this->arrData['arrData'] = $this->holiday_model->getLocalHoliday($strCode);
+			$strLocalCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrData'] = $this->holiday_model->getLocalHoliday($strLocalCode);
 			$this->arrData['arrLocHoliday'] = $this->holiday_model->getLocalHoliday();
-			$this->arrData['arrHoliday'] = $this->holiday_model->getData();
+			$this->arrData['arrHoliday']=$this->holiday_model->getData();
 			$this->template->load('template/template_view','libraries/holiday/edit_local_view', $this->arrData);
 		}
 		else
 		{
 			$strLocalCode = $arrPost['strLocalCode'];
 			$strLocalName = $arrPost['strLocalName'];
-			$dtmHolidate = $arrPost['dtmHolidate'];
+			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
 
-			if(!empty($strLocalName) && !empty($dtmHolidate))
+			if(!empty($strLocalName))
 			{	
-				$arrData = array(						
-						'holidayDate'=>$dtmHolidate
+				$tmpDate=explode('-',$dtmHolidayDate);
+				$arrData = array(				
+						'holidayName'=>$strLocalName,
+						'holidayDate'=>$dtmHolidayDate,
+						'holidayDay'=> $tmpDate[2],
+						'holidayMonth'=> $tmpDate[1],
+						'holidayYear'=>$tmpDate[0]
 				);
 				// print_r($arrData); echo $strLocalCode;
 				// exit(1);
