@@ -101,6 +101,13 @@
                     </div>
                     <!-- End Training -->
 
+                    <!-- Begin Examinations -->
+                    <?php $diveligib_show = $pds_type != '' ? ($pds_type ==  PDS_ELIGIBILITY) ? 1 : 0 : 0; ?>
+                    <div id="divexam" <?=$diveligib_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
+                        <?=$this->load->view('view/_examination.php',$diveligib_show ? array('pds_details'=>$pds_details,'emp_exam'=>$emp_exam) : array())?>
+                    </div>
+                    <!-- End Examinations -->
+
                 </div>
             </div>
         </div>

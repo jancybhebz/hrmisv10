@@ -273,6 +273,7 @@ class Update_pds_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableExam);
 		return $objQuery->result_array();	
 	}
+
 	function getExamination($strEmpNumber)
 	{		
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_EXAM.'.empNumber','left');
@@ -286,9 +287,22 @@ class Update_pds_model extends CI_Model {
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_REFERENCE.'.empNumber','left');
 		$this->db->where(TABLE_REFERENCE.'.empNumber',$strEmpNumber);
 		$objQuery = $this->db->get(TABLE_REFERENCE);
-		//echo $this->db->last_query();
 		return $objQuery->result_array();	
 	}
+
+	function save_eligibility($arrData)
+	{
+		$this->db->insert('tblEmpExam', $arrData);
+		echo $this->db->insert_id();
+	}
+
+	function update_eligibility($arrData, $exam_id)
+	{
+		$this->db->where('ExamIndex', $exam_id);
+		$this->db->update('tblEmpExam', $arrData);
+		echo $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 
 	function getVoluntary($strEmpNumber)
 	{		

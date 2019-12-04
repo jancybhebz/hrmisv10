@@ -679,7 +679,6 @@ class Request extends MY_Controller {
 		endif;
 
 		if($_GET['status'] == 'training'):
-			printrd($pds_details);
 			$arr_training = array(
 							'empNumber'			=>  $arrrequest['empNumber'],
 							'trainingTitle'		=> 	$pds_details[1],
@@ -694,10 +693,25 @@ class Request extends MY_Controller {
 
 			if($pds_details[10] == ''):
 				$this->update_pds_model->save_training($arr_training);
-				$this->session->set_flashdata('strSuccessMsg','Training successfully added.');
 			else:
 				$this->update_pds_model->update_training($arr_training, $pds_details[10]);
-				$this->session->set_flashdata('strSuccessMsg','Training successfully updated.');
+			endif;
+		endif;
+
+		if($_GET['status'] == 'exam'):
+			$arr_exam = array(
+							'empNumber'		=>  $arrrequest['empNumber'],
+							'examCode'		=> 	$pds_details[1],
+							'examRating'	=> 	$pds_details[2],
+							'examDate'		=> 	($pds_details[3] == '' ? NULL : $pds_details[3]),
+							'examPlace'		=> 	$pds_details[4],
+							'licenseNumber'	=> 	$pds_details[5],
+							'dateRelease'	=> 	$pds_details[6]);
+
+			if($pds_details[7] == ''):
+				$this->update_pds_model->save_eligibility($arr_exam);
+			else:
+				$this->update_pds_model->update_eligibility($arr_exam, $pds_details[7]);
 			endif;
 		endif;
 
