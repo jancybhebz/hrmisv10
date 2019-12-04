@@ -57,7 +57,7 @@
                                                     <a href="<?=base_url('hr/request?request=mone')?>"> Leave Monetization </a>
                                                 </li>
                                                 <li class="<?=$request=='dtr'?'active':''?>">
-                                                    <a href="#tab-dtr" data-toggle="tab"> Update DTR </a>
+                                                    <a href="<?=base_url('hr/request?request=dtr')?>">  Update DTR </a>
                                                 </li>
                                                 <li class="<?=$request=='cto'?'active':''?>">
                                                     <a href="#tab-cto" data-toggle="tab"> Compensatory Leave </a>
@@ -87,7 +87,7 @@
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='dtr'?'active':''?>" id="tab-dtr">
-                                                    dtr
+                                                    <?php $this->load->view('_dtr_request'); ?>
                                                 </div>
 
                                                 <div class="tab-pane <?=$request=='cto'?'active':''?>" id="tab-cto">

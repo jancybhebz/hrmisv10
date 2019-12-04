@@ -7,6 +7,38 @@ class Dtr_model extends CI_Model {
 		$this->table = 'tblEmpDTR';
 	}
 	
+	function submit($arrData)
+	{
+		$this->db->insert('tblEmpDTR', $arrData);
+		return $this->db->insert_id();		
+	}
+
+	function save($arrData, $dtrid)
+	{
+		$this->db->where('id', $dtrid);
+		$this->db->update('tblEmpDTR', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
+	function getrequest($reqid='')
+	{
+		if($reqid!=''):
+			$res = $this->db->get_where('tblEmpRequest',array('requestID' => $reqid))->result_array();
+			return count($res) > 0 ? $res[0] : array();
+		else:
+			return $this->db->get('tblEmpRequest')->result_array();
+		endif;
+	}
+
+	function getall_request($empno='')
+	{
+		if($empno!=''):
+			$this->db->where('empNumber',$empno);
+		endif;
+		$this->db->like('requestCode','DTR');
+		return $this->db->order_by('requestDate','DESC')->get('tblEmpRequest')->result_array();
+	}
+
 	function getData($empid,$yr=0,$mon=0,$sdate='',$edate='')
 	{
 		if($sdate != '' && $edate != ''){

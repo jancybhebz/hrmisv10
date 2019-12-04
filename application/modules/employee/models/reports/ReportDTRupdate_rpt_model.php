@@ -22,6 +22,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 
 	function intToMonthFull($t_intMonth='')
 	{
+		$t_intMonth = $t_intMonth=='undefined' ? '' : $t_intMonth;
 		if($t_intMonth!=''):
 			$arrMonths = array(1=>"January", 2=>"February", 3=>"March", 
 							4=>"April", 5=>"May", 6=>"June", 
