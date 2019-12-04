@@ -678,12 +678,36 @@ class Request extends MY_Controller {
 			endif;
 		endif;
 
+		if($_GET['status'] == 'training'):
+			printrd($pds_details);
+			$arr_training = array(
+							'empNumber'			=>  $arrrequest['empNumber'],
+							'trainingTitle'		=> 	$pds_details[1],
+							'trainingStartDate'	=> 	($pds_details[2] == '' ? NULL : $pds_details[2]),
+							'trainingEndDate'	=> 	($pds_details[3] == '' ? NULL : $pds_details[3]),
+							'trainingHours'		=> 	$pds_details[4],
+							'trainingTypeofLD'	=> 	$pds_details[5],
+							'trainingConductedBy'	=> 	$pds_details[6],
+							'trainingVenue'		=>	$pds_details[7],
+							'trainingCost'		=> 	$pds_details[8],
+							'trainingContractDate'	=> 	($pds_details[9] == '' ? NULL : $pds_details[9]));
+
+			if($pds_details[10] == ''):
+				$this->update_pds_model->save_training($arr_training);
+				$this->session->set_flashdata('strSuccessMsg','Training successfully added.');
+			else:
+				$this->update_pds_model->update_training($arr_training, $pds_details[10]);
+				$this->session->set_flashdata('strSuccessMsg','Training successfully updated.');
+			endif;
+		endif;
+
 		$arrto_signatory = array(
-			'requestStatus'	=> strtoupper($optstatus),
+			'requestStatus'	=> 'Certified',
 			'statusDate'	=> date('Y-m-d'),
 			'remarks'		=> $txtremarks,
 			'signatory'		=> $_SESSION['sessEmpNo']
 		);
+		
 
 		$arremp_signature = $this->Request_model->get_signature($arrrequest['requestCode']);
 		$arrto_signatory = array_merge($arrto_signatory,$arremp_signature);

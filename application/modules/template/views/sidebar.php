@@ -72,7 +72,7 @@ $user_session = $this->session->userdata();
                         <span class="title">Dashboard</span>
                     </a>                            
                 </li>
-                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '2') !== false))): ?>                      
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '2') !== false))): ?>
                     <li class="nav-item <?=$active=='pds' || ($active=='hr' && $activesub=='add_employee') || ($active=='hr' && $activesub=='profile') ? 'active' : ''?>">
                         <a href="<?=base_url('pds')?>" class="nav-link nav-toggle">
                             <i class="icon-user"></i>
@@ -109,12 +109,6 @@ $user_session = $this->session->userdata();
                 <?php endif; ?>
 
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '4') !== false))): ?> 
-                    <li class="nav-item <?=($active == 'hr' && $activesub == 'request') || ($active == 'employee' && in_array($activesub, array('official_business','leave','travel_order','pds_update','leave_monetization'))) ? 'active' : '' ?> ">
-                         <a href="<?=base_url('hr/request?request=ob')?>" class="nav-link nav-toggle">
-                            <i class="icon-doc"></i>
-                            <span class="title">Request</span>
-                        </a>                            
-                    </li>
                     <li class="nav-item <?=$active == 'hr' && $activesub == 'reports' ? 'active' : '' ?> ">
                          <a href="<?=base_url('hr/reports')?>" class="nav-link nav-toggle">
                             <i class="icon-docs"></i>
@@ -123,6 +117,15 @@ $user_session = $this->session->userdata();
                     </li>
                 <?php endif; ?>
 
+                <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '1') !== false))): ?>
+                    <li class="nav-item <?=($active == 'hr' && $activesub == 'request') || ($active == 'employee' && in_array($activesub, array('official_business','leave','travel_order','pds_update','leave_monetization'))) ? 'active' : '' ?> ">
+                         <a href="<?=base_url('hr/request?request=ob')?>" class="nav-link nav-toggle">
+                            <i class="icon-doc"></i>
+                            <span class="title">Request</span>
+                        </a>                            
+                    </li>
+                <?php endif; ?>
+                
                 <?php if($user_session['sessIsAssistant'] == 0 || ($user_session['sessIsAssistant'] == 1 && (strpos($user_session['sessAccessPermission'], '5') !== false))): ?> 
                     <li class="nav-item <?=$active=='libraries' || ($activesub=='libraries' && $activetab=='signatory') ?'active open':''?>">
                         <a href="<?=base_url('libraries')?>" class="nav-link nav-toggle">

@@ -75,26 +75,31 @@
 
                     <!-- Begin Profile -->
                     <?php $divprof_show = $pds_type != '' ? ($pds_type == PDS_PROFILE ? 1 : 0) : 0; ?>
-                    <div id="divprof" <?=$divprof_show ? '' : 'hidden' ?> style="margin-top: 100px !important;">
+                    <div id="divprof" <?=$divprof_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
                         <?=$this->load->view('view/_profile.php',$divprof_show ? array('pds_details'=>$pds_details) : array())?>
                     </div>
                     <!-- End Profile -->
 
                     <!-- Begin Family Background -->
                     <?php $divfam_show = $pds_type != '' ? ($pds_type == PDS_FAMILY ? 1 : 0) : 0; ?>
-                    <div id="divprof" <?=$divfam_show ? '' : 'hidden' ?> style="margin-top: 100px !important;">
+                    <div id="divprof" <?=$divfam_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
                         <?=$this->load->view('view/_family.php',$divfam_show ? array('pds_details'=>$pds_details) : array())?>
                     </div>
                     <!-- End Family Background -->
 
                     <!-- Begin Educational -->
                     <?php $diveduc_show = $pds_type != '' ? ($pds_type == PDS_EDUC ? 1 : 0) : 0; ?>
-                    <div id="diveduc" <?=$diveduc_show ? '' : 'hidden' ?> style="margin-top: 100px !important;">
+                    <div id="diveduc" <?=$diveduc_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
                         <?=$this->load->view('view/_education.php',$diveduc_show ? array('pds_details'=>$pds_details,'emp_educ'=>$emp_educ) : array())?>
                     </div>
                     <!-- End Educational -->
 
-                    
+                    <!-- Begin Training -->
+                    <?php $divtra_show = $pds_type != '' ? ($pds_type == PDS_TRAIN) ? 1 : 0 : 0; ?>
+                    <div id="divtra" <?=$divtra_show ? '' : 'hidden' ?> style="margin-top: 85px !important;">
+                        <?=$this->load->view('view/_training.php',$divtra_show ? array('pds_details'=>$pds_details,'emp_tra'=>$emp_tra) : array())?>
+                    </div>
+                    <!-- End Training -->
 
                 </div>
             </div>

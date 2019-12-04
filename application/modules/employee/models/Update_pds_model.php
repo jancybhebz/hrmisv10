@@ -240,13 +240,27 @@ class Update_pds_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableTraining);
 		return $objQuery->result_array();	
 	}
+
 	function getTraining($strEmpNumber)
 	{		
-		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_TRAINING.'.empNumber','left');
-		$this->db->where(TABLE_TRAINING.'.empNumber',$strEmpNumber);
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_TRAINING.'.empNumber','left');
+		$this->db->where($this->tableTraining.'.empNumber',$strEmpNumber);
 		$this->db->order_by('tblEmpTraining.'.$this->tableTrainingid,'ASC');
-		$objQuery = $this->db->get(TABLE_TRAINING);
+		$objQuery = $this->db->get($this->tableTraining);
 		return $objQuery->result_array();	
+	}
+
+	function save_training($arrData)
+	{
+		$this->db->insert($this->tableTraining, $arrData);
+		echo $this->db->insert_id();
+	}
+
+	function update_training($arrData, $training_id)
+	{
+		$this->db->where('TrainingIndex', $training_id);
+		$this->db->update($this->tableTraining, $arrData);
+		echo $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getExamData($intExamId = '')

@@ -132,6 +132,12 @@ class Pds_update extends MY_Controller {
 		}
 		$this->arrData['emp_educ'] = $emp_educ;
 
+		$emp_tra = array();
+		if(end($pds_details) == PDS_TRAIN){
+			$emp_tra = $this->update_pds_model->gettra_data($pds_details[11]);
+		}
+		$this->arrData['emp_tra'] = $emp_tra;
+
 		$this->arrData['pds_details'] = $pds_details;
 		$this->arrData['pds_type'] = end($pds_details);
 
