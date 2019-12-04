@@ -43,18 +43,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('libraries/holiday/edit_local/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmLocalHoliday'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrLocHoliday);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Name <span class="required"> * </span></label>
+                                <label class="control-label">Holiday Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strLocalHolidayName" disabled>
                                     <option value="">Select</option>
                                         <?php foreach($arrLocHoliday as $local)
                                             {
-                                              echo '<option value="'.$local['holidayName'].'" '.($arrData[0]['holidayName']==$local['holidayCode']?'selected':'').'>'.$local['holidayName'].'</option>';
+                                              echo '<option value="'.$local['holidayCode'].'" '.($arrData[0]['holidayCode']==$local['holidayCode']?'selected':'').'>'.$local['holidayName'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -64,10 +64,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                    <label class="control-label">Local Holiday Date</label>
+                                    <label class="control-label">Local Holiday Date <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input id="dtmHolidate" name="dtmHolidate" type="text" class="form-control form-control-inline input-medium date-picker" size="16" value="<?=!empty($arrData[0]['holidayDate'])?$arrData[0]['holidayDate']:''?>">
+                                     <input class="form-control form-control-inline input-medium date-picker" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="text" value="<?=!empty($arrData[0]['holidayDate'])?$arrData[0]['holidayDate']:''?>">
+
+                                 
                             </div>
                         </div>
                     </div>
@@ -118,7 +120,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                   -->
-                    <div class="row">
+                   </div>
+                   <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="hidden" name="strLocalCode" value="<?=isset($arrData[0]['holidayCode'])?$arrData[0]['holidayCode']:''?>">
@@ -156,10 +159,10 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strLocalName: {
-                        minlength: 1,
-                        required: true
-                    },
+                    // strLocalName: {
+                    //     minlength: 1,
+                    //     required: true
+                    // },
                     dtmHolidayDate: {
                         minlength: 1,
                         required: true,
@@ -217,7 +220,7 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
     FormValidation.init();
-    $('#dtmHolidate').datepicker({
+    $('#dtmHolidayDate').datepicker({
         format:"yyyy-mm-dd"
     });
 

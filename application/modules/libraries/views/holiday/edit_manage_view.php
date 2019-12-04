@@ -14,7 +14,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="<?=base_url('libraries/agency_profile')?>">Libraries</a>>
+            <a href="<?=base_url('libraries/agency_profile')?>">Libraries</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -47,10 +47,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Holiday Name <span class="required"> * </span></label>
+                                <label class="control-label">Holiday Name </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strHolidayName" disabled>
+                                    <select type="text" class="form-control" name="strHolidayName" id="strHolidayName" readonly>
                                     <option value="">Select</option>
                                     <?php foreach($arrManageHoliday as $holiday)
                                         {
@@ -67,8 +67,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Holiday Date <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                
-                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="text" value="<?=!empty($arrDataHoliday[0]['holidayDate'])?$arrDataHoliday[0]['holidayDate']:''?>" data-date-format="yyyy-mm-dd">
+                                    <input class="form-control form-control-inline input-medium date-picker" name="dtmHolidayDate" id="dtmHolidayDate" size="16" type="text" value="<?=!empty($arrDataHoliday[0]['holidayDate'])?$arrDataHoliday[0]['holidayDate']:''?>">
+                                     <!-- data-date-format="yyyy-mm-dd -->
                                 </div>
                             </div>
                         </div>
@@ -111,11 +111,11 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strHolidayCode: {
-                        minLength: 1,
-                        required: true
-                    },
-                    strHolidayName: {
+                    // strHolidayCode: {
+                    //     minLength: 1,
+                    //     required: true
+                    // },
+                    dtmHolidayDate: {
                         minLength: 1,
                         required: true,
                     }
@@ -172,9 +172,10 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
     FormValidation.init();
-     $('#dtmHolidayDate').datepicker({
+    $('#dtmHolidayDate').datepicker({
         format:"yyyy-mm-dd"
     });
+
 });
 
 </script>
