@@ -83,7 +83,7 @@
                             </div>
                         <?=form_close();?>
                     </div>
-                    <div class="portlet-body">
+                    <div class="portlet-body" <?=$_GET['appt']==''?'hidden':''?>>
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
@@ -102,7 +102,7 @@
                                         <th>Payroll Register</th>
                                         <?php foreach($periods as $pk => $period): ?>
                                             <td style="text-align: center;" class="half<?=($pk+1)?>">
-                                                <a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="<?=($pk+1)?>" data-link="<?=base_url()?>" data-title="Payroll Register">
+                                                <a class="btn green btn-sm btn-circle areport" href="javascript:;" data-linkper="<?=($pk+1)?>" data-link="<?=base_url('finance/reports/MonthlyReports/payroll_register')?>" data-title="Payroll Register">
                                                     <i class="fa fa-money"></i> <?=$period?></a>
                                             </td>
                                         <?php endforeach; ?>

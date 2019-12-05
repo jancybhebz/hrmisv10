@@ -78,6 +78,12 @@ class MonthlyReports extends MY_Controller {
 		$this->Payslip->generate_allemployees(array('employees' => $employees, 'pgroup' => $_GET['pprocess'], 'ps_yr' => $_GET['yr'], 'month' => $_GET['month'], 'period' => $_GET['period']));
 	}
 
+	public function payroll_register()
+	{
+		$this->load->model('reports/payroll_register/Register');
+		$this->Register->generate(array('pgroup' => $_GET['pprocess'], 'ps_yr' => $_GET['yr'], 'month' => $_GET['month'], 'period' => $_GET['period']));
+	}
+
 
 }
 /* End of file MonthlyReports.php
