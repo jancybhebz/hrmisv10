@@ -76,8 +76,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$i?> </td>
                             <td> <?=$plantilla['itemNumber']?> </td>
                             <td> <?=$plantilla['positionCode'].' - '.$plantilla['positionDesc']?> </td>
-                            <td> <?=$plantilla['authorizeSalary']?> </td>
-                            <td> <?=$plantilla['authorizeSalaryYear']?> </td>
+                            <td> <?=number_format($plantilla['authorizeSalary'],2)?> </td>
+                            <td> <?=number_format($plantilla['authorizeSalaryYear'],2)?> </td>
                             <td> <?=$plantilla['salaryGrade']?> </td>
                             <td> <?=$plantilla['plantillaGroupName']?> </td>
                             <td style="width: 150px;text-align:center;">

@@ -124,7 +124,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode" value="<?=!empty($this->session->userdata('intAreaCode'))?$this->session->userdata('intAreaCode'):''?>">
+                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode" placeholder="060" maxlength="3" value="<?=!empty($this->session->userdata('intAreaCode'))?$this->session->userdata('intAreaCode'):''?>">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Type </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" value="<?=!empty($this->session->userdata('strAreaType'))?$this->session->userdata('strAreaType'):''?>" >
+                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" maxlength="1" value="<?=!empty($this->session->userdata('strAreaType'))?$this->session->userdata('strAreaType'):''?>" >
                                 </div>
                             </div>
                         </div>
@@ -141,10 +141,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Plantilla Group<span class="required"> * </span></label>
+                                <label class="control-label">Plantilla Group</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <select type="text" class="form-control" name="strPlantillaGroup" id="strPlantillaGroup" value="<?=!empty($this->session->userdata('strPlantillaGroup'))?$this->session->userdata('strPlantillaGroup'):''?>" required>
+                                    <select type="text" class="form-control" name="strPlantillaGroup" id="strPlantillaGroup" value="<?=!empty($this->session->userdata('strPlantillaGroup'))?$this->session->userdata('strPlantillaGroup'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrPlantillaGroup as $plantilla)
@@ -181,15 +181,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Civil Service Eligibility <span class="required"> * </span></label>
+                                <label class="control-label">Civil Service Eligibility </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <select type="text" class="form-control" name="strCSEligibility" id="strCSEligibility" value="<?=!empty($this->session->userdata('strCSEligibility'))?$this->session->userdata('strCSEligibility'):''?>" required>
+                                   <select type="text" class="form-control" name="strCSEligibility" id="strCSEligibility" value="<?=!empty($this->session->userdata('strCSEligibility'))?$this->session->userdata('strCSEligibility'):''?>" >
                                         
                                          <option value="">Select</option>
                                         <?php foreach($arrExam as $exam)
                                         {
-                                          echo '<option value="'.$exam['examId'].'">'.$exam['examCode'].' - '.$exam['examDesc'].'</option>';
+                                          echo '<option value="'.$exam['examId'].'">'.$exam['examDesc'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -199,10 +199,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Educational Requirement <span class="required"> * </span></label>
+                                <label class="control-label">Educational Requirement</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strEducationalReq" id="strEducationalReq" value="<?=!empty($this->session->userdata('strEducationalReq'))?$this->session->userdata('strEducationalReq'):''?>" required>
+                                    <input type="text" class="form-control" name="strEducationalReq" id="strEducationalReq" value="<?=!empty($this->session->userdata('strEducationalReq'))?$this->session->userdata('strEducationalReq'):''?>" >
                                    
                                 </div>
                             </div>
@@ -211,11 +211,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Training Requirement <span class="required"> * </span></label>
+                                <label class="control-label">Training Requirement </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strTrainingReq" id="strTrainingReq" value="<?=!empty($this->session->userdata('strTrainingReq'))?$this->session->userdata('strTrainingReq'):''?>" required>
-                                   
+                                    <input type="text" class="form-control" name="strTrainingReq" id="strTrainingReq" value="<?=!empty($this->session->userdata('strTrainingReq'))?$this->session->userdata('strTrainingReq'):''?>" >
                                 </div>
                             </div>
                         </div>
@@ -223,10 +222,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Experience Requirement <span class="required"> * </span></label>
+                                <label class="control-label">Experience Requirement </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strExperienceReq" id="strExperienceReq" value="<?=!empty($this->session->userdata('strExperienceReq'))?$this->session->userdata('strExperienceReq'):''?>" required>
+                                    <input type="text" class="form-control" name="strExperienceReq" id="strExperienceReq" value="<?=!empty($this->session->userdata('strExperienceReq'))?$this->session->userdata('strExperienceReq'):''?>" >
                                    
                                 </div>
                             </div>
@@ -279,39 +278,7 @@ var FormValidation = function () {
                     strSG: {
                         minlength: 1,
                         required: true,
-                    },
-                    strAreaCode: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strAreaType: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strPlantillaGroup: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strClassification: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strCSEligibility: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strEducationalReq: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strTrainingReq: {
-                        minlength: 1,
-                        required: true,
-                    },
-                    strExperienceReq: {
-                        minlength: 1,
-                        required: true,
-                    },
+                    }
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
