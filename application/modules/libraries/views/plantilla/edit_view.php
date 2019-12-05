@@ -92,10 +92,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                    
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="control-label">Area Code <span class="required"> * </span></label>
+                                <label class="control-label">Area Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode"  value="<?=!empty($arrPlantilla[0]['areaCode'])?$arrPlantilla[0]['areaCode']:''?>">
+                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode"  value="<?=!empty($arrPlantilla[0]['areaCode'])?$arrPlantilla[0]['areaCode']:'060'?>">
                                 </div>
                             </div>
                         </div>
@@ -103,10 +103,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="control-label">Area Type <span class="required"> * </span></label>
+                                <label class="control-label">Area Type </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" value="<?=!empty($arrPlantilla[0]['areaType'])?$arrPlantilla[0]['areaType']:''?>">
+                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" value="<?=!empty($arrPlantilla[0]['areaType'])?$arrPlantilla[0]['areaType']:'R'?>">
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Plantilla Group  <span class="required"> * </span></label>
+                                <label class="control-label">Plantilla Group </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <?php //print_r($arrPlantillaGroup);?>
@@ -132,14 +132,15 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Civil Service Eligibility  <span class="required"> * </span></label>
+                                <label class="control-label">Civil Service Eligibility </label>
+                                <?php //print_r($arrPlantilla);?>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strCSEligibility" id="strCSEligibility">
                                     <option value="">Select</option>
                                      <?php foreach($arrExam as $exam)
                                         {
-                                          echo '<option value="'.$exam['examCode'].'" '.($arrPlantilla[0]['examCode']==$exam['examCode']?'selected':'').'>'.$exam['examCode'].'</option>';
+                                          echo '<option value="'.$exam['examCode'].'" '.($arrPlantilla[0]['examCode']==$exam['examCode']?'selected':'').'>'.trim($exam['examCode']).'-'.trim($exam['examDesc']).'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -149,7 +150,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Educational Requirements <span class="required"> * </span></label>
+                                <label class="control-label">Educational Requirements </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <input type="text" class="form-control" name="strEducationalReq" id="strEducationalReq" value="<?=!empty($arrPlantilla[0]['educational'])?$arrPlantilla[0]['educational']:''?>">
@@ -160,7 +161,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Training Requirements <span class="required"> * </span></label>
+                                <label class="control-label">Training Requirements </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <input type="text" class="form-control" name="strTrainingReq" id="strTrainingReq" value="<?=!empty($arrPlantilla[0]['training'])?$arrPlantilla[0]['training']:''?>">
@@ -171,7 +172,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                      <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Experience Requirements <span class="required"> * </span></label>
+                                <label class="control-label">Experience Requirements </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <input type="text" class="form-control" name="strExperienceReq" id="strExperienceReq" value="<?=!empty($arrPlantilla[0]['experience'])?$arrPlantilla[0]['experience']:''?>">
