@@ -124,7 +124,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode" placeholder="060" maxlength="3" value="<?=!empty($this->session->userdata('intAreaCode'))?$this->session->userdata('intAreaCode'):''?>">
+                                    <input type="text" class="form-control" name="intAreaCode" id="intAreaCode" maxlength="3" value="<?=!empty($this->session->userdata('intAreaCode'))?$this->session->userdata('intAreaCode'):'060'?>">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Area Type </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" maxlength="1" value="<?=!empty($this->session->userdata('strAreaType'))?$this->session->userdata('strAreaType'):''?>" >
+                                    <input type="text" class="form-control" name="strAreaType" id="strAreaType" maxlength="1" value="<?=!empty($this->session->userdata('strAreaType'))?$this->session->userdata('strAreaType'):'R'?>" >
                                 </div>
                             </div>
                         </div>

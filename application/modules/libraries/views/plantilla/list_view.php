@@ -61,8 +61,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th style="width: 50px;text-align:center;"> No. </th>
                             <th> Item Number </th>
                             <th> Position Description </th>
-                            <th> Authorize Salary (month) </th>
-                            <th> Authorize Salary (year) </th>
+                            <th> Authorize Salary (month/year) </th>
+                            <!-- <th> Authorize Salary (year) </th> -->
                             <th> Salary Grade </th>
                             <th style="width: 250px;text-align:center;"> Plantilla Group </th>
                             <th style="width: 150px;text-align:center;" class="no-sort"> Actions </th>
@@ -76,8 +76,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$i?> </td>
                             <td> <?=$plantilla['itemNumber']?> </td>
                             <td> <?=$plantilla['positionCode'].' - '.$plantilla['positionDesc']?> </td>
-                            <td> <?=number_format($plantilla['authorizeSalary'],2)?> </td>
-                            <td> <?=number_format($plantilla['authorizeSalaryYear'],2)?> </td>
+                            <td> <?php echo number_format($plantilla['authorizeSalary'],2).' / '.number_format($plantilla['authorizeSalary'],2); ?></td>
+                           <!-- $plantilla['authorizeSalaryYear'] -->
                             <td> <?=$plantilla['salaryGrade']?> </td>
                             <td> <?=$plantilla['plantillaGroupName']?> </td>
                             <td style="width: 150px;text-align:center;">
