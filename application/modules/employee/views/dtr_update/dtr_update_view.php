@@ -7,6 +7,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 **/
 $month = isset($_GET['month']) ? $_GET['month'] : date('F');
 $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_dtr/edit?req_id='.$_GET['req_id'];
+$hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 ?>
 <!-- BEGIN PAGE BAR -->
 <?=load_plugin('css', array('datepicker','timepicker','select','select2'))?>
@@ -21,7 +22,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>DTR Update</span>
+            <span><?=ucwords($hrmodule ? 'view' : $action)?> DTR Update</span>
         </li>
     </ul>
 </div>
@@ -50,7 +51,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                         <label class="control-label">Date : <span class="required"> * </span></label>
                         <div class="input-icon right">
                             <input class="form-control date-picker" name="dtmDTRupdate" id="dtmDTRupdate" type="text"
-                                value="<?=isset($new_dtr_details[1]) ? ($new_dtr_details[1]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[1]) : ''?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+                                value="<?=isset($new_dtr_details[1]) ? ($new_dtr_details[1]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[1]) : ''?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
                         </div>
                     </div>
                 </div>
@@ -59,7 +60,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>For the Month of : </label>
-                            <select class="bs-select form-control" name="dtmMonthOf" id="dtmMonthOf" >
+                            <select class="bs-select form-control" name="dtmMonthOf" id="dtmMonthOf" <?=$hrmodule ? 'disabled' : ''?>>
                                 <?php foreach (range(1, 12) as $m): ?>
                                     <option value="<?=sprintf('%02d', $m)?>"
                                         <?php 
@@ -141,7 +142,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                 <label class="control-label">Morning Time In : </label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" 
-                                        value="<?=isset($new_dtr_details[2]) ? ($new_dtr_details[2]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[2]) : ''?>" autocomplete="off">
+                                        value="<?=isset($new_dtr_details[2]) ? ($new_dtr_details[2]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[2]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
                             </div>
                         </div>
                     </div>
@@ -150,7 +151,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                  <label class="control-label">Morning Time Out :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningOut" id="dtmMorningOut" 
-                                        value="<?=isset($new_dtr_details[3]) ? ($new_dtr_details[3]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[3]) : ''?>" autocomplete="off">
+                                        value="<?=isset($new_dtr_details[3]) ? ($new_dtr_details[3]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[3]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
                             </div>
                         </div>
                     </div>
@@ -159,7 +160,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                 <label class="control-label">Afternoon Time In :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonIn" id="dtmAfternoonIn" 
-                                        value="<?=isset($new_dtr_details[4]) ? ($new_dtr_details[4]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[4]) : ''?>" autocomplete="off">
+                                        value="<?=isset($new_dtr_details[4]) ? ($new_dtr_details[4]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[4]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
                             </div>
                         </div>
                     </div>
@@ -168,7 +169,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                 <label class="control-label">Afternoon Time Out :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmAfternoonOut" id="dtmAfternoonOut" 
-                                        value="<?=isset($new_dtr_details[5]) ? ($new_dtr_details[5]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[5]) : ''?>" autocomplete="off">
+                                        value="<?=isset($new_dtr_details[5]) ? ($new_dtr_details[5]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[5]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
                             </div>
                         </div>
                     </div>
@@ -177,7 +178,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                 <label class="control-label">Overtime In :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeIn" id="dtmOvertimeIn" 
-                                    value="<?=isset($new_dtr_details[6]) ? ($new_dtr_details[6]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[6]) : ''?>" autocomplete="off">
+                                    value="<?=isset($new_dtr_details[6]) ? ($new_dtr_details[6]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[6]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
                             </div>
                         </div>
                     </div>
@@ -186,7 +187,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                             <div class="form-group">
                                 <label class="control-label">Overtime Out :</label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmOvertimeOut" id="dtmOvertimeOut" 
-                                        value="<?=isset($new_dtr_details[7]) ? ($new_dtr_details[7]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[7]) : ''?>" autocomplete="off">
+                                        value="<?=isset($new_dtr_details[7]) ? ($new_dtr_details[7]=='00:00:00' ? $new_dtr_details[5] : $new_dtr_details[7]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
                             </div>
                         </div>
                     </div>
@@ -196,7 +197,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Reason :</label>
-                              <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control"><?=isset($new_dtr_details[32]) ? $new_dtr_details[32] : ''?></textarea>
+                              <textarea name="strReason" id="strReason" type="text" size="20" maxlength="100" class="form-control" <?=$hrmodule ? 'disabled' : ''?>><?=isset($new_dtr_details[32]) ? $new_dtr_details[32] : ''?></textarea>
                     </div>
                 </div>
             </div>
@@ -204,7 +205,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Supporting Evidence :</label>
-                            <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control"><?=isset($new_dtr_details[34]) ? $new_dtr_details[34] : ''?></textarea>
+                            <textarea name="strEvidence" id="strEvidence" type="text" size="20" maxlength="100" class="form-control" <?=$hrmodule ? 'disabled' : ''?>><?=isset($new_dtr_details[34]) ? $new_dtr_details[34] : ''?></textarea>
                     </div>
                 </div>
             </div>
@@ -212,7 +213,7 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label class="control-label">Authorized Official (Signatory) :</label>
-                            <select name="strSignatory" id="strSignatory" type="text" class="form-control select2 form-required" value="<?=!empty($this->session->userdata('str1stSignatory'))?$this->session->userdata('str1stSignatory'):''?>">
+                            <select name="strSignatory" id="strSignatory" type="text" class="form-control select2 form-required" <?=$hrmodule ? 'disabled' : ''?>>
                                     <option value="0">-- SELECT SIGNATORY --</option>
                                     <?php foreach($arrEmployees as $i=>$data):
                                             $selected = isset($new_dtr_details[35]) ? ($new_dtr_details[35] == $data['empNumber'] ? 'selected' : '') : '' ?>
@@ -225,10 +226,14 @@ $form_action = $action=='add' ? 'employee/update_dtr/submit' : 'employee/update_
             <div class="row"><div class="col-sm-8"><hr></div></div>
             <div class="row">
                 <div class="col-sm-8">
-                    <button type="submit" class="btn btn-success" id="btn-request-dtr">
-                        <i class="icon-check"></i>
-                        <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
-                    <a href="<?=base_url('employee/update_dtr')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+                    <?php if(!$hrmodule): ?>
+                        <button type="submit" class="btn btn-success" id="btn-request-dtr">
+                            <i class="icon-check"></i>
+                            <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
+                        <a href="<?=base_url('employee/update_dtr')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+                    <?php else: ?>
+                        <a href="<?=base_url('hr/request?request=dtr')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
+                    <?php endif; ?>
                     <button type="button" id="printreport" value="reportDTRupdate" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
                 </div>
             </div>

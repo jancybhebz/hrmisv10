@@ -50,7 +50,8 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                         <div class="col-md-9">
                                             <div class="input-icon right">
                                                 <select class="select2 form-control form-required" name="request_type[]" id="request_type" multiple <?=$action=='delete'?'disabled':''?>>
-                                                    <?php foreach($arrRequestType as $type):
+                                                    <?php
+                                                        foreach($arrRequestType as $type):
                                                             $selected = '';
                                                             if(isset($request_flow)):
                                                                 foreach(explode(';',$request_flow['RequestType']) as $rtype):

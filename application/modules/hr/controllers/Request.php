@@ -8,7 +8,7 @@ class Request extends MY_Controller {
 	function __construct()
 	{
         parent::__construct();
-        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model','employee/leave_monetization_model','employee/update_pds_model'));
+        $this->load->model(array('libraries/Request_model','employee/Notification_model','employee/Leave_model','hr/Attendance_summary_model','employee/official_business_model','employee/leave_model','employee/travel_order_model','employee/leave_monetization_model','employee/update_pds_model','finance/dtr_model','employee/compensatory_leave_model'));
     }
 
     public function index()
@@ -200,6 +200,74 @@ class Request extends MY_Controller {
 			endif;
 			$this->arrData['arrmone_request'] = $arrmone_request;
 			# end Monetization
+		endif;
+
+		if($request_type == 'dtr'):
+			# begin DTR
+			$arrdtr_request = $this->dtr_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$dtr_request = array();
+					foreach($arrdtr_request as $key=>$dtr):
+						$next_signatory = $this->Request_model->get_next_signatory($dtr,'DTR');
+						$dtr['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($dtr['requestStatus'])):
+							if($active_menu == 'Filed Request'):
+								if($dtr['next_signatory']['display'] == 1):
+									$dtr_request[] = $dtr;
+								endif;
+							else:
+								$dtr_request[] = $dtr;
+							endif;
+						endif;
+					endforeach;
+					$arrdtr_request = $dtr_request;
+				else:
+					foreach($arrdtr_request as $key=>$dtr):
+						$next_signatory = $this->Request_model->get_next_signatory($dtr,'DTR');
+						$dtr['next_signatory'] = $next_signatory;
+						$dtr_request[] = $dtr;
+					endforeach;
+					$arrdtr_request = $dtr_request;
+				endif;
+			endif;
+			$this->arrData['arrdtr_request'] = $arrdtr_request;
+			# end DTR
+		endif;
+
+		if($request_type == 'cto'):
+			# begin CTO
+			$arrcto_request = $this->compensatory_leave_model->getall_request();
+
+			if(isset($_GET['status'])):
+				if(strtolower($_GET['status'])!='all'):
+					$cto_request = array();
+					foreach($arrcto_request as $key=>$cto):
+						$next_signatory = $this->Request_model->get_next_signatory($cto,'CTO');
+						$cto['next_signatory'] = $next_signatory;
+						if(strtolower($_GET['status']) == strtolower($cto['requestStatus'])):
+							if($active_menu == 'Filed Request'):
+								if($cto['next_signatory']['display'] == 1):
+									$cto_request[] = $cto;
+								endif;
+							else:
+								$cto_request[] = $cto;
+							endif;
+						endif;
+					endforeach;
+					$arrcto_request = $cto_request;
+				else:
+					foreach($arrcto_request as $key=>$cto):
+						$next_signatory = $this->Request_model->get_next_signatory($cto,'CTO');
+						$cto['next_signatory'] = $next_signatory;
+						$cto_request[] = $cto;
+					endforeach;
+					$arrcto_request = $cto_request;
+				endif;
+			endif;
+			$this->arrData['arrcto_request'] = $arrcto_request;
+			# end CTO
 		endif;
 
 
@@ -430,6 +498,146 @@ class Request extends MY_Controller {
 		endif;
 
 		redirect('hr/request?request=mone');
+	}
+
+	public function update_dtr()
+	{
+		$arrPost = $this->input->post();
+
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+		$txtremarks = '';
+		if(!empty($arrPost)):
+			$optstatus = $arrPost['opt_dtr_stat'];
+			$txtremarks = $arrPost['txtremarks'];
+		endif;
+		
+		$req_id = $_GET['req_id'];
+		$arrdtr = $this->dtr_model->getrequest($_GET['req_id']);
+		$dtr_details = explode(';',$arrdtr['requestDetails']);
+		$arremp_dtr = $this->dtr_model->getData($arrdtr['empNumber'],0,0,$dtr_details[1],$dtr_details[1]);
+
+		# signatories
+		$arremp_signature = $this->Request_model->get_signature('DTR');
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$in_am  = $dtr_details[8].':'.$dtr_details[9].':'.$dtr_details[10];
+			$out_am = $dtr_details[12].':'.$dtr_details[13].':'.$dtr_details[14];
+			$in_pm  = $dtr_details[16].':'.$dtr_details[17].':'.$dtr_details[18];
+			$out_pm = $dtr_details[20].':'.$dtr_details[21].':'.$dtr_details[22];
+			$in_ot  = $dtr_details[24].':'.$dtr_details[25].':'.$dtr_details[26];
+			$out_ot = $dtr_details[28].':'.$dtr_details[29].':'.$dtr_details[30];
+
+			$arrdtr_data = array(
+				'empNumber'	=> $arrdtr['empNumber'],
+				'dtrDate'	=> isset($dtr_details[1]) ? $dtr_details[1] : '',
+				'inAM'		=> $in_am,
+				'outAM'		=> $out_am,
+				'inPM'		=> $in_pm,
+				'outPM'		=> $out_pm,
+				'inOT'		=> $in_ot,
+				'outOT'		=> $out_ot,
+				'DTRreason' => $dtr_details[32],
+				'remarks'   => $dtr_details[34],
+				'name'		=> (count($arremp_dtr) > 0 ? $arremp_dtr[0]['name'] :'').';'.$this->session->userdata('sessName'),
+				'ip'		=> (count($arremp_dtr) > 0 ? $arremp_dtr[0]['ip'] :'').';'.$this->input->ip_address(),
+				'editdate'	=> (count($arremp_dtr) > 0 ? $arremp_dtr[0]['editdate'] :'').';'.date('Y-m-d h:i:s A')
+			);
+
+			if(count($arremp_dtr) > 0):
+				$addreturn = $this->dtr_model->save($arrdtr_data, $arremp_dtr[0]['id']);
+			else:
+				$addreturn = $this->dtr_model->submit($arrdtr_data);
+			endif;
+
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Leave Monetization ',json_encode($arrmone_data),'');
+			endif;
+		endif;
+
+		$arrdtr_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+
+		$arrdtr_signatory = array_merge($arrdtr_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrdtr_signatory, $arrdtr['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
+		endif;
+
+		redirect('hr/request?request=dtr');
+	}
+
+	public function update_cto()
+	{
+		$arrPost = $this->input->post();
+
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+		$txtremarks = '';
+		if(!empty($arrPost)):
+			$optstatus = $arrPost['opt_cto_stat'];
+			$txtremarks = $arrPost['txtremarks'];
+		endif;
+		
+		$req_id = $_GET['req_id'];
+		$arrdtr = $this->compensatory_leave_model->getrequest($_GET['req_id']);
+		$dtr_details = explode(';',$arrdtr['requestDetails']);
+		$arremp_dtr = $this->dtr_model->getData($arrdtr['empNumber'],0,0,$dtr_details[1],$dtr_details[1]);
+		
+		# signatories
+		$arremp_signature = $this->Request_model->get_signature('CTO');
+		if(strtoupper($optstatus) == 'CERTIFIED'):
+			$in_am  = $dtr_details[1];
+			$out_am = $dtr_details[2];
+			$in_pm  = $dtr_details[3];
+			$out_pm = $dtr_details[4];
+			
+			$arrdtr_data = array(
+				'empNumber'	=> $arrdtr['empNumber'],
+				'dtrDate'	=> isset($dtr_details[1]) ? $dtr_details[1] : '',
+				'inAM'		=> $in_am,
+				'outAM'		=> $out_am,
+				'inPM'		=> $in_pm,
+				'outPM'		=> $out_pm,
+				'inOT'		=> '00:00:00',
+				'outOT'		=> '00:00:00',
+				'DTRreason' => '',
+				'remarks'   => 'CL',
+				'name'		=> (count($arremp_dtr) > 0 ? $arremp_dtr[0]['name'] :'').';'.$this->session->userdata('sessName'),
+				'ip'		=> (count($arremp_dtr) > 0 ? $arremp_dtr[0]['ip'] :'').';'.$this->input->ip_address(),
+				'editdate'	=> (count($arremp_dtr) > 0 ? $arremp_dtr[0]['editdate'] :'').';'.date('Y-m-d h:i:s A')
+			);
+
+			if(count($arremp_dtr) > 0):
+				$addreturn = $this->dtr_model->save($arrdtr_data, $arremp_dtr[0]['id']);
+			else:
+				$addreturn = $this->dtr_model->submit($arrdtr_data);
+			endif;
+
+			if(count($addreturn)>0):
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Compensatory Time Off ',json_encode($arrmone_data),'');
+			endif;
+		endif;
+
+		$arrdtr_signatory = array(
+			'requestStatus'	=> strtoupper($optstatus),
+			'statusDate'	=> date('Y-m-d'),
+			'remarks'		=> $txtremarks,
+			'signatory'		=> $_SESSION['sessEmpNo']
+		);
+		
+		$arrdtr_signatory = array_merge($arrdtr_signatory,$arremp_signature);
+		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrdtr_signatory, $arrdtr['requestID']);
+		if(count($update_employeeRequest)>0):
+			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arrleave_signatory),'');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.strtolower($optstatus).'.');
+		endif;
+
+		redirect('hr/request?request=cto');
 	}
 
 	// public function leave_request()
