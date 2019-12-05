@@ -264,6 +264,41 @@
             $('#opt_dtr_stat').val('Disapproved');
             $('#modal-update-dtr').modal('show');
         });
+
+        // CTO
+        $('#table-cto').on('click','a#printreport',function(){
+            var req_details = $(this).data('rdetails');
+            var comleave = req_details[0];
+            var am_in  = req_details[1];
+            var am_out = req_details[2];
+            var pm_in  = req_details[3];
+            var pm_out = req_details[4];
+            var purpose = req_details[5];
+            
+            var link = "<?=base_url('employee/reports/generate/')?>"+"?rpt=reportCL&comleave="+comleave+"&oldmorin="+am_in+"&oldmorout="+am_out+"&oldafin="+pm_in+"&oldafout="+pm_out+"&morningin="+"&morningout="+"&aftrnoonin="+"&aftrnoonout="+"&purpose="+purpose+"&reco="+"&approval=";
+
+            $('#cto-embed').attr('src',link);
+            $('#cto-embed-fullview').attr('href',link);
+            $('#cto-form').modal('show');
+        });
+
+        $('#table-cto').on('click', 'a#btncertify', function() {
+            $('.div-remarks').hide();
+            $('#cto-title').html('<b>Certify</b>');
+            $('#lbl-cto-request').text('Are you sure you want to certify this request?');
+            $('#frmupdate_cto').attr('action',"<?=base_url('hr/request/update_cto?req_id=')?>"+$(this).data('id'));
+            $('#opt_cto_stat').val('CERTIFIED');
+            $('#modal-update-cto').modal('show');
+        });
+
+        $('#table-cto').on('click', 'a#btndisapproved', function() {
+            $('.div-remarks').show();
+            $('#cto-title').html('<b>DISAPPROVED</b>');
+            $('#lbl-cto-request').text('Are you sure you want to disapprove this request?');
+            $('#frmupdate_cto').attr('action',"<?=base_url('hr/request/update_cto?req_id=')?>"+$(this).data('id'));
+            $('#opt_cto_stat').val('Disapproved');
+            $('#modal-update-cto').modal('show');
+        });
         
     });
 </script>

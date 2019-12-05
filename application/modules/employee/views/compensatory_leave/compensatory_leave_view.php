@@ -44,7 +44,7 @@ $emp_att_scheme = emp_att_scheme($_SESSION['sessEmpNo']);
             <div class="portlet-body">
                 <?=form_open(base_url('employee/compensatory_leave/submit'), array('method' => 'post', 'id' => 'frmCompensatoryLeave'))?>
                 <input class="hidden" name="strStatus" value="Filed Request">
-                <input class="hidden" name="strCode" value="CL">
+                <input class="hidden" name="strCode" value="CTO">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">

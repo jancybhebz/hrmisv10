@@ -112,7 +112,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title bold">Request to Render Compensatory Time Off</h4>
+                <h4 class="modal-title bold">Request to Render Compensatory Time Office</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
@@ -149,7 +149,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="txtdtr_req_id" id="txtdtr_req_id">
+                            <input type="hidden" name="txtcto_req_id" id="txtcto_req_id">
                             <div class="form-group">
                                 <label>Are you sure you want to cancel this request?</label>
                             </div>
@@ -191,9 +191,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             $('#cto-form').modal('show');
         });
 
-        $('#table-cto').on('click', 'a.leave-cancel', function() {
-            $('#txtdtr_req_id').val($(this).data('id'));
-            $('#leave-cancel').modal('show');
+        $('#table-cto').on('click', 'a.cto-cancel', function() {
+            $('#txtcto_req_id').val($(this).data('id'));
+            $('#cto-cancel').modal('show');
         });
     });
 </script>
