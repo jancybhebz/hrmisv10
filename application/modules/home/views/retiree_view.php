@@ -38,11 +38,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 <div class="caption font-dark">
                     <i class="icon-user font-dark"></i>
                     <span class="caption-subject bold uppercase"> Retiree(s)</span>
+
                 </div>
                 
             </div>
             <div class="portlet-body">
-               
+              
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tbldata"  style="display: none">
                     <thead>
@@ -57,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <?php $i=1; foreach($arrData as $row):?>
                             <tr class="odd gradeX">
                                 <td> <?=$i++?></td>
-                                <td> <?=$row['name']?> </td>
+                                <td> <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>"><?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?> </td>
                                 <td> <?=$row['office']?> </td>
                                 <td> <?=$row['position']?> </td>
                             </tr>
