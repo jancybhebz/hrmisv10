@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Salutation <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Salutation </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -127,7 +127,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Date of Birth <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Date of Birth </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -139,7 +139,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Place of Birth <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Place of Birth </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -151,7 +151,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Sex <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Sex </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -167,7 +167,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Civil Status <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Civil Status </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -187,7 +187,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Citizenship <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Citizenship </label>
                                 <div class="col-md-9">
                                     <label><input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Filipino") echo "checked";?> value="Filipino"> &nbsp;Filipino</label>
                                     <label><input type="radio" name="strCitizenship" <?php if (isset($strCitizenship) && $strCitizenship=="Dual") echo "checked";?> value="dual"> &nbsp;Dual Citizenship</label>
@@ -197,7 +197,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Height (m) <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Height (m) </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -209,7 +209,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Weight (kg) <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Weight (kg) </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -221,7 +221,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Blood Type <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Blood Type </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -269,7 +269,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> TIN <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> TIN </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -281,7 +281,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label right"> Email Address <span class="required"> * </span></label>
+                                <label class="col-md-2 control-label right"> Email Address </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">
                                         <i class="fa fa-warning tooltips i-required"></i>
@@ -646,10 +646,6 @@ var FormValidation = function () {
                         required: true,
                        
                     },
-                    strSalutation: {
-                        required: true,
-                     
-                    },
                     strSurname: {
                          required: true,
                      
@@ -657,45 +653,6 @@ var FormValidation = function () {
                     strFirstname: {
                         required: true,
                      
-                    },
-                    dtmBday: {
-                        required: true,
-                    
-                    },
-                    strBirthPlace: {
-                        required: true,
-                    },
-                    strSex: {         
-                        required: true,
-                    
-                    },
-                    strCvlStatus: {
-                        required: true,
-                       
-                    },
-                    strCitizenship: {
-                        required: true,
-                        
-                    },
-                    strHeight: {
-                        required: true,
-                       
-                    },
-                    strWeight: {
-                         required: true,
-                        
-                    },
-                    strBloodType: {
-                        required: true,
-                        
-                    },
-                    intTin: {
-                        required: true,
-                       
-                    },
-                    strEmail: {
-                        required: true,
-                        email: true,
                     }
 
                 },
