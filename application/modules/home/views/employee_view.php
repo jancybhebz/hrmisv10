@@ -57,7 +57,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <?php $i=1; foreach($arrData as $row):?>
                             <tr class="odd gradeX">
                                 <td> <?=$i?> </td>
-                                <td> <?=$row['surname']. ", " .$row['firstname'].' '.substr($row['middlename'],0,1).'. '?> </td>
+                                <td> <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>"><?=$row['surname']. ", " .$row['firstname'].' '.substr($row['middlename'],0,1).'. '?> </a></td>
                                 <td> <?=office_name(employee_office($row['empNumber']))?> </td>
                                 <td> <?=position_name($row['positionCode'])?> </td>
                             </tr>

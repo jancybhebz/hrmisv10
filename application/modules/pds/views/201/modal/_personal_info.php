@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Salutation :<span class="required"> * </span> </label>
+                            <label class="control-label">Salutation </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -258,7 +258,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Date of Birth : <span class="required"> * </span></label>
+                            <label class="control-label">Date of Birth : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -294,7 +294,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Place of Birth : <span class="required"> * </span></label>
+                            <label class="control-label">Place of Birth : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -331,7 +331,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Sex : <span class="required"> * </span></label>
+                            <label class="control-label">Sex : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -353,7 +353,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Civil Status : <span class="required"> * </span></label>
+                            <label class="control-label">Civil Status : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -389,7 +389,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Citizenship : <span class="required"> * </span></label>
+                            <label class="control-label">Citizenship : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -429,7 +429,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Height : <span class="required"> * </span></label>
+                            <label class="control-label">Height : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -465,7 +465,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Weight : <span class="required"> * </span></label>
+                            <label class="control-label">Weight : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -475,7 +475,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">TIN No. : <span class="required"> * </span></label>
+                            <label class="control-label">TIN No. : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -490,7 +490,7 @@
                     </div>
                      <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="intSSS" autcomplete="off" value="<?=isset($arrData['sss'])?$arrData['sss']:''?>">
+                            <input type="text" class="form-control" name="intSSS" autcomplete="off" value="<?=isset($arrData['sssNumber'])?$arrData['sssNumber']:''?>">
                         </div>
                     </div>
                 </div>
@@ -501,7 +501,7 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Blood Type : <span class="required"> * </span></label>
+                            <label class="control-label">Blood Type : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
@@ -557,63 +557,14 @@ var FormValidation = function () {
                     strEmpID: {
                         minlength: 2,
                         required: true,
-                       
-                    },
-                    strSalutation: {
-                        minlength: 2,
-                        required: true,
-                     
                     },
                     strSurname: {
                         minlength: 2,
                         required: true,
-                     
                     },
                     strFirstname: {
                         minlength: 2,
                         required: true,
-                     
-                    },
-                    dtmBday: {
-                        minlength: 2,
-                        required: true,
-                    
-                    },
-                    strBirthPlace: {
-                        required: true,
-                    },
-                    strSex: {         
-                        required: true,
-                    
-                    },
-                    strCvlStatus: {
-                        required: true,
-                       
-                    },
-                    strCitizenship: {
-                        minlength: 2,
-                        required: true,
-                        
-                    },
-                    strHeight: {
-                        minlength: 2,
-                        required: true,
-                       
-                    },
-                    strWeight: {
-                        minlength: 2,
-                        required: true,
-                        
-                    },
-                    strBloodType: {
-                        minlength: 2,
-                        required: true,
-                        
-                    },
-                    intTin: {
-                        minlength: 2,
-                        required: true,
-                       
                     }
                 },
 

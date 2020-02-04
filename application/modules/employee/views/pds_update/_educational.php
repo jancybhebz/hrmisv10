@@ -220,6 +220,6 @@
 	                <a href="<?=base_url('employee/pds_update')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
 	            </div>
 	        </div>
-	        <?=form_close()?>
+	    <?=form_close()?>
 	</div>
 </div>

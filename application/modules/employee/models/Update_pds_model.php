@@ -158,6 +158,19 @@ class Update_pds_model extends CI_Model {
 		return $this->db->get_where('tblEmpChild',array('empNumber' => $empnumber))->result_array();
 	}
 
+	function save_children($arrData)
+	{
+		$this->db->insert('tblEmpChild', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_children($arrData, $child_id)
+	{
+		$this->db->where('childCode', $child_id);
+		$this->db->update('tblEmpChild', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	function getEmployeeDetails($strEmpNo,$strSelect,$strTable,$strOrder="",$strJoinTable="",$strJoinString="",$strJoinType="")
 	{
 		if($strOrder!='')
@@ -207,6 +220,7 @@ class Update_pds_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableScholarship);
 		return $objQuery->result_array();	
 	}
+	
 	function getSchoolData($intEmpNum = '')
 	{		
 		if($intEmpNum != "")
@@ -215,6 +229,19 @@ class Update_pds_model extends CI_Model {
 		}
 		$objQuery = $this->db->get($this->tableSchool);
 		return $objQuery->result_array();	
+	}
+
+	function save_school($arrData)
+	{
+		$this->db->insert($this->tableSchool, $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_school($arrData, $schoolid)
+	{
+		$this->db->where('SchoolIndex', $schoolid);
+		$this->db->update($this->tableSchool, $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getTrainingData($strTableTraining = '')
@@ -226,13 +253,27 @@ class Update_pds_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableTraining);
 		return $objQuery->result_array();	
 	}
+
 	function getTraining($strEmpNumber)
 	{		
-		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_TRAINING.'.empNumber','left');
-		$this->db->where(TABLE_TRAINING.'.empNumber',$strEmpNumber);
+		// $this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_TRAINING.'.empNumber','left');
+		$this->db->where($this->tableTraining.'.empNumber',$strEmpNumber);
 		$this->db->order_by('tblEmpTraining.'.$this->tableTrainingid,'ASC');
-		$objQuery = $this->db->get(TABLE_TRAINING);
+		$objQuery = $this->db->get($this->tableTraining);
 		return $objQuery->result_array();	
+	}
+
+	function save_training($arrData)
+	{
+		$this->db->insert($this->tableTraining, $arrData);
+		echo $this->db->insert_id();
+	}
+
+	function update_training($arrData, $training_id)
+	{
+		$this->db->where('TrainingIndex', $training_id);
+		$this->db->update($this->tableTraining, $arrData);
+		echo $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getExamData($intExamId = '')
@@ -245,6 +286,7 @@ class Update_pds_model extends CI_Model {
 		$objQuery = $this->db->get($this->tableExam);
 		return $objQuery->result_array();	
 	}
+
 	function getExamination($strEmpNumber)
 	{		
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_EXAM.'.empNumber','left');
@@ -253,13 +295,38 @@ class Update_pds_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
+	function save_eligibility($arrData)
+	{
+		$this->db->insert('tblEmpExam', $arrData);
+		echo $this->db->insert_id();
+	}
+
+	function update_eligibility($arrData, $exam_id)
+	{
+		$this->db->where('ExamIndex', $exam_id);
+		$this->db->update('tblEmpExam', $arrData);
+		echo $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+
 	function getRefData($strEmpNumber)
 	{		
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.TABLE_REFERENCE.'.empNumber','left');
 		$this->db->where(TABLE_REFERENCE.'.empNumber',$strEmpNumber);
 		$objQuery = $this->db->get(TABLE_REFERENCE);
-		//echo $this->db->last_query();
 		return $objQuery->result_array();	
+	}
+
+	function save_reference($arrData)
+	{
+		$this->db->insert('tblEmpReference', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_reference($arrData, $ref_id)
+	{
+		$this->db->where('ReferenceIndex', $ref_id);
+		$this->db->update('tblEmpReference', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getVoluntary($strEmpNumber)
@@ -268,6 +335,19 @@ class Update_pds_model extends CI_Model {
 		$this->db->where(TABLE_VOLUNTARY.'.empNumber',$strEmpNumber);
 		$objQuery = $this->db->get(TABLE_VOLUNTARY);
 		return $objQuery->result_array();	
+	}
+
+	function save_voluntary($arrData)
+	{
+		$this->db->insert('tblEmpVoluntaryWork', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_voluntary($arrData, $vol_id)
+	{
+		$this->db->where('VoluntaryIndex', $vol_id);
+		$this->db->update('tblEmpVoluntaryWork', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getExpData($intSerId = '')
@@ -286,6 +366,19 @@ class Update_pds_model extends CI_Model {
 		$this->db->where(TABLE_SERVICE.'.empNumber',$strEmpNumber);
 		$objQuery = $this->db->get(TABLE_SERVICE);
 		return $objQuery->result_array();	
+	}
+
+	function save_workxp($arrData)
+	{
+		$this->db->insert('tblServiceRecord', $arrData);
+		return $this->db->insert_id();
+	}
+
+	function update_workxp($arrData, $xp_id)
+	{
+		$this->db->where('serviceRecID', $xp_id);
+		$this->db->update('tblServiceRecord', $arrData);
+		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
 	function getAppointData($intAppointmentId = '')

@@ -43,7 +43,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
                <?=form_open(base_url('libraries/org_structure/edit_division/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php print_r($arrDivision);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrOrganization as $org)
                                         {
-                                          echo '<option value="'.$org['group1Name'].'" '.($arrDivision[0]['group1Code']==$org['group1Code']?'selected':'').'>'.$org['group1Name'].'</option>';
+                                          echo '<option value="'.$org['group1Code'].'" '.($arrDivision[0]['group1Code']==$org['group1Code']?'selected':'').'>'.$org['group1Name'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -72,7 +72,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     <option value="">Select</option>
                                     <?php foreach($arrService as $service)
                                         {
-                                          echo '<option value="'.$service['group2Name'].'" '.($arrDivision[0]['group2Code']==$service['group2Code']?'selected':'').'>'.$service['group2Name'].'</option>';
+                                          echo '<option value="'.$service['group2Code'].'" '.($arrDivision[0]['group2Code']==$service['group2Code']?'selected':'').'>'.$service['group2Name'].'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -132,7 +132,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Division Secretary<span class="required"> * </span></label>
+                                <label class="control-label">Division Secretary</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <select type="text" class="form-control" name="strDivSecretary">
@@ -193,24 +193,20 @@ var FormValidation = function () {
                     strSerDivision : {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strDivCode : {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strDivName : {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strDivHead : {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strDivHeadTitle : {
-                        minlength: 1,
-                        required: true,
-                    }
-                    strDivSecretary : {
                         minlength: 1,
                         required: true,
                     }

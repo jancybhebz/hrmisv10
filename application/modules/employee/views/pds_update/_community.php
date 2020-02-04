@@ -2,7 +2,7 @@
 	<?=form_open('employee/pds_update/submitTax?action='.$action, array('method' => 'post', 'id' => 'frmcommunity'))?>
 		<input class="hidden" name="txtreqid" value="<?=isset($_GET['req_id']) ? $_GET['req_id'] : ''?>">
 		<input class="hidden" name="strStatus" value="Filed Request">
-		<input class="hidden" name="strCode" value="PDS_TAX">
+		<input class="hidden" name="strCode" value="<?=PDS_TAX?>">
 		<div class="row" id="taxcert_textbox">
 		    <div class="col-sm-8">
 		        <div class="form-group">

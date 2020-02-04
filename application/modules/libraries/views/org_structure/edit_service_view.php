@@ -1,6 +1,6 @@
 <?php 
 /** 
-Purpose of file:    Edit page for Executive Office Library
+Purpose of file:    Edit page for Service Library
 Author:             Rose Anne L. Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -116,7 +116,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Service Secretary <span class="required"> * </span></label>
+                                <label class="control-label">Service Secretary </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <select type="text" class="form-control" name="strServiceSecretary">
@@ -177,20 +177,16 @@ var FormValidation = function () {
                     strServiceCode : {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strServiceName : {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strServiceHead : {
                         minlength: 1,
                         required: true,
-                    }
+                    },
                     strServiceTitle : {
-                        minlength: 1,
-                        required: true,
-                    }
-                    strServiceSecretary : {
                         minlength: 1,
                         required: true,
                     }

@@ -41,14 +41,8 @@ $(document).ready(function() {
         getdata = "?appt=" + json_data.employeeAppoint + "&pprocess=" + json_data.processID + "&yr=" + json_data.processYear + "&month=" + json_data.processMonth + "&period=" + json_data.period + "&linkper=" + linkper;
         $('#embed-pdf').attr('src',link+getdata);
         $('a#link-fullsize').attr('href',link+getdata);
-        // // if(json_data.employeeAppoint != 'P'){
-        //     getdata = "?appt=" + json_data.employeeAppoint + "&pprocess=" + json_data.processID + "&yr=" + json_data.processYear + "&month=" + json_data.processMonth + "&period=" + json_data.period + "&linkper=" + linkper;
-        // // }
-        // // alert(json.employeeAppoint);
         $('.modal-title').html($(this).data('title'));
         $('#print-preview-modal').modal('show');
-        
-        // alert(url);
     });
 
     $('#link-fullsize').click(function() {

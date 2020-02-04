@@ -85,9 +85,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td align="center"> <?=$row['requestStatus']?> </td>
                             <td align="center"> <?=$row['requestCode']?> </td>
                             <td width="150px" style="white-space: nowrap;text-align: center;">
-                                <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
-                                    data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
-                                    <span class="icon-magnifier" title="View"></span> Print Preview</a>
+                                <a class="btn btn-sm blue" href="<?=base_url('employee/pds_update/view?req_id=').$row['requestID']?>">
+                                    <span class="icon-magnifier" title="View"></span> Preview</a>
                                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
                                     <a class="btn btn-sm green" href="<?=base_url('employee/pds_update/edit?req_id='.$row['requestID'])?>">
                                         <span class="fa fa-edit" title="Edit"></span> Edit</a>
@@ -137,18 +136,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <!-- end ob travel pass modal -->
 
 <!-- begin ob cancel modal -->
-<div id="leave-cancel" class="modal fade" aria-hidden="true">
+<div id="pds-cancel" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Cancel Request</h4>
             </div>
-            <?=form_open('employee/leave/cancel', array('id' => 'frmleave_attach'))?>
+            <?=form_open('employee/pds_update/cancel', array('id' => 'frmleave_attach'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="txtleave_req_id" id="txtleave_req_id">
+                            <input type="hidden" name="txtpds_req_id" id="txtpds_req_id">
                             <div class="form-group">
                                 <label>Are you sure you want to cancel this request?</label>
                             </div>
@@ -165,7 +164,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 </div>
 <!-- end ob cancel modal -->
 
-<?php load_plugin('js',array('form_validation','datatables'));?>
+<?php load_plugin('js',array('datatables'));?>
 
 <script>
     $(document).ready(function() {
@@ -175,45 +174,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 $('#div-ob_request').show();
             }} );
 
-        $('#table-pds').on('click','a#printreport',function(){
-            var req_details = $(this).data('rdetails');
-            var leavetype  = req_details[0];
-            var day        = req_details.length > 9 ? req_details[9] : '' ;
-            var leavefrom  = req_details[1];
-            var leaveto    = req_details[2];
-            var daysapplied  = req_details[3];
-            var signatory    = req_details[4];
-            var signatory2   = req_details[5];
-            var reason       = req_details[6];
-            var incaseSL     = req_details[7];
-            var incaseVL     = req_details[8];
-            var intVL  = req_details[9];
-            var intSL  = req_details[10];
-
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportLeave')?>"+"&leavetype="+leavetype+"&day="+day+"&leavefrom="+leavefrom+"&leaveto="+leaveto+"&daysapplied="+daysapplied+"&signatory="+signatory+"&signatory2="+signatory2+"&reason="+reason+"&incaseSL="+incaseSL+"&incaseVL="+incaseVL+"&intVL="+intVL+"&intSL="+intSL;
-
-            $('div#attachments').html('');
-            var json_file = $(this).data('rattach');
-            $('div#attachments').append('<ul>');
-            if(json_file!=''){
-                console.log($(this).data('rattach'));
-                $.each( $(this).data('rattach'), function(i,file) {
-                    var floc = "<?=base_url('"+ file.filepath +"')?>";
-                    var fname = file.filename;
-                    var ext = fname.split('.');
-                    ext = ext[ext.length-1];
-                    $('div#attachments').append('<li><a target="_blank" href="'+floc+'"><i class="fa fa-'+check_icon(ext)+'"> </i>&nbsp;'+ellipsisChar(fname, 30)+'</a></li>');
-                });
-            }
-            $('div#attachments').append('</ul>');
-            
-            $('#pds-embed').attr('src',link);
-            $('#pds-embed-fullview').attr('href',link);
-            $('#pds-form').modal('show');
-        });
-
         $('#table-pds').on('click', 'a.pds-cancel', function() {
-            $('#txtleave_req_id').val($(this).data('id'));
+            $('#txtpds_req_id').val($(this).data('id'));
             $('#pds-cancel').modal('show');
         });
     });

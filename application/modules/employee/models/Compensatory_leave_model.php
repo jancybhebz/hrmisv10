@@ -23,7 +23,20 @@ class Compensatory_leave_model extends CI_Model {
 		if($empno!=''):
 			$this->db->where('empNumber',$empno);
 		endif;
-		return $this->db->order_by('requestDate','DESC')->get_where('tblEmpRequest',array('requestCode' => 'CL'))->result_array();
+		$this->db->order_by('requestDate','DESC');
+		$this->db->where('requestCode','CL');
+		$this->db->or_where('requestCode','CTO');
+		return $this->db->get('tblEmpRequest')->result_array();
+	}
+	
+	function getrequest($reqid='')
+	{
+		if($reqid!=''):
+			$res = $this->db->get_where('tblEmpRequest',array('requestID' => $reqid))->result_array();
+			return count($res) > 0 ? $res[0] : array();
+		else:
+			return $this->db->get('tblEmpRequest')->result_array();
+		endif;
 	}
 	
 	function getData($intReqId = '')

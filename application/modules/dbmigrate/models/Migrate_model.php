@@ -146,6 +146,7 @@ class Migrate_model extends CI_Model {
         $this->write_sqlstmt("UPDATE `tblHolidayYear` SET hmed = SUBSTRING_INDEX(holidayTime_old_data,' ',-1);",$sql_file);
         $this->write_sqlstmt("UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;",$sql_file);
         $this->write_sqlstmt("ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;",$sql_file);
+        $this->write_sqlstmt("INSERT INTO `tblRequestType` (`requestCode`, `requestDesc`) VALUES ('CTO', 'Compensatory Time Off');",$sql_file);
 
         if(!$this->check_if_column_exist('tblIncome','income_id')):
             $this->write_sqlstmt("ALTER TABLE `tblIncome` ADD `income_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`income_id`);",$sql_file);

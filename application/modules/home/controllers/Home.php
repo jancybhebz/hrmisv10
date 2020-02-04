@@ -139,7 +139,10 @@ class Home extends MY_Controller {
 		foreach($arrTmpData as $row)
 		{
 			$strEmpNum = $row['empNumber'];
-			$strEmpName = strtoupper($row['surname']. ", " .$row['firstname']);
+			$strSName = strtoupper($row['surname']);
+			$strFName = strtoupper($row['firstname']);
+			$strMName = strtoupper($row['middleInitial']);
+			// $strEmpName = $row['surname'].', '.$row['firstname'].' '.$row['middleInitial'];
 			$strBirthday = $row['birthday'];
 			$strStatusOfEmployment = $row['statusOfAppointment'];
 			$strPositionCode =  $row['positionCode'];
@@ -164,7 +167,10 @@ class Home extends MY_Controller {
 				$strOffice = office_name(employee_office($row['empNumber']));
 				$strPositionName = position_name($strPositionCode);
 				$arrData[$i] = array(
-					'name' => $strEmpName,
+					'empNumber'=>$strEmpNum,
+					'surname' => $strSName,
+					'firstname' => $strFName,
+					'middleInitial' => $strMName,
 					'office' => $strOffice,
 					'position' => $strPositionName
 					);	

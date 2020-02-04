@@ -1310,16 +1310,16 @@ CREATE TABLE `tblEmpSchool` (
 CREATE TABLE `tblEmpTraining` (
   `empNumber` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
   `XtrainingCode` varchar(10) NOT NULL DEFAULT '',
-  `trainingTitle` text NOT NULL,
+  `trainingTitle` text NULL,
   `trainingContractDate` date DEFAULT NULL,
   `trainingStartDate` date DEFAULT NULL,
   `trainingEndDate` date DEFAULT NULL,
-  `trainingHours` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `trainingTypeofLD` varchar(100) NOT NULL,
-  `trainingConductedBy` varchar(100) NOT NULL DEFAULT '',
-  `trainingVenue` varchar(100) NOT NULL DEFAULT '',
-  `trainingCost` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `trainingDesc` varchar(200) NOT NULL DEFAULT '',
+  `trainingHours` decimal(5,2) NULL DEFAULT '0.00',
+  `trainingTypeofLD` varchar(100) NULL,
+  `trainingConductedBy` varchar(100) NULL DEFAULT '',
+  `trainingVenue` varchar(100) NULL DEFAULT '',
+  `trainingCost` decimal(10,2) NULL DEFAULT '0.00',
+  `trainingDesc` varchar(200) NULL DEFAULT '',
   `TrainingIndex` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

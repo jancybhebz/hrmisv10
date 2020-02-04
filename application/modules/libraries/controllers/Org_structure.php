@@ -44,13 +44,13 @@ class Org_structure extends MY_Controller {
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary = $arrPost['strSecretary'];
 			
-			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
+			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->org_structure_model->checkExist($strExecOffice, $strExecName))==0)
 				{
 					$arrData = array(
-						'group1Code'=>$strExecOffice,
+					'group1Code'=>$strExecOffice,
 						'group1Name'=>$strExecName,
 						'empNumber'=>$strExecHead,
 						'group1HeadTitle'=>$strHeadTitle,
@@ -97,7 +97,7 @@ class Org_structure extends MY_Controller {
 			$strHeadTitle = $arrPost['strHeadTitle'];
 			$strSecretary= $arrPost['strSecretary'];
 			
-			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle) && !empty($strSecretary))
+			if(!empty($strExecOffice) && !empty($strExecName) && !empty($strExecHead) && !empty($strHeadTitle))
 			{
 				$arrData = array(
 					'group1Code'=>$strExecOffice,
@@ -169,7 +169,7 @@ class Org_structure extends MY_Controller {
 			$strServiceHead = $arrPost['strServiceHead'];
 			$strServiceTitle = $arrPost['strServiceTitle'];
 			$strServiceSecretary = $arrPost['strServiceSecretary'];
-			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
+			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->org_structure_model->checkService($strExecutive, $strServiceCode))==0)
@@ -223,7 +223,7 @@ class Org_structure extends MY_Controller {
 			$strServiceHead = $arrPost['strServiceHead'];
 			$strServiceTitle = $arrPost['strServiceTitle'];
 			$strServiceSecretary = $arrPost['strServiceSecretary'];
-			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle) && !empty($strServiceSecretary))
+			if(!empty($strExecutive) && !empty($strServiceCode) && !empty($strServiceName) && !empty($strServiceHead) && !empty($strServiceTitle))
 			{	
 				$arrData = array(
 					'group1Code'=>$strExecutive,
@@ -297,7 +297,7 @@ class Org_structure extends MY_Controller {
 			$strDivHead = $arrPost['strDivHead'];
 			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
 			$strDivSecretary = $arrPost['strDivSecretary'];
-			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
+			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->org_structure_model->checkDivision($strDivCode, $strDivName))==0)
@@ -356,7 +356,7 @@ class Org_structure extends MY_Controller {
 			$strDivHead = $arrPost['strDivHead'];
 			$strDivHeadTitle = $arrPost['strDivHeadTitle'];
 			$strDivSecretary = $arrPost['strDivSecretary'];
-			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle) && !empty($strDivSecretary))
+			if(!empty($strExecDivision) && !empty($strSerDivision) && !empty($strDivCode) && !empty($strDivName) && !empty($strDivHead) && !empty($strDivHeadTitle))
 			{
 				$arrData = array(
 					'group1Code'=>$strExecDivision,
@@ -432,7 +432,7 @@ class Org_structure extends MY_Controller {
 			$strSecHead = $arrPost['strSecHead'];
 			$strSecHeadTitle = $arrPost['strSecHeadTitle'];
 			$strSecSecretary = $arrPost['strSecSecretary'];
-			if(!empty($strExec) && !empty($strService) && !empty($strDivision) && !empty($strSecCode) && !empty($strSecName) && !empty($strSecHead) && !empty($strSecSecretary))
+			if(!empty($strExec) && !empty($strService) && !empty($strDivision) && !empty($strSecCode) && !empty($strSecName) && !empty($strSecHead))
 			{	
 				// check if exam code and/or exam desc already exist
 				if(count($this->org_structure_model->checkSection($strSecCode, $strSecName))==0)
@@ -492,7 +492,7 @@ class Org_structure extends MY_Controller {
 			$strSecHead= $arrPost['strSecHead'];
 			$strSecHeadTitle= $arrPost['strSecHeadTitle'];
 			$strSecSecretary= $arrPost['strSecSecretary'];
-			if(!empty($strExec) AND !empty($strService) AND !empty($strDivision) AND !empty($strSecCode) AND !empty($strSecName) AND !empty($strSecHead) AND !empty($strSecHeadTitle)  AND !empty($strSecSecretary)) 
+			if(!empty($strExec) AND !empty($strService) AND !empty($strDivision) AND !empty($strSecCode) AND !empty($strSecName) AND !empty($strSecHead) AND !empty($strSecHeadTitle)) 
 			{
 				$arrData = array(
 					'group1Code'=>$strExec,

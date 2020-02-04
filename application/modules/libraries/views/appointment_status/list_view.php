@@ -61,7 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th> Appointment Description </th>
                             <th> Leave Entitled? </th>
                             <th> Included in Plantilla? </th>
-                            <th style="width: 180px;text-align:center;"> Actions </th
+                            <th  class="no-sort" style="width: 180px;text-align:center"> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
