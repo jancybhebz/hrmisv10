@@ -65,11 +65,36 @@ class Home_model extends CI_Model {
 		$this->db->join('tblEmpPosition','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','inner');
 		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		if($strAppStatus!='')
-			$this->db->where('tblEmpPosition.appointmentCode',$strAppStatus);
+		{
+			if($strAppStatus =='P')
+			{ 
+				$this->load->model('Hr_model');
+				$arrAppStatus = $this->Hr_model->getpayrollprocess();
+				$arrPerm = explode(',', $arrAppStatus[0]['processWith']);
+				//$arrPerm = implode("','", $arrPerm);
+				// $arrAppStatus = $this->getpayrollprocess($strAppStatus);
+				//print_r($arrPerm);
+				$this->db->where_in("appointmentCode",$arrPerm);
+			}else{
+				$this->db->where('tblEmpPosition.appointmentCode',$strAppStatus);
+			}
+		}
 		$this->db->order_by('tblEmpPersonal.surname asc, tblEmpPersonal.firstname asc,tblEmpPersonal.middlename asc');
 		$objQuery = $this->db->get('tblEmpPersonal');
 		//echo $this->db->last_query();exit(1);
 		return $objQuery->result_array();
+	}
+
+	function getpayrollprocessx($strAppStatus)
+	{
+		if($strAppStatus=='P')
+		{
+			$this->db->select('processWith');
+			$this->db->from('tblPayrollProcess');
+			$this->db->where('appointmentCode',$strAppStatus);
+			$subQuery = $this->db->_compile_select();
+		}
+		return $subQuery->result_array();
 	}
 
 }
