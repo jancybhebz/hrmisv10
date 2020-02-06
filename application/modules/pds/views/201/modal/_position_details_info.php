@@ -147,8 +147,14 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Authorize Salary</label>
                                 <div class="col-md-8">
+                                 <?php if ($arrPosition[0]['appointmentCode']=='P')
+                                    { ?>
                                     <input type="text" name="txtauthorized_salary" class="form-control" 
+                                        value="<?=isset($arrPosition) ? number_format($arrPosition[0]['authorizeSalary'],2) : ''?>" disabled>
+                                    <?php } else { ?>
+                                         <input type="text" name="txtauthorized_salary" class="form-control" 
                                         value="<?=isset($arrPosition) ? number_format($arrPosition[0]['authorizeSalary'],2) : ''?>" >
+                                    <?php } ?>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -279,7 +285,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control bs-select" name="selper_action" value="<?=!empty($arrPosition['personnelAction'])?$arrPosition['personnelAction']:''?>">
                                     <!-- value="<?=$arrPosition[0]['personnelAction']?> -->
-                                        <option value=""></option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == '' ) echo 'selected' ; ?> value=""></option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Promotion' ) echo 'selected' ; ?> value="Promotion">Promotion</option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Original' ) echo 'selected' ; ?> value="Original">Original</option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Transfer' ) echo 'selected' ; ?> value="Transfer">Transfer</option>
