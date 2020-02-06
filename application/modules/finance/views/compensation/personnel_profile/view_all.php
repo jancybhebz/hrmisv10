@@ -51,7 +51,12 @@
                                     <tr class="odd gradeX ">
                                         <td><?=$no++?> </td>
                                         <td> <?=$row['empNumber']?></a> </td>
-                                        <td> <?=$row['surname'].', '.$row['firstname'].' '.$row['middleInitial'].' '.$row['nameExtension'].'.'?> </td>
+                                        <?php if($row['middleInitial']=="") 
+                                            {
+                                                echo '<td>'.$row['surname'].', '.$row['firstname'].'</td>'; ?>
+                                            <?php } else {
+                                                 echo '<td>'.$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'.' '.$row['nameExtension'].'</td>'; ?>
+                                            <?php } ?>
                                         <td> <?=employee_office($row['empNumber'])?> </td>
                                         <td> <?=$row['positionDesc']?></td>
                                         <td style="text-align: center;"> <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$row['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>

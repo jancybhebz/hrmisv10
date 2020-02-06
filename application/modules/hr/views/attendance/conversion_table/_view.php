@@ -146,7 +146,7 @@
                                                                 <tr>
                                                                     <td><?=number_format($i['daysp1'], 2)?></td>
                                                                     <td><?=number_format($i['dayslwop1'], 2)?></td>
-                                                                    <td><?=number_format($i['dayscredit1'], 2)?></td>
+                                                                    <td><?=number_format($i['dayscredit1'], 3)?></td>
                                                                 </tr>
                                                                 <?php endforeach; ?>
                                                             </tbody>
@@ -167,7 +167,7 @@
                                                                 <tr>
                                                                     <td><?=number_format($i['daysp2'], 2)?></td>
                                                                     <td><?=number_format($i['dayslwop2'], 2)?></td>
-                                                                    <td><?=number_format($i['dayscredit2'], 2)?></td>
+                                                                    <td><?=number_format($i['dayscredit2'], 3)?></td>
                                                                 </tr>
                                                                 <?php endforeach; ?>
                                                             </tbody>
