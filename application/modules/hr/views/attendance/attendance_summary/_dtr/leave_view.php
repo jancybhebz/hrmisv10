@@ -22,7 +22,7 @@
                             <div class="col-md-12">
                                 <small>
                                     <div class="well">
-                                        <b>Certify Leave Credits as of <?=$certify_date?></b>&nbsp;
+                                        <b>Certified Leave Credits as of <?=$certify_date?></b>&nbsp;
                                         <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> view</a>
                                         <div class="collapse" id="collapseExample">
                                             <p></p>

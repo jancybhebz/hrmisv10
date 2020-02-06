@@ -63,19 +63,19 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Year Graduated</label>
                     <div class="col-md-8">
-                        <input type="number" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
-                        <span class="help-block"></span>
+                            <input type="text" name="txtyrgraduate" id="txtyrgraduate" class="form-control">
+                            <span class="help-block"></span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Period of Attendance</label>
-                    <div class="col-md-9">
-                        <div class="input-group input-large input-daterange" id="attperiod" style="width: 88% !important;">
-                            <input type="number" maxlength="5" class="form-control" name="txtperiodatt_from" id="txtperiodatt_from" placeholder="YYYY">
-                            <span class="input-group-addon"> to </span>
-                            <input type="number" maxlength="5" class="form-control" name="txtperiodatt_to" id="txtperiodatt_to" placeholder="YYYY">
-                        </div>
-                        <span class="help-block"></span>
+                 <div class="form-group">
+                    <label class="col-md-3 control-label">Period of Attendance </label>
+                    <div class="col-md-4">
+                            <input type="text" name="txtperiodatt_from" id="txtperiodatt_from" class="form-control" placeholder="From">
+                            <span class="help-block"></span>
+                    </div>
+                    <div class="col-md-4">
+                            <input type="text" name="txtperiodatt_to" id="txtperiodatt_to" class="form-control" placeholder="To">
+                            <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -145,17 +145,3 @@
 </div>
 <!-- end education  -->
 <?=load_plugin('js',array('select','select2','datepicker'));?>
-
-<script>
-    $(document).ready(function() {
-        $('#attperiod,#txtyrgraduate').datepicker( {
-            format: ' yyyy',
-            viewMode: 'years',
-            minViewMode: 'years'
-        });
-        $('#txtperiodatt_from,#txtperiodatt_to,#txtyrgraduate').on('changeDate', function(){
-            $(this).datepicker('hide');
-        });
-
-    });
-</script>

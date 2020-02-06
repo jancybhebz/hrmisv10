@@ -77,7 +77,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">No of Day(s) applied <span class="required"> * </span><br><small><i>Note : Weekends and holidays not included</i></small></label>
+                                    <label class="control-label">No. of Day(s) applied <span class="required"> * </span><br><small><i>Note : Weekends and holidays not included</i></small></label>
                                     <div class="input-icon right">
                                         <input type="text" class="form-control form-required" value="<?=isset($arremp_leave) ? $noofdays : ''?>" id="txtleave_noofdays" readonly>
                                     </div>
