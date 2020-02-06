@@ -11,7 +11,7 @@ class Dtrkiosk_model extends CI_Model {
 	function get_present_employees()
 	{
 		$this->db->order_by('surname');
-		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial,inAM,outAM,inPM,outPM');
+		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial,nameExtension,inAM,outAM,inPM,outPM');
 		$this->db->join('tblEmpPersonal',' tblEmpPersonal.empNumber = tblEmpDTR.empNumber','left');
 		$res = $this->db->get_where('tblEmpDTR', array('dtrDate' => date('Y-m-d')))->result_array();
 		
@@ -24,7 +24,7 @@ class Dtrkiosk_model extends CI_Model {
 		$emp_dtr = $this->db->select('empNumber')->get_where('tblEmpDTR', array('dtrDate' => date('Y-m-d')))->result_array();
 
 		$this->db->order_by('surname');
-		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial');
+		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial,nameExtension');
 		$this->db->join('tblEmpPersonal',' tblEmpPersonal.empNumber = tblEmpPosition.empNumber','left');
 		if(count($emp_dtr) > 0):
 			$this->db->where_not_in('tblEmpPosition.empNumber', array_column($emp_dtr,'empNumber'));
@@ -37,7 +37,7 @@ class Dtrkiosk_model extends CI_Model {
 	function get_ob_employees()
 	{
 		$this->db->group_by('tblEmpOB.empNumber');
-		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial');
+		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial,nameExtension');
 		$this->db->join('tblEmpPersonal',' tblEmpPersonal.empNumber = tblEmpOB.empNumber','left');
 		$this->db->where("'".date('Y-m-d')."' >= obDateFrom");
 		$this->db->where("'".date('Y-m-d')."' <= obDateTo");
@@ -49,7 +49,7 @@ class Dtrkiosk_model extends CI_Model {
 	function get_leave_employees()
 	{
 		$this->db->group_by('tblEmpLeave.empNumber');
-		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial');
+		$this->db->select('tblEmpPersonal.empNumber,surname,firstname,middlename,middleInitial,nameExtension');
 		$this->db->join('tblEmpPersonal',' tblEmpPersonal.empNumber = tblEmpLeave.empNumber','left');
 		$this->db->where("'".date('Y-m-d')."' >= leaveFrom");
 		$this->db->where("'".date('Y-m-d')."' <= leaveTo");

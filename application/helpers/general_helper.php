@@ -60,14 +60,14 @@ if ( ! function_exists('employee_name'))
     function employee_name($strEmpNo)
     {
 		$CI =& get_instance();
-		$res = $CI->db->select('surname,firstname,middlename,middleInitial')->get_where('tblEmpPersonal', array('empNumber' => $strEmpNo))->result_array();
+		$res = $CI->db->select('surname,firstname,middlename,middleInitial,nameExtension')->get_where('tblEmpPersonal', array('empNumber' => $strEmpNo))->result_array();
         if(count($res) > 0):
             $middlename = $res[0]['middlename'] == '' ? ' ' : $res[0]['middlename'];
 			$mid_ini = $res[0]['middleInitial']!='' ? str_replace('.', '', $res[0]['middleInitial']) : $middlename != '' ? $middlename[0] : '';
 	    	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
 	    	$mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.';
 	    	// return utf8_decode($res[0]['surname'].', '.$res[0]['firstname'].' '.$mid_ini);
-            return $res[0]['surname'].', '.$res[0]['firstname'].' '.$mid_ini;
+            return $res[0]['surname'].', '.$res[0]['firstname'].' '.$mid_ini.' '.$res[0]['nameExtension'];
 	    else:
 	    	return '';
 	    endif;
@@ -220,7 +220,7 @@ if ( ! function_exists('getfullname'))
     	$mid_ini = $mid_ini!='' ? $mid_ini.'.' : '';
     	$mid_ini = $mid_ini != '' ? strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.' : '';
     	$ext = $ext!='' ? $ext.' ': '';
-    	$fullname = ucwords($ext.$lname.$fname.' '.$mid_ini);
+    	$fullname = ucwords($lname.' '.$fname.' '.$mid_ini.' '.$ext);
         return $fullname;
 	}
 }
@@ -235,7 +235,7 @@ if ( ! function_exists('fix_fullname'))
         $mid_ini = $mid_ini!='' ? $mid_ini.'. ' : '';
         $mid_ini = $mid_ini != '' ? strpos($mid_ini, '.') ? $mid_ini : $mid_ini.'.' : '';
         $ext = $ext!='' ? $ext.' ': '';
-        $fullname = ucwords($ext.$fname.' '.$mid_ini.$lname);
+        $fullname = ucwords($lname.', '.$fname.' '.$mid_ini.' '.$ext);
         return $fullname;
     }
 }

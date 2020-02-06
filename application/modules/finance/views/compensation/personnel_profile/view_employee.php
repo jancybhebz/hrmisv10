@@ -26,7 +26,7 @@
             switch (check_module()):
                 case 'hr':
                 case 'finance':
-                    $breadcrumbs = array('Home','Compensation','Personnel Profile',ucwords($page_name),getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],''));
+                    $breadcrumbs = array('Home','Compensation','Personnel Profile',ucwords($page_name),getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],$arrData['nameExtension'],''));
                     break;
                 default:
                     $breadcrumbs = array('Home','Compensation',ucwords($page_name));

@@ -53,7 +53,7 @@
                                     <tr>
                                         <td><?=$no++?></td>
                                         <td><?=$employee['empNumber']?></td>
-                                        <td><?=getfullname($employee['surname'], $employee['firstname'], $employee['middlename'], $employee['middleInitial'])?></td>
+                                        <td><?=getfullname($employee['firstname'], $employee['surname'], $employee['middlename'], $employee['middleInitial'], $employee['nameExtension'])?></td>
                                         <td><?=$employee['positionDesc']?></td>
                                         <td style="text-align: center;"> <a href="<?=base_url('finance/compensation/personnel_profile/employee').'/'.$employee['empNumber']?>" class="btn btn-sm blue"> <i class="fa fa-eye"></i>  View</a></td>
                                     </tr>

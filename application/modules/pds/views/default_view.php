@@ -100,7 +100,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     {
                                         echo '<td>'.$row['surname'].', '.$row['firstname'].'</td>'; ?>
                                     <?php } else {
-                                         echo '<td>'.$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'.'</td>'; ?>
+                                         echo '<td>'.$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'.' '.$row['nameExtension'].'</td>'; ?>
                                     <?php } ?>
                            
                                     <td> <?=employee_office($row['empNumber'])?> </td>

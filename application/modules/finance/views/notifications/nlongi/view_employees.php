@@ -55,7 +55,7 @@
                                     <tr>
                                         <td><?=$no++?></td>
                                         <td><?=$employee['empNumber']?></td>
-                                        <td><?=getfullname($employee['surname'], $employee['firstname'], $employee['middlename'], $employee['middleInitial'])?></td>
+                                        <td><?=getfullname($employee['firstname'], $employee['surname'], $employee['middlename'], $employee['middleInitial'], $employee['nameExtension'])?></td>
                                         <td style="text-align: center;"><?=$employee['longiFactor']?>%</td>
                                         <td style="text-align: center;"><?=$employee['difYear']?>%</td>
                                         <td style="text-align: center;"><?=$employee['dateofIncrease']?></td>

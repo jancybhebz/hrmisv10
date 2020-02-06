@@ -77,7 +77,7 @@ class Dtr extends MY_Controller {
 			$this->fpdf->Cell(50,5,date('M. d, Y', strtotime($datefrom)).' - '.date('M. d, Y', strtotime($dateto)),'TR',1,'L');
 
 			$this->fpdf->Cell(27,5,'Employee Name:','L',0,'L');
-			$this->fpdf->Cell(93,5,$empdata['surname'].', '.$empdata['firstname'].' '.$empdata['middlename'],0,0,'L');
+			$this->fpdf->Cell(93,5,$empdata['surname'].', '.$empdata['firstname'].' '.$empdata['middlename'].' '.$empdata['nameExtension'],0,0,'L');
 			$this->fpdf->Cell(20,5,'Official Time:',0,0,'L');
 			$this->fpdf->Cell(50,5,date('h:i',strtotime($emp_att_scheme['amTimeinFrom'])).' - '.date('h:i',strtotime($emp_att_scheme['pmTimeoutTo'])),'R',1,'L');
 
@@ -254,7 +254,7 @@ class Dtr extends MY_Controller {
 		else:
 			$this->fpdf->SetTextColor(255, 85, 0);
 			$this->fpdf->Ln(15);
-			$this->fpdf->Cell(0, 5,"Attendance Scheme for ".getfullname($empdata['firstname'], $empdata['surname'], $empdata['middlename'])." is not yet set.", 0, 1, "C");
+			$this->fpdf->Cell(0, 5,"Attendance Scheme for ".getfullname($empdata['firstname'], $empdata['surname'], $empdata['middlename'], $empdata['nameExtension'])." is not yet set.", 0, 1, "C");
 			$this->fpdf->Ln(2);
 		endif;
 

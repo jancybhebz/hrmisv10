@@ -89,7 +89,7 @@ class Hr_model extends CI_Model {
 			$this->db->where('tblEmpPersonal.empNumber',$strEmpNo);
 			//$where .= " AND tblEmpPersonal.empNumber='".$strEmpNo."'";
 		if($strSearch!="")
-			$this->db->where("(tblEmpPersonal.empNumber LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%' OR firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%')",NULL,FALSE);
+			$this->db->where("(tblEmpPersonal.empNumber LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%' OR firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%' OR nameExtension LIKE '%".$strSearch."%')",NULL,FALSE);
 			//$where .= " AND (tblEmpPersonal.empNumber LIKE '%".$strSearch."%' OR surname LIKE '%".$strSearch."%' OR firstname LIKE '%".$strSearch."%' OR middlename LIKE '%".$strSearch."%')";
 		if($strAppStatus=="all"):
 			# fetch all services

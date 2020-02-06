@@ -40,7 +40,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'])?></span>
+            <span><?=getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],$arrData['nameExtension'])?></span>
         </li>
         <?php endif; ?>
     </ul>
@@ -92,7 +92,7 @@
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-9 profile-info">
-                                                <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['firstname'], $arrData['surname'],$arrData['middlename'], $arrData['middleInitial'],'')?></h1>
+                                                <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['surname'], $arrData['firstname'],$arrData['middlename'], $arrData['middleInitial'], $arrData['nameExtension'],'')?></h1>
                                                 <div class="row">
                                                     <table class="table table-bordered table-striped">
                                                         <tbody>
