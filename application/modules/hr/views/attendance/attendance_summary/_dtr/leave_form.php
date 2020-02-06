@@ -34,9 +34,8 @@
                             <div class="col-md-4">
                                 <div class="loading-image-small"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                                 <div class="form-group">
-                                    <label class="control-label">Specific Type of Leave <span class="required"> * </span></label>
+                                    <label class="control-label">Type of Leave <span class="required"> * </span></label>
                                     <div class="input-icon right">
-                                        <i class="fa fa-warning tooltips i-required"></i>
                                         <select class="bs-select form-control form-required" name="sel_spe_leave" id="sel_spe_leave">
                                             <option value="null">--</option>
                                         </select>
@@ -78,7 +77,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">No of Day(s) applied <br><span class="required"> * <small><i>Weekends and holidays not included</i></small></span></label>
+                                    <label class="control-label">No of Day(s) applied <span class="required"> * </span><br><small><i>Note : Weekends and holidays not included</i></small></label>
                                     <div class="input-icon right">
                                         <input type="text" class="form-control form-required" value="<?=isset($arremp_leave) ? $noofdays : ''?>" id="txtleave_noofdays" readonly>
                                     </div>
@@ -89,7 +88,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Specific Reason <span class="required"> * </span></label>
+                                    <label class="control-label">Specify Reason <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <textarea class="form-control form-required" name="txtleave_reason" id="txtleave_reason"><?=isset($arremp_leave) ? $arremp_leave['reason'] : ''?></textarea>
                                     </div>
