@@ -709,6 +709,7 @@ class Pds extends MY_Controller
 	public function edit_position_details()
 	{
 	    $empid = $this->uri->segment(3);
+	    $this->arrData['arrPositionDesc']=$this->pds_model->getPosition($strEmpNumber);
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
@@ -732,13 +733,15 @@ class Pds extends MY_Controller
 					// plantilla details							
 							'uniqueItemNumber' => $arrPost['txtunique_itemno'],
 							'itemNumber' 	   => $arrPost['sel_plantilla'],
+							'positionCode' 	   => $arrPost['txtplant_pos'],
 							// 'actualSalary' 	   => $arrPost['txtactual_salary'],
 							// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
 							'positionDate' 	   => $arrPost['txtposition_date'],
 							'salaryGradeNumber'=> $arrPost['txtsalary_grade'],
 							'stepNumber' 	   => $arrPost['selStep_number'],
 							'dateIncremented'  => $arrPost['txt_date_inc']);
-
+			// print_r($arrData);
+			// exit(1);
 			$this->pds_model->save_position($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Position details updated successfully.');
 			redirect('hr/profile/'.$empid);
