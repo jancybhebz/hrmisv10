@@ -206,7 +206,7 @@
         $('.date-picker').datepicker();
         $('.select2').select2({placeholder: "",allowClear: true});
 
-       $("#chkpresent").click(function () {
+         $("#chkpresent").click(function () {
           $('#txtdto').attr("disabled", $(this).is(":checked"));
        });
 

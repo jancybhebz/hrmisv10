@@ -393,8 +393,9 @@ class Pds extends MY_Controller
 			$arrData = array(
 							'empNumber' 	  => $empid,
 							'serviceFromDate' => $arrPost['txtdfrom'],
-							'serviceToDate'   => $arrPost['txtdto'],
+							'serviceToDate'   => isset($arrPost['txtdto']) ? $arrPost['txtdto'] : '',
 							'tmpServiceToDate'=> isset($arrPost['chkpresent']) ? 'Present' : '',
+							// 'serviceToDate'   => $arrPost['txtdto'],
 							// 'positionCode' 	  => $arrPost['txtposition_code'],
 							'positionDesc' 	  => $arrPost['txtposition'],
 							'salary' 		  => $arrPost['txtsalary'],
@@ -426,8 +427,9 @@ class Pds extends MY_Controller
 		if(!empty($arrPost)):
 			$arrData = array(
 							'serviceFromDate' => $arrPost['txtdfrom'],
-							'serviceToDate'   => $arrPost['txtdto'],
+							'serviceToDate'   => isset($arrPost['txtdto']) ? $arrPost['txtdto'] : '',
 							'tmpServiceToDate'=> isset($arrPost['chkpresent']) ? 'Present' : '',
+							// 'serviceToDate'   => $arrPost['txtdto'],
 							// 'positionCode' 	  => $arrPost['txtposition_code'],
 							'positionDesc' 	  => $arrPost['txtposition'],
 							'salary' 		  => $arrPost['txtsalary'],

@@ -30,16 +30,19 @@
                     <tr>
                         <th>From</th>
                         <th>To</th>
-                    </tr>tmpServiceToDate
+                    </tr>
                 </thead>
                 <tbody>
                     <?php $no=1; foreach($arrService as $srvc):?>
                         <tr>
                             <td align="center"><?=$no++?></td>
                             <td style="text-align: center;" nowrap><?=$srvc['serviceFromDate']?></td>
-                            <?php if($srvc['serviceToDate']=='')
+                            <?php if($srvc['serviceToDate']==''  && $srvc['tmpServiceToDate']=='')
                             {
-                                echo '<td> Present </td>';
+                                echo '<td> 0000-00-00 </td>';
+                            }elseif($srvc['serviceToDate']=='' && $srvc['tmpServiceToDate']=='Present')
+                            {
+                                 echo '<td>Present</td>';
                             }else{?>
                                 <td style="text-align: center;" nowrap><?=$srvc['serviceToDate']?></td>
                             <?php } ?>
@@ -117,13 +120,21 @@
             $('#txtdfrom').val(jsondata.serviceFromDate);
             $('#txtdto').val(jsondata.serviceToDate);
              // console.log(jsondata.tmpServiceToDate);
-            if(jsondata.tmpServiceToDate == "Present" && jsondata.serviceToDate == "Present"){
+            if(jsondata.tmpServiceToDate == "Present"){
                 console.log('Present');
                 $('input#chkpresent').prop('checked', 'checked').uniform('refresh');
             }else{
                 console.log('not present');
                 $('input#chkpresent').removeAttr('checked').uniform('refresh');
             }
+
+            // if(jsondata.tmpServiceToDate == "Present" && jsondata.serviceToDate == "Present"){
+            //     console.log('Present');
+            //     $('input#chkpresent').prop('checked', 'checked').uniform('refresh');
+            // }else{
+            //     console.log('not present');
+            //     $('input#chkpresent').removeAttr('checked').uniform('refresh');
+            // }
             $('#txtposition').val(jsondata.positionDesc);
             $('#txtoffice').val(jsondata.stationAgency);
             $('#txtsalary').val(jsondata.salary);
