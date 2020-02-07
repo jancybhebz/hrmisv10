@@ -30,14 +30,19 @@
                     <tr>
                         <th>From</th>
                         <th>To</th>
-                    </tr>
+                    </tr>tmpServiceToDate
                 </thead>
                 <tbody>
                     <?php $no=1; foreach($arrService as $srvc):?>
                         <tr>
                             <td align="center"><?=$no++?></td>
                             <td style="text-align: center;" nowrap><?=$srvc['serviceFromDate']?></td>
-                            <td style="text-align: center;" nowrap><?=$srvc['serviceToDate']?></td>
+                            <?php if($srvc['serviceToDate']=='')
+                            {
+                                echo '<td> Present </td>';
+                            }else{?>
+                                <td style="text-align: center;" nowrap><?=$srvc['serviceToDate']?></td>
+                            <?php } ?>
                             <td style="text-align: center;"><?=$srvc['positionDesc']?></td>
                             <td style="text-align: center;"><?=$srvc['stationAgency']?></td>
                             <td style="text-align: center;"><?=number_format($srvc['salary'],2)?></td>
