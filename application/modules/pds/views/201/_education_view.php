@@ -120,6 +120,20 @@
             $('#txtperiodatt_to').val(jsondata.schoolToDate);
             $('#txtunits').val(jsondata.units);
 
+             if(jsondata.licensed == 'Y'){
+                $('div.radio-list').find('#optlicense_y').attr('checked', 'checked');
+                $('div.radio-list').find('#optlicense_y').parent().addClass('checked');
+
+                $('div.radio-list').find('#optlicense_n').attr('checked', '');
+                $('div.radio-list').find('#optlicense_n').parent().removeClass('checked');
+            }else{
+                $('div.radio-list').find('#optlicense_n').attr('checked', 'checked');
+                $('div.radio-list').find('#optlicense_n').parent().addClass('checked');
+
+                $('div.radio-list').find('#optlicense_y').attr('checked', '');
+                $('div.radio-list').find('#optlicense_y').parent().removeClass('checked');
+            }
+
             if(jsondata.graduated == 'Y'){
                 $('div.radio-list').find('#optgraduate_y').attr('checked', 'checked');
                 $('div.radio-list').find('#optgraduate_y').parent().addClass('checked');
@@ -132,20 +146,6 @@
 
                 $('div.radio-list').find('#optgraduate_y').attr('checked', '');
                 $('div.radio-list').find('#optgraduate_y').parent().removeClass('checked');
-            }
-
-            if(jsondata.licensed == 'Y'){
-                $('div.radio-list').find('#optlicense_y').attr('checked', 'checked');
-                $('div.radio-list').find('#optlicense_y').parent().addClass('checked');
-
-                $('div.radio-list').find('#optlicense_n').attr('checked', '');
-                $('div.radio-list').find('#optlicense_n').parent().removeClass('checked');
-            }else{
-                $('div.radio-list').find('#optlicense_n').attr('checked', 'checked');
-                $('div.radio-list').find('#optlicense_n').parent().addClass('checked');
-
-                $('div.radio-list').find('#optlicense_y').attr('checked', '');
-                $('div.radio-list').find('#optlicense_y').parent().removeClass('checked');
             }
 
             $('#txteducid').val(jsondata.SchoolIndex);

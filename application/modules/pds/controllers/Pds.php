@@ -250,8 +250,8 @@ class Pds extends MY_Controller
     						'schoolToDate'	=> $arrPost['txtperiodatt_to'],
     						'ScholarshipCode'=>$arrPost['selscholarship'],
     						'honors'		=> $arrPost['txthonors'],
-    						'licensed'		=> isset($arrPost['optgraduate']) ? $arrPost['optgraduate'] : '',
-    						'graduated'		=> isset($arrPost['optlicense']) ? $arrPost['optlicense'] : '');
+    						'licensed'		=> isset($arrPost['optlicense']) ? $arrPost['optlicense'] : '',
+    						'graduated'		=> isset($arrPost['optgraduate']) ? $arrPost['optgraduate'] : '');
     		$this->pds_model->add_educ($arrData);
     		$this->session->set_flashdata('strSuccessMsg','Education information added successfully.');
     		redirect('hr/profile/'.$empid);
@@ -273,8 +273,10 @@ class Pds extends MY_Controller
     						'schoolToDate'	=> $arrPost['txtperiodatt_to'],
     						'ScholarshipCode'=>$arrPost['selscholarship'],
     						'honors'		=> $arrPost['txthonors'],
-    						'licensed'		=> isset($arrPost['optgraduate']) ? $arrPost['optgraduate'] : '',
-    						'graduated'		=> isset($arrPost['optlicense']) ? $arrPost['optlicense'] : '');
+    						'licensed'		=> isset($arrPost['optlicense']) ? $arrPost['optlicense'] : '',
+    						'graduated'		=> isset($arrPost['optgraduate']) ? $arrPost['optgraduate'] : '');
+   //  		print_r($arrData);
+			// exit(1);
     		$this->pds_model->save_educ($arrData,$arrPost['txteducid']);
     		$this->session->set_flashdata('strSuccessMsg','Education information updated successfully.');
     		redirect('hr/profile/'.$empid);
