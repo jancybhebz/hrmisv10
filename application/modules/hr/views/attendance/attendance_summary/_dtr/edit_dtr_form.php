@@ -57,17 +57,17 @@
                                         data-original-title="<?=date('l', strtotime($dtr['dtrdate']))?>">
                                         <td><?=date('M d', strtotime($dtr['dtrdate']))?>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=$in_am?></div></td>
+                                            <div class="tdedit" contenteditable id="dtrEdit1" data-maxlength="5" data-minlength="5" onkeypress="return Validate(event);" ><?=$in_am?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=$out_am?></div></td>
+                                            <div class="tdedit" contenteditable id="dtrEdit2" data-maxlength="5" data-minlength="5" onkeypress="return Validate(event);" ><?=$out_am?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=$in_pm?></div></td>
+                                            <div class="tdedit" contenteditable id="dtrEdit3" data-maxlength="5" data-minlength="5" onkeypress="return Validate(event);" ><?=$in_pm?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=$out_pm?></div></td>
+                                            <div class="tdedit" contenteditable id="dtrEdit4" data-maxlength="5" data-minlength="5" onkeypress="return Validate(event);" ><?=$out_pm?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=$in_ot?></div></td>
+                                            <div class="tdedit" contenteditable id="dtrEdit5" data-maxlength="5" data-minlength="5" onkeypress="return Validate(event);" ><?=$in_ot?></div></td>
                                         <td>
-                                            <div class="tdedit" contenteditable><?=$out_ot?></div></td>
+                                            <div class="tdedit" contenteditable id="dtrEdit6" data-maxlength="5" data-minlength="5" onkeypress="return Validate(event);" ><?=$out_ot?></div></td>
                                         <td style="text-align: left;">
                                             <?php 
                                                 if(count($dtr['holiday_name']) > 0):
@@ -160,3 +160,28 @@
 
 <?=$this->load->view('modals/_dtr_modal.php')?>
 <script src="<?=base_url('assets/js/custom/dtr_view-js.js')?>"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+        $('#dtrEdit1,#dtrEdit2,#dtrEdit3,#dtrEdit4,#dtrEdit5,#dtrEdit6').keyup(function(){
+            var limit = parseInt($(this).attr('data-maxlength'));
+            var minlimit = parseInt($(this).attr('data-minlength'));
+            var text = $(this).html();
+            var chars = text.length;
+            if(chars >= limit){
+                $('#error').show();
+                var new_text = text.substr(0,limit);
+                $(this).html(new_text);
+            }
+        });
+    });
+
+function Validate(event) {
+        var regex = new RegExp("^[0-9-!@#$%&*?:]");
+        var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    } 
+</script>
