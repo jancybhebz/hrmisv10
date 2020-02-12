@@ -34,7 +34,7 @@
                             <div class="col-md-4">
                                 <div class="loading-image-small"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                                 <div class="form-group">
-                                    <label class="control-label">Type of Leave <span class="required"> * </span></label>
+                                    <label class="control-label">Specific Type of Leave <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <select class="bs-select form-control form-required" name="sel_spe_leave" id="sel_spe_leave">
                                             <option value="null">--</option>
@@ -48,9 +48,9 @@
                             <div class="col-md-12" style="margin-left: -22px;">
                                 <div class="form-group">
                                     <label class="radio-inline">
-                                        <input type="radio" name="radleave" value="1" <?=isset($arrem_ob) ? $arrem_ob['official'] == 'Y' ? 'checked' : '' : 'checked'?>> Whole Day </label>
+                                        <input type="radio" name="radleave" value="1" id="radleave_y" <?=isset($arremp_leave) ? $arremp_leave['leaveCode'] == 'Y' ? 'checked' : '' : 'checked'?>> Whole Day </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="radleave" value="0" <?=isset($arrem_ob) ? $arrem_ob['official'] == 'N' ? 'checked' : '' : ''?>> Half Day </label>
+                                        <input type="radio" name="radleave" value="0" id="radleave_n" <?=isset($arremp_leave) ? $arremp_leave['leaveCode'] == 'N' ? 'checked' : '' : ''?>> Half Day </label>
                                 </div>
                             </div>
                         </div>

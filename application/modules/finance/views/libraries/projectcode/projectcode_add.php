@@ -55,7 +55,7 @@
                                     <label class="control-label">Project Order <span class="required"> * </span></label>
                                     <div class="input-icon right">
                                         <input type="text" class="form-control form-required" name="txtorder" id="txtorder" <?=$action == 'delete' ? 'disabled' : ''?>
-                                            maxlength="11" value="<?=isset($data) ? $data['projectOrder'] : set_value('txtorder')?>">
+                                            maxlength="10" value="<?=isset($data) ? $data['projectOrder'] : set_value('txtorder')?>">
                                     </div>
                                 </div>
                                 <div class="row">

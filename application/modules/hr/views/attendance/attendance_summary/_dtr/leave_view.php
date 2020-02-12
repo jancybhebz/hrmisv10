@@ -45,7 +45,7 @@
                             <thead>
                                 <th>No</th>
                                 <th>Type of Leave</th>
-                                <th style="text-align: center;">Whole/Half Day</th>
+                                <!-- <th style="text-align: center;">Whole/Half Day</th> -->
                                 <th style="text-align: center;">Date From</th>
                                 <th style="text-align: center;">Date To</th>
                                 <th style="text-align: center;">Day(s) Applied</th>
@@ -57,13 +57,13 @@
                                 <tr>
                                     <td align="center"><?=$no++?></td>
                                     <td><?=$leave['leaveType']?></td>
-                                    <td align="center"><?=$leave['leaveCode'][0] == 'H' ? 'Yes' : ''?></td>
+                                    <!-- $leave['leaveCode'][0] == 'H' ? 'Yes' : '' -->
                                     <td align="center"><?=$leave['leaveFrom']?></td>
                                     <td align="center"><?=$leave['leaveTo']?></td>
                                     <td align="center"><?=((strtotime($leave['leaveTo']) - strtotime($leave['leaveFrom'])) / 86400) + 1?></td>
                                     <td><?=$leave['reason']?></td>
                                     <td style="text-align: center;white-space: nowrap !important;">
-                                        <a href="<?=base_url('hr/attendance_summary/dtr/leave_edit/'.$this->uri->segment(5).'?id='.$leave['leaveID'])?>" class="btn green btn-sm"> <i class="fa fa-pencil"></i> Edit</a>
+                                        <a href="<?=base_url('hr/attendance_summary/dtr/leave_edit/'.$this->uri->segment(5).'?id='.$leave['leaveID'])?>" class="btn green btn-sm btnedit_leave"> <i class="fa fa-pencil"></i> Edit</a>
                                         <button class="btn red btn-sm btn-delete" data-id="<?=$leave['leaveID']?>">
                                             <i class="fa fa-trash"></i> Delete</button>
                                     </td>
@@ -117,4 +117,5 @@
             $('#modal-deleteLeave').modal('show');
         });
     });
+
 </script>
