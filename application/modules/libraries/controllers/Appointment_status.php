@@ -103,7 +103,7 @@ class Appointment_status extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAppointment','Edited '.$strAppointmentDesc.' Appointment status',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Appointment status saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Appointment status updated successfully.');
 				}
 				redirect('libraries/appointment_status');
 			}

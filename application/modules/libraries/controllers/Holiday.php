@@ -91,7 +91,7 @@ class Holiday extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Edited '.$strHolidayCode.' Holiday',implode(';',$arrData),'');
-					$this->session->set_flashdata('strSuccessMsg','Holiday saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Holiday updated successfully.');
 				}
 				redirect('libraries/holiday');
 			}

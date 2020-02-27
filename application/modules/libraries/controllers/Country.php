@@ -93,7 +93,7 @@ class Country extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCountry','Edited '.$strCountryName.' Country',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Country saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Country updated successfully.');
 				}
 				redirect('libraries/country');
 			}

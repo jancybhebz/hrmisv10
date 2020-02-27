@@ -182,7 +182,7 @@ class Attendance_scheme extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblAttendanceScheme','Edited '.$strSchemeName.' Attendance_scheme',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Attendance Scheme saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Attendance Scheme updated successfully.');
 				}
 				redirect('libraries/attendance_scheme');
 			}

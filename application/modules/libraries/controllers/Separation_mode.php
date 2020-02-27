@@ -91,7 +91,7 @@ class Separation_mode extends MY_Controller
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblSeparationCause','Edited '.$strMode.' Employment Status',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Employment Status saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Employment Status updated successfully.');
 				}
 				redirect('libraries/separation_mode');
 			}

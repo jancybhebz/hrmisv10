@@ -80,7 +80,7 @@ class Course extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblCourse','Edited '.$strCode.' Course',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Course saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Course updated successfully.');
 				}
 				redirect('libraries/course');
 			}

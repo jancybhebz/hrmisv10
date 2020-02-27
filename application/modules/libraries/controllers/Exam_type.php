@@ -97,7 +97,7 @@ class Exam_type extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblExamType','Edited '.$strExamDesc.' Exam Type',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Exam Type saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Exam Type updated successfully.');
 				}
 				redirect('libraries/exam_type');
 			}
