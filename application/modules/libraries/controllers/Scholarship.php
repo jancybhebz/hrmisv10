@@ -94,7 +94,7 @@ class Scholarship extends MY_Controller
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblScholarship','Edited '.$strScholarship.' Scholarship',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Scholarship saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Scholarship updated successfully.');
 				}
 				redirect('libraries/scholarship');
 			}

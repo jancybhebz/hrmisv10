@@ -97,7 +97,7 @@ class Position extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblposition','Edited '.$strPositionDescription.' Position',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Position saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Position updated successfully.');
 				}
 				redirect('libraries/position');
 			}

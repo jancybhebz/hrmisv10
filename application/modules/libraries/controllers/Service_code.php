@@ -94,7 +94,7 @@ class Service_code extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblservicecode','Edited '.$strServiceDescription.' Service_code',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Service code saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Service code updated successfully.');
 				}
 				redirect('libraries/service_code');
 			}

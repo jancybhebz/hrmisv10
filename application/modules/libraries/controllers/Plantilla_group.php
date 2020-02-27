@@ -97,7 +97,7 @@ class Plantilla_group extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblplantillagroup','Edited '.$strPlantillaGroupName.' Plantilla Group',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Plantilla Group saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Plantilla Group updated successfully.');
 				}
 				redirect('libraries/plantilla_group');
 			}

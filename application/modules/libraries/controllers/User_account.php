@@ -181,7 +181,7 @@ class User_account extends MY_Controller {
 			
 			$this->user_account_model->save($arrData, $empNumber);
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Edited '.$userName.' User_account',implode(';',$arrData),'');
-			$this->session->set_flashdata('strSuccessMsg','User Account saved successfully.');
+			$this->session->set_flashdata('strSuccessMsg','User Account updated successfully.');
 			redirect('libraries/user_account');
 
 		endif;

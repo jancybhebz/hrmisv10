@@ -97,7 +97,7 @@ class philhealth_range extends MY_Controller {
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Edited '.$strRangeFrom.' PhilHealth Range',implode(';',$arrData),'');
-					$this->session->set_flashdata('strSuccessMsg','PhilHealth Range saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','PhilHealth Range updated successfully.');
 				}
 				redirect('libraries/philhealth_range');
 			}

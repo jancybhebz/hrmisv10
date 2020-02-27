@@ -208,7 +208,7 @@ class Agency_profile extends MY_Controller {
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblagency','Edited '.$strAgencyName.' Agency_profile',implode(';',$arrData),'');
 					
-					$this->session->set_flashdata('strSuccessMsg','Agency profile saved successfully.');
+					$this->session->set_flashdata('strSuccessMsg','Agency profile updated successfully.');
 				}
 				redirect('libraries/agency_profile');
 			}
