@@ -99,14 +99,19 @@ class ListEmployeesLengthService_model extends CI_Model {
 			//$w = array(60,25,20,85);
 			$w = array(70,20,100);
 			//$Ln = array('L','C','C','C');
-			$Ln = array('L','C','C');
+			$Ln = array('C','C','C');
 			$this->fpdf->SetWidths($w);
 			$this->fpdf->SetAligns($Ln);
+
 			$firstDay=$row['firstDayGov']!="0000-00-00"?$row['firstDayGov']:"-";
 			//$this->Row(array($name,$firstDay,$total,$strOfficePosition),1);
-			$this->fpdf->FancyRow(array($name,$total,$strOfficePosition),array(1,1,1));
+			if($firstDay=="")
+			{
+				$this->fpdf->FancyRow(array($name,'None',$strOfficePosition),array(1,1,1));	
+			}else{
+				$this->fpdf->FancyRow(array($name,$total,$strOfficePosition),array(1,1,1));		
+			}
 		}
-		
 
 		/* Signatory */
 		 if($this->fpdf->GetY()>195)
