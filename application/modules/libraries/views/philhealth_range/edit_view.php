@@ -1,7 +1,6 @@
 <?php 
 /** 
 Purpose of file:    Edit page for PhilHealth Range Library
- Library
 Author:             Rose Anne Grefaldeo
 System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
@@ -92,7 +91,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="intPhId" value="<?=isset($arrPhilHealth[0]['philhealthId'])?$arrPhilHealth[0]['philhealthId']:''?>">
+                                <input type="hidden" name="intPhId" value="<?=isset($arrPhilHealth[0]['philHealthId'])?$arrPhilHealth[0]['philHealthId']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/philhealth_range')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>

@@ -49,15 +49,15 @@ class Philhealth_range_model extends CI_Model {
 	{
 		$this->db->where($this->tableid, $intPhId);
 		$this->db->update($this->table, $arrData);
-		// echo $this->db->affected_rows();
+		echo $this->db->last_query();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 	
 	function delete($intPhId)
 	{
 		$this->db->where($this->tableid, $intPhId);
-		$this->db->delete($this->table); 	
-		//echo $this->db->affected_rows();
+		$this->db->delete($this->table);
+		// echo $this->db->last_query();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

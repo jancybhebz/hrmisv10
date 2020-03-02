@@ -93,6 +93,8 @@ class philhealth_range extends MY_Controller {
 					'philSalaryBase'=>$strSalBase,
 					'philMonthlyContri'=>$intTotalContri
 				);
+				// print_r($arrData);
+				// exit(1);
 				$blnReturn = $this->philhealth_range_model->save($arrData, $intPhId);
 				if(count($blnReturn)>0)
 				{
@@ -114,13 +116,14 @@ class philhealth_range extends MY_Controller {
 			$this->template->load('template/template_view','libraries/philhealth_range/delete_view',$this->arrData);
 		}
 		else
-		{
+		{			
 			$intPhId = $arrPost['intPhId'];
 			if(!empty($intPhId))
 			{
 				$arrPhilHealth = $this->philhealth_range_model->getPhilhealth($intPhId);
 				$strRangeFrom = $arrPhilHealth[0]['philhealthFrom'];	
 				$blnReturn = $this->philhealth_range_model->delete($intPhId);
+
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblPhilhealthRange','Deleted '.$strRangeFrom.' PhilHealth Range',implode(';',$arrPhilHealth[0]),'');

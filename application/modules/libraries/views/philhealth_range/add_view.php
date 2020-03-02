@@ -41,7 +41,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 
             </div>
             <div class="portlet-body">
-            <?=form_open(base_url('libraries/philHealth_range/add'), array('method' => 'post', 'id' => 'frmPH'))?>
+            <?=form_open(base_url('libraries/philhealth_range/add'), array('method' => 'post', 'id' => 'frmPH'))?>
                 <div class="form-body">
                     <?php //print_r($arrPost);?>
                     <div class="row">
@@ -93,7 +93,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                                <a href="<?=base_url('libraries/philHealth_range')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
+                                <a href="<?=base_url('libraries/philhealth_range')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
                         </div>
                     </div>
