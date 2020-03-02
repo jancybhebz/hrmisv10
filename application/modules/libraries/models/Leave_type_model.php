@@ -10,7 +10,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 class Leave_type_model extends CI_Model {
 
 	var $table = 'tblLeave';
-	var $tableid = 'leaveCode';
+	var $tableid = 'leave_id';
 
 	var $table2 = 'tblSpecificLeave';
 	var $tableid2 = 'specifyLeave';
@@ -21,17 +21,6 @@ class Leave_type_model extends CI_Model {
 		$this->load->database();
 		//$this->db->initialize();	
 	}
-
-	// function getData($strLeaveCode = '')
-	// {		
-	// 	if($strLeaveCode != "")
-	// 	{
-	// 		$this->db->where($this->tableid,$strLeaveCode);
-	// 	}
-		
-	// 	$objQuery = $this->db->get($this->table);
-	// 	return $objQuery->result_array();	
-	// }
 
 	function getData($strCode = '')
 	{		
@@ -78,10 +67,9 @@ class Leave_type_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
-	function checkExist($strLeaveCode = '', $strLeaveType = '')
+	function checkExist($strLeaveCode = '')
 	{		
-		$this->db->where('leaveCode',$strLeaveCode);
-		$this->db->or_where('leaveType', $strLeaveType);			
+		$this->db->where('leaveCode',$strLeaveCode);		
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
@@ -97,11 +85,12 @@ class Leave_type_model extends CI_Model {
 
 	function save($arrData, $strCode)
 	{
-		$this->db->where($this->tableid, $strCode);
-		$this->db->update($this->table, $arrData);
+		$this->db->where('leave_id', $strCode);
+		$this->db->update('tblLeave', $arrData);
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+
 	function save_special($arrData, $strSpecifyLeave)
 	{
 		$this->db->where($this->tableid2, $strSpecifyLeave);

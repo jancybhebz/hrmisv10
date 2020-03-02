@@ -77,7 +77,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$leave['leaveType']?> </td>   
                             <td> <?=$leave['numOfDays']?> </td>                            
                             <td style="width: 150px;text-align:center;" style="white-space: nowrap;">
-                                <a href="<?=base_url('libraries/leave_type/edit/'.$leave['leaveCode'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/leave_type/edit/'.$leave['leave_id'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
                             </td>
                         </tr>
                     <?php 
