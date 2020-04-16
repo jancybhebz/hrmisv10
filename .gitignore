@@ -33,7 +33,7 @@ vendor/*
 .env
 index.php
 
-
+application/config/routes.php
 application/config/config.php
 .htaccess
 schema/data/migration/schema/*
