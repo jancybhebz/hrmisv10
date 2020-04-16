@@ -17,8 +17,9 @@ class Login_model extends CI_Model {
 
 		if(count($rs) > 0):
 			$strPass = $this->db->escape_str($rs[0]['userPassword']);
-			$blnValid = password_verify($strPassword,$rs[0]['userPassword']);
-			if($blnValid):
+			// $blnValid = password_verify($strPassword,$rs[0]['userPassword']);
+			
+			if(md5($strPassword) == $rs[0]['userPassword']):
 				return $rs;
 			endif;
 		endif;
