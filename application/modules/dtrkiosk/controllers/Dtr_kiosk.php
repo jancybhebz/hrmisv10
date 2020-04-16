@@ -21,7 +21,12 @@ class Dtr_kiosk extends MY_Controller
 				if(count($arrUser) > 0):
 					$empno = $arrUser[0]['empNumber'];
 					$dtrdate = date('Y-m-d');
-					$dtrlog = date('H:i:s');
+					// v10 military
+					// $dtrlog = date('H:i:s');
+
+					// v9
+					$dtrlog = date('h:i:s');
+
 					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
 					
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
@@ -32,7 +37,12 @@ class Dtr_kiosk extends MY_Controller
 				if(count($arrUser) > 0):
 					$empno = $arrUser[0]['empNumber'];
 					$dtrdate = date('Y-m-d');
-					$dtrlog = date('H:i:s');
+					// v10 military
+					// $dtrlog = date('H:i:s');
+
+					// v9
+					$dtrlog = date('h:i:s');
+					
 					// $dtrlog = date('H:i:s',strtotime('06:30:00'));
 					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
