@@ -53,6 +53,7 @@ $route['default_controller'] = 'login';
 // $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['dtr'] = 'dtrkiosk/dtr_kiosk';
+$route['dtr/dtr_test'] = 'dtrkiosk/dtr_kiosk/dtr_test';
 $route['migrate'] = 'dbmigrate/migrate';
 
 // $route['soapserver/getMember/wsdl'] = 'soapserver/index/wsdl';
