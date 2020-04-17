@@ -69,6 +69,7 @@ class Attendance_summary_model extends CI_Model {
 			$this->db->where("dtrDate BETWEEN '".$sdate."' AND '".$edate."'");
 		}
 		$res = $this->db->get('tblEmpDTR')->result_array();
+
 		
 		if(count($res) > 0){
 			return $res;
@@ -80,7 +81,9 @@ class Attendance_summary_model extends CI_Model {
 	function getcurrent_dtr($empid)
 	{
 		$this->db->where('empNumber', $empid);
-		return $this->db->get('tblEmpDTR')->result_array();
+		$this->db->order_by('id', 'DESC');
+		$this->db->limit(1);
+		return $this->db->get('tblEmpDTR')->row_array(); //from result_array();
 	}
 
 	function getdtr_bydate($yr,$month)
