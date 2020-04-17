@@ -35,6 +35,9 @@
         <body onload="startTime()" class=" login">
 
             <style type="text/css">
+                #canvas{
+                    width: 100%;
+                }
                 a.btn-lg {
                     border: 2px solid #d1d1d1;
                     border-radius: 20px !important;
@@ -59,81 +62,82 @@
             <div class="menu-toggler sidebar-toggler"></div>
             <div class="logo"></div>
 
-            <!-- begin logo -->
-            <div class="col-md-12" style="right: 400px;">
-                <center>
+            <div class="container">
+                <!-- begin logo -->
+                <div class="col-md-12" style="padding-left: 10%; padding-bottom: 2% ">
                     <br><img style="height: 70px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
                     <h1 class="hrmisLogo" style="color: #fff!important;">HRMIS</h1>
                     <div class="small" style="color: #fff!important;">Human Resource Management Information System</div>
-                </center>
-            </div>
-            <!-- end logo -->
-
-            <div class="col-md-12">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <div class="content pull-right">
-                        <canvas id="canvas" width="400" height="400" style="background-color:#333"></canvas>
-                    </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="content pull-left">
-                        <div class="datenow"><?=date('F d, Y')?></div>
-                        <div class="clock" id="txtclock"></div>
-                        <br><br>
-                        <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
-                        <div class="alert alert-danger display-hide">
-                            <button class="close" data-close="alert"></button>
-                            <span> Enter any username and password. </span>
+                <!-- end logo -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6 col-lg-6 col-xl-6">
+                            <div class="content" >
+                                <canvas id="canvas" width="400" height="400" style="background-color:#333"></canvas>
+                            </div>
                         </div>
-                        <?=form_open('dtr/dtr_test', array('method' => 'post'))?>
-                            <div class="form-group">
-                                <label class="control-label visible-ie8 visible-ie9">Username</label>
-                                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" /> 
+                        <div class="col-md-6 col-lg-6 col-xl-6">
+                            <div class="content" >
+                                <div class="datenow"><?=date('F d, Y')?></div>
+                                <div class="clock" id="txtclock"></div>
+                                <br><br>
+                                <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button>
+                                    <span> Enter any username and password. </span>
+                                </div>
+                                <?=form_open('dtr/dtr_test', array('method' => 'post'))?>
+                                <div class="form-group">
+                                    <label class="control-label visible-ie8 visible-ie9">Username</label>
+                                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" /> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label visible-ie8 visible-ie9">Password</label>
+                                    <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" /> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label visible-ie8 visible-ie9">Time</label>
+                                    <select class="form-control form-control-solid placeholder-no-fix" autocomplete="off" placeholder="Time" name="selTime" >
+                                        <option value="4">Device Time</option>
+                                        <option value="0">AM In (08:00:00 am)</option>
+                                        <option value="1">AM Out (12:01:00 pm)</option>
+                                        <option value="2">PM In (12:02:00 pm)</option>
+                                        <option value="3">PM Out (05:01:00 pm)</option>
+                                    </select>
+                                </div>
+                                <div class="form-actions" style="border: none;text-align: right;">
+                                    <button type="submit" class="btn green uppercase">Submit</button>
+                                </div> 
+                                <?=form_close()?>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label visible-ie8 visible-ie9">Password</label>
-                                <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" /> 
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label visible-ie8 visible-ie9">Time</label>
-                                <select class="form-control form-control-solid placeholder-no-fix" autocomplete="off" placeholder="Time" name="selTime" >
-                                    <option value="4">Device Time</option>
-                                    <option value="0">AM In (08:00:00 am)</option>
-                                    <option value="1">AM Out (12:01:00 pm)</option>
-                                    <option value="2">PM In (12:02:00 pm)</option>
-                                    <option value="3">PM Out (05:01:00 pm)</option>
-                                </select>
-                            </div>
-                            <div class="form-actions" style="border: none;text-align: right;">
-                                <button type="submit" class="btn green uppercase">Submit</button>
-                            </div> 
-                        <?=form_close()?>
+                        </div>
                     </div>
+                </div>
+
+                <div class="footer">
+                    <center>
+                        <div class="col-md-12" style="padding-bottom: 30px;">
+                            <a href="javascript:;" id="btn-present" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Present Employees">
+                                <h1><i class="fa fa-check"></i> <i class="fa fa-user"></i></h1>
+                            </a>
+                            <a href="javascript:;" id="btn-absent" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Absent Employees">
+                                <h1><i class="fa fa-remove"></i> <i class="fa fa-user"></i></h1>
+                            </a>
+                            <a href="javascript:;" id="btn-ob" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Official Business Employees">
+                                <h1><i class="fa fa-subway"></i> <i class="fa fa-user"></i></h1>
+                            </a>
+                            <a href="javascript:;" id="btn-leave" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Leave Employees">
+                                <h1><i class="fa fa-plane"></i> <i class="fa fa-user"></i></h1>
+                            </a>
+                        </div>
+                        <?php include('_dtr_modal.php'); ?>
+                    </center>
+
+                    <div class="copyright"> 2018 © DOST ITD. </div>
                 </div>
             </div>
 
-            <div class="footer">
-                <center>
-                    <div class="col-md-12" style="padding-bottom: 30px;">
-                        <a href="javascript:;" id="btn-present" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Present Employees">
-                            <h1><i class="fa fa-check"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                        <a href="javascript:;" id="btn-absent" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Absent Employees">
-                            <h1><i class="fa fa-remove"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                        <a href="javascript:;" id="btn-ob" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Official Business Employees">
-                            <h1><i class="fa fa-subway"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                        <a href="javascript:;" id="btn-leave" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of On Leave Employees">
-                            <h1><i class="fa fa-plane"></i> <i class="fa fa-user"></i></h1>
-                        </a>
-                    </div>
-                    <?php include('_dtr_modal.php'); ?>
-                </center>
-
-                <div class="copyright"> 2018 © DOST ITD. </div>
-            </div>
 
             <script>
 
