@@ -24,7 +24,7 @@ class Dtr_log_model extends CI_Model {
 
 		$arrdtr = array();
 		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,date('Y-m-d'),date('Y-m-d'));
-		
+	
 		$emp_att_scheme = $this->get_employee_attscheme($empid);
 		if(!empty($emp_att_scheme)):
 			# initializing employee attendance scheme
@@ -36,8 +36,7 @@ class Dtr_log_model extends CI_Model {
 			$err_message = array('strErrorMsg','No Attendance Scheme. Please contact administrator.');
 			return err_message;
 		endif;
-		
-		
+	
 		# check if dtr is empty
 		if(count($empdtr) < 1):
 			# check if dtrlog < morning out
@@ -94,6 +93,7 @@ class Dtr_log_model extends CI_Model {
 				# check if lunch break is not broken (for 30 mins allowance purposes)
 				if($nn_out_from == $nn_in_from && $nn_out_to == $nn_in_to):
 					# if lunchbreak is not broken, check if dtrlog is between lunch break
+					 // return strtotime($nn_in_to) . " > " . strtotime($dtrlog) . " AND " . strtotime($nn_out_from). " <= " . strtotime($dtrlog);	
 					if(strtotime($nn_in_to) > strtotime($dtrlog) && strtotime($nn_out_from) <= strtotime($dtrlog)):
 						# check if am_timein is empty, set to am_timein
 						if($am_timein == ''):
@@ -320,7 +320,7 @@ class Dtr_log_model extends CI_Model {
 		else:
 			if($ot_timeout == '' || $ot_timeout == '00:00:00'):
 				$ot_timeout = $dtrlog;
-				$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+				$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
 			else:
 				$err_message = array('strErrorMsg','You are not allow to login for another Over Time. Please contact administrator.');
 			endif;
@@ -415,7 +415,7 @@ class Dtr_log_model extends CI_Model {
 	{
 		$emp_att_scheme = $this->get_employee_attscheme($empid);
 		$empdtr = $this->Attendance_summary_model->getcurrent_dtr($empid);
-		// print_r($att_scheme);
+		
 		$nn_out_from = $emp_att_scheme['nnTimeoutFrom'];
 		$nn_out_to = $emp_att_scheme['nnTimeoutTo'];
 		$nn_in_from = $emp_att_scheme['nnTimeinFrom'];
@@ -501,7 +501,7 @@ class Dtr_log_model extends CI_Model {
 						if($warn > 0):
 							$res = array('err_message' => array('strMsg',implode(' ',$msg)));
 						else:
-							$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-IN !!!'));
+							$res = array('err_message' => array('strSuccessMsg','You have successfully Logged-OUT-IN !!!'));
 						endif;
 					else:
 						$arrdtr = array('empNumber' => $empid, 'dtrDate' => date('Y-m-d'), 'outAM' => $dtrlog, 'inPM' => $dtrlog);
