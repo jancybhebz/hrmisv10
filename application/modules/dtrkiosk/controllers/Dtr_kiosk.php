@@ -24,9 +24,6 @@ class Dtr_kiosk extends MY_Controller
 					// v10 military
 					$dtrlog = date('H:i:s');
 
-					// v9
-					// $dtrlog = date('h:i:s');
-
 					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
 
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
@@ -40,9 +37,6 @@ class Dtr_kiosk extends MY_Controller
 					// v10 military
 					$dtrlog = date('H:i:s');
 					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
-
-					// v9
-					// $dtrlog = date('h:i:s');
 		
 					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
@@ -69,13 +63,10 @@ class Dtr_kiosk extends MY_Controller
 					$empno = $arrUser[0]['empNumber'];
 					$dtrdate = date('Y-m-d');
 					// v10 military
-					$dtrlog = date('H:i:s',strtotime('12:01:00 pm'));
-
-					// v9
-					// $dtrlog = date('h:i:s');
+					$dtrlog = date('H:i:s',strtotime('12:01:00'));
 
 					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
-
+					// print_r($emp_log_msg);
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr/dtr_test');
 				endif;
@@ -88,9 +79,6 @@ class Dtr_kiosk extends MY_Controller
 					// $dtrlog = date('H:i:s');
 					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
 
-					// v9
-					// $dtrlog = date('h:i:s');
-
 					if($arrPost['selTime'] == 0)
 						$dtrlog = date('H:i:s',strtotime('08:00:00 am'));
 					else if($arrPost['selTime'] == 1)
@@ -102,8 +90,9 @@ class Dtr_kiosk extends MY_Controller
 					else 
 						$dtrlog = date('H:i:s');
 
-					
 					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
+					// echo $emp_log_msg;
+					// print_r($emp_log_msg);
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr/dtr_test');
 				else:
