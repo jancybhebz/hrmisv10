@@ -36,6 +36,8 @@ class Attendance_summary_model extends CI_Model {
 
 	function edit_dtrkios($arrData, $dtrid)
 	{
+		$arrData = $this->convert_to_standardtime($arrData); //comment if v10
+
 		$this->db->where('id', $dtrid);
 		$this->db->update('tblEmpDTR', $arrData);
 		
@@ -50,6 +52,8 @@ class Attendance_summary_model extends CI_Model {
 
 	public function add_dtrkios($arrData)
 	{
+		$arrData = $this->convert_to_standardtime($arrData); //comment if v10
+
 		$this->db->insert('tblEmpDTR', $arrData);
 		return $this->db->last_query();
 	}
@@ -69,7 +73,7 @@ class Attendance_summary_model extends CI_Model {
 			$this->db->where("dtrDate BETWEEN '".$sdate."' AND '".$edate."'");
 		}
 		$res = $this->db->get('tblEmpDTR')->result_array();
-
+		$res = $this->convert_to_militarytime($res); //comment if v10
 		
 		if(count($res) > 0){
 			return $res;
@@ -83,7 +87,10 @@ class Attendance_summary_model extends CI_Model {
 		$this->db->where('empNumber', $empid);
 		$this->db->order_by('id', 'DESC');
 		$this->db->limit(1);
-		return $this->db->get('tblEmpDTR')->row_array(); //from result_array();
+		$res = $this->db->get('tblEmpDTR')->row_array(); //from result_array();
+		$res = $this->convert_to_militarytime($res); //comment if v10
+
+		return $res;
 	}
 
 	function getdtr_bydate($yr,$month)
@@ -926,6 +933,42 @@ class Attendance_summary_model extends CI_Model {
 		else:
 			return 0;
 		endif;
+	}
+
+	function convert_to_standardtime($arrData)
+	{
+		if(array_key_exists("inAM",$arrData))
+			$arrData['inAM'] = ($arrData['inAM']  == '00:00:00' || $arrData['inAM']  == '') ? '00:00:00' : date('h:i:s',strtotime($arrData['inAM']));
+		if(array_key_exists("outAM",$arrData))
+			$arrData['outAM'] = ($arrData['outAM']  == '00:00:00' || $arrData['outAM']  ==  '') ? '00:00:00' : date('h:i:s',strtotime($arrData['outAM']));
+		if(array_key_exists("inPM",$arrData))
+			$arrData['inPM'] = ($arrData['inPM']  == '00:00:00' || $arrData['inPM']  ==  '') ? '00:00:00' : date('h:i:s',strtotime($arrData['inPM']));
+		if(array_key_exists("outPM",$arrData))
+			$arrData['outPM'] = ($arrData['outPM']  == '00:00:00' || $arrData['outPM']  ==  '') ? '00:00:00' : date('h:i:s',strtotime($arrData['outPM']));
+		if(array_key_exists("inOT",$arrData))
+			$arrData['inOT'] = ($arrData['inOT']  == '00:00:00' || $arrData['inOT']  ==  '') ? '00:00:00' : date('h:i:s',strtotime($arrData['inOT']));
+		if(array_key_exists("outOT",$arrData))
+			$arrData['outOT'] = ($arrData['outOT']  == '00:00:00' || $arrData['outOT']  ==  '') ? '00:00:00' : date('h:i:s',strtotime($arrData['outOT']));
+
+		return $arrData;
+	}
+
+	function convert_to_militarytime($arrData)
+	{
+		if(array_key_exists("inAM",$arrData))
+			$arrData['inAM'] = ($arrData['inAM']  == '00:00:00' || $arrData['inAM']  == '') ? '00:00:00' : date('H:i:s',strtotime($arrData['inAM']));
+		if(array_key_exists("outAM",$arrData))
+			$arrData['outAM'] = ($arrData['outAM']  == '00:00:00' || $arrData['outAM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outAM']));
+		if(array_key_exists("inPM",$arrData))
+			$arrData['inPM'] = ($arrData['inPM']  == '00:00:00' || $arrData['inPM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['inPM']));
+		if(array_key_exists("outPM",$arrData))
+			$arrData['outPM'] = ($arrData['outPM']  == '00:00:00' || $arrData['outPM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outPM']));
+		if(array_key_exists("inOT",$arrData))
+			$arrData['inOT'] = ($arrData['inOT']  == '00:00:00' || $arrData['inOT']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['inOT']));
+		if(array_key_exists("outOT",$arrData))
+			$arrData['outOT'] = ($arrData['outOT']  == '00:00:00' || $arrData['outOT']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outOT']));
+
+		return $arrData;
 	}
 
 }
