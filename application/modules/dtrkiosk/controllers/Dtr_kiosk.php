@@ -22,7 +22,10 @@ class Dtr_kiosk extends MY_Controller
 					$empno = $arrUser[0]['empNumber'];
 					$dtrdate = date('Y-m-d');
 					// v10 military
-					$dtrlog = date('H:i:s');
+					if($arrPost['strUsername'] == $_ENV['intl_usr']) //for international user
+						$dtrlog = date('H:i:s',strtotime($arrPost['txttime']));
+					else
+						$dtrlog = date('H:i:s');
 
 					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
 
@@ -35,9 +38,12 @@ class Dtr_kiosk extends MY_Controller
 					$empno = $arrUser[0]['empNumber'];
 					$dtrdate = date('Y-m-d');
 					// v10 military
-					$dtrlog = date('H:i:s');
 					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
-		
+					if($arrPost['strUsername'] == $_ENV['intl_usr']) //for international user
+						$dtrlog = date('H:i:s',strtotime($arrPost['txttime']));
+					else
+						$dtrlog = date('H:i:s');
+
 					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr');
