@@ -98,6 +98,7 @@
                                         <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" /> 
                                     </div>
                                     <div class="form-actions" style="border: none;text-align: right;">
+                                        <input type="text" name="txttime" id="txttime" hidden>
                                         <button type="submit" class="btn green uppercase">Submit</button>
                                     </div> 
                                 <?=form_close()?>
@@ -142,6 +143,10 @@
                   drawFace(ctx, radius);
                   drawNumbers(ctx, radius);
                   drawTime(ctx, radius);
+
+                    $('#txttime').val($('#txtclock').text());
+                    if($('#txtclock').text() == "12:00:00 AM")
+                        location.reload();
                 }
 
                 function drawFace(ctx, radius) {
