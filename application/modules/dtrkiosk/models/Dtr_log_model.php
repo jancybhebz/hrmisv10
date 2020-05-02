@@ -77,11 +77,11 @@ class Dtr_log_model extends CI_Model {
 						if($am_timeout != ''):
 							# if not empty, set pm_timein
 							$pm_timein = $dtrlog;
-							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 						else:
 							# if empty, set am_timeout
 							$am_timeout = $dtrlog;
-							$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+							$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 						endif;
 					else:
 						# if empty, set am_timein
@@ -178,7 +178,7 @@ class Dtr_log_model extends CI_Model {
 
 		# insert/update tblEmpDtr
 		if($dtrid==''):
-			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 			$arrdtr['name'] = 'System';
 			$arrdtr['editdate'] = date('Y-m-d h:i:s A');
 			$arrdtr['ip'] = $this->input->ip_address();
@@ -211,7 +211,7 @@ class Dtr_log_model extends CI_Model {
 				# check if timeout is empty, if yes, set pm logout,
 				if($pm_timeout == '' || $pm_timeout == '00:00:00'):
 					$pm_timeout = $dtrlog;
-					$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+					$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 				else:
 					# else, set overtime
 					$ot = $this->set_pm_overtime($dtrlog,$empdtr,$has_30mins_allow,$nn_out_from,$nn_out_to,$nn_in_from,$nn_in_to);
@@ -227,12 +227,12 @@ class Dtr_log_model extends CI_Model {
 						# if yes, check if pm_timein, if yes, set pm_timein
 						if($empdtr['inPM'] == '' || $empdtr['inPM'] == '00:00:00'):
 							$pm_timein = $dtrlog;
-							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 						else:
 							# if no, check if timeout is empty, if yes, set pm logout,
 							if($pm_timeout == '' || $pm_timeout == '00:00:00'):
 								$pm_timeout = $dtrlog;
-								$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+								$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 							else:
 								# else, set overtime
 								$ot = $this->set_pm_overtime($dtrlog,$empdtr,$has_30mins_allow,$nn_out_from,$nn_out_to,$nn_in_from,$nn_in_to);
@@ -245,7 +245,7 @@ class Dtr_log_model extends CI_Model {
 						# if no, check if timeout is empty, if yes, set pm logout,
 						if($pm_timeout == '' || $pm_timeout == '00:00:00'):
 							$pm_timeout = $dtrlog;
-							$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+							$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 						else:
 							# else, set overtime
 							$ot = $this->set_pm_overtime($dtrlog,$empdtr,$has_30mins_allow,$nn_out_from,$nn_out_to,$nn_in_from,$nn_in_to);
@@ -258,18 +258,18 @@ class Dtr_log_model extends CI_Model {
 					# check if pm_timein is empty, set pm_timein
 					if($empdtr['inPM'] == '' || $empdtr['inPM'] == '00:00:00'):
 						$pm_timein = $dtrlog;
-						$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+						$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 					else:
 						# if no, check if am_timein is empty, check if pm_timein is empty 
 						if($empdtr['inAM'] == '' || $empdtr['inAM'] == '00:00:00'):
 							# if yes, set to pm_timein
 							$pm_timein = $dtrlog;
-							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+							$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 						else:
 							# if no, check if timeout is empty, if yes, set pm logout,
 							if($pm_timeout == '' || $pm_timeout == '00:00:00'):
 								$pm_timeout = $dtrlog;
-								$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+								$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 							else:
 								# else, set overtime
 								$ot = $this->set_pm_overtime($dtrlog,$empdtr,$has_30mins_allow,$nn_out_from,$nn_out_to,$nn_in_from,$nn_in_to);
@@ -298,11 +298,11 @@ class Dtr_log_model extends CI_Model {
 				$err_message = array('strErrorMsg','You are not allow to logout for or login from lunch break! Please contact administrator.');
 			else:
 				$am_timeout = $dtrlog;
-				$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+				$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 			endif;
 		else:
 			$am_timeout = $dtrlog;
-			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 		endif;
 
 		return array('err_message' => $err_message, 'am_timeout' => $am_timeout);
@@ -316,11 +316,11 @@ class Dtr_log_model extends CI_Model {
 
 		if($ot_timein == '' || $ot_timein == '00:00:00'):
 			$ot_timein = $dtrlog;
-			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+			$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 		else:
 			if($ot_timeout == '' || $ot_timeout == '00:00:00'):
 				$ot_timeout = $dtrlog;
-				$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+				$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 			else:
 				$err_message = array('strErrorMsg','You are not allow to login for another Over Time. Please contact administrator.');
 			endif;
@@ -345,12 +345,12 @@ class Dtr_log_model extends CI_Model {
 						$err_message = array('strErrorMsg','You are not allow to logout for or login from lunch break! Please contact administrator.');
 					else:
 						$am_timeout = $dtrlog;
-						$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+						$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 					endif;
 				else:
 					# if no, set am_timeout
 					$am_timeout = $dtrlog;
-					$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+					$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 				endif;
 			else:
 				# else, check if allow 30 mins, if yes, check if am_timeout is within 30 minutes
@@ -358,14 +358,14 @@ class Dtr_log_model extends CI_Model {
 					if($dtrlog >= date('H:i:s', strtotime('+30 minutes', strtotime($empdtr['outAM'])))):
 						# if yes, set pm_timein
 						$pm_timein = $dtrlog;
-						$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+						$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 					else:
 						$err_message = array('strErrorMsg','You are not allow to login! Your login time should be on '.(date('H:i', strtotime('+30 minutes', strtotime($empdtr['outAM'])))).'. Please contact administrator.');
 					endif;
 				else:
 					# else, set pm_timein
 					$pm_timein = $dtrlog;
-					$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+					$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 				endif;
 			endif;
 		elseif($dtrlog >= $nn_in_from && $dtrlog <= $nn_in_to):
@@ -377,7 +377,7 @@ class Dtr_log_model extends CI_Model {
 				else:
 					# if no, set am_timeout
 					$am_timeout = $dtrlog;
-					$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!.');
+					$err_message = array('strSuccessMsg','You have successfully Logged-OUT !!!');
 				endif;
 			else:
 				# else, check if allow 30 mins, if yes, check if am_timeout is within 30 minutes
@@ -385,14 +385,14 @@ class Dtr_log_model extends CI_Model {
 					if($dtrlog >= date('H:i:s', strtotime('+30 minutes', strtotime($empdtr['outAM'])))):
 						# if yes, set pm_timein
 						$pm_timein = $dtrlog;
-						$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+						$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 					else:
 						$err_message = array('strErrorMsg','You are not allow to login! Your login time should be on '.(date('H:i', strtotime('+30 minutes', strtotime($empdtr['outAM'])))).'. Please contact administrator.');
 					endif;
 				else:
 					# else, set pm_timein
 					$pm_timein = $dtrlog;
-					$err_message = array('strSuccessMsg','You have successfully Logged-IN !!.');
+					$err_message = array('strSuccessMsg','You have successfully Logged-IN !!!');
 				endif;
 			endif;
 		else:
