@@ -27,7 +27,6 @@ class Dtr_kiosk extends MY_Controller
 						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
 						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
 					}	
-						
 					else
 					{
 						$dtrlog = date('H:i:s');
