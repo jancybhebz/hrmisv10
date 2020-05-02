@@ -144,7 +144,7 @@
                   drawNumbers(ctx, radius);
                   drawTime(ctx, radius);
 
-                    $('#txttime').val($('#txtclock').text());
+                    $('#txttime').val($('.datenow').text() +" "+$('#txtclock').text());
                     if($('#txtclock').text() == "12:00:00 AM")
                         location.reload();
                 }
