@@ -20,12 +20,19 @@ class Dtr_kiosk extends MY_Controller
 				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$orig_password);
 				if(count($arrUser) > 0):
 					$empno = $arrUser[0]['empNumber'];
-					$dtrdate = date('Y-m-d');
+					
 					// v10 military
 					if($arrPost['strUsername'] == $_ENV['intl_usr']) //for international user
-						$dtrlog = date('H:i:s',strtotime($arrPost['txttime']));
+					{
+						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
+						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
+					}	
+						
 					else
+					{
 						$dtrlog = date('H:i:s');
+						$dtrdate = date('Y-m-d');
+					}
 
 					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
 
@@ -36,13 +43,19 @@ class Dtr_kiosk extends MY_Controller
 				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
 				if(count($arrUser) > 0):
 					$empno = $arrUser[0]['empNumber'];
-					$dtrdate = date('Y-m-d');
+					
 					// v10 military
 					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
 					if($arrPost['strUsername'] == $_ENV['intl_usr']) //for international user
-						$dtrlog = date('H:i:s',strtotime($arrPost['txttime']));
+					{
+						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
+						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
+					}
 					else
+					{
 						$dtrlog = date('H:i:s');
+						$dtrdate = date('Y-m-d');
+					}
 
 					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
