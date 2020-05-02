@@ -16,7 +16,7 @@
         <link href="<?=base_url('assets/plugins/font-awesome/css/font-awesome.min.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/plugins/simple-line-icons/simple-line-icons.min.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/plugins/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet" type="text/css" />
-        
+            
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <link href="<?=base_url('assets/global/plugins/datatables/datatables.min.css')?>" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css')?>" rel="stylesheet" type="text/css" />
@@ -126,7 +126,9 @@
                         <?php include('_dtr_modal.php'); ?>
                     </center>
 
-                    <div class="copyright"> 2018 © DOST ITD. </div>
+                    <div class="copyright"> 
+                        <em>Note: The DATE and TIME of this Daily Time Record is sychronized with the HRMIS server.</em>
+                        <br><br>2018 © DOST ITD. </div>
                 </div>
             </div>
 
