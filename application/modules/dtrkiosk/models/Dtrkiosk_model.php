@@ -29,7 +29,7 @@ class Dtrkiosk_model extends CI_Model {
 		if(count($emp_dtr) > 0):
 			$this->db->where_not_in('tblEmpPosition.empNumber', array_column($emp_dtr,'empNumber'));
 		endif;
-		$employees = $this->db->get_where('tblEmpPosition', array('statusOfAppointment' => 'In-Service'))->result_array();
+		$employees = $this->db->get_where('tblEmpPosition', array('statusOfAppointment' => 'In-Service', 'dtrSwitch' => 'Y'))->result_array();
 		
 		return $employees;
 	}
