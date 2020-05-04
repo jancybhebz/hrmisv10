@@ -22,7 +22,7 @@ class Dtr_kiosk extends MY_Controller
 					$empno = $arrUser[0]['empNumber'];
 					
 					// v10 military
-					if($arrPost['strUsername'] == $_ENV['intl_usr']) //for international user
+					if($arrPost['strUsername'] == $_ENV['intl_usr'] || $arrPost['strUsername'] == $_ENV['intl_usr2']) //for international user
 					{
 						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
 						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
@@ -44,10 +44,9 @@ class Dtr_kiosk extends MY_Controller
 				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
 				if(count($arrUser) > 0):
 					$empno = $arrUser[0]['empNumber'];
-					
 					// v10 military
 					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
-					if($arrPost['strUsername'] == $_ENV['intl_usr']) //for international user
+					if($arrPost['strUsername'] == $_ENV['intl_usr'] || $arrPost['strUsername'] == $_ENV['intl_usr2']) //for international user
 					{
 						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
 						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
