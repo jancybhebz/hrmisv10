@@ -13,7 +13,6 @@ class Dtr_kiosk extends MY_Controller
 	public function index()
 	{
 		$arrPost = $this->input->post();
-		echo date("N");
 		
 		if(!empty($arrPost)):
 			if(substr($arrPost['strPassword'], -1) == '*'):
