@@ -7,7 +7,7 @@ class Dtr_kiosk extends MY_Controller
 	function __construct() 
 	{
         parent::__construct();
-  		$this->load->model(array('Dtrkiosk_model','login/login_model','Dtr_log_model', 'libraries/Holiday_model'));
+  		$this->load->model(array('Dtrkiosk_model','login/login_model','Dtr_log_model', 'libraries/Holiday_model', 'hr/Attendance_summary_model'));
     }
     
 	public function index()
@@ -26,14 +26,16 @@ class Dtr_kiosk extends MY_Controller
 					{
 						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
 						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
+						$is_intl = 1;
 					}	
 					else
 					{
 						$dtrlog = date('H:i:s');
 						$dtrdate = date('Y-m-d');
+						$is_intl = 0;
 					}
 
-					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
+					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog,$is_intl);
 
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr');
@@ -62,13 +64,13 @@ class Dtr_kiosk extends MY_Controller
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr');
 				else:
+					// added log
+					$this->Attendance_summary_model->add_dtr_log(array('empNumber' => "", 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => "", 'log_notify' => 'Invalid username/password. Tried with: '.$arrPost['strUsername'] , 'log_ip' => $this->input->ip_address()));
 					$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
 					redirect('dtr');
 				endif;
 			endif;
-			
 
-		
 		endif;
 		$this->load->view('default_view');
 	}
