@@ -7,12 +7,13 @@ class Dtr_kiosk extends MY_Controller
 	function __construct() 
 	{
         parent::__construct();
-  		$this->load->model(array('Dtrkiosk_model','login/login_model','Dtr_log_model'));
+  		$this->load->model(array('Dtrkiosk_model','login/login_model','Dtr_log_model', 'libraries/Holiday_model'));
     }
     
 	public function index()
 	{
 		$arrPost = $this->input->post();
+		echo date("N");
 		
 		if(!empty($arrPost)):
 			if(substr($arrPost['strPassword'], -1) == '*'):
@@ -49,14 +50,16 @@ class Dtr_kiosk extends MY_Controller
 					{
 						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
 						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
+						$is_intl = 1;
 					}
 					else
 					{
 						$dtrlog = date('H:i:s');
 						$dtrdate = date('Y-m-d');
+						$is_intl = 0;
 					}
 
-					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
+					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog,$is_intl);
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr');
 				else:
@@ -65,6 +68,8 @@ class Dtr_kiosk extends MY_Controller
 				endif;
 			endif;
 			
+
+		
 		endif;
 		$this->load->view('default_view');
 	}
@@ -142,12 +147,20 @@ class Dtr_kiosk extends MY_Controller
 	public function emp_absents()
 	{
 		$employee = array();
-		$emp = $this->Dtrkiosk_model->get_absent_employees();
-		foreach($emp as $e):
-			if($e['empNumber'] != ''):
-				array_push($employee,$e);
-			endif;
-		endforeach;
+
+		//Added condition if holiday and if weekends
+		$reg_holidays = $this->Holiday_model->getAllHolidates("",date('Y-m-d'),date('Y-m-d'));
+		
+		if(empty($reg_holidays) && date("N") < 6)
+		{
+			$emp = $this->Dtrkiosk_model->get_absent_employees();
+			foreach($emp as $e):
+				if($e['empNumber'] != ''):
+					array_push($employee,$e);
+				endif;
+			endforeach;
+		}
+
 		echo json_encode($employee);
 	}
 
