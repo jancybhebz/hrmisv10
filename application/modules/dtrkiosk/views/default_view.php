@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-6 col-lg-6 col-xl-6">
                             <div class="content" >
-                                <div class="datenow"><?=date('F d, Y')?></div>
+                                <div class="datenow"></div>
                                 <div class="clock" id="txtclock"></div>
                                 <br><br>
                                 <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
@@ -314,6 +314,12 @@
                     //     $(".alert").alert('close');
                     // }, 20000);
 
+                    const monthNames = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"
+                    ];
+
+                    const d = new Date();
+                    $('.datenow').text(monthNames[d.getMonth()] + " " + String(d.getDate()).padStart(2, '0') + ", " + d.getFullYear());
                 });  
             </script>
         </body>
