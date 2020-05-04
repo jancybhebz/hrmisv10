@@ -22,8 +22,10 @@ class Dtr_log_model extends CI_Model {
 		$nn_out_from = '';$nn_out_to = '';$nn_in_from = '';$nn_in_to = '';
 		$dtrid = '';$am_timein = '';$am_timeout = '';$pm_timein = '';$pm_timeout = '';$ot_timein = '';$ot_timeout = '';
 
-		//added condition to use client or server date
-		//changed all server date to variables
+		$sql_str = "";
+
+		// added condition to use client or server date
+		// changed all server date to variables
 		if($is_intl)
 		{
 			$coldate = $dtrdate;
@@ -49,6 +51,8 @@ class Dtr_log_model extends CI_Model {
 			$nn_in_to = $emp_att_scheme['nnTimeinTo'];
 		else:
 			$err_message = array('strErrorMsg','No Attendance Scheme. Please contact administrator.');
+			// added log
+			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
 			return $err_message;
 		endif;
 	
@@ -108,7 +112,6 @@ class Dtr_log_model extends CI_Model {
 				# check if lunch break is not broken (for 30 mins allowance purposes)
 				if($nn_out_from == $nn_in_from && $nn_out_to == $nn_in_to):
 					# if lunchbreak is not broken, check if dtrlog is between lunch break
-					 // return strtotime($nn_in_to) . " > " . strtotime($dtrlog) . " AND " . strtotime($nn_out_from). " <= " . strtotime($dtrlog);	
 					if(strtotime($nn_in_to) > strtotime($dtrlog) && strtotime($nn_out_from) <= strtotime($dtrlog)):
 						# check if am_timein is empty, set to am_timein
 						if($am_timein == ''):
@@ -207,6 +210,8 @@ class Dtr_log_model extends CI_Model {
 				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
 				return $err_message;
 			else:
+				// added log
+				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
 				return $err_message;
 			endif;
 		endif;
@@ -426,7 +431,7 @@ class Dtr_log_model extends CI_Model {
 	}
 
 
-	function update_nnbreak_time($empid,$dtrdate,$dtrlog)
+	function update_nnbreak_time($empid,$dtrdate,$dtrlog,$is_intl)
 	{
 		$emp_att_scheme = $this->get_employee_attscheme($empid);
 		$empdtr = $this->Attendance_summary_model->getcurrent_dtr($empid);
@@ -435,6 +440,21 @@ class Dtr_log_model extends CI_Model {
 		$nn_out_to = $emp_att_scheme['nnTimeoutTo'];
 		$nn_in_from = $emp_att_scheme['nnTimeinFrom'];
 		$nn_in_to = $emp_att_scheme['nnTimeinTo'];
+
+		$sql_str = "";
+
+		if($is_intl)
+		{
+			$coldate = $dtrdate;
+			$coldate_log = $dtrdate . " " . $dtrlog;
+			$edit_date = $dtrdate . " " . $dtrlog .  " A";
+		}
+		else
+		{
+			$coldate = date('Y-m-d');
+			$coldate_log = date('Y-m-d H:i:s');
+			$edit_date = date('Y-m-d H:i:s A');
+		}
 
 		$dtrid = count($empdtr) > 0 ? $empdtr['id']  == '' ? '' : $empdtr['id'] : '';
 		$am_timein  = count($empdtr) > 0 ? $empdtr['inAM']  == '' || $empdtr['inAM']  == '00:00:00' ? '' : $empdtr['inAM'] : '';
@@ -471,7 +491,7 @@ class Dtr_log_model extends CI_Model {
 								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
 							endif;
 						else:
-							array_push($msg, '<li>You already have AM OUT.!</li>');
+							array_push($msg, '<li>You already have AM OUT!!!</li>');
 							$warn = $warn + 1;
 						endif;
 
@@ -485,7 +505,7 @@ class Dtr_log_model extends CI_Model {
 								$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
 							endif;
 						else:
-							array_push($msg, '<li>You already have PM IN.!</li>');
+							array_push($msg, '<li>You already have PM IN!!!</li>');
 							$warn = $warn + 1;
 						endif;
 
@@ -502,14 +522,14 @@ class Dtr_log_model extends CI_Model {
 						if($am_timeout==''):
 							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('outAM' => $dtrlog), $dtrid);
 						else:
-							array_push($msg, '<li>You already have AM OUT.!</li>');
+							array_push($msg, '<li>You already have AM OUT!!!</li>');
 							$warn = $warn + 1;
 						endif;
 
 						if($pm_timein==''):
 							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('inPM' => $dtrlog), $dtrid);
 						else:
-							array_push($msg, '<li>You already have PM IN.!</li>');
+							array_push($msg, '<li>You already have PM IN!!!</li>');
 							$warn = $warn + 1;
 						endif;
 
@@ -530,7 +550,8 @@ class Dtr_log_model extends CI_Model {
 		endif;
 
 
-		$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res[1] : '' , 'log_ip' => $this->input->ip_address()));
+		$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res['err_message'][1]: '' , 'log_ip' => $this->input->ip_address()));
+
 		return $res['err_message'];
 	}
 
