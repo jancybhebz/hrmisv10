@@ -29,8 +29,7 @@
                                     <div class="input-icon right">
                                         <i class="fa fa-clock-o"></i>
                                         <input type="text" class="form-control form-required timepicker-default" name="txtdtr_amtimein" id="txtdtr_amtimein"
-                                            value=" AM" readonly>
-                                            <!-- <?=$_ENV['FLAGCRMNY']?> -->
+                                            value="<?=$_ENV['FLAGCRMNY']?> AM" readonly>
                                     </div>
                                 </div>
                             </div>
