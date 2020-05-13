@@ -181,6 +181,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+                    <div class="row sch-fixed">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">8AM - 5PM during Mondays  :  <span class="required"> * </span></label>
+                                <label class="form-radio-inline"><input type="radio" name="strMonday" value="Y" <?=$arrAttendance[0]['fixMonday']=="Y" ? 'checked' : ''?>>Yes</label>
+                                <label class="form-radio-inline"><input type="radio" name="strMonday" value="N" <?=$arrAttendance[0]['fixMonday']=="N" ? 'checked' : ''?>>No</label>
+                                <div class="input-icon left">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                    
                     <!-- sliding -->
                      <div class="row sch-sliding">
@@ -293,6 +304,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     echo '<input type="checkbox" class="icheck"  name="strStrict" id="strStrict" checked>'; }?>
                                 <?php if ($arrAttendance[0]['strict']=="") {
                                     echo '<input type="checkbox" class="icheck"  name="strStrict" id="strStrict" >'; }?>
+                                <div class="input-icon left">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row sch-sliding">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">8AM - 5PM during Mondays  :  <span class="required"> * </span></label>
+                                <label class="form-radio-inline"><input type="radio" name="strMonday" value="Y" <?=$arrAttendance[0]['fixMonday']=="Y" ? 'checked' : ''?>>Yes</label>
+                                <label class="form-radio-inline"><input type="radio" name="strMonday" value="N" <?=$arrAttendance[0]['fixMonday']=="N" ? 'checked' : ''?>>No</label>
                                 <div class="input-icon left">
                                 </div>
                             </div>
