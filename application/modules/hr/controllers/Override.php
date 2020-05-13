@@ -21,7 +21,6 @@ class Override extends MY_Controller {
 	{
 		$this->arrData['arr_ob'] = $this->Override_model->get_override_ob();
 		$this->template->load('template/template_view','attendance/override/override',$this->arrData);
-
 	}
 
 	public function override_ob_add()
@@ -56,7 +55,7 @@ class Override extends MY_Controller {
 								'official'	 => isset($arrPost['isob']) ? $arrPost['isob'] : 'N',
 								'approveHR'	 => 'Y',
 								'is_override'=> 1,
-								'override_id'=> $override_id);
+								'obID'=> $override_id);
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
@@ -108,7 +107,7 @@ class Override extends MY_Controller {
 								'official'	 => isset($arrPost['isob']) ? $arrPost['isob'] : 'N',
 								'approveHR'	 => 'Y',
 								'is_override'=> 1,
-								'override_id'=> $override_id);
+								'obID'=> $override_id);
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
