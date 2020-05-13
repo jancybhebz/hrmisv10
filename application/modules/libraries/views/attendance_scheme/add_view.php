@@ -265,6 +265,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     </div>
                                 </div>
                             </div>
+                            <div class="row" id="monday">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label">8AM - 5PM during Mondays : </label>
+                                        <label class="form-radio-inline"><input type="radio" name="strMonday" value="Y" checked>Yes</label>
+                                        <label class="form-radio-inline"><input type="radio" name="strMonday" value="N">No</label>
+                                        <div class="input-icon left">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         </br>
                         <div class="row">
