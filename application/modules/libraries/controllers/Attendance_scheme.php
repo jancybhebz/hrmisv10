@@ -38,6 +38,7 @@ class Attendance_scheme extends MY_Controller {
 			$strSchemeName = $arrPost['strSchemeName'];
 			$strAllow = isset($arrPost['strAllow']) ? 'Y' : 'N';
 			$strStrict = isset($arrPost['strStrict']) ? 'Y' : 'N';
+			$strMonday = $this->input->post('strMonday');
 			// fixed
 			$dtmFtimeIn = $arrPost['dtmFtimeIn'];
 			$dtmFtimeOutFrom = $arrPost['dtmFtimeOutFrom'];
@@ -66,6 +67,7 @@ class Attendance_scheme extends MY_Controller {
 						'schemeName'=>$strSchemeName,
 						'allow30'=>$strAllow,
 						'strict'=>$strStrict,
+						'fixMonday'=>$strMonday,
 						// fixed
 					  'amTimeinFrom'=>$dtmFtimeIn,
 					 'nnTimeoutFrom'=>$dtmFtimeOutFrom, 
@@ -84,6 +86,9 @@ class Attendance_scheme extends MY_Controller {
 					   'pmTimeoutTo'=>$dtmStimeOutTo 
 						
 					);
+
+					print_r($arrData);
+					exit(1);
 					$blnReturn  = $this->attendance_scheme_model->add($arrData);
 
 					if(count($blnReturn)>0)
@@ -108,7 +113,6 @@ class Attendance_scheme extends MY_Controller {
 	public function edit()
 	{
 		$arrPost = $this->input->post();
-		//print_r($arrPost);
 		if(empty($arrPost))
 		{
 			$strCode = urldecode($this->uri->segment(4));
@@ -124,8 +128,9 @@ class Attendance_scheme extends MY_Controller {
 			$strSchemeType = $arrPost['strSchemeType'];
 			// $strSchemeCode = $arrPost['strSchemeCode'];
 			$strSchemeName = $arrPost['strSchemeName'];
-			$strAllow = $arrPost['strAllow'];
-			$strStrict = $arrPost['strStrict'];
+			$strAllow = isset($arrPost['strAllow']) ? 'Y' : 'N';
+			$strStrict = isset($arrPost['strStrict']) ? 'Y' : 'N';
+			$strMonday = $this->input->post('strMonday');
 			// fixed
 			$dtmFtimeIn = $arrPost['dtmFtimeIn'];
 			$dtmFtimeOutFrom = $arrPost['dtmFtimeOutFrom'];
@@ -150,6 +155,7 @@ class Attendance_scheme extends MY_Controller {
 						'schemeName'=>$strSchemeName,
 						'allow30'=>$strAllow,
 						'strict'=>$strStrict,
+						'fixMonday'=>$strMonday,
 					  	'amTimeinFrom'=>$arrPost['dtmFtimeIn'],
 					 	'nnTimeoutFrom'=>$dtmFtimeOutFrom, 
 					   	'nnTimeoutTo'=>$dtmFtimeOutTo, 
@@ -164,6 +170,7 @@ class Attendance_scheme extends MY_Controller {
 						'schemeName'=>$strSchemeName,
 						'allow30'=>$strAllow,
 						'strict'=>$strStrict,
+						'fixMonday'=>$strMonday,
 				 	 	'amTimeinFrom'=>$dtmStimeInFrom,
 						'amTimeinTo'=>$dtmStimeInTo,
 				 		'nnTimeoutFrom'=>$dtmStimeOutFromNN,
