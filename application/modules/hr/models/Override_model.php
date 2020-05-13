@@ -10,8 +10,8 @@ class Override_model extends CI_Model {
 	function get_override_ob($obid='')
 	{
 		if($obid!=''):
-			$this->db->join('tblOverride','tblOverride.override_id = tblEmpOB.override_id','left');
-			$res = $this->db->get_where('tblEmpOB' ,array('tblEmpOB.override_id' => $obid, 'tblOverride.override_type' => 1))->result_array();
+			$this->db->join('tblOverride','tblOverride.override_id = tblEmpOB.obID','left');
+			$res = $this->db->get_where('tblEmpOB' ,array('tblEmpOB.obID' => $obid, 'tblOverride.override_type' => 1))->result_array();
 		else:
 			strict_mode();
 			$this->db->group_by('obID');
