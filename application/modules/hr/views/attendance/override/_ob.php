@@ -34,10 +34,10 @@
                                     <td align="center"><?=$ob['obDateTo']?> <?=date('g:i A', strtotime($ob['obTimeTo']))?></td>
                                     <td width="150px" nowrap>
                                         <center>
-                                            <a href="<?=base_url('hr/attendance/override/ob_edit/'.$ob['override_id'])?>" class="btn green btn-xs">
+                                            <a href="<?=base_url('hr/attendance/override/ob_edit/'.$ob['obID'])?>" class="btn green btn-xs">
                                                 <i class="fa fa-pencil"></i> Edit</a>
                                             <a class="btn red btn-xs btndelete_overob" data-toggle="modal" data-backdrop="static" data-keyboard="false"
-                                                href="#modal-deleteOB" data-oid="<?=$ob['override_id']?>">
+                                                href="#modal-deleteOB" data-oid="<?=$ob['obID']?>">
                                                 <i class="fa fa-trash"></i> Delete</a>
                                         </center>
                                     </td>
