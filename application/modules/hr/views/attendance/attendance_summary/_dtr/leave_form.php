@@ -26,6 +26,10 @@
                                             <?php endif; endforeach; ?>
                                         </select>
                                     </div>
+                                    <span class="font-red" id="span-warning" style="display: none;">
+                                    <i class="fa fa-warning tooltips overflow" data-original-title="Type of Leave must not be empty."></i></span>
+                                    <span class="font-green" id="span-success" style="display: none;">
+                                    <i class="fa fa-check tooltips overflow"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -92,6 +96,10 @@
                                     <div class="input-icon right">
                                         <textarea class="form-control form-required" name="txtleave_reason" id="txtleave_reason"><?=isset($arremp_leave) ? $arremp_leave['reason'] : ''?></textarea>
                                     </div>
+                                    <span class="font-red" id="span-warning" style="display: none;">
+                                    <i class="fa fa-warning tooltips overflow" data-original-title="Type of Leave must not be empty."></i></span>
+                                    <span class="font-green" id="span-success" style="display: none;">
+                                    <i class="fa fa-check tooltips overflow"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -152,15 +160,19 @@
             if(leavetype != 0){
                 $(this).closest('div.form-group').removeClass('has-error');
                 $(this).closest('div.form-group').addClass('has-success');
-                $(this).closest('div.form-group').find('i.fa-warning').remove();
-                $(this).closest('div.form-group').find('i.fa-check').remove();
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($(this));
+                // $(this).closest('div.form-group').find('i.fa-warning').remove();
+                // $(this).closest('div.form-group').find('i.fa-check').remove();
+                // $('<i class="fa fa-check tooltips"></i>').insertBefore($(this));
+                $(this).closest('div.form-group').find('#span-success').show();
+                $(this).closest('div.form-group').find('#span-warning').hide();
             }else{
                 $(this).closest('div.form-group').addClass('has-error');
                 $(this).closest('div.form-group').removeClass('has-success');
-                $(this).closest('div.form-group').find('i.fa-check').remove();
-                $(this).closest('div.form-group').find('i.fa-warning').remove();
-                $('<i class="fa fa-warning tooltips" data-original-title="Type of leave is required."></i>').tooltip().insertBefore($(this));
+                // $(this).closest('div.form-group').find('i.fa-check').remove();
+                // $(this).closest('div.form-group').find('i.fa-warning').remove();
+                // $('<i class="fa fa-warning tooltips" data-original-title="Type of leave is required."></i>').tooltip().insertBefore($(this));
+                $(this).closest('div.form-group').find('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-warning').show();
             }
         });
         // end setting specific leave
@@ -169,15 +181,19 @@
             if($(this).val() != ''){
                 $(this).closest('div.form-group').removeClass('has-error');
                 $(this).closest('div.form-group').addClass('has-success');
-                $(this).closest('div.form-group').find('i.fa-warning').remove();
-                $(this).closest('div.form-group').find('i.fa-check').remove();
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($(this));
+                // $(this).closest('div.form-group').find('i.fa-warning').remove();
+                // $(this).closest('div.form-group').find('i.fa-check').remove();
+                // $('<i class="fa fa-check tooltips"></i>').insertBefore($(this));
+                $(this).closest('div.form-group').find('#span-success').show();
+                $(this).closest('div.form-group').find('#span-warning').hide();
             }else{
                 $(this).closest('div.form-group').addClass('has-error');
                 $(this).closest('div.form-group').removeClass('has-success');
-                $(this).closest('div.form-group').find('i.fa-check').remove();
-                $(this).closest('div.form-group').find('i.fa-warning').remove();
-                $('<i class="fa fa-warning tooltips" data-original-title="Reason must not be empty."></i>').tooltip().insertBefore($(this));
+                // $(this).closest('div.form-group').find('i.fa-check').remove();
+                // $(this).closest('div.form-group').find('i.fa-warning').remove();
+                // $('<i class="fa fa-warning tooltips" data-original-title="Reason must not be empty."></i>').tooltip().insertBefore($(this));
+                $(this).closest('div.form-group').find('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-warning').show();
             }
         });
 
@@ -196,14 +212,14 @@
             if(leaveto != '' && leavefrom != ''){
                 $('#div-date').addClass('has-success');
                 $('#div-date').removeClass('has-error');
-                $('#span-success').show();
-                $('#span-warning').hide();
+                $(this).closest('div.form-group').find('#span-success').show();
+                $(this).closest('div.form-group').find('#span-warning').hide();
             }else{
                 $('#txtleave_noofdays').val('0');
                 $('#div-date').addClass('has-error');
                 $('#div-date').removeClass('has-success');
-                $('#span-warning').show();
-                $('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-warning').show();
             }
         });
 
@@ -219,14 +235,14 @@
             if(leaveto != '' && leavefrom != ''){
                 $('#div-date').addClass('has-success');
                 $('#div-date').removeClass('has-error');
-                $('#span-success').show();
-                $('#span-warning').hide();
+                $(this).closest('div.form-group').find('#span-success').show();
+                $(this).closest('div.form-group').find('#span-warning').hide();
             }else{
                 $('#txtleave_noofdays').val('0');
                 $('#div-date').addClass('has-error');
                 $('#div-date').removeClass('has-success');
-                $('#span-warning').show();
-                $('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-warning').show();
             }
         });
         // end getting number of days
@@ -239,8 +255,8 @@
             if(leaveto != '' && leavefrom != ''){
                 $('#div-date').addClass('has-success');
                 $('#div-date').removeClass('has-error');
-                $('#span-success').show();
-                $('#span-warning').hide();
+                $(this).closest('div.form-group').find('#span-success').show();
+                $(this).closest('div.form-group').find('#span-warning').hide();
 
                 $.get("<?=base_url('hr/attendance/dtr_no_ofdays')?>", {leavefrom: leavefrom, leaveto: leaveto}, function(data) {
                     data = data.trim();
@@ -250,23 +266,27 @@
                 $('#txtleave_noofdays').val('0');
                 $('#div-date').addClass('has-error');
                 $('#div-date').removeClass('has-success');
-                $('#span-warning').show();
-                $('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-warning').show();
                 arrerror.push(1);
             }
 
             if($('#txtleave_reason').val() != ''){
                 $('#txtleave_reason').closest('div.form-group').removeClass('has-error');
                 $('#txtleave_reason').closest('div.form-group').addClass('has-success');
-                $('#txtleave_reason').closest('div.form-group').find('i.fa-warning').remove();
-                $('#txtleave_reason').closest('div.form-group').find('i.fa-check').remove();
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtleave_reason'));
+                // $('#txtleave_reason').closest('div.form-group').find('i.fa-warning').remove();
+                // $('#txtleave_reason').closest('div.form-group').find('i.fa-check').remove();
+                // $('<i class="fa fa-check tooltips"></i>').insertBefore($('#txtleave_reason'));
+                $(this).closest('div.form-group').find('#span-success').show();
+                $(this).closest('div.form-group').find('#span-warning').hide();
             }else{
                 $('#txtleave_reason').closest('div.form-group').addClass('has-error');
                 $('#txtleave_reason').closest('div.form-group').removeClass('has-success');
-                $('#txtleave_reason').closest('div.form-group').find('i.fa-check').remove();
-                $('#txtleave_reason').closest('div.form-group').find('i.fa-warning').remove();
-                $('<i class="fa fa-warning tooltips" data-original-title="Reason must not be empty."></i>').tooltip().insertBefore($('#txtleave_reason'));
+                // $('#txtleave_reason').closest('div.form-group').find('i.fa-check').remove();
+                // $('#txtleave_reason').closest('div.form-group').find('i.fa-warning').remove();
+                // $('<i class="fa fa-warning tooltips" data-original-title="Reason must not be empty."></i>').tooltip().insertBefore($('#txtleave_reason'));
+                $(this).closest('div.form-group').find('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-warning').show();
                 arrerror.push(1);
             }
 
@@ -274,15 +294,19 @@
             if(leavetype != 0){
                 $('#sel_leavetype').closest('div.form-group').removeClass('has-error');
                 $('#sel_leavetype').closest('div.form-group').addClass('has-success');
-                $('#sel_leavetype').closest('div.form-group').find('i.fa-warning').remove();
-                $('#sel_leavetype').closest('div.form-group').find('i.fa-check').remove();
-                $('<i class="fa fa-check tooltips"></i>').insertBefore($('#sel_leavetype'));
+                // $('#sel_leavetype').closest('div.form-group').find('i.fa-warning').remove();
+                // $('#sel_leavetype').closest('div.form-group').find('i.fa-check').remove();
+                // $('<i class="fa fa-check tooltips"></i>').insertBefore($('#sel_leavetype'));
+                $(this).closest('div.form-group').find('#span-success').show();
+                $(this).closest('div.form-group').find('#span-warning').hide();
             }else{
                 $('#sel_leavetype').closest('div.form-group').addClass('has-error');
                 $('#sel_leavetype').closest('div.form-group').removeClass('has-success');
-                $('#sel_leavetype').closest('div.form-group').find('i.fa-check').remove();
-                $('#sel_leavetype').closest('div.form-group').find('i.fa-warning').remove();
-                $('<i class="fa fa-warning tooltips" data-original-title="Type of leave is required."></i>').tooltip().insertBefore($('#sel_leavetype'));
+                // $('#sel_leavetype').closest('div.form-group').find('i.fa-check').remove();
+                // $('#sel_leavetype').closest('div.form-group').find('i.fa-warning').remove();
+                // $('<i class="fa fa-warning tooltips" data-original-title="Type of leave is required."></i>').tooltip().insertBefore($('#sel_leavetype'));
+                $(this).closest('div.form-group').find('#span-success').hide();
+                $(this).closest('div.form-group').find('#span-warning').show();
                 arrerror.push(1);
             }
 
