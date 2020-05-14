@@ -55,7 +55,7 @@ class Override extends MY_Controller {
 								'official'	 => isset($arrPost['isob']) ? $arrPost['isob'] : 'N',
 								'approveHR'	 => 'Y',
 								'is_override'=> 1,
-								'obID'=> $override_id);
+								'override_id'=> $override_id);
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
@@ -107,7 +107,7 @@ class Override extends MY_Controller {
 								'official'	 => isset($arrPost['isob']) ? $arrPost['isob'] : 'N',
 								'approveHR'	 => 'Y',
 								'is_override'=> 1,
-								'obID'=> $override_id);
+								'override_id'=> $override_id);
 				$this->Attendance_summary_model->add_ob($arrData);
 			endforeach;
 			
