@@ -86,7 +86,9 @@ class Override extends MY_Controller {
 								 'lastupdated_date' => date('Y-m-d H:i:s'),
 								 'lastupdate_dby' 	=> $this->session->userdata('sessEmpNo'));
 			$this->Override_model->save($overrideData, $override_id);
-
+			
+			# reload ob data
+			$arrob_data = $this->Override_model->get_override_ob(preg_replace("/\D/", "", $arrPost['txtobid']));
 			# remove ob before insert new
 			foreach(array_column($arrob_data, 'obID') as $obid):
 				$this->Attendance_summary_model->delete_ob($obid);
