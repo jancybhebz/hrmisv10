@@ -24,7 +24,7 @@
     text-shadow: 0px 0 #48b4c1, 0 1px #48b4c1, 1px 0 #48b4c1, 0 -1px #48b4c1;
 }
 
-.datenow {
+.datenow, .daynow {
     width: 100%;
     text-align: center;
     color: #48b4c1;
