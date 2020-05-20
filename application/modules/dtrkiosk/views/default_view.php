@@ -81,6 +81,7 @@
                         <div class="col-md-6 col-lg-6 col-xl-6">
                             <div class="content" >
                                 <div class="datenow"></div>
+                                <div class="daynow"></div>
                                 <div class="clock" id="txtclock"></div>
                                 <br><br>
                                 <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
@@ -317,9 +318,11 @@
                     const monthNames = ["January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December"
                     ];
+                    const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
                     const d = new Date();
                     $('.datenow').text(monthNames[d.getMonth()] + " " + String(d.getDate()).padStart(2, '0') + ", " + d.getFullYear());
+                    $('.daynow').text(dayNames[d.getDay()-1]);
                 });  
             </script>
         </body>
