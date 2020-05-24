@@ -149,7 +149,7 @@
 
                     $('#txttime').val($('.datenow').text() +" "+$('#txtclock').text());
                     if($('#txtclock').text() == "12:00:00 AM")
-                        window.location.reload(true);
+                        location.reload();
                 }
 
                 function drawFace(ctx, radius) {
@@ -318,11 +318,12 @@
                     const monthNames = ["January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December"
                     ];
-                    const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
                     const d = new Date();
                     $('.datenow').text(monthNames[d.getMonth()] + " " + String(d.getDate()).padStart(2, '0') + ", " + d.getFullYear());
-                    $('.daynow').text(dayNames[d.getDay()-1]);
+                    console.log(d.getDay()-1);
+                    $('.daynow').text(dayNames[d.getDay()]);
                 });  
             </script>
         </body>
