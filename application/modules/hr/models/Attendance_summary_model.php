@@ -174,6 +174,7 @@ class Attendance_summary_model extends CI_Model {
 			$dtr = array();
 			if(in_array($dtrdate,array_column($arrData,'dtrDate'))):
 				$dtr = $arrData[array_search($dtrdate, array_column($arrData, 'dtrDate'))];
+				$dtr = $this->convert_to_militarytime($dtr);
 			endif;
 			# End DTR
 
@@ -960,13 +961,13 @@ class Attendance_summary_model extends CI_Model {
 		if(array_key_exists("outAM",$arrData))
 			$arrData['outAM'] = ($arrData['outAM']  == '00:00:00' || $arrData['outAM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outAM']));
 		if(array_key_exists("inPM",$arrData))
-			$arrData['inPM'] = ($arrData['inPM']  == '00:00:00' || $arrData['inPM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['inPM']));
+			$arrData['inPM'] = ($arrData['inPM']  == '00:00:00' || $arrData['inPM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['inPM'] . ' PM'));
 		if(array_key_exists("outPM",$arrData))
-			$arrData['outPM'] = ($arrData['outPM']  == '00:00:00' || $arrData['outPM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outPM']));
+			$arrData['outPM'] = ($arrData['outPM']  == '00:00:00' || $arrData['outPM']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outPM'] . ' PM'));
 		if(array_key_exists("inOT",$arrData))
-			$arrData['inOT'] = ($arrData['inOT']  == '00:00:00' || $arrData['inOT']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['inOT']));
+			$arrData['inOT'] = ($arrData['inOT']  == '00:00:00' || $arrData['inOT']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['inOT'] . ' PM'));
 		if(array_key_exists("outOT",$arrData))
-			$arrData['outOT'] = ($arrData['outOT']  == '00:00:00' || $arrData['outOT']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outOT']));
+			$arrData['outOT'] = ($arrData['outOT']  == '00:00:00' || $arrData['outOT']  ==  '') ? '00:00:00' : date('H:i:s',strtotime($arrData['outOT'] . ' PM'));
 
 		return $arrData;
 	}
