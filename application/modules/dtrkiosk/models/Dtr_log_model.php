@@ -533,24 +533,31 @@ class Dtr_log_model extends CI_Model {
 					$msg = array();
 					$warn = 0;
 					if($dtrid!=''):
-						if($am_timeout=='' && $empdtr_today!=''):
-							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('outAM' => $dtrlog), $dtrid);
-						elseif($am_timeout!='' && $empdtr_today!=''):
+						// combined am out and pm in to one query
+						if($am_timeout=='' && $pm_timein=='' && $empdtr_today!=''):
+							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('outAM' => $dtrlog, 'inPM' => $dtrlog), $dtrid);
+						elseif($am_timeout!='' && $pm_timein=='' && $empdtr_today!=''):
 							array_push($msg, '<li>You already have AM OUT!!!</li>');
 							$warn = $warn + 1;
-						else:
+						elseif($pm_timein!='' && $am_timeout=='' && $empdtr_today!=''):
+							array_push($msg, '<li>You already have PM IN!!!</li>');
+							$warn = $warn + 1;
+						elseif($empdtr_today==''):
 							array_push($msg, "<li>You don&apos;t have AM IN!!!</li>");
+							$warn = $warn + 1;
+						else:
+							array_push($msg, "<li>You already have AM OUT and PM IN!!!</li>");
 							$warn = $warn + 1;
 						endif;
 
-						if($pm_timein=='' && $empdtr_today!=''):
-							$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('inPM' => $dtrlog), $dtrid);
-						elseif($pm_timein!='' && $empdtr_today!=''):
-							array_push($msg, '<li>You already have PM IN!!!</li>');
-							$warn = $warn + 1;
-						else:
-							$warn = $warn + 1;
-						endif;
+						// if($pm_timein=='' && $empdtr_today!=''):
+						// 	$sql_str = $this->Attendance_summary_model->edit_dtrkios(array('inPM' => $dtrlog), $dtrid);
+						// elseif($pm_timein!='' && $empdtr_today!=''):
+						// 	array_push($msg, '<li>You already have PM IN!!!</li>');
+						// 	$warn = $warn + 1;
+						// else:
+						// 	$warn = $warn + 1;
+						// endif;
 
 						if($warn > 0):
 							$res = array('err_message' => array('strMsg',implode(' ',$msg)));
@@ -568,10 +575,29 @@ class Dtr_log_model extends CI_Model {
 			$res = array('err_message' => array('strErrorMsg','Invalid use of asterisk (*), Please try again without asterisk.'));
 		endif;
 
-
 		$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => count($res) > 0 ? $res['err_message'][1]: '' , 'log_ip' => $this->input->ip_address()));
 
 		return $res['err_message'];
 	}
+
+	// still developing
+	// function check_dtr_for_hcd($empid,$dtrdate,$dtrlog,$is_intl)
+	// {
+	// 	if($is_intl)
+	// 	{
+	// 		$coldate = $dtrdate;
+	// 		$coldate_log = $dtrdate . " " . $dtrlog;
+	// 		$edit_date = $dtrdate . " " . $dtrlog .  " A";
+	// 	}
+	// 	else
+	// 	{
+	// 		$coldate = date('Y-m-d');
+	// 		$coldate_log = date('Y-m-d H:i:s');
+	// 		$edit_date = date('Y-m-d H:i:s A');
+	// 	}
+		
+	// 	$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$coldate,$coldate);
+	// 	return count($empdtr) < 1 ? 2 : 1;
+	// }
 
 }
