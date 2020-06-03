@@ -13,7 +13,7 @@ class Dtr_log_model extends CI_Model {
 	{
 		# initialization
 		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
-		$att_scheme_ini = $this->db->get_where('tblAttendanceScheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
+		$att_scheme_ini = $this->db->get_where('tblAttendanceScheme_online_dtr', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
 		
 		$err_message = array();
 		$is_strict = $att_scheme_ini[0]['strict'] == 'Y' ? 1 : 0;
@@ -429,7 +429,7 @@ class Dtr_log_model extends CI_Model {
 
 	function get_employee_attscheme($empid)
 	{
-		$res = $this->db->join('tblAttendanceScheme', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode')
+		$res = $this->db->join('tblAttendanceScheme_online_dtr', 'tblAttendanceScheme_online_dtr.schemeCode = tblEmpPosition.schemeCode')
 						->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
 
 		return count($res) > 0 ? $res[0] : array();
