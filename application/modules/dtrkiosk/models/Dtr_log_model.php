@@ -473,8 +473,11 @@ class Dtr_log_model extends CI_Model {
 		$ot_timein  = count($empdtr) > 0 ? $empdtr['inOT']  == '' || $empdtr['inOT']  == '00:00:00' ? '' : $empdtr['inOT'] : '';
 		$ot_timeout = count($empdtr) > 0 ? $empdtr['outOT'] == '' || $empdtr['outOT'] == '00:00:00' ? '' : $empdtr['outOT'] : '';
 
-		$has_30mins_allow = $emp_att_scheme['allow30'];
-		$is_strict = $emp_att_scheme['strict'];
+		// $has_30mins_allow = $emp_att_scheme['allow30'];
+		// $is_strict = $emp_att_scheme['strict'];
+
+		$is_strict = $att_scheme_ini[0]['strict'] == 'Y' ? 1 : 0;
+		$has_30mins_allow = $att_scheme_ini[0]['allow30'] == 'Y' ? 1 : 0;
 
 		$res = array();
 		if(strtotime($dtrlog) >= strtotime($nn_out_from) && strtotime($dtrlog) <= strtotime($nn_in_to)):
@@ -581,23 +584,23 @@ class Dtr_log_model extends CI_Model {
 	}
 
 	// still developing
-	// function check_dtr_for_hcd($empid,$dtrdate,$dtrlog,$is_intl)
-	// {
-	// 	if($is_intl)
-	// 	{
-	// 		$coldate = $dtrdate;
-	// 		$coldate_log = $dtrdate . " " . $dtrlog;
-	// 		$edit_date = $dtrdate . " " . $dtrlog .  " A";
-	// 	}
-	// 	else
-	// 	{
-	// 		$coldate = date('Y-m-d');
-	// 		$coldate_log = date('Y-m-d H:i:s');
-	// 		$edit_date = date('Y-m-d H:i:s A');
-	// 	}
+	function check_dtr_for_hcd($empid,$dtrdate,$dtrlog,$is_intl)
+	{
+		if($is_intl)
+		{
+			$coldate = $dtrdate;
+			$coldate_log = $dtrdate . " " . $dtrlog;
+			$edit_date = $dtrdate . " " . $dtrlog .  " A";
+		}
+		else
+		{
+			$coldate = date('Y-m-d');
+			$coldate_log = date('Y-m-d H:i:s');
+			$edit_date = date('Y-m-d H:i:s A');
+		}
 		
-	// 	$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$coldate,$coldate);
-	// 	return count($empdtr) < 1 ? 2 : 1;
-	// }
+		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$coldate,$coldate);
+		return count($empdtr) < 1 ? 2 : 1;
+	}
 
 }
