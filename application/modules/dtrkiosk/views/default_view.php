@@ -31,6 +31,8 @@
         <link href="<?=base_url('assets/plugins/bootstrap-toastr/toastr.min.css')?>" rel="stylesheet" type="text/css" />
 
         <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.ico')?>" /> </head>
+        <link href="<?=base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')?>" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url('assets/plugins/bootstrap-toggle-master/css/bootstrap-toggle.min.css')?>" rel="stylesheet" type="text/css" />
     
         <body onload="startTime()" class=" login">
 
@@ -57,6 +59,30 @@
                     margin: 0 !important;
                 }
                 .toast-message{ font-size: 20px !important; }
+
+
+                input.form-control.form-required.txtdtpckr {
+                    background-color: #fff !important;
+                }
+                .well {
+                    line-height: 4px;
+                    padding: 15px;
+                }
+                .btn-group.bootstrap-select.form-control.bs-select.form-required {
+                    padding: 0 !important;
+                }
+
+                .has-error .bootstrap-select .btn {
+                    border-color: #e73d4a !important;
+                }
+                .right {
+                    text-align: right;
+                }
+
+                input[type="text"]::placeholder { /* Firefox, Chrome, Opera */ 
+                    color: #e73d4a; 
+                    opacity: .4;
+                } 
             </style>
             
             <div class="menu-toggler sidebar-toggler"></div>
@@ -81,6 +107,7 @@
                         <div class="col-md-6 col-lg-6 col-xl-6">
                             <div class="content" >
                                 <div class="datenow"></div>
+                                <div class="daynow"></div>
                                 <div class="clock" id="txtclock"></div>
                                 <br><br>
                                 <h4 class="form-title font-green pull-left bold">Daily Time Record</h4>
@@ -88,7 +115,7 @@
                                     <button class="close" data-close="alert"></button>
                                     <span> Enter any username and password. </span>
                                 </div>
-                                <?=form_open('dtr', array('method' => 'post'))?>
+                                <?=form_open('dtr', array('method' => 'post', 'id' =>'dtr_form'))?>
                                     <div class="form-group">
                                         <label class="control-label visible-ie8 visible-ie9">Username</label>
                                         <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" /> 
@@ -97,9 +124,21 @@
                                         <label class="control-label visible-ie8 visible-ie9">Password</label>
                                         <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="strPassword" /> 
                                     </div>
+                                    <!-- <div class="form-group row">
+
+                                        <input id="wfh-toggle" checked type="checkbox">WFH
+                                    </div> -->
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-lg-1 col-sm-12 bold font-green">WFH</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input id="wfh-toggle" checked type="checkbox" name="wfh-toggle">
+                                        </div>
+                                    </div>
                                     <div class="form-actions" style="border: none;text-align: right;">
+                                        
                                         <input type="text" name="txttime" id="txttime" hidden>
-                                        <button type="submit" class="btn green uppercase">Submit</button>
+                                        <button type="button" onclick="hcdForm()" class="btn green uppercase" >Submit</button>
+                                        <!-- <button type="button" onclick="deleteDTR()" class="btn red uppercase" >Delete DTR today</button> -->
                                     </div> 
                                 <?=form_close()?>
                             </div>
@@ -109,7 +148,7 @@
 
                 <div class="footer">
                     <center>
-                        <div class="col-md-12" style="padding-bottom: 30px;">
+                        <div class="col-md-12" style="padding-bottom: 30px;" hidden>
                             <a href="javascript:;" id="btn-present" class="btn btn-lg" data-toggle="tooltip" data-placement="top" title="List of Present Employees">
                                 <h1><i class="fa fa-check"></i> <i class="fa fa-user"></i></h1>
                             </a>
@@ -124,6 +163,7 @@
                             </a>
                         </div>
                         <?php include('_dtr_modal.php'); ?>
+                        <?php include('_hcd_modal.php'); ?>
                     </center>
 
                     <div class="copyright"> 
@@ -266,7 +306,14 @@
             <script src="<?=base_url('assets/layouts/layout/scripts/demo.min.js')?>" type="text/javascript"></script>
             <script src="<?=base_url('assets/layouts/global/scripts/quick-sidebar.min.js')?>" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
+            <script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>" type="text/javascript"></script>
+
             <script src="<?=base_url('assets/js/custom-dtr.js')?>"></script>
+            <script src="<?=base_url('assets/js/custom-dtr-hcd.js')?>"></script>
+
+            <script src="<?=base_url('assets/plugins/jspdf/jspdf.min.js')?>"></script>
+            <script src="<?=base_url('assets/plugins/jspdf/jspdf-autotable.js')?>"></script>
+            <script src="<?=base_url('assets/plugins/bootstrap-toggle-master/js/bootstrap-toggle.min.js')?>"></script>
 
             <script>
                 $(document).ready(function(){
@@ -317,9 +364,16 @@
                     const monthNames = ["January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December"
                     ];
+                    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
                     const d = new Date();
                     $('.datenow').text(monthNames[d.getMonth()] + " " + String(d.getDate()).padStart(2, '0') + ", " + d.getFullYear());
+                    $('.daynow').text(dayNames[d.getDay()]);
+
+                    $('#wfh-toggle').bootstrapToggle({
+                        on: 'Yes', 
+                        off: 'No'
+                    });
                 });  
             </script>
         </body>
