@@ -38,3 +38,4 @@ application/config/config.php
 .htaccess
 schema/data/migration/schema/*
 uploads/employees/*
+application/modules/test/*

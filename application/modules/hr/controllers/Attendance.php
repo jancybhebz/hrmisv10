@@ -14,7 +14,7 @@ class Attendance extends MY_Controller {
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model','libraries/Org_structure_model','libraries/Appointment_status_model'));
+        $this->load->model(array('Hr_model','Attendance_summary_model','employee/Leave_model','CalendarDates_model','libraries/Request_model','employee/Leave_monetization_model','libraries/Org_structure_model','libraries/Appointment_status_model', 'home/Home_model'));
     	$this->load->helper(array('payroll_helper','dtr_helper'));
     }
 
@@ -117,6 +117,9 @@ class Attendance extends MY_Controller {
 		if(in_array(check_module(),array('officer','executive'))):
 			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
 		endif;
+
+		// print_r($this->arrData['arremp_dtr']);
+		// exit(1);
 		$this->template->load('template/template_view','attendance/attendance_summary/summary',$this->arrData);
 	}
 
@@ -1532,6 +1535,11 @@ class Attendance extends MY_Controller {
 		$this->arrData['leave_balance'] = $this->Leave_model->att_getleave_balance($month,$yr);
 		
 		$this->template->load('template/template_view','attendance/attendance/leave_balance', $this->arrData);
+	}
+
+	public function get_hcd()
+	{
+		echo json_encode($this->Home_model->gethcd($_GET['empNumber'], $_GET['dtrDate']));
 	}
 
 }

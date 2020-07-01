@@ -600,7 +600,17 @@ class Dtr_log_model extends CI_Model {
 		}
 		
 		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$coldate,$coldate);
-		return count($empdtr) < 1 ? 2 : 1;
+		$ctr = 1;
+		if($empdtr == null || $empdtr == ""){
+			$ctr = 0;
+		}
+
+		
+		if ($ctr == 0)
+			return 2;
+		else 
+			return 1;
+		
 	}
 
 }
