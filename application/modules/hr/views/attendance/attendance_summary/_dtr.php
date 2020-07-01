@@ -83,6 +83,7 @@
                         <th class="no-sort">OT</th>
                         <th class="no-sort">UT</th>
                         <th class="no-sort">LOGS</th>
+                        <th class="no-sort">HCD</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -192,6 +193,15 @@
                                             <i class="fa fa-info"></i></a>
                                     <?php endif; ?>
                             </td>
+                            <td>
+                                <?php 
+                                    $djson['empNumber']   = count($dtr['dtr']) > 0 ? $dtr['dtr']['empNumber'] : '';
+                                    $djson['dtrdate']     = count($dtr['dtr']) > 0 ? $dtr['dtrdate'] : '';
+                                    if(count($dtr['dtr']) > 0): ?>
+                                        <a id="btnhcd" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
+                                            <i class="fa fa-info"></i></a>
+                                    <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -256,6 +266,8 @@
 
 <?=load_plugin('js', array('datatables','datatables-scroller'))?>
 <script src="<?=base_url('assets/js/custom/dtr_view-js.js')?>"></script>
+<script src="<?=base_url('assets/plugins/jspdf/jspdf.min.js')?>"></script>
+<script src="<?=base_url('assets/plugins/jspdf/jspdf-autotable.js')?>"></script>
 
 <script>
     $(document).ready(function() {

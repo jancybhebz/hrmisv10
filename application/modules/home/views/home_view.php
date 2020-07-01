@@ -151,6 +151,58 @@
         </div>
     </div-->
 </div>
+<div class="row">
+    <div class="portlet-title">
+        <div class="caption">
+            <span class="col-lg-8 col-sm-12 caption-subject font-purple bold uppercase" style="font-size: 16px" >Health Declaration</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <label class="col-form-label col-lg-1 col-sm-12">Date filter:</label>
+    <div class="col-lg-7 col-md-4 col-sm-6 col-xs-12">
+        <input type="text" class="form-control form-control-sm date-picker form-required " id="txtdate" name="txtdate" value="<?=date('Y-m-d')?>" data-date-format="yyyy-mm-dd">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-group"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span id="txttemp" data-counter="counterup" data-value="<?=$intTemp?>">0</span></div>
+                <div class="desc"> No. of Personnel w/ temperature above 37.5 </div>
+            </div>
+            <div id="atemp">
+                <!-- href="<?=base_url('home/withhightemps')?>" -->
+                <a class="more" > View more
+                    <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-group"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span id="txtsymp" data-counter="counterup" data-value="<?=$intSymptoms?>">0</span></div>
+                <div class="desc"> No. of Personnel experiencing w/ symptoms </div>
+
+            </div>
+            <div id="asymp">
+                <!-- href="<?=base_url('home/withsymptoms')?>" -->
+                <a class="more"> View more
+                    <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>  
 <div class="clearfix"></div>
 <!-- END APPOINTMENT STATS -->
 
@@ -398,7 +450,47 @@
                 }
             }]
         });
+
+        $('#txtdate').change(function() {
+            var oldURL = window.location.toString();
+            var index = 0;
+            var newURL = oldURL;
+            index = oldURL.indexOf('home');
+            if(index == -1){
+                index = oldURL.indexOf('?');
+            }
+            if(index != -1){
+                newURL = oldURL.substring(0, index);
+            }
+            
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                data: {'dtrDate': this.value},
+                url: newURL+"home/change_hcddate/",
+                success: function (data) {
+                    $('#txttemp').html(data.temp);
+                    $('#txtsymp').html(data.symp);
+                }
+            }).fail(function () {
+                toastr.error("An error has occurred. Please try again later.");
+            });
+        });
+
+        $("#atemp a").click(function() {
+            var _href = "<?=base_url('home/withhightemp')?>";
+            window.location.href = _href + '/' + $('#txtdate').val();
+        });
+
+        $("#asymp a").click(function() {
+            var _href = "<?=base_url('home/withsymptoms')?>";
+            window.location.href = _href + '/' + $('#txtdate').val();
+        });
+
+        var dt = $('.date-picker').datepicker({autoclose: true, });
   });//end document ready
 </script>
 <script src="<?=base_url('assets/plugins/counterup/jquery.waypoints.min.js')?>" type="text/javascript"></script>
 <script src="<?=base_url('assets/plugins/counterup/jquery.counterup.min.js')?>" type="text/javascript"></script>
+<link href="<?=base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')?>" rel="stylesheet" type="text/css" />
+<script src="<?=base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>" type="text/javascript"></script>

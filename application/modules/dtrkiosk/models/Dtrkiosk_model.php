@@ -58,5 +58,37 @@ class Dtrkiosk_model extends CI_Model {
 		return $employees;
 	}
 	
+	function save_hcd($arrdata)
+	{
+		$result = $this->db->insert('tblOnlineDTR_HCD', $arrdata);
 
+		$status = ($result) ? 'success': 'error';
+        $message = ($result)
+            ? "Health Check Declaration has been successfully added."
+            : 'Unable to add data.';
+
+        return
+            array(
+                'status'  => $status,
+                'message' => $message
+            );
+	}
+
+	public function delete_dtr($empno,$dtrdate)
+    {
+        $this->db->where('empNumber', $empno);
+        $this->db->where("dtrDate",$dtrdate);
+        $result = $this->db->delete('tblEmpDTR');
+
+        $status = ($result) ? 'success': 'error';
+        $message = ($result)
+            ? "DTR today has been successfully deleted."
+            : 'Unable to delete data.';
+
+        return
+            array(
+                'status'  => $status,
+                'message' => $message
+            );
+    }
 }
