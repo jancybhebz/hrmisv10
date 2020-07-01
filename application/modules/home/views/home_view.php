@@ -191,7 +191,7 @@
             <div class="details">
                 <div class="number">
                     <span id="txtsymp" data-counter="counterup" data-value="<?=$intSymptoms?>">0</span></div>
-                <div class="desc"> No. of Personnel experiencing w/ symptoms </div>
+                <div class="desc"> No. of Personnel experiencing any symptoms </div>
 
             </div>
             <div id="asymp">
