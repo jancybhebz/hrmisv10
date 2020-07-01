@@ -74,6 +74,7 @@ function hcdForm(){
                     form.submit();
                 }
                 else{
+                    $('#btnHCD').prop("disabled", false);
                     $('.modal-title').html('Health Check Declaration Form');
                     $('#hcd-modal').modal('show');
 
@@ -108,6 +109,7 @@ function submitHCD(){
             success: function (data) {
                 if(data.status == "success"){
                     toastr.success(data.message);
+                    $('#btnHCD').prop("disabled", true);
                     form.submit();
                 } else {
                     toastr.error(data.message);

@@ -195,7 +195,7 @@
       </div>
       <div class="modal-footer">
         <input type="hidden" name="txtempno" id="txtempno">
-        <button type="button" class="btn blue" onclick="submitHCD()"><i class="icon-check"> </i> Submit</button>
+        <button type="button" class="btn blue" id="btnHCD" onclick="submitHCD()"><i class="icon-check"> </i> Submit</button>
         <button type="button" class="btn green" onclick="savePDF()"><i class="icon-check"> </i> Download PDF</button>
         <button type="button" class="btn yellow" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
       </div>
