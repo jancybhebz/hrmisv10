@@ -250,7 +250,7 @@ function savePDF(){
             qsn = '\t'+qsn;
 
         if(qsn.charAt(0) == "5")
-            qsn = qsn + '                                        ' + $('#txtq5').val();
+                qsn = qsn + '                                   ' + $('#txtq5').val();
 
         rows.push([qsn,yes,no]);
     });
