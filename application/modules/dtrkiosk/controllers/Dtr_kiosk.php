@@ -11,7 +11,9 @@ class Dtr_kiosk extends MY_Controller
     }
     
 	public function index()
-	{
+	{	
+		$this->load->library('session');
+		session_start();
 		$arrPost = $this->input->post();
 		
 		if(!empty($arrPost)):
@@ -37,6 +39,14 @@ class Dtr_kiosk extends MY_Controller
 
 					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog,$is_intl);
 
+					if($emp_log_msg[0] == 'strSuccessMsg')
+					{
+						// session_destroy();
+						$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empno,$dtrdate,$dtrdate);
+						$empdtr[0]['empName'] = employee_name($empdtr[0]['empNumber']);
+						$this->set_session_dtr_data($empdtr);
+					}
+
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr');
 				endif;
@@ -60,6 +70,15 @@ class Dtr_kiosk extends MY_Controller
 					}
 
 					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog,$is_intl);
+
+					if($emp_log_msg[0] == 'strSuccessMsg')
+					{
+						// session_destroy();
+						$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empno,$dtrdate,$dtrdate);
+						$empdtr[0]['empName'] = employee_name($empdtr[0]['empNumber']);
+						$this->set_session_dtr_data($empdtr);
+					}
+
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
 					redirect('dtr');
 				else:
@@ -281,7 +300,7 @@ class Dtr_kiosk extends MY_Controller
 
 			$dtrlog = date('H:i:s');
 			$dtrdate = date('Y-m-d');
-			
+			session_destroy();
 			echo json_encode($this->Dtrkiosk_model->delete_dtr($empno,$dtrdate));
 		}
 		else{
@@ -293,4 +312,17 @@ class Dtr_kiosk extends MY_Controller
 			echo json_encode($arrData);
 		}
    	}
+
+   	public function set_session_dtr_data($empdtr)
+	{
+		$sessData = array(
+			 'empNumber'			=> $empdtr[0]['empName'],
+			 'inAM'  		=> $empdtr[0]['inAM'] == '00:00:00' ? '' : $empdtr[0]['inAM'],
+			 'outAM'  	=> $empdtr[0]['outAM'] == '00:00:00' ? '' : $empdtr[0]['outAM'],
+			 'inPM'  		=> $empdtr[0]['inPM'] == '00:00:00' ? '' : $empdtr[0]['inPM'],
+			 'outPM' 	=> $empdtr[0]['outPM'] == '00:00:00' ? '' : $empdtr[0]['outPM']
+			);
+		
+		$this->session->set_userdata($sessData);
+	}
 }
