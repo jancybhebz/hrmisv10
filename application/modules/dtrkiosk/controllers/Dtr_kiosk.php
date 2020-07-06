@@ -13,7 +13,7 @@ class Dtr_kiosk extends MY_Controller
 	public function index()
 	{	
 		$this->load->library('session');
-		session_start();
+		// session_start();
 		$arrPost = $this->input->post();
 		
 		if(!empty($arrPost)):

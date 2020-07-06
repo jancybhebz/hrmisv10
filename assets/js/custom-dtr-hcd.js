@@ -95,12 +95,17 @@ function hcdForm(){
     
 }
 
+var stopClick = false; 
 function submitHCD(){
     var err = 0;
 
     err = checkError();
-
+    
+    
     if(err == 0){
+        if(stopClick) return;
+        stopClick = true;
+        
         $.ajax({
             type: "GET",
             dataType: "json",
