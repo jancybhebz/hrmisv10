@@ -166,9 +166,35 @@
                         <?php include('_hcd_modal.php'); ?>
                     </center>
 
+                    <?php if(isset($_SESSION['empNumber']) && !empty($_SESSION['empNumber'])) : ?>
+                        <center>
+                            <div class="justify-content-center">
+                                <!-- <div class="col-md-12"> -->
+                                    <table class="table table-bordered table-hover" id="tbldtr-emp" style="background-color: white">
+                                        <tr> 
+                                            <th>Employee Name</th> 
+                                            <th>Time In</th> 
+                                            <th>Time Out</th> 
+                                            <th>Time In</th> 
+                                            <th>Time Out</th> 
+                                        </tr>
+                                        <tr> 
+                                            <td><?=$_SESSION['empNumber']?></td> 
+                                            <td><?=$_SESSION['inAM']?></td>
+                                            <td><?=$_SESSION['outAM']?></td>
+                                            <td><?=$_SESSION['inPM']?></td>
+                                            <td><?=$_SESSION['outPM']?></td>
+                                        </tr>
+                                    </table>
+                                <!-- </div> -->
+                            </div>
+                        </center>
+                    <?php endif; ?>
+                   
                     <div class="copyright"> 
                         <em>Note: The DATE and TIME of this Daily Time Record is sychronized with the HRMIS server.</em>
-                        <br><br>2018 © DOST ITD. </div>
+                        <br><br>2018 © DOST ITD. 
+                    </div>
                 </div>
             </div>
 
@@ -188,7 +214,7 @@
 
                     $('#txttime').val($('.datenow').text() +" "+$('#txtclock').text());
                     if($('#txtclock').text() == "12:00:00 AM")
-                        window.location.reload(true);
+                        location.reload();
                 }
 
                 function drawFace(ctx, radius) {
