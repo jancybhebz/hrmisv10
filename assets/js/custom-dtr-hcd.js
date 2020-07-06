@@ -78,6 +78,19 @@ function hcdForm(){
                     $('.modal-title').html('Health Check Declaration Form');
                     $('#hcd-modal').modal('show');
 
+                    if($("input[name='wfh-toggle']:checked").val() != "on"){    
+                        $('.iswfh').show(); 
+                        $("input[name='rdonvisit']").prop("checked", true); 
+                        $("input[name='rdonvisit'][value='Official'").prop("checked", true);    
+                        $("input[name='rdonob']").prop("checked", true);    
+                        $("input[name='rdonob'][value='Employee'").prop("checked", true);   
+                    }   
+                    else{   
+                        $('.iswfh').hide(); 
+                        $("input[name='rdonvisit']").prop("checked", false);    
+                        $("input[name='rdonob']").prop("checked", false);   
+                    }
+                    
                     $('#txtempno').val(data.emp['empNumber']);
                     $('#txtname').val(data.emp['fullname']);
                     $('input[name=rdosex][value=' + data.emp['sex'] + ']').prop('checked', true);
@@ -101,9 +114,9 @@ function submitHCD(){
 
     err = checkError();
     
-    if(stopClick) return;
-    stopClick = true;
     if(err == 0){
+        if(stopClick) return;
+        stopClick = true;
         $.ajax({
             type: "GET",
             dataType: "json",
@@ -173,21 +186,23 @@ function savePDF(){
     // doc.text(55, 55, cutString($('#txtrescon').val(),1));
     // doc.text(55, 60, cutString($('#txtrescon').val(),2));
 
-    doc.text(20, 80, 'Nature of Visit:');
-    doc.text(20, 85, '(Please check one)');
-    doc.text(65, 80, 'Official');
-    doc.text(65, 85, 'Personal');
-    doc.line(59, 81, 64, 81);
-    doc.line(59, 86, 64, 86);
-    $("input[name='rdonvisit']:checked").val() == 'Official' ? doc.text(62, 80, '/') :  doc.text(62, 85, '/');
+    if($("input[name='wfh-toggle']:checked").val() != "on"){
+        doc.text(20, 80, 'Nature of Visit:');
+        doc.text(20, 85, '(Please check one)');
+        doc.text(65, 80, 'Official');
+        doc.text(65, 85, 'Personal');
+        doc.line(59, 81, 64, 81);
+        doc.line(59, 86, 64, 86);
+        $("input[name='rdonvisit']:checked").val() == 'Official' ? doc.text(62, 80, '/') :  doc.text(62, 85, '/');
 
-    doc.text(100, 80, 'Nature of Official Business:');
-    doc.text(100, 85, '(Please check one)');
-    doc.text(155, 80, 'Employee');
-    doc.text(155, 85, 'Client');
-    doc.line(149, 81, 154, 81);
-    doc.line(149, 86, 154, 86);
-    $("input[name='rdonob']:checked").val() == 'Employee' ? doc.text(151, 80, '/') :  doc.text(151, 85, '/');
+        doc.text(100, 80, 'Nature of Official Business:');
+        doc.text(100, 85, '(Please check one)');
+        doc.text(155, 80, 'Employee');
+        doc.text(155, 85, 'Client');
+        doc.line(149, 81, 154, 81);
+        doc.line(149, 86, 154, 86);
+        $("input[name='rdonob']:checked").val() == 'Employee' ? doc.text(151, 80, '/') :  doc.text(151, 85, '/');
+    }
 
     // doc.text(20, 95, 'Company Name:');
     // doc.text(55, 95, $('#txtcompname').val());

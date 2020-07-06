@@ -66,15 +66,15 @@
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group row iswfh" hidden>
                 <label class="col-form-label col-lg-2 col-sm-12 tl">Nature of Visit:<br>(Please check one):</label>
                 <div class="col-lg-3 col-md-9 col-sm-12" style="text-align:left">
-                  <label class="radio-inline"><input type="radio" name="rdonvisit" value="Official" checked>Official</label>
+                  <label class="radio-inline"><input type="radio" name="rdonvisit" value="Official">Official</label>
                   <label class="radio-inline"><input type="radio" name="rdonvisit" value="Personal">Personal</label>
                 </div>
                 <label class="col-form-label col-lg-2 col-sm-12 tl">Nature of Official Business:<br>(Please check one)</label>
                 <div class="col-lg-3 col-md-9 col-sm-12" style="text-align:left">
-                  <label class="radio-inline"><input type="radio" name="rdonob" value="Employee" checked>Employee</label>
+                  <label class="radio-inline"><input type="radio" name="rdonob" value="Employee">Employee</label>
                   <label class="radio-inline"><input type="radio" name="rdonob" value="Client">Client</label>
                 </div>
               </div>
