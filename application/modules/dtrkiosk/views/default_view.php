@@ -168,8 +168,8 @@
 
                     <?php if(isset($_SESSION['empNumber']) && !empty($_SESSION['empNumber'])) : ?>
                         <center>
-                            <div class="justify-content-center">
-                                <!-- <div class="col-md-12"> -->
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
                                     <table class="table table-bordered table-hover" id="tbldtr-emp" style="background-color: white">
                                         <tr> 
                                             <th>Employee Name</th> 
@@ -186,7 +186,7 @@
                                             <td><?=$_SESSION['outPM']?></td>
                                         </tr>
                                     </table>
-                                <!-- </div> -->
+                                </div>
                             </div>
                         </center>
                     <?php endif; ?>

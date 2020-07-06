@@ -605,8 +605,13 @@ class Dtr_log_model extends CI_Model {
 			$ctr = 0;
 		}
 
+		$this->db->where('empNumber', $empid);
+		$this->db->where("dtrDate", $coldate);
+		$res = $this->db->get('tblOnlineDTR_HCD')->result_array();
+		// print_r(count($res));
+		// exit(1);
 		
-		if ($ctr == 0)
+		if ($ctr == 0 && count($res) < 1)
 			return 2;
 		else 
 			return 1;
