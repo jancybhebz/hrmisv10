@@ -106,13 +106,22 @@ class Home_model extends CI_Model {
 		return $objQuery->result_array();
 	}
 
-	function getsymtomps($dtrDate)
+	function getsymptoms($dtrDate, $symptoms="")
 	{
-		$this->db->select('*, CONCAT_WS(", ", CASE WHEN q1_1 = 1 THEN "Fever for the past few days" ELSE NULL END, CASE WHEN q1_2 = 1 THEN "Dry Cough" ELSE NULL END, CASE WHEN q1_3 = 1 THEN "Fatigue" ELSE NULL END, CASE WHEN q1_4 = 1 THEN "Aches and Pains" ELSE NULL END, CASE WHEN q1_5 = 1 THEN "Runny Nose" ELSE NULL END, CASE WHEN q1_6 = 1 THEN "Shortness of Breath" ELSE NULL END, CASE WHEN q1_7 = 1 THEN "Diarrhea" ELSE NULL END) AS symptoms', FALSE);
-		$this->db->where('dtrDate',$dtrDate);
-		$this->db->where('(q1_1+q1_2+q1_3+q1_4+q1_5+q1_6+q1_7) >',0);
-		$objQuery = $this->db->get('tblOnlineDTR_HCD');
-		return $objQuery->result_array();
+		$concat = 'CONCAT_WS(", ", CASE WHEN q1_1 = 1 THEN "Fever for the past few days" ELSE NULL END, CASE WHEN q1_2 = 1 THEN "Dry Cough" ELSE NULL END, CASE WHEN q1_3 = 1 THEN "Fatigue" ELSE NULL END, CASE WHEN q1_4 = 1 THEN "Aches and Pains" ELSE NULL END, CASE WHEN q1_5 = 1 THEN "Runny Nose" ELSE NULL END, CASE WHEN q1_6 = 1 THEN "Shortness of Breath" ELSE NULL END, CASE WHEN q1_7 = 1 THEN "Diarrhea" ELSE NULL END)';
+		$sql = 'SELECT *, concat AS symptoms FROM tblOnlineDTR_HCD WHERE dtrDate = ? AND (q1_1+q1_2+q1_3+q1_4+q1_5+q1_6+q1_7) > 0';
+		$sql = str_replace('concat', $concat, $sql);
+
+		foreach ($symptoms as $key=>$val) {
+			$symp .= ($key > 0 ? ' OR ' : '') . $concat . ' LIKE "%'.$val.'%"' ;
+		}
+
+		$symp = ' AND (' . $symp .')'; 
+
+		$sql = empty($symptoms) ? $sql : $sql . $symp;
+
+        $query = $this->db->query($sql, array($dtrDate));
+        return $query->result();
 	}
 
 	public function gethcd($empNumber, $dtrDate)

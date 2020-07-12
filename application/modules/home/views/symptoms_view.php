@@ -41,6 +41,28 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </div>
             </div>
             <div class="caption font-dark">
+                <div class="form-check form-check-inline" id="chksymptoms">
+                    <input class="form-check-input" type="checkbox" name="chk" id="s1" value="s1">
+                    <label class="form-check-label" for="s1">Fever for the past few days</label>
+
+                    <input class="form-check-input" type="checkbox" name="chk" id="s2" value="s2">
+                    <label class="form-check-label" for="s2">Dry Cough</label>
+                    
+                    <input class="form-check-input" type="checkbox" name="chk" id="s3" value="s3">
+                    <label class="form-check-label" for="s3">Fatigue</label>
+                    
+                    <input class="form-check-input" type="checkbox" name="chk" id="s4" value="s4">
+                    <label class="form-check-label" for="s4">Aches and Pains</label>
+                    
+                    <input class="form-check-input" type="checkbox" name="chk" id="s5" value="s5">
+                    <label class="form-check-label" for="s5">Runny Nose</label>
+                    
+                    <input class="form-check-input" type="checkbox" name="chk" id="s6" value="s6">
+                    <label class="form-check-label" for="s6">Shortness of Breath</label>
+                   
+                    <input class="form-check-input" type="checkbox" name="chk" id="s7" value="s7">
+                    <label class="form-check-label" for="s7">Diarrhea</label>
+                </div>
                 <div class="row">
                     <label class="col-form-label col-lg-1 col-sm-12">Date filter:</label>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -63,16 +85,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1; foreach($arrData as $row):?>
+                        <!-- <!-- <?php $i=1; foreach($arrData as $row):?>
                             <tr class="odd gradeX">
                                 <td> <?=$i++?> </td>
                                 <td> <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>"><?=$row['fullName']?></a></td>
                                 <td> <?=employee_office($row['empNumber'])?> </td>
                                 <td align="center"> <?=$row['symptoms']?></td>
                                 <td align="center"> <input type="checkbox" <?=($row['wfh'] == 1) ? 'checked="checked"' : ''?> name="chkwfh" disabled  /></td>
-                                <td align="center"><button type="button" class="btn btn-info" onclick="hcdForm('<?=$row['empNumber']?>')">Details</button></i></td>
+                                <td align="center"><button type="button" class="btn btn-info" onclick="hcdForm('<?=$row['empNumber']?>')">Details</button></td>
                             </tr>
-                        <?php endforeach;?>
+                        <?php endforeach;?> --> -->
                     </tbody>
                 </table>
             </div>
@@ -85,25 +107,73 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
 <script>
     $(document).ready(function() {
+        // var symps = ["Fever for the past few days", "Dry Cough", "Fatigue", "Aches and Pains", "Runny Nose", "Shortness of Breath", "Diarrhea"];
+
+        // $.each( symps, function( index, value ){
+        //     $('div#chksymptoms').append('<input class="form-check-input" type="checkbox" name="chk" id="s'+index+'" value="s'+index+'"><label class="form-check-label" for="s'+index+'">'+value+'</label>')
+        // });
+
         $('#tblemployees').dataTable( {
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#tblemployees').show();
-            }} );
+            }} 
+        );
 
-        $('#txtdate').change(function() {
-            var _href = "<?=base_url('home/withsymptoms')?>";
-            _href = _href + '/' + $('#txtdate').val();
-
-            // window.location.href = _href, true;
-            setTimeout(function(){document.location.href = _href, true},100);
-        });
+        generateTable();
 
         var dt = $('.date-picker').datepicker({autoclose: true, });
+
+        var datePicker = $('.date-picker').datepicker().on('changeDate', function(ev){
+            generateTable();
+        });
+
+        // $('#txtdate').change(function() {
+        //     generateTable();
+        //     console.log('a');
+        //     // var _href = "<?=base_url('home/withsymptoms')?>";
+        //     // _href = _href + '/' + $('#txtdate').val();
+
+        //     // // window.location.href = _href, true;
+        //     // setTimeout(function(){document.location.href = _href, true},100);
+        // });
+
         $("#hcd_form :input").prop("disabled", true);
 
-        
+        $('input[type=checkbox][name=chk]').change(function() {
+            generateTable();
+        });
     });
+
+    function generateTable(){
+        var table = $('#tblemployees').DataTable();
+        var rows = table.rows().remove().draw();
+        var arr = [];
+        $('input.form-check-input:checkbox:checked').each(function () {
+            arr.push($("label[for='" + this.id + "']").text());
+        });
+        
+        $.ajax({
+            url: '<?php echo site_url("home/withsymptoms_filtered") ?>',
+            type: "GET",
+            dataType: "json",
+            data: { dtrdate: $('#txtdate').val(), symps: arr},
+            success: function(data) {
+                for(var x = 0; x < data.data.length; x++)
+                {
+                    $('#tblemployees').dataTable().fnAddData
+                    ([
+                        x+1,
+                        data.data[x].fullName,
+                        data.data[x].office,
+                        data.data[x].symptoms,
+                        data.data[x].iswfh,
+                        data.data[x].empNumber
+                    ]);
+                }
+            }     
+        });
+    }
 
     function hcdForm(empNumber){
         var oldURL = window.location.toString();
