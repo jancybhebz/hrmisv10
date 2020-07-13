@@ -102,11 +102,11 @@ class Bio_sync extends MY_Controller
 						if($strLogMsg)
 						{
 							$insertCount++;
-							# $logMsg .= "<tr><td>".$empID."</td><td>".$empDate."</td><td>".$empTime."</td><td>".$strLogMsg."</td></tr>";
+							$logMsg .= "<tr><td>".$empID."</td><td>".$empDate."</td><td>".$empTime."</td><td>".$strLogMsg."</td></tr>";
 						} 	
 					}
 
-					# $logMsg .= "</table>";
+					$logMsg .= "</table>";
 
 					// get latest date after updating
 					$afterDate = $this->Bio_sync_model->getLatestHRDate();
@@ -128,130 +128,15 @@ class Bio_sync extends MY_Controller
 			redirect('biosync');
 		endif;
 
-		$this->session->set_flashdata('warning','Please fill up device.');
+		$this->session->set_flashdata('warning','Please fill up dates and device.');
 		$this->load->view('default_view');
-	}
-
-	function auto_sync($device)
-	{
-		$index=0;
-		$insertCount = 0;
-
-		$empNum = $arrPost['txtEmpID']; 
-		$empDatefrom = $arrPost['txtSyncRecordDatefrom'];
-		$empDateto = $arrPost['txtSyncRecordDateto'];		
-		$device = $device;
-		$device_name = array('VIRDIAC6000','VIRDIAC4000','FINGERTRAKFP305','ANVIZ','ZKTeco');
-	
-		// $empNum = ''; 
-		// $empDatefrom = '20200525';
-		// $empDateto = '20200531';
-		// $device = 'VIRDIAC4000';
-		// $device_name = array('VIRDIAC6000','VIRDIAC4000','FINGERTRAKFP305','ANVIZ','ZKTeco');
-
-		if(empty($empDateto) || empty($empDatefrom))
-		{
-			$empDatefrom = date('Ymd');
-			$empDateto = date('Ymd');
-		}
-		
- 		$someArray = $this->get_mdbdata($device,$device_name,$empDatefrom,$empDateto,$empNum);
- 	
-        if(!array_key_exists("error",$someArray[0]))
-        {
-        	if(!empty($someArray))
-			{	$latestData = $this->Bio_sync_model->getLatestData($empNum,$this->formatStringDate($empDatefrom),$this->formatStringDate($empDateto));
-
-				$n = 0;
-				while($n < count($latestData))
-				{
-					$latestTime = $this->getLatestTimes($latestData[$n]);
-					$latestIDTimes[$latestData[$n]['empNumber']][$index] = array('date' => $latestData[$n]['dtrDate'], 'time' => $latestTime);
-					$n++;
-				}	
-
-				$i = 0;
-				while($i < count($someArray))
-				{
-					$empID = $someArray[$i]['empnum'];
-					$empTime = $someArray[$i]['dtrTime'];	
-					$empDate = $someArray[$i]['dtrDate'];
-
-					
-
-					// check if there's an existing record for this id
-					if(isset($latestIDTimes[$empID][$i]))
-					{
-						do
-						{
-							
-							if($latestIDTimes[$empID][$i]['date']==$this->formatStringDate($empDate))
-							{
-
-								
-								
-								if($empTime > $latestIDTimes[$empID][$i]['time']) //compares biometrics time to dtr time
-								{ 
-
-									$empDate = $this->formatStringDate($empDate);
-									$empTime = $this->formatStringTime($empTime);
-									
-									
-
-									$strLogMsg = $this->Bio_sync_model->logDTR($empID, "", $empTime, $empDate, 0, 1); 
-								}
-								else 
-									$strLogMsg='';
-							} 
-							$i++; 
-						}
-						while($i<=sizeof($latestIDTimes[$empID]));
-					}
-					else
-					{ 
-						$empDate = $this->formatStringDate($empDate);
-						$empTime = $this->formatStringTime($empTime);
-
-						// $strLogMsg = "logdtr2";
-						$strLogMsg = $this->Bio_sync_model->logDTR($empID, "", $empTime, $empDate, 0, 1);
-
-
-						$i++; 
-					}
-
-					if($strLogMsg)
-					{
-						$insertCount++;
-						# $logMsg .= "<tr><td>".$empID."</td><td>".$empDate."</td><td>".$empTime."</td><td>".$strLogMsg."</td></tr>";
-					} 	
-				}
-
-				# $logMsg .= "</table>";
-
-				// get latest date after updating
-				$afterDate = $this->Bio_sync_model->getLatestHRDate();
-				$latestDateHR = date('D, F d Y', strtotime($afterDate['dtrDate']));
-				$lastTime = $this->formatStringTime($this->formatTimeString($this->Bio_sync_model->lastUpdateTime($afterDate['dtrDate'])['dtrDate']));
-				
-				$logMsg = ["strSuccessMsg",$insertCount ."|".$logMsg."|".$latestDateHR."|".$lastTime];
-			}
-			else
-				$logMsg = ["strErrorMsg","Please fill up Device."];
-        }
-        else
-        	$logMsg = ["strErrorMsg","Unable to connect to Fingertrack database. Contact your system administrator"];
-
-        echo $logMsg[1];
 	}
 
 	public function get_mdbdata($device,$device_name,$empDatefrom,$empDateto,$empNum)
 	{
-		$ip = $this->input->ip_address();
 		$accessQuery = $this->getQueryfromDevice($device,$device_name,$empDatefrom,$empDateto,$empNum);
-		$command = escapeshellcmd('py py/retrieve.py ' .str_replace(' ', '|', $accessQuery). ' ' .$device. ' ' .$ip);
+		$command = escapeshellcmd('python py/retrieve.py ' .str_replace(' ', '|', $accessQuery). ' ' .$device);
         $output = shell_exec($command);
-        // echo $output;
-        // exit(1);
         $jsonData = str_replace("'", '"', $output);
         $someArray = json_decode($jsonData, true);
 

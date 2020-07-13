@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row iswfh" hidden>
                             <label class="col-form-label col-lg-2 col-sm-12 tl">Nature of Visit:<br>(Please check one):</label>
                             <div class="col-lg-3 col-md-9 col-sm-12" style="text-align:left">
                                 <label class="radio-inline"><input type="radio" name="rdonvisit" value="Official" checked>Official</label>
@@ -144,6 +144,7 @@
             </div>
             <div class="modal-footer">
                 <input type="hidden" name="txtempno" id="txtempno">
+                <input type="hidden" name="txtwfh" id="txtwfh">
                 <!-- <button type="button" class="btn blue" onclick="submitHCD()"><i class="icon-check"> </i> Submit</button> -->
                 <button type="button" class="btn green" onclick="savePDF()"><i class="icon-check"> </i> Download PDF</button>
                 <button type="button" class="btn yellow" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>

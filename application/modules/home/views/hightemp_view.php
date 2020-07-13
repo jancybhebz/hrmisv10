@@ -141,10 +141,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 $('#txtage').val(data.age);
                 $('#txtrescon').val(data.residence_contact);
 
-                $('input[name=rdonvisit][value=' + data.natureVisit + ']').prop('checked', true);
-                $('input[name=rdonvisit][value=' + data.natureVisit + ']').parents('span').addClass('checked');
-                $('input[name=rdonob][value=' + data.natureOb + ']').prop('checked', true);
-                $('input[name=rdonob][value=' + data.natureOb + ']').parents('span').addClass('checked');
+                $('#txtwfh').val(data.wfh);
+                if(data.wfh != 1){
+                    $('.iswfh').show();
+                    $('input[name=rdonvisit][value=' + data.natureVisit + ']').prop('checked', true);
+                    $('input[name=rdonvisit][value=' + data.natureVisit + ']').parents('span').addClass('checked');
+                    $('input[name=rdonob][value=' + data.natureOb + ']').prop('checked', true);
+                    $('input[name=rdonob][value=' + data.natureOb + ']').parents('span').addClass('checked');
+                }
+                else{
+                    $('.iswfh').hide();
+                }
 
                 $('input[name=rdoq1_1][value=' + data.q1_1 + ']').prop('checked', true);
                 $('input[name=rdoq1_1][value=' + data.q1_1 + ']').parents('span').addClass('checked');
@@ -214,21 +221,23 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         doc.text($('#txtrescon').val(), 55, 65, {maxWidth: 120, align: "justify"});
         doc.line(55, 71, 180, 71);
 
-        doc.text(20, 80, 'Nature of Visit:');
-        doc.text(20, 85, '(Please check one)');
-        doc.text(65, 80, 'Official');
-        doc.text(65, 85, 'Personal');
-        doc.line(59, 81, 64, 81);
-        doc.line(59, 86, 64, 86);
-        $("input[name='rdonvisit']:checked").val() == 'Official' ? doc.text(62, 80, '/') :  doc.text(62, 85, '/');
-
-        doc.text(100, 80, 'Nature of Official Business:');
-        doc.text(100, 85, '(Please check one)');
-        doc.text(155, 80, 'Employee');
-        doc.text(155, 85, 'Client');
-        doc.line(149, 81, 154, 81);
-        doc.line(149, 86, 154, 86);
-        $("input[name='rdonob']:checked").val() == 'Employee' ? doc.text(151, 80, '/') :  doc.text(151, 85, '/');
+        if($("#txtwfh").val() == 0){    
+            doc.text(20, 80, 'Nature of Visit:');   
+            doc.text(20, 85, '(Please check one)'); 
+            doc.text(65, 80, 'Official');   
+            doc.text(65, 85, 'Personal');   
+            doc.line(59, 81, 64, 81);   
+            doc.line(59, 86, 64, 86);   
+            $("input[name='rdonvisit']:checked").val() == 'Official' ? doc.text(62, 80, '/') :  doc.text(62, 85, '/');  
+            
+            doc.text(100, 80, 'Nature of Official Business:');  
+            doc.text(100, 85, '(Please check one)');    
+            doc.text(155, 80, 'Employee');  
+            doc.text(155, 85, 'Client');    
+            doc.line(149, 81, 154, 81); 
+            doc.line(149, 86, 154, 86); 
+            $("input[name='rdonob']:checked").val() == 'Employee' ? doc.text(151, 80, '/') :  doc.text(151, 85, '/');   
+        }   
 
         doc.text($('#lblconsent').text(), 20, 265-35, {maxWidth: 170, align: "justify"});
 

@@ -53,7 +53,3 @@ try:
 except pyodbc.Error as ex:
     sqlstate = ex.args[1]
     print(sqlstate);
-
-
-   
-

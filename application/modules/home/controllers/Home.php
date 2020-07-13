@@ -62,6 +62,8 @@ class Home extends MY_Controller {
 		$this->arrData['intP'] = count($this->home_model->getemployeesbyappointment('P'));
 		$this->arrData['intGIA'] = count($this->home_model->getemployeesbyappointment('GIA'));
 		$this->arrData['intJO'] = count($this->home_model->getemployeesbyappointment('JO'));
+		$this->arrData['intTemp'] = count($this->home_model->gethightemp(date('Y-m-d')));
+		$this->arrData['intSymptoms'] = count($this->home_model->getsymptoms(date('Y-m-d')));
 
 		$this->template->load('template/template_view','home/home_view',$this->arrData);
 	}
@@ -188,5 +190,63 @@ class Home extends MY_Controller {
 		$strAppStatus = $this->uri->segment(3);
 		$this->arrData['arrData'] = $this->home_model->getemployeesbyappointment($strAppStatus);
 		$this->template->load('template/template_view','home/employee_view',$this->arrData);
+	}
+
+	public function change_hcddate()
+	{
+		$temp = count($this->home_model->gethightemp($_GET['dtrDate']));
+		$symp = count($this->home_model->getsymptoms($_GET['dtrDate']));
+
+		echo json_encode(array('status' => 'success', 'temp' => $temp, 'symp' => $symp ));
+	}
+
+	public function withhightemp()
+	{
+		$dtrDate = $this->uri->segment(3);
+		$this->arrData['arrData'] = $this->home_model->gethightemp($dtrDate);
+		$this->template->load('template/template_view','home/hightemp_view',$this->arrData);
+	}
+
+	public function withsymptoms()
+	{
+		$dtrDate = $this->uri->segment(3);
+		// $this->arrData['arrData'] = $this->home_model->getsymptoms($dtrDate);
+		$this->template->load('template/template_view','home/symptoms_view');
+	}
+
+	public function hcdform()
+	{
+		echo json_encode($this->home_model->gethcd($_GET['empNumber'], $_GET['dtrDate']));
+	}
+
+	public function withsymptoms_filtered()
+	{
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+
+		$records = $this->home_model->getsymptoms($_GET['dtrdate'], $_GET['symps']);
+		$data = array();
+
+		foreach($records as $r) 
+		{
+			$sub_array = array();
+			$sub_array['fullName'] = '<a href="'.base_url("hr/profile").'/'.$r->empNumber.'">'.$r->fullName.'</a>';
+			$sub_array['office'] = employee_office($r->empNumber);
+			$sub_array['symptoms'] = $r->symptoms;
+			$sub_array['iswfh'] = '<div class="checker disabled"><span '.($r->wfh == 1 ? 'class="checked"' : '').'><input type="checkbox" '.($r->wfh == 1 ? 'checked="checked"' : '').' name="chkwfh" disabled  /></span></div>';
+			$sub_array['empNumber'] = '<button type="button" class="btn btn-info" onclick="hcdForm(&quot;'.$r->empNumber.'&quot;)">Details</button>';
+			$data[] = $sub_array;
+		}
+
+		$output = array
+		(
+			"draw" => $draw,
+			"recordsTotal" => count($records),
+			"recordsFiltered" => count($records),
+			"data" => $data
+		);
+
+		echo json_encode($output);
 	}
 }

@@ -283,7 +283,7 @@ class Bio_sync_model extends CI_Model {
 			tblAttendanceScheme.nnTimeinFrom, 
 			tblAttendanceScheme.nnTimeinTo, 
 			tblAttendanceScheme.overtimeStarts');
-		$this->db->where('tblEmpPosition.empNumber', $t_strEmpNmbr);
+		$this->db->where('tblEmpPosition.empNumber', '0006-CO0-2020');
 		$this->db->join('tblEmpPosition', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode');
 
 		$arrSchema = $this->db->get('tblAttendanceScheme')->result_array();

@@ -180,6 +180,7 @@
         <script src="<?=base_url('assets/layouts/layout/scripts/demo.min.js')?>" type="text/javascript"></script>
         <script src="<?=base_url('assets/layouts/global/scripts/quick-sidebar.min.js')?>" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="<?=base_url('assets/js/custom-dtr.js')?>"></script>
 
         <script>
             $(document).ready(function(){
@@ -254,9 +255,7 @@
                         // "scrollY": "200px","scrollCollapse": true,"paging": false,
                         "initComplete": function(settings, json) {
                             $('.loading-image').hide();
-                            $('#tbldtr-employee').show();
-                        },
-                        "order": [[ 1, "asc" ]]
+                            $('#tbldtr-employee').show();},
                 });
                 var table = $('#tbldtr-employee').DataTable();
             }

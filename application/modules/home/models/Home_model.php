@@ -97,6 +97,43 @@ class Home_model extends CI_Model {
 		return $subQuery->result_array();
 	}
 
+	function gethightemp($dtrDate)
+	{
+		$this->db->select('*');
+		$this->db->where('dtrDate',$dtrDate);
+		$this->db->where('temperature >',37.5);
+		$objQuery = $this->db->get('tblOnlineDTR_HCD');
+		return $objQuery->result_array();
+	}
+
+	function getsymptoms($dtrDate, $symptoms="")
+	{
+		$concat = 'CONCAT_WS(", ", CASE WHEN q1_1 = 1 THEN "Fever for the past few days" ELSE NULL END, CASE WHEN q1_2 = 1 THEN "Dry Cough" ELSE NULL END, CASE WHEN q1_3 = 1 THEN "Fatigue" ELSE NULL END, CASE WHEN q1_4 = 1 THEN "Aches and Pains" ELSE NULL END, CASE WHEN q1_5 = 1 THEN "Runny Nose" ELSE NULL END, CASE WHEN q1_6 = 1 THEN "Shortness of Breath" ELSE NULL END, CASE WHEN q1_7 = 1 THEN "Diarrhea" ELSE NULL END)';
+		$sql = 'SELECT *, concat AS symptoms FROM tblOnlineDTR_HCD WHERE dtrDate = ? AND (q1_1+q1_2+q1_3+q1_4+q1_5+q1_6+q1_7) > 0';
+		$sql = str_replace('concat', $concat, $sql);
+
+		foreach ($symptoms as $key=>$val) {
+			$symp .= ($key > 0 ? ' OR ' : '') . $concat . ' LIKE "%'.$val.'%"' ;
+		}
+
+		$symp = ' AND (' . $symp .')'; 
+
+		$sql = empty($symptoms) ? $sql : $sql . $symp;
+
+        $query = $this->db->query($sql, array($dtrDate));
+        return $query->result();
+	}
+
+	public function gethcd($empNumber, $dtrDate)
+    {
+        $this->db->select('*')->from('tblOnlineDTR_HCD');
+        $this->db->where('empNumber', $empNumber);
+        $this->db->where('dtrDate', $dtrDate);
+
+        $result = $this->db->get();
+        return $result->row();
+    }
+
 }
 
 /* End of file Home_model.php */
