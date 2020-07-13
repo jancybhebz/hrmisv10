@@ -85,7 +85,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <!-- <?php $i=1; foreach($arrData as $row):?>
+                        <!-- <?php $i=1; foreach($arrData as $row):?>
                             <tr class="odd gradeX">
                                 <td> <?=$i++?> </td>
                                 <td> <a href="<?=base_url('hr/profile').'/'.$row['empNumber']?>"><?=$row['fullName']?></a></td>
@@ -94,7 +94,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <td align="center"> <input type="checkbox" <?=($row['wfh'] == 1) ? 'checked="checked"' : ''?> name="chkwfh" disabled  /></td>
                                 <td align="center"><button type="button" class="btn btn-info" onclick="hcdForm('<?=$row['empNumber']?>')">Details</button></td>
                             </tr>
-                        <?php endforeach;?> --> -->
+                        <?php endforeach;?> -->
                     </tbody>
                 </table>
             </div>
