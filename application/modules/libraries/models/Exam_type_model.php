@@ -18,9 +18,9 @@ class Exam_type_model extends CI_Model {
 	function getData($intExamId = '')
 	{
 		if($intExamId!=''):
-			return $this->db->get_where('tblExamType',array('examId' => $intExamId))->result_array();
+			return $this->db->order_by('examDesc', 'ASC')->get_where('tblExamType',array('examId' => $intExamId))->result_array();
 		else:
-			return $this->db->get('tblExamType')->result_array();
+			return $this->db->order_by('examDesc', 'ASC')->get('tblExamType')->result_array();
 		endif;
 	}
 

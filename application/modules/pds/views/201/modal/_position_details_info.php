@@ -297,10 +297,16 @@
                                     <select class="form-control bs-select" name="selper_action" value="<?=!empty($arrPosition['personnelAction'])?$arrPosition['personnelAction']:''?>">
                                     <!-- value="<?=$arrPosition[0]['personnelAction']?> -->
                                         <option <?php if ($arrPosition[0]['personnelAction'] == '' ) echo 'selected' ; ?> value=""></option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Appointment through certification' ) echo 'selected' ; ?> value="Appointment through certification">Appointment through certification</option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Promotion' ) echo 'selected' ; ?> value="Promotion">Promotion</option>
-                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Original' ) echo 'selected' ; ?> value="Original">Original</option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Transfer' ) echo 'selected' ; ?> value="Transfer">Transfer</option>
-                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Details' ) echo 'selected' ; ?> value="Original">Details</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Reinstatement' ) echo 'selected' ; ?> value="Reinstatement">Reinstatement</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Reemployment' ) echo 'selected' ; ?> value="Reemployment">Reemployment</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Details' ) echo 'selected' ; ?> value="Original">Detail</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Reassignment' ) echo 'selected' ; ?> value="Reassignment">Reassignment</option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == 'Original' ) echo 'selected' ; ?> value="Original">Original</option>
+                                        
+                                        
                                     </select>
                                          <?php //foreach($personnel_action as $action):
                                         //         $selected = $action['personnelAction'] == $arrPosition[0]['personnelAction'] ? 'selected' : '';

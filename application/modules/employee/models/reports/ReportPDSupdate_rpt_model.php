@@ -832,6 +832,8 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					{
 						$fromDate = $strFromDate[1]."/".$strFromDate[2]."/".$strFromDate[0];
 					}
+					else
+						$fromDate = $work['serviceFromDate'];
 
 					if($work['serviceToDate']!="Present")
 					{

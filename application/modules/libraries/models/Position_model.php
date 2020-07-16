@@ -18,9 +18,11 @@ class Position_model extends CI_Model {
 	function getData($intPositionId = '')
 	{
 		if($intPositionId!=''):
-			return $this->db->get_where('tblPosition', array('positionId' => $intPositionId))->result_array();
+			return $this->db->order_by('positionDesc', 'ASC')->get_where('tblPosition', array('positionId' => $intPositionId))->result_array();
+			// $this->db->order_by('positionDesc', 'ASC');
 		else:
-			return $this->db->get_where('tblPosition')->result_array();
+			return $this->db->order_by('positionDesc', 'ASC')->get_where('tblPosition')->result_array();
+			// $this->db->order_by('positionDesc', 'ASC');
 		endif;
 	}
 

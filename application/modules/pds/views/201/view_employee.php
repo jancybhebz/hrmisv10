@@ -92,7 +92,7 @@
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-9 profile-info">
-                                                <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['surname'], $arrData['firstname'],$arrData['middlename'], $arrData['middleInitial'], $arrData['nameExtension'],'')?></h1>
+                                                <h1 class="font-green sbold uppercase"><?=fix_fullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'], $arrData['middleInitial'], $arrData['nameExtension'],'')?></h1>
                                                 <div class="row">
                                                     <table class="table table-bordered table-striped">
                                                         <tbody>
@@ -329,7 +329,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate')?>"
+                <a href="<?=base_url('employee/reports/generate/?rpt=reportPDSupdate&empNumber='.$arrData['empNumber'])?>"
                     class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>
