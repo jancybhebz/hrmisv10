@@ -598,19 +598,14 @@ class Dtr_log_model extends CI_Model {
 			$coldate_log = date('Y-m-d H:i:s');
 			$edit_date = date('Y-m-d H:i:s A');
 		}
+
+		$this->db->where('empNumber', $empid);
+		$this->db->where("dtrDate",$dtrdate);
+		$emphcd = $this->db->get('tblOnlineDTR_HCD')->result_array();
 		
 		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$coldate,$coldate);
-		$ctr = 1;
-		if($empdtr == null || $empdtr == ""){
-			$ctr = 0;
-		}
 
-		
-		if ($ctr == 0)
-			return 2;
-		else 
-			return 1;
-		
+		return count($emphcd) == 0 ? 2 : 1;
 	}
 
 }
