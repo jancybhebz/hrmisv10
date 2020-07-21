@@ -446,3 +446,26 @@ if ( ! function_exists('printrd'))
         echo '</pre>';
     }
 }
+
+if ( ! function_exists('getaddress'))
+{
+    function getaddress($lot1, $street1, $subdivision1, $barangay1, $city1, $province1)
+    {
+        $lot1 = $lot1!='' ? $lot1.', ' : '';
+        $street1 = $street1!='' ? $street1.', ' : '';
+        $subdivision1 = $subdivision1!='' ? $subdivision1.', ' : '';
+        $barangay1 = $barangay1!='' ? $barangay1.', ' : '';
+        $city1 = $city1!='' ? $city1.', ' : '';
+       
+        $address = ucwords($lot1.' '.$street1.' '.$subdivision1.' '.$barangay1.' '.$city1.' '.$province1);
+        return $address;
+    }
+}
+
+if ( ! function_exists('flag_ceremony_time'))
+{
+    function flag_ceremony_time()
+    {
+        return '08:00:00';
+    }
+}
