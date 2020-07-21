@@ -112,6 +112,7 @@ class Home_model extends CI_Model {
 		$sql = 'SELECT *, concat AS symptoms FROM tblOnlineDTR_HCD WHERE dtrDate = ? AND (q1_1+q1_2+q1_3+q1_4+q1_5+q1_6+q1_7) > 0';
 		$sql = str_replace('concat', $concat, $sql);
 
+		$symp = "";
 		foreach ($symptoms as $key=>$val) {
 			$symp .= ($key > 0 ? ' OR ' : '') . $concat . ' LIKE "%'.$val.'%"' ;
 		}
