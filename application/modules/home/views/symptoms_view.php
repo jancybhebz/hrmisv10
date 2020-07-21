@@ -148,16 +148,16 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     function generateTable(){
         var table = $('#tblemployees').DataTable();
         var rows = table.rows().remove().draw();
-        var arr = [];
+        var symps = [];
         $('input.form-check-input:checkbox:checked').each(function () {
-            arr.push($("label[for='" + this.id + "']").text());
+            symps.push($("label[for='" + this.id + "']").text());
         });
         
         $.ajax({
             url: '<?php echo site_url("home/withsymptoms_filtered") ?>',
             type: "GET",
             dataType: "json",
-            data: { dtrdate: $('#txtdate').val(), symps: arr},
+            data: { dtrdate: $('#txtdate').val(), symps},
             success: function(data) {
                 for(var x = 0; x < data.data.length; x++)
                 {
