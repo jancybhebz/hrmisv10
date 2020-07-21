@@ -46,23 +46,23 @@
               <div class="form-group row">
                 <label class="col-form-label col-lg-2 col-sm-12">Name:</label>
                 <div class="col-lg-3 col-md-9 col-sm-12">
-                  <input type="text" class="form-control form-control-sm form-required" id="txtname" name="txtname">
+                  <input type="text" class="form-control form-control-sm form-required" id="txtname" name="txtname" disabled>
                 </div>
                 <label class="col-form-label col-lg-1 col-sm-12">Sex:</label>
                 <div class="col-lg-3 col-md-9 col-sm-12" style="text-align:left; ">
-                  <label class="radio-inline"><input type="radio" name="rdosex" value="M" checked>Male</label>
-                  <label class="radio-inline"><input type="radio" name="rdosex" value="F">Female</label>
+                  <label class="radio-inline"><input type="radio" name="rdosex" value="M" checked disabled>Male</label>
+                  <label class="radio-inline"><input type="radio" name="rdosex" value="F" disabled>Female</label>
                 </div>
                 <label class="col-form-label col-lg-1 col-sm-12">Age:</label>
                 <div class="col-lg-1 col-md-9 col-sm-12" >
-                  <input type="text" class="form-control form-control-sm form-required" id="txtage" name="txtage">
+                  <input type="text" class="form-control form-control-sm form-required" id="txtage" name="txtage" disabled>
                 </div>
               </div>
               
               <div class="form-group row">
                 <label class="col-form-label col-lg-2 col-sm-12 tl">Residence &<br>Contact No.:</label>
                 <div class="col-lg-9 col-md-9 col-sm-12">
-                  <input type="text" class="form-control form-control-sm form-required" id="txtrescon" name="txtrescon">
+                  <input type="text" class="form-control form-control-sm form-required" id="txtrescon" name="txtrescon" disabled>
                 </div>
               </div>
 
