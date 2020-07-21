@@ -117,6 +117,9 @@ function submitHCD(){
     if(err == 0){
         if(stopClick) return;
         stopClick = true;
+
+        var disabled = $('#hcd_form').find(':input:disabled').removeAttr('disabled');
+
         $.ajax({
             type: "GET",
             dataType: "json",
@@ -134,7 +137,8 @@ function submitHCD(){
         }).fail(function () {
             toastr.error("An error has occurred. Please try again later.");
         });
-    }
+
+        disabled.attr('disabled','disabled');    }
     else{
         return;
     }
@@ -482,8 +486,9 @@ function checkError(){
     }
 
     if($("input[name='rdoq5']:checked").val() == "1"){
-        if($('#txtq5').val() == ""){
+        if($('#txtq5').val().trim() == ""){
             $('#txtq5').parent().addClass('has-error');
+            $('#txtq5').val("");
             $('#txtq5').attr("placeholder", "This field is required.");
             return;
         }else{
