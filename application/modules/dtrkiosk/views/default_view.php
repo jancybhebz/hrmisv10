@@ -79,7 +79,7 @@
                     text-align: right;
                 }
 
-                input[type="text"]::placeholder { /* Firefox, Chrome, Opera */ 
+                input[type="text"]::placeholder, input[type="password"]::placeholder { /* Firefox, Chrome, Opera */ 
                     color: #e73d4a; 
                     opacity: .4;
                 } 
