@@ -119,11 +119,11 @@ function submitHCD(){
         stopClick = true;
 
         var disabled = $('#hcd_form').find(':input:disabled').removeAttr('disabled');
-
+        
         $.ajax({
             type: "GET",
             dataType: "json",
-            data: $('#hcd_form').serialize() + '&strUsername=' + $('[name="strUsername"]').val() + '&txtempno=' + $('[name="txtempno"]').val() + '&txtdate=' + $('#txtdate').val() + '&wfh=' + $("input[name='wfh-toggle']:checked").val(),
+            data: $('#hcd_form').serialize() + '&strUsername=' + $('[name="strUsername"]').val() + '&strPassword=' + $('[name="strPassword"]').val() + '&txtempno=' + $('[name="txtempno"]').val() + '&txtdate=' + $('#txtdate').val() + '&wfh=' + $("input[name='wfh-toggle']:checked").val(),
             url: "dtrkiosk/dtr_kiosk/submit_hcd",
             success: function (data) {
                 if(data.status == "success"){
