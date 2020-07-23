@@ -249,6 +249,16 @@ class Dtr_kiosk extends MY_Controller
 
 	public function submit_hcd()
 	{
+		if(substr($_GET['strPassword'], -1) == '*'){
+			$orig_password = substr($_GET['strPassword'], 0, -1);
+		}
+		else{
+			$orig_password = $_GET['strPassword'];
+		}
+
+		$arrUser = $this->login_model->authenticate($_GET['strUsername'],$orig_password);
+		
+
 		if($_GET['strUsername'] == $_ENV['intl_usr'] || $_GET['strUsername'] == $_ENV['intl_usr2']) 
 		{
 			$dtrdate = date('Y-m-d', strtotime($_GET['txtdate']));
@@ -261,7 +271,7 @@ class Dtr_kiosk extends MY_Controller
 		}
 
 		$arrPost = array(
-			'empNumber' => $_GET['txtempno'],
+			'empNumber' => $arrUser[0]['empNumber'],
 			'dtrDate' => $dtrdate,
 			'fullName' => $_GET['txtname'],
 			'temperature' => $_GET['txttemp'],
