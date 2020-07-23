@@ -36,7 +36,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-pencil font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Edit Special Leave</span>
+                    <span class="caption-subject bold uppercase"> Edit Specific Leave</span>
                 </div>
                 
             </div>
@@ -104,6 +104,10 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
+                    strSpecialLeaveCode: {
+                        minlength: 1,
+                        required: true,
+                    },
                     strSpecial: {
                         minlength: 1,
                         required: true,

@@ -95,10 +95,10 @@ class Leave_type_model extends CI_Model {
 
 	function save_special($arrData, $strSpecifyId)
 	{
-		$this->db->where($this->tableid2, $strSpecifyId);
-		$this->db->update($this->table2, $arrData);
-		//echo $this->db->last_query();
-		//echo $this->db->affected_rows();
+		$this->db->where('specifyLeave_id', $strSpecifyId);
+		$this->db->update('tblSpecificLeave', $arrData);
+		// echo $this->db->last_query();
+		// echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		

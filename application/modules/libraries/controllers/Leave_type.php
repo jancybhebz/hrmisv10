@@ -153,26 +153,27 @@ class Leave_type extends MY_Controller {
 		}
 		else
 		{
-			$strSpecifyId = $$arrPost['strSpecifyId'];
+			$strSpecifyId = $arrPost['strSpecifyId'];
 			$strSpecialLeaveCode  = $arrPost['strSpecialLeaveCode'];
 	 		$strSpecial  = $arrPost['strSpecial'];
-			if(!empty($strSpecialLeaveCode)) 
+			if(!empty($strSpecial)) 
 			{
 				$arrData = array(
 					'leaveCode' => $strSpecialLeaveCode,
 					'specifyLeave'=>$strSpecial
 				);
-				print_r($arrData);
-				exit(1);
-				//$blnReturn = $this->leave_type_model->save_special($arrData, $strSpecifyId);
+				// print_r($arrData);
+				// exit(1);
+				$blnReturn = $this->leave_type_model->save_special($arrData, $strSpecifyId);
 				if(count($blnReturn)>0)
 				{
-					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Edited '.$strSpecialLeaveCode.' Leave',implode(';',$arrData),'');
-					$this->session->set_flashdata('strSuccessMsg','Leave updated successfully.');
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Edited '.$strSpecialLeaveCode.' Leave Type',implode(';',$arrData),'');
+					$this->session->set_flashdata('strSuccessMsg','Leave type updated successfully.');
 				}
 				redirect('libraries/leave_type/add_special');
 			}
 		}
+		
 	}
 
 	public function delete_special()
