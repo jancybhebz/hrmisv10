@@ -18,7 +18,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Special Leave</span>
+            <span>Edit Specific Leave</span>
         </li>
     </ul>
 </div>
@@ -43,20 +43,14 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
             <?=form_open(base_url('libraries/leave_type/edit_special/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmSpecialLeave'))?>
                 <div class="form-body">
-                    <?php //print_r($arrPost);?>
+                    <?php //print_r($arrSpecialLeave);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Leave Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <select type="text" class="form-control" name="strSpecialLeaveCode" id="strSpecialLeaveCode" value="<?=!empty($this->session->userdata('leaveCode'))?$this->session->userdata('leaveCode'):''?>" readonly>
-                                     <option value="">Select</option>
-                                     <?php foreach($arrSpecialLeave as $i=>$special)
-                                        {
-                                          echo '<option value="'.$special['leaveCode'].'" '.($arrSpecialLeave[0]['leaveCode']==$special['leaveCode']?'selected':'').'>'.(strtoupper($special['leaveCode'])).'</option>';
-                                        }?>
-                                    </select>
+                                    <input type="text" class="form-control" name="strSpecialLeaveCode" value="<?=!empty($arrSpecialLeave[0]['leaveCode'])?$arrSpecialLeave[0]['leaveCode']:''?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +70,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                 <input type="hidden" name="strSpecifyLeave" value="<?=isset($arrSpecialLeave[0]['specifyLeave'])?$arrSpecialLeave[0]['specifyLeave']:''?>">
+                                 <input type="hidden" name="strSpecifyId" value="<?=isset($arrSpecialLeave[0]['specifyLeave_id'])?$arrSpecialLeave[0]['specifyLeave_id']:''?>">
                                 <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
                                 <a href="<?=base_url('libraries/leave_type/add_special')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -110,10 +104,6 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    strSpecialLeaveCode: {
-                        minlength: 1,
-                        required: true
-                    },
                     strSpecial: {
                         minlength: 1,
                         required: true,

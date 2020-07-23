@@ -13,7 +13,7 @@ class Leave_type_model extends CI_Model {
 	var $tableid = 'leave_id';
 
 	var $table2 = 'tblSpecificLeave';
-	var $tableid2 = 'specifyLeave';
+	var $tableid2 = 'specifyLeave_id';
 
 
 	function __construct()
@@ -33,24 +33,26 @@ class Leave_type_model extends CI_Model {
 		return $objQuery->result_array();	
 	}
 
-	function getSpecialLeave($strSpecifyLeave = '')
+	function getSpecialLeave($strSpecifyId = '')
 	{		
-		if($strSpecifyLeave != "")
+		if($strSpecifyId != "")
 		{
-			$this->db->where($this->tableid2,$strSpecifyLeave);
+			$this->db->where($this->tableid2,$strSpecifyId);
 		}
 		 // $this->db->group_by('leaveCode'); 
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
 
-	function getSpecialLeaveGroupby($strSpecifyLeave = '')
+	function getSpecialLeaveGroupby($strSpecifyId = '')
 	{		
-		if($strSpecifyLeave != "")
+		if($strSpecifyId != "")
 		{
-			$this->db->where($this->tableid2,$strSpecifyLeave);
+			$this->db->group_by('tblSpecificLeave.leaveCode'); 
+			$this->db->order_by('tblSpecificLeave.leaveCode', 'ASC'); 
+			$this->db->where($this->tableid2,$strSpecifyId);
 		}
-		 $this->db->group_by('leaveCode'); 
+		
 		$objQuery = $this->db->get($this->table2);
 		return $objQuery->result_array();	
 	}
@@ -91,17 +93,18 @@ class Leave_type_model extends CI_Model {
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 
-	function save_special($arrData, $strSpecifyLeave)
+	function save_special($arrData, $strSpecifyId)
 	{
-		$this->db->where($this->tableid2, $strSpecifyLeave);
+		$this->db->where($this->tableid2, $strSpecifyId);
 		$this->db->update($this->table2, $arrData);
+		//echo $this->db->last_query();
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
 		
-	function delete_special($strSpecifyLeave)
+	function delete_special($strSpecifyId)
 	{
-		$this->db->where($this->tableid2, $strSpecifyLeave);
+		$this->db->where($this->tableid2, $strSpecifyId);
 		$this->db->delete($this->table2); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;

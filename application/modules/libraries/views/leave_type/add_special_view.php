@@ -108,8 +108,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td> <?=$leave['leaveCode']?> </td>
                             <td> <?=$leave['specifyLeave']?> </td>                   
                             <td>
-                                <a href="<?=base_url('libraries/leave_type/edit_special/'.$leave['specifyLeave'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
-                                <a href="<?=base_url('libraries/leave_type/delete_special/'.$leave['specifyLeave'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
+                                <a href="<?=base_url('libraries/leave_type/edit_special/'.$leave['specifyLeave_id'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                <a href="<?=base_url('libraries/leave_type/delete_special/'.$leave['specifyLeave_id'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
                             </td>
                         </tr>
                     <?php 

@@ -136,7 +136,7 @@ class Leave_type extends MY_Controller {
 					$this->session->set_flashdata('strErrorMsg','Special leave already exists.');
 					$this->session->set_flashdata('strSpecialLeaveCode',$strSpecialLeaveCode);
 					$this->session->set_flashdata('strSpecial',$strSpecial);
-					redirect('libraries/leave_type');
+					redirect('libraries/leave_type/add_special');
 				}
 			}
 		}    	
@@ -147,28 +147,30 @@ class Leave_type extends MY_Controller {
 		$arrPost = $this->input->post();
 		if(empty($arrPost))
 		{
-			$strSpecifyLeave = urldecode($this->uri->segment(4));
-			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyLeave);
+			$strSpecifyId = urldecode($this->uri->segment(4));
+			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyId);
 			$this->template->load('template/template_view','libraries/leave_type/edit_special_view', $this->arrData);
 		}
 		else
 		{
-			$strSpecifyLeave = $arrPost['strSpecifyLeave'];
+			$strSpecifyId = $$arrPost['strSpecifyId'];
 			$strSpecialLeaveCode  = $arrPost['strSpecialLeaveCode'];
 	 		$strSpecial  = $arrPost['strSpecial'];
 			if(!empty($strSpecialLeaveCode)) 
 			{
 				$arrData = array(
-					'leaveCode'=>$strSpecialLeaveCode,
+					'leaveCode' => $strSpecialLeaveCode,
 					'specifyLeave'=>$strSpecial
 				);
-				$blnReturn = $this->leave_type_model->save_special($arrData, $strSpecifyLeave);
+				print_r($arrData);
+				exit(1);
+				//$blnReturn = $this->leave_type_model->save_special($arrData, $strSpecifyId);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Edited '.$strSpecialLeaveCode.' Leave',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Leave updated successfully.');
 				}
-				redirect('libraries/leave_type');
+				redirect('libraries/leave_type/add_special');
 			}
 		}
 	}
@@ -177,22 +179,22 @@ class Leave_type extends MY_Controller {
 	{
 		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$strSpecifyLeave = $this->uri->segment(4);
+		$strSpecifyId = $this->uri->segment(4);
 		if(!empty($arrPost))
 		{
 			$strSpecifyLeave = $arrPost['strSpecifyLeave'];
 			//add condition for checking dependencies from other tables
 			if(!empty($strSpecifyLeave))
 			{
-				$blnReturn=$this->leave_type_model->delete_special($strSpecifyLeave);
+				$blnReturn=$this->leave_type_model->delete_special($strSpecifyId);
 				if(count($blnReturn)>0)
 					$this->session->set_flashdata('strSuccessMsg','Leave deleted successfully.');
-				redirect('libraries/leave_type');
+				redirect('libraries/leave_type/add_special');
 			}
 		}
 		else
 		{
-			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyLeave);
+			$this->arrData['arrSpecialLeave']=$this->leave_type_model->getSpecialLeave($strSpecifyId);
 			$this->template->load('template/template_view','libraries/leave_type/delete_special_view',$this->arrData);
 		}
 	}
