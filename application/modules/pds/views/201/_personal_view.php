@@ -83,8 +83,8 @@
     <tr>
         <th style="text-align:right;" nowrap>TIN </th>
         <td><?=$arrData['tin']?></td>
-        <th style="text-align:right;" nowrap></th>
-        <td></td>
+        <th style="text-align:right;" nowrap>Payroll Account Number</th>
+        <td><?=$arrData['AccountNum']?></td>
     </tr>
      <tr>
         <th style="text-align:right;" nowrap>Email Address </th>
