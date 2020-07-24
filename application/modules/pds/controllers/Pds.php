@@ -125,7 +125,7 @@ class Pds extends MY_Controller
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$strSurname.' Personal',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Updated Personal information.');
 				}
-				redirect('hr/profile/'.$strEmpNumber);
+				redirect('hr/profile/'.$strEmpNumber.'/#personal_info');
 			}
 		}
 		
@@ -152,7 +152,7 @@ class Pds extends MY_Controller
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$arrPost['txtspouseLname'].' Personal',implode(';',$arrData),'');
 			
 			$this->session->set_flashdata('strSuccessMsg','Spouse information updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#family_background');
 		}
 	}
 
@@ -177,7 +177,7 @@ class Pds extends MY_Controller
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$arrPost['txtfatherLname'].' Personal',implode(';',$arrData),'');
 			
 			$this->session->set_flashdata('strSuccessMsg','Parents information updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#family_background');
 		}
 	}
 	
@@ -196,7 +196,7 @@ class Pds extends MY_Controller
 			$this->pds_model->add_child($arrData);
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpChild','Add Child',implode(';',$arrData),'');
 			$this->session->set_flashdata('strSuccessMsg','Child information added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#family_background');
 		}
 	}
 
@@ -214,7 +214,7 @@ class Pds extends MY_Controller
 			$this->pds_model->save_child($arrData, $arrPost['txtchildcode']);
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpChild','Add Child',implode(';',$arrData),'');
 			$this->session->set_flashdata('strSuccessMsg','Child information updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#family_background');
 		}
 	}
 
@@ -228,7 +228,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_child($arrPost['txtdelchild']);
 
 			$this->session->set_flashdata('strSuccessMsg','Child information deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#family_background');
 		}
 	}
 	# END CHILD
@@ -254,7 +254,7 @@ class Pds extends MY_Controller
     						'graduated'		=> isset($arrPost['optgraduate']) ? $arrPost['optgraduate'] : '');
     		$this->pds_model->add_educ($arrData);
     		$this->session->set_flashdata('strSuccessMsg','Education information added successfully.');
-    		redirect('hr/profile/'.$empid);
+    		redirect('hr/profile/'.$empid.'/#education');
     	endif;
 	}
 
@@ -279,7 +279,7 @@ class Pds extends MY_Controller
 			// exit(1);
     		$this->pds_model->save_educ($arrData,$arrPost['txteducid']);
     		$this->session->set_flashdata('strSuccessMsg','Education information updated successfully.');
-    		redirect('hr/profile/'.$empid);
+    		redirect('hr/profile/'.$empid.'/#education');
     	endif;
 	}
 
@@ -294,7 +294,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_educ($arrPost['txtdeleduc']);
 
 			$this->session->set_flashdata('strSuccessMsg','Education information deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#education');
 		}
 	}
 	# END EDUCATION
@@ -319,7 +319,7 @@ class Pds extends MY_Controller
 			$this->pds_model->add_exam($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Eligibility information added successfully.');
 
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#examination');
 		endif;
 	}
 
@@ -365,7 +365,7 @@ class Pds extends MY_Controller
 			// log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPersonal','Edited '.$arrPost['txtfatherLname'].' Personal',implode(';',$arrData),'');
 			$this->session->set_flashdata('strSuccessMsg','Eligibility information updated successfully.');
 
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#examination');
 		}
 	}
 
@@ -379,7 +379,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_exam($arrPost['txtdel_exam']);
 
 			$this->session->set_flashdata('strSuccessMsg','Eligibility deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#examination');
 		}
 	}
 	# END EXAMINATION
@@ -416,7 +416,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->add_workExp($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Work Experience added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#work_experience');
 		endif;
 	}
 
@@ -451,7 +451,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->save_workExp($arrData, $arrPost['txtxpid']);
 			$this->session->set_flashdata('strSuccessMsg','Work Experience added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#work_experience');
 		endif;
 	}
 
@@ -465,7 +465,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_workExp($arrPost['txtdel_srv']);
 
 			$this->session->set_flashdata('strSuccessMsg','Work Experience deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#work_experience');
 		}
 	}
 	# END WORK EXPERIENCE
@@ -486,7 +486,7 @@ class Pds extends MY_Controller
 							'vwPosition'	  => $arrPost['txtwork']);
 			$this->pds_model->add_volWorks($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Voluntary work added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#voluntary_work');
 		endif;
 	}
 
@@ -505,7 +505,7 @@ class Pds extends MY_Controller
 							'vwPosition'	  => $arrPost['txtwork']);
 			$this->pds_model->save_volWorks($arrData,$arrPost['txtvolid']);
 			$this->session->set_flashdata('strSuccessMsg','Voluntary work updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#voluntary_work');
 		endif;
 	}
 	
@@ -519,7 +519,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_volWorks($arrPost['txtdelvolid']);
 
 			$this->session->set_flashdata('strSuccessMsg','Voluntary work deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#voluntary_work');
 		}
 	}
 	# END VOLUNTARY WORK
@@ -545,7 +545,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->add_training($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Training added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#trainings');
 		endif;
 	}
 
@@ -594,7 +594,7 @@ class Pds extends MY_Controller
 			$this->pds_model->save_training($arrData, $arrPost['txttraid']);
 			$this->session->set_flashdata('strSuccessMsg','Training updated successfully.');
 
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#trainings');
 		}
 	}
 
@@ -608,7 +608,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_training($arrPost['txtdel_tra']);
 
 			$this->session->set_flashdata('strSuccessMsg','Training deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#trainings');
 		}
 	}
 	# END TRAINING
@@ -627,7 +627,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->save_skill($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Other information updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#other_info');
 		endif;
 	}
 
@@ -656,7 +656,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->save_skill($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Legal information updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#other_info');
 		endif;
 	}
 	# END SKILL & LEGAL INFORMATION
@@ -675,7 +675,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->add_char_refs($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Character reference added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#other_info');
 		endif;
 	}
 
@@ -691,7 +691,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->save_char_refs($arrData, $arrPost['txtrefid']);
 			$this->session->set_flashdata('strSuccessMsg','Character reference updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#other_info');
 		endif;	
 	}
 
@@ -705,7 +705,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_char_refs($arrPost['txtdel_char_ref']);
 
 			$this->session->set_flashdata('strSuccessMsg','Character reference deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#other_info');
 		}
 	}
 	# END CHARACTER REFS
@@ -749,7 +749,7 @@ class Pds extends MY_Controller
 			// exit(1);
 			$this->pds_model->save_position($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Position details updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#position_details');
 		endif;
 	}
 
@@ -770,7 +770,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->save_position($arrData, $empid);
 			$this->session->set_flashdata('strSuccessMsg','Payroll details updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#position_details');
 		endif;
 	}
 
@@ -810,7 +810,7 @@ class Pds extends MY_Controller
 							'dutyNumber'  => $arrPost['txtno_duty']);
 			$this->pds_model->add_duties_position($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for position added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		endif;
 	}
 
@@ -825,7 +825,7 @@ class Pds extends MY_Controller
 							'dutyNumber'  => $arrPost['txtno_duty']);
 			$this->pds_model->save_duties_position($arrData,$arrPost['txtdr_id']);
 			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for position updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		endif;
 	}
 	
@@ -839,7 +839,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_duties_position($arrPost['txtdel_drid']);
 
 			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for position deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		}
 	}
 
@@ -856,7 +856,7 @@ class Pds extends MY_Controller
 							'dutyNumber'  => $arrPost['txtno_duty']);
 			$this->pds_model->add_duties_plantilla($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for plantilla added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		endif;
 	}
 
@@ -871,7 +871,7 @@ class Pds extends MY_Controller
 							'dutyNumber'  => $arrPost['txtno_duty']);
 			$this->pds_model->save_duties_plantilla($arrData,$arrPost['txtdr_id']);
 			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for plantilla updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		endif;
 	}
 	
@@ -885,7 +885,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_duties_plantilla($arrPost['txtdel_drid']);
 
 			$this->session->set_flashdata('strSuccessMsg','Duties and responsibilites for plantilla deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		}
 	}
 
@@ -901,7 +901,7 @@ class Pds extends MY_Controller
 							'percentWork'=> $arrPost['txtper_work']);
 			$this->pds_model->add_duties_actual($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Actual Duties and responsibilites added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		endif;
 	}
 
@@ -929,7 +929,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_duties_actual($arrPost['txtdel_drid']);
 
 			$this->session->set_flashdata('strSuccessMsg','Actual Duties and responsibilites deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		}
 	}
 	# END DUTIES & RESPONSIBILITIES
@@ -951,7 +951,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->add_apptIssue($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Appointment issued added successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#appoint_issued');
 		endif;
 	}
 
@@ -970,7 +970,7 @@ class Pds extends MY_Controller
 
 			$this->pds_model->save_apptIssue($arrData, $arrPost['txtappt_id']);
 			$this->session->set_flashdata('strSuccessMsg','Appointment issued updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#appoint_issued');
 		endif;	
 	}
 
@@ -984,7 +984,7 @@ class Pds extends MY_Controller
 			$this->pds_model->delete_apptIssue($arrPost['txtdel_appt']);
 
 			$this->session->set_flashdata('strSuccessMsg','Appointment issued deleted successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#appoint_issued');
 		}
 	}
 	# END APPOINTMENT ISSUE DETAILS
@@ -997,7 +997,7 @@ class Pds extends MY_Controller
 		if($new_empid!=''):
 			$this->pds_model->save_empnumber($empid,$new_empid);
 			$this->session->set_flashdata('strSuccessMsg','Employee number updated successfully.');
-			redirect('hr/profile/'.$new_empid);
+			redirect('hr/profile/'.$new_empid.'/#emp_number');
 		endif;
 	}
 	# END EDIT EMPLOYEE NUMBER
