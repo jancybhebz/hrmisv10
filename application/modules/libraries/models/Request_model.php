@@ -329,7 +329,8 @@ class Request_model extends CI_Model {
 
 	function request_signatories_bytype($request_type)
 	{
-		$res = $this->db->get_where('tblRequestFlow',array('RequestType' => $request_type,'isactive' => 1))->result_array();
+		$res = $this->db->get_where('tblRequestFlow',array('RequestType' => $request_type))->result_array();
+		// ,'isactive' => 1
 		return count($res) > 0 ? $res[0] : array();
 	}
 
