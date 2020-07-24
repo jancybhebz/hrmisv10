@@ -56,7 +56,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>For the Month of : </label>
@@ -76,7 +76,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row"> -->
                 <div class="col-sm-3">
                     <label class="control-label bold">Old Timein/Timeout : </label>
                     <div class="row">

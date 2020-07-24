@@ -50,6 +50,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 	{
 		$today =  date("F j, Y",strtotime(date("Y-m-d")));
 		$dtmDTRupdate = $arrData['dtmDTRupdate']==''?'':date("F j, Y",strtotime($arrData['dtmDTRupdate']));
+		$month = $arrData['dtmDTRupdate']==''?'':date("F",strtotime($arrData['dtmDTRupdate']));
 
 		// old
 		$strOldMorningIn= $arrData['strOldMorningIn'];
@@ -67,7 +68,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$dtmOvertimeOut = $arrData['dtmOvertimeOut'];
 
 		$strReason = $arrData['strReason'];
-		$dtmMonthOf = $arrData['dtmMonthOf'];
+		// $dtmMonthOf = $arrData['dtmMonthOf'];
 		
 		$strEvidence = $arrData['strEvidence'];
 		$strSignatory = $arrData['strSignatory'];
@@ -119,7 +120,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial', "", 10);		
 				$this->fpdf->Cell(30, 5,"For the month of :" , 0, 0, "C"); 
 				$this->fpdf->SetFont('Arial', "U", 10);	
-				$month=$this->intToMonthFull(LTRIM($dtmMonthOf, '0'));
+				//$month=$this->intToMonthFull(LTRIM($dtmMonthOf, '0'))	
 				$this->fpdf->Cell(15, 5,"$month"  , 0, 0, "C"); 
 				$this->fpdf->Ln(10);
 			}
