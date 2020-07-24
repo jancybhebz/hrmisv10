@@ -35,8 +35,8 @@ endif;
 <!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-	   &nbsp;
-	</div>
+       &nbsp;
+    </div>
 </div>
 <div class="clearfix"></div>
 <div class="row">
@@ -290,11 +290,13 @@ $(document).ready(function() {
     
     $('.timepicker').timepicker({
         timeFormat: 'HH:mm:ss A',
+        minuteStep: 1,
+        secondStep: 1,
         disableFocus: true,
         showInputs: false,
         showSeconds: true,
         showMeridian: true,
-        // defaultValue: '12:00:00 a'
+        defaultValue: '00:00:00 a'
     });
 
     $('a#btn-attach').on('click',function() {
