@@ -282,8 +282,9 @@
                                 <label class="col-md-3 control-label">Place of Assignment</label>
                                 <div class="col-md-8">
                                     <!-- <input type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control" value=""> -->
-                                    <select type="text" name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control bs-select" value=""> 
-                                        <option value=""></option>
+
+                                    <select name="txtassign_place" value="<?=$arrPosition[0]['assignPlace']?>" class="form-control bs-select"> 
+                                        <option value=""> </option>
                                         <option <?php if ($arrPosition[0]['assignPlace'] == 'Detailed to' ) echo 'selected' ; ?> value="Detailed to">Detailed to</option>
                                         <option <?php if ($arrPosition[0]['assignPlace'] == 'Detailed from' ) echo 'selected' ; ?> value="Detailed from">Detailed from</option>
                                         <option <?php if ($arrPosition[0]['assignPlace'] == 'Not Applicable' ) echo 'selected' ; ?> value="Not Applicable">Not Applicable</option>
@@ -296,7 +297,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control bs-select" name="selper_action" value="<?=!empty($arrPosition['personnelAction'])?$arrPosition['personnelAction']:''?>">
                                     <!-- value="<?=$arrPosition[0]['personnelAction']?> -->
-                                        <option <?php if ($arrPosition[0]['personnelAction'] == '' ) echo 'selected' ; ?> value=""></option>
+                                        <option <?php if ($arrPosition[0]['personnelAction'] == '' ) echo 'selected' ; ?> value=""> </option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Appointment through certification' ) echo 'selected' ; ?> value="Appointment through certification">Appointment through certification</option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Promotion' ) echo 'selected' ; ?> value="Promotion">Promotion</option>
                                         <option <?php if ($arrPosition[0]['personnelAction'] == 'Transfer' ) echo 'selected' ; ?> value="Transfer">Transfer</option>
@@ -329,8 +330,8 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Step Number</label>
                                 <div class="col-md-8">
-                                    <select class="form-control bs-select" name="selStep_number" placeholder="">
-                                        <option value=""></option>
+                                    <select class="form-control bs-select" name="selStep_number" >
+                                        <option value=""> </option>
                                         <?php foreach (range(1, 8) as $step): ?>
                                             <option value="<?=$step?>" <?=$step == $arrPosition[0]['stepNumber'] ? 'selected' : ''?>>
                                                 <?=$step?></option>
