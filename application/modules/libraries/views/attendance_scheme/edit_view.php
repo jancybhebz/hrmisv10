@@ -426,11 +426,13 @@ jQuery(document).ready(function() {
     $(document).ready(function() {
         $('.timepicker').timepicker({
                 timeFormat: 'HH:mm:ss A',
+                minuteStep: 1,
+                secondStep: 1,
                 disableFocus: true,
                 showInputs: false,
                 showSeconds: true,
                 showMeridian: true,
-                // defaultValue: '12:00:00 a'
+                defaultTime: '12:00:00 a'
             });
 
 

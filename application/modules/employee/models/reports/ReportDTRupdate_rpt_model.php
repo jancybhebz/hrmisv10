@@ -271,7 +271,7 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 				$this->fpdf->SetFont('Arial', "", 10);		
 				$this->fpdf->Cell(30, 5,"For the month of :" , 0, 0, "C"); 
 				$this->fpdf->SetFont('Arial', "U", 10);	
-				$month=$this->intToMonthFull(LTRIM($dtmMonthOf, '0'));
+				//$month=$this->intToMonthFull(LTRIM($dtmMonthOf, '0'));
 				$this->fpdf->Cell(15, 5,"$month", 0, 0, "C"); 
 				$this->fpdf->Ln(10);
 			}

@@ -142,7 +142,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                             <div class="form-group">
                                 <label class="control-label">Morning Time In : </label>
                                 <input type="text" class="form-control timepicker timepicker-default" name="dtmMorningIn" id="dtmMorningIn" 
-                                        value="<?=isset($new_dtr_details[2]) ? ($new_dtr_details[2]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[2]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>
+                                        value="<?=isset($new_dtr_details[2]) ? ($new_dtr_details[2]=='00:00:00' ? '12:00:00 AM' : $new_dtr_details[2]) : ''?>" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>> 
                             </div>
                         </div>
                     </div>
@@ -279,12 +279,15 @@ $(document).ready(function() {
 
     $('.timepicker').timepicker({
         timeFormat: 'HH:mm:ss A',
+        minuteStep: 1,
+        secondStep: 1,
         disableFocus: true,
         showInputs: false,
         showSeconds: true,
         showMeridian: true,
-        // defaultValue: '12:00:00 a'
+        defaultTime: '12:00:00 a'
     });
+
 
     $('#dtmDTRupdate').change(function() {
         $date=$('#dtmDTRupdate').val();
