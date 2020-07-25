@@ -65,12 +65,13 @@
                                 <td>
                                 <?php 
                                 $strFile = 'uploads/employees/attachments/educ/'.$educ['empNumber'].'/'.$educ['SchoolIndex'].'.pdf'; 
-                                 
+                                $name = $educ['SchoolIndex'].'.pdf'; 
+
                                  if (file_exists($strFile))
                                     {
                                         
                                         echo '<a class="btn blue btn-xs" href="'.base_url($strFile).'" target="new">
-                                            <i class="fa fa-file"></i> File </a>';
+                                            <i class="fa fa-file"></i>'.$name.' </a>';
                                     }
                                 else 
                                 { ?>
