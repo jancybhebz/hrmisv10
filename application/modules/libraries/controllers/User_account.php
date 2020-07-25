@@ -44,7 +44,8 @@ class User_account extends MY_Controller {
 
 			$empNumber = $arrPost['strEmpName'];
 			$userName = $arrPost['strUsername'];
-			$userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
+			$userPassword = md5($arrPost['strPassword']);
+			// $userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			$userLevel = $arrPost['strAccessLevel'];
 			$userPermission = userlevel($userLevel);
 			$assignedGroup = $arrPost['selpayrollGrp'];
@@ -129,7 +130,8 @@ class User_account extends MY_Controller {
 		else:
 			$empNumber = $this->uri->segment(4);
 			$userName = $arrPost['strUsername'];
-			$userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
+			$userPassword = md5($arrPost['strPassword']);
+			// $userPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			$userLevel = $arrPost['strAccessLevel'];
 			$userPermission = userlevel($userLevel);
 			$assignedGroup = $arrPost['selpayrollGrp'];
@@ -222,7 +224,8 @@ class User_account extends MY_Controller {
 	{
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
-			$arrData = array('userPassword' => password_hash($arrPost['txtnewpass'],PASSWORD_BCRYPT));
+			$arrData = array('userPassword' => md5($arrPost['txtnewpass']));
+			// $arrData = array('userPassword' => password_hash($arrPost['txtnewpass'],PASSWORD_BCRYPT));
 
 			$res = $this->user_account_model->save($arrData, $this->session->userdata('sessEmpNo'));
 			if(count($res)>0):
@@ -247,7 +250,8 @@ class User_account extends MY_Controller {
 		else
 		{
 			$intEmpNumber = $arrPost['intEmpNumber'];
-			$strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
+			$strPassword = md5($arrPost['strPassword']);
+			// $strPassword = password_hash($arrPost['strPassword'],PASSWORD_BCRYPT);
 			if(!empty($strPassword)) 
 			{
 				$arrData = array(
