@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Highest Level/Units Earned</label>
                     <div class="col-md-8">
-                        <input type="number" name="txtunits" id="txtunits" class="form-control">
+                        <input type="number" name="txtunits" id="txtunits" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true" />
                         <span class="help-block"></span>
                     </div>
                 </div>
