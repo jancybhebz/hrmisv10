@@ -74,7 +74,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th style="width: 100px;text-align:center;"> No. </th>
                             <th style="text-align: center;"> Request Date </th>
                             <th style="text-align: center;"> Request Status </th>
-                            <th style="text-align: center;"> Update Month </th>
+                            <!-- <th style="text-align: center;"> Update Month </th> -->
                             <th class="no-sort" style="text-align: center;"> Actions </th>
                         </tr>
                     </thead>
@@ -84,7 +84,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td align="center"> <?=$i++?> </td>
                             <td align="center"> <?=$row['requestDate']?> </td>
                             <td align="center"> <?=$row['requestStatus']?> </td>
-                            <td align="center"> <?=isset($req_details[33]) ? date('F', mktime(0, 0, 0, $req_details[33], 10)) : ''?> </td>
+                            <!-- <td align="center"> <?=isset($req_details[33]) ? date('F', mktime(0, 0, 0, $req_details[33], 10)) : ''?> </td> -->
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
                                     data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>

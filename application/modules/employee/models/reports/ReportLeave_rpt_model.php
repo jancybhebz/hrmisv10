@@ -466,7 +466,8 @@ class ReportLeave_rpt_model extends CI_Model {
 		// if( strtoupper($strName) == 'RAUL DUMOL')
 		// 	$this->fpdf->Cell(60, 5,"MA. MARIVIC TOLEDANO  "."  ", 0, 0, "C"); 
 		// else
-		$this->fpdf->Cell(60, 5,"DR. RAUL D. DUMOL  "."  ", 0, 0, "C"); 
+		// $this->fpdf->Cell(60, 5,"DR. RAUL D. DUMOL  "."  ", 0, 0, "C");
+		$this->fpdf->Cell(60, 5,"JESSICA L. MORAL   "."  ", 0, 0, "C"); 
 		$this->fpdf->Cell(2, 5,"", "R", 0, "L"); 
 		
 		$this->fpdf->Cell(25, 5,"",  0, 0, "L");	

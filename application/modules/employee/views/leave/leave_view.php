@@ -166,7 +166,7 @@ $form = $action == 'add' ? 'employee/leave/add_leave' : 'employee/leave/edit?req
                             <label class="control-label">No. of Days Applied :  <span class="required"> * </span></label>
                             <div class="input-icon right">
                                 <i class="fa"></i>
-                               <input type="text" class="form-control" id="intDaysApplied" disabled value="<?=count($leave_details) > 0 ? $leave_details[3] : ''?>">
+                               <input type="text" class="form-control" id="intDaysApplied" value="<?=count($leave_details) > 0 ? $leave_details[3] : ''?>">
                                <input type="hidden" name="intDaysApplied" id="intDaysApplied_val">
                             </div>
                         </div>
