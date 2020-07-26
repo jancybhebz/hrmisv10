@@ -37,7 +37,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase"> Update DTR</span>
+                    <span class="caption-subject bold uppercase"> DTR Update</span>
                 </div>
                 <div class="actions">
                     <div class="btn-group">
