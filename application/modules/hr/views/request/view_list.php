@@ -57,7 +57,7 @@
                                                     <a href="<?=base_url('hr/request?request=mone')?>"> Leave Monetization </a>
                                                 </li>
                                                 <li class="<?=$request=='dtr'?'active':''?>">
-                                                    <a href="<?=base_url('hr/request?request=dtr')?>">  Update DTR </a>
+                                                    <a href="<?=base_url('hr/request?request=dtr')?>">  DTR Update </a>
                                                 </li>
                                                 <li class="<?=$request=='cto'?'active':''?>">
                                                     <a href="<?=base_url('hr/request?request=cto')?>"> Compensatory Leave </a>
