@@ -118,7 +118,7 @@ function submitHCD(){
         if(stopClick) return;
         stopClick = true;
 
-        var disabled = $('#hcd_form').find(':input:disabled').removeAttr('disabled');
+        // var disabled = $('#hcd_form').find(':input:disabled').removeAttr('disabled');
         
         $.ajax({
             type: "GET",
@@ -138,7 +138,8 @@ function submitHCD(){
             toastr.error("An error has occurred. Please try again later.");
         });
 
-        disabled.attr('disabled','disabled');    }
+        // disabled.attr('disabled','disabled');    
+    }
     else{
         return;
     }
