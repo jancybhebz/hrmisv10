@@ -23,14 +23,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Date Issued Add</label>
+                    <label class="col-md-3 control-label">Date Issued</label>
                     <div class="col-md-8">
                         <input type="text" name="txt_appt_issueddate" id="txt_appt_issueddate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Date Publication</label>
+                    <label class="col-md-3 control-label">Date Published</label>
                     <div class="col-md-8">
                         <input type="text" name="txt_appt_publisheddate" id="txt_appt_publisheddate" class="form-control date-picker" data-date-format="yyyy-mm-dd">
                         <span class="help-block"></span>

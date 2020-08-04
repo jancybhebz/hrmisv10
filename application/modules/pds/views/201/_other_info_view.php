@@ -3,7 +3,7 @@
         <tr class="active">
             <th style="line-height: 2;" colspan="4">SKILLS / RECOGNITIONS / ORGANIZATIONS
                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
-                    <a class="btn green btn-sm pull-right" id="btnedit_information" data-toggle="modal" href="#edit_information"> <i class="icon-pencil"></i> Add Information </a>
+                    <a class="btn green btn-sm pull-right" id="btnedit_information" data-toggle="modal" href="#edit_information"> <i class="icon-pencil"></i> Add / Edit Information </a>
                 <?php endif; ?>
             </th>
         </tr>
