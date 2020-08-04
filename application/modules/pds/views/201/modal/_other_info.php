@@ -4,12 +4,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h5 class="modal-title uppercase"><b>Edit Information</b></h5>
+                <h5 class="modal-title uppercase"><b>Add / Edit Information</b></h5>
             </div>
             <?=form_open('pds/edit_skill/'.$this->uri->segment(3), array('method' => 'post', 'id' => 'frmedit_info'))?>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Special SKills / Hobbies</label>
+                    <label>Special Skills / Hobbies</label>
                     <textarea class="form-control" id="txtskills" name="txtskills"><?=$arrData[0]['skills']?></textarea>
                     <span class="help-block"></span>
                 </div>
