@@ -633,7 +633,7 @@ class Attendance_summary_model extends CI_Model {
 			// $sc_am_timein_from = date('H:i',strtotime($att_scheme['amTimeinFrom'].' AM'));
 			$sc_am_timein_to = $att_scheme['amTimeinTo'];
 			$sc_nn_timein_from = $att_scheme['nnTimeinFrom'];
-			$sc_nn_timein_to = $att_scheme['nnTimeinTo'];
+			$sc_nn_timein_to = date('H:i',strtotime($att_scheme['nnTimeinTo'].' PM'));
 			// $sc_pm_timeout_from = date('H:i',strtotime($att_scheme['pmTimeoutFrom'].' PM'));
 			// $sc_pm_timeout_to = date('H:i',strtotime($att_scheme['pmTimeoutTo'].' PM'));
 			
