@@ -15,7 +15,7 @@
                         <tr>
                             <th>No</th>
                             <th>Position</th>
-                            <th>Date Issued Add</th>
+                            <th>Date Issued</th>
                             <th>Date Published</th>
                             <th>Place Issued</th>
                             <th>Relevant Experience</th>
