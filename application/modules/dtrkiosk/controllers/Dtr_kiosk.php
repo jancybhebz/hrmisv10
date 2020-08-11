@@ -69,7 +69,9 @@ class Dtr_kiosk extends MY_Controller
 						$is_intl = 0;
 					}
 
-					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog,$is_intl);
+					$wfh = $arrPost['wfh-toggle'] == "on" ? 1 : 0;
+
+					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog,$is_intl, $wfh);
 
 					if($emp_log_msg[0] == 'strSuccessMsg')
 					{
@@ -91,60 +93,6 @@ class Dtr_kiosk extends MY_Controller
 
 		endif;
 		$this->load->view('default_view');
-	}
-
-	public function dtr_test()
-	{
-		$arrPost = $this->input->post();
-		
-		if(!empty($arrPost)):
-			if(substr($arrPost['strPassword'], -1) == '*'):
-				$orig_password = substr($arrPost['strPassword'], 0, -1);
-				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$orig_password);
-				if(count($arrUser) > 0):
-					$empno = $arrUser[0]['empNumber'];
-					$dtrdate = date('Y-m-d');
-					// v10 military
-					$dtrlog = date('H:i:s',strtotime('12:01:00'));
-
-					$emp_log_msg = $this->Dtr_log_model->update_nnbreak_time($empno,$dtrdate,$dtrlog);
-					// print_r($emp_log_msg);
-					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
-					redirect('dtr/dtr_test');
-				endif;
-			else:
-				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
-				if(count($arrUser) > 0):
-					$empno = $arrUser[0]['empNumber'];
-					$dtrdate = date('Y-m-d');
-					// v10 military
-					// $dtrlog = date('H:i:s');
-					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
-
-					if($arrPost['selTime'] == 0)
-						$dtrlog = date('H:i:s',strtotime('08:00:00 am'));
-					else if($arrPost['selTime'] == 1)
-						$dtrlog = date('H:i:s',strtotime('12:01:00 pm'));
-					else if($arrPost['selTime'] == 2)
-						$dtrlog = date('H:i:s',strtotime('12:02:00 pm'));
-					else if($arrPost['selTime'] == 3)
-						$dtrlog = date('H:i:s',strtotime('05:01:00 pm'));
-					else 
-						$dtrlog = date('H:i:s');
-
-					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog);
-					// echo $emp_log_msg;
-					// print_r($emp_log_msg);
-					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
-					redirect('dtr/dtr_test');
-				else:
-					$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
-					redirect('dtr/dtr_test');
-				endif;
-			endif;
-			
-		endif;
-		$this->load->view('default_view_test');
 	}
 
 	public function emp_presents()

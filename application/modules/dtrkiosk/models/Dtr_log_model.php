@@ -9,7 +9,7 @@ class Dtr_log_model extends CI_Model {
 		$this->load->model(array('hr/Attendance_summary_model'));
 	}
 	
-	function chekdtr_log($empid,$dtrdate,$dtrlog,$is_intl) //added checker for international user
+	function chekdtr_log($empid,$dtrdate,$dtrlog,$is_intl,$wfh) 
 	{
 		# initialization
 		$emp_scheme = $this->db->get_where('tblEmpPosition', array('empNumber' => $empid))->result_array();
@@ -205,6 +205,7 @@ class Dtr_log_model extends CI_Model {
 			$arrdtr['name'] = 'System';
 			$arrdtr['editdate'] = $edit_date;
 			$arrdtr['ip'] = $this->input->ip_address();
+			$arrdtr['wfh'] = $wfh;
 			$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
 			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1] , 'log_ip' => $this->input->ip_address()));
 			
@@ -583,7 +584,6 @@ class Dtr_log_model extends CI_Model {
 		return $res['err_message'];
 	}
 
-	// still developing
 	function check_dtr_for_hcd($empid,$dtrdate,$dtrlog,$is_intl)
 	{
 		if($is_intl)
@@ -606,6 +606,11 @@ class Dtr_log_model extends CI_Model {
 		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid,$coldate,$coldate);
 
 		return count($emphcd) == 0 ? 2 : 1;
+	}
+
+	public function update_wfh($id,$empnumber,$dtrdate)
+	{
+		$type = $this->db->get_where('tblOnlineDTR_HCD',array('qn_id' => $qsn_id))->row()->qn_type;
 	}
 
 }
