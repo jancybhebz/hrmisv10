@@ -87,3 +87,7 @@ $route['hr/libraries/signatory/edit/(:any)'] = 'finance/libraries/Signatory/edit
 # Officer dtr link
 // hr/attendance_summary/dtr/0015-CO0-2016?month=06&yr=2019
 $route['attendance_summary/(:any)'] = 'hr/attendance/dtr/$1';
+
+# Convert dtr time to standard format
+$route['hr/attendance_summary/convert_time'] = 'hr/attendance/convert_time';
+

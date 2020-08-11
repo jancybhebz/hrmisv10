@@ -971,6 +971,14 @@ class Attendance_summary_model extends CI_Model {
 		return $arrData;
 	}
 
+	public function convert_dtrtime($col)
+	{
+		$sql = 'UPDATE tblEmpDTR SET '.$col.' = TIME_FORMAT('.$col.', "%h:%i:%s") WHERE '.$col.' != "00:00:00" AND '.$col.' IS NOT NULL'; 
+        $query = $this->db->query($sql);
+		$res = $this->db->affected_rows();
+		return $res;
+	}
+
 }
 /* End of file Dtr_model.php */
 /* Location: ./application/modules/finance/models/Dtr_model.php */

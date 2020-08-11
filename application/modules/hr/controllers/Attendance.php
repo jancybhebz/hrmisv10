@@ -1542,6 +1542,18 @@ class Attendance extends MY_Controller {
 		echo json_encode($this->Home_model->gethcd($_GET['empNumber'], $_GET['dtrDate']));
 	}
 
+	public function convert_time()
+	{
+		$cols = ["inPM", "outPM", "inOT", "outOT"];
+		$cnt = array();
+		foreach ($cols as $col) {
+			$cnt[] = $this->Attendance_summary_model->convert_dtrtime($col);
+		}
+		
+		$this->session->set_flashdata('strSuccessMsg','Converting time successfull! <br>'.$cnt[0].' inPM rows affected.<br>'.$cnt[1].' outPM rows affected.<br>'.$cnt[2].' inOT rows affected.<br>'.$cnt[3].' outOT rows affected.');
+		redirect('hr/attendance/view_all');
+	}
+
 }
 
 
