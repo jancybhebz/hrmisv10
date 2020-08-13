@@ -259,7 +259,7 @@ class Override extends MY_Controller {
 							'override_id'=> null);
 			$this->Pds_model->save_position($arrData,$arrPost['txtempinc_id']);
 
-			$this->session->set_flashdata('strSuccessMsg','Employee include to DTR successfully.');
+			$this->session->set_flashdata('strSuccessMsg','Employee included to DTR successfully.');
 			redirect('hr/attendance/override/generate_dtr');
 		endif;
 	}

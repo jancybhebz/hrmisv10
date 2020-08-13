@@ -1135,7 +1135,7 @@ class Pds extends MY_Controller
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpPosition','Edited '.$strServiceCode.' Personal',implode(';',$arrData),'');
 					$this->session->set_flashdata('strMsg','Eligibility information updated successfully.');
 				}
-				redirect('hr/profile/'.$strEmpNumber);
+				redirect('hr/profile/'.$strEmpNumber.'/#duties');
 			}
 		}		
 	}
@@ -1183,7 +1183,7 @@ class Pds extends MY_Controller
 		// print_r($error);
 		// print_r($data);
 		// exit(1);
-		redirect('hr/profile/'.$strEmpNum);
+		redirect('hr/profile/'.$strEmpNum.'/#trainings');
 		
 	}
 
@@ -1229,7 +1229,7 @@ class Pds extends MY_Controller
 		// print_r($error);
 		// print_r($data);
 		// exit(1);
-		redirect('hr/profile/'.$strEmpNum);
+		redirect('hr/profile/'.$strEmpNum.'/#education');
 		
 	}
  
