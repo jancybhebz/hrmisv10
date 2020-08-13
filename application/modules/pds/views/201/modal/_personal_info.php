@@ -358,7 +358,15 @@
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="strCvlStatus" autcomplete="off" value="<?=isset($arrData['civilStatus'])?$arrData['civilStatus']:''?>">
+                              <select name="strCvlStatus" id="strCvlStatus" type="text" class="form-control" autocomplete="off">
+                                <option value="">Please Select</option>
+                                <?php 
+                                    foreach(array('Single','Married','Separated','Widowed','Annulled','Others') as $cs):
+                                        $select = isset($arrData) ? $arrData['civilStatus'] == $cs ? 'selected' : '' : '';
+                                        echo '<option value="'.$cs.'" '.$select.'>'.$cs.'</option>';
+                                    endforeach;
+                                 ?>
+                            </select>
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
