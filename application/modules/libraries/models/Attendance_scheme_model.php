@@ -104,10 +104,15 @@ class Attendance_scheme_model extends CI_Model {
 
 	function getAttendanceScheme($empid)
 	{
-		$res = $this->db->join('tblAttendanceScheme', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode', 'left')
-					->where('tblEmpPosition.empNumber',$empid)
-					->get('tblEmpPosition')->result_array();
+		$this->db->join('tblAttendanceScheme', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode', 'left');
+		if($_ENV['is_co'] == "1")
+			$this->db->where('tblAttendanceScheme.schemeCode',"FIX");
+		else
+			$this->db->where('tblEmpPosition.empNumber',$empid);
+					
+		$res = $this->db->get('tblEmpPosition')->result_array();
 		return count($res) > 0 ? $res[0] : null;
 	}
+
 		
 }
