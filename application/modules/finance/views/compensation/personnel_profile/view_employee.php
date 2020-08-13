@@ -15,18 +15,20 @@
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <?php 
-            $page_name = $this_page;
+             $page_name = $this_page;
             $breadcrumbs = array();
             if($page_name == 'deduction_summary'):
                 $page_name = 'Deduction Summary';
             elseif($page_name == 'premium_loan'):
                 $page_name = 'Premium Loan';
+            elseif($page_name == 'employee'):
+                $page_name = 'Personnel Profile';
             endif;
 
             switch (check_module()):
-                case 'hr':
+                case 'hr officer':
                 case 'finance':
-                    $breadcrumbs = array('Home','Compensation','Personnel Profile',ucwords($page_name),getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],$arrData['nameExtension'],''));
+                    $breadcrumbs = array('Home','Compensation',ucwords($page_name),getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],$arrData['nameExtension'],''));
                     break;
                 default:
                     $breadcrumbs = array('Home','Compensation',ucwords($page_name));
