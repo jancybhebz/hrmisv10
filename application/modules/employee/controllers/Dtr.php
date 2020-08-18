@@ -77,7 +77,7 @@ class Dtr extends MY_Controller {
 			$this->fpdf->Cell(50,5,date('M. d, Y', strtotime($datefrom)).' - '.date('M. d, Y', strtotime($dateto)),'TR',1,'L');
 
 			$this->fpdf->Cell(27,5,'Employee Name:','L',0,'L');
-			$this->fpdf->Cell(93,5,utf8_decode($empdata['surname']).', '.utf8_decode($empdata['firstname']).' '.utf8_decode($empdata['middlename']).' '.$empdata['nameExtension'],0,0,'L');
+			$this->fpdf->Cell(93,5,iconv('UTF-8', 'ISO-8859-1', $empdata['surname']).', '.iconv('UTF-8', 'ISO-8859-1', $empdata['firstname']).' '.iconv('UTF-8', 'ISO-8859-1', $empdata['middlename']).' '.$empdata['nameExtension'],0,0,'L');
 			$this->fpdf->Cell(20,5,'Official Time:',0,0,'L');
 			$this->fpdf->Cell(50,5,date('h:i',strtotime($emp_att_scheme['amTimeinFrom'])).' - '.date('h:i',strtotime($emp_att_scheme['pmTimeoutTo'])),'R',1,'L');
 
