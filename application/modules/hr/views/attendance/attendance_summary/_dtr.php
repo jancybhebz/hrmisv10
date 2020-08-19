@@ -107,7 +107,7 @@
                             <td><?=$in_pm?></td>
                             <td><?=$out_pm?></td>
                             <td style="text-align: left;">
-                                <?=$dtr['wfh'] = 1 ? "WFH " : "" ?>
+                                <?=count($dtr['dtr']) > 0 ? ($dtr['wfh'] = 1 ? "WFH " : "") : "" ?>
                                 <?php 
                                     if(count($dtr['holiday_name']) > 0):
                                         echo '<ul>';
