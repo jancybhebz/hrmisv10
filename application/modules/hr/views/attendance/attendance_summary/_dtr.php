@@ -107,8 +107,13 @@
                             <td><?=$in_pm?></td>
                             <td><?=$out_pm?></td>
                             <td style="text-align: left;">
-                                <?=count($dtr['dtr']) > 0 ? ($dtr['wfh'] = 1 ? "WFH " : "") : "" ?>
                                 <?php 
+                                    if(count($dtr['dtr']) > 0):
+                                        echo '<ul>';
+                                        echo '<li><small>'.($dtr['wfh'] = 1 ? "WFH " : "").'</small></li>';
+                                        echo '</ul>';
+                                    endif;
+
                                     if(count($dtr['holiday_name']) > 0):
                                         echo '<ul>';
                                         foreach($dtr['holiday_name'] as $hday): echo '<li><small>'.$hday.'</small></li>'; endforeach;
