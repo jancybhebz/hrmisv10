@@ -108,9 +108,9 @@
                             <td><?=$out_pm?></td>
                             <td style="text-align: left;">
                                 <?php 
-                                    if(count($dtr['dtr']) > 0):
+                                    if(count($dtr['dtr']) > 0 && $dtr['dtr']['wfh'] == 1):
                                         echo '<ul>';
-                                        echo '<li><small>'.($dtr['wfh'] = 1 ? "WFH " : "").'</small></li>';
+                                        echo '<li><small>'."WFH".'</small></li>';
                                         echo '</ul>';
                                     endif;
 
