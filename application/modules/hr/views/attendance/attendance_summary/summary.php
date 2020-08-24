@@ -31,8 +31,19 @@
 <!-- BEGIN PAGE BAR -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
-        <?php 
+       <?php 
+             $page_name = $this_page;
             $breadcrumbs = array();
+             if($page_name == 'leave_balance_update'):
+                $page_name = 'Leave Balance';
+            elseif($page_name == 'leave_monetization'):
+                $page_name = 'Leave Monetization';
+            elseif($page_name == 'filed_request'):
+                $page_name = 'Filed Request';
+            elseif($page_name == 'qr_code'):
+                $page_name = 'QR Code';
+            endif;
+            
             switch (check_module()):
                 case 'officer':
                 case 'executive':
@@ -47,7 +58,7 @@
                     $breadcrumbs = array('Home','Attendance','DTR');
                     break;
                 case 'hr':
-                    $breadcrumbs = array('Home','Attendance','Attendance Summary',$this_page=='dtr'?strtoupper($this_page):$this_page,getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],''));
+                    $breadcrumbs = array('Home','Attendance','Attendance Summary',$this_page=='dtr'?strtoupper($page_name):$page_name,getfullname($arrData['firstname'],$arrData['surname'],$arrData['middlename'],$arrData['middleInitial'],''));
                     break;
             endswitch;
 
