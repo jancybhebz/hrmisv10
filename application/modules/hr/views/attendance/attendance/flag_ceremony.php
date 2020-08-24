@@ -60,9 +60,9 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group" style="display: inline-flex;">
-                                                <label style="padding: 6px;">Position</label>
+                                                <label style="padding: 6px;">Appointment Description</label>
                                                 <select class="select2" name="position">
-                                                    <option value="all"> -- SELECT POSITION --</option>
+                                                    <option value="all"> -- SELECT --</option>
                                                     <?php foreach($arrAppointments as $app): $selected = $app['appointmentCode'] == $position ? 'selected' : ''?>
                                                         <option value="<?=$app['appointmentCode']?>" <?=$selected?>><?=$app['appointmentDesc']?></option>
                                                     <?php endforeach; ?>
