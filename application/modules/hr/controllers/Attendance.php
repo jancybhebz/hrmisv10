@@ -1159,7 +1159,7 @@ class Attendance extends MY_Controller {
 					print_r($arrData_cto);
 					$this->Compensatory_leave_model->add_cto($arrData_cto);
 				endif;
-				$this->session->set_flashdata('strSuccessMsg','Compensatory Leave added successfully.<br>DTR updated successfully.');
+				$this->session->set_flashdata('strSuccessMsg','Compensatory Time Off added successfully.<br>DTR updated successfully.');
 				redirect('hr/attendance_summary/dtr/compensatory_leave/'.$this->uri->segment(5));
 			else:
 				$this->session->set_flashdata('strErrorMsg','Time is greater than CTO.');

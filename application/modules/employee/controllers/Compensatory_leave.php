@@ -147,7 +147,7 @@ class Compensatory_leave extends MY_Controller {
         $arrData = array('requestStatus' => 'Cancelled');
         $blnReturn = $this->compensatory_leave_model->save($arrData,$_POST['txtcto_req_id']);
         if(count($blnReturn)>0):
-            log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Cancel request id = '.$_POST['txtcto_req_id'].' Compensatory Leave ',implode(';',$arrData),'');
+            log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Cancel request id = '.$_POST['txtcto_req_id'].' Compensatory Time Off ',implode(';',$arrData),'');
             $this->session->set_flashdata('strSuccessMsg','Your request has been cancelled.');
         endif;
         redirect('employee/compensatory_leave');

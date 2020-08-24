@@ -53,7 +53,7 @@
                             <i class="fa fa-money"></i> &nbsp;Monetize Leave</button>&nbsp;
                         <button class="btn blue" data-toggle="modal" data-backdrop="static" data-keyboard="false"
                             href="#monetize-form" <?=($vl_monetized + $sl_monetized) < 0.001 ? 'disabled' : ''?>>
-                            <i class="fa fa-money"></i> &nbsp;Monetize Form</button>
+                            <i class="fa fa-money"></i> &nbsp;Monetization Form</button>
                         <br><br>
                         <?php if(count($arrMonetize) > 0): ?>
                             <table class="table table-striped table-bordered table-hover table-checkable order-column">
