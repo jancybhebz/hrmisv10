@@ -227,7 +227,13 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-actions">
-                                    <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> <?=ucfirst($action)?> </button>
+                                    <?php if($action=='add')
+                                    { ?>
+                                        <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> Add </button>
+                                    <?php } elseif($action=='edit')
+                                    { ?>
+                                        <button class="btn green" type="submit" id="btn_add_deduction"><i class="fa fa-plus"></i> Save </button>
+                                    <?php } ?>
                                     <a href="<?=base_url('hr/attendance/override/ob')?>" class="btn blue">
                                         <i class="icon-ban"></i> Cancel</a>
                                 </div>
