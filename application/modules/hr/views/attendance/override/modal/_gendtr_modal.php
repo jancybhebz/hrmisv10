@@ -76,7 +76,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="btndelete" class="btn btn-sm green">
-                        <i class="icon-check"> </i> Yes</button>
+                        <i class="icon-check"> </i> Generate</button>
                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
                         <i class="icon-ban"> </i> Cancel</button>
                 </div>

@@ -234,7 +234,7 @@
                             <center <?=$action=='edit' ? '' : 'hidden'?>>
                                 <br><br>
                                 <div class="form-actions">
-                                    <button type="button" class="btn default">Cancel</button>
+                                    <a href="<?=base_url('finance/compensation/personnel_profile/tax_details/'.$this->uri->segment(5))?>"><button type="button" class="btn default">Cancel</button></a>
                                     <button type="submit" class="btn green">Submit</button>
                                 </div>
                             </center>
