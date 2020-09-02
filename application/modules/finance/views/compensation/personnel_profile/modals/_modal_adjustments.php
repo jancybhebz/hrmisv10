@@ -14,7 +14,7 @@
                             <label class="control-label col-md-12 div-payrolldate" style="padding: 0 !important;">Payroll Date<span class="required"> * </span></label>
                             <div class="form-group col-md-4" style="padding: 0 !important;">
                                 <div class="input-icon right" style="padding: 0 !important;">
-                                    <select class="form-control form-required bs-select" name="txtadjmon" id="seladjmon" placeholder="">
+                                    <select class="form-control form-required bs-select" name="selinc_month" id="selinc_month" placeholder="">
                                         <option value="">SELECT MONTH</option>
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=$m?>"><?=date('F', mktime(0, 0, 0, $m, 10))?></option>
@@ -24,7 +24,7 @@
                             </div>
                             <div class="form-group col-md-4" style="padding: 0 !important;">
                                 <div class="input-icon right" style="padding: 0 !important;">
-                                    <select class="form-control form-required bs-select" name="txtadjyr" id="seladjyr" placeholder="">
+                                    <select class="form-control form-required bs-select" name="selinc_yr" id="selinc_yr" placeholder="">
                                         <option value="">SELECT YEAR</option>
                                         <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>"><?=$yr?></option>
@@ -74,7 +74,7 @@
                             <label class="control-label col-md-12 div-adjdate" style="padding: 0 !important;">Adjustment Date<span class="required"> * </span></label>
                             <div class="form-group col-md-6" style="padding: 0 !important;">
                                 <div class="input-icon right col-md-12" style="padding: 0 !important;">
-                                    <select class="form-control form-required bs-select" name="selinc_month" id="selinc_month" placeholder="">
+                                    <select class="form-control form-required bs-select" name="txtadjmon" id="seladjmon" placeholder="">
                                         <option value="">Month</option>
                                         <?php foreach (range(1, 12) as $m): ?>
                                             <option value="<?=$m?>"><?=date('F', mktime(0, 0, 0, $m, 10))?></option>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="form-group col-md-6" style="padding: 0 !important;">
                                 <div class="input-icon right col-md-12" style="padding: 0 !important;">
-                                    <select class="form-control form-required bs-select" name="selinc_yr" id="selinc_yr" placeholder="">
+                                    <select class="form-control form-required bs-select"  name="txtadjyr" id="seladjyr" placeholder="">
                                         <option value="">Year</option>
                                         <?php foreach (getYear() as $yr): ?>
                                             <option value="<?=$yr?>"><?=$yr?></option>
