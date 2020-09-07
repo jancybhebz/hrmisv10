@@ -283,4 +283,18 @@ class Dtr_kiosk extends MY_Controller
 		
 		$this->session->set_userdata($sessData);
 	}
+
+	public function dtr_time()
+	{
+		$data = array('fulldate'=>date('d-m-Y h:i:s'),
+			  'date'=>date('d'),
+			  'month'=>date('m'),
+			  'year'=>date('Y'),
+			  'hour'=>date('h'),
+			  'minute'=>date('i'),
+			  'second'=>date('s'),
+			  'ampm'=>date('A')
+		);
+		echo json_encode($data);
+	}
 }

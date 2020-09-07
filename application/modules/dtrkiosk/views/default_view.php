@@ -257,16 +257,19 @@
                 function drawTime(ctx, radius){
                     var now = new Date();
 
-                    var hour = now.getHours();
-                    var minute = now.getMinutes();
-                    var second = now.getSeconds();
+                    // var hour = now.getHours();
+                    // var minute = now.getMinutes();
+                    // var second = now.getSeconds();
+                    var hour = h;
+                    var minute = m;
+                    var second = s;
                     var timeOfDay = (hour < 12) ? "AM" : "PM";
 
                     // Convert the hours our of 24-hour time
                     hour = (hour > 12) ? hour - 12 : hour;
                     hour = (hour == 0) ? 12 : hour;
 
-                    document.getElementById('txtclock').innerHTML = ('0' + hour).slice(-2) + ":" + ('0' + minute).slice(-2) + ":" + ('0' + second).slice(-2) + " " + timeOfDay;
+                    // document.getElementById('txtclock').innerHTML = ('0' + hour).slice(-2) + ":" + ('0' + minute).slice(-2) + ":" + ('0' + second).slice(-2) + " " + timeOfDay;
                     hour=hour%12;
                     hour=(hour*Math.PI/6)+
                     (minute*Math.PI/(6*60))+
@@ -399,6 +402,55 @@
                     $('#wfh-toggle').bootstrapToggle({
                         on: 'Yes', 
                         off: 'No'
+                    });
+
+                    var url = "<?php echo base_url() ?>dtrkiosk/dtr_kiosk/dtr_time";
+                    var _h = 0;
+                    var _m = 0;
+                    var _s = 0;
+                    // console.log(url);
+                    $.ajax({ 
+                        url: url,
+                        type: 'GET',
+                        dataType: 'JSON', 
+                        success: function(res) {
+                            var timer = setInterval(jam_server,1000);
+                            console.log(res);
+                            
+                            function jam_server(){
+                                h = parseInt(res.hour)+_h;
+                                m = parseInt(res.minute)+_m;
+                                s = parseInt(res.second)+_s;
+                                if (s>59){                  
+                                    s=s-60;
+                                    _s=_s-60;                   
+                                }
+                                if(s==59){
+                                    _m++;   
+                                }
+                                if (m>59){
+                                    m=m-60;
+                                    _m=_m-60;                   
+                                }
+                                if(m==59&&s==59){
+                                    _h++;   
+                                }   
+                                _s++;
+                                $('#txtclock').html(append_zero(h)+':'+append_zero(m)+':'+append_zero(s)+' '+res.ampm);                
+                                
+                            }
+                            function append_zero(n){
+                                if(n<10){
+                                    return '0'+n;
+                                }
+                                else
+                                    return n;
+                            }
+                            
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.statusText + "\r\n" + xhr.responseText);            
+                        }
                     });
                 });  
             </script>
