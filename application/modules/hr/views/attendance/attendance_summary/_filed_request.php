@@ -85,9 +85,9 @@
                                         <td align="center"><?=$rdtr['requestDate']?></td>
                                         <td align="center"><?=$rdate[0]?></td>
                                         <td><small>
-                                            <?php
-                                            echo '<b>Morning:</b> '.$rdate[8].' - '.$rdate[9].'<br>';
-                                            echo '<b>Afternoon:</b> '.$rdate[10].' - '.$rdate[11];?></small>
+                                           <?php //$rdate[12].' : '.$rdate[13].' : '.$rdate[14].' - '.$rdate[15]
+                                            echo '<b>Morning:</b> '.$rdate[8].' : '.$rdate[9].' : '.$rdate[10].' - '.$rdate[11].'<br>';
+                                            echo '<b>Afternoon:</b> '.$rdate[20].' : '.$rdate[21].' : '.$rdate[22].' - '.$rdate[23];?></small>
                                         </td>
                                         <td align="center"><?=$rdtr['requestStatus']?></td>
                                     </tr>
