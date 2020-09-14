@@ -226,6 +226,21 @@ class Attendance_summary_model extends CI_Model {
 					$att_scheme['amTimeinTo'] = $att_scheme_temp['amTimeinTo'];
 					$att_scheme['pmTimeoutTo'] = $att_scheme_temp['pmTimeoutTo'];
 				endif;
+
+				# Added checking of OB incase there is and if has existing DTR
+				if(count($obs) > 0):
+					$arr_ob_timein = $this->check_obtime_in($att_scheme,$obs);
+					$arr_ob_timeout = $this->check_obtime_out($att_scheme,$obs);
+
+					$dtr['dtrDate'] = $dtrdate;
+					$dtr['inAM'] = $arr_ob_timein['in_am'];
+					$dtr['outAM'] = $arr_ob_timeout['out_am'];
+					$dtr['inPM'] = $arr_ob_timein['in_pm'];
+					$dtr['outPM'] = date('h:i', strtotime($arr_ob_timeout['out_pm']));
+					$dtr['inOT'] = '';
+					$dtr['outOT'] = '';
+				endif;	
+
 				$work_hrs = $this->compute_working_hours($att_scheme,$dtr);
 			else:
 				# NO DTR VALUE;
@@ -238,7 +253,7 @@ class Attendance_summary_model extends CI_Model {
 					$dtr['inAM'] = $arr_ob_timein['in_am'];
 					$dtr['outAM'] = $arr_ob_timeout['out_am'];
 					$dtr['inPM'] = $arr_ob_timein['in_pm'];
-					$dtr['outPM'] = $arr_ob_timeout['out_pm'];
+					$dtr['outPM'] = date('h:i', strtotime($arr_ob_timeout['out_pm']));
 					$dtr['inOT'] = '';
 					$dtr['outOT'] = '';
 				endif;
@@ -271,6 +286,7 @@ class Attendance_summary_model extends CI_Model {
 				if(!empty($dtr)):
 					$ot = $this->compute_working_hours($att_scheme,$dtr);
 				endif;
+
 			else:
 				# regular days ot; if dtr is not empty, and no lates or undertime; 
 				if(!empty($dtr) && ($lates+$utimes) < 1):
@@ -278,6 +294,8 @@ class Attendance_summary_model extends CI_Model {
 				endif;
 			endif;
 			# End Compute Overtime
+
+
 
 			# Begin Data for Holiday
 			$holiday_name = array();
