@@ -81,7 +81,7 @@
                         echo $req_details[7];
                     endif; ?></td>
             <td width="150px" style="white-space: nowrap;text-align: center;">
-                <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-id="<?=$row['requestID']?>"
+                <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-empnum="<?=$row['empNumber']?>" data-id="<?=$row['requestID']?>"
                     data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>

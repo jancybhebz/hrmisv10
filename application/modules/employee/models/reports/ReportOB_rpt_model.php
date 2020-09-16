@@ -34,6 +34,7 @@ class ReportOB_rpt_model extends CI_Model {
 		$strPurpose = $arrData['strPurpose'];
 		$strOfficial = "";
 		$strPersonal = ""; 
+		$strEmpNum = $arrData['strEmpNum'];
 
 		if ($strOBtype=='Official')
 			$strOfficial = "x";
@@ -81,7 +82,7 @@ class ReportOB_rpt_model extends CI_Model {
 
 		$this->fpdf->Ln(10);
 
-		$arrDetails=$this->empInfo();
+		$arrDetails=$this->empInfo($strEmpNum);
 		foreach($arrDetails as $row)
 			{
 				$this->fpdf->Ln(10);
@@ -191,7 +192,7 @@ class ReportOB_rpt_model extends CI_Model {
 		echo $this->fpdf->Output();
 	}
 	
-	function empInfo()
+	function empInfo($empnum)
 		{
 			$sql = "SELECT tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.middleInitial, tblEmpPersonal.nameExtension, 
 							tblEmpPersonal.firstname, tblEmpPersonal.middlename, tblPlantilla.plantillaGroupCode,
@@ -201,7 +202,8 @@ class ReportOB_rpt_model extends CI_Model {
 							LEFT JOIN tblEmpPosition ON tblEmpPersonal.empNumber = tblEmpPosition.empNumber
 							LEFT JOIN tblPlantilla ON tblEmpPosition.itemNumber = tblPlantilla.itemNumber
 							LEFT JOIN tblPlantillaGroup ON tblPlantilla.plantillaGroupCode = tblPlantillaGroup.plantillaGroupCode
-							WHERE tblEmpPersonal.empNumber = '".$this->session->userdata('sessEmpNo')."'";
+							WHERE tblEmpPersonal.empNumber = '".$empnum."'";
+							// '".$this->session->userdata('sessEmpNo')."'";
 	            		// WHERE emp_id=$empId";
 	          // echo $sql;exit(1);				
 			$query = $this->db->query($sql);
