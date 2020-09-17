@@ -65,7 +65,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Percent Work <span class="required"> * </span></label>
+                                <label class="control-label">Percent of Working Time <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="number" class="form-control" name="intPercentWork" value="<?=!empty($this->session->userdata('intPercentWork'))?$this->session->userdata('intPercentWork'):''?>" required>
@@ -76,7 +76,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Duties<span class="required"> * </span></label>
+                                <label class="control-label">Duties and Responsibilities<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strDuties" value="<?=!empty($this->session->userdata('strDuties'))?$this->session->userdata('strDuties'):''?>" required>

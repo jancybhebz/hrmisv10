@@ -59,7 +59,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Percent of Work <span class="required"> * </span></label>
+                                <label class="control-label">Percent of Working Time <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['percentWork'])?$arrData[0]['percentWork']:''?>" disabled>
@@ -71,7 +71,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Duties <span class="required"> * </span></label>
+                                <label class="control-label">Duties and Responsibilities<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" value="<?=isset($arrData[0]['duties'])?$arrData[0]['duties']:''?>" disabled>
