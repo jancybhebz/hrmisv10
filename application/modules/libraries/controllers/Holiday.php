@@ -357,10 +357,10 @@ class Holiday extends MY_Controller {
 	{
 		//$strDescription=$arrPost['strDescription'];
 		$arrPost = $this->input->post();
-		$strCode = urldecode($this->uri->segment(4));
+		$strLocalCode = urldecode($this->uri->segment(4));
 		if(empty($arrPost))
 		{
-			$this->arrData['arrData'] = $this->holiday_model->getLocalHoliday($strCode);
+			$this->arrData['arrData'] = $this->holiday_model->getLocalHoliday($strLocalCode);
 			$this->template->load('template/template_view','libraries/holiday/delete_local_view',$this->arrData);
 		}
 		else
@@ -368,10 +368,10 @@ class Holiday extends MY_Controller {
 			$strLocalCode = $arrPost['strLocalCode'];
 			$strHolidayName = $arrPost['strHolidayName'];
 			$dtmHolidayDate = $arrPost['dtmHolidayDate'];
-			$arrLocHoliday=$this->holiday_model->getLocalHoliday($strCode);
+			$arrLocHoliday=$this->holiday_model->getLocalHoliday($strLocalCode);
 			if(!empty($strLocalCode))
 			{
-				$blnReturn = $this->holiday_model->delete_local($strCode);
+				$blnReturn = $this->holiday_model->delete_local($strLocalCode);
 				if(count($blnReturn)>0)
 				{
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblHoliday','Deleted '.$strHolidayName.','.$dtmHolidayDate.'Holiday',implode(';',$arrLocHoliday),'');

@@ -243,7 +243,7 @@ class Holiday_model extends CI_Model {
 
 	function delete_local($strCode)
 	{
-		$this->db->where('holidayName', $strCode);
+		$this->db->where('holidayCode', $strCode);
 		$this->db->delete('tblLocalHoliday'); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
