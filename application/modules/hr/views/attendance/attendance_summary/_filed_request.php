@@ -16,26 +16,26 @@
             <div class="portlet-body">
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs ">
-                        <li class="<?=$tab=='comm' || $tab==''? 'active' : ''?>">
+                        <!-- <li class="<?=$tab=='comm' || $tab==''? 'active' : ''?>">
                             <a data-value="comm" href="#tab-comm" class="filed_req" data-toggle="tab"> Commutation </a>
-                        </li>
-                        <li class="<?=$tab=='dtr'? 'active' : ''?>">
-                            <a data-value="dtr" href="#tab-dtr" class="filed_req" data-toggle="tab"> DTR Update </a>
+                        </li> -->
+                        <li class="<?=$tab=='ob'|| $tab==''? 'active' : ''?>">
+                            <a data-value="ob" href="#tab-ob" class="filed_req" data-toggle="tab"> Official Business </a>
                         </li>
                         <li class="<?=$tab=='leave'? 'active' : ''?>">
                             <a data-value="leave" href="#tab-leave" class="filed_req" data-toggle="tab"> Leave </a>
                         </li>
-                        <li class="<?=$tab=='mone'? 'active' : ''?>">
-                            <a data-value="mone" href="#tab-mone" class="filed_req" data-toggle="tab"> Monetization </a>
-                        </li>
-                        <li class="<?=$tab=='ob'? 'active' : ''?>">
-                            <a data-value="ob" href="#tab-ob" class="filed_req" data-toggle="tab"> Official Business </a>
-                        </li>
                         <li class="<?=$tab=='to'? 'active' : ''?>">
                             <a data-value="to" href="#tab-to" class="filed_req" data-toggle="tab"> Travel Order </a>
                         </li>
-                        <li class="<?=$tab=='pds_update'? 'active' : ''?>">
+                         <li class="<?=$tab=='pds_update'? 'active' : ''?>">
                             <a data-value="pds_update" href="#tab-pds_update" class="filed_req" data-toggle="tab"> PDS Update </a>
+                        </li>
+                        <li class="<?=$tab=='mone'? 'active' : ''?>">
+                            <a data-value="mone" href="#tab-mone" class="filed_req" data-toggle="tab"> Monetization </a>
+                        </li>
+                        <li class="<?=$tab=='dtr'? 'active' : ''?>">
+                            <a data-value="dtr" href="#tab-dtr" class="filed_req" data-toggle="tab"> DTR Update </a>
                         </li>
                     </ul>
                     <div class="tab-content">
