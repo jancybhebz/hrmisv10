@@ -168,7 +168,7 @@ var FormValidation = function () {
 
 jQuery(document).ready(function() {
     FormValidation.init();
-    $('#dtmHolidayDate').datepicker({
+    $('#dtmSuspensionDate').datepicker({
         format:"yyyy-mm-dd"
     });
 

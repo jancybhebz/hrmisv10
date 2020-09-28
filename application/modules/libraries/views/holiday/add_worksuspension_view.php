@@ -48,7 +48,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Date <span class="required"> * </span></label>
+                                <label class="control-label">Work Suspension Date <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input class="form-control form-control-inline input-medium date-picker" autocomplete="off" name="dtmSuspensionDate" id="dtmSuspensionDate" size="16" type="text" value="" data-date-format="yyyy-mm-dd">
@@ -67,7 +67,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row" id="time">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label class="control-label">Time </label>
+                                <label class="control-label">Work Suspension Time </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                      <input type="text" class="form-control timepicker timepicker-default"  autocomplete="off" name="dtmSuspensionTime" size="10"  id="dtmSuspensionTime" value="12:00:00 AM">     
