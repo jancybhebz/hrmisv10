@@ -25,8 +25,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 <!-- END PAGE BAR -->
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-	   &nbsp;
-	</div>
+       &nbsp;
+    </div>
 </div>
 <div class="clearfix"></div>
 <div class="row">
@@ -43,7 +43,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
                <?=form_open(base_url('libraries/org_structure/edit_division/'.$this->uri->segment(4)), array('method' => 'post', 'id' => 'frmOrgStructure'))?>
                 <div class="form-body">
-                    <?php print_r($arrDivision);?>
+                    <?php //print_r($arrDivision);?>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -124,7 +124,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Division Head Title <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control" name="strDivHeadTitle" value="<?=!empty($arrDivision[0]['group3HeadTitle'])?$arrDivision[0]['group3HeadTitle']:''?>">
+                                     <input type="text" class="form-control" name="strDivHeadTitle" id="strDivHeadTitle" value="<?=!empty($arrDivision[0]['group3HeadTitle'])?$arrDivision[0]['group3HeadTitle']:''?>">
                                 </div>
                             </div>
                         </div>
