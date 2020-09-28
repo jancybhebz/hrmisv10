@@ -338,12 +338,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <br>CTO Expiration Date: 2021-07-01
                 </i>
             </small> </div>
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <button type="submit" id="btndelete" class="btn btn-sm green">
                     <i class="icon-check"> </i> Yes</button>
                 <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
                     <i class="icon-ban"> </i> Cancel</button>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
