@@ -60,7 +60,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th style="width: 85px;text-align:center;"> No. </th>
                             <th> Exam Code </th>
                             <th> Exam Description </th>
-                            <th> CSC Eligibility? </th>
+                            <th> CSC Eligible </th>
                             <th style="width: 180px;text-align:center;"> Actions </th>
                         </tr>
                     </thead>

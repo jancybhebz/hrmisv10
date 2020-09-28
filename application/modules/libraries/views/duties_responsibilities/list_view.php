@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <thead>
                         <tr>
                             <th> No. </th>
-                            <th> Positions </th>
+                            <th> Position </th>
                             <th> Duties and Responsibilities </th>
                             <th> Action </th>
                     </thead>
