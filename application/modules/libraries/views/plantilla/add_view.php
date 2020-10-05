@@ -199,7 +199,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Educational Requirement</label>
+                                <label class="control-label">Educational Requirements</label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strEducationalReq" id="strEducationalReq" value="<?=!empty($this->session->userdata('strEducationalReq'))?$this->session->userdata('strEducationalReq'):''?>" >
@@ -211,7 +211,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Training Requirement </label>
+                                <label class="control-label">Training Requirements </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strTrainingReq" id="strTrainingReq" value="<?=!empty($this->session->userdata('strTrainingReq'))?$this->session->userdata('strTrainingReq'):''?>" >
@@ -222,7 +222,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Experience Requirement </label>
+                                <label class="control-label">Experience Requirements </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
                                     <input type="text" class="form-control" name="strExperienceReq" id="strExperienceReq" value="<?=!empty($this->session->userdata('strExperienceReq'))?$this->session->userdata('strExperienceReq'):''?>" >
