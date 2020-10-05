@@ -55,17 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Duties <span class="required"> * </span></label>
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['itemDuties'])?$arrData[0]['itemDuties']:''?>" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -77,6 +67,19 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Duties <span class="required"> * </span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" value="<?=isset($arrData[0]['itemDuties'])?$arrData[0]['itemDuties']:''?>" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <br>
 
                     <div class="row">
