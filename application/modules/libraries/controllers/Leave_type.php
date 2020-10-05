@@ -129,7 +129,7 @@ class Leave_type extends MY_Controller {
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblspecificleave','Added '.$strSpecialLeaveCode.' Leave_type',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Leave type added successfully.');
 					}
-					redirect('libraries/leave_type');
+					redirect('libraries/leave_type/add_special');
 				}
 				else
 				{	
