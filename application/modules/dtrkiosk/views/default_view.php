@@ -214,7 +214,7 @@
 
                     $('#txttime').val($('.datenow').text() +" "+$('#txtclock').text());
                     if($('#txtclock').text() == "12:00:00 AM")
-                        location.reload();
+                        location.reload(true);
                 }
 
                 function drawFace(ctx, radius) {
@@ -452,6 +452,10 @@
                             console.log(xhr.statusText + "\r\n" + xhr.responseText);            
                         }
                     });
+
+                    setTimeout(function(){
+                       location.reload(true);
+                    }, 360*60000);
                 });  
             </script>
         </body>
