@@ -738,7 +738,7 @@ class Pds extends MY_Controller
 					// plantilla details							
 							'uniqueItemNumber' => $arrPost['txtunique_itemno'],
 							'itemNumber' 	   => $arrPost['sel_plantilla'],
-							'positionCode' 	   => $arrPost['txtplant_pos'],
+							// 'positionCode' 	   => $arrPost['txtplant_pos'],
 							// 'actualSalary' 	   => $arrPost['txtactual_salary'],
 							// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
 							'positionDate' 	   => $arrPost['txtposition_date'],
