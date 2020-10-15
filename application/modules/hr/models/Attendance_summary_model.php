@@ -233,10 +233,10 @@ class Attendance_summary_model extends CI_Model {
 					$arr_ob_timeout = $this->check_obtime_out($att_scheme,$obs);
 
 					$dtr['dtrDate'] = $dtrdate;
-					$dtr['inAM'] = $arr_ob_timein['in_am'];
+					$dtr['inAM'] = strtotime($dtr['inAM']) <= strtotime($arr_ob_timein['in_am']) ? $dtr['inAM'] : $arr_ob_timein['in_am'];
 					$dtr['outAM'] = $arr_ob_timeout['out_am'];
 					$dtr['inPM'] = $arr_ob_timein['in_pm'];
-					$dtr['outPM'] = date('h:i', strtotime($arr_ob_timeout['out_pm']));
+					$dtr['outPM'] = strtotime($dtr['outPM']) >= strtotime(date('h:i', strtotime($arr_ob_timeout['out_pm']))) ? $dtr['outPM'] : date('h:i', strtotime($arr_ob_timeout['out_pm']));
 					$dtr['inOT'] = '';
 					$dtr['outOT'] = '';
 				endif;	
