@@ -151,6 +151,11 @@ class Dtr extends MY_Controller {
 				        $remarks[] = 'CTO';
 				    endif;
 				endif;
+				if(count($dtr['dtr']) > 0):
+				    if($dtr['dtr']['wfh']):
+				        $remarks[] = 'WFH';
+				    endif;
+				endif;
 
 				$total_undertime = $total_undertime + $dtr['utimes'];
 				$total_late = $total_late + $dtr['lates'];
