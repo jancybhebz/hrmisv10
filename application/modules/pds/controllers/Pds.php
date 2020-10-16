@@ -915,7 +915,7 @@ class Pds extends MY_Controller
 							'percentWork'=> $arrPost['txtper_work']);
 			$this->pds_model->save_duties_actual($arrData,$arrPost['txtdr_id']);
 			$this->session->set_flashdata('strSuccessMsg','Actual Duties and responsibilites updated successfully.');
-			redirect('hr/profile/'.$empid);
+			redirect('hr/profile/'.$empid.'/#duties');
 		endif;
 	}
 	
