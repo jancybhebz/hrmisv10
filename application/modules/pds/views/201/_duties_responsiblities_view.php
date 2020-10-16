@@ -24,6 +24,7 @@
                             <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                 <th></th>
                             <?php endif; ?>
+                            <th style="visibility: hidden;">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,7 +32,7 @@
                             <tr>
                                 <td align="center"><?=$pos_d['dutyNumber']?></td>
                                 <td><?=$pos_d['duties']?></td>
-                                <td align="center"><?=number_format($pos_d['percentWork'])?></td>
+                                <td class="percent1" align="center"><?=number_format($pos_d['percentWork'])?></td>
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
@@ -42,6 +43,7 @@
                                         </center>
                                     </td>
                                 <?php endif; ?>
+                                <td class="total1" style="visibility: hidden;"></td>
                             </tr>
                         <?php endforeach; else: ?>
                             <tr><td colspan="4" align="center">Not Yet Defined</td></tr>
@@ -76,17 +78,18 @@
                             <tr>
                                 <td align="center"><?=$plant_d['dutyNumber']?></td>
                                 <td><?=$plant_d['itemDuties']?></td>
-                                <td align="center"><?=number_format($plant_d['percentWork'])?></td>
+                                <td class="percent2" align="center"><?=number_format($plant_d['percentWork'])?></td>
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
                                             <a class="btn green btn-xs btnedit_plan_dr" data-json='<?=json_encode($plant_d)?>'>
                                                 <i class="fa fa-pencil"></i> Edit </a>
-                                            <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['itemDuties']?>">
+                                            <a class="btn red btn-xs btndelete_plan_dr" data-drid="<?=$plant_d['plantilla_duties_index']?>">
                                                 <i class="fa fa-trash"></i> Delete </a>
                                         </center>
                                     </td>
                                 <?php endif; ?>
+                                <td class="total2" style="visibility: hidden;"></td>
                             </tr>
                         <?php endforeach; else: ?>
                             <tr><td colspan="4" align="center">Not Yet Defined</td></tr>
@@ -121,17 +124,18 @@
                             <tr>
                                 <td align="center"><?=$no++?></td>
                                 <td><?=$actual_d['duties']?></td>
-                                <td align="center"><?=number_format($actual_d['percentWork'])?></td>
+                                <td class="percent3" align="center"><?=number_format($actual_d['percentWork'])?></td>
                                 <?php if($this->session->userdata('sessUserLevel') == '1'): ?>
                                     <td style="width: 150px;" nowrap>
                                         <center>
                                             <a class="btn green btn-xs btnedit_actual_dr" data-json='<?=json_encode($actual_d)?>'>
                                                 <i class="fa fa-pencil"></i> Edit </a>
-                                            <a class="btn red btn-xs btndelete_actual_dr" data-drid="<?=$actual_d['empNumber']?>">
+                                            <a class="btn red btn-xs btndelete_actual_dr" data-drid="<?=$actual_d['empduties_index']?>">
                                                 <i class="fa fa-trash"></i> Delete </a>
                                         </center>
                                     </td>
                                 <?php endif; ?>
+                                <td class="total3" style="visibility: hidden;"></td>
                             </tr>
                         <?php endforeach; else: ?>
                             <tr><td colspan="4" align="center">Not Yet Defined</td></tr>
@@ -258,3 +262,52 @@
     });
 </script>
 
+<script type="text/javascript">
+   $('.total1').each(function() {
+  var sum = 0;
+  $(this).parents('table').find('.percent1').each(function() {
+    var floted = parseFloat($(this).text());
+    if (!isNaN(floted)) sum += floted;
+  });
+
+   if (sum > '100') {
+        alert("Percent of Working Time must not exceed 100%");
+         e.preventDefault();
+    } 
+  $(this).html(sum);
+ 
+  
+});
+
+   $('.total2').each(function() {
+  var sum = 0;
+  $(this).parents('table').find('.percent2').each(function() {
+    var floted = parseFloat($(this).text());
+    if (!isNaN(floted)) sum += floted;
+  });
+
+   if (sum > '100') {
+        alert("Percent of Working Time must not exceed 100%");
+         e.preventDefault();
+    } 
+  $(this).html(sum);
+ 
+  
+});
+
+   $('.total3').each(function() {
+  var sum = 0;
+  $(this).parents('table').find('.percent3').each(function() {
+    var floted = parseFloat($(this).text());
+    if (!isNaN(floted)) sum += floted;
+  });
+
+   if (sum > '100') {
+        alert("Percent of Working Time must not exceed 100%");
+         e.preventDefault();
+    } 
+  $(this).html(sum);
+ 
+  
+});
+</script>
