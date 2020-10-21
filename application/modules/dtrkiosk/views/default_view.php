@@ -129,10 +129,18 @@
                                         <input id="wfh-toggle" checked type="checkbox">WFH
                                     </div> -->
                                     <div class="form-group row">
-                                        <label class="col-form-label col-lg-1 col-sm-12 bold font-green"><?= $hw==1 ? "WFH" : "OT" ?></label>
-                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <input id="wfh-toggle" type="checkbox" name="wfh-toggle" <?= $hw==1 ? "checked" : "" ?>>
-                                            <input type="text" name="txthw" id="txthw" hidden value=<?= $hw; ?>>
+                                        <div class='ot-t' <?= $hw==1 ? 'style="display: none"' : '' ?>>
+                                            <label class="col-form-label col-lg-1 col-sm-12 bold font-green">OT</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                <input id="ot-toggle" type="checkbox" name="ot-toggle">
+                                                <input type="text" name="txthw" id="txthw" hidden value=<?= $hw; ?>>
+                                            </div>
+                                        </div>
+                                        <div class='wfh-t' <?= $hw==0 ? 'style="display: none"' : '' ?>>
+                                            <label class="col-form-label col-lg-1 col-sm-12 bold font-green">WFH</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                <input id="wfh-toggle" type="checkbox" name="wfh-toggle" checked="">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-actions" style="border: none;text-align: right;">
@@ -401,6 +409,11 @@
                     $('.daynow').text(dayNames[d.getDay()]);
 
                     $('#wfh-toggle').bootstrapToggle({
+                        on: 'Yes', 
+                        off: 'No'
+                    });
+
+                    $('#ot-toggle').bootstrapToggle({
                         on: 'Yes', 
                         off: 'No'
                     });

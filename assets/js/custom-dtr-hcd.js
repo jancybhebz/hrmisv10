@@ -2,6 +2,13 @@ $(document).ready(function(){
     // $('.modal-title').html('Health Check Declaration Form');
     // $('#hcd-modal').modal('show');
 
+    $('#ot-toggle').change(function() {
+        if($("input[name='ot-toggle']:checked").val() == "on")
+            $('.wfh-t').show();
+        else
+            $('.wfh-t').hide();
+    });
+
     var dt = $('.date-picker').datepicker({autoclose: true, });
     $("#txttemp").keypress(function() {
         return (event.charCode >= 48 && event.charCode <= 57) ||  event.charCode == 46 || event.charCode == 0 
@@ -71,7 +78,7 @@ function hcdForm(){
                     toastr.error(data.err_msg);
                 }
                 else if(data.usr == 1){
-                    if($('#txthw').val() == "1" || ($('#txthw').val() == "0" && $("input[name='wfh-toggle']:checked").val() == "on"))
+                    if($('#txthw').val() == "1" || ($('#txthw').val() == "0" && $("input[name='ot-toggle']:checked").val() == "on"))
                         form.submit();
                     else 
                         toastr.error("Already filled up HCD.");
@@ -132,7 +139,7 @@ function submitHCD(){
                 if(data.status == "success"){
                     toastr.success(data.message);
                     $('#btnHCD').prop("disabled", true);
-                    if($('#txthw').val() == "1" || ($('#txthw').val() == "0" && $("input[name='wfh-toggle']:checked").val() == "on")){
+                    if($('#txthw').val() == "1" || ($('#txthw').val() == "0" && $("input[name='ot-toggle']:checked").val() == "on")){
                         form.submit();
                     }
                     else{
