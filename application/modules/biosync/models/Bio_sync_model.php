@@ -19,7 +19,7 @@ class Bio_sync_model extends CI_Model {
 			$this->db->where('empNumber', $empNum);
 
 		$latestdata = $this->db->get('tblEmpDTR')->result_array();
-		
+
 		return $latestdata;
 	}
 
@@ -134,9 +134,12 @@ class Bio_sync_model extends CI_Model {
 					$i++; 
 				}
 
+
+
 				//echo strtotime($t_strTime).' > '.strtotime($arrLog[3]);
 				//print_r($arrLog);die();
 				$strDateTime = strstr($t_strTime,'A')?'inAM':'inPM';
+
 				//print_r($arrSchema);
 				/*echo strtotime($t_strTime)."==".strtotime($arrLog[1])."<br>";
 				//echo strtotime($t_strTime).">=".strtotime($arrSchema['nnTimeoutFrom'])
@@ -163,7 +166,8 @@ class Bio_sync_model extends CI_Model {
 					}
 				}
 				++$intTimeColumn;
-				
+
+
 				//print_r($arrLog);
 				//echo "<br>".$t_strTime.'<br>';
 				//echo date('a',strtotime($t_strTime)).'<br>';
@@ -178,6 +182,9 @@ class Bio_sync_model extends CI_Model {
 						if($arrLog[2]=='00:00:00' && $arrLog[3]=='00:00:00') $intTimeColumn=4;
 					}
 				} 
+
+
+				
 				//echo $intTimeColumn."<br>";
 				/*
 				if($intTimeColumn==2 && strtotime($t_strTime)>strtotime($arrSchema['nnTimeinFrom']))
@@ -191,6 +198,7 @@ class Bio_sync_model extends CI_Model {
 				$strErrMsg = $this->logDTRError($strTimeField, $t_strTime, $t_strPword, $arrSchema[0]["nnTimeinFrom"], $arrSchema[0]["nnTimeoutTo"], $arrSchema[0]["overtimeStarts"]);   //function logDTRError
 				//echo $strTimeField;
 				//die();
+
 				if($strTimeField=='outPM') //check if outPM beyond out-in
 				{
 					// echo '<br>';
@@ -235,7 +243,7 @@ class Bio_sync_model extends CI_Model {
 				}
 				*/
 				//echo "=>".$strTimeField; exit(1);
-
+				
 				//echo "strTimeField=>".$strTimeField."<bR>";
 				if ($strErrMsg)
 				{
@@ -248,7 +256,8 @@ class Bio_sync_model extends CI_Model {
 					$usql="UPDATE tblEmpDTR SET $strTimeField = ? WHERE empNumber=? AND dtrDate=?";
 					//echo $usql."<br>";exit(1);
 					$this->db->query($usql, array(substr(trim($t_strTime), 0, -2), $t_strEmpNmbr, $t_strDate));
-				
+
+					
 					$strConfirm = $this->logDTRConfirm($intTimeColumn); //confirm function
 					if(!$sync)	
 						$this->addDTRLog($t_strEmpNmbr,$usql,$strConfirm,$t_strDate." ".substr($t_strTime, 0, -2));		
@@ -283,11 +292,12 @@ class Bio_sync_model extends CI_Model {
 			tblAttendanceScheme.nnTimeinFrom, 
 			tblAttendanceScheme.nnTimeinTo, 
 			tblAttendanceScheme.overtimeStarts');
-		$this->db->where('tblEmpPosition.empNumber', '0006-CO0-2020');
-		$this->db->join('tblEmpPosition', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode');
+		$this->db->where('schemeCode', 'GEN');
+		// $this->db->join('tblEmpPosition', 'tblAttendanceScheme.schemeCode = tblEmpPosition.schemeCode');
 
 		$arrSchema = $this->db->get('tblAttendanceScheme')->result_array();
-		
+		// print_r($arrSchema);
+		// exit(1);
 		return $arrSchema;
 	}
 
@@ -363,6 +373,8 @@ class Bio_sync_model extends CI_Model {
 	function logDTRError($t_strTimeField, $t_strTime, $t_strPword, $t_dtmSchmInFrom, $t_dtmSchmOutTo, $t_dtmOvrtmStrt)
 	{
 		$intTime = strtotime($t_strTime);
+
+
 
 		$t_dtmSchmInFrom = $this->combineTime($t_dtmSchmInFrom, PM);	
 		$intSchmInFrom = strtotime($t_dtmSchmInFrom);

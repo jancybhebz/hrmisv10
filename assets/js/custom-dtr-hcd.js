@@ -71,7 +71,10 @@ function hcdForm(){
                     toastr.error(data.err_msg);
                 }
                 else if(data.usr == 1){
-                    form.submit();
+                    if($('#txthw').val() == "1" || ($('#txthw').val() == "0" && $("input[name='wfh-toggle']:checked").val() == "on"))
+                        form.submit();
+                    else 
+                        toastr.error("Already filled up HCD.");
                 }
                 else{
                     $('#btnHCD').prop("disabled", false);
@@ -123,13 +126,20 @@ function submitHCD(){
         $.ajax({
             type: "GET",
             dataType: "json",
-            data: $('#hcd_form').serialize() + '&strUsername=' + $('[name="strUsername"]').val() + '&strPassword=' + $('[name="strPassword"]').val() + '&txtempno=' + $('[name="txtempno"]').val() + '&txtdate=' + $('#txtdate').val() + '&wfh=' + $("input[name='wfh-toggle']:checked").val(),
+            data: $('#hcd_form').serialize() + '&strUsername=' + $('[name="strUsername"]').val() + '&strPassword=' + encodeURIComponent($('[name="strPassword"]').val()) + '&txtempno=' + $('[name="txtempno"]').val() + '&txtdate=' + $('#txtdate').val() + '&wfh=' + $("input[name='wfh-toggle']:checked").val(),
             url: "dtrkiosk/dtr_kiosk/submit_hcd",
             success: function (data) {
                 if(data.status == "success"){
                     toastr.success(data.message);
                     $('#btnHCD').prop("disabled", true);
-                    form.submit();
+                    if($('#txthw').val() == "1" || ($('#txthw').val() == "0" && $("input[name='wfh-toggle']:checked").val() == "on")){
+                        form.submit();
+                    }
+                    else{
+                        setTimeout(function(){
+                           window.location.reload(1);
+                        }, 1000);
+                    }
                 } else {
                     toastr.error(data.message);
                 }

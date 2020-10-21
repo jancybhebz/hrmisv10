@@ -92,7 +92,7 @@
                 <!-- begin logo -->
                 <div class="col-md-12" style="padding-left: 10%; padding-bottom: 2% ">
                     <br><img style="height: 70px;" src="<?=base_url('assets/images/logo.png')?>" alt="" />
-                    <h1 class="hrmisLogo" style="color: #fff!important;">HRMIS</h1>
+                    <h1 class="hrmisLogo" style="color: #fff!important;">HRMIS </h1>
                     <div class="small" style="color: #fff!important;">Human Resource Management Information System</div>
                 </div>
                 <!-- end logo -->
@@ -129,9 +129,10 @@
                                         <input id="wfh-toggle" checked type="checkbox">WFH
                                     </div> -->
                                     <div class="form-group row">
-                                        <label class="col-form-label col-lg-1 col-sm-12 bold font-green">WFH</label>
+                                        <label class="col-form-label col-lg-1 col-sm-12 bold font-green"><?= $hw==1 ? "WFH" : "OT" ?></label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <input id="wfh-toggle" checked type="checkbox" name="wfh-toggle">
+                                            <input id="wfh-toggle" type="checkbox" name="wfh-toggle" <?= $hw==1 ? "checked" : "" ?>>
+                                            <input type="text" name="txthw" id="txthw" hidden value=<?= $hw; ?>>
                                         </div>
                                     </div>
                                     <div class="form-actions" style="border: none;text-align: right;">
