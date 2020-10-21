@@ -13,8 +13,11 @@ class Dtr_kiosk extends MY_Controller
 	public function index()
 	{	
 		$this->load->library('session');
-		// session_start();
 		$arrPost = $this->input->post();
+		$reg_holidays = $this->Holiday_model->getAllHolidates("",date('Y-m-d'),date('Y-m-d'));
+		$data['hw'] = 0;
+		if(empty($reg_holidays) && date("N") < 6)
+			$data['hw'] = 1;
 		
 		if(!empty($arrPost)):
 			if(substr($arrPost['strPassword'], -1) == '*'):
@@ -92,7 +95,7 @@ class Dtr_kiosk extends MY_Controller
 			endif;
 
 		endif;
-		$this->load->view('default_view');
+		$this->load->view('default_view', $data);
 	}
 
 	public function emp_presents()
@@ -143,7 +146,6 @@ class Dtr_kiosk extends MY_Controller
 		echo json_encode($emp);
 	}
 
-	// still developing
 	public function check_dtr()
 	{
 		$usr_val = 0;
