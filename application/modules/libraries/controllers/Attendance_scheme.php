@@ -87,8 +87,8 @@ class Attendance_scheme extends MY_Controller {
 						
 					);
 
-					print_r($arrData);
-					exit(1);
+					// print_r($arrData);
+					// exit(1);
 					$blnReturn  = $this->attendance_scheme_model->add($arrData);
 
 					if(count($blnReturn)>0)
