@@ -202,10 +202,10 @@
                             </td>
                             <td>
                                 <?php 
-                                    $djson['empNumber']   = count($dtr['dtr']) > 0 ? $dtr['dtr']['empNumber'] : '';
-                                    $djson['dtrdate']     = count($dtr['dtr']) > 0 ? $dtr['dtrdate'] : '';
-                                    if(count($dtr['dtr']) > 0): ?>
-                                        <a id="btnhcd" class="btn btn-xs blue" data-json = "<?=htmlspecialchars(json_encode($djson))?>">
+                                    $djson['empNumber']   = $dtr['dtrdate'] <= date("Y-m-d") ? $empNum : '';
+                                    $djson['dtrdate']     = $dtr['dtrdate'] <= date("Y-m-d") ? $dtr['dtrdate'] : '';
+                                    if($dtr['dtrdate'] <= date("Y-m-d")): ?>
+                                        <a id="btnhcd" class="btn btn-xs blue hashcd" data-json = "<?=htmlspecialchars(json_encode($djson))?>" style="display: none;">
                                             <i class="fa fa-info"></i></a>
                                     <?php endif; ?>
                             </td>

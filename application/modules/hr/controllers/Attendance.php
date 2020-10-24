@@ -103,6 +103,7 @@ class Attendance extends MY_Controller {
 		$empid = $this->uri->segment(4);
 		$res = $this->Hr_model->getData($empid,'','all');
 		$this->arrData['arrData'] = $res[0];
+		$this->arrData['empNum'] = $empid;
 
 		$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date('Y-m-').'01';
 		$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date('Y-m-').cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));

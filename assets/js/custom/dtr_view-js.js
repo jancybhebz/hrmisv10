@@ -97,10 +97,10 @@ $('#btn_edit_dtr').click(function(e) {
     }
 });
 
+
+
 $('#tbldtr').on('click', 'tbody > tr > td #btnhcd', function () {
     var jsdata = $(this).data('json');
-    console.log(jsdata['empNumber']);
-    console.log(jsdata['dtrdate']);
     var oldURL = window.location.toString();
     var index = 0;
     var newURL = oldURL;
@@ -112,12 +112,20 @@ $('#tbldtr').on('click', 'tbody > tr > td #btnhcd', function () {
         newURL = oldURL.substring(0, index);
     }
     
+    getHCD(jsdata['empNumber'], jsdata['dtrdate'], newURL, 1);
+
+});
+
+function getHCD(empnum, dtrdate, newurl, isshow){
+    var empno = "";
     $.ajax({
         type: "GET",
         dataType: "json",
-        data: {empNumber: jsdata['empNumber'], dtrDate: jsdata['dtrdate']},
-        url: newURL+"attendance/get_hcd/",
+        async: false,
+        data: {empNumber: empnum, dtrDate: dtrdate},
+        url: newurl+"attendance/get_hcd/",
         success: function (data) {
+            if(isshow && data != null){
                 $('#hcd-modal').modal('show');
 
                 $("#hcd_form :input[type='text']").val("");
@@ -173,11 +181,18 @@ $('#tbldtr').on('click', 'tbody > tr > td #btnhcd', function () {
                 
                 $('#txtq5').val(data.q5_txt);
             }
+            else{
+                if(data != null)
+                    empno = data.empNumber;
+            }
+                
+        }
     }).fail(function () {
         toastr.error("An error has occurred. Please try again later.");
     });
 
-});
+    return empno;
+}
 
 function savePDF(){
     var doc = new jsPDF();
@@ -295,4 +310,22 @@ function savePDF(){
 
 $(document).ready(function() {
     $("#hcd_form :input").prop("disabled", true);
+
+    $(".hashcd").each(function (index) {
+        var jsdata = $(this).data('json');
+        var oldURL = window.location.toString();
+        var index = 0;
+        var newURL = oldURL;
+        index = oldURL.indexOf('attendance_summary');
+        if(index == -1){
+            index = oldURL.indexOf('?');
+        }
+        if(index != -1){
+            newURL = oldURL.substring(0, index);
+        }
+
+        data = getHCD(jsdata['empNumber'], jsdata['dtrdate'], newURL, 0);
+        if(data != "")
+            $(this).show();
+    });
 });
