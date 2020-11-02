@@ -72,6 +72,20 @@
                             </div>
                         </a>
                     </li>
+                    <?php if ($_ENV['Group5']!='')
+                    { ?>
+                        <li class="<?=isset($_GET['tab']) ? 'active' : ''?>">
+                            <a href="#tab_department" data-toggle="tab">
+                                <div class="caption font-dark">
+                                    <i class="icon-settings font-dark"></i>
+                                    <?php if ($_ENV['Group5']!='')
+                                    { ?>
+                                    <span class="caption-subject bold uppercase"> <?=$_ENV['Group5']?> </span>
+                                    <?php } ?>
+                                </div>
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
             <div id="tab_executive" class="tab-pane <?=isset($_GET['tab']) ? '' : 'active'?>" v-cloak>
@@ -320,6 +334,75 @@
                     </div>
                 </div>
             </div>
+            <div id="tab_department" class="tab-pane <?=isset($_GET['tab']) ? '' : ''?>" v-cloak>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <div class="portlet">
+                            <div class="portlet-body">
+                                <div class="table-toolbar">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a href="<?=base_url('libraries/org_structure/add_department')?>" id="sample_editable_1_new" class="btn sbold blue"><i class="fa fa-plus"></i> Add New </a>
+                                            <div class="btn-group pull-right">
+                                                <button type="button" class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">  <i class="fa fa-angle-down"></i> </button>
+                                                <ul class="dropdown-menu pull-right" role="menu">
+                                                
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
+                                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table_department">
+                                    <thead>
+                                        <tr>
+                                            <th> No. </th>
+                                            <th> <?=$_ENV['Group1']?> Code </th>
+                                            <th> <?=$_ENV['Group2']?> Code </th>
+                                            <th> <?=$_ENV['Group3']?> Code </th>
+                                            <th> <?=$_ENV['Group4']?> Code </th>
+                                            <th> <?=$_ENV['Group5']?> Code </th>
+                                            <th> <?=$_ENV['Group5']?> Name </th>
+                                            <th> <?=$_ENV['Group5']?> Head Title</th>
+                                            <th> <?=$_ENV['Group5']?> Head </th>
+                                            <th class="no-sort" style="text-align: center;"> Actions </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php 
+                                    $i=1;
+                                    foreach($arrDepartment as $department):?>
+                                        <tr class="odd gradeX">
+                                            <td> <?=$i?> </td>
+                                            <td> <?=$department['group1Code']?> </td>
+                                            <td> <?=$department['group2Code']?> </td> 
+                                            <td> <?=$department['group3Code']?> </td>   
+                                            <td> <?=$department['group4Code']?> </td>   
+                                            <td> <?=$department['group5Code']?> </td> 
+                                            <td> <?=$department['group5Name']?> </td>   
+                                            <td> <?=$department['group5HeadTitle']?> </td>   
+                                            <td> <?=$department['surname'].' '.$department['firstname']?> </td>                                        
+                                            <td style="width: 200px;text-align:center;" style="white-space: nowrap;">
+                                                <a href="<?=base_url('libraries/org_structure/edit_department/'.$department['group5Code'])?>"><button class="btn btn-sm btn-success"><span class="fa fa-edit" title="Edit"></span> Edit</button></a>
+                                                <a href="<?=base_url('libraries/org_structure/delete_department/'.$department['group5Code'])?>"><button class="btn btn-sm btn-danger"><span class="fa fa-edit" title="Delete"></span> Delete</button></a>
+                                             
+                                            </td>
+
+                                        </tr>
+                                    <?php 
+                                    $i++;
+                                    endforeach;?>
+                                    </tbody>
+                            </table>
+
+                            </div>
+                        </div>
+                        <!-- END EXAMPLE TABLE PORTLET-->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!--end col-md-9-->
@@ -353,6 +436,12 @@
             "initComplete": function(settings, json) {
                 $('.loading-image').hide();
                 $('#table_section').show();},
+            "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
+        });
+          $('#table_department').dataTable( {
+            "initComplete": function(settings, json) {
+                $('.loading-image').hide();
+                $('#table_department').show();},
             "columnDefs": [{ "orderable":false, "targets":'no-sort' }]
         });
 

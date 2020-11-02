@@ -17,7 +17,8 @@ class Org_structure_model extends CI_Model {
 	var $tableid3 = 'group3Code';
 	var $table4 = 'tblGroup4';
 	var $tableid4 = 'group4Code';
-	
+	var $table5 = 'tblGroup5';
+	var $tableid5 = 'group5Code';
 
 	function __construct()
 	{
@@ -65,6 +66,16 @@ class Org_structure_model extends CI_Model {
 		$objQuery = $this->db->get($this->table4);
 		return $objQuery->result_array();	
 	}
+	function getDepartmentData($strDeptCode = '')
+	{		
+		if($strDeptCode != "")
+		{
+			$this->db->where($this->tableid5,$strDeptCode);
+		}
+		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = '.$this->table5.'.empNumber','left');
+		$objQuery = $this->db->get($this->table5);
+		return $objQuery->result_array();	
+	}
 
 	//adding details of exec, service, div and section
 	function add_exec($arrData)
@@ -86,6 +97,11 @@ class Org_structure_model extends CI_Model {
 	function add_section($arrData)
 	{
 		$this->db->insert($this->table4, $arrData);
+		return $this->db->insert_id();		
+	}
+	function add_department($arrData)
+	{
+		$this->db->insert($this->table5, $arrData);
 		return $this->db->insert_id();		
 	}
 
@@ -124,6 +140,15 @@ class Org_structure_model extends CI_Model {
 		$objQuery = $this->db->get($this->table4);
 		return $objQuery->result_array();	
 	}
+
+	function checkDepartment($strDeptCode = '', $strDeptName = '')
+	{		
+		$this->db->where('group5Code',$strDeptCode);
+		$this->db->or_where('group5Name', $strDeptName);			
+		
+		$objQuery = $this->db->get($this->table5);
+		return $objQuery->result_array();	
+	}
 	
 	//saving edited details of exec, service, div and section
 	function save_exec($arrData, $strExecOffice)
@@ -155,6 +180,13 @@ class Org_structure_model extends CI_Model {
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}
+	function save_department($arrData, $strDeptCode)
+	{
+		$this->db->where($this->tableid5, $strDeptCode);
+		$this->db->update($this->table5, $arrData);
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
 	
 	//deleting details of exec, service, div and section
 	function delete_exec($strExecOffice)
@@ -182,6 +214,13 @@ class Org_structure_model extends CI_Model {
 	{
 		$this->db->where($this->tableid4, $strSecCode);
 		$this->db->delete($this->table4); 	
+		//echo $this->db->affected_rows();
+		return $this->db->affected_rows()>0?TRUE:FALSE;
+	}
+	function delete_department($strDeptCode)
+	{
+		$this->db->where($this->tableid5, $strDeptCode);
+		$this->db->delete($this->table5); 	
 		//echo $this->db->affected_rows();
 		return $this->db->affected_rows()>0?TRUE:FALSE;
 	}

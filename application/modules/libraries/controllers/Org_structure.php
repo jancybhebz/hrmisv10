@@ -24,6 +24,7 @@ class Org_structure extends MY_Controller {
 		$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
 		$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
 		$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
+		$this->arrData['arrDepartment'] = $this->org_structure_model->getDepartmentData();
 		$this->template->load('template/template_view', 'libraries/org_structure/list_view', $this->arrData);
 	}
 	
@@ -546,6 +547,157 @@ class Org_structure extends MY_Controller {
 					$this->session->set_flashdata('strSuccessMsg','Section name deleted successfully.');
 				}
 				redirect('libraries/org_structure'.'/#tab_section');
+			}
+		}	
+	}
+
+	//ADD DEPARTMENT NAME
+	public function add_department()
+    {
+    	$arrPost = $this->input->post();
+		if(empty($arrPost))
+		{	
+			$this->arrData['arrDepartment'] = $this->org_structure_model->getDepartmentData();
+			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->template->load('template/template_view','libraries/org_structure/add_department_view',$this->arrData);	
+		}
+		else
+		{	
+			$strExec = $arrPost['strExec'];
+			$strService = $arrPost['strService'];
+			$strDivision = $arrPost['strDivision'];
+			$strSection = $arrPost['strSection'];
+			$strDeptCode = $arrPost['strDeptCode'];
+			$strDeptName = $arrPost['strDeptName'];
+			$strDeptHead = $arrPost['strDeptHead'];
+			$strDeptHeadTitle = $arrPost['strDeptHeadTitle'];
+			$strDeptSecretary = $arrPost['strDeptSecretary'];
+			// !empty($strService) AND !empty($strDivision) AND !empty($strSection) AND !empty($strDeptHead) AND !empty($strDeptHeadTitle)
+			if(!empty($strExec) AND !empty($strDeptCode) AND !empty($strDeptName) ) 
+			{	
+				// check if exam code and/or exam desc already exist
+				if(count($this->org_structure_model->checkDepartment($strDeptCode, $strDeptName))==0)
+				{
+					$arrData = array(
+						'group1Code'=>$strExec,
+						'group2Code'=>$strService,
+						'group3Code'=>$strDivision,
+						'group4Code'=>$strSection,
+						'group5Code'=>$strDeptCode,
+						'group5Name'=>$strDeptName,	
+						'empNumber'=>$strDeptHead,
+						'group5HeadTitle'=>$strDeptHeadTitle,
+						'group5Secretary'=>$strDeptSecretary
+					);
+					$blnReturn  = $this->org_structure_model->add_department($arrData);
+
+					if(count($blnReturn)>0)
+					{	
+						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup5','Added '.$strDeptCode.' Org_structure',implode(';',$arrData),'');
+						$this->session->set_flashdata('strSuccessMsg','Department Name added successfully.');
+					}
+					redirect('libraries/org_structure');
+				}
+				else
+				{	
+					$this->session->set_flashdata('strErrorMsg','Department Name already exists.');
+					$this->session->set_flashdata('strDeptCode',$strDeptCode);
+					$this->session->set_flashdata('strDeptName',$strDeptName);
+					redirect('libraries/org_structure'.'/#tab_department');
+				}
+			}
+		}    	
+    }
+    //EDIT DEPARTMENT NAME
+    public function edit_department()
+	{
+		$arrPost = $this->input->post();
+		//print_r($arrPost);
+		if(empty($arrPost))
+		{
+			$strCode = urldecode($this->uri->segment(4));
+			$this->arrData['arrDepartment'] = $this->org_structure_model->getDepartmentData($strCode);
+			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->template->load('template/template_view','libraries/org_structure/edit_department_view', $this->arrData);
+		}
+		else
+		{
+
+			$strCode = $arrPost['strCode'];
+			$strExec = $arrPost['strExec'];
+			$strService = $arrPost['strService'];
+			$strDivision = $arrPost['strDivision'];
+			$strSection = $arrPost['strSection'];
+			$strDeptCode = $arrPost['strDeptCode'];
+			$strDeptName= $arrPost['strDeptName'];
+			$strDeptHead= $arrPost['strDeptHead'];
+			$strDeptHeadTitle= $arrPost['strDeptHeadTitle'];
+			$strDeptSecretary= $arrPost['strDeptSecretary'];
+			// !empty($strService) AND !empty($strDivision) AND !empty($strSection) AND !empty($strDeptHead) AND !empty($strDeptHeadTitle)
+			if(!empty($strExec) AND !empty($strDeptCode) AND !empty($strDeptName) ) 
+			{
+				$arrData = array(
+					'group1Code'=>$strExec,
+					'group2Code'=>$strService,
+					'group3Code'=>$strDivision,
+					'group4Code'=>$strSection,
+					'group5Code'=>$strDeptCode,
+					'group5Name'=>$strDeptName,	
+					'empNumber'=>$strDeptHead,
+					'group5HeadTitle'=>$strDeptHeadTitle,
+					'group5Secretary'=>$strDeptSecretary
+					
+				);
+				$blnReturn = $this->org_structure_model->save_department($arrData, $strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup5','Edited '.$strDeptCode.' Org_structure',implode(';',$arrData),'');
+					$this->session->set_flashdata('strSuccessMsg','Department name saved successfully.');
+				}
+				redirect('libraries/org_structure'.'/#tab_department');
+			}
+		}	
+	}
+	//DELETE DEPARTMENT NAME
+	public function delete_department()
+	{
+		//$strDescription=$arrPost['strDescription'];
+		$arrPost = $this->input->post();
+		$strCode = $this->uri->segment(4);
+		if(empty($arrPost))
+		{
+			$this->arrData['arrDepartment'] = $this->org_structure_model->getDepartmentData($strCode);
+			$this->arrData['arrSection'] = $this->org_structure_model->getSectionData();
+			$this->arrData['arrService'] = $this->org_structure_model->getServiceData();
+			$this->arrData['arrEmployees'] = $this->hr_model->getData();
+			$this->arrData['arrOrganization']=$this->org_structure_model->getData();
+			$this->arrData['arrDivision'] = $this->org_structure_model->getDivisionData();
+			$this->template->load('template/template_view','libraries/org_structure/delete_department_view',$this->arrData);
+		}
+		else
+		{
+			$strCode = $arrPost['strCode'];
+			//add condition for checking dependencies from other tables
+			if(!empty($strCode))
+			{
+				$arrDepartment = $this->org_structure_model->getData($strCode);
+				$strDeptCode = $arrDepartment[0]['group5Code'];	
+				$blnReturn = $this->org_structure_model->delete_department($strCode);
+				if(count($blnReturn)>0)
+				{
+					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblgroup5','Deleted '.$strDeptCode.' Org_structure',implode(';',$arrDepartment),'');
+	
+					$this->session->set_flashdata('strSuccessMsg','Department name deleted successfully.');
+				}
+				redirect('libraries/org_structure'.'/#tab_department');
 			}
 		}	
 	}
