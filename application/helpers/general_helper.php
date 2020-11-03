@@ -461,11 +461,3 @@ if ( ! function_exists('getaddress'))
         return $address;
     }
 }
-
-if ( ! function_exists('flag_ceremony_time'))
-{
-    function flag_ceremony_time()
-    {
-        return '08:00:00';
-    }
-}
