@@ -87,7 +87,7 @@ class User_account extends MY_Controller {
 							 'userName'			=> $userName,
 							 'userPassword' 	=> $userPassword,
 							 'userLevel' 		=> $userLevel,
-							 'is_assistant' 	=> $is_assistant,
+							 // 'is_assistant' 	=> $is_assistant,
 							 'assignedGroup' 	=> $assignedGroup,
 							 'userPermission' 	=> $userPermission,
 							 'accessPermission' => $access);
@@ -172,7 +172,7 @@ class User_account extends MY_Controller {
 			$arrData = array('empNumber' 		=> $empNumber,
 							 'userName'			=> $userName,
 							 'userLevel' 		=> $userLevel,
-							 'is_assistant' 	=> $is_assistant,
+							 // 'is_assistant' 	=> $is_assistant,
 							 'assignedGroup' 	=> $assignedGroup,
 							 'userPermission' 	=> $userPermission,
 							 'accessPermission' => $access);
