@@ -275,7 +275,7 @@ class Hr extends MY_Controller {
 						'middlename'=>$strMiddlename,
 						'middleInitial'=>$strMidInitial,
 						'nameExtension'=>$strNameExt,
-						'citizenship'=>$strCitizenship,
+						'citizenship'=>$strCitizenship == null ? "" : $strCitizenship,
 						'birthday'=>$dtmBday,
 						'birthPlace'=>$strBirthPlace,
 						'sex'=>$strSex,
@@ -308,8 +308,6 @@ class Hr extends MY_Controller {
 						'telephone2'=>$intTel2,
 						'Mobile'=>$intMobile,
 						'AccountNum'=>$intAccount,
-						
-						
 					);
 					$blnReturn  = $this->Hr_model->add_employee($arrData);
 						$arrData2 = array(
