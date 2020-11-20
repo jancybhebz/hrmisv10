@@ -353,6 +353,12 @@
             <script src="<?=base_url('assets/plugins/jspdf/jspdf-autotable.js')?>"></script>
             <script src="<?=base_url('assets/plugins/bootstrap-toggle-master/js/bootstrap-toggle.min.js')?>"></script>
 
+            <script src="<?=base_url('assets/plugins/FileSaver.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/plugins/sheetjs/xlsx.full.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/plugins/sheetjs/xlsx.core.min.js')?>" type="text/javascript"></script>
+            <script src="<?=base_url('assets/plugins/sheetjs/cpexcel.js')?>" type="text/javascript"></script>
+            
+
             <script>
                 $(document).ready(function(){
                     toastr.options = {

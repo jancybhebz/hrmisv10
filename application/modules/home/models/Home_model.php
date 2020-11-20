@@ -108,8 +108,8 @@ class Home_model extends CI_Model {
 
 	function getsymptoms($dtrDate, $symptoms="")
 	{
-		$concat = 'CONCAT_WS(", ", CASE WHEN q1_1 = 1 THEN "Fever for the past few days" ELSE NULL END, CASE WHEN q1_2 = 1 THEN "Dry Cough" ELSE NULL END, CASE WHEN q1_3 = 1 THEN "Fatigue" ELSE NULL END, CASE WHEN q1_4 = 1 THEN "Aches and Pains" ELSE NULL END, CASE WHEN q1_5 = 1 THEN "Runny Nose" ELSE NULL END, CASE WHEN q1_6 = 1 THEN "Shortness of Breath" ELSE NULL END, CASE WHEN q1_7 = 1 THEN "Diarrhea" ELSE NULL END)';
-		$sql = 'SELECT *, concat AS symptoms FROM tblOnlineDTR_HCD WHERE dtrDate = ? AND (q1_1+q1_2+q1_3+q1_4+q1_5+q1_6+q1_7) > 0';
+		$concat = 'CONCAT_WS(", ", CASE WHEN q1_1 = 1 THEN "Fever for the 3 few days" ELSE NULL END, CASE WHEN q1_2 = 1 THEN "Dry Cough" ELSE NULL END, CASE WHEN q1_3 = 1 THEN "Fatigue" ELSE NULL END, CASE WHEN q1_4 = 1 THEN "Body Pains" ELSE NULL END, CASE WHEN q1_5 = 1 THEN "Runny Nose" ELSE NULL END, CASE WHEN q1_6 = 1 THEN "Shortness of Breath" ELSE NULL END, CASE WHEN q1_7 = 1 THEN "Diarrhea" ELSE NULL END, CASE WHEN q1_8 = 1 THEN "Headache" ELSE NULL END, CASE WHEN q1_9 = 1 THEN "Loss of Smell" ELSE NULL END, CASE WHEN q1_10 = 1 THEN "Loss of Taste" ELSE NULL END, CASE WHEN q1_11 = 1 THEN "Loss of Appetite" ELSE NULL END, CASE WHEN q1_12 = 1 THEN "Sore Throat" ELSE NULL END, CASE WHEN q1_13 = 1 THEN "Difficulty of Breathing" ELSE NULL END, CASE WHEN q1_14 = 1 THEN "Body Malaise" ELSE NULL END)';
+		$sql = 'SELECT *, concat AS symptoms FROM tblOnlineDTR_HCD WHERE dtrDate = ? AND (q1_1+q1_2+q1_3+q1_4+q1_5+q1_6+q1_7+q1_8+q1_9+q1_10+q1_11+q1_12+q1_13+q1_14) > 0';
 		$sql = str_replace('concat', $concat, $sql);
 
 		$symp = "";

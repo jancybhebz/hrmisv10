@@ -65,6 +65,12 @@
                   <input type="text" class="form-control form-control-sm form-required" id="txtrescon" name="txtrescon">
                 </div>
               </div>
+              <div class="form-group row">
+                <label class="col-form-label col-lg-2 col-sm-12 tl">Email:</label>
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                  <input type="text" class="form-control form-control-sm form-required" id="txtemail" name="txtemail">
+                </div>
+              </div>
 
               <div class="form-group row iswfh" hidden>
                 <label class="col-form-label col-lg-2 col-sm-12 tl">Nature of Visit:<br>(Please check one):</label>
@@ -118,12 +124,12 @@
                     <td></td>
                   </tr>
                   <tr>
-                    <td>&emsp;&emsp;* Fever for the past few days (Lagnat sa nakalipas na mga araw) </td>
+                    <td>&emsp;&emsp;* Fever for the past 3 days (Lagnat ano mang oras sa nakalipas 3 araw) Fever = 37.5'c above. <br>                       If yes please specify date when fever was experienced: <input type="text" class="form-control form-control-sm form-required" id="txtq1_1" name="txtq1_1" readonly></td>
                     <td><label><input type="radio" name="rdoq1_1" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq1_1" value="0"></label></td>
                   </tr>
                   <tr>
-                    <td>&emsp;&emsp;* Dry Cough (Tuyong ubo) </td>
+                    <td>&emsp;&emsp;* Dry cough / Cough with phlegm (Tuyong ubo / Ubo na may plema) </td>
                     <td><label><input type="radio" name="rdoq1_2" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq1_2" value="0"></label></td>
                   </tr>
@@ -133,17 +139,17 @@
                     <td><label><input type="radio" name="rdoq1_3" value="0"></label></td>
                   </tr>
                   <tr>
-                    <td>&emsp;&emsp;* Aches and Pains (Pananakit ng katawan) </td>
+                    <td>&emsp;&emsp;* Body pains or Muscle pains (Pananakit ng katawan o kalamnan) </td>
                     <td><label><input type="radio" name="rdoq1_4" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq1_4" value="0"></label></td>
                   </tr>
                   <tr>
-                    <td>&emsp;&emsp;* Runny Nose (Sipon) </td>
+                    <td>&emsp;&emsp;* Runny nose / Colds (Sipon) </td>
                     <td><label><input type="radio" name="rdoq1_5" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq1_5" value="0"></label></td>
                   </tr>
                   <tr>
-                    <td>&emsp;&emsp;* Shortness of Breath (Hirap sa paghinga) </td>
+                    <td>&emsp;&emsp;* Shortness of breath (Hirap sa paghinga) </td>
                     <td><label><input type="radio" name="rdoq1_6" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq1_6" value="0"></label></td>
                   </tr>
@@ -153,12 +159,47 @@
                     <td><label><input type="radio" name="rdoq1_7" value="0"></label></td>
                   </tr>
                   <tr>
+                    <td>&emsp;&emsp;* Headache (Pananakit ng ulo) </td>
+                    <td><label><input type="radio" name="rdoq1_8" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq1_8" value="0"></label></td>
+                  </tr>
+                  <tr>
+                    <td>&emsp;&emsp;* Loss of smell (Pagkawala ng pang amoy) </td>
+                    <td><label><input type="radio" name="rdoq1_9" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq1_9" value="0"></label></td>
+                  </tr>
+                  <tr>
+                    <td>&emsp;&emsp;* Loss of taste (Pagkawala ng panlasa) </td>
+                    <td><label><input type="radio" name="rdoq1_10" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq1_10" value="0"></label></td>
+                  </tr>
+                  <tr>
+                    <td>&emsp;&emsp;* Loss of appetite (Pagkawala ng ganang kumain) </td>
+                    <td><label><input type="radio" name="rdoq1_11" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq1_11" value="0"></label></td>
+                  </tr>
+                  <tr>
+                    <td>&emsp;&emsp;* Sore throat (Pananakit ng lalamunan) </td>
+                    <td><label><input type="radio" name="rdoq1_12" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq1_12" value="0"></label></td>
+                  </tr>
+                  <tr>
+                    <td>&emsp;&emsp;* Difficulty of breathing (Hirap sa paghinga) </td>
+                    <td><label><input type="radio" name="rdoq1_13" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq1_13" value="0"></label></td>
+                  </tr>
+                  <tr>
+                    <td>&emsp;&emsp;* Body malaise or feeling discomfort due to flu like symptoms (panghihina ng katawan dahil sa trankaso) </td>
+                    <td><label><input type="radio" name="rdoq1_14" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq1_14" value="0"></label></td>
+                  </tr>
+                  <tr>
                     <td>2. Have you worked together or stayed in the same close environment of a confirmed COVID-19 case? (May nakasama ka ba o nakatrabahong tao na kumpirmadong may COVID-19/may impeksyon ng corona virus?) </td>
                     <td><label><input type="radio" name="rdoq2" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq2" value="0"></label></td>
                   </tr>
                   <tr>
-                    <td>3. Have you had any contact with anyone with fever, cough, colds and sore throat in the past 2 weeks? (Mayroon ka bang nakasama na may lagnat, ubo, sipon o sakit ng lalamunan sa nakalipas na dalawang lingo?) </td>
+                    <td>3. Have you had any contact with anyone with fever, cough, colds and sore throat in the past 2 weeks? (Mayroon ka bang nakasama na may lagnat, ubo, sipon o sakit ng lalamunan sa nakalipas na dalawang linggo?) </td>
                     <td><label><input type="radio" name="rdoq3" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq3" value="0"></label></td>
                   </tr>
@@ -171,6 +212,11 @@
                     <td>5. Have you travelled to any area in NCR aside from your home? (Ikaw ba ay nagpunta sa iba pang parte ng NCR or Metro Manila bukod sa iyong bahay?) Specify (Sabihin kung saan): <br><input type="text" class="form-control form-control-sm form-required" id="txtq5" name="txtq5" readonly></td>
                     <td><label><input type="radio" name="rdoq5" value="1"></label></td>
                     <td><label><input type="radio" name="rdoq5" value="0"></label></td>
+                  </tr>
+                  <tr>
+                    <td>6. Have you been asked to self-isolate or quarantine by a doctor or local public health official? (Napagpayuhan o napakiusapan ka na ba ng isang doctor o isang local na opisyal pangkalusugan na ihiwalay ang sarili of self quarantine?) If yes, specify dates covered. (Kung ang sagot ay oo, para sa anong petsa?): <br><input type="text" class="form-control form-control-sm form-required" id="txtq6" name="txtq6" readonly></td>
+                    <td><label><input type="radio" name="rdoq6" value="1"></label></td>
+                    <td><label><input type="radio" name="rdoq6" value="0"></label></td>
                   </tr>
                 </tbody>
               </table>
@@ -197,6 +243,7 @@
         <input type="hidden" name="txtempno" id="txtempno">
         <button type="button" class="btn blue" id="btnHCD" onclick="submitHCD()"><i class="icon-check"> </i> Submit</button>
         <button type="button" class="btn green" onclick="savePDF()"><i class="icon-check"> </i> Download PDF</button>
+        <button type="button" class="btn green" onclick="saveExcel()"><i class="icon-check"> </i> Download Excel</button>
         <button type="button" class="btn yellow" data-dismiss="modal"><i class="icon-ban"> </i> Close</button>
       </div>
     </div>
