@@ -18,6 +18,10 @@
         <script src="<?=base_url('assets/js/jquery.min.js')?>" type="text/javascript"></script>
         <script src="<?=base_url('assets/plugins/bootstrap/js/bootstrap.min.js')?>" type="text/javascript"></script>
         <script src="<?=base_url('assets/js/app.js')?>" type="text/javascript"></script>
+        <script src="<?=base_url('assets/plugins/FileSaver.min.js')?>" type="text/javascript"></script>
+        <script src="<?=base_url('assets/plugins/sheetjs/xlsx.full.min.js')?>" type="text/javascript"></script>
+        <script src="<?=base_url('assets/plugins/sheetjs/xlsx.core.min.js')?>" type="text/javascript"></script>
+        <script src="<?=base_url('assets/plugins/sheetjs/cpexcel.js')?>" type="text/javascript"></script>
     </head>
     <!-- END HEAD -->
 
