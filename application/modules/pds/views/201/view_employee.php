@@ -13,8 +13,8 @@
         $arrdtr = $arrdtr[0];
         $am_timein  = $arrdtr['inAM']  == '' || $arrdtr['inAM']  == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['inAM']));
         $am_timeout = $arrdtr['outAM'] == '' || $arrdtr['outAM'] == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['outAM']));
-        $pm_timein  = $arrdtr['inPM']  == '' || $arrdtr['inPM']  == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['inPM']));
-        $pm_timeout = $arrdtr['outPM'] == '' || $arrdtr['outPM'] == '00:00:00' ? '-' : date('H:i A',strtotime($arrdtr['outPM']));
+        $pm_timein  = $arrdtr['inPM']  == '' || $arrdtr['inPM']  == '00:00:00' ? '-' : date('h:i A',strtotime($arrdtr['inPM'].'PM'));
+        $pm_timeout = $arrdtr['outPM'] == '' || $arrdtr['outPM'] == '00:00:00' ? '-' : date('h:i A',strtotime($arrdtr['outPM'].'PM'));
     endif;
 
 ?>
