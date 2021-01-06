@@ -13,7 +13,7 @@ class Login_model extends CI_Model {
 		$this->db->select('tblEmpAccount.*,tblEmpPosition.*,tblEmpPersonal.*');
 		$this->db->join('tblEmpPosition','tblEmpPosition.empNumber=tblEmpAccount.empNumber','left');
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber=tblEmpAccount.empNumber','left');
-		$rs = $this->db->get_where('tblEmpAccount', array('userName' => $strUsername))->result_array();
+		$rs = $this->db->get_where('tblEmpAccount', array('userName' => $strUsername, 'statusOfAppointment'=>'In-Service'))->result_array();
 
 		if(count($rs) > 0):
 			$strPass = $this->db->escape_str($rs[0]['userPassword']);
