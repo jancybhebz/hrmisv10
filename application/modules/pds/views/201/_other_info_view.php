@@ -93,6 +93,18 @@
 
         $('#btnedit-legal-info').click(function() {
             $('b.blue, b.red').hide();
+            
+            if($('#y_third').is(':checked')) { $('#ThirdYes').show(); } else { $('#ThirdYes').hide(); }
+            if($('#y_fourth').is(':checked')) { $('#FourthYes').show(); } else { $('#FourthYes').hide(); }
+            if($('#y_admincase').is(':checked')) { $('#adminCaseYes').show(); } else { $('#adminCaseYes').hide(); }
+            if($('#y_charged').is(':checked')) { $('#formallyChargedYes').show(); } else { $('#formallyChargedYes').hide(); }
+            if($('#y_violate').is(':checked')) { $('#violateLawYes').show(); } else { $('#violateLawYes').hide(); }
+            if($('#y_forced').is(':checked')) { $('#forcedResignYes').show(); } else { $('#forcedResignYes').hide(); }
+            if($('#y_candi').is(':checked')) { $('#candidateYes').show(); } else { $('#candidateYes').hide(); }
+            if($('#y_campaign').is(':checked')) { $('#campaignYes').show(); } else { $('#campaignYes').hide(); }
+            if($('#y_immi').is(':checked')) { $('#immigrantYes').show(); } else { $('#immigrantYes').hide(); }
+            
+
             if($('#y_indi').is(':checked')) { $('#txtindigenous').show(); } else { $('#txtindigenous').hide(); }
             if($('#y_disable').is(':checked')) { $('#txtdisabled').show(); } else { $('#txtdisabled').hide(); }
             if($('#y_solo').is(':checked')) { $('#txtsoloparent').show(); } else { $('#txtsoloparent').hide(); }
@@ -125,6 +137,70 @@
 
         $('#tblchar-references').on('click','a.btndelete_char_refs',function() {
             $('#txtdel_char_ref').val($(this).data('refid'));
+        });
+
+        
+        $('#y_third').on('click',function() {
+            $('#ThirdYes').show();
+        });
+        $('#n_third').on('click',function() {
+            $('#ThirdYes').hide();
+        });
+
+        $('#y_fourth').on('click',function() {
+            $('#FourthYes').show();
+        });
+        $('#n_fourth').on('click',function() {
+            $('#FourthYes').hide();
+        });
+
+        $('#y_admincase').on('click',function() {
+            $('#adminCaseYes').show();
+        });
+        $('#n_admincase').on('click',function() {
+            $('#adminCaseYes').hide();
+        });
+
+         $('#y_charged').on('click',function() {
+            $('#formallyChargedYes').show();
+        });
+        $('#n_charged').on('click',function() {
+            $('#formallyChargedYes').hide();
+        });
+
+        $('#y_violate').on('click',function() {
+            $('#violateLawYes').show();
+        });
+        $('#n_violate').on('click',function() {
+            $('#violateLawYes').hide();
+        });
+
+        $('#y_forced').on('click',function() {
+            $('#forcedResignYes').show();
+        });
+        $('#n_forced').on('click',function() {
+            $('#forcedResignYes').hide();
+        });
+
+        $('#y_candi').on('click',function() {
+            $('#candidateYes').show();
+        });
+        $('#n_candi').on('click',function() {
+            $('#candidateYes').hide();
+        });
+
+         $('#y_campaign').on('click',function() {
+            $('#campaignYes').show();
+        });
+        $('#n_campaign').on('click',function() {
+            $('#campaignYes').hide();
+        });
+
+         $('#y_immi').on('click',function() {
+            $('#immigrantYes').show();
+        });
+        $('#n_immi').on('click',function() {
+            $('#immigrantYes').hide();
         });
 
         $('#y_indi').on('click',function() {
