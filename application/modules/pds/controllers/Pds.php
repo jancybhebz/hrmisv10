@@ -639,14 +639,24 @@ class Pds extends MY_Controller
 		if(!empty($arrPost)):
 			$arrData = array(
 							'relatedThird'	 => $arrPost['optrelated_third'],
+							'relatedDegreeParticularsThird'	=> $arrPost['optrelated_third'] == 'Y' ? $arrPost['ThirdYes'] : '',
 							'relatedFourth'	 => $arrPost['optrelated_fourth'],
+							'relatedDegreeParticulars' 		=> $arrPost['optviolate_law'] == 'Y' ? $arrPost['FourthYes'] : '',
 							'adminCase'		 => $arrPost['optadmincase'],
+							'adminCaseParticulars'			=> $arrPost['optviolate_law'] == 'Y' ? $arrPost['adminCaseYes'] : '',
 							'formallyCharged'=> $arrPost['optformally_charged'],
+							'formallyChargedParticulars' 	=> $arrPost['optviolate_law'] == 'Y' ? $arrPost['formallyChargedYes'] : '',
 							'violateLaw'	 => $arrPost['optviolate_law'],
+							'violateLawParticulars'			=> $arrPost['optviolate_law'] == 'Y' ? $arrPost['violateLawYes'] : '',
 							'forcedResign'	 => $arrPost['optforced_resign'],
+							'forcedResignParticulars'		=> $arrPost['optforced_resign'] == 'Y' ? $arrPost['forcedResignYes'] : '',
 							'candidate'		 => $arrPost['optcandidate'],
+							'candidateParticulars'			=> $arrPost['optcandidate'] == 'Y' ? $arrPost['candidateYes'] : '',
 							'campaign'		 => $arrPost['optcampaign'],
+							'campaignParticulars'			=> $arrPost['optcampaign'] == 'Y' ? $arrPost['campaignYes'] : '',
 							'immigrant'		 => $arrPost['optimmigrant'],
+							'immigrantParticulars'			=> $arrPost['optimmigrant'] == 'Y' ? $arrPost['immigrantYes'] : '',
+
 							'indigenous'	 => $arrPost['optindigenous'],
 							'disabled'		 => $arrPost['optdisabled'],
 							'soloParent'	 => $arrPost['optsolo_parent'],
@@ -738,7 +748,7 @@ class Pds extends MY_Controller
 					// plantilla details							
 							'uniqueItemNumber' => $arrPost['txtunique_itemno'],
 							'itemNumber' 	   => $arrPost['sel_plantilla'],
-							// 'positionCode' 	   => $arrPost['txtplant_pos'],
+							'positionCode' 	   => $arrPost['txtplant_pos'],
 							// 'actualSalary' 	   => $arrPost['txtactual_salary'],
 							// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
 							'positionDate' 	   => $arrPost['txtposition_date'],
