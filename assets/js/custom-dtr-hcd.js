@@ -14,7 +14,7 @@ $(document).ready(function(){
         return (event.charCode >= 48 && event.charCode <= 57) ||  event.charCode == 46 || event.charCode == 0 
     });
     $('#txttemp').keyup(delay(function (e) {
-        if(!validnum(this.value, 32, 41))
+        if(!validnum(this.value, 32, 39))
             this.value="";
     }, 700));
 
