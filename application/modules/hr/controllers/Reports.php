@@ -1030,6 +1030,20 @@ class Reports extends MY_Controller
                 	</div>
                 </div>';
             break;
+            case 'MA':
+	            echo '<div class="row">
+		        		<div class="col-sm-3 text-right">
+		        			<div class="form-group">
+		        				<label class="control-label">For : </label>
+		        			</div>
+		        			</div>
+		        			<div class="form-group">
+		        			  	<div class="col-sm-2">'.comboMonth('intMonth').'</div>
+		        				<div class="col-sm-2">'.comboYear('intYear').'</div>
+		        			</div>
+	                	</div>
+	                </div>';
+	        break;
 		}
 		echo "<script>
 		$('.date-picker').datepicker({format: 'yyyy-mm-dd'});

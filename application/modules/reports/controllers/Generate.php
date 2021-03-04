@@ -187,6 +187,10 @@ class Generate extends MY_Controller
                 $this->load->model('TrainingsofStaff_model');
                 $this->TrainingsofStaff_model->generate($arrGet);
             break;
+            case 'MA':
+                $this->load->model('MonthlyAttendance_model');
+                $this->MonthlyAttendance_model->generate($arrGet);
+            break;
             default: echo "Sorry, this report is still not available."; break;
     	}
 

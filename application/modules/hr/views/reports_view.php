@@ -64,7 +64,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </select>
                 </div>
             </div>
-             <div class="col-sm-3">
+            <div class="col-sm-3">
                 <div class="form-group">
                      <font color='red'> <span id="salutation"></span></font>
                 </div>
@@ -72,12 +72,12 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          </div>   
          <br>
          <div class="row employee-block">
-             <div class="col-sm-3 text-right">
+            <div class="col-sm-3 text-right">
                 <div class="form-group">
                     <label class="control-label">Employees :</label>
                 </div>
             </div>
-             <div class="col-sm-3">
+            <div class="col-sm-3">
                 <div class="form-group">
                      <select type="text" class="form-control select2" name="strEmpName" value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>">
                         <option value="">Select</option>
@@ -87,7 +87,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     </select>
                 </div>
             </div>
-             <div class="col-sm-3">
+            <div class="col-sm-3">
                 <div class="form-group">
                      <font color='red'> <span id="salutation"></span></font>
                 </div>
@@ -133,7 +133,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('select[name="strReports"]').change(function(){
             $rpt = $(this).val();
             
-            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LR' || $rpt=='LVP' || $rpt=='LEA' || $rpt=='LVP' || $rpt=='PP' || $rpt=='EFDS' || $rpt=='LOYR' || $rpt=='AAR')
+            if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LR' || $rpt=='LVP' || $rpt=='LEA' || $rpt=='LVP' || $rpt=='PP' || $rpt=='EFDS' || $rpt=='LOYR' || $rpt=='AAR' || $rpt=='MA')
                 $('.per-block, .employee-block').hide();
             else
                 $('.per-block').show();
