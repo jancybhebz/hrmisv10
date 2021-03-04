@@ -25,10 +25,10 @@ class MonthlyAttendance_model extends CI_Model {
 	function getSQLData($intMonth="",$intYear="")
 	{
 		$this->db->select("a.empNumber, b.surname, b.firstname, b.middleInitial, c.positionDesc, FORMAT(a.actualSalary,2) as actualsalary, COALESCE(e.wfh,0) as office, COALESCE(d.wfh,0) as wfh, COALESCE(e.wfh,0) as daysinoffice, (CASE WHEN COALESCE(e.wfh,0) BETWEEN 1 AND 7 THEN '10%' WHEN COALESCE(e.wfh,0) BETWEEN 8 AND 14 THEN '12%' WHEN COALESCE(e.wfh,0) >= 15 THEN '15%' ELSE '0%' END) AS percent, (CASE WHEN COALESCE(e.wfh,0) BETWEEN 1 AND 7 THEN FORMAT((a.actualSalary*.1),2) WHEN COALESCE(e.wfh,0) BETWEEN 8 AND 14 THEN FORMAT((a.actualSalary*.12),2) WHEN COALESCE(e.wfh,0) >= 15 THEN FORMAT((a.actualSalary*.15),2) ELSE '' END) AS hazard");
-		$this->db->join('tblemppersonal b','b.empNumber = a.empNumber','left');
-		$this->db->join('tblposition c','c.positionCode = a.positionCode','left');
-		$this->db->join('(select empNumber, count(wfh) as wfh from tblempdtr where wfh = 1 and year(dtrDate) = '.$intYear.' and month(dtrDate) = '.$intMonth.' and (inam != "00:00:00" or outpm != "00:00:00") group by empNumber) d','d.empNumber = a.empNumber','left');
-		$this->db->join('(select empNumber, count(wfh) as wfh from tblempdtr where wfh = 0 and year(dtrDate) = '.$intYear.' and month(dtrDate) = '.$intMonth.' and (inam != "00:00:00" or outpm != "00:00:00") group by empNumber) e','e.empNumber = a.empNumber','left');
+		$this->db->join('tblEmpPersonal b','b.empNumber = a.empNumber','left');
+		$this->db->join('tblPosition c','c.positionCode = a.positionCode','left');
+		$this->db->join('(select empNumber, count(wfh) as wfh from tblEmpDTR where wfh = 1 and year(dtrDate) = '.$intYear.' and month(dtrDate) = '.$intMonth.' and (inam != "00:00:00" or outpm != "00:00:00") group by empNumber) d','d.empNumber = a.empNumber','left');
+		$this->db->join('(select empNumber, count(wfh) as wfh from tblEmpDTR where wfh = 0 and year(dtrDate) = '.$intYear.' and month(dtrDate) = '.$intMonth.' and (inam != "00:00:00" or outpm != "00:00:00") group by empNumber) e','e.empNumber = a.empNumber','left');
 		// $this->db->where('year(dtrDate)',$intYear);
 		// $this->db->where('month(dtrDate)',$intMonth);
 		$this->db->where('a.appointmentCode',"P");
@@ -36,7 +36,7 @@ class MonthlyAttendance_model extends CI_Model {
 		$this->db->where('b.surname !=',"");
 		$this->db->group_by('a.empNumber');
 		$this->db->order_by('b.surname');
-		$objQuery = $this->db->get('tblempposition a');
+		$objQuery = $this->db->get('tblEmpPosition a');
 
 		// echo $this->db->last_query();exit(1);
 		return $objQuery->result_array();
