@@ -24,7 +24,7 @@ class MonthlyAttendance_model extends CI_Model {
 
 	function getSQLData($intMonth="",$intYear="")
 	{
-		$this->db->select("a.empNumber, b.surname, b.firstname, b.middleInitial, c.positionDesc, FORMAT(a.actualSalary,2) as actualsalary, COALESCE(e.wfh,0) as office, COALESCE(d.wfh,0) as wfh, COALESCE(e.wfh,0) as daysinoffice, (CASE WHEN COALESCE(e.wfh,0) BETWEEN 1 AND 7 THEN '10%' WHEN COALESCE(e.wfh,0) BETWEEN 8 AND 14 THEN '12%' WHEN COALESCE(e.wfh,0) >= 15 THEN '15%' ELSE '0%' END) AS percent, (CASE WHEN COALESCE(e.wfh,0) BETWEEN 1 AND 7 THEN FORMAT((a.actualSalary*.1),2) WHEN COALESCE(e.wfh,0) BETWEEN 8 AND 14 THEN FORMAT((a.actualSalary*.12),2) WHEN COALESCE(e.wfh,0) >= 15 THEN FORMAT((a.actualSalary*.15),2) ELSE '' END) AS hazard");
+		$this->db->select("a.empNumber, b.surname, b.firstname, b.middleInitial, c.positionDesc, FORMAT(a.actualSalary,2) as actualsalary, COALESCE(e.wfh,0) as office, COALESCE(d.wfh,0) as wfh, COALESCE(e.wfh,0) as daysinoffice, a.hpFactor");
 		$this->db->join('tblEmpPersonal b','b.empNumber = a.empNumber','left');
 		$this->db->join('tblPosition c','c.positionCode = a.positionCode','left');
 		$this->db->join('(select empNumber, count(wfh) as wfh from tblEmpDTR where wfh = 1 and year(dtrDate) = '.$intYear.' and month(dtrDate) = '.$intMonth.' and (inam != "00:00:00" or outpm != "00:00:00") group by empNumber) d','d.empNumber = a.empNumber','left');
@@ -33,6 +33,7 @@ class MonthlyAttendance_model extends CI_Model {
 		// $this->db->where('month(dtrDate)',$intMonth);
 		$this->db->where('a.appointmentCode',"P");
 		$this->db->where('a.statusofappointment',"In-Service");
+		$this->db->where('a.hpFactor !=',0);
 		$this->db->where('b.surname !=',"");
 		$this->db->group_by('a.empNumber');
 		$this->db->order_by('b.surname');
@@ -84,16 +85,41 @@ class MonthlyAttendance_model extends CI_Model {
 		foreach($objQuery as $arrEmp)
 		//while($arrSalaryGrade = mysql_fetch_array($objSalaryGrade))
 		{
+			$percent = 0;
+			$hazard = 0;
 			
+
+			if($arrEmp['office'] >= 15 &&  $arrEmp['hpFactor'] == 30)
+				$percent = 0.30;
+			else if($arrEmp['office'] >= 15 &&  $arrEmp['hpFactor'] == 23)
+				$percent = 0.23;
+			else if($arrEmp['office'] >= 15 &&  $arrEmp['hpFactor'] == 15)
+				$percent = 0.15;
+			else if($arrEmp['office'] >= 15 &&  $arrEmp['hpFactor'] == 12)
+				$percent = 0.12;
+			else if(($arrEmp['office'] >= 8 && $arrEmp['office'] <= 14) &&  $arrEmp['hpFactor'] == 30)
+				$percent = 0.23;
+			else if(($arrEmp['office'] >= 8 && $arrEmp['office'] <= 14) &&  $arrEmp['hpFactor'] == 23)
+				$percent = 0.15;
+			else if(($arrEmp['office'] >= 8 && $arrEmp['office'] <= 14) &&  $arrEmp['hpFactor'] == 15)
+				$percent = 0.12;
+			else if($arrEmp['office'] < 8 && $arrEmp['hpFactor'] == 30)
+				$percent = 0.15;
+			else if($arrEmp['office'] < 8 && $arrEmp['hpFactor'] == 15)
+				$percent = 0.10;
+			else 
+				$percent = 0.00;
+
+			$hazard = (float)str_replace(',','',$arrEmp["actualsalary"]) * $percent;
 
 			$w = array(35,35,10,45,25,20,20,30,20,30);
 			$Ln = array('L','L','C','L','R','C','C','C','C','R');
 			$this->fpdf->SetWidths($w);
 			$this->fpdf->SetAligns($Ln);
-			$this->fpdf->FancyRow(array($i.'. '.$arrEmp["surname"],$arrEmp["firstname"],$arrEmp["middleInitial"],$arrEmp["positionDesc"],$arrEmp["actualsalary"],$arrEmp["office"],$arrEmp["wfh"],$arrEmp["daysinoffice"],$arrEmp["percent"],$arrEmp["hazard"]),array(1,1,1,1,1,1,1,1,1,1),$Ln);
+			$this->fpdf->FancyRow(array($i.'. '.$arrEmp["surname"],$arrEmp["firstname"],$arrEmp["middleInitial"],$arrEmp["positionDesc"],$arrEmp["actualsalary"],$arrEmp["office"],$arrEmp["wfh"],$arrEmp["daysinoffice"],$percent*100,number_format($hazard,2)),array(1,1,1,1,1,1,1,1,1,1),$Ln);
 
 			$totalsalary += (float)str_replace(',','',$arrEmp["actualsalary"]);
-			$totalhazard += (float)str_replace(',','',$arrEmp["hazard"]);
+			$totalhazard += $hazard;
 			$i++;
 		}
 
