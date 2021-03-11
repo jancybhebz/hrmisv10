@@ -63,30 +63,40 @@ $('#btn_edit_dtr').click(function(e) {
         // dtr_tr = [];
         json_tr = [{}];
         $(this).find('td').each(function (f, valtd) {
-            td_text = $(this).text();
-            td_text = td_text.replace(/(<([^>]+)>)/ig,"").replace(/(\r\n|\n|\r)/gm, "");
-            // dtr_tr.push($.trim(td_text));
-            json_tr.push({ 'td' : $.trim(td_text)});
-            var tdindex = $(this).index();
+            var $chkbox = $(this).find('input[type="checkbox"]');
+            if($chkbox.length) {
+                var status = $chkbox.prop('checked');
+                json_tr.push({ 'td' : (status ? 1 : 0)});
+            }
+            else{
+                td_text = $(this).text();
+                td_text = td_text.replace(/(<([^>]+)>)/ig,"").replace(/(\r\n|\n|\r)/gm, "");
+                // dtr_tr.push($.trim(td_text));
+                json_tr.push({ 'td' : $.trim(td_text)});
 
-            $(this).css('background-color','#fff');
-            if(tdindex >= 1 && tdindex <=6 ){
-                value = td_text.replace(/ /g,'');
-                if(!/^\d{2}:\d{2}$/.test(value)){
-                    $(this).find('.tdedit').css('background-color','pink');
-                    err = err + 1;
-                }else{
-                    var parts = value.split(':');
-                    if(parts[0] > 23 || parts[1] > 59){
+                var tdindex = $(this).index();
+
+                $(this).css('background-color','#fff');
+                if(tdindex >= 1 && tdindex <=6 ){
+                    value = td_text.replace(/ /g,'');
+                    if(!/^\d{2}:\d{2}$/.test(value)){
                         $(this).find('.tdedit').css('background-color','pink');
                         err = err + 1;
+                    }else{
+                        var parts = value.split(':');
+                        if(parts[0] > 23 || parts[1] > 59){
+                            $(this).find('.tdedit').css('background-color','pink');
+                            err = err + 1;
+                        }
                     }
                 }
             }
+            
         });
         json_alltr.push({ 'tr' : json_tr});
     });
 
+    // console.log(json_alltr);
     $('#txtjson').val(JSON.stringify(json_alltr));
     console.log(err);
     if(err > 0){

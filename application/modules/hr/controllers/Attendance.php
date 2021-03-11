@@ -744,13 +744,13 @@ class Attendance extends MY_Controller {
 					$dtr_details = json_decode($dtr['tr'][10]['td'], true);
 					$dtrid = $dtr_details[1];
 
-					$in_am  = $dtr['tr'][2]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00';
-					$out_am = $dtr['tr'][3]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00';
-					$in_pm  = $dtr['tr'][4]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00';
-					$out_pm = $dtr['tr'][5]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00';
-					$in_ot  = $dtr['tr'][6]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00';
-					$out_ot = $dtr['tr'][7]['td'] != '00:00' ? date('H:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00';
-
+					$in_am  = $dtr['tr'][2]['td'] != '00:00' ? date('h:i:s',strtotime($dtr['tr'][2]['td'])) : '00:00:00';
+					$out_am = $dtr['tr'][3]['td'] != '00:00' ? date('h:i:s',strtotime($dtr['tr'][3]['td'])) : '00:00:00';
+					$in_pm  = $dtr['tr'][4]['td'] != '00:00' ? date('h:i:s',strtotime($dtr['tr'][4]['td'].' PM')) : '00:00:00';
+					$out_pm = $dtr['tr'][5]['td'] != '00:00' ? date('h:i:s',strtotime($dtr['tr'][5]['td'].' PM')) : '00:00:00';
+					$in_ot  = $dtr['tr'][6]['td'] != '00:00' ? date('h:i:s',strtotime($dtr['tr'][6]['td'].' PM')) : '00:00:00';
+					$out_ot = $dtr['tr'][7]['td'] != '00:00' ? date('h:i:s',strtotime($dtr['tr'][7]['td'].' PM')) : '00:00:00';
+					
 					$arrData = array('empNumber'	=> $arrPost['empnum'],
 									 'dtrDate'		=> $dtr_details[0],
 									 'inAM' 		=> $in_am,
@@ -762,7 +762,9 @@ class Attendance extends MY_Controller {
 									 'name' 		=> $dtr_details[2].';'.$_SESSION['sessName'],
 									 'ip'			=> $dtr_details[3].';'.$this->input->ip_address(),
 									 'editdate'		=> $dtr_details[4].';'.date('Y-m-d h:i:s A'),
-									 'oldValue' 	=> $dtr_details[5].';'.'inAM='.$in_am.', outAM='.$out_am.', inPM='.$in_pm.', outPM='.$out_pm.', inOT='.$in_ot.', outOT='.$out_ot);
+									 'oldValue' 	=> $dtr_details[5].';'.'inAM='.$in_am.', outAM='.$out_am.', inPM='.$in_pm.', outPM='.$out_pm.', inOT='.$in_ot.', outOT='.$out_ot,
+									 'wfh'			=> $dtr['tr'][8]['td']);
+
 					# check timein validation
 					$valid_time = 0;
 					foreach(array($arrData['inAM'],$arrData['outAM'],$arrData['inPM'],$arrData['outPM'],$arrData['inOT'],$arrData['outOT']) as $vtime):

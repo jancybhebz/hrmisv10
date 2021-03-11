@@ -69,7 +69,17 @@
                                         <td>
                                             <div class="tdedit" contenteditable id="dtrEdit6" data-maxlength="5" data-minlength="5" onkeypress="return Validate(event);" ><?=$out_ot?></div></td>
                                         <td style="text-align: left;">
-                                            <?php 
+                                            <?php
+                                                if(count($dtr['dtr']) > 0 && $dtr['dtr']['wfh'] == 1):
+                                                    echo '<ul>';
+                                                    echo '<input type="checkbox" id="'.$dtr['dtr']['id'].'" name="'.$dtr['dtr']['id'].'" checked><small>'."WFH".'</small>';
+                                                    echo '</ul>';
+                                                elseif(count($dtr['dtr']) > 0 && $dtr['dtr']['wfh'] == 0):
+                                                    echo '<ul>';
+                                                    echo '<input type="checkbox" id="'.$dtr['dtr']['id'].'" name="'.$dtr['dtr']['id'].'" ><small>'."WFH".'</small>';
+                                                    echo '</ul>';
+                                                endif;
+
                                                 if(count($dtr['holiday_name']) > 0):
                                                     echo '<ul>';
                                                     foreach($dtr['holiday_name'] as $hday): echo '<li><small>'.$hday.'</small></li>'; endforeach;
