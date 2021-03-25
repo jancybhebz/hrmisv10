@@ -12,8 +12,8 @@ class Dtr extends MY_Controller {
 	
 	public function print_preview()
 	{
-		// $month = isset($_GET['month']) ? $_GET['month'] : date('m');
-		// $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
+		$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+		$yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
 
 		$empid = $this->uri->segment(4);
 
@@ -29,8 +29,10 @@ class Dtr extends MY_Controller {
 		$offset_wkdays = 0;
     	$offset_wkends = 0;
 
-		$datefrom = currdfrom();
-		$dateto = currdto();
+    	$datefrom = date($yr.'-'.sprintf('%02d',$month).'-01');
+    	$dateto = date($yr.'-'.sprintf('%02d',$month).'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')));
+		// $datefrom = currdfrom();
+		// $dateto = currdto();
 		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
 		$working_days = get_workingdays('','',$holidays,$datefrom,$dateto);
 		$agencyname = $this->Agency_profile_model->getData();
@@ -41,6 +43,7 @@ class Dtr extends MY_Controller {
 		// echo '<br>datefrom = '.$datefrom;
 		// echo '<br>dateto = '.$dateto;
 		// echo '<br>agencyname = '.$agencyname;
+		// exit(1);
 		
 		$this->load->library('general/Pdf_gen');
 		$this->fpdf = new Pdf_gen();
