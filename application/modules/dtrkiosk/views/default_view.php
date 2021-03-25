@@ -137,7 +137,7 @@
                                             </div>
                                         </div>
                                         <div class='wfh-t' <?= $hw==0 ? 'style="display: none"' : '' ?>>
-                                            <label class="col-form-label col-lg-1 col-sm-12 bold font-green">WFH</label>
+                                            <!-- <label class="col-form-label col-lg-1 col-sm-12 bold font-green">WFH</label> -->
                                             <div class="col-lg-3 col-md-3 col-sm-12">
                                                 <input id="wfh-toggle" type="checkbox" name="wfh-toggle" checked="">
                                             </div>
@@ -415,8 +415,8 @@
                     $('.daynow').text(dayNames[d.getDay()]);
 
                     $('#wfh-toggle').bootstrapToggle({
-                        on: 'Yes', 
-                        off: 'No'
+                        on: 'WFH', 
+                        off: 'Office'
                     });
 
                     $('#ot-toggle').bootstrapToggle({
