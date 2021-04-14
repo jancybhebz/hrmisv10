@@ -11,11 +11,11 @@ $activetab = strtolower($activetab);
 $user_session = $this->session->userdata();
 ?>
 <!-- <pre> -->
-    <?php 
-        // echo '<br>active = '.$active;
-        // echo '<br>activesub = '.$activesub;
-        // echo '<br>activetab = '.$activetab;
-     ?>
+    <!-- <?php 
+        echo '<br>active = '.$active;
+        echo '<br>activesub = '.$activesub;
+        echo '<br>activetab = '.$activetab;
+     ?> -->
 <!-- </pre> -->
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
@@ -543,17 +543,104 @@ $user_session = $this->session->userdata();
             <li class="heading">
                 <h3 class="uppercase">Quicklinks</h3>
             </li>
-            <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-layers"></i>
-                    <span class="title">Online Help</span>
-                </a>                    
+            <li class="nav-item <?=$active=='onlinehelp' ? 'active open':''?>">
+                <?php if($this->session->userdata('sessUserLevel') == 1):?>
+                    <a href="<?=site_url('Online%20Help/HR/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">Online Help</span>
+                        <!-- <span class="arrow <?=$active=='onlinehelp' ? 'open':''?>"></span> -->
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 2):?>
+                    <a href="<?=site_url('Online%20Help/Finance/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">Online Help</span>
+                        <!-- <span class="arrow <?=$active=='onlinehelp' ? 'open':''?>"></span> -->
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 3):?>
+                    <a href="<?=site_url('Online%20Help/Officer/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">Online Help</span>
+                        <!-- <span class="arrow <?=$active=='onlinehelp' ? 'open':''?>"></span> -->
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 4):?>
+                    <a href="<?=site_url('Online%20Help/Executive/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">Online Help</span>
+                        <!-- <span class="arrow <?=$active=='onlinehelp' ? 'open':''?>"></span> -->
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 5):?>
+                    <a href="<?=site_url('Online%20Help/Employee/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">Online Help</span>
+                        <!-- <span class="arrow <?=$active=='onlinehelp' ? 'open':''?>"></span> -->
+                    </a>
+                <?php endif; ?>
+                
+                <!-- <ul class="sub-menu" style="<?=$active=='onlinehelp' && $activesub=='employee' && $activetab=='login'? 'display: block;' : ''?>">
+                    <li class="nav-item <?=$active=='onlinehelp' && $activesub=='employee' && $activetab=='login' ? 'active open' : ''?>">
+                        <a href="<?=base_url('onlinehelp/employee/login')?>" class="nav-link">
+                            <span class="title">Login</span>
+                            <span class="arrow nav-toggle <?=$active=='onlinehelp' && $activesub=='employee' && in_array($activetab, array('login','howtologin'))?'open':''?>"></span>
+                        </a>
+                        <ul class="sub-menu" style="<?=$active=='onlinehelp' && $activesub=='employee' && in_array($activetab, array('login','howtologin')) ? 'display: block;' : 'display: none;'?>">
+                            <li class="nav-item <?=$active=='onlinehelp' && $activesub=='employee' && $activetab=='howtologin' ? 'active open' : ''?>">
+                                <a href="<?=base_url('onlinehelp/employee/howtologin')?>">
+                                    <span class="title">How to Login</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="sub-menu" style="<?=$active=='onlinehelp' && $activesub=='employee' && $activetab=='defaultscreen'? 'display: block;' : ''?>">
+                    <li class="nav-item <?=$active=='onlinehelp' && $activesub=='employee' && $activetab=='defaultscreen' ? 'active open' : ''?>">
+                        <a href="<?=base_url('onlinehelp/employee/defaultscreen')?>" class="nav-link">
+                            <span class="title">Default Screen</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu" style="<?=$active=='onlinehelp' && $activesub=='employee' && $activetab=='employeemodule'? 'display: block;' : ''?>">
+                    <li class="nav-item <?=$active=='onlinehelp' && $activesub=='employee' && $activetab=='employeemodule' ? 'active open' : ''?>">
+                        <a href="<?=base_url('onlinehelp/employee/employeemodule')?>" class="nav-link">
+                            <span class="title">Employee Module</span>
+                        </a>
+                    </li>
+                </ul> -->
             </li>
             <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-layers"></i>
-                    <span class="title">FAQs</span>
-                </a>
+                <?php if($this->session->userdata('sessUserLevel') == 1):?>
+                    <a href="<?=site_url('FAQ/HR/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">FAQs</span>
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 2):?>
+                    <a href="<?=site_url('FAQ/Finance/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">FAQs</span>
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 3):?>
+                    <a href="<?=site_url('FAQ/Officer/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">FAQs</span>
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 4):?>
+                    <a href="<?=site_url('FAQ/Executive/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">FAQs</span>
+                    </a>
+                <?php endif; ?>
+                <?php if($this->session->userdata('sessUserLevel') == 5):?>
+                    <a href="<?=site_url('FAQ/Employee/index.html')?>" target="_blank" class="nav-link nav-toggle">
+                        <i class="icon-layers"></i>
+                        <span class="title">FAQs</span>
+                    </a>
+                <?php endif; ?>
             </li>
         </ul>
         <!-- END SIDEBAR MENU -->
