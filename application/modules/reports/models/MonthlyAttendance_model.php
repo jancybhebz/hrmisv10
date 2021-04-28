@@ -24,6 +24,13 @@ class MonthlyAttendance_model extends CI_Model {
 
 	function getSQLData($intMonth="",$intYear="")
 	{
+		$arrPermGroup = getPermanentGroup();
+		if(count($arrPermGroup)>0)
+		{
+			$arrGroup = explode(',',$arrPermGroup[0]['processWith']);
+			$strGroup = implode('","',$arrGroup);
+		}
+		
 		$this->db->select("a.empNumber, b.surname, b.firstname, b.middleInitial, c.positionDesc, FORMAT(a.actualSalary,2) as actualsalary, COALESCE(e.wfh,0) as office, COALESCE(d.wfh,0) as wfh, COALESCE(e.wfh,0) as daysinoffice, a.hpFactor");
 		$this->db->join('tblEmpPersonal b','b.empNumber = a.empNumber','left');
 		$this->db->join('tblPosition c','c.positionCode = a.positionCode','left');
@@ -31,7 +38,7 @@ class MonthlyAttendance_model extends CI_Model {
 		$this->db->join('(select empNumber, count(wfh) as wfh from tblEmpDTR where wfh = 0 and year(dtrDate) = '.$intYear.' and month(dtrDate) = '.$intMonth.' and (inam != "00:00:00" or outpm != "00:00:00") group by empNumber) e','e.empNumber = a.empNumber','left');
 		// $this->db->where('year(dtrDate)',$intYear);
 		// $this->db->where('month(dtrDate)',$intMonth);
-		$this->db->where('a.appointmentCode',"P");
+		$this->db->where_in('a.appointmentCode',$arrGroup);
 		$this->db->where('a.statusofappointment',"In-Service");
 		$this->db->where('a.hpFactor !=',0);
 		$this->db->where('b.surname !=',"");
