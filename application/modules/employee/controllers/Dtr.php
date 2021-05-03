@@ -29,8 +29,8 @@ class Dtr extends MY_Controller {
 		$offset_wkdays = 0;
     	$offset_wkends = 0;
 
-    	$datefrom = date($yr.'-'.sprintf('%02d',$month).'-01');
-    	$dateto = date($yr.'-'.sprintf('%02d',$month).'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')));
+    	$datefrom = isset($_GET['datefrom']) ? $_GET['datefrom'] : date($yr.'-'.sprintf('%02d',$month).'-01');
+    	$dateto = isset($_GET['dateto']) ? $_GET['dateto'] : date($yr.'-'.sprintf('%02d',$month).'-'.cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y')));
 		// $datefrom = currdfrom();
 		// $dateto = currdto();
 		$holidays = $this->Holiday_model->getAllHolidates($empid,$datefrom,$dateto);
