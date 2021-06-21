@@ -108,7 +108,7 @@ class User_account_model extends CI_Model {
 	function getemployee_forapi($empnumber = '')
 	{
 		# personal
-		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile,tblEmpPersonal.email,tblEmpPersonal.telephone1,tblEmpPosition.positionCode,tblPosition.positionDesc');
+		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile,tblEmpPersonal.email,tblEmpPersonal.telephone1,tblEmpPosition.positionCode,tblPosition.positionDesc,tblEmpPosition.group3');
 		# user account
 		$this->db->select('tblEmpAccount.userName,tblEmpAccount.userPassword');
 
@@ -125,6 +125,13 @@ class User_account_model extends CI_Model {
 			$res = $res[0];
 		endif;
 
+		return $res;
+	}
+
+	function getdivision_forapi()
+	{
+		$this->db->order_by('group3Name', 'ASC');
+		$res = $this->db->get('tblGroup3')->result_array();
 		return $res;
 	}
 

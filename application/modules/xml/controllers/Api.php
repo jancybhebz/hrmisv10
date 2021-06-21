@@ -43,5 +43,15 @@ class Api extends MY_Controller {
 			echo json_encode(array());
 		endif;
 	}
+
+	public function divisions()
+	{
+		$fingerprint = isset($_GET['fingerprint']) ? $_GET['fingerprint'] : '';
+		if($fingerprint=='!7D$0@9'):
+			echo json_encode($this->User_account_model->getdivision_forapi());
+		else:
+			echo json_encode('');
+		endif;
+	}
 	
 }
