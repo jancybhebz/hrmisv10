@@ -6,7 +6,7 @@ System Name:        Human Resource Management Information System Version 10
 Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Technology Division
 **/
 ?>
-<?=load_plugin('css',array('select','select2'))?>
+<?=load_plugin('css',array('select','select2', 'datatables'))?>
 <!-- BREADCRUMB -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -118,15 +118,268 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
          </div>
          
         <br><br>
-       <div class="row">
+        <div class="row">
           <div class="col-sm-12 text-center">
               <button type="button" class="btn btn-primary" name="btnPrint">Print/Preview</button>
           </div>
         </div>
+
+        <div class="modal fade" id="monthly_attendance" style="display:none;">
+          <div class="modal-dialog" role="document" style="width:80%">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x
+                      </button>
+                      <h4 class="modal-title" id="exampleModalLabel">Monthly Attendance Report</h4>
+                  </div>
+                  <div class="modal-body" style="padding-right: 30px;padding-left: 30px;">
+                      <table id="example" class="display"  cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th rowspan="2"></th>
+                                <th rowspan="2">Last Name</th>
+                                <th rowspan="2">First Name</th>
+                                <th rowspan="2">M.I.</th>
+                                <th rowspan="2">Poisition</th>
+                                <th rowspan="2">Salary</th>
+                                <th colspan="2">Attendance</th>
+                                <th rowspan="2">Number of days in Office</th>
+                                <th rowspan="2">%</th>
+                                <th rowspan="2">Laundry</th>
+                                <th rowspan="2">Subsistence</th>
+                                <th rowspan="2">Hazard</th>
+                                <th rowspan="2"></th>
+                                <th rowspan="2"></th>
+                                <th rowspan="2"></th>
+                                <th rowspan="2"></th>
+                                <th rowspan="2"></th>
+                            </tr>
+                            <tr>
+                                <th>Office</th>
+                                <th>WFH</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><b>TOTAL</b></td>
+                            <td id="totSal"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="totLaun"></td>
+                            <td id="totSubs"></td>
+                            <td id="totHaz"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tfoot>
+                    </table>
+                  </div>
+                  <!-- <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" onclick="saveTask()">Save</button>
+                  </div> -->
+              </div>
+          </div>
+        </div>
     <br><br>
 <?=form_close()?>
-<?=load_plugin('js',array('select','select2'))?>
+<?=load_plugin('js',array('select','select2', 'datatables'))?>
 <script>
+
+    var table;
+    $(document).ready(function() {
+      const createdCell = function(cell) {
+        let original;
+        cell.setAttribute('contenteditable', true)
+        cell.setAttribute('spellcheck', false)
+        cell.addEventListener("focus", function(e) {
+          original = e.target.textContent
+        })
+        cell.addEventListener("blur", function(e) {
+          if (original !== e.target.textContent) {
+            const row = table.row(e.target.parentElement)
+            // row.invalidate()
+            table.cell( this ).data(e.target.textContent) ;
+            var idx = table.cell(this).index();
+            var data = table.row( idx.row ).data();
+            var percent = 0.00;
+            var ofc = 0;
+            var col = "";
+
+            if(idx.column == 6 || idx.column == 8){
+              ofc = parseInt(e.target.textContent);
+              col = "Office";
+
+              if(ofc >= 15 && data[17] == 30)
+                percent = 0.30;
+              else if(ofc >= 15 && data[17] == 23)
+                percent = 0.23;
+              else if(ofc >= 15 && data[17] == 15)
+                percent = 0.15;
+              else if(ofc >= 15 && data[17] == 12)
+                percent = 0.12;
+              else if((ofc >= 8 && ofc <= 14) && data[17] == 30)
+                percent = 0.23;
+              else if((ofc >= 8 && ofc <= 14) && data[17] == 23)
+                percent = 0.15;
+              else if((ofc >= 8 && ofc <= 14) && data[17] == 15)
+                percent = 0.12;
+              else if((ofc < 8 && ofc > 0) && data[17] == 30)
+                percent = 0.15;
+              else if((ofc < 8 && ofc > 0) && data[17] == 15)
+                percent = 0.10;
+              else 
+                percent = 0.00;
+
+              console.log(percent*100);
+
+              var oldHaz = parseFloat(data[12].replace(",",""));
+              var newHaz = parseFloat(data[5].replace(",","")) * percent;
+              table.cell({row:idx.row, column:6}).data(e.target.textContent);
+              table.cell({row:idx.row, column:8}).data(e.target.textContent);
+              // table.cell({row:idx.row, column:9}).data(percent*100);
+              table.cell({row:idx.row, column:12}).data(newHaz.toLocaleString('en-US', {minimumFractionDigits:2}));
+              var newTotHaz = 0.00;
+              if(oldHaz > newHaz)
+                newTotHaz = parseFloat($("#totHaz").text().replace(",","")) - (oldHaz - newHaz);
+              else
+                newTotHaz = parseFloat($("#totHaz").text().replace(",","")) + (newHaz - oldHaz);
+              $("#totHaz").text(newTotHaz.toLocaleString('en-US', {minimumFractionDigits:2}));
+            }
+            else if(idx.column == 7){
+              col = "WFH";
+            }
+
+            var oldLaun = parseFloat(data[10].replace(",",""));
+            var newLaun = (parseInt(data[6]) + parseInt(data[7])) * parseFloat(data[16]);
+            var newTotLaun = 0.00;
+            table.cell({row:idx.row, column:10}).data(newLaun.toLocaleString('en-US', {minimumFractionDigits:2}));
+            if(oldLaun > newLaun)
+              newTotLaun = parseFloat($("#totLaun").text().replace(",","")) - (oldLaun - newLaun);
+            else
+              newTotLaun = parseFloat($("#totLaun").text().replace(",","")) + (newLaun - oldLaun);
+            $("#totLaun").text(newTotLaun.toLocaleString('en-US', {minimumFractionDigits:2}));
+
+            var oldSubs = parseFloat(data[11].replace(",",""));
+            var newSubs = (parseInt(data[6]) + parseInt(data[7])) * parseFloat(data[15]);
+            var newTotSubs = 0.00;
+            table.cell({row:idx.row, column:11}).data(newSubs.toLocaleString('en-US', {minimumFractionDigits:2}));
+            if(oldSubs > newSubs)
+              newTotSubs = parseFloat($("#totSubs").text().replace(",","")) - (oldSubs - newSubs);
+            else
+              newTotSubs = parseFloat($("#totSubs").text().replace(",","")) + (newSubs - oldSubs);
+            $("#totSubs").text(newTotSubs.toLocaleString('en-US', {minimumFractionDigits:2}));
+
+            // console.log(col);
+            // console.log('Office: '+data[6]);
+            // console.log('WFH: '+data[7]);
+            // console.log('Days Office: '+data[8]);
+            // console.log('Percent: '+data[9]);
+            // console.log('Laundry: '+data[10]);
+            // console.log('Subs: '+data[11]);
+            // console.log('Hazard: '+data[12]);
+
+            // console.log('attendance: '+data[13]);
+            // console.log('workdays: '+data[14]);
+            // console.log('subsday: '+data[15]);
+            // console.log('laundryday: '+data[16]);
+            // console.log('hpfactor: '+data[17]);
+            // console.log('------------------------------------------------');
+            
+          }
+        })
+      }
+
+      table = $('#example').DataTable({
+        // data: data['data'],
+        // columns: [
+        //     { data: 'no' },
+        //     { data: 'lname' },
+        //     { data: 'fname' },
+        //     { data: 'mi' },
+        //     { data: 'position' },
+        //     { data: 'salary' },
+        //     { data: 'ofc' },
+        //     { data: 'wfh' },
+        //     { data: 'ofcdays' },
+        //     { data: 'percent' },
+        //     { data: 'laundry' },
+        //     { data: 'subsistence' },
+        //     { data: 'hazard' }
+        // ],
+        dom: 'Bfrtip',
+        buttons: [
+          // $.extend(true, {}, buttonCommon, 
+          {
+            extend: 'pdf',
+            text: 'PDF',
+            title: 'Monthly Attendance Report',
+            messageTop: 'for the month of',
+            messageBottom: 'Administrative Officer IV',
+            filename: 'MonthlyAttendanceReport',
+            orientation: 'landscape',
+            pageSize: 'A4',
+            footer: true,
+            exportOptions:{
+             columns: ':visible'
+            },
+            // customize: function (doc) {
+            //   var rowCount = doc.content[1].table.body.length;
+            //   for (i = 1; i < rowCount; i++) {
+            //     doc.content[1].table.body[i][8].alignment = 'left';
+            //   }
+            // }
+          }
+          // ),
+        ],
+        columnDefs: [
+        { 
+          targets: [6,7,8],
+          createdCell: createdCell
+        },
+        // { 
+        //   targets: [1],
+        //   // "render": function ( data, type, full, meta ) {
+        //   //    // If this is a display render request ...
+        //   //    if(type === 'display') {
+        //   //      // don't modify it.
+        //   //      return data;
+        //   //    }
+        //   //    console.log(data);
+        //   //    // Either convert it to a number if it is a numeric value or set it to 0
+        //   //    // This will return a numeric value for sorting and filtering.
+        //   //    return (isNaN(data)) ? 0 : +data;
+        //   // }
+        // },
+        {
+          targets: [0,13,14,15,16,17],
+          visible: false
+        }]
+      }) 
+
+      var buttonCommon = {
+        exportOptions: {
+            format: {
+              body: function (data, row, column, node) {
+                //check if type is input using jquery
+                console.log(data);
+                return $(data).is("form") ?
+                $(data).find('input:submit').val():
+                data;
+                }
+            }
+        }
+      };
+    });
+
     $(function(){
         $('.per-block, .employee-block').hide();
 
@@ -188,9 +441,65 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>&empNumber='+$empno,'toolbar=0');
                 return false;
             }
+            if($rpt=='MA')
+            {
+              $('#monthly_attendance').modal('show');
+              // generateMonthly($('select[name="dtrYear"]').val(),$('select[name="dtrMonth"]').val());
+              table = $("#example").DataTable();
+              var rows = table
+              .rows()
+              .remove()
+              .draw();
+
+              $.ajax({
+                url : '<?php echo site_url('reports/generate/report') ?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,
+                type: "GET",
+                dataType: "json",
+                // data: {filterStatus: filterStatus},
+                success: function(data) {
+                  // console.log(data['data']);
+                  for(var x = 0; x < data.data.length; x++){
+                    if((x+1) != data.data.length){
+                      $("#example").dataTable().fnAddData([
+                        data.data[x].no,
+                        data.data[x].lname,
+                        data.data[x].fname,
+                        data.data[x].mi,
+                        data.data[x].position,
+                        data.data[x].salary,
+                        data.data[x].ofc,
+                        data.data[x].wfh,
+                        data.data[x].ofcdays,
+                        data.data[x].percent,
+                        data.data[x].laundry,
+                        data.data[x].subsistence,
+                        data.data[x].hazard,
+                        data.data[x].attendance,
+                        data.data[x].workdays,
+                        data.data[x].subsday,
+                        data.data[x].laundryday,
+                        data.data[x].hpfactor
+                      ]);
+                    }
+                    else{
+                      $("#totSal").text(data.data[x].salary);
+                      $("#totLaun").text(data.data[x].laundry);
+                      $("#totSubs").text(data.data[x].subsistence);
+                      $("#totHaz").text(data.data[x].hazard);
+                    }
+                  }
+                }     
+              });
+              return false;
+            }
             if($rpt!='')
                 window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
         });
 
     });
+
+    // $('.editOfc').bind('dblclick',
+    //   function(){
+    //     $(this).attr('contentEditable',true);
+    // });
 </script>
