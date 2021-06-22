@@ -34,15 +34,15 @@ class MonthlyAttendance_model extends CI_Model {
 		$this->db->select("a.empNumber, b.surname, b.firstname, b.middleInitial, c.positionDesc, FORMAT(a.actualSalary,2) AS actualsalary, COALESCE(e.wfh,0) AS office, COALESCE(d.wfh,0) AS wfh, COALESCE(e.wfh,0) AS daysinoffice, a.hpFactor, COALESCE(f.subsistence,0) AS subsistence");
 		$this->db->join('tblEmpPersonal b','b.empNumber = a.empNumber','left');
 		$this->db->join('tblPosition c','c.positionCode = a.positionCode','left');
-		$this->db->join('(SELECT empNumber, COUNT(wfh) AS wfh FROM tblEmpDTR WHERE wfh = 1 AND YEAR(dtrDate) = '.$intYear.' AND MONTH(dtrDate) = '.$intMonth.' AND dtrDate NOT IN (SELECT holidayDate FROM tblholidayyear) AND DAYOFWEEK(dtrDate) NOT IN (1,7) AND (inAM != "00:00:00" OR outPM != "00:00:00") GROUP BY empNumber) d','d.empNumber = a.empNumber','left');
-		$this->db->join('(SELECT empNumber, COUNT(wfh) AS wfh FROM tblEmpDTR WHERE wfh = 0 AND YEAR(dtrDate) = '.$intYear.' AND MONTH(dtrDate) = '.$intMonth.' AND dtrDate NOT IN (SELECT holidayDate FROM tblholidayyear) AND DAYOFWEEK(dtrDate) NOT IN (1,7) AND (inAM != "00:00:00" or outPM != "00:00:00") GROUP BY empNumber) e','e.empNumber = a.empNumber','left');
+		$this->db->join('(SELECT empNumber, COUNT(wfh) AS wfh FROM tblEmpDTR WHERE wfh = 1 AND YEAR(dtrDate) = '.$intYear.' AND MONTH(dtrDate) = '.$intMonth.' AND dtrDate NOT IN (SELECT holidayDate FROM tblHolidayYear) AND DAYOFWEEK(dtrDate) NOT IN (1,7) AND (inAM != "00:00:00" OR outPM != "00:00:00") GROUP BY empNumber) d','d.empNumber = a.empNumber','left');
+		$this->db->join('(SELECT empNumber, COUNT(wfh) AS wfh FROM tblEmpDTR WHERE wfh = 0 AND YEAR(dtrDate) = '.$intYear.' AND MONTH(dtrDate) = '.$intMonth.' AND dtrDate NOT IN (SELECT holidayDate FROM tblHolidayYear) AND DAYOFWEEK(dtrDate) NOT IN (1,7) AND (inAM != "00:00:00" or outPM != "00:00:00") GROUP BY empNumber) e','e.empNumber = a.empNumber','left');
 		$this->db->join('(SELECT SUM(CASE WHEN hrs >= 8 THEN 150 WHEN hrs BETWEEN 6 AND 7 THEN 125 WHEN hrs = 5 THEN 100 WHEN hrs = 4 THEN 75 ELSE 0 END) subsistence, empNumber FROM
 			(SELECT CASE 
 			WHEN outPM = "00:00:00" AND outAM != "00:00:00" THEN HOUR(TIMEDIFF(inAM, outAM)) 
 			WHEN outPM != "00:00:00" THEN HOUR(TIMEDIFF(inAM,time_format(str_to_date(CONCAT(outPM, "PM"),"%r"),"%T"))) 
 			WHEN outPM = "00:00:00" AND outAM = "00:00:00" THEN 0 END AS hrs, 
 			inAm, outAM, outPM, dtrDate, empNumber
-			FROM tblEmpDTR WHERE MONTH(dtrDate) = '.$intMonth.' AND YEAR(dtrDate) = '.$intYear.' AND dtrDate NOT IN (SELECT holidayDate FROM tblholidayyear) AND DAYOFWEEK(dtrDate) NOT IN (1,7)) x  GROUP BY empNumber) f','f.empNumber = a.empNumber','left');
+			FROM tblEmpDTR WHERE MONTH(dtrDate) = '.$intMonth.' AND YEAR(dtrDate) = '.$intYear.' AND dtrDate NOT IN (SELECT holidayDate FROM tblHolidayYear) AND DAYOFWEEK(dtrDate) NOT IN (1,7)) x  GROUP BY empNumber) f','f.empNumber = a.empNumber','left');
 		// $this->db->where('year(dtrDate)',$intYear);
 		// $this->db->where('month(dtrDate)',$intMonth);
 		$this->db->where_in('a.appointmentCode',$arrGroup);
