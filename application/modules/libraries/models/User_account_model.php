@@ -108,13 +108,15 @@ class User_account_model extends CI_Model {
 	function getemployee_forapi($empnumber = '')
 	{
 		# personal
-		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile,tblEmpPersonal.email,tblEmpPersonal.telephone1,tblEmpPosition.positionCode,tblPosition.positionDesc,tblEmpPosition.group3');
+		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile,tblEmpPersonal.email,tblEmpPersonal.telephone1,tblEmpPosition.positionCode,tblPosition.positionDesc,tblEmpPosition.group3,tblEmpPosition.appointmentCode');
 		# user account
 		$this->db->select('tblEmpAccount.userName,tblEmpAccount.userPassword');
 
 		$this->db->join('tblEmpAccount','tblEmpAccount.empNumber = tblEmpPosition.empNumber','left');
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','left');
 		$this->db->join('tblPosition','tblPosition.positionCode = tblEmpPosition.positionCode','left');
+
+		$this->db->order_by('tblEmpPersonal.surname', 'ASC');
 
 		if($empnumber == ''):
 			$res = $this->db->get_where('tblEmpPosition',array('tblEmpPosition.statusOfAppointment' => 'In-Service'))->result_array();
