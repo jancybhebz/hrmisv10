@@ -108,13 +108,14 @@ class User_account_model extends CI_Model {
 	function getemployee_forapi($empnumber = '')
 	{
 		# personal
-		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile,tblEmpPersonal.email,tblEmpPersonal.telephone1,tblEmpPosition.positionCode,tblPosition.positionDesc,tblEmpPosition.group3,tblEmpPosition.appointmentCode');
+		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname,tblEmpPersonal.firstname,tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension,tblEmpPersonal.sex,tblEmpPersonal.birthday,tblEmpPersonal.mobile,tblEmpPersonal.email,tblEmpPersonal.telephone1,tblEmpPosition.positionCode,tblPosition.positionDesc,tblEmpPosition.group3,tblEmpPosition.appointmentCode,tblGroup3.empNumber AS divhead');
 		# user account
 		$this->db->select('tblEmpAccount.userName,tblEmpAccount.userPassword');
 
 		$this->db->join('tblEmpAccount','tblEmpAccount.empNumber = tblEmpPosition.empNumber','left');
 		$this->db->join('tblEmpPersonal','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','left');
 		$this->db->join('tblPosition','tblPosition.positionCode = tblEmpPosition.positionCode','left');
+		$this->db->join('tblGroup3','tblGroup3.group3Code = tblEmpPosition.group3','left');
 
 		$this->db->order_by('tblEmpPersonal.surname', 'ASC');
 
