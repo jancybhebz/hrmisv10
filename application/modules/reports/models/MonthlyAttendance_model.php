@@ -42,7 +42,7 @@ class MonthlyAttendance_model extends CI_Model {
 			WHEN outPM != "00:00:00" THEN HOUR(TIMEDIFF(inAM,time_format(str_to_date(CONCAT(outPM, "PM"),"%r"),"%T"))) 
 			WHEN outPM = "00:00:00" AND outAM = "00:00:00" THEN 0 END AS hrs, 
 			inAm, outAM, outPM, dtrDate, empNumber
-			FROM tblEmpDTR WHERE MONTH(dtrDate) = '.$intMonth.' AND YEAR(dtrDate) = '.$intYear.' AND dtrDate NOT IN (SELECT holidayDate FROM tblHolidayYear) AND DAYOFWEEK(dtrDate) NOT IN (1,7)) x  GROUP BY empNumber) f','f.empNumber = a.empNumber','left');
+			FROM tblEmpDTR WHERE MONTH(dtrDate) = '.$intMonth.' AND YEAR(dtrDate) = '.$intYear.' AND dtrDate NOT IN (SELECT holidayDate FROM tblHolidayYear) AND DAYOFWEEK(dtrDate) NOT IN (1,7) AND wfh = 0) x  GROUP BY empNumber) f','f.empNumber = a.empNumber','left');
 		// $this->db->where('year(dtrDate)',$intYear);
 		// $this->db->where('month(dtrDate)',$intMonth);
 		$this->db->where_in('a.appointmentCode',$arrGroup);
@@ -273,7 +273,7 @@ class MonthlyAttendance_model extends CI_Model {
 			$holidays = $this->Holiday_model->getAllHolidates($arrEmp["empNumber"],$datefrom,$dateto);
 			$workingdays = get_workingdays('','',$holidays,$datefrom,$dateto);
 			$laundryday = 500 / count($workingdays);
-			$laundry = ($arrEmp["office"] + $arrEmp["wfh"]) * $laundryday;
+			$laundry = ($arrEmp["office"]) * $laundryday; // + $arrEmp["wfh"]
 
 			$sub_array['no'] = $i;
 			$sub_array['lname'] = $i.'. '.$arrEmp["surname"];

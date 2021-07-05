@@ -130,7 +130,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x
                       </button>
-                      <h4 class="modal-title" id="exampleModalLabel">Monthly Attendance Report</h4>
+                      <h4 class="modal-title" id="mdlMA">Monthly Attendance Report</h4>
                   </div>
                   <div class="modal-body" style="padding-right: 30px;padding-left: 30px;">
                       <table id="example" class="display"  cellspacing="0" width="100%">
@@ -192,192 +192,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     <br><br>
 <?=form_close()?>
 <?=load_plugin('js',array('select','select2', 'datatables'))?>
+<script src="<?=base_url('assets/plugins/datatables/buttons.html5.min.js')?>" type="text/javascript"></script>
+<script src="<?=base_url('assets/plugins/datatables/datatables.buttons.min.js')?>" type="text/javascript"></script>
+</head>
 <script>
 
     var table;
     $(document).ready(function() {
-      const createdCell = function(cell) {
-        let original;
-        cell.setAttribute('contenteditable', true)
-        cell.setAttribute('spellcheck', false)
-        cell.addEventListener("focus", function(e) {
-          original = e.target.textContent
-        })
-        cell.addEventListener("blur", function(e) {
-          if (original !== e.target.textContent) {
-            const row = table.row(e.target.parentElement)
-            // row.invalidate()
-            table.cell( this ).data(e.target.textContent) ;
-            var idx = table.cell(this).index();
-            var data = table.row( idx.row ).data();
-            var percent = 0.00;
-            var ofc = 0;
-            var col = "";
-
-            if(idx.column == 6 || idx.column == 8){
-              ofc = parseInt(e.target.textContent);
-              col = "Office";
-
-              if(ofc >= 15 && data[17] == 30)
-                percent = 0.30;
-              else if(ofc >= 15 && data[17] == 23)
-                percent = 0.23;
-              else if(ofc >= 15 && data[17] == 15)
-                percent = 0.15;
-              else if(ofc >= 15 && data[17] == 12)
-                percent = 0.12;
-              else if((ofc >= 8 && ofc <= 14) && data[17] == 30)
-                percent = 0.23;
-              else if((ofc >= 8 && ofc <= 14) && data[17] == 23)
-                percent = 0.15;
-              else if((ofc >= 8 && ofc <= 14) && data[17] == 15)
-                percent = 0.12;
-              else if((ofc < 8 && ofc > 0) && data[17] == 30)
-                percent = 0.15;
-              else if((ofc < 8 && ofc > 0) && data[17] == 15)
-                percent = 0.10;
-              else 
-                percent = 0.00;
-
-              console.log(percent*100);
-
-              var oldHaz = parseFloat(data[12].replace(",",""));
-              var newHaz = parseFloat(data[5].replace(",","")) * percent;
-              table.cell({row:idx.row, column:6}).data(e.target.textContent);
-              table.cell({row:idx.row, column:8}).data(e.target.textContent);
-              // table.cell({row:idx.row, column:9}).data(percent*100);
-              table.cell({row:idx.row, column:12}).data(newHaz.toLocaleString('en-US', {minimumFractionDigits:2}));
-              var newTotHaz = 0.00;
-              if(oldHaz > newHaz)
-                newTotHaz = parseFloat($("#totHaz").text().replace(",","")) - (oldHaz - newHaz);
-              else
-                newTotHaz = parseFloat($("#totHaz").text().replace(",","")) + (newHaz - oldHaz);
-              $("#totHaz").text(newTotHaz.toLocaleString('en-US', {minimumFractionDigits:2}));
-            }
-            else if(idx.column == 7){
-              col = "WFH";
-            }
-
-            var oldLaun = parseFloat(data[10].replace(",",""));
-            var newLaun = (parseInt(data[6]) + parseInt(data[7])) * parseFloat(data[16]);
-            var newTotLaun = 0.00;
-            table.cell({row:idx.row, column:10}).data(newLaun.toLocaleString('en-US', {minimumFractionDigits:2}));
-            if(oldLaun > newLaun)
-              newTotLaun = parseFloat($("#totLaun").text().replace(",","")) - (oldLaun - newLaun);
-            else
-              newTotLaun = parseFloat($("#totLaun").text().replace(",","")) + (newLaun - oldLaun);
-            $("#totLaun").text(newTotLaun.toLocaleString('en-US', {minimumFractionDigits:2}));
-
-            var oldSubs = parseFloat(data[11].replace(",",""));
-            var newSubs = (parseInt(data[6]) + parseInt(data[7])) * parseFloat(data[15]);
-            var newTotSubs = 0.00;
-            table.cell({row:idx.row, column:11}).data(newSubs.toLocaleString('en-US', {minimumFractionDigits:2}));
-            if(oldSubs > newSubs)
-              newTotSubs = parseFloat($("#totSubs").text().replace(",","")) - (oldSubs - newSubs);
-            else
-              newTotSubs = parseFloat($("#totSubs").text().replace(",","")) + (newSubs - oldSubs);
-            $("#totSubs").text(newTotSubs.toLocaleString('en-US', {minimumFractionDigits:2}));
-
-            // console.log(col);
-            // console.log('Office: '+data[6]);
-            // console.log('WFH: '+data[7]);
-            // console.log('Days Office: '+data[8]);
-            // console.log('Percent: '+data[9]);
-            // console.log('Laundry: '+data[10]);
-            // console.log('Subs: '+data[11]);
-            // console.log('Hazard: '+data[12]);
-
-            // console.log('attendance: '+data[13]);
-            // console.log('workdays: '+data[14]);
-            // console.log('subsday: '+data[15]);
-            // console.log('laundryday: '+data[16]);
-            // console.log('hpfactor: '+data[17]);
-            // console.log('------------------------------------------------');
-            
-          }
-        })
-      }
-
-      table = $('#example').DataTable({
-        // data: data['data'],
-        // columns: [
-        //     { data: 'no' },
-        //     { data: 'lname' },
-        //     { data: 'fname' },
-        //     { data: 'mi' },
-        //     { data: 'position' },
-        //     { data: 'salary' },
-        //     { data: 'ofc' },
-        //     { data: 'wfh' },
-        //     { data: 'ofcdays' },
-        //     { data: 'percent' },
-        //     { data: 'laundry' },
-        //     { data: 'subsistence' },
-        //     { data: 'hazard' }
-        // ],
-        dom: 'Bfrtip',
-        buttons: [
-          // $.extend(true, {}, buttonCommon, 
-          {
-            extend: 'pdf',
-            text: 'PDF',
-            title: 'Monthly Attendance Report',
-            messageTop: 'for the month of',
-            messageBottom: 'Administrative Officer IV',
-            filename: 'MonthlyAttendanceReport',
-            orientation: 'landscape',
-            pageSize: 'A4',
-            footer: true,
-            exportOptions:{
-             columns: ':visible'
-            },
-            // customize: function (doc) {
-            //   var rowCount = doc.content[1].table.body.length;
-            //   for (i = 1; i < rowCount; i++) {
-            //     doc.content[1].table.body[i][8].alignment = 'left';
-            //   }
-            // }
-          }
-          // ),
-        ],
-        columnDefs: [
-        { 
-          targets: [6,7,8],
-          createdCell: createdCell
-        },
-        // { 
-        //   targets: [1],
-        //   // "render": function ( data, type, full, meta ) {
-        //   //    // If this is a display render request ...
-        //   //    if(type === 'display') {
-        //   //      // don't modify it.
-        //   //      return data;
-        //   //    }
-        //   //    console.log(data);
-        //   //    // Either convert it to a number if it is a numeric value or set it to 0
-        //   //    // This will return a numeric value for sorting and filtering.
-        //   //    return (isNaN(data)) ? 0 : +data;
-        //   // }
-        // },
-        {
-          targets: [0,13,14,15,16,17],
-          visible: false
-        }]
-      }) 
-
-      var buttonCommon = {
-        exportOptions: {
-            format: {
-              body: function (data, row, column, node) {
-                //check if type is input using jquery
-                console.log(data);
-                return $(data).is("form") ?
-                $(data).find('input:submit').val():
-                data;
-                }
-            }
-        }
-      };
+      var year = "";
+      var date = new Date();
+      var month = date.toLocaleString('default', { month: 'long' });
+      // console.log(month);
     });
 
     $(function(){
@@ -395,8 +220,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
               url: "<?=base_url('hr/reports/getfields')?>/"+$rpt,
               async: false
             }).done(function(data) {
-                //console.log(data);
+                // console.log(data);
               $( '.rpt-fields' ).html(data);
+              setMonthYear();
             });
 
         });
@@ -408,7 +234,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 $('.employee-block').hide();
             else
                 $('.employee-block').show();
-        }); 
+        });
+
+        
 
         $('button[name="btnPrint"]').click(function(){
             $rpt = $('select[name="strReports"]').val();
@@ -421,7 +249,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 //console.log(index+'/'+item.name);
             });
             $form = $.param($form);
-            //console.log($form);
+            console.log($form);
             //$form['']
             //$form += '&csrf_dostitd=<?=time()?>';
             //console.log($form);
@@ -443,8 +271,171 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             }
             if($rpt=='MA')
             {
+              year = $('select[name="intYear"]').val();
+              date = new Date(year, parseInt($('select[name="intMonth"]').val())-1, 1);
+              month = date.toLocaleString('default', { month: 'long' });
               $('#monthly_attendance').modal('show');
-              // generateMonthly($('select[name="dtrYear"]').val(),$('select[name="dtrMonth"]').val());
+              $('#mdlMA').text('Monthly Attendance Report ('+month+' '+year+')');
+
+              var createdCell = function(cell) {
+                let original;
+                cell.setAttribute('contenteditable', true)
+                cell.setAttribute('spellcheck', false)
+                cell.addEventListener("focus", function(e) {
+                  original = e.target.textContent
+                })
+                cell.addEventListener("blur", function(e) {
+                  if (original !== e.target.textContent) {
+                    const row = table.row(e.target.parentElement)
+                    // row.invalidate()
+                    table.cell( this ).data(e.target.textContent) ;
+                    var idx = table.cell(this).index();
+                    var data = table.row( idx.row ).data();
+                    var percent = 0.00;
+                    var ofc = 0;
+                    var col = "";
+
+                    if(idx.column == 6 || idx.column == 8){
+                      ofc = parseInt(e.target.textContent);
+                      col = "Office";
+
+                      if(ofc >= 15 && data[17] == 30)
+                        percent = 0.30;
+                      else if(ofc >= 15 && data[17] == 23)
+                        percent = 0.23;
+                      else if(ofc >= 15 && data[17] == 15)
+                        percent = 0.15;
+                      else if(ofc >= 15 && data[17] == 12)
+                        percent = 0.12;
+                      else if((ofc >= 8 && ofc <= 14) && data[17] == 30)
+                        percent = 0.23;
+                      else if((ofc >= 8 && ofc <= 14) && data[17] == 23)
+                        percent = 0.15;
+                      else if((ofc >= 8 && ofc <= 14) && data[17] == 15)
+                        percent = 0.12;
+                      else if((ofc < 8 && ofc > 0) && data[17] == 30)
+                        percent = 0.15;
+                      else if((ofc < 8 && ofc > 0) && data[17] == 15)
+                        percent = 0.10;
+                      else 
+                        percent = 0.00;
+
+                      // console.log(percent*100);
+
+                      var oldHaz = parseFloat(data[12].replace(",",""));
+                      var newHaz = parseFloat(data[5].replace(",","")) * percent;
+                      table.cell({row:idx.row, column:6}).data(e.target.textContent);
+                      table.cell({row:idx.row, column:8}).data(e.target.textContent);
+                      // table.cell({row:idx.row, column:9}).data(percent*100);
+                      table.cell({row:idx.row, column:12}).data(newHaz.toLocaleString('en-US', {minimumFractionDigits:2}));
+                      var newTotHaz = 0.00;
+                      if(oldHaz > newHaz)
+                        newTotHaz = parseFloat($("#totHaz").text().replace(",","")) - (oldHaz - newHaz);
+                      else
+                        newTotHaz = parseFloat($("#totHaz").text().replace(",","")) + (newHaz - oldHaz);
+                      $("#totHaz").text(newTotHaz.toLocaleString('en-US', {minimumFractionDigits:2}));
+                    }
+                    else if(idx.column == 7){
+                      col = "WFH";
+                    }
+
+                    var oldLaun = parseFloat(data[10].replace(",",""));
+                    var newLaun = (parseInt(data[6])) * parseFloat(data[16]);
+                    var newTotLaun = 0.00;
+                    table.cell({row:idx.row, column:10}).data(newLaun.toLocaleString('en-US', {minimumFractionDigits:2}));
+                    if(oldLaun > newLaun)
+                      newTotLaun = parseFloat($("#totLaun").text().replace(",","")) - (oldLaun - newLaun);
+                    else
+                      newTotLaun = parseFloat($("#totLaun").text().replace(",","")) + (newLaun - oldLaun);
+                    $("#totLaun").text(newTotLaun.toLocaleString('en-US', {minimumFractionDigits:2}));
+
+                    var oldSubs = parseFloat(data[11].replace(",",""));
+                    var newSubs = (parseInt(data[6])) * parseFloat(data[15]);
+                    var newTotSubs = 0.00;
+                    table.cell({row:idx.row, column:11}).data(newSubs.toLocaleString('en-US', {minimumFractionDigits:2}));
+                    if(oldSubs > newSubs)
+                      newTotSubs = parseFloat($("#totSubs").text().replace(",","")) - (oldSubs - newSubs);
+                    else
+                      newTotSubs = parseFloat($("#totSubs").text().replace(",","")) + (newSubs - oldSubs);
+                    $("#totSubs").text(newTotSubs.toLocaleString('en-US', {minimumFractionDigits:2}));
+
+                    // console.log(col);
+                    // console.log('Office: '+data[6]);
+                    // console.log('WFH: '+data[7]);
+                    // console.log('Days Office: '+data[8]);
+                    // console.log('Percent: '+data[9]);
+                    // console.log('Laundry: '+data[10]);
+                    // console.log('Subs: '+data[11]);
+                    // console.log('Hazard: '+data[12]);
+
+                    // console.log('attendance: '+data[13]);
+                    // console.log('workdays: '+data[14]);
+                    // console.log('subsday: '+data[15]);
+                    // console.log('laundryday: '+data[16]);
+                    // console.log('hpfactor: '+data[17]);
+                    // console.log('------------------------------------------------');
+                    
+                  }
+                })
+              }
+
+              table = $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                  {
+                    extend: 'pdf',
+                    text: 'PDF',
+                    title: 'Monthly Attendance Report ('+month+' '+year+')',
+                    // messageTop: 'for the month of',
+                    // messageBottom: 'Administrative Officer IV',
+                    filename: 'MonthlyAttendanceReport('+month+''+year+')',
+                    orientation: 'landscape',
+                    pageSize: 'A4',
+                    footer: true,
+                    exportOptions:{
+                     columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'excel',
+                    text: 'Excel',
+                    title: 'Monthly Attendance Report ('+month+' '+year+')',
+                    messageTop: ' ',
+                    // messageBottom: 'Administrative Officer IV',
+                    filename: 'MonthlyAttendanceReport('+month+''+year+')',
+                    orientation: 'landscape',
+                    pageSize: 'A4',
+                    footer: true,
+                    exportOptions:{
+                     columns: ':visible'
+                    }
+                  }
+                ],
+                columnDefs: [
+                { 
+                  targets: [6,7,8],
+                  createdCell: createdCell
+                },
+                {
+                  targets: [0,13,14,15,16,17],
+                  visible: false
+                }]
+              }) 
+
+              var buttonCommon = {
+                exportOptions: {
+                    format: {
+                      body: function (data, row, column, node) {
+                        //check if type is input using jquery
+                        console.log(data);
+                        return $(data).is("form") ?
+                        $(data).find('input:submit').val():
+                        data;
+                        }
+                    }
+                }
+              };
+
               table = $("#example").DataTable();
               var rows = table
               .rows()
@@ -496,7 +487,24 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
         });
 
+        $('#monthly_attendance').on('hidden.bs.modal', function () {
+            $('#example').DataTable().clear();
+            $('#example').DataTable().destroy();
+        });
+
     });
+
+    function setMonthYear(){
+      $('select[name="intYear"]').on('change', function() {
+          // console.log(this.value);
+          year = this.value;
+      });
+
+      $('select[name="intMonth"]').on('change', function() {
+          // console.log(this.value);
+          month = this.value;
+      });
+    }
 
     // $('.editOfc').bind('dblclick',
     //   function(){
