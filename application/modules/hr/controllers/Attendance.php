@@ -1415,7 +1415,7 @@ class Attendance extends MY_Controller {
    	{
    		$this->load->helper('download');
    		$empNumber = $this->uri->segment(4);
-   		$data = file_get_contents("./uploads/qr/".$empNumber.".PNG");
+   		$data = file_get_contents("./uploads/qr/".$empNumber.".png");
    		$name = 'HRMISQR'.$empNumber.date('Ymd').'.jpg';
 
    		force_download($name, $data);
