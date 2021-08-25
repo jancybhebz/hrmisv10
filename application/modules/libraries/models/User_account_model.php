@@ -138,5 +138,16 @@ class User_account_model extends CI_Model {
 		return $res;
 	}
 
+	function getgroups_forapi()
+	{
+		$this->db->select('tblgroup3.group3Code, tblgroup3.group2Code, tblgroup3.group1Code, tblgroup3.empNumber AS g3empNumber, tblgroup2.empNumber AS g2empNumber, tblgroup1.empNumber AS g1empNumber, group3Name');
+
+		$this->db->join('tblgroup2','tblgroup2.group2Code = tblgroup3.group2Code','left');
+		$this->db->join('tblgroup1','tblgroup1.group1Code = tblgroup3.group1Code','left');
+		$this->db->order_by('group3Name', 'ASC');
+		$res = $this->db->get('tblgroup3')->result_array();
+		return $res;
+	}
+
 
 }
