@@ -49,6 +49,7 @@ class Pds extends MY_Controller
 			$strWeight=$arrPost['strWeight'];
 			$strBloodType=$arrPost['strBloodType'];
 			$intGSIS=$arrPost['intGSIS'];
+			$intGSISBP=$arrPost['intGSISBP'];
 			$intPagibig=$arrPost['intPagibig'];
 			$intPhilhealth=$arrPost['intPhilhealth'];
 			$intTin=$arrPost['intTin'];
@@ -89,6 +90,7 @@ class Pds extends MY_Controller
 					'sex'=>$strSex,
 					'civilStatus'=>$strCvlStatus,
 					'gsisNumber'=>$intGSIS,
+					'businessPartnerNumber'=>$intGSISBP,
 					'weight'=>$strWeight,
 					'height'=>$strHeight,
 					'tin'=>$intTin,
@@ -728,7 +730,7 @@ class Pds extends MY_Controller
 		$arrPost = $this->input->post();
 		if(!empty($arrPost)):
 			$arrData = array(
-							'serviceCode' 		  => $arrPost['sel_srvcode'],
+							'service' 		      => $arrPost['sel_srvcode'],
 							'firstDayGov' 		  => $arrPost['txt_fday_govt'],
 							'effectiveDate' 	  => $arrPost['txtsalary_eff_date'],
 							'firstDayAgency' 	  => $arrPost['txt_fday_agency'],
@@ -739,6 +741,7 @@ class Pds extends MY_Controller
 							'serviceCode' 		  => $arrPost['selservice'],
 							'divisionCode'		  => $arrPost['seldivision'],
 							'sectionCode'		  => $arrPost['selsection'],
+							// 'deptCode'	  		  => $arrPost['seldepartment'],
 							'personnelAction' 	  => $arrPost['selper_action'],
 							'assignPlace' 		  => $arrPost['txtassign_place'],
 							'employmentBasis' 	  => isset($arrPost['optemp_basis']) ? $arrPost['optemp_basis'] : '',
@@ -749,8 +752,8 @@ class Pds extends MY_Controller
 							'uniqueItemNumber' => $arrPost['txtunique_itemno'],
 							'itemNumber' 	   => $arrPost['sel_plantilla'],
 							'positionCode' 	   => $arrPost['txtplant_pos'],
-							// 'actualSalary' 	   => $arrPost['txtactual_salary'],
-							// 'authorizeSalary'  => $arrPost['txtauthorized_salary'],
+							'actualSalary' 	   => $arrPost['txtactual_salary'],
+							'authorizeSalary'  => $arrPost['txtauthorized_salary'],
 							'positionDate' 	   => $arrPost['txtposition_date'],
 							'salaryGradeNumber'=> $arrPost['txtsalary_grade'],
 							'stepNumber' 	   => $arrPost['selStep_number'],
@@ -1057,6 +1060,7 @@ class Pds extends MY_Controller
 			$strPersonnel-=$arrPost['strPersonnel'];
 			$strService-=$arrPost['strService'];
 			$strDivision-=$arrPost['strDivision'];
+			$strDepartment-=$arrPost['strDepartment'];
 			// $XtrainingCode = $this->uri->segment(4);
 			if(!empty($strServiceCode))
 			{
@@ -1093,7 +1097,8 @@ class Pds extends MY_Controller
 					'officeCode'=>$strExecOffice,
 					'personnelAction'=>$strPersonnel,
 					'service'=>$strService,
-					'divisionCode'=>$strDivision
+					'divisionCode'=>$strDivision,
+					// 'deptCode'=>$strDepartment
 				);
 				 // echo '='.$strEmpNumber;
 				 // exit(1);
