@@ -112,8 +112,11 @@
             var todateto    = req_details[2];
             var purpose     = req_details[3];
             var meal     = req_details[4];
+            var empno        = $(this).data('empno');
 
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal;
+
+            var link = "";
+            link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal+"&empno="+empno;
 
             $('div#attachments').html('');
             var json_file = $(this).data('rattach');
@@ -128,12 +131,16 @@
                 });
             }
             $('div#attachments').append('</ul>');
-            
+
             $('#to-embed').attr('src',link);
             $('#to-embed-fullview').attr('href',link);
 
             $('#to-open-request').attr('href',"<?=base_url('employee/travel_order/edit?module=hr&req_id=')?>"+$(this).data('id'));
             $('#to-form').modal('show');
+        });
+
+        $("#to-form").on("hidden.bs.modal", function () {
+            location.reload();
         });
 
         $('#table-to').on('click', 'a#btncertify', function() {

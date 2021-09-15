@@ -5,7 +5,8 @@ class ReportTO_rpt_model extends CI_Model {
 	{
 		//parent::__construct();
 		$this->load->database();
-		$this->load->helper('report_helper');	
+		$this->load->helper(array('report_helper','general_helper'));	
+		$this->load->model(array('hr/Hr_model'));
 		//ini_set('display_errors','On');
 		//$this->load->model(array());
 	}
@@ -24,6 +25,9 @@ class ReportTO_rpt_model extends CI_Model {
 	
 	function generate($arrData)
 	{
+		$empno = $arrData['strEmpNo'] == "" ? $_SESSION['sessEmpNo'] : $arrData['strEmpNo'];
+		$emp = $this->Hr_model->getData($empno,'','all')[0];
+		
 		$this->fpdf->SetTitle('Travel Order');
 		$this->fpdf->SetLeftMargin(25);
 		$this->fpdf->SetRightMargin(25);
@@ -34,7 +38,7 @@ class ReportTO_rpt_model extends CI_Model {
 
 		$this->fpdf->SetFont('Arial', "", 12);
 		$this->fpdf->Cell(0, 5, "", 0, 1, "C");	
-		$this->fpdf->Cell(0, 5, "Republic of the Philippines ", 0, 1, "C");	
+		$this->fpdf->Cell(0, 5, "Department of Science and Technology ", 0, 1, "C");	//Republic of the Philippines
 		$this->fpdf->SetFont('Arial', "B", 12);
 		$this->fpdf->Cell(0, 5, '', 0, 1, "C");
 		$this->fpdf->SetFont('Arial', "", 12);
@@ -47,46 +51,46 @@ class ReportTO_rpt_model extends CI_Model {
 		$this->fpdf->Ln(10);
 		
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(30, 5, "Name:", 0, 0, "L");
+		$this->fpdf->Cell(30, 5, "Name: ".employee_name($empno), 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "BU", 10);		
 		$this->fpdf->Cell(75, 5, '', 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(15, 5, "Salary:", 0, 0, "L");
+		// $this->fpdf->Cell(15, 5, "Salary:", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "BU", 10);		
 		$this->fpdf->Cell(75, 5, "", 0, 0, "L"); 
  
 		$this->fpdf->Ln(7);
 
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(30, 5, "Position:", 0, 0, "L");
+		$this->fpdf->Cell(30, 5, "Position: ".$emp['positionDesc'], 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "BU", 10);			 
 		$this->fpdf->Cell(75, 5, "", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(15, 5, "Station:", 0, 0, "L");
+		$this->fpdf->Cell(15, 5, "Division: ".office_name($emp['group3']), 0, 0, "L"); //Station
 		$this->fpdf->SetFont('Arial', "BU", 10);		
 		$this->fpdf->Cell(75, 5, "", 0, 0, "L"); 
 
 		$this->fpdf->Ln(7);
 		
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(30, 5, "Departure Date:", 0, 0, "L");
+		$this->fpdf->Cell(30, 5, "Departure Date: ". date("F j, Y",strtotime($arrData['dtmTOdatefrom'])), 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "BU", 10);		
 		$this->fpdf->Cell(75, 5, "", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 10);
 		$this->fpdf->Cell(15, 5, "Time:", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "BU", 10);		
-		$this->fpdf->Cell(75, 5, "                       ", 0, 0, "L");
+		// $this->fpdf->Cell(75, 5, "                       ", 0, 0, "L");
 
 		$this->fpdf->Ln(7);		
 
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(30, 5, "Return Date:", 0, 0, "L");
+		$this->fpdf->Cell(30, 5, "Return Date: ".date("F j, Y",strtotime($arrData['dtmTOdateto'])), 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "BU", 10);		
 		$this->fpdf->Cell(75, 5,"" , 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 10);
 		$this->fpdf->Cell(15, 5, "Time:", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "BU", 10);		
-		$this->fpdf->Cell(75, 5, "                       ", 0, 0, "L");
+		// $this->fpdf->Cell(75, 5, "                       ", 0, 0, "L");
 		
  		$this->fpdf->Ln(10);
 		
@@ -96,13 +100,13 @@ class ReportTO_rpt_model extends CI_Model {
 		$this->fpdf->Cell(90, 5,"Purpose", 1, 0, "C");
 		$this->fpdf->Ln(5);		
 		$this->fpdf->SetFont('Arial', "", 10);
-		$this->fpdf->Cell(90, 5, "", 1, 0, "L");
+		$this->fpdf->Cell(90, 5, $arrData['strDestination'], 1, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 10);		
-		$this->fpdf->Cell(90, 5, "", 1, 0, "L");
+		$this->fpdf->Cell(90, 5, $arrData['strPurpose'], 1, 0, "L");
 
 
  		$this->fpdf->Ln(10);
-		$this->fpdf->Cell(270, 5, "Date : ______________________", 0, 0, "C"); 
+		$this->fpdf->Cell(270, 5, "Date : ".date("F j, Y"), 0, 0, "C"); 
 		$this->fpdf->Ln(10);
 		$this->fpdf->SetFont('Arial', "BI", 8);
 		$this->fpdf->Cell(200, 5, "", 0, 0, "C");

@@ -96,7 +96,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 ?></td>
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
-                                    data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
+                                    data-rdetails='<?=json_encode($req_details)?>' data-empno="<?=$row['empNumber']?>" data-rattach='<?=$row['file_location']?>'>
                                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
                                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
                                     <a class="btn btn-sm green" href="<?=base_url('employee/travel_order/edit?req_id='.$row['requestID'])?>">
@@ -204,8 +204,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             var todateto    = req_details[2];
             var purpose     = req_details[3];
             var meal        = req_details[4];
+            var empno        = $(this).data('empno');
 
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal;
+            var link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal+"&empno="+empno;
 
             $('div#attachments').html('');
             var json_file = $(this).data('rattach');
