@@ -20,11 +20,13 @@ class ReportTardinessNonperm_model extends CI_Model {
 		$this->fpdf->Cell(0,3,"Page ".$this->fpdf->PageNo(),0,0,'R');
 	}
 
-	function getSQLData($strEmpNo="",$intMonth="",$intYear="")
+	function getSQLData($strEmpNo="",$intMonth="",$intYear="",$t_strOfc="")
 	{
 		$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname, tblEmpPersonal.firstname, tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension, tblEmpPosition.longevityDate, tblEmpPosition.divisionCode, tblEmpPosition.firstDayAgency, tblEmpPosition.itemNumber, tblEmpLeaveBalance.*');
 		if($strEmpNo!='')
 			$this->db->where('tblEmpPersonal.empNumber',$strEmpNo);
+		if($t_strOfc!='')
+			$this->db->where('tblEmpPosition.group3',$t_strOfc);
 		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->where('tblEmpLeaveBalance.periodMonth',$intMonth);
 		$this->db->where('tblEmpLeaveBalance.periodYear',$intYear);
@@ -68,7 +70,7 @@ class ReportTardinessNonperm_model extends CI_Model {
 		$Ln = array('L','C','C','C','C');
 		$this->fpdf->SetAligns($Ln);
 
-		$objQuery = $this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'',$arrData['dtmMonth'],$arrData['dtmYear']);
+		$objQuery = $this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'',$arrData['dtmMonth'],$arrData['dtmYear'],$arrData['strSelectPer']==2?$arrData['ofc']:'');
 		$this->fpdf->SetFont('Arial','',8);
 		$ctr=1;
 		foreach($objQuery as $arrEmpInfo)

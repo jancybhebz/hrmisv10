@@ -43,7 +43,7 @@ class ListEducationalAttainment_model extends CI_Model {
 	
 		$this->db->order_by('tblEmpPersonal.birthday, tblEmpPersonal.surname asc, tblEmpPersonal.firstname asc,tblEmpPersonal.middlename asc');
 		$objQuery = $this->db->get('tblEmpPersonal');
-		//echo $this->db->last_query();
+		// echo $this->db->last_query();
 		return $objQuery->result_array();
 	}
 

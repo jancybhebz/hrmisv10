@@ -21,10 +21,12 @@ class AssumptionDutiesResponsibilities_model extends CI_Model {
 		$this->fpdf->Cell(0,3,"Page ".$this->fpdf->PageNo(),0,0,'R');					
 	}
 	
-	function getSQLData($t_strEmpNmbr="")
+	function getSQLData($t_strEmpNmbr="",$t_strOfc="")
 	{
 		if($t_strEmpNmbr!='')
 			$this->db->where('tblEmpPersonal.empNumber',$t_strEmpNmbr);
+		if($t_strOfc!='')
+			$this->db->where('tblEmpPosition.group3',$t_strOfc);
 		$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname, 
 					tblEmpPersonal.firstname, tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension, tblEmpPersonal.sex, 
 					tblPosition.positionDesc, 
@@ -42,7 +44,7 @@ class AssumptionDutiesResponsibilities_model extends CI_Model {
 	function generate($arrData)
 	{		
 		
-		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'',$arrData['strSelectPer']==2?$arrData['ofc']:'');
 		
 		foreach($rs as $t_arrEmpInfo):
 			//while($t_arrEmpInfo=mysql_fetch_array($query)) {

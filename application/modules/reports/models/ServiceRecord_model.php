@@ -24,7 +24,7 @@ class ServiceRecord_model extends CI_Model {
 		$this->fpdf->Cell(0,3,"Page ".$this->fpdf->PageNo(),0,0,'R');
 	}
 
-	function getSQLData($empno="")
+	function getSQLData($empno="",$t_strOfc="")
 	{
 		$this->db->select('DISTINCT(tblEmpPersonal.empNumber), tblEmpPersonal.surname, 
 								tblEmpPersonal.firstname, tblEmpPersonal.middlename, 
@@ -35,6 +35,8 @@ class ServiceRecord_model extends CI_Model {
 		//$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		if($empno!='')
 			$this->db->where('tblEmpPersonal.empNumber',$empno);
+		if($t_strOfc!='')
+			$this->db->where('tblEmpPosition.group3',$t_strOfc);
 		$this->db->where('tblEmpPosition.statusOfAppointment','In-Service');
 		$this->db->order_by('tblEmpPersonal.surname asc,tblEmpPersonal.firstname asc, tblEmpPersonal.middlename asc');
 		$objQuery = $this->db->get('tblEmpPersonal');
@@ -100,7 +102,7 @@ class ServiceRecord_model extends CI_Model {
 		
 		//print_r($arrData);exit(1);
 		
-		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'',$arrData['strSelectPer']==2?$arrData['ofc']:'');
 		for($i=0;$i<sizeof($rs);$i++) {
 		//while($rs=mysql_fetch_array($t_arrEmpInfo)){
 			//$this->AddPage();

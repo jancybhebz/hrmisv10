@@ -18,7 +18,7 @@
                                     <select class="form-control bs-select" name="sel_srvcode">
                                         <option value=""> </option>
                                         <?php foreach($service_code as $srv):
-                                                $selected = $srv['serviceCode'] == $arrPosition[0]['serviceCode'] ? 'selected' : '';
+                                                $selected = $srv['serviceCode'] == $arrPosition[0]['service'] ? 'selected' : '';
                                                 echo '<option value="'.$srv['serviceCode'].'" '.$selected.'>'.$srv['serviceDesc'].'</option>';
                                               endforeach; ?>
                                     </select>
@@ -138,6 +138,20 @@
                                         <?php foreach($arrSection as $section):
                                                 $selected = $section['group4Code'] == $arrPosition[0]['sectionCode'] ? 'selected' : '';
                                                 echo '<option value="'.$section['group4Code'].'" '.$selected.'>'.$section['group4Code'].'</option>';
+                                              endforeach; ?>
+                                    </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Department</label>
+                                <div class="col-md-8">
+                                    <!-- <input type="text" name="" class="form-control" value=""> -->
+                                    <select class="form-control bs-select" name="seldepartment">
+                                        <option value=""> </option>
+                                        <?php foreach($arrDepartment as $department):
+                                                $selected = $department['group5Code'] == $arrPosition[0]['deptCode'] ? 'selected' : '';
+                                                echo '<option value="'.$department['group5Code'].'" '.$selected.'>'.$department['group5Code'].'</option>';
                                               endforeach; ?>
                                     </select>
                                     <span class="help-block"></span>

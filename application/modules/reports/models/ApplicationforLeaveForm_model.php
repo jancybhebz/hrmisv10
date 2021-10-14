@@ -405,11 +405,13 @@ class ApplicationforLeaveForm_model extends CI_Model {
 		echo $this->fpdf->Output();
 	}
 	
-	function getSQLData($t_strEmpNmbr="")
+	function getSQLData($t_strEmpNmbr="",$t_strOfc="")
 	{
 	
 		if($t_strEmpNmbr!='')
 			$this->db->where('tblEmpPersonal.empNumber',$t_strEmpNmbr);
+		if($t_strOfc!='')
+			$this->db->where('tblEmpPosition.group3',$t_strOfc);
 		$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname, 
 			tblEmpPersonal.firstname, tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension, tblEmpPersonal.sex, 
 			tblPosition.positionDesc, 

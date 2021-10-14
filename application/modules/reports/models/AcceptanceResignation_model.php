@@ -30,8 +30,6 @@ class AcceptanceResignation_model extends CI_Model {
 		$this->fpdf->SetTopMargin(10);
 		$this->fpdf->SetAutoPageBreak("on",10);
 		
-		
-		
 		$this->fpdf->SetFont('Arial','B',12);
 		$this->fpdf->Ln(10);
 
@@ -41,7 +39,7 @@ class AcceptanceResignation_model extends CI_Model {
 		$t_dtmRcvDate = $arrData['dtReceivedDay']." ".date('F',strtotime(date('Y').'-'.$arrData['dtReceivedMonth'].'-'.date('d')))." ".$arrData['dtReceivedYear'];
 		$t_dtmAcptDate = $arrData['dtAcceptedDay']." ".date('F',strtotime(date('Y').'-'.$arrData['dtAcceptedMonth'].'-'.date('d')))." ".$arrData['dtAcceptedYear'];
 
-		$rs = $this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'');
+		$rs = $this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'',$arrData['strSelectPer']==2?$arrData['ofc']:'');
 		foreach($rs as $t_arrEmpInfo):
 			$this->fpdf->AddPage('P','','A4');
 			$extension = (trim($t_arrEmpInfo['nameExtension'])=="") ? "" : " ".$t_arrEmpInfo['nameExtension'];		
@@ -127,11 +125,13 @@ class AcceptanceResignation_model extends CI_Model {
 		echo $this->fpdf->Output();
 	}
 	
-	function getSQLData($t_strEmpNmbr="")
+	function getSQLData($t_strEmpNmbr="",$t_strOfc="")
 	{
 	
 		if($t_strEmpNmbr!='')
 			$this->db->where('tblEmpPersonal.empNumber',$t_strEmpNmbr);
+		if($t_strOfc!='')
+			$this->db->where('tblEmpPosition.group3',$t_strOfc);
 		$this->db->select('tblEmpPersonal.empNumber, tblEmpPersonal.surname, 
 			tblEmpPersonal.firstname, tblEmpPersonal.middlename,tblEmpPersonal.middleInitial,tblEmpPersonal.nameExtension, tblEmpPersonal.sex, 
 			tblPosition.positionDesc, 

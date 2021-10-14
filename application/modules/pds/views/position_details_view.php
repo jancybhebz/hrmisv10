@@ -9,7 +9,7 @@
                 </tr>
                 <tr>
                     <td width="25%">Service Code :</td>
-                    <td width="25%"><?=$row['serviceCode']?></td>
+                    <td width="25%"><?=$row['service']?></td>
                     <td width="25%"></td>
                     <td width="25%"></td>
                 </tr>

@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                     <th width="25%" style="text-align: right;">Service Code :</th>
-                    <td width="25%"><?=$arrPosition[0]['serviceCode']?></td>
+                    <td width="25%"><?=$arrPosition[0]['service']?></td>
                     <th width="25%" style="text-align: right;"></th>
                     <td width="25%"></td>
                 </tr>

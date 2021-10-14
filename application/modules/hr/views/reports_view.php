@@ -61,6 +61,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <option value="">Select</option>
                     <option value="0">All Employees</option>
                     <option value="1">Per Employee</option>
+                    <option value="2">Per Office</option>
                     </select>
                 </div>
             </div>
@@ -83,6 +84,30 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         <option value="">Select</option>
                         <?php foreach($arrEmployees as $i=>$data): ?>
                         <option value="<?=$data['empNumber']?>"><?=(strtoupper($data['surname'].', '.$data['firstname'].' '.$data['middleInitial'].' '.$data['nameExtension']))?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                     <font color='red'> <span id="salutation"></span></font>
+                </div>
+            </div>
+         </div>   
+
+         <div class="row office-block">
+            <div class="col-sm-3 text-right">
+                <div class="form-group">
+                    <label class="control-label">Offices :</label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                     <select type="text" class="form-control select2" name="strOffice" >
+                      <!-- value="<?=!empty($this->session->userdata('strEmpName'))?$this->session->userdata('strEmpName'):''?>" -->
+                        <option value="">Select</option>
+                        <?php foreach($arrOffice as $i=>$data): ?>
+                        <option value="<?=$data['group3Code']?>"><?=$data['group3Name']?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -206,13 +231,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     });
 
     $(function(){
-        $('.per-block, .employee-block').hide();
+        $('.per-block, .employee-block, .office-block').hide();
 
         $('select[name="strReports"]').change(function(){
             $rpt = $(this).val();
             
             if($rpt=='' || $rpt=='LEEA' || $rpt=='LEAGE' || $rpt=='LEDH' || $rpt=='LEDB' || $rpt=='LEG' || $rpt=='LELS' || $rpt=='LESG' || $rpt=='LESGA' || $rpt=='LEDBA' || $rpt=='LR' || $rpt=='LVP' || $rpt=='LEA' || $rpt=='LVP' || $rpt=='PP' || $rpt=='EFDS' || $rpt=='LOYR' || $rpt=='AAR' || $rpt=='MA')
-                $('.per-block, .employee-block').hide();
+                $('.per-block, .employee-block, .office-block').hide();
             else
                 $('.per-block').show();
 
@@ -230,10 +255,21 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('select[name="strSelectPer"]').change(function(){
             $per = $(this).val();
 
-            if($per==0)
-                $('.employee-block').hide();
+            if($per==0){
+              $('.office-block').hide();
+              $('.employee-block').hide();
+              $('select[name="strOffice"]').val('').change();
+            }
+            else if($per==1){
+              $('.employee-block').show();
+              $('.office-block').hide();
+              $('select[name="strOffice"]').val('').change();
+            }
             else
-                $('.employee-block').show();
+            {
+              $('.office-block').show();
+              $('.employee-block').hide();
+            }
         });
 
         
@@ -241,6 +277,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         $('button[name="btnPrint"]').click(function(){
             $rpt = $('select[name="strReports"]').val();
             $empno = $('select[name="strEmpName"]').val();
+            $ofc = $('select[name="strOffice"]').val();
             $per = $('select[name="strSelectPer"]').val();
             $form = $('#reportform').serializeArray();
             $.each($form, function(index,item){
@@ -249,7 +286,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 //console.log(index+'/'+item.name);
             });
             $form = $.param($form);
-            console.log($form);
+            // console.log($ofc);
             //$form['']
             //$form += '&csrf_dostitd=<?=time()?>';
             //console.log($form);
@@ -258,15 +295,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             {
                 $year=$('select[name="dtrYear"]').val();
                 $month=$('select[name="dtrMonth"]').val();
-                window.open('<?=base_url('employee/dtr/print_preview')?>/'+$empno+'?yr='+$year+'&month='+$month,'toolbar=0');
+                window.open('<?=base_url('employee/dtr/print_preview')?>/'+$empno+'?yr='+$year+'&month='+$month+'&ofc='+$ofc,'toolbar=0');
                 return false;
             }
             if($rpt=='PDS')
             {
                 if($per==0)
                     window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>','toolbar=0');
-                else
+                else if($per==1)
                     window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>&empNumber='+$empno,'toolbar=0');
+                else
+                    window.open('<?=base_url('employee/reports/generate?rpt=reportPDSupdate')?>&empNumber='+$empno+'&ofc='+$ofc,'toolbar=0');
                 return false;
             }
             if($rpt=='MA')
@@ -484,7 +523,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
               return false;
             }
             if($rpt!='')
-                window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&'+$form,'toolbar=0');
+                window.open('<?=base_url('reports/generate/report')?>/?rpt='+$rpt+'&empno='+$empno+'&ofc='+$ofc+'&'+$form,'toolbar=0');
         });
 
         $('#monthly_attendance').on('hidden.bs.modal', function () {

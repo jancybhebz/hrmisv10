@@ -369,7 +369,7 @@
                             </select>
                         </div>
                     </div>
-                     <div class="col-sm-1 text-left">
+                    <div class="col-sm-1 text-left">
                         <div class="form-group">
                             <label class="control-label">GSIS Policy No. : </label>
                         </div>
@@ -409,14 +409,14 @@
                             </select>
                         </div>
                     </div>
-                     <div class="col-sm-1 text-left">
+                    <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Pag-Ibig No. : </label>
+                            <label class="control-label">GSIS BP No. : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="intPagibig" autcomplete="off" value="<?=isset($arrData['pagibigNumber'])?$arrData['pagibigNumber']:''?>">
+                            <input type="text" class="form-control" name="intGSISBP" autcomplete="off" value="<?=isset($arrData['businessPartnerNumber'])?$arrData['businessPartnerNumber']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -445,14 +445,14 @@
                             <input type="text" class="form-control" name="strHeight" autcomplete="off" value="<?=isset($arrData['height'])?$arrData['height']:''?>">
                         </div>
                     </div>
-                     <div class="col-sm-1 text-left">
+                    <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Philheath No. : </label>
+                            <label class="control-label">Pag-Ibig No. : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="intPhilhealth" autcomplete="off" value="<?=isset($arrData['philHealthNumber'])?$arrData['philHealthNumber']:''?>">
+                             <input type="text" class="form-control" name="intPagibig" autcomplete="off" value="<?=isset($arrData['pagibigNumber'])?$arrData['pagibigNumber']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -483,12 +483,12 @@
                     </div>
                     <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">TIN No. : </label>
+                            <label class="control-label">Philheath No. : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                             <input type="text" class="form-control" name="intTin" autcomplete="off" value="<?=isset($arrData['tin'])?$arrData['tin']:''?>">
+                             <input type="text" class="form-control" name="intPhilhealth" autcomplete="off" value="<?=isset($arrData['philHealthNumber'])?$arrData['philHealthNumber']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-1 text-left">
@@ -517,8 +517,14 @@
                             <input type="text" class="form-control" name="strBloodType" autcomplete="off" value="<?=isset($arrData['bloodType'])?$arrData['bloodType']:''?>">
                         </div>
                     </div>
-                     <div class="col-sm-3">
+                    <div class="col-sm-1 text-left">
                         <div class="form-group">
+                            <label class="control-label">TIN No. : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" text-left>
+                        <div class="form-group">
+                             <input type="text" class="form-control" name="intTin" autcomplete="off" value="<?=isset($arrData['tin'])?$arrData['tin']:''?>">
                         </div>
                     </div>
                      <div class="col-sm-3">

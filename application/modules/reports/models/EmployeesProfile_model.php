@@ -25,8 +25,13 @@ class EmployeesProfile_model extends CI_Model {
 		$this->fpdf->Cell(0,3,"Page ".$this->fpdf->PageNo(),0,0,'R');					
 	}
 	
-	function getSQLData($strAppStatus="")
+	function getSQLData($t_strEmpNmbr="",$t_strOfc="")
 	{
+		if($t_strEmpNmbr!='')
+			$this->db->where('tblEmpPersonal.empNumber',$t_strEmpNmbr);
+		if($t_strOfc!='')
+			$this->db->where('tblEmpPosition.group3',$t_strOfc);
+		
 		$this->db->select('tblEmpPersonal.empNumber,tblEmpPersonal.surname, tblEmpPersonal.firstname,tblEmpPersonal.middleInitial, tblEmpPersonal.middlename,tblEmpPersonal.nameExtension,tblEmpPersonal.birthday, tblEmpPersonal.birthplace, tblEmpPosition.statusOfAppointment, tblEmpPosition.firstDayAgency,tblEmpPosition.firstDayGov,tblEmpPosition.positionCode,tblEmpPosition.officeCode,tblEmpExam.examRating,tblEmpExam.examCode');
 		$this->db->join('tblEmpPosition','tblEmpPersonal.empNumber = tblEmpPosition.empNumber','left');
 		$this->db->join('tblEmpExam','tblEmpExam.empNumber = tblEmpPersonal.empNumber','left');
@@ -49,7 +54,7 @@ class EmployeesProfile_model extends CI_Model {
 	function generate($arrData)
 	{		
 		
-		$rs=$this->getSQLData();
+		$rs=$this->getSQLData($arrData['strSelectPer']==1?$arrData['empno']:'',$arrData['strSelectPer']==2?$arrData['ofc']:'');
 		$this->fpdf->AddPage('P','A4');
 		$this->fpdf->SetMargins(25,25);
 		$this->fpdf->SetTextColor(0,0,0);
@@ -159,7 +164,7 @@ class EmployeesProfile_model extends CI_Model {
 		$this->fpdf->Ln(15);
 
 		
-		$this->fpdf->AddPage();
+		// $this->fpdf->AddPage();
 		
 		echo $this->fpdf->Output();
 	}
