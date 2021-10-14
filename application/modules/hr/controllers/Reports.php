@@ -14,7 +14,7 @@ class Reports extends MY_Controller
 	
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('hr/reports_model','libraries/user_account_model','hr/Hr_model'));
+        $this->load->model(array('hr/reports_model','libraries/user_account_model','hr/Hr_model','libraries/org_structure_model'));
         $this->load->helper('report_helper');
     }
 
@@ -23,7 +23,9 @@ class Reports extends MY_Controller
 		$this->arrData['arrReports'] = $this->reports_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getData();
 		$this->arrData['arrUser'] = $this->user_account_model->getEmpDetails();
+		$this->arrData['arrOffice'] = $this->org_structure_model->getDivisionData();
 		$this->arrData['arrEmployees'] = $this->Hr_model->getData();
+
 		$this->template->load('template/template_view', 'hr/reports_view', $this->arrData);
 	}
 
