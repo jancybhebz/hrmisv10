@@ -828,12 +828,12 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					// $row_app = mysql_fetch_assoc($result_app);
 					$strFromDate = explode('-',$work['serviceFromDate']);
 					$fromDate = "";
-					if($fromDate != 0)
-					{
+					// if($fromDate != 0)
+					// {
 						$fromDate = $strFromDate[1]."/".$strFromDate[2]."/".$strFromDate[0];
-					}
-					else
-						$fromDate = $work['serviceFromDate'];
+					// }
+					// else
+					// 	$fromDate = $work['serviceFromDate'];
 
 					if($work['serviceToDate']!="Present")
 					{
