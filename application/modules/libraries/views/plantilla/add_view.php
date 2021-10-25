@@ -67,7 +67,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                          <option value="">Select</option>
                                         <?php foreach($arrPosition as $pos)
                                         {
-                                          echo '<option value="'.$pos['positionId'].'">'.$pos['positionDesc'].'</option>';
+                                          echo '<option value="'.$pos['positionCode'].'">'.$pos['positionDesc'].'</option>';
                                         }?>
                                   </select>
                                 </div>
