@@ -643,7 +643,8 @@ CREATE TABLE `tblEmpDTR` (
   `ip` text NOT NULL,
   `editdate` text NOT NULL,
   `perdiem` char(1) NOT NULL DEFAULT '',
-  `oldValue` text
+  `oldValue` text,
+  `wfh` tinyint(4) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -3310,6 +3311,56 @@ ALTER TABLE `tblServiceRecord`
 --
 ALTER TABLE `tblSignatory`
   MODIFY `signatoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+
+CREATE TABLE `tblOnlineDTR_HCD` (
+  `id` int(11) NOT NULL,
+  `empNumber` varchar(50) NOT NULL,
+  `dtrDate` date DEFAULT NULL,
+  `fullName` varchar(255) NOT NULL,
+  `temperature` float NOT NULL,
+  `sex` char(1) NOT NULL DEFAULT 'M',
+  `age` int(11) NOT NULL,
+  `residence_contact` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `natureVisit` varchar(50) NOT NULL,
+  `natureOb` varchar(50) NOT NULL,
+  `companyName` varchar(255) NOT NULL,
+  `companyAddress` varchar(255) NOT NULL,
+  `q1_1` tinyint(1) NOT NULL,
+  `q1_1_txt` varchar(255) NOT NULL,
+  `q1_2` tinyint(1) NOT NULL,
+  `q1_3` tinyint(1) NOT NULL,
+  `q1_4` tinyint(1) NOT NULL,
+  `q1_5` tinyint(1) NOT NULL,
+  `q1_6` tinyint(1) NOT NULL,
+  `q1_7` tinyint(1) NOT NULL,
+  `q1_8` tinyint(1) NOT NULL,
+  `q1_9` tinyint(1) NOT NULL,
+  `q1_10` tinyint(1) NOT NULL,
+  `q1_11` tinyint(1) NOT NULL,
+  `q1_12` tinyint(1) NOT NULL,
+  `q1_13` tinyint(1) NOT NULL,
+  `q1_14` tinyint(1) NOT NULL,
+  `q2` tinyint(1) NOT NULL,
+  `q3` tinyint(1) NOT NULL,
+  `q4` tinyint(1) NOT NULL,
+  `q5` tinyint(1) NOT NULL,
+  `q5_txt` varchar(255) NOT NULL,
+  `q6` tinyint(1) NOT NULL,
+  `q6_txt` varchar(255) NOT NULL,
+  `signature` varchar(50) NOT NULL,
+  `signatureDate` date DEFAULT NULL,
+  `wfh` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `tblOnlineDTR_HCD`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `tblOnlineDTR_HCD`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61271;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

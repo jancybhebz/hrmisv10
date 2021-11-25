@@ -158,6 +158,10 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` CHANGE `inAM` `inAM` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` CHANGE `outAM` `outAM` TIME NULL;",$path);
 
+        if(!$this->Migrate_model->check_if_column_exist('tblEmpDTR','wfh')):
+            $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblEmpDTR` ADD `wfh` tinyint(4) DEFAULT NULL;",$path);
+        endif;
+
         $total_line = 0;
         $ctrcomment = 0;
         if(file_exists($path)):
@@ -251,6 +255,11 @@ class Migrate extends MY_Controller
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeinFrom` `nnTimeinFrom_old_data` VARCHAR(11);",$path);
         $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme` ADD `nnTimeinFrom` TIME NULL;",$path);
         $this->Migrate_model->write_sqlstmt("UPDATE `tblAttendanceScheme` SET `nnTimeinFrom` = CASE WHEN (`nnTimeinFrom_old_data` > '00:59:59' AND `nnTimeinFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeinFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeinFrom_old_data` = '00:00:00') THEN NULL ELSE `nnTimeinFrom_old_data` END;",$path);
+
+        $this->Migrate_model->write_sqlstmt("# Create Attendance Scheme Online DTR",$path);
+        $this->Migrate_model->write_sqlstmt("DROP TABLE IF EXISTS `tblAttendanceScheme_Online_DTR`;",$path);
+        $this->Migrate_model->write_sqlstmt("CREATE TABLE `tblAttendanceScheme_Online_DTR` AS SELECT * FROM `tblAttendanceScheme`;",$path);
+        $this->Migrate_model->write_sqlstmt("ALTER TABLE `tblAttendanceScheme_Online_DTR` ADD PRIMARY KEY (`schemeCode`);",$path);
 
         $total_line = 0;
         $ctrcomment = 0;
