@@ -38,10 +38,23 @@
             <?php if(isset($_GET['status'])): if($_GET['status']=='Disapproved'): ?>
                 <td align="center"> <?=$row['remarks']?> </td>
             <?php endif; endif; ?>
-            <td align="center"> <?=$row['next_signatory']['next_sign']?> </td>
+            <td align="center"> 
+                <?php if(!in_array(strtolower($row['requestStatus']), array('disapproved','cancelled'))): ?>
+                    <?=$row['next_signatory']['next_sign']?> 
+                <?php endif; ?>
+            </td>
             <td width="150px" style="white-space: nowrap;text-align: center;">
-                <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
+                <!-- <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
                     <a class="btn btn-sm blue" href="<?=base_url('employee/pds_update/view?req_id='.$row['requestID'])?>"><span class="icon-check"></span> Certify</a>
+                    <a class="btn btn-sm btn-danger" id="btndisapproved" data-id="<?=$row['requestID']?>"><span class="icon-close" title="Cancel"></span> Disapprove</a>
+                <?php endif; ?> -->
+                <?php if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
+                    <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> 
+                        <?= strtolower($row['next_signatory']['action']) == "certified" ? "Certify" : ""; ?>
+                        <?= strtolower($row['next_signatory']['action']) == "recommended" ?  "Recommend" : ""; ?>
+                        <?= strtolower($row['next_signatory']['action']) == "approved" ? "Approve" : ""; ?>
+                    </a>
+                            
                     <a class="btn btn-sm btn-danger" id="btndisapproved" data-id="<?=$row['requestID']?>"><span class="icon-close" title="Cancel"></span> Disapprove</a>
                 <?php endif; ?>
             </td>
@@ -51,18 +64,18 @@
 </table>
 
 <!-- begin to pass modal -->
-<div id="to-form" class="modal fade" aria-hidden="true">
+<div id="pds-form" class="modal fade" aria-hidden="true">
     <div class="modal-dialog" style="width: 60%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title bold">Travel Order Form</h4>
+                <h4 class="modal-title bold">PDS Form</h4>
             </div>
             <div class="modal-body">
                 <div class="row form-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <embed src="" id="to-embed" frameborder="0" width="100%" height="500px">
+                            <embed src="" id="pds-embed" frameborder="0" width="100%" height="500px">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -73,8 +86,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="javascript:;" id="to-open-request" class="btn green btn-sm"> <i class="icon-doc"> </i> Open Request</a>
-                <a href="javascript:;" id="to-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
+                <a href="javascript:;" id="pds-open-request" class="btn green btn-sm"> <i class="icon-doc"> </i> Open Request</a>
+                <a href="javascript:;" id="pds-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>
         </div>
@@ -83,20 +96,20 @@
 <!-- end to pass modal -->
 
 <!-- begin to certify modal -->
-<div id="modal-update-to" class="modal fade" aria-hidden="true">
+<div id="modal-update-pds" class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title" id="to-title"></h4>
+                <h4 class="modal-title" id="pds-title"></h4>
             </div>
-            <?=form_open('', array('id' => 'frmupdate_to'))?>
+            <?=form_open('', array('id' => 'frmupdate_pds'))?>
                 <div class="modal-body">
                     <div class="row form-body">
                         <div class="col-md-12">
-                            <input type="hidden" name="opt_to_stat" id="opt_to_stat">
+                            <input type="hidden" name="opt_pds_stat" id="opt_pds_stat">
                             <div class="form-group">
-                                <label id="lbl-to-request">Are you sure you want to certify this request?</label>
+                                <label id="lbl-pds-request">Are you sure you want to certify this request?</label>
                             </div>
                             <div class="form-group div-remarks">
                                 <label>Remarks</label>

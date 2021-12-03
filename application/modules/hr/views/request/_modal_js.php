@@ -35,9 +35,16 @@
         });
 
         $('#table-ob').on('click', 'a#btncertify', function() {
-            $('#upt-title').html('<b>Certify</b>');
+            var action = $("#btncertify").text().trim();
+            $('#upt-title').html('<b>'+action+'</b>');
+            $('#lbl-upt-request').text('Are you sure you want to '+action.toLowerCase()+' this request?');
             $('#frmupdate_ob').attr('action',"<?=base_url('hr/request/update_ob?req_id=')?>"+$(this).data('id'));
-            $('#optstatus').val('CERTIFIED');
+            if(action.toLowerCase() == "approve")
+                $('#optstatus').val('Approved');
+            else if(action.toLowerCase() == "recommend")
+                $('#optstatus').val('Recommended');
+            else
+                $('#optstatus').val('Certified');
             $('#modal-update-ob').modal('show');
         });
 
@@ -87,11 +94,17 @@
         });
 
         $('#table-leave').on('click', 'a#btncertify', function() {
+            var action = $("#btncertify").text().trim();
             $('.div-remarks').hide();
-            $('#leave-title').html('<b>Certify</b>');
-            $('#lbl-leave-request').text('Are you sure you want to certify this request?');
+            $('#leave-title').html('<b>'+action+'</b>');
+            $('#lbl-leave-request').text('Are you sure you want to '+action.toLowerCase()+' this request?');
             $('#frmupdate_leave').attr('action',"<?=base_url('hr/request/update_leave?req_id=')?>"+$(this).data('id'));
-            $('#opt_leave_stat').val('CERTIFIED');
+            if(action.toLowerCase() == "approve")
+                $('#opt_leave_stat').val('Approved');
+            else if(action.toLowerCase() == "recommend")
+                $('#opt_leave_stat').val('Recommended');
+            else
+                $('#opt_leave_stat').val('Certified')
             $('#modal-update-leave').modal('show');
         });
 
@@ -144,11 +157,17 @@
         });
 
         $('#table-to').on('click', 'a#btncertify', function() {
+            var action = $("#btncertify").text().trim();
             $('.div-remarks').hide();
-            $('#to-title').html('<b>Certify</b>');
-            $('#lbl-to-request').text('Are you sure you want to certify this request?');
+            $('#to-title').html('<b>'+action+'</b>');
+            $('#lbl-to-request').text('Are you sure you want to '+action.toLowerCase()+' this request?');
             $('#frmupdate_to').attr('action',"<?=base_url('hr/request/update_to?req_id=')?>"+$(this).data('id'));
-            $('#opt_to_stat').val('CERTIFIED');
+            if(action.toLowerCase() == "approve")
+                $('#opt_to_stat').val('Approved');
+            else if(action.toLowerCase() == "recommend")
+                $('#opt_to_stat').val('Recommended');
+            else
+                $('#opt_to_stat').val('Certified');
             $('#modal-update-to').modal('show');
         });
 
@@ -191,6 +210,36 @@
 
             $('#pds-open-request').attr('href',"<?=base_url('employee/travel_order/edit?module=hr&req_id=')?>"+$(this).data('id'));
             $('#pds-form').modal('show');
+        });
+
+        $('#table-pds').on('click', 'a#btncertify', function() {
+            var action = $("#btncertify").text().trim();
+            $('.div-remarks').hide();
+            $('#pds-title').html('<b>'+action+'</b>');
+            $('#lbl-pds-request').text('Are you sure you want to '+action.toLowerCase()+' this request?');
+            if(action.toLowerCase() == "approve"){
+                $('#opt_pds_stat').val('Approved');
+                $('#frmupdate_pds').attr('action',"<?=base_url('hr/request/certify_pds?req_id=')?>"+$(this).data('id'));
+            }
+            else if(action.toLowerCase() == "recommend"){
+                $('#opt_pds_stat').val('Recommended');
+                $('#frmupdate_pds').attr('action',"<?=base_url('hr/request/certify_pds?req_id=')?>"+$(this).data('id'));
+            }
+            else{
+                $('#opt_pds_stat').val('Certified');
+                $('#frmupdate_pds').attr('action',"<?=base_url('employee/pds_update/view?req_id=')?>"+$(this).data('id'));
+                
+            }
+            $('#modal-update-pds').modal('show');
+        });
+
+        $('#table-pds').on('click', 'a#btndisapproved', function() {
+            $('.div-remarks').show();
+            $('#pds-title').html('<b>DISAPPROVED</b>');
+            $('#lbl-pds-request').text('Are you sure you want to disapprove this request?');
+            $('#frmupdate_pds').attr('action',"<?=base_url('hr/request/certify_pds?req_id=')?>"+$(this).data('id'));
+            $('#opt_pds_stat').val('Disapproved');
+            $('#modal-update-pds').modal('show');
         });
 
         // Monetization

@@ -291,6 +291,7 @@ class Request extends MY_Controller {
 			
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature($arrob['requestCode']);
+		
 		if(strtoupper($optstatus) == 'CERTIFIED'):
 			$arrob_data = array(
 				'dateFiled'		=> $ob_details[1],
@@ -307,11 +308,13 @@ class Request extends MY_Controller {
 				'approveRequest'=> '',
 				'approveChief'	=> '',
 				'approveHR'		=> check_module()=='hr' ? strtolower($optstatus) == 'certified' ? 'Y' : '' : '',
-				'is_override'	=> '',
-				'override_id'	=> ''
+				// 'is_override'	=> '',
+				// 'override_id'	=> ''
 			);
 
-			$addreturn = $this->Official_business_model->add($arrob_data);
+			// print_r($arrob_data);exit(1);
+
+			$addreturn = $this->official_business_model->add($arrob_data);
 			if(count($addreturn)>0):
 				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Add Official Business',json_encode($arrob_data),'');
 			endif;
@@ -799,9 +802,19 @@ class Request extends MY_Controller {
 	// Certify PDS
 	public function certify_pds()
 	{
+		$arrPost = $this->input->post();
+
 		$reqid = $_GET['req_id'];
 		$arrrequest = $this->update_pds_model->getpds_request($_GET['req_id']);
 		$pds_details = isset($arrrequest) ? explode(';',$arrrequest['requestDetails']) : array();
+
+		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+		$txtremarks = '';
+		if(!empty($arrPost)):
+			$optstatus = $arrPost['opt_pds_stat'];
+			$txtremarks = $arrPost['txtremarks'];
+		endif;
 		
 		if($_GET['status'] == 'profile'):
 			$arr_personal = array(
@@ -1001,8 +1014,11 @@ class Request extends MY_Controller {
 			endif;
 		endif;
 
+		if(!in_array(strtolower($optstatus), array('approved','recommended','disapproved','cancelled')))
+			$optstatus = 'Certified';
+
 		$arrto_signatory = array(
-			'requestStatus'	=> 'Certified',
+			'requestStatus'	=> $optstatus,
 			'statusDate'	=> date('Y-m-d'),
 			'remarks'		=> $txtremarks,
 			'signatory'		=> $_SESSION['sessEmpNo']
@@ -1014,7 +1030,7 @@ class Request extends MY_Controller {
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrrequest['requestID']);
 		if(count($update_employeeRequest)>0):
 			log_action($this->session->userdata('sessEmpNo'),'HR Module','tblEmpRequest','Update request',json_encode($arr_personal),'');
-			$this->session->set_flashdata('strSuccessMsg','Request successfully certify.');
+			$this->session->set_flashdata('strSuccessMsg','Request successfully '.$optstatus.'.');
 		endif;
 
 		redirect('hr/request?request=pds');

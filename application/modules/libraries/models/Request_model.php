@@ -230,7 +230,8 @@ class Request_model extends CI_Model {
 			$rflowsign_2 = $signatories['Signatory2'] != '' ? explode(';',$signatories['Signatory2']) : array('','','');
 			$rflowsign_3 = $signatories['Signatory3'] != '' ? explode(';',$signatories['Signatory3']) : array('','','');
 			$rflowsign_fin = $signatories['SignatoryFin'] != '' ? explode(';',$signatories['SignatoryFin']) : array('','','');
-			if(strtolower($ob['requestStatus']) == 'filed request'):
+
+			if(strtolower($ob['requestStatus']) != 'certified'):
 				# BEGIN SIGNATORY 1
 				# check if ob_signatory1 is null
 				if($ob['Signatory1'] == ''):
@@ -241,18 +242,18 @@ class Request_model extends CI_Model {
 							# check if flow_sign3 is null
 							if($rflowsign_3[2] == ''):
 								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
 							else:
 								$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
 							endif;
 						else:
 							$display = $rflowsign_2[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-							return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display);
+							return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display, 'action' => $rflowsign_2[0]);
 						endif;
 					else:
 						$display = $rflowsign_1[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-						return array('next_sign' => getDestination($signatories['Signatory1']), 'display' => $display);
+						return array('next_sign' => getDestination($signatories['Signatory1']), 'display' => $display, 'action' => $rflowsign_1[0]);
 					endif;
 				else:
 					# BEGIN SIGNATORY 2
@@ -263,14 +264,14 @@ class Request_model extends CI_Model {
 							# check if flow_sign3 is null
 							if($rflowsign_3[2] == ''):
 								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
 							else:
 								$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
 							endif;
 						else:
 							$display = $rflowsign_2[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-							return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display);
+							return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display, 'action' => $rflowsign_2[0]);
 						endif;
 					else:
 						# BEGIN SIGNATORY 3
@@ -278,19 +279,19 @@ class Request_model extends CI_Model {
 						if($ob['Signatory3'] == ''):
 							if($rflowsign_3[2] == ''):
 								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
 							else:
 								$display = $rflowsign_3[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display);
+								return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
 							endif;
 						else:
 							# BEGIN FINAL SIGNATORY
 							if($ob['SignatoryFin'] == ''):
 								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display);
+								return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
 							else:
 								$display = $rflowsign_fin[2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-								return array('next_sign' => '', 'display' => $display);
+								return array('next_sign' => '', 'display' => $display, 'action' => $rflowsign_fin[0]);
 							endif;
 							# END FINAL SIGNATORY
 						endif;
@@ -302,11 +303,11 @@ class Request_model extends CI_Model {
 			else:
 				$arr_signs = array($rflowsign_1[2],$rflowsign_2[2],$rflowsign_3[2],$rflowsign_fin[2]);
 				if(in_array($_SESSION['sessEmpNo'], $arr_signs)):
-					return array('next_sign' => '', 'display' => 1);
+					return array('next_sign' => '', 'display' => 1, 'action' => '');
 				endif;
 			endif;
 		endif;
-		return array('next_sign' => '', 'display' => 0);
+		return array('next_sign' => '', 'display' => 0, 'action' => '');
 	}
 
 	# Request Flow

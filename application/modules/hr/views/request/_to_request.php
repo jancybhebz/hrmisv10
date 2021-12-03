@@ -38,7 +38,11 @@
             <?php if(isset($_GET['status'])): if($_GET['status']=='Disapproved'): ?>
                 <td align="center"> <?=$row['remarks']?> </td>
             <?php endif; endif; ?>
-            <td align="center"> <?=$row['next_signatory']['next_sign']?> </td>
+            <td align="center"> 
+                <?php if(!in_array(strtolower($row['requestStatus']), array('disapproved','cancelled'))): ?>
+                    <?=$row['next_signatory']['next_sign']?> 
+                <?php endif; ?>
+            </td>
             <td align="center" nowrap>
                 <?php
                     if($req_details[1]!='' && $req_details[2]!=''):
@@ -52,8 +56,13 @@
                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-id="<?=$row['requestID']?>"
                     data-rdetails='<?=json_encode($req_details)?>' data-empno="<?=$row['empNumber']?>" data-rattach='<?=$row['file_location']?>'>
                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
-                <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
-                    <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> Certify</a>
+                <?php if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
+                    <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> 
+                        <?= strtolower($row['next_signatory']['action']) == "certified" ? "Certify" : ""; ?>
+                        <?= strtolower($row['next_signatory']['action']) == "recommended" ?  "Recommend" : ""; ?>
+                        <?= strtolower($row['next_signatory']['action']) == "approved" ? "Approve" : ""; ?>
+                    </a>
+                            
                     <a class="btn btn-sm btn-danger" id="btndisapproved" data-id="<?=$row['requestID']?>"><span class="icon-close" title="Cancel"></span> Disapprove</a>
                 <?php endif; ?>
             </td>
