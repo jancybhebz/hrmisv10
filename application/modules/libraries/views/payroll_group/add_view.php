@@ -88,7 +88,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <input type="number" maxlength="11" class="form-control" name="intPayrollGroupOrder" id="intPayrollGroupOrder"
-                                        value="<?=!empty($this->session->userdata('intPayrollGroupOrder'))?$this->session->userdata('intPayrollGroupOrder'):''?>" required>
+                                        value="<?=!empty($this->session->userdata('intPayrollGroupOrder'))?$this->session->userdata('intPayrollGroupOrder'):''?>" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" required>
                                 </div>
                             </div>
                         </div>
@@ -119,6 +119,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
     </div>
 </div>
 <?php load_plugin('js',array('select2','form_validation'));?>
+<?php load_plugin('js',array('validation','select2'));?>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -160,94 +161,97 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 //     jQuery.validator.addMethod("noSpace", function(value, element) { 
 //   return value.indexOf(" ") < 0 && value != ""; 
 // }, "No space please and don't leave it empty");
-// var FormValidation = function () {
+var FormValidation = function () {
 
-//     // validation using icons
-//     var handleValidation = function() {
-//         // for more info visit the official plugin documentation: 
-//             // http://docs.jquery.com/Plugins/Validation
+    // validation using icons
+    var handleValidation = function() {
+        // for more info visit the official plugin documentation: 
+            // http://docs.jquery.com/Plugins/Validation
 
-//             var form2 = $('#frmPayrollGroup');
-//             var error2 = $('.alert-danger', form2);
-//             var success2 = $('.alert-success', form2);
+            var form2 = $('#frmPayrollGroup');
+            var error2 = $('.alert-danger', form2);
+            var success2 = $('.alert-success', form2);
 
-//             form2.validate({
-//                 errorElement: 'span', //default input error message container
-//                 errorClass: 'help-block help-block-error', // default input error message class
-//                 focusInvalid: false, // do not focus the last invalid input
-//                 ignore: "",  // validate all fields including form hidden input
-//                 rules: {
-//                     strProject: {
-//                         minlength: 1,
-//                         required: true
-//                     },
-//                     strPayrollGroupCode: {
-//                         minlength: 1,
-//                         required: true,
-//                     },
-//                     strPayrollGroupDesc: {
-//                         minlength: 1,
-//                         required: true,
-//                     },
-//                     intPayrollGroupOrder: {
-//                         minlength: 1,
-//                         required: true,
-//                     },
-//                     strResponsibilityCntr: {
-//                         minlength: 1,
-//                         required: true,
-//                     },
-//                 },
+            form2.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    strProject: {
+                        minlength: 1,
+                        required: true
+                    },
+                    strPayrollGroupCode: {
+                        minlength: 1,
+                        required: true,
+                    },
+                    strPayrollGroupDesc: {
+                        minlength: 1,
+                        maxlength: 200,
+                        required: true,
+                    },
+                    intPayrollGroupOrder: {
+                        minlength: 1,
+                        maxlength: 10,
+                        required: true,
+                    },
+                    strResponsibilityCntr: {
+                        minlength: 1,
+                        maxlength: 30,
+                        required: true,
+                    },
+                },
 
-//                 invalidHandler: function (event, validator) { //display error alert on form submit              
-//                     success2.hide();
-//                     error2.show();
-//                     App.scrollTo(error2, -200);
-//                 },
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success2.hide();
+                    error2.show();
+                    App.scrollTo(error2, -200);
+                },
 
-//                 errorPlacement: function (error, element) { // render error placement for each input type
-//                     var icon = $(element).parent('.input-icon').children('i');
-//                     icon.removeClass('fa-check').addClass("fa-warning");  
-//                     icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-//                 },
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var icon = $(element).parent('.input-icon').children('i');
+                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+                },
 
-//                 highlight: function (element) { // hightlight error inputs
-//                     $(element)
-//                         .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
-//                 },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                },
 
-//                 unhighlight: function (element) { // revert the change done by hightlight
+                unhighlight: function (element) { // revert the change done by hightlight
                     
-//                 },
+                },
 
-//                 success: function (label, element) {
-//                     var icon = $(element).parent('.input-icon').children('i');
-//                     $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-//                     icon.removeClass("fa-warning").addClass("fa-check");
-//                 },
+                success: function (label, element) {
+                    var icon = $(element).parent('.input-icon').children('i');
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                },
 
-//                 submitHandler: function (form) {
-//                     success2.show();
-//                     error2.hide();
-//                     form[0].submit(); // submit the form
-//                 }
-//             });
+                submitHandler: function (form) {
+                    success2.show();
+                    error2.hide();
+                    form[0].submit(); // submit the form
+                }
+            });
 
 
-//     }
+    }
 
-//     return {
-//         //main function to initiate the module
-//         init: function () {
-//             handleValidation();
+    return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
 
-//         }
+        }
 
-//     };
+    };
 
-// }();
+}();
 
-// jQuery(document).ready(function() {
-//     FormValidation.init();
-// });
+jQuery(document).ready(function() {
+    FormValidation.init();
+});
 </script>

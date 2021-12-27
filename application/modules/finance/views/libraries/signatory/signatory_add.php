@@ -56,6 +56,20 @@
                                             value="<?=isset($data) ? $data['signatoryPosition'] : set_value('txtposition')?>">
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Payroll Group Code  <span class="required"> * </span></label>
+                                    <div class="input-icon right">
+                                        <select class="bs-select select2 form-control form-required" name="selpayrollgroup" id="selpayrollgroup">
+                                            <option value=""></option>
+                                            <?php foreach($payrollGroup as $code): ?>
+                                                <option value="<?=$code['payrollGroupCode']?>"
+                                                    <?=isset($data) ? $data['payrollGroupCode'] == $code['payrollGroupCode'] ? 'selected' : '' : set_value('selpayrollgroup') == $code['payrollGroupCode'] ? 'selected' : ''?>>
+                                                    <?=$code['projectDesc']?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -91,11 +105,15 @@
         $('#txtposition').on('keyup keypress change', function() {
             check_null('#txtposition','Position must not be empty.');
         });
+        $('#selpayrollgroup').on('keyup keypress change', function() {
+            check_null('#selpayrollgroup','Payroll Group Code must not be empty.');
+        });
 
         $('#btn_add_signatory').on('click', function(e) {
             var total_error = 0;
             total_error = total_error + check_null('#txtsignatory','Signatory must not be empty.');
             total_error = total_error + check_null('#txtposition','Position must not be empty.');
+            total_error = total_error + check_null('#selpayrollgroup','Payroll Group Code must not be empty.');
             
             if(total_error > 0){
                 e.preventDefault();

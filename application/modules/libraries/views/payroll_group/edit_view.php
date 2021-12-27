@@ -68,7 +68,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Payroll Group Code </label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>" <?=$action=='delete'?'disabled':''?> readonly>
+                                    <input type="text" class="form-control" name="strPayrollGroupCode" id="strPayrollGroupCode" value="<?=!empty($arrPayrollGroup[0]['payrollGroupCode'])?$arrPayrollGroup[0]['payrollGroupCode']:''?>" <?=$action=='delete'?'disabled':''?> readonly>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Payroll Group Description <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strPayrollGroupDesc" value="<?=!empty($arrPayrollGroup[0]['payrollGroupName'])?$arrPayrollGroup[0]['payrollGroupName']:''?>" <?=$action=='delete'?'disabled':''?>>
+                                    <input type="text" class="form-control" name="strPayrollGroupDesc" id="strPayrollGroupDesc" value="<?=!empty($arrPayrollGroup[0]['payrollGroupName'])?$arrPayrollGroup[0]['payrollGroupName']:''?>" <?=$action=='delete'?'disabled':''?>>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Payroll Group Order <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="intPayrollGroupOrder" value="<?=!empty($arrPayrollGroup[0]['payrollGroupOrder'])?$arrPayrollGroup[0]['payrollGroupOrder']:''?>" <?=$action=='delete'?'disabled':''?>>
+                                    <input type="text" class="form-control" name="intPayrollGroupOrder" id="intPayrollGroupOrder" value="<?=!empty($arrPayrollGroup[0]['payrollGroupOrder'])?$arrPayrollGroup[0]['payrollGroupOrder']:''?>" <?=$action=='delete'?'disabled':''?>>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Responsibility Center  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                    <input type="text" class="form-control" name="strResponsibilityCntr" value="<?=!empty($arrPayrollGroup[0]['payrollGroupRC'])?$arrPayrollGroup[0]['payrollGroupRC']:''?>" <?=$action=='delete'?'disabled':''?>>
+                                    <input type="text" class="form-control" name="strResponsibilityCntr" id="strResponsibilityCntr" value="<?=!empty($arrPayrollGroup[0]['payrollGroupRC'])?$arrPayrollGroup[0]['payrollGroupRC']:''?>" <?=$action=='delete'?'disabled':''?>>
                                 </div>
                             </div>
                         </div>
@@ -109,11 +109,11 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="hidden" name="intPayrollGroupId" value="<?=isset($arrPayrollGroup[0]['payrollGroupId'])?$arrPayrollGroup[0]['payrollGroupId']:''?>">
+                                <input type="hidden" name="intPayrollGroupId" id="intPayrollGroupId" value="<?=isset($arrPayrollGroup[0]['payrollGroupId'])?$arrPayrollGroup[0]['payrollGroupId']:''?>">
                                 <?php if($action=='delete'): ?>
                                         <a href="<?=base_url('libraries/payroll_group/delete/'.$this->uri->segment(4))?>" class="btn red"><i class="icon-trash"></i> Delete</a>
                                 <?php else: ?>
-                                    <button class="btn btn-success" type="submit"><i class="icon-check"></i> Save</button>
+                                    <button class="btn btn-success" id="btn_add_pgroup" type="submit"><i class="icon-check"></i> Save</button>
                                 <?php endif; ?>
                                 <a href="<?=base_url('libraries/payroll_group')?>"><button class="btn btn-primary" type="button"><i class="icon-ban"></i> Cancel</button></a>
                             </div>
@@ -125,12 +125,52 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         </div>
     </div>
 </div>
+<?php load_plugin('js',array('select2','form_validation'));?>
 <?php load_plugin('js',array('validation','select2'));?>
 
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('.loading-image').hide();
+        $('.portlet-body').show();
+
+        $('#strProject').on('keyup keypress change', function() {
+            check_null('#strProject','Project must not be empty.');
+        });
+        $('#strPayrollGroupCode').on('keyup keypress change', function() {
+            check_null('#strPayrollGroupCode','Payroll Group Code must not be empty.');
+        });
+        $('#strPayrollGroupDesc').on('keyup keypress change', function() {
+            check_null('#strPayrollGroupDesc','Payroll Group Description must not be empty.');
+        });
+        $('#intPayrollGroupOrder').on('keyup keypress change', function() {
+            check_number('#intPayrollGroupOrder','Payroll Group Order must not be empty.');
+        });
+        $('#strResponsibilityCntr').on('keyup keypress change', function() {
+            check_null('#strResponsibilityCntr','Responsibility Center must not be empty.');
+        });
+
+        $('#btn_add_pgroup').on('click', function(e) {
+            var total_error = 0;
+            total_error = total_error + check_null('#strProject','Project must not be empty.');
+            total_error = total_error + check_null('#strPayrollGroupCode','Payroll Group Code must not be empty.');
+            total_error = total_error + check_null('#strPayrollGroupDesc','Payroll Group Description must not be empty.');
+            total_error = total_error + check_null('#intPayrollGroupOrder','Payroll Group Order must not be empty.');
+            total_error = total_error + check_number('#intPayrollGroupOrder');;
+            total_error = total_error + check_null('#strResponsibilityCntr','Responsibility Center must not be empty.');
+            
+            if(total_error > 0){
+                e.preventDefault();
+            }
+        });
+    });
+
+
     jQuery.validator.addMethod("noSpace", function(value, element) { 
   return value.indexOf(" ") < 0 && value != ""; 
 }, "No space please and don't leave it empty");
+
+    
+
 var FormValidation = function () {
 
     // validation using icons
@@ -158,14 +198,17 @@ var FormValidation = function () {
                     },
                     strPayrollGroupDesc: {
                         minlength: 1,
+                        maxlength: 200,
                         required: true,
                     },
                     intPayrollGroupOrder: {
                         minlength: 1,
+                        maxlength: 10,
                         required: true,
                     },
                     strResponsibilityCntr: {
                         minlength: 1,
+                        maxlength: 30,
                         required: true,
                     },
                 },
