@@ -67,6 +67,8 @@ class Personnel_profile extends MY_Controller {
 		$this->arrData['empSalary'] = $this->arrData['arrData']['actualSalary'];
 		$this->arrData['arrEmpDeductions'] = $this->Compensation_model->getEmployeeDeduction($empid,$_GET['yr'],$_GET['mon']);
 		$this->arrData['arrdtr'] = $this->Attendance_summary_model->getEmployee_dtr($empid,date('Y-m-d'),date('Y-m-d'));
+
+		// print_r($this->arrData);exit(1);
 		
 		$this->template->load('template/template_view','finance/compensation/personnel_profile/view_employee',$this->arrData);
 	}
@@ -529,7 +531,7 @@ class Personnel_profile extends MY_Controller {
 								 'incomeCode' 	=> 	$arrPost['selincome'],
 								 'incomeMonth' 	=> 	$arrPost['selinc_month'],
 								 'incomeYear' 	=> 	$arrPost['selinc_yr'],
-								 'incomeAmount' => 	$arrPost['txtinc_amt'],
+								 'incomeAmount' => 	floatval(str_replace(',','',$arrPost['txtinc_amt'])),
 								 'type' 		=> 	$arrPost['selinc_type'],
 								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
 								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
@@ -541,7 +543,7 @@ class Personnel_profile extends MY_Controller {
 				$arrData = array('incomeCode' 	=> 	$arrPost['selincome'],
 								 'incomeMonth' 	=> 	$arrPost['selinc_month'],
 								 'incomeYear' 	=> 	$arrPost['selinc_yr'],
-								 'incomeAmount' => 	$arrPost['txtinc_amt'],
+								 'incomeAmount' => 	floatval(str_replace(',','',$arrPost['txtinc_amt'])),
 								 'type' 		=> 	$arrPost['selinc_type'],
 								 'adjustMonth' 	=> 	$arrPost['txtadjmon'],
 								 'adjustYear' 	=> 	$arrPost['txtadjyr'],
@@ -563,7 +565,7 @@ class Personnel_profile extends MY_Controller {
 								 'deductionCode'=> 	$arrPost['seldeduct'],
 								 'deductMonth' 	=> 	$arrPost['selded_month'],
 								 'deductYear' 	=> 	$arrPost['selded_yr'],
-								 'deductAmount' => 	$arrPost['txtded_amt'],
+								 'deductAmount' => 	floatval(str_replace(',','',$arrPost['txtded_amt'])),
 								 'type' 		=> 	$arrPost['selded_type'],
 								 'adjustMonth' 	=> 	$arrPost['seladjmon_adj'],
 								 'adjustYear' 	=> 	$arrPost['seladjyr_adj'],
@@ -575,7 +577,7 @@ class Personnel_profile extends MY_Controller {
 				$arrData = array('deductionCode'=> 	$arrPost['seldeduct'],
 								 'deductMonth' 	=> 	$arrPost['selded_month'],
 								 'deductYear' 	=> 	$arrPost['selded_yr'],
-								 'deductAmount' => 	$arrPost['txtded_amt'],
+								 'deductAmount' => 	floatval(str_replace(',','',$arrPost['txtded_amt'])),
 								 'type' 		=> 	$arrPost['selded_type'],
 								 'adjustMonth' 	=> 	$arrPost['seladjmon_adj'],
 								 'adjustYear' 	=> 	$arrPost['seladjyr_adj'],

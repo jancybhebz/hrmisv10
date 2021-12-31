@@ -58,7 +58,8 @@ class Benefit_model extends CI_Model {
 	{
 		foreach($arrIncome as $inc_id => $income):	
 			$key = array_search($income['incomeCode'], array_column($arrBenefits, 'incomeCode'));
-			if($key!=''):
+			
+			if($key!='' || $key>=0):
 				$arrIncome[$inc_id]['arrbenefits'] = $arrBenefits[$key];
 			endif;
 		endforeach;

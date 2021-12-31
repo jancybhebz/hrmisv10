@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label class="control-label">Amount<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <input type="text" class="form-control form-required" name="txtinc_amt" id="txtinc_amt">
+                                    <input type="text" class="form-control form-required money" name="txtinc_amt" id="txtinc_amt" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -162,7 +162,7 @@
                             <div class="form-group">
                                 <label class="control-label">Amount<span class="required"> * </span></label>
                                 <div class="input-icon right">
-                                    <input type="text" class="form-control form-required" name="txtded_amt" id="txtded_amt">
+                                    <input type="text" class="form-control form-required money" name="txtded_amt" id="txtded_amt" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-group">

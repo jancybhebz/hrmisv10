@@ -226,7 +226,7 @@
                             <tbody>
                                 <?php foreach($arrAddtlIncome as $addtl): $isremove = isset($addtl['arrbenefits']) ? $addtl['arrbenefits']['status'] == 0 ? True : False : '';?>
                                 <tr class="odd gradeX <?=$isremove ? 'danger' : ''?>">
-                                    <td style="text-align: left; padding-left: 7px;" nowrap><b><?=$addtl['incomeDesc']?></b></td>
+                                    <td style="text-align: left; padding-left: 7px;"><b><?=$addtl['incomeDesc']?></b></td>
                                     <td><?=isset($addtl['arrbenefits']) ? 
                                             number_format($addtl['arrbenefits']['incomeAmount'], 2) : '0.00'?></td>
                                     <?php 

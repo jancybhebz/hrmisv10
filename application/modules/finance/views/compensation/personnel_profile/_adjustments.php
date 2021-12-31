@@ -93,7 +93,7 @@
                                                 <tr class="odd gradeX">
                                                     <td align="center"><?=$no++?></td>
                                                     <td><?=$adjincome['incomeDesc']?></td>
-                                                    <td align="center"><?=$adjincome['incomeAmount']?></td>
+                                                    <td align="center" class="money"><?=$adjincome['incomeAmount']?></td>
                                                     <td align="center"><?=adjustmentType($adjincome['type'])?></td>
                                                     <td align="center"><?=date('M', mktime(0, 0, 0, $adjincome['adjustMonth'], 10))?> <?=$adjincome['adjustYear']?></td>
                                                     <td align="center"><?=date('M', mktime(0, 0, 0, $adjincome['incomeMonth'], 10))?> <?=$adjincome['incomeYear']?></td>
@@ -143,7 +143,7 @@
                                                 <tr class="odd gradeX">
                                                     <td align="center"><?=$no++?></td>
                                                     <td> <?=$adjdeduct['deductionDesc']?></td>
-                                                    <td align="center"><?=$adjdeduct['deductAmount']?></td>
+                                                    <td align="center" class="money"><?=$adjdeduct['deductAmount']?></td>
                                                     <td align="center"><?=adjustmentType($adjdeduct['type'])?></td>
                                                     <td align="center"><?=date('M', mktime(0, 0, 0, $adjdeduct['adjustMonth'], 10))?> <?=$adjdeduct['adjustYear']?></td>
                                                     <td align="center"><?=date('M', mktime(0, 0, 0, $adjdeduct['deductMonth'], 10))?> <?=$adjdeduct['deductYear']?></td>

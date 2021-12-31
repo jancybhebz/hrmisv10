@@ -25,7 +25,8 @@ class Signatory extends MY_Controller {
 			$arrData = array(
 				'signatory' 		=> $arrPost['txtsignatory'],
 				'signatoryPosition' => $arrPost['txtposition'],
-				'sig_module' 		=> $module);
+				'sig_module' 		=> $module,
+				'payrollGroupCode'  => $arrPost['selpayrollgroup']);
 			$this->Signatory_model->add($arrData);
 			$this->session->set_flashdata('strSuccessMsg','Signatory added successfully.');
 			redirect('finance/libraries/signatory');
@@ -41,7 +42,8 @@ class Signatory extends MY_Controller {
 		if(!empty($arrPost)):
 			$arrData = array(
 				'signatory' => $arrPost['txtsignatory'],
-				'signatoryPosition' => $arrPost['txtposition']
+				'signatoryPosition' => $arrPost['txtposition'],
+				'payrollGroupCode'  => $arrPost['selpayrollgroup']
 			);
 			$this->Signatory_model->edit($arrData, $code);
 			$this->session->set_flashdata('strSuccessMsg','Signatory updated successfully.');

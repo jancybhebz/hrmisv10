@@ -29,7 +29,7 @@
                                         <label class="radio-inline">
                                             <input type="radio" name="chkis_incPayroll" value="Y" <?=isset($arrData) ? $arrData['payrollSwitch'] == 'Y' ? 'checked' : '' : ''?>> Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="chkis_incPayroll" value="N" <?=isset($arrData) ? $arrData['payrollSwitch'] = 'N' ? 'checked' : '' : 'checked'?>> No </label>
+                                            <input type="radio" name="chkis_incPayroll" value="N" <?=isset($arrData) ? $arrData['payrollSwitch'] == 'N' ? 'checked' : '' : 'checked'?>> No </label>
                                     </div>
                                 </div>
                             </div>
