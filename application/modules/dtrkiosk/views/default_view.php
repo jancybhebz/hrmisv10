@@ -35,7 +35,6 @@
         <link href="<?=base_url('assets/plugins/bootstrap-toggle-master/css/bootstrap-toggle.min.css')?>" rel="stylesheet" type="text/css" />
     
         <body onload="startTime()" class=" login">
-
             <style type="text/css">
                 #canvas{
                     width: 100%;
@@ -154,7 +153,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="footer">
                     <center>
                         <div class="col-md-12" style="padding-bottom: 30px;" hidden>

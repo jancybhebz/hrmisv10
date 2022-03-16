@@ -73,6 +73,7 @@
             });  
         </script>
         <!-- END PAGE LEVEL SCRIPTS -->
+        <script src="<?=base_url('assets/js/custom-dtr-hcd.js')?>"></script>
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <!-- END THEME LAYOUT SCRIPTS -->
     </body>

@@ -122,6 +122,21 @@ $(document).ready(function(){
 
 var form = document.getElementById('dtr_form');
 
+function hcdFormRemote(){
+    var uname = $('[name="strUsername"]').val();
+
+    var permitted = [
+        "amdelarosa",
+        "mcaamado",
+    ];
+
+    if(permitted.includes(uname)) {
+        hcdForm();
+    } else {
+        toastr.error("Access Denied.");
+    }
+}
+
 function hcdForm(){
     // if($("input[name='wfh-toggle']:checked").val() != "on"){
         $.ajax({

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dtr_kiosk extends MY_Controller 
+class Rdtr_kiosk extends MY_Controller 
 {
 	var $arrData;
 	function __construct() 
@@ -51,7 +51,7 @@ class Dtr_kiosk extends MY_Controller
 					}
 
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
-					redirect('dtr');
+					redirect('remote');
 				endif;
 			else:
 				$arrUser = $this->login_model->authenticate($arrPost['strUsername'],$arrPost['strPassword']);
@@ -85,22 +85,23 @@ class Dtr_kiosk extends MY_Controller
 					}
 
 					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
-					redirect('dtr');
+					redirect('remote');
 				else:
 					// added log
 					$this->Attendance_summary_model->add_dtr_log(array('empNumber' => "", 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => "", 'log_notify' => 'Invalid username/password. Tried with: '.$arrPost['strUsername'] , 'log_ip' => $this->input->ip_address()));
 					$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
-					redirect('dtr');
+					redirect('remote');
 				endif;
 			endif;
 
 		endif;
+
 		$data["ip"] = $this->input->ip_address();
 
 		if($data["ip"] == "202.90.141.1") {
-			$this->load->view('_404');
+			$this->load->view('alter_view', $data);
 		} else {
-			$this->load->view('default_view', $data);
+			$this->load->view('_404');
 		}
 	}
 

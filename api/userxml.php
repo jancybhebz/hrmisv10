@@ -23,7 +23,7 @@ function getData($empno)
 	    else{
 	        $protocol = 'http';
 	    }
-	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'] .'/'. end($dir);
+	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'];
 
 		$json = file_get_contents($url.'/xml/api?fingerprint=!7D$0@9&empid='.$empno);
 		
@@ -44,7 +44,7 @@ function getEmployees()
 	    else{
 	        $protocol = 'http';
 	    }
-	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'] .'/'. end($dir);
+	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'];
 
 		$json = file_get_contents($url.'/xml/api?fingerprint=!7D$0@9');
 		
@@ -65,7 +65,7 @@ function getDivisions()
 	    else{
 	        $protocol = 'http';
 	    }
-	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'] .'/'. end($dir);
+	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'];
 
 		$json = file_get_contents($url.'/xml/api/divisions/?fingerprint=!7D$0@9');
 		
@@ -86,7 +86,7 @@ function getGroups()
 	    else{
 	        $protocol = 'http';
 	    }
-	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'] .'/'. end($dir);
+	    $url = $protocol . "://" . $_SERVER['HTTP_HOST'];
 
 		$json = file_get_contents($url.'/xml/api/groups/?fingerprint=!7D$0@9');
 		
@@ -97,7 +97,7 @@ function getGroups()
 
 include('nusoap/lib/nusoap.php');
 
-error_reporting(0);
+error_reporting(1);
 $server = new soap_server();
 $server->configureWSDL('hrmis_api_users', 'urn:details');
 $server->register("getData", array('empno' => 'xsd:string'), array('return' => 'xsd:string'), 'urn:details', 'urn:details#getData');
